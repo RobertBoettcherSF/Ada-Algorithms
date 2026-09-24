@@ -19,7 +19,7 @@ searching/Ada/Binary-Search/…
 
 Files formerly renamed `<GitHubRepo>__<basename>` are stored as
 `<GitHubRepo>/<basename>` (leading-dot names are preserved). Files without a
-clash prefix remain at the topic/level root. Identical files (same sha256) are
+clash prefix remain at the topic/level root unless their basename uniquely matches an algorithm folder. Identical files (same sha256) are
 stored once. Package sources are not rewritten.
 
 See [`TOPICS.md`](TOPICS.md) for per-topic / per-level file counts.
