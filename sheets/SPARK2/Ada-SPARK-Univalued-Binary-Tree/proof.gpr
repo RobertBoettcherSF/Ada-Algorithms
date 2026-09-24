@@ -1,0 +1,4 @@
+project Univalued_Binary_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("univalued_binary_tree.ads", "univalued_binary_tree.adb");
+end Univalued_Binary_Tree_Proof;

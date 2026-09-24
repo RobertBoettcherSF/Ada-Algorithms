@@ -1,0 +1,4 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("linked_list_cycle.ads", "linked_list_cycle.adb");
+end Proof;

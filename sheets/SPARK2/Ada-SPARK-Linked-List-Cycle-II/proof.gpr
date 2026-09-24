@@ -1,0 +1,4 @@
+project Linked_List_Cycle_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("linked_list_cycle_ii.ads", "linked_list_cycle_ii.adb");
+end Linked_List_Cycle_II_Proof;

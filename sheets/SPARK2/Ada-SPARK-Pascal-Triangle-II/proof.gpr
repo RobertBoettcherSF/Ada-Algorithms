@@ -1,0 +1,4 @@
+project Pascal_Triangle_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("pascal_triangle_ii.ads", "pascal_triangle_ii.adb");
+end Pascal_Triangle_II_Proof;

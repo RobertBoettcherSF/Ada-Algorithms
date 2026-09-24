@@ -1,0 +1,4 @@
+project Alien_Dictionary_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("alien_dictionary_stub.ads", "alien_dictionary_stub.adb");
+end Alien_Dictionary_Stub_Proof;

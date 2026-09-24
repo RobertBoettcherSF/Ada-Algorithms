@@ -1,0 +1,4 @@
+project Water_Bottles_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("water_bottles.ads", "water_bottles.adb");
+end Water_Bottles_Proof;

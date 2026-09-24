@@ -1,0 +1,15 @@
+-- test_arc_cache.gpr
+-- GPR project file for ARC Cache tests
+
+project Test_ARC_Cache is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("test_arc_cache.adb");
+
+   package Compiler is
+      -- Optimize for speed, enable Ada 2012 features, and activate all reasonable warnings
+      for Default_Switches ("Ada") use ("-O3", "-gnat2012", "-gnatwa");
+   end Compiler;
+
+end Test_ARC_Cache;

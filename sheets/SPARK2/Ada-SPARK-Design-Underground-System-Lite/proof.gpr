@@ -1,0 +1,4 @@
+project Design_Underground_System_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_underground_system_lite.ads", "design_underground_system_lite.adb");
+end Design_Underground_System_Lite_Proof;

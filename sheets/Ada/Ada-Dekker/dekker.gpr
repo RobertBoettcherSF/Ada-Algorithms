@@ -1,0 +1,9 @@
+project Dekker is
+   for Main use ("dekker.adb");
+   for Object_Dir use "obj";
+   for Source_Dirs use (".");
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-O3", "-gnatwa");
+   end Compiler;
+end Dekker;

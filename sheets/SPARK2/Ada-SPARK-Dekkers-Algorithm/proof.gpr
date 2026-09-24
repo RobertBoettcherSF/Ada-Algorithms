@@ -1,0 +1,4 @@
+project Dekker_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("dekker.ads", "dekker.adb");
+end Dekker_Proof;

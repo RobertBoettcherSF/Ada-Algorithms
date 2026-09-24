@@ -1,0 +1,4 @@
+project Sort_Colors_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sort_colors.ads", "sort_colors.adb");
+end Sort_Colors_Proof;

@@ -1,0 +1,4 @@
+project SparseVectorDotStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sparse_vector_dot_stub.ads", "sparse_vector_dot_stub.adb");
+end SparseVectorDotStub_Proof;

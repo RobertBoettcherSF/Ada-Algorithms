@@ -1,0 +1,4 @@
+project Fizz_Buzz_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("fizz_buzz.ads", "fizz_buzz.adb");
+end Fizz_Buzz_Proof;

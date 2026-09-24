@@ -1,0 +1,4 @@
+project To_Lower_Case_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("to_lower_case.ads", "to_lower_case.adb");
+end To_Lower_Case_Proof;

@@ -1,0 +1,4 @@
+project Shortest_Word_Distance_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("shortest_word_distance.ads", "shortest_word_distance.adb");
+end Shortest_Word_Distance_Proof;

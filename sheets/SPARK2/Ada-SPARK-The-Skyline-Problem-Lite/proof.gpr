@@ -1,0 +1,4 @@
+project The_Skyline_Problem_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("the_skyline_problem_lite.ads", "the_skyline_problem_lite.adb");
+end The_Skyline_Problem_Lite_Proof;

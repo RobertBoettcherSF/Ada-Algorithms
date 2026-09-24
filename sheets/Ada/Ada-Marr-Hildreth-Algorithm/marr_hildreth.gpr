@@ -1,0 +1,10 @@
+project Marr_Hildreth is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("main.adb", "tests.adb");
+
+   package Compiler is
+      for Switches ("Ada") use ("-g", "-gnata", "-gnat2012");
+   end Compiler;
+end Marr_Hildreth;

@@ -1,0 +1,4 @@
+project Sqrtx_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sqrtx.ads", "sqrtx.adb");
+end Sqrtx_Proof;

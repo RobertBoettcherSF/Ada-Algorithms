@@ -35,3 +35,9 @@ Build flags match the sheet style: `-gnatwa -gnat2022` (GNAT / Ada 2022).
 
 Further Ada-* algorithm sheets will be migrated in later batches. Per-algo
 upstream repos are left intact.
+
+## Archival sheet dump
+
+Unmodified copies of upstream algorithm sheet repos live under [`sheets/`](sheets/)
+(`Ada/`, `SPARK1`…`SPARK4`). See [`sheets/README.md`](sheets/README.md).
+

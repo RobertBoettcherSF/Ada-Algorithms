@@ -1,0 +1,15 @@
+-- winnow_proj.gpr
+project Winnow_Proj is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+
+   package Compiler is
+      -- -g: Include debug info
+      -- -O2: Optimize
+      -- -gnata: Enable assertions 
+      -- -gnatwa: Enable most warnings
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnata", "-gnatwa");
+   end Compiler;
+end Winnow_Proj;

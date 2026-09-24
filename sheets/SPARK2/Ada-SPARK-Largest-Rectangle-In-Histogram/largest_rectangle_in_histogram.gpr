@@ -1,0 +1,9 @@
+project Largest_Rectangle_In_Histogram is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Largest_Rectangle_In_Histogram;

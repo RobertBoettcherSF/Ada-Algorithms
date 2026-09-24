@@ -1,0 +1,4 @@
+project Excel_Sheet_Column_Title_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("excel_sheet_column_title.ads", "excel_sheet_column_title.adb");
+end Excel_Sheet_Column_Title_Proof;

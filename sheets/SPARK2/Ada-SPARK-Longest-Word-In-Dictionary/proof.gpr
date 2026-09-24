@@ -1,0 +1,7 @@
+project LongestWordInDictionary_Build_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("longest_word_in_dictionary.ads", "longest_word_in_dictionary.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end LongestWordInDictionary_Build_Proof;

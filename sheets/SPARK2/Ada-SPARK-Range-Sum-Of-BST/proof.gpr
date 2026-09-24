@@ -1,0 +1,4 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("range_sum_of_bst.ads", "range_sum_of_bst.adb");
+end Proof;

@@ -1,0 +1,4 @@
+project Delete_The_Middle_Node_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("delete_the_middle_node.ads", "delete_the_middle_node.adb");
+end Delete_The_Middle_Node_Proof;

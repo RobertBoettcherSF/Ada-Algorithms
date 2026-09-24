@@ -1,0 +1,15 @@
+project Test_Runner is
+   
+   for Source_Dirs use ("..", "tests");
+   for Object_Dir use "../obj";
+   for Exec_Dir use "../bin";
+   
+   --  Configures the compiler for Ada 2012 standard 
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat12", "-gnata", "-gnatwa");
+   end Compiler;
+
+   -- Main program
+   for Main use ("edf_tests.adb");
+
+end Test_Runner;

@@ -1,0 +1,12 @@
+-- subset_sum.gpr
+-- GNAT Project File for building the test suite and program objects
+project Subset_Sum is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+
+   package Compiler is
+      for Switches ("Ada") use ("-g", "-O2", "-gnatwa");
+   end Compiler;
+end Subset_Sum;

@@ -1,0 +1,14 @@
+# Ada Library Information
+*.ali
+
+# Temporary files
+*.tmp
+*.swp
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Build artifacts (but keep obj/ and bin/ directories)
+# Note: obj/ and bin/ directories are intentionally NOT ignored
+# as they are required for the build process

@@ -1,0 +1,4 @@
+project Min_Cost_Climbing_Stairs_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("min_cost_climbing_stairs.ads", "min_cost_climbing_stairs.adb");
+end Min_Cost_Climbing_Stairs_Proof;

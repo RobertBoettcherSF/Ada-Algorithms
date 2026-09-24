@@ -1,0 +1,4 @@
+project Remove_Duplicates_From_Sorted_Array_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("remove_duplicates_from_sorted_array_ii.ads", "remove_duplicates_from_sorted_array_ii.adb");
+end Remove_Duplicates_From_Sorted_Array_II_Proof;

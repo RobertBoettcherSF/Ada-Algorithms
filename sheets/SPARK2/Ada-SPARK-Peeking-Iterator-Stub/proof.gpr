@@ -1,0 +1,4 @@
+project Peeking_Iterator_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("peeking_iterator_stub.ads", "peeking_iterator_stub.adb");
+end Peeking_Iterator_Stub_Proof;

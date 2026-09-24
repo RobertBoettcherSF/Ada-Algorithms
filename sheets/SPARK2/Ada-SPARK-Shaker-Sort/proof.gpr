@@ -1,0 +1,4 @@
+project Shaker_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("shaker_sort.ads", "shaker_sort.adb");
+end Shaker_Sort_Proof;

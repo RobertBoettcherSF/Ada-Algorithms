@@ -1,0 +1,4 @@
+project Final_Prices_With_A_Special_Discount_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("final_prices_with_a_special_discount.ads", "final_prices_with_a_special_discount.adb");
+end Final_Prices_With_A_Special_Discount_Proof;

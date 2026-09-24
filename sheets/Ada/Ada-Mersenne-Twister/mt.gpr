@@ -1,0 +1,11 @@
+project Mt is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+
+   package Compiler is
+      -- Enable debugging, assertions (-gnata), and optimizations
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnata", "-gnatwa");
+   end Compiler;
+end Mt;

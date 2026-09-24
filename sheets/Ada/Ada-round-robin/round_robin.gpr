@@ -1,0 +1,12 @@
+-- round_robin.gpr
+project Round_Robin is
+
+   for Source_Dirs use (".");
+   for Object_Dir use ".";
+   for Main use ("round_robin.adb");
+
+   package Compiler is
+      for Switches ("Ada") use ("-gnat2012", "-O2", "-gnatwa");
+   end Compiler;
+
+end Round_Robin;

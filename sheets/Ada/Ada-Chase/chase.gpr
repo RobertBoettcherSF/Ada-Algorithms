@@ -1,0 +1,24 @@
+--  chase.gpr
+--  GNAT Project File for the Chase algorithm implementation
+
+project Chase is
+   -- Source directories (all files in root)
+   for Source_Dirs use (".");
+
+   -- Object directory
+   for Object_Dir use "obj";
+
+   -- Executable directory
+   for Exec_Dir use "bin";
+
+   -- Main program for testing
+   for Main use ("tests.adb");
+
+   -- Compiler options
+   for Compiler_Options ("ada") use ("-g", "-gnata");
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-g", "-gnata");
+   end Compiler;
+
+end Chase;

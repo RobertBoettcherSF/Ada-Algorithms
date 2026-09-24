@@ -1,0 +1,4 @@
+project Reference_Counting_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reference_counting.ads", "reference_counting.adb");
+end Reference_Counting_Proof;

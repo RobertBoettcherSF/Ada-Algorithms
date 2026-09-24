@@ -1,0 +1,4 @@
+project Odd_Even_Merge_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("odd_even_merge_sort.ads", "odd_even_merge_sort.adb");
+end Odd_Even_Merge_Sort_Proof;

@@ -1,0 +1,4 @@
+project Add_Two_Numbers_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("add_two_numbers.ads", "add_two_numbers.adb");
+end Add_Two_Numbers_Proof;

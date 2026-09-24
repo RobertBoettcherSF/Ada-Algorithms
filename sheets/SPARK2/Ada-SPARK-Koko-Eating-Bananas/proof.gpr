@@ -1,0 +1,4 @@
+project Koko_Eating_Bananas_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("koko_eating_bananas.ads", "koko_eating_bananas.adb");
+end Koko_Eating_Bananas_Proof;

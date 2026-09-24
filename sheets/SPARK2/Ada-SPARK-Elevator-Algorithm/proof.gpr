@@ -1,0 +1,4 @@
+project Elevator_Algorithm_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("elevator_algorithm.ads", "elevator_algorithm.adb");
+end Elevator_Algorithm_Proof;

@@ -1,0 +1,6 @@
+project Page_Replacement is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("test_page_replacement.adb");
+end Page_Replacement;

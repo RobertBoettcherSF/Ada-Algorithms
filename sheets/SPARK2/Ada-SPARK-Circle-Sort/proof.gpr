@@ -1,0 +1,4 @@
+project Circle_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("circle_sort.ads", "circle_sort.adb");
+end Circle_Sort_Proof;

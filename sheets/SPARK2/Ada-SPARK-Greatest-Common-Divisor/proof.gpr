@@ -1,0 +1,4 @@
+project Greatest_Common_Divisor_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("greatest_common_divisor.ads", "greatest_common_divisor.adb");
+end Greatest_Common_Divisor_Proof;

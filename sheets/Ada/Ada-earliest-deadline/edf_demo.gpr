@@ -1,0 +1,15 @@
+project EDF_Demo is
+   
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   
+   --  Configures the compiler for Ada 2012 standard 
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat12", "-gnata", "-gnatwa");
+   end Compiler;
+
+   -- Main demonstration program
+   for Main use ("main.adb");
+
+end EDF_Demo;

@@ -1,0 +1,4 @@
+project Kth_Smallest_BST_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("kth_smallest_bst_stub.ads", "kth_smallest_bst_stub.adb");
+end Kth_Smallest_BST_Stub_Proof;

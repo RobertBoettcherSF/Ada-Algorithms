@@ -1,0 +1,4 @@
+project Longest_Ones_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("longest_ones.ads", "longest_ones.adb");
+end Longest_Ones_Proof;

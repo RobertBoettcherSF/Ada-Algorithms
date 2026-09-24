@@ -1,0 +1,4 @@
+project Accounts_Merge_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("accounts_merge_stub.ads", "accounts_merge_stub.adb");
+end Accounts_Merge_Stub_Proof;

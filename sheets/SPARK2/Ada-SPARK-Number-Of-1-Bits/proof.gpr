@@ -1,0 +1,4 @@
+project Number_Of_1_Bits_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("number_of_1_bits.ads", "number_of_1_bits.adb");
+end Number_Of_1_Bits_Proof;

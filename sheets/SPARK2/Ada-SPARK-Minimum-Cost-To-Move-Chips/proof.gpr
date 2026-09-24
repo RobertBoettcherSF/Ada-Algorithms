@@ -1,0 +1,4 @@
+project Minimum_Cost_To_Move_Chips_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("minimum_cost_to_move_chips.ads", "minimum_cost_to_move_chips.adb");
+end Minimum_Cost_To_Move_Chips_Proof;

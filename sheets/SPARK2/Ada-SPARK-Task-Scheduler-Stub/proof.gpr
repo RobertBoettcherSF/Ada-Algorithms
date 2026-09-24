@@ -1,0 +1,4 @@
+project Task_Scheduler_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("task_scheduler_stub.ads", "task_scheduler_stub.adb");
+end Task_Scheduler_Stub_Proof;

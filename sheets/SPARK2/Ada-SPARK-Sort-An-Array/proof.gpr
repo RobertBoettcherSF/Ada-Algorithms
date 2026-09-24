@@ -1,0 +1,4 @@
+project Sort_An_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sort_an_array.ads", "sort_an_array.adb");
+end Sort_An_Array_Proof;

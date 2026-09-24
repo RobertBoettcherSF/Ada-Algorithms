@@ -1,0 +1,4 @@
+project Rate_Monotonic_Scheduling_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("rate_monotonic_scheduling.ads", "rate_monotonic_scheduling.adb");
+end Rate_Monotonic_Scheduling_Proof;

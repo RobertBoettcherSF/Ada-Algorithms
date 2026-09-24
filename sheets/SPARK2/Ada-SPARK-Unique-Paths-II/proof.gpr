@@ -1,0 +1,4 @@
+project Unique_Paths_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("unique_paths_ii.ads", "unique_paths_ii.adb");
+end Unique_Paths_II_Proof;

@@ -1,0 +1,20 @@
+project Corporate_Wars_Sim is
+
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+
+   package Builder is
+      for Default_Switches ("Ada") use ("-s");
+   end Builder;
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata", "-O2");
+   end Compiler;
+
+   package Binder is
+      for Default_Switches ("Ada") use ("-E");
+   end Binder;
+
+end Corporate_Wars_Sim;

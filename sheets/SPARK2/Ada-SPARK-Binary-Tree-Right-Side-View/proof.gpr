@@ -1,0 +1,4 @@
+project Binary_Tree_Right_Side_View_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("binary_tree_right_side_view.ads", "binary_tree_right_side_view.adb");
+end Binary_Tree_Right_Side_View_Proof;

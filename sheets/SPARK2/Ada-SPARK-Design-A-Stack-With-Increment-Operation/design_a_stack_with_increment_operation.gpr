@@ -1,0 +1,6 @@
+project Design_A_Stack_With_Increment_Operation is
+   for Source_Dirs use (".");
+   for Main use ("tests.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+end Design_A_Stack_With_Increment_Operation;

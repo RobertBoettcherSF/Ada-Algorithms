@@ -1,0 +1,4 @@
+project Balanced_Binary_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("balanced_binary_tree.ads", "balanced_binary_tree.adb");
+end Balanced_Binary_Tree_Proof;

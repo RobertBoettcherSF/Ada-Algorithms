@@ -1,0 +1,4 @@
+project Seat_Reservation_Manager_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("seat_reservation_manager.ads", "seat_reservation_manager.adb");
+end Seat_Reservation_Manager_Proof;

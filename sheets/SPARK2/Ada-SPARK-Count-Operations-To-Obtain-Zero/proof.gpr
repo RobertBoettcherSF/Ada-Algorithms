@@ -1,0 +1,4 @@
+project Count_Operations_To_Obtain_Zero_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("count_operations_to_obtain_zero.ads", "count_operations_to_obtain_zero.adb");
+end Count_Operations_To_Obtain_Zero_Proof;

@@ -1,0 +1,4 @@
+project Convert_1D_Array_Into_2D_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("convert_1d_array_into_2d_array.ads", "convert_1d_array_into_2d_array.adb");
+end Convert_1D_Array_Into_2D_Array_Proof;

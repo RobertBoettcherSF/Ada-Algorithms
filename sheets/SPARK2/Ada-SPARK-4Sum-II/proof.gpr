@@ -1,0 +1,4 @@
+project Four_Sum_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("four_sum_ii.ads", "four_sum_ii.adb");
+end Four_Sum_II_Proof;

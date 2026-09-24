@@ -1,0 +1,4 @@
+project Logger_Rate_Limiter_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("logger_rate_limiter_lite.ads", "logger_rate_limiter_lite.adb");
+end Logger_Rate_Limiter_Lite_Proof;

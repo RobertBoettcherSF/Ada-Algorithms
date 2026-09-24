@@ -1,0 +1,4 @@
+project Counting_Bits_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("counting_bits.ads", "counting_bits.adb");
+end Counting_Bits_Proof;

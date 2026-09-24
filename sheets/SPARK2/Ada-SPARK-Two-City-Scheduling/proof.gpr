@@ -1,0 +1,4 @@
+project Two_City_Scheduling_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("two_city_scheduling.ads", "two_city_scheduling.adb");
+end Two_City_Scheduling_Proof;

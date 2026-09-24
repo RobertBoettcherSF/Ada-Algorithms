@@ -1,0 +1,4 @@
+project Invert_Binary_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("invert_binary_tree.ads", "invert_binary_tree.adb");
+end Invert_Binary_Tree_Proof;

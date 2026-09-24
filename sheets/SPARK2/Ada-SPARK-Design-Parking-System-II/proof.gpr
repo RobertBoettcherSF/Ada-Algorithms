@@ -1,0 +1,4 @@
+project Design_Parking_System_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_parking_system_ii.ads", "design_parking_system_ii.adb");
+end Design_Parking_System_II_Proof;

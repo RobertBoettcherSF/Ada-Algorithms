@@ -1,0 +1,4 @@
+project Extended_Euclidean_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("extended_euclidean.ads", "extended_euclidean.adb");
+end Extended_Euclidean_Proof;

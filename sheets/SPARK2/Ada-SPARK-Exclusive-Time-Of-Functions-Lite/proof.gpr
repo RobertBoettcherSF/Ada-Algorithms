@@ -1,0 +1,4 @@
+project Exclusive_Time_Of_Functions_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("exclusive_time_of_functions_lite.ads", "exclusive_time_of_functions_lite.adb");
+end Exclusive_Time_Of_Functions_Lite_Proof;

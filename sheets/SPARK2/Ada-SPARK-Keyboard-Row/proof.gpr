@@ -1,0 +1,4 @@
+project Keyboard_Row_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("keyboard_row.ads", "keyboard_row.adb");
+end Keyboard_Row_Proof;

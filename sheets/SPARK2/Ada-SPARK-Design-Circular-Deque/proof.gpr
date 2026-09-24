@@ -1,0 +1,4 @@
+project Design_Circular_Deque_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_circular_deque.ads", "design_circular_deque.adb");
+end Design_Circular_Deque_Proof;

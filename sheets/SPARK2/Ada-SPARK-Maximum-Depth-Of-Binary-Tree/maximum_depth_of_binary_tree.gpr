@@ -1,0 +1,6 @@
+project Maximum_Depth_Of_Binary_Tree is
+   for Source_Dirs use (".");
+   for Main use ("tests.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+end Maximum_Depth_Of_Binary_Tree;

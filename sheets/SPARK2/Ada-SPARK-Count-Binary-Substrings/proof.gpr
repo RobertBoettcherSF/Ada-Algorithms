@@ -1,0 +1,4 @@
+project Count_Binary_Substrings_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("count_binary_substrings.ads", "count_binary_substrings.adb");
+end Count_Binary_Substrings_Proof;

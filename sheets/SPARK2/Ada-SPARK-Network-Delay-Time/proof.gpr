@@ -1,0 +1,4 @@
+project Network_Delay_Time_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("network_delay_time.ads", "network_delay_time.adb");
+end Network_Delay_Time_Proof;

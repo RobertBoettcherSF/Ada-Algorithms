@@ -1,0 +1,4 @@
+project Validate_Stack_Sequences_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("validate_stack_sequences.ads", "validate_stack_sequences.adb");
+end Validate_Stack_Sequences_Proof;

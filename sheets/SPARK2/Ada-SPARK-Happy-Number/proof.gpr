@@ -1,0 +1,4 @@
+project Happy_Number_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("happy_number.ads", "happy_number.adb");
+end Happy_Number_Proof;

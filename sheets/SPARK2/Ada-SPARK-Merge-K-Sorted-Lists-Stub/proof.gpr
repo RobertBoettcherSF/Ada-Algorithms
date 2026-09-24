@@ -1,0 +1,4 @@
+project Merge_K_Sorted_Lists_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("merge_k_sorted_lists_stub.ads", "merge_k_sorted_lists_stub.adb");
+end Merge_K_Sorted_Lists_Stub_Proof;

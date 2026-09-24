@@ -1,0 +1,4 @@
+project Minimum_Depth_Of_Binary_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("minimum_depth_of_binary_tree.ads", "minimum_depth_of_binary_tree.adb");
+end Minimum_Depth_Of_Binary_Tree_Proof;

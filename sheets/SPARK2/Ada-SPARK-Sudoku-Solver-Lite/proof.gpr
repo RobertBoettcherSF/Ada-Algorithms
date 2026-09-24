@@ -1,0 +1,8 @@
+project Sudoku_Solver_Lite_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("sudoku_solver_lite.ads", "sudoku_solver_lite.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Sudoku_Solver_Lite_Proof;

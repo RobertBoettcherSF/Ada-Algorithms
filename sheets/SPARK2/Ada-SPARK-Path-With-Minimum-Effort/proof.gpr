@@ -1,0 +1,4 @@
+project Path_With_Minimum_Effort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("path_with_minimum_effort.ads", "path_with_minimum_effort.adb");
+end Path_With_Minimum_Effort_Proof;

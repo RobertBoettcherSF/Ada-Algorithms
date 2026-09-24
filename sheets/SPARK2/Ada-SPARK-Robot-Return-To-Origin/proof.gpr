@@ -1,0 +1,4 @@
+project Robot_Origin_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("robot_origin.ads", "robot_origin.adb");
+end Robot_Origin_Proof;

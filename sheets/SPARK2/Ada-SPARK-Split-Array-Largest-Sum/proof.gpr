@@ -1,0 +1,4 @@
+project Split_Array_Largest_Sum_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("split_array_largest_sum.ads", "split_array_largest_sum.adb");
+end Split_Array_Largest_Sum_Proof;

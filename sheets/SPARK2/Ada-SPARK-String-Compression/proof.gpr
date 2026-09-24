@@ -1,0 +1,4 @@
+project String_Compression_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("string_compression.ads", "string_compression.adb");
+end String_Compression_Proof;

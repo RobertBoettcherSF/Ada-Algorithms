@@ -1,0 +1,4 @@
+project Clock_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("clock_page_replacement.ads", "clock_page_replacement.adb");
+end Clock_Proof;

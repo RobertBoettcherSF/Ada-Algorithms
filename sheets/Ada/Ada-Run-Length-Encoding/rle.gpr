@@ -1,0 +1,11 @@
+project Rle is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+
+   package Compiler is
+      -- Enable assertions (-gnata) essential for tests to function
+      for Default_Switches ("Ada") use ("-gnata", "-g", "-O2", "-Wall");
+   end Compiler;
+end Rle;

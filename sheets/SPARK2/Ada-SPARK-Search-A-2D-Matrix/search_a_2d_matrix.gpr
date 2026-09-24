@@ -1,0 +1,9 @@
+project Search_A_2D_Matrix is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnatwa", "-gnata");
+   end Compiler;
+end Search_A_2D_Matrix;

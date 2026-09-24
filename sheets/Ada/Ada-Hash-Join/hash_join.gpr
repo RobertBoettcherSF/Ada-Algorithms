@@ -1,0 +1,11 @@
+project Hash_Join is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+
+   package Compiler is
+      -- -g for debugging, -O2 for optimization, -gnata to enable PRAGMA ASSERT
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnata");
+   end Compiler;
+end Hash_Join;

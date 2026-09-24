@@ -1,0 +1,14 @@
+# Build artifacts
+obj/
+bin/
+*.o
+*.ali
+*.bexch
+*.stderr
+*.stdout
+*.tmp
+
+# Editor / OS
+*~
+*.swp
+.DS_Store

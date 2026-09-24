@@ -1,0 +1,4 @@
+project Peak_Index_In_Mountain_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("peak_index_in_mountain_array.ads", "peak_index_in_mountain_array.adb");
+end Peak_Index_In_Mountain_Array_Proof;

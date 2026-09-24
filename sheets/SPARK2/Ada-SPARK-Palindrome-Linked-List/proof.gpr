@@ -1,0 +1,4 @@
+project Palindrome_Linked_List_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("palindrome_linked_list.ads", "palindrome_linked_list.adb");
+end Palindrome_Linked_List_Proof;

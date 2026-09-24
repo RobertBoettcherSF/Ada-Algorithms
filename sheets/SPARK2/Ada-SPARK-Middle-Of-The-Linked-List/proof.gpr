@@ -1,0 +1,4 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("middle_of_the_linked_list.ads", "middle_of_the_linked_list.adb");
+end Proof;

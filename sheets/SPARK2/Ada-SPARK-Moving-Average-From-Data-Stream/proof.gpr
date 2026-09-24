@@ -1,0 +1,4 @@
+project MovingAverageFromDataStreamProof is
+   for Source_Dirs use (".");
+   for Source_Files use ("moving_average_from_data_stream.ads", "moving_average_from_data_stream.adb");
+end MovingAverageFromDataStreamProof;

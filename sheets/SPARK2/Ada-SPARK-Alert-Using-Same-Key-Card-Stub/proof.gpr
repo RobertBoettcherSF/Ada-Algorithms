@@ -1,0 +1,4 @@
+project Alert_Using_Same_Key_Card_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("alert_using_same_key_card_stub.ads", "alert_using_same_key_card_stub.adb");
+end Alert_Using_Same_Key_Card_Stub_Proof;

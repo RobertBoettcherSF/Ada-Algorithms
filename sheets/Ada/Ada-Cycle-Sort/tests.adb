@@ -1,0 +1,427 @@
+--  Standalone test suite for Cycle_Sort (main program).
+
+pragma Ada_2022;
+
+with Ada.Text_IO; use Ada.Text_IO;
+with Cycle_Sort; use Cycle_Sort;
+
+procedure Tests is
+
+   Pass_Count : Natural := 0;
+   Fail_Count : Natural := 0;
+
+   procedure Check (Condition : Boolean; Message : String) is
+   begin
+      if Condition then
+         Pass_Count := Pass_Count + 1;
+         Put_Line ("  PASS: " & Message);
+      else
+         Fail_Count := Fail_Count + 1;
+         Put_Line ("  FAIL: " & Message);
+      end if;
+   end Check;
+
+   procedure Section (Title : String) is
+   begin
+      New_Line;
+      Put_Line ("=== " & Title & " ===");
+   end Section;
+
+   --  Independent insertion-sort reference (ascending).
+   procedure Reference_Sort (A : in out Element_Array) is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First + 1 .. A'Last loop
+         declare
+            Key : constant Integer := A (I);
+            J   : Integer := Integer (I) - 1;
+         begin
+            while J >= Integer (A'First) and then A (J) > Key loop
+               A (J + 1) := A (J);
+               J := J - 1;
+            end loop;
+            A (J + 1) := Key;
+         end;
+      end loop;
+   end Reference_Sort;
+
+   function Same (A, B : Element_Array) return Boolean is
+   begin
+      if A'Length /= B'Length then
+         return False;
+      end if;
+      for I in A'Range loop
+         if A (I) /= B (I - A'First + B'First) then
+            return False;
+         end if;
+      end loop;
+      return True;
+   end Same;
+
+   function Copy_Of (A : Element_Array) return Element_Array is
+   begin
+      return Element_Array'(A);
+   end Copy_Of;
+
+   function Sort_Raises (A : Element_Array) return Boolean is
+      T : Element_Array := A;
+   begin
+      Sort (T);
+      return False;
+   exception
+      when Invalid_Argument =>
+         return True;
+   end Sort_Raises;
+
+   procedure Expect_Sorted (Src : Element_Array; Label : String) is
+      A : Element_Array := Copy_Of (Src);
+      R : Element_Array := Copy_Of (Src);
+   begin
+      Sort (A);
+      Reference_Sort (R);
+      Check (Is_Sorted (A), Label & " Is_Sorted");
+      Check (Same (A, R), Label & " matches reference");
+   end Expect_Sorted;
+
+   --  Deterministic LCG.
+   Seed : Natural := 42;
+
+   function Next_Mod (Modulus : Positive) return Natural is
+      Mult : constant := 1_103_515_245;
+      Add  : constant := 12_345;
+      X    : Natural;
+   begin
+      X := Natural ((Long_Long_Integer (Seed) * Mult + Add)
+                    mod 2_147_483_647);
+      Seed := X;
+      return X rem Modulus;
+   end Next_Mod;
+
+   function Random_Array
+     (Len : Natural; Lo, Hi : Integer) return Element_Array
+   is
+      Span : constant Positive := Hi - Lo + 1;
+      A    : Element_Array (1 .. Len);
+   begin
+      for I in A'Range loop
+         A (I) := Lo + Integer (Next_Mod (Span));
+      end loop;
+      return A;
+   end Random_Array;
+
+begin
+   ---------------------------------------------------------------------
+   Section ("1. Empty and singleton");
+   ---------------------------------------------------------------------
+   declare
+      Empty : Element_Array (1 .. 0);
+      One   : Element_Array := [42];
+      Neg   : Element_Array := [-7];
+   begin
+      Check (Is_Sorted (Empty), "empty Is_Sorted");
+      Sort (Empty);
+      Check (Is_Sorted (Empty), "empty after Sort");
+      Check (Is_Sorted (One), "singleton Is_Sorted");
+      Sort (One);
+      Check (One (One'First) = 42, "singleton value preserved");
+      Check (Is_Sorted (One), "singleton after Sort");
+      Sort (Neg);
+      Check (Neg (Neg'First) = -7, "negative singleton preserved");
+      Check (Is_Sorted (Neg), "negative singleton Is_Sorted");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("2. Small patterns");
+   ---------------------------------------------------------------------
+   Expect_Sorted ([3, 1, 2], "tiny 3");
+   Expect_Sorted ([5, 4, 3, 2, 1], "reverse 5");
+   Expect_Sorted ([1, 2, 3, 4, 5], "already sorted");
+   Expect_Sorted ([2, 2, 2, 2], "all equal");
+   Expect_Sorted ([9, 0, 5, 1, 8, 3], "mixed with zero");
+   --  Wikipedia-style distinct letter permutation as ordinals a=1..e=5:
+   --  b d e a c  ->  2 4 5 1 3
+   Expect_Sorted ([2, 4, 5, 1, 3], "wikipedia bdeac");
+   Expect_Sorted ([1, 0], "two swapped with zero");
+   Expect_Sorted ([100, 100], "two equal");
+   Expect_Sorted ([2, 1, 2, 1, 2, 1], "alternating");
+   Expect_Sorted ([1, 2, 3, 5, 4], "almost sorted");
+   Expect_Sorted ([9, 8, 7, 6, 5, 4, 3, 2, 1, 0], "reverse 10 with zero");
+   Expect_Sorted ([0, 1, 0, 1, 0, 1, 0], "binary keys");
+   Expect_Sorted ([0, 0, 0, 0], "all zeros");
+   Expect_Sorted ([7], "singleton via Expect");
+
+   ---------------------------------------------------------------------
+   Section ("3. Negatives and duplicates");
+   ---------------------------------------------------------------------
+   Expect_Sorted ([-3, -1, -2], "three negatives");
+   Expect_Sorted ([-5, 0, 5, -2, 2], "negatives mixed");
+   Expect_Sorted ([-1, -1, -1], "all equal negatives");
+   Expect_Sorted ([5, 3, 5, 3, 5, 1, 1], "many dups");
+   Expect_Sorted ([7, 7, 7, 1, 1, 9, 9, 9, 9], "runs of equals");
+   Expect_Sorted ([-10, 10, -5, 5, 0], "symmetric around zero");
+   Expect_Sorted ([4, 4, 4, 2, 2, 2, 4, 2], "two-value multiset");
+   Expect_Sorted ([10, 1, 10, 1, 10, 1, 10], "high-low alternating");
+
+   ---------------------------------------------------------------------
+   Section ("4. Duplicate-heavy multisets");
+   ---------------------------------------------------------------------
+   Expect_Sorted ([5, 3, 5, 3, 5, 1, 1], "dups again");
+   Expect_Sorted ([1, 1, 1, 1, 1, 1, 1, 1], "eight ones");
+   Expect_Sorted ([9, 1, 9, 1, 9, 1, 9, 1, 9], "strict alternate");
+   Expect_Sorted ([3, 3, 2, 2, 1, 1, 0, 0], "dup reverse pairs");
+   Expect_Sorted ([8, 8, 8, 8, 1, 2, 3, 4], "block then climb");
+   Expect_Sorted ([1, 2, 2, 3, 3, 3, 4], "already sorted dups");
+   Expect_Sorted ([4, 3, 3, 2, 2, 2, 1], "reverse with dups");
+
+   ---------------------------------------------------------------------
+   Section ("5. Arbitrary bounds (non-1 First)");
+   ---------------------------------------------------------------------
+   declare
+      A : Element_Array (0 .. 4) :=
+        [0 => 4, 1 => 1, 2 => 3, 3 => 2, 4 => 0];
+      R : Element_Array := Copy_Of (A);
+   begin
+      Sort (A);
+      Reference_Sort (R);
+      Check (Is_Sorted (A), "0-based Is_Sorted");
+      Check (Same (A, R), "0-based matches reference");
+      Check (A'First = 0 and then A'Last = 4, "0-based bounds preserved");
+   end;
+   declare
+      A : Element_Array (10 .. 14) :=
+        [10 => 8, 11 => 6, 12 => 7, 13 => 5, 14 => 9];
+      R : Element_Array := Copy_Of (A);
+   begin
+      Sort (A);
+      Reference_Sort (R);
+      Check (Is_Sorted (A), "10-based Is_Sorted");
+      Check (Same (A, R), "10-based matches reference");
+   end;
+   declare
+      A : Element_Array (100 .. 102) :=
+        [100 => 3, 101 => 1, 102 => 2];
+   begin
+      Sort (A);
+      Check (A (100) = 1 and then A (101) = 2 and then A (102) = 3,
+             "100-based values placed");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("6. Random arrays vs reference");
+   ---------------------------------------------------------------------
+   Expect_Sorted (Random_Array (20, 0, 9), "random n=20 range 0..9");
+   Expect_Sorted (Random_Array (50, -10, 20), "random n=50 range -10..20");
+   Expect_Sorted (Random_Array (100, 1, 5), "random n=100 range 1..5");
+   Expect_Sorted (Random_Array (64, -3, 3), "random n=64 range -3..3");
+   Expect_Sorted (Random_Array (30, 90, 100), "random high band");
+   Expect_Sorted (Random_Array (16, 0, 0), "random all-zero span");
+   Expect_Sorted (Random_Array (40, 1, 1), "random all-ones");
+   Expect_Sorted (Random_Array (25, -100, 100), "random wide signed");
+   Expect_Sorted (Random_Array (80, -50, 50), "random n=80 signed");
+   Expect_Sorted (Random_Array (200, -1000, 1000), "random n=200 wide");
+   Expect_Sorted (Random_Array (256, 0, 255), "random n=256 bytes");
+   Expect_Sorted (Random_Array (500, -50, 50), "random n=500 signed");
+   Expect_Sorted (Random_Array (128, 0, 3), "random n=128 few keys");
+   Expect_Sorted (Random_Array (333, -20, 20), "random odd n=333");
+
+   ---------------------------------------------------------------------
+   Section ("7. Is_Sorted predicate");
+   ---------------------------------------------------------------------
+   Check (Is_Sorted ([1, 2, 3, 4]), "ascending true");
+   Check (Is_Sorted ([1, 1, 2, 2]), "nondecreasing true");
+   Check (not Is_Sorted ([1, 3, 2]), "inversion false");
+   Check (not Is_Sorted ([5, 4, 3]), "reverse false");
+   Check (Is_Sorted ([7]), "singleton true");
+   Check (Is_Sorted ([0, 0, 0]), "zeros nondecreasing");
+   Check (not Is_Sorted ([0, 2, 1]), "zero then inversion false");
+   Check (Is_Sorted ([-3, -2, -1, 0]), "negatives ascending");
+   Check (not Is_Sorted ([-1, -3]), "negatives inversion false");
+   declare
+      E : Element_Array (1 .. 0);
+   begin
+      Check (Is_Sorted (E), "empty true");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("8. Invalid_Argument — oversize n");
+   ---------------------------------------------------------------------
+   declare
+      Huge : constant Element_Array (1 .. Max_N + 1) := [others => 0];
+   begin
+      Check (Sort_Raises (Huge), "n = Max_N+1 raises");
+   end;
+   declare
+      Ok_N : Element_Array (1 .. 100) := [others => 3];
+   begin
+      Sort (Ok_N);
+      Check (Is_Sorted (Ok_N), "n=100 all equal sorts");
+   end;
+   declare
+      Mid : Element_Array := Random_Array (256, -20, 50);
+      R   : Element_Array := Copy_Of (Mid);
+   begin
+      Sort (Mid);
+      Reference_Sort (R);
+      Check (Same (Mid, R), "n=256 random matches reference");
+      Check (Is_Sorted (Mid), "n=256 Is_Sorted");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("9. Edge patterns and power-of-two sizes");
+   ---------------------------------------------------------------------
+   Expect_Sorted ([1, 2], "two ascending");
+   Expect_Sorted ([2, 1], "two descending");
+   Expect_Sorted ([0, 0], "two zeros");
+   Expect_Sorted ([-100, 100, -50], "sparse signed");
+   Expect_Sorted ([15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+                  "reverse 15");
+   Expect_Sorted ([1, 3, 5, 7, 9, 2, 4, 6, 8, 10], "odds then evens");
+   Expect_Sorted ([8, 0, 8, 0, 8, 0, 8, 0], "sparse high/zero");
+   declare
+      A : Element_Array (1 .. 10);
+   begin
+      for I in A'Range loop
+         A (I) := I;
+      end loop;
+      Expect_Sorted (A, "identity 1..10");
+   end;
+   declare
+      A : Element_Array (1 .. 10);
+   begin
+      for I in A'Range loop
+         A (I) := 11 - I;
+      end loop;
+      Expect_Sorted (A, "countdown 10..1");
+   end;
+   declare
+      A : Element_Array (1 .. 64);
+   begin
+      for I in A'Range loop
+         A (I) := I;
+      end loop;
+      Expect_Sorted (A, "already sorted n=64");
+   end;
+   declare
+      A : Element_Array (1 .. 32);
+   begin
+      for I in A'Range loop
+         A (I) := 33 - I;
+      end loop;
+      Expect_Sorted (A, "reverse n=32");
+   end;
+   declare
+      A : Element_Array (1 .. 17);
+   begin
+      for I in A'Range loop
+         A (I) := 18 - I;
+      end loop;
+      Expect_Sorted (A, "odd length reverse 17");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("10. Idempotence");
+   ---------------------------------------------------------------------
+   declare
+      A : Element_Array := [9, 3, 7, 1, 5, 0, 4, -2];
+   begin
+      Sort (A);
+      declare
+         B : constant Element_Array := Copy_Of (A);
+      begin
+         Sort (A);
+         Check (Same (A, B), "second Sort is no-op on sorted");
+         Check (Is_Sorted (A), "idempotent still sorted");
+      end;
+   end;
+   declare
+      A : Element_Array := [1, 2, 3, 4, 5, 6];
+   begin
+      Sort (A);
+      declare
+         B : constant Element_Array := Copy_Of (A);
+      begin
+         Sort (A);
+         Check (Same (A, B), "idempotent on already-sorted input");
+      end;
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("11. Write counting (Sort_Counting_Writes)");
+   ---------------------------------------------------------------------
+   declare
+      Sorted : Element_Array := [1, 2, 3, 4, 5];
+      W      : Natural;
+   begin
+      W := Sort_Counting_Writes (Sorted);
+      Check (W = 0, "sorted array needs 0 writes");
+      Check (Is_Sorted (Sorted), "sorted still sorted after count");
+   end;
+   declare
+      --  Distinct reverse of odd n: middle fixed; two 2-cycles -> 4 writes.
+      Rev : Element_Array := [5, 4, 3, 2, 1];
+      W   : Natural;
+   begin
+      W := Sort_Counting_Writes (Rev);
+      Check (W = 4, "reverse distinct n=5 yields 4 writes");
+      Check (Is_Sorted (Rev), "reverse distinct sorted");
+      Check (Same (Rev, [1, 2, 3, 4, 5]), "reverse distinct final values");
+   end;
+   declare
+      --  Distinct reverse of even n: n/2 swaps -> n writes.
+      Rev4 : Element_Array := [4, 3, 2, 1];
+      W    : Natural;
+   begin
+      W := Sort_Counting_Writes (Rev4);
+      Check (W = 4, "reverse distinct n=4 yields 4 writes");
+      Check (Is_Sorted (Rev4), "reverse n=4 sorted");
+   end;
+   declare
+      Eq : Element_Array := [7, 7, 7, 7];
+      W  : Natural;
+   begin
+      W := Sort_Counting_Writes (Eq);
+      Check (W = 0, "all-equal needs 0 writes");
+   end;
+   declare
+      A : Element_Array := [3, 1, 2];
+      W : Natural;
+   begin
+      W := Sort_Counting_Writes (A);
+      Check (Is_Sorted (A), "tiny after counting writes");
+      Check (W >= 1, "tiny permutation needs at least 1 write");
+      Check (W <= 3, "tiny permutation at most 3 writes");
+   end;
+   declare
+      Empty : Element_Array (1 .. 0);
+      W     : Natural;
+   begin
+      W := Sort_Counting_Writes (Empty);
+      Check (W = 0, "empty write count 0");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("12. Large magnitude and adversarial");
+   ---------------------------------------------------------------------
+   Expect_Sorted ([Integer'First / 4, 0, Integer'Last / 4, -1, 1],
+                  "large magnitude ints");
+   Expect_Sorted (Random_Array (12, -1000, 1000), "random n=12 wide");
+   Expect_Sorted (Random_Array (7, -5, 5), "random n=7 tiny");
+   Expect_Sorted ([5, 4, 3, 2, 1, 0, -1, -2], "strict reverse signed");
+   Expect_Sorted ([3, 3, 2, 2, 1, 1], "dup reverse pairs again");
+   Expect_Sorted ([1, 10, 2, 20, 3, 30, 4, 40], "two interleaved runs");
+   Expect_Sorted
+     ([100, 1, 99, 2, 98, 3, 97, 4, 96, 5], "sawtooth");
+   Expect_Sorted
+     ([1, 2, 4, 8, 16, 32, 64, 128, 256, 3], "powers then disrupt");
+
+   New_Line;
+   Put_Line
+     ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image
+      & " FAIL");
+
+   if Fail_Count /= 0 then
+      raise Program_Error with "Cycle_Sort tests failed";
+   end if;
+end Tests;

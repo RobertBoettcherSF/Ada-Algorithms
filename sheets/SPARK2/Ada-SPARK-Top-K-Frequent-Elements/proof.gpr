@@ -1,0 +1,4 @@
+project Top_K_Frequent_Elements_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("top_k_frequent_elements.ads", "top_k_frequent_elements.adb");
+end Top_K_Frequent_Elements_Proof;

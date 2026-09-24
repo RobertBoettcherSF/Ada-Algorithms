@@ -1,0 +1,4 @@
+project Find_K_Closest_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_k_closest.ads", "find_k_closest.adb");
+end Find_K_Closest_Proof;

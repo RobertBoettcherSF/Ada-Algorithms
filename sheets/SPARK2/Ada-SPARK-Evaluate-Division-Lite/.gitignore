@@ -1,0 +1,4 @@
+*.gpr.bak
+obj/
+bin/
+gnatprove/

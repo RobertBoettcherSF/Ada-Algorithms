@@ -1,0 +1,13 @@
+project Peterson is
+
+   for Main use ("peterson.adb");
+   for Source_Dirs use (".", "tests");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   
+   package Compiler is
+      -- Enable standard warnings, debugging, and optimizations
+      for Switches ("Ada") use ("-g", "-O2", "-gnatwa");
+   end Compiler;
+
+end Peterson;

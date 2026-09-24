@@ -1,0 +1,7 @@
+project ImplementTrie_Build_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("implement_trie.ads", "implement_trie.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end ImplementTrie_Build_Proof;

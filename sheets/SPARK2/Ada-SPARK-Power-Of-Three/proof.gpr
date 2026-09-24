@@ -1,0 +1,4 @@
+project Power_Of_Three_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("power_of_three.ads", "power_of_three.adb");
+end Power_Of_Three_Proof;

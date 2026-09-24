@@ -1,0 +1,4 @@
+project Zigzag_Iterator_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("zigzag_iterator_stub.ads", "zigzag_iterator_stub.adb");
+end Zigzag_Iterator_Stub_Proof;

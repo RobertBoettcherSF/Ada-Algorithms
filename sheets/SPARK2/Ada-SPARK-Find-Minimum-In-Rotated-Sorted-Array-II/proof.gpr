@@ -1,0 +1,4 @@
+project Find_Minimum_In_Rotated_Sorted_Array_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_minimum_in_rotated_sorted_array_ii.ads", "find_minimum_in_rotated_sorted_array_ii.adb");
+end Find_Minimum_In_Rotated_Sorted_Array_II_Proof;

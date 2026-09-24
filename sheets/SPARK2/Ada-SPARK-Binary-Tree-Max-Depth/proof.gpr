@@ -1,0 +1,4 @@
+project Binary_Tree_Max_Depth_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("binary_tree_max_depth.ads", "binary_tree_max_depth.adb");
+end Binary_Tree_Max_Depth_Proof;

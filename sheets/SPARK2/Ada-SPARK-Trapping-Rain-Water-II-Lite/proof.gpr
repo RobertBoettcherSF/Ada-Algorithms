@@ -1,0 +1,4 @@
+project Trapping_Rain_Water_II_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("trapping_rain_water_ii_lite.ads", "trapping_rain_water_ii_lite.adb");
+end Trapping_Rain_Water_II_Lite_Proof;

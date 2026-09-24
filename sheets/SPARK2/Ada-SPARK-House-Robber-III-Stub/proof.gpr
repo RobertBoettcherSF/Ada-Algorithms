@@ -1,0 +1,4 @@
+project House_Robber_III_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("house_robber_iii_stub.ads", "house_robber_iii_stub.adb");
+end House_Robber_III_Stub_Proof;

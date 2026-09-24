@@ -1,0 +1,4 @@
+project TicTacToeStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("tic_tac_toe_stub.ads", "tic_tac_toe_stub.adb");
+end TicTacToeStub_Proof;

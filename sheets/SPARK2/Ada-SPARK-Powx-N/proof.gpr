@@ -1,0 +1,4 @@
+project Powx_N_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("powx_n.ads", "powx_n.adb");
+end Powx_N_Proof;

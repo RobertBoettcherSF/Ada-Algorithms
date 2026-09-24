@@ -1,0 +1,4 @@
+project Hamming_Weight_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("hamming_weight.ads", "hamming_weight.adb");
+end Hamming_Weight_Proof;

@@ -1,0 +1,4 @@
+project Find_The_City_With_Smallest_Number_Of_Neighbors_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_the_city_with_smallest_number_of_neighbors.ads", "find_the_city_with_smallest_number_of_neighbors.adb");
+end Find_The_City_With_Smallest_Number_Of_Neighbors_Proof;

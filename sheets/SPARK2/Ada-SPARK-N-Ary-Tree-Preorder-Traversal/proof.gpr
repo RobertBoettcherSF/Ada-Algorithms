@@ -1,0 +1,4 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("n_ary_tree_preorder_traversal.ads", "n_ary_tree_preorder_traversal.adb");
+end Proof;

@@ -1,0 +1,4 @@
+project Design_Skiplist_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_skiplist_lite.ads", "design_skiplist_lite.adb");
+end Design_Skiplist_Lite_Proof;

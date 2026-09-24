@@ -1,0 +1,4 @@
+project Lru_Cache_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("lru_cache_stub.ads", "lru_cache_stub.adb");
+end Lru_Cache_Stub_Proof;

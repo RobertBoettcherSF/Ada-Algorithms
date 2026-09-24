@@ -1,0 +1,4 @@
+project Wiggle_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("wiggle_sort.ads", "wiggle_sort.adb");
+end Wiggle_Sort_Proof;

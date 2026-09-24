@@ -1,0 +1,4 @@
+project Three_Sum_Closest_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("three_sum_closest.ads", "three_sum_closest.adb");
+end Three_Sum_Closest_Proof;

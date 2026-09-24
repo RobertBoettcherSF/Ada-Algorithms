@@ -1,0 +1,6 @@
+project Nonblocking_Minimal_Spanning_Switch is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+end Nonblocking_Minimal_Spanning_Switch;

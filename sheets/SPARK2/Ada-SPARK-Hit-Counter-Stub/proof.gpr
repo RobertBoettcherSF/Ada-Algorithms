@@ -1,0 +1,4 @@
+project HitCounterStubProof is
+   for Source_Dirs use (".");
+   for Source_Files use ("hit_counter_stub.ads", "hit_counter_stub.adb");
+end HitCounterStubProof;

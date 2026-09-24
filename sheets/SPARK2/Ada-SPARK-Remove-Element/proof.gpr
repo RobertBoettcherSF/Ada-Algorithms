@@ -1,0 +1,4 @@
+project Remove_Element_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("remove_element.ads", "remove_element.adb");
+end Remove_Element_Proof;

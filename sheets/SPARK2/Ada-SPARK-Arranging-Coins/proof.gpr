@@ -1,0 +1,4 @@
+project Arranging_Coins_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("arranging_coins.ads", "arranging_coins.adb");
+end Arranging_Coins_Proof;

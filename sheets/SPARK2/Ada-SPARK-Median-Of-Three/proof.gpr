@@ -1,0 +1,4 @@
+project Median_Of_Three_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("median_of_three.ads", "median_of_three.adb");
+end Median_Of_Three_Proof;

@@ -1,0 +1,4 @@
+project One_Hot_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("one_hot.ads", "one_hot.adb");
+end One_Hot_Proof;

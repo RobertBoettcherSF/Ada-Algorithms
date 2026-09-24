@@ -1,0 +1,4 @@
+project Sort_Characters_By_Frequency_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sort_characters_by_frequency.ads", "sort_characters_by_frequency.adb");
+end Sort_Characters_By_Frequency_Proof;

@@ -1,0 +1,4 @@
+project Intersection_Of_Two_Arrays_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("intersection_of_two_arrays.ads", "intersection_of_two_arrays.adb");
+end Intersection_Of_Two_Arrays_Proof;

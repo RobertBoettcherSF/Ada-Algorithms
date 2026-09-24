@@ -1,0 +1,4 @@
+project Design_Hashset_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_hashset_stub.ads", "design_hashset_stub.adb");
+end Design_Hashset_Stub_Proof;

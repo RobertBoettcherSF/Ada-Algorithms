@@ -1,0 +1,4 @@
+project Sum_Of_Left_Leaves_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sum_of_left_leaves.ads", "sum_of_left_leaves.adb");
+end Sum_Of_Left_Leaves_Proof;

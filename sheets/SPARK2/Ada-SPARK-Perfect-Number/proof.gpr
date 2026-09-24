@@ -1,0 +1,4 @@
+project Perfect_Number_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("perfect_number.ads", "perfect_number.adb");
+end Perfect_Number_Proof;

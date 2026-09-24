@@ -1,0 +1,4 @@
+project Longest_Mountain_In_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("longest_mountain_in_array.ads", "longest_mountain_in_array.adb");
+end Longest_Mountain_In_Array_Proof;

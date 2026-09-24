@@ -1,0 +1,4 @@
+project Merge_In_Between_Linked_Lists_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("merge_in_between_linked_lists.ads", "merge_in_between_linked_lists.adb");
+end Merge_In_Between_Linked_Lists_Proof;

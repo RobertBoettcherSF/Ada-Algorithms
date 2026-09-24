@@ -1,0 +1,4 @@
+project Queue_Using_Stacks_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("queue_using_stacks.ads", "queue_using_stacks.adb");
+end Queue_Using_Stacks_Proof;

@@ -1,0 +1,4 @@
+project Best_Time_To_Buy_And_Sell_Stock_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("best_time_to_buy_and_sell_stock.ads", "best_time_to_buy_and_sell_stock.adb");
+end Best_Time_To_Buy_And_Sell_Stock_Proof;

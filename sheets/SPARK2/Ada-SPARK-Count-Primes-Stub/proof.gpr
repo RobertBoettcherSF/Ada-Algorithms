@@ -1,0 +1,4 @@
+project Count_Primes_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("count_primes.ads", "count_primes.adb");
+end Count_Primes_Proof;

@@ -1,0 +1,4 @@
+project Two_Sum_BST_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("two_sum_bst_stub.ads", "two_sum_bst_stub.adb");
+end Two_Sum_BST_Stub_Proof;

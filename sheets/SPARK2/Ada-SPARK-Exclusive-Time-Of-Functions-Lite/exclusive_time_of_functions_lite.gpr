@@ -1,0 +1,6 @@
+project Exclusive_Time_Of_Functions_Lite is
+   for Source_Dirs use (".");
+   for Main use ("tests.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+end Exclusive_Time_Of_Functions_Lite;

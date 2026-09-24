@@ -1,0 +1,4 @@
+project Roman_To_Integer_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("roman_to_integer.ads", "roman_to_integer.adb");
+end Roman_To_Integer_Proof;

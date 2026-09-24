@@ -1,0 +1,4 @@
+project Lfu_Cache_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("lfu_cache_stub.ads", "lfu_cache_stub.adb");
+end Lfu_Cache_Stub_Proof;

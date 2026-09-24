@@ -1,0 +1,4 @@
+project Maximum_Ice_Cream_Bars_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("maximum_ice_cream_bars.ads", "maximum_ice_cream_bars.adb");
+end Maximum_Ice_Cream_Bars_Proof;

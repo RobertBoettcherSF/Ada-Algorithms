@@ -1,0 +1,4 @@
+project Reverse_String_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reverse_string_ii.ads", "reverse_string_ii.adb");
+end Reverse_String_II_Proof;

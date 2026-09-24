@@ -1,0 +1,4 @@
+project Heaters_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("heaters.ads", "heaters.adb");
+end Heaters_Proof;

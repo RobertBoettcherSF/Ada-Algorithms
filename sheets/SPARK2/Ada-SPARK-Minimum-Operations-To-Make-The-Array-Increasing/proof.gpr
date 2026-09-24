@@ -1,0 +1,4 @@
+project Minimum_Operations_To_Make_Increasing_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("minimum_operations_to_make_increasing.ads", "minimum_operations_to_make_increasing.adb");
+end Minimum_Operations_To_Make_Increasing_Proof;

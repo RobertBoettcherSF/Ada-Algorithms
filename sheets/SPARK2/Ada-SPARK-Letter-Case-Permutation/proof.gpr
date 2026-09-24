@@ -1,0 +1,8 @@
+project Letter_Case_Permutation_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("letter_case_permutation.ads", "letter_case_permutation.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Letter_Case_Permutation_Proof;

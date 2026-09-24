@@ -1,0 +1,10 @@
+project Design_Add_And_Search_Words is
+   for Source_Dirs use (".");
+   for Main use ("tests.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Source_Files use ("design_add_and_search_words.ads", "design_add_and_search_words.adb", "tests.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Design_Add_And_Search_Words;

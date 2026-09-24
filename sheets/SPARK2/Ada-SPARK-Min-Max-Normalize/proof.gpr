@@ -1,0 +1,4 @@
+project Min_Max_Normalize_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("min_max_normalize.ads", "min_max_normalize.adb");
+end Min_Max_Normalize_Proof;

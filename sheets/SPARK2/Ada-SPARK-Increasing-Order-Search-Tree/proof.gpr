@@ -1,0 +1,4 @@
+project Increasing_Order_Search_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("increasing_order_search_tree.ads", "increasing_order_search_tree.adb");
+end Increasing_Order_Search_Tree_Proof;

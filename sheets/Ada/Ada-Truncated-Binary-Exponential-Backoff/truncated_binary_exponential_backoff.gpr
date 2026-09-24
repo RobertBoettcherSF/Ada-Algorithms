@@ -1,0 +1,21 @@
+--  truncated_binary_exponential_backoff.gpr
+--
+--  GNAT Project File for compiling the Truncated Binary Exponential Backoff package.
+--  Author: Vibe Code (Mistral AI)
+--  Date: 2025
+
+project Truncated_Binary_Exponential_Backoff is
+   --  Source directories
+   for Source_Dirs use (".");
+
+   --  Object directory
+   for Object_Dir use "obj";
+
+   --  Executable directory
+   for Exec_Dir use "bin";
+
+   --  Package to compile
+   for Library_Name use "truncated_binary_exponential_backoff";
+   for Library_Kind use "static";
+
+end Truncated_Binary_Exponential_Backoff;

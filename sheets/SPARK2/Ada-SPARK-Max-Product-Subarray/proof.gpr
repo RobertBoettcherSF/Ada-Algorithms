@@ -1,0 +1,4 @@
+project Max_Product_Subarray_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("max_product_subarray.ads", "max_product_subarray.adb");
+end Max_Product_Subarray_Proof;

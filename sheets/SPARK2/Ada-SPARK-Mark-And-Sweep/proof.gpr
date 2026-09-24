@@ -1,0 +1,4 @@
+project Mark_Sweep_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("mark_and_sweep.ads", "mark_and_sweep.adb");
+end Mark_Sweep_Proof;

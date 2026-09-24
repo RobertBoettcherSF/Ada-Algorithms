@@ -1,0 +1,4 @@
+project Critical_Connections_In_A_Network_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("critical_connections_in_a_network_lite.ads", "critical_connections_in_a_network_lite.adb");
+end Critical_Connections_In_A_Network_Lite_Proof;

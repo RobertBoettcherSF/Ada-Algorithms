@@ -1,0 +1,4 @@
+project Reverse_Pairs_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reverse_pairs.ads", "reverse_pairs.adb");
+end Reverse_Pairs_Proof;

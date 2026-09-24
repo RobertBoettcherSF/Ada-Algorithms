@@ -1,0 +1,4 @@
+project Heap_Push_Pop_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("heap_push_pop.ads", "heap_push_pop.adb");
+end Heap_Push_Pop_Proof;

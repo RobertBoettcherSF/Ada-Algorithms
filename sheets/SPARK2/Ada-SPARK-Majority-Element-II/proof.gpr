@@ -1,0 +1,4 @@
+project Majority_Element_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("majority_element_ii.ads", "majority_element_ii.adb");
+end Majority_Element_II_Proof;

@@ -1,0 +1,4 @@
+project OrderedStreamStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("ordered_stream_stub.ads", "ordered_stream_stub.adb");
+end OrderedStreamStub_Proof;

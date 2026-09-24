@@ -1,0 +1,4 @@
+project Minimum_Limit_Of_Balls_In_A_Bag_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("minimum_limit_of_balls_in_a_bag.ads", "minimum_limit_of_balls_in_a_bag.adb");
+end Minimum_Limit_Of_Balls_In_A_Bag_Proof;

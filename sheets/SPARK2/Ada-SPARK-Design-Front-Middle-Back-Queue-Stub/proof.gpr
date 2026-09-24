@@ -1,0 +1,4 @@
+project DesignFrontMiddleBackQueueStubProof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_front_middle_back_queue_stub.ads", "design_front_middle_back_queue_stub.adb");
+end DesignFrontMiddleBackQueueStubProof;

@@ -1,0 +1,4 @@
+project Patience_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("patience_sort.ads", "patience_sort.adb");
+end Patience_Sort_Proof;

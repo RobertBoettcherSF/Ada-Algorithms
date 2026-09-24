@@ -1,0 +1,4 @@
+project Find_Median_Data_Stream_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_median_data_stream_stub.ads", "find_median_data_stream_stub.adb");
+end Find_Median_Data_Stream_Stub_Proof;

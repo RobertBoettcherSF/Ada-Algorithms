@@ -1,0 +1,45 @@
+--  exponential_backoff.gpr
+--  
+--  GNAT Project File for the Exponential Backoff algorithm.
+--  
+--  This file defines the project structure for compilation with gnatmake.
+--  
+--  Author: Vibe Code (Mistral AI)
+--  Date: 2025
+
+project Exponential_Backoff is
+
+   --  Source directories
+   for Source_Dirs use ("");
+
+   --  Object directory (for compiled .o files)
+   for Object_Dir use "obj";
+
+   --  Executable directory (for compiled binaries)
+   for Exec_Dir use "bin";
+
+   --  Main program (if any)
+   --  Note: This project is a library, so no main is specified by default.
+   --  To compile a test program, use:
+   --    gnatmake -P exponential_backoff.gpr -o bin/tests tests.adb
+
+   --  List of source files to compile
+   for Source_Files use (
+      "exponential_backoff.ads",
+      "exponential_backoff.adb"
+   );
+
+   --  Compiler options
+   for Compiler_Options ("Ada") use (
+      "-g",       --  Include debug symbols
+      "-O2",      --  Optimization level 2
+      "-gnatN",   --  Disable assertions (enable with -gnata)
+      "-gnatwae"  --  Warnings as errors
+   );
+
+   --  Linker options
+   for Linker_Options ("Ada") use (
+      "-static"
+   );
+
+end Exponential_Backoff;

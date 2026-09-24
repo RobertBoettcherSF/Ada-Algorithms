@@ -1,0 +1,4 @@
+project Vector_2D_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("vector_2d_stub.ads", "vector_2d_stub.adb");
+end Vector_2D_Stub_Proof;

@@ -1,0 +1,4 @@
+project UndergroundSystemStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("underground_system_stub.ads", "underground_system_stub.adb");
+end UndergroundSystemStub_Proof;

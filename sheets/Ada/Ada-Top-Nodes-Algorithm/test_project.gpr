@@ -1,0 +1,16 @@
+project Test_Project is
+   
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Main use ("test_top_nodes.adb");
+   
+   package Compiler is
+      for Default_Switches ("Ada") use 
+        ("-g",          -- Generate debug information
+         "-O2",         -- Optimize for speed
+         "-gnata",      -- Assertions enabled
+         "-gnat2012",   -- Ada 2012 Language rules
+         "-gnatwa");    -- Turn on all optional warnings
+   end Compiler;
+   
+end Test_Project;

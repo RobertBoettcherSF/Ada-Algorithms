@@ -1,0 +1,4 @@
+project Subtract_Product_Sum_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("subtract_product_sum.ads", "subtract_product_sum.adb");
+end Subtract_Product_Sum_Proof;

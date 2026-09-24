@@ -1,0 +1,4 @@
+project Beautiful_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("beautiful_array.ads", "beautiful_array.adb");
+end Beautiful_Array_Proof;

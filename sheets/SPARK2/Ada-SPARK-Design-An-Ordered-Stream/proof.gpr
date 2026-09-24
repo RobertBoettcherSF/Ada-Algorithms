@@ -1,0 +1,4 @@
+project Design_An_Ordered_Stream_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_an_ordered_stream.ads", "design_an_ordered_stream.adb");
+end Design_An_Ordered_Stream_Proof;

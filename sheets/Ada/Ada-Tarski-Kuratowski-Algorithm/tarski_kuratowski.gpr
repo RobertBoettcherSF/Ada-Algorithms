@@ -1,0 +1,12 @@
+-- tarski_kuratowski.gpr
+project Tarski_Kuratowski is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+
+   package Compiler is
+      -- Enable assertions, debugging, and standard optimizations
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnata", "-gnatwa");
+   end Compiler;
+end Tarski_Kuratowski;

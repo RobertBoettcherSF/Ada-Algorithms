@@ -1,0 +1,8 @@
+project Matchsticks_To_Square_Lite_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("matchsticks_to_square_lite.ads", "matchsticks_to_square_lite.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Matchsticks_To_Square_Lite_Proof;

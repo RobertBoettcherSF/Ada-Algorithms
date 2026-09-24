@@ -1,0 +1,4 @@
+project BrowserHistoryStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("browser_history_stub.ads", "browser_history_stub.adb");
+end BrowserHistoryStub_Proof;

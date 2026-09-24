@@ -1,0 +1,4 @@
+project Surface_Area_Of_3D_Shapes_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("surface_area_of_3d_shapes.ads", "surface_area_of_3d_shapes.adb");
+end Surface_Area_Of_3D_Shapes_Proof;

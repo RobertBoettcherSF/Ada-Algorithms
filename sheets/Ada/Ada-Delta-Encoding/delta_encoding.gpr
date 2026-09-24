@@ -1,0 +1,10 @@
+project Delta_Encoding is
+   for Source_Dirs use (".");
+   for Object_Dir use ".";
+   for Exec_Dir use ".";
+   for Main use ("main.adb", "tests.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnatwa");
+   end Compiler;
+end Delta_Encoding;

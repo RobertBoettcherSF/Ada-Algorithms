@@ -1,0 +1,4 @@
+project Validate_BST_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("validate_bst_stub.ads", "validate_bst_stub.adb");
+end Validate_BST_Stub_Proof;

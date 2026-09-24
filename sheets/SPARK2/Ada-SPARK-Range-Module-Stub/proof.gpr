@@ -1,0 +1,4 @@
+project Range_Module_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("range_module_stub.ads", "range_module_stub.adb");
+end Range_Module_Stub_Proof;

@@ -1,0 +1,4 @@
+project Swapping_Nodes_In_A_Linked_List_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("swapping_nodes_in_a_linked_list.ads", "swapping_nodes_in_a_linked_list.adb");
+end Swapping_Nodes_In_A_Linked_List_Proof;

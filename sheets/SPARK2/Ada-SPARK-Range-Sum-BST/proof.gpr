@@ -1,0 +1,4 @@
+project Range_Sum_BST_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("range_sum_bst.ads", "range_sum_bst.adb");
+end Range_Sum_BST_Proof;

@@ -1,0 +1,4 @@
+project Three_Divisors_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("three_divisors.ads", "three_divisors.adb");
+end Three_Divisors_Proof;

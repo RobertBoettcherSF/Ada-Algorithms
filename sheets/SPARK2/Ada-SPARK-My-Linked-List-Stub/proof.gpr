@@ -1,0 +1,4 @@
+project My_Linked_List_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("my_linked_list_stub.ads", "my_linked_list_stub.adb");
+end My_Linked_List_Stub_Proof;

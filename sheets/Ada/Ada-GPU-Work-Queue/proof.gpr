@@ -1,0 +1,10 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Source_Files use ("gpu_work_queue.ads", "gpu_work_queue.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use
+        ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Proof;

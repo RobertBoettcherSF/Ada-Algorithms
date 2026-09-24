@@ -1,0 +1,4 @@
+project Design_A_Stack_With_Increment_Operation_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_a_stack_with_increment_operation.ads", "design_a_stack_with_increment_operation.adb");
+end Design_A_Stack_With_Increment_Operation_Proof;

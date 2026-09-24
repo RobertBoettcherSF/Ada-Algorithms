@@ -1,0 +1,4 @@
+project Successful_Pairs_Of_Spells_And_Potions_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("successful_pairs_of_spells_and_potions.ads", "successful_pairs_of_spells_and_potions.adb");
+end Successful_Pairs_Of_Spells_And_Potions_Proof;

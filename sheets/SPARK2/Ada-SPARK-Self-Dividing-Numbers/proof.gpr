@@ -1,0 +1,4 @@
+project Self_Dividing_Numbers_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("self_dividing_numbers.ads", "self_dividing_numbers.adb");
+end Self_Dividing_Numbers_Proof;

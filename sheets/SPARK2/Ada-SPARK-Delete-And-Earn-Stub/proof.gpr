@@ -1,0 +1,4 @@
+project Delete_And_Earn_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("delete_and_earn_stub.ads", "delete_and_earn_stub.adb");
+end Delete_And_Earn_Stub_Proof;

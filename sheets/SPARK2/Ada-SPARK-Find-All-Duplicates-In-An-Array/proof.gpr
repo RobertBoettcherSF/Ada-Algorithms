@@ -1,0 +1,4 @@
+project Find_All_Duplicates_In_An_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_all_duplicates_in_an_array.ads", "find_all_duplicates_in_an_array.adb");
+end Find_All_Duplicates_In_An_Array_Proof;

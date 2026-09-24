@@ -1,0 +1,4 @@
+project Nim_Game_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("nim_game.ads", "nim_game.adb");
+end Nim_Game_Proof;

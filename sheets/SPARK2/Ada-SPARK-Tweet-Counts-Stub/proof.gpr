@@ -1,0 +1,4 @@
+project Tweet_Counts_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("tweet_counts_stub.ads", "tweet_counts_stub.adb");
+end Tweet_Counts_Stub_Proof;

@@ -1,0 +1,4 @@
+project Write_String_Lines_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("write_string_lines.ads", "write_string_lines.adb");
+end Write_String_Lines_Proof;

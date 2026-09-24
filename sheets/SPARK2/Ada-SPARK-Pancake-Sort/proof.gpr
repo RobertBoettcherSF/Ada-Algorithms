@@ -1,0 +1,4 @@
+project Pancake_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("pancake_sort.ads", "pancake_sort.adb");
+end Pancake_Sort_Proof;

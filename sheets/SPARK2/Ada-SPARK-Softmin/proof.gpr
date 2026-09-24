@@ -1,0 +1,4 @@
+project Softmin_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("softmin.ads", "softmin.adb");
+end Softmin_Proof;

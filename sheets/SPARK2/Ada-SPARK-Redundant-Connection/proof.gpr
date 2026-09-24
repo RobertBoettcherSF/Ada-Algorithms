@@ -1,0 +1,4 @@
+project Redundant_Connection_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("redundant_connection.ads", "redundant_connection.adb");
+end Redundant_Connection_Proof;

@@ -1,0 +1,4 @@
+project Max_Consecutive_Ones_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("max_consecutive_ones.ads", "max_consecutive_ones.adb");
+end Max_Consecutive_Ones_Proof;

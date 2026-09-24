@@ -1,0 +1,11 @@
+project Bakery is
+   for Source_Dirs use (".");
+   for Main use ("bakery.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+
+   package Compiler is
+      -- Enable standard warnings, optimizations, and assertions
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnata", "-gnatwa");
+   end Compiler;
+end Bakery;

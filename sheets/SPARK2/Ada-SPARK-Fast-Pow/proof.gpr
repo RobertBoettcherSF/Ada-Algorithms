@@ -1,0 +1,4 @@
+project Fast_Pow_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("fast_pow.ads", "fast_pow.adb");
+end Fast_Pow_Proof;

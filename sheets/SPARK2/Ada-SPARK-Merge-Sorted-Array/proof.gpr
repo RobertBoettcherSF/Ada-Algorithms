@@ -1,0 +1,4 @@
+project Merge_Sorted_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("merge_sorted_array.ads", "merge_sorted_array.adb");
+end Merge_Sorted_Array_Proof;

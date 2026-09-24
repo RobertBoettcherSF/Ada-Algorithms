@@ -1,0 +1,4 @@
+project Flash_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("flash_sort.ads", "flash_sort.adb");
+end Flash_Sort_Proof;

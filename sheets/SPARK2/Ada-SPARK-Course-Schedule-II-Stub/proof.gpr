@@ -1,0 +1,4 @@
+project Course_Schedule_II_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("course_schedule_ii_stub.ads", "course_schedule_ii_stub.adb");
+end Course_Schedule_II_Stub_Proof;

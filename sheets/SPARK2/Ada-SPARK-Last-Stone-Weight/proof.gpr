@@ -1,0 +1,4 @@
+project Last_Stone_Weight_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("last_stone_weight.ads", "last_stone_weight.adb");
+end Last_Stone_Weight_Proof;

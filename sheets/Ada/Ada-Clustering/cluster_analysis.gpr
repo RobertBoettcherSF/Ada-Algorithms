@@ -1,0 +1,11 @@
+project Cluster_Analysis is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+
+   package Compiler is
+      -- Strict compiler warnings, Ada 2022 standards matching Ada 2023 specs, and active contract assertions.
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Cluster_Analysis;

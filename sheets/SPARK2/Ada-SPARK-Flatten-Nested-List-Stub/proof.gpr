@@ -1,0 +1,4 @@
+project Flatten_Nested_List_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("flatten_nested_list_stub.ads", "flatten_nested_list_stub.adb");
+end Flatten_Nested_List_Stub_Proof;

@@ -1,0 +1,4 @@
+project Baseball_Game_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("baseball_game.ads", "baseball_game.adb");
+end Baseball_Game_Proof;

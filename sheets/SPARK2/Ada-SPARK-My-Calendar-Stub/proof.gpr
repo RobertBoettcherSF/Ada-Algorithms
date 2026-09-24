@@ -1,0 +1,4 @@
+project MyCalendarStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("my_calendar_stub.ads", "my_calendar_stub.adb");
+end MyCalendarStub_Proof;

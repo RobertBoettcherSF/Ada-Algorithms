@@ -1,0 +1,8 @@
+-- ks.gpr
+project Ks is
+   -- Since the requirement forces all files to be in root (no src directory), we use "."
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+end Ks;

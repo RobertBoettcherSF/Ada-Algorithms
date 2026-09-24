@@ -1,0 +1,4 @@
+project Authentication_Manager_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("authentication_manager_stub.ads", "authentication_manager_stub.adb");
+end Authentication_Manager_Stub_Proof;

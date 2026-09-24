@@ -1,0 +1,4 @@
+project Number_Of_Substrings_Containing_All_Three_Characters_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("number_of_substrings_containing_all_three_characters.ads", "number_of_substrings_containing_all_three_characters.adb");
+end Number_Of_Substrings_Containing_All_Three_Characters_Proof;

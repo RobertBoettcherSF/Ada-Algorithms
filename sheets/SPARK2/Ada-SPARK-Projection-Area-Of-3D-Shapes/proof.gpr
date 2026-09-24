@@ -1,0 +1,4 @@
+project Projection_Area_Of_3D_Shapes_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("projection_area_of_3d_shapes.ads", "projection_area_of_3d_shapes.adb");
+end Projection_Area_Of_3D_Shapes_Proof;

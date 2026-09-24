@@ -1,0 +1,21 @@
+# Object files
+*.o
+
+# Ada Library Information
+*.ali
+
+# Executable files (but not in bin/ directory)
+bakery
+bakery_tests
+
+# Backup files
+*.bak
+*.swp
+
+# IDE specific
+.idea/
+.vscode/
+*.iml
+
+# Note: obj/ and bin/ directories are tracked with .gitkeep files
+# to ensure they exist when users clone the repository

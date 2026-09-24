@@ -1,0 +1,4 @@
+project Min_Cost_To_Connect_All_Points_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("min_cost_to_connect_all_points.ads", "min_cost_to_connect_all_points.adb");
+end Min_Cost_To_Connect_All_Points_Proof;

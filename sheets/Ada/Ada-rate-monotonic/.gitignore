@@ -1,0 +1,16 @@
+# Object file
+*.o
+
+# Ada Library Information
+*.ali
+
+# Build directories
+obj/
+bin/
+
+# Test build directories
+tests/obj/
+tests/bin/
+
+# GPR build artifacts
+*.bexch

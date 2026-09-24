@@ -1,0 +1,6 @@
+obj/
+bin/
+gnatprove/
+*.ali
+*.o
+*.bexch

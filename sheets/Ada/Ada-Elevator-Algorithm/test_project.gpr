@@ -1,0 +1,29 @@
+-- Version: 0.02
+-- Test Project File for Disk Scheduling Algorithms
+-- 
+-- To build and run tests:
+--   gprbuild -P test_project.gpr
+--   ./obj/run_tests
+
+project Test_Project is
+   
+   -- Source directories
+   for Source_Dirs use (".", "tests");
+   
+   -- Object directory
+   for Object_Dir use "obj";
+   for Create_Missing_Dirs use "True";
+   
+   -- Main executable
+   for Main use ("tests/run_tests.adb");
+   
+   -- Compiler options
+   package Compiler is
+      for Default_Switches ("Ada") use 
+        ("-g",          -- Generate debug info
+         "-O2",         -- Optimization
+         "-gnata",      -- Enable assertions
+         "-gnatwa");    -- Enable all warnings
+   end Compiler;
+   
+end Test_Project;

@@ -1,0 +1,4 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("binary_tree_level_order.ads", "binary_tree_level_order.adb");
+end Proof;

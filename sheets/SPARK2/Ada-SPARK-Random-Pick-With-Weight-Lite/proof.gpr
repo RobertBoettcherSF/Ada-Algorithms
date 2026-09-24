@@ -1,0 +1,4 @@
+project Random_Pick_With_Weight_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("random_pick_with_weight_lite.ads", "random_pick_with_weight_lite.adb");
+end Random_Pick_With_Weight_Lite_Proof;

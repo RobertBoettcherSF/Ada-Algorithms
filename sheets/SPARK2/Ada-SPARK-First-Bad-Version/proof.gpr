@@ -1,0 +1,4 @@
+project First_Bad_Version_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("first_bad_version.ads", "first_bad_version.adb");
+end First_Bad_Version_Proof;

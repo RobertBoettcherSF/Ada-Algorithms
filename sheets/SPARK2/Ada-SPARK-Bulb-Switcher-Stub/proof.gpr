@@ -1,0 +1,4 @@
+project Bulb_Switcher_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("bulb_switcher_stub.ads", "bulb_switcher_stub.adb");
+end Bulb_Switcher_Stub_Proof;

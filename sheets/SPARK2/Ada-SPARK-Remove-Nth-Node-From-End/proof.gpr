@@ -1,0 +1,4 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("remove_nth_node_from_end.ads", "remove_nth_node_from_end.adb");
+end Proof;

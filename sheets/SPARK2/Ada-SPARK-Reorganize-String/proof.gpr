@@ -1,0 +1,4 @@
+project Reorganize_String_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reorganize_string.ads", "reorganize_string.adb");
+end Reorganize_String_Proof;

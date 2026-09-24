@@ -1,0 +1,4 @@
+project Round_Robin_Scheduling_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("round_robin_scheduling.ads", "round_robin_scheduling.adb");
+end Round_Robin_Scheduling_Proof;

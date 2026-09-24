@@ -1,0 +1,4 @@
+project Design_Twitter_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_twitter_lite.ads", "design_twitter_lite.adb");
+end Design_Twitter_Lite_Proof;

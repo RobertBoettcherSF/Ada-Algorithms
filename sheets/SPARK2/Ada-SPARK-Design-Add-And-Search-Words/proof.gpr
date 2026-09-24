@@ -1,0 +1,7 @@
+project DesignAddAndSearchWords_Build_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_add_and_search_words.ads", "design_add_and_search_words.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end DesignAddAndSearchWords_Build_Proof;

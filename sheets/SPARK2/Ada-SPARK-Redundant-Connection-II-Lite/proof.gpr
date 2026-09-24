@@ -1,0 +1,4 @@
+project Redundant_Connection_II_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("redundant_connection_ii_lite.ads", "redundant_connection_ii_lite.adb");
+end Redundant_Connection_II_Lite_Proof;

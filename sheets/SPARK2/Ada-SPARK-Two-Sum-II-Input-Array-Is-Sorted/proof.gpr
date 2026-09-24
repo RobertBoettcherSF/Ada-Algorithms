@@ -1,0 +1,4 @@
+project Two_Sum_II_Input_Array_Is_Sorted_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("two_sum_ii_input_array_is_sorted.ads", "two_sum_ii_input_array_is_sorted.adb");
+end Two_Sum_II_Input_Array_Is_Sorted_Proof;

@@ -1,0 +1,4 @@
+project Three_Sum_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("three_sum.ads", "three_sum.adb");
+end Three_Sum_Proof;

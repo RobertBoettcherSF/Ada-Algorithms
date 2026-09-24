@@ -1,0 +1,4 @@
+project Sum_Root_To_Leaf_Numbers_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sum_root_to_leaf_numbers.ads", "sum_root_to_leaf_numbers.adb");
+end Sum_Root_To_Leaf_Numbers_Proof;

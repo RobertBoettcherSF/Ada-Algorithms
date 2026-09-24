@@ -1,0 +1,4 @@
+project Nested_Iterator_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("nested_iterator_stub.ads", "nested_iterator_stub.adb");
+end Nested_Iterator_Stub_Proof;

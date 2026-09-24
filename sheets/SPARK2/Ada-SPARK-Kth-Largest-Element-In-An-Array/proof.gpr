@@ -1,0 +1,4 @@
+project Kth_Largest_Element_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("kth_largest_element.ads", "kth_largest_element.adb");
+end Kth_Largest_Element_Proof;

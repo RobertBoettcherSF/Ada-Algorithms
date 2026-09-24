@@ -1,0 +1,4 @@
+project Number_Of_Steps_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("number_of_steps.ads", "number_of_steps.adb");
+end Number_Of_Steps_Proof;

@@ -1,0 +1,4 @@
+project Combination_Iterator_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("combination_iterator_stub.ads", "combination_iterator_stub.adb");
+end Combination_Iterator_Stub_Proof;

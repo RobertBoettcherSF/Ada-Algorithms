@@ -1,0 +1,4 @@
+project Word_Ladder_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("word_ladder_stub.ads", "word_ladder_stub.adb");
+end Word_Ladder_Stub_Proof;

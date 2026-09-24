@@ -1,0 +1,9 @@
+project Construct_Inorder_Postorder_Lite is
+   for Source_Dirs use (".");
+   for Main use ("tests.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022");
+   end Compiler;
+end Construct_Inorder_Postorder_Lite;

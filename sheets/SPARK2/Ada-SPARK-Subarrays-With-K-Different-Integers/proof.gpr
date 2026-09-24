@@ -1,0 +1,4 @@
+project Subarrays_With_K_Different_Integers_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("subarrays_with_k_different_integers.ads", "subarrays_with_k_different_integers.adb");
+end Subarrays_With_K_Different_Integers_Proof;

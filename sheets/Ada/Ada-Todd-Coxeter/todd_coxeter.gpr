@@ -1,0 +1,12 @@
+project Todd_Coxeter is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+   package Builder is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022");
+   end Builder;
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnato", "-fstack-check");
+   end Compiler;
+end Todd_Coxeter;

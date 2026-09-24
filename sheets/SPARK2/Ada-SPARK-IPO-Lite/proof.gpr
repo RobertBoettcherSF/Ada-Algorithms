@@ -1,0 +1,4 @@
+project Ipo_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("ipo_lite.ads", "ipo_lite.adb");
+end Ipo_Lite_Proof;

@@ -1,0 +1,4 @@
+project Sliding_Window_Median_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sliding_window_median.ads", "sliding_window_median.adb");
+end Sliding_Window_Median_Proof;

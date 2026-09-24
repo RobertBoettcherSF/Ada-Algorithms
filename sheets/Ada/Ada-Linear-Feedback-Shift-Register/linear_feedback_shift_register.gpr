@@ -1,0 +1,6 @@
+project Linear_Feedback_Shift_Register is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+end Linear_Feedback_Shift_Register;

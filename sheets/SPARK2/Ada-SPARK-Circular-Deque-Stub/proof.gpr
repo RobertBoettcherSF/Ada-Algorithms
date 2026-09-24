@@ -1,0 +1,4 @@
+project Circular_Deque_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("circular_deque_stub.ads", "circular_deque_stub.adb");
+end Circular_Deque_Stub_Proof;

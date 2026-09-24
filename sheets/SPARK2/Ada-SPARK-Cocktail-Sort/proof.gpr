@@ -1,0 +1,4 @@
+project Cocktail_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("cocktail_sort.ads", "cocktail_sort.adb");
+end Cocktail_Sort_Proof;

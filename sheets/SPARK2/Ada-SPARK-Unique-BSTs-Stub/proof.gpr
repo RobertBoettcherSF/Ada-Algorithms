@@ -1,0 +1,4 @@
+project Unique_BSTs_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("unique_bsts_stub.ads", "unique_bsts_stub.adb");
+end Unique_BSTs_Stub_Proof;

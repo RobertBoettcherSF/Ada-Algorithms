@@ -1,0 +1,8 @@
+project N_Queens_Lite_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("n_queens_lite.ads", "n_queens_lite.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end N_Queens_Lite_Proof;

@@ -1,0 +1,4 @@
+project Tournament_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("tournament_sort.ads", "tournament_sort.adb");
+end Tournament_Sort_Proof;

@@ -1,0 +1,6 @@
+project Hyperlink_Induced_Topic_Search is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+end Hyperlink_Induced_Topic_Search;

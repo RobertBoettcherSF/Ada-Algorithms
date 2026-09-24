@@ -1,0 +1,4 @@
+project Reverse_Words_In_A_String_III_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reverse_words_in_a_string_iii.ads", "reverse_words_in_a_string_iii.adb");
+end Reverse_Words_In_A_String_III_Proof;

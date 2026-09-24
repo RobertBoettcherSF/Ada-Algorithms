@@ -1,0 +1,4 @@
+project Flatten_Binary_Tree_To_Linked_List_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("flatten_binary_tree_to_linked_list_lite.ads", "flatten_binary_tree_to_linked_list_lite.adb");
+end Flatten_Binary_Tree_To_Linked_List_Lite_Proof;

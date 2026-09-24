@@ -1,0 +1,4 @@
+project Reverse_Bits_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reversed_bits.ads", "reversed_bits.adb");
+end Reverse_Bits_Proof;

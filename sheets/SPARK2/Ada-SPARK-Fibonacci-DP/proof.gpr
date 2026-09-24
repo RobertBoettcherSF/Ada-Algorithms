@@ -1,0 +1,4 @@
+project Fibonacci_DP_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("fibonacci_dp.ads", "fibonacci_dp.adb");
+end Fibonacci_DP_Proof;

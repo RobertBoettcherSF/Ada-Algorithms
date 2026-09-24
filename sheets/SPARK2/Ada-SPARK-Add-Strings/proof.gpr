@@ -1,0 +1,4 @@
+project Add_Strings_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("add_strings.ads", "add_strings.adb");
+end Add_Strings_Proof;

@@ -1,0 +1,7 @@
+project ReplaceWords_Build_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("replace_words.ads", "replace_words.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end ReplaceWords_Build_Proof;

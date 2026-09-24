@@ -1,0 +1,6 @@
+project Insert_Interval_Project is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+end Insert_Interval_Project;

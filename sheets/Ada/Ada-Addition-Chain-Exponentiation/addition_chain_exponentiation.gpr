@@ -1,0 +1,6 @@
+project Addition_Chain_Exponentiation is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+end Addition_Chain_Exponentiation;

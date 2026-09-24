@@ -1,0 +1,4 @@
+project Copy_List_With_Random_Pointer_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("copy_list_with_random_pointer_lite.ads", "copy_list_with_random_pointer_lite.adb");
+end Copy_List_With_Random_Pointer_Lite_Proof;

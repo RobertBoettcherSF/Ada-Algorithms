@@ -1,0 +1,4 @@
+project Swim_In_Rising_Water_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("swim_in_rising_water_stub.ads", "swim_in_rising_water_stub.adb");
+end Swim_In_Rising_Water_Stub_Proof;

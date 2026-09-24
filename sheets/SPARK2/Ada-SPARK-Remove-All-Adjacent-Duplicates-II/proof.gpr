@@ -1,0 +1,4 @@
+project Remove_Adjacent_Duplicates_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("remove_adjacent_duplicates_ii.ads", "remove_adjacent_duplicates_ii.adb");
+end Remove_Adjacent_Duplicates_II_Proof;

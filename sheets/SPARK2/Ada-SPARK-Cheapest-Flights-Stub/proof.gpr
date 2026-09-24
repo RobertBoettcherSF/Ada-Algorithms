@@ -1,0 +1,4 @@
+project Cheapest_Flights_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("cheapest_flights_stub.ads", "cheapest_flights_stub.adb");
+end Cheapest_Flights_Stub_Proof;

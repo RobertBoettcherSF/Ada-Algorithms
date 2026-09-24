@@ -1,0 +1,4 @@
+project Super_Ugly_Number_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("super_ugly_number_stub.ads", "super_ugly_number_stub.adb");
+end Super_Ugly_Number_Stub_Proof;

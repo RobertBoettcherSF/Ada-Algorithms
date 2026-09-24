@@ -1,0 +1,11 @@
+-- risch.gpr
+project Risch is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+
+   package Compiler is
+      for Switches ("Ada") use ("-g", "-O2", "-gnata"); -- -gnata enables Assertions
+   end Compiler;
+end Risch;

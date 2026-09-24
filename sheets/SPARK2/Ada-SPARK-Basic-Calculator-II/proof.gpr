@@ -1,0 +1,4 @@
+project Basic_Calculator_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("basic_calculator_ii.ads", "basic_calculator_ii.adb");
+end Basic_Calculator_II_Proof;

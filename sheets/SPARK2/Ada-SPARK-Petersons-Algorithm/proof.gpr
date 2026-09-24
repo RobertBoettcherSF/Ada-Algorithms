@@ -1,0 +1,4 @@
+project Peterson_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("peterson.ads", "peterson.adb");
+end Peterson_Proof;

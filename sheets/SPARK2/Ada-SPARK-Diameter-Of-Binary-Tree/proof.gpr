@@ -1,0 +1,4 @@
+project Diameter_Of_Binary_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("diameter_of_binary_tree.ads", "diameter_of_binary_tree.adb");
+end Diameter_Of_Binary_Tree_Proof;

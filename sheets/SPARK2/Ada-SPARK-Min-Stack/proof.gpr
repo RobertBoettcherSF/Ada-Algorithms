@@ -1,0 +1,4 @@
+project Min_Stack_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("min_stack.ads", "min_stack.adb");
+end Min_Stack_Proof;

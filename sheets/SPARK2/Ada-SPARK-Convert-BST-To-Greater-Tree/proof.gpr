@@ -1,0 +1,4 @@
+project Convert_BST_To_Greater_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("convert_bst_to_greater_tree.ads", "convert_bst_to_greater_tree.adb");
+end Convert_BST_To_Greater_Tree_Proof;

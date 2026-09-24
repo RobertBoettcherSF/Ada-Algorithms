@@ -1,0 +1,4 @@
+project Fibonacci_Number_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("fibonacci_number.ads", "fibonacci_number.adb");
+end Fibonacci_Number_Proof;

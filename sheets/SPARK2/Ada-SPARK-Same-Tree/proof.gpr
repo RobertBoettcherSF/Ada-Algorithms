@@ -1,0 +1,4 @@
+project Same_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("same_tree.ads", "same_tree.adb");
+end Same_Tree_Proof;

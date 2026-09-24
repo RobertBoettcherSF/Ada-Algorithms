@@ -1,0 +1,4 @@
+project Find_The_Smallest_Divisor_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_the_smallest_divisor.ads", "find_the_smallest_divisor.adb");
+end Find_The_Smallest_Divisor_Proof;

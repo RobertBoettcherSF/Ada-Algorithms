@@ -1,0 +1,4 @@
+project Smallest_Integer_Divisible_By_K_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("smallest_integer_divisible_by_k.ads", "smallest_integer_divisible_by_k.adb");
+end Smallest_Integer_Divisible_By_K_Proof;

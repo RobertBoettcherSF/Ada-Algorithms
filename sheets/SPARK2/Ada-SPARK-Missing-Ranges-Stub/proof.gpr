@@ -1,0 +1,4 @@
+project Missing_Ranges_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("missing_ranges_stub.ads", "missing_ranges_stub.adb");
+end Missing_Ranges_Stub_Proof;

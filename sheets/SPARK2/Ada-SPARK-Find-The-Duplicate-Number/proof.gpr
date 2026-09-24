@@ -1,0 +1,4 @@
+project Find_The_Duplicate_Number_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_the_duplicate_number.ads", "find_the_duplicate_number.adb");
+end Find_The_Duplicate_Number_Proof;

@@ -1,0 +1,4 @@
+project Remove_Linked_List_Elements_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("remove_linked_list_elements.ads", "remove_linked_list_elements.adb");
+end Remove_Linked_List_Elements_Proof;

@@ -1,0 +1,8 @@
+project Bounded_String_Builder_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use
+     ("bounded_string_builder.ads",
+      "bounded_string_builder.adb",
+      "spark_instances.ads");
+end Bounded_String_Builder_Proof;

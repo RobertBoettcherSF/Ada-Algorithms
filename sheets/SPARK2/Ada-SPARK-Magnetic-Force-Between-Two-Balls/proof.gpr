@@ -1,0 +1,4 @@
+project Magnetic_Force_Between_Two_Balls_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("magnetic_force_between_two_balls.ads", "magnetic_force_between_two_balls.adb");
+end Magnetic_Force_Between_Two_Balls_Proof;

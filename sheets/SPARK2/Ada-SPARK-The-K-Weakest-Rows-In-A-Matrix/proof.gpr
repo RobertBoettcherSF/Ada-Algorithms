@@ -1,0 +1,4 @@
+project The_K_Weakest_Rows_In_A_Matrix_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("the_k_weakest_rows_in_a_matrix.ads", "the_k_weakest_rows_in_a_matrix.adb");
+end The_K_Weakest_Rows_In_A_Matrix_Proof;

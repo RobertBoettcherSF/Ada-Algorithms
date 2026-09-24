@@ -1,0 +1,4 @@
+project StockSpannerStubProof is
+   for Source_Dirs use (".");
+   for Source_Files use ("stock_spanner_stub.ads", "stock_spanner_stub.adb");
+end StockSpannerStubProof;

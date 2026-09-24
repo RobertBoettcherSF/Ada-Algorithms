@@ -1,0 +1,4 @@
+project Trim_BST_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("trim_bst_stub.ads", "trim_bst_stub.adb");
+end Trim_BST_Stub_Proof;

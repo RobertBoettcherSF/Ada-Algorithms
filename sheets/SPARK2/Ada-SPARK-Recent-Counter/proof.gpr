@@ -1,0 +1,4 @@
+project Recent_Counter_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("recent_counter.ads", "recent_counter.adb");
+end Recent_Counter_Proof;

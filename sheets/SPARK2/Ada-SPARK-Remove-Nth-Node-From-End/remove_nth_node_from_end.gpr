@@ -1,0 +1,9 @@
+project Remove_Nth_Node_From_End is
+   for Source_Dirs use (".");
+   for Main use ("tests.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022");
+   end Compiler;
+end Remove_Nth_Node_From_End;

@@ -1,0 +1,4 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("search_in_a_binary_search_tree.ads", "search_in_a_binary_search_tree.adb");
+end Proof;

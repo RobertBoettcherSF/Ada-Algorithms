@@ -1,0 +1,4 @@
+project Most_Common_Word_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("most_common_word.ads", "most_common_word.adb");
+end Most_Common_Word_Proof;

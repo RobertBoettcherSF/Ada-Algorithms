@@ -1,0 +1,4 @@
+project Reorder_List_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reorder_list.ads", "reorder_list.adb");
+end Reorder_List_Proof;

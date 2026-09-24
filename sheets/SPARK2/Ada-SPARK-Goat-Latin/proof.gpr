@@ -1,0 +1,4 @@
+project Goat_Latin_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("goat_latin.ads", "goat_latin.adb");
+end Goat_Latin_Proof;

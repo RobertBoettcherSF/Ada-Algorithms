@@ -1,0 +1,4 @@
+project Reverse_Integer_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reverse_integer.ads", "reverse_integer.adb");
+end Reverse_Integer_Proof;

@@ -1,0 +1,4 @@
+project Kth_Largest_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("kth_largest_array.ads", "kth_largest_array.adb");
+end Kth_Largest_Array_Proof;

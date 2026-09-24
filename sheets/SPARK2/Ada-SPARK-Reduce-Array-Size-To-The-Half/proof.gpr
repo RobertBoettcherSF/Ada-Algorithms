@@ -1,0 +1,4 @@
+project Reduce_Array_Size_To_The_Half_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reduce_array_size_to_the_half.ads", "reduce_array_size_to_the_half.adb");
+end Reduce_Array_Size_To_The_Half_Proof;

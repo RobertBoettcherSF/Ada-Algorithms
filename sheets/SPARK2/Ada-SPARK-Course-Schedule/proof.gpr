@@ -1,0 +1,4 @@
+project Course_Schedule_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("course_schedule.ads", "course_schedule.adb");
+end Course_Schedule_Proof;

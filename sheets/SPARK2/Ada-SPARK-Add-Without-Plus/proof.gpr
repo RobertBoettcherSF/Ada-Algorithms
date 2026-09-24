@@ -1,0 +1,4 @@
+project Add_Without_Plus_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("add_without_plus.ads", "add_without_plus.adb");
+end Add_Without_Plus_Proof;

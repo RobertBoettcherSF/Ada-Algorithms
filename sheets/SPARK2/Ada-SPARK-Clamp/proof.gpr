@@ -1,0 +1,4 @@
+project Clamp_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("clamp.ads", "clamp.adb");
+end Clamp_Proof;

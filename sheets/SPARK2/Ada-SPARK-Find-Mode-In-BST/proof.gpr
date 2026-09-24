@@ -1,0 +1,4 @@
+project Find_Mode_In_BST_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_mode_in_bst.ads", "find_mode_in_bst.adb");
+end Find_Mode_In_BST_Proof;

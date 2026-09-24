@@ -1,0 +1,4 @@
+project Heap_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("heap_sort.ads", "heap_sort.adb");
+end Heap_Sort_Proof;

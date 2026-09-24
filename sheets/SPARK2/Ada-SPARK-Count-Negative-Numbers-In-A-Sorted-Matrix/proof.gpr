@@ -1,0 +1,4 @@
+project Count_Negative_Numbers_In_A_Sorted_Matrix_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("count_negative_numbers_in_a_sorted_matrix.ads", "count_negative_numbers_in_a_sorted_matrix.adb");
+end Count_Negative_Numbers_In_A_Sorted_Matrix_Proof;

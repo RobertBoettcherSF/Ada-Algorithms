@@ -1,0 +1,4 @@
+project Level_Order_Traversal_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("level_order_traversal_stub.ads", "level_order_traversal_stub.adb");
+end Level_Order_Traversal_Stub_Proof;

@@ -1,0 +1,4 @@
+project Exchange_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("exchange_sort.ads", "exchange_sort.adb");
+end Exchange_Sort_Proof;

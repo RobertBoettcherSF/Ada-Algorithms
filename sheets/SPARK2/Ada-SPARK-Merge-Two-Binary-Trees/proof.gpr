@@ -1,0 +1,4 @@
+project Merge_Two_Binary_Trees_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("merge_two_binary_trees.ads", "merge_two_binary_trees.adb");
+end Merge_Two_Binary_Trees_Proof;

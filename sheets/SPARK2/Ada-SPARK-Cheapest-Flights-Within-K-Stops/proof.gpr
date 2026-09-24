@@ -1,0 +1,4 @@
+project Cheapest_Flights_Within_K_Stops_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("cheapest_flights_within_k_stops.ads", "cheapest_flights_within_k_stops.adb");
+end Cheapest_Flights_Within_K_Stops_Proof;

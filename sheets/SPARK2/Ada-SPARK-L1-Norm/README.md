@@ -1,0 +1,6 @@
+# Ada-SPARK-L1-Norm
+
+L1 (Manhattan) norm for bounded signed three-dimensional vectors.
+
+- `make test` builds and runs the executable assertions.
+- `make prove` runs bounded SPARK level-2 CVC5 proofs with warnings and checks treated as errors.

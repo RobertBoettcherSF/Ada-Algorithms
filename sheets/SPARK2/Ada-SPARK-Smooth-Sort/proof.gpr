@@ -1,0 +1,4 @@
+project Smooth_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("smooth_sort.ads", "smooth_sort.adb");
+end Smooth_Sort_Proof;

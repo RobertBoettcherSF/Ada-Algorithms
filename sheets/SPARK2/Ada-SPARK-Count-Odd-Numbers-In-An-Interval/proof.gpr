@@ -1,0 +1,4 @@
+project Count_Odd_Numbers_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("count_odd_numbers.ads", "count_odd_numbers.adb");
+end Count_Odd_Numbers_Proof;

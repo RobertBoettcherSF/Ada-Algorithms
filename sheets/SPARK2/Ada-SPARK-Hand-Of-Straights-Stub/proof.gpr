@@ -1,0 +1,4 @@
+project Hand_Of_Straights_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("hand_of_straights_stub.ads", "hand_of_straights_stub.adb");
+end Hand_Of_Straights_Stub_Proof;

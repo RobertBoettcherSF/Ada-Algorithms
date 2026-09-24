@@ -1,0 +1,4 @@
+project Get_Equal_Substrings_Within_Budget_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("get_equal_substrings_within_budget.ads", "get_equal_substrings_within_budget.adb");
+end Get_Equal_Substrings_Within_Budget_Proof;

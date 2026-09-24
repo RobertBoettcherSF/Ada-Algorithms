@@ -1,0 +1,4 @@
+project Binomial_Coefficient_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("binomial_coefficient.ads", "binomial_coefficient.adb");
+end Binomial_Coefficient_Proof;

@@ -1,0 +1,4 @@
+project Shortest_Job_Next_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("shortest_job_next.ads", "shortest_job_next.adb");
+end Shortest_Job_Next_Proof;

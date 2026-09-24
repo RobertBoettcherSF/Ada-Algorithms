@@ -1,0 +1,4 @@
+project Number_Of_Recent_Calls_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("number_of_recent_calls.ads", "number_of_recent_calls.adb");
+end Number_Of_Recent_Calls_Proof;

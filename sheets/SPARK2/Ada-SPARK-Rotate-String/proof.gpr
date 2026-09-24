@@ -1,0 +1,4 @@
+project Rotate_String_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("rotate_string.ads", "rotate_string.adb");
+end Rotate_String_Proof;

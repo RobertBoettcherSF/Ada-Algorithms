@@ -1,0 +1,4 @@
+project Find_Peak_Element_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_peak_element.ads", "find_peak_element.adb");
+end Find_Peak_Element_Proof;

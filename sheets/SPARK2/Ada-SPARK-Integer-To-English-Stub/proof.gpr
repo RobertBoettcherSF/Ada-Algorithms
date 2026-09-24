@@ -1,0 +1,4 @@
+project Integer_To_English_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("integer_to_english.ads", "integer_to_english.adb");
+end Integer_To_English_Proof;

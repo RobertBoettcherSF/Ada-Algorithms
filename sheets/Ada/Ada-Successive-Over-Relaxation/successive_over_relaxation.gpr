@@ -1,0 +1,6 @@
+project Successive_Over_Relaxation is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+end Successive_Over_Relaxation;

@@ -1,0 +1,4 @@
+project Modular_Exponentiation_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("modular_exponentiation.ads", "modular_exponentiation.adb");
+end Modular_Exponentiation_Proof;

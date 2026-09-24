@@ -1,0 +1,4 @@
+project Product_Of_Array_Except_Self_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("product_of_array_except_self.ads", "product_of_array_except_self.adb");
+end Product_Of_Array_Except_Self_Proof;

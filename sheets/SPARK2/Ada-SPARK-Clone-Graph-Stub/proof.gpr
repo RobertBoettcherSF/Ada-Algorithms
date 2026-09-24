@@ -1,0 +1,4 @@
+project Clone_Graph_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("clone_graph_stub.ads", "clone_graph_stub.adb");
+end Clone_Graph_Stub_Proof;

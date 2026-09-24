@@ -1,0 +1,41 @@
+pragma Ada_2022;
+with Interfaces;
+package body Complement_Of_Base_10_Integer with SPARK_Mode => On is
+   use type Word;
+   function Complement (Value : Word) return Word is
+      Mask : Word := 1;
+   begin
+      if Value >= 2 then Mask := 3; end if;
+      if Value >= 4 then Mask := 7; end if;
+      if Value >= 8 then Mask := 15; end if;
+      if Value >= 16 then Mask := 31; end if;
+      if Value >= 32 then Mask := 63; end if;
+      if Value >= 64 then Mask := 127; end if;
+      if Value >= 128 then Mask := 255; end if;
+      if Value >= 256 then Mask := 511; end if;
+      if Value >= 512 then Mask := 1023; end if;
+      if Value >= 1024 then Mask := 2047; end if;
+      if Value >= 2048 then Mask := 4095; end if;
+      if Value >= 4096 then Mask := 8191; end if;
+      if Value >= 8192 then Mask := 16383; end if;
+      if Value >= 16384 then Mask := 32767; end if;
+      if Value >= 32768 then Mask := 65535; end if;
+      if Value >= 65536 then Mask := 131071; end if;
+      if Value >= 131072 then Mask := 262143; end if;
+      if Value >= 262144 then Mask := 524287; end if;
+      if Value >= 524288 then Mask := 1048575; end if;
+      if Value >= 1048576 then Mask := 2097151; end if;
+      if Value >= 2097152 then Mask := 4194303; end if;
+      if Value >= 4194304 then Mask := 8388607; end if;
+      if Value >= 8388608 then Mask := 16777215; end if;
+      if Value >= 16777216 then Mask := 33554431; end if;
+      if Value >= 33554432 then Mask := 67108863; end if;
+      if Value >= 67108864 then Mask := 134217727; end if;
+      if Value >= 134217728 then Mask := 268435455; end if;
+      if Value >= 268435456 then Mask := 536870911; end if;
+      if Value >= 536870912 then Mask := 1073741823; end if;
+      if Value >= 1073741824 then Mask := 2147483647; end if;
+      if Value >= 2147483648 then Mask := 4294967295; end if;
+      return Value xor Mask;
+   end Complement;
+end Complement_Of_Base_10_Integer;

@@ -1,0 +1,4 @@
+project Top_K_Frequent_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("top_k_frequent_stub.ads", "top_k_frequent_stub.adb");
+end Top_K_Frequent_Stub_Proof;

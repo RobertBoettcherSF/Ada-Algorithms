@@ -1,0 +1,4 @@
+project Leaf_Similar_Trees_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("leaf_similar_trees.ads", "leaf_similar_trees.adb");
+end Leaf_Similar_Trees_Proof;

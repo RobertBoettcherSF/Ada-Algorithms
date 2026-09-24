@@ -1,0 +1,4 @@
+project Prime_Check_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("prime_check.ads", "prime_check.adb");
+end Prime_Check_Proof;

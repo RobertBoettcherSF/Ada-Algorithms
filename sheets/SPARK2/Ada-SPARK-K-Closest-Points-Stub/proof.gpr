@@ -1,0 +1,4 @@
+project K_Closest_Points_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("k_closest_points_stub.ads", "k_closest_points_stub.adb");
+end K_Closest_Points_Stub_Proof;

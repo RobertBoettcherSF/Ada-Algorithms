@@ -1,0 +1,14 @@
+project SSTF is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+
+   package Compiler is
+      -- Enable Ada 2012 features, assertions, overflow checks, and all warnings
+      for Default_Switches ("Ada") use ("-gnat2012", "-gnata", "-gnato", "-gnatwa");
+   end Compiler;
+
+   package Prove is
+      -- Standard SPARK proof level
+      for Proof_Switches ("Ada") use ("--level=1", "--mode=prove", "--report=all");
+   end Prove;
+end SSTF;

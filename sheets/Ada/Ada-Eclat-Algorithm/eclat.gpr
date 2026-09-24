@@ -1,0 +1,11 @@
+project Eclat is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+
+   package Compiler is
+      -- Enable all warnings, Ada 2022 features, and assertions (contracts)
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Eclat;

@@ -1,0 +1,4 @@
+project Power_Of_Two_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("power_of_two.ads", "power_of_two.adb");
+end Power_Of_Two_Proof;

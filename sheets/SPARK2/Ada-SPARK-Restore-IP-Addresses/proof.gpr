@@ -1,0 +1,8 @@
+project Restore_Ip_Addresses_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("restore_ip_addresses.ads", "restore_ip_addresses.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Restore_Ip_Addresses_Proof;

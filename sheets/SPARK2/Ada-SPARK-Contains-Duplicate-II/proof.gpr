@@ -1,0 +1,4 @@
+project Contains_Duplicate_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("contains_duplicate_ii.ads", "contains_duplicate_ii.adb");
+end Contains_Duplicate_II_Proof;

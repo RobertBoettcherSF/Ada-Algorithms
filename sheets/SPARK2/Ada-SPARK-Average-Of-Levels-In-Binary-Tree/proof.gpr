@@ -1,0 +1,4 @@
+project Average_Of_Levels_In_Binary_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("average_of_levels_in_binary_tree.ads", "average_of_levels_in_binary_tree.adb");
+end Average_Of_Levels_In_Binary_Tree_Proof;

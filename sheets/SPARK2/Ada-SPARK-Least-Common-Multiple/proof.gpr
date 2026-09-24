@@ -1,0 +1,4 @@
+project Least_Common_Multiple_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("least_common_multiple.ads", "least_common_multiple.adb");
+end Least_Common_Multiple_Proof;

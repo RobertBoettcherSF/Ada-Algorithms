@@ -1,0 +1,8 @@
+project Combination_Sum_Iv_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("combination_sum_iv.ads", "combination_sum_iv.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Combination_Sum_Iv_Proof;

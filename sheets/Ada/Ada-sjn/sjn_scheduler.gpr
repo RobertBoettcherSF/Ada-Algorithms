@@ -1,0 +1,13 @@
+project SJN_Scheduler is
+   
+   for Source_Dirs use (".");
+   for Main use ("sjn_main.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use ".";
+
+   package Compiler is
+      -- Enable standard warnings, debugging, and general optimization
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnatwa");
+   end Compiler;
+
+end SJN_Scheduler;

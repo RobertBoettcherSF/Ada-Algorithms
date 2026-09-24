@@ -1,0 +1,7 @@
+project MapSumPairs_Build_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("map_sum_pairs.ads", "map_sum_pairs.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end MapSumPairs_Build_Proof;

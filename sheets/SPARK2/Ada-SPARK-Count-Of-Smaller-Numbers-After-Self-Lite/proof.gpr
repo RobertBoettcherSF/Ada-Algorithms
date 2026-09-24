@@ -1,0 +1,4 @@
+project Count_Smaller_After_Self_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("count_smaller_after_self.ads", "count_smaller_after_self.adb");
+end Count_Smaller_After_Self_Proof;

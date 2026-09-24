@@ -1,0 +1,47 @@
+--  bankers_algorithm.gpr
+--  
+--  GNAT Project File for the Banker's Algorithm implementation
+--  
+--  This project file defines the compilation and linking settings for the
+--  Banker's Algorithm Ada package and its test suite.
+--  
+--  Author: Vibe Code (Mistral AI)
+--  Date: 2024
+
+project Bankers_Algorithm is
+
+   --  Source directories
+   for Source_Dirs use ("");
+   
+   --  Object directory for compiled files
+   for Object_Dir use "obj";
+   
+   --  Executable directory for binaries
+   for Exec_Dir use "bin";
+   
+   --  Main program (if any)
+   --  for Main use ("main.adb");
+   
+   --  Package specification and body
+   for Source_Files use ("bankers_algorithm.ads", "bankers_algorithm.adb");
+   
+   --  Compiler options
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatN", "-gnata", "-g");
+      --  -gnatN: Enable assertions
+      --  -gnata: Enable static analysis
+      --  -g: Include debug information
+   end Compiler;
+   
+   --  Linker options
+   package Linker is
+      for Default_Switches use ("-g");
+   end Linker;
+   
+   --  Builder options
+   package Builder is
+      for Default_Switches use ("-j0");
+      --  -j0: Use all available processors for parallel compilation
+   end Builder;
+
+end Bankers_Algorithm;

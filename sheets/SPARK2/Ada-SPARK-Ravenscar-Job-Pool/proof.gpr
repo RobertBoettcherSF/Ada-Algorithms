@@ -1,0 +1,9 @@
+project Proof is
+   for Source_Dirs use (".");
+   --  SPARK Level-2 units. Off: Job_Pool body (tasking), Demo_Jobs body,
+   --  Channel.Sync (protected object on host RTS).
+   for Source_Files use
+     ("bounded_buffer.ads", "bounded_buffer.adb",
+      "channel.ads", "channel.adb",
+      "job_table.ads", "job_table.adb");
+end Proof;

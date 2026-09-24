@@ -1,0 +1,4 @@
+project Equivalent_String_Arrays_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("equivalent_string_arrays.ads", "equivalent_string_arrays.adb");
+end Equivalent_String_Arrays_Proof;

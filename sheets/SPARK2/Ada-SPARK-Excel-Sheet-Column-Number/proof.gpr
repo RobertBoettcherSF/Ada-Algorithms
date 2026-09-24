@@ -1,0 +1,4 @@
+project Excel_Sheet_Column_Number_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("excel_sheet_column_number.ads", "excel_sheet_column_number.adb");
+end Excel_Sheet_Column_Number_Proof;

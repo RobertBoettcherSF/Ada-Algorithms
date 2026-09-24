@@ -1,0 +1,4 @@
+project Symmetric_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("symmetric_tree.ads", "symmetric_tree.adb");
+end Symmetric_Tree_Proof;

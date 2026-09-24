@@ -1,0 +1,5 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("studio_probe.ads", "studio_probe.adb");
+end Proof;

@@ -1,0 +1,4 @@
+project Check_If_Matrix_Is_X_Matrix_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("check_if_matrix_is_x_matrix.ads", "check_if_matrix_is_x_matrix.adb");
+end Check_If_Matrix_Is_X_Matrix_Proof;

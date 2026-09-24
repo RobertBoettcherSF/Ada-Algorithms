@@ -1,0 +1,4 @@
+project Paint_House_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("paint_house_stub.ads", "paint_house_stub.adb");
+end Paint_House_Stub_Proof;

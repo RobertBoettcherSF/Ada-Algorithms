@@ -1,0 +1,4 @@
+project Add_Digits_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("add_digits.ads", "add_digits.adb");
+end Add_Digits_Proof;

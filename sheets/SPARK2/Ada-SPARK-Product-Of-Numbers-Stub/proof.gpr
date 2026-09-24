@@ -1,0 +1,4 @@
+project ProductOfNumbersStubProof is
+   for Source_Dirs use (".");
+   for Source_Files use ("product_of_numbers_stub.ads", "product_of_numbers_stub.adb");
+end ProductOfNumbersStubProof;

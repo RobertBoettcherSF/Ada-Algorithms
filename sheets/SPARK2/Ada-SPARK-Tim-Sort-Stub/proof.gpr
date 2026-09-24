@@ -1,0 +1,4 @@
+project Tim_Sort_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("tim_sort_stub.ads", "tim_sort_stub.adb");
+end Tim_Sort_Stub_Proof;

@@ -1,0 +1,4 @@
+project BST_Iterator_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("bst_iterator_stub.ads", "bst_iterator_stub.adb");
+end BST_Iterator_Stub_Proof;

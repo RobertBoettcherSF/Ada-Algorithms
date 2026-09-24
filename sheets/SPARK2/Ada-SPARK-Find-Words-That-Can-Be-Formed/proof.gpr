@@ -1,0 +1,4 @@
+project Formed_Words_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("formed_words.ads", "formed_words.adb");
+end Formed_Words_Proof;

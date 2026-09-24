@@ -1,0 +1,6 @@
+project Tarjans_Off_Line_Lowest_Common_Ancestors is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Exec_Dir    use "bin";
+   for Main        use ("tests.adb");
+end Tarjans_Off_Line_Lowest_Common_Ancestors;

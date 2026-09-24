@@ -1,0 +1,4 @@
+project Bankers_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("bankers_algorithm.ads", "bankers_algorithm.adb");
+end Bankers_Proof;

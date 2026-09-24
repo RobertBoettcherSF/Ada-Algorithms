@@ -1,0 +1,4 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("merge_two_sorted_lists.ads", "merge_two_sorted_lists.adb");
+end Proof;

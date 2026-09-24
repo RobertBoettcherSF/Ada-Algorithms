@@ -1,0 +1,4 @@
+project Tribonacci_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("tribonacci.ads", "tribonacci.adb");
+end Tribonacci_Proof;

@@ -1,0 +1,4 @@
+project Make_The_String_Great_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("make_the_string_great.ads", "make_the_string_great.adb");
+end Make_The_String_Great_Proof;

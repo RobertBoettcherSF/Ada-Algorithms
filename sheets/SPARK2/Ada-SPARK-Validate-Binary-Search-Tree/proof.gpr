@@ -1,0 +1,4 @@
+project Validate_Binary_Search_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("validate_binary_search_tree.ads", "validate_binary_search_tree.adb");
+end Validate_Binary_Search_Tree_Proof;

@@ -1,0 +1,4 @@
+project KthLargestInStreamStubProof is
+   for Source_Dirs use (".");
+   for Source_Files use ("kth_largest_in_stream_stub.ads", "kth_largest_in_stream_stub.adb");
+end KthLargestInStreamStubProof;

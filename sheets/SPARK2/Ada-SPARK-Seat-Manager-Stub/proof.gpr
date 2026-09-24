@@ -1,0 +1,4 @@
+project SeatManagerStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("seat_manager_stub.ads", "seat_manager_stub.adb");
+end SeatManagerStub_Proof;

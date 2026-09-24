@@ -1,0 +1,4 @@
+project Randomized_Collection_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("randomized_collection.ads", "randomized_collection.adb");
+end Randomized_Collection_Proof;

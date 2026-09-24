@@ -1,0 +1,4 @@
+project Valid_Number_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("valid_number.ads", "valid_number.adb");
+end Valid_Number_Proof;

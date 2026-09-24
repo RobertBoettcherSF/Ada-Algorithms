@@ -1,0 +1,4 @@
+project Max_Path_Sum_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("max_path_sum_stub.ads", "max_path_sum_stub.adb");
+end Max_Path_Sum_Stub_Proof;

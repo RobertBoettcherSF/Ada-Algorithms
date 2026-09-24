@@ -1,0 +1,7 @@
+project StreamOfCharactersLite_Build_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("stream_of_characters_lite.ads", "stream_of_characters_lite.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end StreamOfCharactersLite_Build_Proof;

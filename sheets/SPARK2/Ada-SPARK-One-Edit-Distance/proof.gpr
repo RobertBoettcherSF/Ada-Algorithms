@@ -1,0 +1,4 @@
+project One_Edit_Distance_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("one_edit_distance.ads", "one_edit_distance.adb");
+end One_Edit_Distance_Proof;

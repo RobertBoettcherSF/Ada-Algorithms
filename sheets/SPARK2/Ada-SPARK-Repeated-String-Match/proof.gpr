@@ -1,0 +1,4 @@
+project Repeated_String_Match_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("repeated_string_match.ads", "repeated_string_match.adb");
+end Repeated_String_Match_Proof;

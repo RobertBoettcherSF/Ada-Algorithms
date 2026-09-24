@@ -1,0 +1,4 @@
+project OnlineStockSpanStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("online_stock_span_stub.ads", "online_stock_span_stub.adb");
+end OnlineStockSpanStub_Proof;

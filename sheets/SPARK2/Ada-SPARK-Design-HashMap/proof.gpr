@@ -1,0 +1,4 @@
+project Design_HashMap_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_hashmap.ads", "design_hashmap.adb");
+end Design_HashMap_Proof;

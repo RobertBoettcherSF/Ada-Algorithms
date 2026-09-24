@@ -1,0 +1,4 @@
+project Design_Browser_History_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_browser_history.ads", "design_browser_history.adb");
+end Design_Browser_History_Proof;

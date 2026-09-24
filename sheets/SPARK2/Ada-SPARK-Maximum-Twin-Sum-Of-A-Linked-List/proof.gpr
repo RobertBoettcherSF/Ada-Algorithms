@@ -1,0 +1,4 @@
+project Maximum_Twin_Sum_Of_A_Linked_List_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("maximum_twin_sum_of_a_linked_list.ads", "maximum_twin_sum_of_a_linked_list.adb");
+end Maximum_Twin_Sum_Of_A_Linked_List_Proof;

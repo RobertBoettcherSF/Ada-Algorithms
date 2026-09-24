@@ -1,0 +1,4 @@
+project Construct_Binary_Tree_From_Inorder_And_Postorder_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("construct_inorder_postorder_lite.ads", "construct_inorder_postorder_lite.adb");
+end Construct_Binary_Tree_From_Inorder_And_Postorder_Lite_Proof;

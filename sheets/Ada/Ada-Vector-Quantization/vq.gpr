@@ -1,0 +1,12 @@
+-- vq.gpr
+project Vq is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+
+   package Compiler is
+      -- Enable optimizations (-O2), assertions (-gnata), and Ada 2012 features (-gnat12)
+      for Default_Switches ("Ada") use ("-O2", "-gnata", "-gnat12");
+   end Compiler;
+end Vq;

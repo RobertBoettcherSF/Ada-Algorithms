@@ -1,0 +1,1062 @@
+--  Interior_Point_Method body — educational affine-scaling + log-barrier IPM.
+
+pragma Ada_2022;
+
+with Ada.Characters.Handling;
+with Ada.Numerics.Generic_Elementary_Functions;
+
+package body Interior_Point_Method
+  with SPARK_Mode => Off
+is
+
+   package EF is new Ada.Numerics.Generic_Elementary_Functions (Real);
+
+   -------------------------------------------------------------------------
+   -- Near / Vec_Near / Dot / Norms / Scale / Add / Sub
+   -------------------------------------------------------------------------
+
+   function Near (A, B : Real; Tol : Real := Epsilon_Tol) return Boolean is
+   begin
+      return abs (A - B) <= Tol;
+   end Near;
+
+   function Vec_Near
+     (A, B : Vector; Tol : Real := Epsilon_Tol) return Boolean
+   is
+   begin
+      for K in 0 .. A'Length - 1 loop
+         if abs (A (A'First + K) - B (B'First + K)) > Tol then
+            return False;
+         end if;
+      end loop;
+      return True;
+   end Vec_Near;
+
+   function Dot (A, B : Vector) return Real is
+      S : Real := 0.0;
+   begin
+      for K in 0 .. A'Length - 1 loop
+         S := S + A (A'First + K) * B (B'First + K);
+      end loop;
+      return S;
+   end Dot;
+
+   function Norm_Inf (X : Vector) return Non_Negative is
+      M : Real := 0.0;
+   begin
+      for V of X loop
+         if abs (V) > M then
+            M := abs (V);
+         end if;
+      end loop;
+      return M;
+   end Norm_Inf;
+
+   function Norm2 (X : Vector) return Non_Negative is
+      S : Real := 0.0;
+   begin
+      for V of X loop
+         S := S + V * V;
+      end loop;
+      if S <= 0.0 then
+         return 0.0;
+      end if;
+      return Non_Negative (EF.Sqrt (S));
+   end Norm2;
+
+   function Scale (C : Real; X : Vector) return Vector is
+      Y : Vector (X'Range);
+   begin
+      for I in X'Range loop
+         Y (I) := C * X (I);
+      end loop;
+      return Y;
+   end Scale;
+
+   function Add (A, B : Vector) return Vector is
+      Y : Vector (1 .. A'Length);
+   begin
+      for K in 0 .. A'Length - 1 loop
+         Y (1 + K) := A (A'First + K) + B (B'First + K);
+      end loop;
+      return Y;
+   end Add;
+
+   function Sub (A, B : Vector) return Vector is
+      Y : Vector (1 .. A'Length);
+   begin
+      for K in 0 .. A'Length - 1 loop
+         Y (1 + K) := A (A'First + K) - B (B'First + K);
+      end loop;
+      return Y;
+   end Sub;
+
+   -------------------------------------------------------------------------
+   -- Taxonomy
+   -------------------------------------------------------------------------
+
+   function Method_Name (M : Method_Kind) return String is
+   begin
+      case M is
+         when Affine_Scaling =>
+            return "affine-scaling";
+         when Logarithmic_Barrier =>
+            return "logarithmic-barrier";
+         when Primal_Dual =>
+            return "primal-dual";
+      end case;
+   end Method_Name;
+
+   function Classify_Method (Name : String) return Method_Kind is
+      use Ada.Characters.Handling;
+      S : constant String := To_Lower (Name);
+   begin
+      if S = "affine" or else S = "affine-scaling"
+        or else S = "affine_scaling" or else S = "as"
+      then
+         return Affine_Scaling;
+      elsif S = "barrier" or else S = "log" or else S = "logarithmic"
+        or else S = "logarithmic-barrier" or else S = "log-barrier"
+        or else S = "logarithmic_barrier"
+      then
+         return Logarithmic_Barrier;
+      elsif S = "primal-dual" or else S = "primal_dual"
+        or else S = "pd" or else S = "mehrotra"
+      then
+         return Primal_Dual;
+      else
+         raise Invalid_Argument
+           with "Classify_Method: unrecognized method name";
+      end if;
+   end Classify_Method;
+
+   -------------------------------------------------------------------------
+   -- Mat_Vec / Mat_Vec_T
+   -------------------------------------------------------------------------
+
+   function Mat_Vec (A : Matrix; X : Vector) return Vector is
+      M : constant Constraint_Count := A'Length (1);
+      Y : Vector (1 .. M) := [others => 0.0];
+   begin
+      for I in 1 .. M loop
+         declare
+            S  : Real := 0.0;
+            Ai : constant Constraint_Index := A'First (1) + (I - 1);
+            Xj : Positive := X'First;
+         begin
+            for J in 0 .. X'Length - 1 loop
+               S := S + A (Ai, A'First (2) + J) * X (Xj);
+               if Xj < X'Last then
+                  Xj := Xj + 1;
+               end if;
+            end loop;
+            Y (I) := S;
+         end;
+      end loop;
+      return Y;
+   end Mat_Vec;
+
+   function Mat_Vec_T (A : Matrix; Y : Vector) return Vector is
+      N : constant Var_Count := A'Length (2);
+      X : Vector (1 .. N) := [others => 0.0];
+   begin
+      for J in 1 .. N loop
+         declare
+            S  : Real := 0.0;
+            Aj : constant Var_Index := A'First (2) + (J - 1);
+            Yi : Positive := Y'First;
+         begin
+            for I in 0 .. Y'Length - 1 loop
+               S := S + A (A'First (1) + I, Aj) * Y (Yi);
+               if Yi < Y'Last then
+                  Yi := Yi + 1;
+               end if;
+            end loop;
+            X (J) := S;
+         end;
+      end loop;
+      return X;
+   end Mat_Vec_T;
+
+   function Mat_Vec (A : Square_Matrix; X : Vector) return Vector is
+      N : constant Constraint_Count := X'Length;
+      Y : Vector (1 .. N) := [others => 0.0];
+   begin
+      for I in 1 .. N loop
+         declare
+            S  : Real := 0.0;
+            Ai : constant Constraint_Index := A'First (1) + (I - 1);
+            Xj : Positive := X'First;
+         begin
+            for J in 1 .. N loop
+               S := S
+                 + A (Ai, A'First (2) + (J - 1)) * X (Xj);
+               if Xj < X'Last then
+                  Xj := Xj + 1;
+               end if;
+            end loop;
+            Y (I) := S;
+         end;
+      end loop;
+      return Y;
+   end Mat_Vec;
+
+   -------------------------------------------------------------------------
+   -- Solve_GE / Solve_SPD
+   -------------------------------------------------------------------------
+
+   function Solve_GE
+     (A : Square_Matrix; B : Vector) return Vector
+   is
+      N       : constant Constraint_Count := B'Length;
+      M       : array (1 .. N, 1 .. N) of Real;
+      Rhs     : array (1 .. N) of Real;
+      X       : Vector (1 .. N) := [others => 0.0];
+      Pivot   : Constraint_Index;
+      Max_Abs : Real;
+      Tmp     : Real;
+      Factor  : Real;
+   begin
+      for I in 1 .. N loop
+         for J in 1 .. N loop
+            M (I, J) := A (A'First (1) + (I - 1), A'First (2) + (J - 1));
+         end loop;
+         Rhs (I) := B (B'First + (I - 1));
+      end loop;
+
+      for K in 1 .. N loop
+         Pivot := K;
+         Max_Abs := abs (M (K, K));
+         for I in K + 1 .. N loop
+            if abs (M (I, K)) > Max_Abs then
+               Max_Abs := abs (M (I, K));
+               Pivot := I;
+            end if;
+         end loop;
+
+         if Max_Abs < 1.0E-18 then
+            raise Singular_System;
+         end if;
+
+         if Pivot /= K then
+            for J in K .. N loop
+               Tmp := M (K, J);
+               M (K, J) := M (Pivot, J);
+               M (Pivot, J) := Tmp;
+            end loop;
+            Tmp := Rhs (K);
+            Rhs (K) := Rhs (Pivot);
+            Rhs (Pivot) := Tmp;
+         end if;
+
+         for I in K + 1 .. N loop
+            Factor := M (I, K) / M (K, K);
+            M (I, K) := 0.0;
+            for J in K + 1 .. N loop
+               M (I, J) := M (I, J) - Factor * M (K, J);
+            end loop;
+            Rhs (I) := Rhs (I) - Factor * Rhs (K);
+         end loop;
+      end loop;
+
+      for I in reverse 1 .. N loop
+         declare
+            S : Real := Rhs (I);
+         begin
+            for J in I + 1 .. N loop
+               S := S - M (I, J) * X (J);
+            end loop;
+            if abs (M (I, I)) < 1.0E-18 then
+               raise Singular_System;
+            end if;
+            X (I) := S / M (I, I);
+         end;
+      end loop;
+
+      return X;
+   end Solve_GE;
+
+   function Solve_SPD
+     (A : Square_Matrix; B : Vector) return Vector
+   is
+   begin
+      return Solve_GE (A, B);
+   end Solve_SPD;
+
+   -------------------------------------------------------------------------
+   -- Project_Nullspace / Feasible_Residual / All_Positive
+   -------------------------------------------------------------------------
+
+   function Project_Nullspace
+     (A : Matrix; V : Vector) return Vector
+   is
+      M : constant Constraint_Count := A'Length (1);
+      N : constant Var_Count := A'Length (2);
+      G : Square_Matrix (1 .. M, 1 .. M) := [others => [others => 0.0]];
+      Av : constant Vector := Mat_Vec (A, V);
+      Lambda : Vector (1 .. M);
+      At_Lam : Vector (1 .. N);
+      Result_V : Vector (1 .. N);
+   begin
+      for I in 1 .. M loop
+         for J in 1 .. M loop
+            declare
+               S  : Real := 0.0;
+               Ai : constant Constraint_Index := A'First (1) + (I - 1);
+               Aj : constant Constraint_Index := A'First (1) + (J - 1);
+            begin
+               for K in 0 .. N - 1 loop
+                  S := S
+                    + A (Ai, A'First (2) + K)
+                    * A (Aj, A'First (2) + K);
+               end loop;
+               G (I, J) := S;
+            end;
+         end loop;
+      end loop;
+
+      Lambda := Solve_GE (G, Av);
+      At_Lam := Mat_Vec_T (A, Lambda);
+      for K in 0 .. N - 1 loop
+         Result_V (1 + K) := V (V'First + K) - At_Lam (1 + K);
+      end loop;
+      return Result_V;
+   end Project_Nullspace;
+
+   function Feasible_Residual
+     (A : Matrix; B, X : Vector) return Non_Negative
+   is
+      Ax : constant Vector := Mat_Vec (A, X);
+      Diff : Vector (1 .. B'Length);
+   begin
+      for K in 0 .. B'Length - 1 loop
+         Diff (1 + K) := Ax (Ax'First + K) - B (B'First + K);
+      end loop;
+      return Norm_Inf (Diff);
+   end Feasible_Residual;
+
+   function All_Positive
+     (X : Vector; Tol : Real := Epsilon_Tol) return Boolean
+   is
+   begin
+      for V of X loop
+         if V <= Tol then
+            return False;
+         end if;
+      end loop;
+      return True;
+   end All_Positive;
+
+   -------------------------------------------------------------------------
+   -- Affine_Direction
+   -------------------------------------------------------------------------
+
+   procedure Affine_Direction
+     (A            : Matrix;
+      C            : Vector;
+      X            : Vector;
+      Sense        : Objective_Sense;
+      DX           : out Vector;
+      R_Scaled_Inf : out Non_Negative)
+   is
+      M : constant Constraint_Count := A'Length (1);
+      N : constant Var_Count := A'Length (2);
+      Xw : Vector (1 .. N);
+      Cw : Vector (1 .. N);
+      D2C : Vector (1 .. N);
+      AD2C : Vector (1 .. M);
+      G : Square_Matrix (1 .. M, 1 .. M) := [others => [others => 0.0]];
+      Y : Vector (1 .. M);
+      R : Vector (1 .. N);
+      Sign : Real;
+   begin
+      for K in 0 .. N - 1 loop
+         Xw (1 + K) := X (X'First + K);
+         Cw (1 + K) := C (C'First + K);
+      end loop;
+
+      for J in 1 .. N loop
+         D2C (J) := (Xw (J) * Xw (J)) * Cw (J);
+      end loop;
+      AD2C := Mat_Vec (A, D2C);
+
+      for I in 1 .. M loop
+         for J in 1 .. M loop
+            declare
+               S  : Real := 0.0;
+               Ai : constant Constraint_Index := A'First (1) + (I - 1);
+               Aj : constant Constraint_Index := A'First (1) + (J - 1);
+            begin
+               for K in 0 .. N - 1 loop
+                  declare
+                     Ak : constant Var_Index := A'First (2) + K;
+                     D2 : constant Real := Xw (1 + K) * Xw (1 + K);
+                  begin
+                     S := S + A (Ai, Ak) * D2 * A (Aj, Ak);
+                  end;
+               end loop;
+               G (I, J) := S;
+            end;
+         end loop;
+      end loop;
+
+      Y := Solve_SPD (G, AD2C);
+
+      declare
+         AtY : constant Vector := Mat_Vec_T (A, Y);
+      begin
+         for J in 1 .. N loop
+            R (J) := Cw (J) - AtY (J);
+         end loop;
+      end;
+
+      declare
+         Msr : Real := 0.0;
+         T   : Real;
+      begin
+         for J in 1 .. N loop
+            T := abs (Xw (J) * R (J));
+            if T > Msr then
+               Msr := T;
+            end if;
+         end loop;
+         R_Scaled_Inf := Msr;
+      end;
+
+      if Sense = Minimize_Sense then
+         Sign := -1.0;
+      else
+         Sign := 1.0;
+      end if;
+
+      declare
+         Out_First : constant Positive := DX'First;
+      begin
+         for J in 1 .. N loop
+            DX (Out_First + (J - 1)) :=
+              Sign * (Xw (J) * Xw (J)) * R (J);
+         end loop;
+      end;
+   end Affine_Direction;
+
+   -------------------------------------------------------------------------
+   -- Barrier_Value / Barrier_Direction
+   -------------------------------------------------------------------------
+
+   function Barrier_Value
+     (C : Vector; X : Vector; Mu : Positive_Real) return Real
+   is
+      S : Real := Dot (C, X);
+   begin
+      for K in 0 .. X'Length - 1 loop
+         S := S - Mu * EF.Log (X (X'First + K));
+      end loop;
+      return S;
+   end Barrier_Value;
+
+   procedure Barrier_Direction
+     (A           : Matrix;
+      C           : Vector;
+      X           : Vector;
+      Mu          : Positive_Real;
+      Sense       : Objective_Sense;
+      DX          : out Vector;
+      Grad_Scaled : out Non_Negative)
+   is
+      M : constant Constraint_Count := A'Length (1);
+      N : constant Var_Count := A'Length (2);
+      Xw : Vector (1 .. N);
+      Cw : Vector (1 .. N);
+      Gvec : Vector (1 .. N);       -- barrier gradient ±c − μ/x
+      HInv_G : Vector (1 .. N);    -- H⁻¹ g  with H_ii = μ/x_i²
+      AHInv_G : Vector (1 .. M);
+      Gram : Square_Matrix (1 .. M, 1 .. M) := [others => [others => 0.0]];
+      Lam : Vector (1 .. M);
+      Sign_C : Real;
+   begin
+      for K in 0 .. N - 1 loop
+         Xw (1 + K) := X (X'First + K);
+         Cw (1 + K) := C (C'First + K);
+      end loop;
+
+      --  For maximize: minimize −cᵀx − μ Σ log ⇒ gradient −c − μ/x
+      if Sense = Minimize_Sense then
+         Sign_C := 1.0;
+      else
+         Sign_C := -1.0;
+      end if;
+
+      for J in 1 .. N loop
+         Gvec (J) := Sign_C * Cw (J) - Mu / Xw (J);
+         --  H⁻¹_ii = x_i² / μ
+         HInv_G (J) := (Xw (J) * Xw (J) / Mu) * Gvec (J);
+      end loop;
+
+      AHInv_G := Mat_Vec (A, HInv_G);
+
+      --  Gram = A H⁻¹ Aᵀ
+      for I in 1 .. M loop
+         for J in 1 .. M loop
+            declare
+               S  : Real := 0.0;
+               Ai : constant Constraint_Index := A'First (1) + (I - 1);
+               Aj : constant Constraint_Index := A'First (1) + (J - 1);
+            begin
+               for K in 0 .. N - 1 loop
+                  declare
+                     Ak : constant Var_Index := A'First (2) + K;
+                     HInv : constant Real :=
+                       (Xw (1 + K) * Xw (1 + K)) / Mu;
+                  begin
+                     S := S + A (Ai, Ak) * HInv * A (Aj, Ak);
+                  end;
+               end loop;
+               Gram (I, J) := S;
+            end;
+         end loop;
+      end loop;
+
+      Lam := Solve_SPD (Gram, AHInv_G);
+
+      declare
+         AtLam : constant Vector := Mat_Vec_T (A, Lam);
+         Resid : Vector (1 .. N);
+         Msr   : Real := 0.0;
+         T     : Real;
+         Out_First : constant Positive := DX'First;
+      begin
+         for J in 1 .. N loop
+            Resid (J) := Gvec (J) - AtLam (J);
+            --  DX = −H⁻¹ Resid
+            DX (Out_First + (J - 1)) :=
+              -((Xw (J) * Xw (J) / Mu) * Resid (J));
+            T := abs (Xw (J) * Resid (J));
+            if T > Msr then
+               Msr := T;
+            end if;
+         end loop;
+         Grad_Scaled := Msr;
+      end;
+   end Barrier_Direction;
+
+   -------------------------------------------------------------------------
+   -- Max_Feasible_Step / Interior_Step
+   -------------------------------------------------------------------------
+
+   function Max_Feasible_Step (X, DX : Vector) return Real is
+      Alpha : Real := Real'Last;
+      Ratio : Real;
+   begin
+      for K in 0 .. X'Length - 1 loop
+         declare
+            DXk : constant Real := DX (DX'First + K);
+         begin
+            if DXk < 0.0 then
+               Ratio := -X (X'First + K) / DXk;
+               if Ratio < Alpha then
+                  Alpha := Ratio;
+               end if;
+            end if;
+         end;
+      end loop;
+      return Alpha;
+   end Max_Feasible_Step;
+
+   function Interior_Step
+     (X             : Vector;
+      DX            : Vector;
+      Step_Fraction : Positive_Real;
+      Min_Step      : Positive_Real := 1.0E-14)
+     return Vector
+   is
+      Alpha_Max : constant Real := Max_Feasible_Step (X, DX);
+      Alpha     : Real;
+      Y         : Vector (1 .. X'Length);
+   begin
+      if Alpha_Max = Real'Last then
+         if Norm_Inf (DX) <= Min_Step then
+            for K in 0 .. X'Length - 1 loop
+               Y (1 + K) := X (X'First + K);
+            end loop;
+            return Y;
+         end if;
+         raise Invalid_Argument
+           with "Interior_Step: unbounded improving ray";
+      end if;
+
+      Alpha := Step_Fraction * Alpha_Max;
+      if Alpha < Min_Step then
+         for K in 0 .. X'Length - 1 loop
+            Y (1 + K) := X (X'First + K);
+         end loop;
+         return Y;
+      end if;
+
+      for K in 0 .. X'Length - 1 loop
+         Y (1 + K) :=
+           X (X'First + K) + Alpha * DX (DX'First + K);
+      end loop;
+      return Y;
+   end Interior_Step;
+
+   -------------------------------------------------------------------------
+   -- Expand_Inequalities
+   -------------------------------------------------------------------------
+
+   procedure Expand_Inequalities
+     (A_In   : Matrix;
+      B      : Vector;
+      C_In   : Vector;
+      X0_In  : Vector;
+      A_Out  : out Matrix;
+      C_Out  : out Vector;
+      X0_Out : out Vector;
+      N_Out  : out Var_Count)
+   is
+      M  : constant Constraint_Count := A_In'Length (1);
+      Nd : constant Var_Count := A_In'Length (2);
+      Ns : constant Var_Count := M;
+      N  : constant Var_Count := Nd + Ns;
+      Slack : Real;
+   begin
+      N_Out := N;
+
+      for I in 1 .. M loop
+         for J in 1 .. Nd loop
+            A_Out (A_Out'First (1) + (I - 1),
+                   A_Out'First (2) + (J - 1)) :=
+              A_In (A_In'First (1) + (I - 1),
+                    A_In'First (2) + (J - 1));
+         end loop;
+         for J in 1 .. Ns loop
+            if J = I then
+               A_Out (A_Out'First (1) + (I - 1),
+                      A_Out'First (2) + (Nd + J - 1)) := 1.0;
+            else
+               A_Out (A_Out'First (1) + (I - 1),
+                      A_Out'First (2) + (Nd + J - 1)) := 0.0;
+            end if;
+         end loop;
+      end loop;
+
+      for J in 1 .. Nd loop
+         C_Out (C_Out'First + (J - 1)) := C_In (C_In'First + (J - 1));
+         X0_Out (X0_Out'First + (J - 1)) :=
+           X0_In (X0_In'First + (J - 1));
+      end loop;
+
+      for I in 1 .. M loop
+         declare
+            Ax_I : Real := 0.0;
+         begin
+            for J in 1 .. Nd loop
+               Ax_I := Ax_I
+                 + A_In (A_In'First (1) + (I - 1),
+                         A_In'First (2) + (J - 1))
+                 * X0_In (X0_In'First + (J - 1));
+            end loop;
+            Slack := B (B'First + (I - 1)) - Ax_I;
+            if Slack <= 0.0 then
+               raise Invalid_Argument
+                 with "Expand_Inequalities: non-positive slack";
+            end if;
+            C_Out (C_Out'First + (Nd + I - 1)) := 0.0;
+            X0_Out (X0_Out'First + (Nd + I - 1)) := Slack;
+         end;
+      end loop;
+   end Expand_Inequalities;
+
+   -------------------------------------------------------------------------
+   -- Shared start validation
+   -------------------------------------------------------------------------
+
+   function Validate_Start
+     (A   : Matrix;
+      B   : Vector;
+      X0  : Vector;
+      Cfg : Config;
+      R   : in out Result) return Boolean
+   is
+      N : constant Var_Count := X0'Length;
+   begin
+      R.N_Vars := N;
+      if not All_Positive (X0, 0.0) then
+         R.Stat := Ill_Started;
+         R.Success := False;
+         for K in 0 .. N - 1 loop
+            R.X (1 + K) := X0 (X0'First + K);
+         end loop;
+         return False;
+      end if;
+      if Feasible_Residual (A, B, X0) > Cfg.Tol * 1000.0 then
+         R.Stat := Ill_Started;
+         R.Success := False;
+         for K in 0 .. N - 1 loop
+            R.X (1 + K) := X0 (X0'First + K);
+         end loop;
+         return False;
+      end if;
+      if Cfg.Step_Fraction <= 0.0 or else Cfg.Step_Fraction >= 1.0 then
+         raise Invalid_Argument
+           with "Solve: Step_Fraction must lie in (0,1)";
+      end if;
+      if Cfg.Mu_Factor <= 0.0 or else Cfg.Mu_Factor >= 1.0 then
+         raise Invalid_Argument
+           with "Solve: Mu_Factor must lie in (0,1)";
+      end if;
+      return True;
+   end Validate_Start;
+
+   procedure Store_X (R : in out Result; X : Vector; C : Vector) is
+      N : constant Var_Count := X'Length;
+   begin
+      R.Objective := Dot (C, X);
+      for K in 0 .. N - 1 loop
+         R.X (1 + K) := X (1 + K);
+      end loop;
+   end Store_X;
+
+   -------------------------------------------------------------------------
+   -- Solve_Affine
+   -------------------------------------------------------------------------
+
+   function Solve_Affine
+     (A     : Matrix;
+      B     : Vector;
+      C     : Vector;
+      X0    : Vector;
+      Sense : Objective_Sense := Minimize_Sense;
+      Cfg   : Config := (others => <>)) return Result
+   is
+      N : constant Var_Count := X0'Length;
+      R : Result;
+      X : Vector (1 .. N);
+      DX : Vector (1 .. N) := [others => 0.0];
+      R_Scaled : Non_Negative;
+      New_X : Vector (1 .. N);
+   begin
+      if not Validate_Start (A, B, X0, Cfg, R) then
+         return R;
+      end if;
+
+      for K in 0 .. N - 1 loop
+         X (1 + K) := X0 (X0'First + K);
+      end loop;
+
+      for Iter in 1 .. Cfg.Max_Iterations loop
+         begin
+            Affine_Direction (A, C, X, Sense, DX, R_Scaled);
+         exception
+            when Singular_System =>
+               R.Stat := Ill_Started;
+               R.Iterations := Iter - 1;
+               Store_X (R, X, C);
+               return R;
+         end;
+
+         R.Iterations := Iter;
+
+         if R_Scaled <= Cfg.Tol then
+            R.Stat := Optimal;
+            R.Success := True;
+            Store_X (R, X, C);
+            return R;
+         end if;
+
+         declare
+            Alpha_Max : constant Real := Max_Feasible_Step (X, DX);
+         begin
+            if Alpha_Max = Real'Last then
+               if Norm_Inf (DX) > Cfg.Tol then
+                  R.Stat := Unbounded;
+                  R.Success := False;
+                  Store_X (R, X, C);
+                  return R;
+               else
+                  R.Stat := Optimal;
+                  R.Success := True;
+                  Store_X (R, X, C);
+                  return R;
+               end if;
+            end if;
+
+            if Cfg.Step_Fraction * Alpha_Max < Cfg.Min_Step then
+               R.Stat := Optimal;
+               R.Success := True;
+               Store_X (R, X, C);
+               return R;
+            end if;
+         end;
+
+         New_X := Interior_Step
+           (X, DX, Cfg.Step_Fraction, Cfg.Min_Step);
+
+         for K in 1 .. N loop
+            if New_X (K) <= 0.0 then
+               New_X (K) := Real'Model_Small;
+            end if;
+         end loop;
+
+         X := New_X;
+      end loop;
+
+      R.Stat := Iteration_Limit;
+      R.Success := False;
+      R.Iterations := Cfg.Max_Iterations;
+      Store_X (R, X, C);
+      return R;
+   end Solve_Affine;
+
+   -------------------------------------------------------------------------
+   -- Solve_Barrier
+   -------------------------------------------------------------------------
+
+   function Solve_Barrier
+     (A     : Matrix;
+      B     : Vector;
+      C     : Vector;
+      X0    : Vector;
+      Sense : Objective_Sense := Minimize_Sense;
+      Cfg   : Config := (others => <>)) return Result
+   is
+      N : constant Var_Count := X0'Length;
+      R : Result;
+      X : Vector (1 .. N);
+      DX : Vector (1 .. N) := [others => 0.0];
+      Grad : Non_Negative;
+      New_X : Vector (1 .. N);
+      Mu : Real;
+      Total_Iters : Natural := 0;
+      Outer_Done : Boolean := False;
+   begin
+      if not Validate_Start (A, B, X0, Cfg, R) then
+         return R;
+      end if;
+
+      for K in 0 .. N - 1 loop
+         X (1 + K) := X0 (X0'First + K);
+      end loop;
+
+      Mu := Cfg.Mu_Init;
+
+      Outer_Loop :
+      while Mu >= Cfg.Mu_Min and then Total_Iters < Cfg.Max_Iterations loop
+         for Cent in 1 .. Cfg.Centering_Iters loop
+            exit Outer_Loop when Total_Iters >= Cfg.Max_Iterations;
+
+            begin
+               Barrier_Direction (A, C, X, Mu, Sense, DX, Grad);
+            exception
+               when Singular_System =>
+                  R.Stat := Ill_Started;
+                  R.Iterations := Total_Iters;
+                  R.Mu_Final := Mu;
+                  Store_X (R, X, C);
+                  return R;
+            end;
+
+            Total_Iters := Total_Iters + 1;
+            R.Iterations := Total_Iters;
+
+            --  Centered enough at this μ?
+            if Grad <= Cfg.Tol * (1.0 + Mu) then
+               if Mu <= Cfg.Mu_Min * 10.0 or else Mu <= Cfg.Tol then
+                  R.Stat := Optimal;
+                  R.Success := True;
+                  R.Mu_Final := Mu;
+                  Store_X (R, X, C);
+                  return R;
+               end if;
+               exit;  -- reduce μ
+            end if;
+
+            declare
+               Alpha_Max : constant Real := Max_Feasible_Step (X, DX);
+            begin
+               if Alpha_Max = Real'Last then
+                  if Norm_Inf (DX) > Cfg.Tol then
+                     --  Unbounded for maximize / minimize barrier ray
+                     R.Stat := Unbounded;
+                     R.Success := False;
+                     R.Mu_Final := Mu;
+                     Store_X (R, X, C);
+                     return R;
+                  else
+                     exit;  -- stall → reduce μ
+                  end if;
+               end if;
+
+               if Cfg.Step_Fraction * Alpha_Max < Cfg.Min_Step then
+                  exit;  -- numerical stall at this μ
+               end if;
+            end;
+
+            begin
+               New_X := Interior_Step
+                 (X, DX, Cfg.Step_Fraction, Cfg.Min_Step);
+            exception
+               when Invalid_Argument =>
+                  R.Stat := Unbounded;
+                  R.Success := False;
+                  R.Mu_Final := Mu;
+                  Store_X (R, X, C);
+                  return R;
+            end;
+
+            for K in 1 .. N loop
+               if New_X (K) <= 0.0 then
+                  New_X (K) := Real'Model_Small;
+               end if;
+            end loop;
+            X := New_X;
+         end loop;
+
+         --  Reduce barrier parameter
+         if Mu <= Cfg.Mu_Min then
+            Outer_Done := True;
+            exit Outer_Loop;
+         end if;
+         Mu := Mu * Cfg.Mu_Factor;
+         if Mu < Cfg.Mu_Min then
+            Mu := Cfg.Mu_Min;
+         end if;
+      end loop Outer_Loop;
+
+      --  Final stationarity check with affine measure (μ→0 limit)
+      declare
+         R_Scaled : Non_Negative;
+         Dummy_DX : Vector (1 .. N) := [others => 0.0];
+      begin
+         begin
+            Affine_Direction (A, C, X, Sense, Dummy_DX, R_Scaled);
+            if R_Scaled <= Cfg.Tol * 100.0
+              or else Outer_Done
+              or else Mu <= Cfg.Mu_Min
+            then
+               R.Stat := Optimal;
+               R.Success := True;
+            else
+               R.Stat := Iteration_Limit;
+               R.Success := False;
+            end if;
+         exception
+            when Singular_System =>
+               R.Stat := Optimal;
+               R.Success := True;
+         end;
+      end;
+
+      R.Mu_Final := Mu;
+      R.Iterations := Total_Iters;
+      Store_X (R, X, C);
+      return R;
+   end Solve_Barrier;
+
+   -------------------------------------------------------------------------
+   -- Solve / Minimize / Maximize
+   -------------------------------------------------------------------------
+
+   function Solve
+     (A     : Matrix;
+      B     : Vector;
+      C     : Vector;
+      X0    : Vector;
+      Sense : Objective_Sense := Minimize_Sense;
+      Cfg   : Config := (others => <>)) return Result
+   is
+   begin
+      case Cfg.Method is
+         when Affine_Scaling =>
+            return Solve_Affine (A, B, C, X0, Sense, Cfg);
+         when Logarithmic_Barrier | Primal_Dual =>
+            return Solve_Barrier (A, B, C, X0, Sense, Cfg);
+      end case;
+   end Solve;
+
+   function Minimize
+     (A   : Matrix;
+      B   : Vector;
+      C   : Vector;
+      X0  : Vector;
+      Cfg : Config := (others => <>)) return Result
+   is
+   begin
+      return Solve (A, B, C, X0, Minimize_Sense, Cfg);
+   end Minimize;
+
+   function Maximize
+     (A   : Matrix;
+      B   : Vector;
+      C   : Vector;
+      X0  : Vector;
+      Cfg : Config := (others => <>)) return Result
+   is
+   begin
+      return Solve (A, B, C, X0, Maximize_Sense, Cfg);
+   end Maximize;
+
+   function Maximize_Inequalities
+     (A   : Matrix;
+      B   : Vector;
+      C   : Vector;
+      X0  : Vector;
+      Cfg : Config := (others => <>)) return Result
+   is
+      M  : constant Constraint_Count := A'Length (1);
+      Nd : constant Var_Count := A'Length (2);
+      N  : constant Var_Count := Nd + M;
+      Aeq : Matrix (1 .. M, 1 .. N);
+      Ceq : Vector (1 .. N);
+      Xeq : Vector (1 .. N);
+      N_Out : Var_Count;
+      R : Result;
+   begin
+      begin
+         Expand_Inequalities (A, B, C, X0, Aeq, Ceq, Xeq, N_Out);
+      exception
+         when Invalid_Argument =>
+            R.Stat := Ill_Started;
+            R.N_Vars := Nd;
+            for K in 0 .. Nd - 1 loop
+               R.X (1 + K) := X0 (X0'First + K);
+            end loop;
+            return R;
+      end;
+      R := Maximize (Aeq, B, Ceq (1 .. N_Out), Xeq (1 .. N_Out), Cfg);
+      R.N_Vars := Nd;
+      return R;
+   end Maximize_Inequalities;
+
+   function Minimize_Inequalities
+     (A   : Matrix;
+      B   : Vector;
+      C   : Vector;
+      X0  : Vector;
+      Cfg : Config := (others => <>)) return Result
+   is
+      M  : constant Constraint_Count := A'Length (1);
+      Nd : constant Var_Count := A'Length (2);
+      N  : constant Var_Count := Nd + M;
+      Aeq : Matrix (1 .. M, 1 .. N);
+      Ceq : Vector (1 .. N);
+      Xeq : Vector (1 .. N);
+      N_Out : Var_Count;
+      R : Result;
+   begin
+      begin
+         Expand_Inequalities (A, B, C, X0, Aeq, Ceq, Xeq, N_Out);
+      exception
+         when Invalid_Argument =>
+            R.Stat := Ill_Started;
+            R.N_Vars := Nd;
+            for K in 0 .. Nd - 1 loop
+               R.X (1 + K) := X0 (X0'First + K);
+            end loop;
+            return R;
+      end;
+      R := Minimize (Aeq, B, Ceq (1 .. N_Out), Xeq (1 .. N_Out), Cfg);
+      R.N_Vars := Nd;
+      return R;
+   end Minimize_Inequalities;
+
+end Interior_Point_Method;

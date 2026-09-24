@@ -1,0 +1,43 @@
+--  lulea_algorithm.gpr
+--  
+--  GNAT Project File for the Luleå Algorithm implementation.
+--  
+--  Author: Vibe Code (Mistral AI)
+--  Date: 2025
+--  
+--  Description:
+--  This project file defines the compilation and linking settings for the
+--  Luleå Algorithm implementation in Ada. It includes:
+--  - Source directories
+--  - Object and executable directories
+--  
+--  Usage:
+--  Compile with: gprbuild -P lulea_algorithm.gpr
+
+project Lulea_Algorithm is
+
+   -- Source directories
+   for Source_Dirs use (".");
+
+   -- Object directory
+   for Object_Dir use "obj";
+
+   -- Executable directory
+   for Exec_Dir use "bin";
+
+   -- Compiler settings
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnatN", "-gnata", "-O2");
+   end Compiler;
+
+   -- Linker settings
+   package Linker is
+      for Default_Switches ("ada") use ("-static");
+   end Linker;
+
+   -- Library settings
+   for Library_Name use "lulea_algorithm";
+   for Library_Dir use "bin";
+   for Library_Kind use "static";
+
+end Lulea_Algorithm;

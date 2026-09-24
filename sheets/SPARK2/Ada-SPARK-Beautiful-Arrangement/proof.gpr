@@ -1,0 +1,8 @@
+project Beautiful_Arrangement_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("beautiful_arrangement.ads", "beautiful_arrangement.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Beautiful_Arrangement_Proof;

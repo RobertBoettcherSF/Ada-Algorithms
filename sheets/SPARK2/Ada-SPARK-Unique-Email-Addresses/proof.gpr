@@ -1,0 +1,4 @@
+project Unique_Emails_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("unique_emails.ads", "unique_emails.adb");
+end Unique_Emails_Proof;

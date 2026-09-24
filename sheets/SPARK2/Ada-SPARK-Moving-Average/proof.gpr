@@ -1,0 +1,4 @@
+project Moving_Average_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("moving_average.ads", "moving_average.adb");
+end Moving_Average_Proof;

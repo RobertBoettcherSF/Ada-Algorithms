@@ -1,0 +1,4 @@
+project LFU_Cache_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("lfu_cache_lite.ads", "lfu_cache_lite.adb");
+end LFU_Cache_Lite_Proof;

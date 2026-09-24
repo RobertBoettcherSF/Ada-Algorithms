@@ -1,0 +1,4 @@
+project Capacity_To_Ship_Packages_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("capacity_to_ship_packages.ads", "capacity_to_ship_packages.adb");
+end Capacity_To_Ship_Packages_Proof;

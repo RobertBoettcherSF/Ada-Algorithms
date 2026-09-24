@@ -1,0 +1,4 @@
+project Sum_Digits_Convert_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sum_digits_convert.ads", "sum_digits_convert.adb");
+end Sum_Digits_Convert_Proof;

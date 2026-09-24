@@ -1,0 +1,9 @@
+# Object / ALI
+*.o
+*.ali
+obj/
+bin/
+gnatprove/
+*.adb.stderr
+*.adb.stdout
+*.spark

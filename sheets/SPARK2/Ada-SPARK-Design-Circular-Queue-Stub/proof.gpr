@@ -1,0 +1,4 @@
+project DesignCircularQueueStubProof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_circular_queue_stub.ads", "design_circular_queue_stub.adb");
+end DesignCircularQueueStubProof;

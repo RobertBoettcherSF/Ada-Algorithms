@@ -1,0 +1,4 @@
+project Bitonic_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("bitonic_sort.ads", "bitonic_sort.adb");
+end Bitonic_Sort_Proof;

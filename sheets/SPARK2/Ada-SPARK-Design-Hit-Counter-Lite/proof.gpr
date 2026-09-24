@@ -1,0 +1,4 @@
+project Design_Hit_Counter_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_hit_counter_lite.ads", "design_hit_counter_lite.adb");
+end Design_Hit_Counter_Lite_Proof;

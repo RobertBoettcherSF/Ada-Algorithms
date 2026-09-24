@@ -1,0 +1,10 @@
+-- arc_cache.gpr
+project ARC_Cache is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+
+   package Compiler is
+      -- Optimize for speed, enable Ada 2012 features, and activate all reasonable warnings
+      for Default_Switches ("Ada") use ("-O3", "-gnat2012", "-gnatwa");
+   end Compiler;
+end ARC_Cache;

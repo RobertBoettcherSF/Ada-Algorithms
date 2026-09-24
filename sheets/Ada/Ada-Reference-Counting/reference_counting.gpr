@@ -1,0 +1,40 @@
+-- ============================================================================
+--  GNAT Project File for Reference Counting
+--  Compiles and links the reference counting package and tests.
+-- ============================================================================
+
+project Reference_Counting is
+
+   -- Source directories
+   for Source_Dirs use (".");
+
+   -- Object directory
+   for Object_Dir use "obj";
+
+   -- Executable directory
+   for Exec_Dir use "bin";
+
+   -- Main program (if any)
+   -- for Main use ("main.adb");
+
+   -- Package files
+   for Source_Files use (
+      "reference_counting.ads",
+      "reference_counting.adb"
+   );
+
+   -- Compiler options
+   for Compiler_Options ("Ada") use (
+      "-g",       -- Generate debug info
+      "-O0",      -- No optimization (for debugging)
+      "-gnatN",   -- Disable assertions (enable with -gnata)
+      "-gnatw.a", -- Enable all warnings
+      "-gnatw.e"  -- Treat warnings as errors
+   );
+
+   -- Linker options
+   for Linker_Options ("Ada") use (
+      "-g"
+   );
+
+end Reference_Counting;

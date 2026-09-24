@@ -1,0 +1,4 @@
+project Buddy_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("buddy_memory_allocation.ads", "buddy_memory_allocation.adb");
+end Buddy_Proof;

@@ -1,0 +1,4 @@
+project Minimum_Sum_Of_Four_Digit_Number_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("minimum_sum_of_four_digit_number.ads", "minimum_sum_of_four_digit_number.adb");
+end Minimum_Sum_Of_Four_Digit_Number_Proof;

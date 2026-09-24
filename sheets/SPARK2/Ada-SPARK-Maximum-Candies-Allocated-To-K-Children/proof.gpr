@@ -1,0 +1,4 @@
+project Maximum_Candies_Allocated_To_K_Children_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("maximum_candies_allocated_to_k_children.ads", "maximum_candies_allocated_to_k_children.adb");
+end Maximum_Candies_Allocated_To_K_Children_Proof;

@@ -1,0 +1,4 @@
+project Design_Linked_List_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("design_linked_list.ads", "design_linked_list.adb");
+end Design_Linked_List_Proof;

@@ -1,0 +1,11 @@
+-- lemke_howson_proj.gpr
+project Lemke_Howson_Proj is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("tests.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnata"); -- -gnata enables assertions
+   end Compiler;
+end Lemke_Howson_Proj;

@@ -1,0 +1,11 @@
+-- mark_compact.gpr
+project Mark_Compact is
+   for Source_Dirs use ("src", ".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("main.adb", "tests.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnata");
+   end Compiler;
+end Mark_Compact;

@@ -1,0 +1,4 @@
+project Convert_Binary_Number_In_A_Linked_List_To_Integer_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("convert_binary_number_in_a_linked_list_to_integer.ads", "convert_binary_number_in_a_linked_list_to_integer.adb");
+end Convert_Binary_Number_In_A_Linked_List_To_Integer_Proof;

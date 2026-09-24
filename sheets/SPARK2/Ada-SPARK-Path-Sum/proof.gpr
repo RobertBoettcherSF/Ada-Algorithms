@@ -1,0 +1,4 @@
+project Path_Sum_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("path_sum.ads", "path_sum.adb");
+end Path_Sum_Proof;

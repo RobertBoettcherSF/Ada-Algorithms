@@ -1,0 +1,4 @@
+project Container_With_Most_Water_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("container_with_most_water.ads", "container_with_most_water.adb");
+end Container_With_Most_Water_Proof;

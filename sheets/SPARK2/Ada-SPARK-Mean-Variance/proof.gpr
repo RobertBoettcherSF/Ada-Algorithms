@@ -1,0 +1,4 @@
+project Mean_Variance_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("mean_variance.ads", "mean_variance.adb");
+end Mean_Variance_Proof;

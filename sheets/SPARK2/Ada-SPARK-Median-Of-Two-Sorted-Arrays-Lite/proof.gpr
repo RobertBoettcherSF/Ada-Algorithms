@@ -1,0 +1,4 @@
+project Median_Of_Two_Sorted_Arrays_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("median_of_two_sorted_arrays_lite.ads", "median_of_two_sorted_arrays_lite.adb");
+end Median_Of_Two_Sorted_Arrays_Lite_Proof;

@@ -1,0 +1,4 @@
+project Trim_Binary_Search_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("trim_binary_search_tree.ads", "trim_binary_search_tree.adb");
+end Trim_Binary_Search_Tree_Proof;

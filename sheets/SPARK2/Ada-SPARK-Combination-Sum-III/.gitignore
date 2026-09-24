@@ -1,0 +1,11 @@
+obj/
+bin/
+gnatprove/
+*.ali
+*.o
+*.stderr
+*.stdout
+*.bexch
+b__tests.adb
+b__tests.ads
+tests

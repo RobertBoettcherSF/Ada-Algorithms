@@ -1,0 +1,4 @@
+project Top_Nodes_Algorithm_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("top_nodes_algorithm.ads", "top_nodes_algorithm.adb");
+end Top_Nodes_Algorithm_Proof;

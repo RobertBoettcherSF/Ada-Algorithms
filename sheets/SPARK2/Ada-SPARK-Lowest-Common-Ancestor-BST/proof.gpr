@@ -1,0 +1,4 @@
+project Lowest_Common_Ancestor_BST_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("lowest_common_ancestor_bst.ads", "lowest_common_ancestor_bst.adb");
+end Lowest_Common_Ancestor_BST_Proof;

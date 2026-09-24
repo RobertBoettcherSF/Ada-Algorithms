@@ -1,0 +1,4 @@
+project Bulb_Switcher_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("bulb_switcher.ads", "bulb_switcher.adb");
+end Bulb_Switcher_Proof;

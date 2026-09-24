@@ -1,0 +1,15 @@
+# Ada-SPARK-Rotting-Oranges
+
+Rotting oranges workload over a bounded 8x8 grid.
+
+The implementation deliberately fixes the input to an 8x8 binary grid so the
+example stays bounded and is suitable for SPARK proof. `Fresh_Count` computes the
+count of fresh oranges. as a small, fully proved kernel.
+
+## Verify
+
+```sh
+source /home/box/deps/spark/env.sh
+make test
+make prove
+```

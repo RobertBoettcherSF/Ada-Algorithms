@@ -1,0 +1,4 @@
+project Sorted_Array_To_BST_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("sorted_array_to_bst.ads", "sorted_array_to_bst.adb");
+end Sorted_Array_To_BST_Proof;

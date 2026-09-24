@@ -1,0 +1,4 @@
+project Binary_Insertion_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("binary_insertion_sort.ads", "binary_insertion_sort.adb");
+end Binary_Insertion_Sort_Proof;

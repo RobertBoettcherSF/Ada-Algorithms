@@ -1,0 +1,4 @@
+project Longest_Increasing_Subsequence_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("longest_increasing_subsequence.ads", "longest_increasing_subsequence.adb");
+end Longest_Increasing_Subsequence_Proof;

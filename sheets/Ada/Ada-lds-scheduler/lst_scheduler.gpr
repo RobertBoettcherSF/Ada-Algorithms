@@ -1,0 +1,12 @@
+-- lst_scheduler.gpr
+project LST_Scheduler is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Main use ("main.adb");
+   for Exec_Dir use "obj";
+   
+   package Compiler is
+      -- Optimized for embedded environments typically associated with LST
+      for Default_Switches ("Ada") use ("-O2", "-gnat12", "-gnatwa");
+   end Compiler;
+end LST_Scheduler;

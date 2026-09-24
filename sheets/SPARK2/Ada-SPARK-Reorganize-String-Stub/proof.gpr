@@ -1,0 +1,4 @@
+project Reorganize_String_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reorganize_string_stub.ads", "reorganize_string_stub.adb");
+end Reorganize_String_Stub_Proof;

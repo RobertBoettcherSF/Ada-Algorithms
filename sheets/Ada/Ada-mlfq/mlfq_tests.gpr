@@ -1,0 +1,12 @@
+project MLFQ_Tests is
+
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Main use ("mlfq_tests.adb");
+
+   package Compiler is
+      -- Standard recommended compilation flags for Ada 2012
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnat2012", "-gnatwa");
+   end Compiler;
+
+end MLFQ_Tests;

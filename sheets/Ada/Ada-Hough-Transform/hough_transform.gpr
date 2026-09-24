@@ -1,0 +1,13 @@
+-- hough_transform.gpr
+-- GNAT Project File
+project Hough_Transform_Proj is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("main.adb", "tests.adb");
+
+   package Compiler is
+      -- -gnata is required to enable 'pragma Assert' functionality
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnata", "-gnatwa");
+   end Compiler;
+end Hough_Transform_Proj;

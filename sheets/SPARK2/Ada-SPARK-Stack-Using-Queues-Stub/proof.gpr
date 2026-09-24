@@ -1,0 +1,4 @@
+project Stack_Using_Queues_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("stack_using_queues_stub.ads", "stack_using_queues_stub.adb");
+end Stack_Using_Queues_Stub_Proof;

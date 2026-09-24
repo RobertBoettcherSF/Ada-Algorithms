@@ -1,0 +1,4 @@
+project Special_Array_With_X_Elements_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("special_array_with_x_elements.ads", "special_array_with_x_elements.adb");
+end Special_Array_With_X_Elements_Proof;

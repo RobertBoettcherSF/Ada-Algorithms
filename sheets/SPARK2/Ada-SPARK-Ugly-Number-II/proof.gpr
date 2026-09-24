@@ -1,0 +1,4 @@
+project Ugly_Number_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("ugly_number_ii.ads", "ugly_number_ii.adb");
+end Ugly_Number_II_Proof;

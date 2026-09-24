@@ -1,0 +1,4 @@
+project Multiply_Strings_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("multiply_strings.ads", "multiply_strings.adb");
+end Multiply_Strings_Proof;

@@ -1,0 +1,4 @@
+project BST_Insert_Search_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("bst_insert_search.ads", "bst_insert_search.adb");
+end BST_Insert_Search_Proof;

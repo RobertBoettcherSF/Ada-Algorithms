@@ -1,0 +1,4 @@
+project Pacific_Atlantic_Water_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("pacific_atlantic_water_stub.ads", "pacific_atlantic_water_stub.adb");
+end Pacific_Atlantic_Water_Stub_Proof;

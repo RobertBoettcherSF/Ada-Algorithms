@@ -1,0 +1,4 @@
+project Argmax_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("argmax.ads", "argmax.adb");
+end Argmax_Proof;

@@ -1,0 +1,4 @@
+project Decode_Ways_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("decode_ways.ads", "decode_ways.adb");
+end Decode_Ways_Proof;

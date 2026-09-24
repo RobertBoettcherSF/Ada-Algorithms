@@ -1,0 +1,4 @@
+project Shortest_Remaining_Time_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("shortest_remaining_time.ads", "shortest_remaining_time.adb");
+end Shortest_Remaining_Time_Proof;

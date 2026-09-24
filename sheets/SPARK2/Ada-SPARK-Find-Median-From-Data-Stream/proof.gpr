@@ -1,0 +1,4 @@
+project Find_Median_From_Data_Stream_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_median_from_data_stream.ads", "find_median_from_data_stream.adb");
+end Find_Median_From_Data_Stream_Proof;

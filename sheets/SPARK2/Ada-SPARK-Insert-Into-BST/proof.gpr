@@ -1,0 +1,4 @@
+project Insert_Into_BST_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("insert_into_bst.ads", "insert_into_bst.adb");
+end Insert_Into_BST_Proof;

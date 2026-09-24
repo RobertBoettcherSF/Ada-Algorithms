@@ -1,0 +1,4 @@
+project Minimum_Number_Of_Moves_To_Seat_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("minimum_number_of_moves_to_seat.ads", "minimum_number_of_moves_to_seat.adb");
+end Minimum_Number_Of_Moves_To_Seat_Proof;

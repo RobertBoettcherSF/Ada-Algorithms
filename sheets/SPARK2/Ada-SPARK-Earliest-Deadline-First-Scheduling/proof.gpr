@@ -1,0 +1,4 @@
+project Earliest_Deadline_First_Scheduling_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("earliest_deadline_first_scheduling.ads", "earliest_deadline_first_scheduling.adb");
+end Earliest_Deadline_First_Scheduling_Proof;

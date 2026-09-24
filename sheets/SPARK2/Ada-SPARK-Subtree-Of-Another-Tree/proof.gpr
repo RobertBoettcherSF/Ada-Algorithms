@@ -1,0 +1,4 @@
+project Subtree_Of_Another_Tree_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("subtree_of_another_tree.ads", "subtree_of_another_tree.adb");
+end Subtree_Of_Another_Tree_Proof;

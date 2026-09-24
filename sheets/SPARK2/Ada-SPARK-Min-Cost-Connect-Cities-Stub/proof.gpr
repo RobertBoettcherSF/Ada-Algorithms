@@ -1,0 +1,4 @@
+project Min_Cost_Connect_Cities_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("min_cost_connect_cities_stub.ads", "min_cost_connect_cities_stub.adb");
+end Min_Cost_Connect_Cities_Stub_Proof;

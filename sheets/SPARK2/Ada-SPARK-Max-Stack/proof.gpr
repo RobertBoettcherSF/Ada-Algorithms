@@ -1,0 +1,4 @@
+project Max_Stack_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("max_stack.ads", "max_stack.adb");
+end Max_Stack_Proof;

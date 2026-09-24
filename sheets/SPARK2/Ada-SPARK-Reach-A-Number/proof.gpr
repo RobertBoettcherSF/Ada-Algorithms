@@ -1,0 +1,4 @@
+project Reach_A_Number_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("reach_a_number.ads", "reach_a_number.adb");
+end Reach_A_Number_Proof;

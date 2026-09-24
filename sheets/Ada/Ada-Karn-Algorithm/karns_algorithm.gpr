@@ -1,0 +1,46 @@
+--  karns_algorithm.gpr
+--  
+--  GNAT Project File for Karn's Algorithm implementation.
+--  
+--  Author: Vibe Code (Mistral AI)
+--  Date: 2024
+--  
+--  Description:
+--    This project file defines the compilation and linking settings for
+--    the Karn's Algorithm implementation in Ada. It includes the main
+--    source files and specifies the object and executable directories.
+--
+
+project Karns_Algorithm is
+
+   --  Source directories
+   for Source_Dirs use ("");
+   
+   --  Object directory for compiled files
+   for Object_Dir use "obj";
+   
+   --  Executable directory for binaries
+   for Exec_Dir use "bin";
+   
+   --  Main source file (if applicable)
+   --  Note: This project does not have a main.adb by default, as it is a library.
+   --  To compile a test program, use a separate project file or gnatmake directly.
+   
+   --  List of source files to compile
+   for Source_Files use (
+      "karns_algorithm.ads",
+      "karns_algorithm.adb"
+   );
+   
+   --  Compiler options (optional)
+   for Compiler_Options ("Ada") use (
+      "-g",  --  Include debug information
+      "-O2"  --  Optimization level 2
+   );
+   
+   --  Linker options (optional)
+   for Linker_Options use (
+      "-g"
+   );
+   
+end Karns_Algorithm;

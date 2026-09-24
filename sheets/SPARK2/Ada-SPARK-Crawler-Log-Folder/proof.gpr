@@ -1,0 +1,4 @@
+project Crawler_Log_Folder_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("crawler_log_folder.ads", "crawler_log_folder.adb");
+end Crawler_Log_Folder_Proof;

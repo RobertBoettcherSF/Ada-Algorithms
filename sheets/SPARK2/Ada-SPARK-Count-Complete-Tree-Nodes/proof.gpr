@@ -1,0 +1,4 @@
+project Count_Complete_Tree_Nodes_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("count_complete_tree_nodes.ads", "count_complete_tree_nodes.adb");
+end Count_Complete_Tree_Nodes_Proof;

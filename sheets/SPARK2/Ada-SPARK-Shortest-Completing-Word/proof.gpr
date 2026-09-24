@@ -1,0 +1,4 @@
+project Shortest_Completing_Word_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("shortest_completing_word.ads", "shortest_completing_word.adb");
+end Shortest_Completing_Word_Proof;

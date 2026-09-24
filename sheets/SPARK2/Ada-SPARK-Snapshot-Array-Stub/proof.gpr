@@ -1,0 +1,4 @@
+project SnapshotArrayStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("snapshot_array_stub.ads", "snapshot_array_stub.adb");
+end SnapshotArrayStub_Proof;

@@ -1,0 +1,12 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Object_Dir  use "obj";
+   for Source_Files use
+     ("bump_arena.ads", "bump_arena.adb",
+      "index_tree.ads", "index_tree.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use
+        ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Proof;

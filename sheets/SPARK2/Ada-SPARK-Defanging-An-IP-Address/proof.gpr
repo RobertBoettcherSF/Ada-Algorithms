@@ -1,0 +1,4 @@
+project Defanging_IP_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("defanging_ip.ads", "defanging_ip.adb");
+end Defanging_IP_Proof;

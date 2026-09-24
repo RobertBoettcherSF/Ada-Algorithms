@@ -1,0 +1,4 @@
+project LRU_Cache_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("lru_cache_lite.ads", "lru_cache_lite.adb");
+end LRU_Cache_Lite_Proof;

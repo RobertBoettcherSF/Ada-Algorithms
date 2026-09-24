@@ -1,0 +1,4 @@
+project Nth_Digit_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("nth_digit.ads", "nth_digit.adb");
+end Nth_Digit_Proof;

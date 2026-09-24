@@ -1,0 +1,4 @@
+project Guess_Number_Higher_Or_Lower_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("guess_number_higher_or_lower.ads", "guess_number_higher_or_lower.adb");
+end Guess_Number_Higher_Or_Lower_Proof;

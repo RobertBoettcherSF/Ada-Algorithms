@@ -1,0 +1,4 @@
+project Pangram_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("pangram.ads", "pangram.adb");
+end Pangram_Proof;

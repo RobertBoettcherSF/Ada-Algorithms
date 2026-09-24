@@ -1,0 +1,4 @@
+project Evaluate_Division_Stub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("evaluate_division_stub.ads", "evaluate_division_stub.adb");
+end Evaluate_Division_Stub_Proof;

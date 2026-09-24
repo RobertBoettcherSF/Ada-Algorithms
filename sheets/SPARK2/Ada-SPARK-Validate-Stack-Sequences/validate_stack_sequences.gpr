@@ -1,0 +1,6 @@
+project Validate_Stack_Sequences is
+   for Source_Dirs use (".");
+   for Main use ("tests.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+end Validate_Stack_Sequences;

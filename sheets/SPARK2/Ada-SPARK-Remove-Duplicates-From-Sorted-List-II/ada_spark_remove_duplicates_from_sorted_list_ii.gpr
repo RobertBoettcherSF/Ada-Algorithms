@@ -1,0 +1,8 @@
+project Remove_Duplicates_From_Sorted_List_II is
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnatwa", "-gnatf");
+   end Compiler;
+end Remove_Duplicates_From_Sorted_List_II;

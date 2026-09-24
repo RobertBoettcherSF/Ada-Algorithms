@@ -1,0 +1,12 @@
+project SRT_Simulation is
+
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Main use ("srt_simulation.adb");
+
+   package Compiler is
+      -- Standard compilation flags for safety & strict checking
+      for Default_Switches ("Ada") use ("-g", "-O2", "-gnatwa");
+   end Compiler;
+
+end SRT_Simulation;

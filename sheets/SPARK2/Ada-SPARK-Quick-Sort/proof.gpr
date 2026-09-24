@@ -1,0 +1,4 @@
+project Quick_Sort_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("quick_sort.ads", "quick_sort.adb");
+end Quick_Sort_Proof;

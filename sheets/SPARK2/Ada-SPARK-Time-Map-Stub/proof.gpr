@@ -1,0 +1,4 @@
+project TimeMapStub_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("time_map_stub.ads", "time_map_stub.adb");
+end TimeMapStub_Proof;
