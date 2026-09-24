@@ -1,0 +1,18 @@
+--  Optional GPR view of the monorepo. Primary build path is the Makefile
+--  (gnatmake). Main units are the harness and per-algo test programs.
+
+project Ada_Algorithms is
+   for Source_Dirs use
+     ("src/sorting", "src/searching", "tests", "tests/sorting", "tests/searching");
+   for Object_Dir use "obj";
+   for Exec_Dir   use "bin";
+   for Main use
+     ("harness.adb",
+      "test_quicksort.adb",
+      "test_heapsort.adb",
+      "test_binary_search.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022");
+   end Compiler;
+end Ada_Algorithms;

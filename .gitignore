@@ -1,0 +1,9 @@
+obj/
+bin/
+*.o
+*.ali
+*.bexch
+*.stderr
+*.stdout
+*.tmp
+*~
