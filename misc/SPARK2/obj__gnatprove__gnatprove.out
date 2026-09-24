@@ -1,0 +1,42 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+----------------------------------------------------------------------------------
+SPARK Analysis results        Total       Flow      Provers   Justified   Unproved
+----------------------------------------------------------------------------------
+Data Dependencies                 1          1            .           .          .
+Flow Dependencies                 .          .            .           .          .
+Initialization                    .          .            .           .          .
+Non-Aliasing                      .          .            .           .          .
+Run-time Checks                   8          .     8 (CVC5)           .          .
+Assertions                        .          .            .           .          .
+Functional Contracts             17          .    17 (CVC5)           .          .
+LSP Verification                  .          .            .           .          .
+Termination                       4          4            .           .          .
+Concurrency                       .          .            .           .          .
+----------------------------------------------------------------------------------
+Total                            30    5 (17%)     25 (83%)           .          .
+
+
+max steps used for successful proof: 1
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 2 units
+in unit count_square_submatrices_with_all_ones, 5 subprograms and packages out of 5 analyzed
+  Count_Square_Submatrices_With_All_Ones at count_square_submatrices_with_all_ones.ads:2 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Count_Square_Submatrices_With_All_Ones.All_2 at count_square_submatrices_with_all_ones.adb:3 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (4 checks)
+  Count_Square_Submatrices_With_All_Ones.All_3 at count_square_submatrices_with_all_ones.adb:8 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (7 checks)
+  Count_Square_Submatrices_With_All_Ones.All_4 at count_square_submatrices_with_all_ones.adb:13 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Count_Square_Submatrices_With_All_Ones.Count_Squares at count_square_submatrices_with_all_ones.ads:6 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (14 checks)
+in unit tests, 0 subprograms and packages out of 1 analyzed
+  Tests at tests.adb:2 skipped; SPARK_Mode => Off

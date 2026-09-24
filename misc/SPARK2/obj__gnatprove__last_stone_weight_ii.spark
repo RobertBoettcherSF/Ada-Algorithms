@@ -1,0 +1,5257 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 3,
+        "predicate": "CLAIM_AORTE"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Last_Stone_Weight_II.Difference",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "last_stone_weight_ii.adb",
+          "line": 3
+        }
+      ]
+    },
+    " 2": {
+      "name": "Last_Stone_Weight_II.Min_Remaining_Weight",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "last_stone_weight_ii.ads",
+          "line": 7
+        }
+      ]
+    },
+    " 3": {
+      "name": "Last_Stone_Weight_II",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "last_stone_weight_ii.ads",
+          "line": 2
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 1,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "flow",
+      "line": 3,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Difference\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 2,
+      "file": "last_stone_weight_ii.ads",
+      "how_proved": "flow",
+      "line": 7,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Min_Remaining_Weight\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 77,
+      "entity": 2,
+      "file": "last_stone_weight_ii.ads",
+      "how_proved": "flow",
+      "line": 7,
+      "message": {
+        "text": "data dependencies proved"
+      },
+      "rule": "GLOBAL_WRONG",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+    {
+      "check_col": 75,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 14,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.12150000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.12490000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 75,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 14,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.12490002065897E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 34,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 16,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.20980000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.20680000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 34,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 16,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.20980003848672E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 40,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 17,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.70080000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.97500000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 40,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 17,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.97500009089708E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 40,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 18,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.73580000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.43120000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 40,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 18,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.73579994589090E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 40,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.65800000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.74010000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 40,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.74010004848242E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 40,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 20,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.23120000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.23960000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 40,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 20,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.23960001021624E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 34,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 21,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.71790000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.44920000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 34,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 21,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.71789992600679E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 40,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 22,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.80380000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.22420000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 40,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 22,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.22420003265142E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 40,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 23,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.60480000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.62180000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 40,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 23,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.62179991602898E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 40,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 24,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.95560000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.17130000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 40,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 24,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.95560008287430E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 35,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 25,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.14740000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.03700000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 35,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 25,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.14740000665188E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 41,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 26,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.91140000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.67900000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 41,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 26,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.91140007227659E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 41,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 27,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.02860000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.17430000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 41,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 27,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.17429995536804E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 35,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 28,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.50350000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.62600000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 35,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 28,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.62599997222424E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 41,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 29,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.88110000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.62780000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 41,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 29,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.62780003249645E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 35,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 30,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.16840000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.82450000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 35,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 30,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.16840002685785E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 31,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.95210000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.25850000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 31,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.25850008428097E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 32,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.93400000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.62500000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 32,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.93400008231401E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 33,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.70060000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.32690000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 33,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.70060002803802E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 34,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 2.72130000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.97930000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 34,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 2.72129997611046E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 35,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 27,
+              "time": 2.84540000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 17,
+              "time": 3.06810000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 35,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 27,
+          "max_time": 3.06809991598129E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 36,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 64,
+              "time": 3.50270000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 54,
+              "time": 3.15750000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 36,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 64,
+          "max_time": 3.50270010530949E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 37,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 102,
+              "time": 2.81530000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 92,
+              "time": 2.33540000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 37,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 102,
+          "max_time": 2.81530003994703E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 38,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 142,
+              "time": 2.41720000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 132,
+              "time": 3.50570000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 38,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 142,
+          "max_time": 3.50570008158684E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 39,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 184,
+              "time": 2.71090000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 174,
+              "time": 2.88400000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 39,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 184,
+          "max_time": 2.88399998098612E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 49,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 40,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 228,
+              "time": 3.89700000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 218,
+              "time": 3.19230000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 49,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 40,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 228,
+          "max_time": 3.89700010418892E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 57,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 41,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 275,
+              "time": 2.76800000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 265,
+              "time": 2.99040000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 57,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 41,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 275,
+          "max_time": 2.99040004611015E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 57,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 42,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 325,
+              "time": 3.90350000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 315,
+              "time": 3.15490000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 57,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 42,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 325,
+          "max_time": 3.90349999070168E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 57,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 43,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 378,
+              "time": 4.19820000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 367,
+              "time": 3.55220000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 57,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 43,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 378,
+          "max_time": 4.19819988310337E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 57,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 44,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 432,
+              "time": 4.49060000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 422,
+              "time": 3.90000000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 57,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 44,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 432,
+          "max_time": 4.49060015380383E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 57,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 45,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 489,
+              "time": 3.96670000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 479,
+              "time": 4.41930000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 57,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 45,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 489,
+          "max_time": 4.41929996013641E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 65,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 46,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 550,
+              "time": 4.52750000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 540,
+              "time": 3.76440000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 65,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 46,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 550,
+          "max_time": 4.52749989926815E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 745,
+              "time": 4.69330000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 738,
+              "time": 5.20380000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:48"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 745,
+          "max_time": 5.20379990339279E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 867,
+              "time": 5.57250000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 860,
+              "time": 5.37770000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:48"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 867,
+          "max_time": 5.57250007987022E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 910,
+              "time": 6.06930000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 906,
+              "time": 5.93910000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:49"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 910,
+          "max_time": 6.06929995119572E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1024,
+              "time": 6.29350000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1020,
+              "time": 6.22930000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:49"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1024,
+          "max_time": 6.29350021481514E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1071,
+              "time": 7.13890000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1067,
+              "time": 7.75870000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:50"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1071,
+          "max_time": 7.75870010256767E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1187,
+              "time": 9.64410000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1183,
+              "time": 8.63010000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:50"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1187,
+          "max_time": 9.64410006999969E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1234,
+              "time": 8.10700000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1231,
+              "time": 9.91080000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:51"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1234,
+          "max_time": 9.91080030798912E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1352,
+              "time": 9.03580000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1349,
+              "time": 9.93460000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:51"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1352,
+          "max_time": 9.93459969758987E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1401,
+              "time": 1.09134000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1397,
+              "time": 1.15314000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:52"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1401,
+          "max_time": 1.15313999354839E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1521,
+              "time": 1.07801000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1517,
+              "time": 1.06401000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:52"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1521,
+          "max_time": 1.07800997793674E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1574,
+              "time": 1.19613000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1567,
+              "time": 1.09641000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:53"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1574,
+          "max_time": 1.19612999260426E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1696,
+              "time": 1.20911000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1689,
+              "time": 1.39467000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:53"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1696,
+          "max_time": 1.39467000961304E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1742,
+              "time": 1.42633000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1739,
+              "time": 1.35436000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:54"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1742,
+          "max_time": 1.42633005976677E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1867,
+              "time": 1.46437000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1863,
+              "time": 1.34061000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:54"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1867,
+          "max_time": 1.46437004208565E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1916,
+              "time": 1.58391000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1912,
+              "time": 1.55050000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:55"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1916,
+          "max_time": 1.58390998840332E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2042,
+              "time": 1.64989000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2039,
+              "time": 1.82368000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:55"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2042,
+          "max_time": 1.82367995381355E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2092,
+              "time": 1.72126000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2089,
+              "time": 1.68633000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:56"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2092,
+          "max_time": 1.72125995159149E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2221,
+              "time": 1.95330000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2217,
+              "time": 2.01579000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:56"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2221,
+          "max_time": 2.01579004526138E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2275,
+              "time": 1.96827000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2267,
+              "time": 1.98927000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:57"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2275,
+          "max_time": 1.98927000164986E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2406,
+              "time": 2.14305000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2399,
+              "time": 2.10913000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:57"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2406,
+          "max_time": 2.14304998517036E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2454,
+              "time": 2.26652000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2451,
+              "time": 2.54500000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:58"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2454,
+          "max_time": 2.54500001668930E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2588,
+              "time": 2.34328000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2584,
+              "time": 2.50659000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:58"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2588,
+          "max_time": 2.50658988952637E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2639,
+              "time": 2.49132000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2635,
+              "time": 2.67116000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:59"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2639,
+          "max_time": 2.67116010189056E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2774,
+              "time": 2.65867000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2771,
+              "time": 2.65710000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:59"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2774,
+          "max_time": 2.65866994857788E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2828,
+              "time": 2.61448000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2821,
+              "time": 2.71339000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:60"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2828,
+          "max_time": 2.71338999271393E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2967,
+              "time": 2.92888000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 2960,
+              "time": 2.87236000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:60"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 2967,
+          "max_time": 2.92887985706329E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3017,
+              "time": 3.08382000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3014,
+              "time": 3.07304000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:61"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3017,
+          "max_time": 3.08382004499435E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3157,
+              "time": 3.14598000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3153,
+              "time": 3.56221000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:61"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3157,
+          "max_time": 3.56220990419388E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3212,
+              "time": 3.37700000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3205,
+              "time": 3.43341000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:62"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3212,
+          "max_time": 3.43340992927551E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3355,
+              "time": 3.52253000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3348,
+              "time": 3.62675000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:62"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3355,
+          "max_time": 3.62675011157990E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3404,
+              "time": 3.52388000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3404,
+              "time": 3.55521000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:63"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3404,
+          "max_time": 3.55520993471146E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3550,
+              "time": 4.32288000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3549,
+              "time": 3.87617000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:63"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3550,
+          "max_time": 4.32287991046906E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3604,
+              "time": 3.81101000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3604,
+              "time": 3.79634000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:64"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3604,
+          "max_time": 3.81101012229919E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3752,
+              "time": 4.22737000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3751,
+              "time": 4.14989000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:64"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3752,
+          "max_time": 4.22737002372742E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3807,
+              "time": 4.49828000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3807,
+              "time": 4.40612000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:65"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3807,
+          "max_time": 4.49827998876572E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3957,
+              "time": 4.40365000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 3957,
+              "time": 4.47750000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:65"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 3957,
+          "max_time": 4.47750002145767E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4013,
+              "time": 4.54952000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4012,
+              "time": 4.87654000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:66"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 4013,
+          "max_time": 4.87654000520706E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4165,
+              "time": 4.79791000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4165,
+              "time": 5.62584000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:66"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 4165,
+          "max_time": 5.62583982944489E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4222,
+              "time": 5.17018000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4221,
+              "time": 4.97777000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:67"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 4222,
+          "max_time": 5.17018020153046E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4376,
+              "time": 5.15647000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4376,
+              "time": 5.19877000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:67"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 4376,
+          "max_time": 5.19877016544342E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4433,
+              "time": 5.29198000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4433,
+              "time": 5.38347000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:68"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 4433,
+          "max_time": 5.38347005844116E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4590,
+              "time": 5.51314000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4590,
+              "time": 5.91020000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:68"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 4590,
+          "max_time": 5.91019988059998E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4647,
+              "time": 5.74418000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4647,
+              "time": 5.70040000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:69"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 4647,
+          "max_time": 5.74418008327484E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4807,
+              "time": 5.82122000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4806,
+              "time": 5.76535000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:69"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 4807,
+          "max_time": 5.82122027873993E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4865,
+              "time": 6.11398000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 4864,
+              "time": 6.31074000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:70"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 4865,
+          "max_time": 6.31074011325836E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5026,
+              "time": 6.33566000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5026,
+              "time": 6.25547000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:70"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5026,
+          "max_time": 6.33566021919250E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5085,
+              "time": 6.63116000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5084,
+              "time": 6.53454000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:71"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5085,
+          "max_time": 6.63115978240967E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5249,
+              "time": 6.71024000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5248,
+              "time": 6.82566000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:71"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5249,
+          "max_time": 6.82565987110138E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5308,
+              "time": 6.90006000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5307,
+              "time": 6.88655000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:72"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5308,
+          "max_time": 6.90006017684937E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5474,
+              "time": 7.28699000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5473,
+              "time": 7.54055000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:72"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5474,
+          "max_time": 7.54055023193359E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5534,
+              "time": 7.24916000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5533,
+              "time": 7.43439000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:73"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5534,
+          "max_time": 7.43439018726349E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5702,
+              "time": 7.57314000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5701,
+              "time": 7.94099000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:73"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5702,
+          "max_time": 7.94098973274231E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5762,
+              "time": 7.86893000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5762,
+              "time": 7.95087000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:74"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5762,
+          "max_time": 7.95086979866028E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5933,
+              "time": 8.08345000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5932,
+              "time": 8.30855000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:74"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5933,
+          "max_time": 8.30855011940002E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5994,
+              "time": 8.53141000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 5993,
+              "time": 8.86341000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:75"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 5994,
+          "max_time": 8.86340975761414E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6167,
+              "time": 8.53733000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6166,
+              "time": 8.68687000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:75"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 6167,
+          "max_time": 8.68686974048615E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6228,
+              "time": 9.90864000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6228,
+              "time": 9.14329000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:76"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 6228,
+          "max_time": 9.90863978862762E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6403,
+              "time": 8.98577000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6403,
+              "time": 9.24317000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:76"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 6403,
+          "max_time": 9.24317002296448E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6465,
+              "time": 9.24498000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6465,
+              "time": 9.27426000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:77"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 6465,
+          "max_time": 9.27425980567932E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6643,
+              "time": 9.68537000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6642,
+              "time": 9.70784000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:77"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 6643,
+          "max_time": 9.70784008502960E-01
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6705,
+              "time": 9.91966000000000E-01
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6705,
+              "time": 1.01466000000000E+00
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:78"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 6705,
+          "max_time": 1.01466095447540E+00
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 17,
+      "check_file": "last_stone_weight_ii.adb",
+      "check_line": 7,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6885,
+              "time": 1.01888000000000E+00
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 6885,
+              "time": 1.03021000000000E+00
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 17,
+      "entity": 2,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "prover",
+      "line": 7,
+      "message": {
+        "text": "overflow check proved, in call inlined at last_stone_weight_ii.adb:78"
+      },
+      "rule": "VC_OVERFLOW_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 6885,
+          "max_time": 1.03020703792572E+00
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all",
+    " 2": "all",
+    " 3": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 2": {
+      "gnat2why.vc_generation": 7.31799984350801E-03,
+      "gnatwhy3.init": 7.69753992557526E-01,
+      "gnatwhy3.register_vcs": 4.97264623641968E+00,
+      "gnatwhy3.run_vcs": 2.76000006124377E-04,
+      "gnatwhy3.save_session": 9.96129989624023E-01,
+      "gnatwhy3.schedule_vcs": 4.07829093933105E+00,
+      "gnatwhy3.transformations.counterexamples_dependent_intros": 1.27464103698730E+00,
+      "gnatwhy3.transformations.detect_polymorphism": 1.84682995080948E-01,
+      "gnatwhy3.transformations.discriminate_if_poly": 3.64000006811693E-04,
+      "gnatwhy3.transformations.eliminate_algebraic_if_poly": 6.56852006912231E-01,
+      "gnatwhy3.transformations.eliminate_builtin": 1.65992006659508E-01,
+      "gnatwhy3.transformations.eliminate_definition_conditionally": 2.03740999102592E-01,
+      "gnatwhy3.transformations.eliminate_epsilon": 4.69541996717453E-01,
+      "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 5.20748972892761E-01,
+      "gnatwhy3.transformations.eliminate_inductive": 1.99846997857094E-01,
+      "gnatwhy3.transformations.eliminate_literal": 5.47558009624481E-01,
+      "gnatwhy3.transformations.eliminate_projections_sums": 3.81274014711380E-01,
+      "gnatwhy3.transformations.encoding_smt_if_poly": 3.44000000040978E-04,
+      "gnatwhy3.transformations.inline_trivial": 1.04390394687653E+00,
+      "gnatwhy3.transformations.remove_unused": 4.76487994194031E-01,
+      "gnatwhy3.transformations.simplify_formula": 5.58933019638062E-01,
+      "gnatwhy3.transformations.split_goal_wp_conj": 2.68404293060303E+00
+    },
+    "global": {
+      "flow analysis": 6.05770014226437E-02,
+      "globals (advanced)": 1.50000007124618E-04,
+      "globals (basic)": 4.49999992270023E-04,
+      "init_why_sections": 8.21999972686172E-04,
+      "marking": 9.85000049695373E-04,
+      "properties (advanced)": 3.09999995806720E-05,
+      "translation of standard": 1.13300001248717E-03
+    }
+  },
+  "warn_error": [
+    {
+      "check_tree": {
+      },
+      "col": 43,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 14,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 51,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 14,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 59,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 14,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 67,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 14,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 31,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 32,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 33,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 34,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 35,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 36,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 37,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 38,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 39,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 40,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 41,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 49,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 41,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 42,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 49,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 42,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 43,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 49,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 43,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 44,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 49,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 44,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 45,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 49,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 45,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 46,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 49,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 46,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 57,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 46,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "last_stone_weight_ii.adb",
+      "how_proved": "trivial",
+      "line": 3,
+      "message": {
+        "arguments": [
+          "Difference"
+        ],
+        "text": "local subprogram {0} only analyzed in the context of calls [info-unrolling-inlining]"
+      },
+      "rule": "error",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ]
+}

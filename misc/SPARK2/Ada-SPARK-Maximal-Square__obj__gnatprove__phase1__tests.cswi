@@ -1,0 +1,11 @@
+20260919100752
+-c
+-x
+ada
+-gnatA
+-gnatwa
+-gnat2022
+-gnata
+-gnatc
+-gnates=/workspace/Ada-SPARK-Maximal-Square/obj/gnatprove/8c37e66b.tmp
+-gnatis

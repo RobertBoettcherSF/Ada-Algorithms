@@ -1,0 +1,17 @@
+[
+{
+  "name": "Unique_Binary_Search_Trees.Node_Count",
+  "location": "unique_binary_search_trees.ads:3:12",
+  "Object_Size": 32,
+  "Value_Size": 5,
+  "Alignment": 4
+}
+,
+{
+  "name": "Unique_Binary_Search_Trees.Tree_Count",
+  "location": "unique_binary_search_trees.ads:4:12",
+  "Object_Size": 32,
+  "Value_Size": 26,
+  "Alignment": 4
+}
+]

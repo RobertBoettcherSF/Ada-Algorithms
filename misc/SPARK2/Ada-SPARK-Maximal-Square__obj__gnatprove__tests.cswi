@@ -1,0 +1,10 @@
+20260919100826
+-c
+-x
+ada
+-gnatA
+-gnatwa
+-gnat2022
+-gnata
+-gnatc
+-gnates=/workspace/Ada-SPARK-Maximal-Square/obj/gnatprove/aba1ae3d.tmp

@@ -1,0 +1,44 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+----------------------------------------------------------------------------------
+SPARK Analysis results        Total       Flow      Provers   Justified   Unproved
+----------------------------------------------------------------------------------
+Data Dependencies                 1          1            .           .          .
+Flow Dependencies                 .          .            .           .          .
+Initialization                    .          .            .           .          .
+Non-Aliasing                      .          .            .           .          .
+Run-time Checks                   8          .     8 (CVC5)           .          .
+Assertions                        .          .            .           .          .
+Functional Contracts             17          .    17 (CVC5)           .          .
+LSP Verification                  .          .            .           .          .
+Termination                       6          6            .           .          .
+Concurrency                       .          .            .           .          .
+----------------------------------------------------------------------------------
+Total                            32    7 (22%)     25 (78%)           .          .
+
+
+max steps used for successful proof: 1
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 2 units
+in unit maximal_square, 7 subprograms and packages out of 7 analyzed
+  Maximal_Square at maximal_square.ads:2 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Maximal_Square.All_2 at maximal_square.adb:3 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (4 checks)
+  Maximal_Square.All_3 at maximal_square.adb:8 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (7 checks)
+  Maximal_Square.All_4 at maximal_square.adb:13 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Maximal_Square.Any_1 at maximal_square.adb:17 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Maximal_Square.Any_2 at maximal_square.adb:21 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (9 checks)
+  Maximal_Square.Largest_Side at maximal_square.ads:7 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (5 checks)
+in unit tests, 0 subprograms and packages out of 1 analyzed
+  Tests at tests.adb:2 skipped; SPARK_Mode => Off

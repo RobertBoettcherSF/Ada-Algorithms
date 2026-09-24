@@ -1,9 +1,0 @@
-# Object file
-*.o
-
-# Ada Library Information
-*.ali
-
-# Build dirs
-/obj/
-/bin/

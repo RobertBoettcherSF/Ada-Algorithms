@@ -1,0 +1,33 @@
+[
+{
+  "name": "Last_Stone_Weight_Ii.Position",
+  "location": "last_stone_weight_ii.ads:3:12",
+  "Object_Size": 32,
+  "Value_Size": 3,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Weight",
+  "location": "last_stone_weight_ii.ads:4:12",
+  "Object_Size": 32,
+  "Value_Size": 4,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Stones",
+  "location": "last_stone_weight_ii.ads:5:9",
+  "Size": 192,
+  "Alignment": 4,
+  "Component_Size": 32
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Remaining",
+  "location": "last_stone_weight_ii.ads:6:12",
+  "Object_Size": 32,
+  "Value_Size": 7,
+  "Alignment": 4
+}
+]

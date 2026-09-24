@@ -1,0 +1,41 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+--------------------------------------------------------------------------------
+SPARK Analysis results        Total        Flow   Provers   Justified   Unproved
+--------------------------------------------------------------------------------
+Data Dependencies                 1           1         .           .          .
+Flow Dependencies                 .           .         .           .          .
+Initialization                    .           .         .           .          .
+Non-Aliasing                      .           .         .           .          .
+Run-time Checks                   .           .         .           .          .
+Assertions                        .           .         .           .          .
+Functional Contracts              .           .         .           .          .
+LSP Verification                  .           .         .           .          .
+Termination                       3           3         .           .          .
+Concurrency                       .           .         .           .          .
+--------------------------------------------------------------------------------
+Total                             4    4 (100%)         .           .          .
+
+
+max steps used for successful proof: 0
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 2 units
+in unit num_matrix_block_sum, 4 subprograms and packages out of 4 analyzed
+  Num_Matrix_Block_Sum at num_matrix_block_sum.ads:2 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Num_Matrix_Block_Sum.Block_Sum at num_matrix_block_sum.ads:7 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Num_Matrix_Block_Sum.Contribution at num_matrix_block_sum.adb:9 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Num_Matrix_Block_Sum.In_Block at num_matrix_block_sum.adb:3 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+in unit tests, 0 subprograms and packages out of 1 analyzed
+  Tests at tests.adb:2 skipped; SPARK_Mode => Off

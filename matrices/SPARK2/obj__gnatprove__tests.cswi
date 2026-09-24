@@ -1,0 +1,10 @@
+20260919102451
+-c
+-x
+ada
+-gnatA
+-gnatwa
+-gnat2022
+-gnata
+-gnatc
+-gnates=/workspace/Ada-SPARK-Num-Matrix-Block-Sum/obj/gnatprove/4705595f.tmp

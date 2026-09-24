@@ -1,0 +1,25 @@
+[
+{
+  "name": "Count_Square_Submatrices_With_All_Ones.Index",
+  "location": "count_square_submatrices_with_all_ones.ads:3:12",
+  "Object_Size": 32,
+  "Value_Size": 3,
+  "Alignment": 4
+}
+,
+{
+  "name": "Count_Square_Submatrices_With_All_Ones.Bit",
+  "location": "count_square_submatrices_with_all_ones.ads:4:12",
+  "Object_Size": 32,
+  "Value_Size": 1,
+  "Alignment": 4
+}
+,
+{
+  "name": "Count_Square_Submatrices_With_All_Ones.Matrix",
+  "location": "count_square_submatrices_with_all_ones.ads:5:9",
+  "Size": 512,
+  "Alignment": 4,
+  "Component_Size": 32
+}
+]

@@ -1,0 +1,33 @@
+[
+{
+  "name": "Num_Matrix_Block_Sum.Index",
+  "location": "num_matrix_block_sum.ads:3:12",
+  "Object_Size": 32,
+  "Value_Size": 3,
+  "Alignment": 4
+}
+,
+{
+  "name": "Num_Matrix_Block_Sum.Cell",
+  "location": "num_matrix_block_sum.ads:4:12",
+  "Object_Size": 32,
+  "Value_Size": 4,
+  "Alignment": 4
+}
+,
+{
+  "name": "Num_Matrix_Block_Sum.Radius",
+  "location": "num_matrix_block_sum.ads:5:12",
+  "Object_Size": 32,
+  "Value_Size": 2,
+  "Alignment": 4
+}
+,
+{
+  "name": "Num_Matrix_Block_Sum.Matrix",
+  "location": "num_matrix_block_sum.ads:6:9",
+  "Size": 512,
+  "Alignment": 4,
+  "Component_Size": 32
+}
+]

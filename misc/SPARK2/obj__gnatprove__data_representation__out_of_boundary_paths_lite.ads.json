@@ -1,0 +1,17 @@
+[
+{
+  "name": "Out_Of_Boundary_Paths_Lite.Coordinate",
+  "location": "out_of_boundary_paths_lite.ads:3:12",
+  "Object_Size": 32,
+  "Value_Size": 3,
+  "Alignment": 4
+}
+,
+{
+  "name": "Out_Of_Boundary_Paths_Lite.Exit_Count",
+  "location": "out_of_boundary_paths_lite.ads:4:12",
+  "Object_Size": 32,
+  "Value_Size": 3,
+  "Alignment": 4
+}
+]

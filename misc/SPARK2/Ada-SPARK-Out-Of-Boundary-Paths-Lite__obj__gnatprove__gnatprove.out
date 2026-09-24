@@ -1,0 +1,39 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+---------------------------------------------------------------------------------
+SPARK Analysis results        Total       Flow     Provers   Justified   Unproved
+---------------------------------------------------------------------------------
+Data Dependencies                 1          1           .           .          .
+Flow Dependencies                 .          .           .           .          .
+Initialization                    .          .           .           .          .
+Non-Aliasing                      .          .           .           .          .
+Run-time Checks                   4          .    4 (CVC5)           .          .
+Assertions                        .          .           .           .          .
+Functional Contracts              .          .           .           .          .
+LSP Verification                  .          .           .           .          .
+Termination                       1          1           .           .          .
+Concurrency                       .          .           .           .          .
+---------------------------------------------------------------------------------
+Total                             6    2 (33%)     4 (67%)           .          .
+
+
+max steps used for successful proof: 1
+
+============================
+Most difficult proved checks
+============================
+
+No check found with max time greater than 1 second
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 2 units
+in unit out_of_boundary_paths_lite, 2 subprograms and packages out of 2 analyzed
+  Out_Of_Boundary_Paths_Lite at out_of_boundary_paths_lite.ads:2 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Out_Of_Boundary_Paths_Lite.Immediate_Exits at out_of_boundary_paths_lite.ads:5 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (4 checks)
+in unit tests, 0 subprograms and packages out of 1 analyzed
+  Tests at tests.adb:2 skipped; SPARK_Mode => Off

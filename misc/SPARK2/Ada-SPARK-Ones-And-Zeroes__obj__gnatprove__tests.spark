@@ -1,0 +1,47 @@
+{
+  "assumptions": [
+  ],
+  "entities": {
+    " 1": {
+      "name": "Tests",
+      "sloc": [
+        {
+          "column": 11,
+          "file": "tests.adb",
+          "line": 2
+        }
+      ]
+    }
+  },
+  "flow": [
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "no"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 5.09999990754295E-05
+    },
+    "global": {
+      "flow analysis": 9.00000031833770E-06,
+      "globals (advanced)": 2.58999993093312E-04,
+      "globals (basic)": 3.30999988364056E-04,
+      "init_why_sections": 5.66000002436340E-04,
+      "marking": 1.15000002551824E-04,
+      "properties (advanced)": 1.70000002981396E-05,
+      "translation of standard": 1.46900000981987E-03
+    }
+  },
+  "warn_error": [
+  ]
+}

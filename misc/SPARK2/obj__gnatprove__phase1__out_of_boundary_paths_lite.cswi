@@ -1,0 +1,11 @@
+20260919100752
+-c
+-x
+ada
+-gnatA
+-gnatwa
+-gnat2022
+-gnata
+-gnatc
+-gnates=/workspace/Ada-SPARK-Out-Of-Boundary-Paths-Lite/obj/gnatprove/cc12d3b3.tmp
+-gnatis

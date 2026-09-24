@@ -1,0 +1,11 @@
+20260919102316
+-c
+-x
+ada
+-gnatA
+-gnatwa
+-gnat2022
+-gnata
+-gnatc
+-gnates=/workspace/Ada-SPARK-Count-Square-Submatrices-With-All-Ones/obj/gnatprove/66e3eef6.tmp
+-gnatis

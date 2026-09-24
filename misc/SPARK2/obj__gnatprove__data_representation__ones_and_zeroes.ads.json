@@ -1,0 +1,25 @@
+[
+{
+  "name": "Ones_And_Zeroes.Item",
+  "location": "ones_and_zeroes.ads:3:12",
+  "Object_Size": 32,
+  "Value_Size": 3,
+  "Alignment": 4
+}
+,
+{
+  "name": "Ones_And_Zeroes.Count",
+  "location": "ones_and_zeroes.ads:4:12",
+  "Object_Size": 32,
+  "Value_Size": 3,
+  "Alignment": 4
+}
+,
+{
+  "name": "Ones_And_Zeroes.Counts",
+  "location": "ones_and_zeroes.ads:5:9",
+  "Size": 128,
+  "Alignment": 4,
+  "Component_Size": 32
+}
+]

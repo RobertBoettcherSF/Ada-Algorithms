@@ -1,0 +1,2069 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+        {
+          "arg": 4,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 3,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 4,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 4,
+          "predicate": "CLAIM_AORTE"
+        }
+      ],
+      "claim": {
+        "arg": 3,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 3,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 5,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 4,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 3,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "arg": 4,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 3,
+          "predicate": "CLAIM_EFFECTS"
+        },
+        {
+          "arg": 4,
+          "predicate": "CLAIM_AORTE"
+        },
+        {
+          "arg": 3,
+          "predicate": "CLAIM_AORTE"
+        }
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_AORTE"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 4,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 4,
+        "predicate": "CLAIM_AORTE"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Count_Square_Submatrices_With_All_Ones.All_4",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "count_square_submatrices_with_all_ones.adb",
+          "line": 13
+        }
+      ]
+    },
+    " 2": {
+      "name": "Count_Square_Submatrices_With_All_Ones.Count_Squares",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "count_square_submatrices_with_all_ones.ads",
+          "line": 6
+        }
+      ]
+    },
+    " 3": {
+      "name": "Count_Square_Submatrices_With_All_Ones.All_3",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "count_square_submatrices_with_all_ones.adb",
+          "line": 8
+        }
+      ]
+    },
+    " 4": {
+      "name": "Count_Square_Submatrices_With_All_Ones.All_2",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "count_square_submatrices_with_all_ones.adb",
+          "line": 3
+        }
+      ]
+    },
+    " 5": {
+      "name": "Count_Square_Submatrices_With_All_Ones",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "count_square_submatrices_with_all_ones.ads",
+          "line": 2
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 1,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "flow",
+      "line": 13,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"All_4\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.ads",
+      "how_proved": "flow",
+      "line": 6,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Count_Squares\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 70,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.ads",
+      "how_proved": "flow",
+      "line": 6,
+      "message": {
+        "text": "data dependencies proved"
+      },
+      "rule": "GLOBAL_WRONG",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 3,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "flow",
+      "line": 8,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"All_3\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 4,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "flow",
+      "line": 3,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"All_2\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+    {
+      "check_col": 14,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 15,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.18730000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.78060000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 14,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 15,
+      "message": {
+        "text": "precondition proved, in call inlined at count_square_submatrices_with_all_ones.adb:19"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.78059991449118E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 491,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.25700000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 7.99300000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 491,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 8.25699977576733E-03
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 523,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.20830000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.88700000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 523,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.20829995721579E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 555,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.09860000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.04710000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 555,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.09860002994537E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 587,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.73300000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.24000000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 587,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.24000003561378E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 619,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.41140000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.25600000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 619,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.41139999032021E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 651,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.32800000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.29610000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 651,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.29610002040863E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 683,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.20010000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.21220000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 683,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.21219996362925E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 715,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.21410000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 9.41300000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 715,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.21409995481372E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 747,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 7.71100000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.16760000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 747,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.16760004311800E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 779,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.05200000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.23390000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 779,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.23389996588230E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 811,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.16400000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 9.85300000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 811,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.16400001570582E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 843,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.21150000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 7.07000000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 843,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.21149998158216E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 875,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 19,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.15950000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.13750000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 875,
+      "entity": 2,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 19,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.15949995815754E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 36,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 6,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.35510000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.25280000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 36,
+      "entity": 4,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 6,
+      "message": {
+        "text": "index check proved"
+      },
+      "rule": "VC_INDEX_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.35509995743632E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 60,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 6,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.34140000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.69930000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 60,
+      "entity": 4,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 6,
+      "message": {
+        "text": "index check proved"
+      },
+      "rule": "VC_INDEX_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.69929992407560E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 78,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 6,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.37790000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.30400000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 78,
+      "entity": 4,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 6,
+      "message": {
+        "text": "index check proved"
+      },
+      "rule": "VC_INDEX_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.37790003791451E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 85,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 6,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.24470000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.43580000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 85,
+      "entity": 4,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 6,
+      "message": {
+        "text": "index check proved"
+      },
+      "rule": "VC_INDEX_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.43579998984933E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 14,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 11,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.00300000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.30830000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 14,
+      "entity": 3,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 11,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.30829997360706E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 46,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 11,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.25020000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.32700000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 46,
+      "entity": 3,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 11,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.32699999958277E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 34,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 11,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.32120000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.09500000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 34,
+      "entity": 3,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 11,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.32120000198483E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 73,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 11,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.44320000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 9.63500000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 73,
+      "entity": 3,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 11,
+      "message": {
+        "text": "range check proved"
+      },
+      "rule": "VC_RANGE_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.44319999963045E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 58,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 11,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.03570000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.39600000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 58,
+      "entity": 3,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 11,
+      "message": {
+        "text": "precondition proved"
+      },
+      "rule": "VC_PRECONDITION",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.03569999337196E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 87,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 11,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.38580000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.24940000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 87,
+      "entity": 3,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 11,
+      "message": {
+        "text": "index check proved"
+      },
+      "rule": "VC_INDEX_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.38579998165369E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_col": 94,
+      "check_file": "count_square_submatrices_with_all_ones.adb",
+      "check_line": 11,
+      "check_tree": [
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 1.46510000000000E-02
+            }
+          },
+          "transformations": {
+          }
+        },
+        {
+          "proof_attempts": {
+            "CVC5": {
+              "result": "Valid",
+              "steps": 1,
+              "time": 8.20500000000000E-03
+            }
+          },
+          "transformations": {
+          }
+        }
+      ],
+      "col": 94,
+      "entity": 3,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "prover",
+      "line": 11,
+      "message": {
+        "text": "index check proved"
+      },
+      "rule": "VC_INDEX_CHECK",
+      "severity": "info",
+      "stats": {
+        "CVC5": {
+          "count": 2,
+          "max_steps": 1,
+          "max_time": 1.46509995684028E-02
+        }
+      },
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all",
+    " 2": "all",
+    " 3": "all",
+    " 4": "all",
+    " 5": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 2": {
+      "gnat2why.vc_generation": 1.67000002693385E-03,
+      "gnatwhy3.init": 3.25872987508774E-01,
+      "gnatwhy3.register_vcs": 2.59370002895594E-02,
+      "gnatwhy3.run_vcs": 3.99989985453431E-05,
+      "gnatwhy3.save_session": 7.68599892035127E-03,
+      "gnatwhy3.schedule_vcs": 3.90079990029335E-02,
+      "gnatwhy3.transformations.counterexamples_dependent_intros": 5.21400012075901E-03,
+      "gnatwhy3.transformations.detect_polymorphism": 1.29699904937297E-03,
+      "gnatwhy3.transformations.discriminate_if_poly": 1.49990000863909E-05,
+      "gnatwhy3.transformations.eliminate_algebraic_if_poly": 2.56799906492233E-03,
+      "gnatwhy3.transformations.eliminate_builtin": 1.52499903924763E-03,
+      "gnatwhy3.transformations.eliminate_definition_conditionally": 9.74998984020203E-04,
+      "gnatwhy3.transformations.eliminate_epsilon": 2.01699906028807E-03,
+      "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 1.44100002944469E-03,
+      "gnatwhy3.transformations.eliminate_inductive": 1.21500005479902E-03,
+      "gnatwhy3.transformations.eliminate_literal": 1.51900004129857E-03,
+      "gnatwhy3.transformations.eliminate_projections_sums": 2.01499904505908E-03,
+      "gnatwhy3.transformations.encoding_smt_if_poly": 1.10000000859145E-05,
+      "gnatwhy3.transformations.inline_trivial": 2.71610002964735E-02,
+      "gnatwhy3.transformations.remove_unused": 8.65100044757128E-03,
+      "gnatwhy3.transformations.simplify_formula": 1.83199904859066E-03,
+      "gnatwhy3.transformations.split_goal_wp_conj": 1.40129989013076E-02
+    },
+    " 3": {
+      "gnat2why.vc_generation": 1.24100001994520E-03,
+      "gnatwhy3.init": 2.95693010091782E-01,
+      "gnatwhy3.register_vcs": 5.19899884238839E-03,
+      "gnatwhy3.run_vcs": 1.10000000859145E-05,
+      "gnatwhy3.save_session": 2.22099898383021E-03,
+      "gnatwhy3.schedule_vcs": 2.08659991621971E-02,
+      "gnatwhy3.transformations.counterexamples_dependent_intros": 1.46199902519584E-03,
+      "gnatwhy3.transformations.detect_polymorphism": 2.24999006604776E-04,
+      "gnatwhy3.transformations.discriminate_if_poly": 7.99900044512469E-06,
+      "gnatwhy3.transformations.eliminate_algebraic_if_poly": 6.04000000748783E-04,
+      "gnatwhy3.transformations.eliminate_builtin": 1.25099904835224E-03,
+      "gnatwhy3.transformations.eliminate_definition_conditionally": 3.10000003082678E-04,
+      "gnatwhy3.transformations.eliminate_epsilon": 5.44000009540468E-04,
+      "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 5.89000002946705E-04,
+      "gnatwhy3.transformations.eliminate_inductive": 4.56000008853152E-04,
+      "gnatwhy3.transformations.eliminate_literal": 3.95000010030344E-04,
+      "gnatwhy3.transformations.eliminate_projections_sums": 6.43000006675720E-04,
+      "gnatwhy3.transformations.encoding_smt_if_poly": 3.99900000047637E-06,
+      "gnatwhy3.transformations.inline_trivial": 1.92329995334148E-02,
+      "gnatwhy3.transformations.remove_unused": 4.22099884599447E-03,
+      "gnatwhy3.transformations.simplify_formula": 1.06200005393475E-03,
+      "gnatwhy3.transformations.split_goal_wp_conj": 2.62099900282919E-03
+    },
+    " 4": {
+      "gnat2why.vc_generation": 1.90799997653812E-03,
+      "gnatwhy3.init": 3.55437994003296E-01,
+      "gnatwhy3.register_vcs": 3.17099899984896E-03,
+      "gnatwhy3.run_vcs": 9.99900021270150E-06,
+      "gnatwhy3.save_session": 1.10999902244657E-03,
+      "gnatwhy3.schedule_vcs": 1.27579988911748E-02,
+      "gnatwhy3.transformations.counterexamples_dependent_intros": 1.32000003941357E-03,
+      "gnatwhy3.transformations.detect_polymorphism": 3.54999006958678E-04,
+      "gnatwhy3.transformations.discriminate_if_poly": 4.99899988426478E-06,
+      "gnatwhy3.transformations.eliminate_algebraic_if_poly": 2.05000003916211E-04,
+      "gnatwhy3.transformations.eliminate_builtin": 8.49000003654510E-04,
+      "gnatwhy3.transformations.eliminate_definition_conditionally": 1.53000000864267E-04,
+      "gnatwhy3.transformations.eliminate_epsilon": 1.71000006957911E-04,
+      "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 1.84998993063346E-04,
+      "gnatwhy3.transformations.eliminate_inductive": 1.28999003209174E-04,
+      "gnatwhy3.transformations.eliminate_literal": 3.23999003740028E-04,
+      "gnatwhy3.transformations.eliminate_projections_sums": 3.85999010177329E-04,
+      "gnatwhy3.transformations.encoding_smt_if_poly": 3.99900000047637E-06,
+      "gnatwhy3.transformations.inline_trivial": 1.18380002677441E-02,
+      "gnatwhy3.transformations.remove_unused": 2.61499895714223E-03,
+      "gnatwhy3.transformations.simplify_formula": 8.53998993989080E-04,
+      "gnatwhy3.transformations.split_goal_wp_conj": 1.73599901609123E-03
+    },
+    "global": {
+      "flow analysis": 1.44699995871633E-03,
+      "globals (advanced)": 1.53000000864267E-04,
+      "globals (basic)": 1.74999993760139E-04,
+      "init_why_sections": 5.59000007342547E-04,
+      "marking": 4.10999986343086E-04,
+      "properties (advanced)": 3.30000002577435E-05,
+      "translation of standard": 1.42500002402812E-03
+    }
+  },
+  "warn_error": [
+    {
+      "check_tree": {
+      },
+      "col": 41,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 70,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 99,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 128,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 157,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 186,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 215,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 244,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 273,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 302,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 331,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 360,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 389,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 418,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 447,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 476,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 508,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 540,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 572,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 604,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 636,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 668,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 700,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 732,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 764,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 796,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 828,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 860,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 19,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "count_square_submatrices_with_all_ones.adb",
+      "how_proved": "trivial",
+      "line": 13,
+      "message": {
+        "arguments": [
+          "All_4"
+        ],
+        "text": "local subprogram {0} only analyzed in the context of calls [info-unrolling-inlining]"
+      },
+      "rule": "error",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ]
+}

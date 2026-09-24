@@ -1,0 +1,11 @@
+20260919102959
+-c
+-x
+ada
+-gnatA
+-gnatwa
+-gnat2022
+-gnata
+-gnatc
+-gnates=/workspace/Ada-SPARK-Last-Stone-Weight-II/obj/gnatprove/13b709a8.tmp
+-gnatis

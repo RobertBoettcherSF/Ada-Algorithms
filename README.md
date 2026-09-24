@@ -5,17 +5,36 @@ Resource-efficient **monorepo of Ada algorithm packages** (educational sheets).
 **Not included here:** larger projects such as Logistics, Rule-30, Blauer Sand /
 `lern_engine` — those stay in their own repositories.
 
-## Explore / test
+## Layout
+
+Flat sheet dumps by **topic**, then prove level:
+
+```
+sorting/Ada/…          # plain Ada sheet files (as-is)
+sorting/SPARK2/…
+searching/Ada/…
+…/SPARK1|SPARK2|SPARK3|SPARK4/…
+misc/…
+```
+
+On basename clashes with different content, files are renamed
+`<GitHubRepo>__<basename>` (e.g. `Ada-Quicksort__tests.adb`). Identical
+files (same sha256) are stored once. Package sources are not rewritten.
+
+See [`TOPICS.md`](TOPICS.md) for per-topic / per-level file counts.
+
+## Explore / test (integrated harness)
+
+A small seeded harness (independent of the flat topic dumps) lives under
+`src/` and `tests/`:
 
 ```bash
-make            # build harness + all test binaries
-make list       # list algorithms (name + category)
-make test                # run every seeded algo's tests
+make            # build harness + seed test binaries
+make list       # list seeded algorithms
+make test                # run all seed tests
 make test CAT=sorting    # one category only
 make clean
 ```
-
-Harness CLI (same as the Make targets):
 
 ```bash
 bin/harness --list
@@ -23,21 +42,12 @@ bin/harness --category sorting
 bin/harness --all
 ```
 
-Build flags match the sheet style: `-gnatwa -gnat2022` (GNAT / Ada 2022).
+Build flags: `-gnatwa -gnat2022`.
 
-## Seeded so far
+## Seeded harness algos
 
-| Algorithm       | Category  | Source sheet              |
-|-----------------|-----------|---------------------------|
-| quicksort       | sorting   | Ada-Quicksort             |
-| heapsort        | sorting   | Ada-Heapsort              |
-| binary_search   | searching | Ada-Binary-Search         |
-
-Further Ada-* algorithm sheets will be migrated in later batches. Per-algo
-upstream repos are left intact.
-
-## Archival sheet dump
-
-Unmodified copies of upstream algorithm sheet repos live under [`sheets/`](sheets/)
-(`Ada/`, `SPARK1`…`SPARK4`). See [`sheets/README.md`](sheets/README.md).
-
+| Algorithm     | Category  |
+|---------------|-----------|
+| quicksort     | sorting   |
+| heapsort      | sorting   |
+| binary_search | searching |

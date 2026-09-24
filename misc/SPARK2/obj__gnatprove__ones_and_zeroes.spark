@@ -1,0 +1,347 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+        {
+          "arg": 2,
+          "predicate": "CLAIM_EFFECTS"
+        }
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Ones_And_Zeroes.Max_Form",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "ones_and_zeroes.ads",
+          "line": 6
+        }
+      ]
+    },
+    " 2": {
+      "name": "Ones_And_Zeroes.Fits",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "ones_and_zeroes.adb",
+          "line": 3
+        }
+      ]
+    },
+    " 3": {
+      "name": "Ones_And_Zeroes",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "ones_and_zeroes.ads",
+          "line": 2
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 1,
+      "file": "ones_and_zeroes.ads",
+      "how_proved": "flow",
+      "line": 6,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Max_Form\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 98,
+      "entity": 1,
+      "file": "ones_and_zeroes.ads",
+      "how_proved": "flow",
+      "line": 6,
+      "message": {
+        "text": "data dependencies proved"
+      },
+      "rule": "GLOBAL_WRONG",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 2,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "flow",
+      "line": 3,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Fits\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all",
+    " 2": "all",
+    " 3": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 1.60399999003857E-03
+    },
+    " 2": {
+      "gnat2why.vc_generation": 6.29999994998798E-05
+    },
+    "global": {
+      "flow analysis": 1.47899996954948E-03,
+      "globals (advanced)": 1.48000006447546E-04,
+      "globals (basic)": 1.82000003405847E-04,
+      "init_why_sections": 5.29000011738390E-04,
+      "marking": 2.72000004770234E-04,
+      "properties (advanced)": 2.40000008489005E-05,
+      "translation of standard": 1.30500004161149E-03
+    }
+  },
+  "warn_error": [
+    {
+      "check_tree": {
+      },
+      "col": 26,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 9,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 38,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 9,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 72,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 9,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 83,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 9,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 29,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 11,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 63,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 11,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 28,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 12,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 62,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 12,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 28,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 13,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 62,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 13,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 28,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 14,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 62,
+      "file": "ones_and_zeroes.adb",
+      "how_proved": "trivial",
+      "line": 14,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ]
+}

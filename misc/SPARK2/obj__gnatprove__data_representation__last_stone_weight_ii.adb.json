@@ -1,0 +1,239 @@
+[
+{
+  "name": "Last_Stone_Weight_Ii.Difference.Difference_Value",
+  "location": "last_stone_weight_ii.adb:4:7",
+  "Size": 64,
+  "Alignment": 8
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.Total",
+  "location": "last_stone_weight_ii.adb:14:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.Best",
+  "location": "last_stone_weight_ii.adb:15:7",
+  "Size": 64,
+  "Alignment": 8
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P1",
+  "location": "last_stone_weight_ii.adb:16:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P2",
+  "location": "last_stone_weight_ii.adb:17:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P3",
+  "location": "last_stone_weight_ii.adb:18:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P4",
+  "location": "last_stone_weight_ii.adb:19:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P5",
+  "location": "last_stone_weight_ii.adb:20:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P6",
+  "location": "last_stone_weight_ii.adb:21:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P7",
+  "location": "last_stone_weight_ii.adb:22:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P8",
+  "location": "last_stone_weight_ii.adb:23:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P9",
+  "location": "last_stone_weight_ii.adb:24:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P10",
+  "location": "last_stone_weight_ii.adb:25:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P11",
+  "location": "last_stone_weight_ii.adb:26:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P12",
+  "location": "last_stone_weight_ii.adb:27:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P13",
+  "location": "last_stone_weight_ii.adb:28:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P14",
+  "location": "last_stone_weight_ii.adb:29:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P15",
+  "location": "last_stone_weight_ii.adb:30:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P16",
+  "location": "last_stone_weight_ii.adb:31:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P17",
+  "location": "last_stone_weight_ii.adb:32:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P18",
+  "location": "last_stone_weight_ii.adb:33:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P19",
+  "location": "last_stone_weight_ii.adb:34:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P20",
+  "location": "last_stone_weight_ii.adb:35:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P21",
+  "location": "last_stone_weight_ii.adb:36:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P22",
+  "location": "last_stone_weight_ii.adb:37:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P23",
+  "location": "last_stone_weight_ii.adb:38:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P24",
+  "location": "last_stone_weight_ii.adb:39:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P25",
+  "location": "last_stone_weight_ii.adb:40:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P26",
+  "location": "last_stone_weight_ii.adb:41:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P27",
+  "location": "last_stone_weight_ii.adb:42:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P28",
+  "location": "last_stone_weight_ii.adb:43:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P29",
+  "location": "last_stone_weight_ii.adb:44:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P30",
+  "location": "last_stone_weight_ii.adb:45:7",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Last_Stone_Weight_Ii.Min_Remaining_Weight.P31",
+  "location": "last_stone_weight_ii.adb:46:7",
+  "Size": 32,
+  "Alignment": 4
+}
+]

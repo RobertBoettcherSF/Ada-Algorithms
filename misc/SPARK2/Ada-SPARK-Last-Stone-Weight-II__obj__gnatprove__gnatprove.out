@@ -1,0 +1,49 @@
+=========================
+Summary of SPARK analysis
+=========================
+
+---------------------------------------------------------------------------------
+SPARK Analysis results        Total      Flow      Provers   Justified   Unproved
+---------------------------------------------------------------------------------
+Data Dependencies                 1         1            .           .          .
+Flow Dependencies                 .         .            .           .          .
+Initialization                    .         .            .           .          .
+Non-Aliasing                      .         .            .           .          .
+Run-time Checks                  94         .    94 (CVC5)           .          .
+Assertions                        .         .            .           .          .
+Functional Contracts              .         .            .           .          .
+LSP Verification                  .         .            .           .          .
+Termination                       2         2            .           .          .
+Concurrency                       .         .            .           .          .
+---------------------------------------------------------------------------------
+Total                            97    3 (3%)     94 (97%)           .          .
+
+
+max steps used for successful proof: 6885
+
+============================
+Most difficult proved checks
+============================
+
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+last_stone_weight_ii.adb:7:17: overflow check proved in max 1 seconds
+
+========================
+Detailed analysis report
+========================
+
+Analyzed 2 units
+in unit last_stone_weight_ii, 3 subprograms and packages out of 3 analyzed
+  Last_Stone_Weight_II at last_stone_weight_ii.ads:2 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Last_Stone_Weight_II.Difference at last_stone_weight_ii.adb:3 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (0 checks)
+  Last_Stone_Weight_II.Min_Remaining_Weight at last_stone_weight_ii.ads:7 flow analyzed (0 errors, 0 checks, 0 warnings and 0 pragma Assume statements) and proved (94 checks)
+in unit tests, 0 subprograms and packages out of 1 analyzed
+  Tests at tests.adb:2 skipped; SPARK_Mode => Off

@@ -1,0 +1,16 @@
+[
+{
+  "name": "Unique_Binary_Search_Trees.Table",
+  "location": "unique_binary_search_trees.adb:3:9",
+  "Size": 544,
+  "Alignment": 4,
+  "Component_Size": 32
+}
+,
+{
+  "name": "Unique_Binary_Search_Trees.Catalan",
+  "location": "unique_binary_search_trees.adb:4:4",
+  "Size": 544,
+  "Alignment": 4
+}
+]

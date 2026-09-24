@@ -1,0 +1,448 @@
+{
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 1,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 2,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "arg": 3,
+        "predicate": "CLAIM_EFFECTS"
+      }
+    }
+  ],
+  "entities": {
+    " 1": {
+      "name": "Num_Matrix_Block_Sum.Block_Sum",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "num_matrix_block_sum.ads",
+          "line": 7
+        }
+      ]
+    },
+    " 2": {
+      "name": "Num_Matrix_Block_Sum.In_Block",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "num_matrix_block_sum.adb",
+          "line": 3
+        }
+      ]
+    },
+    " 3": {
+      "name": "Num_Matrix_Block_Sum.Contribution",
+      "sloc": [
+        {
+          "column": 13,
+          "file": "num_matrix_block_sum.adb",
+          "line": 9
+        }
+      ]
+    },
+    " 4": {
+      "name": "Num_Matrix_Block_Sum",
+      "sloc": [
+        {
+          "column": 9,
+          "file": "num_matrix_block_sum.ads",
+          "line": 2
+        }
+      ]
+    }
+  },
+  "flow": [
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 1,
+      "file": "num_matrix_block_sum.ads",
+      "how_proved": "flow",
+      "line": 7,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Block_Sum\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 96,
+      "entity": 1,
+      "file": "num_matrix_block_sum.ads",
+      "how_proved": "flow",
+      "line": 7,
+      "message": {
+        "text": "data dependencies proved"
+      },
+      "rule": "GLOBAL_WRONG",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 2,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "flow",
+      "line": 3,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"In_Block\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "entity": 3,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "flow",
+      "line": 9,
+      "message": {
+        "text": "implicit aspect Always_Terminates on \"Contribution\" has been proved, subprogram will terminate"
+      },
+      "rule": "SUBPROGRAM_TERMINATION",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "pragma_assume": [
+  ],
+  "progress": "PROGRESS_PROOF",
+  "proof": [
+  ],
+  "skip_flow_proof": [
+  ],
+  "skip_proof": [
+  ],
+  "spark": {
+    " 1": "all",
+    " 2": "all",
+    " 3": "all",
+    " 4": "all"
+  },
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+    " 1": {
+      "gnat2why.vc_generation": 3.17599996924400E-03
+    },
+    "global": {
+      "flow analysis": 1.51530001312494E-02,
+      "globals (advanced)": 1.30999993416481E-04,
+      "globals (basic)": 2.87000002572313E-04,
+      "init_why_sections": 6.04000000748783E-04,
+      "marking": 4.52999986009672E-04,
+      "properties (advanced)": 1.99999994947575E-05,
+      "translation of standard": 1.20800000149757E-03
+    }
+  },
+  "warn_error": [
+    {
+      "check_tree": {
+      },
+      "col": 70,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 128,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 186,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 244,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 302,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 360,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 418,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 476,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 534,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 592,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 650,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 708,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 766,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 824,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 20,
+      "message": {
+        "text": "possible reassociation due to missing parentheses [operator-reassociation]"
+      },
+      "rule": "operator-reassociation",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 3,
+      "message": {
+        "arguments": [
+          "In_Block"
+        ],
+        "text": "local subprogram {0} only analyzed in the context of calls [info-unrolling-inlining]"
+      },
+      "rule": "error",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {
+      },
+      "col": 13,
+      "file": "num_matrix_block_sum.adb",
+      "how_proved": "trivial",
+      "line": 9,
+      "message": {
+        "arguments": [
+          "Contribution"
+        ],
+        "text": "local subprogram {0} only analyzed in the context of calls [info-unrolling-inlining]"
+      },
+      "rule": "error",
+      "severity": "info",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ]
+}

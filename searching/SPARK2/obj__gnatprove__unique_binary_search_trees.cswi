@@ -1,0 +1,10 @@
+20260919100752
+-c
+-x
+ada
+-gnatA
+-gnatwa
+-gnat2022
+-gnata
+-gnatc
+-gnates=/workspace/Ada-SPARK-Unique-Binary-Search-Trees/obj/gnatprove/0165214b.tmp

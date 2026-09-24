@@ -1,0 +1,33 @@
+[
+{
+  "name": "Maximal_Square.Index",
+  "location": "maximal_square.ads:3:12",
+  "Object_Size": 32,
+  "Value_Size": 3,
+  "Alignment": 4
+}
+,
+{
+  "name": "Maximal_Square.Bit",
+  "location": "maximal_square.ads:4:12",
+  "Object_Size": 32,
+  "Value_Size": 1,
+  "Alignment": 4
+}
+,
+{
+  "name": "Maximal_Square.Matrix",
+  "location": "maximal_square.ads:5:9",
+  "Size": 512,
+  "Alignment": 4,
+  "Component_Size": 32
+}
+,
+{
+  "name": "Maximal_Square.Side",
+  "location": "maximal_square.ads:6:12",
+  "Object_Size": 32,
+  "Value_Size": 3,
+  "Alignment": 4
+}
+]
