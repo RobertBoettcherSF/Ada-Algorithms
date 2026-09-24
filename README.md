@@ -7,19 +7,20 @@ Resource-efficient **monorepo of Ada algorithm packages** (educational sheets).
 
 ## Layout
 
-Flat sheet dumps by **topic**, then prove level:
+Algorithm packages are organized by **topic**, then proof level, with one
+folder per source repository:
 
 ```
-sorting/Ada/…          # plain Ada sheet files (as-is)
-sorting/SPARK2/…
-searching/Ada/…
-…/SPARK1|SPARK2|SPARK3|SPARK4/…
-misc/…
+sorting/Ada/Ada-Quicksort/…
+sorting/SPARK2/Ada-Quicksort/…
+searching/Ada/Ada-Binary-Search/…
+…/SPARK1|SPARK2|SPARK3|SPARK4/<GitHubRepo>/…
 ```
 
-On basename clashes with different content, files are renamed
-`<GitHubRepo>__<basename>` (e.g. `Ada-Quicksort__tests.adb`). Identical
-files (same sha256) are stored once. Package sources are not rewritten.
+Files formerly renamed `<GitHubRepo>__<basename>` are stored as
+`<GitHubRepo>/<basename>` (leading-dot names are preserved). Files without a
+clash prefix remain at the topic/level root. Identical files (same sha256) are
+stored once. Package sources are not rewritten.
 
 See [`TOPICS.md`](TOPICS.md) for per-topic / per-level file counts.
 

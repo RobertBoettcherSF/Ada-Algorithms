@@ -1,9 +1,11 @@
-# Topics — flat Ada / SPARK sheet layout
+# Topics — Ada / SPARK sheet layout
 
-Former `sheets/<LEVEL>/<RepoName>/` trees flattened into
-`<topic>/<LEVEL>/` at repo root. On basename clash with differing
-content, files are renamed `<RepoName>__<basename>`. Identical
-sha256 duplicates are skipped. Upstream package sources are not rewritten.
+Each topic/proof-level directory contains one folder per source algorithm
+repository: `<topic>/<LEVEL>/<RepoName>/...`. Former clash-renamed files such
+as `<RepoName>__<basename>` are now stored as `<RepoName>/<basename>`;
+leading-dot filenames are preserved. Unprefixed files remain at the
+topic/level root. Identical sha256 duplicates are skipped. Upstream package
+sources are not rewritten.
 
 Integrated harness remains under `src/` and `tests/`.
 
