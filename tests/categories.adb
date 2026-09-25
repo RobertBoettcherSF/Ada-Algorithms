@@ -28,16 +28,18 @@ package body Categories is
       return E;
    end Make;
 
-   Registry : constant array (Algo_Index range 1 .. 3) of Algo_Entry :=
+   Registry : constant array (Algo_Index range 1 .. 4) of Algo_Entry :=
      [1 => Make ("quicksort",     Sorting,   "test_quicksort"),
       2 => Make ("heapsort",      Sorting,   "test_heapsort"),
-      3 => Make ("binary_search", Searching, "test_binary_search")];
+      3 => Make ("binary_search", Searching, "test_binary_search"),
+      4 => Make ("modular_arithmetic", Numerical, "test_modular_arithmetic")];
 
    function Category_Label (C : Category_Id) return String is
    begin
       case C is
          when Sorting   => return "sorting";
          when Searching => return "searching";
+         when Numerical => return "numerical";
       end case;
    end Category_Label;
 
@@ -67,6 +69,8 @@ package body Categories is
          return Sorting;
       elsif L = "searching" then
          return Searching;
+      elsif L = "numerical" then
+         return Numerical;
       else
          raise Constraint_Error with "unknown category: " & S;
       end if;

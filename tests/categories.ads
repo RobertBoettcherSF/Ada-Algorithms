@@ -5,10 +5,10 @@ pragma Ada_2022;
 
 package Categories is
 
-   type Category_Id is (Sorting, Searching);
+   type Category_Id is (Sorting, Searching, Numerical);
 
    function Category_Label (C : Category_Id) return String;
-   --  Lowercase directory-style name: "sorting", "searching".
+   --  Lowercase directory-style name: "sorting", "searching", "numerical".
 
    function Parse_Category (S : String) return Category_Id;
    --  Case-insensitive parse of label; raises Constraint_Error if unknown.

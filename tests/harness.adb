@@ -38,7 +38,7 @@ procedure Harness is
       Put_Line ("Usage: harness --list");
       Put_Line ("       harness --category <name>");
       Put_Line ("       harness --all");
-      Put_Line ("Categories: sorting, searching");
+      Put_Line ("Categories: sorting, searching, numerical");
    end Usage;
 
    procedure Do_List is

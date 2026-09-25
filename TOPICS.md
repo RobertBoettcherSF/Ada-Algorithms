@@ -24,13 +24,13 @@ Integrated harness remains under `src/` and `tests/`.
 | matrices | 75 | 0 | 151 | 0 | 0 | 226 |
 | misc | 3458 | 0 | 4284 | 0 | 73 | 7815 |
 | ml | 140 | 0 | 20 | 0 | 0 | 160 |
-| numerical | 496 | 0 | 151 | 0 | 38 | 685 |
+| numerical | 496 | 0 | 151 | 0 | 59 | 706 |
 | parsing | 93 | 0 | 21 | 0 | 0 | 114 |
 | searching | 217 | 0 | 219 | 0 | 63 | 499 |
 | sorting | 242 | 0 | 355 | 0 | 230 | 827 |
 | strings | 135 | 0 | 293 | 8 | 0 | 436 |
 | trees | 52 | 0 | 405 | 0 | 0 | 457 |
-| **All** | 6024 | 0 | 6218 | 16 | 424 | **12682** |
+| **All** | 6024 | 0 | 6218 | 16 | 445 | **12703** |
 
 - Clash renames: **6578**
 - Identical duplicates skipped: **2470**

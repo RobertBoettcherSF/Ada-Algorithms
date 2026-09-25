@@ -33,7 +33,7 @@ A small seeded harness (independent of the flat topic dumps) lives under
 make            # build harness + seed test binaries
 make list       # list seeded algorithms
 make test                # run all seed tests
-make test CAT=sorting    # one category only
+make test CAT=sorting    # one category only (sorting, searching, numerical)
 make clean
 ```
 
@@ -47,8 +47,14 @@ Build flags: `-gnatwa -gnat2022`.
 
 ## Seeded harness algos
 
-| Algorithm     | Category  |
-|---------------|-----------|
-| quicksort     | sorting   |
-| heapsort      | sorting   |
-| binary_search | searching |
+| Algorithm          | Category  |
+|--------------------|-----------|
+| quicksort          | sorting   |
+| heapsort           | sorting   |
+| binary_search      | searching |
+| modular_arithmetic | numerical |
+
+`modular_arithmetic` is built in place from
+[`numerical/SPARK4/Ada-SPARK-Modular-Arithmetic`](numerical/SPARK4/Ada-SPARK-Modular-Arithmetic)
+(proved SPARK library: mod ops, CRT, Montgomery, IBAN/ISBN/EAN/Luhn check
+digits), with `-gnata` added so its contracts are also checked at run time.

@@ -3,14 +3,20 @@
 
 project Ada_Algorithms is
    for Source_Dirs use
-     ("src/sorting", "src/searching", "tests", "tests/sorting", "tests/searching");
+     ("src/sorting", "src/searching", "tests", "tests/sorting", "tests/searching",
+      "numerical/SPARK4/Ada-SPARK-Modular-Arithmetic");
    for Object_Dir use "obj";
    for Exec_Dir   use "bin";
    for Main use
      ("harness.adb",
       "test_quicksort.adb",
       "test_heapsort.adb",
-      "test_binary_search.adb");
+      "test_binary_search.adb",
+      "tests.adb");  --  Ada-SPARK-Modular-Arithmetic test driver
+
+   package Builder is
+      for Executable ("tests.adb") use "test_modular_arithmetic";
+   end Builder;
 
    package Compiler is
       for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022");

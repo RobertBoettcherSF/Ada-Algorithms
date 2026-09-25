@@ -1,0 +1,10 @@
+# Version: 0.001
+# Equivalent mutants (reviewed by hand; excluded from the kill rate).
+# Format: file | trimmed source line | before -> after | reason
+modular_arithmetic.adb | if E.X >= 0 then | 0 -> 1 | E.X = 0 would give N * Y = 1 with N >= 2, impossible
+modular_arithmetic.adb | for K in 1 .. N - 1 loop | 1 -> 0 | upper bound N: a unit has order <= phi(N) <= N-1 and a non-unit never reaches 1, so the extra iteration is never taken
+modular_arithmetic-montgomery.adb | K := (WN * Wide (Np) + 1) / WR; | 1 -> 2 | N * Np + 1 is an exact multiple of R, so adding 2 gives the same quotient
+modular_arithmetic-check_digits.adb | subtype Digit is Natural_64 range 0 .. 9; | 9 -> 10 | only widens a range constraint; digit values never exceed 9
+modular_arithmetic-check_digits.adb | Buf : String (1 .. 10); | 10 -> 11 | an 11-symbol input is still rejected by the exact length test Len /= 10
+modular_arithmetic-check_digits.adb | Buf : String (1 .. 13); | 13 -> 14 | a 14-symbol input is still rejected by the exact length test Len /= 13 / Len = 13
+modular_arithmetic-check_digits.adb | elsif 2 * D > 9 then Z10.Reduce (2 * D - 9) | > -> >= | 2 * D is even, so it is never equal to 9
