@@ -537,6 +537,10 @@ misc/SPARK2/Ada-SPARK-Parity-Bits,parity_bits.adb,Even,function,4,True,killed
 misc/SPARK2/Ada-SPARK-Parity-Bits,parity_bits.adb,Odd,function,4,True,survived
 misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,partition_around_pivot.adb,Partition,function,2,default,killed
 misc/SPARK2/Ada-SPARK-Partition-Equal-Subset-Sum,partition_equal_subset_sum.adb,Can_Partition,function,6,True,killed
+misc/SPARK2/Ada-SPARK-Partition-List,src/partition_list.adb,Empty,function,2,default,survived
+misc/SPARK2/Ada-SPARK-Partition-List,src/partition_list.adb,Append,procedure,2,null,killed
+misc/SPARK2/Ada-SPARK-Partition-List,src/partition_list.adb,Get,function,2,default,killed
+misc/SPARK2/Ada-SPARK-Partition-List,src/partition_list.adb,Solve,procedure,2,null,killed
 misc/SPARK2/Ada-SPARK-Pascal-Triangle,pascal_triangle.adb,Row_Total,function,4,default,killed
 misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb,Get,function,6,default,killed
 misc/SPARK2/Ada-SPARK-Path-Sum,path_sum.adb,Empty,function,4,default,survived
@@ -907,6 +911,10 @@ sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,merge_two_sorted_lists.adb,Appen
 sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,merge_two_sorted_lists.adb,Length,function,2,default,killed
 sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,merge_two_sorted_lists.adb,Element,function,6,default,killed
 sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,merge_two_sorted_lists.adb,Merge,function,2,default,killed
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,src/odd_even_linked_list.adb,Empty,function,2,default,survived
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,src/odd_even_linked_list.adb,Append,procedure,2,null,killed
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,src/odd_even_linked_list.adb,Get,function,2,default,killed
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,src/odd_even_linked_list.adb,Solve,procedure,2,null,killed
 sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,odd_even_merge_sort.adb,Sort,function,2,default,killed
 sorting/SPARK2/Ada-SPARK-Pancake-Sort,pancake_sort.adb,Sort,function,2,default,killed
 sorting/SPARK2/Ada-SPARK-Patience-Sort,patience_sort.adb,Sort,function,2,default,killed

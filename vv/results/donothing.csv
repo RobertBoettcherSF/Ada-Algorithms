@@ -236,7 +236,7 @@ misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,survived,Minimum_Cuts,killed,ok,1,
 misc/SPARK2/Ada-SPARK-Parity-Bits,survived,Even,killed,ok,2,Odd,1,0,yes
 misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,survived,Partition,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Partition-Equal-Subset-Sum,survived,Can_Partition,killed,ok,1,,1,0,yes
-misc/SPARK2/Ada-SPARK-Partition-List,,,,no tests,0,,0,0,
+misc/SPARK2/Ada-SPARK-Partition-List,survived,Solve,killed,ok,4,Empty,3,0,yes
 misc/SPARK2/Ada-SPARK-Pascal-Triangle,survived,Row_Total,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,survived,Get,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Path-Sum,survived,Has_Path_Sum,killed,ok,3,Empty,2,0,yes
@@ -386,7 +386,7 @@ sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,survived,Median,killed
 sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array,survived,Merge_Sum,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,survived,Merge,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,survived,Merge,killed,ok,5,Empty,4,0,yes
-sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,,,,no tests,0,,0,0,
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,survived,Solve,killed,ok,4,Empty,3,0,yes
 sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,survived,Sort,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Pancake-Sort,survived,Sort,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Patience-Sort,survived,Sort,killed,ok,1,,1,0,yes
