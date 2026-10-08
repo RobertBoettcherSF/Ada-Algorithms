@@ -1,20 +1,22 @@
---  Slowsort body — SPARK Level 4 multiply-and-surrender recursion.
---  Slowsort_Range uses Subprogram_Variant (J - I) and proves only
---  In_Bounds / RTE / termination / frame (the classic inductive
---  half-maxima argument fights automated Level 4). Sort then runs
---  a gap-1 Bubble_Finish (same role as Stooge / Comb / Odd_Even) so
---  Is_Sorted is proved. No Intentional Annotate.
+--  Slowsort body: SPARK Level 4 multiply-and-surrender recursion.
+--  Slowsort_Range is proved to sort its range on its own: its Post says
+--  A (I .. J) is sorted (pairwise) and no element exceeds the largest
+--  element the range held on entry (Max_Of, a ghost function). That
+--  bound is what the surrender step needs: after the swap, A (J) is the
+--  range maximum, and the recursive call on I .. J - 1 cannot bring in
+--  anything larger. Subprogram_Variant (J - I) proves termination.
+--  No fallback pass, no Assume, no Annotate.
 
 package body Slowsort
   with SPARK_Mode => On
 is
 
-   --  Adjacent nondecreasing on A (L .. R). Vacuous when L >= R.
-   function Sorted_Slice
+   --  Every pair in A (L .. R) is in order. Vacuous when L >= R.
+   function Sorted_Pairs
      (A : Element_Array; L, R : Natural) return Boolean
    is
-     (L >= R
-      or else (for all K in L .. R - 1 => A (K) <= A (K + 1)))
+     (for all P in L .. R =>
+        (for all Q in P .. R => A (P) <= A (Q)))
    with
      Ghost  => True,
      Global => null,
@@ -23,25 +25,68 @@ is
        and then L >= 1
        and then R <= A'Last;
 
-   --  Every element of A (Lo_P .. Hi_P) is <= every element of A (Lo_S .. Hi_S).
-   function Prefix_Leq_Suffix
-     (A                      : Element_Array;
-      Lo_P, Hi_P, Lo_S, Hi_S : Natural) return Boolean
+   --  Every element of A (L .. R) is at most V.
+   function All_Leq
+     (A : Element_Array; L, R : Natural; V : Integer) return Boolean
    is
-     (Hi_P < Lo_P
-      or else Hi_S < Lo_S
-      or else
-        (for all K in Lo_P .. Hi_P =>
-           (for all L in Lo_S .. Hi_S => A (K) <= A (L))))
+     (for all K in L .. R => A (K) <= V)
    with
      Ghost  => True,
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then Lo_P >= 1
-       and then Hi_P <= A'Last
-       and then Lo_S >= 1
-       and then Hi_S <= A'Last;
+       and then L >= 1
+       and then R <= A'Last;
+
+   --  Largest element of A (L .. R).
+   function Max_Of (A : Element_Array; L, R : Index) return Integer
+   is
+     (if L = R then A (L) else Integer'Max (Max_Of (A, L, R - 1), A (R)))
+   with
+     Ghost              => True,
+     Global             => null,
+     Subprogram_Variant => (Decreases => R - L),
+     Pre                =>
+       In_Bounds (A)
+       and then L in 1 .. A'Last
+       and then R in L .. A'Last;
+
+   --  Max_Of is an upper bound of its range.
+   procedure Lemma_Max_Upper (A : Element_Array; L, R : Index)
+     with
+       Ghost              => True,
+       Global             => null,
+       Subprogram_Variant => (Decreases => R - L),
+       Pre                =>
+         In_Bounds (A)
+         and then L in 1 .. A'Last
+         and then R in L .. A'Last,
+       Post               => All_Leq (A, L, R, Max_Of (A, L, R))
+   is
+   begin
+      if L < R then
+         Lemma_Max_Upper (A, L, R - 1);
+      end if;
+   end Lemma_Max_Upper;
+
+   --  Max_Of is the least upper bound: any bound of the range bounds it.
+   procedure Lemma_Max_Least (A : Element_Array; L, R : Index; V : Integer)
+     with
+       Ghost              => True,
+       Global             => null,
+       Subprogram_Variant => (Decreases => R - L),
+       Pre                =>
+         In_Bounds (A)
+         and then L in 1 .. A'Last
+         and then R in L .. A'Last
+         and then All_Leq (A, L, R, V),
+       Post               => Max_Of (A, L, R) <= V
+   is
+   begin
+      if L < R then
+         Lemma_Max_Least (A, L, R - 1, V);
+      end if;
+   end Lemma_Max_Least;
 
    procedure Swap (A : in out Element_Array; X, Y : Index)
      with
@@ -68,16 +113,13 @@ is
       A (Y) := T;
    end Swap;
 
-   --  Classic slowsort on A (I .. J). Variant J - I decreases on each
-   --  recursive call (left/right halves shrink; surrender uses J-1).
-   --  Contracts: In_Bounds / frame / termination only (sortedness via
-   --  Bubble_Finish in Sort — same split as Stooge / Comb / Odd_Even).
+   --  Classic slowsort on A (I .. J): sort both halves, move the larger
+   --  half maximum to J, then sort I .. J - 1 ("surrender").
    procedure Slowsort_Range
      (A    : in out Element_Array;
       I, J : Index)
      with
        Global             => null,
-       Always_Terminates  => True,
        Subprogram_Variant => (Decreases => J - I),
        Pre                =>
          In_Bounds (A)
@@ -85,139 +127,63 @@ is
          and then J in I .. A'Last,
        Post               =>
          In_Bounds (A)
+         and then Sorted_Pairs (A, I, J)
+         and then All_Leq (A, I, J, Max_Of (A'Old, I, J))
          and then
            (for all K in 1 .. I - 1 => A (K) = A'Old (K))
          and then
            (for all K in J + 1 .. A'Last => A (K) = A'Old (K))
    is
-      M : Index;
+      M  : Index;
+      Mx : constant Integer := Max_Of (A, I, J) with Ghost;
+      A0 : constant Element_Array := A with Ghost;
+      A3 : Element_Array (A'Range) with Ghost;
    begin
       if I >= J then
          return;
       end if;
 
-      --  Overflow-safe midpoint: equivalent to (I + J) / 2 for I,J in range.
+      Lemma_Max_Upper (A, I, J);
+      pragma Assert (All_Leq (A, I, J, Mx));
+
+      --  Overflow-safe midpoint: equivalent to (I + J) / 2 for I, J in range.
       M := I + (J - I) / 2;
       pragma Assert (M in I .. J - 1);
-      pragma Assert (M - I < J - I);
-      pragma Assert (J - (M + 1) < J - I);
-      pragma Assert ((J - 1) - I < J - I);
 
+      --  Multiply: left half.
+      pragma Assert (All_Leq (A, I, M, Mx));
+      Lemma_Max_Least (A, I, M, Mx);
       Slowsort_Range (A, I, M);
-      Slowsort_Range (A, M + 1, J);
+      pragma Assert (All_Leq (A, I, M, Mx));
+      pragma Assert (for all K in M + 1 .. J => A (K) = A0 (K));
+      pragma Assert (All_Leq (A, M + 1, J, Mx));
 
+      --  Multiply: right half.
+      Lemma_Max_Least (A, M + 1, J, Mx);
+      Slowsort_Range (A, M + 1, J);
+      pragma Assert (All_Leq (A, M + 1, J, Mx));
+      pragma Assert (All_Leq (A, I, M, Mx));
+      pragma Assert (All_Leq (A, I, J, Mx));
+      pragma Assert (All_Leq (A, I, M, A (M)));
+      pragma Assert (All_Leq (A, M + 1, J, A (J)));
+
+      --  The larger half maximum goes to J.
       if A (M) > A (J) then
          Swap (A, M, J);
       end if;
+      pragma Assert (All_Leq (A, I, J, Mx));
+      pragma Assert (All_Leq (A, I, J - 1, A (J)));
 
+      --  Surrender: sort the rest; nothing above A (J) can appear.
+      A3 := A;
+      Lemma_Max_Least (A, I, J - 1, A (J));
       Slowsort_Range (A, I, J - 1);
+      pragma Assert (A (J) = A3 (J));
+      pragma Assert (All_Leq (A, I, J - 1, A3 (J)));
+      pragma Assert (A3 (J) <= Mx);
+      pragma Assert (Sorted_Pairs (A, I, J));
+      pragma Assert (All_Leq (A, I, J, Mx));
    end Slowsort_Range;
-
-   --  One forward pass over A (1 .. Bound): bubble the maximum of that
-   --  range to index Bound via adjacent swaps. Preserves the already-
-   --  sorted / partitioned suffix Bound+1 .. A'Last.
-   procedure Bubble_Pass
-     (A       : in out Element_Array;
-      Bound   : Index;
-      Swapped : out Boolean)
-     with
-       Global => null,
-       Pre    =>
-         In_Bounds (A)
-         and then A'Last >= 2
-         and then Bound in 2 .. A'Last
-         and then Sorted_Slice (A, Bound + 1, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),
-       Post   =>
-         In_Bounds (A)
-         and then Sorted_Slice (A, Bound, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)
-         and then
-           (if not Swapped then Sorted_Slice (A, 1, Bound))
-   is
-   begin
-      Swapped := False;
-
-      for I in 1 .. Bound - 1 loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant
-           (for all K in 1 .. I => A (K) <= A (I));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (for all K in I + 1 .. A'Last => A (K) = A'Loop_Entry (K));
-         pragma Loop_Invariant
-           (if not Swapped then Sorted_Slice (A, 1, I));
-
-         if A (I) > A (I + 1) then
-            Swap (A, I, I + 1);
-            Swapped := True;
-         end if;
-
-         pragma Assert (for all K in 1 .. I + 1 => A (K) <= A (I + 1));
-         pragma Assert (if not Swapped then Sorted_Slice (A, 1, I + 1));
-      end loop;
-
-      pragma Assert (for all K in 1 .. Bound => A (K) <= A (Bound));
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      pragma Assert (Bound = A'Last or else A (Bound) <= A (Bound + 1));
-      pragma Assert (Sorted_Slice (A, Bound, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-      pragma Assert (if not Swapped then Sorted_Slice (A, 1, Bound));
-   end Bubble_Pass;
-
-   --  Final gap = 1: ordinary bubble sort with early exit. Proves Is_Sorted.
-   procedure Bubble_Finish (A : in out Element_Array)
-     with
-       Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
-   is
-      Bound   : Index;
-      Swapped : Boolean;
-   begin
-      Bound := A'Last;
-
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-
-      loop
-         pragma Loop_Invariant (Bound in 2 .. A'Last);
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Variant (Decreases => Bound);
-
-         Bubble_Pass (A, Bound, Swapped);
-
-         pragma Assert (Sorted_Slice (A, Bound, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-
-         if not Swapped then
-            pragma Assert (Sorted_Slice (A, 1, Bound));
-            pragma Assert (Sorted_Slice (A, Bound, A'Last));
-            pragma Assert (Is_Sorted (A));
-            return;
-         end if;
-
-         exit when Bound = 2;
-
-         Bound := Bound - 1;
-
-         pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      end loop;
-
-      pragma Assert (Bound = 2);
-      pragma Assert (Sorted_Slice (A, 2, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 1, 2, A'Last));
-      pragma Assert (Is_Sorted (A));
-   end Bubble_Finish;
 
    procedure Sort (A : in out Element_Array) is
    begin
@@ -225,12 +191,8 @@ is
          return;
       end if;
 
-      --  Classic multiply-and-surrender recursion (educational core).
       Slowsort_Range (A, 1, A'Last);
-
-      --  Gap-1 bubble finish → Is_Sorted (same role as Stooge / Comb).
-      --  On a correctly slowsorted array this is an O(n) clean pass.
-      Bubble_Finish (A);
+      pragma Assert (Sorted_Pairs (A, 1, A'Last));
    end Sort;
 
 end Slowsort;

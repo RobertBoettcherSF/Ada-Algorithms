@@ -8,12 +8,11 @@
 --  sibling allows arbitrary A'First, Max_N = 24, and raises on oversized
 --  n; this port requires A'First = 1, uses Max_N = 16, Pre => In_Bounds
 --  (A), and bounds recursive Slowsort_Range with Subprogram_Variant =>
---  (Decreases => J - I). The classic inductive "half-maxima then
---  surrender" sortedness argument fights automated Level 4, so Sort
---  finishes with a gap-1 Bubble_Finish (same split as Stooge / Comb /
---  Odd_Even / Strand) to prove Is_Sorted. Full multiset / permutation
---  equality is verified by tests rather than claimed as a Level-4
---  postcondition.
+--  (Decreases => J - I). Slowsort_Range is proved to sort its range on
+--  its own (pairwise order plus "no element above the range's entry
+--  maximum", which carries the surrender step); there is no fallback
+--  pass. Full multiset / permutation equality is verified by tests
+--  rather than claimed as a Level-4 postcondition.
 --
 --  Reference: https://en.wikipedia.org/wiki/Slowsort
 
@@ -69,8 +68,9 @@ is
    --    6. Slowsort_Range (A, I, J-1)    -- surrender: rest
    --  Subprogram_Variant (J - I) strictly decreases on each recursive
    --  call. Empty and singleton arrays are no-ops.
-   --  Level 4: Slowsort_Range proves RTE / termination / frame; Sort then
-   --  runs a gap-1 bubble finish to prove Is_Sorted.
+   --  Level 4: Slowsort_Range proves RTE, termination, frame, pairwise
+   --  sortedness of A (I .. J) and the entry-maximum bound; Sort's
+   --  Is_Sorted follows directly.
    --  Do not `with` sibling Ada-* packages.
 
    ---------------------------------------------------------------------------
@@ -82,8 +82,8 @@ is
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending Slowsort (in-place multiply-and-surrender), then a
-   --  gap-1 bubble finish that discharges Is_Sorted at Level 4.
+   --  Ascending Slowsort (in-place multiply-and-surrender); the
+   --  recursion alone establishes Is_Sorted (proved at Level 4).
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
