@@ -3,6 +3,7 @@ with Ada.Assertions;
 with Ada.Numerics.Big_Numbers.Big_Integers;
 use type Ada.Numerics.Big_Numbers.Big_Integers.Big_Integer;
 with RSA; use RSA;
+with Own_Checks;
 
 procedure Tests is
    Pass_Count : Natural := 0;
@@ -19,6 +20,7 @@ procedure Tests is
       end if;
    end Check;
 begin
+   Own_Checks;   --  sweep: independent references (own_checks.adb, tests/SOURCES.txt)
    -- TEST 1: GCD Function
    Put_Line ("TEST 1 — GCD Function");
    Check ("1.1 GCD of coprime is 1", GCD (To_RSA(17), To_RSA(3120)) = One);
@@ -216,5 +218,8 @@ begin
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
-   pragma Assert (Fail_Count = 0, "Some tests failed");
+   --  pragma Assert is ignored without -gnata, so make test needs the exit status
+   if Fail_Count > 0 then
+      raise Program_Error with "Some tests failed";
+   end if;
 end Tests;

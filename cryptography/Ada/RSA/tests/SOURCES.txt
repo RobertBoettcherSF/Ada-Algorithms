@@ -1,0 +1,15 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Modular_Exponentiation: repeated multiplication for every base 0 .. 24,
+  exponent 0 .. 24 and modulus 1 .. 24 (x**0 mod 1 = 0); Fermat's little
+  theorem for the prime 2**61 - 1 with a 30-digit base.
+* GCD, LCM, Modular_Inverse: search over all candidates (0 .. 40 squared);
+  Modular_Inverse must raise Math_Error exactly when no inverse exists.
+* Extended_GCD: the Bezout identity A X + B Y = gcd (A, B) as a certificate.
+* Keys for every pair of distinct primes p, q <= 29 and e = 2 .. 12:
+  Carmichael lambda by search (smallest k with a**k = 1 mod n for every unit
+  a), e d = 1 mod lambda with 0 < d < lambda, rejection exactly when
+  gcd (e, lambda) /= 1; every message m < n: ciphertext = m**e mod n by
+  repeated multiplication, decrypt (encrypt m) = m, sign / verify, verify
+  rejects m + 1, blinded decryption equal to m for every unit r (n <= 35).
+Nothing is taken from the program's output or from third-party test suites.
