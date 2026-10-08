@@ -7,5 +7,6 @@ bin/tests: *.ads *.adb
 	$(GNAT) $(FLAGS) -D obj -o bin/tests tests.adb
 test: all
 	@bin/tests
+	@sh tests/phase_alone.sh
 clean:
 	rm -rf obj bin
