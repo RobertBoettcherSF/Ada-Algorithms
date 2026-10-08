@@ -50,9 +50,11 @@ is
             --  Peak cannot lie at or right of M2.
             Hi := M2 - 1;
          else
-            --  Equal: for (non-)strict unimodal, a maximum lies in [M1, M2].
-            Lo := M1;
-            Hi := M2;
+            --  Equal: with plateaus (allowed by Is_Unimodal) the peak may lie
+            --  on either side of [M1, M2] (0 0 0 1 vs 1 0 0 0), so no
+            --  comparison can narrow the window. Fall back to the linear scan
+            --  of [Lo, Hi] below: O(n) worst case on plateau inputs.
+            exit;
          end if;
       end loop;
 

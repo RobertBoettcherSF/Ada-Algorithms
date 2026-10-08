@@ -7,7 +7,7 @@
 --      m1 = Lo + ⌊(Hi − Lo) / 3⌋
 --      m2 = Hi − ⌊(Hi − Lo) / 3⌋
 --
---  Worst-case O(log n) comparisons (base 3/2 shrinkage) plus O(1) for the
+--  O(log n) comparisons (base 3/2 shrinkage) on strictly unimodal input plus O(1) for the
 --  final window. Sentinel 0 when a sorted key is absent (indices 1 .. N).
 --
 --  SPARK port of Ada-Ternary-Search: hard Max_N bound, no exceptions,
@@ -90,7 +90,8 @@ is
    --  then:
    --    if A(m1) < A(m2), raise Lo ← m1 + 1 (peak cannot be ≤ m1);
    --    if A(m1) > A(m2), lower Hi ← m2 − 1 (peak cannot be ≥ m2);
-   --    else shrink to [m1, m2] (equal / plateau).
+   --    else (equal) stop: on a plateau the peak may lie on either side,
+   --    so the final linear scan covers the whole [Lo, Hi] window (O(n) worst case).
    --  Finish with a linear scan of the tiny window; any plateau index OK.
    --  Sorted Find: trisect a nondecreasing array looking for Key; miss → 0.
 

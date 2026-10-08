@@ -9,7 +9,7 @@ m_1 = L + \left\lfloor\frac{H - L}{3}\right\rfloor,
 m_2 = H - \left\lfloor\frac{H - L}{3}\right\rfloor.
 $$
 
-A **secondary** API searches for a key in a sorted ascending array with the same two midpoints (binary search is usually preferable). Worst-case complexity for the unimodal peak search is $O(\log n)$ comparisons (base $3/2$ shrinkage) plus $O(1)$ for the final linear window. The absent-key sentinel for `Find` is always $0$ (live indices are $1 .. N$).
+A **secondary** API searches for a key in a sorted ascending array with the same two midpoints (binary search is usually preferable). The unimodal peak search takes $O(\log n)$ comparisons (base $3/2$ shrinkage) while the two probes differ; when they are equal (a plateau) no comparison can tell which side holds the peak (`0 0 0 1` vs `1 0 0 0`), so it finishes with a linear scan of the current window: $O(n)$ worst case on plateau inputs. The absent-key sentinel for `Find` is always $0$ (live indices are $1 .. N$).
 
 This is the SPARK Level 4 port of the companion package [Ada-Ternary-Search](https://github.com/RobertBoettcherSF/Ada-Ternary-Search) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), arbitrary `A'First`, and sentinel $A'\mathit{First}-1$; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Unimodal` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK search sibling: [Ada-SPARK-Binary-Search](https://github.com/RobertBoettcherSF/Ada-SPARK-Binary-Search).
 
