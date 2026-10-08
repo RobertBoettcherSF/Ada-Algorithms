@@ -7,9 +7,9 @@
 --
 --  SPARK port of Ada-Cocktail-Shaker-Sort: hard Max_N bound, no
 --  exceptions, In_Bounds / Is_Sorted contracts replace Invalid_Argument.
---  Non-SPARK sibling allows arbitrary A'First, raises on oversized n,
---  and loops until the window collapses; this port requires A'First = 1,
---  uses Pre => In_Bounds (A), and proves sortedness of the shaker passes
+--  Non-SPARK sibling raises on oversized n and loops until the window
+--  collapses; this port takes any A'First in 1 .. Max_N (the window
+--  starts at A'First .. A'Last), uses Pre => In_Bounds (A), and proves sortedness of the shaker passes
 --  themselves (window invariant; Hi - Lo is the loop variant). Full multiset /
 --  permutation equality is verified by tests rather than claimed as a
 --  Level-4 postcondition (sortedness is proved).
@@ -32,23 +32,31 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Live indices lie in 1 .. Max_N (any A'First); Index includes 0 so
+   --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
 
-   type Element_Array is array (Positive range <>) of Integer;
+   --  Live slots; the index subtype carries the 1 .. Max_N origin range,
+   --  In_Bounds adds the length.
+   subtype Live_Index is Positive range 1 .. Max_N;
+
+   type Element_Array is array (Live_Index range <>) of Integer;
 
    ---------------------------------------------------------------------------
    -- Shape / sortedness guards (expression functions — usable in contracts)
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (A'Length <= 1
+      or else (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
@@ -59,13 +67,13 @@ is
    -- Algorithm sketch (classic cocktail / bidirectional bubble / Wikipedia)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Maintain an active window [Lo .. Hi]
-   --  (initially 1 .. A'Last). While Lo < Hi:
+   --  (initially A'First .. A'Last). While Lo < Hi:
    --      Forward pass:  for I in Lo .. Hi-1, swap if A(I) > A(I+1);
    --                     then Hi := Hi - 1  (largest key bubbled to Hi).
    --      Backward pass: for I in reverse Lo+1 .. Hi, swap if A(I-1) > A(I);
    --                     then Lo := Lo + 1  (smallest key bubbled to Lo).
    --    Stop early when a pass performs no swaps (the window is sorted).
-   --  Proof: A(1 .. Lo-1) stays sorted and <= the rest, A(Hi+1 .. A'Last)
+   --  Proof: A(A'First .. Lo-1) stays sorted and <= the rest, A(Hi+1 .. A'Last)
    --  stays sorted and >= the rest; Hi - Lo decreases every round. This
    --  proves Is_Sorted directly (no extra bubble sort at the end).
    --  Swap only when A(I) > A(I+1) (strict `>`; never `>=`) so equal
