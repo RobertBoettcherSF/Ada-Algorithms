@@ -189,7 +189,13 @@ def check_folder(fid, work_root):
                    'create', 'make', 'image', 'to_string', 'put', 'print', 'show', 'first', 'last', 'capacity',
                    'is_empty', 'is_full', 'value', 'item', 'make_list', 'from_array', 'to_array', 'reset'}
         def entry(t): return t[1][0].lower() in ('solve', 'run', 'compute', 'execute')
-        pool = [t for t in called if not is_pred(t)] or called
+        # a predicate is the algorithm itself when its name matches the folder (Is_Valid_BST in
+        # Validate-Binary-Search-Tree) and no non-predicate does
+        preds_named = [t for t in called if is_pred(t) and name_score(t) > 0]
+        others = [t for t in called if not is_pred(t)]
+        if preds_named and not any(name_score(t) > 0 or entry(t) for t in others):
+            others += preds_named
+        pool = others or called
         main_name = max(pool, key=lambda t: (any(m != 'out' for _, _, m in t[1][6]), t[1][0].lower() not in helpers,
                                              entry(t) or name_score(t) > 0, uses[t[1][0]]))[1][0]   # subprograms without input (constructors, Initialize) last
         row['main'] = main_name
