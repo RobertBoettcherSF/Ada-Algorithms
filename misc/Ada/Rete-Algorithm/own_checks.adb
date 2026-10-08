@@ -208,6 +208,180 @@ begin
          end;
       end;
    end loop;
+   --  Capacity limits (Max_Nodes = 100 nodes / memory entries, 8 facts per
+   --  token): filling a structure to its limit must succeed, one more must
+   --  raise Network_Full (not any other exception), and removing from a
+   --  completely full memory must leave the remaining entries intact.
+   declare
+      Cross : constant Join_Condition := (0, Select_Entity, Select_Entity);
+      function Fact (I : Natural; A : String) return WME is
+        (WME'(ID => WME_ID (I), Entity => To_Symbol ("e" & I'Image),
+              Attribute => To_Symbol (A), Value => To_Symbol ("v")));
+      procedure Expect_Full (Label : String; Ok : Boolean) is
+      begin
+         if not Ok then
+            Fail ("capacity: " & Label & " did not raise Network_Full");
+         end if;
+      end Expect_Full;
+      type Positive_List is array (1 .. 3) of Positive;
+      A1, A2 : Alpha_Node_ID;
+      B, Prev : Beta_Node_ID;
+      Got : Boolean;
+   begin
+      --  101st alpha node, beta node, rule
+      Initialize_Network;
+      for I in 1 .. 100 loop
+         A1 := Add_Alpha_Node (To_Symbol ("a" & I'Image), To_Symbol ("v"));
+      end loop;
+      begin
+         A1 := Add_Alpha_Node (To_Symbol ("z"), To_Symbol ("v"));
+         Got := False;
+      exception
+         when Network_Full => Got := True;
+         when others => Got := False;
+      end;
+      Expect_Full ("101st alpha node", Got);
+      Initialize_Network;
+      A1 := Add_Alpha_Node (To_Symbol ("a"), To_Symbol ("v"));
+      for I in 1 .. 100 loop
+         B := Add_Beta_Node (0, A1, Cross);
+      end loop;
+      begin
+         B := Add_Beta_Node (0, A1, Cross);
+         Got := False;
+      exception
+         when Network_Full => Got := True;
+         when others => Got := False;
+      end;
+      Expect_Full ("101st beta node", Got);
+      for I in 1 .. 100 loop
+         Add_Rule (Rule_ID (I), To_Symbol ("r"), 1);
+      end loop;
+      begin
+         Add_Rule (1, To_Symbol ("r"), 1);
+         Got := False;
+      exception
+         when Network_Full => Got := True;
+         when others => Got := False;
+      end;
+      Expect_Full ("101st rule", Got);
+
+      --  full working memory, alpha memory and beta memory; then removal
+      Initialize_Network;
+      A1 := Add_Alpha_Node (To_Symbol ("a"), To_Symbol ("v"));
+      B := Add_Beta_Node (0, A1, Cross);
+      for I in 1 .. 100 loop
+         Insert_WME (Fact (I, "a"));
+      end loop;
+      begin
+         Insert_WME (Fact (101, "a"));
+         Got := False;
+      exception
+         when Network_Full => Got := True;
+         when others => Got := False;
+      end;
+      Expect_Full ("101st fact", Got);
+      for R of Positive_List'(1, 50, 100) loop
+         begin
+            Remove_WME (WME_ID (R));
+         exception
+            when others => Fail ("capacity: removing fact" & R'Image & " from full memories raised");
+         end;
+         Insert_WME (Fact (R + 1000, "a"));    --  back to 100
+         if Get_Global_WM_Count /= 100 or else Get_Alpha_Match_Count (A1) /= 100
+           or else Get_Beta_Match_Count (B) /= 100
+         then
+            Fail ("capacity: counts after removal and re-insertion");
+         end if;
+         --  every remaining fact must still be removable exactly once
+      end loop;
+      for I in 1 .. 100 loop
+         if I not in 1 | 50 | 100 then
+            Remove_WME (WME_ID (I));
+         end if;
+      end loop;
+      for R of Positive_List'(1001, 1050, 1100) loop
+         Remove_WME (WME_ID (R));
+      end loop;
+      if Get_Global_WM_Count /= 0 or else Get_Alpha_Match_Count (A1) /= 0
+        or else Get_Beta_Match_Count (B) /= 0
+      then
+         Fail ("capacity: memories not empty after removing every fact");
+      end if;
+
+      --  beta memory overflow alone: a self cross join of 10 facts has
+      --  exactly 100 tokens; the 11th fact must overflow it
+      Initialize_Network;
+      A1 := Add_Alpha_Node (To_Symbol ("a"), To_Symbol ("v"));
+      Prev := Add_Beta_Node (0, A1, Cross);
+      B := Add_Beta_Node (Prev, A1, Cross);
+      for I in 1 .. 10 loop
+         Insert_WME (Fact (I, "a"));
+      end loop;
+      if Get_Beta_Match_Count (B) /= 100 then
+         Fail ("capacity: 10 x 10 cross join is not 100 tokens");
+      end if;
+      begin
+         Insert_WME (Fact (11, "a"));
+         Got := False;
+      exception
+         when Network_Full => Got := True;
+         when others => Got := False;
+      end;
+      Expect_Full ("beta memory over 100 tokens", Got);
+      --  a full beta memory, then removing a fact that is in 19 of its tokens
+      Initialize_Network;
+      A1 := Add_Alpha_Node (To_Symbol ("a"), To_Symbol ("v"));
+      Prev := Add_Beta_Node (0, A1, Cross);
+      B := Add_Beta_Node (Prev, A1, Cross);
+      for I in 1 .. 10 loop
+         Insert_WME (Fact (I, "a"));
+      end loop;
+      begin
+         Remove_WME (10);
+      exception
+         when others => Fail ("capacity: removal from a full beta memory raised");
+      end;
+      if Get_Beta_Match_Count (B) /= 81 then
+         Fail ("capacity: 9 x 9 tokens expected after removing one of 10 facts");
+      end if;
+
+      --  token length: a chain of 9 joins needs 9 facts per token
+      Initialize_Network;
+      A1 := Add_Alpha_Node (To_Symbol ("a"), To_Symbol ("v"));
+      Prev := 0;
+      for K in 1 .. 9 loop
+         Prev := Add_Beta_Node (Prev, A1, Cross);
+      end loop;
+      begin
+         Insert_WME (Fact (1, "a"));
+         Got := False;
+      exception
+         when Network_Full => Got := True;
+         when others => Got := False;
+      end;
+      Expect_Full ("token of 9 facts (left activation)", Got);
+      Initialize_Network;
+      A1 := Add_Alpha_Node (To_Symbol ("a"), To_Symbol ("v"));
+      A2 := Add_Alpha_Node (To_Symbol ("b"), To_Symbol ("v"));
+      Prev := 0;
+      for K in 1 .. 8 loop
+         Prev := Add_Beta_Node (Prev, A1, Cross);
+      end loop;
+      B := Add_Beta_Node (Prev, A2, Cross);
+      Insert_WME (Fact (1, "a"));
+      if Get_Beta_Match_Count (Prev) /= 1 or else Get_Beta_Match_Count (B) /= 0 then
+         Fail ("capacity: chain of 8 joins on one fact");
+      end if;
+      begin
+         Insert_WME (Fact (2, "b"));
+         Got := False;
+      exception
+         when Network_Full => Got := True;
+         when others => Got := False;
+      end;
+      Expect_Full ("token of 9 facts (right activation)", Got);
+   end;
    Put_Line ("own checks: beta memories compared with naive matching" & Compared'Image
              & " times, networks skipped as full" & Full_Skips'Image);
    if Failures > 0 then
