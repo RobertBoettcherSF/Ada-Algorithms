@@ -102,15 +102,17 @@ is
    function Next_Index
      (State : in out RNG_State; Lo, Hi : Positive) return Positive
    is
-      Span : constant Natural := Hi - Lo + 1;
-      U    : constant Unit_Interval := Next_Unit (State);
-      Off  : Natural;
+      Span   : constant RNG_State := RNG_State (Hi - Lo + 1);
+      Bound  : constant RNG_State := (RNG_State'Last / Span) * Span;
+      Bucket : constant RNG_State := Bound / Span;
+      Off    : RNG_State;
    begin
-      Off := Natural (Real (U) * Real (Span));
-      if Off >= Span then
-         Off := Span - 1;
-      end if;
-      return Lo + Off;
+      loop
+         State := State * Multiplier + Increment;
+         exit when State < Bound;
+      end loop;
+      Off := State / Bucket;
+      return Lo + Natural (Off);
    end Next_Index;
 
    function Next_Gaussian
