@@ -23,3 +23,5 @@ misc/Ada/Quine-McCluskey-Algorithm: prime implicants by cube enumeration
   branch-and-bound; all functions of up to 3 variables, 1,500 random of 4.
 geometry/Ada/Liang-Barsky: 4,001-point sampling of each segment with plain
   coordinate tests; helper functions against their definitions.
+hashing/Ada/Geohash: integer cell indices with hand bit packing; boxes and
+  neighbours from indices; all precisions 1 .. 12.

@@ -4,6 +4,8 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Geohash; use Geohash;
+with Ada.Command_Line;
+with Own_Checks;
 
 procedure Tests is
 
@@ -36,6 +38,7 @@ procedure Tests is
    end Approx;
 
 begin
+   Own_Checks;
    Put_Line ("Geohash test suite");
    Put_Line ("==================");
 
@@ -442,5 +445,6 @@ begin
       Put_Line ("ALL TESTS PASSED");
    else
       Put_Line ("TESTS FAILED");
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

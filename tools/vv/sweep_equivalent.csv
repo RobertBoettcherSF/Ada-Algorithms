@@ -46,3 +46,4 @@ geometry/Ada/Liang-Barsky,liang_barsky.adb:18 <= -> < (Sqrt_Safe),reason,"Sqrt (
 geometry/Ada/Liang-Barsky,liang_barsky.adb:27 and :29 (Clamp ties),reason,"at V = Lo or V = Hi both branches return the same value"
 geometry/Ada/Liang-Barsky,liang_barsky.adb:171 < -> <= (P < 0.0),reason,"P = 0 is taken by the parallel branch (Near (P, 0.0)) before this test"
 geometry/Ada/Liang-Barsky,liang_barsky.adb:173 and :178 (T_Enter / T_Leave ties),reason,"at U = T_Enter (U = T_Leave) the assignment keeps the same value"
+hashing/Ada/Geohash,geohash.adb:30 / :32 / :50 / :52 (clamp ties in Clamp_Lon_Bound and Clamp_Latitude),reason,"at X = -180 / 180 (Lat = -90 / 90) both branches return the same bound"

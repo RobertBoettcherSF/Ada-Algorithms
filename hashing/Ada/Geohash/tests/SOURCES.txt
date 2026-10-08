@@ -1,0 +1,18 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Encode: cell indices by integer arithmetic (the largest I with
+  -180 + 360 * I / 2**K <= Lon, likewise for latitude, corrected with exact
+  dyadic products), bits interleaved longitude first and packed 5 per
+  character by hand over the public geohash alphabet
+  0123456789bcdefghjkmnpqrstuvwxyz; the code under test halves intervals.
+* Decode / Decode_BBox: the cell box from the indices; centre = midpoint.
+* Neighbors / Neighbor: indices +- 1, latitude clamped at the poles,
+  longitude wrapped, as the spec in geohash.ads states.
+* Contains: a point lies in its own cell and not in the cells above and
+  below. Helpers (Clamp_Latitude, Normalize_Longitude away from the
+  ambiguous +-180 seam, Common_Prefix_Length, Is_Valid_Hash, Near) against
+  their definitions; Decode must reject empty hashes and illegal characters.
+* Inputs: 400 seeded random points (Park-Miller, seed 20261008) per
+  precision 1 .. 12, plus exact cell corners, both poles and the date line.
+* tests.adb now sets a failure exit status when its own checks fail.
+Nothing is taken from the program's output or from third-party test suites.
