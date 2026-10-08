@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Range_Sum_BST is
@@ -31,33 +32,36 @@ package body Range_Sum_BST is
       return T.Rights (Node);
    end Right_Child;
 
+   --  Pruned search of a binary search tree (left values <= node value <= right values): a left subtree is
+   --  entered only when the node value >= Low, a right subtree only when it is <= High. Nodes are first
+   --  marked (31 rounds over the 31 slots reach every node of a path; a node reached twice is still
+   --  marked once, so cycles and shared nodes cannot repeat a value), then the marked in-range values are
+   --  added: at most 31 values of at most 1000 in magnitude, so Total provably fits Sum.
    function Range_Sum (T : Tree; Root : Index; Low, High : Value) return Sum is
-      Stack : array (Positive range 1 .. 31) of Index := (others => 0);
-      Top : Natural range 0 .. 31 := 0;
-      Current : Index := Root;
+      Marked : array (Node_Index) of Boolean := [others => False];
       Total : Sum := 0;
    begin
-      for Step in 1 .. 31 loop
-         for Push in 1 .. 31 loop
-            if Current = 0 or else not T.Used (Current) or else Top = 31 then
-               exit;
+      if Root = 0 or else not T.Used (Root) then
+         return 0;
+      end if;
+      Marked (Root) := True;
+      for Round in 1 .. 30 loop
+         for K in Node_Index loop
+            if Marked (K) then
+               if T.Values (K) >= Low and then T.Lefts (K) /= 0 and then T.Used (T.Lefts (K)) then
+                  Marked (T.Lefts (K)) := True;
+               end if;
+               if T.Values (K) <= High and then T.Rights (K) /= 0 and then T.Used (T.Rights (K)) then
+                  Marked (T.Rights (K)) := True;
+               end if;
             end if;
-            Top := Top + 1; Stack (Top) := Current;
-            if T.Values (Current) < Low then Current := T.Rights (Current);
-            elsif T.Values (Current) > High then Current := T.Lefts (Current);
-            else exit; end if;
          end loop;
-         if Top = 0 then exit; end if;
-         Current := Stack (Top); Top := Top - 1;
-         if T.Values (Current) >= Low and then T.Values (Current) <= High then
-            if Total >= Sum'First - Sum (T.Values (Current)) and then
-              Total <= Sum'Last - Sum (T.Values (Current)) then
-               Total := Total + Sum (T.Values (Current));
-            end if;
-            Current := T.Rights (Current);
-         else
-            Current := 0;
+      end loop;
+      for K in Node_Index loop
+         if Marked (K) and then T.Values (K) in Low .. High then
+            Total := Total + T.Values (K);
          end if;
+         pragma Loop_Invariant (Total in -1000 * K .. 1000 * K);
       end loop;
       return Total;
    end Range_Sum;
