@@ -156,6 +156,16 @@ for r in rows:
     r['mutation'] = mut_by.get(r['folder'], '')
     r['kat'] = kat_by.get(r['folder'], '')
 
+# training_ready: builds + tests pass on GNAT 12 and 14, Silver-proven non-trivially, and validated
+# by a known-answer vector or an agreeing differential test against its twin; stubs never qualify.
+def training_ready(r):
+    return (r['build_gnat14'] == 'yes' and r['build_gnat12'] == 'yes'
+            and r['tests_pass_gnat14'] == 'yes' and r['tests_pass_gnat12'] == 'yes'
+            and r['silver'] == 'proven' and not r['trivial'] and not r['stub']
+            and (bool(r['kat']) or r['diff_test'].startswith('agree')))
+for r in rows:
+    r['training_ready'] = 'yes' if training_ready(r) else ''
+
 # duplicates: identical package sources (comments/whitespace ignored) or same name+level with >=90% similar text
 by_hash = collections.defaultdict(list)
 for r in rows:
@@ -216,6 +226,7 @@ L = ['# Proof index', '',
      'Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder\'s own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build\'s test binary exits 0 with no FAIL lines.',
      'Silver: `gnatprove --mode=silver --level=2` on the folder\'s own .gpr (generated where none exists).', '',
      f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
+     f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a registered known-answer vector or an agreeing differential test against its twin (column `training_ready`).", '',
      '**Silver headline (duplicates counted once):** ' + headline, '',
      '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged; the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
      '| Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven (real) | Proven (stub) | Trivial | Unproved | Tool crash | Not built | Not run |',
@@ -231,18 +242,23 @@ for lev in ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4', 'All'):
 vvrows = [r for r in rows if r['diff_test'] or r['mutation'] or r['kat']]
 if vvrows:
     nd = len({d['pair'] for d in _csv(os.path.join(VVD, 'diff.csv'))})
-    kk = sum(int(m['killed']) for mf in glob.glob(os.path.join(VVD, 'mutation*.csv')) if not mf.endswith('_detail.csv') for m in _csv(mf))
-    ss = sum(int(m['survived']) for mf in glob.glob(os.path.join(VVD, 'mutation*.csv')) if not mf.endswith('_detail.csv') for m in _csv(mf))
+    mparts = []
+    for mf in sorted(glob.glob(os.path.join(VVD, 'mutation*.csv'))):
+        if mf.endswith('_detail.csv'): continue
+        ms = _csv(mf); kk = sum(int(m['killed']) for m in ms); ss = sum(int(m['survived']) for m in ms)
+        mparts.append(f"`{os.path.basename(mf)}` {kk} killed / {ss} survived" + (f" ({100*kk//max(1,kk+ss)}%)" if kk + ss else ''))
+    dres = _csv(os.path.join(VVD, 'diff.csv'))
+    nagree = sum(1 for d in dres if d['result'] == 'agree')
     L += ['', '## V&V (validation) results', '',
-          f'Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: {nd}; mutants killed/survived: {kk}/{ss}'
-          + (f' (score {100*kk//max(1,kk+ss)}%)' if kk + ss else '') + f'; folders with registered known-answer vectors: {len(kat_by)}. '
+          f'Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: {nd} ({nagree} agree on every case); mutation: '
+          + ('; '.join(mparts) or 'not run') + f' (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: {len(kat_by)}. '
           'Columns `diff_test`, `mutation`, `kat` in PROOFS.csv.', '',
           '| Folder | Differential test | Mutation (killed/total) | Known-answer source |', '|---|---|---|---|']
     for r in vvrows:
         L.append(f"| {r['folder']} | {r['diff_test']} | {r['mutation']} | {r['kat']} |")
-L += ['', '| Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Checks (func) | Pair | Duplicate of |', '|---|---|---|---|---|---|---|---|---|---|---|---|']
+L += ['', '| Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Checks (func) | Training-ready | Pair | Duplicate of |', '|---|---|---|---|---|---|---|---|---|---|---|---|---|']
 for r in rows:
     L.append(f"| {r['folder']}{' (stub)' if r['stub'] else ''} | {r['make_test']} | {r['build_gnat14']} | {r['build_gnat12']} | {r['tests_pass_gnat14']} | {r['tests_pass_gnat12']} | "
-             f"{r['warnings_gnat14']} | {r['warnings_gnat12']} | {r['silver']}{' (trivial)' if r['trivial'] else ''} | {r['checks']}{' (%s)' % r['functional_checks'] if r['functional_checks'] else ''} | {r['pair']} | {r['duplicate_of']} |")
+             f"{r['warnings_gnat14']} | {r['warnings_gnat12']} | {r['silver']}{' (trivial)' if r['trivial'] else ''} | {r['checks']}{' (%s)' % r['functional_checks'] if r['functional_checks'] else ''} | {r['training_ready']} | {r['pair']} | {r['duplicate_of']} |")
 open(os.path.join(R, 'PROOFS.md'), 'w').write('\n'.join(L) + '\n')
 print(f'{len(rows)} folders, {len(rows)-len(uniq)} duplicates, {npairs} pairs')
