@@ -151,3 +151,9 @@ geometry/SPARK2/Ada-SPARK-Point-In-Polygon,own winding-number reference (exact i
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Zobrist properties via public Hash: XOR of per-(position;character) keys independent of other characters; one changed character changes the hash; distinct keys per position
 matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,own property: R(2;1)=0 and same integer solution set on a 31x31 grid; every first-column pair x 60 random completions + zero-pivot cases
 logic/Ada/DPLL,own brute force over all 2^N assignments; model checked by own evaluator; Is_Satisfiable and From_DIMACS_Lite (own DIMACS writer) agree; 3000 random CNFs (1270 sat / 1730 unsat)
+misc/SPARK2/Ada-SPARK-Add-Without-Plus,own integer addition; every operand pair (40401)
+misc/SPARK2/Ada-SPARK-Arranging-Coins,definition property K(K+1)/2 <= N < (K+1)(K+2)/2; every N to 10^6; every triangular boundary; random to 10^9
+misc/SPARK2/Ada-SPARK-Bulb-Switcher,own simulation of the toggling rounds (N <= 3000) + perfect-square property; every N to 10^6; square boundaries; random to 10^9
+misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval,brute-force count for every interval in 0..400; additivity / half-length / short brute force on 50000 random large intervals
+misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,own list of all 2^19 sums of distinct powers of three; every value to 2*10^6; 200000 random lookups to 10^9
+misc/SPARK2/Ada-SPARK-Binary-Watch,definition 60*H+M and validity; every reading (720)

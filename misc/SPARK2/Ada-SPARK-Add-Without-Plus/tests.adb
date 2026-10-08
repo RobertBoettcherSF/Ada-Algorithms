@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Add_Without_Plus; use Add_Without_Plus;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -8,4 +9,5 @@ begin
    Assert (Add (-25, 17) = -8);
    Assert (Add (25, -17) = 8);
    Assert (Add (-100, 100) = 0);
+   Own_Checks;
 end Tests;

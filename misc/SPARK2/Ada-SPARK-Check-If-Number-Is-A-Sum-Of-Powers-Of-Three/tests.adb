@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Sum_Powers_Three; use Sum_Powers_Three;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -8,4 +9,5 @@ begin
    Assert (Is_Sum_Of_Powers_Of_Three (12));
    Assert (not Is_Sum_Of_Powers_Of_Three (2));
    Assert (not Is_Sum_Of_Powers_Of_Three (5));
+   Own_Checks;
 end Tests;

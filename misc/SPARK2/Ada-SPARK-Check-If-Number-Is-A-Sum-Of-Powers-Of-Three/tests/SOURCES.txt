@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: 0, 4 = 1 + 3, 12 = 3 + 9 accepted, 2 and 5 rejected, by hand.
+* Own reference: all 2**19 sums of distinct powers 3**0 .. 3**18 (3**19 >
+  10**9), generated in the test from the subsets; each one up to 10**9 must
+  be accepted, every value in 0 .. 2*10**6 must be accepted exactly when it
+  is one of them, and 200,000 random values up to 10**9 are looked up in the
+  sorted list.

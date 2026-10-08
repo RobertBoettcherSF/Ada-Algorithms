@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Bulb_Switcher; use Bulb_Switcher;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -8,4 +9,5 @@ begin
    Assert (Switched_On (3) = 1);
    Assert (Switched_On (4) = 2);
    Assert (Switched_On (20) = 4);
+   Own_Checks;
 end Tests;

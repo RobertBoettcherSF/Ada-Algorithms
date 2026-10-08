@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: 0 -> 0, 1 -> 1, 3 -> 2, 5 -> 2, 8 -> 3, 10**9 -> 44,720, by
+  hand.
+* Own property (definition): K = Full_Rows (N) satisfies
+  K (K + 1) / 2 <= N < (K + 1) (K + 2) / 2, checked in 64-bit arithmetic.
+* Inputs: every N in 0 .. 10**6, every triangular number up to 10**9 and its
+  two neighbours, 100,000 random N, and 10**9.

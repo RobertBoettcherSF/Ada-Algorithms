@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* tests.adb: 0:00 -> 0, 3:15 -> 195, 11:59 valid, by hand.
+* Own reference: minutes = 60 * hours + minutes (definition); with hours
+  0 .. 11 and minutes 0 .. 59 typed into the subtypes, every reading is
+  valid, and the 720 readings map onto 0 .. 719.
+* Inputs: every reading (720).

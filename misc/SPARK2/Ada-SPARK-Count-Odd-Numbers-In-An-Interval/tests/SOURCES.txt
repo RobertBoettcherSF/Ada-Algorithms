@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: (1,1) -> 1, (1,10) -> 5, (2,10) -> 4, (0,10**9) -> 5*10**8, by
+  hand.
+* Own reference: counting odd numbers one by one for every interval inside
+  0 .. 400; for random large intervals the properties Count (L, H) =
+  Count (L, M) + Count (M + 1, H), |2 Count - length| <= 1, and brute force
+  when the interval is short.
+* Inputs: every interval in 0 .. 400 (80,601), 50,000 random intervals in
+  0 .. 10**9, and the end points.

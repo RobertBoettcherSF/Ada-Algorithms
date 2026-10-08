@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Arranging_Coins; use Arranging_Coins;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -9,4 +10,5 @@ begin
    Assert (Full_Rows (5) = 2);
    Assert (Full_Rows (8) = 3);
    Assert (Full_Rows (1_000_000_000) = 44_720);
+   Own_Checks;
 end Tests;
