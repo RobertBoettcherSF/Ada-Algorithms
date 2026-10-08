@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: insertion sort, on 3000 random arrays (length 0 .. 40,
+  first index 0 .. 5, values -50 .. 50). Sort must match it and
+  Is_Sorted must agree.
+* Heapify must yield the max-heap property (each child <= its parent,
+  checked over the array's own index bounds).
+* Contract: the documented Sift_Down precondition A'First <= Root <=
+  Heap_Last <= A'Last. A call with Heap_Last beyond A'Last must be
+  rejected with Assertion_Error, not run off the array (the random-input
+  driver found this gap).

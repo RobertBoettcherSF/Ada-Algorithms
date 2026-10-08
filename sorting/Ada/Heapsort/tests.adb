@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Heapsort; use Heapsort;
+with Own_Checks;
 
 procedure Tests is
 
@@ -349,4 +350,5 @@ begin
    if Fail_Count /= 0 then
       raise Program_Error with "Heapsort tests failed";
    end if;
+   Own_Checks;
 end Tests;
