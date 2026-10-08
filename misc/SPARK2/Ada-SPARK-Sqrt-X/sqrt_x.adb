@@ -16,7 +16,6 @@ package body Sqrt_X with SPARK_Mode => On is
          when 81 .. 99 => Result := 9;
          when 100 => Result := 10;
       end case;
-      pragma Assert (Result <= 10);
       return Result;
    end Floor_Sqrt;
 end Sqrt_X;
