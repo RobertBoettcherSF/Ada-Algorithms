@@ -71,7 +71,8 @@ begin
             --  G divides both, F divides G (a common divisor divides the gcd), and the cofactors are coprime
             Report (G > 0 and then A mod G = 0 and then B mod G = 0 and then G mod F = 0
                     and then Gcd_Euclidean (A / G, B / G) = 1
-                    and then Gcd_Recursive (A, B) = G,
+                    and then (if A <= Max_Educational and then B <= Max_Educational  --  Gcd_Recursive's Pre
+                              then Gcd_Recursive (A, B) = G),
                     "gcd property fails, run" & Run'Image);
          end if;
       end;
