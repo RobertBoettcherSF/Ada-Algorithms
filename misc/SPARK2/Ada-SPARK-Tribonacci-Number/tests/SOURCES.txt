@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own reference code written for this repository (MIT);
+nothing is copied from the program's output or from third-party test suites.
+
+* Definition used: T(0) = 0, T(1) = 1, T(2) = 1 (the folder's README and its
+  original test), T(n) = T(n-1) + T(n-2) + T(n-3).
+* Reference 1: T(n) for n >= 1 equals the number of compositions of n - 1
+  into parts 1, 2, 3 (each composition ends in a 1, 2 or 3, which gives the
+  recurrence); counted by plain recursion for n = 1 .. 22.
+* Reference 2: T(n) = 2 T(n-1) - T(n-4) for n >= 4 (subtract the recurrence
+  at n-1 from the one at n), computed in Long_Long_Integer without a cap,
+  for every n in 0 .. 32. A saturated or truncated result would differ.
