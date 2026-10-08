@@ -11,9 +11,10 @@ is
       return (Seed => Clean_Seed);
    end Create_RNG;
 
-   function Next_Random (State : in out RNG_State) return Unit_Real is
+   M_Mod : constant Long_Integer := 2_147_483_647;
+
+   procedure Advance (State : in out RNG_State) is
       A : constant Long_Integer := 16_807;
-      M : constant Long_Integer := 2_147_483_647;
       Q : constant Long_Integer := 127_773;
       R : constant Long_Integer := 2_836;
       Hi : constant Long_Integer := State.Seed / Q;
@@ -23,10 +24,38 @@ is
       if Test > 0 then
          State.Seed := Test;
       else
-         State.Seed := Test + M;
+         State.Seed := Test + M_Mod;
       end if;
-      return Unit_Real (Long_Float (State.Seed) / Long_Float (M));
+   end Advance;
+
+   function Next_Random (State : in out RNG_State) return Unit_Real is
+   begin
+      Advance (State);
+      return Unit_Real (Long_Float (State.Seed) / Long_Float (M_Mod));
    end Next_Random;
+
+   --  Bin in 0 .. Count-1 from the integer generator. The largest seed
+   --  is the last bin; the product never needs a clamp.
+   function Next_Bin
+     (State : in out RNG_State; Count : Positive) return Natural
+   is
+   begin
+      Advance (State);
+      return Natural ((State.Seed * Long_Integer (Count)) / M_Mod);
+   end Next_Bin;
+
+   --  A stored sample. Floor selects the bin. The maximum sample, and a
+   --  product that reaches Count, are the last bin by name.
+   function Bin_Of (U : Unit_Real; Count : Positive) return Natural is
+      Product : constant Long_Float :=
+        Long_Float'Floor (Long_Float (U) * Long_Float (Count));
+   begin
+      if U = Unit_Real'Last or else Product >= Long_Float (Count) then
+         return Count - 1;
+      else
+         return Natural (Product);
+      end if;
+   end Bin_Of;
 
    function Luminance (Color : Color_RGB) return Radiance_Real is
    begin
@@ -108,8 +137,8 @@ is
                         Radiance_Real (10.0),
                         Radiance_Real (10.0)));
 
-      Result.Pixel := (X => Natural (Long_Float (Next_Random (RNG)) * 10.0),
-                       Y => Natural (Long_Float (Next_Random (RNG)) * 10.0));
+      Result.Pixel := (X => Next_Bin (RNG, 10),
+                       Y => Next_Bin (RNG, 10));
 
       Result.Contribution := (R => 0.5 + Radiance_Real (Next_Random (RNG)),
                               G => 0.4 + Radiance_Real (Next_Random (RNG)),
@@ -231,8 +260,8 @@ is
                             Position   => (50.0, 100.0),
                             Throughput => (5.0, 5.0, 5.0));
 
-      Path.Pixel := (X => Natural (Long_Float (Samples.Values (1)) * 5.0),
-                     Y => Natural (Long_Float (Samples.Values (2)) * 5.0));
+      Path.Pixel := (X => Bin_Of (Samples.Values (1), 5),
+                     Y => Bin_Of (Samples.Values (2), 5));
 
       Path.Contribution := (R => Radiance_Real (Samples.Values (1) * 2.0),
                             G => Radiance_Real (Samples.Values (2) * 2.0),
