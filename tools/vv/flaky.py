@@ -53,11 +53,14 @@ def toolchain(v):
     e = dict(os.environ); e['PATH'] = ':'.join(path)
     return e, mutate.require_version(int(v), gm)
 
-def classify(rc, out):
+import silent_fail
+
+def classify(rc, out, fid=None):
+    """pass: exit 0 and no failure line by the silent-fail scan's rule (FAIL/FAILED, not zero-failure
+    summaries, PASS/OK lines, expected-failure labels, tool lines or reviewed label lines)."""
     if rc is None:
         return 'timeout'
-    bad = [l for l in out.splitlines() if FAIL.search(l) and not ZERO.search(l) and not PASSLINE.search(l.strip())]
-    return 'pass' if rc == 0 and not bad else 'fail'
+    return 'pass' if rc == 0 and not silent_fail.hits(out, fid) else 'fail'
 
 def norm(out):
     return '\n'.join(l for l in out.splitlines() if not CLOCK.search(l) and not BUILD.match(l))
@@ -82,23 +85,23 @@ def excerpt_of(c, rc, out):
     ls = [l.strip() for l in out.splitlines() if FAIL.search(l) or 'raised' in l or 'rror' in l]
     return (ls[0] if ls else ('timeout' if c == 'timeout' else f'exit {rc}'))[:160]
 
-def run_once(cmd, work, timeout, env):
+def run_once(cmd, work, timeout, env, fid=None):
     r = mutate.run_limited(cmd, work, timeout, env=env)
     rc, out = (None, '') if r is None else (r.returncode, r.stdout + r.stderr)
-    return classify(rc, out), rc, out
+    return classify(rc, out, fid), rc, out
 
-def init_pass(src, work_root, env, timeout):
+def init_pass(src, work_root, env, timeout, fid=None):
     """Baseline (-gnata) and Initialize_Scalars (-gnata -gnatVa, -gnatec=init.adc) builds of the test main, one run each,
     in a fresh copy (objects left by another build in the source directory would otherwise be reused)."""
     work = tempfile.mkdtemp(prefix='init_', dir=work_root)
     try:
         shutil.copytree(src, work, dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('obj', 'bin', 'gnatprove', '*.o', '*.ali'))
-        return _init_pass(work, env, timeout)
+        return _init_pass(work, env, timeout, fid)
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
-def _init_pass(work, env, timeout):
+def _init_pass(work, env, timeout, fid=None):
     m = find_main(work)
     if not m:
         return 'n/a', 'init: no test main'
@@ -112,7 +115,7 @@ def _init_pass(work, env, timeout):
         if b is None or b.returncode:
             res[tag] = ('nobuild', (b.stdout + b.stderr)[-300:] if b else 'build timeout')
             continue
-        c, rc, out = run_once([f'./fl_{tag}'], work, timeout, env)
+        c, rc, out = run_once([f'./fl_{tag}'], work, timeout, env, fid)
         res[tag] = (c, excerpt_of(c, rc, out) if c != 'pass' else '')
     if res['base'][0] != 'pass':
         return 'n/a', f"init: baseline -gnata build {res['base'][0]}: {res['base'][1][:120]}".replace('\n', ' ')
@@ -150,7 +153,7 @@ def scan(fid, passes, runs, seeds, env, ver, work_root, timeout):
                         cmd = ['./fl_test']; notes.append('no make test: gnatmake test main')
         if cmd and 'repeat' in passes:
             #  one run first: a test that hangs is not repeated (it is not flaky, it is slow)
-            c, rc, out = run_once(cmd, work, timeout, dict(env, **{'AA_SEED': env.get('AA_SEED', '')}))
+            c, rc, out = run_once(cmd, work, timeout, {k: v for k, v in env.items() if k != 'AA_SEED'}, fid)
             if c == 'timeout':
                 row.update(runs=1, passes=0, fails=0, timeouts=1, distinct_outputs=1, repeat_ok='yes', output_varies='no',
                            first_fail_excerpt='timeout')
@@ -160,7 +163,7 @@ def scan(fid, passes, runs, seeds, env, ver, work_root, timeout):
             res, outs = [], []
             renv = dict(env); renv.pop('AA_SEED', None)
             for _ in range(runs):
-                c, rc, out = run_once(cmd, work, timeout, renv)
+                c, rc, out = run_once(cmd, work, timeout, renv, fid)
                 res.append(c); outs.append(hashlib.sha1(norm(out).encode()).hexdigest())
                 if c != 'pass' and not row['first_fail_excerpt']:
                     row['first_fail_excerpt'] = excerpt_of(c, rc, out)
@@ -176,7 +179,7 @@ def scan(fid, passes, runs, seeds, env, ver, work_root, timeout):
                 bad = []
                 for k in range(1, seeds + 1):
                     senv = dict(env); senv['AA_SEED'] = str(k)
-                    c, rc, out = run_once(cmd, work, timeout, senv)
+                    c, rc, out = run_once(cmd, work, timeout, senv, fid)
                     if c == 'timeout' and k == 2 and bad == ['1:timeout']:
                         bad.append('2:timeout'); notes.append('seed runs timed out twice, not continued'); break
                     if c != 'pass':
@@ -185,7 +188,7 @@ def scan(fid, passes, runs, seeds, env, ver, work_root, timeout):
                             row['first_fail_excerpt'] = f'AA_SEED={k}: ' + excerpt_of(c, rc, out)
                 row.update(seeds_tried=seeds, seeds_failed=len(bad), failing_seeds=' '.join(bad))
         if 'init' in passes:
-            ok, n = init_pass(src, work_root, env, timeout)
+            ok, n = init_pass(src, work_root, env, timeout, fid)
             row['init_scalars_ok'] = ok
             if n:
                 notes.append(n)
