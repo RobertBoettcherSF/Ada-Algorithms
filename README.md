@@ -9,8 +9,8 @@ Monorepo of small Ada and SPARK algorithm folders (educational sheets). MIT lice
 |---|---:|
 | Algorithm folders (duplicates counted once) | 1837 |
 | Silver-proven, non-trivial (not stubs, more than 3 checks) | 507 |
-| Training-ready (answers checked; rule in PROOFS.md) | 197 |
-| Open findings (`tools/vv/findings.csv`) | 1 |
+| Training-ready (answers checked; rule in PROOFS.md) | 230 |
+| Open findings (`tools/vv/findings.csv`) | 0 |
 <!-- proof-index:end -->
 
 These numbers are written by `make proof-index` from the build and proof records

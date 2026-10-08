@@ -786,7 +786,7 @@ misc/SPARK2/Ada-SPARK-Baseball-Game,misc,SPARK2,Ada-SPARK-Baseball-Game,yes,n/a,
 misc/SPARK2/Ada-SPARK-Basic-Calculator,misc,SPARK2,Ada-SPARK-Basic-Calculator,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,basic_calculator.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Basic-Calculator-II,misc,SPARK2,Ada-SPARK-Basic-Calculator-II,yes,yes,yes,yes,yes,yes,0,0,proven,5,1,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Basic-Calculator-Stub,misc,SPARK2,Ada-SPARK-Basic-Calculator-Stub,yes,n/a,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,basic_calculator_stub.gpr,,yes,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,misc,SPARK2,Ada-SPARK-Beautiful-Arrangement,yes,n/a,yes,yes,yes,yes,2,2,proven,7,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,misc,SPARK2,Ada-SPARK-Beautiful-Arrangement,yes,yes,yes,yes,yes,yes,0,0,proven,7,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Beautiful-Array-Lite,misc,SPARK2,Ada-SPARK-Beautiful-Array-Lite,yes,n/a,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock,misc,SPARK2,Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock,yes,yes,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-II,misc,SPARK2,Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-II,yes,n/a,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
@@ -818,13 +818,13 @@ misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,misc,SPARK2,Ada-SPARK-Capacity-T
 misc/SPARK2/Ada-SPARK-Car-Pooling,misc,SPARK2,Ada-SPARK-Car-Pooling,yes,yes,yes,yes,yes,yes,0,0,proven,6,0,,steps=1000000,car_pooling.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Cheapest-Flights,misc,SPARK2,Ada-SPARK-Cheapest-Flights,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,cheapest_flights.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Cheapest-Flights-Stub,misc,SPARK2,Ada-SPARK-Cheapest-Flights-Stub,yes,n/a,yes,yes,yes,yes,1,1,proven,1,0,yes,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,misc,SPARK2,Ada-SPARK-Cheapest-Flights-Within-K-Stops,yes,n/a,yes,yes,yes,yes,2,2,proven,4,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,misc,SPARK2,Ada-SPARK-Cheapest-Flights-Within-K-Stops,yes,yes,yes,yes,yes,yes,0,0,proven,4,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,misc,SPARK2,Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,yes,yes,yes,yes,yes,yes,0,0,proven,7,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Check-If-The-Sentence-Is-Pangram,misc,SPARK2,Ada-SPARK-Check-If-The-Sentence-Is-Pangram,yes,n/a,yes,yes,yes,yes,1,1,proven,3,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,misc,SPARK2,Ada-SPARK-Checksum-Ones-Complement,yes,n/a,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,checksum_ones_complement.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Cherry-Pickup-Lite,misc,SPARK2,Ada-SPARK-Cherry-Pickup-Lite,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,cherry_pickup_lite.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Circular-Deque-Stub,misc,SPARK2,Ada-SPARK-Circular-Deque-Stub,yes,n/a,yes,yes,yes,yes,0,0,proven,7,0,,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Circular-Queue,misc,SPARK2,Ada-SPARK-Circular-Queue,yes,n/a,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,circular_queue.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Circular-Queue,misc,SPARK2,Ada-SPARK-Circular-Queue,yes,yes,yes,yes,yes,yes,0,0,proven,10,0,,steps=1000000,circular_queue.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Clamp,misc,SPARK2,Ada-SPARK-Clamp,yes,n/a,yes,yes,yes,yes,0,0,proven,2,1,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Climbing-Stairs,misc,SPARK2,Ada-SPARK-Climbing-Stairs,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,climbing_stairs.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,misc,SPARK2,Ada-SPARK-Clock-Page-Replacement,yes,n/a,yes,yes,yes,yes,1,1,proven,4,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
@@ -833,7 +833,7 @@ misc/SPARK2/Ada-SPARK-Coin-Change-II,misc,SPARK2,Ada-SPARK-Coin-Change-II,yes,ye
 misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,misc,SPARK2,Ada-SPARK-Combination-Iterator-Stub,yes,n/a,yes,yes,yes,yes,4,4,proven,8,0,,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Combination-Sum,misc,SPARK2,Ada-SPARK-Combination-Sum,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,combination_sum.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Combination-Sum-II,misc,SPARK2,Ada-SPARK-Combination-Sum-II,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,combination_sum_ii.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Combination-Sum-III,misc,SPARK2,Ada-SPARK-Combination-Sum-III,yes,n/a,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Combination-Sum-III,misc,SPARK2,Ada-SPARK-Combination-Sum-III,yes,yes,yes,yes,yes,yes,0,0,proven,21,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Combination-Sum-IV,misc,SPARK2,Ada-SPARK-Combination-Sum-IV,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Complement-Of-Base-10,misc,SPARK2,Ada-SPARK-Complement-Of-Base-10,yes,n/a,yes,yes,yes,yes,0,0,proven,3,1,yes,level2-timeout,complement_of_base_10.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Complement-Of-Base-10-Integer,misc,SPARK2,Ada-SPARK-Complement-Of-Base-10-Integer,yes,n/a,yes,yes,yes,yes,1,1,proven,2,0,yes,level2-timeout,Complement_Of_Base_10_Integer.gpr,,,,,,,,,,ok,,,
