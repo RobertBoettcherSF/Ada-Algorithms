@@ -59,8 +59,14 @@ is
 
    --  True iff an alphabet of N symbols admits some binary prefix code
    --  with every code word length at most L (Kraft: N ≤ 2^L).
+   --  Powers of two 2 ** 1 .. 2 ** Max_L, spelled out so provers need no
+   --  reasoning about exponentiation with a variable exponent.
+   Pow2 : constant array (1 .. Max_L) of Positive :=
+     [2, 4, 8, 16, 32, 64, 128, 256, 512, 1_024, 2_048, 4_096, 8_192,
+      16_384, 32_768, 65_536];
+
    function Can_Encode (N : Natural; L : Positive) return Boolean is
-     (L in 1 .. Max_L and then N <= 2 ** L)
+     (L in 1 .. Max_L and then N <= Pow2 (L))
    with
      Global => null,
      Pre    => L <= Max_L;
