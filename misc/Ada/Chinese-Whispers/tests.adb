@@ -620,11 +620,13 @@ begin
 
    ---------------------------------------------------------------------
    Section ("23. Shuffle_Nodes permutations and order counts");
-   --  Registered before the run. Seeds 1 .. 4800: seed 0 is defined to
-   --  be seed 1, so it is not a second draw. n = 4.
-   --  Each position: 4 bins, expected 1200, df = 3, threshold 11.345.
-   --  Full order: 24 permutations, expected 200, df = 23, threshold
-   --  41.638. Both are p = 0.01.
+   --  Registered before the run. 4800 seeds, each an integer hash of
+   --  K = 1 .. 4800 (Seed_Of below). Not 1 .. 4800 itself: those seeds
+   --  are the Park-Miller state 16807*K. n = 4.
+   --  Each position: 4 bins, expected 1200, df = 3. Two-sided p = 0.01:
+   --  0.1148 <= chi-square < 11.345.
+   --  Full order: 24 permutations, expected 200, df = 23. Two-sided
+   --  p = 0.01: 10.196 <= chi-square < 41.638.
    ---------------------------------------------------------------------
    declare
       function Same_Nodes (A, B : Node_Array) return Boolean is
@@ -671,12 +673,52 @@ begin
          return Rank;
       end Order_Index;
 
+      --  32-bit mix. The multipliers are not 16807.
+      function Seed_Of (K : Positive) return Natural is
+         type U32 is mod 2**32;
+         X : U32 := U32 (K);
+      begin
+         X := X * 16#9E3779B1#;
+         X := X xor (X / 2**16);
+         X := X * 16#85EBCA6B#;
+         X := X xor (X / 2**13);
+         X := X * 16#C2B2AE35#;
+         X := X xor (X / 2**16);
+         if X = 0 then
+            X := 1;
+         end if;
+         return Natural (Long_Long_Integer (X) mod 2_147_483_646 + 1);
+      end Seed_Of;
+
+      --  Independent Fisher-Yates on the same Next_Random stream. A shuffle
+      --  that only burns an extra draw still looks uniform, so the counts
+      --  above do not see it; this compare does.
+      procedure Reference_Shuffle
+        (Order : in out Node_Array; State : in out RNG_State)
+      is
+         J : Node_Id;
+         Tmp : Node_Id;
+         Span : Natural;
+      begin
+         if Order'Length <= 1 then
+            return;
+         end if;
+         for I in reverse Order'First + 1 .. Order'Last loop
+            Span := Natural (I - Order'First) + 1;
+            J := Node_Id (Natural (Order'First) + Next_Random (State) mod Span);
+            Tmp := Order (I);
+            Order (I) := Order (J);
+            Order (J) := Tmp;
+         end loop;
+      end Reference_Shuffle;
+
       Ident : constant Node_Array (1 .. 4) := [1, 2, 3, 4];
       Shifted : constant Node_Array (5 .. 8) := [8, 5, 7, 6];
       Pos_Count : array (1 .. 4, 1 .. 4) of Natural :=
         [others => [others => 0]];
       Order_Count : array (0 .. 23) of Natural := [others => 0];
       Perm_Ok : Boolean := True;
+      Match_Ok : Boolean := True;
       Pos_Stat : Long_Float := 0.0;
       Order_Stat : Long_Float := 0.0;
       Pos_Ok : Boolean := True;
@@ -688,9 +730,21 @@ begin
          Shuffle_Nodes (One, State);
          Check (One (4) = 9, "a single node stays put");
       end;
+      declare
+         --  The length guard is the only thing that skips the loop bound.
+         --  At the last index that bound is outside Node_Id.
+         Edge : Node_Array (Max_Nodes .. Max_Nodes) :=
+           [Max_Nodes => Max_Nodes];
+         State : RNG_State := Init_RNG (2);
+      begin
+         Shuffle_Nodes (Edge, State);
+         Check (Edge (Max_Nodes) = Max_Nodes,
+                "one node at the last index stays put");
+      end;
 
-      for Seed in 1 .. 4800 loop
+      for K in 1 .. 4800 loop
          declare
+            Seed : constant Natural := Seed_Of (K);
             Got : Node_Array (1 .. 4) := Ident;
             Moved : Node_Array (5 .. 8) := Shifted;
             State : RNG_State := Init_RNG (Seed);
@@ -701,6 +755,22 @@ begin
             if not Same_Nodes (Ident, Got) then
                Perm_Ok := False;
             end if;
+            declare
+               Ref : Node_Array (1 .. 4) := Ident;
+               Ref_State : RNG_State := Init_RNG (Seed);
+            begin
+               Reference_Shuffle (Ref, Ref_State);
+               for P in 1 .. 4 loop
+                  if Got (P) /= Ref (P) then
+                     Match_Ok := False;
+                  end if;
+               end loop;
+               --  An extra draw after the last swap leaves the order
+               --  unchanged and still uniform. The next value sees it.
+               if Next_Random (State) /= Next_Random (Ref_State) then
+                  Match_Ok := False;
+               end if;
+            end;
             Shuffle_Nodes (Moved, State_2);
             if not Same_Nodes (Shifted, Moved) then
                Perm_Ok := False;
@@ -714,6 +784,7 @@ begin
          end;
       end loop;
       Check (Perm_Ok, "every shuffle is a permutation of its input");
+      Check (Match_Ok, "shuffle matches an independent Fisher-Yates");
 
       for P in 1 .. 4 loop
          Pos_Stat := 0.0;
@@ -721,19 +792,19 @@ begin
             Pos_Stat := Pos_Stat
               + (Long_Float (Pos_Count (P, N)) - 1200.0) ** 2 / 1200.0;
          end loop;
-         if Pos_Stat >= 11.345 then
+         if Pos_Stat < 0.1148 or else Pos_Stat >= 11.345 then
             Pos_Ok := False;
          end if;
       end loop;
       Check (Pos_Ok,
-             "seeds 1..4800, each position chi-square < 11.345");
+             "hashed seeds, each position 0.1148 <= chi-square < 11.345");
 
       for C of Order_Count loop
          Order_Stat := Order_Stat
            + (Long_Float (C) - 200.0) ** 2 / 200.0;
       end loop;
-      Check (Order_Stat < 41.638,
-             "seeds 1..4800, 24 orders, chi-square < 41.638");
+      Check (Order_Stat >= 10.196 and then Order_Stat < 41.638,
+             "hashed seeds, 24 orders, 10.196 <= chi-square < 41.638");
    end;
 
    New_Line;

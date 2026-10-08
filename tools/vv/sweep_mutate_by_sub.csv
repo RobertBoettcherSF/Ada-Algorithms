@@ -72,7 +72,7 @@ misc/Ada/Chinese-Whispers,chinese_whispers.adb,Append_Or_Add_Weight,2,2,100%,,0,
 misc/Ada/Chinese-Whispers,chinese_whispers.adb,Edge_Weight,1,1,100%,,0,,mutation_detail.csv
 misc/Ada/Chinese-Whispers,chinese_whispers.adb,Is_Permutation,1,1,100%,,0,,mutation_detail.csv
 misc/Ada/Chinese-Whispers,chinese_whispers.adb,Neighbor_Label_Score,2,2,100%,,0,,mutation_detail.csv
-misc/Ada/Chinese-Whispers,chinese_whispers.adb,Shuffle_Nodes,0,1,0%,,0,unchecked,mutation_detail.csv
+misc/Ada/Chinese-Whispers,chinese_whispers.adb,Shuffle_Nodes,6,7,85%,,1,,shuffle_nodes_rescore
 misc/Ada/Dice-Coefficient,dice_coefficient.adb,Bigram_Count,3,3,100%,,0,,m_dc_detail.csv
 misc/Ada/Dice-Coefficient,dice_coefficient.adb,Check_Len,1,1,100%,,0,,m_dc_detail.csv
 misc/Ada/Dice-Coefficient,dice_coefficient.adb,Coefficient,8,9,88%,,1,,m_dc_detail.csv
