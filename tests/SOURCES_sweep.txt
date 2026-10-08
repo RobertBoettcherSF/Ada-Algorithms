@@ -35,3 +35,5 @@ misc/Ada/Phonetic-Algorithms: own reference encoders (tools/vv/sweep_phonetic_re
   tests/vectors.txt); Soundex cross-checked with jellyfish 1.1.0 (MIT).
 misc/Ada/Hidden-Subgroup-Problem: oracles with a known hidden subgroup, certificate
   via Verify_Hidden_Subgroup, gcd-based annihilator property.
+cryptography/Ada/RSA: repeated multiplication, candidate searches, Bezout certificate,
+  Carmichael lambda by search, round trips for every message.
