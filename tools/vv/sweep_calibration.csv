@@ -1,0 +1,11 @@
+kind,name,fires_buggy,n_buggy,fires_clean,n_clean,precision,recall,lr_plus,weight,weight_fit_excl_samples,triage_weight
+pattern,clamp,8,64,8,188,0.5,0.125,2.91,1.067,1.763,3
+pattern,early_exit,9,64,24,188,0.273,0.141,1.13,0.12,0.275,2
+pattern,stub,9,64,52,188,0.148,0.141,0.53,-0.642,-0.71,2
+pattern,first_match,1,64,3,188,0.25,0.016,1.25,0.22,0.028,4
+pattern,demo_literal,7,64,24,188,0.226,0.109,0.89,-0.116,-0.056,1
+pattern,warn_off,0,64,0,188,,0.0,,0.0,0.0,3
+pattern,warn_off_tests,12,64,1,188,0.923,0.188,24.23,3.188,4.094,0.25
+pattern,proof_escape,0,64,0,188,,0.0,,0.0,0.0,4
+validation,calibrated,,5,,45,,,,0.462,AUC on samples=0.462; bug ranks among 50: Bowyer-Watson=7; Prediction-By-Partial-Matching=17; Ada-SPARK-Palindrome-Partitioning=28; Ada-SPARK-Queue-Using-Stacks=31; Linear-Regression=50,
+validation,uncalibrated,,5,,45,,,,0.4,AUC on samples=0.4; bug ranks among 50: Linear-Regression=10; Bowyer-Watson=15; Prediction-By-Partial-Matching=31; Ada-SPARK-Palindrome-Partitioning=42; Ada-SPARK-Queue-Using-Stacks=45,
