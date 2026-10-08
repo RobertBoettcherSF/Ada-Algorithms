@@ -11,6 +11,39 @@ procedure Tests is
       end if;
    end Assert;
    
+   --  Weighted code length sum (Freqs (C) * code length) and the prefix-free property.
+   function Cost (F : Frequency_Map; D : Dictionary) return Natural is
+      S : Natural := 0;
+   begin
+      for C in Character loop
+         if F (C) > 0 then
+            S := S + F (C) * Length (D (C).Code);
+         end if;
+      end loop;
+      return S;
+   end Cost;
+
+   function Prefix_Free (F : Frequency_Map; D : Dictionary) return Boolean is
+   begin
+      for A in Character loop
+         for B in Character loop
+            if A /= B and then F (A) > 0 and then F (B) > 0 then
+               declare
+                  CA : constant String := To_String (D (A).Code);
+                  CB : constant String := To_String (D (B).Code);
+               begin
+                  if not D (A).Is_Valid or else CA'Length = 0
+                    or else (CA'Length <= CB'Length and then CB (CB'First .. CB'First + CA'Length - 1) = CA)
+                  then
+                     return False;
+                  end if;
+               end;
+            end if;
+         end loop;
+      end loop;
+      return True;
+   end Prefix_Free;
+
    Freq_Empty : Frequency_Map := (others => 0);
    Freq_Valid : Frequency_Map := (others => 0);
    Dict       : Dictionary;
@@ -162,6 +195,30 @@ begin
    begin
       Assert (BitStr'Length >= Message'Length, "Compression bitstring math fails basic physics");
       Put_Line ("      PASS: Pipeline end-to-end execution valid");
+   end;
+
+   -- TEST 14
+   Put_Line ("TEST 14 - Known answers: optimal Huffman cost, prefix-free codes");
+   declare
+      F : Frequency_Map := (others => 0);
+      G : Frequency_Map := (others => 0);
+   begin
+      --  CLRS 16.3 example: a 45, b 13, c 12, d 16, e 9, f 5 (thousands); optimal cost 224.
+      F ('a') := 45; F ('b') := 13; F ('c') := 12; F ('d') := 16; F ('e') := 9; F ('f') := 5;
+      Assert (Cost (F, Generate_Huffman (F)) = 224, "Huffman cost for the CLRS example is not 224");
+      Assert (Prefix_Free (F, Generate_Huffman (F)), "Huffman code for the CLRS example is not prefix-free");
+      Assert (Prefix_Free (F, Generate_Shannon_Fano (F)), "Shannon-Fano code for the CLRS example is not prefix-free");
+      --  Shannon-Fano is never better than Huffman; here (splits {a,b}|{c,d,e,f}... ) it is 229 >= 224.
+      Assert (Cost (F, Generate_Shannon_Fano (F)) >= 224, "Shannon-Fano beat the optimal Huffman cost");
+      --  "AABAC": A 3, B 1, C 1 -> lengths 1, 2, 2, cost 7 for both codes.
+      Assert (Cost (Freq_Valid, Generate_Huffman (Freq_Valid)) = 7, "Huffman cost for AABAC is not 7");
+      Assert (Cost (Freq_Valid, Generate_Shannon_Fano (Freq_Valid)) = 7, "Shannon-Fano cost for AABAC is not 7");
+      for I in 1 .. 20 loop
+         G (Character'Val (64 + I)) := I;
+      end loop;
+      Assert (Prefix_Free (G, Generate_Huffman (G)) and Prefix_Free (G, Generate_Shannon_Fano (G)),
+              "Codes for the skewed 20-symbol map are not prefix-free");
+      Put_Line ("      PASS: Known Huffman cost 224 and 7; all codes prefix-free");
    end;
 
    Put_Line ("=================================================");
