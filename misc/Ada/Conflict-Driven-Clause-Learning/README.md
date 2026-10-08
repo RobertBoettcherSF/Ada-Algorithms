@@ -9,6 +9,7 @@ This repository provides a complete, strongly-typed implementation of the Confli
 * `Solve_Basic` — Core CDCL implementation utilizing 1UIP conflict analysis and non-chronological backjumping.
 * `Solve_With_Restarts` — Periodically resets the decision tree to level 0 while retaining learned clauses to avoid heavy-tailed runtimes.
 * `Solve_With_Clause_Deletion` — Prunes learned clauses once capacity exceeds configured bounds to avoid unbounded memory growth.
+* Decision rule: the lowest-numbered unassigned variable is set to False. With this rule every satisfiable answer is the lexicographically smallest model (variable 1 most significant, False before True), whatever the restart and deletion options (argument in `cdcl.ads`). This is a property of this folder's decision rule only: standard CDCL with VSIDS or phase saving does not guarantee it.
 * Strong Type Safety — Dedicated types for variables, literals, truth values, and clauses instead of raw integers.
 
 ---
@@ -39,6 +40,7 @@ The test suite in `tests.adb` covers multiple verification and validation layers
 * Edge Cases: Exercises formulas with no clauses, single variables, and immediate unit propagations.
 * Error Handling: Confirms that `Bad_Literal` and `Invalid_Formula` exceptions are raised for zero-literals and out-of-range variable IDs.
 * Invariants: Cross-checks all generated assignments against the original formula clauses with `Is_Satisfied`.
+* Own checks (`own_checks.adb`): brute-force SAT/UNSAT and model certificates; the restart schedule and deletion rule replayed from `Solve_Traced`; and, tied to the decision rule above, every model up to 14 variables compared with the lexicographically smallest model found by enumeration.
 
 ---
 

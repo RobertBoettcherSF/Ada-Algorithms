@@ -75,10 +75,13 @@ package CDCL is
    --  Deletion: no restarts).
    --
    --  Decisions: the lowest-numbered unassigned variable is set to False.
-   --  Learned clauses are implied by the formula and propagation is sound,
-   --  so every SAT answer is the lexicographically least model (variable
-   --  1 most significant, False before True), whatever the restart and
-   --  deletion options: if the answer M first differed from the least
+   --  This is a property of THIS package's fixed decision rule, not of CDCL
+   --  in general: standard CDCL solvers with VSIDS-style activity ordering
+   --  or phase saving do not guarantee it and usually return some other
+   --  model. With this rule, learned clauses implied by the formula and
+   --  sound propagation, every SAT answer is the lexicographically least
+   --  model (variable 1 most significant, False before True), whatever the
+   --  restart and deletion options: if the answer M first differed from the least
    --  model M* at V, then M (V) = True was propagated at some level L; all
    --  decisions at levels <= L precede V's entry on the trail, so they are
    --  on variables below V (each decision takes the lowest unassigned

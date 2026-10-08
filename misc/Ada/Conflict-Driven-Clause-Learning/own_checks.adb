@@ -9,8 +9,10 @@
 --    is always wrong);
 --  * pigeonhole PHP(3,2) and PHP(4,3), which are UNSAT;
 --  * up to 14 variables every SAT model must be the lexicographically
---    least model (cdcl.ads: decision rule and its consequence), found here
---    by trying assignments in lexicographic order;
+--    least model, found here by trying assignments in lexicographic order.
+--    This check is tied to this folder's decision rule (lowest unassigned
+--    variable, False first; see cdcl.ads); it is not a CDCL property and
+--    must be dropped if the rule changes (e.g. to VSIDS or phase saving);
 --  * the restart schedule and deletion choice are replayed from a trace
 --    against the policies stated in cdcl.ads (Check_Policy).
 pragma Ada_2022;
@@ -154,8 +156,10 @@ procedure Own_Checks is
    --    variable).
    --  The lexicographically least model (variable 1 most significant,
    --  False before True), by trying assignments in that order: Mask bit
-   --  (N - V) is variable V. cdcl.ads states that every SAT answer is this
-   --  model, whatever the restart / deletion options.
+   --  (N - V) is variable V. Tied to THIS folder's decision rule (lowest
+   --  unassigned variable, False first): cdcl.ads shows that with that rule
+   --  every SAT answer is this model, whatever the restart / deletion
+   --  options. Standard CDCL (VSIDS, phase saving) does not guarantee it.
    function Lex_Least (F : CNF; A : Assignment_Array) return Boolean is
       Want : Assignment_Array (1 .. Variable_Id (F.N));
    begin
@@ -260,7 +264,7 @@ procedure Own_Checks is
             elsif S = Satisfiable and then not Is_Satisfied (Fo, A) then
                Fail (Label & " " & V'Image & ": Is_Satisfied rejects a valid model");
             elsif S = Satisfiable and then F.N <= 14 and then not Lex_Least (F, A) then
-               Fail (Label & " " & V'Image & ": SAT model is not the lexicographically least model");
+               Fail (Label & " " & V'Image & ": SAT model is not the lexicographically least model (decision-rule check, see cdcl.ads)");
             else
                Agree (V) := Agree (V) + 1;
             end if;
