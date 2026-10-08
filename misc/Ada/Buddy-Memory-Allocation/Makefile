@@ -1,25 +1,23 @@
-# Makefile
-# Version 0.01
-
-.PHONY: all test clean
+# Build and run the test suite: make test (GNAT 12 or later; the compiler is the gnatmake on PATH).
+.PHONY: all test clean FORCE
 
 GNAT = gnatmake
+FLAGS = -gnat2022 -gnata
 OBJ_DIR = obj
 BIN_DIR = bin
 
-all: $(BIN_DIR)/main $(BIN_DIR)/tests
+all: $(BIN_DIR)/tests $(BIN_DIR)/main
 
-$(BIN_DIR)/main: src/main.adb src/buddy_allocators.ads src/buddy_allocators.adb
+$(BIN_DIR)/tests: FORCE
 	mkdir -p $(OBJ_DIR) $(BIN_DIR)
-	$(GNAT) -D $(OBJ_DIR) -Isrc -o $(BIN_DIR)/main src/main.adb
+	$(GNAT) $(FLAGS) -D $(OBJ_DIR) -o $(BIN_DIR)/tests tests.adb
 
-$(BIN_DIR)/tests: tests.adb src/buddy_allocators.ads src/buddy_allocators.adb
+$(BIN_DIR)/main: FORCE
 	mkdir -p $(OBJ_DIR) $(BIN_DIR)
-	$(GNAT) -D $(OBJ_DIR) -Isrc -o $(BIN_DIR)/tests tests.adb
+	$(GNAT) $(FLAGS) -D $(OBJ_DIR) -o $(BIN_DIR)/main main.adb
 
 test: $(BIN_DIR)/tests
-	@echo "Running tests..."
-	@$(BIN_DIR)/tests
+	./$(BIN_DIR)/tests
 
 clean:
-	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/*
+	rm -rf $(OBJ_DIR) $(BIN_DIR)

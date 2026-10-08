@@ -1,23 +1,19 @@
-# Ada-NEF-Neurorobotics-Core — no Alire; plain gnatmake
-ADAFLAGS := -gnatwa -gnat2022 -gnata
-SRC      := src
-OBJ      := obj
-BIN      := bin
+# Build and run the test suite: make test (GNAT 12 or later; the compiler is the gnatmake on PATH).
+.PHONY: all test clean FORCE
 
-.PHONY: all test clean
+GNAT = gnatmake
+FLAGS = -gnat2022 -gnata
+OBJ_DIR = obj
+BIN_DIR = bin
 
-all: test
+all: $(BIN_DIR)/tests
 
-test: $(BIN)/tests
-	@$(BIN)/tests
+$(BIN_DIR)/tests: FORCE
+	mkdir -p $(OBJ_DIR) $(BIN_DIR)
+	$(GNAT) $(FLAGS) -D $(OBJ_DIR) -o $(BIN_DIR)/tests tests.adb
 
-$(BIN)/tests: tests.adb \
-    $(SRC)/rover_control.ads $(SRC)/rover_control.adb \
-    $(SRC)/lif_neuron.ads $(SRC)/lif_neuron.adb \
-    $(SRC)/nef_ensemble.ads $(SRC)/nef_ensemble.adb
-	mkdir -p $(OBJ) $(BIN)
-	gnatmake $(ADAFLAGS) -D $(OBJ) -o $(BIN)/tests tests.adb \
-	  -I$(SRC) -bargs -shared -largs
+test: $(BIN_DIR)/tests
+	./$(BIN_DIR)/tests
 
 clean:
-	rm -rf $(OBJ) $(BIN)
+	rm -rf $(OBJ_DIR) $(BIN_DIR)

@@ -1,33 +1,23 @@
-# Makefile for Ada Lamport Bakery Algorithm
+# Build and run the test suite: make test (GNAT 12 or later; the compiler is the gnatmake on PATH).
+.PHONY: all test clean FORCE
 
-.PHONY: all clean test run build build-tests run-tests
+GNAT = gnatmake
+FLAGS = -gnat2022 -gnata -Isrc
+OBJ_DIR = obj
+BIN_DIR = bin
 
-# Default target
-all: build
+all: $(BIN_DIR)/tests $(BIN_DIR)/main
 
-# Build the main bakery program
-build:
-	mkdir -p obj bin
-	gnatmake -P bakery.gpr
+$(BIN_DIR)/tests: FORCE
+	mkdir -p $(OBJ_DIR) $(BIN_DIR)
+	$(GNAT) $(FLAGS) -D $(OBJ_DIR) -o $(BIN_DIR)/tests src/tests.adb
 
-# Build and run tests
-test: build-tests run-tests
+$(BIN_DIR)/main: FORCE
+	mkdir -p $(OBJ_DIR) $(BIN_DIR)
+	$(GNAT) $(FLAGS) -D $(OBJ_DIR) -o $(BIN_DIR)/main src/main.adb
 
-build-tests:
-	mkdir -p obj bin
-	gnatmake -P bakery_tests.gpr
+test: $(BIN_DIR)/tests
+	./$(BIN_DIR)/tests
 
-run-tests: build-tests
-	./bin/bakery_tests
-
-# Run the main program
-run: build
-	./bin/bakery
-
-# Clean build artifacts (but keep .gitkeep files)
 clean:
-	find obj -type f ! -name '.gitkeep' -delete
-	find bin -type f ! -name '.gitkeep' -delete
-
-# Rebuild everything
-rebuild: clean all
+	rm -rf $(OBJ_DIR) $(BIN_DIR)

@@ -1,18 +1,23 @@
-.PHONY: all test clean
+# Build and run the test suite: make test (GNAT 12 or later; the compiler is the gnatmake on PATH).
+.PHONY: all test clean FORCE
 
 GNAT = gnatmake
+FLAGS = -gnat2022 -gnata
+OBJ_DIR = obj
+BIN_DIR = bin
 
-all: main tests
+all: $(BIN_DIR)/tests $(BIN_DIR)/main
 
-main: main.adb delta_encoding.ads delta_encoding.adb
-	$(GNAT) -P project.gpr main.adb
+$(BIN_DIR)/tests: FORCE
+	mkdir -p $(OBJ_DIR) $(BIN_DIR)
+	$(GNAT) $(FLAGS) -D $(OBJ_DIR) -o $(BIN_DIR)/tests tests.adb
 
-tests: tests.adb delta_encoding.ads delta_encoding.adb
-	$(GNAT) -P project.gpr tests.adb
+$(BIN_DIR)/main: FORCE
+	mkdir -p $(OBJ_DIR) $(BIN_DIR)
+	$(GNAT) $(FLAGS) -D $(OBJ_DIR) -o $(BIN_DIR)/main main.adb
 
-test: tests
-	@echo "Running tests..."
-	@./tests
+test: $(BIN_DIR)/tests
+	./$(BIN_DIR)/tests
 
 clean:
-	rm -f main tests *.o *.ali
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
