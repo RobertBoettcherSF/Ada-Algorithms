@@ -50,7 +50,7 @@ package body Brown_Boost is
                Dir := (if D = 1 then 1.0 else -1.0);
                Adv := 0.0;
                for J in Features'Range (1) loop
-                  Y := (if Labels (J) = Label_Positive then 1.0 else -1.0);
+                  Y := (if Labels (Labels'First + (J - Features'First (1))) = Label_Positive then 1.0 else -1.0);
                   Pred := (if Features (J, F) * Dir >= Thresh * Dir then 1.0 else -1.0);
                   Adv := Adv + Weights (J) * Pred * Y;
                end loop;
@@ -121,7 +121,7 @@ package body Brown_Boost is
             Pred : constant Value_Type :=
                (if Features (I, Stump.Feature) * Stump.Direction >= Stump.Threshold * Stump.Direction
                 then 1.0 else -1.0);
-            Y : constant Value_Type := (if Labels (I) = Label_Positive then 1.0 else -1.0);
+            Y : constant Value_Type := (if Labels (Labels'First + (I - Features'First (1))) = Label_Positive then 1.0 else -1.0);
          begin
             Z (I) := Pred * Y;
             V_Target := V_Target + Phi (Margins (I) + S, C);
@@ -173,13 +173,40 @@ package body Brown_Boost is
       JA, JB, JD, J_Det, C_Jac : Value_Type;
       dA, dU : Value_Type;
       K : constant Value_Type := 2.0 / Sqrt (Pi * C);
+      Merit, Lambda : Value_Type;
+      A_New, U_New, F1_New, F2_New, JA_New, JB_New, JD_New, CJ_New : Value_Type;
+      Improved : Boolean;
+
+      --  F1 = orthogonality, F2 = potential difference, and their Jacobian
+      --  [JA JB; C_Jac JD] with respect to (Alpha, U)
+      procedure Residuals (A, U : Value_Type; R1, R2, DA1, DU1, DU2, DA2 : out Value_Type) is
+      begin
+         R1 := 0.0;
+         R2 := -V_Target;
+         DA1 := 0.0;
+         DU1 := 0.0;
+         DU2 := 0.0;
+         for I in Features'Range (1) loop
+            declare
+               Arg : constant Value_Type := Margins (I) + A * Z (I) + U;
+               E   : constant Value_Type := Exp (- (Arg**2) / C);
+            begin
+               R1 := R1 + Z (I) * E;
+               R2 := R2 + Phi (Arg, C);
+               DA1 := DA1 - (2.0 / C) * Arg * E;
+               DU1 := DU1 - (2.0 / C) * Z (I) * Arg * E;
+               DU2 := DU2 - K * E;
+            end;
+         end loop;
+         DA2 := -K * R1;
+      end Residuals;
    begin
       for I in Features'Range (1) loop
          declare
             Pred : constant Value_Type :=
                (if Features (I, Stump.Feature) * Stump.Direction >= Stump.Threshold * Stump.Direction
                 then 1.0 else -1.0);
-            Y : constant Value_Type := (if Labels (I) = Label_Positive then 1.0 else -1.0);
+            Y : constant Value_Type := (if Labels (Labels'First + (I - Features'First (1))) = Label_Positive then 1.0 else -1.0);
          begin
             Z (I) := Pred * Y;
             V_Target := V_Target + Phi (Margins (I) + S, C);
@@ -189,44 +216,46 @@ package body Brown_Boost is
       A_Curr := 0.1;
       U_Curr := S * 0.9;
 
-      for Iter in 1 .. 20 loop
-         F1 := 0.0;
-         F2 := -V_Target;
-         JA := 0.0;
-         JB := 0.0;
-         JD := 0.0;
-
-         for I in Features'Range (1) loop
-            declare
-               Arg : constant Value_Type := Margins (I) + A_Curr * Z (I) + U_Curr;
-               E   : constant Value_Type := Exp (- (Arg**2) / C);
-            begin
-               F1 := F1 + Z (I) * E;
-               F2 := F2 + Phi (Arg, C);
-               JA := JA - (2.0 / C) * Arg * E;
-               JB := JB - (2.0 / C) * Z (I) * Arg * E;
-               JD := JD - K * E;
-            end;
-         end loop;
-
-         C_Jac := -K * F1; 
+      --  Newton's method on the two equations, globalised by backtracking:
+      --  a full step is taken only if it lowers F1**2 + F2**2, otherwise it
+      --  is halved (up to 40 times). Undamped steps (the earlier version, 20
+      --  iterations) could jump out of the basin and stop at a point that
+      --  satisfies neither equation.
+      Residuals (A_Curr, U_Curr, F1, F2, JA, JB, JD, C_Jac);
+      for Iter in 1 .. 200 loop
+         Merit := F1 ** 2 + F2 ** 2;
+         exit when Merit < 1.0e-24;
 
          J_Det := JA * JD - JB * C_Jac;
-         if abs (J_Det) < 1.0e-12 then
+         if abs (J_Det) < 1.0e-300 then
             exit;
          end if;
 
          dA := - (JD * F1 - JB * F2) / J_Det;
          dU := - (-C_Jac * F1 + JA * F2) / J_Det;
 
-         A_Curr := A_Curr + dA;
-         U_Curr := U_Curr + dU;
+         Lambda := 1.0;
+         Improved := False;
+         for Halving in 1 .. 40 loop
+            A_New := Value_Type'Max (A_Curr + Lambda * dA, 0.0);
+            U_New := Value_Type'Min (Value_Type'Max (U_Curr + Lambda * dU, 0.0), S);
+            Residuals (A_New, U_New, F1_New, F2_New, JA_New, JB_New, JD_New, CJ_New);
+            if F1_New ** 2 + F2_New ** 2 < Merit then
+               Improved := True;
+               exit;
+            end if;
+            Lambda := Lambda / 2.0;
+         end loop;
+         exit when not Improved;
 
-         if A_Curr < 0.0 then A_Curr := 0.0; end if;
-         if U_Curr < 0.0 then U_Curr := 0.0; end if;
-         if U_Curr > S then U_Curr := S; end if;
-
-         exit when abs (dA) < 1.0e-5 and abs (dU) < 1.0e-5;
+         A_Curr := A_New;
+         U_Curr := U_New;
+         F1 := F1_New;
+         F2 := F2_New;
+         JA := JA_New;
+         JB := JB_New;
+         JD := JD_New;
+         C_Jac := CJ_New;
       end loop;
 
       Alpha := A_Curr;
@@ -251,10 +280,6 @@ package body Brown_Boost is
       Max_Adv : Value_Type;
       Alpha, T : Value_Type;
    begin
-      if Features'First (1) /= Labels'First then
-         raise Invalid_Data;
-      end if;
-
       while S > 0.0001 and M.Size < Capacity loop
          -- 1. Derive weights via exponential decay mapped to margins and time left
          declare
@@ -302,7 +327,7 @@ package body Brown_Boost is
                Pred : constant Value_Type :=
                   (if Features (I, Best_Stump.Feature) * Best_Stump.Direction >= Best_Stump.Threshold * Best_Stump.Direction
                    then 1.0 else -1.0);
-               Y : constant Value_Type := (if Labels (I) = Label_Positive then 1.0 else -1.0);
+               Y : constant Value_Type := (if Labels (Labels'First + (I - Features'First (1))) = Label_Positive then 1.0 else -1.0);
             begin
                Margins (I) := Margins (I) + Alpha * Pred * Y;
             end;

@@ -22,14 +22,15 @@ begin
    Own_Checks;
    Put_Line ("TEST 1 - Empty Model");
    declare
-      M : Ensemble_Model (10);
+      M : constant Ensemble_Model :=
+        (Capacity => 10, Size => 0,
+         Models => [others => (Stump => (Feature => 1, Threshold => 0.0, Direction => 1.0), Alpha => 0.0)]);
       V : constant Feature_Vector (1 .. 1) := [1 => 0.0];
    begin
       Check ("1.1 Size is 0", M.Size = 0);
       Check ("1.2 Predicts Negative by default", Predict (M, V) = Label_Negative);
-      pragma Warnings (Off);
-      Check ("1.3 Capacity matches assignment", M.Capacity = 10);
-      pragma Warnings (On);
+      --  (was a compile-time-constant Capacity check under pragma Warnings (Off))
+      Check ("1.3 Empty model predicts Negative for a large feature too", Predict (M, [1 => 5.0]) = Label_Negative);
    end;
 
    Put_Line ("TEST 2 - Basic Separation (Bisection Solver)");

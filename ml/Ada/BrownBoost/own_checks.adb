@@ -303,7 +303,9 @@ begin
       end;
    end loop;
    declare
-      Empty : Ensemble_Model (3);
+      Empty : constant Ensemble_Model :=
+        (Capacity => 3, Size => 0,
+         Models => [others => (Stump => (Feature => 1, Threshold => 0.0, Direction => 1.0), Alpha => 0.0)]);
    begin
       Expect (Predict (Empty, [1 => 0.0]) = Label_Negative, "empty model predicts negative");
    end;

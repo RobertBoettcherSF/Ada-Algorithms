@@ -34,6 +34,9 @@ package Brown_Boost is
    -- either via Bisection (as in JBoost) or Newton's Method (Freund's paper).
    type Solver_Variant is (Bisection_Solver, Newton_Solver);
 
+   --  Not raised at present: invalid arguments are rejected by Train's
+   --  precondition. Labels may use any index origin (example i of the
+   --  feature rows is Labels (Labels'First + i - Features'First (1))).
    Invalid_Data : exception;
 
    -- Trains a BrownBoost ensemble over the provided dataset.
