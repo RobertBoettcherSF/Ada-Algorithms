@@ -17,7 +17,7 @@ This codebase adopts strict Verification and Validation (V&V) principles. The te
 ### What Each Test Category Verifies:
 *   **Functional Correctness:** Ensures algorithmic formulas (logarithmic curves for Mu/A-law and linear differencing for DPCM) execute mathematically correct conversions.
 *   **Edge Cases & Boundaries:** Verifies system stability at the extreme limits of the datatypes (e.g., maximum 16-bit PCM `32767` and minimum `-32768`, or absolute silence `0`).
-*   **Error Handling (Robustness):** Confirms that dynamic allocations and delta accumulations (like massive swings in DPCM) do not result in unhandled `Constraint_Error` exceptions, but are safely clamped.
+*   **Error Handling (Robustness):** Confirms that dynamic allocations and delta accumulations (like massive swings in DPCM) do not result in unhandled `Constraint_Error` exceptions: DPCM deltas use 16-bit two's-complement wraparound (modular arithmetic), so every sample sequence round-trips exactly, with nothing clamped.
 *   **Data Integrity:** Proves that lossless algorithms (DPCM) perfectly round-trip data, and lossy algorithms (Mu-law) stay within acceptable tolerance parameters.
 
 ### Why These Tests Matter:
