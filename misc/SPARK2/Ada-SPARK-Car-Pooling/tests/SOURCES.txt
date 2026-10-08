@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: trips (2 people, 1 -> 3) and (1, 2 -> 4) overlap at stop 2:
+  3 seats suffice, 2 do not, by hand.
+* Own reference (the standard car-pooling statement): for every stop, add
+  the people of each trip with Pickup <= stop < Dropoff (they leave at the
+  drop-off stop before new people board); feasible when no stop exceeds
+  the limit.
+* Inputs: 20,000 random sets of 8 trips (0 .. 4 people, Pickup < Dropoff),
+  every limit 0 .. 12; back-to-back trips (2 people 1 -> 3, 2 people
+  3 -> 5) fit two seats, by hand.

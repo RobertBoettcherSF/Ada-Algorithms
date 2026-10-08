@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Car_Pooling; use Car_Pooling;
+with Own_Checks;
 
 procedure Tests is
    Empty : constant Trip := (People => 0, Pickup => 1, Dropoff => 2);
@@ -9,4 +10,5 @@ begin
    T (2) := (People => 1, Pickup => 2, Dropoff => 4);
    Assert (Feasible (T, 3));
    Assert (not Feasible (T, 2));
+   Own_Checks;
 end Tests;
