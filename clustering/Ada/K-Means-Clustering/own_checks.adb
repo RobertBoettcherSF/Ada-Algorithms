@@ -33,6 +33,19 @@ procedure Own_Checks (Fail_Count : out Natural) is
       return Seed;
    end Next_U;
 
+   --  Uniform index in 0 .. Span-1. Reject the incomplete residue class
+   --  so the draw is not biased toward the low offsets.
+   function Fair_Off (State : in out U32; Span : Natural) return Natural is
+      Sp : constant U32 := U32 (Span);
+      Bound : constant U32 := (U32'Last / Sp) * Sp;
+   begin
+      loop
+         State := State * 1664525 + 1013904223;
+         exit when State < Bound;
+      end loop;
+      return Natural (State mod Sp);
+   end Fair_Off;
+
    function Unit return Real is
    begin
       return Real (Long_Float (Next_U) / 4294967296.0);
@@ -302,16 +315,9 @@ begin
    begin
       while Got < 2 loop
          declare
-            U : Real;
-            Off : Natural;
+            Off : constant Natural := Fair_Off (S, 4);
             Fresh : Boolean;
          begin
-            S := S * 1664525 + 1013904223;
-            U := Real (Long_Float (S) / 4294967296.0);
-            Off := Natural (Long_Float (U) * 4.0);
-            if Off >= 4 then
-               Off := 3;
-            end if;
             Fresh := True;
             for I in 1 .. Got loop
                if Chosen (I) = Off then
@@ -328,6 +334,131 @@ begin
         and then abs (Fg (2, 1) - Real (Chosen (2))) < 1.0e-9,
         "Forgy seed 1 follows the independent LCG");
       Note (abs (One (1, 1) - 0.0) < 1.0e-12, "a single index is a valid center");
+   end;
+
+   --  K equals N: every row is a center. Points are unique, so a repeated
+   --  row would be visible.
+   declare
+      Data : Dataset (1 .. 6, 1 .. 1);
+   begin
+      for P in Data'Range (1) loop
+         Data (P, 1) := Real (P);
+      end loop;
+      for S in 0 .. 7 loop
+         declare
+            Fg : constant Centers := Init_Centers_Forgy (Data, 6, S);
+            Seen : array (1 .. 6) of Boolean := [others => False];
+         begin
+            for J in 1 .. 6 loop
+               declare
+                  Idx : constant Integer := Integer (Fg (J, 1));
+               begin
+                  Note (Idx in 1 .. 6 and then not Seen (Idx),
+                    "Forgy with K = N takes each row once");
+                  if Idx in 1 .. 6 then
+                     Seen (Idx) := True;
+                  end if;
+               end;
+            end loop;
+         end;
+      end loop;
+   end;
+
+   --  One center, twenty distinct rows, four thousand seeds. The draws are
+   --  the package's; the chi-square is computed here against a flat rate.
+   declare
+      Data : Dataset (1 .. 20, 1 .. 1);
+      Count : array (1 .. 20) of Natural := [others => 0];
+      Stat : Real := 0.0;
+      Expect : constant Real := 200.0;
+   begin
+      for P in Data'Range (1) loop
+         Data (P, 1) := Real (P);
+      end loop;
+      for S in 0 .. 3999 loop
+         declare
+            Fg : constant Centers := Init_Centers_Forgy (Data, 1, S);
+            Idx : constant Integer := Integer (Fg (1, 1));
+         begin
+            Note (Idx in 1 .. 20, "a one-center Forgy draw is a data row");
+            if Idx in 1 .. 20 then
+               Count (Idx) := Count (Idx) + 1;
+            end if;
+         end;
+      end loop;
+      for P in Count'Range loop
+         declare
+            Diff : constant Real := Real (Count (P)) - Expect;
+         begin
+            Stat := Stat + Diff * Diff / Expect;
+         end;
+      end loop;
+      --  df = 19. 43.8 is the 0.001 point; 50 leaves the fair sampler room.
+      Note (Stat < 50.0, "Forgy picks each row about equally often");
+   end;
+
+   --  Seed 0, twenty rows. An independent Numerical Recipes step picks row 6
+   --  (value 6). Mixing the seed by addition instead of multiplication does not.
+   declare
+      Data : Dataset (1 .. 20, 1 .. 1);
+      S : U32 := 1013904223;
+      Fg : Centers (1 .. 1, 1 .. 1);
+      Off : Natural;
+   begin
+      for P in Data'Range (1) loop
+         Data (P, 1) := Real (P);
+      end loop;
+      Off := Fair_Off (S, 20);
+      Fg := Init_Centers_Forgy (Data, 1, 0);
+      Note (abs (Fg (1, 1) - Real (Off + 1)) < 1.0e-9,
+        "Forgy seed 0 matches an independent draw");
+   end;
+
+   --  Columns do not start at 1. The copied center is that row, not a shift.
+   declare
+      Data : constant Dataset (1 .. 4, 2 .. 3) :=
+        [[10.0, 20.0],
+         [11.0, 21.0],
+         [12.0, 22.0],
+         [13.0, 23.0]];
+      Fg : constant Centers := Init_Centers_Forgy (Data, 2, 1);
+   begin
+      for J in 1 .. 2 loop
+         Note ((abs (Fg (J, 1) - 10.0) < 1.0e-12 and then abs (Fg (J, 2) - 20.0) < 1.0e-12)
+           or else (abs (Fg (J, 1) - 11.0) < 1.0e-12 and then abs (Fg (J, 2) - 21.0) < 1.0e-12)
+           or else (abs (Fg (J, 1) - 12.0) < 1.0e-12 and then abs (Fg (J, 2) - 22.0) < 1.0e-12)
+           or else (abs (Fg (J, 1) - 13.0) < 1.0e-12 and then abs (Fg (J, 2) - 23.0) < 1.0e-12),
+           "Forgy follows a column origin other than 1");
+      end loop;
+   end;
+
+   --  One Lloyd step at a time. The reported sum of squares does not rise.
+   declare
+      Data : Dataset (1 .. 8, 1 .. 2);
+      Init : Centers (1 .. 2, 1 .. 2);
+      Params : constant Parameters :=
+        (K => 2, Max_Iters => 1, Tol => 0.0, Seed => 1);
+      Prev : Real := 0.0;
+   begin
+      for P in 1 .. 4 loop
+         Data (P, 1) := Real (P) * 0.1;
+         Data (P, 2) := 0.2;
+         Data (P + 4, 1) := 5.0 + Real (P) * 0.1;
+         Data (P + 4, 2) := 5.0;
+      end loop;
+      Init := [[0.0, 0.0], [0.1, 0.0]];
+      for Step in 1 .. 6 loop
+         declare
+            Fit : constant Result := Run_Lloyd (Data, Init, Params);
+         begin
+            if Step > 1 then
+               Note (Fit.WCSS <= Prev + 1.0e-8,
+                 "within-cluster SSE does not rise between Lloyd steps");
+            end if;
+            Prev := Fit.WCSS;
+            Init := Fit.Centers;
+         end;
+      end loop;
    end;
 
    Txt.Put_Line ("own checks:" & Natural'Image (Checks)
