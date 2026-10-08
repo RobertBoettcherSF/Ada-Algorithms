@@ -18,7 +18,7 @@ sorting/SPARK2/Ada-SPARK-Smooth-Sort,sorted + permutation + own insertion-sort r
 sorting/SPARK2/Ada-SPARK-Tim-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
 sorting/SPARK2/Ada-SPARK-Wiggle-Sort,wiggle order on every adjacent pair + permutation; 4000 inputs
 sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity,evens before odds + permutation; 3000 random
-sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,elementwise square computed independently; 3000 random
+sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,own square + insertion-sort reference on 3000+ sorted inputs; unsorted inputs rejected
 sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,own concatenate + insertion-sort reference; 5000 random sorted pairs
 sorting/SPARK2/Ada-SPARK-Sort-Colors,own insertion-sort reference on Data(1..Length); tail unchanged; every Length + 3000 random
 sorting/SPARK2/Ada-SPARK-Sort-List-Lite,own insertion-sort reference; every length 0..16; 4800 random

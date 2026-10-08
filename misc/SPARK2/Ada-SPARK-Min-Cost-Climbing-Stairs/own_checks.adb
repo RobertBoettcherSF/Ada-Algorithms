@@ -1,7 +1,6 @@
 --  Own tests for Min_Cost_Climbing_Stairs (see tests/SOURCES.txt).
 --  Compute must be the cheapest way up: start on step 1 or 2, pay each step stood on,
---  move 1 or 2 steps. Whether the climb ends past the last step or on it (paying it)
---  is not fixed by the README; one input fixes it, every other input must agree.
+--  move 1 or 2 steps; the top is past the last step (the standard problem statement).
 pragma Ada_2022;
 with Ada.Text_IO;
 with Min_Cost_Climbing_Stairs; use Min_Cost_Climbing_Stairs;
@@ -49,7 +48,7 @@ procedure Own_Checks is
    end Ins_Sort;
    pragma Warnings (Off, Ins_Sort);
    X : Cost_Array;
-   Past_Top : Boolean;
+   Past_Top : constant Boolean := True;   --  the climb ends past the last step
    Never : constant Natural := 1_000_000;                --  "no such path"
    function Ref (From : Positive) return Natural is   --  cheapest from standing on step From
    begin
@@ -63,11 +62,10 @@ procedure Own_Checks is
    end Ref;
    function Best return Natural is (Natural'Min (Ref (1), Ref (2)));
 begin
-   --  fixing input: free steps, an expensive last step
+   --  free steps and an expensive last step: jump from step 5 past the top
    X := [others => 0];
    X (Cost_Count) := 100;
-   Past_Top := Compute (X) = 0;
-   Report (Compute (X) in 0 | 100, "convention input gives 0 (past the top) or 100 (on the last step)");
+   Report (Compute (X) = 0, "0 0 0 0 0 100 -> 0");
    for Code in 0 .. 3 ** Cost_Count - 1 loop
       declare
          C : Natural := Code;

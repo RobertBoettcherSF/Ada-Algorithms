@@ -6,12 +6,10 @@ repository (MIT); nothing is copied from the program's output or from
 third-party test suites. Random inputs come from the Park-Miller minimal
 standard generator (seed 20261008).
 
+* tests.adb: 10 15 20 5 8 12 -> 28 (steps 2, 4, 5, then past the top), by hand.
 * Own reference: start on step 1 or step 2, pay the cost of every step
-  stood on, move up 1 or 2 steps at a time; the cheapest total over all such
-  paths, by plain recursion over the choices in the test. The README does
-  not say whether the climb ends past step 6 or on step 6 (paying it); the
-  input (0, 0, 0, 0, 0, 100) fixes it (0 = past the top, 100 = on the last
-  step) and every other input must agree with that convention. (This
-  implementation ends on the last step.)
+  stood on, move up 1 or 2 steps at a time, finish past step 6 (the
+  standard problem statement); the cheapest total over all such paths, by
+  plain recursion over the choices in the test. Hand case 0 0 0 0 0 100 -> 0.
 * Inputs: every cost array over {0, 1, 2} (3**6 = 729, exhaustive) and
   5,000 random arrays over 0 .. 100.
