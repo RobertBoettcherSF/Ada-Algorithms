@@ -20,7 +20,7 @@ main=$(cd "$W/m14"; for c in tests.adb test*.adb tests/main.adb src/tests.adb; d
 INC=""; for dd in src tests; do [ -d "$W/m14/$dd" ] && INC="$INC -I$dd"; done
 u14=NA; w14=NA; u12=NA; w12=NA; r14=NA; r12=NA
 if [ -n "$main" ]; then
-  cp -r "$W/m14" "$W/u"; rm -rf "$W/u/obj" "$W/u/bin"; cd "$W/u"
+  cp -r "$R/$id" "$W/u"; for f in $deps; do cp "$lev/$f" "$W/u/"; done; rm -rf "$W/u/obj" "$W/u/bin"; find "$W/u" -name "*.ali" -delete -o -name "*.o" -delete; cd "$W/u"
   mkdir -p o14 o12
   PATH=$P14 timeout 300 gnatmake -gnatwa -gnat2022 $INC -D o14 -o t14 "$main" > ../u14.log 2>&1; u14=$?
   [ $u14 = 0 ] && { timeout 60 ./t14 > ../r14.log 2>&1; r14=$?; }
