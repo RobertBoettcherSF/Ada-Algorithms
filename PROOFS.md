@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 19:16 CEST.
+Generated 2026-10-08 19:17 CEST.
 
 ## Proof setup
 
@@ -26,7 +26,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 **Training-ready: 11 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. A sort whose proof rests on a final Bubble_Finish pass that masks the named algorithm (`tools/vv/sweep_masking.csv`, column `masked_by_finish`) is not training-ready either; a surviving mutant counts as equivalent only when `tools/vv/sweep_equivalent.csv` lists it with exhaustive evidence or a written reason. Under the old rule: 267 folders.
 
-**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 265 folders (column `own_tests`).
+**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 267 folders (column `own_tests`).
 
 **Silver headline (duplicates counted once):** 483 real SPARK folders proven non-trivially, 305 proven but trivial (<= 3 checks), 143 stubs proven (separate), 3 with unproved checks, 10 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 143 proven real folders also prove functional contracts
 
@@ -56,6 +56,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | concurrency/SPARK2/Course-Schedule |  |  |  |  | weak |  |
 | cryptography/Ada/RSA |  |  |  |  | weak |  |
 | geometry/Ada/Bresenhams-Line-Algorithm |  | 5/8 |  |  | ok |  |
+| geometry/Ada/Liang-Barsky |  |  |  |  | ok | own tests |
 | geometry/Ada/Line-Clipping |  |  |  | all 4 clippers vs own brute-force sampling (4001 samples); 3000 random window/segment pairs (sample_ada_30) | ok | own tests |
 | geometry/Ada/Vatti |  |  |  |  | weak |  |
 | geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham |  | 17/20 |  | own monotone-chain hull (strict) as cyclic sequence; 20000 random distinct point sets prepared in Graham order (own exact angle sort) + collinear and extreme cases | ok | own tests |
@@ -111,6 +112,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/Ada/Package-Merge-Algorithm | agree (vs misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm, 1000 cases) |  |  |  | unchecked (main stillborn) | diff agree |
 | misc/Ada/Poly1305 |  |  |  |  | baseline fails | own tests |
 | misc/Ada/Polynomial-Long-Division |  | 7/8 |  |  | ok |  |
+| misc/Ada/Quine-McCluskey-Algorithm |  |  |  |  | ok | own tests |
 | misc/Ada/Recovery-Exploiting-Semantics |  |  |  |  | weak |  |
 | misc/Ada/Replicator-Equation |  | 6/8 |  |  | ok |  |
 | misc/Ada/SEQUITUR-Algorithm |  |  |  |  | weak |  |
