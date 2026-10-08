@@ -60,6 +60,14 @@ procedure Own_Checks is
       for I in Index'First .. Index'Last - 1 loop
          Ok := Ok and then C_In (R (I)) >= C_In (R (I + 1));
       end loop;
+      --  equal characters stand together: R (I) = R (K) with I < J < K forces R (J) = R (I)
+      for I in Index loop
+         for J in I + 1 .. Index'Last loop
+            for K in J + 1 .. Index'Last loop
+               Ok := Ok and then (R (I) /= R (K) or else R (J) = R (I));
+            end loop;
+         end loop;
+      end loop;
       Report (Ok and then C_In = C_Out, Label);
    end Check_One;
    A : Char_Array;
@@ -71,9 +79,11 @@ begin
       Check_One (A, "random" & K'Image);
    end loop;
    Check_One ([others => 'z'], "all equal");
+   Check_One (['a', 'b', 'a', 'b', 'c', 'd', 'c', 'd'], "four pairs (must be grouped)");
+   Check_One (['x', 'y', 'x', 'y', 'x', 'y', 'q', 'q'], "x 3, y 3, q 2");
    if Failures > 0 then
       Ada.Text_IO.Put_Line ("FAIL own checks:" & Failures'Image & " of" & Cases'Image);
       raise Program_Error with "own checks failed";
    end if;
-   Ada.Text_IO.Put_Line ("PASS own checks:" & Cases'Image & " inputs (frequency order, permutation)");
+   Ada.Text_IO.Put_Line ("PASS own checks:" & Cases'Image & " inputs (frequency order, equal characters grouped, permutation)");
 end Own_Checks;

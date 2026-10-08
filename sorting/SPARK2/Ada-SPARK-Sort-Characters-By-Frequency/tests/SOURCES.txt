@@ -8,7 +8,9 @@ standard generator (seed 20261008).
 
 * Property: the result is a permutation of the input and the input frequency
   of R (I) is >= that of R (I + 1) for every I.
-* Not checked: whether different characters with the same frequency are kept
-  in contiguous groups; the README does not state it.
+* Property: equal characters stand together (if R (I) = R (K) and I < J < K
+  then R (J) = R (I)), as the problem statement requires (the order of
+  groups with the same frequency is free). Hand cases a b a b c d c d and
+  x y x y x y q q.
 * Inputs: 4,000 random arrays (half over 'a' .. 'c', half over 'a' .. 'h') and
   an all-equal array.
