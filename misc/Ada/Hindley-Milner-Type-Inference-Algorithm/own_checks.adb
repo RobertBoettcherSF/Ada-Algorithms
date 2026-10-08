@@ -672,7 +672,19 @@ begin
       end Q_Unify;
       --  substitution of a let value for its name (binder names are unique
       --  in generated terms, so no capture can occur)
+      --  (a rebuilt node stays a copy if the node it rebuilds was one, so
+      --  a let value copied into a later let's body is still skipped by the
+      --  trace)
+      function Subst_Node (N : Positive; X : String; V : Positive) return Positive;
       function Subst (N : Positive; X : String; V : Positive) return Positive is
+         R : constant Positive := Subst_Node (N, X, V);
+      begin
+         if Copy (N) then
+            Copy (R) := True;
+         end if;
+         return R;
+      end Subst;
+      function Subst_Node (N : Positive; X : String; V : Positive) return Positive is
         (case Tree (N).Kind is
            when R_Var => (if To_String (Tree (N).Name) = X then V else N),
            when R_Abs => (if To_String (Tree (N).Name) = X then N
