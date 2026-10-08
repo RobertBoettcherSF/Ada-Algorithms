@@ -20,6 +20,9 @@ procedure Tests is
 
    Ex_Caught : Boolean;
 
+   function Divides (P : Period_Type; N : Group_Element) return Boolean is
+     (Natural (N) mod Natural (P) = 0);
+
 begin
    Own_Checks;   --  sweep: independent references (own_checks.adb, tests/SOURCES.txt)
    -- TEST 1 — Simon's Problem Solver (s = 3)
@@ -29,9 +32,7 @@ begin
    begin
       Check ("1.1 Simon solver returns non-zero", S > 0);
       Check ("1.2 Simon solver detects correct hidden string 3", S = 3);
-      pragma Warnings (Off, "upper bound test optimized away");
-      Check ("1.3 Simon solver result is within 8-bit range", S in 1 .. 255);
-      pragma Warnings (On, "upper bound test optimized away");
+      Check ("1.3 Simon solver result is within the 2-bit range", S < 4);
    end;
 
    -- TEST 2 — Simon's Problem Solver (s = 5)
@@ -49,11 +50,9 @@ begin
    declare
       P : constant Period_Type := Solve_Period_Finding (9, Period_Oracle_Sample_3'Access);
    begin
-      Check ("3.1 Period is positive", P > 0);
+      Check ("3.1 Period is below the group order 9", P < 9);
       Check ("3.2 Period equals 3", P = 3);
-      pragma Warnings (Off, "condition can only be");
-      Check ("3.3 Period divides group size 9", (9 mod Group_Element(P)) = 0);
-      pragma Warnings (On, "condition can only be");
+      Check ("3.3 Period divides group size 9", Divides (P, 9));
    end;
 
    -- TEST 4 — Period Finding (Period 4 in Z_12)
@@ -61,11 +60,9 @@ begin
    declare
       P : constant Period_Type := Solve_Period_Finding (12, Period_Oracle_Sample_4'Access);
    begin
-      Check ("4.1 Period is positive for Z_12", P > 0);
+      Check ("4.1 Period is below the group order 12", P < 12);
       Check ("4.2 Period equals 4", P = 4);
-      pragma Warnings (Off, "condition can only be");
-      Check ("4.3 Period divides group size 12", (12 mod Group_Element(P)) = 0);
-      pragma Warnings (On, "condition can only be");
+      Check ("4.3 Period divides group size 12", Divides (P, 12));
    end;
 
    -- TEST 5 — General Abelian HSP (Period 3 in Z_9)
@@ -74,7 +71,7 @@ begin
       Subgroup : constant Element_Array := Solve_Abelian_HSP (9, Period_Oracle_Sample_3'Access);
    begin
       Check ("5.1 Subgroup generators array is non-empty", Subgroup'Length > 0);
-      Check ("5.2 Subgroup generator is correct (9/3 = 3)", Subgroup(1) = 3);
+      Check ("5.2 Subgroup generator is the period 3 (H = {0, 3, 6})", Subgroup(1) = 3);
       Check ("5.3 Subgroup has expected dimensionality", Subgroup'Length = 1);
    end;
 
@@ -84,7 +81,7 @@ begin
       Subgroup : constant Element_Array := Solve_Abelian_HSP (12, Period_Oracle_Sample_4'Access);
    begin
       Check ("6.1 Subgroup generators array non-empty for Z_12", Subgroup'Length > 0);
-      Check ("6.2 Subgroup generator is correct (12/4 = 3)", Subgroup(1) = 3);
+      Check ("6.2 Subgroup generator is the period 4 (H = {0, 4, 8})", Subgroup(1) = 4);
       Check ("6.3 Subgroup generator bounds check", Subgroup(1) < 12);
    end;
 
