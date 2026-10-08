@@ -228,6 +228,20 @@ begin
    begin
       Check_Samples (Integer'Last, Integer'First, -1, -4294967295, "(Last, First)");
       Check_Samples (Integer'First, Integer'Last, -1, 4294967295, "(First, Last)");
+      --  Four samples, so the second pair is not at index offset 0.
+      --  (1, 5) -> s=3, d=4; (-3, 4) -> s=0, d=7.
+      declare
+         Sig : constant Sample_1D := [1, 5, -3, 4];
+         Got : constant Signal_1D_Int := Forward_Haar_Samples (Sig);
+         Back : constant Sample_1D := Inverse_Haar_Samples (Got);
+      begin
+         Note (Got (1) = 3 and then Got (2) = 0 and then Got (3) = 4 and then Got (4) = 7,
+           "four Integer samples, second pair included");
+         Note (Back = Sig, "four Integer samples round trip");
+      exception
+         when Constraint_Error =>
+            Note (False, "four Integer samples raised Constraint_Error");
+      end;
    end;
 
    --  A one-sample signal has no pair. Levels 0 and 1 both return it.
