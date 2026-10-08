@@ -1,0 +1,10 @@
+Sources of expected values (Ada-SPARK-Pigeonhole-Sort)
+
+* tests.adb: sortedness and multiset equality are properties, checked
+  against the suite's own reference sort; no expected value is copied from
+  the program's output.
+
+* Named-phase check (tests/phase_alone.sh, run by make test): the same
+  suite against a scratch copy of the library in which a final
+  Bubble_Finish call of Sort (if any) is replaced by null, so only the
+  pigeonhole phase sorts (docs/VV.md 3i, pattern 7).
