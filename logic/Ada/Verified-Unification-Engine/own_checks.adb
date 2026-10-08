@@ -224,6 +224,9 @@ procedure Own_Checks is
             Fail (Label & ": Unify failed but a ground unifier exists");
          end if;
       end if;
+      if OK and then Clash (A, B) then
+         Fail (Label & ": unified a pair that has a clash or cycle certificate");
+      end if;
       if OK then
          Apply_Substitution (EA, Env, RA, OK1);
          Apply_Substitution (EB, Env, RB, OK2);
