@@ -57,7 +57,7 @@ misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:33,saturatin
 misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:34,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
 misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:35,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
 misc/SPARK2/Ada-SPARK-Maximal-Rectangle,maximal_rectangle.adb:21,assign-last,legitimate,identity of a minimum search
-misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,maximum_ice_cream_bars.adb:9,return-last,silent-wrong-answer,Budget/Price up to 32_000 is capped at Bar_Count'Last = 32
+misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,maximum_ice_cream_bars.adb:9,return-last,legitimate,cap is the stock of 32 bars (standard problem: at most n bars); documented in README and Post at re-check
 misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray,maximum_product_subarray.adb:7,return-last,legitimate,unreachable: 4 values of |v|<=10 give |p| <= 10_000 < 100_000
 misc/SPARK2/Ada-SPARK-Maximum-Subarray,maximum_subarray.adb:7,return-last,legitimate,unreachable: 4 * 100 = 400 < 900
 misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:8,saturating-name,legitimate,"border replication: index clamp, not arithmetic"
