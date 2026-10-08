@@ -47,9 +47,9 @@ procedure Own_Checks is
       return Arg1;
    end Eval_Function;
    overriding function Eval_Predicate (I : Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Boolean is
-      pragma Unreferenced (I, Name, Arg2);
+      pragma Unreferenced (I);
    begin
-      return Arg1 = 2;
+      return (if Name = 'G' then Arg1 > Arg2 else Arg1 = 2);
    end Eval_Predicate;
    I : Interp;
 
@@ -213,6 +213,57 @@ begin
       Env1 ('x') := 1;
       if not Evaluate_Formula (Substitute_Formula (Eq, 'x', Cc), I, Env1) then
          Fail ("Substitute_Formula in an equality");
+      end if;
+   end;
+   --  substitution lemma with a variable as the replacement, on random
+   --  formulas with quantifiers over x, y, z and the binary predicate
+   --  G (a, b) = a > b: F[x := v] under Env must have the value of F under
+   --  Env with x = Env (v), for all 27 environments (capture must be avoided)
+   declare
+      Vs : constant array (1 .. 3) of Variable_Name := ['x', 'y', 'z'];
+      function Rand_Var return Variable_Name is (Vs (Rand (1, 3)));
+      function Gen (D : Natural) return Formula_Access is
+        (if D = 0 or else Rand (1, 4) = 1 then
+            Make_Predicate ('G', Make_Variable (Rand_Var), Make_Variable (Rand_Var))
+         else
+           (case Rand (1, 5) is
+              when 1 => Make_Not (Gen (D - 1)),
+              when 2 => Make_And (Gen (D - 1), Gen (D - 1)),
+              when 3 => Make_Or (Gen (D - 1), Gen (D - 1)),
+              when 4 => Make_Forall (Rand_Var, Gen (D - 1)),
+              when others => Make_Exists (Rand_Var, Gen (D - 1))));
+      Captures : Natural := 0;
+   begin
+      for Round in 1 .. 300 loop
+         declare
+            F : constant Formula_Access := Gen (3);
+            V : constant Variable_Name := Vs (Rand (2, 3));
+            S : constant Formula_Access := Substitute_Formula (F, 'x', Make_Variable (V));
+         begin
+            for A in Domain_Element loop
+               for B in Domain_Element loop
+                  for C in Domain_Element loop
+                     declare
+                        E : Assignment := [others => 1];
+                        E2 : Assignment;
+                     begin
+                        E ('x') := A; E ('y') := B; E ('z') := C;
+                        E2 := E;
+                        E2 ('x') := E (V);
+                        if Evaluate_Formula (S, I, E) /= Evaluate_Formula (F, I, E2) then
+                           Captures := Captures + 1;
+                           goto Next_Round;
+                        end if;
+                     end;
+                  end loop;
+               end loop;
+            end loop;
+         end;
+         <<Next_Round>>
+      end loop;
+      if Captures > 0 then
+         Fail ("Substitute_Formula with a variable replacement breaks the substitution lemma on"
+               & Captures'Image & " of 300 random formulas (variable capture)");
       end if;
    end;
    Put_Line ("own checks: Exists-closure SAT" & Sat_Agree'Image & " /" & Sat_Total'Image
