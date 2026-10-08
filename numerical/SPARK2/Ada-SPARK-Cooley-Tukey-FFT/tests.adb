@@ -9,12 +9,13 @@ procedure Tests is
 
    --  the call under test: plain integers in, plain integers out
    procedure Transform (In_Re, In_Im : Int_Vec; Out_Re, Out_Im : out Int_Vec) is
+      Input : Input_Array;
       X : Complex_Array;
    begin
       for I in Index loop
-         X (I) := (Re => Sample (In_Re (I)), Im => Sample (In_Im (I)));
+         Input (I) := (Re => Input_Sample (In_Re (I)), Im => Input_Sample (In_Im (I)));
       end loop;
-      FFT (X);
+      FFT (Input, X);
       for I in Index loop
          Out_Re (I) := X (I).Re;
          Out_Im (I) := X (I).Im;
