@@ -11,7 +11,8 @@ package body RSA is
    end To_RSA;
 
    function Modular_Exponentiation (Base, Exponent, Modulus : RSA_Integer) return RSA_Integer is
-      Result : RSA_Integer := One;
+      --  1 mod Modulus, not 1: for Modulus = 1 every power is 0 (x**0 mod 1 = 0)
+      Result : RSA_Integer := One mod Modulus;
       B      : RSA_Integer := Base mod Modulus;
       Exp    : RSA_Integer := Exponent;
    begin
