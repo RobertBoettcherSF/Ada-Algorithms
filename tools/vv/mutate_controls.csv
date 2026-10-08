@@ -1,0 +1,17 @@
+control,folder,baseline,mutants,killed,survived,timeout,stillborn,score
+a: dummy always-passing test (must be 0%),misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,pass,13,0,13,0,0,0/13
+a: dummy always-passing test (must be 0%),matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix,pass,3,0,3,0,0,0/3
+a: dummy always-passing test (must be 0%),sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,pass,9,0,9,0,0,0/9
+a: dummy always-passing test (must be 0%),misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,pass,8,0,8,0,0,0/8
+a: dummy always-passing test (must be 0%),misc/SPARK2/Ada-SPARK-Fibonacci-DP,pass,5,0,5,0,0,0/5
+a: dummy always-passing test (must be 0%),misc/SPARK2/Ada-SPARK-Roman-To-Int,pass,19,0,19,0,0,0/19
+a: dummy always-passing test (must be 0%),misc/SPARK2/Ada-SPARK-Adler32,pass,2,0,2,0,0,0/2
+a: dummy always-passing test (must be 0%),misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,pass,6,0,6,0,0,0/6
+a: dummy always-passing test (must be 0%),misc/SPARK2/Ada-SPARK-Tribonacci,pass,6,0,6,0,0,0/6
+a: dummy always-passing test (must be 0%),misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,pass,1,0,1,0,0,0/1
+a: dummy always-passing test (must be 0%),sorting/SPARK2/Ada-SPARK-Find-Median-Sorted-Arrays-Lite,pass,18,0,18,0,0,0/18
+a: dummy always-passing test (must be 0%),misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,pass,11,0,11,0,0,0/11
+b: strong brute-force/own test (should be high),graphs/Ada/Floyd-Warshall-Algorithm,pass,40,26,10,0,4,26/36
+b: strong brute-force/own test (should be high),graphs/Ada/Bellman-Ford-Algorithm,pass,40,31,7,0,2,31/38
+b: strong brute-force/own test (should be high),misc/Ada/Computus,pass,40,35,4,0,1,35/39
+b: strong brute-force/own test (should be high),misc/Ada/Backtracking,timeout,0,0,0,0,0,

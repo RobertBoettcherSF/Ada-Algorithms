@@ -4,7 +4,9 @@
 For each sampled folder: pick up to K operator sites in the non-test .adb
 sources (seeded), apply one mutation at a time in a scratch copy, rebuild
 the folder's tests with GNAT 14 (-gnat2022 -gnata) and run them.
-  killed      tests fail (nonzero exit, FAIL line, exception) or hang
+  killed      tests fail (nonzero exit status, or a FAIL line not reporting 0 failures) or hang;
+              'raised' text alone is not a kill. Only tracked library .adb files are mutated
+              (no tests, own checks, demo mains, harness or binder files).
   survived    tests still pass  -> the tests do not pin that operator
   stillborn   mutant does not compile (not counted)
 Score = killed / (killed + survived).
@@ -52,6 +54,24 @@ def sites(path):
                 out.append((ln, m.start(), m.end(), name, rep))
     return out
 
+def make_dummy(work):
+    """Control (a): replace the test main by one that only withs the library units and checks nothing."""
+    main = next((m for m in ('tests.adb', 'tests/main.adb', 'src/tests.adb') if os.path.exists(os.path.join(work, m))), None)
+    if not main:
+        return
+    units = []
+    for spec in sorted(glob.glob(os.path.join(work, '**', '*.ads'), recursive=True)):
+        b = os.path.basename(spec)
+        if b.startswith(('test', 'own_checks', 'b~', 'b__')) or '/obj/' in spec:
+            continue
+        m = re.search(r'^\s*(?:private\s+)?(?:generic\b[\s\S]*?)?package\s+([\w.]+)\s+(?:is|with)\b', open(spec, errors='replace').read(), re.M | re.I)
+        if m and m.group(1).lower() not in units:
+            units.append(m.group(1))
+    name = os.path.splitext(os.path.basename(main))[0]
+    proc = 'Tests' if name == 'tests' else 'Main'
+    body = ''.join(f'with {u};\n' for u in units) + f'procedure {proc} is\nbegin\n   null;\nend {proc};\n'
+    open(os.path.join(work, main), 'w').write(body)
+
 def run_tests(work):
     main = next((m for m in ('tests.adb', 'tests/main.adb', 'src/tests.adb') if os.path.exists(os.path.join(work, m))), None)
     if not main:
@@ -65,9 +85,13 @@ def run_tests(work):
     try:
         r = subprocess.run(['./tbin'], cwd=work, capture_output=True, text=True, timeout=30)
     except subprocess.TimeoutExpired:
-        return 'killed'
+        return 'timeout'   # reported separately; not a kill for the 90% bar
     out = r.stdout + r.stderr
-    if r.returncode != 0 or re.search(r'^\s*FAIL|\b[1-9]\d* FAIL|raised ', out, re.M):
+    # a kill is a test failure: nonzero exit status, or a FAIL line that does not report zero failures.
+    # Text such as 'raised' is not a kill (expected-exception tests print it on success).
+    fails = [l for l in out.split('\n') if re.search(r'\bFAIL', l)
+             and not re.search(r'FAIL(ED|S|URES?)?\s*[:=]?\s*0\b|\b0\s+FAIL|0 failed', l, re.I)]
+    if r.returncode != 0 or fails:
         return 'killed'
     return 'survived'
 
@@ -79,6 +103,7 @@ def main():
     ap.add_argument('--folders', nargs='*')
     ap.add_argument('--out', default=os.path.join(ROOT, 'vv', 'results', 'mutation.csv'))
     ap.add_argument('--work', default='/tmp/vv_mut')
+    ap.add_argument('--dummy', action='store_true', help='control (a): always-passing test that checks nothing; must score 0')
     a = ap.parse_args()
     rng = random.Random(a.seed)
     if a.folders:
@@ -92,31 +117,40 @@ def main():
         src = os.path.join(ROOT, fid)
         work0 = os.path.join(a.work, fid.replace('/', '_'))
         shutil.rmtree(work0, ignore_errors=True); shutil.copytree(src, work0 + '/base')
+        if a.dummy:
+            make_dummy(work0 + '/base')
         base = run_tests(work0 + '/base')
         cand = []
-        for f in sorted(glob.glob(os.path.join(src, '**', '*.adb'), recursive=True)):
+        tracked = subprocess.run(['git', 'ls-files', '--', fid], cwd=ROOT, capture_output=True, text=True).stdout.split()
+        for f in sorted(os.path.join(ROOT, t) for t in tracked if t.endswith('.adb')):
             rel = os.path.relpath(f, src)
             b = os.path.basename(f)
-            # test code is not the code under test: skip test mains, own checks, demo mains and tests/ trees
-            if b.startswith(('test', 'own_checks')) or b == 'main.adb' or rel.split(os.sep)[0] in ('tests', 'test', 'obj'):
+            # only library code under test (tracked files): skip test mains, own checks, demo mains, harness and
+            # tests/ trees; binder files (b~*/b__*) and obj/bin output are never tracked
+            if (b.startswith(('test', 'own_checks', 'b~', 'b__', 'harness')) or b == 'main.adb'
+                    or any(part in ('tests', 'test', 'obj', 'bin') for part in rel.split(os.sep)[:-1])):
                 continue
             cand += [(os.path.relpath(f, src),) + s for s in sites(f)]
         pick = rng.sample(cand, min(a.per_folder, len(cand))) if base == 'survived' else []
-        k = s_ = sb = 0
+        k = s_ = sb = to = 0
         for i, (rel, ln, c0, c1, name, rep) in enumerate(pick):
             w = f'{work0}/m{i}'
             shutil.copytree(src, w)
             lines = open(os.path.join(w, rel), errors='replace').read().split('\n')
             orig = lines[ln]; lines[ln] = orig[:c0] + rep + orig[c1:]
             open(os.path.join(w, rel), 'w').write('\n'.join(lines))
+            if a.dummy:
+                make_dummy(w)
             res = run_tests(w)
-            k += res == 'killed'; s_ += res == 'survived'; sb += res == 'stillborn'
+            k += res == 'killed'; s_ += res == 'survived'; sb += res == 'stillborn'; to += res == 'timeout'
             detail.append(dict(folder=fid, file=rel, line=ln + 1, op=name, before=orig.strip()[:100], after=lines[ln].strip()[:100], result=res))
             shutil.rmtree(w, ignore_errors=True)
-        score = '' if k + s_ == 0 else f'{k}/{k + s_}'
+        # score: timeouts are not kills (they count in the denominator); score_with_timeouts counts them as kills
+        score = '' if k + s_ + to == 0 else f'{k}/{k + s_ + to}'
+        score_t = '' if k + s_ + to == 0 else f'{k + to}/{k + s_ + to}'
         rows.append(dict(folder=fid, baseline=('pass' if base == 'survived' else base), sites=len(cand), mutants=len(pick),
-                         killed=k, survived=s_, stillborn=sb, score=score))
-        print(f"{fid:60s} base={rows[-1]['baseline']:8s} sites={len(cand):4d} killed={k} survived={s_} stillborn={sb} score={score}", flush=True)
+                         killed=k, survived=s_, timeout=to, stillborn=sb, score=score, score_with_timeouts=score_t))
+        print(f"{fid:60s} base={rows[-1]['baseline']:8s} sites={len(cand):4d} killed={k} survived={s_} timeout={to} stillborn={sb} score={score}", flush=True)
     with open(a.out, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
     if detail:

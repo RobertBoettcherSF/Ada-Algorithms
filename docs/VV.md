@@ -64,6 +64,24 @@ Status (2026-10-08): 12 random folders x 8 mutants: 66 killed, 19 survived (77%)
 * KMP: sample 6/8 -> 8/8, all sites 9/11 -> 11/11 (new tests: textbook prefix tables and every A/B pattern up to length 10, A/B/C up to 7, against the definition).
 * Package-Merge: all sites 68/101 -> 70/101; sample unchanged at 2/7 because the 5 sampled survivors are equivalent: `Top < Max_Nodes` -> `<=` / `or else` (capacity guards that valid inputs never reach), insertion sort `>` -> `>=` (tie order only; costs equal), `Safe_Add` `- B` -> `+ B` (no package weight exceeds the sum of all frequencies, so saturation never triggers), and `Weight_Value` range `*` -> `+` (saturated package weights stay in nondecreasing order, so the merge picks the same items; 7,000 random cases with weights up to `Max_Freq` gave identical lengths). Most of the remaining 31 all-site survivors are in contracts of internal subprograms or in capacity guards.
 
+### Mutation tool correction and controls (2026-10-08, evening)
+
+The first scoring of the old training-ready folders (`mutation_tr.csv` at 19:15: 57% of mutants killed, 25 folders at 90% or more) overcounted, for three reasons:
+- `mutate.py` also planted mutants in test code. It picked from every `.adb` that was not a test main, so `own_checks.adb` was included, and binder files under `obj/` could be too. 2469 of the 4741 mutants landed there.
+- It counted any output containing `raised ` as a kill, but expected-exception tests print that on success.
+- It counted a timeout as a kill.
+
+Both tools now follow one set of rules (`mutate.py` and the sweep's `sweep_mutate.py`, which the rescore uses):
+- Only tracked library `.adb` files are mutated: no tests, own checks, demo mains, harness or binder files.
+- A mutant is killed when the test program exits non-zero or prints a FAIL line that does not report 0 failures.
+- A timeout is reported separately and is not a kill. `score` counts it as a survivor; `score_with_timeouts` counts it as a kill.
+
+Controls, in `tools/vv/mutate_controls.csv`:
+- **(a) Dummy test.** The test main is replaced by one that only `with`s the library units and checks nothing (`--dummy`). On 12 seeded folders it kills 0 of 101 mutants, so the tool produces no phantom kills.
+- **(b) Strong tests.** Brute-force own tests reach 26/36 (Floyd-Warshall), 31/38 (Bellman-Ford) and 35/39 (Computus). Backtracking's baseline times out under `-gnata` (30 s limit) and is not scored.
+
+The 325 folders with own tests or an old training-ready verdict are rescored with `sweep_mutate.py --max 20 --seed 20261008`. The new results replace `vv/results/mutation_tr.csv`.
+
 ### Stricter training-ready rule (2026-10-08)
 
 A folder that met the old rule (builds and tests on GNAT 12 and 14, Silver non-trivial, not a stub, a known answer, do-nothing ok, no open finding) now also has to pass all four checks below. The PROOFS.csv columns are `training_ready`, `training_ready_old` and `tr_drop` (the drop reasons).
