@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO;    use Ada.Text_IO;
 with Trigram_Search; use Trigram_Search;
+with Own_Checks;
 
 procedure Tests is
 
@@ -127,6 +128,7 @@ procedure Tests is
    end Make_Same;
 
 begin
+   Own_Checks;
    Put_Line ("Trigram_Search test suite");
    Put_Line ("Max_Len =" & Max_Len'Image);
 

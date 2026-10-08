@@ -1,0 +1,13 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Unique trigram sets: each of the 8 trigrams over {a, b} tested for
+  presence by character compares at every position (not by collecting and
+  de-duplicating windows); Trigram_Count = max (0, length - 2) by definition.
+* Shared_Trigrams, Contains_Trigram (subset), Has_Trigram (membership) and
+  Dice_Coefficient (2 |shared| / (|T_A| + |T_B|), with the edge cases stated
+  in trigram_search.ads: both empty -> 1.0, either shorter than 3 -> 0.0)
+  derived from those sets.
+* Inputs: all 65,025 pairs of strings over {a, b} of length 0 .. 7; the
+  second string is passed as a slice with 'First = 2. Has_Trigram must
+  reject trigram arguments of length 0, 2 and 4.
+Nothing is taken from the program's output or from third-party test suites.
