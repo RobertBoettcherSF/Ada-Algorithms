@@ -1,0 +1,15 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Prime implicants: every one of the 3**N cubes over {0, 1, -} tested
+  against the definition (covers only on or don't-care points; replacing
+  any fixed position by '-' breaks that). Bit order MSB first, as the
+  example strings in quine_mccluskey.ads show. With no minterm at all only
+  an empty list is expected (the spec leaves that case open).
+* Minimum cover size: every subset of the prime implicants (N <= 3), a
+  branch-and-bound count (N = 4). Minimize_Exact must reach it; both
+  minimizers must return prime implicants that cover every minterm.
+* Helpers: Count_Ones, Covers, Differs_By_One and Merge against their
+  definitions on all pairs of aligned cubes of length 3.
+* Inputs: every on/off/don't-care assignment for N = 1, 2, 3 (6,561 for
+  N = 3) and 1,500 seeded random ones for N = 4 (Park-Miller, seed 20261008).
+Nothing is taken from the program's output or from third-party test suites.

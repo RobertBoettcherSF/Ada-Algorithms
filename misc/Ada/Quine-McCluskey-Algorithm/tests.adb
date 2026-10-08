@@ -1,11 +1,13 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Quine_McCluskey; use Quine_McCluskey;
+with Own_Checks;
 
 procedure Tests is
    Empty_M : Minterm_Array (1 .. 0);
    Result  : Implicant_List;
 begin
+   Own_Checks;
    Put_Line ("======================================================");
    Put_Line ("    QUINE-MCCLUSKEY ALGORITHM V&V TEST SUITE");
    Put_Line ("======================================================");
