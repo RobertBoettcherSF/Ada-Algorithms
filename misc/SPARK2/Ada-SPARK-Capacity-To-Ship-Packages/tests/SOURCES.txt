@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: weights 1 .. 8 in two days -> 21 (1+..+6 = 21 | 7+8 = 15), in
+  eight days -> 8, by hand.
+* Own reference: every way to cut the 8 packages, in order, into at most D
+  consecutive days (all 2**7 cut sets), keeping the smallest heaviest day.
+* Inputs: 3,000 random weight lists (every third over 1 .. 5, so ties are
+  common, the rest over 1 .. 100), every number of days 1 .. 8.

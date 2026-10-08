@@ -4,7 +4,7 @@ package body Combination_Sum_IV with SPARK_Mode => On is
    subtype Index is Natural range 0 .. 12;
 
    function Count_Ordered_Ways (N : Target) return Natural is
-      Ways : array (Index) of Natural := (0 => 1, others => 0);
+      Ways : array (Index) of Natural := [0 => 1, others => 0];
    begin
       if N >= 1 then
          for T in Index range 1 .. N loop
