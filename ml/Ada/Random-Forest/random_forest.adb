@@ -2,6 +2,20 @@ with Ada.Numerics.Float_Random;
 with Ada.Numerics.Elementary_Functions;
 
 package body Random_Forest is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
    use Ada.Numerics.Float_Random;
    use Ada.Numerics.Elementary_Functions;
 
@@ -457,7 +471,11 @@ package body Random_Forest is
       N_Rows : constant Positive := Data'Length (1);
       Boot_Inds : Index_Array (1 .. N_Rows);
    begin
-      Reset (Gen);
+      if Use_Fixed_Seed then
+         Reset (Gen, Next_Fixed_Seed);
+      else
+         Reset (Gen);
+      end if;
       for T in 1 .. Num_Trees loop
          -- Bootstrap sampling
          for I in Boot_Inds'Range loop
@@ -524,7 +542,11 @@ package body Random_Forest is
       N_Rows : constant Positive := Data'Length (1);
       Boot_Inds : Index_Array (1 .. N_Rows);
    begin
-      Reset (Gen);
+      if Use_Fixed_Seed then
+         Reset (Gen, Next_Fixed_Seed);
+      else
+         Reset (Gen);
+      end if;
       for T in 1 .. Num_Trees loop
          for I in Boot_Inds'Range loop
             Boot_Inds (I) := Data'First (1) + Integer (Float'Truncation (Random (Gen) * Float (N_Rows)));
@@ -559,5 +581,12 @@ package body Random_Forest is
       
       return Target_Value (Sum / Float (Forest.Num_Trees));
    end Predict_Value;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+   end Set_Seed;
 
 end Random_Forest;

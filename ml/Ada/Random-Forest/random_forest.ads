@@ -64,6 +64,10 @@ is
      with Pre => Sample'Length > 0,
           Global => null;
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer) with SPARK_Mode => Off;
+
 private
    Max_Nodes_Per_Tree : constant Positive := 4095;
 
