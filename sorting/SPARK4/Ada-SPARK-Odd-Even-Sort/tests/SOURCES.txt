@@ -1,0 +1,10 @@
+Sources of expected values (Ada-SPARK-Odd-Even-Sort)
+
+* tests.adb: sortedness, multiset equality and stability are properties,
+  checked against the suite's own reference; no expected value is copied
+  from the program's output.
+
+* Named-phase check (tests/phase_alone.sh, run by make test): the same
+  suite against a scratch copy of the library in which a final
+  Bubble_Finish call of Sort (if any) is replaced by null, so only the
+  odd-even transposition phase sorts (docs/VV.md 3i, pattern 7).
