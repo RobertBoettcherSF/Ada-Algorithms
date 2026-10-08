@@ -6,6 +6,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Package_Merge; use Package_Merge;
 
 procedure Tests
@@ -72,6 +73,85 @@ is
       Check (Boo (All_In_Range (Lengths, L)), Label & " lengths in 1..L");
       Check (Boo (Kraft_OK (Lengths, L)), Label & " Kraft");
    end Run_Case;
+
+
+   --  Reference: minimum total cost sum (F (I) * Len (I)) over all length
+   --  vectors in 1 .. L that satisfy Kraft (brute force, small N only).
+   function Optimal_Cost (F : Symbol_Frequencies; L : Positive) return Natural is
+      N     : constant Positive := F'Length;
+      Lens  : Code_Lengths (F'Range) := [others => 1];
+      Best  : Natural := Natural'Last;
+      Cost  : Natural;
+   begin
+      loop
+         if Kraft_OK (Lens, L) then
+            Cost := 0;
+            for I in F'Range loop
+               Cost := Cost + Natural (F (I)) * Lens (I);
+            end loop;
+            Best := Natural'Min (Best, Cost);
+         end if;
+         --  next vector (odometer over 1 .. L)
+         declare
+            K : Natural := N;
+         begin
+            while K >= 1 and then Lens (K) = L loop
+               Lens (K) := 1;
+               K := K - 1;
+            end loop;
+            exit when K = 0;
+            Lens (K) := Lens (K) + 1;
+         end;
+      end loop;
+      return Best;
+   end Optimal_Cost;
+
+   function Cost_Of (F : Symbol_Frequencies; Len : Code_Lengths) return Natural is
+      C : Natural := 0;
+   begin
+      for I in F'Range loop
+         C := C + Natural (F (I)) * Len (I);
+      end loop;
+      return C;
+   end Cost_Of;
+
+   --  Seeded random cases: N in 2 .. 6 symbols, L from the smallest
+   --  feasible value to 5, frequencies either small (many ties) or large
+   --  (near Max_Freq, so packaged weights get big). Package-merge must hit
+   --  the brute-force optimum exactly.
+   procedure Random_Optimality (Cases : Positive) is
+      Seed    : Natural := 261_008;
+      Bad     : Natural := 0;
+      Checked : Natural := 0;
+      function Next (Bound : Positive) return Natural is
+      begin
+         Seed := (Seed * 1_103 + 12_345) mod 1_048_576;
+         return Seed mod Bound;
+      end Next;
+   begin
+      for C in 1 .. Cases loop
+         declare
+            N     : constant Positive := 2 + Next (5);
+            Min_L : constant Positive :=
+              (if N <= 2 then 1 elsif N <= 4 then 2 else 3);
+            L     : constant Positive := Min_L + Next (6 - Min_L);
+            Large : constant Boolean := Next (2) = 1;
+            F     : Symbol_Frequencies (1 .. N);
+            Len   : Code_Lengths (1 .. N);
+         begin
+            for I in F'Range loop
+               F (I) := (if Large then Freq_Value (Max_Freq - Next (2_000))
+                         else Freq_Value (1 + Next (6)));
+            end loop;
+            Huffman_Length_Limited (F, L, Len);
+            Checked := Checked + 1;
+            if not Kraft_OK (Len, L) or else Cost_Of (F, Len) /= Optimal_Cost (F, L) then
+               Bad := Bad + 1;
+            end if;
+         end;
+      end loop;
+      Check (Bad = 0, Checked'Image & " random cases hit the brute-force optimum");
+   end Random_Optimality;
 
 begin
    Put_Line ("Package_Merge SPARK test suite");
@@ -229,6 +309,44 @@ begin
    Run_Case ([10, 20, 30, 40], 4, "ascending");
    Run_Case ([1, 100, 1, 100, 1], 4, "alternating");
 
+
+   -----------------------------------------------------------------
+   Section ("Optimality against brute force");
+   -----------------------------------------------------------------
+   --  Exact optima for the classic cases (unconstrained Huffman cost for
+   --  1,2,3,4,5 is 33; with L = 3 the optimum is still 33).
+   declare
+      F   : constant Symbol_Frequencies (1 .. 5) := [1, 2, 3, 4, 5];
+      Len : Code_Lengths (1 .. 5);
+   begin
+      Huffman_Length_Limited (F, 8, Len);
+      Check (Cost_Of (F, Len) = 33, "1..5 at L=8: cost 33 (Huffman)");
+      Huffman_Length_Limited (F, 3, Len);
+      Check (Cost_Of (F, Len) = 33, "1..5 at L=3: cost 33");
+   end;
+   declare
+      --  Fibonacci weights: Huffman wants depth 5; L = 3 forces a different
+      --  optimum (cost from brute force).
+      F   : constant Symbol_Frequencies (1 .. 6) := [1, 1, 2, 3, 5, 8];
+      Len : Code_Lengths (1 .. 6);
+   begin
+      Huffman_Length_Limited (F, 5, Len);
+      Check (Cost_Of (F, Len) = Optimal_Cost (F, 5), "fib at L=5 optimal (=45)");
+      Check (Cost_Of (F, Len) = 45, "fib at L=5 cost 45");
+      Huffman_Length_Limited (F, 3, Len);
+      Check (Cost_Of (F, Len) = Optimal_Cost (F, 3), "fib at L=3 optimal");
+   end;
+   declare
+      --  Full capacity with frequencies at Max_Freq: packaged weights reach
+      --  Max_Symbols * Max_Freq; all equal, so every length must be 5.
+      F   : constant Symbol_Frequencies (1 .. Max_Symbols) := [others => Max_Freq];
+      Len : Code_Lengths (1 .. Max_Symbols);
+   begin
+      Huffman_Length_Limited (F, Max_L, Len);
+      Check ((for all I in Len'Range => Len (I) = 5),
+             "32 symbols at Max_Freq: all lengths 5");
+   end;
+   Random_Optimality (400);
    -----------------------------------------------------------------
    New_Line;
    Put_Line ("----------------------------------------");
@@ -237,5 +355,6 @@ begin
       Put_Line ("ALL TESTS PASSED");
    else
       Put_Line ("SOME TESTS FAILED");
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;
