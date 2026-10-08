@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own property (README: inputs contain a strict majority element): the test
+  plants a value M in 4 .. 7 of the 7 positions (more than half) and fills
+  the others with different random values; Find must return M. Inputs
+  without a majority are outside the README and not checked.
+* Inputs: 6,000 random arrays over -10 .. 10.

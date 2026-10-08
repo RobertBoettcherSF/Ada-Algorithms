@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: repeated division by 2, adding the remainders (computed in
+  the test); powers of two have one bit, 2**K - 1 has K bits.
+* Inputs: 0 .. 2**16 (exhaustive), 20,000 random values up to 1,000,000,000,
+  powers of two up to 2**29 and 2**K - 1 up to 2**29 - 1, and Input'Last.

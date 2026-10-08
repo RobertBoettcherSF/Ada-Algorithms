@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Reversed_Bits; use Reversed_Bits;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -8,4 +9,5 @@ begin
    Assert (Reversed (Byte (2)) = Byte (64));
    Assert (Reversed (Byte (16#96#)) = Byte (16#69#));
    Assert (Reversed (Byte (16#FF#)) = Byte (16#FF#));
+   Own_Checks;
 end Tests;

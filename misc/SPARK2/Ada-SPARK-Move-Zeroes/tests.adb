@@ -1,4 +1,5 @@
 with Move_Zeroes;
+with Own_Checks;
 procedure Tests is
    use type Move_Zeroes.Input_Array;
    Input : constant Move_Zeroes.Input_Array := [0, 1, 0, 3, 12];
@@ -8,4 +9,5 @@ procedure Tests is
 begin
    pragma Assert (Move_Zeroes.Move (Input) = Expected);
    pragma Assert (Move_Zeroes.Move (All_Zero) = Expected_Zero);
+   Own_Checks;
 end Tests;

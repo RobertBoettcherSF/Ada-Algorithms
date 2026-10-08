@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Maximum_Subarray; use Maximum_Subarray;
+with Own_Checks;
 
 procedure Tests is
    A : Values := (others => 0);
@@ -9,4 +10,5 @@ begin
    Assert (Best_Sum (A, 4) = 4);
    A (1) := -7; A (2) := -3;
    Assert (Best_Sum (A, 2) = -3);
+   Own_Checks;
 end Tests;

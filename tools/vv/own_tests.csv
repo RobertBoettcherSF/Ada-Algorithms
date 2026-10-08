@@ -93,3 +93,13 @@ compression/SPARK2/Ada-SPARK-Interleaving-String,own recursive interleaving refe
 compression/SPARK2/Ada-SPARK-String-Compression,round trip (expand runs = input) + counts >= 1 + maximal runs; 5000 random
 compression/SPARK2/Burrows-Wheeler-Transform,rotation characters and lexicographic order of different rotations from the definition; 4000 random
 compression/SPARK3/Huffman-Coding,own symbol counts; distinct count; most frequent has maximal count; 4000 random
+misc/SPARK2/Ada-SPARK-Maximum-Subarray,own all-runs maximum (empty-run convention fixed by one negative element); all arrays over -3..3 up to length 4 + 5000 random
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,own per-column water (min of left and right maxima); 6000 random
+misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram,own all-intervals width x minimum; 6000 random
+misc/SPARK2/Ada-SPARK-House-Robber,own enumeration of non-adjacent subsets; all 729 arrays over 0..2 + 5000 random
+misc/SPARK2/Ada-SPARK-Majority-Element,planted strict majority (4..7 of 7); 6000 random
+misc/SPARK2/Ada-SPARK-Move-Zeroes,own stable compaction; all 243 arrays over 0..2 + 4000 random
+misc/SPARK2/Ada-SPARK-Product-Of-Array-Except-Self,own direct products; all 6561 arrays (exhaustive)
+misc/SPARK2/Ada-SPARK-Number-Of-1-Bits,own bit count; 0..2**16 (exhaustive) + 20000 random + powers of two and 2**K-1
+misc/SPARK2/Ada-SPARK-Reverse-Bits,own bit mirror + involution; all 256 bytes (exhaustive)
+misc/SPARK2/Ada-SPARK-Greatest-Common-Divisor,own divisor search (definition); all pairs 1..150 + 20000 random pairs
