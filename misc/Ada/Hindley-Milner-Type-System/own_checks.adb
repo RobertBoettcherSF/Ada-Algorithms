@@ -323,7 +323,21 @@ begin
    Check_Unify (Arr (V (91), V (92)), Arr (V (92), Arr (V (93), V (91))), False, "(a -> b) = (b -> (c -> a))");
    Check_Unify (V (91), Arr (V (91), V (92)), False, "a = (a -> b)");
    Check_Unify (Int_T, Bool_T, False, "Int = Bool");
+   Check_Unify (Int_T, Int_T, True, "Int = Int");
+   Check_Unify (Arr (V (91), Int_T), Arr (Bool_T, Int_T), True, "(a -> Int) = (Bool -> Int)");
+   Check_Unify (Arr (V (91), Int_T), Int_T, False, "(a -> Int) = Int");
    Check_Unify (Arr (V (91), V (92)), Arr (Arr (V (92), Int_T), V (94)), True, "(a -> b) = ((b -> Int) -> d)");
+   --  Types_Equal: structural equality by definition
+   if not Types_Equal (Arr (V (91), Int_T), Arr (V (91), Int_T))
+     or else Types_Equal (Arr (V (91), Int_T), Arr (V (91), Bool_T))
+     or else Types_Equal (Arr (Int_T, V (91)), Arr (Bool_T, V (91)))
+     or else Types_Equal (V (91), V (92)) or else Types_Equal (Int_T, Bool_T)
+     or else Types_Equal (Arr (Int_T, Int_T), Int_T)
+   then
+      Fail ("Types_Equal");
+   else
+      Passed := Passed + 1;
+   end if;
    Put_Line ("own checks:" & Passed'Image & " passed (" & Typable'Length'Image & " hand-derived principal types,"
              & Ill_Typed'Length'Image & " ill-typed terms, unifier checks)");
    if Failures > 0 then

@@ -191,6 +191,30 @@ begin
    if Unsat_Agree = 0 then
       Fail ("PHP(3,2) not reported UNSAT");
    end if;
+   --  free variables and substitution under binders, by definition
+   declare
+      X : constant Term_Access := Make_Variable ('x');
+      Cc : constant Term_Access := Make_Constant ('c');
+      Fx : constant Formula_Access := Make_Predicate ('T', Make_Function ('g', Cc, X));
+      Eq : constant Formula_Access := Make_Equality (Cc, X);
+      Bound : constant Formula_Access := Make_Forall ('x', Make_Predicate ('T', X));
+      Env1 : Assignment := [others => 1];
+   begin
+      if not Is_Free_Variable (Fx, 'x') or else not Is_Free_Variable (Eq, 'x')
+        or else Is_Free_Variable (Fx, 'y') or else Is_Free_Variable (Bound, 'x')
+      then
+         Fail ("Is_Free_Variable on function / equality / bound terms");
+      end if;
+      --  Forall x. T (x) is False (T holds only at 2); substituting c for x
+      --  must not touch the bound x, so the value stays False
+      if Evaluate_Formula (Substitute_Formula (Bound, 'x', Cc), I, Env1) then
+         Fail ("Substitute_Formula replaced a bound variable");
+      end if;
+      Env1 ('x') := 1;
+      if not Evaluate_Formula (Substitute_Formula (Eq, 'x', Cc), I, Env1) then
+         Fail ("Substitute_Formula in an equality");
+      end if;
+   end;
    Put_Line ("own checks: Exists-closure SAT" & Sat_Agree'Image & " /" & Sat_Total'Image
              & ", UNSAT" & Unsat_Agree'Image & " /" & Unsat_Total'Image & " (incl. PHP(3,2))");
    if Failures > 0 then
