@@ -2,14 +2,14 @@
 # make vv: verification + validation over the whole repo (docs/VV.md).
 #   1. build + tests on GNAT 14 and GNAT 12           tools/audit/build_folder.sh
 #   2. Silver proofs, deterministic step budget       tools/audit/prove_folder.sh (AA_PROVE_STEPS)
-#   3. validation: differential tests of Ada/SPARK pairs, sampled mutation testing
+#   3. validation: differential tests of Ada/SPARK pairs, sampled mutation testing, do-nothing check
 #   4. PROOFS.md / PROOFS.csv refresh                 tools/proof_index.py
 # Knobs (environment):
 #   VV_OUT=/tmp/vv          results + logs
 #   VV_JOBS=4               parallel build jobs (proofs use VV_JOBS/2, each gnatprove -j2)
 #   VV_IDS=file             folder ids to run (default: every topic/LEVEL/Folder)
 #   VV_STEPS=1000000        gnatprove --steps budget
-#   VV_SKIP="build prove diff mutation"   stages to skip
+#   VV_SKIP="build prove diff mutation donothing"   stages to skip
 #   VV_PROVE_LOGS, VV_STEPS_LOGS   proof log dirs for the index when the prove stage is skipped
 #   VV_MUT_SAMPLE=20 VV_MUT_PER=8 VV_SEED=20261008
 set -u
@@ -35,6 +35,10 @@ esac
 case "$SKIP" in *" mutation "*) ;; *)
   echo "[3b/4] sampled mutation testing"
   python3 tools/vv/mutate.py --seed "$SEED" --sample "${VV_MUT_SAMPLE:-20}" --per-folder "${VV_MUT_PER:-8}" --out vv/results/mutation.csv ;;
+esac
+case "$SKIP" in *" donothing "*) ;; *)
+  echo "[3d/4] do-nothing check (writes vv/results/donothing.csv for the folders in ids.txt)"
+  python3 tools/vv/donothing.py --from-file "$OUT/ids.txt" -j "$J" --out vv/results/donothing.csv ;;
 esac
 echo "[4/4] index"
 args=(--results "$OUT" --vv vv/results)

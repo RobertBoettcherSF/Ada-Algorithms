@@ -1,0 +1,1848 @@
+folder,baseline,main,main_result,verdict,subprograms,survived,killed,stillborn,gnata
+clustering/SPARK2/K-Means-Step,survived,Step,killed,ok,1,,1,0,yes
+compression/SPARK2/Ada-SPARK-Compress-String,survived,Compressed_Length,killed,ok,1,,1,0,yes
+compression/SPARK2/Ada-SPARK-Interleaving-String,survived,Is_Interleaving,killed,ok,1,,1,0,yes
+compression/SPARK2/Ada-SPARK-Run-Length-Encoding,survived,Number_Of_Runs,killed,ok,1,,1,0,yes
+compression/SPARK2/Ada-SPARK-String-Compression,survived,Compress,killed,ok,1,,1,0,yes
+compression/SPARK2/Burrows-Wheeler-Transform,survived,Rotation_Character,killed,ok,2,,2,0,yes
+compression/SPARK3/Huffman-Coding,survived,Count_Frequencies,killed,ok,3,,3,0,yes
+geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,survived,Scan,killed,ok,1,,1,0,yes
+geometry/SPARK2/Ada-SPARK-Point-In-Polygon,survived,Contains,killed,ok,1,,1,0,yes
+geometry/SPARK2/Closest-Pair-Brute,survived,Distance_Squared,killed,ok,2,,2,0,yes
+graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,survived,Find_Center,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,survived,Path_Exists,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Kruskals-Algorithm,survived,Compute,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS,survived,Count,killed,ok,1,,1,0,yes
+graphs/SPARK2/Bellman-Ford-Algorithm,survived,Compute,killed,ok,1,,1,0,yes
+graphs/SPARK4/A-Star,survived,Add_Edge,killed,ok,4,,4,0,yes
+graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,survived,Add_Edge,killed,ok,4,,4,0,yes
+graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,survived,Find_Cycle,killed,ok,17,Tail_Length,16,0,yes
+hashing/SPARK2/Ada-SPARK-Design-HashMap,survived,Put,killed,ok,4,Empty Contains,2,0,yes
+hashing/SPARK2/Ada-SPARK-Design-HashSet,survived,Add,killed,ok,4,Empty,3,0,yes
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,survived,Hash,killed,ok,1,,1,0,yes
+hashing/SPARK2/Bloom-Filter,survived,Insert,killed,ok,1,,1,0,yes
+logic/Ada/DPLL,survived,Solve,killed,ok,33,,33,0,yes
+logic/Ada/Verified-Unification-Engine,survived,Unify,killed,ok,7,,7,0,yes
+matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,survived,Eliminate,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix,survived,Find,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,survived,Order_From,killed,ok,2,,2,0,yes
+matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum,survived,Block_Sum,killed,ok,1,,1,0,yes
+misc/Ada/Beginner-Embedded-API,survived,Digital_Write,killed,ok,5,,5,0,yes
+misc/Ada/Delivery-Mission-FSM,,,,no tests,0,,0,0,
+misc/Ada/GNAT-Studio-Notes,survived,Abs_Diff,killed,ok,1,,1,0,yes
+misc/Ada/GPU-Work-Queue,survived,Submit,killed,ok,5,Create,4,0,yes
+misc/Ada/Locomotion-Mode-Interlock,,,,no tests,0,,0,0,
+misc/Ada/Memory-Channel-Model,survived,Open_Row,killed,ok,6,Create,5,0,yes
+misc/Ada/PCIe-Transfer-Model,survived,Record_Transfer,killed,ok,4,,4,0,yes
+misc/SPARK2/Ada-SPARK-3Sum-Closest,survived,Closest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,survived,Merge_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Add-Binary,survived,Add,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Add-Without-Plus,survived,Add,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Adler32,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Arranging-Coins,survived,Full_Rows,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Bankers-Algorithm,survived,Request,killed,ok,2,Is_Safe,1,0,yes
+misc/SPARK2/Ada-SPARK-Base64-Decode,survived,Decoded_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Base64-Encode,survived,Encoded_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Baseball-Game,survived,Home_Run,killed,ok,5,New_Game Away_Run,3,0,yes
+misc/SPARK2/Ada-SPARK-Basic-Calculator-II,survived,Evaluate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,survived,Is_Beautiful,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock,survived,Max_Profit,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-II,survived,Max_Profit,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown,survived,Max_Profit,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Binary-Watch,survived,To_Minutes,killed,ok,2,Is_Valid,1,0,yes
+misc/SPARK2/Ada-SPARK-Bitset,survived,Include,killed,ok,5,Initialize,4,0,yes
+misc/SPARK2/Ada-SPARK-Bitwise-ORs-Of-Subarrays-Lite,survived,Or_Of_Two,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Boats-To-Save-People,survived,Boats_Needed,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Bray-Curtis,survived,Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Broken-Calculator,survived,Minimum_Operations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation,survived,Allocate,killed,ok,4,Is_Power_Of_Two,3,0,yes
+misc/SPARK2/Ada-SPARK-Bulb-Switcher,survived,Switched_On,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Bump-Arena,survived,Allocate_Node,killed,ok,10,Create Empty,8,0,yes
+misc/SPARK2/Ada-SPARK-Canberra-Distance,survived,Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,survived,Minimum_Capacity,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Car-Pooling,survived,Feasible,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,survived,Is_Sum_Of_Powers_Of_Three,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Circular-Queue,survived,Enqueue,killed,ok,5,Is_Full,4,0,yes
+misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,survived,Access_Page,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Coin-Change-II,survived,Combinations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Combination-Sum-III,survived,Count_Choices,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Combination-Sum-IV,survived,Count_Ordered_Ways,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,survived,Label,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,survived,Max_Area,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Contiguous-Array,survived,One_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Continuous-Subarray-Sum,survived,Total,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,survived,To_Integer,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,survived,Set_Random,killed,ok,6,Empty Copy_List,4,0,yes
+misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings,survived,Booked_Seats,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Cosine-Distance,survived,Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Cosine-Similarity,survived,Similarity,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,survived,Describe,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,survived,Operations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,survived,Count_Squares,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Counting-Bits,survived,Ones,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Covariance,survived,Value,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Crawler-Log-Folder,survived,Enter,killed,ok,5,Root Is_Root,3,0,yes
+misc/SPARK2/Ada-SPARK-Create-Maximum-Number-Lite,survived,Maximum_Digit,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Decode-Ways,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,survived,Defang,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,survived,Degree,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,survived,Delete_At,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,survived,Delete_Middle,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Delta-Encoding,survived,Net_Delta,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Deque-Bounded,survived,Push_Back,killed,ok,5,,5,0,yes
+misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment,survived,Increment_Bottom,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,survived,Increment,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-An-Ordered-Stream,survived,Read,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Design-Bitset,survived,Include,killed,ok,4,Initialize,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-Browser-History,survived,Visit,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Design-Circular-Deque,survived,Push_Back,killed,ok,6,Empty,5,0,yes
+misc/SPARK2/Ada-SPARK-Design-Circular-Queue,survived,Enqueue,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue,survived,Enqueue,killed,ok,3,Initialize,2,0,yes
+misc/SPARK2/Ada-SPARK-Design-Hit-Counter-Lite,survived,Hit,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-Linked-List,survived,Element_At,killed,ok,6,Empty,5,0,yes
+misc/SPARK2/Ada-SPARK-Design-Number-Container-System,survived,Contains,killed,ok,4,Initialize,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-Ordered-Stream,survived,Insert,killed,ok,5,Empty Has_Next,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-Parking-System-II,survived,Add_Car,killed,ok,3,,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-Skiplist-Lite,survived,Height,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite,survived,Average_Travel_Time,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Dice-Coefficient,survived,Similarity,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Disjoint-Set-Forest,survived,Union,killed,ok,3,,3,0,yes
+misc/SPARK2/Ada-SPARK-Duplicate-Zeros,survived,Duplicate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Dutch-National-Flag,survived,Sort,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Elevator-Algorithm,survived,Move_One_Step,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Euclidean-Distance,survived,Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Number,survived,Number,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,survived,Title,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Fair-Candy-Swap,survived,Find_Swap,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Fibonacci-Number,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Final-Prices-With-A-Special-Discount,survived,Final_Price,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Find-All-Numbers-Disappeared,survived,Missing_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-K-Closest-Elements,survived,Closest_Index,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream,survived,Median,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,survived,Smallest_Divisor,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-Words-That-Can-Be-Formed,survived,Can_Be_Formed,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-First-Unique-Character,survived,First_Unique,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Fixed-Point-Iteration,survived,Iterate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Fizz-Buzz,survived,Classify,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Flood-Fill,survived,Fill,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Fruit-Into-Baskets,survived,Maximum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Goat-Latin,survived,Goat_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Gray-Code,survived,Encode,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Greatest-Common-Divisor,survived,GCD,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Group-Anagrams,survived,Group,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Hamming-Code,survived,Encode,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Hamming-Weight,survived,Weight,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Happy-Number,survived,Is_Happy,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Heap-Push-Pop,survived,Push,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Heaters,survived,Required_Radius,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Height-Checker,survived,Mismatches,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Horner-Scheme,survived,Evaluate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-House-Robber,survived,Maximum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-House-Robber-II,survived,Maximum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-How-Many-Numbers-Are-Smaller,survived,Count_Smaller,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Image-Smoother,survived,Smooth,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Implement-Queue-Using-Stacks,survived,Enqueue,killed,ok,3,,3,0,yes
+misc/SPARK2/Ada-SPARK-Implement-Stack-Using-Queues,survived,Push,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Insert-Delete-GetRandom-O1,survived,Insert,killed,ok,3,Initialize,2,0,yes
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,survived,Common_Suffix_Length,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Island-Perimeter,survived,Perimeter,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Jaccard-Index,survived,Similarity,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Jump-Game,survived,Can_Jump,survived,weak,1,Can_Jump,0,0,yes
+misc/SPARK2/Ada-SPARK-K-Closest-Points-To-Origin,survived,Kth_Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Keyboard-Row,survived,In_One_Row,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Knapsack-01,survived,Maximum_Value,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Koko-Eating-Bananas,survived,Minimum_Speed,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,survived,Touch,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,survived,Lookup,killed,ok,5,Empty Contains,3,0,yes
+misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram,survived,Max_Area,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Last-Stone-Weight,survived,Final_Weight,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Last-Stone-Weight-II,survived,Min_Remaining_Weight,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Least-Common-Multiple,survived,LCM,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Line-Intersection,survived,Intersects,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Lite,survived,Used,killed,ok,4,Create,3,0,yes
+misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,survived,Longest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Longest-Ones,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence,survived,Longest_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Longest-Repeating-Character-Replacement,survived,Longest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,survived,Longest_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Majority-Element,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Majority-Element-II,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Manacher,survived,Longest_Palindrome_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Map-Sum-Pairs,survived,Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Matchsticks-To-Square-Lite,survived,Can_Form_Square,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones-II,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones-III,survived,Longest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Max-Heap,survived,Push,killed,ok,3,Initialize,2,0,yes
+misc/SPARK2/Ada-SPARK-Max-Points-On-A-Line-Lite,survived,Max_Collinear,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Max-Stack,survived,Push,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Maximal-Rectangle,survived,Max_Area,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Maximal-Square,survived,Largest_Side,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-Candies-Allocated-To-K-Children,survived,Maximum_Candies,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,survived,Bars_Bought,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-Points-You-Can-Obtain-From-Cards,survived,Max_Points,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-Product-Of-Word-Lengths,survived,Maximum_Product,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray,survived,Best_Product,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-Subarray,survived,Best_Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-Subarray-Circular,survived,Max_Subarray,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,survived,Maximum_Twin_Sum,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-XOR-Of-Two-Numbers,survived,Maximum_Xor,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Mean-Variance,survived,Mean,survived,weak,2,Mean,1,0,yes
+misc/SPARK2/Ada-SPARK-Median-Filtering,survived,Filter_3x3,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,survived,Merge_In_Between,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,survived,Middle,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Min-Cost-To-Connect-All-Points,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Min-Heap,survived,Push,killed,ok,3,Initialize,2,0,yes
+misc/SPARK2/Ada-SPARK-Min-Max-Normalize,survived,Normalize,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Min-Stack,survived,Min_Value,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-Bit-Flips-To-Convert-Number,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-Cost-To-Move-Chips,survived,Cost_To_Target,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Arrows,survived,Arrows_Needed,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Moves-To-Seat,survived,Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-Operations-To-Make-The-Array-Increasing,survived,Required_Increase,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-Path-Sum,survived,Minimum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-Sum-Of-Four-Digit-Number,survived,Minimum_Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Missing-Number,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Monotonic-Stack,survived,Next_Greater,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Most-Common-Word,survived,Most_Common_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Move-Zeroes,survived,Move,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Moving-Average-From-Data-Stream,survived,Average,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-N-Queens-Lite,survived,Is_Solution,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List,survived,Next_Greater,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,survived,Nth_Digit,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Nth-Ugly-Number,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Of-1-Bits,survived,Count_Ones,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Of-Connected-Components,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Of-Recent-Calls,survived,Number_In_Window,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Of-Steps-To-Reduce-A-Number,survived,Steps_To_Zero,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Of-Steps-To-Reduce-A-Number-In-Binary-Representation,survived,Steps,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Online-Stock-Span,survived,All_Spans,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Out-Of-Boundary-Paths-Lite,survived,Immediate_Exits,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Overlap-Coefficient,survived,Similarity,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-PN-Counter,survived,Increment,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,survived,Is_Palindrome,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Palindrome-Number,survived,Is_Palindrome,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Palindrome-Pairs-Lite,survived,Count_Reverse_Pairs,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,survived,Minimum_Cuts,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Parity-Bits,survived,Even,killed,ok,2,Odd,1,0,yes
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,survived,Partition,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Partition-Equal-Subset-Sum,survived,Can_Partition,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Partition-List,,,,no tests,0,,0,0,
+misc/SPARK2/Ada-SPARK-Pascal-Triangle,survived,Row_Total,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,survived,Get,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Path-Sum,survived,Has_Path_Sum,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Path-Sum-III-Lite,survived,Path_Total,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Path-With-Minimum-Effort,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Pearson-Correlation,survived,Correlation,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Plus-One,survived,Increment,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Population-Count,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,survived,Power,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Power-Of-Four,survived,Is_Power,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Power-Of-Three,survived,Is_Power,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Power-Of-Two,survived,Is_Power,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Prefix-Sums,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Priority-Queue-Binary-Heap,survived,Insert,killed,ok,4,Initialize,3,0,yes
+misc/SPARK2/Ada-SPARK-Product-Of-Array-Except-Self,survived,Products,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Projection-Area-Of-3D-Shapes,survived,Projection_Area,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Queue-Using-Stacks,survived,Enqueue,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Randomized-Collection,survived,Add,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Randomized-Set,survived,Insert,killed,ok,4,Initialize,3,0,yes
+misc/SPARK2/Ada-SPARK-Range-Addition,survived,Updated_Total,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Range-Sum-Query,survived,Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Range-Sum-Query-2D-Immutable,survived,Sum_All,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Range-Sum-Query-Immutable,survived,Query,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,survived,Spawn,killed,ok,23,Clear Reset Is_Shutdown Clear,19,0,yes
+misc/SPARK2/Ada-SPARK-Reach-A-Number,survived,Minimum_Steps,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Recent-Counter,survived,Count_Recent,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Rectangle-Area,survived,Area,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates,survived,Remove_Duplicates,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-II,survived,Remove_Duplicates,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Remove-Duplicate-Letters,survived,Keep_First,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,survived,Remove_First,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,survived,Remove_Nth,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Reorder-List,survived,Reorder,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Restore-IP-Addresses,survived,Count_Valid_Segments,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Reverse-Bits,survived,Reversed,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Reverse-Integer,survived,Reversed,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List,survived,Reverse_List,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,survived,Solve,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Reverse-Only-Letters,survived,Reverse_Letters,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Reverse-Vowels,survived,Reverse_Vowels,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Ring-Buffer,survived,Remove,killed,ok,5,Is_Full,4,0,yes
+misc/SPARK2/Ada-SPARK-Robot-Return-To-Origin,survived,Returns_To_Origin,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Roman-To-Int,survived,To_Integer,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Rotate-List,survived,Solve,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Self-Dividing-Numbers,survived,Is_Self_Dividing,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Shortest-Completing-Word,survived,Is_Completing,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,survived,Minimum_Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,survived,Is_Special,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,survived,Largest_Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sqrt-X,survived,Floor_Sqrt,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Stack-Bounded,survived,Push,killed,ok,4,Initialize,3,0,yes
+misc/SPARK2/Ada-SPARK-Standard-Score,survived,Score,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Stream-Of-Characters-Lite,survived,Push,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Subarray-Sum-Equals-K,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Subarrays-With-K-Different-Integers,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Subsets-Bitmask,survived,Add_Item,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Subtract-Product-Sum-Digits,survived,Difference,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Subtract-The-Product-And-Sum,survived,Difference,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sudoku-Solver-Lite,survived,Is_Valid,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sum-Of-Left-Leaves,survived,Sum_Left_Leaves,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,survived,Sum_Minimums,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Surface-Area-Of-3D-Shapes,survived,Surface_Area,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,survived,Solve,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,survived,Swap_Nodes,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Tanimoto,survived,Similarity,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Target-Sum,survived,Ways_To_Target,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Third-Maximum-Number,survived,Third_Maximum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Three-Divisors,survived,Has_Three_Divisors,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-To-Lower-Case,survived,Lower_Case,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Elements,survived,Kth_Most_Frequent,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words,survived,Kth_Frequency,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,survived,Trapped,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water-II-Lite,survived,Trapped,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Triangle-Min-Path,survived,Minimum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Tribonacci,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Two-City-Scheduling,survived,Cheapest_Assignment,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Ugly-Number,survived,Is_Ugly,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Unique-Email-Addresses,survived,Normalize,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Valid-Anagram,survived,Is_Anagram,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Valid-Palindrome-II,survived,Is_Valid,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Valid-Parentheses,survived,Is_Valid,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences,survived,Valid,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Vector-Dot-Cross,survived,Dot,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Water-Bottles,survived,Total_Bottles,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Word-Break-II,survived,Segmentations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Word-Ladder-II-Lite,survived,Shortest_Path,killed,ok,1,,1,0,yes
+misc/SPARK2/Pattern-132,survived,Exists,killed,ok,1,,1,0,yes
+misc/SPARK4/Acorn-Generator,survived,Add_Mod,killed,ok,10,,10,0,yes
+misc/SPARK4/Ada-SPARK-Accumulator,survived,Add_Sample,killed,ok,3,,3,0,yes
+misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,survived,Is_Blum_Prime,killed,ok,15,Reset Next_Bits,13,0,yes
+misc/SPARK4/Ada-SPARK-Heaps-Algorithm,survived,Generate,killed,ok,3,,3,0,yes
+misc/SPARK4/Ada-SPARK-K-Way-Merge,survived,Merge_K,killed,ok,2,,2,0,yes
+misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator,survived,Add_Mod,killed,ok,15,,15,0,yes
+misc/SPARK4/Ada-SPARK-Lemke-Howson,survived,Find_Equilibrium,stillborn,unchecked (main stillborn),1,,0,1,yes
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,survived,Huffman_Length_Limited,killed,ok,1,,1,0,yes
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,survived,Select_Kth,killed,ok,3,,3,0,yes
+ml/Ada/Backpropagation,survived (without -gnata),Backward,killed,ok,8,,7,1,no
+ml/SPARK2/Ada-SPARK-Softmax,survived,Weight,killed,ok,1,,1,0,yes
+ml/SPARK2/Linear-Regression,survived,Predict,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Bisection-Method,survived,Sqrt,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,survived,FFT,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Count-Primes,survived,Count_Primes_Below,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Extended-Euclidean,survived,GCD,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Lagrange-Interpolation,survived,Interpolate,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Minimum-Limit-Of-Balls-In-A-Bag,survived,Minimum_Limit,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Modular-Exponentiation,survived,Power,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Newton-Raphson,survived,Sqrt,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Secant-Method,survived,Solve,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Sieve-Of-Eratosthenes,survived,Sieve,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Simpson-Rule,survived,Integrate,killed,ok,1,,1,0,yes
+numerical/SPARK4/Ada-SPARK-Brents-Algorithm,survived,Find_Cycle,killed,ok,17,Tail_Length,16,0,yes
+numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,survived,Gcd,killed,ok,6,,6,0,yes
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,survived,Extended_Gcd,killed,ok,8,Is_Modular_Inverse Verify_Bezout,6,0,yes
+numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator,survived,Step,killed,ok,17,,17,0,yes
+numerical/SPARK4/Ada-SPARK-Mersenne-Twister,survived,Temper,killed,ok,5,,5,0,yes
+numerical/SPARK4/Binary-Gcd,survived,Gcd,killed,ok,7,,7,0,yes
+parsing/SPARK2/Ada-SPARK-Sparse-Set,survived,Include,killed,ok,5,Initialize,4,0,yes
+searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,survived,Add_Word,killed,ok,2,,2,0,yes
+searching/SPARK2/Ada-SPARK-Exponential-Search,survived,Search,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix,survived,Contains,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Trigram-Search,survived,Contains,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,survived,Is_Valid_BST,killed,ok,3,Empty,2,0,yes
+searching/SPARK2/Ada-SPARK-Word-Search-II-Lite,survived,Count_Found,killed,ok,2,,2,0,yes
+searching/SPARK2/Bst-Insert-Search,survived,Insert,killed,ok,3,Empty,2,0,yes
+searching/SPARK4/Ada-SPARK-Binary-Search,survived,Find,killed,ok,3,,3,0,yes
+searching/SPARK4/Ada-SPARK-Fibonacci-Search,survived,Find,killed,ok,1,,1,0,yes
+searching/SPARK4/Ada-SPARK-Interpolation-Search,survived,Find,killed,ok,1,,1,0,yes
+searching/SPARK4/Ada-SPARK-Introselect,survived,Select_Kth,killed,ok,3,,3,0,yes
+searching/SPARK4/Ada-SPARK-Jump-Search,survived,Find,killed,ok,2,,2,0,yes
+searching/SPARK4/Ada-SPARK-Linear-Search,survived,Find_From,killed,ok,3,,3,0,yes
+searching/SPARK4/Ada-SPARK-Quickselect,survived,Select_Kth,killed,ok,3,,3,0,yes
+searching/SPARK4/Ada-SPARK-Ternary-Search,survived,Find_Maximum_Index,killed,ok,2,,2,0,yes
+searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,survived,Search,killed,ok,4,,4,0,yes
+searching/SPARK4/Best-First-Search,survived,Search,killed,ok,4,,4,0,yes
+sorting/SPARK2/Ada-SPARK-Bitonic-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Block-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Circle-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Cocktail-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Find-Median-Sorted-Arrays-Lite,survived,Median,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Flash-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Heap-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Intro-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,survived,Median,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array,survived,Merge_Sum,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,survived,Merge,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,survived,Merge,killed,ok,5,Empty,4,0,yes
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,,,,no tests,0,,0,0,
+sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Pancake-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Patience-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Quick-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array-II,survived,Keep_Two,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,survived,Solve,killed,ok,4,Empty,3,0,yes
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,survived,Solve,killed,ok,4,Empty,3,0,yes
+sorting/SPARK2/Ada-SPARK-Shaker-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Smooth-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity,survived,By_Parity,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,survived,Sort_By_Parity,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,survived,Sort_By_Frequency,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Sort-Colors,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Sort-List-Lite,survived,Solve,killed,ok,4,Empty,3,0,yes
+sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,survived,Is_BST,survived,weak,4,Empty Is_BST,2,0,yes
+sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,survived,Squares,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Tim-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Tournament-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Wiggle-Sort,survived,Wiggle,killed,ok,1,,1,0,yes
+sorting/SPARK2/Binary-Insertion-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Bogosort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Bubble-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Burstsort,survived,Sort,killed,ok,3,,3,0,yes
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Comb-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Counting-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/SPARK4/Ada-SPARK-Flashsort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Gnome-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Heapsort,survived,Heapify,killed,ok,3,,3,0,yes
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Introsort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Library-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Merge-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Pancake-Sorting,survived,Sort,killed,ok,4,,4,0,yes
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/SPARK4/Ada-SPARK-Postman-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,survived,Sort_Comparison,killed,ok,4,,4,0,yes
+sorting/SPARK4/Ada-SPARK-Quicksort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Radix-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Samplesort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Selection-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/SPARK4/Ada-SPARK-Shell-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Slowsort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Smoothsort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,survived,Inner_Join,killed,ok,2,,2,0,yes
+sorting/SPARK4/Ada-SPARK-Sorted-List,survived,Insert,killed,ok,9,Empty,8,0,yes
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Strand-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Timsort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Ada-SPARK-Topological-Sort,survived,Kahn_Sort,killed,ok,4,,4,0,yes
+sorting/SPARK4/Ada-SPARK-Tree-Sort,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK4/Bead-Sort,survived,Sort,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Bounded-String-Builder,survived,Append_Integer,killed,ok,7,Equals,6,0,yes
+strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings,survived,Count_Consistent,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,survived,Distance,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Edit-Distance,survived,Distance,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Encode-And-Decode-Strings-Lite,survived,Encode,killed,ok,2,,2,0,yes
+strings/SPARK2/Ada-SPARK-Find-All-Anagrams-In-A-String,survived,Count_Anagrams,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Hamming-Distance,survived,Distance,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,survived,Build_Prefix,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Make-The-String-Great,survived,Make_Great,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,survived,Multiply,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String,survived,Lines_For,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-One-Edit-Distance,survived,Is_One_Edit,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Rabin-Karp,survived,Search,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-In-String,survived,Reduce,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Repeated-String-Match,survived,Repeat_Count,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Reverse-Vowels-Of-A-String,survived,Reverse_Vowels,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Reverse-Words-In-A-String-III,survived,Reverse_Words,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Rotate-String,survived,Is_Rotation,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert,survived,Sum_Digits,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Total-Hamming-Distance,survived,Distance,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Z-Algorithm,survived,Compute_Z,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,survived,Is_Balanced,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,survived,Inorder_Sum,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order,survived,Level_Order_Sum,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth,survived,Max_Depth,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth,survived,Min_Depth,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder,survived,Postorder_Sum,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder,survived,Preorder_Sum,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite,survived,Node_Value,killed,ok,2,,2,0,yes
+trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite,survived,Node_Value,killed,ok,2,,2,0,yes
+trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree,survived,Convert,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,survived,Count_Substrings,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,survived,Diameter,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget,survived,Longest,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Implement-Trie,survived,Insert,killed,ok,2,,2,0,yes
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,survived,Insert,killed,ok,4,Empty,3,0,yes
+trees/SPARK2/Ada-SPARK-Invert-Binary-Tree,survived,Invert,killed,ok,5,Empty,4,0,yes
+trees/SPARK2/Ada-SPARK-Longest-Common-Substring,survived,Length,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring,survived,Longest_Length,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat,survived,Longest,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating,survived,Longest,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST,survived,Lowest_Common_Ancestor,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST,survived,Lowest_Common_Ancestor,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree,survived,Max_Depth,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees,survived,Merge,killed,ok,6,Empty,5,0,yes
+trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree,survived,Min_Depth,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Minimum-Height-Trees,survived,Center,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,survived,Minimum,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-N-Ary-Tree-Level-Order-Traversal,survived,Level_Order,killed,ok,4,Empty,3,0,yes
+trees/SPARK2/Ada-SPARK-N-Ary-Tree-Postorder-Traversal,survived,Postorder,killed,ok,4,Empty,3,0,yes
+trees/SPARK2/Ada-SPARK-N-Ary-Tree-Preorder-Traversal,survived,Preorder,killed,ok,4,Empty,3,0,yes
+trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters,survived,Count,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Range-Sum-BST,survived,Range_Sum,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST,survived,Range_Sum,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Red-Black-Tree,survived,Is_Red,killed,ok,2,,2,0,yes
+trees/SPARK2/Ada-SPARK-Same-Tree,survived,Are_Same,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree,survived,Is_Subtree,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Symmetric-Tree,survived,Is_Symmetric,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles,survived,Count,killed,ok,1,,1,0,yes
+compression/SPARK2/Ada-SPARK-LZ77,survived,Literal_Length,killed,ok,1,,1,0,yes
+compression/SPARK2/Ada-SPARK-Move-To-Front,survived,Move,killed,ok,1,,1,0,yes
+concurrency/SPARK2/Ada-SPARK-Course-Schedule-II,survived,Build_Order,killed,ok,1,,1,0,yes
+concurrency/SPARK2/Ada-SPARK-Course-Schedule-II-Stub,survived,Order,killed,ok,1,,1,0,yes
+concurrency/SPARK2/Ada-SPARK-Dekkers-Algorithm,survived,Request,killed,ok,4,Can_Enter Back_Off,2,0,yes
+concurrency/SPARK2/Ada-SPARK-Lamports-Bakery-Algorithm,survived,Take_Number,killed,ok,3,,3,0,yes
+concurrency/SPARK2/Ada-SPARK-Petersons-Algorithm,survived,Request_Entry,killed,ok,3,,3,0,yes
+concurrency/SPARK2/Ada-SPARK-Task-Scheduler,survived,Schedule_Length,killed,ok,1,,1,0,yes
+concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub,survived,Shortest_First,killed,ok,1,,1,0,yes
+concurrency/SPARK2/Course-Schedule,survived,Can_Finish,survived,weak,1,Can_Finish,0,0,yes
+cryptography/SPARK2/Ada-SPARK-Level-Order-Traversal-Stub,survived,Level_Count,killed,ok,3,Empty,2,0,yes
+cryptography/SPARK2/Ada-SPARK-MD5,survived,Padded_Length,killed,ok,1,,1,0,yes
+cryptography/SPARK2/Ada-SPARK-SHA-1,survived,Padded_Length,killed,ok,1,,1,0,yes
+cryptography/SPARK2/Bit-Reversal,survived,Reverse_Bits,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Bellman-Ford-Lite,survived,Shortest_Path,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Clone-Graph,survived,Clone,survived,weak,1,Clone,0,0,yes
+graphs/SPARK2/Ada-SPARK-Clone-Graph-Stub,survived,Clone,survived,weak,1,Clone,0,0,yes
+graphs/SPARK2/Ada-SPARK-Dijkstra-Lite,survived,Shortest_Path,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Floyd-Warshall,survived,Compute,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Floyd-Warshall-Lite,survived,Shortest_Path,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,survived,Is_Bipartite,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Kruskal-MST-Lite,survived,Forest_Cost,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Prims-Algorithm,survived,Compute,killed,ok,1,,1,0,yes
+graphs/SPARK2/Ada-SPARK-Shortest-Path-In-Binary-Matrix,survived,Path_Length,killed,ok,1,,1,0,yes
+hashing/SPARK2/Ada-SPARK-Design-HashMap-Stub,survived,Lookup,killed,ok,1,,1,0,yes
+hashing/SPARK2/Ada-SPARK-Design-HashSet-Stub,survived,Insert,killed,ok,3,Empty,2,0,yes
+hashing/SPARK2/Ada-SPARK-FNV-Hash,survived,Hash,killed,ok,1,,1,0,yes
+hashing/SPARK2/Ada-SPARK-Pearson-Hashing,survived,Hash,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Check-If-Matrix-Is-X-Matrix,survived,Is_X_Matrix,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Matrix-Chain-Multiplication,survived,Minimum_Cost,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Matrix-Diagonal-Sum,survived,Diagonal_Sum,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Matrix-Multiply,survived,Multiply,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Reshape-The-Matrix,survived,Reshape,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Set-Matrix-Zeroes,survived,Zero,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Spiral-Matrix,survived,Traverse,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Spiral-Matrix-II,survived,Generate,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-The-K-Weakest-Rows-In-A-Matrix,survived,Weakest_Row,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Toeplitz-Matrix,survived,Is_Toeplitz,killed,ok,1,,1,0,yes
+matrices/SPARK2/Ada-SPARK-Transpose-Matrix,survived,Transpose,killed,ok,1,,1,0,yes
+matrices/SPARK2/Matrix-01,survived,Zero_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-4Sum-II,survived,Has_Four_Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Accounts-Merge-Stub,survived,Merged_Account_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Add-Digits,survived,Digital_Root,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Add-Two-Numbers,survived,Add,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Add-Two-Numbers-II,survived,Add,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Alert-Using-Same-Key-Card-Stub,survived,Has_Three_Within_Hour,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Alien-Dictionary-Lite,survived,Is_Ordered,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Alien-Dictionary-Stub,survived,Is_Valid,survived,weak,1,Is_Valid,0,0,yes
+misc/SPARK2/Ada-SPARK-All-Paths-From-Source-To-Target,survived,Has_Path,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Argmax,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Array-Partition-I,survived,Sort,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-As-Far-From-Land-As-Possible,survived,Land_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Assign-Cookies,survived,Assigned_Count,survived,weak,1,Assigned_Count,0,0,yes
+misc/SPARK2/Ada-SPARK-Asteroid-Collision,survived,Resolve_Pair,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Authentication-Manager-Stub,survived,Count_Unexpired,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Available-Captures-For-Rook,survived,Count_Captures,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Basic-Calculator,survived,Evaluate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Basic-Calculator-Stub,survived,Calculate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Beautiful-Array-Lite,survived,Is_Beautiful,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Binary-Number-With-Alternating-Bits,survived,Has_Alternating_Bits,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Binary-To-Integer,survived,From_Binary_Nibble,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Binomial-Coefficient,survived,Choose,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range,survived,And_Range,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Bitwise-OR-Of-Numbers-Range,survived,Or_0_To,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Bitwise-XOR-Of-All-Pairings,survived,Pairings_Xor,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Bounding-Box,survived,Enclose,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Browser-History-Stub,survived,Back_Target,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub,survived,On_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-CRC32,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-CSR-Row-Sum,survived,Row_Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Can-Place-Flowers,survived,Can_Place,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Candy,survived,Candy_Count,survived,weak,1,Candy_Count,0,0,yes
+misc/SPARK2/Ada-SPARK-Cheapest-Flights,survived,Cheapest_Direct,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Cheapest-Flights-Stub,survived,Find_Cost,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Check-If-The-Sentence-Is-Pangram,survived,Is_Pangram,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Cherry-Pickup-Lite,survived,Max_Cherries,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Circular-Deque-Stub,survived,Push_Back,killed,ok,7,Empty,6,0,yes
+misc/SPARK2/Ada-SPARK-Clamp,survived,Value,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Climbing-Stairs,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Coin-Change,survived,Minimum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,survived,Next,killed,ok,3,,3,0,yes
+misc/SPARK2/Ada-SPARK-Combination-Sum,survived,Count_Combinations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Combination-Sum-II,survived,Count_Distinct_Combinations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Complement-Of-Base-10,survived,Complement,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Complement-Of-Base-10-Integer,survived,Complement,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Contains-Duplicate,survived,Has_Duplicate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Contains-Duplicate-II,survived,Has_Nearby_Duplicate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Convert-1D-Array-Into-2D-Array,survived,Convert,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Convert-A-Number-To-Hexadecimal,survived,Digit,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Count-And-Say,survived,First_Run,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Count-Sub-Islands,survived,Count_Sub,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Count-Triplets-That-Can-Form-Two-Arrays-Of-Equal-XOR,survived,Triplets,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Critical-Connections-In-A-Network-Lite,survived,Count_Bridges,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Daily-Temperatures,survived,Next_Warmer,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Decode-Ways-Stub,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Decode-XORed-Array,survived,Decode,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Delete-And-Earn,survived,Maximum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Design-A-Leaderboard,survived,Submit,killed,ok,2,Initialize,1,0,yes
+misc/SPARK2/Ada-SPARK-Design-Circular-Queue-Stub,survived,Next_Position,killed,ok,3,,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-Food-Rating-System,survived,Set_Rating,killed,ok,2,Initialize,1,0,yes
+misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue-Stub,survived,Middle_Position,killed,ok,3,,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-Twitter-Lite,survived,Feed_Size,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Detect-Capital,survived,Is_Correct,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Diagonal-Traverse,survived,Traverse,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Difference-Array,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,survived,Number_Of_Ways,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Distinct-Subsequences,survived,Count_Of,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Divisor-Game,survived,Alice_Wins,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,survived,Number_Of_Tilings,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Dot-Product,survived,Product,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Dungeon-Game-Lite,survived,Required_Health,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Earliest-Deadline-First-Scheduling,survived,Select_Earliest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Eliminate-Maximum-Number-Of-Monsters,survived,Can_Eliminate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Encode-And-Decode-TinyURL-Stub,survived,Encode,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Eval-RPN,survived,Evaluate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Evaluate-Division-Lite,survived,Evaluate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Evaluate-Division-Stub,survived,Evaluate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Evaluate-Reverse-Polish-Notation,survived,Evaluate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column,survived,Column_Number,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Exclusive-Time-Of-Functions-Lite,survived,Inclusive_Duration,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Factorial,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Factorial-Trailing-Zeroes,survived,Trailing_Zeroes,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Fast-Pow,survived,Power,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-All-Duplicates-In-An-Array,survived,Duplicates,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-Common-Characters,survived,Has_Common,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-First-And-Last-Position,survived,Locate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-Median-Data-Stream-Stub,survived,Median,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-Peak-Element,survived,Find_Peak,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-The-City,survived,Find,survived,weak,1,Find,0,0,yes
+misc/SPARK2/Ada-SPARK-Find-The-City-With-Smallest-Number-Of-Neighbors,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-The-Difference,survived,Difference,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-The-Duplicate-Number,survived,Duplicate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-The-Original-Array-Of-Prefix-XOR,survived,Recover,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Find-The-Town-Judge,survived,Find_Judge,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-First-Bad-Version,survived,First_Bad,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-First-Unique-Char,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,survived,Shuffle,survived,weak,1,Shuffle,0,0,yes
+misc/SPARK2/Ada-SPARK-Flatten-Nested-List-Stub,survived,Flatten,survived,weak,5,Empty Flatten,3,0,yes
+misc/SPARK2/Ada-SPARK-Flipping-An-Image,survived,Flip_And_Invert,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Four-Sum,survived,Has_Four_Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Game-Of-Life-Step,survived,Step,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Gas-Station,survived,Starting_Station,survived,weak,1,Starting_Station,0,0,yes
+misc/SPARK2/Ada-SPARK-Generate-Parentheses,survived,Generate_First,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,survived,Maximum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Grumpy-Bookstore-Owner,survived,Max_Satisfied,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Guess-Number-Higher-Or-Lower,survived,Guess_Number,survived,weak,1,Guess_Number,0,0,yes
+misc/SPARK2/Ada-SPARK-Hand-Of-Straights-Stub,survived,Can_Hand,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Histogram-Bin,survived,Bin_Of,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Hit-Counter-Stub,survived,Count_Recent,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,survived,Max_Loot,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-IPO-Lite,survived,Best_Affordable_Profit,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Implement-StrStr,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Insert-Interval,survived,Inserted_Intervals,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Int-To-Roman-Stub,survived,To_Roman,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Integer-Break,survived,Maximum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Integer-To-English-Stub,survived,To_English,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Integer-To-Roman,survived,To_Roman,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays-II,survived,Has_Common,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Is-Palindrome,survived,Check,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Is-Subsequence,survived,Check,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Jump-Game-II,survived,Minimum_Jumps,survived,weak,1,Minimum_Jumps,0,0,yes
+misc/SPARK2/Ada-SPARK-K-Closest-Points-Stub,survived,K_Closest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Kadanes-Algorithm,survived,Maximum_Subarray,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Keys-And-Rooms,survived,Can_Visit_All,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Knight-Probability-In-Chessboard-Lite,survived,Survival_Percent,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Kth-Largest-Array,survived,Kth_Largest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Kth-Largest-Element,survived,Kth_Largest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Kth-Largest-Element-In-A-Stream,survived,Kth_Largest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Kth-Largest-Element-In-An-Array,survived,Kth_Largest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Kth-Largest-In-Stream-Stub,survived,Kth_Largest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-L1-Norm,survived,Norm,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-L2-Norm-Squared,survived,Norm_Squared,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-LFU-Cache-Stub,survived,Lookup,killed,ok,4,Empty Contains,2,0,yes
+misc/SPARK2/Ada-SPARK-LRU-Cache-Stub,survived,Lookup,killed,ok,4,Empty Contains,2,0,yes
+misc/SPARK2/Ada-SPARK-Largest-Number,survived,Largest_Concatenation,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Lemonade-Change,survived,Can_Make_Change,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Length-Of-Last-Word,survived,Last_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Letter-Case-Permutation,survived,Count_Permutations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,survived,Count_Combinations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-License-Key-Formatting,survived,Format,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Line-Reflection,survived,Is_Reflection,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Linked-List-Cycle,survived,Has_Cycle,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Linked-List-Cycle-II,survived,Cycle_Entry,killed,ok,3,Has_Cycle,2,0,yes
+misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Stub,survived,Allowed,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Magnetic-Force-Between-Two-Balls,survived,Maximum_Force,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Manhattan-Distance,survived,Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Mark-And-Sweep,survived,Mark,killed,ok,4,,4,0,yes
+misc/SPARK2/Ada-SPARK-Max-Area-Of-Island,survived,Max_Area,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Max-Path-Sum-Stub,survived,Max_Path_Sum,killed,ok,3,Empty,2,0,yes
+misc/SPARK2/Ada-SPARK-Max-Stack-Stub,survived,Max_Value,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Maximum-Units-On-A-Truck,survived,Max_Units,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Median-Of-Three,survived,Median,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Meeting-Rooms,survived,Non_Overlapping,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Meeting-Rooms-II,survived,Required_Rooms,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Merge-Intervals,survived,Merged_Intervals,survived,weak,1,Merged_Intervals,0,0,yes
+misc/SPARK2/Ada-SPARK-Min-Cost-Connect-Cities-Stub,survived,Minimum_Cost,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-ASCII-Delete-Sum,survived,Delete_Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-Deletions-To-Make-Character-Frequencies-Unique,survived,Minimum_Deletions,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Days-To-Make-M-Bouquets,survived,Minimum_Day,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Missing-Ranges-Stub,survived,Count_Missing,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Moving-Average,survived,Average,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-My-Calendar-Stub,survived,Can_Book,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-My-Linked-List-Stub,survived,Length_Of,survived,weak,2,Length_Of,1,0,yes
+misc/SPARK2/Ada-SPARK-N-Repeated-Element-In-Size-2N-Array,survived,Has_Repeated,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Nearest-Exit-From-Entrance-In-Maze,survived,Open_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Neighboring-Bitwise-XOR,survived,Is_Valid,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub,survived,Add,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Network-Delay-Time,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Network-Delay-Time-Stub,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-New-21-Game-Lite,survived,Target_Is_Reachable,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Next-Greater-Element-I,survived,Next_Greater,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Next-Greater-Element-II,survived,Next_Greater_Circular,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Next-Permutation-Stub,survived,Next,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Nim-Game,survived,Winning_Position,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Non-Decreasing-Array,survived,Can_Be_Non_Decreasing,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals,survived,Kept_Intervals,survived,weak,1,Kept_Intervals,0,0,yes
+misc/SPARK2/Ada-SPARK-Nth-Digit,survived,Digit_At,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Complement,survived,Complement,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Of-1-Bits-In-Range,survived,Count_One_Bits,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Of-Good-Pairs,survived,Count_Good_Pairs,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Of-Islands,survived,Count_Islands,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Number-Of-Provinces,survived,Count_Provinces,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-One-Hot,survived,Encode,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Ones-And-Zeroes,survived,Max_Form,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Online-Stock-Span-Stub,survived,Next,killed,ok,2,Initialize,1,0,yes
+misc/SPARK2/Ada-SPARK-Open-The-Lock,survived,Turn_Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Ordered-Stream-Stub,survived,Prefix_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Flow,survived,Reachable,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Stub,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Paint-Fence-Lite,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Paint-House-Lite,survived,Minimum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning-II,survived,Min_Cuts,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Parking-System-Stub,survived,Can_Park,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Partition-Labels,survived,Length_Of,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Peak-Index-In-Mountain-Array,survived,Peak_Index,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub,survived,Peek,killed,ok,4,,4,0,yes
+misc/SPARK2/Ada-SPARK-Permutations,survived,Count_Permutations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Permutations-II,survived,Count_Permutations,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Pow-X-N,survived,Power,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Powx-N,survived,Power_Of,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Prim-MST-Lite,survived,Mst_Weight,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Product-Except-Self,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Product-Of-Numbers-Stub,survived,Product,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Queue-Reconstruction-By-Height,survived,Insert_Position,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Random-Pick-With-Weight-Lite,survived,Pick,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Range-Module-Stub,survived,Covers,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Ransom-Note,survived,Can_Construct,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Rate-Monotonic-Scheduling,survived,Highest_Priority,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Rectangle-Overlap,survived,Has_Overlap,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Reduce-Array-Size-To-The-Half,survived,Groups_To_Remove,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Redundant-Connection,survived,Find_Redundant,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Redundant-Connection-II,survived,Has_Redundant_Edge,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Redundant-Connection-II-Lite,survived,Find_Redundant,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Reference-Counting,survived,Reference_Count,killed,ok,4,,4,0,yes
+misc/SPARK2/Ada-SPARK-Regular-Expression-Matching-Lite,survived,Matches,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Remove-Element,survived,Remove,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Remove-K-Digits,survived,Remove_K,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Replace-Elements-With-Greatest-On-Right,survived,Replace,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Replace-Words,survived,Replace,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Reservoir-Sampling,survived,Sample,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Reverse-Pairs-Lite,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Reverse-Words,survived,Reversed,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Roman-To-Integer,survived,Value_Of,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Rotate-Array,survived,Rotate_Right,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Rotate-Image,survived,Rotate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Rotting-Oranges,survived,Fresh_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Round-Robin-Scheduling,survived,Run_Quantum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Seat-Manager-Stub,survived,Reserve_First,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Seat-Reservation-Manager,survived,First_Free,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sequence-Reconstruction-Lite,survived,Matches,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Shift-2D-Grid,survived,Shift,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Shortest-Bridge,survived,Island_Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Shortest-Common-Supersequence-Lite,survived,Length_Of,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Shortest-Job-Next,survived,Select_Shortest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Shortest-Remaining-Time,survived,Select_Shortest,killed,ok,2,,2,0,yes
+misc/SPARK2/Ada-SPARK-Sigmoid,survived,Evaluate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Simplify-Path-Stub,survived,Simplified_Depth,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Single-Number,survived,Find,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Single-Number-II,survived,Single,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Single-Number-III,survived,Singles,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sliding-Window-Max,survived,Max_Window,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sliding-Window-Maximum,survived,Maximums,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sliding-Window-Median,survived,Medians,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,survived,Smallest_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Snapshot-Array-Stub,survived,Snapshot_Total,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Softmin,survived,Value,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Soup-Servings-Lite,survived,First_Empties_First,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Spearman-Rank-Stub,survived,Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sqrt-Integer,survived,Floor_Sqrt,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sqrtx,survived,Integer_Square_Root,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Stack-Using-Queues-Stub,survived,Push,killed,ok,4,Empty,3,0,yes
+misc/SPARK2/Ada-SPARK-Stock-Spanner-Stub,survived,Span,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Strstr-Naive,survived,Search,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Student-Attendance-Record-I,survived,Is_Rewardable,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Subsets,survived,Count_Subsets,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Subsets-II,survived,Count_Distinct_Subsets,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sum-Of-Two-Integers,survived,Add,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Sum-Root-To-Leaf-Numbers,survived,Sum_Root_To_Leaf,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Summary-Ranges,survived,Summary,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Super-Ugly-Number,survived,Super_Ugly,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub,survived,Nth_Super_Ugly,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Surrounded-Regions,survived,Capture_Interior,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water-Stub,survived,Minimum_Time,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Target-Sum-Stub,survived,Exists,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-The-Skyline-Problem-Lite,survived,Skyline_Height,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Three-Sum,survived,Has_Triple_Sum,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Three-Sum-Closest-Stub,survived,Closest,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Tic-Tac-Toe-Stub,survived,Winner,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Time-Based-Key-Value-Store,survived,Get,killed,ok,3,Initialize,2,0,yes
+misc/SPARK2/Ada-SPARK-Time-Map-Stub,survived,Value_At,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Title-To-Number,survived,Title_Number,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Stub,survived,Top_K,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Top-Nodes-Algorithm,survived,Top_Node,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Trapezoidal-Rule,survived,Integrate,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Triangle,survived,Minimum_Path,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Tweet-Counts-Stub,survived,Count_In_Range,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Two-Pointers-Sum,survived,Has_Pair,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Two-Sum,survived,Has_Pair,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-UTF-8-Validation,survived,Is_ASCII,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Ugly-Number-II,survived,Nth_Ugly,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Uncommon-Words-From-Two-Sentences,survived,Has_Left_Only,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Underground-System-Stub,survived,Average_Duration,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Union-Find,survived,Union,killed,ok,3,Initialize Same,1,0,yes
+misc/SPARK2/Ada-SPARK-Unique-Morse-Code-Words,survived,All_Unique,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Unique-Paths,survived,Count,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Valid-IP-Address-Stub,survived,Is_Valid,survived,weak,2,Is_Valid,1,0,yes
+misc/SPARK2/Ada-SPARK-Valid-Number-Stub,survived,Is_Valid,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Valid-Palindrome,survived,Is_Palindrome,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Valid-Square,survived,Is_Valid_Square,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Valid-Sudoku-Stub,survived,Is_Valid,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Valid-Word-Abbreviation,survived,Is_Valid,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Vector-2D-Stub,survived,Add,killed,ok,5,Equal,4,0,yes
+misc/SPARK2/Ada-SPARK-Wiggle-Subsequence,survived,Wiggle_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Wildcard-Matching-Lite,survived,Matches,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Word-Break,survived,Is_Breakable,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Word-Break-Stub,survived,Can_Break,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Word-Ladder-Lite,survived,Ladder_Length,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Word-Ladder-Stub,survived,Distance,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Word-Pattern,survived,Matches,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-XOR-Of-Numbers-Range,survived,Xor_0_To,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-XOR-Operation-In-An-Array,survived,Compute,killed,ok,1,,1,0,yes
+misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub,survived,Next,killed,ok,2,,2,0,yes
+misc/SPARK4/Ada-SPARK-Shortest-Seek-First,,,,no tests,0,,0,0,
+misc/SPARK4/demo,,,,no tests,0,,0,0,
+ml/SPARK2/Ada-SPARK-ReLU,survived,Activate,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Chebyshev-Distance,survived,Distance,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,survived,Below,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Maximum-Performance-Of-A-Team-Lite,survived,Best_Single_Performance,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Perfect-Number,survived,Is_Perfect,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Perfect-Squares,survived,Minimum,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Prime-Check,survived,Is_Prime,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Prime-Number-Of-Set-Bits,survived,Is_Prime_Count,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Prime-Number-Of-Set-Bits-In-Binary-Representation,survived,Has_Prime_Set_Bit_Count,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Successful-Pairs-Of-Spells-And-Potions,survived,Successful_Pairs,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Valid-Perfect-Square,survived,Is_Perfect_Square,killed,ok,1,,1,0,yes
+numerical/SPARK2/Ada-SPARK-Walls-And-Gates,survived,Gate_Count,killed,ok,1,,1,0,yes
+numerical/SPARK2/Babylonian-Sqrt,survived,Sqrt,killed,ok,1,,1,0,yes
+numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,survived,Pow_Mod,killed,ok,26,,26,0,yes
+parsing/SPARK2/Ada-SPARK-Sparse-Vector-Dot-Stub,survived,Dot,killed,ok,1,,1,0,yes
+parsing/SPARK2/Sparse-Dot,survived,Dot,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound,survived,Find,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,survived,Find,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Increasing-Order-Search-Tree,survived,Increasing_Order,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree,survived,Insert,survived,weak,2,Empty Insert,0,0,yes
+searching/SPARK2/Ada-SPARK-Naive-String-Search,survived,Search,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Search-2D-Matrix,survived,Contains,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix-II,survived,Contains,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Search-In-A-Binary-Search-Tree,survived,Search,killed,ok,3,Empty,2,0,yes
+searching/SPARK2/Ada-SPARK-Search-Insert-Position,survived,Position,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Trim-A-Binary-Search-Tree,survived,Trim,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees,survived,Number_Of_Trees,killed,ok,1,,1,0,yes
+searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite,survived,Root_Choices,survived,weak,1,Root_Choices,0,0,yes
+searching/SPARK2/Ada-SPARK-Word-Search,survived,Exists,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST,survived,Node_Value,killed,ok,2,,2,0,yes
+sorting/SPARK2/Ada-SPARK-Count-Negative-Numbers-In-A-Sorted-Matrix,survived,Count_Negatives,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings,survived,Number_Of_Strings,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array,survived,Minimum,survived,weak,1,Minimum,0,0,yes
+sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II,survived,Minimum,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix,survived,Kth,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub,survived,Merge_K,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Relative-Sort-Array,survived,Relative_Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array,survived,Compact,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-Sorted,survived,Remove_Duplicates,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array,survived,Contains,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array-II,survived,Contains,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Shortest-Unsorted-Continuous-Subarray,survived,Unsorted_Span,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Sort-An-Array,survived,Sort,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Sort-Integers-By-The-Number-Of-1-Bits,survived,Bit_Count,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite,survived,Is_Valid_Order,killed,ok,1,,1,0,yes
+sorting/SPARK2/Ada-SPARK-Two-Sum-II-Input-Array-Is-Sorted,survived,Has_Pair,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Boyer-Moore,survived,Search,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Check-If-Two-String-Arrays-Are-Equivalent,survived,Are_Equivalent,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Decode-String,survived,Repeat_Symbol,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Decode-String-Stub,survived,Length_Of,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings,survived,Min_Deletions,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-First-Unique-Character-In-A-String,survived,Find,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Isomorphic-Strings,survived,Are_Isomorphic,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Longest-Common-Prefix,survived,Prefix_Length,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,survived,Length,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Lite,survived,Multiply,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Permutation-In-String,survived,Contains_Permutation,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Reorganize-String,survived,Can_Reorganize,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Reorganize-String-Stub,survived,Reorganize,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Reverse-String,survived,Reverse_Text,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Reverse-String-II,survived,Reverse_First,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-Reverse-Words-In-A-String,survived,Reverse_Words,killed,ok,1,,1,0,yes
+strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi,survived,To_Integer,killed,ok,1,,1,0,yes
+strings/SPARK2/Add-Strings,survived,Add,killed,ok,1,,1,0,yes
+strings/SPARK3/Levenshtein-Distance,survived,Distance,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-BST-Iterator-Stub,survived,Insert,killed,ok,5,Empty,4,0,yes
+trees/SPARK2/Ada-SPARK-Binary-Tree-Paths,survived,Path_Count,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View,survived,Right_View,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes,survived,Set_Node,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub,survived,Delete,killed,ok,4,Empty,3,0,yes
+trees/SPARK2/Ada-SPARK-Delete-Node-In-A-BST-Lite,survived,Set_Node,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Find-Mode-In-BST,survived,Mode,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite,survived,Flatten,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub,survived,Kth_Smallest,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Leaf-Similar-Trees,survived,Leaf_Similar,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Maximum-Binary-Tree,survived,Build,killed,ok,2,,2,0,yes
+trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-N-Ary-Tree,survived,Maximum_Depth,killed,ok,4,Empty,3,0,yes
+trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern,survived,Is_Repeated,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Trim-BST-Stub,survived,Trim,killed,ok,4,Empty,3,0,yes
+trees/SPARK2/Ada-SPARK-Two-Sum-BST-Stub,survived,Has_Two_Sum,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub,survived,Number_Of_Trees,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Univalued-Binary-Tree,survived,Is_Univalued,killed,ok,1,,1,0,yes
+trees/SPARK2/Ada-SPARK-Validate-BST-Stub,survived,Is_Valid,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Average-Of-Levels-In-Binary-Tree,survived,Average,killed,ok,3,Empty,2,0,yes
+clustering/Ada/Average-Linkage-Clustering,survived (without -gnata),Average_Linkage_Distance,killed,ok,10,,10,0,no
+clustering/Ada/Canopy-Clustering,survived (without -gnata),Run_Canopy,stillborn,unchecked (main stillborn),10,Distance_To_Center,8,1,no
+clustering/Ada/Clustering,survived,K_Means,killed,ok,5,,5,0,yes
+clustering/Ada/Clustering-Algorithms,survived (without -gnata),Cluster_Count_Of,killed,ok,30,Seed_RNG Draw_Unit Draw_Index Within_Cluster_SSE,23,3,no
+clustering/Ada/Complete-Linkage-Clustering,survived (without -gnata),Run_Complete_Linkage,killed,ok,10,,10,0,no
+clustering/Ada/DBSCAN,survived (without -gnata),Run_DBSCAN,stillborn,unchecked (main stillborn),9,,8,1,no
+clustering/Ada/FLAME-Clustering,survived (without -gnata),Run_FLAME,stillborn,unchecked (main stillborn),16,Neighborhood_Approximation_Error,14,1,no
+clustering/Ada/Fuzzy-Clustering,survived (without -gnata),Run_Fuzzy_C_Means,stillborn,unchecked (main stillborn),20,,18,2,no
+clustering/Ada/K-Means-Clustering,killed,,,baseline fails,0,,0,0,yes
+clustering/Ada/K-Means-Plus-Plus,survived (without -gnata),Init_Centers_KMeansPP,killed,ok,22,Seed_RNG Draw_Index,18,2,no
+clustering/Ada/Lloyds-Algorithm,survived (without -gnata),Run_Lloyd,stillborn,unchecked (main stillborn),13,,11,2,no
+clustering/Ada/OPTICS,survived (without -gnata),Run_OPTICS,stillborn,unchecked (main stillborn),12,,11,1,no
+clustering/Ada/Single-Linkage-Clustering,survived (without -gnata),Run_Single_Linkage,killed,ok,10,,10,0,no
+clustering/Ada/WACA-Clustering,survived (without -gnata),Run_WACA,stillborn,unchecked (main stillborn),14,,12,2,no
+clustering/Ada/Wards-Method,survived (without -gnata),Ward_Linkage,killed,ok,9,,9,0,no
+compression/Ada/Adaptive-Huffman,survived,Decode,killed,ok,2,,2,0,yes
+compression/Ada/Arithmetic-Coding,killed,,,baseline fails,0,,0,0,yes
+compression/Ada/Audio-Compression,survived,Encode_DPCM,killed,ok,6,,6,0,yes
+compression/Ada/Berlekamp-Massey-Algorithm,survived,Compute_LFSR_GF2,killed,ok,4,Is_Valid_LFSR_GF2 Is_Valid_LFSR_Real,2,0,yes
+compression/Ada/Berlekamp-Root-Finding,survived,Find_Roots,killed,ok,20,,20,0,yes
+compression/Ada/Burrows-Wheeler-Transform,killed,,,baseline fails,0,,0,0,yes
+compression/Ada/Deflate,killed,,,baseline fails,0,,0,0,yes
+compression/Ada/Dynamic-Markov-Compression,survived,Update,killed,ok,7,,7,0,yes
+compression/Ada/Earley-Parser,survived,Parse_Chart,killed,ok,4,,4,0,yes
+compression/Ada/Fast-Efficient-Lossless-Image-Compression-System,survived,Compress_Image,killed,ok,6,,6,0,yes
+compression/Ada/Fractal-Compression,killed,,,baseline fails,0,,0,0,yes
+compression/Ada/Huffmann-Coding,survived,Decode,killed,ok,8,Generate_Canonical_Codes Free_Tree,6,0,yes
+compression/Ada/Image-Compression,survived,Compress_Delta,killed,ok,5,,5,0,yes
+compression/Ada/LZ77-LZ78,killed,,,baseline fails,0,,0,0,yes
+compression/Ada/LZWL,survived,Encode_Basic,killed,ok,4,,4,0,yes
+compression/Ada/LZX,survived,Compress,killed,ok,3,,3,0,yes
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,survived,Inverse,killed,ok,9,,9,0,yes
+compression/Ada/Run-Length-Encoding,survived,Encode_String,killed,ok,4,,4,0,yes
+compression/Ada/Speech-Compression,killed,,,baseline fails,0,,0,0,yes
+compression/Ada/Verlet-Integration,survived,Update_Basic_Verlet,killed,ok,4,,4,0,yes
+compression/Ada/Video-Compression,survived,Subsample,killed,ok,6,,6,0,yes
+compression/Ada/Wavelet-Compression,survived,Forward_Haar_1D,killed,ok,7,,7,0,yes
+concurrency/Ada/Dekker,,,,no tests,0,,0,0,
+concurrency/Ada/Lamport-Ordering,survived,Local_Event,killed,ok,5,,5,0,yes
+concurrency/Ada/Paxos-Algorithm,survived,Basic_Paxos_Prepare,killed,ok,5,,5,0,yes
+concurrency/Ada/Vector-Clocks,killed,,,baseline fails,0,,0,0,yes
+concurrency/Ada/lamport,survived,Receive_Message,killed,ok,5,,5,0,yes
+concurrency/Ada/lds-scheduler,,,,no tests,0,,0,0,
+concurrency/Ada/mlfq,,,,no tests,0,,0,0,
+concurrency/Ada/peterson,,,,no tests,0,,0,0,
+concurrency/Ada/sjn,,,,no tests,0,,0,0,
+cryptography/Ada/Aes,survived (without -gnata),Encrypt_Block_128,killed,ok,11,Decrypt_Block_256 Decrypt_ECB_128 Decrypt_ECB_256,8,0,no
+cryptography/Ada/Argon2,survived (without -gnata),Hash_Argon2id,killed,ok,5,,5,0,no
+cryptography/Ada/Asymetric-Public-Key-Encryption,killed,,,baseline fails,0,,0,0,yes
+cryptography/Ada/BLAKE,survived,Hash_256,killed,ok,4,,4,0,yes
+cryptography/Ada/Bcrypt,survived,Hash,killed,ok,3,,3,0,yes
+cryptography/Ada/Blowfish,survived,Setup_Key,killed,ok,9,,9,0,yes
+cryptography/Ada/ChaCha20,survived,Encrypt_IETF,killed,ok,4,,4,0,yes
+cryptography/Ada/Data-Encryption-Standard,killed,,,baseline fails,0,,0,0,yes
+cryptography/Ada/ECDSA,survived,Mod_Add,killed,ok,10,,10,0,yes
+cryptography/Ada/Elliptic-Curve-Diffie-Hellman,survived (without -gnata),Is_On_Curve,killed,ok,9,Ephemeral_ECDHE Anonymous_ECDH,7,0,no
+cryptography/Ada/Fortuna,survived,Generate_Random_Data,killed,ok,8,,8,0,yes
+cryptography/Ada/HMAC,survived,Compute,killed,ok,3,,3,0,yes
+cryptography/Ada/IDEA,survived,Mul,killed,ok,8,,8,0,yes
+cryptography/Ada/Lenstra-Elliptic-Curve-Factorization,survived,Factor_ECM_Stage1,killed,ok,13,,13,0,yes
+cryptography/Ada/MD5,survived (without -gnata),Update,killed,ok,9,,9,0,no
+cryptography/Ada/NTRUEncrypt,survived,Modulo_Poly,killed,ok,6,,6,0,yes
+cryptography/Ada/RC4,stillborn,,,baseline does not build,0,,0,0,yes
+cryptography/Ada/RSA,survived,To_RSA,survived,weak,13,To_RSA,12,0,yes
+cryptography/Ada/SHA3,survived,SHA3_256,killed,ok,6,,6,0,yes
+cryptography/Ada/Shamirs-Secret-Sharing,survived (without -gnata),Reconstruct_Secret,killed,ok,7,,7,0,no
+cryptography/Ada/Stochastic-Universal-Sampling,survived,Seed_RNG,killed,ok,20,Default_Config,19,0,yes
+cryptography/Ada/Symetric-Encryption,survived,TEA_Encrypt_Block,killed,ok,9,,9,0,yes
+cryptography/Ada/Threefish,killed,,,baseline fails,0,,0,0,yes
+cryptography/Ada/Tiny-Encryption-Algorithm,survived,TEA_Encrypt,killed,ok,6,,6,0,yes
+cryptography/Ada/Twofish,survived,Encrypt,killed,ok,5,,5,0,yes
+cryptography/Ada/Universal-Coding,killed,,,baseline fails,0,,0,0,yes
+cryptography/Ada/Universal-Variable-Formulation,survived,Propagate_Kepler_Universal,killed,ok,14,,14,0,yes
+cryptography/Ada/WHIRLPOOL,survived,Digest_To_Hex,killed,ok,3,,3,0,yes
+cryptography/Ada/Yarrow-Algorithm,killed,,,baseline fails,0,,0,0,yes
+geometry/Ada/Adaptive-Histogram-Equalization,survived,Global_HE,killed,ok,4,Sliding_Window_CLAHE,3,0,yes
+geometry/Ada/Ambient-Occlusion,survived (without -gnata),Tube_Occlusion_Demo,killed,ok,25,Orthonormal_Basis Empty_Scene,23,0,no
+geometry/Ada/Bresenhams-Line-Algorithm,survived,Line_General,killed,ok,4,,4,0,yes
+geometry/Ada/Canny-Edge-Detector,survived,Apply_Canny,killed,ok,4,,4,0,yes
+geometry/Ada/Clipping,survived (without -gnata),Clip_Line_Liang_Barsky,killed,ok,28,Near_Point3 Dot3,26,0,no
+geometry/Ada/Closest-Pair-Problem,survived,Closest_Pair,killed,ok,8,,8,0,yes
+geometry/Ada/Cohen-Sutherland,survived (without -gnata),Cohen_Sutherland_Clip,killed,ok,27,Near_Point Dot Dot Point_Inside_Box Same_Clipped_Segment Same_Clipped_Segment Is_Valid_Box,20,0,no
+geometry/Ada/Constructive-Solid-Geometry,survived (without -gnata),Destroy_Tree,killed,ok,8,,8,0,no
+geometry/Ada/Convex-Hull-Algorithms,survived,Convex_Hull,killed,ok,19,,19,0,yes
+geometry/Ada/Delaunay-Triangulation,survived,Triangle_Count_Of,killed,ok,17,Is_Delaunay Is_Delaunay_Edge_Empty,15,0,yes
+geometry/Ada/Dithering,survived,Threshold_Dither,killed,ok,9,Ordered_Dither_2x2,8,0,yes
+geometry/Ada/Fast-Clipping,survived (without -gnata),Fast_Clip,killed,ok,17,Dot Classify_Point,15,0,no
+geometry/Ada/Generalised-Hough-Transform,stillborn,,,baseline does not build,0,,0,0,yes
+geometry/Ada/Gift-Wrapping,survived,Convex_Hull,killed,ok,15,,15,0,yes
+geometry/Ada/Gouraud-Shading,survived,Interpolate_Barycentric_Intensity,killed,ok,17,Calculate_Vertex_Phong_Color,16,0,yes
+geometry/Ada/Grabcut,killed,,,baseline fails,0,,0,0,yes
+geometry/Ada/Graham-Scan,survived,Convex_Hull,killed,ok,14,,14,0,yes
+geometry/Ada/Histogram-Equalization,survived,Equalize_Global,killed,ok,2,Equalize_Adaptive,1,0,yes
+geometry/Ada/Hough-Transform,survived,Transform_Lines,killed,ok,3,,3,0,yes
+geometry/Ada/Isosurfaces,survived (without -gnata),Count_Triangles,killed,ok,29,Empty_Mesh Empty_Band,27,0,no
+geometry/Ada/Kirkpatrick-Seidel,survived,Convex_Hull,killed,ok,15,,15,0,yes
+geometry/Ada/Liang-Barsky,survived (without -gnata),Liang_Barsky_Clip,killed,ok,15,Dot,14,0,no
+geometry/Ada/Line-Clipping,survived (without -gnata),Cohen_Sutherland_Clip,killed,ok,18,Dot,17,0,no
+geometry/Ada/Line-Segment-Intersection,survived,Classify_Intersection,killed,ok,19,Empty_Intersection_List,18,0,yes
+geometry/Ada/Marching-Cubes,survived (without -gnata),March_Grid,killed,ok,27,Empty_Mesh Disambiguate_Face,25,0,no
+geometry/Ada/Ordered-Dithering,killed,,,baseline fails,0,,0,0,yes
+geometry/Ada/Phong-Shading,survived (without -gnata),Classic_Phong_Light,killed,ok,16,Blinn_Phong_Light,15,0,no
+geometry/Ada/Point-In-Polygon,survived,Point_On_Segment,killed,ok,11,,11,0,yes
+geometry/Ada/Polygon-Triangulation,survived,Triangulate_Ear_Clip,killed,ok,16,,16,0,yes
+geometry/Ada/Quasitriangulation,survived,Is_Quasi_Setting,killed,ok,28,Get_Edge Faces_Reference_Valid_Sites Euler_Check Is_Topological_Triangulation,24,0,yes
+geometry/Ada/Quickhull,survived,Convex_Hull,killed,ok,14,,14,0,yes
+geometry/Ada/Radiosity,survived (without -gnata),Compute_Scene_Form_Factors,killed,ok,13,,13,0,no
+geometry/Ada/Ramer-Douglas-Peucker-Algorithm,survived,Simplify,killed,ok,6,,6,0,yes
+geometry/Ada/Ray-Tracing,survived,Trace_Ray_Whitted,killed,ok,14,Add_Light Trace_Ray_Distribution,12,0,yes
+geometry/Ada/Riemersma-Dithering,survived,Apply_Dither,killed,ok,2,,2,0,yes
+geometry/Ada/Segmentation,stillborn,,,baseline does not build,0,,0,0,yes
+geometry/Ada/Shading,survived (without -gnata),Shade_Gouraud,killed,ok,16,Reflect,15,0,no
+geometry/Ada/Slerp,survived (without -gnata),Shortest_Path_Slerp,killed,ok,19,Is_Normalized Multiply Compute_Squad_Intermediate,16,0,no
+geometry/Ada/Sutherland-Hodgman,survived,Sutherland_Hodgman_Clip,killed,ok,29,Near_Point3 Dot Polygon_Copy Same_Polygon,25,0,yes
+geometry/Ada/Triangulation,survived,Triangle_Count_Of,killed,ok,21,,21,0,yes
+geometry/Ada/Vatti,survived,Vatti_Intersection,survived,weak,37,Polygon_Copy Same_Polygon Vatti_Clip Vatti_Intersection Vatti_Union Vatti_Difference Vatti_Xor,30,0,yes
+geometry/Ada/Vincenty,killed,,,baseline fails,0,,0,0,yes
+geometry/Ada/Voronoi-Diagrams,survived,Build_Voronoi,killed,ok,27,Is_Delaunay_Empty_Circle,26,0,yes
+geometry/Ada/Warnock-Algorithm,survived,Evaluate_Z,killed,ok,12,,12,0,yes
+geometry/Ada/Watershed-Transformation,stillborn,,,baseline does not build,0,,0,0,yes
+geometry/Ada/Weiler-Atherton,survived,Weiler_Atherton_Clip,killed,ok,24,Polygon_Copy Same_Polygon,22,0,yes
+geometry/Ada/Xiaolin-Wus-Line-Algorithm,survived,Draw_Line,killed,ok,5,,5,0,yes
+graphs/Ada/A-Star,survived,Add_Edge,killed,ok,9,,9,0,yes
+graphs/Ada/Bellman-Ford-Algorithm,survived,Add_Edge,killed,ok,10,,10,0,yes
+graphs/Ada/Boruvkas-Algorithm,survived,Boruvka,killed,ok,5,,5,0,yes
+graphs/Ada/Cliques,survived,Clique_Number,killed,ok,12,,12,0,yes
+graphs/Ada/Coin-Graph,survived,Build_Contact_Graph,killed,ok,11,,11,0,yes
+graphs/Ada/Cryptographically-Secure-Pseudo-Random-Number-Generators,survived,Generate,killed,ok,6,Generate,5,0,yes
+graphs/Ada/Cryptographically-Secure-Pseudorandom-Number-Generator,survived,Chacha_Generate_Bytes,killed,ok,6,,6,0,yes
+graphs/Ada/Dijkstra-Scholten-Algorithm,survived,Send_Message,killed,ok,6,,6,0,yes
+graphs/Ada/Dijkstras-Algorithm,survived,Add_Edge,killed,ok,7,,7,0,yes
+graphs/Ada/Dinics-Algorithm,survived,Add_Edge,killed,ok,11,,11,0,yes
+graphs/Ada/Edmonds-Karp-Algorithm,survived,Add_Edge,killed,ok,11,,11,0,yes
+graphs/Ada/Elliptic-Curve-Cryptography,survived,Is_On_Curve,killed,ok,6,,6,0,yes
+graphs/Ada/Euclidean-Minimum-Spanning-Tree,survived,Rounded_Euclidean,killed,ok,8,,8,0,yes
+graphs/Ada/Floyd-Steinberg-Dithering,killed,,,baseline fails,0,,0,0,yes
+graphs/Ada/Floyd-Warshall-Algorithm,survived,Floyd_Warshall,survived,weak,31,Floyd_Warshall Floyd_Warshall Floyd_Warshall Has_Negative_Cycle,27,0,yes
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,survived,Find_Cycle,killed,ok,19,,19,0,yes
+graphs/Ada/Ford-Fulkerson-Algorithm,survived,Add_Edge,killed,ok,12,,12,0,yes
+graphs/Ada/Hungarian-Algorithm,survived,Set_Cost,killed,ok,11,,11,0,yes
+graphs/Ada/Hungarian-Method,survived,Minimize_Assignment,killed,ok,7,,7,0,yes
+graphs/Ada/Kosarajus-Algorithm,survived,Add_Edge,killed,ok,6,,6,0,yes
+graphs/Ada/Kruskals-Algorithm,survived,Kruskal,killed,ok,5,,5,0,yes
+graphs/Ada/MaxCliqueDyn,survived,Add_Edge,killed,ok,9,,9,0,yes
+graphs/Ada/Minimum-Spanning-Tree,survived,Add_Edge,killed,ok,6,,6,0,yes
+graphs/Ada/PageRank,survived,Compute,killed,ok,9,,9,0,yes
+graphs/Ada/Post-Quantum-Cryptography,survived,Decrypt_Bit,killed,ok,6,Generate_Keypair,5,0,yes
+graphs/Ada/Prims-Algorithm,survived,Prim,killed,ok,9,,9,0,yes
+graphs/Ada/Shortest-Path-Problem,survived,BFS_Shortest,killed,ok,20,,20,0,yes
+graphs/Ada/Tarjans-Off-Line-Lowest-Common-Ancestors,survived,Compute,killed,ok,9,,9,0,yes
+graphs/Ada/Tarjans-Strongly-Connected-Components,survived,Compute_SCC,killed,ok,6,,6,0,yes
+graphs/Ada/subgraph-isomorphism,,,,no tests,0,,0,0,
+hashing/Ada/Bloom-Filter,survived,Add,killed,ok,23,Probably_Contains,22,0,yes
+hashing/Ada/Geohash,survived,Encode,killed,ok,11,Contains,10,0,yes
+hashing/Ada/Geometric-Hashing,survived,Build_Table,killed,ok,14,,14,0,yes
+hashing/Ada/Hash-Functions,survived,Pearson_Hash,killed,ok,7,Identity_Hash Mid_Square_Hash,5,0,yes
+hashing/Ada/Hash-Join,stillborn,,,baseline does not build,0,,0,0,yes
+hashing/Ada/Locality-Sensitive-Hashing,survived,Bit_Sampling_Hash,killed,ok,6,,6,0,yes
+hashing/Ada/Pearson-Hashing,survived,Hash,killed,ok,2,,2,0,yes
+hashing/Ada/SipHash,survived,Hash_64,killed,ok,2,,2,0,yes
+hashing/Ada/Tiger-Hash,survived,Tiger_192,killed,ok,7,,7,0,yes
+hashing/Ada/Zobrist-Hashing,survived,Update_Hash,killed,ok,2,,2,0,yes
+logic/Ada/Automated-Theorem-Proving,survived,Remove_Duplicates,killed,ok,9,,9,0,yes
+logic/Ada/Chaff,survived,Solve,killed,ok,42,Clause_Is_Empty Clause_Is_Conflict Has_Empty_Clause Formula_Has_Conflict Model_Satisfies Watches_Invariant Bump_Clause_Activities Build_Contradictory_Units Build_Empty_Formula,33,0,yes
+logic/Ada/Constraint-Satisfaction,survived,Is_Consistent,killed,ok,33,Empty_Domain,32,0,yes
+logic/Ada/DPLL,survived,Solve,killed,ok,33,,33,0,yes
+logic/Ada/DPLL-Algorithm,survived (without -gnata),Solve_DPLL,killed,ok,9,Negate,8,0,no
+logic/Ada/Davis-Putnam,survived,Solve,killed,ok,36,Build_Empty_Formula Build_Small_3SAT_Sat,34,0,yes
+logic/Ada/Verified-Unification-Engine,survived,Unify,killed,ok,7,,7,0,yes
+matrices/Ada/Chain-Matrix-Multiplication,survived,Matrix_Count_Of,killed,ok,10,,10,0,yes
+matrices/Ada/Eigenvalue-Algorithms,survived,Poisson_Eigenvalue,killed,ok,42,Is_Tridiagonal Is_Diagonal,40,0,yes
+matrices/Ada/Gaussian-Elimination,survived,Solve,killed,ok,28,Is_Square Is_Strictly_Diagonally_Dominant,26,0,yes
+matrices/Ada/Jacobi-Eigenvalue,survived,Poisson_Eigenvalue,killed,ok,32,Mat_Mul Is_Square Orthogonality_Residual Mat_Eigen_Residual,28,0,yes
+matrices/Ada/Matrix-Multiplication,survived,Product_Matrix,killed,ok,48,Is_Square_Int Int_Mat_Equal,46,0,yes
+matrices/Ada/Quantum-Singular-Value-Transformation,survived (without -gnata),Eigenvalue_Transform,killed,ok,9,Simulate_Quantum_Signal_Processing,8,0,no
+matrices/Ada/SMAWK,survived,SMAWK_Row_Minima,killed,ok,19,,19,0,yes
+matrices/Ada/Schonhage-Strassen,survived,Multiply_Schoolbook,killed,ok,17,Zero Equal,15,0,yes
+matrices/Ada/Sparse-Matrix,survived,Sparsity,survived,weak,45,Mat_Near Sparsity Density Sparsity Is_Valid_CSR Is_Valid_CSC,39,0,yes
+matrices/Ada/Strassen,survived,Multiply_Strassen,killed,ok,21,,21,0,yes
+matrices/Ada/Symbolic-Cholesky-Decomposition,survived,Elimination_Game,killed,ok,2,,2,0,yes
+misc/Ada/A-Law-Algorithm,survived,Encode_Discrete,killed,ok,4,,4,0,yes
+misc/Ada/AC-3,survived,Domain_Size,killed,ok,22,Empty_Domain,21,0,yes
+misc/Ada/ACORN-Generator,survived,Next,killed,ok,14,,14,0,yes
+misc/Ada/Adaptive-Additive-Algorithm,survived,AA_Algorithm,killed,ok,6,Gerchberg_Saxton Fixed_Amplitude,4,0,yes
+misc/Ada/Addition-Chain-Exponentiation,survived,Chain_Mul_Count,killed,ok,18,,18,0,yes
+misc/Ada/Adler-32,survived,Calculate_Basic,killed,ok,3,,3,0,yes
+misc/Ada/Aharonov-Jones-Landau-Algorithm,survived (without -gnata),Evaluate_Jones_Polynomial,killed,ok,4,,4,0,no
+misc/Ada/Algorithm-X,survived,Solve,killed,ok,20,Clear,19,0,yes
+misc/Ada/Algorithms-For-Calculating-Variance,survived,Sample_Variance,killed,ok,30,Make_Empty Make_Empty_Weighted Make_Empty_Covariance,27,0,yes
+misc/Ada/Alpha-Beta-Pruning,survived,Alpha_Beta,killed,ok,24,Empty_Board,23,0,yes
+misc/Ada/Alpha-Max-Plus-Beta-Min,survived,Exact_Hypot,killed,ok,13,,13,0,yes
+misc/Ada/Amplitude-Amplification,survived,Standard_Amplification,killed,ok,9,,9,0,yes
+misc/Ada/Ant-Colony-Optimization,survived,Colony_Update,killed,ok,18,Next_Uniform Next_Index,16,0,yes
+misc/Ada/Approximate-Counting,survived,Power_Approximation,killed,ok,14,,14,0,yes
+misc/Ada/Apriori-Algorithm,survived (without -gnata),Find_Frequent_Item_Sets,killed,ok,5,,5,0,no
+misc/Ada/Association-Rule-Learning,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Automated-Planning-And-Scheduling,survived,Schedule_FCFS,killed,ok,4,,4,0,yes
+misc/Ada/Automatic-Train-Operation,survived,Precision_Station_Stop,killed,ok,5,,5,0,yes
+misc/Ada/B-Star,survived,Add_Leaf,killed,ok,12,,12,0,yes
+misc/Ada/BCH-Codes,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/BCJR-Algorithm,survived,Decode,killed,ok,1,,1,0,yes
+misc/Ada/BHT-Algorithm,survived (without -gnata),Simulate_BHT_R_To_1,killed,ok,2,,2,0,no
+misc/Ada/BLAST,survived,Best_HSP,killed,ok,18,,18,0,yes
+misc/Ada/Baby-Step-Giant-Step,survived,Mod_Pow,killed,ok,7,,7,0,yes
+misc/Ada/Backtracking,survived,Count_N_Queens,killed,ok,7,,7,0,yes
+misc/Ada/Backward-Euler,survived (without -gnata),Forward_Euler_Amplification,killed,ok,22,DF_Logistic,21,0,no
+misc/Ada/Backward-Induction,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Baillie-PSW,survived,Is_Baillie_PSW_Prime,killed,ok,9,,9,0,yes
+misc/Ada/Bankers-Algorithm,survived,Initialize_System,stillborn,unchecked (main stillborn),14,Find_Safe_Sequence Is_State_Valid Can_Process_Finish Handle_Request_Preemptive Add_Process Handle_Request,6,2,yes
+misc/Ada/Banzhaf-Power-Index,survived,Normalized_Banzhaf,survived,weak,47,Is_Critical Is_Critical Absolute_Banzhaf Normalized_Banzhaf Is_Normalized,42,0,yes
+misc/Ada/Barnes-Hut,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Baum-Welch,survived (without -gnata),Baum_Welch_Fit,stillborn,unchecked (main stillborn),19,Max_Abs_Emit,13,5,no
+misc/Ada/Bayesian-Nash-Equilibrium,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Bayesian-Statistics,survived (without -gnata),Bayes_Factor,killed,ok,24,Seed_RNG,23,0,no
+misc/Ada/Beam-Tracing,survived (without -gnata),Construct_Viewing_Beam,killed,ok,21,,21,0,no
+misc/Ada/Bees-Algorithm,survived,Sphere,killed,ok,16,,16,0,yes
+misc/Ada/Beginner-Embedded-API,survived,Digital_Write,killed,ok,5,,5,0,yes
+misc/Ada/Bensons-Algorithm,survived,Solve_Biobjective,killed,ok,17,Is_Optimal_LP,16,0,yes
+misc/Ada/Bentley-Ottmann,survived,Find_Intersections,killed,ok,18,Empty_Intersection_List,17,0,yes
+misc/Ada/Berkeley-Algorithm,survived,Calculate_Offsets,killed,ok,2,,2,0,yes
+misc/Ada/Bernstein-Varizani-Algorithm,survived,From_String,killed,ok,6,,5,1,yes
+misc/Ada/Best-Bin-First,survived (without -gnata),Distance2,killed,ok,26,Empty_Heap,25,0,no
+misc/Ada/Binary-Space-Partitioning,survived,Make_Rect_Polygon,killed,ok,31,Make_Plane_From_Polygon,30,0,yes
+misc/Ada/Binary-Splitting,survived (without -gnata),Binary_Split,killed,ok,11,,11,0,no
+misc/Ada/Birkhoff-von-Neumann,survived,Birkhoff_Decomposition,killed,ok,29,,29,0,yes
+misc/Ada/Bitap-Algorithm,survived,Find_Approx,killed,ok,3,,3,0,yes
+misc/Ada/Black-Scholes-Model,survived,Call_Delta,killed,ok,10,,10,0,yes
+misc/Ada/Blind-Deconvolution,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Block-Nested-Loop,survived,Block_Nested_Loop_Join,killed,ok,2,,2,0,yes
+misc/Ada/Block-Truncation-Coding,survived,Encode_Block,killed,ok,4,,4,0,yes
+misc/Ada/Blossom-Algorithm,survived,Add_Edge,killed,ok,9,,9,0,yes
+misc/Ada/Blum-Blum-Shub,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Booth-Multiplication,survived,Multiply_Booth,killed,ok,8,,8,0,yes
+misc/Ada/Bootstrap-Aggregating,survived (without -gnata),Generate_Bootstrap_Sample,killed,ok,7,,7,0,no
+misc/Ada/Boson-Sampling,survived,Standard_Boson_Sampling_Probability,killed,ok,10,,10,0,yes
+misc/Ada/Boundary-Representation,survived (without -gnata),Active_Edges,killed,ok,16,Are_Connected,15,0,no
+misc/Ada/Bowyer-Watson,survived,Triangle_Count_Of,killed,ok,15,Is_Delaunay_Edge_Empty,14,0,yes
+misc/Ada/Branch-and-Bound,survived (without -gnata),Fractional_Bound,killed,ok,11,,11,0,no
+misc/Ada/Branch-and-Cut,survived,Solve,killed,ok,18,Active_Obj_Row,17,0,yes
+misc/Ada/Bron-Kerbosch,survived,Add_Edge,killed,ok,10,,10,0,yes
+misc/Ada/Buchbergers-Algorithm,survived,Normal_Form,killed,ok,25,Equal Equal,23,0,yes
+misc/Ada/Buddy-Memory-Allocation,survived,Allocate,killed,ok,3,,3,0,yes
+misc/Ada/Buechi-Automaton,survived (without -gnata),Add_NBA_Trans,killed,ok,10,,10,0,no
+misc/Ada/Bully-Algorithm,survived,Get_Coordinator,killed,ok,4,,4,0,yes
+misc/Ada/Buzens-Algorithm,survived (without -gnata),Compute_G,killed,ok,11,,11,0,no
+misc/Ada/C4.5-Algorithm,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/CHS-Conversion,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Cannons-Algorithm,survived,Multiply_Cannon,killed,ok,19,,19,0,yes
+misc/Ada/Chaitins-Algorithm,survived,Basic_Chaitin_Allocate,killed,ok,4,,4,0,yes
+misc/Ada/Chandra-Toueg,survived,Suspect,killed,ok,9,,9,0,yes
+misc/Ada/Chans-Algorithm,survived,Convex_Hull,killed,ok,15,,15,0,yes
+misc/Ada/Chase,survived,Standard_Chase,killed,ok,13,Validate_Decomposition,12,0,yes
+misc/Ada/Cheneys-Algorithm,survived,Allocate,survived,weak,11,Initialize Allocate Collect Get_Node Get_Free_Pointer Get_From_Space_ID,5,0,yes
+misc/Ada/Chews-Second-Algorithm,survived,Triangle_Count_Of,killed,ok,28,Is_Delaunay_Edge_Empty Get_Point,26,0,yes
+misc/Ada/Chinese-Whispers,survived,Run_Chinese_Whispers,stillborn,unchecked (main stillborn),15,,13,2,yes
+misc/Ada/Christofides-Algorithm,survived,Put_Symmetric,killed,ok,14,,14,0,yes
+misc/Ada/Code-Excited-Linear-Prediction,survived,Generate_Fixed_Codebook,killed,ok,5,Compute_MSE Decode,3,0,yes
+misc/Ada/Collision-Detection,survived,Find_Colliding_AABBs,killed,ok,25,Empty_Pair_List,24,0,yes
+misc/Ada/Coloring-Algorithm,survived,Greedy_Color,killed,ok,11,,11,0,yes
+misc/Ada/Combinatorial-Auction,survived,Empty_Auction,killed,ok,26,,26,0,yes
+misc/Ada/Combinatorial-Optimization,survived,Classify_Method,killed,ok,22,,22,0,yes
+misc/Ada/Communications-Based-Train-Control,survived,ATO_Command,killed,ok,6,,6,0,yes
+misc/Ada/Computation-Of-Pi,survived,Abs_Error,killed,ok,15,,15,0,yes
+misc/Ada/Computer-Vision,survived (without -gnata),Convolve,killed,ok,6,,6,0,no
+misc/Ada/Computus,survived,Gregorian_Easter,killed,ok,17,Same_Date,16,0,yes
+misc/Ada/Cone-Algorithm,survived,Count_Surface,killed,ok,18,Near_Point,17,0,yes
+misc/Ada/Cone-Tracing,survived (without -gnata),Construct_Circular_Cone,killed,ok,18,,18,0,no
+misc/Ada/Conflict-Driven-Clause-Learning,survived,Add_Clause,killed,ok,6,,6,0,yes
+misc/Ada/Congruence-Of-Squares,survived,Factor_From_Congruence,killed,ok,15,,15,0,yes
+misc/Ada/Connected-Component-Labeling,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Constraint-Algorithm,survived,Constraint_Dot,killed,ok,23,Default_Config Velocity_Violation_Max Linear_Momentum,20,0,yes
+misc/Ada/Contour-Lines,survived (without -gnata),Closest_Contour_Label,killed,ok,33,Empty_Polyline Empty_Contour_Map Empty_Profile,30,0,no
+misc/Ada/Coppersmith-Winograd,survived,Estimated_Ops,killed,ok,32,,32,0,yes
+misc/Ada/Core,survived,Miners_Core_Point,killed,ok,38,Additive_Core_Point Is_Imputation Is_In_Core Coalition_Excess,34,0,yes
+misc/Ada/Corporate-Wars-Sim,survived,Set_Bucket,killed,ok,18,Research_From_Steady_Only Empty Facing_Down,15,0,yes
+misc/Ada/Correlated-Equilibrium,survived,Is_Correlated_Equilibrium,killed,ok,39,,22,17,yes
+misc/Ada/Crank-Nicolson,survived (without -gnata),Max_Error,killed,ok,13,Amplification_Bounded,12,0,no
+misc/Ada/Cristians-Algorithm,survived,Calculate_Error_Bound,killed,ok,5,,5,0,yes
+misc/Ada/Cross-Entropy-Method,survived (without -gnata),Seed_RNG,killed,ok,26,Next_Uniform Sample_Bernoulli_Bits,24,0,no
+misc/Ada/Cuthill-McKee,survived,Cuthill_Mckee_Order,killed,ok,27,Is_Symmetric_Pattern Forthcoming,25,0,yes
+misc/Ada/Cutting-Plane-Method,survived (without -gnata),Solve_ILP_Cutting_Planes,killed,ok,19,,19,0,no
+misc/Ada/Cyclic-Redundancy-Check,survived,Compute_Bit_By_Bit,killed,ok,5,,5,0,yes
+misc/Ada/Cyrus-Beck,survived,Cyrus_Beck_Clip,killed,ok,27,Same_Clipped_Segment Is_Valid_Window,25,0,yes
+misc/Ada/D-Star,survived,Start_Point,survived,weak,18,Start_Point Update_Cell_Cost,16,0,yes
+misc/Ada/DDA-Line-Algorithm,survived,Compute_Line_Float_DDA,stillborn,unchecked (main stillborn),3,,1,2,yes
+misc/Ada/DSA,survived (without -gnata),Sign_Standard,killed,ok,6,,6,0,no
+misc/Ada/Damm-Algorithm,survived,Calculate_Check_Digit_Str,killed,ok,5,,5,0,yes
+misc/Ada/Dancing-Links,survived,Solve,killed,ok,19,Clear,18,0,yes
+misc/Ada/Dantzig-Wolfe-Decomposition,survived,Solve,killed,ok,26,Clear_Pool,25,0,yes
+misc/Ada/Darwin-Godel-Machine,survived,Create_Agent,killed,ok,7,Is_Valid_Transition,6,0,yes
+misc/Ada/Data-Flow-Analysis,survived,Add_Edge,killed,ok,8,,8,0,yes
+misc/Ada/De-Boor,survived,Make_Point,killed,ok,40,Near Near Sub Domain_Low,36,0,yes
+misc/Ada/De-Casteljau,survived,Evaluate,killed,ok,38,Near Near,36,0,yes
+misc/Ada/Delayed-Column-Generation,survived,Add_Column,killed,ok,20,Clear_Pool,19,0,yes
+misc/Ada/Delivery-Mission-FSM,,,,no tests,0,,0,0,
+misc/Ada/Delivery-Safety-Supervisor,,,,no tests,0,,0,0,
+misc/Ada/Delta-Encoding,survived,Encode_Integer_Delta,killed,ok,4,,4,0,yes
+misc/Ada/Demon-Method,survived,Demon_Sweep,killed,ok,25,Temperature_From_Mean_Demon,24,0,yes
+misc/Ada/Description-Logic,survived,Add_Atomic,killed,ok,14,,14,0,yes
+misc/Ada/Deutsch-Josza-Algorithm,survived (without -gnata),Solve_Deutsch_Jozsa,killed,ok,5,,5,0,no
+misc/Ada/Dice-Coefficient,survived,Coefficient,killed,ok,4,,4,0,yes
+misc/Ada/Dictionary-Coder,survived,Add_To_Dictionary,killed,ok,5,,5,0,yes
+misc/Ada/Difference-Map,survived (without -gnata),Iterate_Difference_Map,killed,ok,33,Feasible_Candidate Averaged_Projections_Step,31,0,no
+misc/Ada/Differential-Evolution,survived (without -gnata),Sphere,killed,ok,23,Maximize Optimize,21,0,no
+misc/Ada/Diffie-Hellman-Key-Exchange,survived (without -gnata),Generate_Public_Key,killed,ok,3,,3,0,no
+misc/Ada/Discrete-Event-Simulation,survived (without -gnata),Pending_Events,killed,ok,9,,9,0,no
+misc/Ada/Discrete-Fourier-Transformation,survived,Forward_DFT,killed,ok,6,,6,0,yes
+misc/Ada/Discrete-Logarithm,survived,Discrete_Log,killed,ok,12,,12,0,yes
+misc/Ada/Division-Algorithms,survived,Divide_Oracle,killed,ok,26,Is_Slow Is_Fast Zero,23,0,yes
+misc/Ada/Doomsday,survived,Year_Doomsday,killed,ok,7,,7,0,yes
+misc/Ada/Double-Dabble,survived,To_BCD,killed,ok,9,,9,0,yes
+misc/Ada/Dynamic-Programming,survived,Fibonacci,killed,ok,19,Uses_Optimal_Substructure Uses_Overlapping_Subproblems,17,0,yes
+misc/Ada/Dynamic-Time-Warping,survived,Distance,killed,ok,3,,3,0,yes
+misc/Ada/EIGamal,survived,Encrypt,killed,ok,9,,9,0,yes
+misc/Ada/ESC-Algorithm,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Eclat-Algorithm,survived,Add_Item_TID,killed,ok,5,,5,0,yes
+misc/Ada/EdDSA,survived,Point_Add,killed,ok,11,,11,0,yes
+misc/Ada/Edmonds-Algorithm,survived,Edmonds,killed,ok,8,,8,0,yes
+misc/Ada/Elevator-Algorithm,,,,no tests,0,,0,0,
+misc/Ada/Elias-Delta-Coding,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Elias-Gamma-Coding,survived,To_Stream,killed,ok,8,Decode_Non_Negative,7,0,yes
+misc/Ada/Elias-Omega-Coding,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Ellipsoid-Method,survived,Feasibility_Ellipsoid,killed,ok,33,Mat_Mul Is_Feasible,31,0,yes
+misc/Ada/Elser-Difference-Map-Algorithm,survived,Solve,survived,weak,5,Norm Standard_Step Douglas_Rachford_Step Alternating_Projections_Step Solve,0,0,yes
+misc/Ada/Entropy-Coding,survived,Generate_Frequencies,killed,ok,6,,6,0,yes
+misc/Ada/Entropy-Coding-With-Known-Entropy-Characteristics,stillborn,,,baseline does not build,0,,0,0,yes
+misc/Ada/Error-Diffusion,survived,Apply_Diffusion,killed,ok,9,,9,0,yes
+misc/Ada/Espresso-Heuristic-Logic-Minimizer,survived (without -gnata),Minimize_Iterative,killed,ok,10,,10,0,no
+misc/Ada/Estimation-Theory,survived (without -gnata),Variance_Of_Estimator,killed,ok,25,,25,0,no
+misc/Ada/Euclidean-Distance-Transform,survived,Distance_At,killed,ok,11,,11,0,yes
+misc/Ada/Euler-Integration,survived,Integrate,killed,ok,13,,13,0,yes
+misc/Ada/Evolution-Strategy,survived,Sphere,killed,ok,20,Next_Uniform Next_Natural,18,0,yes
+misc/Ada/Evolutionary-Computation,survived,Seed_RNG,survived,weak,40,Seed_RNG Normalised_Diversity Mutate_Gaussian,37,0,yes
+misc/Ada/Exact-Cover,survived,Count_Covers,killed,ok,28,,28,0,yes
+misc/Ada/Exponential-Backoff,survived,Deterministic_Backoff,killed,ok,10,Validate_Config Random_Delay Randomized_Backoff,7,0,yes
+misc/Ada/Exponential-Golomb-Coding,survived,Encode_Order_0_Unsigned,killed,ok,8,,8,0,yes
+misc/Ada/Exponentiating-By-Squaring,survived,Power_Iterative,killed,ok,16,,16,0,yes
+misc/Ada/FP-Growth-Algorithm,survived,Mine_Frequent_Itemsets,killed,ok,3,,3,0,yes
+misc/Ada/False-Nearest-Neighbor,survived (without -gnata),False_Neighbor_Fraction,killed,ok,10,,10,0,no
+misc/Ada/False-Position-Method,survived,Always_Positive,killed,ok,22,Flat_Zero,21,0,yes
+misc/Ada/Fast-Cosine-Transform-Algorithms,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Fast-Folding-Algorithm,survived,Constant_Period_Fold,killed,ok,2,,2,0,yes
+misc/Ada/Fast-Multipole-Method,survived,Evaluate_Multipole,killed,ok,21,Zero_Multipole Moment_Re Moment_Im Default_Config Max_Abs_Error,16,0,yes
+misc/Ada/Faugere-F4,survived,Normal_Form,killed,ok,24,Equal,23,0,yes
+misc/Ada/Featherstone,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Feature-Detection,survived,Detect_Edges,killed,ok,4,,4,0,yes
+misc/Ada/Fermat-Factorization,survived,Factor,killed,ok,6,,6,0,yes
+misc/Ada/Fibonacci-Coding,survived,Decode_Fibonacci,killed,ok,4,,4,0,yes
+misc/Ada/Fictitious-Play,survived,Simultaneous_Play,killed,ok,6,Alternating_Play Smoothed_Play,4,0,yes
+misc/Ada/Filtered-Back-Projection,survived,Forward_Project,killed,ok,21,,21,0,yes
+misc/Ada/Financial-Information-Exchange,survived,Get_Field,killed,ok,11,Empty_Message,10,0,yes
+misc/Ada/Financial-Risk-Modeling,survived (without -gnata),Historical_VaR,killed,ok,8,,8,0,no
+misc/Ada/Finite-Difference-Method,survived (without -gnata),Diff_Forward,killed,ok,14,,14,0,no
+misc/Ada/First-Order-Logic,survived,Make_Predicate,killed,ok,19,,19,0,yes
+misc/Ada/Fisher-Yates-Shuffle,survived,Shuffle,killed,ok,3,,3,0,yes
+misc/Ada/Fitness-Proportionate-Selection,survived,Selection_Probability,killed,ok,21,Default_Config Seed_RNG,19,0,yes
+misc/Ada/Fletchers-Checksum,survived,Fletcher_16_Naive,killed,ok,5,,5,0,yes
+misc/Ada/Flood-Fill,survived,Flood_Fill_Recursive_4,killed,ok,16,Validate_Start,15,0,yes
+misc/Ada/Flow-Networks,survived,Max_Flow,killed,ok,18,,18,0,yes
+misc/Ada/Force-Based-Algorithms,survived,Compute,killed,ok,11,Is_Finite,10,0,yes
+misc/Ada/Fortunes-Algorithm,survived,Distance,killed,ok,5,,5,0,yes
+misc/Ada/Forward-Error-Correction,survived,Hamming_74_Decode,killed,ok,8,,8,0,yes
+misc/Ada/Foundations-Curriculum,survived,Round,killed,ok,7,Strict_Cuboid_Volume,6,0,yes
+misc/Ada/Fowler-Noll-Vo,survived,Hash_FNV1_32,killed,ok,4,Hash_FNV1a_64,3,0,yes
+misc/Ada/Frank-Wolfe-Algorithm,survived,LMO_Simplex,killed,ok,31,Set_L1_Radius,30,0,yes
+misc/Ada/Freivalds,survived,Verify,killed,ok,24,Matrices_Equal,23,0,yes
+misc/Ada/Fuzzy-C-Means,survived (without -gnata),Run_Fuzzy_C_Means,stillborn,unchecked (main stillborn),15,,14,1,no
+misc/Ada/GNAT-Studio-Notes,survived,Abs_Diff,killed,ok,1,,1,0,yes
+misc/Ada/GPU-Work-Queue,survived,Submit,killed,ok,5,Create,4,0,yes
+misc/Ada/GRASP,survived,Grasp_Knapsack,killed,ok,22,Next_Unit,21,0,yes
+misc/Ada/Gale-Shapley-Algorithm,survived,Solve,killed,ok,20,Proposer_Of,19,0,yes
+misc/Ada/Gauss-Jordan,survived,Solve,killed,ok,31,Mat_Near Is_Square Is_Strictly_Diagonally_Dominant Inverse_Residual_Max_Abs,27,0,yes
+misc/Ada/Gauss-Seidel,survived,Solve,killed,ok,18,,18,0,yes
+misc/Ada/Gene-Expression-Programming,survived (without -gnata),Make_Gene,killed,ok,26,Seed_RNG Mutate Transpose_Stub,23,0,no
+misc/Ada/General-Problem-Solver,survived,Solve,killed,ok,24,Clear_Bit,23,0,yes
+misc/Ada/Generational-Garbage-Collector,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Genetic-Algorithms,survived,Seed_RNG,killed,ok,32,Crossover,31,0,yes
+misc/Ada/Gerchberg-Saxton-Algorithm,survived,Standard_GS,killed,ok,4,,4,0,yes
+misc/Ada/Gibbs-Sampling,survived,Sample_Bivariate_Normal,killed,ok,9,,9,0,yes
+misc/Ada/Gilbert-Johnson-Keerthi,survived,Distance,killed,ok,28,Is_CCW,27,0,yes
+misc/Ada/Glauber-Dynamics,survived,Glauber_Sweep,killed,ok,29,Metropolis_Sweep,28,0,yes
+misc/Ada/Global-Illumination,survived (without -gnata),Direct_Illumination,killed,ok,26,Empty_Patch_Set Empty_Occluders,24,0,no
+misc/Ada/Goertzel-Algorithm,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Goldschmidt-Division,survived,Divide_Goldschmidt_Detail,killed,ok,6,,6,0,yes
+misc/Ada/Golomb-Coding,survived,Decode_Golomb_Exact,killed,ok,7,,7,0,yes
+misc/Ada/Gospers-Algorithm,survived,Try_Gosper_Sum,killed,ok,30,Equal Trim Equal Verify_Telescoping,26,0,yes
+misc/Ada/Gram-Schmidt,survived,Modified_GS,killed,ok,24,Orthonormality_Residual Is_Orthonormal,22,0,yes
+misc/Ada/Gray-Code,survived,Binary_To_Gray,killed,ok,8,,8,0,yes
+misc/Ada/Ground-State,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Grovers-Algorithm,survived,Standard_Grover_Search,killed,ok,10,Oracle_None Multi_Solution_Grover_Search,8,0,yes
+misc/Ada/GrowCut,survived,Run_Synchronous_Iteration,killed,ok,3,,3,0,yes
+misc/Ada/HHL-Algorithm,survived (without -gnata),Validate_Hhl_Inputs,killed,ok,5,Estimate_Quadratic_Form,4,0,no
+misc/Ada/Hadamard-Test,survived,Estimate_Real_Part,killed,ok,6,Estimate_Imaginary_Part,5,0,yes
+misc/Ada/Hadamard-Transform,survived (without -gnata),Fast_Walsh_Hadamard_Transform,killed,ok,5,,5,0,no
+misc/Ada/Half-Toning,survived,Floyd_Steinberg_Dither,killed,ok,3,,3,0,yes
+misc/Ada/Halleys-Method,survived,Find_Root,killed,ok,48,Poly_Linear_Second Sin_Fn_Second Atan_Shift_Second Steep_Exp_Second Constant_One_Prime Constant_One_Second,42,0,yes
+misc/Ada/Hamiltonian-Simulation,survived,Simulate_Trotter_1st,killed,ok,5,,5,0,yes
+misc/Ada/Hamming-7-4,survived,Encode,killed,ok,3,,3,0,yes
+misc/Ada/Hamming-Code,survived,Decode,killed,ok,8,,8,0,yes
+misc/Ada/Hamming-Weight,survived,Naive_Count,killed,ok,5,,5,0,yes
+misc/Ada/Heaps-Algorithm,survived,Factorial,killed,ok,5,,5,0,yes
+misc/Ada/Hidden-Linear-Function-Problem,survived (without -gnata),Find_Hidden_Vector,killed,ok,6,,6,0,no
+misc/Ada/Hidden-Shift-Problem,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Hidden-Subgroup-Problem,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Hidden-Surface-Removal,survived,Clear_Buffers,killed,ok,14,,14,0,yes
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,survived,Type_To_String,killed,ok,15,Apply_Subst_Env,14,0,yes
+misc/Ada/Hindley-Milner-Type-System,survived,Make_Var_Type,killed,ok,18,Make_Let_Expr Free_Type_Vars Free_Type_Vars Apply Apply,13,0,yes
+misc/Ada/Hirschbergs-Algorithm,survived,Best_Score,killed,ok,4,,4,0,yes
+misc/Ada/Hopcroft-Karp-Algorithm,survived,Add_Edge,killed,ok,10,,10,0,yes
+misc/Ada/Hopcrofts-Algorithm,survived,Minimize_Hopcroft,killed,ok,5,,5,0,yes
+misc/Ada/Hopfield-Net,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Huangs-Algorithm,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Hybrid-Algorithms,survived,Hybrid_Name,killed,ok,34,Seed_RNG Next_Unit Next_Natural Implemented Forthcoming Is_Feasible,28,0,yes
+misc/Ada/ID3-Algorithm,survived (without -gnata),Build_Tree,killed,ok,6,,6,0,no
+misc/Ada/ITP-Method,survived,Find_Root,killed,ok,22,Flat_Zero,21,0,yes
+misc/Ada/Image-Based-Lighting,survived (without -gnata),Normalize,killed,ok,15,Evaluate_Mirror_Reflection Evaluate_Prefiltered_Specular Sample_BRDF_LUT,11,1,no
+misc/Ada/Incremental-Encoding,survived,Encode,killed,ok,2,,2,0,yes
+misc/Ada/Index-Calculus,survived,Discrete_Log_Index_Calculus,killed,ok,14,,14,0,yes
+misc/Ada/Inside-Out-Algorithm,survived,Compute_Inside,killed,ok,5,,5,0,yes
+misc/Ada/Integer-Factorization,survived,Factor_From_Congruence,killed,ok,19,Squares_Congruent,18,0,yes
+misc/Ada/Integer-Linear-Programming,survived,Integrality_Gap,killed,ok,33,Is_Optimal_LP,32,0,yes
+misc/Ada/Intersection-Algorithm,survived,Find_Intersection,killed,ok,2,,2,0,yes
+misc/Ada/Inverse-Iteration,survived,Iterate,killed,ok,26,Is_Square,25,0,yes
+misc/Ada/Johnsons-Algorithm,survived,Johnson,survived,weak,14,Johnson,13,0,yes
+misc/Ada/Jump-And-Walk,survived,Walk_From,killed,ok,16,,16,0,yes
+misc/Ada/K-Nearest-Neighbours,survived (without -gnata),Predict_Classification,killed,ok,4,,4,0,no
+misc/Ada/K-Way-Merge,survived,Merge,killed,ok,4,,4,0,yes
+misc/Ada/Kabsch,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Kadanes-Algorithm,survived,Max_Subarray_Sum,killed,ok,4,,4,0,yes
+misc/Ada/Kahan-Summation,survived,Sum_Kahan,killed,ok,17,Make_Empty Compensation,15,0,yes
+misc/Ada/Kalman-Filter,survived (without -gnata),Filter_Step,killed,ok,17,Predict,16,0,no
+misc/Ada/Kargers-Algorithm,survived,Add_Edge,killed,ok,7,,7,0,yes
+misc/Ada/Karmarkars-Algorithm,survived,Solve,killed,ok,25,,25,0,yes
+misc/Ada/Karn-Algorithm,survived,Simulate_Karns_Algorithm,killed,ok,12,Initialize_RTT_Data,11,0,yes
+misc/Ada/Key-Derivation-Function,survived (without -gnata),To_Bytes,killed,ok,8,,8,0,no
+misc/Ada/Key-Exchange,survived,DH_Validate_Public_Key,killed,ok,14,Shamir_Pass_2 Shamir_Final_Decrypt,12,0,yes
+misc/Ada/Knuth-Bendix-Completion,survived,Complete,stillborn,unchecked (main stillborn),18,,17,1,yes
+misc/Ada/Krauss-Matching-Wildcards,survived,Match,killed,ok,1,,1,0,yes
+misc/Ada/Lagged-Fibonacci-Generator,survived,Next,killed,ok,22,,22,0,yes
+misc/Ada/Laplacian-Smoothing,survived,Smooth_Once,killed,ok,16,Empty_Adjacency,15,0,yes
+misc/Ada/Lax-Wendroff,survived,Mass,killed,ok,27,Max_Error,26,0,yes
+misc/Ada/Lemke-Howson,survived,Solve,stillborn,unchecked (main stillborn),1,,0,1,yes
+misc/Ada/Lempel-Ziv-Jeff-Bonwick,survived,Decompress,killed,ok,2,,2,0,yes
+misc/Ada/Lempel-Ziv-Markov-Chain-Algorithm,survived,Update_State,killed,ok,3,,2,1,yes
+misc/Ada/Lempel-Ziv-Oberhurmer,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Lempel-Ziv-Ross-Williams,survived,Compress,killed,ok,2,,2,0,yes
+misc/Ada/Lempel-Ziv-Stac,survived,Compress,killed,ok,2,,2,0,yes
+misc/Ada/Lempel-Ziv-Storer-Szymanski,survived,Compress,killed,ok,4,,4,0,yes
+misc/Ada/Lempel-Ziv-Welch,survived,Compress,killed,ok,2,,2,0,yes
+misc/Ada/Lenstra-Lenstra-Lovasz,survived,Satisfies_Lovasz,survived,weak,23,Dot Norm2 Euclidean_Norm Make_Vector Copy_Basis Is_Size_Reduced Satisfies_Lovasz Is_LLL_Reduced,15,0,yes
+misc/Ada/Lesk,survived,Simplified_Lesk,killed,ok,37,Empty_Tokens Empty_Stopwords,35,0,yes
+misc/Ada/Level-Set-Method,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Levinson-Recursion,survived,Solve_Levinson,killed,ok,16,Zero_Vector Residual_Norm Residual_Max_Abs,13,0,yes
+misc/Ada/Lexical-Analysis,survived,Next_Token,killed,ok,6,,6,0,yes
+misc/Ada/Linde-Buzo-Gray,survived (without -gnata),Distortion,killed,ok,15,,13,2,no
+misc/Ada/Linde-Buzo-Gray-Algorithm,survived,Average_Distortion,killed,ok,4,,4,0,yes
+misc/Ada/Line-Drawing,survived,Bresenham_Line,killed,ok,8,,8,0,yes
+misc/Ada/Linear-Feedback-Shift-Register,survived,Parity,killed,ok,6,,6,0,yes
+misc/Ada/Linear-Multistep-Methods,survived,Method_Name,killed,ok,33,Characteristic_Polynomial_Roots_OK DF_Decay_2 DF_Logistic,30,0,yes
+misc/Ada/Linear-Predictive-Coding,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Linear-Programming,survived,Maximize,killed,ok,34,,34,0,yes
+misc/Ada/List-Scheduling,,,,no tests,0,,0,0,
+misc/Ada/Locomotion-Mode-Interlock,,,,no tests,0,,0,0,
+misc/Ada/Long-Division,survived,From_Long_Integer,killed,ok,23,Zero Equal,21,0,yes
+misc/Ada/Longest-Increasing-Subsequence,survived,Length_DP,killed,ok,3,,3,0,yes
+misc/Ada/Longest-Path-Problem,survived,Exact_Simple_Path,killed,ok,14,,14,0,yes
+misc/Ada/Longitudinal-Redundacy-Check,survived,Calculate_XOR_LRC,killed,ok,5,Verify_Modbus_LRC,4,0,yes
+misc/Ada/Luhn-Algorithm,survived,Calculate_Check_Digit,killed,ok,3,,3,0,yes
+misc/Ada/Luhn-Mod-N-Algorithm,survived,Create_Codec,killed,ok,4,,4,0,yes
+misc/Ada/Luleas-Algorithm,stillborn,,,baseline does not build,0,,0,0,yes
+misc/Ada/Maekawas-Algorithm,survived,Request_CS,killed,ok,7,Check_Intersection,6,0,yes
+misc/Ada/Manning-Criteria,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Marching-Squares,survived (without -gnata),March_Grid_Isolines,killed,ok,24,Dot Empty_Polyline Empty_Band_List,21,0,no
+misc/Ada/Marching-Tetrahedrons,survived (without -gnata),Triangulate_Tetrahedron,killed,ok,22,Empty_Mesh,21,0,no
+misc/Ada/Marching-Triangles,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Mark-Compact-Algorithm,survived,Mark,killed,ok,5,,5,0,yes
+misc/Ada/Mark-and-Sweep,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Marr-Hildreth-Algorithm,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Marzullos-Algorithm,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Match-Rating-Approach,survived,Minimum_Rating,killed,ok,4,,4,0,yes
+misc/Ada/Matching-Wildcards,survived,Match,killed,ok,5,,5,0,yes
+misc/Ada/Maximum-Parsimony,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Mechanistic-Interpretability,survived,Activation_Patch,killed,ok,8,,8,0,yes
+misc/Ada/Median-Filtering,survived,Process_1D,killed,ok,2,,2,0,yes
+misc/Ada/Memetic-Algorithm,survived,Seed_RNG,killed,ok,32,One_Point_Crossover Is_Valid_Tour Order_Crossover Local_Improve_TSP,28,0,yes
+misc/Ada/Memory-Channel-Model,survived,Open_Row,killed,ok,6,Create,5,0,yes
+misc/Ada/Message-Authentication-Codes,survived,HMAC,killed,ok,5,,5,0,yes
+misc/Ada/Midpoint-Circle-Algorithm,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Min-Conflicts,survived,Variable_Conflicts,killed,ok,18,,18,0,yes
+misc/Ada/Minimax,survived,Minimax,killed,ok,27,Empty_Board,26,0,yes
+misc/Ada/Minimum-Bounding-Box,survived,Min_Area_Oriented_Box,killed,ok,21,OBB_Angle,20,0,yes
+misc/Ada/Minimum-Degree,survived,Degree,killed,ok,25,Is_Symmetric_Pattern,24,0,yes
+misc/Ada/Mirror-Descent,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Modular-Square-Root,survived,Combine_Roots_CRT,killed,ok,16,,16,0,yes
+misc/Ada/Montgomery-Reduction,survived (without -gnata),To_Montgomery,killed,ok,15,,15,0,no
+misc/Ada/Moores-Algorithm,survived,Minimize_Moore,killed,ok,2,,2,0,yes
+misc/Ada/Mu-Law-Algorithm,survived,Encode_Continuous,killed,ok,4,,4,0,yes
+misc/Ada/Mullers-Method,survived,Find_Root,survived,weak,20,Find_Root Constant_Zero,18,0,yes
+misc/Ada/Multigrid-Methods,survived (without -gnata),Residual_L2,killed,ok,20,Max_Error,19,0,no
+misc/Ada/Multiplication-Algorithms,survived,Multiply_Peasant,killed,ok,26,Zero Equal Products_Agree_Schoolbook_Karatsuba Products_Agree_Schoolbook_Lattice Products_Agree_Schoolbook_Peasant,21,0,yes
+misc/Ada/Multiplicative-Inverse-Algorithms,survived,Inverse_Mod_EEA,killed,ok,15,Near,14,0,yes
+misc/Ada/Multiplicative-Weight-Update-Method,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Multivariate-Division-Algorithm,survived,Divide,killed,ok,23,Equal Scale,21,0,yes
+misc/Ada/N-Body-Problems,survived,Total_Energy,killed,ok,30,Default_Config Force_Sum,28,0,yes
+misc/Ada/NEF-Adaptive-OSC,survived,Position,killed,ok,12,Create Weight_Max_Abs,10,0,yes
+misc/Ada/NEF-Neurorobotics-Core,survived,Acceleration,killed,ok,12,Create Voltage LIF_Rates Is_Fitted Eval_Error,7,0,yes
+misc/Ada/Nagles-Algorithm,survived,Original_Nagle,survived,weak,7,Free_Packet Has_Enough_Data Merge_Packets Original_Nagle Minshall_Nagle No_Nagle Simulate_Delayed_ACK,0,0,yes
+misc/Ada/Naimi-Trehel,survived,Request_Critical_Section,killed,ok,8,,8,0,yes
+misc/Ada/Nearest-Neighbor-Algorithm,survived,Put_Distance,killed,ok,11,,11,0,yes
+misc/Ada/Nelder-Mead,survived,Sphere,killed,ok,23,,23,0,yes
+misc/Ada/Nested-Loop-Join,stillborn,,,baseline does not build,0,,0,0,yes
+misc/Ada/Nested-Sampling,survived,Run_Nested_Sampling,killed,ok,24,,24,0,yes
+misc/Ada/Nesting-Algorithm,survived,Nest_2D_Shelf,killed,ok,7,,7,0,yes
+misc/Ada/Newton-Multiplicative-Inverse,survived,Reciprocal_Newton,killed,ok,9,,9,0,yes
+misc/Ada/Newtons-Method,survived,Find_Root,killed,ok,34,Atan_Shift_Prime Constant_One_Prime,32,0,yes
+misc/Ada/Newtons-Method-in-Optimization,survived,Newton_Direction,killed,ok,41,Shifted_Sphere,40,0,yes
+misc/Ada/Nicholl-Lee-Nicholl,survived,Nicholl_Lee_Nicholl_Clip,killed,ok,19,Dot Region_Is_Edge,17,0,yes
+misc/Ada/Non-Local-Quantum-Computation,survived (without -gnata),T_Gate_Bound,killed,ok,5,,5,0,no
+misc/Ada/Non-Restoring-Division,survived,Divide_Non_Restoring,killed,ok,8,,8,0,yes
+misc/Ada/Nonblocking-Minimal-Spanning-Switch,survived,Empty_Fabric_Is_Fully_Nonblocking,killed,ok,16,All_Free_Permutations_Routable_Without_Rearrange,15,0,yes
+misc/Ada/Nonlinear-Optimization,survived,Sphere,killed,ok,39,Mat_Vec,38,0,yes
+misc/Ada/Nth-Root,survived,Root_Newton,killed,ok,9,,9,0,yes
+misc/Ada/Nucleolus,survived,Find_Nucleolus,killed,ok,45,Is_Efficient Is_Individually_Rational Additive_Nucleolus Is_Imputation Excess,40,0,yes
+misc/Ada/Odds-Algorithm,survived (without -gnata),Odds,killed,ok,8,,8,0,no
+misc/Ada/Odlyzko-Schonhage,survived,Odlyzko_Schonhage_Sketch,killed,ok,15,,15,0,yes
+misc/Ada/One-Attribute-Rule,survived,Predict_Robust,killed,ok,4,,2,2,yes
+misc/Ada/Operations-Research,survived,Maximize,killed,ok,2,,2,0,yes
+misc/Ada/Orbital-Mechanics,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Ordered-Subset-EM,survived (without -gnata),Make_Ordered_Subsets,killed,ok,24,KL_Divergence,23,0,no
+misc/Ada/PBKDF2,survived,Derive,killed,ok,3,,3,0,yes
+misc/Ada/PCIe-Transfer-Model,survived,Record_Transfer,killed,ok,4,,4,0,yes
+misc/Ada/Package-Merge-Algorithm,survived,Coin_Collector,stillborn,unchecked (main stillborn),4,,0,4,yes
+misc/Ada/Painters-Algorithm,survived,Clear_Framebuffer,killed,ok,13,,13,0,yes
+misc/Ada/Parity-Bit,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Partial-Differential-Equation,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Particle-Swarm,survived,Init_Swarm,killed,ok,13,,13,0,yes
+misc/Ada/Path-Based-Strong-Component,survived,Compute_SCC,killed,ok,6,,6,0,yes
+misc/Ada/Path-Tracing,survived (without -gnata),Trace_Ray,killed,ok,10,Cosine_Sample_Hemisphere,9,0,no
+misc/Ada/Petricks-Method,survived (without -gnata),Create_Clause,killed,ok,5,Empty_Clause,4,0,no
+misc/Ada/Phonetic-Algorithms,survived,Soundex,killed,ok,7,,7,0,yes
+misc/Ada/Photon-Mapping,stillborn,,,baseline does not build,0,,0,0,yes
+misc/Ada/Planning-Domain-Definition-Language,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Pohlig-Hellman,survived,Discrete_Log_Pohlig_Hellman,killed,ok,11,,11,0,yes
+misc/Ada/Point-Set-Registration,survived,Register_Correspondences,killed,ok,18,Identity_Transform Sum_Squared_Error RMSE,15,0,yes
+misc/Ada/Poly1305,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Polynomial-Long-Division,survived,Divide,killed,ok,19,Trim,18,0,yes
+misc/Ada/Power-Iteration,survived,Iterate,killed,ok,25,Is_Square,24,0,yes
+misc/Ada/Powerset-Construction,survived (without -gnata),Basic_Powerset_Construction,killed,ok,4,,4,0,no
+misc/Ada/Prediction-By-Partial-Matching,stillborn,,,baseline does not build,0,,0,0,yes
+misc/Ada/Program-Synthesis,survived,Synthesize_By_Example,killed,ok,9,Free,8,0,yes
+misc/Ada/Progressive-Jackpot,survived (without -gnata),Initialize_Standalone,killed,ok,8,,8,0,no
+misc/Ada/Proof-Of-Work-Algorithms,survived,Generate_Hashcash,killed,ok,6,,6,0,yes
+misc/Ada/Prufer-Coding,survived,Add_Edge,killed,ok,9,,9,0,yes
+misc/Ada/Pseudorandom-Number-Generator,survived,Next,killed,ok,19,,19,0,yes
+misc/Ada/Pulmonary-Embolism-Algorithms,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Push-Relabel-Algorithm,survived,Generic_Max_Flow,killed,ok,3,,3,0,yes
+misc/Ada/QR-Algorithm,survived,Eigenvalues,killed,ok,31,Is_Square Orthogonality_Residual,29,0,yes
+misc/Ada/Quantum-Annealing,survived,Transverse_Field_Anneal,killed,ok,6,Exponential_Schedule_Anneal Diabatic_Quantum_Anneal,4,0,yes
+misc/Ada/Quantum-Artificial-Life,stillborn,,,baseline does not build,0,,0,0,yes
+misc/Ada/Quantum-Counting-Algorithm,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Quantum-Fourier-Transform,survived (without -gnata),Exact_QFT,killed,ok,6,,6,0,no
+misc/Ada/Quantum-Optimization-Algorithms,survived (without -gnata),Run_Quantum_Annealing,killed,ok,5,,5,0,no
+misc/Ada/Quantum-Phase-Estimation-Algorithm,survived,Validate_Phase,killed,ok,5,,5,0,yes
+misc/Ada/Queuing-Theory,survived (without -gnata),Rho,killed,ok,35,,35,0,no
+misc/Ada/Quine-McCluskey-Algorithm,survived,Minimize_Exact,killed,ok,5,,5,0,yes
+misc/Ada/RANSAC,survived (without -gnata),RANSAC_Fit_Line,killed,ok,24,Make_RNG Fit_Line_Least_Squares_Masked,22,0,no
+misc/Ada/RIPEMD-160,survived (without -gnata),Update,killed,ok,7,,7,0,no
+misc/Ada/Radial-Basis-Function-Network,survived (without -gnata),Create_Network,stillborn,unchecked (main stillborn),4,,3,1,no
+misc/Ada/Rainflow-Counting,survived,Count_Cycles,killed,ok,11,,11,0,yes
+misc/Ada/Random-Restart-Hill-Climbing,survived (without -gnata),Hill_Climb_1D,killed,ok,30,Next_Uniform Next_Natural,28,0,no
+misc/Ada/Random-Walker,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Range-Encoding,survived,Encode_Integer,killed,ok,4,,4,0,yes
+misc/Ada/Rayleigh-Quotient-Iteration,survived,Iterate,killed,ok,22,Is_Square,21,0,yes
+misc/Ada/Rayleigh-Ritz-Method,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Raymonds-Algorithm,survived,Enqueue,killed,ok,6,Greedy_Receive_Request,5,0,yes
+misc/Ada/Recovery-Exploiting-Semantics,survived,Log_Update,survived,weak,8,Initialize_System Simulate_Crash Log_Update Log_Commit Analysis_Phase Redo_Phase Undo_Phase Recover,0,0,yes
+misc/Ada/Redundancy-Checks,survived,Calculate_Checksum_8,killed,ok,6,,6,0,yes
+misc/Ada/Reed-Solomon-Error-Correction,survived,Poly_Eval,killed,ok,8,,8,0,yes
+misc/Ada/Reference-Counting,survived,Decrement_Reference,killed,ok,43,Free_Weighted_Object Free_Indirect_Object Is_Deferred_Incr Free_Deferred_Object Free_Update_Manager Is_Weak_Reference_Valid Get_Weak_Target Free_Weak_Reference Is_In_Stack Free_DB_Object Free_Ulterior_Object Free_Cycle_Detector,31,0,yes
+misc/Ada/Region-Growing,survived,Seeded_Local,killed,ok,3,,3,0,yes
+misc/Ada/Regret-Minimization,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Relevance-Vector-Machine,survived,Predict,killed,ok,3,,3,0,yes
+misc/Ada/Replicator-Equation,survived,Step_Discrete,killed,ok,7,,7,0,yes
+misc/Ada/Restoring-Division,survived,Divide_Restoring,killed,ok,8,,8,0,yes
+misc/Ada/Rete-Algorithm,survived,To_Symbol,killed,ok,14,Empty_Symbol,13,0,yes
+misc/Ada/Reverse-Delete-Algorithm,survived,Reverse_Delete,killed,ok,5,,5,0,yes
+misc/Ada/Ricart-Agrawala-Algorithm,survived,Request_Critical_Section,killed,ok,9,,9,0,yes
+misc/Ada/Rice-Coding,survived,Decode_Rice,killed,ok,6,,6,0,yes
+misc/Ada/Richardson-Lucy-Deconvolution,stillborn,,,baseline does not build,0,,0,0,yes
+misc/Ada/Ridders-Method,survived,Find_Root,killed,ok,20,Flat_Zero,19,0,yes
+misc/Ada/Risch-Algorithm,survived,Create_Var,killed,ok,7,Is_Equal,6,0,yes
+misc/Ada/Rotating-Calipers,survived,Diameter,killed,ok,22,Is_CCW,21,0,yes
+misc/Ada/Rounding-Functions,survived,Round_Half_To_Even,killed,ok,19,,19,0,yes
+misc/Ada/Rupperts-Algorithm,survived,Triangle_Count_Of,killed,ok,28,Is_Delaunay_Edge_Empty Get_Point,26,0,yes
+misc/Ada/Ruzzo-Tompa,survived,Maximal_Segments,killed,ok,4,,4,0,yes
+misc/Ada/SEQUITUR-Algorithm,survived,Compress,survived,weak,1,Compress,0,0,yes
+misc/Ada/SRT-Division,survived,Divide_SRT,killed,ok,9,,9,0,yes
+misc/Ada/SSS-Star,survived,Add_Leaf,killed,ok,12,,12,0,yes
+misc/Ada/SUBCLU,survived,Run_SUBCLU,killed,ok,20,Empty_Subspace,18,1,yes
+misc/Ada/Salsa20,survived (without -gnata),Encrypt_256_20,killed,ok,6,,6,0,no
+misc/Ada/Scale-Invariant-Feature-Transform,survived,Build_Scale_Space,killed,ok,1,,1,0,yes
+misc/Ada/Scanline-Rendering,survived,Render_Polygon_2D,killed,ok,7,,7,0,yes
+misc/Ada/Schensted,survived,Insert_Word,killed,ok,14,Empty_Tableau Is_Valid_Tableau,12,0,yes
+misc/Ada/Schreier-Sims,survived,Identity,killed,ok,12,,12,0,yes
+misc/Ada/Scoring-Algorithm,survived (without -gnata),Bernoulli_Score,killed,ok,30,,30,0,no
+misc/Ada/Seam-Carving,survived,Remove_Seam,killed,ok,3,,3,0,yes
+misc/Ada/Secret-Sharing,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Selection-Algorithm,survived,Select_Kth,killed,ok,3,,3,0,yes
+misc/Ada/Self-Organizing-Map,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Semi-Space-Collectors,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Sethi-Ullman-Algorithm,stillborn,,,baseline does not build,0,,0,0,yes
+misc/Ada/Shannon-Fano-Coding,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Shannon-Fano-Elias-Coding,survived,Encode,killed,ok,3,,3,0,yes
+misc/Ada/Shapley-Value,survived,Compute,killed,ok,26,Is_Efficient,25,0,yes
+misc/Ada/Shoelace-Algorithm,survived,Area,killed,ok,8,,8,0,yes
+misc/Ada/Shors-Algorithm,survived (without -gnata),Factor_Integer,killed,ok,5,,5,0,no
+misc/Ada/Shortest-Common-Supersequence-Problem,survived,SCS_String,killed,ok,3,,3,0,yes
+misc/Ada/Simons-Problem,survived (without -gnata),Solve_Simon_System,killed,ok,11,,11,0,no
+misc/Ada/Simulated-Annealing,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Sinkhorn-Knopp-Algorithm,survived,Solve,killed,ok,35,Has_Positive_Col_Sums,34,0,yes
+misc/Ada/Slot-Machine,survived,Evaluate_Line_Classic,killed,ok,10,,10,0,yes
+misc/Ada/Spectral-Layout,survived,Layout_Unnormalized_Laplacian,killed,ok,3,Layout_Normalized_Laplacian Layout_Adjacency,1,0,yes
+misc/Ada/Speeded-Up-Robust-Features,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Spigot-Algorithm,survived,Digits_Of_Pi,killed,ok,11,,11,0,yes
+misc/Ada/Square-Root-Algorithms,survived,Is_Perfect_Square,killed,ok,9,,9,0,yes
+misc/Ada/State-Action-Reward-State-Action,survived (without -gnata),Epsilon_Greedy_Action,killed,ok,9,,9,0,no
+misc/Ada/Steinhaus-Johnson-Trotter,survived,Factorial,killed,ok,5,,5,0,yes
+misc/Ada/Stochastic-Tunneling,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Stones-Method,survived,Residual,killed,ok,29,,29,0,yes
+misc/Ada/Strongly-Connected-Components,survived,Compute_SCC,killed,ok,6,,6,0,yes
+misc/Ada/Structured-SVM,survived,Predict,killed,ok,4,,4,0,yes
+misc/Ada/Subset-Sum-Algorithm,survived,Approximate_Subset_Sum,killed,ok,4,Meet_In_The_Middle_Subset_Sum,3,0,yes
+misc/Ada/Successive-Over-Relaxation,survived,Solve_SOR,killed,ok,19,,19,0,yes
+misc/Ada/Sukhotin,survived (without -gnata),Run_Sukhotin,killed,ok,20,Empty_Adjacency Is_Symmetric Score_Of Score_Vector_Of,16,0,no
+misc/Ada/Summed-Area-Table,survived,Query_2D_Region,killed,ok,6,,6,0,yes
+misc/Ada/Supervised-Learning,survived (without -gnata),Predict_KNN,killed,ok,5,,4,1,no
+misc/Ada/Swap-Test,survived (without -gnata),Simulated_Swap_Test,killed,ok,10,,10,0,no
+misc/Ada/Swarm-Intelligence,survived,Norm2,killed,ok,33,Zero_Vec Combined_Steer Step_Boid,30,0,yes
+misc/Ada/Sweep-And-Prune,survived (without -gnata),Make_AABB,killed,ok,32,Is_Valid_AABB Empty_World Empty_World_3D Empty_Pair_List Same_Pair_Set,27,0,no
+misc/Ada/System-of-Linear-Equations,survived,Solve,killed,ok,38,Is_Square Is_Diagonally_Dominant Is_Strictly_Diagonally_Dominant Has_Positive_Diagonal,34,0,yes
+misc/Ada/Tarski-Kuratowski-Algorithm,survived,Evaluate_Arithmetical,killed,ok,3,,3,0,yes
+misc/Ada/Temporal-Difference-Learning,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Term-Rewriting,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Texas-Medication-Algorithm-Project,survived,Evaluate_Response,killed,ok,3,,3,0,yes
+misc/Ada/Thomas-Algorithm,survived,Thomas,killed,ok,17,Residual_Max_Abs,16,0,yes
+misc/Ada/Todd-Coxeter,survived,Make_Presentation,killed,ok,7,,7,0,yes
+misc/Ada/Tomasulo-Algorithm,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Toom-Cook,survived,Multiply_Toom3,killed,ok,16,Zero Equal,14,0,yes
+misc/Ada/Top-Nodes-Algorithm,,,,no tests,0,,0,0,
+misc/Ada/Top-Trading-Cycle,survived,Solve,killed,ok,26,,26,0,yes
+misc/Ada/Traffic-Light-Controller,survived,Color_Of,killed,ok,23,Create In_All_Red Is_Safe Is_Stop Is_Proceed,18,0,yes
+misc/Ada/Traffic-Simulation,survived,Advance_Microscopic,killed,ok,3,,3,0,yes
+misc/Ada/Transform-Coding,survived,Haar_Transform,killed,ok,6,,6,0,yes
+misc/Ada/Transitive-Closure,survived,Closure_Matrix,killed,ok,13,,13,0,yes
+misc/Ada/Trapezoidal-Rule-DE,survived,F_Decay,killed,ok,18,DF_Logistic,17,0,yes
+misc/Ada/Travelling-Salesman-Problem,survived,Put_Distance,killed,ok,16,,16,0,yes
+misc/Ada/Trial-Division,survived,Smallest_Prime_Factor,killed,ok,4,,4,0,yes
+misc/Ada/Truncated-Binary-Encoding,survived,Encode,killed,ok,3,,3,0,yes
+misc/Ada/Truncated-Binary-Exponential-Backoff,survived,Truncated_Deterministic_Delay,killed,ok,11,Randomized_Delay Truncated_Randomized_Delay Initialize_State,8,0,yes
+misc/Ada/Truncation-Selection,survived,Select_Pool,killed,ok,15,Better_Or_Equal Seed_RNG,13,0,yes
+misc/Ada/TrustRank,survived,Compute,killed,ok,12,,12,0,yes
+misc/Ada/TurboQuant,survived,Quantize_Prod,stillborn,unchecked (main stillborn),8,Transpose_Multiply,5,2,yes
+misc/Ada/Ukkonens-Algorithm,survived,Build_Suffix_Tree,killed,ok,2,,2,0,yes
+misc/Ada/Unary-Coding,survived,Decode_Ones_Zero,killed,ok,6,,6,0,yes
+misc/Ada/Unicode-Collation-Algorithm,survived,Compare_Standard,survived,weak,4,Get_Default_Table Compare_Standard Compare_Ignore_Punctuation Apply_Tailoring,0,0,yes
+misc/Ada/Unrestricted-Algorithm,survived,Add,killed,ok,7,,7,0,yes
+misc/Ada/VEGAS-Algorithm,survived,Integrate,killed,ok,1,,1,0,yes
+misc/Ada/Variational-Method,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Variational-Quantum-Eigensolver,survived,Optimize,killed,ok,2,,2,0,yes
+misc/Ada/Vector-Quantization,survived,Train_LBG,killed,ok,5,,5,0,yes
+misc/Ada/Vehicle-Routing-Problem,survived,Set_Max_Vehicles,killed,ok,22,Is_Capacity_Feasible,21,0,yes
+misc/Ada/Velvet,survived,Add_Read,killed,ok,16,,16,0,yes
+misc/Ada/Verhoeff-Algorithm,survived,Generate_Check_Digit,killed,ok,2,,2,0,yes
+misc/Ada/Vickrey-Clarke-Groves-Mechanism,survived,Clarke_Payment,killed,ok,68,Efficient_Outcome_Without VCG_Utility VCG_Utilities Changes_Outcome,64,0,yes
+misc/Ada/Wang-Landau,survived,Normalize_Density,killed,ok,11,,8,3,yes
+misc/Ada/Warnsdorffs-Rule,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Warped-Linear-Predictive-Coding,killed,,,baseline fails,0,,0,0,yes
+misc/Ada/Xor-Swap-Algorithm,survived,Swap,killed,ok,3,,3,0,yes
+misc/Ada/Yamartino-Method,survived (without -gnata),Yamartino,killed,ok,24,Normalize_Angle Make_Empty,22,0,no
+misc/Ada/Zellers-Congruence-Algorithm,survived,Day_Of_Week_Gregorian,killed,ok,4,,4,0,yes
+misc/Ada/Zero-Attribute-Rule,survived,Predict_Nominal_Mode,killed,ok,6,,6,0,yes
+misc/Ada/Zhu-Takaoka,survived,Search,killed,ok,2,,2,0,yes
+misc/Ada/arc-cache,,,,no tests,0,,0,0,
+misc/Ada/docs,,,,no tests,0,,0,0,
+misc/Ada/earliest-deadline,,,,no tests,0,,0,0,
+misc/Ada/fair-share,survived,Add_Process,killed,ok,7,Initialize,6,0,yes
+misc/Ada/page-replacement-algorithms,,,,no tests,0,,0,0,
+misc/Ada/rate-monotonic,survived,Compress_3Dc_Plus,killed,ok,5,,5,0,yes
+misc/Ada/round-robin,,,,no tests,0,,0,0,
+misc/Ada/scripts,,,,no tests,0,,0,0,
+misc/Ada/srt-simulation,,,,no tests,0,,0,0,
+ml/Ada/AdaBoost,survived,Predict,killed,ok,3,,3,0,yes
+ml/Ada/Alopex,killed,,,baseline fails,0,,0,0,yes
+ml/Ada/Backpropagation,survived (without -gnata),Backward,killed,ok,8,,7,1,no
+ml/Ada/Boosting-Meta-Algorithm,survived,Predict_Gradient_Boosting,killed,ok,4,,2,2,yes
+ml/Ada/BrownBoost,survived,Predict,killed,ok,2,,1,1,yes
+ml/Ada/Expectation-Maximization,survived (without -gnata),GMM_EM_Fit,killed,ok,18,,18,0,no
+ml/Ada/Forward-Backward,survived (without -gnata),Forward_Backward,stillborn,unchecked (main stillborn),16,Log_Sum_Exp_Row Log_Sum_Exp_Logs,11,3,no
+ml/Ada/Hidden-Markov-Model,survived (without -gnata),Posterior_Mode_Path,killed,ok,20,,14,6,no
+ml/Ada/LPBoost,survived,Train,stillborn,unchecked (main stillborn),3,,2,1,yes
+ml/Ada/LogitBoost,killed,,,baseline fails,0,,0,0,yes
+ml/Ada/Naive-Bayes-Classifier,survived,Predict_Gaussian,killed,ok,6,,3,3,yes
+ml/Ada/Neural-Network,survived,Create_Layer,stillborn,unchecked (main stillborn),13,Initialize_Random,10,2,yes
+ml/Ada/Perceptron,survived,Predict_Standard,killed,ok,7,,6,1,yes
+ml/Ada/Policy-Iteration,killed,,,baseline fails,0,,0,0,yes
+ml/Ada/Pulse-Coupled-Neural-Networks,killed,,,baseline fails,0,,0,0,yes
+ml/Ada/Q-Learning,survived,Update_Q_Value,killed,ok,5,,5,0,yes
+ml/Ada/Random-Forest,survived,Predict_Class,killed,ok,4,,2,2,yes
+ml/Ada/Reinforcement-Learning,survived (without -gnata),Update_Q_Learning,killed,ok,6,,6,0,no
+ml/Ada/Support-Vector-Machine,survived (without -gnata),Predict,killed,ok,6,,4,2,no
+ml/Ada/Value-Iteration,killed,,,baseline fails,0,,0,0,yes
+ml/Ada/Viterbi,survived (without -gnata),Viterbi_Decode,stillborn,unchecked (main stillborn),12,,9,3,no
+ml/Ada/Winnow-Algorithm,survived,Train,killed,ok,6,Predict,3,2,yes
+numerical/Ada/Aks-Primality-Test,survived,Find_AKS_R,killed,ok,8,,8,0,yes
+numerical/Ada/Arnoldi,survived (without -gnata),Run,killed,ok,31,Is_Square Orthogonality_Residual Arnoldi_Relation_Residual Ritz_Residual_Norm Ritz_Vector,26,0,no
+numerical/Ada/BBP,survived,Approximate_Pi,killed,ok,12,,12,0,yes
+numerical/Ada/BFGS,survived,BFGS_Update,killed,ok,27,,27,0,yes
+numerical/Ada/BKM,survived,Ln,killed,ok,9,,9,0,yes
+numerical/Ada/Biconjugate-Gradient,survived (without -gnata),Biconjugate_Gradient,killed,ok,19,Is_Diagonally_Dominant,18,0,no
+numerical/Ada/Bicubic-Interpolation,survived,Evaluate_Bicubic,killed,ok,19,,19,0,yes
+numerical/Ada/Bilinear-Interpolation,survived,Large_Enough_Bilinear,killed,ok,25,,25,0,yes
+numerical/Ada/Binary-GCD,survived,Gcd,killed,ok,8,,8,0,yes
+numerical/Ada/Birkhoff-Interpolation,survived,Make_Birkhoff_Singular_Example,killed,ok,18,Matches_All Matches_All,16,0,yes
+numerical/Ada/Bisection-Method,survived,Find_Root,killed,ok,22,Flat_Zero,21,0,yes
+numerical/Ada/Bluesteins-FFT-Algorithm,killed,,,baseline fails,0,,0,0,yes
+numerical/Ada/Borwein,survived,Approximate_Pi,killed,ok,13,,13,0,yes
+numerical/Ada/Brents-Algorithm,survived,Find_Cycle,killed,ok,19,,19,0,yes
+numerical/Ada/Bruuns-FFT-Algorithm,survived,FFT_Power_Of_Two_Real,killed,ok,3,,3,0,yes
+numerical/Ada/CORDIC,survived,Sin_Cos,killed,ok,17,,17,0,yes
+numerical/Ada/Cantor-Zassenhaus,survived,Factor,killed,ok,21,Normalize,20,0,yes
+numerical/Ada/Chakravala,survived,Chakravala_Step_From,killed,ok,12,Verify_Triple,10,1,yes
+numerical/Ada/Chudnovsky,survived,Approximate_Pi,killed,ok,12,,12,0,yes
+numerical/Ada/Cipolla,survived,Mul_Mod,killed,ok,9,,9,0,yes
+numerical/Ada/Conjugate-Gradient,survived,Conjugate_Gradient,killed,ok,22,Sphere_Grad,21,0,yes
+numerical/Ada/Cooley-Tukey-FFT-Algorithm,survived,FFT_Iterative,killed,ok,5,,5,0,yes
+numerical/Ada/Cubic-Interpolation,survived,Interpolate_Four_Points,killed,ok,27,,27,0,yes
+numerical/Ada/Dixon,survived,Factor_Dixon,killed,ok,13,,13,0,yes
+numerical/Ada/Euclidean-Algorithm,survived,Gcd,killed,ok,6,,6,0,yes
+numerical/Ada/Extended-Euclidean-Algorithm,survived,Extended_Gcd,killed,ok,9,Is_Modular_Inverse Verify_Bezout,7,0,yes
+numerical/Ada/Fast-Fourier-Transform,survived,FFT_Recursive_DIT,killed,ok,6,,6,0,yes
+numerical/Ada/Fermat-Primality-Test,survived,Is_Fermat_Probable_Prime,survived,weak,7,Is_Fermat_Probable_Prime,6,0,yes
+numerical/Ada/Furer,survived,Multiply_Furer,killed,ok,17,Zero Equal,15,0,yes
+numerical/Ada/Gauss-Legendre,survived,Approximate_Pi,killed,ok,10,,10,0,yes
+numerical/Ada/Gauss-Newton,survived,Fit,killed,ok,27,,27,0,yes
+numerical/Ada/General-Number-Field-Sieve,survived,Toy_Factor,killed,ok,21,Prefer_Snfs_When_Special_Form First_Stage,19,0,yes
+numerical/Ada/Gradient-Descent,survived,Sphere_Grad,survived,weak,35,Near Point_Near Dot Add Sub Scale Armijo_Accept Sphere Sphere_Grad,26,0,yes
+numerical/Ada/Hermite-Interpolation,survived,Evaluate_Cubic_Interval,killed,ok,23,Near,22,0,yes
+numerical/Ada/Hybrid-Monte-Carlo,survived,Grad_U_Std_Normal,survived,weak,18,Grad_U_Std_Normal Grad_U_Iso_Normal_ND,15,1,yes
+numerical/Ada/Interior-Point-Method,survived,Classify_Method,killed,ok,31,,31,0,yes
+numerical/Ada/Karatsuba,survived,Multiply_Karatsuba,killed,ok,16,Zero Equal,14,0,yes
+numerical/Ada/Lagrange-Interpolation,survived,Evaluate,killed,ok,22,Build_Weights Forms_Agree,20,0,yes
+numerical/Ada/Lanczos,survived (without -gnata),Run,killed,ok,29,Is_Square Orthogonality_Residual Ritz_Residual_Norm Ritz_Vector,25,0,no
+numerical/Ada/Lanczos-Resampling,survived,Resample_1D,killed,ok,27,,27,0,yes
+numerical/Ada/Levenberg-Marquardt,survived,Fit,killed,ok,28,,28,0,yes
+numerical/Ada/Linear-Congruential-Generator,survived,Next,killed,ok,19,,19,0,yes
+numerical/Ada/Linear-Interpolation,survived,Interpolate_Two_Points,killed,ok,22,Near Is_Strictly_Monotone,20,0,yes
+numerical/Ada/Lucas-Primality-Test,survived,Find_Lucas_Witness,killed,ok,7,,7,0,yes
+numerical/Ada/MISER,survived,Integrate_Miser,killed,ok,11,,11,0,yes
+numerical/Ada/Mersenne-Twister,survived,Random,killed,ok,4,,4,0,yes
+numerical/Ada/Metropolis-Hastings,survived (without -gnata),Log_Hastings_Ratio,killed,ok,17,,16,1,no
+numerical/Ada/Metropolis-Light-Transport,survived (without -gnata),Acceptance_Probability,killed,ok,14,Create_RNG Generate_Lens_Subpath_Proposal Mutate_Standard_MLT Mutate_Primary_Sample_Space_MLT,10,0,no
+numerical/Ada/Miller-Rabin,survived,Mod_Pow,killed,ok,6,,6,0,yes
+numerical/Ada/Monotone-Cubic-Interpolation,survived,Find_Interval,killed,ok,28,Near,27,0,yes
+numerical/Ada/Multivariate-Interpolation,survived,Evaluate_Nearest_2D,killed,ok,39,Is_Valid_Grid Set,37,0,yes
+numerical/Ada/Nearest-Neighbor-Interpolation,survived,Nearest_Index,killed,ok,45,Near Is_Valid_Grid Is_Valid_Grid Is_Valid_Grid Make_Empty_Scattered_1D Make_Empty_Scattered_2D,39,0,yes
+numerical/Ada/Neville,survived,Evaluate,killed,ok,18,,18,0,yes
+numerical/Ada/Newells-Algorithm,survived,Make_Polygon,stillborn,unchecked (main stillborn),12,Test_5_2D_Polygons_Disjoint Sort_Polygons_Adaptive,9,1,yes
+numerical/Ada/Newton-Raphson-Division,survived,Reciprocal_Newton,killed,ok,11,,11,0,yes
+numerical/Ada/Pareto-Interpolation,survived,Make_Pareto_Sample,killed,ok,26,,26,0,yes
+numerical/Ada/Partial-Least-Squares,survived (without -gnata),R_Squared,killed,ok,19,,19,0,no
+numerical/Ada/Pollards-Kangaroo-Algorithm,survived,Try_Solve_Kangaroo,killed,ok,6,,6,0,yes
+numerical/Ada/Pollards-P-1,survived,Factor_Stage1,killed,ok,8,,8,0,yes
+numerical/Ada/Pollards-Rho,survived,Factor,killed,ok,7,,7,0,yes
+numerical/Ada/Pollards-Rho-Logarithms,survived,Discrete_Log_Rho,killed,ok,7,,7,0,yes
+numerical/Ada/Polynomial-Interpolation,survived,Evaluate_Newton,killed,ok,31,Forms_Agree,30,0,yes
+numerical/Ada/Primality-Test,survived,Trial_Division_Is_Prime,killed,ok,16,,16,0,yes
+numerical/Ada/Prime-Factor-FFT-Algorithm,killed,,,baseline fails,0,,0,0,yes
+numerical/Ada/Prime-Factorization,survived,Trial_Division_Factor,killed,ok,14,,14,0,yes
+numerical/Ada/Quadratic-Sieve,survived,Factor_QS,killed,ok,15,,15,0,yes
+numerical/Ada/Raders-FFT-Algorithm,survived,Rader_DFT_Fast,killed,ok,6,,6,0,yes
+numerical/Ada/Runge-Kutta,survived,F_Decay,killed,ok,16,,16,0,yes
+numerical/Ada/Secant-Method,survived,Standard_Secant,killed,ok,2,,2,0,yes
+numerical/Ada/Sieve-Of-Atkin,survived,Sieve,killed,ok,8,,8,0,yes
+numerical/Ada/Sieve-Of-Eratosthenes,survived,Sieve,killed,ok,9,,9,0,yes
+numerical/Ada/Sieve-Of-Sundaram,survived,Standard_Sundaram,killed,ok,3,,3,0,yes
+numerical/Ada/Special-Number-Field-Sieve,survived,Classify_Special_Form,killed,ok,18,,18,0,yes
+numerical/Ada/Spline-Interpolation,survived,Find_Interval,killed,ok,22,Near,21,0,yes
+numerical/Ada/Tonelli-Shanks,survived,Mul_Mod,killed,ok,9,,9,0,yes
+numerical/Ada/Tricubic-Interpolation,survived,Evaluate_Tricubic,killed,ok,16,,16,0,yes
+numerical/Ada/Trigonometric-Interpolation,killed,,,baseline fails,0,,0,0,yes
+numerical/Ada/Ziggurat-Algorithm,survived,Initialize,killed,ok,3,,3,0,yes
+parsing/Ada/Canonical-LR-Parser,killed,,,baseline fails,0,,0,0,yes
+parsing/Ada/Cyk-Algorithm,survived,Free_Parse_Tree,survived,weak,6,Is_In_CNF Free_Parse_Tree,4,0,yes
+parsing/Ada/GLR-Parser,survived,Parse_GLR,killed,ok,5,Parse_BRNGLR,4,0,yes
+parsing/Ada/LALR,killed,,,baseline fails,0,,0,0,yes
+parsing/Ada/LL-Parser,killed,,,baseline fails,0,,0,0,yes
+parsing/Ada/LR-Parser,killed,,,baseline fails,0,,0,0,yes
+parsing/Ada/Operator-Precedence-Parser,killed,,,baseline fails,0,,0,0,yes
+parsing/Ada/Packrat-Parser,killed,,,baseline fails,0,,0,0,yes
+parsing/Ada/Pratt-Parser,survived,Parse,killed,ok,3,Free_AST,2,0,yes
+parsing/Ada/Recursive-Descent-Parser,survived,Evaluate,killed,ok,3,,3,0,yes
+parsing/Ada/Shunting-Yard-Algorithm,survived,To_Reverse_Polish_Notation,killed,ok,5,Free_AST,4,0,yes
+parsing/Ada/Simple-LR-Parser,killed,,,baseline fails,0,,0,0,yes
+parsing/Ada/Simple-Precdence-Parser,survived,Create_Parser,stillborn,unchecked (main stillborn),4,,3,1,yes
+parsing/Ada/Simplex-Algorithm,survived,Solve,killed,ok,11,,11,0,yes
+parsing/Ada/Step-Parser,killed,,,baseline fails,0,,0,0,yes
+searching/Ada/Beam-Search,survived,Search,killed,ok,7,,7,0,yes
+searching/Ada/Best-First-Search,survived,Search,killed,ok,7,,7,0,yes
+searching/Ada/Bidirectional-Search,survived,Add_Edge,killed,ok,8,,8,0,yes
+searching/Ada/Binary-Search,survived,Find,killed,ok,3,,3,0,yes
+searching/Ada/Breadth-First-Search,survived,Add_Edge,killed,ok,9,,9,0,yes
+searching/Ada/Brute-Force-Search,survived,Linear_Search,killed,ok,6,,6,0,yes
+searching/Ada/Chien-Search,survived,Chien_Search,killed,ok,13,,13,0,yes
+searching/Ada/Depth-First-Search,survived,Add_Edge,killed,ok,8,,8,0,yes
+searching/Ada/Eytzinger-Binary-Search,survived,Classic_Binary_Search,killed,ok,5,,5,0,yes
+searching/Ada/Fibonacci-Search,survived,Find,killed,ok,1,,1,0,yes
+searching/Ada/Golden-Section-Search,survived (without -gnata),Golden_Probes,killed,ok,9,Increasing_Boundary,8,0,no
+searching/Ada/Grid-Search,survived (without -gnata),Make_Grid,killed,ok,18,,18,0,no
+searching/Ada/Harmony-Search,survived,Seed_RNG,killed,ok,25,Next_Natural,24,0,yes
+searching/Ada/Hyperlink-Induced-Topic-Search,survived,Compute,killed,ok,6,,6,0,yes
+searching/Ada/Interpolation-Search,survived,Find,killed,ok,1,,1,0,yes
+searching/Ada/Introselect,survived,Select_Kth,killed,ok,3,,3,0,yes
+searching/Ada/Iterative-Deepening-Depth-First-Search,survived,Search,killed,ok,7,,7,0,yes
+searching/Ada/Jump-Point-Search,survived,Set_Blocked,killed,ok,7,,7,0,yes
+searching/Ada/Jump-Search,survived,Find,killed,ok,2,,2,0,yes
+searching/Ada/Lexicographic-Breadth-First-Search,survived,Add_Edge,killed,ok,8,,8,0,yes
+searching/Ada/Line-Search,survived,Wolfe_Line_Search,killed,ok,23,,23,0,yes
+searching/Ada/Linear-Search,survived,Find_From,killed,ok,3,,3,0,yes
+searching/Ada/Local-Search,survived,Two_Opt_Local_Search,killed,ok,36,Next_Natural Is_Local_Optimum_TSP,34,0,yes
+searching/Ada/Monte-Carlo-Tree-Search,survived (without -gnata),Search_Nim,killed,ok,30,Empty_Board,29,0,no
+searching/Ada/Nearest-Neighbor-Search,survived (without -gnata),Radius_Search,killed,ok,36,Check_Nonnegativity Check_Symmetry Check_Identity_Of_Indiscernibles Node_Is_Leaf,32,0,no
+searching/Ada/Quantum-Walk-Search,killed,,,baseline fails,0,,0,0,yes
+searching/Ada/Quickselect,survived,Select_Kth,killed,ok,3,,3,0,yes
+searching/Ada/Random-Search,survived (without -gnata),Search_1D,killed,ok,22,,22,0,no
+searching/Ada/Substring-Search,survived,Naive_Search,killed,ok,7,,7,0,yes
+searching/Ada/Tabu-Search,survived,Set_Clock,killed,ok,23,,23,0,yes
+searching/Ada/Ternary-Search,survived,Find_Maximum_Index,killed,ok,2,,2,0,yes
+searching/Ada/Trigram-Search,survived,Unique_Trigram_Count,killed,ok,6,,6,0,yes
+searching/Ada/Uniform-Binary-Search,survived,Classic_Binary_Search,killed,ok,8,,8,0,yes
+searching/Ada/Uniform-Cost-Search,stillborn,,,baseline does not build,0,,0,0,yes
+sorting/Ada/Bead-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Bitonic-Sorter,survived,Sort,killed,ok,5,Is_Sorted,4,0,yes
+sorting/Ada/Bogosort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Bubble-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Bucket-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Burstsort,survived,Sort,killed,ok,4,,4,0,yes
+sorting/Ada/Cocktail-Shaker-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Comb-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Counting-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Cycle-Sort,survived,Sort,killed,ok,3,,3,0,yes
+sorting/Ada/Flashsort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Gnome-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Heapsort,survived,Heapify,killed,ok,4,,4,0,yes
+sorting/Ada/Insertion-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Introsort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Library-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Merge-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Odd-Even-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Pancake-Sorting,survived,Sort,killed,ok,6,,6,0,yes
+sorting/Ada/Patience-Sorting,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Pigeonhole-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Postman-Sort,survived,Sort,killed,ok,3,Is_Sorted,2,0,yes
+sorting/Ada/Quantum-Sort,survived,Sort_Comparison,killed,ok,5,,5,0,yes
+sorting/Ada/Quicksort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Radix-Sort,survived,Sort,killed,ok,3,Is_Sorted,2,0,yes
+sorting/Ada/Samplesort,survived,Sequential_Sample_Sort,killed,ok,4,,4,0,yes
+sorting/Ada/Selection-Sort,survived,Sort,killed,ok,4,,4,0,yes
+sorting/Ada/Shell-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Slowsort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Smoothsort,survived,Leonardo,killed,ok,3,,3,0,yes
+sorting/Ada/Sort-Merge-Join,stillborn,,,baseline does not build,0,,0,0,yes
+sorting/Ada/Sorted-List,survived,Insert,killed,ok,13,Empty,12,0,yes
+sorting/Ada/Spaghetti-Sort,survived,Sort,killed,ok,3,,3,0,yes
+sorting/Ada/Stooge-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Strand-Sort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Timsort,survived,Sort,killed,ok,2,,2,0,yes
+sorting/Ada/Topological-Sort,survived,Kahn_Sort,killed,ok,4,Is_Valid_Sort,3,0,yes
+sorting/Ada/Tournament-Selection,survived,Select_One,killed,ok,16,Default_Config Seed_RNG,14,0,yes
+sorting/Ada/Tree-Sort,survived,Sort,killed,ok,2,,2,0,yes
+strings/Ada/Aho-Corasick,survived,Patterns,killed,ok,13,Patterns Patterns,11,0,yes
+strings/Ada/Boyer-Moore,survived,Search,killed,ok,4,,4,0,yes
+strings/Ada/Boyer-Moore-Horspool,survived,Search,killed,ok,3,,3,0,yes
+strings/Ada/Daitch-Mokotoff-Soundex,survived,Encode,killed,ok,3,,3,0,yes
+strings/Ada/Damerau-Levenshtein-Distance,survived,Distance,killed,ok,2,,2,0,yes
+strings/Ada/Double-Metaphone,survived,Encode,killed,ok,4,,4,0,yes
+strings/Ada/Hamming-Distance,survived,Distance,killed,ok,4,,4,0,yes
+strings/Ada/Jaro-Winkler-Distance,survived,Jaro_Winkler_Distance,killed,ok,3,,3,0,yes
+strings/Ada/Karplus-Strong-String-Synthesis,survived,Plucked_String,killed,ok,3,,3,0,yes
+strings/Ada/Knuth-Morris-Pratt,survived,Search,killed,ok,3,,3,0,yes
+strings/Ada/Levenshtein-Coding,survived,Decode,killed,ok,4,,4,0,yes
+strings/Ada/Levenshtein-Distance,survived,Distance,killed,ok,2,,2,0,yes
+strings/Ada/Longest-Common-Subsequence,survived,Find,killed,ok,3,,3,0,yes
+strings/Ada/Metaphone,survived,Encode,killed,ok,2,,2,0,yes
+strings/Ada/NYSIIS,survived,Encode,killed,ok,2,,2,0,yes
+strings/Ada/Needleman-Wunsch,survived,Best_Score,killed,ok,4,,4,0,yes
+strings/Ada/Rabin-Karp,survived,Search,killed,ok,2,,2,0,yes
+strings/Ada/Smith-Waterman,survived,Best_Score,killed,ok,4,,4,0,yes
+strings/Ada/Soundex,survived,Encode,killed,ok,2,,2,0,yes
+strings/Ada/Stemming,survived,Porter_Stem,killed,ok,12,,12,0,yes
+strings/Ada/String-Metrics,survived,Levenshtein,killed,ok,6,,6,0,yes
+trees/Ada/Abstract-Interpretation,survived,Make_Interval,killed,ok,15,Bottom_Interval,14,0,yes
+trees/Ada/Abstract-Syntax-Tree,survived,Free_Tree,killed,ok,11,,11,0,yes
+trees/Ada/Context-Tree-Weighting,survived,Initialize_Tree,killed,ok,5,,5,0,yes
+trees/Ada/Decision-Trees,survived,Free_Tree,killed,ok,5,,5,0,yes
+trees/Ada/Embedded-Zerotree-Wavelet,killed,,,baseline fails,0,,0,0,yes
+trees/Ada/Longest-Common-Substring,survived,Find,killed,ok,3,,3,0,yes
+trees/Ada/Red-Black-Tree,survived,Is_Valid_Red_Black_Tree,survived,weak,12,Is_Empty Is_Valid_Red_Black_Tree,10,0,yes
+trees/Ada/Set-Partitioning-In-Hierarchical-Trees,killed,,,baseline fails,0,,0,0,yes
