@@ -8,6 +8,9 @@
 --  * characters: g annihilates h iff N / gcd (N, h) divides g;
 --  * GCD: largest common divisor by downward search;
 --  * Simon, n = 1 .. 5 bits, every s /= 0: f (x) = min (x, x xor s).
+--  * Simon_Null_Vector (the GF(2) step, called directly): every s at n = 1 .. 6
+--    from all of s-perp and from random growing subsets of it, plus random
+--    equation sets, against a brute-force null space (parity by xor folding).
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Hidden_Subgroup_Problem; use Hidden_Subgroup_Problem;
@@ -43,6 +46,62 @@ procedure Own_Checks is
    Bits_Domain : Natural := 1;
    function Masked_Identity (X : Bit_Mask) return Bit_Mask is
      (X mod Bit_Mask (2 ** Bits_Domain));
+
+   --  y . x mod 2 by xor folding (not a bit-count loop)
+   function Ref_Parity (A, B : Bit_Mask) return Bit_Mask is
+      V : Bit_Mask := A and B;
+   begin
+      V := V xor V / 16;
+      V := V xor V / 4;
+      V := V xor V / 2;
+      return V and 1;
+   end Ref_Parity;
+
+   --  brute-force null space: number of non-zero x < 2**Bits orthogonal to
+   --  every equation, and the first one
+   procedure Ref_Null (Bits : Positive; Eqs : Bit_Mask_Array; Count : out Natural; First : out Bit_Mask) is
+   begin
+      Count := 0;
+      First := 0;
+      for X in Bit_Mask range 1 .. Bit_Mask (2 ** Bits - 1) loop
+         if (for all E of Eqs => Ref_Parity (E, X) = 0) then
+            Count := Count + 1;
+            if Count = 1 then
+               First := X;
+            end if;
+         end if;
+      end loop;
+   end Ref_Null;
+
+   type U32 is mod 2 ** 32;
+   Lcg : U32 := 12345;
+   function Next_Rand (Modulus : Positive) return Natural is
+   begin
+      Lcg := Lcg * 1103515245 + 12345;
+      return Natural ((Lcg / 65536) mod U32 (Modulus));
+   end Next_Rand;
+
+   --  Simon_Null_Vector must agree with the brute-force null space
+   procedure Check_Null (Bits : Positive; Eqs : Bit_Mask_Array; What : String) is
+      Count : Natural;
+      First : Bit_Mask;
+   begin
+      Ref_Null (Bits, Eqs, Count, First);
+      declare
+         Got : constant Bit_Mask := Simon_Null_Vector (Bits, Eqs);
+      begin
+         Expect (Count = 1 and then Got = First,
+                 "Simon_Null_Vector " & What & " n=" & Bits'Image & " got" & Got'Image
+                 & ", null space has" & Count'Image & " non-zero vectors, first" & First'Image);
+      end;
+   exception
+      when Subgroup_Not_Found =>
+         Expect (Count = 0, "Simon_Null_Vector " & What & " n=" & Bits'Image & ": Subgroup_Not_Found, but"
+                 & Count'Image & " non-zero null vectors");
+      when Invalid_Oracle =>
+         Expect (Count > 1, "Simon_Null_Vector " & What & " n=" & Bits'Image & ": Invalid_Oracle, but"
+                 & Count'Image & " non-zero null vectors");
+   end Check_Null;
 
    function Ref_GCD (A, B : Group_Element) return Group_Element is
    begin
@@ -154,6 +213,49 @@ begin
          S_Hidden := S;
          Expect (Solve_Simons_Problem (Bits, Simon_Oracle'Unrestricted_Access) = S,
                  "Simon n=" & Bits'Image & " s=" & S'Image);
+      end loop;
+   end loop;
+   --  the GF(2) step on its own: every s at n = 1 .. 6
+   for Bits in 1 .. 6 loop
+      for S in Bit_Mask range 1 .. Bit_Mask (2 ** Bits - 1) loop
+         declare
+            Perp : Bit_Mask_Array (1 .. 2 ** Bits);
+            Len  : Natural := 0;
+         begin
+            for Y in Bit_Mask range 0 .. Bit_Mask (2 ** Bits - 1) loop
+               if Ref_Parity (Y, S) = 0 then
+                  Len := Len + 1;
+                  Perp (Len) := Y;
+               end if;
+            end loop;
+            Expect (Len = 2 ** (Bits - 1), "s-perp size");
+            Check_Null (Bits, Perp (1 .. Len), "all of s-perp, s=" & S'Image);
+            --  random equations from s-perp, checked after every one added
+            --  (Invalid_Oracle until they span s-perp, then s)
+            declare
+               Eqs : Bit_Mask_Array (1 .. 3 * Bits + 2);
+            begin
+               for K in Eqs'Range loop
+                  Eqs (K) := Perp (1 + Next_Rand (Len));
+                  Check_Null (Bits, Eqs (1 .. K), "random s-perp subset, s=" & S'Image & " k=" & K'Image);
+               end loop;
+               Expect (Simon_Null_Vector (Bits, Eqs) = S, "Simon_Null_Vector from 3n+2 samples, s=" & S'Image);
+            exception
+               when Subgroup_Not_Found | Invalid_Oracle =>
+                  Expect (False, "Simon_Null_Vector from 3n+2 samples raised, s=" & S'Image);
+            end;
+         end;
+      end loop;
+      Check_Null (Bits, [1 .. 0 => 0], "no equations");
+      for Trial in 1 .. 300 loop
+         declare
+            Eqs : Bit_Mask_Array (1 .. 1 + Next_Rand (Bits + 2));
+         begin
+            for E of Eqs loop
+               E := Bit_Mask (Next_Rand (2 ** Bits));
+            end loop;
+            Check_Null (Bits, Eqs, "random equations, trial" & Trial'Image);
+         end;
       end loop;
    end loop;
    --  one-to-one on n bits, but x and x + 2**n collide: still no s in Z_2^n
