@@ -9,10 +9,12 @@
 --  Non-SPARK sibling uses Max_Length = 100_000, Max_Base = 256, optional
 --  Sort_Base, arbitrary A'First, and raises on negatives / oversize;
 --  this port requires A'First = 1, Pre => In_Bounds (A) and then
---  Keys_Ok (A), and proves sortedness via a final gap-1 bubble finish
---  (same proof role as Flashsort / Strand_Sort / Pigeonhole_Sort).
---  Full multiset / permutation equality is verified by tests rather than
---  claimed as a Level-4 postcondition (sortedness is proved).
+--  Keys_Ok (A), and proves that the MSD distribution itself sorts: the
+--  bucket starts are exact prefix sums of the digit counts, the scatter
+--  fills each digit's region exactly, every bucket shares its digits
+--  above the current one, and buckets are in digit order. There is no
+--  fallback pass and no clamp. Full multiset / permutation equality is
+--  verified by tests rather than claimed as a Level-4 postcondition.
 --
 --  References:
 --    https://en.wikipedia.org/wiki/Postman_sort
@@ -45,7 +47,9 @@ is
 
    --  Decimal digit domain for the fixed Base = 10 classroom radix.
    subtype Digit_Index is Natural range 0 .. Base - 1;
-   type Count_Array is array (Digit_Index) of Natural;
+   subtype Count_Value is Natural range 0 .. Max_N;
+   type Count_Array is array (Digit_Index) of Count_Value;
+   --  A digit count or bucket start within one slice is at most Max_N.
 
    --  Static work buffer: live slots are 1 .. N with N ≤ Max_N.
    type Work_Array is array (Positive range 1 .. Max_N) of Integer;
@@ -77,17 +81,17 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
-   -- Algorithm sketch (MSD postal distribution + bubble finish)
+   -- Algorithm sketch (MSD postal distribution)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A) and Keys_Ok (A).
    --  1. Find Max among A; if Max = 0, already sorted (all zeros).
-   --  2. Exp = Highest_Exp (Max) = largest Base^p with Exp <= Max.
+   --  2. Exp = 10 ** P, P = Highest_Pow (Max): largest Base^p <= Max.
    --  3. Histogram of digit d = (key / Exp) mod Base on the live range.
    --  4. Stable scatter left-to-right into digit buckets (Work buffer).
    --  5. Gather Work back into A.
    --  6. Recurse on each bucket with more than one element at Exp / Base
-   --     (Subprogram_Variant decreases Exp). Stop at Exp = 1.
-   --  7. Final gap-1 bubble finish proves Is_Sorted (Flashsort L4 pattern).
+   --     (Subprogram_Variant decreases P). Stop at Exp = 1, where a
+   --     bucket holds equal keys. The distribution alone proves Is_Sorted.
    --  Empty and singleton arrays are no-ops.
    --  Contrast: LSD radix walks least → most with flat counting passes;
    --  Postman walks most → least with recursive pigeonholes. Bucket sort
@@ -103,8 +107,9 @@ is
        Global => null,
        Pre    => In_Bounds (A) and then Keys_Ok (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending educational MSD postman sort (base 10) + gap-1 bubble
-   --  finish. Empty and singleton arrays are no-ops.
+   --  Ascending educational MSD postman sort (base 10); the
+   --  distribution alone proves Is_Sorted. Empty and singleton arrays
+   --  are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
 

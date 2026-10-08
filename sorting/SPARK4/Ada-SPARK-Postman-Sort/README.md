@@ -21,9 +21,9 @@ This is the SPARK Level 4 port of the companion package [Ada-Postman-Sort](https
 Because keys are not compared pairwise in the distribution phase, sorting time is $O(c\,n)$ where $c$ depends on key length (digit depth) and the number of buckets — the same family as top-down radix sort.
 
 ## Features
-* **`Sort (A)`**: Ascending educational MSD postman sort (base $10$ scatter / recurse / gather), then a gap-$1$ bubble finish.
+* **`Sort (A)`**: Ascending educational MSD postman sort (base $10$ scatter / recurse / gather). The distribution alone proves `Is_Sorted`; there is no fallback pass.
 * **`Is_Sorted` / `In_Bounds` / `Keys_Ok`**: Guards for shape, nonnegative keys, and sortedness; `Is_Sorted` is the proved postcondition.
-* **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors; MSD phase proves `In_Bounds` / RTE; `Bubble_Pass` / `Sorted_Slice` / partition invariants prove sortedness.
+* **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors and sortedness of the MSD distribution itself (exact bucket starts, scatter coverage, digit-ordered buckets, shared digit prefix inside a bucket).
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays or negative keys are `Pre` violations rather than `Invalid_Argument`.
 * **Static tables only**: `Count (0 .. Base−1)` and `Work (1 .. Max_N)`; recursion decreases $\mathit{Exp}$.
 
@@ -36,23 +36,21 @@ Callers must establish `Keys_Ok (A)`: every live element is $\ge 0$. Digit extra
 * No exceptions: length / shape / signs are `Pre => In_Bounds (A) and then Keys_Ok (A)`.
 * Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
 * Static `Count` and `Work` (sibling allocates locals sized to the live span / `A'Range`).
-* MSD phase posts only `In_Bounds` / `Keys_Ok` / RTE; prefix / scatter use caps and index guards so Level-4 RTE discharges without a full cardinality lemma. Recursion is bounded by `Subprogram_Variant => (Decreases => Exp)`.
-* The final gap-$1$ `Bubble_Finish` reuses the bubble-sort Level-4 argument for `Is_Sorted` (same proof split as Flashsort / Strand / Pigeonhole). Full digit-order / permutation posts that would fight Level 4 are deferred to that finish and to tests.
+* **Sortedness proof:** `MSD_Range (Lo, Hi, P)` is called on a slice whose keys share the prefix $\lfloor x / 10^{P+1} \rfloor$. Ghost `Cnt` counts the keys of each digit and ghost `Sum_To` gives exact bucket starts (the counts sum to the slice length, so no caps are needed); the scatter invariant says each digit's region holds exactly keys of that digit with the slice's prefix, so the regions tile the slice. A bucket shares its prefix one digit lower (`Lemma_Div_Div`), so the recursive call applies; at $P = 0$ a bucket holds equal keys. Adjacent buckets are ordered because a smaller digit under the same prefix means a smaller key (`Lemma_Order`). The earlier gap-$1$ `Bubble_Finish` fallback and the digit / prefix-sum / scatter clamps were removed. Recursion is bounded by `Subprogram_Variant => (Decreases => P)`.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
 
 ## Algorithm
 Given an array $A$ of $n$ nonnegative keys and radix $k = 10$:
 
 1. If $n \le 1$, return. Let $M = \max A$; if $M = 0$, return.
-2. Let $\mathit{Exp} = k^{p}$ be the highest power with $\mathit{Exp} \le M$.
+2. Let $\mathit{Exp} = k^{p}$ be the highest power with $\mathit{Exp} \le M$ ($p \le 9$).
 3. **Scatter** (stable): for each key $x$ in index order, place $x$ into
    bucket $d(x) = \lfloor x / \mathit{Exp} \rfloor \bmod k$.
 4. **Gather**: write buckets $0, 1, \ldots, k-1$ contiguously back into $A$.
 5. If $\mathit{Exp} > 1$, **recurse** on each bucket with more than one
-   element using $\mathit{Exp}/k$ (`Subprogram_Variant` decreases $\mathit{Exp}$); otherwise stop.
-6. **Gap-$1$ finish:** ordinary bubble sort with a shrinking unsorted suffix (and early exit) $\to$ fully sorted (`Is_Sorted` proved).
+   element using $\mathit{Exp}/k$ (`Subprogram_Variant` decreases $p$); otherwise stop.
 
-Empty and singleton arrays are no-ops. The MSD scatter is **stable**; the bubble finish preserves the already-sorted (or nearly sorted) order.
+Empty and singleton arrays are no-ops. The MSD scatter is **stable**.
 
 ### MSD vs LSD (sibling radix sort)
 
@@ -72,9 +70,9 @@ For nonnegative integers treated with **leading-zero padding**, MSD and LSD prod
 
 | Case | Time | Extra space |
 | ---- | ---- | ----------- |
-| Typical (balanced digits) | $O(d\,(n+k))$ MSD + $O(n^{2})$ finish worst | $O(\mathrm{Max\_N} + k)$ per level |
-| Already nearly sorted after scatter | $O(d\,(n+k))$ + early-exit bubble | static tables |
-| All-equal / all-zero | $O(n)$ histogram + $O(n)$ bubble | static tables |
+| Typical (balanced digits) | $O(d\,(n+k))$ | $O(\mathrm{Max\_N} + k)$ per level |
+| All-zero | $O(n)$ (maximum scan only) | static tables |
+| All-equal nonzero | $O(d\,(n+k))$ (one bucket per level) | static tables |
 
 Worst case of the MSD phase degrades when many keys share long common prefixes (deep recursion on large buckets), analogous to unbalanced bucket sort.
 
@@ -84,7 +82,7 @@ Worst case of the MSD phase degrades when many keys share long common prefixes (
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 279 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (324 checks)`.
+When you run `make test`, you will see all 279 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (507 checks)` (the same at `--mode=silver --level=2`).
 
 ## Testing
 * **Functional correctness**: Empty / singleton, classic multi-digit MSD example, reverse / already-sorted / almost-sorted, duplicates / all-equal / all-zero, mixed digit lengths, near `Integer'Last`, lengths up to `Max_N`.
@@ -104,8 +102,8 @@ When you run `make test`, you will see all 279 assertions pass ($0$ FAIL). Runni
 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
-* MSD loops use `pragma Loop_Invariant`; recursion uses `Subprogram_Variant => (Decreases => Exp)`; outer bubble finish shrinks the unsorted suffix via `Bubble_Pass` with partition predicates.
-* **GNATprove Level 4:** `Success: all checks proved (324 checks)`.
+* MSD loops use `pragma Loop_Invariant`; recursion uses `Subprogram_Variant => (Decreases => P)`; ghost lemmas (`Lemma_Sum_Inc`, `Lemma_Cnt_Mono`, `Lemma_Bucket_Pre` / `Lemma_Bucket_Post`, `Lemma_Tile`, `Lemma_Order`) carry the distribution argument.
+* **GNATprove Level 4:** `Success: all checks proved (507 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
@@ -117,7 +115,7 @@ When you run `make test`, you will see all 279 assertions pass ($0$ FAIL). Runni
 | `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
 | `Keys_Ok` | Every live element $\ge 0$ (nonnegative keys) |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
-| `Sort` | Ascending MSD postman + bubble finish (`Post => Is_Sorted`) |
+| `Sort` | Ascending MSD postman sort (`Post => Is_Sorted`) |
 
 ## License
 MIT License — Copyright (c) 2026 Sternenfisch.
