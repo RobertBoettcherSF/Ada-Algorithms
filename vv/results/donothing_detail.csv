@@ -780,7 +780,7 @@ ml/Ada/Backpropagation,backpropagation.adb,Update_Weights_Momentum,procedure,6,n
 ml/SPARK2/Ada-SPARK-Softmax,softmax.adb,Weight,function,6,default,killed
 ml/SPARK2/Linear-Regression,linear_regression.adb,Predict,function,6,default,killed
 numerical/SPARK2/Ada-SPARK-Bisection-Method,bisection_method.adb,Sqrt,function,6,default,killed
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb,FFT,procedure,6,null,killed
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb,FFT,procedure,2,null,killed
 numerical/SPARK2/Ada-SPARK-Count-Primes,count_primes.adb,Count_Primes_Below,function,6,default,killed
 numerical/SPARK2/Ada-SPARK-Extended-Euclidean,extended_euclidean.adb,GCD,function,4,default,killed
 numerical/SPARK2/Ada-SPARK-Lagrange-Interpolation,lagrange_interpolation.adb,Interpolate,function,6,default,killed

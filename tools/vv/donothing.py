@@ -206,16 +206,28 @@ def check_folder(fid, work_root):
                    # tree/graph accessors and test-set-up helpers (Set_Node, Node_Value, Seed_RNG, Start_Point)
                    'node_value', 'left_child', 'right_child', 'left_of', 'right_of', 'value_at', 'root', 'used',
                    'seed_rng', 'seed', 'set_seed', 'start_point', 'new_graph', 'empty_graph', 'add_vertex',
-                   'edge_count', 'vertex_count'}
-        def entry(t): return t[1][0].lower() in ('solve', 'run', 'compute', 'execute')
+                   'edge_count', 'vertex_count',
+                   # benchmark objectives that metaheuristic tests optimise (not the optimiser)
+                   'sphere', 'shifted_sphere', 'rosenbrock', 'rastrigin', 'ackley', 'griewank',
+                   'ones_count', 'zero_count', 'all_ones', 'all_zeros', 'hamming_distance'}
+        def entry(t):
+            n = t[1][0].lower()
+            return n in ('solve', 'run', 'compute', 'execute') or n.startswith(('minimize', 'maximize', 'optimize'))
         # a predicate is the algorithm itself when its name matches the folder (Is_Valid_BST in
         # Validate-Binary-Search-Tree) and no non-predicate does, and either everything else is
         # container plumbing (Empty, Set_Node) or the name matches strongly and is not a checker
         # (Is_Fermat_Probable_Prime yes; Is_BST next to Build, Is_Valid_Red_Black_Tree next to Insert no)
+        bench = ('sphere', 'shifted_sphere', 'negated_sphere', 'rosenbrock', 'rastrigin', 'ackley', 'griewank',
+                 'himmelblau', 'quadratic_bowl', 'booth', 'beale', 'matyas')
         def plumbing(t):
             n = t[1][0].lower()
+            # a benchmark objective or its gradient (Sphere_Grad) is never the optimiser, even when
+            # it shares a word with the folder name (Gradient-Descent)
+            if any(n == b or n.startswith(b + '_') for b in bench):
+                return True
             # a name that matches the folder is never plumbing (Get in Pascal-Triangle-II is the algorithm)
-            return (n in helpers or n.startswith(('set_', 'get_', 'add_edge', 'remove_last', 'seed_', 'default_'))) \
+            return (n in helpers or n.startswith(('set_', 'get_', 'add_edge', 'remove_last', 'seed_', 'default_',
+                                                  'fitness_', 'cost_'))) \
                 and name_score(t) == 0
         others = [t for t in called if not is_pred(t)]
         preds_named = [t for t in called if is_pred(t) and name_score(t) > 0
