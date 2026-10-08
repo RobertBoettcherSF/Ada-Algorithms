@@ -182,6 +182,11 @@ begin
    Expect_Sorted ([9, 0, 5, 1, 8, 3], "mixed small");
    Expect_Sorted ([1, 3, 2, 3, 1, 2], "dups interleaved");
    Expect_Sorted ([0, 0, 1, 1, 0], "binary keys");
+   --  Length 2 is the smallest input that reaches the pigeonhole phase.
+   Expect_Sorted ([2, 1], "two descending");
+   Expect_Sorted ([1, 2], "two ascending");
+   Expect_Sorted ([4, 4], "two equal");
+   Expect_Sorted ([Integer'First + 255, Integer'First], "two at full span");
 
    ---------------------------------------------------------------------
    Section ("3. Negatives and positives (span ≤ Max_Range)");
