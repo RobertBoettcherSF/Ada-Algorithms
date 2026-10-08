@@ -195,7 +195,7 @@ begin
 
    Put_Line ("TEST 13 - Empty Model Usage");
    declare
-      Empty_Model : AdaBoost_Model (Max_Iterations => 5) :=
+      Empty_Model : constant AdaBoost_Model (Max_Iterations => 5) :=
         (Max_Iterations => 5, others => <>);
       Vec : constant Feature_Vector (1 .. 2) := [1.0, 2.0];
    begin

@@ -36,7 +36,7 @@ package body Adaboost is
                Err := 0.0;
                for K in X'Range (1) loop
                   Pred := (if X (K, J) > Thresh then Positive else Negative);
-                  if Pred /= Y (K) then
+                  if Pred /= Y (Y'First + (K - X'First (1))) then
                      Err := Err + D (K);
                   end if;
                end loop;
@@ -49,7 +49,7 @@ package body Adaboost is
                Err := 0.0;
                for K in X'Range (1) loop
                   Pred := (if X (K, J) <= Thresh then Positive else Negative);
-                  if Pred /= Y (K) then
+                  if Pred /= Y (Y'First + (K - X'First (1))) then
                      Err := Err + D (K);
                   end if;
                end loop;
@@ -118,7 +118,7 @@ package body Adaboost is
                   declare
                      Pred_Lbl : constant Class_Label := Evaluate_Stump (Stump, X (I, Stump.Feature));
                      Pred_Num : constant Float := (if Pred_Lbl = Positive then 1.0 else -1.0);
-                     Y_Num    : constant Float := (if Y (I) = Positive then 1.0 else -1.0);
+                     Y_Num    : constant Float := (if Y (Y'First + (I - X'First (1))) = Positive then 1.0 else -1.0);
                      Factor   : constant Float := Exp (-Float (Alpha) * Y_Num * Pred_Num);
                   begin
                      D (I) := D (I) * Classifier_Weight (Factor);
