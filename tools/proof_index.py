@@ -502,7 +502,7 @@ if vvrows:
     nagree = sum(1 for d in dres if d['result'] == 'agree')
     L += ['', '## Flagship folders: what each one really does', '',
           'Scope statements from the flagship review (`tools/vv/flagship_status.csv`, folder READMEs):', '',
-          '- Conflict-Driven-Clause-Learning: decision rule: lowest unassigned variable, False first; with it every SAT answer is the lexicographically smallest model (argued in cdcl.ads, checked by enumeration up to 14 variables). This is a property of this folder\'s decision rule only; standard CDCL with VSIDS or phase saving does not guarantee it. Termination is a checked property (cdcl.ads T1..T6); not SPARK-proven.',
+          '- Conflict-Driven-Clause-Learning: CDCL SAT solver (1-UIP-style learning, geometric restarts, oldest-non-reason clause deletion) with naive full-scan propagation. Decision rule: the lowest-numbered unassigned variable is set to False; with this rule every satisfiable answer is the lexicographically smallest model, whatever the restart and deletion options (argument in cdcl.ads). This is a property of this folder\'s decision rule only: standard CDCL with VSIDS or phase saving does not guarantee it.',
           '- Automated-Theorem-Proving: propositional CNF satisfiability only (truth table, DPLL, Davis-Putnam resolution); yes/no answers, no model and no proof object.',
           '- Verified-Unification-Engine: proved free of run-time errors (SPARK level 2) plus one functional property (Unify never changes an existing binding); unifier correctness is tested, not proved.',
           '- First-Order-Logic: an evaluator over a fixed 3-element domain with capture-avoiding substitution; unary symbols get no second argument (Optional_Element); not a prover.',
