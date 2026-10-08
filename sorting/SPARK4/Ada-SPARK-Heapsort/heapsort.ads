@@ -32,8 +32,10 @@ is
 
    --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
    subtype Index is Natural range 0 .. Max_N;
+   --  Live heap slots are 1 .. N; Index includes 0 for empty Last=0.
+   subtype Heap_Index is Positive range 1 .. Max_N;
 
-   type Element_Array is array (Positive range <>) of Integer;
+   type Element_Array is array (Heap_Index range <>) of Integer;
 
    ---------------------------------------------------------------------------
    -- Shape / sortedness guards (expression functions — usable in contracts)

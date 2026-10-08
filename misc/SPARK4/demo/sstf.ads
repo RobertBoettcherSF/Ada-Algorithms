@@ -14,12 +14,11 @@ package SSTF with SPARK_Mode is
       Requests     : in     Track_Array;
       Schedule     :    out Track_Array)
    with
-     -- The precondition ensures we only accept valid, matching array bounds 
-     -- and that the arrays actually contain at least one element.
-     Pre  => Requests'First = 1 and then
-             Requests'Last >= 1 and then
-             Schedule'First = 1 and then
-             Schedule'Last = Requests'Last,
+     -- The precondition only asks for matching lengths and at least one
+     -- request; Schedule (Schedule'First + K) is the K-th serviced track,
+     -- whatever 'First either array has.
+     Pre  => Requests'Length >= 1 and then
+             Schedule'Length = Requests'Length,
      -- The Depends contract specifies information flow (optional but good practice in SPARK)
      Depends => (Schedule => (Initial_Head, Requests));
 

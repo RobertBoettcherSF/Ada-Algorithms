@@ -17,10 +17,22 @@ Findings kinds (column `kind` in tools/vv/index_shift.csv):
                        -gnato → rewrite midpoints as Lo + (Hi - Lo) / 2
                        (never (Lo+Hi)/2); in SPARK folders prove it does
                        not overflow
-  ok                 - all dynamic checks passed
+  first_pinned       - contract/body requires A'First = 1 and no written
+                       reason yet → still a fail. Prefer a subtype /
+                       constrained array type; else Pre => A'First = 1
+                       with a one-line reason in `note` (column fix_kind =
+                       fixed_origin_type). No reason → do not mark fixed.
+  fixed_origin_type  - intentional fixed origin: subtype/constrained type
+                       and/or Pre => A'First = 1, with one-line `note`
+                       reason (e.g. '1-based heap parent/child formulas').
+                       Counts as index_independent once status=ok.
+  ok                 - all dynamic checks passed (or fixed_origin accepted)
   static_midpoint    - source still contains (Lo+Hi)/2 style (review)
   skipped            - no runnable dynamic driver for this signature yet
   error              - build/run error unrelated to indexing
+
+Refuse clamps, Bubble_Finish-style fallbacks, Warnings Off, silent
+zero-fill of unread cells, epsilon tuned to one seed.
 
 Training-ready requires index_independent=yes once the scan covers the
 folder (docs/VV.md). Sample first, then expand.
@@ -37,6 +49,193 @@ from collections import Counter
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'tools', 'vv'))
 import mutate  # noqa: E402
+
+# Intentional fixed-origin folders: one-line reason required (room).
+# Prefer subtype / constrained array; Pre => A'First = 1 with reason also OK.
+# Populate / extend when a folder is deliberately 1-based; empty reason = not fixed.
+FIXED_ORIGIN_REASONS: dict[str, str] = {
+    'clustering/Ada/FLAME-Clustering':
+        'CSO_Of indexed by cluster id 1..Max_Clusters',
+    'compression/Ada/Peterson-Gorenstein-Zierler-Algorithm':
+        'coefficient index = degree (Locator from x^0); syndromes S_1..S_2t',
+    'compression/SPARK2/Ada-SPARK-LZ77':
+        'classroom Max_Length; live window indices 1..N',
+    'compression/SPARK2/Ada-SPARK-Run-Length-Encoding':
+        'classroom Max_Length; live text indices 1..N',
+    'compression/SPARK3/Huffman-Coding':
+        'classroom Max_N symbol table indices 1..N',
+    'graphs/Ada/Floyds-Cycle-Finding-Algorithm':
+        'successor map keyed by node id 1..N; 0 = no successor',
+    'graphs/Ada/Hungarian-Algorithm':
+        'assignment indices align with Index 1..Max_N',
+    'graphs/SPARK4/A-Star':
+        'Dist/Prev/Path indexed by Vertex_Id 1..N',
+    'graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm':
+        'Dist/Prev/Path indexed by Vertex_Id 1..N',
+    'graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm':
+        'successor map keyed by node id 1..N; 0 = no successor',
+    'hashing/SPARK2/Ada-SPARK-FNV-Hash':
+        'classroom Max_Len; live text indices 1..N',
+    'hashing/SPARK2/Ada-SPARK-Pearson-Hashing':
+        'classroom Max_Len; live text indices 1..N',
+    'hashing/SPARK2/Ada-SPARK-Zobrist-Hashing':
+        'classroom Max_Len; live board/text indices 1..N',
+    'misc/Ada/Ant-Colony-Optimization':
+        'Tours/Lengths indexed by ant id (Best_Idx : Ant_Count)',
+    'misc/Ada/BCJR-Algorithm':
+        'BCJR time indices 1..N for systematic/parity/a-priori LLRs',
+    'misc/Ada/Barnes-Hut':
+        'force/body buffers align with Body_Index 1..N',
+    'misc/Ada/Branch-and-Bound':
+        'Selection indexed by item id 1..N',
+    'misc/Ada/Combinatorial-Optimization':
+        'assignment Perm maps worker id 1..N to task id 1..N',
+    'misc/Ada/Fast-Multipole-Method':
+        'potential/body buffers align with Particle_Index 1..N',
+    'misc/Ada/Gale-Shapley-Algorithm':
+        'proposers/receivers are Person_Id 1..N',
+    'misc/Ada/Levinson-Recursion':
+        'Toeplitz row R(1..N) for order-N Levinson recursion',
+    'misc/Ada/Memetic-Algorithm':
+        'TSP tour slots are City_Index 1..N',
+    'misc/Ada/Min-Conflicts':
+        'N-Queens board: row index and column values are both 1..N',
+    'misc/Ada/N-Body-Problems':
+        'acceleration buffer aligned to body slots 1..Count',
+    'misc/Ada/Thomas-Algorithm':
+        'tridiagonal vectors use Dim_Index 1..N',
+    'misc/Ada/Top-Trading-Cycle':
+        'agents/houses are Agent_Id 1..N',
+    'misc/SPARK2/Ada-SPARK-Adler32':
+        'classroom Max_Len; live byte indices 1..N',
+    'misc/SPARK2/Ada-SPARK-CRC32':
+        'classroom Max_Len; live byte indices 1..N',
+    'misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement':
+        'classroom Max_Len; live byte indices 1..N',
+    'misc/SPARK2/Ada-SPARK-Delta-Encoding':
+        'classroom Max_Len; live sample indices 1..N',
+    'misc/SPARK4/Ada-SPARK-Heaps-Algorithm':
+        'permutation is a map 1..N -> 1..N (values are indices)',
+    'misc/SPARK4/Ada-SPARK-K-Way-Merge':
+        'classroom empty Last=0 with Index 0..Max_Total; live indices 1..N',
+    'misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm':
+        'frequencies indexed by symbol id 1..Max_Symbols',
+    'misc/SPARK4/Ada-SPARK-Selection-Algorithm':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'numerical/Ada/Brents-Algorithm':
+        'successor map keyed by node id 1..N; 0 = no successor',
+    'numerical/Ada/Spline-Interpolation':
+        'tridiagonal/spline coefficient vectors indexed 1..N',
+    'numerical/SPARK4/Ada-SPARK-Brents-Algorithm':
+        'successor map keyed by node id 1..N; 0 = no successor',
+    'searching/SPARK2/Ada-SPARK-Trigram-Search':
+        'classroom Max_Len; live text indices 1..N',
+    'searching/SPARK4/Ada-SPARK-Binary-Search':
+        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
+    'searching/SPARK4/Ada-SPARK-Fibonacci-Search':
+        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
+    'searching/SPARK4/Ada-SPARK-Interpolation-Search':
+        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
+    'searching/SPARK4/Ada-SPARK-Introselect':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'searching/SPARK4/Ada-SPARK-Jump-Search':
+        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
+    'searching/SPARK4/Ada-SPARK-Linear-Search':
+        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
+    'searching/SPARK4/Ada-SPARK-Quickselect':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'searching/SPARK4/Ada-SPARK-Ternary-Search':
+        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
+    'searching/SPARK4/Ada-SPARK-Uniform-Cost-Search':
+        'Dist/Prev/Path indexed by Vertex_Id 1..N',
+    'searching/SPARK4/Best-First-Search':
+        'Prev/Path indexed by Vertex_Id 1..N',
+    'sorting/SPARK4/Ada-SPARK-Bitonic-Sorter':
+        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
+    'sorting/SPARK4/Ada-SPARK-Bogosort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Bubble-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Bucket-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Burstsort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Comb-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Counting-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Cycle-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Flashsort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Gnome-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Heapsort':
+        '1-based heap parent/child formulas (Parent=I/2, Left=2*I)',
+    'sorting/SPARK4/Ada-SPARK-Insertion-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Introsort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Library-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Merge-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Odd-Even-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Pancake-Sorting':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Patience-Sorting':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Postman-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Quantum-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Quicksort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Radix-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Samplesort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Selection-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Shell-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Slowsort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Smoothsort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Sort-Merge-Join':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Spaghetti-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Stooge-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Strand-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Timsort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Ada-SPARK-Topological-Sort':
+        'classroom empty Last=0 with Node_Count; live positions 1..N',
+    'sorting/SPARK4/Ada-SPARK-Tree-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'sorting/SPARK4/Bead-Sort':
+        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+    'strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance':
+        'classroom Max_Len; DP rows/cols are 1..N',
+    'strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt':
+        'prefix table Pi(i) uses 1-based pattern indices',
+    'strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence':
+        'classroom Max_Len; DP rows/cols are 1..N',
+    'strings/SPARK3/Levenshtein-Distance':
+        'classroom Max_Len; DP rows/cols are 1..N',
+    'trees/SPARK2/Ada-SPARK-Longest-Common-Substring':
+        'classroom Max_Len; DP rows/cols are 1..N',
+}
+
 
 ARR_PARAM = re.compile(
     r'(\w+)\s*:\s*(in\s+|in\s+out\s+|out\s+)?(\w+)\s*'
@@ -90,6 +289,43 @@ def adb_lib_files(fid):
                 out.append(os.path.join(dp, fn))
     return out
 
+
+
+def index_bounds(tname, ads_text):
+    """(low, high) of the index subtype of unconstrained array type tname; None if unknown."""
+    m = re.search(rf'type\s+{re.escape(tname)}\s+is\s+array\s*\(\s*([\w.]+)\s+range\s*<>', ads_text, re.I)
+    if not m:
+        return None, None
+    ix = m.group(1).split('.')[-1]
+    std = {'natural': (0, None), 'integer': (None, None), 'positive': (1, None)}
+    if ix.lower() in std:
+        return std[ix.lower()]
+    consts = {c.group(1): int(c.group(2).replace('_', ''))
+              for c in re.finditer(r'(\w+)\s*:\s*constant(?:\s+\w+)?\s*:=\s*([\d_]+)\s*;', ads_text)}
+    def val(s):
+        s = s.strip()
+        if re.fullmatch(r'[\d_]+', s): return int(s.replace('_', ''))
+        if s in consts: return consts[s]
+        mm = re.fullmatch(r'(\w+)\s*([+-])\s*(\d+)', s)
+        if mm and mm.group(1) in consts:
+            return consts[mm.group(1)] + (int(mm.group(3)) if mm.group(2) == '+' else -int(mm.group(3)))
+        return None
+    d = re.search(rf'(?:sub)?type\s+{re.escape(ix)}\s+is\s+(?:new\s+)?(?:[\w.]+\s+)?range\s+(.+?)\s*\.\.\s*(.+?)\s*;',
+                  ads_text, re.I)
+    if not d:
+        return None, None
+    return val(d.group(1)), val(d.group(2))
+
+
+def origins_for(low, high):
+    """Two non-baseline origins and a high-first origin that fit the index subtype."""
+    lo = 0 if low is None else low
+    o_a = lo if lo != 1 else 2           # shift by one when 0 is not in the subtype
+    o_b = 100 if (high is None or high >= 104) and lo <= 100 else None
+    hi_first = 10_000
+    if high is not None:
+        hi_first = high - 64 if high - 64 > max(lo, 1) + 5 else None
+    return o_a, o_b, hi_first
 
 def unconstrained_types(ads_text):
     return {m.group(1): m.group(2) for m in ARR_TYPE.finditer(ads_text)}
@@ -158,100 +394,143 @@ def try_dynamic_integer_array(fid, types, subs, work_root, timeout):
     return [r for r in results if r]
 
 
+VALUE_API = re.compile(r'select|kth|median|minimum|maximum|^min$|^max$|value', re.I)
+SUCCESSOR_API = re.compile(r'cycle_(length|start)|^(mu|lambda)$', re.I)
+
+
+def _build_and_run(fid, work, driver, timeout):
+    open(os.path.join(work, 'idx_shift_driver.adb'), 'w').write(driver)
+    inc = []
+    for d in ('.', 'src'):
+        if os.path.isdir(os.path.join(work, d)): inc += [f'-I{d}']
+    cmd = ['gnatmake', '-q', '-gnat2022', '-gnato', '-gnata'] + inc + ['-o', 'idx_shift', 'idx_shift_driver.adb']
+    b = subprocess.run(cmd, cwd=work, env=env14(), capture_output=True, text=True, timeout=timeout)
+    if b.returncode != 0:
+        return None, 'driver build failed: ' + (b.stdout + b.stderr)[-200:].replace('\n', ' ')
+    r = mutate.run_limited(['./idx_shift'], work, timeout, env=env14())
+    if r is None:
+        return 'timeout', ''
+    return r, (r.stdout or '') + (r.stderr or '')
+
+
 def run_find_driver(fid, pkg, tname, sub, work_root, timeout):
-    """Baseline First=1 vs 0 vs 100; high First for midpoint; multi not applicable."""
+    """Baseline First=1 vs two other origins that fit the index subtype, plus a
+    high-'First probe for midpoint overflow.  Index-returning APIs must agree on
+    Result - A'First; value-returning APIs (Select_Kth, Median, ...) must agree
+    on the value.  Successor maps (Cycle_Length (Next, Start)) are vertex-id keyed:
+    the shifted copy relabels ids (indices AND values) and must give the same answer."""
     src = os.path.join(ROOT, fid)
     work = tempfile.mkdtemp(prefix='idx_', dir=work_root)
     try:
         shutil.copytree(src, work, dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('obj', 'bin', 'gnatprove', '*.o', '*.ali'))
-        # Discover Index subtype bounds if any
-        ads = open(ads_files(fid)[0], errors='replace').read() if ads_files(fid) else ''
-        # High first: use 10_000 if Index allows, else Max_N-ish
-        high = 10_000
-        driver = f'''pragma Ada_2022;
+        ads_all = '\n'.join(open(a, errors='replace').read() for a in ads_files(fid))
+        low, high = index_bounds(tname, ads_all)
+        o_a, o_b, hi_first = origins_for(low, high)
+        name = sub['name']
+        if SUCCESSOR_API.search(name):
+            # functional graph 1->2->3->4->5->3 : tail 2, cycle length 3
+            shifts = [o for o in (o_a, o_b) if o is not None and o != 1]
+            decls, calls, checks = [], [], []
+            for k, o in enumerate(shifts):
+                d = o - 1
+                vals = ', '.join(str(v + d) for v in (2, 3, 4, 5, 3))
+                decls.append(f'   M{k} : constant {tname} ({o} .. {o + 4}) := ({vals});')
+                calls.append(f'   R{k} := Integer ({name} (M{k}, {1 + d}));')
+                checks.append(f'   Check (R{k} = RB, "relabelled ids from {o}");')
+            driver = f"""pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with {pkg}; use {pkg};
 procedure Idx_Shift_Driver is
    Fail : Natural := 0;
    procedure Check (Cond : Boolean; Msg : String) is
    begin
-      if not Cond then
-         Fail := Fail + 1;
-         Put_Line ("FAIL " & Msg);
-      end if;
+      if not Cond then Fail := Fail + 1; Put_Line ("FAIL " & Msg); end if;
    end Check;
-   --  payload 2,1,3,2,4 at three origins
-   B1 : {tname} (1 .. 5) := (2, 1, 3, 2, 4);
-   B0 : {tname} (0 .. 4) := (2, 1, 3, 2, 4);
-   B100 : {tname} (100 .. 104) := (2, 1, 3, 2, 4);
-   R1, R0, R100 : Integer;
+   MB : constant {tname} (1 .. 5) := (2, 3, 4, 5, 3);
+{chr(10).join(decls)}
+   RB : Integer;
+   {', '.join(f'R{k}' for k in range(len(shifts))) or 'Unused'} : Integer;
 begin
+   RB := Integer ({name} (MB, 1));
+{chr(10).join(calls)}
+{chr(10).join(checks)}
+   if Fail > 0 then Put_Line ("IDX_SHIFT_FAIL" & Fail'Image); raise Program_Error; end if;
+   Put_Line ("IDX_SHIFT_OK {name}");
+end Idx_Shift_Driver;
+"""
+            mode = 'successor'
+        else:
+            value_api = bool(VALUE_API.search(name)) and \
+                (sub['ret'] or '').split('.')[-1].lower() not in ('index', 'ext_index')
+            rel = '' if value_api else ' - {A}\'First'
+            def cmp(a, b):
+                return f'(R{a}{rel.format(A="B" + a)}) = (R{b}{rel.format(A="B" + b)})'
+            origin_list = [('A', o_a)] + ([('C', o_b)] if o_b is not None else [])
+            decls = '\n'.join(f'   B{n} : {tname} ({o} .. {o + 4}) := (1, 2, 3, 4, 5);' for n, o in origin_list)
+            rdecl = ', '.join(f'R{n}' for n, _ in origin_list)
+            calls = '\n'.join(f'      R{n} := Integer ({name} (B{n}, 3));' for n, _ in origin_list)
+            checks = '\n'.join(f'      Check ({cmp(n, "1")}, "origin {o} vs 1 for key 3");' for n, o in origin_list)
+            hi_block = ''
+            if hi_first is not None:
+                hcmp = 'RH = RL' if value_api else "RH - Long'First = RL - Low1'First"
+                hi_block = f"""   declare
+      Low1 : {tname} (1 .. 65);
+      Long : {tname} ({hi_first} .. {hi_first} + 64);
+      RL, RH : Integer;
    begin
-      R1 := Integer ({sub["name"]} (B1, 3));
-      R0 := Integer ({sub["name"]} (B0, 3));
-      R100 := Integer ({sub["name"]} (B100, 3));
-      --  relative position of the hit must match (Result - A'First)
-      Check (R1 - B1'First = R0 - B0'First, "shift0 relative index for key 3");
-      Check (R1 - B1'First = R100 - B100'First, "shift100 relative index for key 3");
-      --  absolute equality only expected when the API returns a value, not an index
-   exception
-      when others =>
-         Fail := Fail + 1; Put_Line ("FAIL exception on shift compare");
-   end;
-   --  midpoint overflow probe: long sorted range with high 'First under -gnato
-   declare
-      Hi_First : constant Integer := {high};
-      Long : {tname} (Hi_First .. Hi_First + 64);
-   begin
-      for I in Long'Range loop
-         Long (I) := I - Long'First;  --  0 .. 64
-      end loop;
-      declare
-         R : Integer := Integer ({sub["name"]} (Long, 32));
-      begin
-         Check (R - Long'First = 32, "high-first hit at relative 32");
-      end;
+      for I in Low1'Range loop Low1 (I) := I - Low1'First; end loop;
+      for I in Long'Range loop Long (I) := I - Long'First; end loop;
+      RL := Integer ({name} (Low1, 32));
+      RH := Integer ({name} (Long, 32));
+      Check ({hcmp}, "high-first {hi_first} agrees with First=1");
    exception
       when Constraint_Error =>
          Fail := Fail + 1; Put_Line ("FAIL midpoint_overflow Constraint_Error high-first");
       when others =>
          Fail := Fail + 1; Put_Line ("FAIL exception high-first");
    end;
-   if Fail > 0 then
+"""
+            driver = f"""pragma Ada_2022;
+with Ada.Text_IO; use Ada.Text_IO;
+with {pkg}; use {pkg};
+procedure Idx_Shift_Driver is
+   Fail : Natural := 0;
+   procedure Check (Cond : Boolean; Msg : String) is
+   begin
+      if not Cond then Fail := Fail + 1; Put_Line ("FAIL " & Msg); end if;
+   end Check;
+   B1 : {tname} (1 .. 5) := (1, 2, 3, 4, 5);
+{decls}
+   R1, {rdecl} : Integer;
+begin
+   begin
+      R1 := Integer ({name} (B1, 3));
+{calls}
+{checks}
+   exception
+      when others =>
+         Fail := Fail + 1; Put_Line ("FAIL exception on shift compare");
+   end;
+{hi_block}   if Fail > 0 then
       Put_Line ("IDX_SHIFT_FAIL" & Fail'Image);
       raise Program_Error;
    end if;
-   Put_Line ("IDX_SHIFT_OK {sub["name"]}");
+   Put_Line ("IDX_SHIFT_OK {name}");
 end Idx_Shift_Driver;
-'''
-        # Many Find APIs need sorted input — use sorted payload instead
-        driver = driver.replace(
-            'B1 : {tname} (1 .. 5) := (2, 1, 3, 2, 4);\n   B0 : {tname} (0 .. 4) := (2, 1, 3, 2, 4);\n   B100 : {tname} (100 .. 104) := (2, 1, 3, 2, 4);'
-            .format(tname=tname),
-            f'B1 : {tname} (1 .. 5) := (1, 2, 3, 4, 5);\n'
-            f'   B0 : {tname} (0 .. 4) := (1, 2, 3, 4, 5);\n'
-            f'   B100 : {tname} (100 .. 104) := (1, 2, 3, 4, 5);')
-        open(os.path.join(work, 'idx_shift_driver.adb'), 'w').write(driver)
-        # Build with -gnato -gnata
-        inc = []
-        for d in ('.', 'src'):
-            if os.path.isdir(os.path.join(work, d)): inc += [f'-I{d}']
-        cmd = ['gnatmake', '-q', '-gnat2022', '-gnato', '-gnata'] + inc + ['-o', 'idx_shift', 'idx_shift_driver.adb']
-        b = subprocess.run(cmd, cwd=work, env=env14(), capture_output=True, text=True, timeout=timeout)
-        if b.returncode != 0:
-            return dict(folder=fid, subprogram=sub['name'], kind='skipped',
-                        detail='driver build failed: ' + (b.stdout + b.stderr)[-200:].replace('\n', ' '),
-                        status='skipped')
-        r = mutate.run_limited(['./idx_shift'], work, timeout, env=env14())
+"""
+            mode = 'value' if value_api else 'index'
+        r, out = _build_and_run(fid, work, driver, timeout)
         if r is None:
-            return dict(folder=fid, subprogram=sub['name'], kind='error', detail='timeout', status='error')
-        out = (r.stdout or '') + (r.stderr or '')
+            return dict(folder=fid, subprogram=name, kind='skipped', detail=out, status='skipped')
+        if r == 'timeout':
+            return dict(folder=fid, subprogram=name, kind='error', detail='timeout', status='error')
+        origins = f'origins {o_a}/{o_b} high {hi_first} ({mode})'
         if r.returncode == 0 and 'IDX_SHIFT_OK' in out:
-            return dict(folder=fid, subprogram=sub['name'], kind='ok', detail='shift0/100 + high-first ok', status='ok')
+            return dict(folder=fid, subprogram=name, kind='ok', detail=origins + ' ok', status='ok')
         kind = 'midpoint_overflow' if 'midpoint_overflow' in out else 'shift_mismatch'
-        return dict(folder=fid, subprogram=sub['name'], kind=kind,
-                    detail=out.replace('\n', ' | ')[:240], status='fail')
+        return dict(folder=fid, subprogram=name, kind=kind,
+                    detail=(origins + ' | ' + out.replace('\n', ' | '))[:240], status='fail')
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
@@ -259,6 +538,10 @@ end Idx_Shift_Driver;
 def run_sort_driver(fid, pkg, tname, sub, work_root, timeout):
     src = os.path.join(ROOT, fid)
     work = tempfile.mkdtemp(prefix='idx_', dir=work_root)
+    ads_all = '\n'.join(open(a, errors='replace').read() for a in ads_files(fid))
+    o_a, o_b, _ = origins_for(*index_bounds(tname, ads_all))
+    if o_b is None:
+        o_b = o_a + 1
     try:
         shutil.copytree(src, work, dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('obj', 'bin', 'gnatprove', '*.o', '*.ali'))
@@ -280,11 +563,11 @@ procedure Idx_Shift_Driver is
       end loop;
    end Expect_Sorted;
    A1 : {tname} (1 .. 5) := (3, 1, 4, 1, 5);
-   A0 : {tname} (0 .. 4) := (3, 1, 4, 1, 5);
-   A100 : {tname} (100 .. 104) := (3, 1, 4, 1, 5);
+   A0 : {tname} ({o_a} .. {o_a} + 4) := (3, 1, 4, 1, 5);
+   A100 : {tname} ({o_b} .. {o_b} + 4) := (3, 1, 4, 1, 5);
 begin
    {sub["name"]} (A1); {sub["name"]} (A0); {sub["name"]} (A100);
-   Expect_Sorted (A1, "first1"); Expect_Sorted (A0, "first0"); Expect_Sorted (A100, "first100");
+   Expect_Sorted (A1, "first1"); Expect_Sorted (A0, "origin a"); Expect_Sorted (A100, "origin b");
    for K in 0 .. 4 loop
       Check (A1 (A1'First + K) = A0 (A0'First + K), "shift0 payload");
       Check (A1 (A1'First + K) = A100 (A100'First + K), "shift100 payload");
@@ -339,12 +622,24 @@ def scan_folder(fid, work_root, timeout):
         rows.append(dict(folder=fid, subprogram=s['name'], kind='catalog',
                          detail=f"{s['kind']} n_arrays={s['n_arrays']} ret={s['ret']}",
                          status='catalog', n_array_params=str(s['n_arrays']), note=''))
-    # Contract pins 'First = 1 (SPARK classroom ports): cannot shift until First-relative
+    # Contract pins 'First = 1: prefer subtype; Pre + one-line reason = fixed_origin_type.
     ads_all = '\n'.join(text for _, text in ads_texts)
-    if re.search(r"A'First\s*=\s*1|First\s*=\s*1\s*and\s+then", ads_all):
+    pinned = bool(re.search(r"A'First\s*=\s*1|First\s*=\s*1\s*and\s+then", ads_all))
+    reason = FIXED_ORIGIN_REASONS.get(fid, '').strip()
+    if reason:
+        rows.append(dict(folder=fid, subprogram='', kind='fixed_origin_type',
+                         detail=("Pre/In_Bounds pins A'First = 1" if pinned else "id-keyed index subtype")
+                                + " (accepted fixed origin)",
+                         status='ok', n_array_params='', note=reason,
+                         fix_kind='fixed_origin_type'))
+        # Skip origin-shift dynamic drivers for intentional 1-based APIs
+        return rows
+    if pinned:
         rows.append(dict(folder=fid, subprogram='', kind='first_pinned',
-                         detail="In_Bounds/Pre requires A'First = 1 — make indexing 'First-relative and drop the pin",
-                         status='fail', n_array_params='', note='fix: First-relative indexing / subtypes'))
+                         detail="In_Bounds/Pre requires A'First = 1 — subtype/constrained type, "
+                                "or Pre + one-line reason (fix_kind=fixed_origin_type)",
+                         status='fail', n_array_params='', note='',
+                         fix_kind=''))
     if 'AdaBoost' in fid:
         ab = run_adaboost_shift(fid, work_root, timeout)
         if ab: rows.append(ab)
@@ -352,6 +647,7 @@ def scan_folder(fid, work_root, timeout):
     for d in dyn:
         d.setdefault('n_array_params', '')
         d.setdefault('note', '')
+        d.setdefault('fix_kind', '')
         rows.append(d)
     return rows
 
@@ -460,7 +756,12 @@ def main():
             fails = [r for r in part if r.get('status') == 'fail']
             if fails or i % 20 == 0:
                 print(f'  [{i}/{len(todo)}] {futs[fut]} fails={len(fails)}', flush=True)
-    cols = ['folder', 'subprogram', 'kind', 'status', 'n_array_params', 'detail', 'note']
+    cols = ['folder', 'subprogram', 'kind', 'status', 'fix_kind', 'n_array_params', 'detail', 'note']
+    if args.folders and os.path.exists(args.out):
+        # Partial run: replace only the scanned folders' rows, keep the rest.
+        done = set(todo)
+        keep = [r for r in csv.DictReader(open(args.out)) if r['folder'] not in done]
+        rows = keep + rows
     with open(args.out, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=cols, extrasaction='ignore')
         w.writeheader(); w.writerows(rows)
