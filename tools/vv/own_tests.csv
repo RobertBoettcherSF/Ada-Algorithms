@@ -128,3 +128,7 @@ strings/SPARK2/Ada-SPARK-Repeated-String-Match,own brute force (concatenate K co
 trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,own recursive height reference; hand cases incl. cycle; 20000 random trees
 trees/SPARK2/Ada-SPARK-Range-Sum-BST,own full-traversal reference; hand cases; 20000 random BSTs + ranges
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,own occurs-once reference (order kept); hand cases; 5000 random sorted/unsorted lists
+misc/SPARK2/Ada-SPARK-Basic-Calculator-II,exact integer result for every operand pair in -31..31 (3969 x 4 ops); out-of-range operands rejected (in tests.adb)
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,own all-subarrays reference in Long_Long_Integer; all 13**6 arrays over -6..6; out-of-range elements rejected (in tests.adb)
+misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,minimality property (meets the limit; D - 1 does not); 73 limits + 3000 random; infeasible limits rejected (in tests.adb)
+misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,own one-bar-at-a-time reference; every price 1..1000 x budgets 0..3200 (in tests.adb)
