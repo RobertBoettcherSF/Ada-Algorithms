@@ -18,10 +18,10 @@ misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,the climb ends on the last step (
 sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,squares elementwise without sorting despite the name (README says elementwise),fixed,600e30a5,81bcb6ad
 sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,different characters with the same frequency are not kept in contiguous groups; README silent,fixed,bf58e7ee,da3fb07e
 misc/SPARK2/Ada-SPARK-Partition-List,no tests (tests/main.adb missing): make test fails,fixed,2cde02d7,2cde02d7
-sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,no tests (tests/main.adb missing): make test fails,open,,
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,no tests (tests/main.adb missing): make test fails,fixed,d3958231,688de179
 misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,vacuous loop invariant gave 4 warnings under -gnata in make test,fixed,n/a (make test warnings),1351fa3
 misc/SPARK2/Ada-SPARK-Basic-Calculator-II,Evaluate clamps results into -1000..1000 (1000 * 2 returns 1000) (saturation scan),fixed,ee7ea73f,a16c749f
 misc/SPARK2/Ada-SPARK-Max-Product-Subarray,Clamp caps products at 100_000; six elements of 10 give 10**6 (saturation scan),fixed,d506febe,15f41aa4
 misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,Limit below Length is infeasible but returns Divisor'Last as an answer (saturation scan),fixed,68fa6790,1298296e
 numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,"butterflies clamp into Sample; full-range inputs saturate, result is not the DFT (saturation scan)",open,-,-
-sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,Solve groups by odd/even value instead of odd/even position (standard statement: positions); README silent,open,-,-
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,Solve groups by odd/even value instead of odd/even position (standard statement: positions); README silent,fixed,d3958231,688de179
