@@ -254,6 +254,10 @@ alone, which was wrong: the tests it ran never produced a failing input.
 
 Agent B (2026-10-08, Bucket-Sort): the same masking pattern, and not a bug. The bucket phase sorted on its own (sweep_fallback.py and the phase-alone hunt both passed), but it was not proved, and a final Insertion_Pass covered it. The phase is now proved (181 checks at silver level 2 and at level 4) and the fallback is gone (0bda50fa). The ten GNAT 12 warnings (a missing Slot postcondition and a loop index bound) were fixed in the code, not suppressed. Held-out half, split seed 20261022: 25/27 raw, 25/25 after 2 justified equivalents; the always-pass dummy scores 0/33. tools/vv/sweep_heldout_B.csv records both halves.
 
+Second round (seeds recorded per folder):
+- Cyk-Algorithm (split seed 20261008, before tests): tuned 31/31 after 2 equivalent tie-break survivors; held-out std 26/26 + alt 75/77 = 101/103 (98.1%).
+- BrownBoost (split seed 20261008, before tests): tuned 49/75, 26 survivors all with a written reason; held-out std 67/85 + alt 109/134 = 176/219 (80.4%), 3 timeouts in n. Below 90%.
+
 ## 3j. Silent-fail scan, compiler-version guard and timeouts (2026-10-08, night)
 
 **Silent fail.** `tools/vv/silent_fail.py` asks whether a failed check would fail `make test`. It reads the logs of the version-checked build run (`--from-logs`; `tools/audit/build_folder.sh` keeps `mk14.log`, `mk12.log`, `r14.log`, `r12.log`) or runs `make test` itself on GNAT 14. It flags three things:
@@ -279,6 +283,8 @@ First scan, 1840 folders, GNAT 14.2.0 and 12.2.0 logs:
 - `mutate.py`, `sweep_mutate.py` and `silent_fail.py` call `mutate.require_version(14)` and write the version into every row.
 - PROOFS.csv has `compiler_14_version` and `compiler_12_version`. Results from runs that did not record a version are `unverified` and block training_ready.
 - Every folder was rerun with the guard (`/workspace/aa/v2/build_v.jsonl`, appended per batch, last record wins).
+
+**Test seeds.** Every test that uses randomness has a fixed default seed, prints it, and reads `AA_SEED` from the environment as an override. No seed comes from the clock. (Random-Forest and Backpropagation had time seeds; both fixed, see above.)
 
 **Timeouts.** The mutation and silent-fail runners start each test in its own process group (`start_new_session`) and set a parent-death signal (`prctl(PR_SET_PDEATHSIG)`). On a timeout they kill the whole group, and the result is recorded as `timeout`, not as a kill. Before this change, a timed-out `make test` could leave `./tbin` spinning. `build_folder.sh` runs each step under `timeout -k 10` (GNU timeout signals the whole process group, then SIGKILL after 10 s) (`AA_MAKE_TIMEOUT`, default 900 s).
 
