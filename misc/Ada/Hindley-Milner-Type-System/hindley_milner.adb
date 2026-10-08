@@ -213,6 +213,9 @@ package body Hindley_Milner is
       end case;
    end To_String;
 
+   Trace_On  : Boolean := False;
+   Trace_Log : Trace_Vectors.Vector;
+
    function Algorithm_W (Ctx : in out Context; Env : Environment; E : Expr_Ref) return Inference_Result is
    begin
       case E.Kind is
@@ -235,9 +238,13 @@ package body Hindley_Milner is
                T_Var  : constant Type_Ref         := Fresh_Var (Ctx);
                Arrow  : constant Type_Ref         := Make_Arrow_Type (Res2.T, T_Var);
                Subst3 : constant Substitution     := Unify (Apply (Res2.Subst, Res1.T), Arrow);
+               App_T  : constant Type_Ref         := Apply (Subst3, T_Var);
             begin
+               if Trace_On then
+                  Trace_Log.Append (Trace_Event'(Trace_App, Var_Sets.Empty_Set, App_T));
+               end if;
                return (Subst => Compose (Subst3, Compose (Res2.Subst, Res1.Subst)),
-                       T     => Apply (Subst3, T_Var));
+                       T     => App_T);
             end;
 
          when Expr_Abs =>
@@ -262,6 +269,9 @@ package body Hindley_Milner is
                P    : constant Poly_Type        := Generalize (Env1, Res1.T);
                Env2 : Environment               := Env1;
             begin
+               if Trace_On then
+                  Trace_Log.Append (Trace_Event'(Trace_Let, P.Bound, P.T));
+               end if;
                Env2.Include (E.Let_Var, P);
                declare
                   Res2 : constant Inference_Result := Algorithm_W (Ctx, Env2, E.Let_Body);
@@ -272,6 +282,26 @@ package body Hindley_Milner is
             end;
       end case;
    end Algorithm_W;
+
+   procedure Algorithm_W_Traced
+     (Ctx    : in out Context;
+      Env    : Environment;
+      E      : Expr_Ref;
+      Result : out Inference_Result;
+      Trace  : out Trace_Vectors.Vector) is
+   begin
+      Trace_Log.Clear;
+      Trace_On := True;
+      Result := Algorithm_W (Ctx, Env, E);
+      Trace_On := False;
+      Trace := Trace_Log;
+      Trace_Log.Clear;
+   exception
+      when others =>
+         Trace_On := False;
+         Trace_Log.Clear;
+         raise;
+   end Algorithm_W_Traced;
 
    function Algorithm_M (Ctx : in out Context; Env : Environment; E : Expr_Ref; Expected : Type_Ref) return Substitution is
    begin

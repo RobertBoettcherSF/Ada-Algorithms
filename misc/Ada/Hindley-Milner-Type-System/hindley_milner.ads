@@ -1,6 +1,7 @@
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Ada.Containers.Ordered_Maps;
 with Ada.Containers.Ordered_Sets;
+with Ada.Containers.Vectors;
 
 package Hindley_Milner is
 
@@ -138,6 +139,27 @@ package Hindley_Milner is
 
    --  Variant 1: Algorithm W (Bottom-Up Inference)
    function Algorithm_W (Ctx : in out Context; Env : Environment; E : Expr_Ref) return Inference_Result
+     with Pre => E /= null;
+
+   --  Test-only, read-only trace of Algorithm W (not reentrant). One event
+   --  per let: the scheme it binds (Bound, T); one per application: its type
+   --  with the substitution accumulated so far applied. Post-order: a let's
+   --  value, then the let event, then its body; an application's function
+   --  and argument, then the application. Result is Algorithm_W's result.
+   type Trace_Kind is (Trace_Let, Trace_App);
+   type Trace_Event is record
+      Kind  : Trace_Kind := Trace_App;
+      Bound : Var_Sets.Set;
+      T     : Type_Ref;
+   end record;
+   package Trace_Vectors is new Ada.Containers.Vectors (Positive, Trace_Event);
+
+   procedure Algorithm_W_Traced
+     (Ctx    : in out Context;
+      Env    : Environment;
+      E      : Expr_Ref;
+      Result : out Inference_Result;
+      Trace  : out Trace_Vectors.Vector)
      with Pre => E /= null;
 
    --  Variant 2: Algorithm M (Top-Down Inference / Type Checking)
