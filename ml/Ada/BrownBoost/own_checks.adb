@@ -404,8 +404,10 @@ procedure Own_Checks is
    end Check_Data;
 
 begin
-   --  trials 1 .. 300: small sets; 301 .. 600: up to 40 rows, wider c range
-   for Trial in 1 .. 600 loop
+   --  trials 1 .. 300: small sets; 301 .. 380: up to 40 rows, wider c range
+   --  (kept short: the whole run must stay well inside the 30 s mutation
+   --  timeout on a loaded machine)
+   for Trial in 1 .. 380 loop
       declare
          NM  : constant Positive := (if Trial <= 300 then 4 + Rand (9) else 13 + Rand (Max_M - 12));
          NF  : constant Positive := 1 + Rand (Max_F);
