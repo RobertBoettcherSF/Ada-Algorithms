@@ -1,15 +1,19 @@
 -- tests.adb
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
+with Ada.Command_Line;
 with Histogram_Equalization; use Histogram_Equalization;
 
 procedure Tests is
+    Failures : Natural := 0;
+
     procedure Run_Test(Name : String; Condition : Boolean; Message : String) is
     begin
         if Condition then
             Put_Line(Name & ": PASS");
         else
             Put_Line(Name & ": FAIL - " & Message);
+            Failures := Failures + 1;
         end if;
     end Run_Test;
 
@@ -92,5 +96,8 @@ begin
     -- TEST 13: Memory Integrity
     Run_Test("Test 13: Memory Integrity", True, "No heap corruption observed during processing");
 
-    Put_Line("--- TESTS COMPLETED ---");
+    Put_Line("--- TESTS COMPLETED ---" & Natural'Image (Failures) & " failed");
+    if Failures > 0 then
+        Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+    end if;
 end Tests;
