@@ -178,6 +178,27 @@ begin
    end;
    Check ("14.1 SMO properly rejects single-element datasets natively", Exception_Raised);
 
+   Put_Line ("TEST 15 — Index draw, seed 123456789, 4000 draws, limit 40000");
+   --  The old source was 16 bits. Residues 1 .. 25536 then come up
+   --  about 0.779 of the time instead of 25536/40000. df = 1,
+   --  threshold 6.635 is p = 0.01.
+   declare
+      Low : Natural := 0;
+      Stat : Long_Float;
+      Exp_Low : constant Long_Float := 2553.6;
+      Exp_High : constant Long_Float := 1446.4;
+   begin
+      Set_Random_Seed (123_456_789);
+      for I in 1 .. 4000 loop
+         if Next_Random (40_000) <= 25_536 then
+            Low := Low + 1;
+         end if;
+      end loop;
+      Stat := (Long_Float (Low) - Exp_Low) ** 2 / Exp_Low
+        + (Long_Float (4000 - Low) - Exp_High) ** 2 / Exp_High;
+      Check ("15.1 chi-square < 6.635", Stat < 6.635);
+   end;
+
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");

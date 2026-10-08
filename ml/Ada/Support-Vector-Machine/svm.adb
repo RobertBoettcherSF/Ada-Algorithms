@@ -10,11 +10,24 @@ package body SVM is
    type Modular_32 is mod 2**32;
    LCG_State : Modular_32 := 123456789;
 
-   function Next_Random (Limit : Positive) return Positive is
+   procedure Set_Random_Seed (Seed : Natural) is
    begin
-      LCG_State := (LCG_State * 1103515245 + 12345);
-      --  Use higher bits for better pseudo-randomness (standard LCG fix)
-      return Natural ((LCG_State / 65536) mod Modular_32 (Limit)) + 1;
+      LCG_State := Modular_32 (Seed);
+   end Set_Random_Seed;
+
+   function Next_Random (Limit : Positive) return Positive is
+      Span   : constant Modular_32 := Modular_32 (Limit);
+      Bound  : constant Modular_32 := (Modular_32'Last / Span) * Span;
+      Bucket : constant Modular_32 := Bound / Span;
+   begin
+      --  The top 16 bits mod Limit over-weights the first 65536 mod Limit
+      --  residues. Reject past the last full set of buckets, then take
+      --  the high bits.
+      loop
+         LCG_State := LCG_State * 1103515245 + 12345;
+         exit when LCG_State < Bound;
+      end loop;
+      return Natural (LCG_State / Bucket) + 1;
    end Next_Random;
 
    -----------------------------

@@ -89,6 +89,11 @@ package SVM is
    function Dot_Product (A, B : Vector) return Real
      with Pre => A'Length = B'Length;
 
+   --  Deterministic index in 1 .. Limit. The package starts at seed
+   --  123456789; Set_Random_Seed makes a check repeatable.
+   procedure Set_Random_Seed (Seed : Natural);
+   function Next_Random (Limit : Positive) return Positive;
+
    function Kernel_Compute
      (K_Type   : Kernel_Type;
       A, B     : Vector;
