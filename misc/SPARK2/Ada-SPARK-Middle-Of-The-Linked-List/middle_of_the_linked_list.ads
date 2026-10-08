@@ -11,7 +11,10 @@ package Middle_Of_The_Linked_List is
    procedure Append (L : in out List; V : Value)
      with Pre => Length (L) < Count'Last;   --  no silent drop when full
    function Length (L : List) return Count;
-   function Middle (L : List) return Value;
+   --  The middle node; for an even length the second of the two middle nodes.
+   --  An empty list has no middle (state condition, so a precondition).
+   function Middle (L : List) return Value
+     with Pre => Length (L) > 0;
 private
    type Value_Array is array (Position) of Value;
    type List is record

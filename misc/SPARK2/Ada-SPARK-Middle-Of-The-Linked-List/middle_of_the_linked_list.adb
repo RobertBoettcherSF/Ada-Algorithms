@@ -5,6 +5,8 @@ package body Middle_Of_The_Linked_List is
    procedure Append (L : in out List; V : Value) is
    begin if L.Size < Count'Last then L.Size := L.Size + 1; L.Data (L.Size) := V; end if; end Append;
    function Length (L : List) return Count is (L.Size);
-   function Middle (L : List) return Value is Target : Count;
-   begin if L.Size = 0 then return 0; end if; Target := (L.Size + 1) / 2; return L.Data (Target); end Middle;
+   function Middle (L : List) return Value is
+   begin
+      return L.Data (L.Size / 2 + 1);
+   end Middle;
 end Middle_Of_The_Linked_List;
