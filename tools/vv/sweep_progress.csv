@@ -48,3 +48,4 @@ compression/Ada/Wavelet-Compression,"Integer sample pairs (Last, First) and the 
 numerical/Ada/Newells-Algorithm,"tolerance pad, box gap of exactly epsilon, viewer on the plane",hand geometry: one vertex at Min_X - epsilon; boxes a gap of 1.0e-7 apart; a square in the plane x=0,yes (prior round),"second round split 20261030; tuned 62/101 (raw 62/104, 3 equivalents); held-out 54/97 (55.7%)"
 clustering/Ada/K-Means-Clustering,none yet,split only,prior round,second round split seed 20261031 before new tests: std 81 tune / 73 held
 clustering/Ada/K-Means-Clustering,"K=N distinct, chi-square over 4000 seeds, unbiased remainder oracle, column origin, monotone SSE","rejection sampling of the Numerical Recipes LCG, chi-square against a flat rate, one Lloyd step at a time",prior round,split 20261031; tuned 56/71; held-out 50/65 (76.9%)
+clustering/Ada/K-Means-Plus-Plus,none yet,split only,not yet,second round split seed 20261101 before new tests: std 89 tune / 93 held
