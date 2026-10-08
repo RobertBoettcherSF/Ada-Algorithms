@@ -23,6 +23,75 @@ package body Hidden_Subgroup_Problem is
    end Greatest_Common_Divisor;
 
    ---------------------------------------------------------------------------
+   -- Simon post-processing over GF(2)
+   ---------------------------------------------------------------------------
+   -- Helper: bitwise dot product mod 2
+   function Dot_Product (A, B : Bit_Mask) return Natural is
+      Val : Bit_Mask := A and B;
+      Count : Natural := 0;
+   begin
+      while Val > 0 loop
+         if (Val mod 2) = 1 then
+            Count := Count + 1;
+         end if;
+         Val := Val / 2;
+      end loop;
+      return Count mod 2;
+   end Dot_Product;
+
+   -- Gaussian elimination over GF(2) to find non-zero kernel element s
+   function Simon_Null_Vector (Bits : Positive; Eqs : Bit_Mask_Array) return Bit_Mask is
+      Matrix : Bit_Mask_Array (1 .. Eqs'Length) := [others => 0];
+      M_Len  : Natural := 0;
+      Mask   : Bit_Mask;
+   begin
+      for I in Eqs'Range loop
+         if Eqs(I) /= 0 then
+            M_Len := M_Len + 1;
+            Matrix(M_Len) := Eqs(I);
+         end if;
+      end loop;
+
+      if M_Len = 0 then
+         raise Subgroup_Not_Found;
+      end if;
+
+      -- Forward elimination
+      for Col_Idx in reverse 0 .. Bits - 1 loop
+         Mask := Bit_Mask(2 ** Col_Idx);
+         for Row_Idx in 1 .. M_Len loop
+            if (Matrix(Row_Idx) and Mask) /= 0 then
+               for Other_Row in 1 .. M_Len loop
+                  if Other_Row /= Row_Idx and then (Matrix(Other_Row) and Mask) /= 0 then
+                     Matrix(Other_Row) := Matrix(Other_Row) xor Matrix(Row_Idx);
+                  end if;
+               end loop;
+               exit;
+            end if;
+         end loop;
+      end loop;
+
+      -- Search for non-zero vector s in solution set
+      for Candidate in 1 .. Bit_Mask(2 ** Bits - 1) loop
+         declare
+            Valid : Boolean := True;
+         begin
+            for I in 1 .. M_Len loop
+               if Dot_Product(Matrix(I), Candidate) /= 0 then
+                  Valid := False;
+                  exit;
+               end if;
+            end loop;
+            if Valid then
+               return Candidate;
+            end if;
+         end;
+      end loop;
+
+      raise Subgroup_Not_Found;
+   end Simon_Null_Vector;
+
+   ---------------------------------------------------------------------------
    -- Variant 1: Simon's Problem Solver
    ---------------------------------------------------------------------------
    function Solve_Simons_Problem
@@ -33,72 +102,6 @@ package body Hidden_Subgroup_Problem is
       Equations     : Bit_Mask_Array (1 .. Max_Equations) := [others => 0];
       Eq_Count      : Natural := 0;
       
-      -- Helper: bitwise dot product mod 2
-      function Dot_Product (A, B : Bit_Mask) return Natural is
-         Val : Bit_Mask := A and B;
-         Count : Natural := 0;
-      begin
-         while Val > 0 loop
-            if (Val mod 2) = 1 then
-               Count := Count + 1;
-            end if;
-            Val := Val / 2;
-         end loop;
-         return Count mod 2;
-      end Dot_Product;
-
-      -- Gaussian elimination over GF(2) to find non-zero kernel element s
-      function Gaussian_Elimination (Eqs : Bit_Mask_Array; Bits : Positive) return Bit_Mask is
-         Matrix : Bit_Mask_Array (1 .. Eqs'Length) := [others => 0];
-         M_Len  : Natural := 0;
-         Mask   : Bit_Mask;
-      begin
-         for I in Eqs'Range loop
-            if Eqs(I) /= 0 then
-               M_Len := M_Len + 1;
-               Matrix(M_Len) := Eqs(I);
-            end if;
-         end loop;
-
-         if M_Len = 0 then
-            raise Subgroup_Not_Found;
-         end if;
-
-         -- Forward elimination
-         for Col_Idx in reverse 0 .. Bits - 1 loop
-            Mask := Bit_Mask(2 ** Col_Idx);
-            for Row_Idx in 1 .. M_Len loop
-               if (Matrix(Row_Idx) and Mask) /= 0 then
-                  for Other_Row in 1 .. M_Len loop
-                     if Other_Row /= Row_Idx and then (Matrix(Other_Row) and Mask) /= 0 then
-                        Matrix(Other_Row) := Matrix(Other_Row) xor Matrix(Row_Idx);
-                     end if;
-                  end loop;
-                  exit;
-               end if;
-            end loop;
-         end loop;
-
-         -- Search for non-zero vector s in solution set
-         for Candidate in 1 .. Bit_Mask(2 ** Bits - 1) loop
-            declare
-               Valid : Boolean := True;
-            begin
-               for I in 1 .. M_Len loop
-                  if Dot_Product(Matrix(I), Candidate) /= 0 then
-                     Valid := False;
-                     exit;
-                  end if;
-               end loop;
-               if Valid then
-                  return Candidate;
-               end if;
-            end;
-         end loop;
-
-         raise Subgroup_Not_Found;
-      end Gaussian_Elimination;
-
    begin
       -- Check direct collisions with zero (loop starts at 1, so I > 0 always)
       for I in 1 .. Bit_Mask(2 ** N_Bits - 1) loop
@@ -134,7 +137,7 @@ package body Hidden_Subgroup_Problem is
          declare
             Sub_Slice : constant Bit_Mask_Array := Equations(1 .. Integer'Min(Eq_Count, Max_Equations));
          begin
-            return Gaussian_Elimination(Sub_Slice, N_Bits);
+            return Simon_Null_Vector(N_Bits, Sub_Slice);
          end;
       end if;
 

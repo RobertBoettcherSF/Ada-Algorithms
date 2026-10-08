@@ -37,6 +37,19 @@ package Hidden_Subgroup_Problem is
           Post => Solve_Simons_Problem'Result > 0;
 
    ---------------------------------------------------------------------------
+   -- Simon post-processing: the classical step of Simon's algorithm.
+   -- Given equations y with y . s = 0 (mod 2), returns the unique non-zero
+   -- s in Z_2^Bits orthogonal to every equation. Raises Subgroup_Not_Found
+   -- when only s = 0 qualifies, Invalid_Oracle when more than one non-zero
+   -- vector does (the equations do not determine s).
+   ---------------------------------------------------------------------------
+   function Simon_Null_Vector
+     (Bits : Positive;
+      Eqs  : Bit_Mask_Array) return Bit_Mask
+     with Pre  => Bits in 1 .. 8,
+          Post => Simon_Null_Vector'Result > 0;
+
+   ---------------------------------------------------------------------------
    -- Variant 2: Period Finding (Order Finding)
    -- Finds the smallest positive integer r such that f(x) = f(x + r) for all x in Z_N.
    ---------------------------------------------------------------------------
