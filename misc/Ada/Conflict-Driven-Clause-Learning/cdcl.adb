@@ -1,4 +1,6 @@
 package body CDCL is
+   package Natural_Vectors is new Ada.Containers.Vectors (Positive, Natural);
+
 
    -- Internal Data Structures
    type Assignment_Record is record
@@ -241,12 +243,17 @@ package body CDCL is
 
    -- Core Solver Logic incorporating Variants
    procedure Solve_Internal (F : Formula; Assignments : out Assignment_Array; Use_Restarts : Boolean; Restart_Interval : Positive; Use_Deletion : Boolean; Max_Learned : Positive;
-                             Status : out Solve_Status; Stats : out Solve_Statistics) is
+                             Status : out Solve_Status; Stats : out Solve_Statistics; Trace : out Solve_Trace) is
       S : CDCL_State (Variable_Id (F.Variables_Count));
+      --  Learn_Order (I) is the learn ID of clause Original_Count + I.
+      Learn_Order : Natural_Vectors.Vector;
       Conflicts_Since_Restart   : Natural := 0;
       Current_Restart_Threshold : Natural := Restart_Interval;
    begin
       Stats := (others => 0);
+      Trace.Restarts := 0;
+      Trace.Deletions := 0;
+      Trace.Truncated := False;
       Status := Unknown;
       --  Each clause enters the solver with duplicate literals removed:
       --  Evaluate counts unassigned occurrences and Analyze_Conflict counts
@@ -284,6 +291,7 @@ package body CDCL is
                begin
                   Analyze_Conflict (S, Conflict_Id, Learned, Back_Level);
                   S.Clauses.Append (Learned);
+                  Learn_Order.Append (S.Conflicts);
                   Stats.Learned := Stats.Learned + 1;
                   Backjump (S, Back_Level);
 
@@ -293,20 +301,33 @@ package body CDCL is
                   --  resolve on the wrong clause). The new clause (last) is
                   --  about to become a reason and is never deleted.
                   if Use_Deletion and then Natural (S.Clauses.Length) > S.Original_Count + Max_Learned then
-                     for Victim in S.Original_Count + 1 .. Natural (S.Clauses.Length) - 1 loop
-                        if (for all V in S.Assignments'Range =>
-                              S.Assignments (V).Value = Unassigned or else S.Assignments (V).Reason /= Victim)
-                        then
-                           S.Clauses.Delete (Victim);
-                           Stats.Deleted := Stats.Deleted + 1;
-                           for V in S.Assignments'Range loop
-                              if S.Assignments (V).Reason > Victim then
-                                 S.Assignments (V).Reason := S.Assignments (V).Reason - 1;
-                              end if;
-                           end loop;
-                           exit;
+                     declare
+                        Event : Deletion_Event := (At_Conflict => S.Conflicts, others => 0);
+                     begin
+                        for Victim in S.Original_Count + 1 .. Natural (S.Clauses.Length) - 1 loop
+                           if (for all V in S.Assignments'Range =>
+                                 S.Assignments (V).Value = Unassigned or else S.Assignments (V).Reason /= Victim)
+                           then
+                              S.Clauses.Delete (Victim);
+                              Event.Learn_ID := Learn_Order (Victim - S.Original_Count);
+                              Learn_Order.Delete (Victim - S.Original_Count);
+                              Stats.Deleted := Stats.Deleted + 1;
+                              for V in S.Assignments'Range loop
+                                 if S.Assignments (V).Reason > Victim then
+                                    S.Assignments (V).Reason := S.Assignments (V).Reason - 1;
+                                 end if;
+                              end loop;
+                              exit;
+                           end if;
+                           Event.Skipped := Event.Skipped + 1;
+                        end loop;
+                        if Trace.Deletions < Event_Count'Last then
+                           Trace.Deletions := Trace.Deletions + 1;
+                           Trace.Deletion_Log (Trace.Deletions) := Event;
+                        else
+                           Trace.Truncated := True;
                         end if;
-                     end loop;
+                     end;
                   end if;
 
                   Stats.Peak_Learned := Natural'Max (Stats.Peak_Learned, Natural (S.Clauses.Length) - S.Original_Count);
@@ -330,6 +351,12 @@ package body CDCL is
                   if Conflicts_Since_Restart >= Current_Restart_Threshold then
                      Backjump (S, 0);
                      Stats.Restarts := Stats.Restarts + 1;
+                     if Trace.Restarts < Event_Count'Last then
+                        Trace.Restarts := Trace.Restarts + 1;
+                        Trace.Restart_At (Trace.Restarts) := S.Conflicts;
+                     else
+                        Trace.Truncated := True;
+                     end if;
                      Conflicts_Since_Restart := 0;
                      Current_Restart_Threshold := Current_Restart_Threshold + (Current_Restart_Threshold / 2);
                   end if;
@@ -359,31 +386,49 @@ package body CDCL is
       Max_Learned      : Positive;
       Status           : out Solve_Status;
       Stats            : out Solve_Statistics) is
+      Trace : Solve_Trace;
    begin
-      Solve_Internal (F, Assignments, Use_Restarts, Restart_Interval, Use_Deletion, Max_Learned, Status, Stats);
+      Solve_Internal (F, Assignments, Use_Restarts, Restart_Interval, Use_Deletion, Max_Learned, Status, Stats, Trace);
    end Solve_Instrumented;
+
+   procedure Solve_Traced
+     (F                : Formula;
+      Assignments      : out Assignment_Array;
+      Use_Restarts     : Boolean;
+      Restart_Interval : Positive;
+      Use_Deletion     : Boolean;
+      Max_Learned      : Positive;
+      Status           : out Solve_Status;
+      Stats            : out Solve_Statistics;
+      Trace            : out Solve_Trace) is
+   begin
+      Solve_Internal (F, Assignments, Use_Restarts, Restart_Interval, Use_Deletion, Max_Learned, Status, Stats, Trace);
+   end Solve_Traced;
 
    function Solve_Basic (F : Formula; Assignments : out Assignment_Array) return Solve_Status is
       Status : Solve_Status;
       Stats  : Solve_Statistics;
+      Trace  : Solve_Trace;
    begin
-      Solve_Internal (F, Assignments, False, 1, False, 1, Status, Stats);
+      Solve_Internal (F, Assignments, False, 1, False, 1, Status, Stats, Trace);
       return Status;
    end Solve_Basic;
 
    function Solve_With_Restarts (F : Formula; Assignments : out Assignment_Array; Restart_Interval : Positive) return Solve_Status is
       Status : Solve_Status;
       Stats  : Solve_Statistics;
+      Trace  : Solve_Trace;
    begin
-      Solve_Internal (F, Assignments, True, Restart_Interval, False, 1, Status, Stats);
+      Solve_Internal (F, Assignments, True, Restart_Interval, False, 1, Status, Stats, Trace);
       return Status;
    end Solve_With_Restarts;
 
    function Solve_With_Clause_Deletion (F : Formula; Assignments : out Assignment_Array; Max_Learned : Positive) return Solve_Status is
       Status : Solve_Status;
       Stats  : Solve_Statistics;
+      Trace  : Solve_Trace;
    begin
-      Solve_Internal (F, Assignments, False, 1, True, Max_Learned, Status, Stats);
+      Solve_Internal (F, Assignments, False, 1, True, Max_Learned, Status, Stats, Trace);
       return Status;
    end Solve_With_Clause_Deletion;
 
