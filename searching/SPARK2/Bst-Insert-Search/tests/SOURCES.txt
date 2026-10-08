@@ -6,11 +6,9 @@ repository (MIT); nothing is copied from the program's output or from
 third-party test suites. Random inputs come from the Park-Miller minimal
 standard generator (seed 20261008).
 
-* Own reference: after inserting a sequence of distinct keys, Contains (V) must
-  be True exactly for the inserted keys (checked for every V in -32 .. 32).
-* Only sequences whose unbalanced BST has depth <= 5 are used (computed by an
-  own model: an earlier key is an ancestor iff no key inserted before it lies
-  strictly between the two). The package stores node K's children at 2K and
-  2K + 1 inside 31 slots, so deeper trees do not fit; that limit is not stated
-  anywhere (the folder has no README) and is reported separately.
-* Inputs: 4,000 random sequences of 0 .. 20 distinct keys in -30 .. 30.
+* Own reference: after inserting a sequence of keys, Contains (V) must be
+  True exactly for the inserted keys (checked for every V in -1000 .. 1000).
+* Hand cases: ascending, descending and zig-zag key sequences of 1 .. 31 keys
+  (chains as deep as the number of keys).
+* Inputs: 6,000 random sequences of 0 .. 31 keys, any tree shape; every third
+  run draws keys from -6 .. 6 so keys repeat (a repeated key is stored once).

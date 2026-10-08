@@ -50,57 +50,36 @@ procedure Own_Checks is
    type Seq is array (1 .. 31) of Value;
    S : Seq;
    Cnt : Natural;
-   --  own model of the unbalanced BST: depth of each inserted key
-   function Depth_Ok (S : Seq; N : Natural) return Boolean is
-      D : Natural;
+   procedure Check_Seq (S : Seq; Cnt : Natural; Label : String) is
+      T : Tree := Empty;
+      Ok : Boolean := True;
    begin
-      for I in 1 .. N loop
-         --  depth of S (I) = 1 + number of earlier keys on its search path
-         D := 1;
-         for J in 1 .. I - 1 loop
-            declare
-               On_Path : Boolean := True;
-            begin
-               --  S (J) is an ancestor of S (I) iff no earlier key lies strictly between them
-               for M in 1 .. J - 1 loop
-                  if (S (M) > S (J) and then S (M) < S (I)) or else (S (M) < S (J) and then S (M) > S (I)) then
-                     On_Path := False;
-                  end if;
-               end loop;
-               if On_Path then
-                  D := D + 1;
-               end if;
-            end;
-         end loop;
-         if D > 5 then
-            return False;
-         end if;
+      for I in 1 .. Cnt loop
+         Insert (T, S (I));
       end loop;
-      return True;
-   end Depth_Ok;
+      for V in Value loop
+         Ok := Ok and then Contains (T, V) = (for some J in 1 .. Cnt => S (J) = V);
+      end loop;
+      Report (Ok, Label);
+   end Check_Seq;
 begin
-   for K in 1 .. 4_000 loop
-      Cnt := Next (0, (if K mod 2 = 0 then 8 else 20));
+   --  hand cases: sorted inserts give a chain as deep as the number of keys
+   for N in 1 .. 31 loop
+      Check_Seq ([for I in 1 .. 31 => I], N, "ascending 1 .." & N'Image);
+      Check_Seq ([for I in 1 .. 31 => 1000 - I], N, "descending, " & N'Image & " keys");
+      Check_Seq ([for I in 1 .. 31 => (if I mod 2 = 1 then -I else I)], N, "zig-zag, " & N'Image & " keys");
+   end loop;
+   --  random sequences of distinct keys, any shape (up to the full 31 slots); every third run draws
+   --  repeated keys from a small range (a repeated key leaves the tree unchanged)
+   for K in 1 .. 6_000 loop
+      Cnt := Next (0, (if K mod 2 = 0 then 8 else 31));
       for I in 1 .. Cnt loop
          loop
-            S (I) := Next (-30, 30);
-            exit when (for all J in 1 .. I - 1 => S (J) /= S (I));
+            S (I) := (if K mod 3 = 0 then Next (-6, 6) else Next (-1000, 1000));
+            exit when K mod 3 = 0 or else (for all J in 1 .. I - 1 => S (J) /= S (I));
          end loop;
       end loop;
-      if Depth_Ok (S, Cnt) then
-         declare
-            T : Tree := Empty;
-            Ok : Boolean := True;
-         begin
-            for I in 1 .. Cnt loop
-               Insert (T, S (I));
-            end loop;
-            for V in -32 .. 32 loop
-               Ok := Ok and then Contains (T, V) = (for some J in 1 .. Cnt => S (J) = V);
-            end loop;
-            Report (Ok, "random" & K'Image);
-         end;
-      end if;
+      Check_Seq (S, Cnt, "random" & K'Image);
    end loop;
    if Failures > 0 then
       Ada.Text_IO.Put_Line ("FAIL own checks:" & Failures'Image & " of" & Cases'Image);
