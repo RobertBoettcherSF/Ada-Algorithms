@@ -1,0 +1,19 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own references: the mean is the sum divided by the count; the median is
+  the middle of the targets sorted with an own insertion sort, or the
+  average of the two middle values for an even count (standard
+  definition); the mode is the most frequent value with ties going to the
+  smallest value (the spec's rule), found by counting each value.
+* Both the plain and the Safe_ variants are compared; Safe_ on an empty
+  array must raise Empty_Dataset_Error.
+* Inputs: 10000 random target sets (1 .. 15 values; numeric -1000 .. 1000,
+  nominal 0 .. 3 for many ties or 0 .. 50).

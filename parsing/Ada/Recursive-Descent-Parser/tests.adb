@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Recursive_Descent_Parser; use Recursive_Descent_Parser;
+with Own_Checks;
 
 procedure Tests is
    Pass_Count : Natural := 0;
@@ -125,4 +126,5 @@ begin
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
    pragma Assert (Fail_Count = 0, "Some tests failed");
+   Own_Checks;
 end Tests;
