@@ -28,13 +28,17 @@ is
 
    -- Pseudo-Random Generation Algorithm (PRGA)
    -- Advances the internal state and returns a single pseudo-random byte.
+   --  Functions with an in out parameter are not SPARK (SPARK RM 6.1), so the two
+   --  stateful functions are outside SPARK; Process_In_Place is the SPARK form.
    function Next_Byte (Ctx : in out Context) return Byte
-     with Global => null;
+     with SPARK_Mode => Off,
+          Global => null;
 
    -- Encrypts or decrypts the input data using the current context state.
    -- Since RC4 is a stream cipher, encryption and decryption are identical (XOR).
    function Process (Ctx : in out Context; Input : in Byte_Array) return Byte_Array
-     with Post => Process'Result'Length = Input'Length,
+     with SPARK_Mode => Off,
+          Post => Process'Result'Length = Input'Length,
           Global => null;
 
    -- Encrypts or decrypts data in place without allocating a new array.

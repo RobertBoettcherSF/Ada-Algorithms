@@ -63,15 +63,29 @@ is
       end loop;
    end Initialize_Drop;
 
-   function Next_Byte (Ctx : in out Context) return Byte is
+   --  One PRGA step (SPARK); Next_Byte, Process and Process_In_Place use it.
+   procedure Next (Ctx : in out Context; K : out Byte)
+     with Global => null
+   is
       T : Byte;
    begin
       Advance_State (Ctx);
       T := Ctx.S (Ctx.I) + Ctx.S (Ctx.J);
-      return Ctx.S (T);
+      K := Ctx.S (T);
+   end Next;
+
+   function Next_Byte (Ctx : in out Context) return Byte
+     with SPARK_Mode => Off
+   is
+      K : Byte;
+   begin
+      Next (Ctx, K);
+      return K;
    end Next_Byte;
 
-   function Process (Ctx : in out Context; Input : in Byte_Array) return Byte_Array is
+   function Process (Ctx : in out Context; Input : in Byte_Array) return Byte_Array
+     with SPARK_Mode => Off
+   is
       Output : Byte_Array (Input'Range);
    begin
       for K in Input'Range loop
@@ -81,9 +95,11 @@ is
    end Process;
 
    procedure Process_In_Place (Ctx : in out Context; Data : in out Byte_Array) is
+      Key_Byte : Byte;
    begin
       for K in Data'Range loop
-         Data (K) := Data (K) xor Next_Byte (Ctx);
+         Next (Ctx, Key_Byte);
+         Data (K) := Data (K) xor Key_Byte;
       end loop;
    end Process_In_Place;
 
