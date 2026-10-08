@@ -1,0 +1,35 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the package; expected results come from
+hand-written literals and order checks inside tests.adb.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09):
+* Checked properties, independent of how the code sorts and of the
+  package's own "<": the output is nondecreasing under Ada's predefined
+  String order on Data (1 .. Length), and every string occurs in the
+  output exactly as often as in the input (occurrence counts by linear
+  scans; no sorting in the check). Together with equal lengths this is
+  "same multiset".
+* Inputs: every array of length 0 .. 5 over the words "", "a", "b", "aa",
+  "ab", "ba" (9,331); every permutation of seven strings that are
+  prefixes of each other or differ late, "abc", "ab", "abd", "a", "b", "",
+  "abcd" (5,040; seven strings exceed Burst_Threshold, so every call
+  bursts); 1,500 random arrays of random length 0 .. Max_N, each drawn
+  from one mode: two letters and lengths 0 .. 16 (deep shared prefixes),
+  all 256 characters, a 10-character shared prefix plus a short tail,
+  full length differing only in the last character, mostly equal
+  full-length strings (more than Burst_Threshold equal 16-character
+  strings reach the Depth = Max_String_Len return), prefixes of one word;
+  every other random array stores random junk after Length, which the
+  sort must ignore (Park-Miller minimal standard generator); full-length
+  equal, nested-prefix, descending-letter and Character'First /
+  Character'Last arrays.
+  Applied to: Burstsort.Sort.
+* Named phase: Sort is only the burst phase now (the Bubble_Finish
+  fallback was removed), so every check above exercises the partition,
+  the character sort, the run recursion and the insertion sorts alone.
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..."); set AA_SEED=<n> to run them with
+  another seed.
