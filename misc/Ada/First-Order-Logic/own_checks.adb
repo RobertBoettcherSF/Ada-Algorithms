@@ -41,10 +41,14 @@ procedure Own_Checks is
    begin
       return 2;
    end Eval_Constant;
+   --  'h' is binary and depends on both arguments (own table below); every
+   --  other function symbol returns its first argument
+   function H_Table (First, Second : Domain_Element) return Domain_Element is
+     (Domain_Element ((Integer (First) + 2 * Integer (Second)) mod 3 + 1));
    overriding function Eval_Function (I : Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Domain_Element is
-      pragma Unreferenced (I, Name, Arg2);
+      pragma Unreferenced (I);
    begin
-      return Arg1;
+      return (if Name = 'h' then H_Table (Arg1, Arg2) else Arg1);
    end Eval_Function;
    overriding function Eval_Predicate (I : Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Boolean is
       pragma Unreferenced (I);
@@ -268,6 +272,34 @@ begin
    end;
    Put_Line ("own checks: Exists-closure SAT" & Sat_Agree'Image & " /" & Sat_Total'Image
              & ", UNSAT" & Unsat_Agree'Image & " /" & Unsat_Total'Image & " (incl. PHP(3,2))");
+   --  binary function and predicate symbols: the second argument is
+   --  evaluated and passed in order, for all 9 pairs (x, y) of the domain;
+   --  expected values from H_Table / the definition of G, not from Evaluate
+   declare
+      Hxy  : constant Term_Access := Make_Function ('h', Make_Variable ('x'), Make_Variable ('y'));
+      Hfy  : constant Term_Access := Make_Function ('h', Make_Function ('f', Make_Variable ('y')), Make_Variable ('x'));
+      Gxy  : constant Formula_Access := Make_Predicate ('G', Make_Variable ('x'), Make_Variable ('y'));
+      Ghx  : constant Formula_Access := Make_Predicate ('G', Hxy, Make_Variable ('x'));
+      Env  : Assignment := [others => 1];
+      Pairs : Natural := 0;
+   begin
+      for A in Domain_Element loop
+         for B in Domain_Element loop
+            Env ('x') := A;
+            Env ('y') := B;
+            if Evaluate_Term (Hxy, I, Env) /= H_Table (A, B)
+              or else Evaluate_Term (Hfy, I, Env) /= H_Table (B, A)
+              or else Evaluate_Formula (Gxy, I, Env) /= (A > B)
+              or else Evaluate_Formula (Ghx, I, Env) /= (H_Table (A, B) > A)
+            then
+               Fail ("binary symbols at x =" & A'Image & ", y =" & B'Image);
+            else
+               Pairs := Pairs + 1;
+            end if;
+         end loop;
+      end loop;
+      Put_Line ("own checks: binary function / predicate arguments:" & Pairs'Image & " / 9 pairs");
+   end;
    if Failures > 0 then
       raise Program_Error with "own checks:" & Failures'Image & " failures";
    end if;
