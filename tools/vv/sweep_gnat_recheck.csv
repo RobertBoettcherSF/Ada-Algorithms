@@ -1,31 +1,33 @@
-folder,expected,gnatmake_version,gcc_version,make_test_exit,warnings,last_line,commit
-misc/SPARK2/Ada-SPARK-Fibonacci-DP,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: every N in 0 .. 10 (brute-force count of bit strings),aa232af2
-misc/SPARK2/Ada-SPARK-Fibonacci-DP,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: every N in 0 .. 10 (brute-force count of bit strings),aa232af2
-misc/SPARK2/Ada-SPARK-House-Robber-II,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 9831 inputs (own circular subset enumeration),aa232af2
-misc/SPARK2/Ada-SPARK-House-Robber-II,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 9831 inputs (own circular subset enumeration),aa232af2
-misc/SPARK2/Ada-SPARK-Median-Filtering,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 602 images (counting median; border weights),aa232af2
-misc/SPARK2/Ada-SPARK-Median-Filtering,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 602 images (counting median; border weights),aa232af2
-misc/SPARK2/Ada-SPARK-N-th-Tribonacci,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 55 values (four-term identity; composition count),aa232af2
-misc/SPARK2/Ada-SPARK-N-th-Tribonacci,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 55 values (four-term identity; composition count),aa232af2
-misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 1089 entries (multiplicative formula; symmetry; row sums),aa232af2
-misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 1089 entries (multiplicative formula; symmetry; row sums),aa232af2
-misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: every K in 1 .. 50 (order of 10 modulo 9 K),aa232af2
-misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: every K in 1 .. 50 (order of 10 modulo 9 K),aa232af2
-misc/SPARK2/Ada-SPARK-Tribonacci-Number,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 55 values (four-term identity; composition count),aa232af2
-misc/SPARK2/Ada-SPARK-Tribonacci-Number,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 55 values (four-term identity; composition count),aa232af2
-sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 9823 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 9823 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Merge-Sort,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 9823 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Merge-Sort,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 9823 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Quantum-Sort,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 39292 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Quantum-Sort,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 39292 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Samplesort,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 9823 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Samplesort,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 9823 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Timsort,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 9823 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Timsort,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 9823 sort calls (nondecreasing + occurrence counts),aa232af2
-sorting/SPARK4/Ada-SPARK-Bucket-Sort,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 7636 sort calls (nondecreasing + occurrence counts),01cc463e
-sorting/SPARK4/Ada-SPARK-Bucket-Sort,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 7636 sort calls (nondecreasing + occurrence counts),01cc463e
-sorting/SPARK4/Ada-SPARK-Slowsort,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 9825 sort calls (nondecreasing + occurrence counts),9651e2b5
-sorting/SPARK4/Ada-SPARK-Slowsort,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 9825 sort calls (nondecreasing + occurrence counts),9651e2b5
-sorting/SPARK4/Ada-SPARK-Strand-Sort,GNAT 14,GNATMAKE 14.2.0,gcc (Debian 14.2.0-19) 14.2.0,0,0,PASS own checks: 9833 sort calls (nondecreasing + occurrence counts),b3f739f4
-sorting/SPARK4/Ada-SPARK-Strand-Sort,GNAT 12,GNATMAKE 12.2.0,gcc (GCC) 12.2.0,0,0,PASS own checks: 9833 sort calls (nondecreasing + occurrence counts),b3f739f4
+folder,expected,gnatls_version,make_test_exit,warnings,last_line,commit
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: every N in 0 .. 10 (brute-force count of bit strings)",6a678815
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: every N in 0 .. 10 (brute-force count of bit strings)",6a678815
+misc/SPARK2/Ada-SPARK-House-Robber-II,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 9831 inputs (own circular subset enumeration)",6a678815
+misc/SPARK2/Ada-SPARK-House-Robber-II,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 9831 inputs (own circular subset enumeration)",6a678815
+misc/SPARK2/Ada-SPARK-Median-Filtering,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 602 images (counting median; border weights)",6a678815
+misc/SPARK2/Ada-SPARK-Median-Filtering,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 602 images (counting median; border weights)",6a678815
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 55 values (four-term identity; composition count)",6a678815
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 55 values (four-term identity; composition count)",6a678815
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 1089 entries (multiplicative formula; symmetry; row sums)",6a678815
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 1089 entries (multiplicative formula; symmetry; row sums)",6a678815
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: every K in 1 .. 50 (order of 10 modulo 9 K)",6a678815
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: every K in 1 .. 50 (order of 10 modulo 9 K)",6a678815
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 55 values (four-term identity; composition count)",6a678815
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 55 values (four-term identity; composition count)",6a678815
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 9823 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 9823 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Merge-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 9823 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Merge-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 9823 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 39292 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 39292 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Samplesort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 9823 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Samplesort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 9823 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Timsort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 9823 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Timsort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 9823 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Library-Sort,GNAT 14,GNATLS 14.2.0,0,0,"Named-phase check: Sort has no Bubble_Finish call; the main test run covers the library phase alone.",6a678815
+sorting/SPARK4/Ada-SPARK-Library-Sort,GNAT 12,GNATLS 12.2.0,0,0,"Named-phase check: Sort has no Bubble_Finish call; the main test run covers the library phase alone.",6a678815
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 7636 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 7636 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Slowsort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 9825 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Slowsort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 9825 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Strand-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 9833 sort calls (nondecreasing + occurrence counts)",6a678815
+sorting/SPARK4/Ada-SPARK-Strand-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 9833 sort calls (nondecreasing + occurrence counts)",6a678815
