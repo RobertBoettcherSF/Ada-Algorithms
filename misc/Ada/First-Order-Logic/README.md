@@ -7,6 +7,11 @@
 > `Substitute_Formula` is capture-avoiding: a quantifier whose variable occurs in the replacement is
 > renamed to an unused variable (failing test 03a82873, fix eb08d1b7). Before that fix, substitution
 > under a binder could capture the variable.
+> Unary function and predicate symbols get no second argument: `Eval_Function` / `Eval_Predicate`
+> take `Arg2 : Optional_Element`, with `Present = False` for unary symbols (reading its value then
+> raises). Before 2c6b1f74 a unary symbol received a placeholder second argument preset to 1, so a
+> binary symbol that lost its second argument could not be told apart (tests f5f074cf cover all 9
+> argument pairs of the binary symbols).
 
 This project provides a robust, strongly-typed Ada implementation for defining and evaluating expressions in First-Order Logic (FOL), as described in formal mathematical logic. It implements the abstract syntax representation of terms (variables, constants, functions) and formulas (predicates, equality, propositional connectives, and quantifiers). Semantic evaluation executes over a user-defined interpretation and a fixed three-element domain (universe of discourse), making universal and existential quantifiers directly computable.
 
