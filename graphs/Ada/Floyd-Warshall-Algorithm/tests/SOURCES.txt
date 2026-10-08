@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: depth-first enumeration of every simple path from each
+  vertex (minimum cost per pair) and of every simple cycle (is any of them
+  negative?), with n <= 6.
+* Checks: Status = Negative_Cycle exactly when a negative cycle exists.
+  Otherwise every Dist (i, j) equals the minimum (Infinity when
+  unreachable), and following Next from i to j gives a path of exactly
+  that cost over existing edges.
+* Inputs: 3000 random digraphs, up to 3n edges, weights -4 .. 20
+  (negative self-loops are left out).
