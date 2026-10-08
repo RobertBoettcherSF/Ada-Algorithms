@@ -5,6 +5,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Odd_Even_Sort; use Odd_Even_Sort;
+with Own_Checks;
 
 procedure Tests is
 
@@ -537,4 +538,5 @@ begin
    if Fail_Count /= 0 then
       raise Program_Error with "Odd_Even_Sort tests failed";
    end if;
+   Own_Checks;
 end Tests;

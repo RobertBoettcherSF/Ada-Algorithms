@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own properties: after Sort the array is in non-decreasing order and holds
+  the same values with the same multiplicities as before (own matching).
+* Inputs: 4000 random arrays (length 0 .. 39, first index 0 .. 5; values in
+  -3 .. 3 for many ties, -1000 .. 1000, or -10^9 .. 10^9).

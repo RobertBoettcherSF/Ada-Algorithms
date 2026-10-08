@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own reference: a linear scan gives the leftmost and rightmost index of
+  Key, or none; the spec states the sentinel A'First - 1 for an absent key.
+  Find must return some index holding Key (or the sentinel), Find_First the
+  leftmost and Find_Last the rightmost.
+* Inputs: 20000 random sorted arrays with duplicates (length 0 .. 30, first
+  index 1 .. 5), keys in -12 .. 12 so both hits and misses are common.

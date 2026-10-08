@@ -3,6 +3,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Hamming_Weight; use Hamming_Weight;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -105,4 +106,5 @@ begin
    Put_Line ("      ALL 13+ TERMINAL ASSUMPTIONS DISPROVED     ");
    Put_Line ("        CODE FUNCTIONS AS DESIGNED (PASS)        ");
    Put_Line ("=================================================");
+   Own_Checks;
 end Tests;
