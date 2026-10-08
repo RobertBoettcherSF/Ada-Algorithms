@@ -9,7 +9,7 @@ package body Wavelet_Compression is
    function Forward_Haar_1D (Input : Signal_1D) return Signal_1D is
       Result  : Signal_1D (Input'Range);
       Half    : constant Natural := Input'Length / 2;
-      Out_Idx : Positive := Result'First;
+      Out_Idx : constant Positive := Result'First;
    begin
       if Input'Length = 1 then
          return Input;
@@ -32,7 +32,7 @@ package body Wavelet_Compression is
    function Inverse_Haar_1D (Input : Signal_1D) return Signal_1D is
       Result  : Signal_1D (Input'Range);
       Half    : constant Natural := Input'Length / 2;
-      Out_Idx : Positive := Result'First;
+      Out_Idx : constant Positive := Result'First;
    begin
       if Input'Length = 1 then
          return Input;
@@ -149,7 +149,7 @@ package body Wavelet_Compression is
    function Forward_Haar_1D_Lossless (Input : Signal_1D_Int) return Signal_1D_Int is
       Result  : Signal_1D_Int (Input'Range);
       Half    : constant Natural := Input'Length / 2;
-      Out_Idx : Positive := Result'First;
+      Out_Idx : constant Positive := Result'First;
       Diff    : Integer;
    begin
       if Input'Length = 1 then return Input; end if;
@@ -171,7 +171,7 @@ package body Wavelet_Compression is
    function Inverse_Haar_1D_Lossless (Input : Signal_1D_Int) return Signal_1D_Int is
       Result  : Signal_1D_Int (Input'Range);
       Half    : constant Natural := Input'Length / 2;
-      Out_Idx : Positive := Result'First;
+      Out_Idx : constant Positive := Result'First;
       Avg, Diff : Integer;
    begin
       if Input'Length = 1 then return Input; end if;

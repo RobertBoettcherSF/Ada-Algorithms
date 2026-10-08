@@ -1,0 +1,19 @@
+Wavelet own checks (own_checks.adb)
+
+Float Haar, non-normalized, written here:
+  average (x+y)/2, detail (x-y)/2, packed low then high.
+  Inverse: x = a+d, y = a-d.
+  This is the averaging/differencing form used since Haar (1910), not an
+  orthonormal scaling by 1/sqrt(2). A 2D level is that 1D step on each row,
+  then on each column.
+
+Integer form: the S-transform of Calderbank, Daubechies and Sweldens,
+"Wavelet Transforms That Map Integers to Integers", Applied and
+Computational Harmonic Analysis 5 (1998), 332-369:
+  s = floor((x + y) / 2),  d = y - x
+  inverse: x = s - floor(d / 2),  y = x + d
+Floor is toward -infinity, not Ada's truncating division.
+Low coefficients, then details.
+
+Seed 20261008, printed, overridable with AA_SEED.
+Mutant split recorded before these checks: seed 20261008, 42 tuning / 36 held-out.

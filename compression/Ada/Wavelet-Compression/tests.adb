@@ -4,6 +4,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Wavelet_Compression; use Wavelet_Compression;
+with Own_Checks;
 
 procedure Tests is
    Epsilon : constant Float := 0.0001;
@@ -29,15 +30,15 @@ procedure Tests is
    end Are_Close_2D;
 
    -- Test Data
-   S1       : Signal_1D(1..4) := (1.0, 3.0, 5.0, 7.0);
+   S1       : constant Signal_1D(1..4) := [1.0, 3.0, 5.0, 7.0];
    S1_Trans : Signal_1D(1..4);
    S1_Rec   : Signal_1D(1..4);
 
-   S2       : Signal_1D_Int(1..4) := (2, 4, 6, 8);
+   S2       : constant Signal_1D_Int(1..4) := [2, 4, 6, 8];
    S2_Trans : Signal_1D_Int(1..4);
    S2_Rec   : Signal_1D_Int(1..4);
    
-   M1       : Signal_2D(1..2, 1..2) := ((1.0, 2.0), (3.0, 4.0));
+   M1       : constant Signal_2D(1..2, 1..2) := [[1.0, 2.0], [3.0, 4.0]];
    M1_Trans : Signal_2D(1..2, 1..2);
    M1_Rec   : Signal_2D(1..2, 1..2);
 
@@ -92,7 +93,7 @@ begin
    Put_Line("TEST 7 - Quantization Compression step");
    Put_Line("  7.1 Assert thresholding suppresses minor wavelets safely");
    declare
-      Sig : Signal_1D(1..4) := (10.0, 0.5, -0.2, 5.0);
+      Sig : constant Signal_1D(1..4) := [10.0, 0.5, -0.2, 5.0];
       Q   : Signal_1D(1..4);
    begin
       Q := Quantize(Sig, 1.0);
@@ -105,7 +106,7 @@ begin
    Put_Line("  8.1 Assert uneven lengths raise Invalid_Dimensions");
    begin
       declare
-         Odd_Sig : Signal_1D(1..3) := (1.0, 2.0, 3.0);
+         Odd_Sig : constant Signal_1D(1..3) := [1.0, 2.0, 3.0];
          Dummy   : Signal_1D(1..3);
       begin
          Dummy := Forward_Haar_1D(Odd_Sig);
@@ -120,7 +121,7 @@ begin
    Put_Line("TEST 9 - Input Boundaries (Size 1)");
    Put_Line("  9.1 Assert size 1 bypasses math and returns self");
    declare
-      One : Signal_1D(1..1) := (1 => 42.0);
+      One : constant Signal_1D(1..1) := [1 => 42.0];
       Res : Signal_1D(1..1);
    begin
       Res := Forward_Haar_1D(One);
@@ -132,8 +133,8 @@ begin
    Put_Line("TEST 10 - Lossy transform on Constant Signal");
    Put_Line("  10.1 Assert differences (high-pass) become 0.0");
    declare
-      Const_Sig : Signal_1D(1..4) := (4.0, 4.0, 4.0, 4.0);
-      Res       : Signal_1D(1..4) := Forward_Haar_1D(Const_Sig);
+      Const_Sig : constant Signal_1D(1..4) := [4.0, 4.0, 4.0, 4.0];
+      Res       : constant Signal_1D(1..4) := Forward_Haar_1D(Const_Sig);
    begin
       Assert(abs (Res(3)) < Epsilon and abs(Res(4)) < Epsilon, "Constant details not zero");
       Put_Line("     PASS");
@@ -143,8 +144,8 @@ begin
    Put_Line("TEST 11 - Lossless transform on Constant Signal");
    Put_Line("  11.1 Assert details are exactly integer 0");
    declare
-      Const_Sig : Signal_1D_Int(1..4) := (5, 5, 5, 5);
-      Res       : Signal_1D_Int(1..4) := Forward_Haar_1D_Lossless(Const_Sig);
+      Const_Sig : constant Signal_1D_Int(1..4) := [5, 5, 5, 5];
+      Res       : constant Signal_1D_Int(1..4) := Forward_Haar_1D_Lossless(Const_Sig);
    begin
       Assert(Res(3) = 0 and Res(4) = 0, "Constant details not zero");
       Put_Line("     PASS");
@@ -154,9 +155,9 @@ begin
    Put_Line("TEST 12 - Negative Values Integer Transform");
    Put_Line("  12.1 Assert negative numbers correctly processed by lifting scheme");
    declare
-      Neg_Sig : Signal_1D_Int(1..4) := (-2, -4, -6, -8);
-      Trans   : Signal_1D_Int(1..4) := Forward_Haar_1D_Lossless(Neg_Sig);
-      Rec     : Signal_1D_Int(1..4) := Inverse_Haar_1D_Lossless(Trans);
+      Neg_Sig : constant Signal_1D_Int(1..4) := [-2, -4, -6, -8];
+      Trans   : constant Signal_1D_Int(1..4) := Forward_Haar_1D_Lossless(Neg_Sig);
+      Rec     : constant Signal_1D_Int(1..4) := Inverse_Haar_1D_Lossless(Trans);
    begin
       Assert(Rec = Neg_Sig, "Negative integers failed reconstruction");
       Put_Line("     PASS");
@@ -166,11 +167,17 @@ begin
    Put_Line("TEST 13 - Total Quantization");
    Put_Line("  13.1 Assert high threshold drops signal entirely to zeroes");
    declare
-      Sig : Signal_1D(1..4) := (1.0, -1.0, 2.0, -2.0);
-      Q   : Signal_1D(1..4) := Quantize(Sig, 10.0);
+      Sig : constant Signal_1D(1..4) := [1.0, -1.0, 2.0, -2.0];
+      Q   : constant Signal_1D(1..4) := Quantize(Sig, 10.0);
    begin
       Assert(Q(1) = 0.0 and Q(2) = 0.0 and Q(3) = 0.0 and Q(4) = 0.0, "Total quant failed");
       Put_Line("     PASS");
+   end;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
    end;
 
    Put_Line("=============================================");
