@@ -227,6 +227,14 @@ for x in _csv(os.path.join(a.root, 'tools', 'vv', 'flagship_mutation_phase3.csv'
     m = re.match(r'^\s*(\d+)/(\d+)', x.get('nonequivalent_killed_over_nonequivalent_plus_timeouts', ''))
     if x.get('folder') and m and 'held' in x.get('set', ''):
         halves_by[x['folder']]['heldout'] = dict(killed=m.group(1), survived=str(int(m.group(2)) - int(m.group(1))), timeout='0')
+# phases 4 and 5 (fresh never-seen sets) replace earlier held-out sets; rows marked superseded are skipped.
+# Column score_timeouts_as_survivors = 'k/n = ..%' (timeouts count as survivors).
+for ph in ('flagship_mutation_phase4.csv', 'flagship_mutation_phase5.csv'):
+    for x in _csv(os.path.join(a.root, 'tools', 'vv', ph)):
+        m = re.match(r'^\s*(\d+)/(\d+)', x.get('score_timeouts_as_survivors', ''))
+        st = x.get('set', '')
+        if x.get('folder') and m and 'held' in st and 'superseded' not in st:
+            halves_by[x['folder']]['heldout'] = dict(killed=m.group(1), survived=str(int(m.group(2)) - int(m.group(1))), timeout='0')
 # sweep A2's held-out rounds (alt family or split before tests; raw k/n, equivalents left out, timeouts in n)
 for x in _csv(os.path.join(a.root, 'tools', 'vv', 'sweep_heldout_alt.csv')):
     for h, col in (('tuning', 'mutation_tuned'), ('heldout', 'mutation_heldout')):
@@ -492,6 +500,15 @@ if vvrows:
         mparts.append(f"`{os.path.basename(mf)}` {kk} killed / {ss} survived" + (f" ({100*kk//max(1,kk+ss)}%)" if kk + ss else ''))
     dres = _csv(os.path.join(VVD, 'diff.csv'))
     nagree = sum(1 for d in dres if d['result'] == 'agree')
+    L += ['', '## Flagship folders: what each one really does', '',
+          'Scope statements from the flagship review (`tools/vv/flagship_status.csv`, folder READMEs):', '',
+          '- Conflict-Driven-Clause-Learning: decision rule: lowest unassigned variable, False first; with it every SAT answer is the lexicographically smallest model (argued in cdcl.ads, checked by enumeration up to 14 variables). This is a property of this folder\'s decision rule only; standard CDCL with VSIDS or phase saving does not guarantee it. Termination is a checked property (cdcl.ads T1..T6); not SPARK-proven.',
+          '- Automated-Theorem-Proving: propositional CNF satisfiability only (truth table, DPLL, Davis-Putnam resolution); yes/no answers, no model and no proof object.',
+          '- Verified-Unification-Engine: proved free of run-time errors (SPARK level 2) plus one functional property (Unify never changes an existing binding); unifier correctness is tested, not proved.',
+          '- First-Order-Logic: an evaluator over a fixed 3-element domain with capture-avoiding substitution; unary symbols get no second argument (Optional_Element); not a prover.',
+          '- Darwin-Godel-Machine: a demo that selects among caller-supplied numeric records; no self-modification, code evolution or proof.',
+          '- Hindley-Milner-Type-Inference-Algorithm / Hindley-Milner-Type-System: Algorithm W (and M) with let-polymorphism, checked against a separate let-expanding reference.',
+          '- Rete-Algorithm: alpha memories and beta join chains with retraction; the batched insert is a loop over single inserts.', '']
     L += ['', '## V&V (validation) results', '',
           f'Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: {nd} ({nagree} agree on every case); mutation: '
           + ('; '.join(mparts) or 'not run') + f' (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: {len(kat_by)}. '
