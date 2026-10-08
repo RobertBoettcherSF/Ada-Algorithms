@@ -221,3 +221,6 @@ misc/SPARK2/Ada-SPARK-Sqrt-X,floor-root definition; every N in 0 .. 100
 misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown,own brute force over every buy/sell/rest sequence; 3000 random inputs
 misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream,own counting-order median (even count: Ada division); 20000 random inputs
 misc/SPARK2/Ada-SPARK-Design-Number-Container-System,own stack model; 1000 random runs x 60 operations plus full/empty rejection checks
+misc/SPARK2/Ada-SPARK-Group-Anagrams,own letter-count anagram reference (label = first word of the group); 20000 random word sets
+misc/SPARK2/Ada-SPARK-Triangle-Min-Path,own brute force over all 8 paths; 20000 random triangles with junk outside the triangle
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water-II-Lite,own min(left max; right max) reference; 5000 random arrays with junk past Length
