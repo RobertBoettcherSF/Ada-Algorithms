@@ -170,6 +170,35 @@ begin
         "2D inverse restores the corner");
    end;
 
+   --  Floor is toward -infinity. Ada "/" on (-5+2) is -1; floor is -2.
+   --  Hand values, not (A+B)/2. A sum that does not fit in Integer must
+   --  still transform: the lifting step never forms A+B.
+   declare
+      procedure Check_Pair (A, B, Expect_S, Expect_D : Integer; Label : String) is
+         Sig : constant Signal_1D_Int := [A, B];
+         Got : Signal_1D_Int (Sig'Range);
+         Back : Signal_1D_Int (Sig'Range);
+      begin
+         Got := Forward_Haar_1D_Lossless (Sig);
+         Note (Got (Got'First) = Expect_S and then Got (Got'First + 1) = Expect_D, Label);
+         Back := Inverse_Haar_1D_Lossless (Got);
+         Note (Back (Back'First) = A and then Back (Back'First + 1) = B,
+           Label & " round trip");
+      exception
+         when Constraint_Error =>
+            Note (False, Label & " raised Constraint_Error");
+      end Check_Pair;
+   begin
+      --  (-5+2)/2 truncates to -1; floor is -2. Detail is 2-(-5) = 7.
+      Check_Pair (-5, 2, -2, 7, "mixed signs (-5, 2)");
+      --  Both negative, odd sum: floor((-8-3)/2) = -6, detail -3-(-8) = 5.
+      Check_Pair (-8, -3, -6, 5, "both negative (-8, -3)");
+      --  (Last, Last): Last+Last does not fit. Lifting detail is 0.
+      Check_Pair (Integer'Last, Integer'Last, Integer'Last, 0, "(Last, Last)");
+      --  Detail is Integer'First. (N-1)/2 overflows on that detail.
+      Check_Pair (0, Integer'First, Integer'First / 2, Integer'First, "(0, First)");
+   end;
+
    --  S-transform on a pair whose sum is odd, and on negatives.
    --  floor((5+2)/2) = 3 and d = 2-5 = -3. Truncating (even-odd)/2 is not that.
    declare
