@@ -195,7 +195,7 @@ misc/SPARK2/Ada-SPARK-Baseball-Game,baseball_game.adb,Home_Run,procedure,4,null,
 misc/SPARK2/Ada-SPARK-Baseball-Game,baseball_game.adb,Away_Run,procedure,2,null,survived
 misc/SPARK2/Ada-SPARK-Baseball-Game,baseball_game.adb,Home_Score,function,2,default,killed
 misc/SPARK2/Ada-SPARK-Baseball-Game,baseball_game.adb,Winner,function,2,default,killed
-misc/SPARK2/Ada-SPARK-Basic-Calculator-II,basic_calculator_ii.adb,Evaluate,function,6,default,killed
+misc/SPARK2/Ada-SPARK-Basic-Calculator-II,basic_calculator_ii.adb,Evaluate,function,18,default,killed
 misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,beautiful_arrangement.adb,Is_Beautiful,function,4,True,killed
 misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock,best_time_to_buy_and_sell_stock.adb,Max_Profit,function,2,default,killed
 misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-II,best_time_to_buy_and_sell_stock_ii.adb,Max_Profit,function,2,default,killed
@@ -375,7 +375,7 @@ misc/SPARK2/Ada-SPARK-Final-Prices-With-A-Special-Discount,final_prices_with_a_s
 misc/SPARK2/Ada-SPARK-Find-All-Numbers-Disappeared,find_all_numbers_disappeared.adb,Missing_Count,function,4,default,killed
 misc/SPARK2/Ada-SPARK-Find-K-Closest-Elements,find_k_closest.adb,Closest_Index,function,6,default,killed
 misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream,find_median_from_data_stream.adb,Median,function,6,default,killed
-misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,find_the_smallest_divisor.adb,Smallest_Divisor,function,4,default,killed
+misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,find_the_smallest_divisor.adb,Smallest_Divisor,function,8,default,killed
 misc/SPARK2/Ada-SPARK-Find-Words-That-Can-Be-Formed,formed_words.adb,Can_Be_Formed,function,6,True,killed
 misc/SPARK2/Ada-SPARK-First-Unique-Character,first_unique_character.adb,First_Unique,function,4,default,killed
 misc/SPARK2/Ada-SPARK-Fixed-Point-Iteration,fixed_point_iteration.adb,Iterate,function,4,default,killed
@@ -456,14 +456,14 @@ misc/SPARK2/Ada-SPARK-Max-Heap,max_heap.adb,Initialize,procedure,2,null,survived
 misc/SPARK2/Ada-SPARK-Max-Heap,max_heap.adb,Push,procedure,6,null,killed
 misc/SPARK2/Ada-SPARK-Max-Heap,max_heap.adb,Pop,procedure,2,null,killed
 misc/SPARK2/Ada-SPARK-Max-Points-On-A-Line-Lite,max_points_on_a_line_lite.adb,Max_Collinear,function,4,default,killed
-misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb,Compute,function,4,default,killed
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb,Compute,function,8,default,killed
 misc/SPARK2/Ada-SPARK-Max-Stack,max_stack.adb,Empty,function,2,default,survived
 misc/SPARK2/Ada-SPARK-Max-Stack,max_stack.adb,Push,procedure,6,null,killed
 misc/SPARK2/Ada-SPARK-Max-Stack,max_stack.adb,Pop,procedure,4,null,killed
 misc/SPARK2/Ada-SPARK-Maximal-Rectangle,maximal_rectangle.adb,Max_Area,function,2,default,killed
 misc/SPARK2/Ada-SPARK-Maximal-Square,maximal_square.adb,Largest_Side,function,6,default,killed
 misc/SPARK2/Ada-SPARK-Maximum-Candies-Allocated-To-K-Children,maximum_candies_allocated_to_k_children.adb,Maximum_Candies,function,4,default,killed
-misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,maximum_ice_cream_bars.adb,Bars_Bought,function,8,default,killed
+misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,maximum_ice_cream_bars.adb,Bars_Bought,function,10,default,killed
 misc/SPARK2/Ada-SPARK-Maximum-Points-You-Can-Obtain-From-Cards,maximum_points_you_can_obtain_from_cards.adb,Max_Points,function,6,default,killed
 misc/SPARK2/Ada-SPARK-Maximum-Product-Of-Word-Lengths,maximum_product_of_word_lengths.adb,Product_Of_Two,function,2,default,killed
 misc/SPARK2/Ada-SPARK-Maximum-Product-Of-Word-Lengths,maximum_product_of_word_lengths.adb,Maximum_Product,function,4,default,killed
@@ -918,7 +918,7 @@ sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,src/remove_duplicate
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,src/remove_duplicates_from_sorted_list.adb,Solve,procedure,1,null,killed
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,src/remove_duplicates_from_sorted_list_ii.adb,Empty,function,1,default,survived
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,src/remove_duplicates_from_sorted_list_ii.adb,Append,procedure,6,null,killed
-sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,src/remove_duplicates_from_sorted_list_ii.adb,Get,function,5,default,killed
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,src/remove_duplicates_from_sorted_list_ii.adb,Get,function,1,default,killed
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,src/remove_duplicates_from_sorted_list_ii.adb,Solve,procedure,1,null,killed
 sorting/SPARK2/Ada-SPARK-Shaker-Sort,shaker_sort.adb,Sort,function,2,default,killed
 sorting/SPARK2/Ada-SPARK-Smooth-Sort,smooth_sort.adb,Sort,function,2,default,killed

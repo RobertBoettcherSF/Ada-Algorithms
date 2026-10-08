@@ -14,8 +14,8 @@ graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,survived,Path_Exists,killed
 graphs/SPARK2/Ada-SPARK-Kruskals-Algorithm,survived,Compute,killed,ok,1,,1,0,yes
 graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS,survived,Count,killed,ok,1,,1,0,yes
 graphs/SPARK2/Bellman-Ford-Algorithm,survived,Compute,killed,ok,1,,1,0,yes
-graphs/SPARK4/A-Star,survived,Add_Edge,killed,ok,4,,4,0,yes
-graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,survived,Add_Edge,killed,ok,4,,4,0,yes
+graphs/SPARK4/A-Star,survived,Search,killed,ok,4,,4,0,yes
+graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,survived,Search,killed,ok,4,,4,0,yes
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,survived,Find_Cycle,killed,ok,17,Tail_Length,16,0,yes
 hashing/SPARK2/Ada-SPARK-Design-HashMap,survived,Put,killed,ok,4,Empty Contains,2,0,yes
 hashing/SPARK2/Ada-SPARK-Design-HashSet,survived,Add,killed,ok,4,Empty,3,0,yes
@@ -74,7 +74,7 @@ misc/SPARK2/Ada-SPARK-Container-With-Most-Water,survived,Max_Area,killed,ok,1,,1
 misc/SPARK2/Ada-SPARK-Contiguous-Array,survived,One_Count,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Continuous-Subarray-Sum,survived,Total,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,survived,To_Integer,killed,ok,3,Empty,2,0,yes
-misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,survived,Set_Random,killed,ok,6,Empty Copy_List,4,0,yes
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,survived,Random_Of,killed,ok,6,Empty Copy_List,4,0,yes
 misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings,survived,Booked_Seats,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Cosine-Distance,survived,Distance,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Cosine-Similarity,survived,Similarity,killed,ok,1,,1,0,yes
@@ -165,7 +165,7 @@ misc/SPARK2/Ada-SPARK-Last-Stone-Weight,survived,Final_Weight,killed,ok,1,,1,0,y
 misc/SPARK2/Ada-SPARK-Last-Stone-Weight-II,survived,Min_Remaining_Weight,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Least-Common-Multiple,survived,LCM,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Line-Intersection,survived,Intersects,killed,ok,1,,1,0,yes
-misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Lite,survived,Used,killed,ok,4,Create,3,0,yes
+misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Lite,survived,Allow,killed,ok,4,Create,3,0,yes
 misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,survived,Compute,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,survived,Longest,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Longest-Ones,survived,Find,killed,ok,1,,1,0,yes
@@ -467,15 +467,15 @@ strings/SPARK2/Ada-SPARK-Rotate-String,survived,Is_Rotation,killed,ok,1,,1,0,yes
 strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert,survived,Sum_Digits,killed,ok,1,,1,0,yes
 strings/SPARK2/Ada-SPARK-Total-Hamming-Distance,survived,Distance,killed,ok,1,,1,0,yes
 strings/SPARK2/Ada-SPARK-Z-Algorithm,survived,Compute_Z,killed,ok,1,,1,0,yes
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,survived,Set_Node,killed,ok,5,Empty,4,0,yes
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,survived,Is_Balanced,killed,ok,5,Empty,4,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,survived,Inorder_Sum,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order,survived,Level_Order_Sum,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth,survived,Max_Depth,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth,survived,Min_Depth,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder,survived,Postorder_Sum,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder,survived,Preorder_Sum,killed,ok,3,Empty,2,0,yes
-trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite,survived,Node_Value,killed,ok,2,,2,0,yes
-trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite,survived,Node_Value,killed,ok,2,,2,0,yes
+trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite,survived,Build,killed,ok,2,,2,0,yes
+trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite,survived,Build,killed,ok,2,,2,0,yes
 trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree,survived,Convert,killed,ok,1,,1,0,yes
 trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,survived,Count_Substrings,killed,ok,1,,1,0,yes
 trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,survived,Diameter,killed,ok,3,Empty,2,0,yes
@@ -883,7 +883,7 @@ searching/SPARK2/Ada-SPARK-Trim-A-Binary-Search-Tree,survived,Trim,killed,ok,1,,
 searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees,survived,Number_Of_Trees,killed,ok,1,,1,0,yes
 searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite,survived,Root_Choices,survived,weak,1,Root_Choices,0,0,yes
 searching/SPARK2/Ada-SPARK-Word-Search,survived,Exists,killed,ok,1,,1,0,yes
-sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST,survived,Node_Value,killed,ok,2,,2,0,yes
+sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST,survived,Build,killed,ok,2,,2,0,yes
 sorting/SPARK2/Ada-SPARK-Count-Negative-Numbers-In-A-Sorted-Matrix,survived,Count_Negatives,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings,survived,Number_Of_Strings,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array,survived,Minimum,survived,weak,1,Minimum,0,0,yes
@@ -922,9 +922,9 @@ strings/SPARK3/Levenshtein-Distance,survived,Distance,killed,ok,1,,1,0,yes
 trees/SPARK2/Ada-SPARK-BST-Iterator-Stub,survived,Insert,killed,ok,5,Empty,4,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Paths,survived,Path_Count,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View,survived,Right_View,killed,ok,1,,1,0,yes
-trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes,survived,Set_Node,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes,survived,Node_Count,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub,survived,Delete,killed,ok,4,Empty,3,0,yes
-trees/SPARK2/Ada-SPARK-Delete-Node-In-A-BST-Lite,survived,Set_Node,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Delete-Node-In-A-BST-Lite,survived,Delete_Node,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Find-Mode-In-BST,survived,Mode,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite,survived,Flatten,killed,ok,1,,1,0,yes
 trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub,survived,Kth_Smallest,killed,ok,3,Empty,2,0,yes
@@ -1004,7 +1004,7 @@ cryptography/Ada/RC4,stillborn,,,baseline does not build,0,,0,0,yes
 cryptography/Ada/RSA,survived,To_RSA,survived,weak,13,To_RSA,12,0,yes
 cryptography/Ada/SHA3,survived,SHA3_256,killed,ok,6,,6,0,yes
 cryptography/Ada/Shamirs-Secret-Sharing,survived (without -gnata),Reconstruct_Secret,killed,ok,7,,7,0,no
-cryptography/Ada/Stochastic-Universal-Sampling,survived,Seed_RNG,killed,ok,20,Default_Config,19,0,yes
+cryptography/Ada/Stochastic-Universal-Sampling,survived,Select_SUS,killed,ok,20,Default_Config,19,0,yes
 cryptography/Ada/Symetric-Encryption,survived,TEA_Encrypt_Block,killed,ok,9,,9,0,yes
 cryptography/Ada/Threefish,killed,,,baseline fails,0,,0,0,yes
 cryptography/Ada/Tiny-Encryption-Algorithm,survived,TEA_Encrypt,killed,ok,6,,6,0,yes
@@ -1060,29 +1060,29 @@ geometry/Ada/Warnock-Algorithm,survived,Evaluate_Z,killed,ok,12,,12,0,yes
 geometry/Ada/Watershed-Transformation,stillborn,,,baseline does not build,0,,0,0,yes
 geometry/Ada/Weiler-Atherton,survived,Weiler_Atherton_Clip,killed,ok,24,Polygon_Copy Same_Polygon,22,0,yes
 geometry/Ada/Xiaolin-Wus-Line-Algorithm,survived,Draw_Line,killed,ok,5,,5,0,yes
-graphs/Ada/A-Star,survived,Add_Edge,killed,ok,9,,9,0,yes
-graphs/Ada/Bellman-Ford-Algorithm,survived,Add_Edge,killed,ok,10,,10,0,yes
+graphs/Ada/A-Star,survived,Search,killed,ok,9,,9,0,yes
+graphs/Ada/Bellman-Ford-Algorithm,survived,Shortest_Paths,killed,ok,10,,10,0,yes
 graphs/Ada/Boruvkas-Algorithm,survived,Boruvka,killed,ok,5,,5,0,yes
 graphs/Ada/Cliques,survived,Clique_Number,killed,ok,12,,12,0,yes
 graphs/Ada/Coin-Graph,survived,Build_Contact_Graph,killed,ok,11,,11,0,yes
 graphs/Ada/Cryptographically-Secure-Pseudo-Random-Number-Generators,survived,Generate,killed,ok,6,Generate,5,0,yes
 graphs/Ada/Cryptographically-Secure-Pseudorandom-Number-Generator,survived,Chacha_Generate_Bytes,killed,ok,6,,6,0,yes
 graphs/Ada/Dijkstra-Scholten-Algorithm,survived,Send_Message,killed,ok,6,,6,0,yes
-graphs/Ada/Dijkstras-Algorithm,survived,Add_Edge,killed,ok,7,,7,0,yes
-graphs/Ada/Dinics-Algorithm,survived,Add_Edge,killed,ok,11,,11,0,yes
-graphs/Ada/Edmonds-Karp-Algorithm,survived,Add_Edge,killed,ok,11,,11,0,yes
+graphs/Ada/Dijkstras-Algorithm,survived,Distance,killed,ok,7,,7,0,yes
+graphs/Ada/Dinics-Algorithm,survived,Max_Flow,killed,ok,11,,11,0,yes
+graphs/Ada/Edmonds-Karp-Algorithm,survived,Max_Flow,killed,ok,11,,11,0,yes
 graphs/Ada/Elliptic-Curve-Cryptography,survived,Point_Add,killed,ok,6,,6,0,yes
 graphs/Ada/Euclidean-Minimum-Spanning-Tree,survived,Rounded_Euclidean,killed,ok,8,,8,0,yes
 graphs/Ada/Floyd-Steinberg-Dithering,killed,,,baseline fails,0,,0,0,yes
 graphs/Ada/Floyd-Warshall-Algorithm,survived,Floyd_Warshall,survived,weak,31,Floyd_Warshall Floyd_Warshall Floyd_Warshall Has_Negative_Cycle,27,0,yes
 graphs/Ada/Floyds-Cycle-Finding-Algorithm,survived,Find_Cycle,killed,ok,19,,19,0,yes
-graphs/Ada/Ford-Fulkerson-Algorithm,survived,Add_Edge,killed,ok,12,,12,0,yes
-graphs/Ada/Hungarian-Algorithm,survived,Set_Cost,killed,ok,11,,11,0,yes
+graphs/Ada/Ford-Fulkerson-Algorithm,survived,Max_Flow,killed,ok,12,,12,0,yes
+graphs/Ada/Hungarian-Algorithm,survived,Solve_Minimize,killed,ok,11,,11,0,yes
 graphs/Ada/Hungarian-Method,survived,Minimize_Assignment,killed,ok,7,,7,0,yes
-graphs/Ada/Kosarajus-Algorithm,survived,Add_Edge,killed,ok,6,,6,0,yes
+graphs/Ada/Kosarajus-Algorithm,survived,Compute_SCC,killed,ok,6,,6,0,yes
 graphs/Ada/Kruskals-Algorithm,survived,Kruskal,killed,ok,5,,5,0,yes
-graphs/Ada/MaxCliqueDyn,survived,Add_Edge,killed,ok,9,,9,0,yes
-graphs/Ada/Minimum-Spanning-Tree,survived,Add_Edge,killed,ok,6,,6,0,yes
+graphs/Ada/MaxCliqueDyn,survived,Find_Maximum_Clique,killed,ok,9,,9,0,yes
+graphs/Ada/Minimum-Spanning-Tree,survived,Kruskal,killed,ok,6,,6,0,yes
 graphs/Ada/PageRank,survived,Compute,killed,ok,9,,9,0,yes
 graphs/Ada/Post-Quantum-Cryptography,survived,Decrypt_Bit,killed,ok,6,Generate_Keypair,5,0,yes
 graphs/Ada/Prims-Algorithm,survived,Prim,killed,ok,9,,9,0,yes
@@ -1165,7 +1165,7 @@ misc/Ada/Black-Scholes-Model,survived,Call_Delta,killed,ok,10,,10,0,yes
 misc/Ada/Blind-Deconvolution,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Block-Nested-Loop,survived,Block_Nested_Loop_Join,killed,ok,2,,2,0,yes
 misc/Ada/Block-Truncation-Coding,survived,Encode_Block,killed,ok,4,,4,0,yes
-misc/Ada/Blossom-Algorithm,survived,Add_Edge,killed,ok,9,,9,0,yes
+misc/Ada/Blossom-Algorithm,survived,Maximum_Matching,killed,ok,9,,9,0,yes
 misc/Ada/Blum-Blum-Shub,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Booth-Multiplication,survived,Multiply_Booth,killed,ok,8,,8,0,yes
 misc/Ada/Bootstrap-Aggregating,survived (without -gnata),Generate_Bootstrap_Sample,killed,ok,7,,7,0,no
@@ -1174,11 +1174,11 @@ misc/Ada/Boundary-Representation,survived (without -gnata),Active_Edges,killed,o
 misc/Ada/Bowyer-Watson,survived,Triangle_Count_Of,killed,ok,15,Is_Delaunay_Edge_Empty,14,0,yes
 misc/Ada/Branch-and-Bound,survived (without -gnata),Fractional_Bound,killed,ok,11,,11,0,no
 misc/Ada/Branch-and-Cut,survived,Solve,killed,ok,18,Active_Obj_Row,17,0,yes
-misc/Ada/Bron-Kerbosch,survived,Add_Edge,killed,ok,10,,10,0,yes
+misc/Ada/Bron-Kerbosch,survived,Enumerate_Maximal_Cliques,killed,ok,10,,10,0,yes
 misc/Ada/Buchbergers-Algorithm,survived,Normal_Form,killed,ok,25,Equal Equal,23,0,yes
 misc/Ada/Buddy-Memory-Allocation,survived,Allocate,killed,ok,3,,3,0,yes
 misc/Ada/Buechi-Automaton,survived (without -gnata),Add_NBA_Trans,killed,ok,10,,10,0,no
-misc/Ada/Bully-Algorithm,survived,Get_Coordinator,killed,ok,4,,4,0,yes
+misc/Ada/Bully-Algorithm,survived,Start_Election,killed,ok,4,,4,0,yes
 misc/Ada/Buzens-Algorithm,survived (without -gnata),Compute_G,killed,ok,11,,11,0,no
 misc/Ada/C4.5-Algorithm,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/CHS-Conversion,killed,,,baseline fails,0,,0,0,yes
@@ -1209,23 +1209,23 @@ misc/Ada/Constraint-Algorithm,survived,Constraint_Dot,killed,ok,23,Default_Confi
 misc/Ada/Contour-Lines,survived (without -gnata),Closest_Contour_Label,killed,ok,33,Empty_Polyline Empty_Contour_Map Empty_Profile,30,0,no
 misc/Ada/Coppersmith-Winograd,survived,Estimated_Ops,killed,ok,32,,32,0,yes
 misc/Ada/Core,survived,Miners_Core_Point,killed,ok,38,Additive_Core_Point Is_Imputation Is_In_Core Coalition_Excess,34,0,yes
-misc/Ada/Corporate-Wars-Sim,survived,Set_Bucket,killed,ok,18,Research_From_Steady_Only Empty Facing_Down,15,0,yes
+misc/Ada/Corporate-Wars-Sim,survived,Total,killed,ok,18,Research_From_Steady_Only Empty Facing_Down,15,0,yes
 misc/Ada/Correlated-Equilibrium,survived,Is_Correlated_Equilibrium,killed,ok,39,,22,17,yes
 misc/Ada/Crank-Nicolson,survived (without -gnata),Max_Error,killed,ok,13,Amplification_Bounded,12,0,no
 misc/Ada/Cristians-Algorithm,survived,Calculate_Error_Bound,killed,ok,5,,5,0,yes
-misc/Ada/Cross-Entropy-Method,survived (without -gnata),Seed_RNG,killed,ok,26,Next_Uniform Sample_Bernoulli_Bits,24,0,no
+misc/Ada/Cross-Entropy-Method,survived (without -gnata),Sphere,killed,ok,26,Next_Uniform Sample_Bernoulli_Bits,24,0,no
 misc/Ada/Cuthill-McKee,survived,Cuthill_Mckee_Order,killed,ok,27,Is_Symmetric_Pattern Forthcoming,25,0,yes
 misc/Ada/Cutting-Plane-Method,survived (without -gnata),Solve_ILP_Cutting_Planes,killed,ok,19,,19,0,no
 misc/Ada/Cyclic-Redundancy-Check,survived,Compute_Bit_By_Bit,killed,ok,5,,5,0,yes
 misc/Ada/Cyrus-Beck,survived,Cyrus_Beck_Clip,killed,ok,27,Same_Clipped_Segment Is_Valid_Window,25,0,yes
-misc/Ada/D-Star,survived,Start_Point,survived,weak,18,Start_Point Update_Cell_Cost,16,0,yes
+misc/Ada/D-Star,survived,Path_Cost,killed,ok,18,Start_Point Update_Cell_Cost,16,0,yes
 misc/Ada/DDA-Line-Algorithm,survived,Compute_Line_Float_DDA,stillborn,unchecked (main stillborn),3,,1,2,yes
 misc/Ada/DSA,survived (without -gnata),Sign_Standard,killed,ok,6,,6,0,no
 misc/Ada/Damm-Algorithm,survived,Calculate_Check_Digit_Str,killed,ok,5,,5,0,yes
 misc/Ada/Dancing-Links,survived,Solve,killed,ok,19,Clear,18,0,yes
 misc/Ada/Dantzig-Wolfe-Decomposition,survived,Solve,killed,ok,26,Clear_Pool,25,0,yes
 misc/Ada/Darwin-Godel-Machine,survived,Create_Agent,killed,ok,7,Is_Valid_Transition,6,0,yes
-misc/Ada/Data-Flow-Analysis,survived,Add_Edge,killed,ok,8,,8,0,yes
+misc/Ada/Data-Flow-Analysis,survived,Add_Gen,killed,ok,8,,8,0,yes
 misc/Ada/De-Boor,survived,Make_Point,killed,ok,40,Near Near Sub Domain_Low,36,0,yes
 misc/Ada/De-Casteljau,survived,Evaluate,killed,ok,38,Near Near,36,0,yes
 misc/Ada/Delayed-Column-Generation,survived,Add_Column,killed,ok,20,Clear_Pool,19,0,yes
@@ -1266,7 +1266,7 @@ misc/Ada/Estimation-Theory,survived (without -gnata),Variance_Of_Estimator,kille
 misc/Ada/Euclidean-Distance-Transform,survived,Distance_At,killed,ok,11,,11,0,yes
 misc/Ada/Euler-Integration,survived,Integrate,killed,ok,13,,13,0,yes
 misc/Ada/Evolution-Strategy,survived,Sphere,killed,ok,20,Next_Uniform Next_Natural,18,0,yes
-misc/Ada/Evolutionary-Computation,survived,Seed_RNG,survived,weak,40,Seed_RNG Normalised_Diversity Mutate_Gaussian,37,0,yes
+misc/Ada/Evolutionary-Computation,survived,Ones_Count,killed,ok,40,Seed_RNG Normalised_Diversity Mutate_Gaussian,37,0,yes
 misc/Ada/Exact-Cover,survived,Count_Covers,killed,ok,28,,28,0,yes
 misc/Ada/Exponential-Backoff,survived,Deterministic_Backoff,killed,ok,10,Validate_Config Random_Delay Randomized_Backoff,7,0,yes
 misc/Ada/Exponential-Golomb-Coding,survived,Encode_Order_0_Unsigned,killed,ok,8,,8,0,yes
@@ -1284,7 +1284,7 @@ misc/Ada/Fermat-Factorization,survived,Factor,killed,ok,6,,6,0,yes
 misc/Ada/Fibonacci-Coding,survived,Decode_Fibonacci,killed,ok,4,,4,0,yes
 misc/Ada/Fictitious-Play,survived,Simultaneous_Play,killed,ok,6,Alternating_Play Smoothed_Play,4,0,yes
 misc/Ada/Filtered-Back-Projection,survived,Forward_Project,killed,ok,21,,21,0,yes
-misc/Ada/Financial-Information-Exchange,survived,Get_Field,killed,ok,11,Empty_Message,10,0,yes
+misc/Ada/Financial-Information-Exchange,survived,Add_Field,killed,ok,11,Empty_Message,10,0,yes
 misc/Ada/Financial-Risk-Modeling,survived (without -gnata),Historical_VaR,killed,ok,8,,8,0,no
 misc/Ada/Finite-Difference-Method,survived (without -gnata),Diff_Forward,killed,ok,14,,14,0,no
 misc/Ada/First-Order-Logic,survived,Make_Predicate,killed,ok,19,,19,0,yes
@@ -1308,7 +1308,7 @@ misc/Ada/Gauss-Seidel,survived,Solve,killed,ok,18,,18,0,yes
 misc/Ada/Gene-Expression-Programming,survived (without -gnata),Make_Gene,killed,ok,26,Seed_RNG Mutate Transpose_Stub,23,0,no
 misc/Ada/General-Problem-Solver,survived,Bit,killed,ok,24,Clear_Bit,23,0,yes
 misc/Ada/Generational-Garbage-Collector,killed,,,baseline fails,0,,0,0,yes
-misc/Ada/Genetic-Algorithms,survived,Seed_RNG,killed,ok,32,Crossover,31,0,yes
+misc/Ada/Genetic-Algorithms,survived,Ones_Count,killed,ok,32,Crossover,31,0,yes
 misc/Ada/Gerchberg-Saxton-Algorithm,survived,Standard_GS,killed,ok,4,,4,0,yes
 misc/Ada/Gibbs-Sampling,survived,Sample_Bivariate_Normal,killed,ok,9,,9,0,yes
 misc/Ada/Gilbert-Johnson-Keerthi,survived,Distance,killed,ok,28,Is_CCW,27,0,yes
@@ -1340,7 +1340,7 @@ misc/Ada/Hidden-Surface-Removal,survived,Clear_Buffers,killed,ok,14,,14,0,yes
 misc/Ada/Hindley-Milner-Type-Inference-Algorithm,survived,Type_To_String,killed,ok,15,Apply_Subst_Env,14,0,yes
 misc/Ada/Hindley-Milner-Type-System,survived,Make_Var_Type,killed,ok,18,Make_Let_Expr Free_Type_Vars Free_Type_Vars Apply Apply,13,0,yes
 misc/Ada/Hirschbergs-Algorithm,survived,Best_Score,killed,ok,4,,4,0,yes
-misc/Ada/Hopcroft-Karp-Algorithm,survived,Add_Edge,killed,ok,10,,10,0,yes
+misc/Ada/Hopcroft-Karp-Algorithm,survived,Maximum_Matching,killed,ok,10,,10,0,yes
 misc/Ada/Hopcrofts-Algorithm,survived,Minimize_Hopcroft,killed,ok,5,,5,0,yes
 misc/Ada/Hopfield-Net,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Huangs-Algorithm,killed,,,baseline fails,0,,0,0,yes
@@ -1363,7 +1363,7 @@ misc/Ada/Kabsch,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Kadanes-Algorithm,survived,Max_Subarray_Sum,killed,ok,4,,4,0,yes
 misc/Ada/Kahan-Summation,survived,Sum_Kahan,killed,ok,17,Make_Empty Compensation,15,0,yes
 misc/Ada/Kalman-Filter,survived (without -gnata),Filter_Step,killed,ok,17,Predict,16,0,no
-misc/Ada/Kargers-Algorithm,survived,Add_Edge,killed,ok,7,,7,0,yes
+misc/Ada/Kargers-Algorithm,survived,Min_Cut,killed,ok,7,,7,0,yes
 misc/Ada/Karmarkars-Algorithm,survived,Solve,killed,ok,25,,25,0,yes
 misc/Ada/Karn-Algorithm,survived,Simulate_Karns_Algorithm,killed,ok,12,Initialize_RTT_Data,11,0,yes
 misc/Ada/Key-Derivation-Function,survived (without -gnata),To_Bytes,killed,ok,8,,8,0,no
@@ -1415,7 +1415,7 @@ misc/Ada/Matching-Wildcards,survived,Method_Name,killed,ok,5,,5,0,yes
 misc/Ada/Maximum-Parsimony,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Mechanistic-Interpretability,survived,Activation_Patch,killed,ok,8,,8,0,yes
 misc/Ada/Median-Filtering,survived,Process_1D,killed,ok,2,,2,0,yes
-misc/Ada/Memetic-Algorithm,survived,Seed_RNG,killed,ok,32,One_Point_Crossover Is_Valid_Tour Order_Crossover Local_Improve_TSP,28,0,yes
+misc/Ada/Memetic-Algorithm,survived,All_Ones,killed,ok,32,One_Point_Crossover Is_Valid_Tour Order_Crossover Local_Improve_TSP,28,0,yes
 misc/Ada/Message-Authentication-Codes,survived,HMAC,killed,ok,5,,5,0,yes
 misc/Ada/Midpoint-Circle-Algorithm,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Min-Conflicts,survived,Variable_Conflicts,killed,ok,18,,18,0,yes
@@ -1481,7 +1481,7 @@ misc/Ada/Prediction-By-Partial-Matching,stillborn,,,baseline does not build,0,,0
 misc/Ada/Program-Synthesis,survived,Synthesize_By_Example,killed,ok,9,Free,8,0,yes
 misc/Ada/Progressive-Jackpot,survived (without -gnata),Initialize_Standalone,killed,ok,8,,8,0,no
 misc/Ada/Proof-Of-Work-Algorithms,survived,Generate_Hashcash,killed,ok,6,,6,0,yes
-misc/Ada/Prufer-Coding,survived,Add_Edge,killed,ok,9,,9,0,yes
+misc/Ada/Prufer-Coding,survived,Encode,killed,ok,9,,9,0,yes
 misc/Ada/Pseudorandom-Number-Generator,survived,Next,killed,ok,19,,19,0,yes
 misc/Ada/Pulmonary-Embolism-Algorithms,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Push-Relabel-Algorithm,survived,Generic_Max_Flow,killed,ok,3,,3,0,yes
@@ -1599,7 +1599,7 @@ misc/Ada/VEGAS-Algorithm,survived,Integrate,killed,ok,1,,1,0,yes
 misc/Ada/Variational-Method,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Variational-Quantum-Eigensolver,survived,Optimize,killed,ok,2,,2,0,yes
 misc/Ada/Vector-Quantization,survived,Train_LBG,killed,ok,5,,5,0,yes
-misc/Ada/Vehicle-Routing-Problem,survived,Set_Max_Vehicles,killed,ok,22,Is_Capacity_Feasible,21,0,yes
+misc/Ada/Vehicle-Routing-Problem,survived,Route_Cost,killed,ok,22,Is_Capacity_Feasible,21,0,yes
 misc/Ada/Velvet,survived,Add_Read,killed,ok,16,,16,0,yes
 misc/Ada/Verhoeff-Algorithm,survived,Generate_Check_Digit,killed,ok,2,,2,0,yes
 misc/Ada/Vickrey-Clarke-Groves-Mechanism,survived,Clarke_Payment,killed,ok,68,Efficient_Outcome_Without VCG_Utility VCG_Utilities Changes_Outcome,64,0,yes
@@ -1734,26 +1734,26 @@ parsing/Ada/Simple-LR-Parser,killed,,,baseline fails,0,,0,0,yes
 parsing/Ada/Simple-Precdence-Parser,survived,Create_Parser,stillborn,unchecked (main stillborn),4,,3,1,yes
 parsing/Ada/Simplex-Algorithm,survived,Solve,killed,ok,11,,11,0,yes
 parsing/Ada/Step-Parser,killed,,,baseline fails,0,,0,0,yes
-searching/Ada/Beam-Search,survived,Add_Edge,killed,ok,7,,7,0,yes
-searching/Ada/Best-First-Search,survived,Add_Edge,killed,ok,7,,7,0,yes
-searching/Ada/Bidirectional-Search,survived,Add_Edge,killed,ok,8,,8,0,yes
+searching/Ada/Beam-Search,survived,Search,killed,ok,7,,7,0,yes
+searching/Ada/Best-First-Search,survived,Search,killed,ok,7,,7,0,yes
+searching/Ada/Bidirectional-Search,survived,Distance,killed,ok,8,,8,0,yes
 searching/Ada/Binary-Search,survived,Find,killed,ok,3,,3,0,yes
-searching/Ada/Breadth-First-Search,survived,Add_Edge,killed,ok,9,,9,0,yes
+searching/Ada/Breadth-First-Search,survived,Distance,killed,ok,9,,9,0,yes
 searching/Ada/Brute-Force-Search,survived,Linear_Search,killed,ok,6,,6,0,yes
 searching/Ada/Chien-Search,survived,Chien_Search,killed,ok,13,,13,0,yes
-searching/Ada/Depth-First-Search,survived,Add_Edge,killed,ok,8,,8,0,yes
+searching/Ada/Depth-First-Search,survived,DFS,killed,ok,8,,8,0,yes
 searching/Ada/Eytzinger-Binary-Search,survived,Classic_Binary_Search,killed,ok,5,,5,0,yes
 searching/Ada/Fibonacci-Search,survived,Find,killed,ok,1,,1,0,yes
 searching/Ada/Golden-Section-Search,survived (without -gnata),Golden_Probes,killed,ok,9,Increasing_Boundary,8,0,no
 searching/Ada/Grid-Search,survived (without -gnata),Make_Grid,killed,ok,18,,18,0,no
-searching/Ada/Harmony-Search,survived,Seed_RNG,killed,ok,25,Next_Natural,24,0,yes
+searching/Ada/Harmony-Search,survived,Sphere,killed,ok,25,Next_Natural,24,0,yes
 searching/Ada/Hyperlink-Induced-Topic-Search,survived,Compute,killed,ok,6,,6,0,yes
 searching/Ada/Interpolation-Search,survived,Find,killed,ok,1,,1,0,yes
 searching/Ada/Introselect,survived,Select_Kth,killed,ok,3,,3,0,yes
 searching/Ada/Iterative-Deepening-Depth-First-Search,survived,Depth_Limited_Search,killed,ok,7,,7,0,yes
-searching/Ada/Jump-Point-Search,survived,Set_Blocked,killed,ok,7,,7,0,yes
+searching/Ada/Jump-Point-Search,survived,Path_Cost,killed,ok,7,,7,0,yes
 searching/Ada/Jump-Search,survived,Find,killed,ok,2,,2,0,yes
-searching/Ada/Lexicographic-Breadth-First-Search,survived,Add_Edge,killed,ok,8,,8,0,yes
+searching/Ada/Lexicographic-Breadth-First-Search,survived,Lex_BFS,killed,ok,8,,8,0,yes
 searching/Ada/Line-Search,survived,Wolfe_Line_Search,killed,ok,23,,23,0,yes
 searching/Ada/Linear-Search,survived,Find_From,killed,ok,3,,3,0,yes
 searching/Ada/Local-Search,survived,Two_Opt_Local_Search,killed,ok,36,Next_Natural Is_Local_Optimum_TSP,34,0,yes
@@ -1763,7 +1763,7 @@ searching/Ada/Quantum-Walk-Search,killed,,,baseline fails,0,,0,0,yes
 searching/Ada/Quickselect,survived,Select_Kth,killed,ok,3,,3,0,yes
 searching/Ada/Random-Search,survived (without -gnata),Search_1D,killed,ok,22,,22,0,no
 searching/Ada/Substring-Search,survived,Naive_Search,killed,ok,7,,7,0,yes
-searching/Ada/Tabu-Search,survived,Set_Clock,killed,ok,23,,23,0,yes
+searching/Ada/Tabu-Search,survived,Push,killed,ok,23,,23,0,yes
 searching/Ada/Ternary-Search,survived,Find_Maximum_Index,killed,ok,2,,2,0,yes
 searching/Ada/Trigram-Search,survived,Unique_Trigram_Count,killed,ok,6,,6,0,yes
 searching/Ada/Uniform-Binary-Search,survived,Classic_Binary_Search,killed,ok,8,,8,0,yes
