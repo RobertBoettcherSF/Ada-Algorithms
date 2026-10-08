@@ -29,3 +29,9 @@ misc/Ada/Truncated-Binary-Exponential-Backoff: powers by repeated addition,
   uniform support / coverage / exact mean, state steps.
 compression/Ada/Audio-Compression: exact DPCM round trip (identity) on seeded
   full-scale buffers; mu-law / A-law curves in Long_Float over every sample and code.
+matrices/Ada/Matrix-Multiplication: outer-product reference on exact integer-valued
+  matrices, closed-form multiply counts, independent LCG for Freivalds, README tables.
+misc/Ada/Phonetic-Algorithms: own reference encoders (tools/vv/sweep_phonetic_ref.py,
+  tests/vectors.txt); Soundex cross-checked with jellyfish 1.1.0 (MIT).
+misc/Ada/Hidden-Subgroup-Problem: oracles with a known hidden subgroup, certificate
+  via Verify_Hidden_Subgroup, gcd-based annihilator property.
