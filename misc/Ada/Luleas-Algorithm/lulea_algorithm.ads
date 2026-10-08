@@ -78,7 +78,7 @@ private
    type Lulea_Trie is record
       Count      : Natural := 0;
       Routes     : Route_Store;
-      Bit_Vector : Lulea_Algorithm.Bit_Vector := (others => False);
+      Bit_Vector : Lulea_Algorithm.Bit_Vector := [others => False];
    end record;
 
 end Lulea_Algorithm;

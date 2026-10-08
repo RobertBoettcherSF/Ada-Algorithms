@@ -66,7 +66,7 @@ package body Lulea_Algorithm is
    end IPv4_To_String;
 
    function String_To_IPv4 (S : String) return IPv4_Address is
-      Parts : array (1 .. 4) of Natural := (others => 0);
+      Parts : array (1 .. 4) of Natural := [others => 0];
       Idx   : Positive := 1;
       Acc   : Natural := 0;
       Seen  : Boolean := False;
@@ -110,7 +110,7 @@ package body Lulea_Algorithm is
    function Build_Lulea_Trie (Entries : Routing_Table) return Lulea_Trie is
       T : Lulea_Trie;
    begin
-      T.Routes := (others => (Pfx => (0, 0), Info => <>));
+      T.Routes := [others => (Pfx => (0, 0), Info => <>)];
       if Entries'Length = 0 then
          raise Empty_Table_Error with "empty routing table";
       end if;
