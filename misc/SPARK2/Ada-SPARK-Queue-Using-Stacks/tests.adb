@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Queue_Using_Stacks; use Queue_Using_Stacks;
+with Own_Checks;
 
 procedure Tests is
    Q : Queue := Empty;
@@ -10,4 +11,5 @@ begin
    Q := Dequeue (Q);
    if Front (Q) /= 20 then raise Program_Error; end if;
    Put_Line ("Queue using stacks: PASS");
+   Own_Checks;
 end Tests;

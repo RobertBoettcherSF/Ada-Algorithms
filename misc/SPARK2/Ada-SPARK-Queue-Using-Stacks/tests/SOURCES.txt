@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: enqueue 10, 20, 30; front 10; dequeue; front 20, by hand.
+* Own model: a first-in first-out list in the test, compared after every
+  operation (size and front).
+* Front or Dequeue on an empty queue and Enqueue on a full one have no
+  answer and must be rejected (a precondition failure), not answered with a
+  stale value or silently dropped.
+* Inputs: 500 random runs of 60 operations (values -100 .. 100).
