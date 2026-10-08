@@ -1,0 +1,3 @@
+# folder,copy_of: near-copies pointed to one canonical folder (none move or get deleted; Robert decides).
+# Filled from tools/vv/near_dup_lists.csv rows with verdict copy; currently none.
+folder,copy_of

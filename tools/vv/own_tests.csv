@@ -25,7 +25,7 @@ sorting/SPARK2/Ada-SPARK-Sort-List-Lite,own insertion-sort reference; every leng
 sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,bounds kept + own insertion-sort reference; lengths 0..40; extreme values; high bounds
 sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,parity at every position + permutation; 3000 random 4-even/4-odd inputs; unbalanced inputs rejected (2003 cases)
 sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub,own insertion-sort reference; 3000 random three-run inputs
-sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,own concatenate + insertion-sort reference; every split NA+NB<=16
+sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,own concatenate + insertion-sort reference; every split NA+NB<=16; own full-list check: Count'Last appends then one more must be rejected (silent no-op scan); own exact 8 + 8 merge (length and order) and 9 + 8 merge rejection
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array-II,own keep-at-most-two reference; every Length; 6400 random sorted
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,own unique reference; every length; 4800 random sorted
 sorting/SPARK2/Ada-SPARK-Find-Median-Sorted-Arrays-Lite,own sorted-merge median (odd exact; even exact when integer mean; else between middles); every NA;NB
@@ -56,7 +56,7 @@ searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix,own linear-scan membership on row-
 searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,own all-pairs subtree check; 4000 random trees (valid; perturbed; shuffled)
 searching/SPARK2/Bst-Insert-Search,own set reference; ascending/descending/zig-zag chains 1..31 keys; 6000 random sequences of any shape incl. repeated keys
 searching/SPARK2/Ada-SPARK-Word-Search-II-Lite,own left-to-right row scan; 5000 random boards
-searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,own wildcard matcher; 4000 random dictionaries
+searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,own wildcard matcher; 4000 random dictionaries; own full-dictionary check: Max_Words distinct words then one more must be rejected
 misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,own directly built digit string (first ~20000 positions) + own digit-block arithmetic for n=10^9 and 2^31
 strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,2000 random pairs vs Long_Long_Integer + hand arithmetic + (10^30-1)^2 by algebra
 trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,own recursive subtree sum; 4000 random trees + empty
@@ -79,7 +79,7 @@ trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters,own 
 trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles,own recursive path enumeration; exhaustive 65536 grids
 trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget,own all-windows cost check; 5000 random
 trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,own all-windows A/B/C check; 5000 random
-trees/SPARK2/Ada-SPARK-Implement-Trie,own exact-membership reference; 4000 random word sets
+trees/SPARK2/Ada-SPARK-Implement-Trie,own exact-membership reference; 4000 random word sets; own full-structure check: Max_Words distinct words then one more must be rejected
 trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST,own parent-climbing LCA on generated BSTs; 4000 random
 trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST,own parent-climbing LCA on generated BSTs; 4000 random
 trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree,own identical-subtree check (copied/absent patterns); 5000 random
@@ -132,8 +132,8 @@ misc/SPARK2/Ada-SPARK-Basic-Calculator-II,exact integer result for every operand
 misc/SPARK2/Ada-SPARK-Max-Product-Subarray,own all-subarrays reference in Long_Long_Integer; all 13**6 arrays over -6..6; out-of-range elements rejected (in tests.adb)
 misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,minimality property (meets the limit; D - 1 does not); 73 limits + 3000 random; infeasible limits rejected (in tests.adb)
 misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,own one-bar-at-a-time reference; every price 1..1000 x budgets 0..3200 (in tests.adb)
-misc/SPARK2/Ada-SPARK-Partition-List,stable partition vs own two-filter reference; all lists of length 0..7 over {0,1,2} x pivots -1..3 + 3000 random
-sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,odd-then-even positions vs own reference; all lists of length 0..7 over {0,1,2} + 3000 random
+misc/SPARK2/Ada-SPARK-Partition-List,"stable partition vs own two-filter reference; all lists of length 0..7 over {0,1,2} x pivots -1..3 + 3000 random"
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,"odd-then-even positions vs own reference; all lists of length 0..7 over {0,1,2} + 3000 random"
 numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,own Long_Float DFT reference (tolerance 1.5 from the error analysis); every +-212 impulse + 20000 random inputs; spectra that do not fit Sample rejected (in tests.adb)
 misc/SPARK2/Ada-SPARK-Rotate-List,rotate right by K vs own index-formula reference; every length 1..16 x every K 0..16 (distinct + random values)
 misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,pairwise swap vs own reference; every length 0..16 (distinct + 50 random each)
@@ -197,3 +197,19 @@ ml/SPARK2/Linear-Regression,own normal-equation least squares truncated once; 40
 misc/SPARK2/Pattern-132,own prefix-minimum reference; 20000 random arrays (sample_30)
 ml/Ada/Backpropagation,own Long_Float forward pass and central finite differences of every weight/bias; 400 random networks (sample_30)
 misc/SPARK2/Ada-SPARK-Min-Stack,own array model with minimum on 2000 random runs plus full/empty rejection checks (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Reorder-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,own recency-list model; 1000 random runs x 60 operations; keys 0..24; capacity 16
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,own frequency+recency model (ties: least recent); 1000 random runs x 60 operations; keys 0..24; capacity 16

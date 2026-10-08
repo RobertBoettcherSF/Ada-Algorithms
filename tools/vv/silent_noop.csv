@@ -21,11 +21,11 @@ misc/SPARK2/Ada-SPARK-Add-Binary,Add,add_binary.adb,legitimate (scanner),no capa
 misc/SPARK2/Ada-SPARK-Add-Two-Numbers,Add,add_two_numbers.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 misc/SPARK2/Ada-SPARK-Add-Two-Numbers-II,Add,add_two_numbers_ii.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 misc/SPARK2/Ada-SPARK-Add-Without-Plus,Add,add_without_plus.adb,legitimate (scanner),no capacity/emptiness guard in the body,
-misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,Append,convert_binary_number_in_a_linked_list_to_integer.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
-misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,Append,copy_list_with_random_pointer_lite.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
-misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,Append,delete_node_in_a_linked_list.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,Append,convert_binary_number_in_a_linked_list_to_integer.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,Append,copy_list_with_random_pointer_lite.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,Append,delete_node_in_a_linked_list.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
 misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,Delete_At,delete_node_in_a_linked_list.adb,legitimate (scanner),no capacity/emptiness guard in the body,
-misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,Append,delete_the_middle_node.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,Append,delete_the_middle_node.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
 misc/SPARK2/Ada-SPARK-Design-An-Ordered-Stream,Put,design_an_ordered_stream.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 misc/SPARK2/Ada-SPARK-Design-Browser-History,Visit,design_browser_history.adb,legitimate,Pre in the spec excludes the case; the body guard is defensive dead code,
 misc/SPARK2/Ada-SPARK-Design-Circular-Deque,Pop_Front,design_circular_deque.adb,legitimate,Pre in the spec excludes the case; the body guard is defensive dead code,
@@ -40,18 +40,18 @@ misc/SPARK2/Ada-SPARK-Design-Parking-System-II,Add_Car,design_parking_system_ii.
 misc/SPARK2/Ada-SPARK-Fibonacci-DP,Compute,fibonacci_dp.adb,legitimate,base case: empty input has a defined answer (returned value),
 misc/SPARK2/Ada-SPARK-Fibonacci-Number,Compute,fibonacci_number.adb,legitimate,base case: empty input has a defined answer (returned value),
 misc/SPARK2/Ada-SPARK-Heap-Push-Pop,Push,heap_push_pop.adb,legitimate,Pre in the spec excludes the case; the body guard is defensive dead code,
-misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,Append,intersection_of_two_linked_lists.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,Append,intersection_of_two_linked_lists.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
 misc/SPARK2/Ada-SPARK-Is-Subsequence,Check,is_subsequence.adb,legitimate,base case: empty input has a defined answer (returned value),
-misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,Put,lfu_cache_lite.adb,silent-failure (candidate),"a new key on a full cache is dropped instead of evicting the least frequently used entry; the fix is eviction, not Pre (reviewed by hand)",
-misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,Put,lru_cache_lite.adb,silent-failure (candidate),"a new key on a full cache is dropped instead of evicting the least recently used entry; the fix is eviction, not Pre (reviewed by hand)",
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,Put,lfu_cache_lite.adb,silent-failure (confirmed by own test; fixed),"a new key on a full cache is dropped instead of evicting the least frequently used entry; the fix is eviction, not Pre (reviewed by hand)",37b0ea4a/0c40049c
+misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,Put,lru_cache_lite.adb,silent-failure (confirmed by own test; fixed),"a new key on a full cache is dropped instead of evicting the least recently used entry; the fix is eviction, not Pre (reviewed by hand)",37b0ea4a/0c40049c
 misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,Complete,longest_word_in_dictionary.adb,legitimate,base case: empty input has a defined answer (returned value),
 misc/SPARK2/Ada-SPARK-Max-Heap,Pop,max_heap.adb,legitimate,reports through an out status/Success parameter,
 misc/SPARK2/Ada-SPARK-Max-Heap,Push,max_heap.adb,legitimate,reports through an out status/Success parameter,
 misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray,Best_Product,maximum_product_subarray.adb,legitimate,base case: empty input has a defined answer (returned value),
 misc/SPARK2/Ada-SPARK-Maximum-Subarray,Best_Sum,maximum_subarray.adb,legitimate,base case: empty input has a defined answer (returned value),
-misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,Append,maximum_twin_sum_of_a_linked_list.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
-misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,Append,merge_in_between_linked_lists.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
-misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,Append,middle_of_the_linked_list.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,Append,maximum_twin_sum_of_a_linked_list.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,Append,merge_in_between_linked_lists.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,Append,middle_of_the_linked_list.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
 misc/SPARK2/Ada-SPARK-Min-Heap,Pop,min_heap.adb,legitimate,reports through an out status/Success parameter,
 misc/SPARK2/Ada-SPARK-Min-Heap,Push,min_heap.adb,legitimate,reports through an out status/Success parameter,
 misc/SPARK2/Ada-SPARK-Min-Stack,Min_Value,min_stack.adb,silent-failure (fixed),returns 0 for an empty stack (case S.Size when 0 => return 0); no Pre (reviewed by hand),"Pre (state condition: full/empty), test 208fbe05, fix f63f7977"
@@ -62,7 +62,7 @@ misc/SPARK2/Ada-SPARK-Min-Stack,Push,min_stack.adb,silent-failure (fixed),"body 
          whe"" with no Pre, no status flag and no raise; a full container drops the value silently","Pre (state condition: full/empty), test 208fbe05, fix f63f7977"
 misc/SPARK2/Ada-SPARK-Min-Stack,Top_Value,min_stack.adb,silent-failure (fixed),returns 0 for an empty stack (case S.Size when 0 => return 0); no Pre (reviewed by hand),"Pre (state condition: full/empty), test 208fbe05, fix f63f7977"
 misc/SPARK2/Ada-SPARK-N-th-Tribonacci,Compute,n_th_tribonacci.adb,legitimate,base case: empty input has a defined answer (returned value),
-misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,Append,palindrome_linked_list.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,Append,palindrome_linked_list.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
 misc/SPARK2/Ada-SPARK-Palindrome-Pairs-Lite,Reverse_Of,palindrome_pairs_lite.adb,legitimate,base case: empty input has a defined answer (returned value),
 misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,Minimum_Cuts,palindrome_partitioning.adb,legitimate,base case: empty input has a defined answer (returned value),
 misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,Get,pascal_triangle_ii.adb,legitimate (scanner),no capacity/emptiness guard in the body,
@@ -71,21 +71,21 @@ misc/SPARK2/Ada-SPARK-Reduce-Array-Size-To-The-Half,Groups_To_Remove,reduce_arra
 misc/SPARK2/Ada-SPARK-Reference-Counting,Add_Reference,reference_counting.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates,Remove_Duplicates,remove_adjacent_duplicates.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-II,Remove_Duplicates,remove_adjacent_duplicates_ii.adb,legitimate (scanner),no capacity/emptiness guard in the body,
-misc/SPARK2/Ada-SPARK-Remove-Element,Remove,remove_element.adb,needs review,"not a silent no-op; but suspected off-by-one: with Length = 32 and nothing removed, Write_Pos saturates at 32 and Length becomes 31 (reviewed by hand, not yet tested)",
+misc/SPARK2/Ada-SPARK-Remove-Element,Remove,remove_element.adb,other bug (fixed),not a silent no-op; off-by-one at full length confirmed by own test,"Kept counter; test 01df9c65, fix 9d9ef057"
 misc/SPARK2/Ada-SPARK-Remove-K-Digits,Remove_K,remove_k_digits.adb,legitimate (scanner),no capacity/emptiness guard in the body,
-misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,Append,remove_linked_list_elements.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,Append,remove_linked_list_elements.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
 misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,Remove_First,remove_linked_list_elements.adb,legitimate,Pre in the spec excludes the case; the body guard is defensive dead code,
-misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,Append,remove_nth_node_from_end.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
+misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,Append,remove_nth_node_from_end.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
 misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,Remove_Nth,remove_nth_node_from_end.adb,legitimate (scanner),no capacity/emptiness guard in the body,
-misc/SPARK2/Ada-SPARK-Reorder-List,Append,reorder_list.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
-misc/SPARK2/Ada-SPARK-Reverse-Linked-List,Append,reverse_linked_list.adb,silent-failure (candidate),if L.Size < Count'Last then ... end if: the value is dropped when full; the same Append is shared by the linked-list family (reviewed by hand),
+misc/SPARK2/Ada-SPARK-Reorder-List,Append,reorder_list.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List,Append,reverse_linked_list.adb,silent-failure (confirmed by own test; fixed),if L.Size < Count'Last then ... end if: the value is dropped when full; the same Append is shared by the linked-list family (reviewed by hand),4ec4c68e/6a2c8040
 misc/SPARK2/Ada-SPARK-Ring-Buffer,Append,ring_buffer.adb,legitimate,Pre in the spec excludes the case; the body guard is defensive dead code,
 misc/SPARK2/Ada-SPARK-Ring-Buffer,Remove,ring_buffer.adb,legitimate,Pre in the spec excludes the case; the body guard is defensive dead code,
 misc/SPARK2/Ada-SPARK-Stream-Of-Characters-Lite,Matches_Suffix,stream_of_characters_lite.adb,legitimate,base case: empty input has a defined answer (returned value),
 misc/SPARK2/Ada-SPARK-Stream-Of-Characters-Lite,Push,stream_of_characters_lite.adb,legitimate,full stream slides the window (else branch drops the oldest character); scanner false positive (reviewed by hand),
 misc/SPARK2/Ada-SPARK-Subsets-Bitmask,Add_Item,subsets_bitmask.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 misc/SPARK2/Ada-SPARK-Sum-Of-Two-Integers,Add,sum_of_two_integers.adb,legitimate (scanner),no capacity/emptiness guard in the body,
-misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,Append,swapping_nodes_in_a_linked_list.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
+misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,Append,swapping_nodes_in_a_linked_list.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
 misc/SPARK2/Ada-SPARK-Top-Nodes-Algorithm,Top_Node,top_nodes_algorithm.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 misc/SPARK2/Ada-SPARK-Tribonacci,Compute,tribonacci.adb,legitimate,base case: empty input has a defined answer (returned value),
 misc/SPARK2/Ada-SPARK-Tribonacci-Number,Compute,tribonacci_number.adb,legitimate,base case: empty input has a defined answer (returned value),
@@ -93,7 +93,7 @@ misc/SPARK2/Ada-SPARK-Valid-Parentheses,Is_Valid,valid_parentheses.adb,legitimat
 misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,Peek_State,blum_blum_shub.adb,legitimate,"expression function, pure, no container state (reviewed by hand)",
 misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Differs_By_Single_Swap,heaps_algorithm.adb,legitimate,base case: empty input has a defined answer (returned value),
 numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,Add,modular_arithmetic-ring.adb,legitimate,"expression function, pure, no container state (reviewed by hand)",
-searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,Add_Word,design_add_and_search_words.adb,silent-failure (candidate),word dropped when the dictionary is full; Pre => Used < Max_Words or a Success flag (reviewed by hand),
+searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,Add_Word,design_add_and_search_words.adb,silent-failure (confirmed by own test; fixed),word dropped when the dictionary is full; Pre => Used < Max_Words or a Success flag (reviewed by hand),0e12e93d/d08e3081
 searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree,Insert,insert_into_a_binary_search_tree.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 searching/SPARK4/Ada-SPARK-Binary-Search,Find,binary_search.adb,legitimate,base case: empty input has a defined answer (returned value),
 searching/SPARK4/Ada-SPARK-Binary-Search,Find_First,binary_search.adb,legitimate,base case: empty input has a defined answer (returned value),
@@ -107,7 +107,7 @@ searching/SPARK4/Ada-SPARK-Linear-Search,Find_From,linear_search.adb,legitimate,
 searching/SPARK4/Ada-SPARK-Ternary-Search,Find,ternary_search.adb,legitimate,base case: empty input has a defined answer (returned value),
 searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,Add_Edge,uniform_cost_search.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 searching/SPARK4/Best-First-Search,Add_Edge,best_first_search.adb,legitimate (scanner),no capacity/emptiness guard in the body,
-sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,Append,merge_two_sorted_lists.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
+sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,Append,merge_two_sorted_lists.adb,silent-failure (confirmed by own test; fixed),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",4ec4c68e/6a2c8040
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array,Compact,remove_duplicates_from_sorted_array.adb,legitimate,empty input: nothing to do and the result is still correct,
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-Sorted,Remove_Duplicates,remove_duplicates_sorted.adb,legitimate (scanner),guard on an input value in a pure computation; returns a defined result,
 sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,Build,sorted_array_to_bst.adb,legitimate,empty input: nothing to do and the result is still correct,
@@ -120,7 +120,7 @@ trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth,Max_Depth,binary_tree_max_depth.adb
 trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth,Min_Depth,binary_tree_min_depth.adb,legitimate,base case: empty input has a defined answer (returned value),
 trees/SPARK2/Ada-SPARK-Delete-Node-In-A-BST-Lite,Delete_Node,delete_node_in_a_bst_lite.adb,legitimate (scanner),no capacity/emptiness guard in the body,
 trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,Diameter,diameter_of_binary_tree.adb,legitimate,base case: empty input has a defined answer (returned value),
-trees/SPARK2/Ada-SPARK-Implement-Trie,Insert,implement_trie.adb,silent-failure (candidate),word dropped when the trie is full; Pre => Used < Max_Words or a Success flag (reviewed by hand),
+trees/SPARK2/Ada-SPARK-Implement-Trie,Insert,implement_trie.adb,silent-failure (confirmed by own test; fixed),word dropped when the trie is full; Pre => Used < Max_Words or a Success flag (reviewed by hand),0e12e93d/d08e3081
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,Length,longest_common_substring.adb,legitimate,base case: empty input has a defined answer (returned value),
 trees/SPARK2/Ada-SPARK-Same-Tree,Are_Same,same_tree.adb,legitimate,base case: empty input has a defined answer (returned value),
 trees/SPARK2/Ada-SPARK-Symmetric-Tree,Is_Symmetric,symmetric_tree.adb,legitimate,base case: empty input has a defined answer (returned value),

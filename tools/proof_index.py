@@ -209,6 +209,14 @@ for g in by_nl.values():
            difflib.SequenceMatcher(None, x[:20000], y[:20000], autojunk=False).ratio() >= 0.9:
             dup[f] = g[0] + ' (near-identical)'
 for r in rows: r['duplicate_of'] = dup.get(r['folder'], '')
+# near-copies (tools/vv/copy_of.csv): informational pointer to a canonical folder, no effect on counts
+COPY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'vv', 'copy_of.csv')
+copy_of = {}
+if os.path.exists(COPY_FILE):
+    for l in open(COPY_FILE):
+        if l.strip() and not l.startswith('#') and not l.startswith('folder,'):
+            a, b = l.strip().split(',')[:2]; copy_of[a] = b
+for r in rows: r['copy_of'] = copy_of.get(r['folder'], '')
 
 # pairs: plain-Ada folder <-> SPARK folder(s) with the same normalized name (duplicates excluded)
 spark_by = collections.defaultdict(list)

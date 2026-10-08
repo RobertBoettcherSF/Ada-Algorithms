@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 17:47 CEST.
+Generated 2026-10-08 18:01 CEST.
 
 ## Proof setup
 
@@ -15,7 +15,7 @@ z3: Z3 version 4.15.4 - 64 bit
 
 * Batch (all SPARK folders): `gnatprove -P <folder gpr> --mode=silver --level=2 -j1 --output=oneline -k` - level 2 = provers cvc5,z3,altergo, `--timeout=5` s per check (wall clock), `--steps=0`, `--memlimit=1000`, per_check, counterexamples off.
 * Rerun with a deterministic step budget (rows with `proof_run` = `steps=N`; replaces the batch result): `gnatprove -P <folder gpr> --mode=silver --level=2 --timeout=0 --steps=1000000 --counterexamples=off -j2 --output=oneline -k` - no wall-clock timeout, so the result does not depend on machine load.
-* Rows rerun with steps (105): `compression/SPARK2/Ada-SPARK-Compress-String`, `compression/SPARK2/Ada-SPARK-Run-Length-Encoding`, `geometry/Ada/Bresenhams-Line-Algorithm`, `geometry/Ada/Phong-Shading`, `geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham`, `geometry/SPARK2/Ada-SPARK-Point-In-Polygon`, `graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph`, `graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS`, `hashing/SPARK2/Ada-SPARK-Design-HashMap`, `hashing/SPARK2/Ada-SPARK-Design-HashSet`, `hashing/SPARK2/Ada-SPARK-Pearson-Hashing`, `hashing/SPARK2/Ada-SPARK-Zobrist-Hashing`, `logic/Ada/DPLL`, `matrices/SPARK2/Ada-SPARK-Gaussian-Elimination`, `matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix`, `matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order`, `matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum`, `misc/Ada/Delivery-Safety-Supervisor`, `misc/Ada/Orbital-Mechanics`, `misc/SPARK2/Ada-SPARK-3Sum-Closest`, `misc/SPARK2/Ada-SPARK-Add-Binary`, `misc/SPARK2/Ada-SPARK-Basic-Calculator-II`, `misc/SPARK2/Ada-SPARK-Beautiful-Arrangement`, `misc/SPARK2/Ada-SPARK-Binary-Watch`, `misc/SPARK2/Ada-SPARK-Broken-Calculator`, `misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages`, `misc/SPARK2/Ada-SPARK-Car-Pooling`, `misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops`, `misc/SPARK2/Ada-SPARK-Circular-Queue`, `misc/SPARK2/Ada-SPARK-Combination-Sum-III`, `misc/SPARK2/Ada-SPARK-Combination-Sum-IV`, `misc/SPARK2/Ada-SPARK-Count-And-Say-Stub`, `misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval`, `misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite`, `misc/SPARK2/Ada-SPARK-Decode-Ways`, `misc/SPARK2/Ada-SPARK-Design-Bitset`, `misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite`, `misc/SPARK2/Ada-SPARK-Distinct-Subsequences`, `misc/SPARK2/Ada-SPARK-Elevator-Algorithm`, `misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor`, `misc/SPARK2/Ada-SPARK-Image-Smoother`, `misc/SPARK2/Ada-SPARK-Jump-Game`, `misc/SPARK2/Ada-SPARK-Longest-Ones`, `misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary`, `misc/SPARK2/Ada-SPARK-Max-Product-Subarray`, `misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars`, `misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs`, `misc/SPARK2/Ada-SPARK-Min-Stack`, `misc/SPARK2/Ada-SPARK-Minimum-ASCII-Delete-Sum`, `misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List`, `misc/SPARK2/Ada-SPARK-Nth-Digit-Stub`, `misc/SPARK2/Ada-SPARK-Nth-Ugly-Number`, `misc/SPARK2/Ada-SPARK-PN-Counter`, `misc/SPARK2/Ada-SPARK-Palindrome-Partitioning`, `misc/SPARK2/Ada-SPARK-Palindrome-Partitioning-II`, `misc/SPARK2/Ada-SPARK-Parity-Bits`, `misc/SPARK2/Ada-SPARK-Partition-Around-Pivot`, `misc/SPARK2/Ada-SPARK-Partition-List`, `misc/SPARK2/Ada-SPARK-Pascal-Triangle`, `misc/SPARK2/Ada-SPARK-Pow-X-N-Stub`, `misc/SPARK2/Ada-SPARK-Power-Of-Three`, `misc/SPARK2/Ada-SPARK-Queue-Using-Stacks`, `misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool`, `misc/SPARK2/Ada-SPARK-Rectangle-Area`, `misc/SPARK2/Ada-SPARK-Regular-Expression-Matching-Lite`, `misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II`, `misc/SPARK2/Ada-SPARK-Robot-Return-To-Origin`, `misc/SPARK2/Ada-SPARK-Rotate-List`, `misc/SPARK2/Ada-SPARK-Shortest-Common-Supersequence-Lite`, `misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements`, `misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs`, `misc/SPARK2/Ada-SPARK-Tanimoto`, `misc/SPARK2/Ada-SPARK-To-Lower-Case`, `misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words`, `misc/SPARK2/Ada-SPARK-Tribonacci`, `misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences`, `misc/SPARK2/Ada-SPARK-Water-Bottles`, `misc/SPARK2/Ada-SPARK-Wildcard-Matching-Lite`, `misc/SPARK2/Pattern-132`, `misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm`, `ml/Ada/Backpropagation`, `ml/SPARK2/Linear-Regression`, `numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT`, `numerical/SPARK2/Ada-SPARK-Lagrange-Interpolation`, `numerical/SPARK2/Ada-SPARK-Newton-Raphson`, `numerical/SPARK4/Ada-SPARK-Modular-Arithmetic`, `searching/SPARK2/Bst-Insert-Search`, `sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List`, `sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List`, `sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II`, `sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II`, `sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency`, `sorting/SPARK2/Ada-SPARK-Sort-List-Lite`, `sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array`, `sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub`, `strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings`, `strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt`, `strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence`, `strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub`, `strings/SPARK2/Ada-SPARK-Rabin-Karp`, `strings/SPARK2/Ada-SPARK-Repeated-String-Match`, `strings/SPARK3/Levenshtein-Distance`, `trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree`, `trees/SPARK2/Ada-SPARK-Insert-Into-BST`, `trees/SPARK2/Ada-SPARK-Range-Sum-BST`
+* Rows rerun with steps (125): `compression/SPARK2/Ada-SPARK-Compress-String`, `compression/SPARK2/Ada-SPARK-Run-Length-Encoding`, `geometry/Ada/Bresenhams-Line-Algorithm`, `geometry/Ada/Phong-Shading`, `geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham`, `geometry/SPARK2/Ada-SPARK-Point-In-Polygon`, `graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph`, `graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS`, `hashing/SPARK2/Ada-SPARK-Design-HashMap`, `hashing/SPARK2/Ada-SPARK-Design-HashSet`, `hashing/SPARK2/Ada-SPARK-Pearson-Hashing`, `hashing/SPARK2/Ada-SPARK-Zobrist-Hashing`, `logic/Ada/DPLL`, `matrices/SPARK2/Ada-SPARK-Gaussian-Elimination`, `matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix`, `matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order`, `matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum`, `misc/Ada/Delivery-Safety-Supervisor`, `misc/Ada/Orbital-Mechanics`, `misc/SPARK2/Ada-SPARK-3Sum-Closest`, `misc/SPARK2/Ada-SPARK-Add-Binary`, `misc/SPARK2/Ada-SPARK-Basic-Calculator-II`, `misc/SPARK2/Ada-SPARK-Beautiful-Arrangement`, `misc/SPARK2/Ada-SPARK-Binary-Watch`, `misc/SPARK2/Ada-SPARK-Broken-Calculator`, `misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages`, `misc/SPARK2/Ada-SPARK-Car-Pooling`, `misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops`, `misc/SPARK2/Ada-SPARK-Circular-Queue`, `misc/SPARK2/Ada-SPARK-Combination-Sum-III`, `misc/SPARK2/Ada-SPARK-Combination-Sum-IV`, `misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer`, `misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite`, `misc/SPARK2/Ada-SPARK-Count-And-Say-Stub`, `misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval`, `misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite`, `misc/SPARK2/Ada-SPARK-Decode-Ways`, `misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List`, `misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node`, `misc/SPARK2/Ada-SPARK-Design-Bitset`, `misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite`, `misc/SPARK2/Ada-SPARK-Distinct-Subsequences`, `misc/SPARK2/Ada-SPARK-Elevator-Algorithm`, `misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor`, `misc/SPARK2/Ada-SPARK-Image-Smoother`, `misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists`, `misc/SPARK2/Ada-SPARK-Jump-Game`, `misc/SPARK2/Ada-SPARK-LFU-Cache-Lite`, `misc/SPARK2/Ada-SPARK-LRU-Cache-Lite`, `misc/SPARK2/Ada-SPARK-Longest-Ones`, `misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary`, `misc/SPARK2/Ada-SPARK-Max-Product-Subarray`, `misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars`, `misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List`, `misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists`, `misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List`, `misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs`, `misc/SPARK2/Ada-SPARK-Min-Stack`, `misc/SPARK2/Ada-SPARK-Minimum-ASCII-Delete-Sum`, `misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List`, `misc/SPARK2/Ada-SPARK-Nth-Digit-Stub`, `misc/SPARK2/Ada-SPARK-Nth-Ugly-Number`, `misc/SPARK2/Ada-SPARK-PN-Counter`, `misc/SPARK2/Ada-SPARK-Palindrome-Linked-List`, `misc/SPARK2/Ada-SPARK-Palindrome-Partitioning`, `misc/SPARK2/Ada-SPARK-Palindrome-Partitioning-II`, `misc/SPARK2/Ada-SPARK-Parity-Bits`, `misc/SPARK2/Ada-SPARK-Partition-Around-Pivot`, `misc/SPARK2/Ada-SPARK-Partition-List`, `misc/SPARK2/Ada-SPARK-Pascal-Triangle`, `misc/SPARK2/Ada-SPARK-Pow-X-N-Stub`, `misc/SPARK2/Ada-SPARK-Power-Of-Three`, `misc/SPARK2/Ada-SPARK-Queue-Using-Stacks`, `misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool`, `misc/SPARK2/Ada-SPARK-Rectangle-Area`, `misc/SPARK2/Ada-SPARK-Regular-Expression-Matching-Lite`, `misc/SPARK2/Ada-SPARK-Remove-Element`, `misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements`, `misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End`, `misc/SPARK2/Ada-SPARK-Reorder-List`, `misc/SPARK2/Ada-SPARK-Reverse-Linked-List`, `misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II`, `misc/SPARK2/Ada-SPARK-Robot-Return-To-Origin`, `misc/SPARK2/Ada-SPARK-Rotate-List`, `misc/SPARK2/Ada-SPARK-Shortest-Common-Supersequence-Lite`, `misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements`, `misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs`, `misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List`, `misc/SPARK2/Ada-SPARK-Tanimoto`, `misc/SPARK2/Ada-SPARK-To-Lower-Case`, `misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words`, `misc/SPARK2/Ada-SPARK-Tribonacci`, `misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences`, `misc/SPARK2/Ada-SPARK-Water-Bottles`, `misc/SPARK2/Ada-SPARK-Wildcard-Matching-Lite`, `misc/SPARK2/Pattern-132`, `misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm`, `ml/Ada/Backpropagation`, `ml/SPARK2/Linear-Regression`, `numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT`, `numerical/SPARK2/Ada-SPARK-Lagrange-Interpolation`, `numerical/SPARK2/Ada-SPARK-Newton-Raphson`, `numerical/SPARK4/Ada-SPARK-Modular-Arithmetic`, `searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words`, `searching/SPARK2/Bst-Insert-Search`, `sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists`, `sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List`, `sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List`, `sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II`, `sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II`, `sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency`, `sorting/SPARK2/Ada-SPARK-Sort-List-Lite`, `sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array`, `sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub`, `strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings`, `strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt`, `strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence`, `strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub`, `strings/SPARK2/Ada-SPARK-Rabin-Karp`, `strings/SPARK2/Ada-SPARK-Repeated-String-Match`, `strings/SPARK3/Levenshtein-Distance`, `trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree`, `trees/SPARK2/Ada-SPARK-Implement-Trie`, `trees/SPARK2/Ada-SPARK-Insert-Into-BST`, `trees/SPARK2/Ada-SPARK-Range-Sum-BST`
 
 One row per algorithm folder (full data in [`PROOFS.csv`](PROOFS.csv)). Regenerate with
 `python3 tools/proof_index.py --results <dir> --logs <prove-workdir>` (see `tools/audit/`).
@@ -24,25 +24,25 @@ Silver: `gnatprove --mode=silver --level=2` on the folder's own .gpr (generated 
 
 Folders: 1840; duplicates (counted once): 3; Ada<->SPARK pairs: 110; stub sheets (name ends in -Stub or README says stub, column `stub`): 143.
 
-**Training-ready: 241 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).
+**Training-ready: 257 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).
 
-**Do-nothing check:** 1707 folders checked, 35 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 198 folders (column `own_tests`).
+**Do-nothing check:** 1707 folders checked, 35 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 214 folders (column `own_tests`).
 
-**Silver headline (duplicates counted once):** 484 real SPARK folders proven non-trivially, 305 proven but trivial (<= 3 checks), 141 stubs proven (separate), 3 with unproved checks, 10 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 140 proven real folders also prove functional contracts
+**Silver headline (duplicates counted once):** 485 real SPARK folders proven non-trivially, 304 proven but trivial (<= 3 checks), 141 stubs proven (separate), 3 with unproved checks, 10 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 143 proven real folders also prove functional contracts
 
 `stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged, and so is every folder listed in `tools/readme_stubs.txt` (its README calls it a stub); the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most 3 checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.
 
 | Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven (real) | Proven (stub) | Trivial | Unproved | Tool crash | Not built | Not run |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Ada | 908 | 870 | 878 | 881 | 883 | 864 | 688 | 668 | 12 | 0 | 2 | 2 | 2 | 11 | 0 |
-| SPARK2 | 858 | 858 | 858 | 858 | 858 | 858 | 537 | 536 | 709 | 141 | 372 | 0 | 8 | 0 | 0 |
+| SPARK2 | 858 | 858 | 858 | 858 | 858 | 858 | 557 | 556 | 709 | 141 | 371 | 0 | 8 | 0 | 0 |
 | SPARK3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 0 | 0 | 1 | 0 | 0 | 0 |
 | SPARK4 | 69 | 67 | 67 | 67 | 67 | 67 | 67 | 37 | 67 | 0 | 0 | 0 | 0 | 0 | 0 |
-| All | 1837 | 1797 | 1805 | 1808 | 1810 | 1791 | 1294 | 1243 | 789 | 141 | 374 | 3 | 10 | 11 | 0 |
+| All | 1837 | 1797 | 1805 | 1808 | 1810 | 1791 | 1314 | 1263 | 789 | 141 | 373 | 3 | 10 | 11 | 0 |
 
 ## V&V (validation) results
 
-Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 198 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
+Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 214 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
 
 | Folder | Differential test | Mutation (killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |
 |---|---|---|---|---|---|---|
@@ -126,11 +126,15 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Combination-Sum-III |  |  |  | own enumeration of all 512 digit subsets; every K 0..9 and N 0..45 (Feasible and Count_Choices) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Combination-Sum-IV |  |  |  | own recursive enumeration of ordered sequences of parts {1;2;3}; every target 0..12 | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Container-With-Most-Water |  |  |  | own all-pairs area; 6000 random | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Count-And-Say-Stub |  | 7/8 | OEIS A005150 (terms) and A005341 (lengths) |  | ok | kat |
 | misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval |  |  |  | brute-force count for every interval in 0..400; additivity / half-length / short brute force on 50000 random large intervals | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite |  |  |  | own definition count; 20000 random arrays with ties (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Counting-Bits |  |  |  | own bit count; 0..2**16 (exhaustive) + 20000 random + powers of two | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Decode-Ways |  |  |  | own recursive decoding; 4000 random + all-ones up to length 29 (30-32 can exceed Result) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Delta-Encoding | agree (vs misc/Ada/Delta-Encoding, 1000 cases) |  |  |  | ok | diff agree |
 | misc/SPARK2/Ada-SPARK-Design-Bitset |  |  |  | own Boolean-array model; 500 random runs of 100 operations (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite |  |  |  | own sum/count floor average; 20000 random trip lists (sample_30) | ok | own tests |
@@ -147,10 +151,13 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Hamming-Weight | agree (vs misc/Ada/Hamming-Weight, 1000 cases) |  |  |  | ok | diff agree |
 | misc/SPARK2/Ada-SPARK-House-Robber |  |  |  | own enumeration of non-adjacent subsets; all 729 arrays over 0..2 + 5000 random | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Image-Smoother |  |  |  | own 3x3-window floor-average reference; 20000 random images (sample_30) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Jump-Game |  |  |  | own breadth-first reachability reference; hand cases; 20000 random arrays | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Jump-Game-II |  |  |  |  | weak |  |
 | misc/SPARK2/Ada-SPARK-Kadanes-Algorithm | agree (vs misc/Ada/Kadanes-Algorithm, 1000 cases) |  |  |  | ok | diff agree |
 | misc/SPARK2/Ada-SPARK-Knapsack-01 |  |  |  | own subset enumeration; 5000 random item sets x all limits 0..10 | ok | own tests |
+| misc/SPARK2/Ada-SPARK-LFU-Cache-Lite |  |  |  | own frequency+recency model (ties: least recent); 1000 random runs x 60 operations; keys 0..24; capacity 16 | ok | own tests |
+| misc/SPARK2/Ada-SPARK-LRU-Cache-Lite |  |  |  | own recency-list model; 1000 random runs x 60 operations; keys 0..24; capacity 16 | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram |  |  |  | own all-intervals width x minimum; 6000 random | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Least-Common-Multiple |  |  |  | own multiple search (definition); all pairs 1..150 + 20000 random pairs | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence | agree (vs misc/Ada/Longest-Increasing-Subsequence, 1000 cases) |  |  |  | ok | diff agree |
@@ -163,9 +170,12 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars |  |  |  | own one-bar-at-a-time reference; every price 1..1000 x budgets 0..3200 (in tests.adb) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray |  |  |  | own all-runs product (empty-run convention fixed by one input); all arrays over -3..3 up to length 4 + 5000 random | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Maximum-Subarray |  |  |  | own all-runs maximum (empty-run convention fixed by one negative element); all arrays over -3..3 up to length 4 + 5000 random | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Mean-Variance |  |  |  | mean in [floor; ceil] of S/5 + population variance in [floor; ceil] of (5Q - S**2)/25; constant samples; all 3125 inputs (exhaustive) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Median-Filtering | agree (vs misc/Ada/Median-Filtering, 1000 cases) |  |  |  | ok | diff agree |
+| misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Merge-Intervals |  |  |  |  | weak |  |
+| misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs |  |  |  | own path enumeration (end convention fixed by one input); all 729 arrays over 0..2 + 5000 random | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Min-Stack |  |  |  | own array model with minimum on 2000 random runs plus full/empty rejection checks (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Minimum-Path-Sum |  |  |  | own path recursion; 6000 random grids | ok | own tests |
@@ -178,10 +188,11 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Nth-Ugly-Number |  |  |  | own full 2/3/5 factor removal; Is_Ugly 1 .. 1000 and Compute 1 .. 32 (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Number-Of-1-Bits |  |  |  | own bit count; 0..2**16 (exhaustive) + 20000 random + powers of two and 2**K-1 | ok | own tests |
 | misc/SPARK2/Ada-SPARK-PN-Counter |  |  |  | own model: value = sum P - sum N; merge = componentwise max; commutative/idempotent; 20000 random replica pairs (sample_30) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Palindrome-Linked-List |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Palindrome-Partitioning |  |  |  | own exhaustive search over palindromic cuts; all words of length 4 over 3 letters and N = 0 .. 4 (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Parity-Bits |  |  |  | own bit count; 0 .. 70000 + single bits/complements + 20000 random words (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Partition-Around-Pivot |  |  |  | own stable two-group reference; 50000 random arrays and pivots (sample_30) | ok | own tests |
-| misc/SPARK2/Ada-SPARK-Partition-List |  |  |  | stable partition vs own two-filter reference; all lists of length 0..7 over {0 | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Partition-List |  |  |  | stable partition vs own two-filter reference; all lists of length 0..7 over {0,1,2} x pivots -1..3 + 3000 random | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Pascal-Triangle |  |  |  | own Pascal rows built by additions; rows 0..30 (31-32 do not fit Result) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Pow-X-N-Stub |  | 5/5 | exact powers incl. (-2)**31 = Integer'First |  | ok | kat |
 | misc/SPARK2/Ada-SPARK-Power-Of-Three |  |  |  | own 64-bit power table; 1 .. 100000 + every power and neighbours + 20000 random (sample_30) | ok | own tests |
@@ -190,13 +201,18 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Range-Sum-Query-Immutable |  |  |  | own direct sums; 500 random arrays x all 528 ranges | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool |  |  |  | Bounded_Buffer vs own FIFO model; 500 random runs of 100 operations (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Rectangle-Area |  |  |  | exhaustive width * height over the domain (sample_30) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Reorder-List |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Reverse-Bits |  |  |  | own bit mirror + involution; all 256 bytes (exhaustive) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Reverse-Linked-List |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II |  |  |  | reverse First..Last vs own reference; every length 1..16 x every range (distinct + random values) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Robot-Return-To-Origin |  |  |  | own move counts (U = D and L = R); 20000 random walks (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Roman-To-Int |  |  |  | own encoder round trip; every value 1..3999 with a numeral of at most 7 letters | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Rotate-List |  |  |  | rotate right by K vs own index-formula reference; every length 1..16 x every K 0..16 (distinct + random values) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements |  |  |  | own count of elements equal to X (folder convention); 20000 random arrays (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs |  |  |  | pairwise swap vs own reference; every length 0..16 (distinct + 50 random each) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List |  |  |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Tanimoto |  |  |  | own definition plus symmetry/range/self properties; all 4096 vector pairs (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Third-Maximum-Number |  |  |  | own distinct-value scan (arrays with >= 3 distinct values); 6000 random | ok | own tests |
 | misc/SPARK2/Ada-SPARK-To-Lower-Case |  |  |  | own ASCII letter mapping over all 256 characters; 20000 random texts (sample_30) | ok | own tests |
@@ -245,7 +261,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | searching/Ada/Linear-Search | agree (vs searching/SPARK4/Ada-SPARK-Linear-Search, 1000 cases) |  |  |  | ok | diff agree |
 | searching/Ada/Quickselect | agree (vs searching/SPARK4/Ada-SPARK-Quickselect, 1000 cases) |  |  |  | ok | diff agree |
 | searching/Ada/Ternary-Search | agree (vs searching/SPARK4/Ada-SPARK-Ternary-Search, 1000 cases) |  |  |  | ok | diff agree |
-| searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words |  |  |  | own wildcard matcher; 4000 random dictionaries | ok | own tests |
+| searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words |  |  |  | own wildcard matcher; 4000 random dictionaries; own full-dictionary check: Max_Words distinct words then one more must be rejected | ok | own tests |
 | searching/SPARK2/Ada-SPARK-Exponential-Search |  |  |  | own linear-scan membership (index holds target or 0); 5000 random sorted | ok | own tests |
 | searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree |  |  |  |  | weak |  |
 | searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix |  |  |  | own linear-scan membership on row-major sorted matrices; 4000 random | ok | own tests |
@@ -309,8 +325,8 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub |  |  |  | own insertion-sort reference; 3000 random three-run inputs | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array |  |  |  | own merge-prefix-sum reference; every Length; 6400 random | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays |  |  |  | own concatenate + insertion-sort reference; 5000 random sorted pairs | ok | own tests |
-| sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists |  |  |  | own concatenate + insertion-sort reference; every split NA+NB<=16 | ok | own tests |
-| sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List |  |  |  | odd-then-even positions vs own reference; all lists of length 0..7 over {0 | ok | own tests |
+| sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists |  |  |  | own concatenate + insertion-sort reference; every split NA+NB<=16; own full-list check: Count'Last appends then one more must be rejected (silent no-op scan); own exact 8 + 8 merge (length and order) and 9 + 8 merge rejection | ok | own tests |
+| sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List |  |  |  | odd-then-even positions vs own reference; all lists of length 0..7 over {0,1,2} + 3000 random | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort |  |  |  | sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Pancake-Sort |  |  |  | sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Patience-Sort |  |  |  | sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random | ok | own tests |
@@ -406,7 +422,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | trees/SPARK2/Ada-SPARK-Count-Binary-Substrings |  |  |  | own all-substrings k-zeros/k-ones check; 4000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree |  |  |  | own recursive longest path (edges/nodes fixed by one-node tree); 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget |  |  |  | own all-windows cost check; 5000 random | ok | own tests |
-| trees/SPARK2/Ada-SPARK-Implement-Trie |  |  |  | own exact-membership reference; 4000 random word sets | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Implement-Trie |  |  |  | own exact-membership reference; 4000 random word sets; own full-structure check: Max_Words distinct words then one more must be rejected | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Insert-Into-BST |  |  |  | own set reference + own reference BST shape (insertion order) + separate order check; 4000 random runs incl. duplicates | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Invert-Binary-Tree |  |  |  | children swapped at every node; 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Longest-Common-Substring |  |  |  | own all-start-pairs reference; all string pairs up to length 4 over {a;b} and {a;b;c} (exhaustive) | ok | own tests |
@@ -1275,8 +1291,8 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Continuous-Subarray-Sum | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Convert-1D-Array-Into-2D-Array | yes | yes | yes | yes | yes | 7 | 7 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Convert-A-Number-To-Hexadecimal | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer | yes | yes | yes | yes | yes | 2 | 2 | proven | 9 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite | yes | yes | yes | yes | yes | 4 | 4 | proven | 8 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 | yes |  |  |
+| misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Cosine-Distance | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Cosine-Similarity | yes | yes | yes | yes | yes | 2 | 2 | proven | 4 |  |  |  |
@@ -1301,8 +1317,8 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Degree-Of-An-Array | yes | yes | yes | yes | yes | 0 | 0 | proven | 4 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Delete-And-Earn | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub (stub) | yes | yes | yes | yes | yes | 2 | 2 | proven | 10 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List | yes | yes | yes | yes | yes | 2 | 2 | proven | 7 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node | yes | yes | yes | yes | yes | 2 | 2 | proven | 7 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 | yes |  |  |
+| misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Delta-Encoding | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 (1) | yes | misc/Ada/Delta-Encoding |  |
 | misc/SPARK2/Ada-SPARK-Deque-Bounded | yes | yes | yes | yes | yes | 0 | 0 | proven | 14 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Design-A-Leaderboard | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
@@ -1424,7 +1440,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Integer-To-Roman | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays | yes | yes | yes | yes | yes | 4 | 4 | proven | 6 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays-II (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists | yes | yes | yes | yes | yes | 2 | 2 | proven | 9 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Is-Palindrome | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Is-Subsequence (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Island-Perimeter | yes | yes | yes | yes | yes | 2 | 2 | proven | 83 |  |  |  |
@@ -1446,9 +1462,9 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Kth-Largest-In-Stream-Stub (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven | 4 |  |  |  |
 | misc/SPARK2/Ada-SPARK-L1-Norm | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-L2-Norm-Squared | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
-| misc/SPARK2/Ada-SPARK-LFU-Cache-Lite | yes | yes | yes | yes | yes | 6 | 6 | proven | 8 |  |  |  |
+| misc/SPARK2/Ada-SPARK-LFU-Cache-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 29 (6) | yes |  |  |
 | misc/SPARK2/Ada-SPARK-LFU-Cache-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 |  |  |  |
-| misc/SPARK2/Ada-SPARK-LRU-Cache-Lite | yes | yes | yes | yes | yes | 4 | 4 | proven | 7 |  |  |  |
+| misc/SPARK2/Ada-SPARK-LRU-Cache-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 26 (4) | yes |  |  |
 | misc/SPARK2/Ada-SPARK-LRU-Cache-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Largest-Number | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 | yes |  |  |
@@ -1499,7 +1515,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray | yes | yes | yes | yes | yes | 1 | 1 | proven | 11 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Maximum-Subarray | yes | yes | yes | yes | yes | 1 | 1 | proven | 6 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Maximum-Subarray-Circular | yes | yes | yes | yes | yes | 0 | 0 | proven | 12 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List | yes | yes | yes | yes | yes | 3 | 3 | proven | 11 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 11 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Maximum-Units-On-A-Truck | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Maximum-XOR-Of-Two-Numbers | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Mean-Variance | yes | yes | yes | yes | yes | 1 | 1 | proven | 13 (1) | yes |  |  |
@@ -1507,9 +1523,9 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Median-Of-Three | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 1 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Meeting-Rooms | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Meeting-Rooms-II | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists | yes | yes | yes | yes | yes | 2 | 2 | proven | 5 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Merge-Intervals (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 (1) |  |  |  |
-| misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List | yes | yes | yes | yes | yes | 2 | 2 | proven | 7 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs | yes | yes | yes | yes | yes | 0 | 0 | proven | 21 (8) | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Min-Cost-Connect-Cities-Stub (stub) | yes | yes | yes | yes | yes | 2 | 2 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Min-Cost-To-Connect-All-Points | yes | yes | yes | yes | yes | 4 | 4 | proven | 9 |  |  |  |
@@ -1578,7 +1594,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Paint-Fence-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Paint-House-Lite (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Paint-House-Stub (stub) | yes | yes | yes | yes | yes | 7 | 7 | proven | 10 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Palindrome-Linked-List | yes | yes | yes | yes | yes | 2 | 2 | proven | 9 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Palindrome-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Palindrome-Number | yes | yes | yes | yes | yes | 0 | 0 | proven | 14 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Palindrome-Pairs-Lite | yes | yes | yes | yes | yes | 3 | 3 | proven | 9 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Palindrome-Partitioning | yes | yes | yes | yes | yes | 0 | 0 | proven | 20 (1) | yes |  |  |
@@ -1640,18 +1656,18 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-II | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Remove-Duplicate-Letters | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Remove-Element | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Remove-Element | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Remove-K-Digits (stub) | yes | yes | yes | yes | yes | 2 | 2 | proven (trivial) | 3 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements | yes | yes | yes | yes | yes | 2 | 2 | proven | 6 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End | yes | yes | yes | yes | yes | 2 | 2 | proven | 9 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Reorder-List | yes | yes | yes | yes | yes | 3 | 3 | proven | 9 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 | yes |  |  |
+| misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 | yes |  |  |
+| misc/SPARK2/Ada-SPARK-Reorder-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Replace-Elements-With-Greatest-On-Right | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Replace-Words | yes | yes | yes | yes | yes | 3 | 3 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Reservoir-Sampling | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Restore-IP-Addresses | yes | yes | yes | yes | yes | 1 | 1 | proven | 9 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Reverse-Bits | yes | yes | yes | yes | yes | 0 | 0 | proven | 4 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Reverse-Integer | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Reverse-Linked-List | yes | yes | yes | yes | yes | 2 | 2 | proven | 8 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Reverse-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Reverse-Only-Letters | yes | yes | yes | yes | yes | 0 | 0 | proven | 11 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Reverse-Pairs-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
@@ -1720,7 +1736,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Surface-Area-Of-3D-Shapes | yes | yes | yes | yes | yes | 3 | 3 | proven | 6 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Surrounded-Regions (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 0 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 | yes |  |  |
-| misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List | yes | yes | yes | yes | yes | 2 | 2 | proven | 6 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water | yes | yes | yes | yes | yes | 2 | 2 | proven (trivial) | 1 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water-Stub (stub) | yes | yes | yes | yes | yes | 3 | 3 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Tanimoto | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 | yes |  |  |
@@ -1985,7 +2001,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | searching/Ada/Uniform-Cost-Search | yes | no | no | yes | no | 4 | 4 | no SPARK |  |  | searching/SPARK4/Ada-SPARK-Uniform-Cost-Search |  |
 | searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
-| searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words | yes | yes | yes | yes | yes | 3 | 3 | proven | 5 | yes |  |  |
+| searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 | yes |  |  |
 | searching/SPARK2/Ada-SPARK-Exponential-Search | yes | yes | yes | yes | yes | 0 | 0 | proven | 25 | yes |  |  |
 | searching/SPARK2/Ada-SPARK-Increasing-Order-Search-Tree | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 3 |  |  |  |
 | searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree | yes | yes | yes | yes | yes | 8 | 8 | proven (trivial) | 1 |  |  |  |
@@ -2071,7 +2087,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven | 5 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array | yes | yes | yes | yes | yes | 4 | 4 | proven | 8 | yes |  |  |
 | sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 | yes |  |  |
-| sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists | yes | yes | yes | yes | yes | 2 | 2 | proven | 12 | yes |  |  |
+| sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists | yes | yes | yes | yes | yes | 0 | 0 | proven | 22 (5) | yes |  |  |
 | sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 | yes |  |  |
 | sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 (1) |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Pancake-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
@@ -2233,7 +2249,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | trees/SPARK2/Ada-SPARK-Find-Mode-In-BST | yes | yes | yes | yes | yes | 4 | 4 | proven (trivial) | 2 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite (stub) | yes | yes | yes | yes | yes | 2 | 2 | proven (trivial) | 2 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget | yes | yes | yes | yes | yes | 3 | 3 | proven | 7 | yes |  |  |
-| trees/SPARK2/Ada-SPARK-Implement-Trie (stub) | yes | yes | yes | yes | yes | 3 | 3 | proven | 5 |  |  |  |
+| trees/SPARK2/Ada-SPARK-Implement-Trie (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Insert-Into-BST | yes | yes | yes | yes | yes | 0 | 0 | proven | 53 (8) | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Invert-Binary-Tree | yes | yes | yes | yes | yes | 5 | 5 | proven | 4 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub (stub) | yes | yes | yes | yes | yes | 5 | 5 | proven | 11 |  |  |  |

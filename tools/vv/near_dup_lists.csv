@@ -1,0 +1,106 @@
+folder_a,folder_b,whole_sim,whole_sim_ids_normalised,main_op_sim,verdict
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.925,0.947,0.771,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,0.888,0.907,0.564,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.885,0.934,0.431,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,0.883,0.907,0.557,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.866,0.906,0.479,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.862,0.889,0.575,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.859,0.907,0.471,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.858,0.885,0.571,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.856,0.880,0.483,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.856,0.845,0.523,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,0.853,0.883,0.467,shared scaffold only: the main operations differ (different algorithms)
+misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.850,0.887,0.516,different
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,misc/SPARK2/Ada-SPARK-Reorder-List,0.847,0.875,0.480,different
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.841,0.859,0.487,different
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.840,0.867,0.423,different
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Reorder-List,0.840,0.862,0.446,different
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.825,0.882,0.317,different
+misc/SPARK2/Ada-SPARK-Reorder-List,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.820,0.845,0.432,different
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,misc/SPARK2/Ada-SPARK-Reorder-List,0.815,0.828,0.394,different
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.813,0.856,0.603,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,0.806,0.828,0.659,different
+misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,misc/SPARK2/Ada-SPARK-Reorder-List,0.795,0.850,0.371,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,0.792,0.846,0.493,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,0.782,0.854,0.404,different
+misc/SPARK2/Ada-SPARK-Reorder-List,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.781,0.837,0.260,different
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,0.780,0.799,0.435,different
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,0.777,0.761,0.428,different
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,0.777,0.839,0.587,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,0.775,0.842,0.394,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,0.771,0.862,0.402,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.762,0.798,0.454,different
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.762,0.808,0.450,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.757,0.795,0.392,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,0.756,0.832,0.309,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.756,0.791,0.328,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.755,0.842,0.313,different
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,misc/SPARK2/Ada-SPARK-Reorder-List,0.754,0.805,0.441,different
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.752,0.777,0.331,different
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,0.752,0.787,0.347,different
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,0.751,0.780,0.410,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,0.749,0.797,0.469,different
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.749,0.774,0.392,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.747,0.825,0.367,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.745,0.796,0.431,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,0.745,0.766,0.424,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,0.744,0.787,0.331,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,0.744,0.793,0.298,different
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,0.744,0.753,0.394,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,0.742,0.789,0.418,different
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,0.739,0.748,0.275,different
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.739,0.748,0.272,different
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.738,0.747,0.324,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,0.737,0.790,0.423,different
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,0.735,0.745,0.356,different
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.730,0.770,0.343,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Reorder-List,0.728,0.778,0.450,different
+misc/SPARK2/Ada-SPARK-Reorder-List,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.728,0.814,0.417,different
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.726,0.776,0.328,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,0.723,0.747,0.367,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,0.708,0.751,0.168,different
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,0.700,0.728,0.312,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,misc/SPARK2/Ada-SPARK-Reorder-List,0.700,0.735,0.249,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.691,0.719,0.327,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.688,0.738,0.278,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.686,0.716,0.271,different
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.685,0.710,0.321,different
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.683,0.719,0.245,different
+misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.681,0.719,0.224,different
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,misc/SPARK2/Ada-SPARK-Reorder-List,0.679,0.688,0.352,different
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,0.676,0.700,0.215,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Reorder-List,0.675,0.704,0.278,different
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.674,0.712,0.233,different
+misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.664,0.722,0.205,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.662,0.736,0.374,different
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.655,0.734,0.346,different
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.655,0.701,0.173,different
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,0.653,0.679,0.213,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.652,0.711,0.269,different
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.650,0.668,0.238,different
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,misc/SPARK2/Ada-SPARK-Reorder-List,0.645,0.667,0.240,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,0.635,0.643,0.220,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,0.634,0.652,0.278,different
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,0.631,0.646,0.234,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,0.616,0.633,0.175,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,0.612,0.685,0.126,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,0.604,0.619,0.179,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Reorder-List,0.597,0.613,0.202,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,0.594,0.625,0.125,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Reverse-Linked-List,0.591,0.603,0.178,different
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.589,0.599,0.176,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,0.588,0.661,0.149,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,0.587,0.661,0.145,different
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,0.585,0.605,0.228,different
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.573,0.590,0.225,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.569,0.615,0.069,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,0.565,0.604,0.231,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,0.561,0.595,0.132,different
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,0.556,0.608,0.148,different
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,0.536,0.527,0.161,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,0.533,0.522,0.163,different
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,0.514,0.536,0.105,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,0.513,0.549,0.153,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,0.513,0.549,0.123,different
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,0.511,0.547,0.173,different
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,0.478,0.482,0.110,different
