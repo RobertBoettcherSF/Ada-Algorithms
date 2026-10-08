@@ -5,7 +5,7 @@ GNAT = gnatmake
 OBJ_DIR = obj
 BIN_DIR = bin
 # Include -gnata to enable pragmas (assertions) during compilation
-GNATFLAGS = -gnata -g -O2 -D $(OBJ_DIR)
+GNATFLAGS = -gnatwa -gnat2022 -gnata -g -O2 -D $(OBJ_DIR)
 
 all: $(BIN_DIR)/main $(BIN_DIR)/tests
 

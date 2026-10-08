@@ -8,42 +8,43 @@ package body Hough_Transform is
    -- Transform_Lines   --
    -----------------------
    function Transform_Lines (Image : Binary_Image) return Line_Accumulator is
-      -- Calculate max possible Rho (diagonal length of the image)
-      W : Float := Float (Image'Length(1));
-      H : Float := Float (Image'Length(2));
-      Max_Rho_Float : Float := Sqrt (W**2.0 + H**2.0);
-      Max_Rho : Rho_Distance := Rho_Distance (Max_Rho_Float + 1.0);
-      
-      -- Initialize accumulator with zeros
-      Acc : Line_Accumulator (-Max_Rho .. Max_Rho, Theta_Angle'Range) := (others => (others => 0));
-      
-      Theta_Rad : Float;
-      Rho_Calc  : Integer;
+      --  Diagonal of the index span, not of the absolute coordinates.
+      W : constant Float := Float (Image'Length (1));
+      H : constant Float := Float (Image'Length (2));
+      Max_Rho_Float : constant Float := Sqrt (W**2.0 + H**2.0);
+      Max_Rho : constant Rho_Distance :=
+        Rho_Distance (Float'Rounding (Max_Rho_Float + 1.0));
+      Acc : Line_Accumulator (-Max_Rho .. Max_Rho, Theta_Angle'Range) :=
+        [others => [others => 0]];
    begin
-      -- Edge case: Empty image bounds
-      if Image'Length(1) = 0 or Image'Length(2) = 0 then
+      if Image'Length (1) = 0 or else Image'Length (2) = 0 then
          return Acc;
       end if;
 
-      for X in Image'Range(1) loop
-         for Y in Image'Range(2) loop
+      for X in Image'Range (1) loop
+         for Y in Image'Range (2) loop
             if Image (X, Y) then
-               -- For every edge pixel, vote for all possible lines passing through it
-               for Theta in Theta_Angle'Range loop
-                  Theta_Rad := Float (Theta) * Ada.Numerics.Pi / 180.0;
-                  
-                  -- Hough Line Equation: rho = x*cos(theta) + y*sin(theta)
-                  Rho_Calc := Integer (Float(X) * Cos(Theta_Rad) + Float(Y) * Sin(Theta_Rad));
-                  
-                  -- Increment the vote safely within bounds
-                  if Rho_Distance(Rho_Calc) in Acc'Range(1) then
-                     Acc (Rho_Distance(Rho_Calc), Theta) := Acc (Rho_Distance(Rho_Calc), Theta) + 1;
-                  end if;
-               end loop;
+               --  Origin of the image, so a shifted index range is the same line.
+               declare
+                  X_Rel : constant Float := Float (X - Image'First (1));
+                  Y_Rel : constant Float := Float (Y - Image'First (2));
+               begin
+                  for Theta in Theta_Angle'Range loop
+                     declare
+                        Theta_Rad : constant Float :=
+                          Float (Theta) * Ada.Numerics.Pi / 180.0;
+                        Rho_F : constant Float :=
+                          X_Rel * Cos (Theta_Rad) + Y_Rel * Sin (Theta_Rad);
+                        Rho : constant Rho_Distance :=
+                          Rho_Distance (Float'Rounding (Rho_F));
+                     begin
+                        Acc (Rho, Theta) := Acc (Rho, Theta) + 1;
+                     end;
+                  end loop;
+               end;
             end if;
          end loop;
       end loop;
-      
       return Acc;
    end Transform_Lines;
 
@@ -53,7 +54,7 @@ package body Hough_Transform is
    function Transform_Circles (Image : Binary_Image; Radii : Radius_Array) return Circle_Accumulator is
       -- Accumulator covers the image space + radii index
       Acc : Circle_Accumulator (Image'Range(1), Image'Range(2), Radii'Range) := 
-            (others => (others => (others => 0)));
+            [others => [others => [others => 0]]];
             
       Theta_Rad : Float;
       Xc, Yc    : Pixel_Coord;
@@ -95,7 +96,7 @@ package body Hough_Transform is
    begin
       -- Documented Placeholder: Requires user-supplied template geometry (R-Table).
       raise Not_Implemented with "Generalized HT requires external R-Table template initialization.";
-      return (Image'Range(1) => (Image'Range(2) => 0));
+      return [Image'Range (1) => [Image'Range (2) => 0]];
    end Transform_Generalized;
 
 end Hough_Transform;

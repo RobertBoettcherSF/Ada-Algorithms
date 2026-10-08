@@ -1,7 +1,5 @@
 -- hough_transform.ads
 -- Specification for the Hough Transform algorithm and its variants.
-with Ada.Numerics.Elementary_Functions;
-
 package Hough_Transform is
 
    -- =========================================================================

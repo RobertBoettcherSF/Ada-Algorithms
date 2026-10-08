@@ -8,7 +8,10 @@ Not this bug:
 - Aks-Primality-Test: Long_Float'Floor of a bound, not an index draw.
 - Amplitude-Amplification: Long_Float'Floor of a count.
 - Square-Root-Algorithms: Long_Float'Truncation of a scaled root.
-- Hough-Transform: a geometric rho bin, not a random index.
+- Hough-Transform: fixed. Rho used absolute X,Y while Max_Rho used 'Length,
+  so 'First = 100 dropped votes. Coordinates are relative to 'First;
+  the bin is Float'Rounding, with no silent range guard. The same line
+  at origin 0 and origin 100 must share the peak and N*180 votes.
 - Shading own_checks: a falloff power converted to Natural.
 - Dynamic-Markov-Compression: integer counts scaled by a ratio.
 - MISER: Natural(N*Frac) rounds a sample count, off by at most one, not a 3:1 index.
