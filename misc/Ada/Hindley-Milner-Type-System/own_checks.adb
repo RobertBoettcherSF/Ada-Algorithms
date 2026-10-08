@@ -356,6 +356,25 @@ begin
          Passed := Passed + 1;
       end if;
    end;
+   --  Exhaustive range check for the variable rendering: Ids 0 .. 20000,
+   --  expected text built digit by digit here (no 'Image).
+   declare
+      function Dec (N : Natural) return String is
+        (if N < 10 then [Character'Val (Character'Pos ('0') + N)]
+         else Dec (N / 10) & [Character'Val (Character'Pos ('0') + N mod 10)]);
+      Bad : Natural := 0;
+   begin
+      for I in 0 .. 20000 loop
+         if To_String (Make_Var_Type (Var_Id (I))) /= "a" & Dec (I) then
+            Bad := Bad + 1;
+         end if;
+      end loop;
+      if Bad > 0 then
+         Fail ("To_String of type variables 0 .. 20000:" & Bad'Image & " wrong");
+      else
+         Passed := Passed + 1;
+      end if;
+   end;
    --  Random soundness check: terms are generated from a target type (so
    --  they are well-typed by construction, independently of the inference),
    --  over the rigid base types A and B. The inferred type must be at least
