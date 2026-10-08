@@ -207,6 +207,12 @@ silent_by = {x['folder']: x for x in _csv(os.path.join(a.root, 'tools', 'vv', 's
 halves_by = collections.defaultdict(dict)
 for x in _csv(os.path.join(a.root, 'vv', 'results', 'mutation_halves.csv')):
     halves_by[x['folder']][x['half']] = x
+# the flagship worker's phase-2 table (set = tuned / held-out, nonequivalent_score = k/n)
+for x in _csv(os.path.join(a.root, 'tools', 'vv', 'flagship_mutation_phase2.csv')):
+    m = re.match(r'^\s*(\d+)/(\d+)', x.get('nonequivalent_score', ''))
+    h = {'tuned': 'tuning', 'held-out': 'heldout', 'heldout': 'heldout'}.get(x.get('set', '').strip())
+    if x.get('folder') and h and m:
+        halves_by[x['folder']][h] = dict(killed=m.group(1), survived=str(int(m.group(2)) - int(m.group(1))), timeout='0')
 for ff in sorted(glob.glob(os.path.join(a.root, 'tools', 'vv', '*_halves.csv'))):   # other workers' halves, same columns
     for x in _csv(ff):
         if x.get('folder') and x.get('half') in ('tuning', 'heldout'):
@@ -451,7 +457,7 @@ for lev in ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4', 'All'):
              f"{c(lambda r: str(r['warnings_gnat14'])=='0' and r['build_gnat14']=='yes', s)} | {c(lambda r: str(r['warnings_gnat12'])=='0' and r['build_gnat12']=='yes', s)} | "
              f"{c(lambda r: r['silver']=='proven' and not r['stub'], s)} | {c(lambda r: r['silver']=='proven' and bool(r['stub']), s)} | {c(lambda r: r['trivial']=='yes', s)} | "
              f"{c(lambda r: r['silver'].endswith('unproved'), s)} | {c(lambda r: r['silver'] in ('tool crash','timeout'), s)} | {c(lambda r: r['silver']=='not built', s)} | {c(lambda r: r['silver']=='not run', s)} |")
-vvrows = [r for r in rows if r['diff_test'] or r['mutation'] or r['kat'] or r['own_tests'] or r['do_nothing'] == 'weak']
+vvrows = [r for r in rows if r['diff_test'] or r['mutation'] or r['kat'] or r['own_tests'] or r['do_nothing'] == 'weak' or r['mutation_tuned_n'] or r['mutation_heldout_n']]
 if vvrows:
     nd = len({d['pair'] for d in _csv(os.path.join(VVD, 'diff.csv'))})
     mparts = []
@@ -466,9 +472,11 @@ if vvrows:
           + ('; '.join(mparts) or 'not run') + f' (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: {len(kat_by)}. '
           f'Own tests: {len(own_by)} folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). '
           'Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.', '',
-          '| Folder | Differential test | Mutation (killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |', '|---|---|---|---|---|---|---|']
+          '| Folder | Differential test | Mutation (killed/total) | Tuned / held-out (non-equivalent killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |', '|---|---|---|---|---|---|---|---|']
     for r in vvrows:
-        L.append(f"| {r['folder']} | {r['diff_test']} | {r['mutation']} | {r['kat']} | {own_by.get(r['folder'], '')} | {r['do_nothing']} | {r['known_answer']} |")
+        th = ((f"{r['mutation_tuned_k']}/{r['mutation_tuned_n']}" if r['mutation_tuned_n'] else '-') + ' / '
+              + (f"{r['mutation_heldout_k']}/{r['mutation_heldout_n']}" if r['mutation_heldout_n'] else '-')) if (r['mutation_tuned_n'] or r['mutation_heldout_n']) else ''
+        L.append(f"| {r['folder']} | {r['diff_test']} | {r['mutation']} | {th} | {r['kat']} | {own_by.get(r['folder'], '')} | {r['do_nothing']} | {r['known_answer']} |")
 L += ['', '| Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Checks (func) | Training-ready | Pair | Duplicate of |', '|---|---|---|---|---|---|---|---|---|---|---|---|---|']
 for r in rows:
     L.append(f"| {r['folder']}{' (stub)' if r['stub'] else ''} | {r['make_test']} | {r['build_gnat14']} | {r['build_gnat12']} | {r['tests_pass_gnat14']} | {r['tests_pass_gnat12']} | "
