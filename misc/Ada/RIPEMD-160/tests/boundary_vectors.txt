@@ -1,0 +1,10 @@
+# Lengths around the padding boundary (55 bytes leaves the length in the same
+# block; 56 starts another). Not on the authors' page. Computed by an
+# independent implementation of the Dobbertin/Bosselaers/Preneel spec that
+# reproduces all nine of their published vectors, and checked here against
+# those too. Never taken from this program's output.
+0d8a8c9063a48576a7c97e9f95253a6e53ff6765 A*55
+e72334b46c83cc70bef979e15453706c95b888be A*56
+e640041293fe663b9bf3f8c21ffecac03819e6b2 A*63
+9dfb7d374ad924f3f88de96291c33e9abed53e32 A*64
+99724bb11811e7166af38f671b6a082d8ab4960b A*65

@@ -15,3 +15,8 @@ published digest, not with the one-shot result. The LCG seed defaults to
 
 Mutant split (before these checks were written): seed 20261008, standard
 family 34 tuning / 27 held-out.
+
+tests/boundary_vectors.txt: lengths 55, 56, 63, 64 and 65 (the padding
+boundary). Not on the authors' page. Produced by an independent
+implementation of the same spec that reproduces all nine published
+vectors; not taken from this program.

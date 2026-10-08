@@ -61,6 +61,8 @@ procedure Own_Checks is
          return [1 .. 1_000_000 => 'a'];
       elsif Token = "8*1234567890" then
          return Ten & Ten & Ten & Ten & Ten & Ten & Ten & Ten;
+      elsif Token'Length > 2 and then Token (Token'First .. Token'First + 1) = "A*" then
+         return [1 .. Positive'Value (Token (Token'First + 2 .. Token'Last)) => 'a'];
       else
          return Token;
       end if;
@@ -104,8 +106,9 @@ procedure Own_Checks is
 begin
    declare
       F : File_Type;
-   begin
-      Open (F, In_File, "tests/authors_vectors.txt");
+      procedure Read (Name : String) is
+      begin
+      Open (F, In_File, Name);
       while not End_Of_File (F) loop
          declare
             Line : constant String := Get_Line (F);
@@ -121,6 +124,10 @@ begin
          end;
       end loop;
       Close (F);
+      end Read;
+   begin
+      Read ("tests/authors_vectors.txt");
+      Read ("tests/boundary_vectors.txt");
    end;
    Expect (Checked > 50, "enough vectors:" & Checked'Image);
    if Failures > 0 then
