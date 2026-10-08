@@ -132,7 +132,7 @@ $|1-\varepsilon_f^2|\to 0$) is reported as `Degenerate`.
 
 | Symbol | Role |
 | --- | --- |
-| `Toeplitz_Row` / `Vector` | Lags $t_0,\ldots,t_{n-1}$ (1-based `Float`) |
+| `Toeplitz_Row` / `Vector` | Lags $t_0,\ldots,t_{n-1}$ (`Float`, any origin: lag k at `R'First + k`) |
 | `Max_N` | Hard dimension cap ($128$) |
 | `Status` | `Ok`, `Degenerate`, `Ill_Started`, `Size_Mismatch` |
 | `Result` | `X`, `N`, `Stat`, `Success`, `Order` |

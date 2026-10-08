@@ -7,7 +7,7 @@
 --  of an endofunction on a finite set, then recovers the tail length μ
 --  and the cycle length λ. The reachable subgraph is ρ-shaped.
 --
---  Classroom model: a successor array Next (1 .. N) with values in
+--  Classroom model: a successor array Next (any origin, length N) with values in
 --  0 .. N.  0 is Null_Index — no successor (linked-list sentinel).
 --  A total functional graph (every Next(I) in 1 .. N) always cycles.
 --  A path that reaches 0 has no cycle.
@@ -75,7 +75,7 @@ is
    ---------------------------------------------------------------------------
 
    Invalid_Argument : exception;
-   --  Raised when the map is empty, not 1-based, longer than Max_Nodes,
+   --  Raised when the map is empty, longer than Max_Nodes,
    --  a successor is > N, Start is outside 1 .. N, a builder is given a
    --  bad size / zero cycle, or a generic walk exceeds Max_Steps.
 
@@ -85,8 +85,8 @@ is
 
    function Is_Valid_Map (Next : Successor_Map) return Boolean
      with Global => null;
-   --  True iff Next'First = 1, 1 ≤ N ≤ Max_Nodes, and every Next(I)
-   --  lies in 0 .. N.
+   --  True iff 1 ≤ N = Next'Length ≤ Max_Nodes and every Next(Next'First+I-1)
+   --  (I=1..N) lies in 0 .. N. Array origin is free.
 
    function Step
      (Next : Successor_Map;

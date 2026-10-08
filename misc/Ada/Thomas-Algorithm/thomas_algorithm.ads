@@ -124,9 +124,8 @@ is
      (N : Dimension;
       A, B, C : out Vector)
      with Pre => N >= 1
-            and then A'First = 1 and then A'Last = N
-            and then B'First = 1 and then B'Last = N
-            and then C'First = 1 and then C'Last = N;
+            and then A'Length = N and then B'Length = N
+            and then C'Length = N;
 
    --  Same diagonals plus RHS D (default ones).
    procedure Make_Poisson_1D_System
@@ -134,10 +133,8 @@ is
       A, B, C, D : out Vector;
       RHS_Value  : Float := 1.0)
      with Pre => N >= 1
-            and then A'First = 1 and then A'Last = N
-            and then B'First = 1 and then B'Last = N
-            and then C'First = 1 and then C'Last = N
-            and then D'First = 1 and then D'Last = N;
+            and then A'Length = N and then B'Length = N
+            and then C'Length = N and then D'Length = N;
 
    --  Constant-coefficient tridiagonal: a_i=Sub, b_i=Diag, c_i=Super
    --  with A(1)=C(N)=0.
@@ -146,9 +143,8 @@ is
       Sub, Diag, Super : Float;
       A, B, C        : out Vector)
      with Pre => N >= 1
-            and then A'First = 1 and then A'Last = N
-            and then B'First = 1 and then B'Last = N
-            and then C'First = 1 and then C'Last = N;
+            and then A'Length = N and then B'Length = N
+            and then C'Length = N;
 
    function Zero_Vector (N : Dimension) return Vector
      with Pre => N >= 1, Global => null;
@@ -193,10 +189,7 @@ is
             and then C'Length = D'Length
             and then D'Length = X'Length
             and then X'Length >= 1
-            and then X'Length <= Max_N
-            and then A'First = B'First
-            and then B'First = C'First
-            and then C'First = D'First
-            and then D'First = X'First;
+            and then X'Length <= Max_N;
+   -- arrays may sit at independent origins
 
 end Thomas_Algorithm;

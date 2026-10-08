@@ -160,17 +160,17 @@ is
       A, B, C : out Vector)
    is
    begin
-      for I in 1 .. N loop
-         B (I) := 2.0;
-         if I = 1 then
-            A (I) := 0.0;
+      for Off in 0 .. N - 1 loop
+         B (B'First + Off) := 2.0;
+         if Off = 0 then
+            A (A'First + Off) := 0.0;
          else
-            A (I) := -1.0;
+            A (A'First + Off) := -1.0;
          end if;
-         if I = N then
-            C (I) := 0.0;
+         if Off = N - 1 then
+            C (C'First + Off) := 0.0;
          else
-            C (I) := -1.0;
+            C (C'First + Off) := -1.0;
          end if;
       end loop;
    end Make_Poisson_1D;
@@ -182,8 +182,8 @@ is
    is
    begin
       Make_Poisson_1D (N, A, B, C);
-      for I in 1 .. N loop
-         D (I) := RHS_Value;
+      for Off in 0 .. N - 1 loop
+         D (D'First + Off) := RHS_Value;
       end loop;
    end Make_Poisson_1D_System;
 
@@ -193,17 +193,17 @@ is
       A, B, C        : out Vector)
    is
    begin
-      for I in 1 .. N loop
-         B (I) := Diag;
-         if I = 1 then
-            A (I) := 0.0;
+      for Off in 0 .. N - 1 loop
+         B (B'First + Off) := Diag;
+         if Off = 0 then
+            A (A'First + Off) := 0.0;
          else
-            A (I) := Sub;
+            A (A'First + Off) := Sub;
          end if;
-         if I = N then
-            C (I) := 0.0;
+         if Off = N - 1 then
+            C (C'First + Off) := 0.0;
          else
-            C (I) := Super;
+            C (C'First + Off) := Super;
          end if;
       end loop;
    end Make_Constant_Tridiagonal;
@@ -232,49 +232,53 @@ is
       Pivot_At : out Dim_Index)
    is
       N  : constant Positive := X'Length;
-      Lo : constant Positive := X'First;
-      --  All vectors share First = Lo by precondition.
       Denom : Float;
+
+      --  Row Off (0 .. N-1) of each argument, First-relative.
+      function AI (Off : Natural) return Float is (A (A'First + Off));
+      function BI (Off : Natural) return Float is (B (B'First + Off));
    begin
       Stat     := Ok;
       Pivot_At := Dim_Index'First;
       X        := [others => 0.0];
 
       --  First row: c'_1 = c_1 / b_1, d'_1 = d_1 / b_1
-      if abs (B (Lo)) <= Pivot_Tol then
+      if abs (BI (0)) <= Pivot_Tol then
          Stat     := Degenerate;
          Pivot_At := 1;
          return;
       end if;
 
       if N = 1 then
-         X (Lo) := D (Lo) / B (Lo);
+         X (X'First) := D (D'First) / BI (0);
          return;
       end if;
 
-      C (Lo) := C (Lo) / B (Lo);
-      D (Lo) := D (Lo) / B (Lo);
+      C (C'First) := C (C'First) / BI (0);
+      D (D'First) := D (D'First) / BI (0);
 
-      --  Forward sweep i = 2 .. n
-      for I in Lo + 1 .. Lo + N - 1 loop
-         Denom := B (I) - A (I) * C (I - 1);
+      --  Forward sweep rows 1 .. N-1
+      for Off in 1 .. N - 1 loop
+         Denom := BI (Off) - AI (Off) * C (C'First + Off - 1);
          if abs (Denom) <= Pivot_Tol then
             Stat     := Degenerate;
-            Pivot_At := I - Lo + 1;
+            Pivot_At := Dim_Index (Off + 1);
             return;
          end if;
-         if I < Lo + N - 1 then
-            C (I) := C (I) / Denom;
+         if Off < N - 1 then
+            C (C'First + Off) := C (C'First + Off) / Denom;
          else
-            C (I) := 0.0;  --  c_n unused
+            C (C'First + Off) := 0.0;  --  c_n unused
          end if;
-         D (I) := (D (I) - A (I) * D (I - 1)) / Denom;
+         D (D'First + Off) :=
+           (D (D'First + Off) - AI (Off) * D (D'First + Off - 1)) / Denom;
       end loop;
 
       --  Back substitution
-      X (Lo + N - 1) := D (Lo + N - 1);
-      for I in reverse Lo .. Lo + N - 2 loop
-         X (I) := D (I) - C (I) * X (I + 1);
+      X (X'First + N - 1) := D (D'First + N - 1);
+      for Off in reverse 0 .. N - 2 loop
+         X (X'First + Off) :=
+           D (D'First + Off) - C (C'First + Off) * X (X'First + Off + 1);
       end loop;
    end Thomas_In_Place;
 

@@ -409,6 +409,38 @@ begin
    end;
 
    ---------------------------------------------------------------------
+   Section ("14. Shifted origins (builders + Thomas / In_Place)");
+   ---------------------------------------------------------------------
+   declare
+      A : Vector (5 .. 7);
+      B : Vector (2 .. 4);
+      C : Vector (9 .. 11);
+      D : Vector (1 .. 3);
+      X : Vector (4 .. 6);
+      St : Status;
+      Pv : Dim_Index;
+      R  : Result;
+      A1, B1, C1, D1 : Vector (1 .. 3);
+   begin
+      Make_Poisson_1D_System (3, A, B, C, D, 1.0);
+      Make_Poisson_1D_System (3, A1, B1, C1, D1, 1.0);
+      Check (Approx (A (5), A1 (1)) and then Approx (B (3), B1 (2))
+             and then Approx (C (11), C1 (3)) and then Approx (D (2), D1 (2)),
+             "shifted Poisson builders");
+      R := Thomas (A, B, C, D);
+      Check (R.Success, "shifted Thomas Success");
+      Check (Approx (R.X (1), 1.5, 1.0E-4) and then Approx (R.X (2), 2.0, 1.0E-4)
+             and then Approx (R.X (3), 1.5, 1.0E-4),
+             "shifted Thomas Poisson-3 solution");
+      Make_Poisson_1D_System (3, A, B, C, D, 1.0);
+      Thomas_In_Place (A, B, C, D, X, St, Pv);
+      Check (St = Ok, "shifted In_Place Ok");
+      Check (Approx (X (4), 1.5, 1.0E-4) and then Approx (X (5), 2.0, 1.0E-4)
+             and then Approx (X (6), 1.5, 1.0E-4),
+             "shifted In_Place X");
+   end;
+
+   ---------------------------------------------------------------------
    -- Summary
    ---------------------------------------------------------------------
    Ada.Text_IO.New_Line;

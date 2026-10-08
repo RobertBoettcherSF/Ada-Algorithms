@@ -284,12 +284,17 @@ def run_find_driver(fid, pkg, tname, sub, work_root, timeout):
             # functional graph 1->2->3->4->5->3 : tail 2, cycle length 3
             shifts = [o for o in (o_a, o_b) if o is not None and o != 1]
             decls, calls, checks = [], [], []
+            # Room-decision rewrite folders use position labels: node k lives at
+            # Next'First + k - 1, so values / Start stay 1 .. N at any origin.
+            # Otherwise ids are the array indexes and relabel with the origin.
+            pos_labels = DECISIONS.get(fid, ('', ''))[0] == 'rewrite'
             for k, o in enumerate(shifts):
-                d = o - 1
+                d = 0 if pos_labels else o - 1
                 vals = ', '.join(str(v + d) for v in (2, 3, 4, 5, 3))
                 decls.append(f'   M{k} : constant {tname} ({o} .. {o + 4}) := ({vals});')
                 calls.append(f'   R{k} := Integer ({name} (M{k}, {1 + d}));')
-                checks.append(f'   Check (R{k} = RB, "relabelled ids from {o}");')
+                tag = 'position labels' if pos_labels else 'relabelled ids'
+                checks.append(f'   Check (R{k} = RB, "{tag} from {o}");')
             driver = f"""pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with {pkg}; use {pkg};

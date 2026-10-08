@@ -243,10 +243,19 @@ begin
    end;
 
    declare
+      --  Origin is free: slot Next'First + I - 1 holds f(I).
       Shifted : constant Successor_Map (2 .. 4) := [2, 3, 2];
+      Based   : constant Successor_Map (1 .. 3) := [2, 3, 2];
+      RS : constant Cycle_Result := Find_Cycle (Shifted, 1);
+      RB : constant Cycle_Result := Find_Cycle (Based, 1);
    begin
-      Check (not Is_Valid_Map (Shifted), "non-1-based invalid");
-      Check (Find_Raises (Shifted, 2), "Find shifted raises");
+      Check (Is_Valid_Map (Shifted), "shifted map valid");
+      Check (RS = RB, "shifted Find_Cycle = 1-based");
+      Check (RS.Has_Cycle and then RS.Start_Node = 2
+             and then RS.Mu = 1 and then RS.Lambda = 2,
+             "shifted mu=1 lambda=2 start=2");
+      Check (Iterate (Shifted, 1, 3) = Iterate (Based, 1, 3),
+             "shifted Iterate = 1-based");
    end;
 
    declare

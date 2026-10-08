@@ -14,18 +14,27 @@ is
    function Is_Valid_Map (Next : Successor_Map) return Boolean is
    begin
       if Next'Length = 0
-        or else Next'First /= 1
-        or else Next'Last > Max_Nodes
+        or else Next'Length > Max_Nodes
       then
          return False;
       end if;
-      for I in Next'Range loop
-         if Next (I) > Next'Last then
+      for I in 1 .. Next'Length loop
+         if Next (Next'First + I - 1) > Next'Length then
             return False;
          end if;
       end loop;
       return True;
    end Is_Valid_Map;
+
+   function Succ (Next : Successor_Map; X : Node_Index) return Node_Index is
+     (if X = 0 then 0
+      else Node_Index (Next (Next'First + (Positive (X) - 1))));
+
+   procedure Set_At (Next : in out Successor_Map; X : Positive; V : Node_Index) is
+   begin
+      Next (Next'First + (X - 1)) := V;
+   end Set_At;
+
 
    procedure Require_Map (Next : Successor_Map) is
    begin
@@ -40,7 +49,7 @@ is
    is
    begin
       Require_Map (Next);
-      if Start > Next'Last then
+      if Start > Next'Length then
          raise Invalid_Argument;
       end if;
    end Require_Start;
@@ -59,10 +68,10 @@ is
          return Null_Index;
       end if;
       Require_Map (Next);
-      if X > Next'Last then
+      if X > Next'Length then
          raise Invalid_Argument;
       end if;
-      return Node_Index (Next (X));
+      return Succ (Next, X);
    end Step;
 
    function Iterate
@@ -77,7 +86,7 @@ is
       X := Node_Index (Start);
       Remaining := Steps;
       while Remaining > 0 and then X /= Null_Index loop
-         X := Node_Index (Next (X));
+         X := Succ (Next, X);
          Remaining := Remaining - 1;
       end loop;
       return X;
@@ -97,7 +106,7 @@ is
       if X = Null_Index then
          return Null_Index;
       end if;
-      return Node_Index (Next (X));
+      return Succ (Next, X);
    end Fwd;
 
    function Phase_Meet
@@ -172,8 +181,8 @@ is
       Hare     := Meet;
       Mu_Val   := 0;
       while Tortoise /= Hare loop
-         Tortoise := Node_Index (Next (Tortoise));
-         Hare     := Node_Index (Next (Hare));
+         Tortoise := Succ (Next, Tortoise);
+         Hare     := Succ (Next, Hare);
          Mu_Val   := Mu_Val + 1;
          Guard    := Guard + 1;
          if Guard > Limit then
@@ -183,9 +192,9 @@ is
 
       --  Phase 3: λ. Freeze tortoise at x_μ; walk hare.
       Lam_Val := 1;
-      Hare    := Node_Index (Next (Tortoise));
+      Hare    := Succ (Next, Tortoise);
       while Tortoise /= Hare loop
-         Hare  := Node_Index (Next (Hare));
+         Hare  := Succ (Next, Hare);
          Lam_Val := Lam_Val + 1;
          if Lam_Val > Next'Length then
             raise Invalid_Argument;
@@ -261,7 +270,7 @@ is
             if X = Node then
                return True;
             end if;
-            X := Node_Index (Next (X));
+            X := Succ (Next, X);
             if X = Null_Index then
                return False;
             end if;
@@ -295,7 +304,7 @@ is
                Lambda        => Step_I - Natural (First_Seen (X)));
          end if;
          First_Seen (X) := Integer (Step_I);
-         X := Node_Index (Next (X));
+         X := Succ (Next, X);
          Step_I := Step_I + 1;
          if Step_I > Next'Length then
             raise Invalid_Argument;
@@ -424,9 +433,9 @@ is
          raise Invalid_Argument;
       end if;
       for I in 1 .. N - 1 loop
-         Next (I) := I + 1;
+         Set_At (Next, I, Node_Index (I + 1));
       end loop;
-      Next (N) := 1;
+      Set_At (Next, N, 1);
       return Next;
    end Pure_Cycle;
 
@@ -460,9 +469,9 @@ is
          raise Invalid_Argument;
       end if;
       for I in 1 .. N - 1 loop
-         Next (I) := I + 1;
+         Set_At (Next, I, Node_Index (I + 1));
       end loop;
-      Next (N) := 0;
+      Set_At (Next, N, 0);
       return Next;
    end Path_To_Sink;
 
@@ -473,9 +482,9 @@ is
          raise Invalid_Argument;
       end if;
       for I in 1 .. N - 1 loop
-         Next (I) := I + 1;
+         Set_At (Next, I, Node_Index (I + 1));
       end loop;
-      Next (N) := N;
+      Set_At (Next, N, Node_Index (N));
       return Next;
    end Self_Loop_Chain;
 

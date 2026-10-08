@@ -113,7 +113,7 @@ $$
 
 | Symbol | Role |
 | --- | --- |
-| `Vector` | 1-based educational `Float` array |
+| `Vector` | `Float` array; any origin, arrays need not share bounds (row i is `X'First + i - 1`) |
 | `Max_N` | Hard dimension cap ($256$) |
 | `Status` | `Ok`, `Degenerate`, `Ill_Started`, `Size_Mismatch` |
 | `Result` | `X`, `N`, `Stat`, `Success`, `Pivot` |

@@ -2979,20 +2979,6 @@ misc/Ada/Fast-Multipole-Method,Total_Charge,catalog,catalog,,1,function n_arrays
 misc/Ada/Fast-Multipole-Method,Compute_Potentials_FMM_From_Particles,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
 misc/Ada/Gale-Shapley-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Thomas-Algorithm,Vec_Near,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Thomas-Algorithm,Norm2,catalog,catalog,,1,function n_arrays=1 ret=Float,
-misc/Ada/Thomas-Algorithm,Max_Abs,catalog,catalog,,1,function n_arrays=1 ret=Float,
-misc/Ada/Thomas-Algorithm,Is_Diagonally_Dominant,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Thomas-Algorithm,Is_Strictly_Diagonally_Dominant,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Thomas-Algorithm,Residual,catalog,catalog,,1,function n_arrays=1 ret=Vector,
-misc/Ada/Thomas-Algorithm,Residual_Norm,catalog,catalog,,1,function n_arrays=1 ret=Float,
-misc/Ada/Thomas-Algorithm,Residual_Max_Abs,catalog,catalog,,1,function n_arrays=1 ret=Float,
-misc/Ada/Thomas-Algorithm,Make_Poisson_1D,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Thomas-Algorithm,Make_Poisson_1D_System,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Thomas-Algorithm,Make_Constant_Tridiagonal,catalog,catalog,,1,procedure n_arrays=1 ret=Vector,
-misc/Ada/Thomas-Algorithm,Thomas,catalog,catalog,,1,function n_arrays=1 ret=Result,
-misc/Ada/Thomas-Algorithm,Solve,catalog,catalog,,1,function n_arrays=1 ret=Result,
-misc/Ada/Thomas-Algorithm,Thomas_In_Place,catalog,catalog,,3,procedure n_arrays=3 ret=None,
 misc/Ada/Top-Trading-Cycle,Load_Endowment,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Top-Trading-Cycle,Load,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Top-Trading-Cycle,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3196,17 +3182,6 @@ clustering/Ada/FLAME-Clustering,Count_CSOs,catalog,catalog,,1,function n_arrays=
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Arrays_OK,catalog,catalog,,3,function n_arrays=3 ret=Boolean,
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Search,catalog,catalog,,3,procedure n_arrays=3 ret=None,
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Detect,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Find_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Has_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Cycle_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Cycle_Start,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
 graphs/SPARK4/A-Star,Arrays_OK,catalog,catalog,,3,function n_arrays=3 ret=Boolean,
 graphs/SPARK4/A-Star,Heuristic_OK,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/SPARK4/A-Star,Search,catalog,catalog,,4,procedure n_arrays=4 ret=None,
@@ -3272,17 +3247,6 @@ misc/SPARK4/Ada-SPARK-K-Way-Merge,Merge_K,catalog,catalog,,1,procedure n_arrays=
 misc/SPARK4/Ada-SPARK-K-Way-Merge,Merge,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,Huffman_Length_Limited,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-numerical/Ada/Brents-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-numerical/Ada/Brents-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
-numerical/Ada/Brents-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
-numerical/Ada/Brents-Algorithm,Detect,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-numerical/Ada/Brents-Algorithm,Find_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-numerical/Ada/Brents-Algorithm,Has_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-numerical/Ada/Brents-Algorithm,Cycle_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-numerical/Ada/Brents-Algorithm,Cycle_Start,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
-numerical/Ada/Brents-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-numerical/Ada/Brents-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-numerical/Ada/Brents-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
@@ -3339,7 +3303,6 @@ compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,,first_pinned,fail,rewrite
 compression/SPARK2/Ada-SPARK-LZ77,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 compression/SPARK3/Huffman-Coding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 graphs/Ada/Hungarian-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 graphs/SPARK4/A-Star,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3354,7 +3317,6 @@ misc/Ada/Combinatorial-Optimization,,first_pinned,fail,rewrite_first_relative,,R
 misc/Ada/Fast-Multipole-Method,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Gale-Shapley-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Min-Conflicts,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-misc/Ada/Thomas-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Top-Trading-Cycle,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-Adler32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-CRC32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3364,7 +3326,6 @@ misc/SPARK4/Ada-SPARK-Heaps-Algorithm,,first_pinned,fail,rewrite_first_relative,
 misc/SPARK4/Ada-SPARK-K-Way-Merge,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,KEEP: index arithmetic on index values,index arithmetic: package-merge pairs at 2*P-1 / 2*P
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-numerical/Ada/Brents-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 searching/SPARK2/Ada-SPARK-Trigram-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 searching/SPARK4/Ada-SPARK-Binary-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3475,3 +3436,44 @@ misc/Ada/Memetic-Algorithm,Mutate_Tour,catalog,catalog,,1,function n_arrays=1 re
 misc/Ada/Memetic-Algorithm,Local_Improve_TSP,catalog,catalog,,1,function n_arrays=1 ret=Tour,
 misc/Ada/Memetic-Algorithm,Minimize_Hamming,catalog,catalog,,1,function n_arrays=1 ret=Bit_Result,
 misc/Ada/Memetic-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/Ada/Thomas-Algorithm,Vec_Near,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/Ada/Thomas-Algorithm,Norm2,catalog,catalog,,1,function n_arrays=1 ret=Float,
+misc/Ada/Thomas-Algorithm,Max_Abs,catalog,catalog,,1,function n_arrays=1 ret=Float,
+misc/Ada/Thomas-Algorithm,Is_Diagonally_Dominant,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/Ada/Thomas-Algorithm,Is_Strictly_Diagonally_Dominant,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/Ada/Thomas-Algorithm,Residual,catalog,catalog,,1,function n_arrays=1 ret=Vector,
+misc/Ada/Thomas-Algorithm,Residual_Norm,catalog,catalog,,1,function n_arrays=1 ret=Float,
+misc/Ada/Thomas-Algorithm,Residual_Max_Abs,catalog,catalog,,1,function n_arrays=1 ret=Float,
+misc/Ada/Thomas-Algorithm,Make_Poisson_1D,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Thomas-Algorithm,Make_Poisson_1D_System,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Thomas-Algorithm,Make_Constant_Tridiagonal,catalog,catalog,,1,procedure n_arrays=1 ret=Vector,
+misc/Ada/Thomas-Algorithm,Thomas,catalog,catalog,,1,function n_arrays=1 ret=Result,
+misc/Ada/Thomas-Algorithm,Solve,catalog,catalog,,1,function n_arrays=1 ret=Result,
+misc/Ada/Thomas-Algorithm,Thomas_In_Place,catalog,catalog,,3,procedure n_arrays=3 ret=None,
+misc/Ada/Thomas-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Detect,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Find_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Has_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Cycle_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Cycle_Start,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Cycle_Length,ok,ok,,,origins 2/100 high 10000 (successor) ok,
+numerical/Ada/Brents-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+numerical/Ada/Brents-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
+numerical/Ada/Brents-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
+numerical/Ada/Brents-Algorithm,Detect,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
+numerical/Ada/Brents-Algorithm,Find_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
+numerical/Ada/Brents-Algorithm,Has_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+numerical/Ada/Brents-Algorithm,Cycle_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+numerical/Ada/Brents-Algorithm,Cycle_Start,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
+numerical/Ada/Brents-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+numerical/Ada/Brents-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+numerical/Ada/Brents-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
+numerical/Ada/Brents-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+numerical/Ada/Brents-Algorithm,Cycle_Length,ok,ok,,,origins 2/100 high 10000 (successor) ok,
