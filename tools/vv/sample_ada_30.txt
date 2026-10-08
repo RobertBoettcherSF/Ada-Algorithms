@@ -1,0 +1,38 @@
+# Random sample of 30 plain-Ada folders (unbiased bug-rate estimate)
+#
+# Population: rows of PROOFS.csv at cd45bffd with level = Ada, no duplicate_of,
+# stub != yes and generalised empty (908 folders), sorted by path.
+# Drawn with Python random.Random(20261009).sample(population, 30), before any
+# testing of these folders. Outcomes go to sample_ada_30_results.csv; a crash
+# found by the all-checks crash run in a sampled folder counts toward k/30
+# (column found_by).
+compression/Ada/Verlet-Integration
+geometry/Ada/Dithering
+geometry/Ada/Line-Clipping
+graphs/Ada/Kruskals-Algorithm
+misc/Ada/Automatic-Train-Operation
+misc/Ada/Backtracking
+misc/Ada/Bowyer-Watson
+misc/Ada/Computus
+misc/Ada/Cone-Tracing
+misc/Ada/Division-Algorithms
+misc/Ada/Fast-Multipole-Method
+misc/Ada/Filtered-Back-Projection
+misc/Ada/Hamiltonian-Simulation
+misc/Ada/Hamming-Weight
+misc/Ada/Marching-Squares
+misc/Ada/Median-Filtering
+misc/Ada/Prediction-By-Partial-Matching
+misc/Ada/Progressive-Jackpot
+misc/Ada/Truncated-Binary-Encoding
+misc/Ada/Unicode-Collation-Algorithm
+misc/Ada/Zero-Attribute-Rule
+misc/Ada/arc-cache
+misc/Ada/docs
+ml/Ada/Boosting-Meta-Algorithm
+parsing/Ada/Recursive-Descent-Parser
+searching/Ada/Binary-Search
+searching/Ada/Breadth-First-Search
+sorting/Ada/Bucket-Sort
+sorting/Ada/Odd-Even-Sort
+strings/Ada/Double-Metaphone
