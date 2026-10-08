@@ -30,7 +30,7 @@ case "$SKIP" in *" prove "*) ;; *)
 esac
 case "$SKIP" in *" diff "*) ;; *)
   echo "[3a/4] differential tests (tools/vv/diff/*)"
-  python3 tools/vv/difftest.py --seed "$SEED" --out vv/results/diff.csv ;;
+  python3 tools/vv/difftest.py --seed "$SEED" -j "$J" --out vv/results/diff.csv ;;
 esac
 case "$SKIP" in *" mutation "*) ;; *)
   echo "[3b/4] sampled mutation testing"
