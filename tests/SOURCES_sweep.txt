@@ -1,0 +1,9 @@
+Sources of expected values in the whole-repo sweep (docs/VV.md 3i)
+===================================================================
+All references are own code written for this repository (MIT): brute force,
+recursive definitions or independent properties. No GPL/GFDL material and
+nothing from Rosetta Code, LeetCode or Wikipedia text. Per-folder details are
+in each folder's tests/SOURCES.txt.
+
+strings/Ada/String-Metrics: recursive Levenshtein / OSA definitions, bigram
+  sets by presence, position counts; Jaro-Winkler by properties.

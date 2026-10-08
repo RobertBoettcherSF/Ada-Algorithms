@@ -1,0 +1,14 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Levenshtein and OSA: the recursive definitions on prefixes (insert,
+  delete, substitute; OSA adds the adjacent transposition step), evaluated
+  top-down without a table, on all 14,641 pairs of strings over {a, b, c}
+  of length 0 .. 4.
+* Hamming: count of differing positions.
+* Dice: unique bigram sets found by testing each of the 9 bigrams over the
+  alphabet for presence; both strings empty -> 1.0, no bigrams at all -> 0.0
+  (conventions from the spec comment in string_metrics.ads).
+* Normalized Levenshtein: 1 - reference distance / max length.
+* Jaro-Winkler: properties only (range, symmetry, 1 exactly for equal
+  strings, 0 when no letter is shared).
+Nothing is taken from the program's output or from third-party test suites.

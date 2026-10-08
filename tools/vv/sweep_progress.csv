@@ -1,0 +1,2 @@
+folder,tests_added,ref_method,donothing_caught,mutation_score
+strings/Ada/String-Metrics,own_checks.adb (14641 pairs),recursive edit-distance definitions + bigram presence + counts; JW properties,yes (6/6 subprograms),34/39 raw; 5 equivalent (redundant empty guards; Max tie; symmetric OSA swap) -> 34/34

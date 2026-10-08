@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with String_Metrics; use String_Metrics;
+with Own_Checks;
 
 procedure Tests is
 
@@ -160,6 +161,7 @@ procedure Tests is
    end Slice_ABC;
 
 begin
+   Own_Checks;
    Put_Line ("String_Metrics survey test suite");
    Put_Line ("Max_Len =" & Max_Len'Image);
 
