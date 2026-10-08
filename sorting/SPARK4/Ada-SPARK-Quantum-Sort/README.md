@@ -10,7 +10,7 @@ Comparison-based quantum sorting is known to need $\Omega(n \log n)$ steps in th
 | Comparison sort | Insertion sort | `Insert_Step` → `Is_Sorted` |
 | Parallel sorting network | Shellsort (fixed Ciura gaps) | `Gap_Pass` + `Insertion_Pass` |
 | Frequency / distribution | Selection sort | `Select_Min_Step` + partition |
-| Space-bounded sort | Cocktail shaker sort | capped cocktail + `Bubble_Finish` |
+| Space-bounded sort | Cocktail shaker sort | cocktail passes with a sorted-prefix / sorted-suffix window invariant |
 
 $$
 \text{classroom } n \le \mathit{Max\_N}=64,\quad \text{extra space } O(1),\quad \text{proved postcondition: } \mathit{Is\_Sorted}
@@ -22,7 +22,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Quantum-Sort](https
 * **`Sort_Comparison (A)`**: Quantum comparison model via classic stable in-place insertion sort.
 * **`Sort_Parallel_Network (A)`**: Parallel-network model via Shellsort with a fixed Ciura gap table $(57,23,10,4,1)$ sized for `Max_N`, finished by a gap-$1$ insertion pass.
 * **`Sort_Frequency (A)`**: Frequency / distribution model via in-place selection sort (min of suffix → prefix).
-* **`Sort_Space_Bounded (A)`**: Space-bounded model via cocktail shaker (capped $\mathit{Lo}..\mathit{Hi}$ rounds) plus a gap-$1$ bubble finish.
+* **`Sort_Space_Bounded (A)`**: Space-bounded model via cocktail shaker passes over a shrinking $\mathit{Lo}..\mathit{Hi}$ window; the passes themselves are proved to sort (no extra bubble pass).
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition on every `Sort_*`.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors; educational phases prove `In_Bounds` / RTE where needed; finishes prove sortedness.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Input_Size`.
@@ -33,7 +33,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Quantum-Sort](https
 * Indices fixed at `A'First = 1` (sibling allows a dedicated `Index_Type`).
 * Element type widened to `Integer` (sibling uses `Element_Value` range $-10\,000 .. 10\,000$).
 * Shell model uses a **fixed** Ciura gap prefix that fits `Max_N` (no dynamic $\lfloor 2.25\cdot h\rfloor$ extension).
-* Cocktail outer rounds capped at `Max_N` so termination proves under Level 4; cocktail forward/backward phases prove only `In_Bounds` / RTE; the final gap-$1$ `Bubble_Finish` reuses the bubble-sort Level-4 argument for `Is_Sorted` (same proof split as Shell / Comb / Odd–Even).
+* Cocktail forward/backward passes carry the window invariant (`Sorted_Slice` / `Prefix_Leq_Suffix`: sorted prefix <= rest, sorted suffix >= rest), so `Sort_Space_Bounded` proves `Is_Sorted` from the passes alone; the outer loop runs while $\mathit{Lo} < \mathit{Hi}$ with variant $\mathit{Hi}-\mathit{Lo}$ (no round cap, no bubble finish).
 * **SPARK proves sortedness** (`Post => In_Bounds (A) and Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
 * Zero `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
@@ -41,7 +41,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Quantum-Sort](https
 1. **Comparison (insertion):** if $n \le 1$, return; for $i = 2 .. n$, insert $A(i)$ into the sorted prefix $A(1 .. i-1)$ with strict `>` shifts (stable).
 2. **Parallel network (Shell):** for each gap $h \in \{57,23,10,4\}$ with $1 < h < n$, $h$-sort; then gap-$1$ insertion → fully sorted.
 3. **Frequency (selection):** for $i = 1 .. n-1$, swap $A(i)$ with $\arg\min A(i .. n)$.
-4. **Space-bounded (cocktail):** maintain $[\mathit{Lo}..\mathit{Hi}]$; up to `Max_N` rounds of forward (max to $\mathit{Hi}$) then backward (min to $\mathit{Lo}$) with early exit; then gap-$1$ bubble finish → fully sorted.
+4. **Space-bounded (cocktail):** maintain $[\mathit{Lo}..\mathit{Hi}]$; while $\mathit{Lo} < \mathit{Hi}$, a forward pass (max to $\mathit{Hi}$) then a backward pass (min to $\mathit{Lo}$), stopping early after a swap-free pass → fully sorted.
 
 Empty and singleton arrays are no-ops for every entry point.
 
@@ -51,7 +51,7 @@ Empty and singleton arrays are no-ops for every entry point.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 932 assertions pass (`0 FAIL`). Running `make prove` reports `Success: all checks proved (441 checks)` with **zero** Intentional Annotate.
+When you run `make test`, you will see all 932 assertions pass (`0 FAIL`). Running `make prove` reports `Success: all checks proved (477 checks)` (silver, level 2) with **zero** Intentional Annotate.
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, cocktail turtle $(2,3,4,5,1)$, Shell Wikipedia-style $12$-element demo, signed domain, lengths up to `Max_N`.
@@ -71,8 +71,8 @@ When you run `make test`, you will see all 932 assertions pass (`0 FAIL`). Runni
 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
-* Insertion / selection loops use `pragma Loop_Invariant` / `Loop_Variant`; Shell gap passes prove `In_Bounds` / RTE; cocktail-round loop is iteration-capped at `Max_N`; bubble finish shrinks the unsorted suffix via `Bubble_Pass` with partition predicates.
-* **GNATprove Level 4:** `Success: all checks proved (441 checks)`.
+* Insertion / selection loops use `pragma Loop_Invariant` / `Loop_Variant`; Shell gap passes prove `In_Bounds` / RTE; cocktail passes prove the sorted prefix / suffix window invariant; the shaker loop has variant $\mathit{Hi}-\mathit{Lo}$.
+* **GNATprove Level 4:** `Success: all checks proved (477 checks)` (silver, level 2).
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

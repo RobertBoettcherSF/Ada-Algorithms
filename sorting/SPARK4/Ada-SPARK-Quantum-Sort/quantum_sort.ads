@@ -11,9 +11,9 @@
 --  subtype and raises on invalid size; this port requires A'First = 1,
 --  uses Pre => In_Bounds (A), Integer elements, and proves sortedness
 --  via each educational algorithm plus a gap-1 finish where Level 4
---  needs it (Insertion_Pass for the Shell model; Bubble_Finish for the
---  cocktail model — same proof split as Ada-SPARK-Shell-Sort /
---  Ada-SPARK-Cocktail-Shaker-Sort). Full multiset / permutation
+--  needs it (Insertion_Pass, the gap-1 pass of the Shell model, as in
+--  Ada-SPARK-Shell-Sort; the cocktail model proves its own passes sort,
+--  as in Ada-SPARK-Cocktail-Shaker-Sort). Full multiset / permutation
 --  equality is verified by tests rather than claimed as a Level-4
 --  postcondition (sortedness is proved).
 --
@@ -72,8 +72,8 @@ is
    --    Max_N; Gap_Pass for h > 1, Insertion_Pass for h = 1 → Is_Sorted.
    --  Frequency → Selection: place min of suffix at each prefix index.
    --    Proves Is_Sorted via Select_Min_Step + partition.
-   --  Space-Bounded → Cocktail: capped Lo..Hi forward+backward rounds
-   --    (In_Bounds / RTE only) + Bubble_Finish → Is_Sorted.
+   --  Space-Bounded → Cocktail: forward+backward passes over a shrinking
+   --    Lo..Hi window; sorted prefix / suffix invariant → Is_Sorted.
    --  Empty and singleton arrays are no-ops for every Sort_*.
    --  Do not `with` sibling Ada-* packages.
 
