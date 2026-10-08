@@ -1,0 +1,7 @@
+Where the expected values in tests.adb come from
+- the two original cases and the hand cases: worked out by hand from the problem rule (fewest copies of
+  Source whose concatenation contains Target; 0 when none does).
+- 20,000 random cases (Park-Miller generator, seed 777123, alphabet {a, b}, |Source| 1 .. 6, |Target| 1 .. 12;
+  half the targets cut out of a repetition of Source): compared with Reference in tests.adb, an own brute
+  force that concatenates K = 1 .. 40 copies and searches naively.
+No values were copied from the program output or from third-party sources.
