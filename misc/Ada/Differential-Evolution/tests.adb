@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Differential_Evolution; use Differential_Evolution;
+with Own_Checks;
 
 procedure Tests is
 
@@ -698,6 +699,13 @@ begin
       Check (Approx (Trial (3), 5.0), "3D CR=0 j_rand=3");
       Check (Approx (Trial (1), 0.0) and then Approx (Trial (2), 0.0),
              "3D CR=0 others target");
+   end;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
    end;
 
    New_Line;

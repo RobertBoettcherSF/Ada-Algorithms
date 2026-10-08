@@ -6,6 +6,7 @@ with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Numerics.Elementary_Functions; use Ada.Numerics.Elementary_Functions;
 with Cross_Entropy_Method; use Cross_Entropy_Method;
+with Own_Checks;
 
 procedure Tests is
 
@@ -624,6 +625,13 @@ begin
       E := Elite_Indices (Buf, 0.5);
       Check (E'Length = 2, "Tie elite length");
       Check (E (1) = 1 and then E (2) = 2, "Tie-break smaller indices first");
+   end;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
    end;
 
    New_Line;
