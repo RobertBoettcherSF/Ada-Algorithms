@@ -900,6 +900,45 @@ begin
    -- Summary
    ---------------------------------------------------------------------
    New_Line;
+   Put_Line ("== Shifted origins (Prefs at 3/7, Endow at 4, Point at 5) ==");
+   declare
+      P1 : constant Pref_Matrix (1 .. 3, 1 .. 3) :=
+        [[2, 3, 1], [1, 2, 3], [3, 1, 2]];
+      PS : constant Pref_Matrix (3 .. 5, 7 .. 9) :=
+        [[2, 3, 1], [1, 2, 3], [3, 1, 2]];
+      E1 : constant Id_Array (1 .. 3) := [1, 2, 3];
+      ES : constant Id_Array (4 .. 6) := [1, 2, 3];
+      I1, IS_Inst : Instance;
+      A1, AS : Allocation;
+      Pt1 : constant Pointing_Array (1 .. 4) := [2, 1, 4, 3];
+      PtS : constant Pointing_Array (5 .. 8) := [2, 1, 4, 3];
+      C1 : Cycle_Array (1 .. 4);
+      CS : Cycle_Array (2 .. 5);
+      L1, LS : Natural;
+      Rem1 : constant Id_Array (1 .. 3) := [1, 1, 1];
+      RemS : constant Id_Array (6 .. 8) := [1, 1, 1];
+      Q1 : Pointing_Array (1 .. 3);
+      QS : Pointing_Array (9 .. 11);
+   begin
+      Load (I1, P1, E1);
+      Load (IS_Inst, PS, ES);
+      A1 := Allocate (I1);
+      AS := Allocate (IS_Inst);
+      Check (AS = A1, "shifted Load/Allocate = 1-based");
+      Check (Is_Permutation (ES, 3), "shifted Is_Permutation");
+      Check (Is_Complete_Permutation (PS, 3), "shifted Is_Complete_Permutation");
+      Find_Cycle (Pt1, 4, 3, C1, L1);
+      Find_Cycle (PtS, 4, 3, CS, LS);
+      Check (LS = L1 and then CS (2) = C1 (1) and then CS (3) = C1 (2),
+             "shifted Find_Cycle = 1-based");
+      Check (Has_Cycle (PtS, 4) and then Count_Cycles (PtS, 4) = Count_Cycles (Pt1, 4),
+             "shifted Has_Cycle / Count_Cycles");
+      Compute_Pointing (I1, Rem1, Q1);
+      Compute_Pointing (IS_Inst, RemS, QS);
+      Check (QS (9) = Q1 (1) and then QS (10) = Q1 (2) and then QS (11) = Q1 (3),
+             "shifted Compute_Pointing = 1-based");
+   end;
+
    Put_Line ("=================================");
    Put_Line
      ("Results: " & Natural'Image (Pass_Count)

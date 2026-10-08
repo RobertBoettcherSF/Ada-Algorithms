@@ -171,6 +171,37 @@ begin
       Check ("13.3 Second error value is 3", Values (2) = 3);
    end;
 
+
+   Put_Line ("TEST 14 — Syndromes at any origin; Degree_Poly fixed at 0");
+   declare
+      S_Shift : constant Polynomial (7 .. 10) := [4, 4, 3, 8];
+      L1 : constant Polynomial := Compute_Locator_Static (Test_Syndromes, 2);
+      LS : constant Polynomial := Compute_Locator_Static (S_Shift, 2);
+      LD : constant Polynomial := Compute_Locator_Dynamic (S_Shift, 2);
+      E1 : constant Degree_Poly := Compute_Evaluator (Test_Syndromes, Expected_Loc);
+      ES : constant Degree_Poly := Compute_Evaluator (S_Shift, Expected_Loc);
+      V1 : constant Polynomial :=
+        Calculate_Error_Values_Linear (Expected_Roots, Test_Syndromes);
+      VS : constant Polynomial :=
+        Calculate_Error_Values_Linear (Expected_Roots, S_Shift);
+      Off_Poly : constant Polynomial (1 .. 3) := [1, 5, 8];
+      Trapped  : Boolean := False;
+   begin
+      Check ("14.1 Static locator shifted = 1-based", LS = L1);
+      Check ("14.2 Dynamic locator shifted = 1-based", LD = L1);
+      Check ("14.3 Evaluator shifted = 1-based", ES = E1);
+      Check ("14.4 Linear values shifted = 1-based", VS = V1);
+      begin
+         declare
+            Discard : constant GF_Element := Evaluate (Off_Poly, 1);
+         begin
+            null;
+         end;
+      exception
+         when others => Trapped := True;
+      end;
+      Check ("14.5 Degree_Poly rejects origin 1 (index is the degree)", Trapped);
+   end;
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");

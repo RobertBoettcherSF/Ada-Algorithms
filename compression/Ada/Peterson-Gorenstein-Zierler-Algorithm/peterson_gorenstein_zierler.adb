@@ -12,7 +12,7 @@ package body Peterson_Gorenstein_Zierler is
       return Result;
    end Inverse;
 
-   function Evaluate (Poly : Polynomial; X : GF_Element) return GF_Element is
+   function Evaluate (Poly : Degree_Poly; X : GF_Element) return GF_Element is
       Result : GF_Element := 0;
       X_Pow  : GF_Element := 1;
    begin
@@ -23,7 +23,7 @@ package body Peterson_Gorenstein_Zierler is
       return Result;
    end Evaluate;
 
-   function Derivative (Poly : Polynomial) return Polynomial is
+   function Derivative (Poly : Degree_Poly) return Degree_Poly is
       Degree : constant Natural := Natural (Poly'Length) - 1;
    begin
       if Degree = 0 then
@@ -156,7 +156,7 @@ package body Peterson_Gorenstein_Zierler is
       return [0 => 1];
    end Compute_Locator_Dynamic;
 
-   function Chien_Search (Locator : Polynomial) return Polynomial is
+   function Chien_Search (Locator : Degree_Poly) return Polynomial is
       Degree     : constant Natural := Natural (Locator'Length) - 1;
       Roots      : Polynomial (1 .. Index_Type (Degree));
       Root_Count : Index_Type := 0;
@@ -182,7 +182,7 @@ package body Peterson_Gorenstein_Zierler is
       return Roots (1 .. Root_Count);
    end Chien_Search;
 
-   function Compute_Evaluator (Syndromes : Polynomial; Locator : Polynomial) return Polynomial is
+   function Compute_Evaluator (Syndromes : Polynomial; Locator : Degree_Poly) return Degree_Poly is
       Degree   : constant Natural := Natural (Locator'Length) - 1;
       Omega    : Polynomial (0 .. Index_Type (Degree) - 1) := [others => 0];
       Syn_Base : constant Index_Type := Syndromes'First;
@@ -200,8 +200,8 @@ package body Peterson_Gorenstein_Zierler is
       return Omega;
    end Compute_Evaluator;
 
-   function Calculate_Error_Values_Forney (Locator   : Polynomial; 
-                                           Evaluator : Polynomial; 
+   function Calculate_Error_Values_Forney (Locator   : Degree_Poly; 
+                                           Evaluator : Degree_Poly; 
                                            Roots     : Polynomial) return Polynomial 
    is
       N      : constant Index_Type := Roots'Length;

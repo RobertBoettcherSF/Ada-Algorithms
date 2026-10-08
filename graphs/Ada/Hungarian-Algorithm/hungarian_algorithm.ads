@@ -89,8 +89,9 @@ is
 
    procedure Load_Matrix (P : in out Problem; Costs : Cost_Matrix)
      with Global => null;
-   --  Copy Costs into P. Requires Costs'First(1) = Costs'First(2) = 1,
-   --  square, and order ≤ Max_N. Raises Invalid_Argument otherwise.
+   --  Copy Costs into P (any origin: worker i / job j is
+   --  Costs'First(d) + i - 1). Requires square and order ≤ Max_N.
+   --  Raises Invalid_Argument otherwise.
 
    function Size (P : Problem) return Natural
      with Global => null;
@@ -141,15 +142,15 @@ is
    function Is_Permutation
      (A : Assignment_Array; N : Natural) return Boolean
      with Global => null;
-   --  True iff A(1 .. N) is a permutation of 1 .. N (N = 0 ⇒ True).
-   --  Requires A'First = 1 and A'Length ≥ N; otherwise False.
+   --  True iff the first N elements of A are a permutation of 1 .. N
+   --  (N = 0 ⇒ True; any origin). A'Length < N ⇒ False.
 
    function Assignment_Cost
      (P : Problem; A : Assignment_Array) return Cost_Value
      with Global => null;
    --  Σ_i C(i, A(i)) for i in 1 .. Size(P). Raises Invalid_Argument
-   --  when A is not a permutation of 1 .. N (requires A'First = 1 and
-   --  A'Length ≥ N).
+   --  when A is not a permutation of 1 .. N (A at any origin,
+   --  A'Length ≥ N; worker i is A (A'First + i - 1)).
 
 private
 

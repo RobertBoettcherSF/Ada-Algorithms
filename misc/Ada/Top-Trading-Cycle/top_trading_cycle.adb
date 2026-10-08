@@ -117,7 +117,7 @@ is
    begin
       for K in 1 .. N loop
          declare
-            V : constant Natural := Prefs (Row, K);
+            V : constant Natural := Prefs (Prefs'First (1) + Row - 1, Prefs'First (2) + K - 1);
          begin
             if V < 1 or else V > N or else Seen (V) then
                raise Invalid_Argument;
@@ -134,7 +134,6 @@ is
    procedure Require_Point_Shape (Point : Pointing_Array; N : Natural) is
    begin
       if N > Max_N
-        or else Point'First /= 1
         or else Point'Length < N
       then
          raise Invalid_Argument;
@@ -143,7 +142,7 @@ is
 
    procedure Require_Rem_Shape (Remaining : Id_Array; N : Natural) is
    begin
-      if Remaining'First /= 1 or else Remaining'Length < N then
+      if Remaining'Length < N then
          raise Invalid_Argument;
       end if;
    end Require_Rem_Shape;
@@ -197,9 +196,7 @@ is
       if N = 0 then
          return;
       end if;
-      if Prefs'First (1) /= 1
-        or else Prefs'First (2) /= 1
-        or else Prefs'Length (1) < N
+      if Prefs'Length (1) < N
         or else Prefs'Length (2) < N
       then
          raise Invalid_Argument;
@@ -217,7 +214,7 @@ is
       if N = 0 then
          return;
       end if;
-      if Endow'First /= 1 or else Endow'Length < N then
+      if Endow'Length < N then
          raise Invalid_Argument;
       end if;
       declare
@@ -225,7 +222,7 @@ is
       begin
          for I in 1 .. N loop
             declare
-               V : constant Natural := Endow (I);
+               V : constant Natural := Endow (Endow'First + I - 1);
             begin
                if V < 1 or else V > N or else Seen (V) then
                   raise Invalid_Argument;
@@ -247,9 +244,7 @@ is
    is
       N : Natural;
    begin
-      if Prefs'First (1) /= 1
-        or else Prefs'First (2) /= 1
-        or else Prefs'Length (1) /= Prefs'Length (2)
+      if Prefs'Length (1) /= Prefs'Length (2)
       then
          raise Invalid_Argument;
       end if;
@@ -267,9 +262,7 @@ is
    is
       N : Natural;
    begin
-      if Prefs'First (1) /= 1
-        or else Prefs'First (2) /= 1
-        or else Prefs'Length (1) /= Prefs'Length (2)
+      if Prefs'Length (1) /= Prefs'Length (2)
       then
          raise Invalid_Argument;
       end if;
@@ -352,8 +345,6 @@ is
          return True;
       end if;
       if N > Max_N
-        or else Prefs'First (1) /= 1
-        or else Prefs'First (2) /= 1
         or else Prefs'Length (1) < N
         or else Prefs'Length (2) < N
       then
@@ -365,7 +356,7 @@ is
          begin
             for K in 1 .. N loop
                declare
-                  V : constant Natural := Prefs (I, K);
+                  V : constant Natural := Prefs (Prefs'First (1) + I - 1, Prefs'First (2) + K - 1);
                begin
                   if V < 1 or else V > N or else Seen (V) then
                      return False;
@@ -386,12 +377,12 @@ is
       if N = 0 then
          return True;
       end if;
-      if N > Max_N or else A'First /= 1 or else A'Length < N then
+      if N > Max_N or else A'Length < N then
          return False;
       end if;
       for I in 1 .. N loop
          declare
-            V : constant Natural := A (I);
+            V : constant Natural := A (A'First + I - 1);
          begin
             if V < 1 or else V > N or else Seen (V) then
                return False;
@@ -418,10 +409,10 @@ is
    begin
       Ensure_Valid (Inst);
       Require_Rem_Shape (Remaining, N);
-      if Holding'First /= 1 or else Holding'Length < N then
+      if Holding'Length < N then
          raise Invalid_Argument;
       end if;
-      if Point'First /= 1 or else Point'Length < N then
+      if Point'Length < N then
          raise Invalid_Argument;
       end if;
 
@@ -430,9 +421,9 @@ is
       end loop;
 
       for I in 1 .. N loop
-         if Remaining (I) /= 0 then
+         if Remaining (Remaining'First + I - 1) /= 0 then
             declare
-               H : constant Natural := Holding (I);
+               H : constant Natural := Holding (Holding'First + I - 1);
             begin
                if H < 1 or else H > N then
                   raise Invalid_Argument;
@@ -443,7 +434,7 @@ is
       end loop;
 
       for I in 1 .. N loop
-         if Remaining (I) /= 0 then
+         if Remaining (Remaining'First + I - 1) /= 0 then
             declare
                Found : Boolean := False;
             begin
@@ -454,7 +445,7 @@ is
                   begin
                      if H >= 1 and then H <= N and then Owner_Now (H) /= 0
                      then
-                        Point (I) := Owner_Now (H);
+                        Point (Point'First + I - 1) := Owner_Now (H);
                         Found := True;
                         exit;
                      end if;
@@ -497,7 +488,7 @@ is
       Cur     : Natural;
    begin
       Require_Point_Shape (Point, N);
-      if Cycle'First /= 1 or else Cycle'Length < N then
+      if Cycle'Length < N then
          raise Invalid_Argument;
       end if;
       for I in Cycle'Range loop
@@ -505,7 +496,7 @@ is
       end loop;
       Length := 0;
 
-      if N = 0 or else Natural (Start) > N or else Point (Natural (Start)) = 0
+      if N = 0 or else Natural (Start) > N or else Point (Point'First + (Natural (Start)) - 1) = 0
       then
          return;
       end if;
@@ -519,7 +510,7 @@ is
             begin
                Length := Len - C0 + 1;
                for K in 1 .. Length loop
-                  Cycle (K) := Path (C0 + K - 1);
+                  Cycle (Cycle'First + K - 1) := Path (C0 + K - 1);
                end loop;
             end;
             return;
@@ -527,7 +518,7 @@ is
          Len := Len + 1;
          Path (Len) := Cur;
          Seen_At (Cur) := Len;
-         Cur := Point (Cur);
+         Cur := Point (Point'First + Cur - 1);
          if Len > N then
             --  Should be unreachable in a functional graph of size N.
             Length := 0;
@@ -548,13 +539,13 @@ is
          return False;
       end if;
       for S in 1 .. N loop
-         if Point (S) /= 0 and then Color (S) = 0 then
+         if Point (Point'First + S - 1) /= 0 and then Color (S) = 0 then
             declare
                Cur : Natural := S;
             begin
                while Cur /= 0 and then Cur <= N and then Color (Cur) = 0 loop
                   Color (Cur) := 1;
-                  Cur := Point (Cur);
+                  Cur := Point (Point'First + Cur - 1);
                end loop;
                if Cur /= 0 and then Cur <= N and then Color (Cur) = 1 then
                   return True;
@@ -563,7 +554,7 @@ is
                Cur := S;
                while Cur /= 0 and then Cur <= N and then Color (Cur) = 1 loop
                   Color (Cur) := 2;
-                  Cur := Point (Cur);
+                  Cur := Point (Point'First + Cur - 1);
                end loop;
             end;
          end if;
@@ -579,13 +570,13 @@ is
    begin
       Require_Point_Shape (Point, N);
       for S in 1 .. N loop
-         if Point (S) /= 0 and then Color (S) = 0 then
+         if Point (Point'First + S - 1) /= 0 and then Color (S) = 0 then
             declare
                Cur : Natural := S;
             begin
                while Cur /= 0 and then Cur <= N and then Color (Cur) = 0 loop
                   Color (Cur) := 1;
-                  Cur := Point (Cur);
+                  Cur := Point (Point'First + Cur - 1);
                end loop;
                if Cur /= 0 and then Cur <= N and then Color (Cur) = 1 then
                   Count := Count + 1;
@@ -595,7 +586,7 @@ is
                   begin
                      loop
                         Color (Cyc) := 2;
-                        Cyc := Point (Cyc);
+                        Cyc := Point (Point'First + Cyc - 1);
                         exit when Cyc = Cur;
                      end loop;
                   end;
@@ -603,7 +594,7 @@ is
                Cur := S;
                while Cur /= 0 and then Cur <= N and then Color (Cur) = 1 loop
                   Color (Cur) := 2;
-                  Cur := Point (Cur);
+                  Cur := Point (Point'First + Cur - 1);
                end loop;
             end;
          end if;

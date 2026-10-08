@@ -110,16 +110,16 @@ is
    procedure Load_Preferences
      (Inst : in out Instance; Prefs : Pref_Matrix)
      with Global => null;
-   --  Copy Prefs as preference lists. Requires Prefs'First(1) =
-   --  Prefs'First(2) = 1, square of order Size(Inst), each row a
+   --  Copy Prefs as preference lists (any origin: agent i / rank k is
+   --  Prefs'First(d) + i - 1). Requires order Size(Inst), each row a
    --  permutation of 1 .. N. Raises Invalid_Argument otherwise.
    --  Inst must already have a Size via Clear or Load.
 
    procedure Load_Endowment
      (Inst : in out Instance; Endow : Id_Array)
      with Global => null;
-   --  Copy Endow (1 .. N) as the endowment. Requires Endow'First = 1,
-   --  Endow'Length ≥ N, and Endow(1 .. N) a permutation of 1 .. N.
+   --  Copy the first N elements of Endow (any origin) as the endowment.
+   --  Requires Endow'Length ≥ N and those N a permutation of 1 .. N.
    --  Raises Invalid_Argument otherwise.
 
    procedure Load
@@ -189,8 +189,8 @@ is
    function Is_Permutation
      (A : Id_Array; N : Natural) return Boolean
      with Global => null;
-   --  True iff A(1 .. N) is a permutation of 1 .. N (N = 0 ⇒ True).
-   --  Requires A'First = 1 and A'Length ≥ N; otherwise False.
+   --  True iff the first N elements of A are a permutation of 1 .. N
+   --  (N = 0 ⇒ True; any origin). A'Length < N ⇒ False.
 
    ---------------------------------------------------------------------------
    -- Pointing graph / cycle helpers (residual market)
@@ -204,7 +204,7 @@ is
    --  For each agent i with Remaining(i) ≠ 0, set Point(i) to the
    --  current owner (among remaining agents) of i's favourite house
    --  still held by a remaining agent. Remaining must be length ≥ N
-   --  with Remaining'First = 1; nonzero marks agents still in the
+   --  (agent i at Remaining'First + i - 1); nonzero marks agents still in the
    --  market. Point entries for non-remaining agents are 0. Uses the
    --  instance endowment as the current holding (callers that mutate
    --  holdings should use Compute_Pointing_With_Holdings). Raises
@@ -233,7 +233,8 @@ is
    --  (each points to the next; Cycle(Length) points to Cycle(1)).
    --  Length = 0 if Start is outside 1 .. N, Point(Start) = 0, or no
    --  cycle is reachable from Start among nodes with nonzero Point.
-   --  Requires Point'First = 1 and Point'Length ≥ N. Does not raise
+   --  Agent i is Point'First + i - 1 / Cycle'First + k - 1 (any origin);
+   --  requires Point'Length ≥ N. Does not raise
    --  on missing cycles; raises Invalid_Argument when N > Max_N or
    --  Point shape is wrong.
 

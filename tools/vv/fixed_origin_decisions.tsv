@@ -1,6 +1,6 @@
 folder	decision	reason
 clustering/Ada/FLAME-Clustering	rewrite	indexes only walk or line arrays up
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm	rewrite	indexes only walk or line arrays up
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm	keep	index arithmetic: coefficient index is the degree (Derivative: Poly(I)*I); subtype Degree_Poly First=0; syndromes First-relative
 compression/SPARK2/Ada-SPARK-LZ77	rewrite	indexes only walk or line arrays up
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding	rewrite	indexes only walk or line arrays up
 compression/SPARK3/Huffman-Coding	rewrite	indexes only walk or line arrays up

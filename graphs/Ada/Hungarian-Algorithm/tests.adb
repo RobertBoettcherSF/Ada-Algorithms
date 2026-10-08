@@ -337,7 +337,14 @@ begin
       Check (Size (P) = 2, "Load size 2");
       Check (Get_Cost (P, 1, 2) = 20, "Load Get_Cost");
       Check (Load_Raises (Bad_Rect), "Load rejects rectangular");
-      Check (Load_Raises (Bad_First), "Load rejects First/=1");
+      Check (not Load_Raises (Bad_First), "Load accepts origin 2");
+      declare
+         Q : Problem;
+      begin
+         Load_Matrix (Q, Bad_First);
+         Check (Get_Cost (Q, 1, 2) = 2 and then Get_Cost (Q, 2, 1) = 3,
+                "origin-2 matrix loads as 1-based worker/job ids");
+      end;
       Set_Cost (P, 2, 2, 99);
       Check (Get_Cost (P, 2, 2) = 99, "Set_Cost overwrite");
    end;
@@ -550,11 +557,12 @@ begin
       Check (Is_Permutation (Id, 4), "Id perm");
       Check (Is_Permutation (Rev, 4), "Rev perm");
       Check (not Is_Permutation (Bad, 4), "Bad perm");
-      Check (not Is_Permutation (Off, 4), "Off First/=1");
+      Check (Is_Permutation (Off, 4), "Off (2..5) perm ok");
       Check (Assignment_Cost (P, Id) = 0, "cost Id");
       Check (Assignment_Cost (P, Rev) = 400, "cost Rev off-diag");
       Check (Assignment_Cost_Raises (P, Bad), "cost Bad raises");
-      Check (Assignment_Cost_Raises (P, Off), "cost Off raises");
+      Check (Assignment_Cost (P, Off) = Assignment_Cost (P, Id),
+             "cost Off = cost Id (any origin)");
    end;
 
    ---------------------------------------------------------------------

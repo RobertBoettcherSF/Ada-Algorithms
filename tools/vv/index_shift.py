@@ -57,6 +57,8 @@ import mutate  # noqa: E402
 # If indexes only walk or line two arrays up → First-relative rewrite (not fixed).
 # Empty registry entry = not fixed.
 FIXED_ORIGIN_REASONS: dict[str, str] = {
+    'compression/Ada/Peterson-Gorenstein-Zierler-Algorithm':
+        'index arithmetic: coefficient index is the degree (Derivative: Poly(I)*I); subtype Degree_Poly First=0; syndromes First-relative',
     'misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm':
         'index arithmetic: package-merge pairs at 2*P-1 / 2*P',
     'searching/SPARK4/Ada-SPARK-Interpolation-Search':

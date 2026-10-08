@@ -2956,8 +2956,6 @@ trees/Ada/Embedded-Zerotree-Wavelet,Dominant_Pass,catalog,catalog,,2,procedure n
 trees/Ada/Embedded-Zerotree-Wavelet,Subordinate_Pass,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 compression/SPARK2/Ada-SPARK-LZ77,Literal_Length,catalog,catalog,,1,function n_arrays=1 ret=Length,
 compression/SPARK3/Huffman-Coding,Count_Frequencies,catalog,catalog,,1,function n_arrays=1 ret=Freq_Map,
-graphs/Ada/Hungarian-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-graphs/Ada/Hungarian-Algorithm,Assignment_Cost,catalog,catalog,,1,function n_arrays=1 ret=Cost_Value,
 hashing/SPARK2/Ada-SPARK-FNV-Hash,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,Number_Of_Runs,catalog,catalog,,1,function n_arrays=1 ret=Run_Count,
@@ -2969,11 +2967,6 @@ misc/Ada/Fast-Multipole-Method,Max_Abs_Error,catalog,catalog,,1,function n_array
 misc/Ada/Fast-Multipole-Method,Total_Charge,catalog,catalog,,1,function n_arrays=1 ret=Real,
 misc/Ada/Fast-Multipole-Method,Compute_Potentials_FMM_From_Particles,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
-misc/Ada/Top-Trading-Cycle,Load_Endowment,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Top-Trading-Cycle,Load,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Top-Trading-Cycle,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Top-Trading-Cycle,Compute_Pointing,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Top-Trading-Cycle,Compute_Pointing_With_Holdings,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 misc/SPARK2/Ada-SPARK-Adler32,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_32,
 misc/SPARK2/Ada-SPARK-CRC32,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_32,
 misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_16,
@@ -3153,14 +3146,6 @@ strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,Build_Prefix,catalog,catalog,,2,proc
 strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 strings/SPARK3/Levenshtein-Distance,Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Evaluate,catalog,catalog,,1,function n_arrays=1 ret=GF_Element,
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Derivative,catalog,catalog,,1,function n_arrays=1 ret=Polynomial,
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Compute_Locator_Static,catalog,catalog,,1,function n_arrays=1 ret=Polynomial,
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Compute_Locator_Dynamic,catalog,catalog,,1,function n_arrays=1 ret=Polynomial,
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Chien_Search,catalog,catalog,,1,function n_arrays=1 ret=Polynomial,
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Compute_Evaluator,catalog,catalog,,2,function n_arrays=2 ret=Polynomial,
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Calculate_Error_Values_Forney,catalog,catalog,,3,function n_arrays=3 ret=Polynomial,
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Calculate_Error_Values_Linear,catalog,catalog,,2,function n_arrays=2 ret=Polynomial,
 clustering/Ada/FLAME-Clustering,Distance,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
 clustering/Ada/FLAME-Clustering,Squared_Distance,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
 clustering/Ada/FLAME-Clustering,Estimate_Densities,catalog,catalog,,1,function n_arrays=1 ret=Densities,
@@ -3275,11 +3260,9 @@ searching/Ada/Quickselect,Median,catalog,catalog,,1,function n_arrays=1 ret=Inte
 searching/Ada/Quickselect,Select_Kth_Copy,ok,ok,,,origins 0/100 high 10000 (value) ok,
 misc/SPARK4/demo,Get_SSTF_Schedule,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 clustering/Ada/FLAME-Clustering,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 compression/SPARK2/Ada-SPARK-LZ77,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 compression/SPARK3/Huffman-Coding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-graphs/Ada/Hungarian-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 graphs/SPARK4/A-Star,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3290,7 +3273,6 @@ misc/Ada/Ant-Colony-Optimization,,first_pinned,fail,rewrite_first_relative,,REWR
 misc/Ada/Branch-and-Bound,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Combinatorial-Optimization,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Fast-Multipole-Method,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-misc/Ada/Top-Trading-Cycle,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-Adler32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-CRC32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3478,3 +3460,18 @@ misc/Ada/Min-Conflicts,Map_Is_Solved,catalog,catalog,,1,function n_arrays=1 ret=
 misc/Ada/Min-Conflicts,Solve_Map_Coloring,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Min-Conflicts,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/Ada/Min-Conflicts,Variable_Conflicts,ok,ok,,,origins 2/100 high 10000 (value) ok,
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Compute_Locator_Static,catalog,catalog,,1,function n_arrays=1 ret=Polynomial,
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Compute_Locator_Dynamic,catalog,catalog,,1,function n_arrays=1 ret=Polynomial,
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Compute_Evaluator,catalog,catalog,,1,function n_arrays=1 ret=Degree_Poly,
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Calculate_Error_Values_Forney,catalog,catalog,,1,function n_arrays=1 ret=Polynomial,
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Calculate_Error_Values_Linear,catalog,catalog,,2,function n_arrays=2 ret=Polynomial,
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,id-keyed index subtype (accepted fixed origin),index arithmetic: coefficient index is the degree (Derivative: Poly(I)*I); subtype Degree_Poly First=0; syndromes First-relative
+graphs/Ada/Hungarian-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+graphs/Ada/Hungarian-Algorithm,Assignment_Cost,catalog,catalog,,1,function n_arrays=1 ret=Cost_Value,
+graphs/Ada/Hungarian-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/Ada/Top-Trading-Cycle,Load_Endowment,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Top-Trading-Cycle,Load,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Top-Trading-Cycle,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/Ada/Top-Trading-Cycle,Compute_Pointing,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Top-Trading-Cycle,Compute_Pointing_With_Holdings,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/Top-Trading-Cycle,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)

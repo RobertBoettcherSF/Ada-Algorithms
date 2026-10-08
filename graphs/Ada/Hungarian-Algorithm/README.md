@@ -23,7 +23,7 @@ and independently Tomizawa obtained an $O(n^{3})$ refinement.
 
 This package is an **Ada 2023 (ISO/IEC 8652:2023)** educational
 implementation: square matrices of order $n\le\mathrm{Max\_N}=64$,
-1-based indices, signed integer costs, `Clear` / `Set_Cost` /
+worker / job ids $1..n$ (input matrices at any origin), signed integer costs, `Clear` / `Set_Cost` /
 `Load_Matrix`, `Solve_Minimize` / `Solve_Maximize`, an optional
 brute-force oracle for $n\le 8$, fixed arrays (no dynamic heap), and
 `Invalid_Argument` for bad dimensions.
@@ -152,9 +152,9 @@ function Solve_Minimize(C):          -- n×n cost matrix
   $n\le 8$.
 - **`Is_Permutation` / `Assignment_Cost`** — validation helpers.
 - **Capacity / dimension guards** — `Invalid_Argument` for $n>\mathrm{Max\_N}$,
-  non-square `Load_Matrix`, `First/=1`, out-of-range indices, or brute
+  non-square `Load_Matrix`, out-of-range indices, or brute
   $n>8$.
-- **Educational layout** — 1-based indices; fixed arrays sized to
+- **Educational layout** — ids $1..n$ (inputs at any origin); fixed arrays sized to
   $\mathrm{Max\_N}$.
 - **Zero-warning build** —
   `gnatmake -gnatwa -gnat2022 -Phungarian_algorithm.gpr`.
@@ -251,8 +251,8 @@ package Hungarian_Algorithm is
 end Hungarian_Algorithm;
 ```
 
-Raises `Invalid_Argument` for $n>\mathrm{Max\_N}$, non-square or
-non-1-based `Load_Matrix`, row/column indices outside $1 .. n$,
+Raises `Invalid_Argument` for $n>\mathrm{Max\_N}$, non-square
+`Load_Matrix`, row/column indices outside $1 .. n$,
 `Solve_Brute_*` when $n>8$, or `Assignment_Cost` when the mapping is not
 a permutation of $1 .. n$.
 

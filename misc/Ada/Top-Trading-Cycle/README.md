@@ -24,7 +24,7 @@ leave. Repeat until none remain. The procedure terminates in at most
 $n$ rounds.
 
 This package is an **Ada 2023 (ISO/IEC 8652:2023)** educational
-implementation: 1-based `Agent_Id` / `House_Id`, preference lists as
+implementation: `Agent_Id` / `House_Id` labels 1..n (input arrays at any origin), preference lists as
 $n\times n$ rank-ordered permutations (or incremental `Set_Preference`),
 identity or general endowment, `Solve` / `Allocate` returning
 agent$\to$house and house$\to$agent arrays, pointing-graph and cycle

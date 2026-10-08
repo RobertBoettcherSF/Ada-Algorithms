@@ -37,9 +37,7 @@ is
       R : constant Natural := Costs'Length (1);
       K : constant Natural := Costs'Length (2);
    begin
-      if Costs'First (1) /= 1
-        or else Costs'First (2) /= 1
-        or else R /= K
+      if R /= K
         or else R > Max_N
       then
          raise Invalid_Argument;
@@ -47,7 +45,8 @@ is
       Clear (P, R);
       for I in 1 .. R loop
          for J in 1 .. R loop
-            P.Costs (Index (I), Index (J)) := Costs (I, J);
+            P.Costs (Index (I), Index (J)) :=
+              Costs (Costs'First (1) + I - 1, Costs'First (2) + J - 1);
          end loop;
       end loop;
    end Load_Matrix;
@@ -79,12 +78,12 @@ is
       if N = 0 then
          return True;
       end if;
-      if A'First /= 1 or else A'Length < N then
+      if A'Length < N then
          return False;
       end if;
       for I in 1 .. N loop
          declare
-            J : constant Natural := A (I);
+            J : constant Natural := A (A'First + I - 1);
          begin
             if J < 1 or else J > N or else Seen (J) then
                return False;
@@ -104,7 +103,7 @@ is
          raise Invalid_Argument;
       end if;
       for I in 1 .. P.N loop
-         Sum := Sum + P.Costs (Index (I), Index (A (I)));
+         Sum := Sum + P.Costs (Index (I), Index (A (A'First + I - 1)));
       end loop;
       return Sum;
    end Assignment_Cost;
