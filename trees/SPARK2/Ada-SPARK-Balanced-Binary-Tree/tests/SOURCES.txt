@@ -1,0 +1,6 @@
+Where the expected values in tests.adb come from
+- the two original cases and the hand cases (chain of 3, chain of 2, empty tree, self-cycle): worked out by
+  hand from the definition (at every node the subtree heights differ by at most 1).
+- 20,000 random trees with 1 .. 31 nodes (Park-Miller generator, seed 4242): compared with Ref_Height in
+  tests.adb, an own recursive height computation written for this test.
+No values were copied from the program output or from third-party sources.
