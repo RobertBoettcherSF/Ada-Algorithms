@@ -25,16 +25,28 @@ package body Random_Forest is
    -- Helper Functions
    -----------------------------------------------------------------------------
    
+   function Sample_Offset (U : Float; Count : Positive) return Natural is
+      Product : constant Float := Float'Truncation (U * Float (Count));
+   begin
+      if U >= 1.0 or else Product >= Float (Count) then
+         return Count - 1;
+      else
+         return Natural (Product);
+      end if;
+   end Sample_Offset;
+
    -- Shuffle an array of indices in-place
    procedure Shuffle (Arr : in out Index_Array; Gen : in out Generator) is
       J : Positive;
       Temp : Positive;
       Rand_Val : Float;
+      Span : Positive;
    begin
       for I in reverse Arr'First + 1 .. Arr'Last loop
          Rand_Val := Random (Gen);
-         J := Arr'First + Integer (Float'Truncation (Rand_Val * Float (I - Arr'First + 1)));
-         if J > I then J := I; end if;
+         Span := I - Arr'First + 1;
+         --  The maximum sample is the last legal index, by name.
+         J := Arr'First + Sample_Offset (Rand_Val, Span);
          Temp := Arr (I);
          Arr (I) := Arr (J);
          Arr (J) := Temp;
@@ -195,7 +207,7 @@ package body Random_Forest is
                      Test_Thresh := Min_Val + Feature_Value (Random (Gen) * Float (Max_Val - Min_Val));
                   else
                      -- Randomly pick an existing value for Standard RF approximation
-                     Test_Thresh := Data (Indices (Indices'First + Integer (Float'Truncation (Random (Gen) * Float (Indices'Length - 1)))), F);
+                     Test_Thresh := Data (Indices (Indices'First + Sample_Offset (Random (Gen), Indices'Length)), F);
                   end if;
                   
                   Left_Count := 0;
@@ -360,7 +372,7 @@ package body Random_Forest is
                   if Variant = Extra_Trees then
                      Test_Thresh := Min_Val + Feature_Value (Random (Gen) * Float (Max_Val - Min_Val));
                   else
-                     Test_Thresh := Data (Indices (Indices'First + Integer (Float'Truncation (Random (Gen) * Float (Indices'Length - 1)))), F);
+                     Test_Thresh := Data (Indices (Indices'First + Sample_Offset (Random (Gen), Indices'Length)), F);
                   end if;
                   
                   Left_Count := 0;

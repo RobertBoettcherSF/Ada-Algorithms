@@ -1,0 +1,12 @@
+Mod-N index draws, 2026-10-09. Fisher-Yates elsewhere was left as already written up.
+
+Fixed:
+- Sparse-Matrix Lcg_Index. Was State mod Span on the Numerical Recipes LCG, whose low bit alternates, so a 2x2 Random_COO never hit the diagonal. Now rejection, then State / bucket. Seeds 0 .. 3999, one entry, chi-square < 11.345 (df 3, p = 0.01). GNAT 14.2.0 clean. GNAT 12.2.0 still warns on older lower-bound checks in other subprograms (-gnatwc); this function adds none.
+- SVM Next_Random. Was (state / 65536) mod Limit, so the first 65536 mod Limit residues were heavy. Now rejection on the full 32-bit state. Seed 123456789, 4000 draws, limit 40000, group 1 .. 25536 against its fair share, chi-square < 6.635 (df 1, p = 0.01). GNAT 14.2.0 and 12.2.0, 0 warnings.
+
+Named last offset, not a silent clamp:
+- Random-Forest. The shuffle already truncated, then assigned J := I when that ran past the end. Sample_Offset spells it: Float'Truncation (U * Count), and U >= 1.0 or a product that reaches Count is the last offset. The standard-forest threshold pick used Length - 1, which dropped the last row; it now uses Count = Length. Tests: 0.0 -> 0, 0.2 * 5 -> 1, 1.0 -> 4.
+
+Negligible, no code change. N is at most 64 and the generator modulus is 2147483647, so the modulo bias is below 64/2147483647:
+- Quantum-Walk-Search Classical_Random_Walk_Search: Next_Random mod Count, Count <= 64 (Vertex_Index is 1 .. 64).
+- Chinese-Whispers Shuffle_Nodes and the tie break: Next_Random mod Span, Span <= Max_Nodes = 64, Park-Miller modulus 2147483647.

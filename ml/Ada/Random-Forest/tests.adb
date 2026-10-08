@@ -226,6 +226,11 @@ begin
       Check ("15.2 Same seed, same class prediction", C1 = C2);
    end;
 
+   Put_Line ("TEST 16 — Sample_Offset bin edge and maximum");
+   Check ("16.1 zero sample is the first offset", Sample_Offset (0.0, 5) = 0);
+   Check ("16.2 a product of 1.0 is offset 1", Sample_Offset (0.2, 5) = 1);
+   Check ("16.3 the maximum sample is the last offset", Sample_Offset (1.0, 5) = 4);
+
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");

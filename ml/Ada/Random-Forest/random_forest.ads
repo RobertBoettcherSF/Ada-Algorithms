@@ -68,6 +68,11 @@ is
    --  (tests). Without it the generators are seeded from the clock.
    procedure Set_Seed (Seed : Integer) with SPARK_Mode => Off;
 
+   --  Offset in 0 .. Count-1. Truncation of U * Count. A sample of 1.0,
+   --  or a product that reaches Count, is the last offset.
+   function Sample_Offset (U : Float; Count : Positive) return Natural
+     with SPARK_Mode => Off;
+
 private
    Max_Nodes_Per_Tree : constant Positive := 4095;
 
