@@ -15,8 +15,7 @@ package body Insert_Into_A_Binary_Search_Tree is
    end Set_Node;
 
    procedure Insert (T : in out Tree; Root : in out Index; Node : Node_Index; V : Value) is
-      Current : Index := Root;
-      Done : Boolean := False;
+      Current : Node_Index;
    begin
       T.Values (Node) := V;
       T.Lefts (Node) := 0;
@@ -26,22 +25,25 @@ package body Insert_Into_A_Binary_Search_Tree is
          Root := Node;
          return;
       end if;
-      for Step in 1 .. 16 loop
-         exit when Done;
-         if not T.Used (Current) then
-            Done := True;
-         elsif V < T.Values (Current) then
+      --  Walk down from the root. The path stays among the old nodes
+      --  (children of used nodes are used, Node was not), and it ends
+      --  because the nodes reachable from Root form a tree (Well_Formed).
+      Current := Root;
+      loop
+         pragma Loop_Invariant (Current /= Node and then T'Loop_Entry.Used (Current));
+         pragma Loop_Invariant (T = T'Loop_Entry);
+         if V < T.Values (Current) then
             if T.Lefts (Current) = 0 then
-               T.Lefts (Current) := Node; Done := True;
-            else
-               Current := T.Lefts (Current);
+               T.Lefts (Current) := Node;
+               return;
             end if;
+            Current := T.Lefts (Current);
          else
             if T.Rights (Current) = 0 then
-               T.Rights (Current) := Node; Done := True;
-            else
-               Current := T.Rights (Current);
+               T.Rights (Current) := Node;
+               return;
             end if;
+            Current := T.Rights (Current);
          end if;
       end loop;
    end Insert;

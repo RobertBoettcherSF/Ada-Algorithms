@@ -4,7 +4,7 @@ with Insert_Into_A_Binary_Search_Tree; use Insert_Into_A_Binary_Search_Tree;
 
 procedure Tests is
    T : Tree := Empty;
-   Root : Index := 1;
+   Root : Index := 0;
 
    --  Search from Root by the BST rule (at most 16 steps).
    function Reachable (V : Value) return Boolean is
