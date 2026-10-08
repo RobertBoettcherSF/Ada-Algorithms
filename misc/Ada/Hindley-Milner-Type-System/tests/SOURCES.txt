@@ -18,3 +18,5 @@ Sources of the expected values in own_checks.adb (own code, MIT)
 Nothing is taken from the program's output.
 
 Let-polymorphism (own_checks.adb): hand-derived cases (a) let id = \x.x used at Int and Bool, (b) \x. let y = x in ... used at two types (rejected: y's type variable is free in the environment and must not be generalized), (c) \x. x x (rejected by the occurs check). Random terms with polymorphic and monomorphic lets are compared with a reference checker written in own_checks.adb (let expansion by substitution, then monomorphic inference with its own union-find unifier and occurs check); principal types compared up to renaming. Ill-typed variants are classified by the reference as mismatch or occurs check; both counts must be > 0.
+
+Let substitution order: \f. let y = f E1 in y E2 for E1, E2 in {one, tt} and four body shapes; types derived by hand (f : T1 -> (T2 -> c)).

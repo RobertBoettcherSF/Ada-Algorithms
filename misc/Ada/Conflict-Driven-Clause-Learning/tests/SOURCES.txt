@@ -31,3 +31,5 @@ Sources of the expected values in own_checks.adb (own code, MIT)
 Nothing is taken from the program's output or from third-party test suites.
 
 Policies (cdcl.ads): the restart schedule and deletion rule are replayed from Solve_Traced with own bookkeeping of the held learned clauses; the plain variants must equal Solve_Traced with the same options; every SAT model up to 14 variables must be the lexicographically least model, found by enumerating assignments in lexicographic order (False before True, variable 1 most significant).
+
+Termination (cdcl.ads T1 .. T6): conflicts and decisions are checked against bounds derived from the number of variables and the documented policies; the conflict bound is recomputed in own_checks.adb with Pascal's triangle.
