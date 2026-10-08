@@ -846,6 +846,43 @@ begin
       end;
    end;
 
+   --  Second round, visible half. A cross product equal to the tolerance
+   --  is not a strict crossing. Boxes that miss by exactly the tolerance
+   --  still count as overlapping. A viewer sitting on the plane is the
+   --  non-negative side.
+   declare
+      Tol : constant Real := 1.0e-7;
+      --  One vertex sits exactly one tolerance left of Q's base. Every
+      --  other edge is clear of Q, and no vertex lies inside the other.
+      Touch : constant Polygon := Make_Polygon
+        (1, [(-Tol, 0.0, 0.0), (-3.0, 2.0, 0.0), (-3.0, -2.0, 0.0)]);
+      Base : constant Polygon := Make_Polygon
+        (2, [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.5, 1.0, 0.0)]);
+      Gap_X : constant Polygon := Make_Polygon
+        (3, [(0.0, 0.0, 0.0), (1.0 - Tol, 0.0, 0.0), (1.0 - Tol, 1.0, 0.0), (0.0, 1.0, 0.0)]);
+      Next_X : constant Polygon := Make_Polygon
+        (4, [(1.0, 0.0, 1.0), (2.0, 0.0, 1.0), (2.0, 1.0, 1.0), (1.0, 1.0, 1.0)]);
+      Gap_Y : constant Polygon := Make_Polygon
+        (5, [(0.0, 1.0 + Tol, 0.0), (1.0, 1.0 + Tol, 0.0), (1.0, 2.0, 0.0), (0.0, 2.0, 0.0)]);
+      Below : constant Polygon := Make_Polygon
+        (6, [(0.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 1.0, 1.0), (0.0, 1.0, 1.0)]);
+      Wall : constant Polygon := Make_Polygon
+        (7, [(0.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 1.0), (0.0, 0.0, 1.0)]);
+      Behind : constant Polygon := Make_Polygon
+        (8, [(-1.0, 0.0, 0.0), (-1.0, 1.0, 0.0), (-1.0, 1.0, 1.0), (-1.0, 0.0, 1.0)]);
+   begin
+      Note (not Test_5_2D_Polygons_Disjoint (Touch, Base),
+        "a vertex exactly one tolerance outside the segment still meets it");
+      Note (not Test_2_XY_Box_Disjoint (Gap_X, Next_X),
+        "boxes that miss by exactly the tolerance still overlap in x");
+      Note (not Test_2_XY_Box_Disjoint (Gap_Y, Below),
+        "boxes that miss by exactly the tolerance still overlap in y");
+      Note (Test_3_P_Behind_Plane_Of_Q (Behind, Wall),
+        "a viewer on the plane keeps the non-negative side");
+      Note (not Test_4_Q_In_Front_Plane_Of_P (Wall, Behind),
+        "the same plane does not put the far polygon in front");
+   end;
+
    Txt.Put_Line ("own checks:" & Natural'Image (Checks)
      & "  failed:" & Natural'Image (Fails));
    Fail_Count := Fails;
