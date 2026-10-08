@@ -9,6 +9,6 @@ Bounded SPARK version of the course schedule question: 4 courses and 4 prerequis
 
 `Lemma_Exclusive` proves that both witnesses cannot exist for the same prerequisites. So `Ok`, and with it `Can_Finish`, is fixed by the input. A ghost count of the courses taken shows that 4 steps take every course.
 
-`make test` builds and runs the tests (`tests.adb`, plus the exhaustive own checks in `own_checks.adb`). `make prove` runs the level-2 CVC5 proof (66 checks).
+`make test` builds and runs the tests (`tests.adb`, plus the exhaustive own checks in `own_checks.adb`). `make prove` runs the level-2 CVC5 proof (68 checks).
 
 The first version of `Can_Finish` returned `Prerequisites (1).Required = 1` and never looked at the graph; see `tools/vv/findings_sweep.csv`.

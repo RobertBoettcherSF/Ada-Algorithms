@@ -93,8 +93,7 @@ package body Course_Schedule is
       Rank  : Rank_Map;     --  rank 1 everywhere
       Stuck : Course_Set;   --  empty
       Done  : Course_Set;   --  empty
-      Pick  : Course;
-      Found : Boolean;
+      Pick  : Natural range 0 .. Course_Count;   --  0: no course found
    begin
       for Step in Course loop
          pragma Loop_Invariant (Count (Done, Course_Count) = Step - 1);
@@ -107,20 +106,18 @@ package body Course_Schedule is
                  and then Rank (P (I).Required) < Rank (P (I).Course_Number)));
 
          --  Look for a course not taken yet whose prerequisites are taken.
-         Found := False;
-         Pick := 1;
+         Pick := 0;
          for C in Course loop
             if not Done (C) and then Is_Ready (P, Done, C) then
-               Found := True;
                Pick := C;
                exit;
             end if;
-            pragma Loop_Invariant (not Found);
+            pragma Loop_Invariant (Pick = 0);
             pragma Loop_Invariant
               (for all D in 1 .. C => Done (D) or else not Is_Ready (P, Done, D));
          end loop;
 
-         if not Found then
+         if Pick = 0 then
             --  Some course is left (Step - 1 < Course_Count are taken), and
             --  every course left needs another course left.
             pragma Assert
