@@ -1,0 +1,19 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the package; expected results are hand-written
+literals (Find positions in small fixed arrays).
+
+own_checks.adb (called at the end of tests.adb; written for this repository
+by the main V&V worker, 2026-10-08): every answer of Find is compared with a
+linear scan of the array (a different method): 0 exactly when the key is
+absent, otherwise an index holding the key, never past A'Last. Inputs: every
+nondecreasing array of length 0 .. 7 over 0 .. 3 with keys -1 .. 4; 800
+seeded random sorted arrays up to Max_N with small, wide and Integer-extreme
+ranges (duplicates, gaps, keys below / above / between elements, Integer'First
+and Integer'Last). Park-Miller generator, AA_SEED printed and overridable.
+Find_Maximum_Index: the returned index must hold the maximum, computed by a
+linear scan. Inputs: every unimodal array (own unimodality test: climb the
+nondecreasing prefix, the rest must be nonincreasing) of length 1 .. 6 over
+0 .. 3, and 600 random unimodal arrays up to Max_N (sorted rise + sorted fall)
+with plateaus.

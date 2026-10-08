@@ -6,6 +6,7 @@ pragma Ada_2022;
 
 with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
+with Own_Checks;
 with Interpolation_Search; use Interpolation_Search;
 
 procedure Tests
@@ -411,6 +412,7 @@ begin
    Put_Line ("Results: "
              & Natural'Image (Pass_Count) & " PASS,"
              & Natural'Image (Fail_Count) & " FAIL");
+   Own_Checks;   --  independent linear-scan reference (tests/SOURCES.txt)
    if Fail_Count /= 0 then
       raise Program_Error with "test failures";
    end if;

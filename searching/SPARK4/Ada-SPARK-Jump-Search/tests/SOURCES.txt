@@ -1,0 +1,16 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the package; expected results are hand-written
+literals (Find positions in small fixed arrays).
+
+own_checks.adb (called at the end of tests.adb; written for this repository
+by the main V&V worker, 2026-10-08): every answer of Find is compared with a
+linear scan of the array (a different method): 0 exactly when the key is
+absent, otherwise an index holding the key, never past A'Last. Inputs: every
+nondecreasing array of length 0 .. 7 over 0 .. 3 with keys -1 .. 4; 800
+seeded random sorted arrays up to Max_N with small, wide and Integer-extreme
+ranges (duplicates, gaps, keys below / above / between elements, Integer'First
+and Integer'Last). Park-Miller generator, AA_SEED printed and overridable.
+Jump_Search.Find (A, Key, Step) is checked the same way for Step in
+1, 2, 3, 5, 8, N and N + 1.
