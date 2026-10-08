@@ -1,20 +1,20 @@
 # Samplesort Algorithm in Ada/SPARK
 
 ## Project Overview
-This repository contains a formally verified educational implementation of [samplesort](https://en.wikipedia.org/wiki/Samplesort) on an `Integer` array. Written in Ada 2022 and verified with SPARK (GNATprove Level 4), it chooses $\mathrm{Num\_Buckets}-1$ pivots from equally spaced samples, distributes keys into $\mathrm{Num\_Buckets}$ static buckets, insertion-sorts each bucket, concatenates, then finishes with a proved gap-$1$ bubble pass. With balanced buckets the samplesort phase is near $O(n\log n)$; the worst case is $O(n^{2})$ when insertion / bubble finish unbalanced partitions.
+This repository contains a formally verified educational implementation of [samplesort](https://en.wikipedia.org/wiki/Samplesort) on an `Integer` array. Written in Ada 2022 and verified with SPARK (GNATprove Level 4), it chooses $\mathrm{Num\_Buckets}-1$ pivots from equally spaced samples, cuts the array in place into $\mathrm{Num\_Buckets}$ buckets (one partition of the remaining suffix per pivot) and insertion-sorts each bucket where it lies. The proof shows that these steps sort; there is no fallback pass. With $p$ fixed at 8 the bucketing costs $O(p\,n)$ and the bucket sorts about $O(n^{2}/p)$ on balanced buckets; the worst case is $O(n^{2})$ when most keys land in one bucket.
 
 $$
 p = \mathrm{Num\_Buckets} = 8,\quad n \le \mathrm{Max\_N} = 64,\quad \text{pivots} = p-1 = 7
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Samplesort](https://github.com/RobertBoettcherSF/Ada-Samplesort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes `Sequential_Sample_Sort` / `Parallel_Sample_Sort` (Ada tasks) / `Oversampling_Sample_Sort`, a parameterised `Num_Buckets`, `Quick_Sort` buckets, exceptions (`Invalid_Bucket_Count` / `Invalid_Oversample_Factor`), and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), fixed `Num_Buckets = 8`, a single `Sort` procedure, `In_Bounds` / `Is_Sorted` contracts, static `Work (1 .. Max_N)` + Counts / Borders, and a proved final gap-$1$ bubble finish. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape and finish pattern: [Ada-SPARK-Flashsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Flashsort), [Ada-SPARK-Bucket-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bucket-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Samplesort](https://github.com/RobertBoettcherSF/Ada-Samplesort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes `Sequential_Sample_Sort` / `Parallel_Sample_Sort` (Ada tasks) / `Oversampling_Sample_Sort`, a parameterised `Num_Buckets`, `Quick_Sort` buckets, exceptions (`Invalid_Bucket_Count` / `Invalid_Oversample_Factor`), and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), fixed `Num_Buckets = 8`, a single `Sort` procedure, `In_Bounds` / `Is_Sorted` contracts, in-place buckets (no work array), and a proof that the samplesort steps themselves sort. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Flashsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Flashsort), [Ada-SPARK-Bucket-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bucket-Sort).
 
 ## Features
-* **`Sort (A)`**: Ascending educational samplesort (sample / distribute / per-bucket insertion / concatenate), then a gap-$1$ bubble finish.
+* **`Sort (A)`**: Ascending educational samplesort (sample and sort pivots / cut buckets in place / insertion-sort each bucket).
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
-* **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors; samplesort phase proves `In_Bounds` / RTE; `Bubble_Pass` / `Sorted_Slice` / partition invariants prove sortedness.
+* **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors; the bucket partition and the bucket insertion sort carry the invariants (`Sorted_Slice`, `All_In` value bounds) that prove sortedness.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than raised exceptions.
-* **Static work only**: `Work (1 .. Max_N)` plus Counts / Starts borders — no heap / unbounded vectors, no Ada tasks.
+* **In place**: buckets are cut out of the array itself by partitioning — no work array, no heap / unbounded vectors, no Ada tasks.
 
 ## Deliberate simplifications vs non-SPARK sibling (Ada-Samplesort)
 * `Max_N = 64` so array / arithmetic VCs stay within automated SMT reach.
@@ -24,30 +24,24 @@ This is the SPARK Level 4 port of the companion package [Ada-Samplesort](https:/
 * Single `Sort` procedure (sibling: Sequential / Parallel / Oversampling + exposed `Quick_Sort`).
 * `Integer` `Element_Array` with `A'First = 1` (sibling: `Data_Element` / arbitrary `A'First`).
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Static `Work (1 .. Max_N)` + Counts / Borders (sibling allocates `Temp` of length $n$ and task workers).
+* Buckets are formed in place, one pivot at a time, by partitioning the not yet placed suffix (sibling allocates `Temp` of length $n$, distributes into it, and uses task workers).
 * Per-bucket **insertion** sort (sibling uses `Quick_Sort` on buckets).
-* Samplesort phase posts only `In_Bounds` / RTE. The final gap-$1$ `Bubble_Finish` reuses the bubble-sort Level-4 argument for `Is_Sorted` (same proof split as Flashsort / Strand / Comb / Odd_Even).
+* One invariant carries the proof across buckets: the placed prefix is sorted, `Floor` is its last element, and every element still to place is $\ge$ `Floor`. A bucket holds values in `Floor` .. pivot and the rest stays above the pivot, so each sorted bucket extends the sorted prefix.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
 
 ## Algorithm
 Given an array $A$ of length $n$:
 
 1. If $n \le 1$, return.
-2. If $n < \mathrm{Num\_Buckets}$, skip sampling (leave ordering to the bubble finish).
+2. If $n < \mathrm{Num\_Buckets}$, there are no pivots: the whole array is one bucket (step 6).
 3. **Sample.** Choose $p-1$ pivots at equally spaced indices
    $$
    A\bigl[i \cdot \lfloor n / p \rfloor\bigr],\quad i = 1..p-1
    $$
-   (deterministic stride; no RNG). Clamp the sample index into $1..n$.
-4. **Sort pivots** with insertion sort on the length-$(p-1)$ vector.
-5. **Count / distribute.** Map each key $x$ to bucket
-   $$
-   b = \min\{k : x \le \mathrm{pivot}_k\}
-   $$
-   or $b = p$ if $x$ exceeds every pivot; write into static `Work` via prefix Starts / Counts.
-6. **Sort each bucket** in `Work` with insertion sort.
-7. **Concatenate** `Work` back into $A$.
-8. **Gap-$1$ finish:** ordinary bubble sort with a shrinking unsorted suffix (and early exit) $\to$ fully sorted (`Is_Sorted` proved).
+   (deterministic stride; no RNG; the largest index is at most $n$, no clamp).
+4. **Sort pivots** with the same insertion sort used for the buckets.
+5. **Cut buckets in place.** For $k = 1..p-1$: partition the not yet placed suffix $A[\mathit{Lo}..n]$ so that the keys $\le \mathrm{pivot}_k$ come first; that block is bucket $k$. Insertion-sort it where it lies and move $\mathit{Lo}$ past it.
+6. **Last bucket:** insertion-sort $A[\mathit{Lo}..n]$ (every key above the largest pivot, or the whole array when $n < p$) $\to$ fully sorted (`Is_Sorted` proved).
 
 Empty and singleton arrays are no-ops. Samplesort is **not** required to be stable in this educational port.
 
@@ -55,9 +49,9 @@ Empty and singleton arrays are no-ops. Samplesort is **not** required to be stab
 
 | Case | Time | Extra space |
 | ---- | ---- | ----------- |
-| Best / average (balanced buckets) | near $O(n\log n)$ samplesort phase + $O(n^{2})$ finish worst | $O(\mathrm{Max\_N})$ for `Work` |
-| Worst (almost all items in a few buckets) | $O(n^{2})$ | $O(\mathrm{Max\_N})$ |
-| $n < \mathrm{Num\_Buckets}$ | $O(n^{2})$ bubble finish | $O(1)$ beyond locals |
+| Best / average (balanced buckets) | $O(p\,n + n^{2}/p)$ with $p = 8$ | $O(p)$ for the pivots |
+| Worst (almost all items in one bucket) | $O(n^{2})$ | $O(p)$ |
+| $n < \mathrm{Num\_Buckets}$ | $O(n^{2})$ insertion sort (one bucket) | $O(1)$ beyond locals |
 
 ## Usage
 * **Build:** `make`
@@ -65,7 +59,7 @@ Empty and singleton arrays are no-ops. Samplesort is **not** required to be stab
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 233 assertions pass. Running `make prove` reports `Success: all checks proved (287 checks).`
+When you run `make test`, you will see all 233 assertions pass. `gnatprove --mode=silver --level=2` reports `Success: all checks proved (200 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, duplicates / all-equal, signed domain, `Integer'First` / `Integer'Last`, lengths up to `Max_N`.
@@ -85,8 +79,8 @@ When you run `make test`, you will see all 233 assertions pass. Running `make pr
 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
-* Samplesort loops use `pragma Loop_Invariant` / `Loop_Variant`; outer bubble finish shrinks the unsorted suffix via `Bubble_Pass` with partition predicates.
-* **GNATprove Level 4:** `Success: all checks proved (287 checks).`
+* Partition, insertion and bucket loops use `pragma Loop_Invariant` / `Loop_Variant`; the bucket loop keeps the sorted prefix / `Floor` invariant described above.
+* **GNATprove (silver, level 2):** `Success: all checks proved (200 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
@@ -97,7 +91,7 @@ When you run `make test`, you will see all 233 assertions pass. Running `make pr
 | `Num_Buckets` | Fixed bucket count (`8`) |
 | `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
-| `Sort` | Ascending samplesort + bubble finish (`Post => Is_Sorted`) |
+| `Sort` | Ascending samplesort (`Post => Is_Sorted`) |
 
 ## License
 MIT License — Copyright (c) 2026 Sternenfisch.

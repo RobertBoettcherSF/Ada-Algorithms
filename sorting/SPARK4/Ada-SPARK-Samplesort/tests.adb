@@ -303,7 +303,7 @@ begin
                   "nine low plus one high");
    Expect_Sorted ([0, 1_000_000, 2, 3, 4, 5, 6, 7],
                   "one huge outlier");
-   --  n around Num_Buckets: below → Bubble_Finish only; at/above → sample.
+   --  n around Num_Buckets: below → one bucket (no pivots); at/above → sample.
    Expect_Sorted (Uniform_Ish (7), "n=7 below Num_Buckets");
    Expect_Sorted (Uniform_Ish (8), "n=8 equals Num_Buckets");
    Expect_Sorted (Uniform_Ish (9), "n=9 just above Num_Buckets");
