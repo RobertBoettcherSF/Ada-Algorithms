@@ -2,17 +2,18 @@
 --  introspective sort: hybrid of quicksort + heapsort + insertion sort
 --  (David Musser, 1997) on an Integer array. Average like quicksort;
 --  worst-case O(n log n) via a heapsort depth cutoff; small partitions
---  finished with insertion sort. In-place (aside from a classroom
---  scratch buffer on the heapsort fallback), unstable, ascending.
+--  finished with insertion sort. In-place (the heapsort fallback
+--  sifts directly on the slice Lo .. Hi), unstable, ascending.
 --
 --  SPARK port of Ada-Introsort: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling uses Hoare partition, First-relative heap math, arbitrary
 --  A'First, Max_N = 100_000, and raises on oversized n; this port
---  requires A'First = 1, uses Lomuto so the pivot lands in a final
---  slot, 1-based Floyd sift on a scratch copy of the exhausted
---  partition, and bounds recursive Intro_Sort_Rec with a
---  Subprogram_Variant so Level 4 can discharge the VCs. Full multiset /
+--  uses Lomuto so the pivot lands in a final slot, First-relative
+--  Floyd sift in place on Lo..Hi (Has_Left before Left =
+--  Lo+2*(I-Lo)+1 — no scratch copy, any A'First), and bounds
+--  recursive Intro_Sort_Rec with a Subprogram_Variant so proofs
+--  discharge. Full multiset /
 --  permutation equality is verified by tests rather than claimed as a
 --  Level-4 postcondition (sortedness is proved).
 --
@@ -39,9 +40,9 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Live indices lie in 1 .. Max_N (any A'First); Index includes 0 so
+   --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
-   --  Live slots are 1 .. N; Index includes 0 for empty Last=0 / miss sentinel.
    subtype Live_Index is Positive range 1 .. Max_N;
 
    type Element_Array is array (Live_Index range <>) of Integer;
@@ -51,13 +52,16 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  At most Max_N elements; any origin with First in 1 .. Max_N
+   --  (empty arrays use Last = First - 1, possibly 0).
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (A'Length <= 1
+      or else (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
@@ -67,12 +71,12 @@ is
    ---------------------------------------------------------------------------
    -- Algorithm sketch (Musser introsort / Wikipedia)
    ---------------------------------------------------------------------------
-   --  Assume In_Bounds (A). maxdepth ← 2 × ⌊log₂ n⌋ (n = A'Last).
-   --  Recurse on Lo .. Hi (initially 1 .. A'Last) with remaining depth:
+   --  Assume In_Bounds (A). maxdepth ← 2 × ⌊log₂ n⌋ (n = A'Length).
+   --  Recurse on Lo .. Hi (initially A'Range) with remaining depth:
    --    If Lo >= Hi, return (empty / singleton are no-ops).
    --    If m = Hi-Lo+1 ≤ Insertion_Threshold: insertion-sort the slice.
-   --    Else if depth = 0: heapsort the slice (Floyd heapify + extract-
-   --      max on a 1-based scratch copy of the partition, then copy back)
+   --    Else if depth = 0: heapsort the slice in place (offset Floyd
+   --      heapify + extract-max on Lo .. Hi, Has_Left before Left)
    --      so the worst case is O(n log n).
    --    Else:
    --      1. Median-of-three on A(Lo), A(Mid), A(Hi); swap the median

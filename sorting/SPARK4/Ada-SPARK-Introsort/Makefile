@@ -14,7 +14,7 @@ $(BIN_DIR)/tests: *.ads *.adb *.gpr
 
 prove: *.ads *.adb *.gpr
 	mkdir -p $(OBJ_DIR)
-	$(SPARK) -Pintrosort.gpr --level=4
+	$(SPARK) -Pintrosort.gpr --mode=silver --level=2 --timeout=60 --checks-as-errors=on -j4
 
 test: all
 	@echo "Running tests..."

@@ -7,7 +7,7 @@ $$
 \text{average } O(n \log n),\quad \text{worst } O(n \log n)\ \text{(heapsort fallback)},\quad n \le \mathrm{Max\_N} = 64
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Introsort](https://github.com/RobertBoettcherSF/Ada-Introsort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), Hoare partition, First-relative heap math, and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, Lomuto (so the pivot has a known final index), 1-based Floyd sift on a scratch copy of an exhausted partition, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Quicksort](https://github.com/RobertBoettcherSF/Ada-SPARK-Quicksort), [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort), and [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Introsort](https://github.com/RobertBoettcherSF/Ada-Introsort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), Hoare partition, First-relative heap math, and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, Lomuto (so the pivot has a known final index), an in-place First-relative Floyd sift on an exhausted partition, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Quicksort](https://github.com/RobertBoettcherSF/Ada-SPARK-Quicksort), [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort), and [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
 
 ## Features
 * **`Sort (A)`**: Ascending Musser introsort — median-of-three Lomuto + heapsort depth cutoff + insertion for small partitions.
@@ -20,17 +20,17 @@ This is the SPARK Level 4 port of the companion package [Ada-Introsort](https://
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic / recursion VCs stay within automated SMT reach. For $n = 64$ the Musser depth budget is $2\lfloor\log_2 n\rfloor = 12$.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (at most `Max_N` elements); the tests sort shifted copies at origins 2, 7, 33 and slices flush to `Max_N`.
 * **Lomuto partition** (sibling uses Hoare), matching [Ada-SPARK-Quicksort](https://github.com/RobertBoettcherSF/Ada-SPARK-Quicksort): the pivot is swapped into a final slot $P$, so the recursive sides are $A(\mathrm{Lo} .. P-1)$ and $A(P+1 .. \mathrm{Hi})$.
 * Median-of-three is kept (first / middle / last, median parked at `Hi`).
-* **Heapsort fallback copies** the exhausted slice to a 1-based scratch array of length $m \le \mathrm{Max\_N}$ so Floyd sift uses $\mathrm{Parent}(I)=I/2$, $\mathrm{Left}(I)=2I$ (same contracts as [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort)). The extra $\Theta(m)$ scratch is a classroom concession vs classic in-place First-relative heap math; `Sort` is still correct and `Is_Sorted` is proved.
+* **Heapsort fallback is in place** on the exhausted slice $Lo..Hi$ with offset heap math: $\mathrm{Parent}(I)=Lo+\lfloor(I-Lo-1)/2\rfloor$, `Has_Left` ($I-Lo \le \lfloor(Hi-Lo-1)/2\rfloor$) checked before $\mathrm{Left}(I)=Lo+2(I-Lo)+1$, so no child index is computed past `Hi` (same scheme as [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort)). No scratch copy.
 * Insertion on a slice follows [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort) (`Insert_Step` + sorted-prefix invariants), generalized to $\mathrm{Lo} .. \mathrm{Hi}$.
 * Bounded recursive `Intro_Sort_Rec` with `Subprogram_Variant => (Decreases => Hi - Lo)` rather than an explicit stack; $\lfloor\log_2 n\rfloor$ is a decision tree on $n \le 64$ (avoids a bit-loop VC).
 * Ghost `All_Leq` / `All_Geq` value bounds are threaded through partition, insertion, heapsort, and recursion so the partition property survives the recursive permutations (full multiset equality is **not** a Level-4 postcondition).
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
 
 ## Algorithm
-Given an array $A$ of length $n \le \mathrm{Max\_N}$ with $A'First = 1$:
+Given an array $A$ of length $n \le \mathrm{Max\_N}$ with any $A'First$:
 
 1. **Depth budget.** Set
 
@@ -43,7 +43,7 @@ Given an array $A$ of length $n \le \mathrm{Max\_N}$ with $A'First = 1$:
 2. **Introsort recursion** on a partition of length $m$:
 
    - If $m \le \mathrm{Insertion\_Threshold}$ (here $16$): finish with **insertion sort**.
-   - Else if $\mathrm{maxdepth} = 0$: **heapsort** the partition (scratch copy, Floyd heapify + extract-max, copy back). This caps the worst case at $O(n \log n)$.
+   - Else if $\mathrm{maxdepth} = 0$: **heapsort** the partition in place (offset Floyd heapify + extract-max on $Lo..Hi$). This caps the worst case at $O(n \log n)$.
    - Else: **median-of-three** pivot, **Lomuto partition**, then recurse on both sides with $\mathrm{maxdepth}-1$.
 
 3. Empty and singleton arrays are no-ops.
@@ -61,7 +61,7 @@ Given an array $A$ of length $n \le \mathrm{Max\_N}$ with $A'First = 1$:
 | Case | Time | Extra space |
 | ---- | ---- | ----------- |
 | Best / average | $O(n \log n)$ | $O(\log n)$ stack |
-| Worst | $O(n \log n)$ (heapsort fallback) | $O(\log n)$ stack + $\Theta(m)$ scratch on fallback |
+| Worst | $O(n \log n)$ (heapsort fallback) | $O(\log n)$ stack |
 | Tiny partition | $O(m^2)$ insertion, $m \le 16$ | $O(1)$ |
 
 Unstable: equal keys may change relative order.
@@ -103,7 +103,7 @@ When you run `make test`, you will see all 297 assertions pass. Running `make pr
 | `Element_Array` | `array (Positive range <>) of Integer` |
 | `Max_N` | Classroom capacity bound (`64`) |
 | `Insertion_Threshold` | Small-partition cutoff (`16`) |
-| `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
+| `In_Bounds` | `A'Length <= Max_N`, `A'First in 1 .. Max_N`, `A'Last in 0 .. Max_N` |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
 | `Sort` | Ascending Musser introsort (`Post => Is_Sorted`) |
 
