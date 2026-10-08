@@ -1,6 +1,13 @@
 # Ada-SPARK-Find-The-Smallest-Divisor
 
-Find the smallest divisor whose bounded rounded quotient sum meets a threshold. The implementation uses fixed-size bounded inputs (n <= 32) and SPARK_Mode On.
+Find the smallest divisor D such that the sum of the rounded-up quotients
+ceil(v / D) over eight values (1 .. 1000) is at most a limit.
+
+The limit is of subtype `Threshold` (8 .. 8000): every quotient is at least 1, so a
+limit below the number of values can never be met and is rejected by the type
+(Constraint_Error); earlier versions returned 1000 for it as if it were an answer.
+The postcondition states the answer: its quotient sum meets the limit and D - 1's
+does not (ghost `Quotient_Sum`).
 
 ## Checks
 
@@ -10,4 +17,5 @@ make test
 make prove
 ```
 
-`make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors.
+`make prove` runs GNATprove at level 2 (its default provers), warnings as errors,
+and checks as errors. Test sources: tests/SOURCES.txt.
