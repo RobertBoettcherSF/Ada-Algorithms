@@ -240,3 +240,5 @@ misc/Ada/Zero-Attribute-Rule,own mean/median/mode references (ties to smallest);
 parsing/Ada/Recursive-Descent-Parser,random expression trees vs own tree evaluation; Is_Valid; 20000 expressions (sample_ada_30)
 misc/Ada/Computus,Gregorian Easter 1583..9999 vs own Clavius epact; Julian Easter 1..9999 from definition; Orthodox; weekday/day difference vs own JDN (sample_ada_30)
 geometry/Ada/Line-Clipping,all 4 clippers vs own brute-force sampling (4001 samples); 3000 random window/segment pairs (sample_ada_30)
+misc/Ada/Backtracking,N-Queens/subset-sum/colouring vs own exhaustive search (sample_ada_30)
+misc/Ada/Bowyer-Watson,own hull/in-circle geometry: Delaunay property; count 2n-2-h; area = hull area; 1500 random sets (sample_ada_30)
