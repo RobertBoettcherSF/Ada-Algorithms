@@ -5,7 +5,7 @@ package Remove_Duplicates_From_Sorted_List is
    subtype Count is Natural range 0 .. Capacity;
    type Values is array (Position) of Integer;
    type List is record
-      Data : Values := (others => 0);
+      Data : Values := [others => 0];
       Length : Count := 0;
    end record;
    function Empty return List;
