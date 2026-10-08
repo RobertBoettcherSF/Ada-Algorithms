@@ -80,7 +80,17 @@ Controls, in `tools/vv/mutate_controls.csv`:
 - **(a) Dummy test.** The test main is replaced by one that only `with`s the library units and checks nothing (`--dummy`). On 12 seeded folders it kills 0 of 101 mutants, so the tool produces no phantom kills.
 - **(b) Strong tests.** Brute-force own tests reach 26/36 (Floyd-Warshall), 31/38 (Bellman-Ford) and 35/39 (Computus). Backtracking's baseline times out under `-gnata` (30 s limit) and is not scored.
 
-The 325 folders with own tests or an old training-ready verdict are rescored with `sweep_mutate.py --max 20 --seed 20261008`. The new results replace `vv/results/mutation_tr.csv`.
+The 325 folders with own tests or an old training-ready verdict are rescored with `sweep_mutate.py --max 20 --seed 20261008`. The new results replace `vv/results/mutation_tr.csv` (per mutant: `mutation_tr_detail.csv`).
+
+Corrected numbers (19:45). Over the 267 old training-ready folders: 2079 killed, 659 survived, 26 timeouts, so 75.2% killed (76.2% if timeouts counted as kills). 94 folders reach 90% (97 with timeouts as kills), against 57% and 25 folders before. The correction raised the score instead of lowering it. The mutants planted in test code had dragged it down: of the old run's 4741 mutants, the 2446 in test code were killed only 43% of the time (a changed check rarely makes a passing test fail). The library mutants scored 74% even under the old rules. The `raised ` and timeout overcounting was small next to that. Over all 325 rescored folders: 76.2% killed, and 108 folders reach 90%. Per subprogram (`tools/vv/mutation_subprograms.py`, `tools/vv/mutation_subprograms.csv`): 610 subprograms have mutants, and 39 of them in 31 folders have none killed, so they are unchecked.
+
+### Held-out scoring (room rule, 2026-10-08 19:56)
+
+Tests strengthened while looking at survivors can overfit, so the 90% bar is scored on mutants that the test work never saw:
+- Before any test work on a folder, its mutants are split at random into a tuning half and a held-out half, and the split seed is recorded. Only tuning-half survivors may guide new tests. `mutation_score_heldout` is the score on the held-out half, and training_ready uses it.
+- The held-out half needs at least 20 non-equivalent mutants. If there are too few, it is topped up from an alternative operator family (`sweep_mutate.py`, added by the sweep).
+- A folder whose tests were already tuned against all its mutants takes its held-out set from the alternative family or from mutants never shown, only.
+- PROOFS.csv stores raw killed/total for both halves (`mutation_tuned_k`, `mutation_tuned_n`, `mutation_heldout_k`, `mutation_heldout_n`) next to the percentages. PROOFS.md shows them as e.g. 18/20.
 
 ### Stricter training-ready rule (2026-10-08)
 

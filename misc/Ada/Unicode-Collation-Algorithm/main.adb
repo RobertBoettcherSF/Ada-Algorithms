@@ -1,3 +1,4 @@
+pragma Ada_2022;
 --  Demo of the Unicode_Collation package (default table, punctuation-ignoring comparison, tailoring).
 --  Built and run by make test, so it stays in step with the package API.
 with Ada.Text_IO; use Ada.Text_IO;
@@ -15,7 +16,7 @@ procedure Main is
    W6 : aliased constant String := "123";
    W7 : aliased constant String := "Cherry";
    Words : array (1 .. 7) of Word_Access :=
-     (W1'Access, W2'Access, W3'Access, W4'Access, W5'Access, W6'Access, W7'Access);
+     [W1'Access, W2'Access, W3'Access, W4'Access, W5'Access, W6'Access, W7'Access];
 
    procedure Show (Left, Right : String; R : Collation_Result) is
    begin

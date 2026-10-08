@@ -1,0 +1,611 @@
+folder,subprogram,killed,survived,equivalent,score
+compression/SPARK2/Ada-SPARK-Compress-String,Compressed_Length,10,4,0,10/14
+compression/SPARK2/Ada-SPARK-Interleaving-String,(package level),14,1,0,14/15
+compression/SPARK2/Ada-SPARK-Run-Length-Encoding,Number_Of_Runs,8,0,0,8/8
+compression/SPARK2/Ada-SPARK-String-Compression,(package level),7,2,0,7/9
+compression/SPARK2/Burrows-Wheeler-Transform,(package level),3,0,0,3/3
+compression/SPARK2/Burrows-Wheeler-Transform,Rotation_Less,2,2,0,2/4
+compression/SPARK3/Huffman-Coding,Count_Frequencies,2,0,0,2/2
+compression/SPARK3/Huffman-Coding,Distinct_Count,4,1,0,4/5
+compression/SPARK3/Huffman-Coding,Most_Frequent,0,1,0,0/1
+geometry/Ada/Liang-Barsky,(package level),13,0,0,13/13
+geometry/Ada/Liang-Barsky,Compute_Outcode,0,2,0,0/2
+geometry/Ada/Liang-Barsky,Is_Valid_Window,1,0,0,1/1
+geometry/Ada/Liang-Barsky,Length,1,0,0,1/1
+geometry/Ada/Liang-Barsky,Make_Window,0,1,0,0/1
+geometry/Ada/Liang-Barsky,Near,1,0,0,1/1
+geometry/Ada/Liang-Barsky,Near_Point,1,0,0,1/1
+geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,(package level),10,0,0,10/10
+geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,Turn,6,0,0,6/6
+geometry/SPARK2/Ada-SPARK-Point-In-Polygon,(package level),17,2,0,17/19
+graphs/Ada/Bellman-Ford-Algorithm,(package level),12,6,0,12/18
+graphs/Ada/Bellman-Ford-Algorithm,Validate_Source,1,0,0,1/1
+graphs/Ada/Dijkstras-Algorithm,(package level),15,3,0,15/18
+graphs/Ada/Floyd-Warshall-Algorithm,(package level),10,4,0,10/14
+graphs/Ada/Floyd-Warshall-Algorithm,Has_Negative_Cycle,1,0,0,1/1
+graphs/Ada/Floyd-Warshall-Algorithm,Safe_Add,1,2,0,1/3
+graphs/Ada/Kruskals-Algorithm,(package level),11,4,0,11/15
+graphs/Ada/Kruskals-Algorithm,Grow_From,3,2,0,3/5
+graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,Path_Exists,7,1,0,7/8
+graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS,(package level),15,1,0,15/16
+graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS,Start,1,0,0,1/1
+graphs/SPARK2/Ada-SPARK-Prims-Algorithm,Compute,2,3,0,2/5
+graphs/SPARK2/Bellman-Ford-Algorithm,Compute,2,11,0,2/13
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,(package level),1,8,0,1/9
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Hash,2,0,0,2/2
+logic/Ada/DPLL,(package level),6,3,0,6/9
+logic/Ada/DPLL,Clause_Is_Conflict,1,0,0,1/1
+logic/Ada/DPLL,Expect_Token,0,2,0,0/2
+logic/Ada/DPLL,Lit_Is_False,1,0,0,1/1
+logic/Ada/DPLL,Parse_Int,3,0,0,3/3
+logic/Ada/DPLL,Skip_Line,1,1,0,1/2
+logic/Ada/DPLL,Skip_Spaces,1,0,0,1/1
+logic/Ada/DPLL,Unit_Literal,1,0,0,1/1
+matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,Eliminate,6,0,0,6/6
+matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix,Find,2,1,0,2/3
+matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,Manhattan,3,2,0,3/5
+matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,Order_From,10,5,0,10/15
+matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum,Block_Sum,7,0,0,7/7
+matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum,In_Block,9,4,0,9/13
+misc/Ada/Backtracking,(package level),3,10,0,3/13
+misc/Ada/Backtracking,Count_N_Queens,1,0,0,1/1
+misc/Ada/Backtracking,Search,0,6,0,0/6
+misc/Ada/Bowyer-Watson,(package level),4,3,0,4/7
+misc/Ada/Bowyer-Watson,Circumcenter,2,4,0,2/6
+misc/Ada/Bowyer-Watson,Consider,1,0,0,1/1
+misc/Ada/Bowyer-Watson,Dist2,1,0,0,1/1
+misc/Ada/Bowyer-Watson,In_Circumcircle,3,0,0,3/3
+misc/Ada/Bowyer-Watson,Orient2D,1,0,0,1/1
+misc/Ada/Bowyer-Watson,Triangulate,0,1,0,0/1
+misc/Ada/Computus,(package level),2,0,0,2/2
+misc/Ada/Computus,Absolute,1,0,0,1/1
+misc/Ada/Computus,Add_Days,2,1,0,2/3
+misc/Ada/Computus,Day_Of_Week,1,0,0,1/1
+misc/Ada/Computus,Golden_Number,1,0,0,1/1
+misc/Ada/Computus,Gregorian_Easter,6,0,0,6/6
+misc/Ada/Computus,Julian_Easter,3,0,0,3/3
+misc/Ada/Computus,Julian_Gregorian_Offset,1,0,0,1/1
+misc/Ada/Computus,Same_Date,1,0,0,1/1
+misc/Ada/Dice-Coefficient,(package level),4,0,0,4/4
+misc/Ada/Dice-Coefficient,Check_Len,1,0,0,1/1
+misc/Ada/Dice-Coefficient,Coefficient,5,0,0,5/5
+misc/Ada/Dice-Coefficient,Intersection_Size,2,0,0,2/2
+misc/Ada/Dice-Coefficient,Member,1,0,0,1/1
+misc/Ada/Dice-Coefficient,Shared_Bigrams,1,0,0,1/1
+misc/Ada/Dice-Coefficient,Unique_Bigram_Count,1,0,0,1/1
+misc/Ada/Dice-Coefficient,Window,5,0,0,5/5
+misc/Ada/Division-Algorithms,(package level),7,2,0,7/9
+misc/Ada/Division-Algorithms,Add,1,0,0,1/1
+misc/Ada/Division-Algorithms,Convert_Quotient_Bits,1,0,0,1/1
+misc/Ada/Division-Algorithms,Divide_Long,2,0,0,2/2
+misc/Ada/Division-Algorithms,Divide_Restoring,0,1,0,0/1
+misc/Ada/Division-Algorithms,Initial_Guess,1,0,0,1/1
+misc/Ada/Division-Algorithms,Is_Zero,1,0,0,1/1
+misc/Ada/Division-Algorithms,To_Natural,0,1,0,0/1
+misc/Ada/Division-Algorithms,Trim,1,1,0,1/2
+misc/Ada/Hamming-Weight,Kernighan_Count,5,0,0,5/5
+misc/Ada/Hamming-Weight,Lookup_Table_Count,1,0,0,1/1
+misc/Ada/Hamming-Weight,Naive_Count,3,1,0,3/4
+misc/Ada/Hamming-Weight,SWAR_Count,5,0,0,5/5
+misc/Ada/Hamming-Weight,SWAR_Multiply_Count,4,0,0,4/4
+misc/Ada/Integer-Factorization,(package level),5,0,0,5/5
+misc/Ada/Integer-Factorization,Factorize,5,0,0,5/5
+misc/Ada/Integer-Factorization,Factorize_Trial,3,0,0,3/3
+misc/Ada/Integer-Factorization,Floor_Sqrt,0,2,0,0/2
+misc/Ada/Integer-Factorization,Floor_Sqrt_128,0,1,0,0/1
+misc/Ada/Integer-Factorization,Is_Perfect_Square,1,0,0,1/1
+misc/Ada/Integer-Factorization,Is_Prime_Trial,2,0,0,2/2
+misc/Ada/Integer-Factorization,Small_Trial_Factor,0,0,1,all equivalent
+misc/Ada/Lempel-Ziv-Ross-Williams,(package level),14,5,0,14/19
+misc/Ada/Lempel-Ziv-Ross-Williams,Max_Compressed_Size,1,0,0,1/1
+misc/Ada/Median-Filtering,Process_1D,9,1,0,9/10
+misc/Ada/Median-Filtering,Process_2D,3,7,0,3/10
+misc/Ada/Mu-Law-Algorithm,(package level),10,1,0,10/11
+misc/Ada/Mu-Law-Algorithm,Decode_Digital,1,2,0,1/3
+misc/Ada/Mu-Law-Algorithm,Encode_Digital,1,2,0,1/3
+misc/Ada/Mu-Law-Algorithm,Sign,0,2,0,0/2
+misc/Ada/Poly1305,Final,3,0,1,3/3
+misc/Ada/Poly1305,Process_Block,13,0,0,13/13
+misc/Ada/Poly1305,To_U32,1,0,0,1/1
+misc/Ada/Poly1305,Update,1,0,1,1/1
+misc/Ada/Quine-McCluskey-Algorithm,(package level),1,0,0,1/1
+misc/Ada/Quine-McCluskey-Algorithm,Count_Ones,2,0,0,2/2
+misc/Ada/Quine-McCluskey-Algorithm,Covers,1,0,0,1/1
+misc/Ada/Quine-McCluskey-Algorithm,Differs_By_One,1,0,0,1/1
+misc/Ada/Quine-McCluskey-Algorithm,Merge,1,0,0,1/1
+misc/Ada/Quine-McCluskey-Algorithm,Recursive_Search,1,1,0,1/2
+misc/Ada/Quine-McCluskey-Algorithm,Solve_Chart,3,2,2,3/5
+misc/Ada/Quine-McCluskey-Algorithm,To_Binary,1,0,0,1/1
+misc/Ada/Quine-McCluskey-Algorithm,Validate_Inputs,4,0,0,4/4
+misc/Ada/Truncated-Binary-Encoding,Decode,9,0,0,9/9
+misc/Ada/Truncated-Binary-Encoding,Decode_Exact,1,0,0,1/1
+misc/Ada/Truncated-Binary-Encoding,Encode,4,0,0,4/4
+misc/Ada/Truncated-Binary-Encoding,Get_Parameters,5,0,0,5/5
+misc/Ada/Truncated-Binary-Encoding,To_Binary_String,1,0,0,1/1
+misc/Ada/Unicode-Collation-Algorithm,Compare_Weights,4,0,0,4/4
+misc/Ada/Unicode-Collation-Algorithm,Extract_Level_Weights,3,0,0,3/3
+misc/Ada/Unicode-Collation-Algorithm,Get_Default_Table,1,0,1,1/1
+misc/Ada/Unicode-Collation-Algorithm,Get_Weights,2,0,0,2/2
+misc/Ada/Zero-Attribute-Rule,Predict_Nominal_Mode,11,0,0,11/11
+misc/Ada/Zero-Attribute-Rule,Predict_Numeric_Mean,1,0,0,1/1
+misc/Ada/Zero-Attribute-Rule,Predict_Numeric_Median,5,0,0,5/5
+misc/Ada/Zero-Attribute-Rule,Safe_Predict_Nominal_Mode,1,0,0,1/1
+misc/Ada/Zero-Attribute-Rule,Safe_Predict_Numeric_Mean,1,0,0,1/1
+misc/Ada/Zero-Attribute-Rule,Safe_Predict_Numeric_Median,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-3Sum-Closest,(package level),7,3,0,7/10
+misc/SPARK2/Ada-SPARK-3Sum-Closest,Distance,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Add-Binary,Add,9,0,0,9/9
+misc/SPARK2/Ada-SPARK-Add-Without-Plus,Add,10,1,0,10/11
+misc/SPARK2/Ada-SPARK-Adler32,Compute,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Arranging-Coins,Full_Rows,4,0,0,4/4
+misc/SPARK2/Ada-SPARK-Basic-Calculator-II,Evaluate,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,Is_Beautiful,9,0,0,9/9
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock,Max_Profit,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown,Max_Profit,3,3,0,3/6
+misc/SPARK2/Ada-SPARK-Binary-Watch,Is_Valid,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Binary-Watch,To_Minutes,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Broken-Calculator,Minimum_Operations,10,0,0,10/10
+misc/SPARK2/Ada-SPARK-Bulb-Switcher,Switched_On,5,0,0,5/5
+misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,Minimum_Capacity,5,1,0,5/6
+misc/SPARK2/Ada-SPARK-Car-Pooling,Feasible,5,0,0,5/5
+misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,(package level),3,4,0,3/7
+misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,Is_Sum_Of_Powers_Of_Three,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Circular-Queue,(package level),12,2,0,12/14
+misc/SPARK2/Ada-SPARK-Coin-Change-II,(package level),1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Coin-Change-II,Add,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Combination-Sum-III,Count_Choices,8,1,0,8/9
+misc/SPARK2/Ada-SPARK-Combination-Sum-III,Feasible,8,0,0,8/8
+misc/SPARK2/Ada-SPARK-Combination-Sum-IV,Count_Ordered_Ways,9,0,0,9/9
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,Max_Area,3,4,0,3/7
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,To_Integer,7,1,0,7/8
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,(package level),14,4,0,14/18
+misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval,Count,8,0,0,8/8
+misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite,Count,4,1,0,4/5
+misc/SPARK2/Ada-SPARK-Counting-Bits,Ones,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-Covariance,Value,12,0,0,12/12
+misc/SPARK2/Ada-SPARK-Decode-Ways,Count,5,0,0,5/5
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,Delete_At,5,2,0,5/7
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,Delete_Middle,3,2,0,3/5
+misc/SPARK2/Ada-SPARK-Delta-Encoding,Net_Delta,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Design-Bitset,(package level),3,1,0,3/4
+misc/SPARK2/Ada-SPARK-Design-Number-Container-System,(package level),5,0,0,5/5
+misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite,(package level),7,0,0,7/7
+misc/SPARK2/Ada-SPARK-Dutch-National-Flag,Sort,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Elevator-Algorithm,Move_One_Step,6,0,0,6/6
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,Add_Bounded,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,Compute,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream,Median,7,3,0,7/10
+misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,Smallest_Divisor,2,2,0,2/4
+misc/SPARK2/Ada-SPARK-Greatest-Common-Divisor,GCD,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Group-Anagrams,Same_Anagram,7,0,0,7/7
+misc/SPARK2/Ada-SPARK-Hamming-Weight,Weight,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-House-Robber,Maximum,4,0,0,4/4
+misc/SPARK2/Ada-SPARK-House-Robber-II,Maximum,5,0,1,5/5
+misc/SPARK2/Ada-SPARK-Image-Smoother,Smooth,20,0,0,20/20
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,Common_Suffix_Length,5,3,0,5/8
+misc/SPARK2/Ada-SPARK-Jump-Game,Can_Jump,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Knapsack-01,(package level),5,1,0,5/6
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,(package level),8,2,0,8/10
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,Find,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,Most_Frequent_Key,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,Put,6,0,0,6/6
+misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,(package level),6,0,0,6/6
+misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,Find,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,Put,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram,Max_Area,4,3,0,4/7
+misc/SPARK2/Ada-SPARK-Least-Common-Multiple,GCD,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Least-Common-Multiple,LCM,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,Add_One,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,Compute,2,4,0,2/6
+misc/SPARK2/Ada-SPARK-Longest-Ones,Find,9,2,0,9/11
+misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence,Increment,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence,Longest_Length,15,1,0,15/16
+misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,Complete,1,1,0,1/2
+misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,Longest_Length,1,1,0,1/2
+misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,Same,4,0,0,4/4
+misc/SPARK2/Ada-SPARK-Majority-Element,Find,20,0,0,20/20
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,Compute,3,5,0,3/8
+misc/SPARK2/Ada-SPARK-Maximal-Square,(package level),13,0,0,13/13
+misc/SPARK2/Ada-SPARK-Maximal-Square,All_4,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Maximal-Square,Any_1,5,0,0,5/5
+misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,Bars_Bought,0,1,0,0/1
+misc/SPARK2/Ada-SPARK-Maximum-Points-You-Can-Obtain-From-Cards,Max_Points,8,2,0,8/10
+misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray,Best_Product,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray,Multiply,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Maximum-Subarray,Add,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Maximum-Subarray,Best_Sum,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,Maximum_Twin_Sum,4,2,0,4/6
+misc/SPARK2/Ada-SPARK-Mean-Variance,Mean,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Mean-Variance,Variance,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-Median-Filtering,(package level),0,0,2,all equivalent
+misc/SPARK2/Ada-SPARK-Median-Filtering,Bubble_Sort,7,0,1,7/7
+misc/SPARK2/Ada-SPARK-Median-Filtering,Clamp_Col,0,0,2,all equivalent
+misc/SPARK2/Ada-SPARK-Median-Filtering,Clamp_Row,0,0,2,all equivalent
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,Merge_In_Between,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,(package level),2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,Middle,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,Compute,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Min-Stack,Is_Empty,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Min-Stack,Min_Value,6,3,0,6/9
+misc/SPARK2/Ada-SPARK-Minimum-Path-Sum,Minimum,15,0,0,15/15
+misc/SPARK2/Ada-SPARK-Missing-Number,Find,5,0,0,5/5
+misc/SPARK2/Ada-SPARK-Move-Zeroes,Move,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,Add_Bounded,1,0,2,1/1
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,Compute,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List,Next_Greater,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,Nth_Digit,14,0,0,14/14
+misc/SPARK2/Ada-SPARK-Nth-Ugly-Number,Compute,4,1,0,4/5
+misc/SPARK2/Ada-SPARK-Nth-Ugly-Number,Is_Ugly,4,0,0,4/4
+misc/SPARK2/Ada-SPARK-Number-Of-1-Bits,Count_Ones,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-PN-Counter,Decrement,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-PN-Counter,Increment,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-PN-Counter,Value,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,Is_Palindrome,5,0,0,5/5
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,(package level),4,0,0,4/4
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,Minimum_Cuts,11,2,0,11/13
+misc/SPARK2/Ada-SPARK-Parity-Bits,Even,0,1,0,0/1
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,Partition,8,0,0,8/8
+misc/SPARK2/Ada-SPARK-Partition-List,Append,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Partition-List,Solve,9,3,0,9/12
+misc/SPARK2/Ada-SPARK-Pascal-Triangle,Row_Total,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,Add_Bounded,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,Get,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,(package level),4,1,0,4/5
+misc/SPARK2/Ada-SPARK-Power-Of-Three,Is_Power,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-Product-Of-Array-Except-Self,Products,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Range-Sum-Query-Immutable,Query,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,(package level),0,9,0,0/9
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,Allocate,0,2,0,0/2
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,Complete,0,1,0,0/1
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,Get,1,1,0,1/2
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,Mark_Done,0,2,0,0/2
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,Offer,0,2,0,0/2
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,Put,1,1,0,1/2
+misc/SPARK2/Ada-SPARK-Rectangle-Area,Area,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,Remove_First,3,5,0,3/8
+misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,(package level),9,5,0,9/14
+misc/SPARK2/Ada-SPARK-Reorder-List,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Reorder-List,Reorder,8,3,0,8/11
+misc/SPARK2/Ada-SPARK-Reverse-Bits,Reversed,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List,(package level),5,2,0,5/7
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,Append,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,Solve,5,0,0,5/5
+misc/SPARK2/Ada-SPARK-Robot-Return-To-Origin,Returns_To_Origin,12,4,0,12/16
+misc/SPARK2/Ada-SPARK-Roman-To-Int,To_Integer,19,0,0,19/19
+misc/SPARK2/Ada-SPARK-Rotate-List,Append,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Rotate-List,Solve,5,1,0,5/6
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,Smallest_Length,3,0,1,3/3
+misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,(package level),1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,Is_Special,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,Match_Count,7,0,0,7/7
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,Sum_Minimums,1,3,0,1/4
+misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,Append,2,0,0,2/2
+misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,Solve,9,2,0,9/11
+misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,Append,2,1,0,2/3
+misc/SPARK2/Ada-SPARK-Tanimoto,Similarity,19,0,0,19/19
+misc/SPARK2/Ada-SPARK-Third-Maximum-Number,Third_Maximum,14,2,0,14/16
+misc/SPARK2/Ada-SPARK-To-Lower-Case,(package level),1,0,0,1/1
+misc/SPARK2/Ada-SPARK-To-Lower-Case,Lower,1,0,0,1/1
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words,Kth_Frequency,3,1,0,3/4
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,Trapped,5,7,0,5/12
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water-II-Lite,Trapped,4,7,0,4/11
+misc/SPARK2/Ada-SPARK-Triangle-Min-Path,Minimum,6,0,0,6/6
+misc/SPARK2/Ada-SPARK-Tribonacci,Add_Bounded,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Tribonacci,Compute,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,Add_Bounded,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,Compute,3,0,0,3/3
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,Add_Bounded,1,2,0,1/3
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,Count,12,0,0,12/12
+misc/SPARK2/Ada-SPARK-Valid-Parentheses,Is_Valid,8,0,0,8/8
+misc/SPARK2/Ada-SPARK-Valid-Parentheses,Matches,9,0,0,9/9
+misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences,Valid,12,2,0,12/14
+misc/SPARK2/Ada-SPARK-Water-Bottles,(package level),6,0,0,6/6
+misc/SPARK2/Pattern-132,Exists,4,3,0,4/7
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,(package level),11,7,0,11/18
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,(package level),6,3,0,6/9
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,Select_Kth,1,0,0,1/1
+ml/SPARK2/Linear-Regression,Predict,13,0,0,13/13
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,(package level),17,1,0,17/18
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,Bit_Reverse,1,0,0,1/1
+numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,Below,5,0,0,5/5
+numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,Is_Prime,5,0,0,5/5
+numerical/SPARK2/Ada-SPARK-Extended-Euclidean,GCD,1,0,0,1/1
+numerical/SPARK2/Ada-SPARK-Lagrange-Interpolation,Interpolate,10,0,0,10/10
+numerical/SPARK2/Ada-SPARK-Minimum-Limit-Of-Balls-In-A-Bag,Minimum_Limit,3,0,0,3/3
+numerical/SPARK2/Ada-SPARK-Modular-Exponentiation,Power,4,0,0,4/4
+numerical/SPARK2/Ada-SPARK-Newton-Raphson,Sqrt,10,7,0,10/17
+numerical/SPARK2/Ada-SPARK-Sieve-Of-Eratosthenes,Is_Prime,5,0,0,5/5
+numerical/SPARK2/Ada-SPARK-Simpson-Rule,Integrate,2,0,0,2/2
+numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,Are_Coprime,1,0,0,1/1
+numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,Binary_Gcd,6,1,0,6/7
+numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,Division_Steps,2,0,0,2/2
+numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,Gcd,3,0,0,3/3
+numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,Gcd_Recursive,2,0,0,2/2
+numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,Lcm,3,1,0,3/4
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,(package level),4,1,0,4/5
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,Are_Coprime,1,0,0,1/1
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,Extended_Gcd,4,0,0,4/4
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,Gcd,3,0,0,3/3
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,Is_Modular_Inverse,2,0,0,2/2
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,Modular_Inverse,1,1,0,1/2
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,Quotients_By_Gcd,1,0,0,1/1
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,Update_Coeff,2,0,0,2/2
+numerical/SPARK4/Ada-SPARK-Mersenne-Twister,(package level),1,0,0,1/1
+numerical/SPARK4/Ada-SPARK-Mersenne-Twister,Fill_State,4,0,0,4/4
+numerical/SPARK4/Ada-SPARK-Mersenne-Twister,Next,2,0,0,2/2
+numerical/SPARK4/Ada-SPARK-Mersenne-Twister,Twist,6,2,0,6/8
+numerical/SPARK4/Binary-Gcd,Are_Coprime,1,0,0,1/1
+numerical/SPARK4/Binary-Gcd,Gcd,4,4,0,4/8
+numerical/SPARK4/Binary-Gcd,Gcd_Euclidean,1,0,0,1/1
+numerical/SPARK4/Binary-Gcd,Shift_Left,1,1,0,1/2
+numerical/SPARK4/Binary-Gcd,Shift_Right,0,1,0,0/1
+numerical/SPARK4/Binary-Gcd,Trailing_Zeros,5,1,0,5/6
+parsing/Ada/Recursive-Descent-Parser,Check_Expression,1,0,0,1/1
+parsing/Ada/Recursive-Descent-Parser,Check_Factor,1,0,0,1/1
+parsing/Ada/Recursive-Descent-Parser,Check_Term,2,0,0,2/2
+parsing/Ada/Recursive-Descent-Parser,Emit_Term,1,0,0,1/1
+parsing/Ada/Recursive-Descent-Parser,Next_Token,5,1,0,5/6
+parsing/Ada/Recursive-Descent-Parser,Parse_Expression,3,0,0,3/3
+parsing/Ada/Recursive-Descent-Parser,Parse_Factor,3,0,0,3/3
+parsing/Ada/Recursive-Descent-Parser,Parse_Term,2,0,0,2/2
+parsing/Ada/Recursive-Descent-Parser,To_Postfix,0,1,0,0/1
+searching/Ada/Binary-Search,Check_Bounds,0,1,0,0/1
+searching/Ada/Binary-Search,Find,3,3,0,3/6
+searching/Ada/Binary-Search,Find_First,5,2,0,5/7
+searching/Ada/Binary-Search,Find_Last,5,0,0,5/5
+searching/Ada/Binary-Search,Sentinel,1,0,0,1/1
+searching/Ada/Breadth-First-Search,(package level),9,3,0,9/12
+searching/Ada/Breadth-First-Search,Add_Edge,2,0,0,2/2
+searching/Ada/Breadth-First-Search,Dequeue,1,0,0,1/1
+searching/Ada/Breadth-First-Search,Validate_Order,1,1,0,1/2
+searching/Ada/Breadth-First-Search,Validate_Vertex,1,0,0,1/1
+searching/Ada/Trigram-Search,(package level),5,0,0,5/5
+searching/Ada/Trigram-Search,Check_Len,1,0,0,1/1
+searching/Ada/Trigram-Search,Contains_Trigram,1,0,0,1/1
+searching/Ada/Trigram-Search,Dice_Coefficient,3,0,1,3/3
+searching/Ada/Trigram-Search,Has_Trigram,2,0,0,2/2
+searching/Ada/Trigram-Search,Intersection_Size,1,0,0,1/1
+searching/Ada/Trigram-Search,Shared_Trigrams,0,0,1,all equivalent
+searching/Ada/Trigram-Search,Trigram_Count,2,0,0,2/2
+searching/Ada/Trigram-Search,Window,3,0,0,3/3
+searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,Add_Word,2,1,0,2/3
+searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,Full_Insert_Check,2,2,0,2/4
+searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,Matches,4,0,0,4/4
+searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,Search,2,0,0,2/2
+searching/SPARK2/Ada-SPARK-Exponential-Search,Search,12,5,0,12/17
+searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix,Contains,10,1,0,10/11
+searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,Is_Valid_BST,14,5,0,14/19
+searching/SPARK2/Ada-SPARK-Word-Search-II-Lite,Appears_Horizontally,5,0,0,5/5
+searching/SPARK2/Ada-SPARK-Word-Search-II-Lite,Count_Found,2,0,0,2/2
+searching/SPARK2/Bst-Insert-Search,Contains,2,1,0,2/3
+searching/SPARK2/Bst-Insert-Search,Insert,6,1,0,6/7
+searching/SPARK4/Ada-SPARK-Binary-Search,Find,5,2,0,5/7
+searching/SPARK4/Ada-SPARK-Binary-Search,Find_First,7,1,0,7/8
+searching/SPARK4/Ada-SPARK-Binary-Search,Find_Last,5,0,0,5/5
+searching/SPARK4/Ada-SPARK-Fibonacci-Search,Find,6,7,0,6/13
+searching/SPARK4/Ada-SPARK-Fibonacci-Search,Min_Index,4,1,0,4/5
+searching/SPARK4/Ada-SPARK-Interpolation-Search,(package level),5,4,0,5/9
+searching/SPARK4/Ada-SPARK-Interpolation-Search,Find,5,2,0,5/7
+searching/SPARK4/Ada-SPARK-Introselect,(package level),6,7,0,6/13
+searching/SPARK4/Ada-SPARK-Introselect,Select_Kth,0,1,0,0/1
+searching/SPARK4/Ada-SPARK-Jump-Search,(package level),9,5,0,9/14
+searching/SPARK4/Ada-SPARK-Jump-Search,Floor_Sqrt,3,1,0,3/4
+searching/SPARK4/Ada-SPARK-Linear-Search,(package level),2,0,0,2/2
+searching/SPARK4/Ada-SPARK-Linear-Search,Contains,1,0,0,1/1
+searching/SPARK4/Ada-SPARK-Linear-Search,Find,2,0,0,2/2
+searching/SPARK4/Ada-SPARK-Quickselect,(package level),6,3,0,6/9
+searching/SPARK4/Ada-SPARK-Quickselect,Select_Kth,1,0,0,1/1
+searching/SPARK4/Ada-SPARK-Ternary-Search,Find,6,5,0,6/11
+searching/SPARK4/Ada-SPARK-Ternary-Search,Find_Maximum_Index,4,5,0,4/9
+sorting/Ada/Bucket-Sort,(package level),7,2,0,7/9
+sorting/Ada/Bucket-Sort,Bucket_Of,1,0,0,1/1
+sorting/Ada/Bucket-Sort,Is_Sorted,2,0,0,2/2
+sorting/Ada/Bucket-Sort,Sort,4,4,0,4/8
+sorting/Ada/Heapsort,(package level),6,0,0,6/6
+sorting/Ada/Heapsort,Check_Length,0,1,0,0/1
+sorting/Ada/Heapsort,Heapify,2,1,0,2/3
+sorting/Ada/Heapsort,Is_Sorted,2,0,0,2/2
+sorting/Ada/Heapsort,Left_Child,5,0,0,5/5
+sorting/Ada/Heapsort,Sort,1,1,0,1/2
+sorting/Ada/Heapsort,Swap,1,0,0,1/1
+sorting/Ada/Odd-Even-Sort,Check_Bounds,1,0,0,1/1
+sorting/Ada/Odd-Even-Sort,Is_Sorted,4,0,0,4/4
+sorting/Ada/Odd-Even-Sort,Sort,7,8,0,7/15
+sorting/SPARK2/Ada-SPARK-Bitonic-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Block-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Circle-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Cocktail-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Find-Median-Sorted-Arrays-Lite,(package level),1,0,0,1/1
+sorting/SPARK2/Ada-SPARK-Find-Median-Sorted-Arrays-Lite,Median,13,4,0,13/17
+sorting/SPARK2/Ada-SPARK-Flash-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Heap-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Intro-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,Median,1,1,0,1/2
+sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub,Merge_K,0,1,0,0/1
+sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array,(package level),7,3,0,7/10
+sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,Merge,12,3,0,12/15
+sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,(package level),2,0,0,2/2
+sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,Full_Append_Check,0,4,0,0/4
+sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,Merge,11,1,0,11/12
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,Append,2,0,0,2/2
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,Solve,9,3,0,9/12
+sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Pancake-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Patience-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Quick-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array-II,Keep_Two,15,1,0,15/16
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,Append,2,0,0,2/2
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,Solve,6,1,0,6/7
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,Append,2,0,0,2/2
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,Solve,2,0,0,2/2
+sorting/SPARK2/Ada-SPARK-Shaker-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Smooth-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity,By_Parity,9,0,0,9/9
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,Sort_By_Parity,3,0,0,3/3
+sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,Sort_By_Frequency,1,2,0,1/3
+sorting/SPARK2/Ada-SPARK-Sort-Colors,Sort,8,3,0,8/11
+sorting/SPARK2/Ada-SPARK-Sort-List-Lite,Append,2,0,0,2/2
+sorting/SPARK2/Ada-SPARK-Sort-List-Lite,Solve,1,5,0,1/6
+sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,Squares,6,2,0,6/8
+sorting/SPARK2/Ada-SPARK-Tim-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,Sort,11,3,0,11/14
+sorting/SPARK2/Ada-SPARK-Tournament-Sort,Sort,8,1,0,8/9
+sorting/SPARK2/Ada-SPARK-Wiggle-Sort,Wiggle,17,2,0,17/19
+sorting/SPARK2/Binary-Insertion-Sort,Sort,8,1,0,8/9
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,(package level),8,4,0,8/12
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,Next_Power_Of_Two,1,1,0,1/2
+sorting/SPARK4/Ada-SPARK-Bogosort,(package level),7,4,0,7/11
+sorting/SPARK4/Ada-SPARK-Bogosort,Bubble_Finish,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Bogosort,Next_Permutation,1,2,0,1/3
+sorting/SPARK4/Ada-SPARK-Bogosort,Sort,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Bubble-Sort,(package level),11,2,0,11/13
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,(package level),10,6,0,10/16
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,Bucket_Pass,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,(package level),5,3,3,5/8
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,Sort,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Comb-Sort,(package level),4,3,0,4/7
+sorting/SPARK4/Ada-SPARK-Comb-Sort,Bubble_Finish,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,(package level),10,4,0,10/14
+sorting/SPARK4/Ada-SPARK-Flashsort,(package level),4,5,0,4/9
+sorting/SPARK4/Ada-SPARK-Flashsort,Bubble_Finish,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Flashsort,Flashsort_Phase,2,4,0,2/6
+sorting/SPARK4/Ada-SPARK-Gnome-Sort,(package level),12,2,0,12/14
+sorting/SPARK4/Ada-SPARK-Gnome-Sort,Sort,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Heapsort,(package level),12,6,0,12/18
+sorting/SPARK4/Ada-SPARK-Heapsort,Heapify,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,(package level),15,2,0,15/17
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,Sort,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Introsort,(package level),9,1,0,9/10
+sorting/SPARK4/Ada-SPARK-Introsort,Sort,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Library-Sort,(package level),7,6,0,7/13
+sorting/SPARK4/Ada-SPARK-Library-Sort,Bubble_Finish,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Library-Sort,Library_Phase,0,3,0,0/3
+sorting/SPARK4/Ada-SPARK-Merge-Sort,(package level),11,6,0,11/17
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,(package level),7,7,0,7/14
+sorting/SPARK4/Ada-SPARK-Pancake-Sorting,(package level),8,3,0,8/11
+sorting/SPARK4/Ada-SPARK-Pancake-Sorting,Flip,1,1,0,1/2
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,(package level),4,7,0,4/11
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,Bubble_Finish,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,Patience_Phase,1,2,0,1/3
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,(package level),5,6,0,5/11
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,Bubble_Finish,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,Pigeonhole_Phase,2,1,0,2/3
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,Sort,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Postman-Sort,(package level),6,9,0,6/15
+sorting/SPARK4/Ada-SPARK-Postman-Sort,Bubble_Finish,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,(package level),10,6,0,10/16
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,Sort_Frequency,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Quicksort,(package level),12,1,0,12/13
+sorting/SPARK4/Ada-SPARK-Radix-Sort,(package level),0,17,0,0/17
+sorting/SPARK4/Ada-SPARK-Radix-Sort,Sort,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Samplesort,(package level),9,3,0,9/12
+sorting/SPARK4/Ada-SPARK-Samplesort,Bubble_Finish,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Samplesort,Samplesort_Phase,1,5,0,1/6
+sorting/SPARK4/Ada-SPARK-Selection-Sort,(package level),10,4,0,10/14
+sorting/SPARK4/Ada-SPARK-Selection-Sort,Sort_Descending,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Shell-Sort,(package level),14,3,0,14/17
+sorting/SPARK4/Ada-SPARK-Slowsort,(package level),7,5,0,7/12
+sorting/SPARK4/Ada-SPARK-Smoothsort,(package level),15,1,0,15/16
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,(package level),4,5,0,4/9
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Height_Bin_Phase,1,0,0,1/1
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,(package level),8,4,0,8/12
+sorting/SPARK4/Ada-SPARK-Strand-Sort,(package level),4,8,0,4/12
+sorting/SPARK4/Ada-SPARK-Strand-Sort,Bubble_Finish,0,1,0,0/1
+sorting/SPARK4/Ada-SPARK-Strand-Sort,Strand_Phase,1,1,0,1/2
+sorting/SPARK4/Ada-SPARK-Timsort,(package level),12,4,0,12/16
+sorting/SPARK4/Ada-SPARK-Tree-Sort,(package level),12,3,0,12/15
+sorting/SPARK4/Ada-SPARK-Tree-Sort,Sort,1,0,0,1/1
+sorting/SPARK4/Bead-Sort,(package level),4,6,0,4/10
+sorting/SPARK4/Bead-Sort,Bead_Phase,2,0,0,2/2
+sorting/SPARK4/Bead-Sort,Bubble_Finish,0,1,0,0/1
+strings/Ada/String-Metrics,(package level),5,0,1,5/5
+strings/Ada/String-Metrics,Common_Prefix_Len,1,0,0,1/1
+strings/Ada/String-Metrics,Jaro_Similarity_Internal,1,0,1,1/1
+strings/Ada/String-Metrics,Levenshtein,1,0,0,1/1
+strings/Ada/String-Metrics,Levenshtein_Rows,2,0,0,2/2
+strings/Ada/String-Metrics,Match_Window,2,0,0,2/2
+strings/Ada/String-Metrics,OSA_Rows,5,0,0,5/5
+strings/Ada/String-Metrics,Window2,1,0,0,1/1
+strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings,Count_Consistent,7,0,0,7/7
+strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,Distance,12,2,0,12/14
+strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,Inc,2,0,0,2/2
+strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,Nat_Min,0,1,0,0/1
+strings/SPARK2/Ada-SPARK-Edit-Distance,(package level),13,0,0,13/13
+strings/SPARK2/Ada-SPARK-Edit-Distance,Increment,3,0,0,3/3
+strings/SPARK2/Ada-SPARK-Find-All-Anagrams-In-A-String,Count_Anagrams,6,0,0,6/6
+strings/SPARK2/Ada-SPARK-Find-All-Anagrams-In-A-String,Is_Anagram,7,0,0,7/7
+strings/SPARK2/Ada-SPARK-Hamming-Distance,Distance,5,0,0,5/5
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,Build_Prefix,9,2,0,9/11
+strings/SPARK2/Ada-SPARK-Make-The-String-Great,Opposite,3,13,0,3/16
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,Multiply,18,0,0,18/18
+strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String,(package level),5,1,0,5/6
+strings/SPARK2/Ada-SPARK-One-Edit-Distance,(package level),19,0,0,19/19
+strings/SPARK2/Ada-SPARK-Rabin-Karp,Hash,1,1,0,1/2
+strings/SPARK2/Ada-SPARK-Rabin-Karp,Search,7,2,0,7/9
+strings/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-In-String,(package level),7,1,0,7/8
+strings/SPARK2/Ada-SPARK-Repeated-String-Match,(package level),2,0,0,2/2
+strings/SPARK2/Ada-SPARK-Reverse-Vowels-Of-A-String,Is_Vowel,5,0,0,5/5
+strings/SPARK2/Ada-SPARK-Reverse-Words-In-A-String-III,(package level),8,8,0,8/16
+strings/SPARK2/Ada-SPARK-Rotate-String,Is_Rotation,7,0,0,7/7
+strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert,Sum_Digits,3,0,0,3/3
+strings/SPARK2/Ada-SPARK-Total-Hamming-Distance,Distance,3,0,0,3/3
+strings/SPARK2/Ada-SPARK-Z-Algorithm,Compute_Z,8,2,0,8/10
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,(package level),10,2,0,10/12
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,Is_Balanced,1,1,0,1/2
+trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,Inorder_Sum,6,1,0,6/7
+trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order,Level_Order_Sum,13,4,0,13/17
+trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth,Max_Depth,12,7,0,12/19
+trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth,Min_Depth,12,5,0,12/17
+trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder,Postorder_Sum,13,7,0,13/20
+trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder,Preorder_Sum,13,2,0,13/15
+trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree,Convert,1,0,0,1/1
+trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,Count_Substrings,8,11,0,8/19
+trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,Diameter,9,10,0,9/19
+trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget,Longest,11,4,0,11/15
+trees/SPARK2/Ada-SPARK-Implement-Trie,Contains,2,0,0,2/2
+trees/SPARK2/Ada-SPARK-Implement-Trie,Full_Insert_Check,4,0,0,4/4
+trees/SPARK2/Ada-SPARK-Implement-Trie,Insert,2,1,0,2/3
+trees/SPARK2/Ada-SPARK-Implement-Trie,Same,4,0,0,4/4
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,Contains,2,1,0,2/3
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,Insert,6,1,0,6/7
+trees/SPARK2/Ada-SPARK-Longest-Common-Substring,Length,7,2,0,7/9
+trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring,Is_Pal_2,2,0,0,2/2
+trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring,Is_Pal_4,3,0,0,3/3
+trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring,Is_Pal_5,4,0,0,4/4
+trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring,Is_Pal_6,3,0,0,3/3
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat,Longest,2,1,0,2/3
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat,Repeats,4,0,0,4/4
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat,Span,3,0,0,3/3
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating,Unique_4,2,0,0,2/2
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating,Unique_5,1,0,0,1/1
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating,Unique_6,1,0,0,1/1
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating,Unique_7,4,0,0,4/4
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating,Unique_8,2,0,0,2/2
+trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST,Lowest_Common_Ancestor,7,1,0,7/8
+trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST,Lowest_Common_Ancestor,7,1,0,7/8
+trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree,Max_Depth,13,7,0,13/20
+trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees,Merge,4,5,0,4/9
+trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree,Min_Depth,15,5,0,15/20
+trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,Has_ABC_2,1,0,0,1/1
+trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,Has_ABC_3,1,0,0,1/1
+trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,Has_ABC_4,1,0,0,1/1
+trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,Has_ABC_5,1,0,0,1/1
+trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,Has_ABC_8,3,0,0,3/3
+trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters,Count,7,0,0,7/7
+trees/SPARK2/Ada-SPARK-Range-Sum-BST,Range_Sum,6,2,0,6/8
+trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST,Range_Sum,16,4,0,16/20
+trees/SPARK2/Ada-SPARK-Same-Tree,Are_Same,10,5,0,10/15
+trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree,Is_Subtree,1,3,0,1/4
+trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree,Same_At,12,3,0,12/15
+trees/SPARK2/Ada-SPARK-Symmetric-Tree,Is_Symmetric,10,5,0,10/15
+trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles,Count,9,0,0,9/9

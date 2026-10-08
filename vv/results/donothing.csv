@@ -354,7 +354,7 @@ numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,survived,Gcd,killed,ok,6,,6,0,yes
 numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,survived,Extended_Gcd,killed,ok,8,Is_Modular_Inverse Verify_Bezout,6,0,yes
 numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator,survived,Step,killed,ok,17,,17,0,yes
 numerical/SPARK4/Ada-SPARK-Mersenne-Twister,survived,Temper,killed,ok,5,,5,0,yes
-numerical/SPARK4/Binary-Gcd,survived,Gcd,killed,ok,7,,7,0,yes
+numerical/SPARK4/Binary-Gcd,survived (without -gnata),Gcd,killed,ok,7,,7,0,no
 parsing/SPARK2/Ada-SPARK-Sparse-Set,survived,Include,killed,ok,5,Initialize,4,0,yes
 searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,survived,Add_Word,killed,ok,2,,2,0,yes
 searching/SPARK2/Ada-SPARK-Exponential-Search,survived,Search,killed,ok,1,,1,0,yes

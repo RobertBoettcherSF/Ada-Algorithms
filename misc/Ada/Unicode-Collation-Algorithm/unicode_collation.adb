@@ -1,3 +1,4 @@
+pragma Ada_2022;
 -- unicode_collation.adb
 -- Implementation of the Unicode Collation Algorithm logic
 package body Unicode_Collation is
@@ -6,7 +7,7 @@ package body Unicode_Collation is
    -- DUCET External Data Mocking
    -----------------------------------------------------
    function Get_Default_Table return Character_Table is
-      Table : Character_Table := (others => (Primary => 9999, Secondary => 0, Tertiary => 0));
+      Table : Character_Table := [others => (Primary => 9999, Secondary => 0, Tertiary => 0)];
    begin
       -- Standardize basic Alphabet (Primary weights matter, Case is Tertiary)
       for I in Character'Pos('a') .. Character'Pos('z') loop
