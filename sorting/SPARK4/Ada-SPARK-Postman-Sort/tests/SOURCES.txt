@@ -1,0 +1,29 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the package; expected results come from an
+insertion-sort reference inside tests.adb, a permutation check, and
+hand-written literals.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09):
+* Checked properties, independent of how the code sorts: the output is
+  nondecreasing, and every value occurs in the output exactly as often as in
+  the input (occurrence counts by linear scans; no sorting in the check).
+  Together with equal lengths this is "same multiset".
+* Inputs (all keys nonnegative, as Keys_Ok requires): every array of length
+  0 .. 7 over {0, 1, 2} (3,280); every permutation of 1 .. 7 (5,040, Heap's
+  method); every array of length 0 .. 4 over the digit-boundary values
+  {0, 9, 10, 99, 100, 10**9, Integer'Last} (2,801); 800 random arrays of
+  random length 0 .. Max_N, each drawn from one mode: one digit, two
+  digits, a shared long prefix (123_450_000 + 0 .. 9_999), around a power
+  of ten, just below Integer'Last, or the whole range 0 .. Integer'Last
+  (Park-Miller minimal standard generator); full-length descending,
+  ascending, all-equal, powers-of-ten and one-large-key arrays.
+  Applied to: Postman_Sort.Sort.
+* Named phase: Sort is only the MSD distribution now (the Bubble_Finish
+  fallback was removed), so every check above exercises the distribution
+  alone.
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..."); set AA_SEED=<n> to run them with
+  another seed.

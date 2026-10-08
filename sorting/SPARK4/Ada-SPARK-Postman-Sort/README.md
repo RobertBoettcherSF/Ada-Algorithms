@@ -82,7 +82,7 @@ Worst case of the MSD phase degrades when many keys share long common prefixes (
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 279 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (507 checks)` (the same at `--mode=silver --level=2`).
+When you run `make test`, you will see all 279 assertions pass ($0$ FAIL), followed by the own checks (11,926 sort calls). Running `make prove` reports `Success: all checks proved (507 checks)` (the same at `--mode=silver --level=2`).
 
 ## Testing
 * **Functional correctness**: Empty / singleton, classic multi-digit MSD example, reverse / already-sorted / almost-sorted, duplicates / all-equal / all-zero, mixed digit lengths, near `Integer'Last`, lengths up to `Max_N`.
