@@ -217,7 +217,9 @@ begin
       Val : Metric_Value;
    begin
       Val := Conviction (DB, R_Bad);
-      Check ("11.3 Conviction handles missing consequent safely (val=1.25)", Float_Equal(Float(Val), 1.25));
+      --  Sup({9}) = 0 and Conf({1} -> {9}) = Sup({1,9}) / Sup({1}) = 0,
+      --  so Conviction = (1 - 0) / (1 - 0) = 1.0.
+      Check ("11.3 Conviction handles missing consequent safely (val=1.0)", Float_Equal(Float(Val), 1.0));
    end;
 
    -- TEST 12 - Perfect Confidence Errors (Division by Zero in Conviction)
