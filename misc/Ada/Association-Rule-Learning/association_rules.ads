@@ -1,3 +1,6 @@
+--  Callers and tests rely on the preconditions being checked in every build,
+--  including builds without -gnata.
+pragma Assertion_Policy (Pre => Check);
 with Ada.Containers.Ordered_Sets;
 with Ada.Containers.Vectors;
 

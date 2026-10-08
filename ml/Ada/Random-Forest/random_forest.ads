@@ -1,3 +1,6 @@
+--  Callers and tests rely on the preconditions being checked in every build,
+--  including builds without -gnata.
+pragma Assertion_Policy (Pre => Check);
 package Random_Forest
   with SPARK_Mode => Off
 is
