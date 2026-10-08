@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with K_Means_Plus_Plus; use K_Means_Plus_Plus;
+with Own_Checks;
 
 procedure Tests is
 
@@ -586,6 +587,13 @@ begin
                or else R_PP.Inertia < 1.0,
              "kmeans++ inertia competitive vs collapsed init");
       Check (R_PP.Inertia < 2.0, "4-blob ++ small inertia");
+   end;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
    end;
 
    New_Line;
