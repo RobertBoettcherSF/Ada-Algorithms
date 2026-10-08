@@ -305,26 +305,36 @@ package body Rete is
       Global_WM.Count := Global_WM.Count + 1;
       Global_WM.Items (Global_WM.Count) := Fact;
 
-      -- Activate Alpha Nodes based on literal checks
-      for A in 1 .. Alpha_Node_ID (Alpha_Count) loop
-         if Alpha_Nodes (A).Attribute = Fact.Attribute and then
-            Alpha_Nodes (A).Value = Fact.Value then
-            
-            if Alpha_Nodes (A).Memory.Count >= Max_Nodes then
-               raise Network_Full;
-            end if;
-            
-            Alpha_Nodes (A).Memory.Count := Alpha_Nodes (A).Memory.Count + 1;
-            Alpha_Nodes (A).Memory.Items (Alpha_Nodes (A).Memory.Count) := Fact;
+      -- Store the fact in every matching alpha memory first, then right-
+      -- activate the beta nodes on those alphas from the newest (deepest)
+      -- to the oldest. A child beta node always has a higher ID than its
+      -- parent, so a child never sees a token that the same insertion has
+      -- just produced in its parent; the parent's left activation joins it
+      -- with the fact exactly once. (Activating parents first created the
+      -- token [F, F] twice when one alpha node fed two joins of a chain.)
+      declare
+         Matches : array (Alpha_Node_ID range 1 .. Max_Nodes) of Boolean := [others => False];
+      begin
+         for A in 1 .. Alpha_Node_ID (Alpha_Count) loop
+            if Alpha_Nodes (A).Attribute = Fact.Attribute and then
+               Alpha_Nodes (A).Value = Fact.Value then
 
-            -- Propagate Right Activation
-            for B in 1 .. Beta_Node_ID (Beta_Count) loop
-               if Beta_Nodes (B).Parent_Alpha = A then
-                  Right_Activate (B, Fact);
+               if Alpha_Nodes (A).Memory.Count >= Max_Nodes then
+                  raise Network_Full;
                end if;
-            end loop;
-         end if;
-      end loop;
+
+               Alpha_Nodes (A).Memory.Count := Alpha_Nodes (A).Memory.Count + 1;
+               Alpha_Nodes (A).Memory.Items (Alpha_Nodes (A).Memory.Count) := Fact;
+               Matches (A) := True;
+            end if;
+         end loop;
+
+         for B in reverse 1 .. Beta_Node_ID (Beta_Count) loop
+            if Matches (Beta_Nodes (B).Parent_Alpha) then
+               Right_Activate (B, Fact);
+            end if;
+         end loop;
+      end;
    end Insert_WME;
 
    procedure Insert_WME_Batched (Facts : WME_Array) is
