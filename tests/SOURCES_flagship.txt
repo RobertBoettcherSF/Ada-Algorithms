@@ -12,3 +12,6 @@ logic/Ada/Automated-Theorem-Proving: truth-table brute force, semantic
   definitions of the helpers, pigeonhole PHP(3,2)/PHP(4,3).
 misc/Ada/First-Order-Logic: bit-mask enumeration of CNF encodings against the
   quantifier evaluator, substitution lemma, PHP(3,2).
+logic/Ada/Verified-Unification-Engine: syntactic check of the applied unifier,
+  idempotence, ground brute force for completeness and most-generality,
+  clash/cycle certificates for failures.

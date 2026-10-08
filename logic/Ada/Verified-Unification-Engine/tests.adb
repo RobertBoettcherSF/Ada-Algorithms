@@ -1,3 +1,5 @@
+with Ada.Command_Line;
+with Own_Checks;
 with Ada.Text_IO; use Ada.Text_IO;
 with Unification_Engine; use Unification_Engine;
 
@@ -16,12 +18,18 @@ procedure Tests is
       end if;
    end Check;
 
+   function Upper_A return Character is
+   begin
+      return 'A';
+   end Upper_A;
+
    Env : Substitution;
    Success_Flag : Boolean;
    T1, T2, T3, TA, TB, TC : Term_Id;
    Apply_OK : Boolean;
 
 begin
+   Own_Checks;
    Reset_Pool;
 
    -- TEST 1 -- Make Term Properties
@@ -42,10 +50,9 @@ begin
    Check ("2.1 Clear ensures null bindings",
           Env.Bindings ('a') = Null_Term and Env.Bindings ('z') = Null_Term);
 
-   pragma Warnings (Off, "*useless assignment*");
    Env.Bindings ('x') := T2;
+   Check ("2.2a Binding set before Clear", Env.Bindings ('x') = T2);
    Clear (Env);
-   pragma Warnings (On, "*useless assignment*");
 
    Check ("2.2 Environment strictly cleared", Env.Bindings ('x') = Null_Term);
 
@@ -197,14 +204,11 @@ begin
    Put_Line ("TEST 14 -- Strong Typing Exceptions");
    begin
       declare
-         pragma Warnings (Off, "*value not in range*");
-         pragma Warnings (Off, "*Constraint_Error*");
-         Invalid_Var : Var_Name := 'A'; -- 'A' is not in 'a' .. 'z'
-         pragma Warnings (On, "*Constraint_Error*");
-         pragma Warnings (On, "*value not in range*");
-         pragma Unreferenced (Invalid_Var);
+         --  'A' is not in 'a' .. 'z'; Upper_A hides the value from the
+         --  compiler so the range check happens at run time
+         Invalid_Var : constant Var_Name := Upper_A;
       begin
-         Check ("14.1 Constraint Error expected", False); -- Should not reach
+         Check ("14.1 Constraint Error expected, got " & Invalid_Var, False);
       end;
    exception
       when Constraint_Error =>
@@ -215,4 +219,8 @@ begin
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed,"
              & Natural'Image (Fail_Count) & " failed ===");
    pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count > 0 then   --  the Assert above is ignored without -gnata
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+
 end Tests;

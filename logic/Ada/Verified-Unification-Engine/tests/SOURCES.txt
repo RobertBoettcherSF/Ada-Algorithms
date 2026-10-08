@@ -1,0 +1,22 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* 400 random pairs of terms of depth <= 2 over variables x, y, z,
+  constants k, m and binary f (sometimes with a missing right argument),
+  held in own_checks' own node table; pairs too large for the 32-slot pool
+  are skipped and counted.
+* Unifier property: the engine's answer is applied to both terms and the
+  results compared syntactically by own code; idempotence (applying again
+  changes nothing).
+* Brute force: all 343 ground substitutions of x, y, z by the 7 ground terms
+  of depth <= 2 over k and f. If one unifies the pair, Unify must succeed,
+  and each such ground unifier theta must satisfy theta (sigma (v)) =
+  theta (v) for all v (sigma is more general than theta: the standard
+  definition of a most general unifier, for an idempotent sigma).
+* Failure answers are confirmed by a sound certificate (symbol clash, or a
+  variable facing a non-variable term containing it, at a position with no
+  variable above); unconfirmed failures are counted and reported.
+* Occurs check: x = f (x, k), x = f (k, f (x, k)), f (x, y) = f (y, f (x, k)).
+* tests.adb: warnings are no longer switched off (useless assignment now
+  checked; the out-of-range test hides the value in a function), exit
+  status nonzero on failure.
+Park-Miller PRNG, seed 20261008. Nothing is taken from the program's output.
