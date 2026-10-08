@@ -54,7 +54,7 @@ numerical/SPARK2/Ada-SPARK-Simpson-Rule,own composite Simpson weighted sum on [0
 searching/SPARK2/Ada-SPARK-Exponential-Search,own linear-scan membership (index holds target or 0); 5000 random sorted
 searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix,own linear-scan membership on row-major sorted matrices; 4000 random
 searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,own all-pairs subtree check; 4000 random trees (valid; perturbed; shuffled)
-searching/SPARK2/Bst-Insert-Search,own set membership after distinct inserts (depth <= 5); 2917 sequences
+searching/SPARK2/Bst-Insert-Search,own set reference; ascending/descending/zig-zag chains 1..31 keys; 6000 random sequences of any shape incl. repeated keys
 searching/SPARK2/Ada-SPARK-Word-Search-II-Lite,own left-to-right row scan; 5000 random boards
 searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,own wildcard matcher; 4000 random dictionaries
 misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,own directly built digit string (first ~20000 positions) + own digit-block arithmetic for n=10^9 and 2^31
@@ -87,7 +87,7 @@ misc/SPARK2/Ada-SPARK-Mean-Variance,mean in [floor; ceil] of S/5 + population va
 trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder,own recursive subtree-sum reference; empty tree; 4000 random shapes
 trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees,own overlay reference per heap position; result walked from its root; 4000 random pairs
 trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree,own sum of values >= each element for strictly increasing sequences; 4000 random
-trees/SPARK2/Ada-SPARK-Insert-Into-BST,Contains vs own set over the whole Value range + Size; 2000 random distinct-key sequences
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,own set reference + own reference BST shape (insertion order) + separate order check; 4000 random runs incl. duplicates
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,own all-start-pairs reference; all string pairs up to length 4 over {a;b} and {a;b;c} (exhaustive)
 compression/SPARK2/Ada-SPARK-Interleaving-String,own recursive interleaving reference; all 29791 triples up to length 4 over {0;1} (exhaustive)
 compression/SPARK2/Ada-SPARK-String-Compression,round trip (expand runs = input) + counts >= 1 + maximal runs; 5000 random

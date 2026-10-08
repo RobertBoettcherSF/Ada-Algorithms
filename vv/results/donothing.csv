@@ -153,7 +153,7 @@ misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays,survived,Count,killed,ok,1,,1,0
 misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,survived,Common_Suffix_Length,killed,ok,3,Empty,2,0,yes
 misc/SPARK2/Ada-SPARK-Island-Perimeter,survived,Perimeter,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Jaccard-Index,survived,Similarity,killed,ok,1,,1,0,yes
-misc/SPARK2/Ada-SPARK-Jump-Game,survived,Can_Jump,survived,weak,1,Can_Jump,0,0,yes
+misc/SPARK2/Ada-SPARK-Jump-Game,survived,Can_Jump,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-K-Closest-Points-To-Origin,survived,Kth_Distance,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Keyboard-Row,survived,In_One_Row,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Knapsack-01,survived,Maximum_Value,killed,ok,1,,1,0,yes
@@ -467,7 +467,7 @@ strings/SPARK2/Ada-SPARK-Rotate-String,survived,Is_Rotation,killed,ok,1,,1,0,yes
 strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert,survived,Sum_Digits,killed,ok,1,,1,0,yes
 strings/SPARK2/Ada-SPARK-Total-Hamming-Distance,survived,Distance,killed,ok,1,,1,0,yes
 strings/SPARK2/Ada-SPARK-Z-Algorithm,survived,Compute_Z,killed,ok,1,,1,0,yes
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,survived,Is_Balanced,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,survived,Set_Node,killed,ok,5,Empty,4,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,survived,Inorder_Sum,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order,survived,Level_Order_Sum,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth,survived,Max_Depth,killed,ok,3,Empty,2,0,yes
@@ -481,7 +481,7 @@ trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,survived,Count_Substrings,killed,
 trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,survived,Diameter,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget,survived,Longest,killed,ok,1,,1,0,yes
 trees/SPARK2/Ada-SPARK-Implement-Trie,survived,Insert,killed,ok,2,,2,0,yes
-trees/SPARK2/Ada-SPARK-Insert-Into-BST,survived,Insert,killed,ok,4,Empty,3,0,yes
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,survived,Insert,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Invert-Binary-Tree,survived,Invert,killed,ok,5,Empty,4,0,yes
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,survived,Length,killed,ok,1,,1,0,yes
 trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring,survived,Longest_Length,killed,ok,1,,1,0,yes
@@ -498,7 +498,7 @@ trees/SPARK2/Ada-SPARK-N-Ary-Tree-Level-Order-Traversal,survived,Level_Order,kil
 trees/SPARK2/Ada-SPARK-N-Ary-Tree-Postorder-Traversal,survived,Postorder,killed,ok,4,Empty,3,0,yes
 trees/SPARK2/Ada-SPARK-N-Ary-Tree-Preorder-Traversal,survived,Preorder,killed,ok,4,Empty,3,0,yes
 trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters,survived,Count,killed,ok,1,,1,0,yes
-trees/SPARK2/Ada-SPARK-Range-Sum-BST,survived,Range_Sum,killed,ok,3,Empty,2,0,yes
+trees/SPARK2/Ada-SPARK-Range-Sum-BST,survived,Range_Sum,killed,ok,6,Empty,5,0,yes
 trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST,survived,Range_Sum,killed,ok,3,Empty,2,0,yes
 trees/SPARK2/Ada-SPARK-Red-Black-Tree,survived,Rotate_Left,killed,ok,2,,2,0,yes
 trees/SPARK2/Ada-SPARK-Same-Tree,survived,Are_Same,killed,ok,3,Empty,2,0,yes
