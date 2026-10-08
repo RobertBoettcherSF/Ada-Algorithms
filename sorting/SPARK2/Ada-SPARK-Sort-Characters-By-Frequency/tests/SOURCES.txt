@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Property: the result is a permutation of the input and the input frequency
+  of R (I) is >= that of R (I + 1) for every I.
+* Not checked: whether different characters with the same frequency are kept
+  in contiguous groups; the README does not state it.
+* Inputs: 4,000 random arrays (half over 'a' .. 'c', half over 'a' .. 'h') and
+  an all-equal array.

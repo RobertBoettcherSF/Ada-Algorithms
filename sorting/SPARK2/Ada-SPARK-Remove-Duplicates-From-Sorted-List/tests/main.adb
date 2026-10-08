@@ -1,5 +1,6 @@
 pragma SPARK_Mode (On);
 with Remove_Duplicates_From_Sorted_List; use Remove_Duplicates_From_Sorted_List;
+with Own_Checks;
 procedure Main is
    L : List := Empty;
 begin
@@ -9,4 +10,5 @@ begin
    pragma Assert (Get (L, 1) = 1);
    pragma Assert (Get (L, 2) = 2);
    pragma Assert (Get (L, 3) = 3);
+   Own_Checks;
 end Main;

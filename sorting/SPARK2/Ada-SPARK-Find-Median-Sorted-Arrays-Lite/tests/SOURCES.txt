@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: concatenate the two (own-sorted) inputs and sort
+  with an own insertion sort. Odd count: the result must be the middle value.
+  Even count: if the two middle values have an integer mean the result must be
+  that mean; otherwise it must lie between the two middle values (the rounding
+  direction of a non-integer mean is not specified by the README and is not
+  checked).
+* Inputs: every NA, NB in 0 .. 32 with NA + NB > 0 (the precondition), 4 random
+  pairs each over the full Value range and 4 over -2 .. 2.

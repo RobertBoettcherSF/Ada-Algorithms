@@ -1,5 +1,6 @@
 pragma SPARK_Mode (On);
 with Sort_List_Lite; use Sort_List_Lite;
+with Own_Checks;
 procedure Main is
    L : List := Empty;
 begin
@@ -9,4 +10,5 @@ begin
    pragma Assert (Get (L, 2) = 2);
    pragma Assert (Get (L, 3) = 3);
    pragma Assert (Get (L, 4) = 4);
+   Own_Checks;
 end Main;

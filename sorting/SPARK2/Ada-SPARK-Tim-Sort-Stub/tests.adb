@@ -2,6 +2,7 @@ pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Command_Line;
 with Tim_Sort_Stub; use Tim_Sort_Stub;
+with Own_Checks;
 procedure Tests is
    Failures : Natural := 0;
 
@@ -66,4 +67,5 @@ begin
       Put_Line ("FAIL" & Failures'Image & " checks");
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
+   Own_Checks;
 end Tests;

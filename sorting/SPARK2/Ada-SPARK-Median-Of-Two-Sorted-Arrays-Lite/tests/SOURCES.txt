@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: sort all eight values with an own insertion sort.
+  If the 4th and 5th smallest have an integer mean the result must equal it;
+  otherwise it must lie between them (rounding of a non-integer mean is not
+  specified by the README and is not checked).
+* Inputs: 3,000 random pairs of sorted arrays over 0 .. 100 and 3,000 over 0 .. 3.

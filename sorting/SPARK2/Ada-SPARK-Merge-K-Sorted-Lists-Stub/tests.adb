@@ -2,6 +2,7 @@ pragma Ada_2022;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Text_IO; use Ada.Text_IO;
 with Merge_K_Sorted_Lists_Stub; use Merge_K_Sorted_Lists_Stub;
+with Own_Checks;
 procedure Tests is
    Input : constant Input_Array :=
      (1 => 1, 2 => 4, 3 => 7, 4 => 9, 5 => 2, 6 => 3,
@@ -13,4 +14,5 @@ begin
       Assert (Result (I) = Value (I - 1));
    end loop;
    Put_Line ("PASS Merge_K_Sorted_Lists_Stub");
+   Own_Checks;
 end Tests;

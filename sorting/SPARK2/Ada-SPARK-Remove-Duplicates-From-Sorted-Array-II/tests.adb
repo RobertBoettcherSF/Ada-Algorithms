@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Remove_Duplicates_From_Sorted_Array_II;
+with Own_Checks;
 use Remove_Duplicates_From_Sorted_Array_II;
 
 procedure Tests is
@@ -9,4 +10,5 @@ begin
    Keep_Two (Data, Length);
    Assert (Length = 5 and Data (1) = 1 and Data (2) = 1
            and Data (3) = 2 and Data (4) = 2 and Data (5) = 3);
+   Own_Checks;
 end Tests;

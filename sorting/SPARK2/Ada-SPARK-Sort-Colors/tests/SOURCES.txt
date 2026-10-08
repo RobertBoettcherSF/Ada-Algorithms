@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: an own straight insertion sort of Data (1 .. Length);
+  the result must equal it, and Data (Length + 1 .. 32) must be unchanged.
+  (README: Dutch-national-flag sort of colours 0, 1, 2 over the first Length.)
+* Inputs: every Length 0 .. 32 with a fixed pattern and all-2, plus 3,000 random
+  arrays with random Length.

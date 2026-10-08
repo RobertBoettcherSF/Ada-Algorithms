@@ -20,3 +20,15 @@ sorting/SPARK2/Ada-SPARK-Wiggle-Sort,wiggle order on every adjacent pair + permu
 sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity,evens before odds + permutation; 3000 random
 sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,elementwise square computed independently; 3000 random
 sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,own concatenate + insertion-sort reference; 5000 random sorted pairs
+sorting/SPARK2/Ada-SPARK-Sort-Colors,own insertion-sort reference on Data(1..Length); tail unchanged; every Length + 3000 random
+sorting/SPARK2/Ada-SPARK-Sort-List-Lite,own insertion-sort reference; every length 0..16; 4800 random
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,bounds kept + own insertion-sort reference; lengths 0..40; extreme values; high bounds
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,parity at every position + permutation; 3000 random 4-even/4-odd inputs
+sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub,own insertion-sort reference; 3000 random three-run inputs
+sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,own concatenate + insertion-sort reference; every split NA+NB<=16
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array-II,own keep-at-most-two reference; every Length; 6400 random sorted
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,own unique reference; every length; 4800 random sorted
+sorting/SPARK2/Ada-SPARK-Find-Median-Sorted-Arrays-Lite,own sorted-merge median (odd exact; even exact when integer mean; else between middles); every NA;NB
+sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,own sorted-merge median (exact when integer mean; else between middles); 6000 random
+sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array,own merge-prefix-sum reference; every Length; 6400 random
+sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,non-increasing input frequency + permutation; 4000 random

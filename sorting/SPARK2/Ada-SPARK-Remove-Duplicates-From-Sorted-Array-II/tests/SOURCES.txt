@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: scan the sorted input and keep a value unless the
+  two values kept before it are equal to it; Keep_Two must return that length
+  and those leading elements.
+* Inputs: every Length 0 .. 32, 100 sorted random inputs each with values in
+  -10 .. -7 (many runs longer than two) and 100 over -10 .. 1000.

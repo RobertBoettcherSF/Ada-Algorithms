@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: an own straight insertion sort of the appended
+  values; after Solve the list must have the same length and equal elements.
+* Inputs: every length 0 .. 16, 150 random lists each over -1000 .. 1000 and
+  150 duplicate-heavy lists over 0 .. 2, plus one list over the full Integer range.
