@@ -50,191 +50,43 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'tools', 'vv'))
 import mutate  # noqa: E402
 
-# Intentional fixed-origin folders: one-line reason required (room).
-# Prefer subtype / constrained array; Pre => A'First = 1 with reason also OK.
-# Populate / extend when a folder is deliberately 1-based; empty reason = not fixed.
+# Intentional fixed-origin folders (room mechanical test 2026-10-08):
+# KEEP only when the algorithm does arithmetic on the index values themselves
+# (heap 2*I / I/2, Fenwick I and -I, FFT bit-reversal, 1-based DP recurrences,
+# interpolation probe using Lo/Hi). Prefer a subtype / constrained array type.
+# If indexes only walk or line two arrays up → First-relative rewrite (not fixed).
+# Empty registry entry = not fixed.
 FIXED_ORIGIN_REASONS: dict[str, str] = {
-    'clustering/Ada/FLAME-Clustering':
-        'CSO_Of indexed by cluster id 1..Max_Clusters',
-    'compression/Ada/Peterson-Gorenstein-Zierler-Algorithm':
-        'coefficient index = degree (Locator from x^0); syndromes S_1..S_2t',
-    'compression/SPARK2/Ada-SPARK-LZ77':
-        'classroom Max_Length; live window indices 1..N',
-    'compression/SPARK2/Ada-SPARK-Run-Length-Encoding':
-        'classroom Max_Length; live text indices 1..N',
-    'compression/SPARK3/Huffman-Coding':
-        'classroom Max_N symbol table indices 1..N',
-    'graphs/Ada/Floyds-Cycle-Finding-Algorithm':
-        'successor map keyed by node id 1..N; 0 = no successor',
-    'graphs/Ada/Hungarian-Algorithm':
-        'assignment indices align with Index 1..Max_N',
-    'graphs/SPARK4/A-Star':
-        'Dist/Prev/Path indexed by Vertex_Id 1..N',
-    'graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm':
-        'Dist/Prev/Path indexed by Vertex_Id 1..N',
-    'graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm':
-        'successor map keyed by node id 1..N; 0 = no successor',
-    'hashing/SPARK2/Ada-SPARK-FNV-Hash':
-        'classroom Max_Len; live text indices 1..N',
-    'hashing/SPARK2/Ada-SPARK-Pearson-Hashing':
-        'classroom Max_Len; live text indices 1..N',
-    'hashing/SPARK2/Ada-SPARK-Zobrist-Hashing':
-        'classroom Max_Len; live board/text indices 1..N',
-    'misc/Ada/Ant-Colony-Optimization':
-        'Tours/Lengths indexed by ant id (Best_Idx : Ant_Count)',
-    'misc/Ada/BCJR-Algorithm':
-        'BCJR time indices 1..N for systematic/parity/a-priori LLRs',
-    'misc/Ada/Barnes-Hut':
-        'force/body buffers align with Body_Index 1..N',
-    'misc/Ada/Branch-and-Bound':
-        'Selection indexed by item id 1..N',
-    'misc/Ada/Combinatorial-Optimization':
-        'assignment Perm maps worker id 1..N to task id 1..N',
-    'misc/Ada/Fast-Multipole-Method':
-        'potential/body buffers align with Particle_Index 1..N',
-    'misc/Ada/Gale-Shapley-Algorithm':
-        'proposers/receivers are Person_Id 1..N',
-    'misc/Ada/Levinson-Recursion':
-        'Toeplitz row R(1..N) for order-N Levinson recursion',
-    'misc/Ada/Memetic-Algorithm':
-        'TSP tour slots are City_Index 1..N',
-    'misc/Ada/Min-Conflicts':
-        'N-Queens board: row index and column values are both 1..N',
-    'misc/Ada/N-Body-Problems':
-        'acceleration buffer aligned to body slots 1..Count',
-    'misc/Ada/Thomas-Algorithm':
-        'tridiagonal vectors use Dim_Index 1..N',
-    'misc/Ada/Top-Trading-Cycle':
-        'agents/houses are Agent_Id 1..N',
-    'misc/SPARK2/Ada-SPARK-Adler32':
-        'classroom Max_Len; live byte indices 1..N',
-    'misc/SPARK2/Ada-SPARK-CRC32':
-        'classroom Max_Len; live byte indices 1..N',
-    'misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement':
-        'classroom Max_Len; live byte indices 1..N',
-    'misc/SPARK2/Ada-SPARK-Delta-Encoding':
-        'classroom Max_Len; live sample indices 1..N',
-    'misc/SPARK4/Ada-SPARK-Heaps-Algorithm':
-        'permutation is a map 1..N -> 1..N (values are indices)',
-    'misc/SPARK4/Ada-SPARK-K-Way-Merge':
-        'classroom empty Last=0 with Index 0..Max_Total; live indices 1..N',
     'misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm':
-        'frequencies indexed by symbol id 1..Max_Symbols',
-    'misc/SPARK4/Ada-SPARK-Selection-Algorithm':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'numerical/Ada/Brents-Algorithm':
-        'successor map keyed by node id 1..N; 0 = no successor',
-    'numerical/Ada/Spline-Interpolation':
-        'tridiagonal/spline coefficient vectors indexed 1..N',
-    'numerical/SPARK4/Ada-SPARK-Brents-Algorithm':
-        'successor map keyed by node id 1..N; 0 = no successor',
-    'searching/SPARK2/Ada-SPARK-Trigram-Search':
-        'classroom Max_Len; live text indices 1..N',
-    'searching/SPARK4/Ada-SPARK-Binary-Search':
-        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
-    'searching/SPARK4/Ada-SPARK-Fibonacci-Search':
-        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
+        'index arithmetic: package-merge pairs at 2*P-1 / 2*P',
     'searching/SPARK4/Ada-SPARK-Interpolation-Search':
-        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
-    'searching/SPARK4/Ada-SPARK-Introselect':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'searching/SPARK4/Ada-SPARK-Jump-Search':
-        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
-    'searching/SPARK4/Ada-SPARK-Linear-Search':
-        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
-    'searching/SPARK4/Ada-SPARK-Quickselect':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'searching/SPARK4/Ada-SPARK-Ternary-Search':
-        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
-    'searching/SPARK4/Ada-SPARK-Uniform-Cost-Search':
-        'Dist/Prev/Path indexed by Vertex_Id 1..N',
-    'searching/SPARK4/Best-First-Search':
-        'Prev/Path indexed by Vertex_Id 1..N',
-    'sorting/SPARK4/Ada-SPARK-Bitonic-Sorter':
-        'classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)',
-    'sorting/SPARK4/Ada-SPARK-Bogosort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Bubble-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Bucket-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Burstsort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Comb-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Counting-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Cycle-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Flashsort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Gnome-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+        'index arithmetic: interpolation probe uses Lo/Hi as numeric positions',
     'sorting/SPARK4/Ada-SPARK-Heapsort':
-        '1-based heap parent/child formulas (Parent=I/2, Left=2*I)',
-    'sorting/SPARK4/Ada-SPARK-Insertion-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+        'index arithmetic: Left:=2*I, A(2*I), A(I/2), 2*R hole/child index, 1-based heap parent/child',
     'sorting/SPARK4/Ada-SPARK-Introsort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Library-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Merge-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Odd-Even-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Pancake-Sorting':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Patience-Sorting':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Postman-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Quantum-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Quicksort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Radix-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Samplesort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Selection-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Shell-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Slowsort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
+        'index arithmetic: Left:=2*I, A(2*I), A(I/2), 2*R hole/child index',
     'sorting/SPARK4/Ada-SPARK-Smoothsort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Sort-Merge-Join':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Spaghetti-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Stooge-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Strand-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Timsort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Ada-SPARK-Topological-Sort':
-        'classroom empty Last=0 with Node_Count; live positions 1..N',
-    'sorting/SPARK4/Ada-SPARK-Tree-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'sorting/SPARK4/Bead-Sort':
-        'classroom empty Last=0 with Index 0..Max_N; live indices 1..N',
-    'strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance':
-        'classroom Max_Len; DP rows/cols are 1..N',
+        'index arithmetic: Leonardo/smoothsort child roots',
     'strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt':
-        'prefix table Pi(i) uses 1-based pattern indices',
-    'strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence':
-        'classroom Max_Len; DP rows/cols are 1..N',
-    'strings/SPARK3/Levenshtein-Distance':
-        'classroom Max_Len; DP rows/cols are 1..N',
-    'trees/SPARK2/Ada-SPARK-Longest-Common-Substring':
-        'classroom Max_Len; DP rows/cols are 1..N',
+        'index arithmetic: 1-based KMP prefix recurrence Pi(i)/Len:=Pi(Len)',
 }
+
+
+# Room decision ledger for the 90 folders that were fixed_origin_type before
+# the mechanical test: keep (index arithmetic, reason) or rewrite (First-relative).
+DECISIONS_TSV = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             'fixed_origin_decisions.tsv')
+
+
+def load_decisions():
+    out = {}
+    if os.path.exists(DECISIONS_TSV):
+        for r in csv.DictReader(open(DECISIONS_TSV), delimiter='\t'):
+            out[r['folder']] = (r['decision'], r['reason'])
+    return out
+
+
+DECISIONS = load_decisions()
 
 
 ARR_PARAM = re.compile(
@@ -634,12 +486,27 @@ def scan_folder(fid, work_root, timeout):
                          fix_kind='fixed_origin_type'))
         # Skip origin-shift dynamic drivers for intentional 1-based APIs
         return rows
+    decision = DECISIONS.get(fid, ('', ''))[0]
+    if decision == 'rewrite' and not pinned:
+        # Rewrite folders must also drop line-up pins (X'First = Y'First,
+        # X'First (1) = X'First (2)) and literal origins ('First = 0/1).
+        pinned = bool(re.search(
+            r"'First\s*(?:\(\s*\d\s*\))?\s*(?:/=|=)\s*(?:\d+\b|[\w.]+'First)", ads_all))
     if pinned:
+        rw = decision == 'rewrite'
         rows.append(dict(folder=fid, subprogram='', kind='first_pinned',
-                         detail="In_Bounds/Pre requires A'First = 1 — subtype/constrained type, "
-                                "or Pre + one-line reason (fix_kind=fixed_origin_type)",
-                         status='fail', n_array_params='', note='',
-                         fix_kind=''))
+                         detail=("REWRITE: First-relative (indexes only walk/line-up)" if rw else
+                                 "In_Bounds/Pre requires A'First = 1 — subtype/constrained type, "
+                                 "or Pre + one-line reason (fix_kind=fixed_origin_type)"),
+                         status='fail', n_array_params='',
+                         note=('indexes only walk/line-up (room decision)' if rw else ''),
+                         fix_kind=('rewrite_first_relative' if rw else '')))
+    elif decision == 'rewrite':
+        rows.append(dict(folder=fid, subprogram='', kind='first_relative',
+                         detail='room decision rewrite: no First pin left; shifted-origin tests in suite',
+                         status='ok', n_array_params='',
+                         note='indexes only walk/line-up (room decision)',
+                         fix_kind='rewritten_first_relative'))
     if 'AdaBoost' in fid:
         ab = run_adaboost_shift(fid, work_root, timeout)
         if ab: rows.append(ab)

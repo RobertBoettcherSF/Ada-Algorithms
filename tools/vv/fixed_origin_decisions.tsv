@@ -1,0 +1,91 @@
+folder	decision	reason
+clustering/Ada/FLAME-Clustering	rewrite	indexes only walk or line arrays up
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm	rewrite	indexes only walk or line arrays up
+compression/SPARK2/Ada-SPARK-LZ77	rewrite	indexes only walk or line arrays up
+compression/SPARK2/Ada-SPARK-Run-Length-Encoding	rewrite	indexes only walk or line arrays up
+compression/SPARK3/Huffman-Coding	rewrite	indexes only walk or line arrays up
+graphs/Ada/Floyds-Cycle-Finding-Algorithm	rewrite	indexes only walk or line arrays up
+graphs/Ada/Hungarian-Algorithm	rewrite	indexes only walk or line arrays up
+graphs/SPARK4/A-Star	rewrite	indexes only walk or line arrays up
+graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm	rewrite	indexes only walk or line arrays up
+graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm	rewrite	indexes only walk or line arrays up
+hashing/SPARK2/Ada-SPARK-FNV-Hash	rewrite	indexes only walk or line arrays up
+hashing/SPARK2/Ada-SPARK-Pearson-Hashing	rewrite	indexes only walk or line arrays up
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing	rewrite	indexes only walk or line arrays up
+misc/Ada/Ant-Colony-Optimization	rewrite	indexes only walk or line arrays up
+misc/Ada/BCJR-Algorithm	rewrite	indexes only walk/line-up (room-named)
+misc/Ada/Barnes-Hut	rewrite	indexes only walk or line arrays up
+misc/Ada/Branch-and-Bound	rewrite	indexes only walk or line arrays up
+misc/Ada/Combinatorial-Optimization	rewrite	indexes only walk or line arrays up
+misc/Ada/Fast-Multipole-Method	rewrite	indexes only walk or line arrays up
+misc/Ada/Gale-Shapley-Algorithm	rewrite	indexes only walk or line arrays up
+misc/Ada/Levinson-Recursion	rewrite	indexes only walk/line-up (room-named)
+misc/Ada/Memetic-Algorithm	rewrite	indexes only walk/line-up (room-named)
+misc/Ada/Min-Conflicts	rewrite	indexes only walk or line arrays up
+misc/Ada/N-Body-Problems	rewrite	indexes only walk/line-up (room-named)
+misc/Ada/Thomas-Algorithm	rewrite	indexes only walk or line arrays up
+misc/Ada/Top-Trading-Cycle	rewrite	indexes only walk or line arrays up
+misc/SPARK2/Ada-SPARK-Adler32	rewrite	indexes only walk or line arrays up
+misc/SPARK2/Ada-SPARK-CRC32	rewrite	indexes only walk or line arrays up
+misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement	rewrite	indexes only walk or line arrays up
+misc/SPARK2/Ada-SPARK-Delta-Encoding	rewrite	indexes only walk or line arrays up
+misc/SPARK4/Ada-SPARK-Heaps-Algorithm	rewrite	indexes only walk or line arrays up
+misc/SPARK4/Ada-SPARK-K-Way-Merge	rewrite	indexes only walk or line arrays up
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm	keep	index arithmetic: package-merge pairs at 2*P-1 / 2*P
+misc/SPARK4/Ada-SPARK-Selection-Algorithm	rewrite	indexes only walk or line arrays up
+numerical/Ada/Brents-Algorithm	rewrite	indexes only walk or line arrays up
+numerical/Ada/Spline-Interpolation	rewrite	indexes only walk/line-up (room-named)
+numerical/SPARK4/Ada-SPARK-Brents-Algorithm	rewrite	indexes only walk or line arrays up
+searching/SPARK2/Ada-SPARK-Trigram-Search	rewrite	indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Binary-Search	rewrite	indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Fibonacci-Search	rewrite	indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Interpolation-Search	keep	index arithmetic: interpolation probe uses Lo/Hi as numeric positions
+searching/SPARK4/Ada-SPARK-Introselect	rewrite	indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Jump-Search	rewrite	indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Linear-Search	rewrite	indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Quickselect	rewrite	indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Ternary-Search	rewrite	indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Uniform-Cost-Search	rewrite	indexes only walk or line arrays up
+searching/SPARK4/Best-First-Search	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Bogosort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Bubble-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Bucket-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Burstsort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Comb-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Counting-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Cycle-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Flashsort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Gnome-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Heapsort	keep	index arithmetic: Left:=2*I, A(2*I), A(I/2), 2*R hole/child index, 1-based heap parent/child
+sorting/SPARK4/Ada-SPARK-Insertion-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Introsort	keep	index arithmetic: Left:=2*I, A(2*I), A(I/2), 2*R hole/child index
+sorting/SPARK4/Ada-SPARK-Library-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Merge-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Pancake-Sorting	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Patience-Sorting	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Postman-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Quantum-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Quicksort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Radix-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Samplesort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Selection-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Shell-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Slowsort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Smoothsort	keep	index arithmetic: Leonardo/smoothsort child roots
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Stooge-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Strand-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Timsort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Topological-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Tree-Sort	rewrite	indexes only walk or line arrays up
+sorting/SPARK4/Bead-Sort	rewrite	indexes only walk or line arrays up
+strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance	rewrite	indexes only walk or line arrays up
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt	keep	index arithmetic: 1-based KMP prefix recurrence Pi(i)/Len:=Pi(Len)
+strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence	rewrite	indexes only walk or line arrays up
+strings/SPARK3/Levenshtein-Distance	rewrite	indexes only walk or line arrays up
+trees/SPARK2/Ada-SPARK-Longest-Common-Substring	rewrite	indexes only walk or line arrays up

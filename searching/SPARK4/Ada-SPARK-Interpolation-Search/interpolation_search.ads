@@ -42,7 +42,9 @@ is
    --  Ext_Index covers Lo / Hi cursors that may briefly become Hi + 1
    --  after a failed probe (then the loop exits).
 
-   type Element_Array is array (Positive range <>) of Integer;
+   subtype Live_Index is Positive range 1 .. Max_N;
+
+   type Element_Array is array (Live_Index range <>) of Integer;
 
    ---------------------------------------------------------------------------
    -- Sortedness / shape guards (expression functions — usable in Pre)

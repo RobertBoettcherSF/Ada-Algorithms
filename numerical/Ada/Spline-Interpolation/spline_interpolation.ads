@@ -127,20 +127,19 @@ is
    -- Thomas algorithm (self-contained tridiagonal solver)
    ---------------------------------------------------------------------------
 
-   --  Solve a_i x_{i-1} + b_i x_i + c_i x_{i+1} = d_i for i = 1 .. M,
-   --  with a_1 and c_M unused (set 0). Arrays indexed 1 .. M.
-   --  On success writes solution into X(1 .. M); Stat = Ok / Singular.
+   --  Solve a_i x_{i-1} + b_i x_i + c_i x_{i+1} = d_i for row i = 1 .. M,
+   --  M = A'Length; row i is element 'First + i - 1 of each array (any
+   --  origin, arrays need not share bounds). a_1 and c_M unused.
+   --  On success writes solution into X; Stat = Ok / Singular.
    procedure Thomas
      (A, B, C, D : in     Ordinates;
       X          :    out Ordinates;
       Stat       :    out Status)
      with Pre =>
-       A'First = 1 and then B'First = 1 and then C'First = 1
-       and then D'First = 1 and then X'First = 1
-       and then A'Last = B'Last and then B'Last = C'Last
-       and then C'Last = D'Last and then D'Last = X'Last
-       and then A'Last >= 1
-       and then A'Last <= Max_Points;
+       A'Length = B'Length and then B'Length = C'Length
+       and then C'Length = D'Length and then D'Length = X'Length
+       and then A'Length >= 1
+       and then A'Length <= Max_Points;
 
    ---------------------------------------------------------------------------
    -- Fitters
@@ -218,8 +217,6 @@ is
      with Pre =>
        P'Length >= 1
        and then X'Length = P'Length
-       and then Y'Length = P'Length
-       and then X'First = P'First
-       and then Y'First = P'First;
+       and then Y'Length = P'Length;
 
 end Spline_Interpolation;

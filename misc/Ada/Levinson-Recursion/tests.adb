@@ -295,6 +295,24 @@ begin
    end;
 
    ---------------------------------------------------------------------
+   Section ("12b. Shifted origins (R at 5, Y at 3)");
+   ---------------------------------------------------------------------
+   declare
+      R : constant Vector (5 .. 7) := [4.0, 1.0, 0.5];
+      Y : constant Vector (3 .. 5) := [1.0, 2.0, 3.0];
+      X : constant Vector (10 .. 12) := [0.08928571, 0.3125, 0.66071429];
+      S : constant Result := Solve_Levinson (R, Y);
+   begin
+      Check (S.Success, "shifted Success");
+      Check (Approx (S.X (1), 0.08928571, 1.0E-5), "shifted x1");
+      Check (Approx (S.X (2), 0.3125, 1.0E-5), "shifted x2");
+      Check (Approx (S.X (3), 0.66071429, 1.0E-5), "shifted x3");
+      Check (Approx (Residual_Norm (R, Y, X), 0.0, 1.0E-5),
+             "shifted residual (X at 10)");
+      Check (Approx (Toeplitz_Entry (R, 1, 3), 0.5), "shifted entry(1,3)");
+   end;
+
+   ---------------------------------------------------------------------
    Section ("13. Symmetry of multiply / entry helper");
    ---------------------------------------------------------------------
    declare

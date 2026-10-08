@@ -144,20 +144,29 @@ package body N_Body_Problems is
       if Count = 0 then
          return;
       end if;
-      for I in 1 .. Count loop
-         for J in I + 1 .. Count loop
-            declare
-               Fij : constant Vec2 :=
-                 Pair_Force
-                   (Bodies (I).Mass, Bodies (J).Mass,
-                    Bodies (I).Pos, Bodies (J).Pos,
-                    Config.G, Config.Softening);
-            begin
-               Out_F (I) := Vec_Add (Out_F (I), Fij);
-               Out_F (J) := Vec_Sub (Out_F (J), Fij);
-            end;
+      declare
+         B0 : constant Body_Index := Bodies'First;
+         F0 : constant Body_Index := Out_F'First;
+      begin
+         for Off_I in 1 .. Count loop
+            for Off_J in Off_I + 1 .. Count loop
+               declare
+                  I : constant Body_Index := B0 + Body_Index (Off_I) - 1;
+                  J : constant Body_Index := B0 + Body_Index (Off_J) - 1;
+                  OI : constant Body_Index := F0 + Body_Index (Off_I) - 1;
+                  OJ : constant Body_Index := F0 + Body_Index (Off_J) - 1;
+                  Fij : constant Vec2 :=
+                    Pair_Force
+                      (Bodies (I).Mass, Bodies (J).Mass,
+                       Bodies (I).Pos, Bodies (J).Pos,
+                       Config.G, Config.Softening);
+               begin
+                  Out_F (OI) := Vec_Add (Out_F (OI), Fij);
+                  Out_F (OJ) := Vec_Sub (Out_F (OJ), Fij);
+               end;
+            end loop;
          end loop;
-      end loop;
+      end;
    end Forces_Direct;
 
    procedure Accelerations_Direct
@@ -175,14 +184,24 @@ package body N_Body_Problems is
          return;
       end if;
       Forces_Direct (Bodies, Count, Config, F);
-      for I in 1 .. Count loop
-         if Bodies (I).Mass > Tiny then
-            Out_A (I) :=
-              (F (I).X / Bodies (I).Mass, F (I).Y / Bodies (I).Mass);
-         else
-            Out_A (I) := (0.0, 0.0);
-         end if;
-      end loop;
+      declare
+         B0 : constant Body_Index := Bodies'First;
+         A0 : constant Body_Index := Out_A'First;
+      begin
+         for Off in 1 .. Count loop
+            declare
+               I : constant Body_Index := B0 + Body_Index (Off) - 1;
+               O : constant Body_Index := A0 + Body_Index (Off) - 1;
+            begin
+               if Bodies (I).Mass > Tiny then
+                  Out_A (O) :=
+                    (F (Off).X / Bodies (I).Mass, F (Off).Y / Bodies (I).Mass);
+               else
+                  Out_A (O) := (0.0, 0.0);
+               end if;
+            end;
+         end loop;
+      end;
    end Accelerations_Direct;
 
    -------------------------------------------------------------------------
@@ -195,11 +214,19 @@ package body N_Body_Problems is
       KE : Real := 0.0;
       V2 : Real;
    begin
-      for I in 1 .. Count loop
-         V2 := Bodies (I).Vel.X * Bodies (I).Vel.X
-             + Bodies (I).Vel.Y * Bodies (I).Vel.Y;
-         KE := KE + 0.5 * Bodies (I).Mass * V2;
-      end loop;
+      declare
+         B0 : constant Body_Index := Bodies'First;
+      begin
+         for Off in 1 .. Count loop
+            declare
+               I : constant Body_Index := B0 + Body_Index (Off) - 1;
+            begin
+               V2 := Bodies (I).Vel.X * Bodies (I).Vel.X
+                   + Bodies (I).Vel.Y * Bodies (I).Vel.Y;
+               KE := KE + 0.5 * Bodies (I).Mass * V2;
+            end;
+         end loop;
+      end;
       if KE < 0.0 then
          return 0.0;
       end if;
@@ -213,14 +240,23 @@ package body N_Body_Problems is
    is
       PE : Real := 0.0;
    begin
-      for I in 1 .. Count loop
-         for J in I + 1 .. Count loop
-            PE := PE + Pair_Potential
-              (Bodies (I).Mass, Bodies (J).Mass,
-               Bodies (I).Pos, Bodies (J).Pos,
-               Config.G, Config.Softening);
+      declare
+         B0 : constant Body_Index := Bodies'First;
+      begin
+         for Off_I in 1 .. Count loop
+            for Off_J in Off_I + 1 .. Count loop
+               declare
+                  I : constant Body_Index := B0 + Body_Index (Off_I) - 1;
+                  J : constant Body_Index := B0 + Body_Index (Off_J) - 1;
+               begin
+                  PE := PE + Pair_Potential
+                    (Bodies (I).Mass, Bodies (J).Mass,
+                     Bodies (I).Pos, Bodies (J).Pos,
+                     Config.G, Config.Softening);
+               end;
+            end loop;
          end loop;
-      end loop;
+      end;
       return PE;
    end Potential_Energy;
 
@@ -240,8 +276,8 @@ package body N_Body_Problems is
       P : Vec2 := (0.0, 0.0);
    begin
       for I in 1 .. Count loop
-         P.X := P.X + Bodies (I).Mass * Bodies (I).Vel.X;
-         P.Y := P.Y + Bodies (I).Mass * Bodies (I).Vel.Y;
+         P.X := P.X + Bodies (Bodies'First + Body_Index (I) - 1).Mass * Bodies (Bodies'First + Body_Index (I) - 1).Vel.X;
+         P.Y := P.Y + Bodies (Bodies'First + Body_Index (I) - 1).Mass * Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y;
       end loop;
       return P;
    end Linear_Momentum;
@@ -252,7 +288,7 @@ package body N_Body_Problems is
       M : Real := 0.0;
    begin
       for I in 1 .. Count loop
-         M := M + Bodies (I).Mass;
+         M := M + Bodies (Bodies'First + Body_Index (I) - 1).Mass;
       end loop;
       return Non_Negative (M);
    end Total_Mass;
@@ -268,8 +304,8 @@ package body N_Body_Problems is
          raise Empty_System;
       end if;
       for I in 1 .. Count loop
-         SX := SX + Bodies (I).Mass * Bodies (I).Pos.X;
-         SY := SY + Bodies (I).Mass * Bodies (I).Pos.Y;
+         SX := SX + Bodies (Bodies'First + Body_Index (I) - 1).Mass * Bodies (Bodies'First + Body_Index (I) - 1).Pos.X;
+         SY := SY + Bodies (Bodies'First + Body_Index (I) - 1).Mass * Bodies (Bodies'First + Body_Index (I) - 1).Pos.Y;
       end loop;
       return (SX / M, SY / M);
    end Center_Of_Mass;
@@ -280,9 +316,9 @@ package body N_Body_Problems is
       L : Real := 0.0;
    begin
       for I in 1 .. Count loop
-         L := L + Bodies (I).Mass
-           * (Bodies (I).Pos.X * Bodies (I).Vel.Y
-              - Bodies (I).Pos.Y * Bodies (I).Vel.X);
+         L := L + Bodies (Bodies'First + Body_Index (I) - 1).Mass
+           * (Bodies (Bodies'First + Body_Index (I) - 1).Pos.X * Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y
+              - Bodies (Bodies'First + Body_Index (I) - 1).Pos.Y * Bodies (Bodies'First + Body_Index (I) - 1).Vel.X);
       end loop;
       return L;
    end Angular_Momentum_Z;
@@ -351,11 +387,11 @@ package body N_Body_Problems is
       for I in Bodies'Range loop
          Bodies (I) := (Mass => 0.0, Pos => (0.0, 0.0), Vel => (0.0, 0.0));
       end loop;
-      Bodies (1) :=
+      Bodies (Bodies'First) :=
         (Mass => M1,
          Pos  => (-R1, 0.0),
          Vel  => (0.0, V1));
-      Bodies (2) :=
+      Bodies (Bodies'First + 1) :=
         (Mass => M2,
          Pos  => (R2, 0.0),
          Vel  => (0.0, -V2));
@@ -379,10 +415,10 @@ package body N_Body_Problems is
       end if;
       Accelerations_Direct (Bodies, Count, Config, A);
       for I in 1 .. Count loop
-         Bodies (I).Pos.X := Bodies (I).Pos.X + Bodies (I).Vel.X * Dt;
-         Bodies (I).Pos.Y := Bodies (I).Pos.Y + Bodies (I).Vel.Y * Dt;
-         Bodies (I).Vel.X := Bodies (I).Vel.X + A (I).X * Dt;
-         Bodies (I).Vel.Y := Bodies (I).Vel.Y + A (I).Y * Dt;
+         Bodies (Bodies'First + Body_Index (I) - 1).Pos.X := Bodies (Bodies'First + Body_Index (I) - 1).Pos.X + Bodies (Bodies'First + Body_Index (I) - 1).Vel.X * Dt;
+         Bodies (Bodies'First + Body_Index (I) - 1).Pos.Y := Bodies (Bodies'First + Body_Index (I) - 1).Pos.Y + Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y * Dt;
+         Bodies (Bodies'First + Body_Index (I) - 1).Vel.X := Bodies (Bodies'First + Body_Index (I) - 1).Vel.X + A (I).X * Dt;
+         Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y := Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y + A (I).Y * Dt;
       end loop;
    end Euler_Step;
 
@@ -400,15 +436,15 @@ package body N_Body_Problems is
       end if;
       Accelerations_Direct (Bodies, Count, Config, A);
       for I in 1 .. Count loop
-         Bodies (I).Vel.X := Bodies (I).Vel.X + A (I).X * Half;
-         Bodies (I).Vel.Y := Bodies (I).Vel.Y + A (I).Y * Half;
-         Bodies (I).Pos.X := Bodies (I).Pos.X + Bodies (I).Vel.X * Dt;
-         Bodies (I).Pos.Y := Bodies (I).Pos.Y + Bodies (I).Vel.Y * Dt;
+         Bodies (Bodies'First + Body_Index (I) - 1).Vel.X := Bodies (Bodies'First + Body_Index (I) - 1).Vel.X + A (I).X * Half;
+         Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y := Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y + A (I).Y * Half;
+         Bodies (Bodies'First + Body_Index (I) - 1).Pos.X := Bodies (Bodies'First + Body_Index (I) - 1).Pos.X + Bodies (Bodies'First + Body_Index (I) - 1).Vel.X * Dt;
+         Bodies (Bodies'First + Body_Index (I) - 1).Pos.Y := Bodies (Bodies'First + Body_Index (I) - 1).Pos.Y + Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y * Dt;
       end loop;
       Accelerations_Direct (Bodies, Count, Config, A);
       for I in 1 .. Count loop
-         Bodies (I).Vel.X := Bodies (I).Vel.X + A (I).X * Half;
-         Bodies (I).Vel.Y := Bodies (I).Vel.Y + A (I).Y * Half;
+         Bodies (Bodies'First + Body_Index (I) - 1).Vel.X := Bodies (Bodies'First + Body_Index (I) - 1).Vel.X + A (I).X * Half;
+         Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y := Bodies (Bodies'First + Body_Index (I) - 1).Vel.Y + A (I).Y * Half;
       end loop;
    end Leapfrog_Step;
 
@@ -422,8 +458,8 @@ package body N_Body_Problems is
       S : Vec2 := (0.0, 0.0);
    begin
       for I in 1 .. Count loop
-         S.X := S.X + Forces (I).X;
-         S.Y := S.Y + Forces (I).Y;
+         S.X := S.X + Forces (Forces'First + Body_Index (I) - 1).X;
+         S.Y := S.Y + Forces (Forces'First + Body_Index (I) - 1).Y;
       end loop;
       return S;
    end Force_Sum;

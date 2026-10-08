@@ -2955,18 +2955,12 @@ trees/Ada/Embedded-Zerotree-Wavelet,Is_Zerotree_Root,catalog,catalog,,1,function
 trees/Ada/Embedded-Zerotree-Wavelet,Dominant_Pass,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 trees/Ada/Embedded-Zerotree-Wavelet,Subordinate_Pass,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 compression/SPARK2/Ada-SPARK-LZ77,Literal_Length,catalog,catalog,,1,function n_arrays=1 ret=Length,
-compression/SPARK2/Ada-SPARK-LZ77,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Length; live window indices 1..N
 compression/SPARK3/Huffman-Coding,Count_Frequencies,catalog,catalog,,1,function n_arrays=1 ret=Freq_Map,
-compression/SPARK3/Huffman-Coding,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_N symbol table indices 1..N
 graphs/Ada/Hungarian-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/Ada/Hungarian-Algorithm,Assignment_Cost,catalog,catalog,,1,function n_arrays=1 ret=Cost_Value,
-graphs/Ada/Hungarian-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),assignment indices align with Index 1..Max_N
 hashing/SPARK2/Ada-SPARK-FNV-Hash,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
-hashing/SPARK2/Ada-SPARK-FNV-Hash,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; live text indices 1..N
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
-hashing/SPARK2/Ada-SPARK-Pearson-Hashing,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; live text indices 1..N
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,Number_Of_Runs,catalog,catalog,,1,function n_arrays=1 ret=Run_Count,
-compression/SPARK2/Ada-SPARK-Run-Length-Encoding,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Length; live text indices 1..N
 misc/Ada/Barnes-Hut,Build_Tree,catalog,catalog,,1,procedure n_arrays=1 ret=Natural,
 misc/Ada/Barnes-Hut,Force_Brute,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
 misc/Ada/Barnes-Hut,Force_Barnes_Hut,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
@@ -2976,7 +2970,6 @@ misc/Ada/Barnes-Hut,Forces_All_Barnes_Hut_From_Bodies,catalog,catalog,,2,procedu
 misc/Ada/Barnes-Hut,Max_Abs_Error,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
 misc/Ada/Barnes-Hut,Sum_Masses,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
 misc/Ada/Barnes-Hut,Euler_Step,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Barnes-Hut,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),force/body buffers align with Body_Index 1..N
 misc/Ada/Fast-Multipole-Method,P2M,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Fast-Multipole-Method,Build_Tree,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Fast-Multipole-Method,Compute_Potentials_Brute,catalog,catalog,,2,procedure n_arrays=2 ret=None,
@@ -2984,11 +2977,8 @@ misc/Ada/Fast-Multipole-Method,Compute_Potentials_FMM,catalog,catalog,,2,procedu
 misc/Ada/Fast-Multipole-Method,Max_Abs_Error,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
 misc/Ada/Fast-Multipole-Method,Total_Charge,catalog,catalog,,1,function n_arrays=1 ret=Real,
 misc/Ada/Fast-Multipole-Method,Compute_Potentials_FMM_From_Particles,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/Fast-Multipole-Method,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),potential/body buffers align with Particle_Index 1..N
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
-hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; live board/text indices 1..N
 misc/Ada/Gale-Shapley-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Gale-Shapley-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),proposers/receivers are Person_Id 1..N
 misc/Ada/Thomas-Algorithm,Vec_Near,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/Ada/Thomas-Algorithm,Norm2,catalog,catalog,,1,function n_arrays=1 ret=Float,
 misc/Ada/Thomas-Algorithm,Max_Abs,catalog,catalog,,1,function n_arrays=1 ret=Float,
@@ -3003,133 +2993,103 @@ misc/Ada/Thomas-Algorithm,Make_Constant_Tridiagonal,catalog,catalog,,1,procedure
 misc/Ada/Thomas-Algorithm,Thomas,catalog,catalog,,1,function n_arrays=1 ret=Result,
 misc/Ada/Thomas-Algorithm,Solve,catalog,catalog,,1,function n_arrays=1 ret=Result,
 misc/Ada/Thomas-Algorithm,Thomas_In_Place,catalog,catalog,,3,procedure n_arrays=3 ret=None,
-misc/Ada/Thomas-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),tridiagonal vectors use Dim_Index 1..N
 misc/Ada/Top-Trading-Cycle,Load_Endowment,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Top-Trading-Cycle,Load,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Top-Trading-Cycle,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/Ada/Top-Trading-Cycle,Compute_Pointing,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Top-Trading-Cycle,Compute_Pointing_With_Holdings,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/Top-Trading-Cycle,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),agents/houses are Agent_Id 1..N
 misc/SPARK2/Ada-SPARK-Adler32,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_32,
-misc/SPARK2/Ada-SPARK-Adler32,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; live byte indices 1..N
 misc/SPARK2/Ada-SPARK-CRC32,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_32,
-misc/SPARK2/Ada-SPARK-CRC32,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; live byte indices 1..N
 misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_16,
-misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; live byte indices 1..N
 misc/SPARK2/Ada-SPARK-Delta-Encoding,Net_Delta,catalog,catalog,,1,function n_arrays=1 ret=Integer,
-misc/SPARK2/Ada-SPARK-Delta-Encoding,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; live sample indices 1..N
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,,static_midpoint,review,,,misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.adb:507: K := (N + 1) / 2;,prefer Lo + (Hi - Lo) / 2
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,Is_Kth_Partitioned,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,Select_Kth,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
-misc/SPARK4/Ada-SPARK-Selection-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 searching/SPARK2/Ada-SPARK-Trigram-Search,Contains,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-searching/SPARK2/Ada-SPARK-Trigram-Search,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; live text indices 1..N
 searching/SPARK4/Ada-SPARK-Binary-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Binary-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Binary-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Binary-Search,Find_First,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Binary-Search,Find_Last,catalog,catalog,,1,function n_arrays=1 ret=Index,
-searching/SPARK4/Ada-SPARK-Binary-Search,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),"classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)"
 searching/SPARK4/Ada-SPARK-Fibonacci-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Fibonacci-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Fibonacci-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
-searching/SPARK4/Ada-SPARK-Fibonacci-Search,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),"classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)"
 searching/SPARK4/Ada-SPARK-Interpolation-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Interpolation-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Interpolation-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
-searching/SPARK4/Ada-SPARK-Interpolation-Search,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),"classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)"
 searching/SPARK4/Ada-SPARK-Introselect,,static_midpoint,review,,,searching/SPARK4/Ada-SPARK-Introselect/introselect.adb:720: K := (N + 1) / 2;,prefer Lo + (Hi - Lo) / 2
 searching/SPARK4/Ada-SPARK-Introselect,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Introselect,Is_Kth_Partitioned,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Introselect,Select_Kth,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 searching/SPARK4/Ada-SPARK-Introselect,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 searching/SPARK4/Ada-SPARK-Introselect,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
-searching/SPARK4/Ada-SPARK-Introselect,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 searching/SPARK4/Ada-SPARK-Jump-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Jump-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Jump-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Jump-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
-searching/SPARK4/Ada-SPARK-Jump-Search,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),"classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)"
 searching/SPARK4/Ada-SPARK-Linear-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Linear-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Linear-Search,Find_From,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Linear-Search,Contains,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-searching/SPARK4/Ada-SPARK-Linear-Search,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),"classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)"
 searching/SPARK4/Ada-SPARK-Quickselect,,static_midpoint,review,,,searching/SPARK4/Ada-SPARK-Quickselect/quickselect.adb:506: K := (N + 1) / 2;,prefer Lo + (Hi - Lo) / 2
 searching/SPARK4/Ada-SPARK-Quickselect,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Quickselect,Is_Kth_Partitioned,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Quickselect,Select_Kth,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 searching/SPARK4/Ada-SPARK-Quickselect,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 searching/SPARK4/Ada-SPARK-Quickselect,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
-searching/SPARK4/Ada-SPARK-Quickselect,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 searching/SPARK4/Ada-SPARK-Ternary-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Ternary-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Ternary-Search,Is_Unimodal,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Ternary-Search,Find_Maximum_Index,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Ternary-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
-searching/SPARK4/Ada-SPARK-Ternary-Search,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),"classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)"
 sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),"classroom miss sentinel 0; live indices 1..N (Index 0..Max_N, empty Last=0)"
 sorting/SPARK4/Ada-SPARK-Bogosort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bogosort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bogosort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Bogosort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Bubble-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bubble-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bubble-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Bubble-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Bucket-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bucket-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bucket-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Bucket-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Burstsort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Burstsort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Burstsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Burstsort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Comb-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Comb-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Comb-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Comb-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Counting-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Counting-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Counting-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Counting-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Cycle-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Cycle-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort_Counting_Writes,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Cycle-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Flashsort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Flashsort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Flashsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Flashsort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Gnome-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Gnome-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Gnome-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Gnome-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Heapsort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Heapsort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Heapsort,Sift_Down,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Heapsort,Heapify,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Heapsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Heapsort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),"1-based heap parent/child formulas (Parent=I/2, Left=2*I)"
 sorting/SPARK4/Ada-SPARK-Insertion-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Insertion-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Insertion-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Insertion-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Introsort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Introsort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Introsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Introsort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Library-Sort,,static_midpoint,review,,,"sorting/SPARK4/Ada-SPARK-Library-Sort/library_sort.adb:69: else Occ_In (W, L, (L + R) / 2) + Occ_In (W, (L + R) / 2 + 1, R))",prefer Lo + (Hi - Lo) / 2
 sorting/SPARK4/Ada-SPARK-Library-Sort,,static_midpoint,review,,,sorting/SPARK4/Ada-SPARK-Library-Sort/library_sort.adb:88: M := (L + R) / 2;,prefer Lo + (Hi - Lo) / 2
 sorting/SPARK4/Ada-SPARK-Library-Sort,,static_midpoint,review,,,sorting/SPARK4/Ada-SPARK-Library-Sort/library_sort.adb:107: M := (L + R) / 2;,prefer Lo + (Hi - Lo) / 2
@@ -3140,109 +3100,83 @@ sorting/SPARK4/Ada-SPARK-Library-Sort,,static_midpoint,review,,,"sorting/SPARK4/
 sorting/SPARK4/Ada-SPARK-Library-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Library-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Library-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Library-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Merge-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Merge-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Merge-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Merge-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Pancake-Sorting,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Pancake-Sorting,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Pancake-Sorting,Flip,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Pancake-Sorting,Apply_Flips,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Pancake-Sorting,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Pancake-Sorting,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Pancake-Sorting,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Patience-Sorting,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Patience-Sorting,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Patience-Sorting,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Patience-Sorting,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,Keys_In_Range,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Postman-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Postman-Sort,Keys_Ok,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Postman-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Postman-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Postman-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,Sort_Comparison,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,Sort_Parallel_Network,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,Sort_Frequency,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,Sort_Space_Bounded,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Quantum-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Quicksort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Quicksort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Quicksort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Quicksort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Radix-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Radix-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Radix-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Radix-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Samplesort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Samplesort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Samplesort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Samplesort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Selection-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Selection-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Selection-Sort,Is_Sorted_Descending,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Selection-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Selection-Sort,Sort_Descending,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Selection-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Shell-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Shell-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Shell-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Shell-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Slowsort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Slowsort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Slowsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Slowsort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Smoothsort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Smoothsort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Smoothsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Smoothsort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Keys_Ok,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Stooge-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Stooge-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Stooge-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Stooge-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Strand-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Strand-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Strand-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Strand-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Timsort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Timsort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Timsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Timsort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Ada-SPARK-Tree-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Tree-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Tree-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Tree-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 sorting/SPARK4/Bead-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Bead-Sort,Values_Ok,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Bead-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Bead-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Bead-Sort,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; DP rows/cols are 1..N
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,Build_Prefix,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),prefix table Pi(i) uses 1-based pattern indices
 strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; DP rows/cols are 1..N
 strings/SPARK3/Levenshtein-Distance,Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-strings/SPARK3/Levenshtein-Distance,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; DP rows/cols are 1..N
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-trees/SPARK2/Ada-SPARK-Longest-Common-Substring,,fixed_origin_type,ok,fixed_origin_type,,In_Bounds/Pre requires A'First = 1 (accepted fixed origin),classroom Max_Len; DP rows/cols are 1..N
 compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Evaluate,catalog,catalog,,1,function n_arrays=1 ret=GF_Element,
 compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Derivative,catalog,catalog,,1,function n_arrays=1 ret=Polynomial,
 compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Compute_Locator_Static,catalog,catalog,,1,function n_arrays=1 ret=Polynomial,
@@ -3251,7 +3185,6 @@ compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Chien_Search,catalog,catal
 compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Compute_Evaluator,catalog,catalog,,2,function n_arrays=2 ret=Polynomial,
 compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Calculate_Error_Values_Forney,catalog,catalog,,3,function n_arrays=3 ret=Polynomial,
 compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Calculate_Error_Values_Linear,catalog,catalog,,2,function n_arrays=2 ret=Polynomial,
-compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),coefficient index = degree (Locator from x^0); syndromes S_1..S_2t
 clustering/Ada/FLAME-Clustering,Distance,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
 clustering/Ada/FLAME-Clustering,Squared_Distance,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
 clustering/Ada/FLAME-Clustering,Estimate_Densities,catalog,catalog,,1,function n_arrays=1 ret=Densities,
@@ -3260,11 +3193,9 @@ clustering/Ada/FLAME-Clustering,Init_Memberships,catalog,catalog,,3,procedure n_
 clustering/Ada/FLAME-Clustering,Neighborhood_Approximation_Error,catalog,catalog,,2,function n_arrays=2 ret=Non_Negative,
 clustering/Ada/FLAME-Clustering,Approximate_Memberships,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 clustering/Ada/FLAME-Clustering,Count_CSOs,catalog,catalog,,1,function n_arrays=1 ret=Cluster_Count,
-clustering/Ada/FLAME-Clustering,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),CSO_Of indexed by cluster id 1..Max_Clusters
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Arrays_OK,catalog,catalog,,3,function n_arrays=3 ret=Boolean,
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Search,catalog,catalog,,3,procedure n_arrays=3 ret=None,
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),Dist/Prev/Path indexed by Vertex_Id 1..N
 graphs/Ada/Floyds-Cycle-Finding-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/Ada/Floyds-Cycle-Finding-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
 graphs/Ada/Floyds-Cycle-Finding-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
@@ -3276,12 +3207,10 @@ graphs/Ada/Floyds-Cycle-Finding-Algorithm,Cycle_Start,catalog,catalog,,1,functio
 graphs/Ada/Floyds-Cycle-Finding-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 graphs/Ada/Floyds-Cycle-Finding-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/Ada/Floyds-Cycle-Finding-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-graphs/Ada/Floyds-Cycle-Finding-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,id-keyed index subtype (accepted fixed origin),successor map keyed by node id 1..N; 0 = no successor
 graphs/SPARK4/A-Star,Arrays_OK,catalog,catalog,,3,function n_arrays=3 ret=Boolean,
 graphs/SPARK4/A-Star,Heuristic_OK,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/SPARK4/A-Star,Search,catalog,catalog,,4,procedure n_arrays=4 ret=None,
 graphs/SPARK4/A-Star,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-graphs/SPARK4/A-Star,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),Dist/Prev/Path indexed by Vertex_Id 1..N
 misc/Ada/Ant-Colony-Optimization,Euclidean_Matrix,catalog,catalog,,1,function n_arrays=1 ret=Dist_Matrix,
 misc/Ada/Ant-Colony-Optimization,Tour_Length,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
 misc/Ada/Ant-Colony-Optimization,Is_Valid_Tour,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3289,7 +3218,6 @@ misc/Ada/Ant-Colony-Optimization,Transition_Probability,catalog,catalog,,1,funct
 misc/Ada/Ant-Colony-Optimization,Construct_Tour,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Ant-Colony-Optimization,Update_Pheromone,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Ant-Colony-Optimization,Colony_Update,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/Ant-Colony-Optimization,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),Tours/Lengths indexed by ant id (Best_Idx : Ant_Count)
 misc/Ada/Branch-and-Bound,Total_Weight,catalog,catalog,,2,function n_arrays=2 ret=Natural,
 misc/Ada/Branch-and-Bound,Total_Value,catalog,catalog,,2,function n_arrays=2 ret=Natural,
 misc/Ada/Branch-and-Bound,Is_Feasible,catalog,catalog,,2,function n_arrays=2 ret=Boolean,
@@ -3300,7 +3228,6 @@ misc/Ada/Branch-and-Bound,Solve_Knapsack_BnB,catalog,catalog,,2,function n_array
 misc/Ada/Branch-and-Bound,Branch_Knapsack,catalog,catalog,,2,function n_arrays=2 ret=Result,
 misc/Ada/Branch-and-Bound,Knapsack_Exhaustive,catalog,catalog,,2,function n_arrays=2 ret=Result,
 misc/Ada/Branch-and-Bound,Same_Selection,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Branch-and-Bound,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),Selection indexed by item id 1..N
 misc/Ada/Combinatorial-Optimization,Total_Weight,catalog,catalog,,2,function n_arrays=2 ret=Natural,
 misc/Ada/Combinatorial-Optimization,Total_Value,catalog,catalog,,2,function n_arrays=2 ret=Natural,
 misc/Ada/Combinatorial-Optimization,Is_Feasible,catalog,catalog,,2,function n_arrays=2 ret=Boolean,
@@ -3312,7 +3239,6 @@ misc/Ada/Combinatorial-Optimization,Is_Permutation,catalog,catalog,,1,function n
 misc/Ada/Combinatorial-Optimization,Tour_Length,catalog,catalog,,1,function n_arrays=1 ret=Cost,
 misc/Ada/Combinatorial-Optimization,Two_Opt_Improve,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/Ada/Combinatorial-Optimization,TSP_Two_Opt,catalog,catalog,,1,function n_arrays=1 ret=TSP_Result,
-misc/Ada/Combinatorial-Optimization,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),assignment Perm maps worker id 1..N to task id 1..N
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
@@ -3324,7 +3250,6 @@ graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Cycle_Start,catalog,catal
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),successor map keyed by node id 1..N; 0 = no successor
 misc/Ada/Min-Conflicts,Random_Board,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Min-Conflicts,Greedy_Board,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Min-Conflicts,Variable_Conflicts,catalog,catalog,,1,function n_arrays=1 ret=Natural,
@@ -3339,18 +3264,14 @@ misc/Ada/Min-Conflicts,Map_Variable_Conflicts,catalog,catalog,,1,function n_arra
 misc/Ada/Min-Conflicts,Map_Conflict_Count,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 misc/Ada/Min-Conflicts,Map_Is_Solved,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/Ada/Min-Conflicts,Solve_Map_Coloring,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Min-Conflicts,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),N-Queens board: row index and column values are both 1..N
 misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Differs_By_Single_Swap,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/SPARK4/Ada-SPARK-Heaps-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),permutation is a map 1..N -> 1..N (values are indices)
 misc/SPARK4/Ada-SPARK-K-Way-Merge,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-K-Way-Merge,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-K-Way-Merge,Merge_K,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/SPARK4/Ada-SPARK-K-Way-Merge,Merge,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/SPARK4/Ada-SPARK-K-Way-Merge,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_Total; live indices 1..N
 misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,Huffman_Length_Limited,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),frequencies indexed by symbol id 1..Max_Symbols
 numerical/Ada/Brents-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 numerical/Ada/Brents-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
 numerical/Ada/Brents-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
@@ -3362,7 +3283,6 @@ numerical/Ada/Brents-Algorithm,Cycle_Start,catalog,catalog,,1,function n_arrays=
 numerical/Ada/Brents-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 numerical/Ada/Brents-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 numerical/Ada/Brents-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-numerical/Ada/Brents-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,id-keyed index subtype (accepted fixed origin),successor map keyed by node id 1..N; 0 = no successor
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
@@ -3374,12 +3294,10 @@ numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Cycle_Start,catalog,catalog,,1,funct
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-numerical/SPARK4/Ada-SPARK-Brents-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),successor map keyed by node id 1..N; 0 = no successor
 searching/SPARK4/Best-First-Search,Arrays_OK,catalog,catalog,,2,function n_arrays=2 ret=Boolean,
 searching/SPARK4/Best-First-Search,Heuristic_OK,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Best-First-Search,Search,catalog,catalog,,3,procedure n_arrays=3 ret=None,
 searching/SPARK4/Best-First-Search,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-searching/SPARK4/Best-First-Search,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),Prev/Path indexed by Vertex_Id 1..N
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,In_Bounds_Rel,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,In_Bounds_Out,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Is_Sorted_By_Key,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3388,16 +3306,13 @@ sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Result_Keys_Nondecreasing,catalog,catal
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Product_Fits,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Inner_Join,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Unique_Key_Join,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),classroom empty Last=0 with Index 0..Max_N; live indices 1..N
 searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,Arrays_OK,catalog,catalog,,3,function n_arrays=3 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,Search,catalog,catalog,,3,procedure n_arrays=3 ret=None,
 searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),Dist/Prev/Path indexed by Vertex_Id 1..N
 sorting/SPARK4/Ada-SPARK-Topological-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Topological-Sort,Result_Shape,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Topological-Sort,Is_Valid_Sort,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Topological-Sort,Kahn_Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Topological-Sort,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),classroom empty Last=0 with Node_Count; live positions 1..N
 misc/Ada/Selection-Algorithm,,static_midpoint,review,,,misc/Ada/Selection-Algorithm/selection_algorithm.adb:128: K := (N + 1) / 2;,prefer Lo + (Hi - Lo) / 2
 misc/Ada/Selection-Algorithm,Select_Kth,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 misc/Ada/Selection-Algorithm,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
@@ -3419,6 +3334,117 @@ searching/Ada/Quickselect,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1
 searching/Ada/Quickselect,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 searching/Ada/Quickselect,Select_Kth_Copy,ok,ok,,,origins 0/100 high 10000 (value) ok,
 misc/SPARK4/demo,Get_SSTF_Schedule,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+clustering/Ada/FLAME-Clustering,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+compression/SPARK2/Ada-SPARK-LZ77,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+compression/SPARK2/Ada-SPARK-Run-Length-Encoding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+compression/SPARK3/Huffman-Coding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+graphs/Ada/Hungarian-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+graphs/SPARK4/A-Star,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+hashing/SPARK2/Ada-SPARK-FNV-Hash,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+hashing/SPARK2/Ada-SPARK-Pearson-Hashing,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/Ant-Colony-Optimization,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/Barnes-Hut,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/Branch-and-Bound,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/Combinatorial-Optimization,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/Fast-Multipole-Method,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/Gale-Shapley-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/Min-Conflicts,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/Thomas-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/Top-Trading-Cycle,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/SPARK2/Ada-SPARK-Adler32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/SPARK2/Ada-SPARK-CRC32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/SPARK2/Ada-SPARK-Delta-Encoding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/SPARK4/Ada-SPARK-Heaps-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/SPARK4/Ada-SPARK-K-Way-Merge,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,KEEP: index arithmetic on index values,index arithmetic: package-merge pairs at 2*P-1 / 2*P
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+numerical/Ada/Brents-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+numerical/SPARK4/Ada-SPARK-Brents-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK2/Ada-SPARK-Trigram-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Binary-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Fibonacci-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Interpolation-Search,,fixed_origin_type,ok,fixed_origin_type,,KEEP: index arithmetic on index values,index arithmetic: interpolation probe uses Lo/Hi as numeric positions
+searching/SPARK4/Ada-SPARK-Introselect,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Jump-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Linear-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Quickselect,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Ternary-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+searching/SPARK4/Best-First-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Bogosort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Bubble-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Burstsort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Comb-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Counting-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Flashsort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Gnome-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Heapsort,,fixed_origin_type,ok,fixed_origin_type,,KEEP: index arithmetic on index values,"index arithmetic: Left:=2*I, A(2*I), A(I/2), 2*R hole/child index, 1-based heap parent/child"
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Introsort,,fixed_origin_type,ok,fixed_origin_type,,KEEP: index arithmetic on index values,"index arithmetic: Left:=2*I, A(2*I), A(I/2), 2*R hole/child index"
+sorting/SPARK4/Ada-SPARK-Library-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Merge-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Pancake-Sorting,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Postman-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Quicksort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Radix-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Samplesort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Selection-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Shell-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Slowsort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Smoothsort,,fixed_origin_type,ok,fixed_origin_type,,KEEP: index arithmetic on index values,index arithmetic: Leonardo/smoothsort child roots
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Strand-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Timsort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Topological-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Ada-SPARK-Tree-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+sorting/SPARK4/Bead-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,,fixed_origin_type,ok,fixed_origin_type,,KEEP: index arithmetic on index values,index arithmetic: 1-based KMP prefix recurrence Pi(i)/Len:=Pi(Len)
+strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+strings/SPARK3/Levenshtein-Distance,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+trees/SPARK2/Ada-SPARK-Longest-Common-Substring,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
+misc/Ada/BCJR-Algorithm,Decode,catalog,catalog,,5,procedure n_arrays=5 ret=None,
+misc/Ada/BCJR-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/Ada/N-Body-Problems,Forces_Direct,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/N-Body-Problems,Accelerations_Direct,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/N-Body-Problems,Kinetic_Energy,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
+misc/Ada/N-Body-Problems,Potential_Energy,catalog,catalog,,1,function n_arrays=1 ret=Real,
+misc/Ada/N-Body-Problems,Total_Energy,catalog,catalog,,1,function n_arrays=1 ret=Real,
+misc/Ada/N-Body-Problems,Linear_Momentum,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
+misc/Ada/N-Body-Problems,Total_Mass,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
+misc/Ada/N-Body-Problems,Center_Of_Mass,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
+misc/Ada/N-Body-Problems,Angular_Momentum_Z,catalog,catalog,,1,function n_arrays=1 ret=Real,
+misc/Ada/N-Body-Problems,Make_Circular_Binary,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/N-Body-Problems,Euler_Step,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/N-Body-Problems,Leapfrog_Step,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/N-Body-Problems,Force_Sum,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
+misc/Ada/N-Body-Problems,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/Ada/Levinson-Recursion,Vec_Near,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/Ada/Levinson-Recursion,Norm2,catalog,catalog,,1,function n_arrays=1 ret=Float,
+misc/Ada/Levinson-Recursion,Max_Abs,catalog,catalog,,1,function n_arrays=1 ret=Float,
+misc/Ada/Levinson-Recursion,Multiply_Toeplitz,catalog,catalog,,1,function n_arrays=1 ret=Vector,
+misc/Ada/Levinson-Recursion,Residual,catalog,catalog,,1,function n_arrays=1 ret=Vector,
+misc/Ada/Levinson-Recursion,Residual_Norm,catalog,catalog,,1,function n_arrays=1 ret=Float,
+misc/Ada/Levinson-Recursion,Residual_Max_Abs,catalog,catalog,,1,function n_arrays=1 ret=Float,
+misc/Ada/Levinson-Recursion,Solve_Levinson,catalog,catalog,,1,function n_arrays=1 ret=Result,
+misc/Ada/Levinson-Recursion,Solve,catalog,catalog,,1,function n_arrays=1 ret=Result,
+misc/Ada/Levinson-Recursion,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 numerical/Ada/Spline-Interpolation,Is_Strictly_Increasing,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 numerical/Ada/Spline-Interpolation,Thomas,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 numerical/Ada/Spline-Interpolation,Fit_Natural_Cubic,catalog,catalog,,2,function n_arrays=2 ret=Fit_Result,
@@ -3430,19 +3456,7 @@ numerical/Ada/Spline-Interpolation,Fit_Linear,catalog,catalog,,1,function n_arra
 numerical/Ada/Spline-Interpolation,Fit_Quadratic,catalog,catalog,,2,function n_arrays=2 ret=Fit_Result,
 numerical/Ada/Spline-Interpolation,Fit_Quadratic,catalog,catalog,,1,function n_arrays=1 ret=Fit_Result,
 numerical/Ada/Spline-Interpolation,Split_XY,catalog,catalog,,3,procedure n_arrays=3 ret=None,
-numerical/Ada/Spline-Interpolation,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),tridiagonal/spline coefficient vectors indexed 1..N
-misc/Ada/BCJR-Algorithm,Decode,catalog,catalog,,5,procedure n_arrays=5 ret=None,
-misc/Ada/BCJR-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),BCJR time indices 1..N for systematic/parity/a-priori LLRs
-misc/Ada/Levinson-Recursion,Vec_Near,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Levinson-Recursion,Norm2,catalog,catalog,,1,function n_arrays=1 ret=Float,
-misc/Ada/Levinson-Recursion,Max_Abs,catalog,catalog,,1,function n_arrays=1 ret=Float,
-misc/Ada/Levinson-Recursion,Multiply_Toeplitz,catalog,catalog,,1,function n_arrays=1 ret=Vector,
-misc/Ada/Levinson-Recursion,Residual,catalog,catalog,,1,function n_arrays=1 ret=Vector,
-misc/Ada/Levinson-Recursion,Residual_Norm,catalog,catalog,,1,function n_arrays=1 ret=Float,
-misc/Ada/Levinson-Recursion,Residual_Max_Abs,catalog,catalog,,1,function n_arrays=1 ret=Float,
-misc/Ada/Levinson-Recursion,Solve_Levinson,catalog,catalog,,1,function n_arrays=1 ret=Result,
-misc/Ada/Levinson-Recursion,Solve,catalog,catalog,,1,function n_arrays=1 ret=Result,
-misc/Ada/Levinson-Recursion,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),Toeplitz row R(1..N) for order-N Levinson recursion
+numerical/Ada/Spline-Interpolation,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/Ada/Memetic-Algorithm,Hamming_Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 misc/Ada/Memetic-Algorithm,Zero_Count,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 misc/Ada/Memetic-Algorithm,Ones_Count,catalog,catalog,,1,function n_arrays=1 ret=Natural,
@@ -3460,18 +3474,4 @@ misc/Ada/Memetic-Algorithm,Order_Crossover,catalog,catalog,,1,function n_arrays=
 misc/Ada/Memetic-Algorithm,Mutate_Tour,catalog,catalog,,1,function n_arrays=1 ret=Tour,
 misc/Ada/Memetic-Algorithm,Local_Improve_TSP,catalog,catalog,,1,function n_arrays=1 ret=Tour,
 misc/Ada/Memetic-Algorithm,Minimize_Hamming,catalog,catalog,,1,function n_arrays=1 ret=Bit_Result,
-misc/Ada/Memetic-Algorithm,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),TSP tour slots are City_Index 1..N
-misc/Ada/N-Body-Problems,Forces_Direct,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/N-Body-Problems,Accelerations_Direct,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/N-Body-Problems,Kinetic_Energy,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
-misc/Ada/N-Body-Problems,Potential_Energy,catalog,catalog,,1,function n_arrays=1 ret=Real,
-misc/Ada/N-Body-Problems,Total_Energy,catalog,catalog,,1,function n_arrays=1 ret=Real,
-misc/Ada/N-Body-Problems,Linear_Momentum,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
-misc/Ada/N-Body-Problems,Total_Mass,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
-misc/Ada/N-Body-Problems,Center_Of_Mass,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
-misc/Ada/N-Body-Problems,Angular_Momentum_Z,catalog,catalog,,1,function n_arrays=1 ret=Real,
-misc/Ada/N-Body-Problems,Make_Circular_Binary,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/N-Body-Problems,Euler_Step,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/N-Body-Problems,Leapfrog_Step,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/N-Body-Problems,Force_Sum,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
-misc/Ada/N-Body-Problems,,fixed_origin_type,ok,fixed_origin_type,,Pre/In_Bounds pins A'First = 1 (accepted fixed origin),acceleration buffer aligned to body slots 1..Count
+misc/Ada/Memetic-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)

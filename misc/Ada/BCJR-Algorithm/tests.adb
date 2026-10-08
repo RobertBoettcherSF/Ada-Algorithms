@@ -208,7 +208,27 @@ begin
       Check ("13.3 Ext(3) remains valid", Ext(3) > 100.0);
    end;
 
-   Put_Line ("");
+   
+   --  TEST 14: Shifted Metric_Array origins
+   Put_Line ("TEST 14 — Shifted Metric_Array origins");
+   declare
+      Sys : constant Metric_Array (5 .. 9) := [others => -2.0];
+      Par : constant Metric_Array (3 .. 7) := [others => -2.0];
+      Apr : constant Metric_Array (8 .. 12) := [others => 0.0];
+      Ext : Metric_Array (2 .. 6);
+      Ext1 : Metric_Array (1 .. 5);
+      Sys1 : constant Metric_Array (1 .. 5) := [others => -2.0];
+      Par1 : constant Metric_Array (1 .. 5) := [others => -2.0];
+      Apr1 : constant Metric_Array (1 .. 5) := [others => 0.0];
+   begin
+      Decode (Max_Log_MAP, My_Trellis, Sys, Par, Apr, Ext);
+      Decode (Max_Log_MAP, My_Trellis, Sys1, Par1, Apr1, Ext1);
+      Check ("14.1 Ext shifted(2) negative", Ext (2) < 0.0);
+      Check ("14.2 Ext shifted matches 1-based(1)", abs (Ext (2) - Ext1 (1)) < 1.0E-9);
+      Check ("14.3 Ext shifted matches 1-based(3)", abs (Ext (4) - Ext1 (3)) < 1.0E-9);
+   end;
+
+Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
    if Fail_Count /= 0 then

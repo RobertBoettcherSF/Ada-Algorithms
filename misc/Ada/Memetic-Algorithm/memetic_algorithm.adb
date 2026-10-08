@@ -323,15 +323,19 @@ is
    function Tour_Length (T : Tour; D : Dist_Matrix) return Non_Negative is
       Len : Real := 0.0;
       A, B : City_Index;
+
+      --  City label c -> D row/column D'First (k) + (c - 1).
+      function Dist (P, Q : City_Index) return Non_Negative is
+        (D (D'First (1) + (P - 1), D'First (2) + (Q - 1)));
    begin
       for I in T'First .. T'Last - 1 loop
          A := T (I);
          B := T (I + 1);
-         Len := Len + Real (D (A, B));
+         Len := Len + Real (Dist (A, B));
       end loop;
       A := T (T'Last);
       B := T (T'First);
-      Len := Len + Real (D (A, B));
+      Len := Len + Real (Dist (A, B));
       return Non_Negative (Len);
    end Tour_Length;
 
@@ -419,12 +423,16 @@ is
       City  : City_Index;
       Placed : Natural := 0;
       Need   : Natural;
+
+      --  Position k (1 .. N) of each parent, First-relative.
+      function A_At (K : City_Index) return City_Index is
+        (Parent_A (Parent_A'First + (K - 1)));
+      function B_At (K : City_Index) return City_Index is
+        (Parent_B (Parent_B'First + (K - 1)));
    begin
       if Parent_A'Length /= Parent_B'Length
         or else Parent_A'Length < 2
         or else Parent_A'Length > Max_Cities
-        or else Parent_A'First /= 1
-        or else Parent_B'First /= 1
       then
          raise Invalid_Argument;
       end if;
@@ -439,8 +447,8 @@ is
 
       --  Copy segment [Lo .. Hi] from A.
       for I in Lo .. Hi loop
-         Child (I) := Parent_A (I);
-         Taken (Positive (Parent_A (I))) := True;
+         Child (I) := A_At (I);
+         Taken (Positive (A_At (I))) := True;
          Placed := Placed + 1;
       end loop;
 
@@ -461,7 +469,7 @@ is
          Filled : Natural := 0;
       begin
          while Filled < Need loop
-            City := Parent_B (B_Idx);
+            City := B_At (B_Idx);
             if not Taken (Positive (City)) then
                --  Advance Pos to next unfilled slot (outside [Lo..Hi]).
                while Pos >= Lo and then Pos <= Hi loop
@@ -541,10 +549,8 @@ is
       Cand   : Tour (1 .. City_Index (N));
       Cand_C : Non_Negative;
    begin
-      if Start'First /= D'First (1)
-        or else Start'Last /= D'Last (1)
-        or else D'First (1) /= D'First (2)
-        or else D'Last (1) /= D'Last (2)
+      if Start'Length /= D'Length (1)
+        or else D'Length (1) /= D'Length (2)
         or else Start'Length < 2
         or else Start'Length > Max_Cities
       then
@@ -828,8 +834,7 @@ is
       if not Config_Is_Valid (Cfg) then
          raise Invalid_Argument;
       end if;
-      if D'First (1) /= D'First (2)
-        or else D'Last (1) /= D'Last (2)
+      if D'Length (1) /= D'Length (2)
         or else D'Length (1) < 2
         or else D'Length (1) > Max_Cities
       then

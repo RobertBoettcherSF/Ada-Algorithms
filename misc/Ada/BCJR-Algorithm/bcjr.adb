@@ -79,7 +79,7 @@ package body BCJR is
                      Next_S : constant State_ID := Branch.Next_State;
                      U      : constant Real := To_BPSK (B);
                      P      : constant Real := To_BPSK (Branch.Output.Parity);
-                     Gamma  : constant Real := 0.5 * (U * (Sys_LLR (K) + Apriori (K)) + P * Parity_LLR (K));
+                     Gamma  : constant Real := 0.5 * (U * (Sys_LLR (Sys_LLR'First + K - 1) + Apriori (Apriori'First + K - 1)) + P * Parity_LLR (Parity_LLR'First + K - 1));
                   begin
                      Alpha (K, Next_S) := Max_Star (Alpha (K, Next_S), Alpha (K - 1, S) + Gamma, Use_Log);
                   end;
@@ -97,7 +97,7 @@ package body BCJR is
                   Next_S : constant State_ID := Branch.Next_State;
                   U      : constant Real := To_BPSK (B);
                   P      : constant Real := To_BPSK (Branch.Output.Parity);
-                  Gamma  : constant Real := 0.5 * (U * (Sys_LLR (K) + Apriori (K)) + P * Parity_LLR (K));
+                  Gamma  : constant Real := 0.5 * (U * (Sys_LLR (Sys_LLR'First + K - 1) + Apriori (Apriori'First + K - 1)) + P * Parity_LLR (Parity_LLR'First + K - 1));
                begin
                   Beta (K - 1, S) := Max_Star (Beta (K - 1, S), Beta (K, Next_S) + Gamma, Use_Log);
                end;
@@ -117,7 +117,7 @@ package body BCJR is
                      Next_S : constant State_ID := Branch.Next_State;
                      U      : constant Real := To_BPSK (B);
                      P      : constant Real := To_BPSK (Branch.Output.Parity);
-                     Gamma  : constant Real := 0.5 * (U * (Sys_LLR (K) + Apriori (K)) + P * Parity_LLR (K));
+                     Gamma  : constant Real := 0.5 * (U * (Sys_LLR (Sys_LLR'First + K - 1) + Apriori (Apriori'First + K - 1)) + P * Parity_LLR (Parity_LLR'First + K - 1));
                      Metric : constant Real := Alpha (K - 1, S) + Gamma + Beta (K, Next_S);
                   begin
                      if B = 1 then
@@ -129,7 +129,7 @@ package body BCJR is
                end loop;
             end loop;
             --  Subtract Intrinsic and Apriori information to isolate Extrinsic information
-            Ext_LLR (K) := (L_Pos - L_Neg) - Sys_LLR (K) - Apriori (K);
+            Ext_LLR (Ext_LLR'First + K - 1) := (L_Pos - L_Neg) - Sys_LLR (Sys_LLR'First + K - 1) - Apriori (Apriori'First + K - 1);
          end;
       end loop;
    end Log_Domain_Decode;
@@ -172,7 +172,7 @@ package body BCJR is
                         Branch : constant Branch_Info := Trellis (S)(B);
                         U      : constant Real := To_BPSK (B);
                         P      : constant Real := To_BPSK (Branch.Output.Parity);
-                        Gamma  : constant Real := Math.Exp (0.5 * (U * (Sys_LLR (K) + Apriori (K)) + P * Parity_LLR (K)));
+                        Gamma  : constant Real := Math.Exp (0.5 * (U * (Sys_LLR (Sys_LLR'First + K - 1) + Apriori (Apriori'First + K - 1)) + P * Parity_LLR (Parity_LLR'First + K - 1)));
                      begin
                         Alpha (K, Branch.Next_State) := Alpha (K, Branch.Next_State) + Alpha (K - 1, S) * Gamma;
                      end;
@@ -199,7 +199,7 @@ package body BCJR is
                      Branch : constant Branch_Info := Trellis (S)(B);
                      U      : constant Real := To_BPSK (B);
                      P      : constant Real := To_BPSK (Branch.Output.Parity);
-                     Gamma  : constant Real := Math.Exp (0.5 * (U * (Sys_LLR (K) + Apriori (K)) + P * Parity_LLR (K)));
+                     Gamma  : constant Real := Math.Exp (0.5 * (U * (Sys_LLR (Sys_LLR'First + K - 1) + Apriori (Apriori'First + K - 1)) + P * Parity_LLR (Parity_LLR'First + K - 1)));
                   begin
                      Beta (K - 1, S) := Beta (K - 1, S) + Beta (K, Branch.Next_State) * Gamma;
                   end;
@@ -225,7 +225,7 @@ package body BCJR is
                      Branch : constant Branch_Info := Trellis (S)(B);
                      U      : constant Real := To_BPSK (B);
                      P      : constant Real := To_BPSK (Branch.Output.Parity);
-                     Gamma  : constant Real := Math.Exp (0.5 * (U * (Sys_LLR (K) + Apriori (K)) + P * Parity_LLR (K)));
+                     Gamma  : constant Real := Math.Exp (0.5 * (U * (Sys_LLR (Sys_LLR'First + K - 1) + Apriori (Apriori'First + K - 1)) + P * Parity_LLR (Parity_LLR'First + K - 1)));
                      Prob   : constant Real := Alpha (K - 1, S) * Gamma * Beta (K, Branch.Next_State);
                   begin
                      if B = 1 then
@@ -241,7 +241,7 @@ package body BCJR is
             P_Pos := Real'Max (P_Pos, 1.0E-30);
             P_Neg := Real'Max (P_Neg, 1.0E-30);
             
-            Ext_LLR (K) := Math.Log (P_Pos / P_Neg) - Sys_LLR (K) - Apriori (K);
+            Ext_LLR (Ext_LLR'First + K - 1) := Math.Log (P_Pos / P_Neg) - Sys_LLR (Sys_LLR'First + K - 1) - Apriori (Apriori'First + K - 1);
          end;
       end loop;
    end Standard_Decode;

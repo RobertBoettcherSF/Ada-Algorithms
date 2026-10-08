@@ -3,8 +3,9 @@ package KMP
   with SPARK_Mode => On
 is
    Max_Len : constant := 16;
-   type Char_Array is array (Positive range <>) of Character;
-   type Prefix_Table is array (Positive range <>) of Natural;
+   subtype Pat_Index is Positive range 1 .. Max_Len;
+   type Char_Array is array (Pat_Index range <>) of Character;
+   type Prefix_Table is array (Pat_Index range <>) of Natural;
 
    procedure Build_Prefix (Pat : Char_Array; Pi : out Prefix_Table)
      with

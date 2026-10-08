@@ -7,8 +7,12 @@ the folder's tests with GNAT 14 (-gnat2022 -gnata) and run them.
   killed      tests fail (nonzero exit status, or a FAIL line not reporting 0 failures) or hang;
               'raised' text alone is not a kill. Only tracked library .adb files are mutated
               (no tests, own checks, demo mains, harness or binder files).
-  survived    tests still pass  -> the tests do not pin that operator
+              Survivors that die under pragma Initialize_Scalars + -gnatVa are also
+              killed, with kill_kind=uninit (assignment-deletion / uninitialised use).
+  survived    tests still pass under both the normal and the Init_Scalars builds
   stillborn   mutant does not compile (not counted)
+  kill_kind   blank for a normal kill; `uninit` when Init_Scalars+-gnatVa exposed the
+              survivor (counts as killed in the score)
 Score = killed / (killed + survived).
 
 usage: mutate.py [--seed S] [--per-folder K] [--sample N | --folders F ...] [--out results.csv]
@@ -108,17 +112,30 @@ def make_dummy(work):
     body = ''.join(f'with {u};\n' for u in units) + f'procedure {proc} is\nbegin\n   null;\nend {proc};\n'
     open(os.path.join(work, main), 'w').write(body)
 
-def run_tests(work):
+INIT_ADC = 'pragma Initialize_Scalars;\n'
+
+
+def run_tests(work, *, init_scalars=False, bin_name='tbin'):
     main = next((m for m in ('tests.adb', 'tests/main.adb', 'src/tests.adb') if os.path.exists(os.path.join(work, m))), None)
     if not main:
         return 'no tests'
     os.makedirs(os.path.join(work, 'obj'), exist_ok=True)
     inc = [f'-I{d}' for d in ('src', 'tests') if os.path.isdir(os.path.join(work, d))]
-    b = subprocess.run([GNATMAKE, '-q', '-gnat2022', '-gnata', *inc, '-D', 'obj', main, '-o', 'tbin'],
+    extra = []
+    if init_scalars:
+        adc = os.path.join(work, 'vv_init.adc')
+        open(adc, 'w').write(INIT_ADC)
+        # fresh objects so the Init_Scalars build does not reuse unchecked .o
+        for leaf in os.listdir(os.path.join(work, 'obj')):
+            try: os.remove(os.path.join(work, 'obj', leaf))
+            except OSError: pass
+        extra = ['-gnatVa', f'-gnatec={adc}']
+        bin_name = bin_name + '_init'
+    b = subprocess.run([GNATMAKE, '-q', '-gnat2022', '-gnata', *extra, *inc, '-D', 'obj', main, '-o', bin_name],
                        cwd=work, capture_output=True, text=True)
     if b.returncode != 0:
         return 'stillborn'
-    r = run_limited(['./tbin'], work, 30)
+    r = run_limited(['./' + bin_name], work, 30)
     if r is None:
         return 'timeout'   # reported separately; not a kill for the 90% bar (process group killed)
     out = r.stdout + r.stderr
@@ -129,6 +146,23 @@ def run_tests(work):
     if r.returncode != 0 or fails:
         return 'killed'
     return 'survived'
+
+
+def looks_uninit_candidate(op, after):
+    """Statement deletion (alt family) and any plant that replaces an assignment with null;."""
+    if op == 'delete statement':
+        return True
+    return bool(re.search(r'\bnull\s*;', after or ''))
+
+
+def recheck_uninit(work, op, after):
+    """If a survivor dies under Initialize_Scalars + -gnatVa, return ('killed', 'uninit')."""
+    if not looks_uninit_candidate(op, after):
+        return None
+    res = run_tests(work, init_scalars=True)
+    if res == 'killed':
+        return ('killed', 'uninit')
+    return None
 
 def main():
     ap = argparse.ArgumentParser()
@@ -178,8 +212,14 @@ def main():
             if a.dummy:
                 make_dummy(w)
             res = run_tests(w)
+            kill_kind = ''
+            if res == 'survived':
+                ck = recheck_uninit(w, name, lines[ln].strip())
+                if ck:
+                    res, kill_kind = ck
             k += res == 'killed'; s_ += res == 'survived'; sb += res == 'stillborn'; to += res == 'timeout'
-            detail.append(dict(folder=fid, file=rel, line=ln + 1, op=name, before=orig.strip()[:100], after=lines[ln].strip()[:100], result=res))
+            detail.append(dict(folder=fid, file=rel, line=ln + 1, op=name, before=orig.strip()[:100],
+                               after=lines[ln].strip()[:100], result=res, kill_kind=kill_kind))
             shutil.rmtree(w, ignore_errors=True)
         # score: timeouts are not kills (they count in the denominator); score_with_timeouts counts them as kills
         score = '' if k + s_ + to == 0 else f'{k}/{k + s_ + to}'

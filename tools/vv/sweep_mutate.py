@@ -10,7 +10,7 @@ folder (seeded sample of all sites), run in parallel.
 
 usage: sweep_mutate.py FOLDER... [--max 40] [-j 6] [--out file.csv]
        [--family std|alt] [--split-seed N --half tune|held]
-Held-out rule (docs/VV.md 3i): for a new folder, split with a recorded
+kill_kind=uninit: a survivor of the normal run that dies under Initialize_Scalars+-gnatVa (assignment deletion) counts as killed.\nHeld-out rule (docs/VV.md 3i): for a new folder, split with a recorded
 --split-seed before writing tests, look only at --half tune survivors, score
 the bar on --half held (survivor lines are hidden in the detail file); top the
 held half up to >= 20 non-equivalent mutants with --family alt.
@@ -59,12 +59,15 @@ def lib_files(src):
                 yield os.path.relpath(os.path.join(d, f), src)
 
 def one(args):
-    # (src, work, edits) with edits = [(rel, ln, c0, c1, rep)], one per line
-    # (second-order: two); the older single-edit form (src, work, rel, ln, c0,
-    # c1, rep) is still accepted for callers that import this module.
+    # (src, work, op_name, edits) with edits = [(rel, ln, c0, c1, rep)], one
+    # per line (second-order: two). Older forms still accepted:
+    #   (src, work, edits) or (src, work, rel, ln, c0, c1, rep).
+    op_name = ''
     if len(args) == 7:
         src, w, rel, ln, c0, c1, rep = args
         edits = [(rel, ln, c0, c1, rep)]
+    elif len(args) == 4:
+        src, w, op_name, edits = args
     else:
         src, w, edits = args
     shutil.rmtree(w, ignore_errors=True); shutil.copytree(src, w, ignore=IGN)
@@ -72,14 +75,20 @@ def one(args):
         mutate.make_dummy(w)
     befores, afters = [], []
     for rel, ln, c0, c1, rep in edits:
-        p = os.path.join(w, rel)
-        lines = open(p, errors='replace').read().split('\n')
+        path = os.path.join(w, rel)
+        lines = open(path, errors='replace').read().split('\n')
         orig = lines[ln]; lines[ln] = orig[:c0] + rep + orig[c1:]
-        open(p, 'w').write('\n'.join(lines))
+        open(path, 'w').write('\n'.join(lines))
         befores.append(orig.strip()[:100]); afters.append(lines[ln].strip()[:100])
     res = run_tests(w)
+    kill_kind = ''
+    if res == 'survived':
+        # statement-deletion survivors: Init_Scalars+-gnatVa may expose uninit use
+        ck = mutate.recheck_uninit(w, op_name, ' || '.join(afters))
+        if ck:
+            res, kill_kind = ck
     shutil.rmtree(w, ignore_errors=True)
-    return ' || '.join(befores), ' || '.join(afters), res
+    return ' || '.join(befores), ' || '.join(afters), res, kill_kind
 
 # Alternative operator family (docs/VV.md 3i, held-out sets for small folders):
 # statement deletion, integer-constant replacement, argument swap, and
@@ -168,15 +177,17 @@ def main():
             cand = [c for c in cand if split_half(src, c, a.split_seed) == a.half]
         rng = random.Random(a.seed)
         pick = rng.sample(cand, min(a.max, len(cand))) if base == 'survived' else []
-        jobs = [(src, f'{wk}/m{i}', edits) for i, (name, edits) in enumerate(pick)]
+        jobs = [(src, f'{wk}/m{i}', name, edits) for i, (name, edits) in enumerate(pick)]
         with ThreadPoolExecutor(a.j) as ex:
             res = list(ex.map(one, jobs))
-        k = sum(r[2] == 'killed' for r in res); s = sum(r[2] == 'survived' for r in res); sb = sum(r[2] == 'stillborn' for r in res)
-        to = sum(r[2] == 'timeout' for r in res)
-        for (name, edits), (b, af, r) in zip(pick, res):
-            hide = a.half == 'held'
-            detail.append(dict(folder=fid, file=edits[0][0], line=('hidden' if hide else '+'.join(str(e[1] + 1) for e in edits)),
-                               op=name, before=('hidden' if hide else b), after=('hidden' if hide else af), result=r))
+        hide = a.half == 'held'
+        k = s = sb = to = 0
+        for (name, edits), (b, af, r, kill_kind) in zip(pick, res):
+            k += r == 'killed'; s += r == 'survived'; sb += r == 'stillborn'; to += r == 'timeout'
+            detail.append(dict(folder=fid, file=edits[0][0],
+                               line=('hidden' if hide else '+'.join(str(e[1] + 1) for e in edits)),
+                               op=name, before=('hidden' if hide else b), after=('hidden' if hide else af),
+                               result=r, kill_kind=kill_kind))
         score = '' if k + s + to == 0 else f'{k}/{k + s + to}'          # timeouts are not kills
         score_t = '' if k + s + to == 0 else f'{k + to}/{k + s + to}'   # reported both ways
         rows.append(dict(folder=fid, family=a.family, split_seed=('' if a.split_seed is None else a.split_seed), half=(a.half or ''),

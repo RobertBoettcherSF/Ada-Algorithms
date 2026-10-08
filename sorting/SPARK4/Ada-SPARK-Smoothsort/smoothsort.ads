@@ -41,7 +41,9 @@ is
 
    subtype Leonardo_Order is Natural range 0 .. Max_Leonardo_Order;
 
-   type Element_Array is array (Positive range <>) of Integer;
+   subtype Live_Index is Positive range 1 .. Max_N;
+
+   type Element_Array is array (Live_Index range <>) of Integer;
 
    ---------------------------------------------------------------------------
    -- Shape / sortedness guards (expression functions — usable in contracts)

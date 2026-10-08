@@ -92,38 +92,44 @@ is
       X          :    out Ordinates;
       Stat       :    out Status)
    is
-      M : constant Natural := A'Last;
-      --  Scratch for modified coefficients (1 .. M).
+      M : constant Natural := A'Length;
+      --  Scratch for modified coefficients, rows 1 .. M.
       Cp : Ordinates (1 .. M);
       Dp : Ordinates (1 .. M);
       Den : Float;
+
+      --  Row k (1-based) of each argument, First-relative.
+      function Ar (K : Positive) return Float is (A (A'First + K - 1));
+      function Br (K : Positive) return Float is (B (B'First + K - 1));
+      function Cr (K : Positive) return Float is (C (C'First + K - 1));
+      function Dr (K : Positive) return Float is (D (D'First + K - 1));
    begin
       X := [others => 0.0];
       Stat := Singular;
 
-      if abs (B (1)) < Epsilon_Tol then
+      if abs (Br (1)) < Epsilon_Tol then
          return;
       end if;
 
-      Cp (1) := C (1) / B (1);
-      Dp (1) := D (1) / B (1);
+      Cp (1) := Cr (1) / Br (1);
+      Dp (1) := Dr (1) / Br (1);
 
       for I in 2 .. M loop
-         Den := B (I) - A (I) * Cp (I - 1);
+         Den := Br (I) - Ar (I) * Cp (I - 1);
          if abs (Den) < Epsilon_Tol then
             return;
          end if;
          if I < M then
-            Cp (I) := C (I) / Den;
+            Cp (I) := Cr (I) / Den;
          else
             Cp (I) := 0.0;
          end if;
-         Dp (I) := (D (I) - A (I) * Dp (I - 1)) / Den;
+         Dp (I) := (Dr (I) - Ar (I) * Dp (I - 1)) / Den;
       end loop;
 
-      X (M) := Dp (M);
+      X (X'First + M - 1) := Dp (M);
       for I in reverse 1 .. M - 1 loop
-         X (I) := Dp (I) - Cp (I) * X (I + 1);
+         X (X'First + I - 1) := Dp (I) - Cp (I) * X (X'First + I);
       end loop;
 
       Stat := Ok;

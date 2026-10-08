@@ -140,7 +140,7 @@ is
       Scale : Float := 1.0;
       R     : out Toeplitz_Row)
      with Pre => N >= 1
-            and then R'First = 1 and then R'Last = N
+            and then R'Length = N
             and then abs (Rho) < 1.0;
 
    --  Constant-diagonal Toeplitz: R(1)=Diag, R(k)=Off for k>1.
@@ -149,7 +149,7 @@ is
       Diag, Off  : Float;
       R          : out Toeplitz_Row)
      with Pre => N >= 1
-            and then R'First = 1 and then R'Last = N;
+            and then R'Length = N;
 
    ---------------------------------------------------------------------------
    -- Levinson solve (symmetric Toeplitz T x = Y)

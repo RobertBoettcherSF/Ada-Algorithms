@@ -213,11 +213,11 @@ is
    end record;
 
    function Tour_Length (T : Tour; D : Dist_Matrix) return Non_Negative
-     with Pre => T'First = D'First (1)
-            and then T'Last = D'Last (1)
-            and then D'First (1) = D'First (2)
-            and then D'Last (1) = D'Last (2),
+     with Pre => T'Length = D'Length (1)
+            and then D'Length (1) = D'Length (2),
           Global => null;
+   --  City c (a label in 1 .. N) is row/column D'First (k) + (c - 1), so
+   --  T and D may each sit at any origin.
 
    function Apply_2Opt (T : Tour; I, J : City_Index) return Tour
      with Pre => I in T'Range
@@ -242,9 +242,7 @@ is
       State              : in out RNG_State) return Tour
      with Pre => Parent_A'Length = Parent_B'Length
             and then Parent_A'Length >= 2
-            and then Parent_A'Length <= Max_Cities
-            and then Parent_A'First = 1
-            and then Parent_B'First = 1,
+            and then Parent_A'Length <= Max_Cities,
           Global => null;
    --  Classic OX: copy a random contiguous segment from A; fill rest
    --  from B in order, skipping cities already present.
@@ -263,10 +261,8 @@ is
       Max_Steps : Natural;
       Steepest  : Boolean;
       Improves  : out Natural) return Tour
-     with Pre => Start'First = D'First (1)
-            and then Start'Last = D'Last (1)
-            and then D'First (1) = D'First (2)
-            and then D'Last (1) = D'Last (2)
+     with Pre => Start'Length = D'Length (1)
+            and then D'Length (1) = D'Length (2)
             and then Start'Length >= 2
             and then Start'Length <= Max_Cities,
           Global => null;
@@ -291,8 +287,7 @@ is
 
    function Minimize_TSP
      (D : Dist_Matrix; Cfg : Config) return TSP_Result
-     with Pre => D'First (1) = D'First (2)
-            and then D'Last (1) = D'Last (2)
+     with Pre => D'Length (1) = D'Length (2)
             and then D'Length (1) >= 2
             and then D'Length (1) <= Max_Cities
             and then Config_Is_Valid (Cfg),

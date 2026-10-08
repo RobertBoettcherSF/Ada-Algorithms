@@ -123,8 +123,7 @@ is
       Config : NB_Config;
       Out_F  : out Force_Array)
      with Pre => Count <= Bodies'Length
-                 and then Out_F'Length >= Count
-                 and then Out_F'First = 1,
+                 and then Out_F'Length >= Count,
           Global => null;
 
    procedure Accelerations_Direct
@@ -133,8 +132,7 @@ is
       Config : NB_Config;
       Out_A  : out Accel_Array)
      with Pre => Count <= Bodies'Length
-                 and then Out_A'Length >= Count
-                 and then Out_A'First = 1,
+                 and then Out_A'Length >= Count,
           Global => null;
    --  a_i = F_i / m_i (zero mass => zero accel).
 
@@ -216,7 +214,6 @@ is
       Bodies   : out Body_Array;
       Count    : out Body_Count)
      with Pre => Bodies'Length >= 2
-                 and then Bodies'First = 1
                  and then (M1 + M2) > 0.0,
           Global => null;
    --  Two bodies on COM-centered circular orbits in the XY plane,
@@ -252,7 +249,7 @@ is
 
    function Force_Sum
      (Forces : Force_Array; Count : Body_Count) return Vec2
-     with Pre => Count <= Forces'Length and then Forces'First = 1,
+     with Pre => Count <= Forces'Length,
           Global => null;
    --  Net force (should be ~0 by Newton's third law when soft eps is shared).
 

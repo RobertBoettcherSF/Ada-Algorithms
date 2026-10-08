@@ -321,6 +321,22 @@ begin
       Check (St = Singular, "Thomas singular");
    end;
 
+   declare
+      --  Same 3x3 system, each array at a different origin.
+      A : constant Ordinates (0 .. 2) := [0.0, -1.0, -1.0];
+      B : constant Ordinates (5 .. 7) := [2.0, 2.0, 2.0];
+      C : constant Ordinates (2 .. 4) := [-1.0, -1.0, 0.0];
+      D : constant Ordinates (9 .. 11) := [0.0, 0.0, 3.0];
+      X : Ordinates (7 .. 9);
+      St : Status;
+   begin
+      Thomas (A, B, C, D, X, St);
+      Check (St = Ok, "Thomas shifted origins ok");
+      Check (Approx (X (7), 0.75, 1.0E-4), "Thomas shifted x1=0.75");
+      Check (Approx (X (8), 1.5, 1.0E-4), "Thomas shifted x2=1.5");
+      Check (Approx (X (9), 2.25, 1.0E-4), "Thomas shifted x3=2.25");
+   end;
+
    ---------------------------------------------------------------------
    Section ("11. Two-point natural = line; Find_Interval");
    ---------------------------------------------------------------------

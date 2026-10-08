@@ -445,6 +445,46 @@ begin
    end;
 
    ---------------------------------------------------------------------
+   Section ("7b. TSP shifted origins (D at 3, tours at 4 / 2 / 6)");
+   ---------------------------------------------------------------------
+   declare
+      D1 : constant Dist_Matrix := Make_Square_4;
+      DS : Dist_Matrix (3 .. 6, 2 .. 5);
+      T1 : constant Tour (1 .. 4) := [1, 3, 2, 4];
+      TS : constant Tour (4 .. 7) := [1, 3, 2, 4];
+      PA : constant Tour (6 .. 9) := [1, 2, 3, 4];
+      PB : constant Tour (2 .. 5) := [4, 3, 2, 1];
+      S  : RNG_State;
+      Imp1, ImpS : Natural;
+   begin
+      for R in 1 .. 4 loop
+         for C in 1 .. 4 loop
+            DS (City_Index (R + 2), City_Index (C + 1)) :=
+              D1 (City_Index (R), City_Index (C));
+         end loop;
+      end loop;
+      Check (Near (Real (Tour_Length (TS, DS)), Real (Tour_Length (T1, D1))),
+             "shifted Tour_Length = 1-based");
+      Seed_RNG (S, 21);
+      declare
+         Child : constant Tour := Order_Crossover (PA, PB, S);
+      begin
+         Check (Is_Valid_Tour (Child), "shifted OX child valid");
+      end;
+      declare
+         L1 : constant Tour := Local_Improve_TSP (T1, D1, 10, True, Imp1);
+         LS : constant Tour := Local_Improve_TSP (TS, DS, 10, True, ImpS);
+      begin
+         Check (Near (Real (Tour_Length (LS, DS)),
+                      Real (Tour_Length (L1, D1)))
+                and then Imp1 = ImpS,
+                "shifted 2-opt LS = 1-based");
+         Check (Near (Real (Tour_Length (LS, DS)), 4.0, 1.0E-6),
+                "shifted 2-opt reaches perimeter 4");
+      end;
+   end;
+
+   ---------------------------------------------------------------------
    Section ("8. Minimize_TSP driver");
    ---------------------------------------------------------------------
    declare

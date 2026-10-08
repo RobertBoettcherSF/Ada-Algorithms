@@ -46,10 +46,7 @@ package BCJR is
       Apriori    : in  Metric_Array;
       Ext_LLR    : out Metric_Array;
       Terminated : in  Boolean := True)
-   with Pre => Sys_LLR'First = 1
-               and then Parity_LLR'First = 1
-               and then Apriori'First = 1
-               and then Ext_LLR'First = 1
+   with Pre => Sys_LLR'Length > 0
                and then Sys_LLR'Length = Parity_LLR'Length
                and then Sys_LLR'Length = Ext_LLR'Length
                and then Sys_LLR'Length = Apriori'Length

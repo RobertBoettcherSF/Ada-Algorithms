@@ -620,7 +620,39 @@ begin
              "E = -G m1 m2 /(2a)");
    end;
 
-   New_Line;
+   
+   Section ("Shifted origins: Bodies at 5..6, Forces at 3..4");
+   declare
+      Bodies : Body_Array (5 .. 6);
+      Count  : Body_Count;
+      C      : constant NB_Config := Cfg (G => 1.0, Soft => 0.0);
+      F      : Force_Array (3 .. 4);
+      Bodies1 : Body_Array (1 .. 2);
+      Count1  : Body_Count;
+      F1      : Force_Array (1 .. 2);
+   begin
+      Make_Circular_Binary (1.0, 1.0, 1.0, 1.0, Bodies, Count);
+      Make_Circular_Binary (1.0, 1.0, 1.0, 1.0, Bodies1, Count1);
+      Check (Count = 2, "shifted binary count=2");
+      Check (Approx (Bodies (5).Mass, 1.0) and then Approx (Bodies (6).Mass, 1.0),
+             "shifted binary masses");
+      Check (Approx (Bodies (5).Pos.X, Bodies1 (1).Pos.X, 1.0E-12)
+             and then Approx (Bodies (6).Pos.X, Bodies1 (2).Pos.X, 1.0E-12),
+             "shifted binary positions");
+      Forces_Direct (Bodies, Count, C, F);
+      Forces_Direct (Bodies1, Count1, C, F1);
+      Check (Approx (F (3).X, F1 (1).X, 1.0E-9)
+             and then Approx (F (4).X, F1 (2).X, 1.0E-9),
+             "shifted Forces_Direct");
+      Check (Approx (Kinetic_Energy (Bodies, Count),
+                     Kinetic_Energy (Bodies1, Count1), 1.0E-12),
+             "shifted KE");
+      Check (Vec_Near (Center_Of_Mass (Bodies, Count),
+                      Center_Of_Mass (Bodies1, Count1), 1.0E-12),
+             "shifted COM");
+   end;
+
+New_Line;
    Put_Line ("========================================");
    Put_Line ("Passed :" & Natural'Image (Pass_Count));
    Put_Line ("Failed :" & Natural'Image (Fail_Count));
