@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO;
 with Matrix_Multiplication;
+with Own_Checks;
 
 procedure Tests is
    package MM renames Matrix_Multiplication;
@@ -38,6 +39,7 @@ procedure Tests is
    end Approx;
 
 begin
+   Own_Checks;   --  sweep: independent references (own_checks.adb, tests/SOURCES.txt)
    Ada.Text_IO.Put_Line
      ("Matrix Multiplication educational survey test suite");
    Ada.Text_IO.Put_Line

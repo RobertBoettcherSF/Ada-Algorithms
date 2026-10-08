@@ -1,0 +1,20 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Products (Classical, Strassen with every leaf 1 .. 17, Cannon with every
+  grid P, the Multiply dispatcher): outer-product (k-outer) accumulation on
+  integer-valued Float matrices (entries -5 .. 5, from an xorshift32
+  generator), so every sum is exact and results are compared with "=";
+  N = 1 .. 12, 16 and 32, with offset index ranges.
+* Scalar-multiply counts / depths: closed forms N**3 (classical) and
+  7**d * (P / 2**d)**3 with P = smallest power of two >= N (Strassen).
+* Cannon: invalid grids (P > N or N mod P /= 0) must be rejected with
+  Dimension_Error; metadata Grid_P, Block_Size = N / P, Shift_Count = P.
+* Integer product: the same outer-product reference in Integer.
+* Freivalds: an independent LCG on Unsigned_64 (multiplier 1103515245,
+  increment 12345, modulus 2**31, bit 16, as documented in the package) and
+  a brute-force A (B r) = C r test; true products must always be accepted.
+* Helpers: bit test for powers of two (0 .. 5000), divisibility by search
+  (0 .. 40 squared), element-wise definitions, tolerance boundaries.
+* Taxonomy and milestones: the README tables (method taxonomy, milestone
+  table; log2 7 = 2.8073549).
+Nothing is taken from the program's output or from third-party test suites.
