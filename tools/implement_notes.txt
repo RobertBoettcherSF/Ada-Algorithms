@@ -1,0 +1,144 @@
+# Core step each stub needs for a full implementation (docs/IMPLEMENT.md, written by make proof-index).
+# Key = algorithm name without the Ada-SPARK- prefix and the -Stub / -Lite suffix; then a tab and the note.
+Course-Schedule-II	Kahn's in-degree queue (or DFS post-order) over an arbitrary prerequisite graph, reporting cycles
+Task-Scheduler	count task frequencies and compute idle slots from the most frequent tasks and the cooldown n
+Level-Order-Traversal	queue-based BFS over a tree of any shape, emitting one list per level
+MD5	full padding of any message length and the 64-step compression over every 512-bit block
+SHA-1	full padding of any message length, the 80-word message schedule and the compression over every block
+Clone-Graph	visited map from original to copy while traversing a graph of any size (BFS/DFS)
+Kruskal-MST	sort edges by weight and add them through union-find, skipping edges that close a cycle
+Shortest-Path-In-Binary-Matrix	8-direction BFS over an N x N grid of any size, with distance labels
+Design-HashMap	hashing into buckets with collision chains or probing and resizing, for any key range
+Design-HashSet	hashing into buckets with collision handling for arbitrary keys
+Accounts-Merge	union-find over e-mail addresses, then group and sort the e-mails per root
+Alert-Using-Same-Key-Card	group times per name, sort them and slide a one-hour window to find three uses
+Alien-Dictionary	derive letter order from adjacent word pairs, then topological sort with cycle and prefix checks
+Assign-Cookies	sort greed factors and cookie sizes, then match greedily with two pointers
+Authentication-Manager	token map with expiry times; renew only unexpired tokens and count live ones at a time
+Basic-Calculator	parse +, -, parentheses and multi-digit numbers with a sign stack
+Browser-History	a back/forward history with truncation of forward entries on visit
+Buddy-Memory-Allocation	split power-of-two blocks on allocation and merge free buddies on release
+Bulb-Switcher	toggle model or the perfect-square count floor(sqrt(n)) for any n
+Candy	two passes (left-to-right, right-to-left) so higher-rated children get more candy
+Cheapest-Flights	Bellman-Ford limited to K+1 edge relaxations (or BFS by stops) over any flight list
+Circular-Deque	ring buffer with head and tail indices wrapping at capacity, insertion and removal at both ends
+Combination-Iterator	lexicographic next-combination generation over any alphabet and length
+Count-Sub-Islands	flood fill the islands of grid 2 and check every cell is land in grid 1
+Decode-Ways	DP over prefixes counting valid one- and two-digit codes, including zeros
+Delete-And-Earn	bucket the values, then house-robber DP over adjacent values
+Design-Circular-Queue	ring buffer with front and rear indices, enqueue and dequeue wrapping at capacity
+Design-Front-Middle-Back-Queue	two balanced deques supporting push and pop at front, middle and back
+Encode-And-Decode-TinyURL	bijective code generation with a map in both directions
+Evaluate-Division	weighted graph of ratios, answering queries by BFS/DFS or weighted union-find
+Find-Common-Characters	per-letter minimum counts across all words
+Find-Median-Data-Stream	two heaps (max-heap low half, min-heap high half) rebalanced on every insert
+Fixed-Point-Iteration	iterate x := g(x) until |x(n+1) - x(n)| < tolerance or the iteration limit, for a user-supplied g
+Flatten-Nested-List	stack-based iteration over arbitrarily nested lists
+Gas-Station	one pass tracking total and current surplus, resetting the start index when the surplus drops below zero
+Get-Maximum-In-Generated-Array	build nums from the even/odd recurrence for any n and take the maximum
+Group-Anagrams	group words by a canonical key (sorted letters or letter counts)
+Hand-Of-Straights	sorted counts; repeatedly take the smallest card and remove a run of W consecutive values
+Heap-Push-Pop	sift-up and sift-down on an array heap of any size
+Hit-Counter	queue or circular buckets of timestamps, dropping hits older than 300 s
+House-Robber-III	tree DP returning (rob, skip) pairs from each subtree
+How-Many-Numbers-Are-Smaller	counting sort or prefix counts giving, for each element, the number of smaller ones
+Insert-Interval	merge the new interval into a sorted, disjoint interval list
+Int-To-Roman	greedy subtraction over the value table including the subtractive pairs, for 1 .. 3999
+Integer-To-English	chunk into thousands groups and spell hundreds/tens/ones with scale words
+Intersection-Of-Two-Arrays-II	count map (or sort plus two pointers) keeping multiplicities
+Is-Subsequence	two-pointer scan over strings of any length
+Jump-Game-II	greedy BFS layers: track the farthest reach and count jumps at layer ends
+K-Closest-Points	select k by distance using a heap or quickselect for any k and n
+Kth-Largest-In-Stream	min-heap of size k updated on every add
+LFU-Cache	frequency buckets with recency order, evicting the least frequent (ties to least recent) in O(1)
+LRU-Cache	hash map plus doubly linked recency list, evicting the least recently used
+Logger-Rate-Limiter	map from message to last print time, allowing a print after 10 s
+Max-Area-Of-Island	flood fill each island of a grid of any size and keep the largest area
+Max-Path-Sum	tree DP: best downward path per node, and global best through the node
+Max-Stack	stack plus ordered structure (or max stack) supporting popMax
+Merge-Intervals	sort by start and merge overlapping intervals
+Min-Cost-Connect-Cities	minimum spanning tree (Kruskal/Prim) over all given connections, with a not-connected result
+Missing-Ranges	scan the sorted array between lower and upper, emitting gaps
+My-Calendar	ordered set of booked intervals with an overlap check on insert
+My-Linked-List	dynamic singly linked list with index-based get/add/delete for any length
+N-Repeated-Element-In-Size-2N-Array	find the element repeated n times (set or a distance-3 window) for any n
+Nested-Iterator	iterator over arbitrarily nested lists using an explicit stack
+Network-Delay-Time	Dijkstra from the source over the weighted edges; maximum distance or -1
+Next-Permutation	find the rightmost ascent, swap with the next larger element, reverse the suffix
+Non-Overlapping-Intervals	sort by end and greedily keep compatible intervals; count removals
+Number-Of-Good-Pairs	count equal-value pairs via frequency counts, n*(n-1)/2 per value
+Number-Of-Islands	flood fill (DFS/BFS or union-find) counting connected land regions in any grid
+Online-Stock-Span	monotonic stack of (price, span) pairs
+Ordered-Stream	array with a pointer emitting the maximal consecutive chunk after each insert
+Pacific-Atlantic-Water-Flow	reverse BFS/DFS from both ocean borders over heights; intersect the reachable sets
+Pacific-Atlantic-Water	reverse BFS/DFS from both ocean borders over heights; intersect the reachable sets
+Paint-House	DP over houses keeping the minimum cost for each final colour
+Parking-System	counters per car size with capacity checks
+Peeking-Iterator	cache the next element so peek does not advance the underlying iterator
+Product-Of-Numbers	prefix products reset at zeros, answering the product of the last k numbers
+Range-Module	ordered disjoint interval set with add, remove and query that split and merge intervals
+Remove-K-Digits	monotonic increasing stack removing k digits, then strip leading zeros
+Seat-Manager	min-heap of free seat numbers
+Simplify-Path	split on '/', a stack handling '.', '..' and empty segments
+Snapshot-Array	per-index list of (snap_id, value) with binary search on get
+Spearman-Rank	rank both samples (average ranks for ties) and take the Pearson correlation of the ranks
+Stack-Using-Queues	queue rotation so the last pushed element is at the front
+Stock-Spanner	monotonic stack of (price, span) pairs
+Super-Ugly-Number	k-pointer merge over the primes list generating the n-th super ugly number
+Surrounded-Regions	flood fill 'O' regions connected to the border, then flip the rest
+Swim-In-Rising-Water	Dijkstra/min-heap (or binary search plus BFS) minimising the maximum elevation along a path
+Target-Sum	subset-sum DP counting sign assignments that reach the target
+Three-Sum-Closest	sort plus two pointers for each anchor, tracking the closest sum
+Tic-Tac-Toe	row, column and diagonal counters per player for an n x n board
+Time-Map	per-key timestamped values with binary search for the latest timestamp <= t
+Top-K-Frequent	frequency count, then bucket sort or heap selection of the top k
+Tweet-Counts	per-tweet timestamp lists bucketed into minute/hour/day intervals
+Uncommon-Words-From-Two-Sentences	count words over both sentences and return those occurring exactly once
+Underground-System	check-in map and per-route (total time, count) averages
+Unique-Morse-Code-Words	translate each word to Morse and count distinct encodings
+Valid-IP-Address	full IPv4 (no leading zeros, 0 .. 255) and IPv6 (8 groups of 1 .. 4 hex digits) validation
+Valid-Number	finite-state parse of sign, digits, decimal point and exponent
+Valid-Sudoku	row, column and 3x3 box seen-sets over the filled cells
+Vector-2D	iterator flattening a ragged 2-D vector, skipping empty rows
+Word-Break	DP over prefixes with dictionary lookups for any dictionary
+Word-Ladder	BFS over one-letter transformations using wildcard buckets
+Zigzag-Iterator	alternate between two (or k) iterators with a queue of non-empty ones
+Count-Primes	sieve of Eratosthenes up to any n
+Sparse-Vector-Dot	store the non-zero (index, value) pairs and merge two of them for the dot product
+Binary-Search-Upper-Bound	binary search for the first index whose element is greater than the key, on any sorted array
+Unique-Binary-Search-Trees	Catalan DP: G(n) = sum G(i-1) * G(n-i)
+Unique-Binary-Search-Trees-II	recursive construction of all structurally unique BSTs over 1 .. n
+Word-Search	DFS with backtracking over the grid, marking visited cells
+Bitonic-Sort	recursive bitonic merge network for power-of-two sizes (with padding for other sizes)
+Block-Sort	block merge sort (WikiSort-style): in-place merges with buffer blocks
+Circle-Sort	recursive swaps of mirrored pairs until a pass makes no swap
+Exchange-Sort	compare every pair (i, j > i) and swap when out of order, for any length
+Flash-Sort	classify into m classes by linear interpolation, permute in cycles, then insertion sort
+Heap-Sort	build a max-heap in place, then repeatedly swap the root to the end and sift down
+Intro-Sort	quicksort with a 2*log2(n) depth limit falling back to heapsort, insertion sort for small parts
+Merge-K-Sorted-Lists	min-heap (or divide and conquer) merge of k sorted lists of any length
+Odd-Even-Merge-Sort	Batcher's odd-even merge network, recursively merging halves
+Pancake-Sort	repeatedly flip the maximum to the front, then to its final position
+Patience-Sort	deal into piles by binary search on pile tops, then k-way merge the piles
+Quick-Sort	partition around a pivot and recurse on both sides, for any length
+Shaker-Sort	alternating forward and backward bubble passes with shrinking bounds
+Smooth-Sort	Leonardo-heap construction and dismantling
+Tim-Sort	detect or extend runs to minrun with insertion sort, then merge runs with the stack invariants
+Topological-Sort	Kahn's algorithm or DFS order over any DAG, detecting cycles
+Tournament-Sort	winner tree: repeatedly output the winner and replay its path
+Binary-Insertion-Sort	binary search for each insertion point, then shift, for any length
+Count-The-Number-Of-Consistent-Strings	allowed-letter set and a check of every word against it
+Decode-String	stack of (count, partial string) handling nested k[...] encodings
+Reorganize-String	max-heap by count, placing the two most frequent letters alternately (or report impossible)
+String-To-Integer-Atoi	skip whitespace, read the sign and digits, clamp to the integer range at the first overflow
+BST-Iterator	controlled in-order traversal with an explicit stack
+Binary-Tree-Right-Side-View	level-order traversal taking the last node of each level
+Delete-Node-BST	BST deletion with the leaf, one-child and two-children (in-order successor) cases
+Flatten-Binary-Tree-To-Linked-List	pre-order rewiring of right pointers in place (Morris-style or recursive)
+Implement-Trie	child map per node with end-of-word marks; insert, search and startsWith over any alphabet
+Kth-Smallest-BST	in-order traversal counting to k
+Red-Black-Tree	insertion with recolouring and rotations (and deletion fix-up) keeping the red-black invariants
+Trim-BST	recursive trimming that keeps the BST property within [low, high]
+Two-Sum-BST	in-order iterator from both ends (or a hash set) over a BST of any size
+Unique-BSTs	Catalan DP: G(n) = sum G(i-1) * G(n-i)
+Validate-BST	recursive bounds check (or in-order strictly increasing) over any tree

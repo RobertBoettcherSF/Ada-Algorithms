@@ -218,6 +218,44 @@ if os.path.exists(COPY_FILE):
             a, b = l.strip().split(',')[:2]; copy_of[a] = b
 for r in rows: r['copy_of'] = copy_of.get(r['folder'], '')
 
+# implementation candidates (Robert, 2026-10-08): every stub = yes folder gets implement_next = yes and is
+# listed in docs/IMPLEMENT.md with the signal that marked it and the core step a full version needs
+# (tools/implement_notes.txt). No timestamp, so the file is idempotent.
+for r in rows: r['implement_next'] = 'yes' if r['stub'] else ''
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+_notes = {l.split('\t')[0]: l.split('\t')[1].strip() for l in open(os.path.join(_TOOLS, 'implement_notes.txt'))
+          if l.strip() and not l.startswith('#')} if os.path.exists(os.path.join(_TOOLS, 'implement_notes.txt')) else {}
+_readme_words = {l.split('\t')[0].strip(): (l.split('\t')[1].strip() if '\t' in l else '')
+                 for l in open(README_STUB_FILE) if l.strip() and not l.startswith('#')} if os.path.exists(README_STUB_FILE) else {}
+_hidden = {}
+_hp = os.path.join(_TOOLS, 'vv', 'hidden_stub.csv')
+if os.path.exists(_hp):
+    for h in csv.DictReader(open(_hp)):
+        if h.get('stub_marked') == 'yes': _hidden[h['folder']] = h['verdict']
+def _signal(r):
+    if r['folder'] in _hidden: return 'hidden-stub scan: ' + _hidden[r['folder']]
+    if r['folder'] in _readme_words: return 'README wording: "' + _readme_words[r['folder']].replace('|', '/')[:160] + '"'
+    return '-Stub name'
+_cand = sorted((r for r in rows if r['implement_next']), key=lambda r: r['folder'])
+_L = ['# Implementation candidates', '',
+      'Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every folder with `stub` = yes in PROOFS.csv '
+      'carries `implement_next` = yes: it is a candidate for a full implementation of the named algorithm, which comes before '
+      'the SPARK Silver (level 2) work on it. Signals: the folder name ends in `-Stub` (and it is not listed in '
+      '`tools/generalised_stubs.txt`), its README calls it a stub (`tools/readme_stubs.txt`), or the hidden-stub scan found that '
+      'the code lacks the core step (`tools/vv/hidden_stub.csv`). The core-step notes are in `tools/implement_notes.txt`.', '',
+      f'**{len(_cand)} candidate folders** ({sum(1 for r in _cand if not r['duplicate_of'])} with duplicates counted once, the README count).', '']
+for cat in sorted({r['folder'].split('/')[0] for r in _cand}):
+    grp = [r for r in _cand if r['folder'].split('/')[0] == cat]
+    _L += [f'## {cat} ({len(grp)})', '', '| Folder | Signal | Full algorithm needs (core step) |', '|---|---|---|']
+    for r in grp:
+        k = re.sub(r'-(Stub|Lite)$', '', re.sub(r'^Ada-SPARK-', '', r['algorithm']))
+        _L.append(f"| {r['folder']} | {_signal(r)} | {_notes.get(k, 'see README')} |")
+    _L.append('')
+_ip = os.path.join(a.root, 'docs', 'IMPLEMENT.md')
+_new = '\n'.join(_L)
+if not os.path.exists(_ip) or open(_ip).read() != _new:
+    open(_ip, 'w').write(_new); print('docs/IMPLEMENT.md updated')
+
 # pairs: plain-Ada folder <-> SPARK folder(s) with the same normalized name (duplicates excluded)
 spark_by = collections.defaultdict(list)
 for r in rows:
@@ -310,6 +348,7 @@ block = '\n'.join([
     f"| Silver-proven, non-trivial (not stubs, more than {TRIVIAL_MAX} checks) | {c(lambda r: r['silver']=='proven' and not r['stub'] and not r['trivial'])} |",
     f"| Training-ready (answers checked; rule in PROOFS.md) | {c(lambda r: r['training_ready']=='yes')} |",
     f'| Open findings (`tools/vv/findings.csv`) | {n_open} |',
+    f"| Implementation candidates (stubs, column `implement_next`; docs/IMPLEMENT.md) | {c(lambda r: r['implement_next']=='yes')} |",
     END])
 readme = os.path.join(R, 'README.md')
 if os.path.exists(readme):
