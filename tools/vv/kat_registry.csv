@@ -1,0 +1,5 @@
+folder,source,where
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,OEIS A005150 (terms) and A005341 (lengths),tests.adb
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,LeetCode 400 examples; OEIS A033307 (n=10^9 -> 1),tests.adb
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,LeetCode 43 examples (2*3=6; 123*456=56088),tests.adb
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,exact powers incl. (-2)**31 = Integer'First,tests.adb

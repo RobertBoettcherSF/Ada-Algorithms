@@ -1,0 +1,78 @@
+folder,file,line,op,before,after,result
+misc/Ada/Polynomial-Long-Division,polynomial_long_division.adb,90,* -> +,"(RA.Num * Integer (RB.Den) + RB.Num * Integer (RA.Den),","(RA.Num * Integer (RB.Den) + RB.Num + Integer (RA.Den),",killed
+misc/Ada/Polynomial-Long-Division,polynomial_long_division.adb,145,>= -> >,if D >= 0 and then I <= D then,if D > 0 and then I <= D then,killed
+misc/Ada/Polynomial-Long-Division,polynomial_long_division.adb,77,= -> /=,return RA.Num = RB.Num and then RA.Den = RB.Den;,return RA.Num /= RB.Num and then RA.Den = RB.Den;,killed
+misc/Ada/Polynomial-Long-Division,polynomial_long_division.adb,260,+ -> -,if DA + DB > Max_Degree then,if DA - DB > Max_Degree then,survived
+misc/Ada/Polynomial-Long-Division,polynomial_long_division.adb,173,< -> <=,if D < 0 then,if D <= 0 then,killed
+misc/Ada/Polynomial-Long-Division,polynomial_long_division.adb,27,/= -> =,while Y /= 0 loop,while Y = 0 loop,killed
+misc/Ada/Polynomial-Long-Division,polynomial_long_division.adb,145,<= -> <,if D >= 0 and then I <= D then,if D >= 0 and then I < D then,killed
+misc/Ada/Polynomial-Long-Division,polynomial_long_division.adb,142,- -> +,D := D - 1;,D := D + 1;,killed
+geometry/Ada/Bresenhams-Line-Algorithm,bresenham.adb,47,- -> +,Dx    : constant Long_Integer := abs (Long_Integer (P2.X) - Long_Integer (P1.X));,Dx    : constant Long_Integer := abs (Long_Integer (P2.X) + Long_Integer (P1.X));,killed
+geometry/Ada/Bresenhams-Line-Algorithm,bresenham.adb,48,< -> <=,Sx    : constant Coordinate   := (if P1.X < P2.X then 1 else -1);,Sx    : constant Coordinate   := (if P1.X <= P2.X then 1 else -1);,survived
+geometry/Ada/Bresenhams-Line-Algorithm,bresenham.adb,51,+ -> -,Err   : Long_Integer := Dx + Dy;,Err   : Long_Integer := Dx - Dy;,killed
+geometry/Ada/Bresenhams-Line-Algorithm,bresenham.adb,69,+ -> -,Cur_X := Cur_X + Sx;,Cur_X := Cur_X - Sx;,killed
+geometry/Ada/Bresenhams-Line-Algorithm,bresenham.adb,18,* -> +,D  : Long_Integer := 2 * Dy - Dx;,D  : Long_Integer := 2 + Dy - Dx;,survived
+geometry/Ada/Bresenhams-Line-Algorithm,bresenham.adb,31,+ -> -,D := D + 2 * Dy;,D := D - 2 * Dy;,killed
+geometry/Ada/Bresenhams-Line-Algorithm,bresenham.adb,24,+ 1 -> + 0,Result.Length := Result.Length + 1;,Result.Length := Result.Length + 0;,killed
+geometry/Ada/Bresenhams-Line-Algorithm,bresenham.adb,95,- -> +,Dy    : constant Long_Integer := -abs (Long_Integer (P2.Y) - Long_Integer (P1.Y));,Dy    : constant Long_Integer := -abs (Long_Integer (P2.Y) + Long_Integer (P1.Y));,survived
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,excel_sheet_column_title.adb,18,- -> +,Letter_Index ((Value - 1) / 26);,Letter_Index ((Value + 1) / 26);,killed
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,excel_sheet_column_title.adb,20,+ -> -,Letter_Index ((Value - 1) mod 26 + 1);,Letter_Index ((Value - 1) mod 26 - 1);,killed
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,excel_sheet_column_title.adb,20,- -> +,Letter_Index ((Value - 1) mod 26 + 1);,Letter_Index ((Value + 1) mod 26 + 1);,killed
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,excel_sheet_column_title.adb,13,<= -> <,if Value <= 26 then,if Value < 26 then,killed
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,excel_sheet_column_title.adb,20,+ 1 -> + 0,Letter_Index ((Value - 1) mod 26 + 1);,Letter_Index ((Value - 1) mod 26 + 0);,killed
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,excel_sheet_column_title.adb,8,+ -> -,return Character'Val (Character'Pos ('A') + Index - 1);,return Character'Val (Character'Pos ('A') - Index - 1);,killed
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,excel_sheet_column_title.adb,20,- 1 -> - 0,Letter_Index ((Value - 1) mod 26 + 1);,Letter_Index ((Value - 0) mod 26 + 1);,killed
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,excel_sheet_column_title.adb,8,- -> +,return Character'Val (Character'Pos ('A') + Index - 1);,return Character'Val (Character'Pos ('A') + Index + 1);,killed
+misc/Ada/Knuth-Bendix-Completion,knuth_bendix_completion.adb,68,+ -> -,"return Sub (W, W.Len - Len + 1, Len);","return Sub (W, W.Len - Len - 1, Len);",killed
+misc/Ada/Knuth-Bendix-Completion,knuth_bendix_completion.adb,622,<= -> <,while I <= Last loop,while I < Last loop,survived
+misc/Ada/Knuth-Bendix-Completion,knuth_bendix_completion.adb,54,- -> +,R.Text (1 .. Len) := W.Text (From .. From + Len - 1);,R.Text (1 .. Len) := W.Text (From .. From + Len + 1);,killed
+misc/Ada/Knuth-Bendix-Completion,knuth_bendix_completion.adb,352,or else -> and then,if I not in Rules'Range or else J not in Rules'Range then,if I not in Rules'Range and then J not in Rules'Range then,survived
+misc/Ada/Knuth-Bendix-Completion,knuth_bendix_completion.adb,54,- 1 -> - 0,R.Text (1 .. Len) := W.Text (From .. From + Len - 1);,R.Text (1 .. Len) := W.Text (From .. From + Len - 0);,killed
+misc/Ada/Knuth-Bendix-Completion,knuth_bendix_completion.adb,324,- 1 -> - 0,"Suffix (L_Out, L_Out.Len - (Pos + L_In.Len - 1));","Suffix (L_Out, L_Out.Len - (Pos + L_In.Len - 0));",survived
+misc/Ada/Knuth-Bendix-Completion,knuth_bendix_completion.adb,167,> -> >=,if Position + LHS.Len - 1 > W.Len then,if Position + LHS.Len - 1 >= W.Len then,killed
+misc/Ada/Knuth-Bendix-Completion,knuth_bendix_completion.adb,408,and then -> or else,"return Equal (A.LHS, B.LHS) and then Equal (A.RHS, B.RHS);","return Equal (A.LHS, B.LHS) or else Equal (A.RHS, B.RHS);",killed
+misc/Ada/Nonlinear-Optimization,nonlinear_optimization.adb,106,+ -> -,"Acc := Acc + A (AR + I, AC + J) * X (XR + J);","Acc := Acc - A (AR + I, AC + J) * X (XR + J);",killed
+misc/Ada/Nonlinear-Optimization,nonlinear_optimization.adb,149,+ -> -,for I in K + 1 .. N loop,for I in K - 1 .. N loop,killed
+misc/Ada/Nonlinear-Optimization,nonlinear_optimization.adb,206,* -> +,return F_New <= F_Old + C1 * Alpha * Dir_Deriv;,return F_New <= F_Old + C1 + Alpha * Dir_Deriv;,killed
+misc/Ada/Nonlinear-Optimization,nonlinear_optimization.adb,405,+ -> -,YV := X (X'First + 1);,YV := X (X'First - 1);,killed
+misc/Ada/Nonlinear-Optimization,nonlinear_optimization.adb,298,+ -> -,Xpm (XF + I) := X (XF + I) + Hi;,Xpm (XF + I) := X (XF + I) - Hi;,killed
+misc/Ada/Nonlinear-Optimization,nonlinear_optimization.adb,310,+ -> -,"Hm (1 + J, 1 + I) := Hm (1 + I, 1 + J);","Hm (1 + J, 1 + I) := Hm (1 + I, 1 - J);",killed
+misc/Ada/Nonlinear-Optimization,nonlinear_optimization.adb,290,+ -> -,for J in I + 1 .. N - 1 loop,for J in I - 1 .. N - 1 loop,killed
+misc/Ada/Nonlinear-Optimization,nonlinear_optimization.adb,150,> -> >=,"if abs (M (I, K)) > Max_Abs then","if abs (M (I, K)) >= Max_Abs then",survived
+graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,is_graph_bipartite.adb,17,= -> /=,if Color (To) = 0 then,if Color (To) /= 0 then,killed
+graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,is_graph_bipartite.adb,10,= -> /=,if Color (Start) = 0 then,if Color (Start) /= 0 then,killed
+graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,is_graph_bipartite.adb,18,= -> /=,if Color (From) = 1 then,if Color (From) /= 1 then,killed
+graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,is_graph_bipartite.adb,23,= -> /=,elsif Color (To) = Color (From) then,elsif Color (To) /= Color (From) then,killed
+graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,is_graph_bipartite.adb,14,/= -> =,if Color (From) /= 0 then,if Color (From) = 0 then,killed
+misc/Ada/Golomb-Coding,golomb_coding.adb,101,+ -> -,Unary (Q + 1) := '0'; -- Stop bit for quotient,Unary (Q - 1) := '0'; -- Stop bit for quotient,killed
+misc/Ada/Golomb-Coding,golomb_coding.adb,86,+ -> -,Val := Binary_String_To_Int (Bits (Bits'First .. Bits'First + B - 1));,Val := Binary_String_To_Int (Bits (Bits'First .. Bits'First - B - 1));,killed
+misc/Ada/Golomb-Coding,golomb_coding.adb,131,+ -> -,return Q * M + R;,return Q * M - R;,killed
+misc/Ada/Golomb-Coding,golomb_coding.adb,15,+ -> -,Result := Result + 1;,Result := Result - 1;,killed
+misc/Ada/Golomb-Coding,golomb_coding.adb,26,= -> /=,if Temp mod 2 = 1 then,if Temp mod 2 /= 1 then,killed
+misc/Ada/Golomb-Coding,golomb_coding.adb,195,/= -> =,if Consumed /= Bits'Length then,if Consumed = Bits'Length then,killed
+misc/Ada/Golomb-Coding,golomb_coding.adb,172,>= -> >,if N >= 0 then,if N > 0 then,survived
+misc/Ada/Golomb-Coding,golomb_coding.adb,130,+ -> -,Consumed := Q + 1 + Rem_Consumed;,Consumed := Q + 1 - Rem_Consumed;,killed
+misc/Ada/Replicator-Equation,replicator_equation.adb,41,/= -> =,if Population'Length /= Payoff'Length(1) or Population'Length /= Payoff'Length(2) then,if Population'Length /= Payoff'Length(1) or Population'Length = Payoff'Length(2) then,killed
+misc/Ada/Replicator-Equation,replicator_equation.adb,145,< -> <=,if Result(I) < 0.0 then,if Result(I) <= 0.0 then,survived
+misc/Ada/Replicator-Equation,replicator_equation.adb,47,+ -> -,"Result(I) := Result(I) + Payoff(I, J) * Population(J);","Result(I) := Result(I) - Payoff(I, J) * Population(J);",killed
+misc/Ada/Replicator-Equation,replicator_equation.adb,21,+ -> -,Sum := Sum + Population(I);,Sum := Sum - Population(I);,killed
+misc/Ada/Replicator-Equation,replicator_equation.adb,203,* -> +,Population_A(I) := Norm_A(I) * (Fitness_A(I) / Avg_Fit_A);,Population_A(I) := Norm_A(I) + (Fitness_A(I) / Avg_Fit_A);,survived
+misc/Ada/Replicator-Equation,replicator_equation.adb,65,+ -> -,Avg_Fitness := Avg_Fitness + (Population(I) * Fitness(I));,Avg_Fitness := Avg_Fitness - (Population(I) * Fitness(I));,killed
+misc/Ada/Replicator-Equation,replicator_equation.adb,80,= -> /=,if Avg_Fitness = 0.0 then,if Avg_Fitness /= 0.0 then,killed
+misc/Ada/Replicator-Equation,replicator_equation.adb,140,+ -> -,"Mutation_Sum := Mutation_Sum + (Norm_Pop(J) * Fitness(J) * Mutation_Matrix(J, I));","Mutation_Sum := Mutation_Sum - (Norm_Pop(J) * Fitness(J) * Mutation_Matrix(J, I));",killed
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,exchange_sort.adb,14,+ 1 -> + 0,Work (I) := Work (I + 1);,Work (I) := Work (I + 0);,survived
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,exchange_sort.adb,12,< -> <=,if I < Index'Last and then Work (I) > Work (I + 1) then,if I <= Index'Last and then Work (I) > Work (I + 1) then,killed
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,exchange_sort.adb,12,> -> >=,if I < Index'Last and then Work (I) > Work (I + 1) then,if I < Index'Last and then Work (I) >= Work (I + 1) then,survived
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,exchange_sort.adb,15,+ 1 -> + 0,Work (I + 1) := Temporary;,Work (I + 0) := Temporary;,killed
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,exchange_sort.adb,14,+ -> -,Work (I) := Work (I + 1);,Work (I) := Work (I - 1);,killed
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,exchange_sort.adb,12,+ -> -,if I < Index'Last and then Work (I) > Work (I + 1) then,if I < Index'Last and then Work (I) > Work (I - 1) then,killed
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,exchange_sort.adb,12,+ 1 -> + 0,if I < Index'Last and then Work (I) > Work (I + 1) then,if I < Index'Last and then Work (I) > Work (I + 0) then,killed
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,exchange_sort.adb,15,+ -> -,Work (I + 1) := Temporary;,Work (I - 1) := Temporary;,killed
+numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,47,<= -> <,while D <= N / D loop,while D < N / D loop,survived
+numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,364,+ -> -,Idx  : constant Degree_Index := K + Degree_Index (Diff);,Idx  : constant Degree_Index := K - Degree_Index (Diff);,killed
+numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,289,< -> <=,if DA < 0 or else DB < 0 then,if DA < 0 or else DB <= 0 then,survived
+numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,741,> -> >=,if Deg_W > 0 and then Deg_W = Integer (I) then,if Deg_W >= 0 and then Deg_W = Integer (I) then,survived
+numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,527,+ -> -,State := State * 6364136223846793005 + 1;,State := State * 6364136223846793005 - 1;,survived
+numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,460,= -> /=,if Modulus = 0 then,if Modulus /= 0 then,killed
+numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,173,< -> <=,if D < 0 then,if D <= 0 then,killed
+numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,32,< -> <=,if N < 2 then,if N <= 2 then,survived

@@ -1,0 +1,62 @@
+folder,file,line,op,before,after,result
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,tim_sort_stub.adb,15,> -> >=,while J > Work'First and then Work (J - 1) > Work (J) loop,while J >= Work'First and then Work (J - 1) > Work (J) loop,killed
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,tim_sort_stub.adb,9,<= -> <,if Work'Length <= 1 then,if Work'Length < 1 then,survived
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,tim_sort_stub.adb,15,- 1 -> - 0,while J > Work'First and then Work (J - 1) > Work (J) loop,while J > Work'First and then Work (J - 0) > Work (J) loop,killed
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,tim_sort_stub.adb,15,- -> +,while J > Work'First and then Work (J - 1) > Work (J) loop,while J > Work'First and then Work (J + 1) > Work (J) loop,killed
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,tim_sort_stub.adb,12,+ 1 -> + 0,for I in Work'First + 1 .. Work'Last loop,for I in Work'First + 0 .. Work'Last loop,survived
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,tim_sort_stub.adb,26,- 1 -> - 0,J := J - 1;,J := J - 0;,killed
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,tim_sort_stub.adb,12,+ -> -,for I in Work'First + 1 .. Work'Last loop,for I in Work'First - 1 .. Work'Last loop,killed
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,tim_sort_stub.adb,15,> -> >=,while J > Work'First and then Work (J - 1) > Work (J) loop,while J > Work'First and then Work (J - 1) >= Work (J) loop,survived
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,nth_digit_stub.adb,32,+ -> -,W := W + 1;,W := W - 1;,killed
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,nth_digit_stub.adb,32,+ 1 -> + 0,W := W + 1;,W := W + 0;,killed
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,nth_digit_stub.adb,36,+ -> -,Number := First_Of (W) + Offset / Big (W);,Number := First_Of (W) - Offset / Big (W);,killed
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,nth_digit_stub.adb,37,- 1 -> - 0,Place  := W - 1 - Natural (Offset mod Big (W));,Place  := W - 0 - Natural (Offset mod Big (W));,killed
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,nth_digit_stub.adb,35,- -> +,Offset := N - Cum (W - 1) - 1;            --  0 .. W * 9 * 10 ** (W-1) - 1,Offset := N - Cum (W + 1) - 1;            --  0 .. W * 9 * 10 ** (W-1) - 1,killed
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,nth_digit_stub.adb,22,+ 1 -> + 0,N      : constant Big := Big (P) + 1;   --  one-based position,N      : constant Big := Big (P) + 0;   --  one-based position,killed
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,nth_digit_stub.adb,35,- -> +,Offset := N - Cum (W - 1) - 1;            --  0 .. W * 9 * 10 ** (W-1) - 1,Offset := N - Cum (W - 1) + 1;            --  0 .. W * 9 * 10 ** (W-1) - 1,killed
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,nth_digit_stub.adb,22,+ -> -,N      : constant Big := Big (P) + 1;   --  one-based position,N      : constant Big := Big (P) - 1;   --  one-based position,killed
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,multiply_strings.adb,33,+ -> -,T := Acc (P) + Carry;,T := Acc (P) - Carry;,killed
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,multiply_strings.adb,26,* -> +,Acc (I + J) := Acc (I + J) + D1 * D2;,Acc (I + J) := Acc (I + J) + D1 + D2;,killed
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,multiply_strings.adb,24,- 1 -> - 0,D2 := Character'Pos (Right (Right'First + J - 1)),D2 := Character'Pos (Right (Right'First + J - 0)),killed
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,multiply_strings.adb,40,and then -> or else,while First < Pos'Last and then Digits_Out (First) = '0' loop,while First < Pos'Last or else Digits_Out (First) = '0' loop,killed
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,multiply_strings.adb,19,- 1 -> - 0,D1 := Character'Pos (Left (Left'First + I - 1)) - Character'Pos ('0');,D1 := Character'Pos (Left (Left'First + I - 0)) - Character'Pos ('0');,killed
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,multiply_strings.adb,40,= -> /=,while First < Pos'Last and then Digits_Out (First) = '0' loop,while First < Pos'Last and then Digits_Out (First) /= '0' loop,killed
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,multiply_strings.adb,7,+ -> -,subtype Pos is Positive range 1 .. L1 + L2;,subtype Pos is Positive range 1 .. L1 - L2;,killed
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,multiply_strings.adb,19,- -> +,D1 := Character'Pos (Left (Left'First + I - 1)) - Character'Pos ('0');,D1 := Character'Pos (Left (Left'First + I - 1)) + Character'Pos ('0');,stillborn
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,pow_x_n_stub.adb,16,> -> >=,while E > 0 loop,while E >= 0 loop,killed
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,pow_x_n_stub.adb,22,* -> +,Acc := Acc * B;,Acc := Acc + B;,killed
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,pow_x_n_stub.adb,28,> -> >=,if E > 0 then,if E >= 0 then,killed
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,pow_x_n_stub.adb,21,= -> /=,if E mod 2 = 1 then,if E mod 2 /= 1 then,killed
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,pow_x_n_stub.adb,32,* -> +,B := B * B;,B := B + B;,killed
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,39,+ 1 -> + 0,Next (New_Last + 1) := Character'Val (Character'Pos ('0') + Run);,Next (New_Last + 0) := Character'Val (Character'Pos ('0') + Run);,killed
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,42,+ -> -,I := I + Run;,I := I - Run;,killed
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,28,+ -> -,while I + Run <= Last and then Text (I + Run) = Text (I) loop,while I - Run <= Last and then Text (I + Run) = Text (I) loop,survived
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,21,<= -> <,while I <= Last loop,while I < Last loop,killed
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,39,+ -> -,Next (New_Last + 1) := Character'Val (Character'Pos ('0') + Run);,Next (New_Last - 1) := Character'Val (Character'Pos ('0') + Run);,killed
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,28,and then -> or else,while I + Run <= Last and then Text (I + Run) = Text (I) loop,while I + Run <= Last or else Text (I + Run) = Text (I) loop,killed
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,40,+ -> -,Next (New_Last + 2) := Text (I);,Next (New_Last - 2) := Text (I);,killed
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,30,+ 1 -> + 0,Run := Run + 1;,Run := Run + 0;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,15,+ -> -,if Pat (I) = Pat (Len + 1) then,if Pat (I) = Pat (Len - 1) then,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,16,+ 1 -> + 0,Len := Len + 1;,Len := Len + 0;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,19,/= -> =,elsif Len /= 0 then,elsif Len = 0 then,survived
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,23,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,15,= -> /=,if Pat (I) = Pat (Len + 1) then,if Pat (I) /= Pat (Len + 1) then,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,18,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,18,+ -> -,I := I + 1;,I := I - 1;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,11,<= -> <,while I <= Pat'Last loop,while I < Pat'Last loop,survived
+strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,13,* -> +,H := (H * Base + Character'Pos (C)) rem Modulus;,H := (H + Base + Character'Pos (C)) rem Modulus;,survived
+strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,31,and then -> or else,if Hash (Window) = PH and then Window = Pat then,if Hash (Window) = PH or else Window = Pat then,survived
+strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,26,- -> +,for I in Text'First .. Text'First + (N - M) loop,for I in Text'First .. Text'First + (N + M) loop,killed
+strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,26,+ -> -,for I in Text'First .. Text'First + (N - M) loop,for I in Text'First .. Text'First - (N - M) loop,killed
+strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,23,> -> >=,if M > N then,if M >= N then,survived
+strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,29,+ -> -,Window : constant String := Text (I .. I + M - 1);,Window : constant String := Text (I .. I - M - 1);,killed
+strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,31,= -> /=,if Hash (Window) = PH and then Window = Pat then,if Hash (Window) = PH and then Window /= Pat then,killed
+strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,13,+ -> -,H := (H * Base + Character'Pos (C)) rem Modulus;,H := (H * Base - Character'Pos (C)) rem Modulus;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,125,and then -> or else,and then L_Curr.Count in 1 .. Max_Keep,or else L_Curr.Count in 1 .. Max_Keep,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,280,and then -> or else,and then Top < Max_Nodes,or else Top < Max_Nodes,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,18,* -> +,subtype Weight_Value is Natural range 0 .. Max_Symbols * Max_Freq;,subtype Weight_Value is Natural range 0 .. Max_Symbols + Max_Freq;,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,121,* -> +,and then Max_Keep = 2 * N - 2,and then Max_Keep = 2 + N - 2,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,274,and then -> or else,and then Top < Max_Nodes,or else Top < Max_Nodes,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,94,> -> >=,and then Nodes (L.Elems (J)).Weight > Nodes (Temp).Weight,and then Nodes (L.Elems (J)).Weight >= Nodes (Temp).Weight,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,41,- -> +,(if A >= Weight_Value'Last - B then Weight_Value'Last else A + B),(if A >= Weight_Value'Last + B then Weight_Value'Last else A + B),survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,185,+ -> -,Next_L.Count := Next_L.Count + 1;,Next_L.Count := Next_L.Count - 1;,killed

@@ -1,0 +1,6 @@
+{
+ "ada": "misc/Ada/Adler-32",
+ "spark": "misc/SPARK2/Ada-SPARK-Adler32",
+ "gen": "array:1:64:0:255",
+ "cases": 2000
+}

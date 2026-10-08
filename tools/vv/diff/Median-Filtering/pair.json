@@ -1,0 +1,6 @@
+{
+ "ada": "misc/Ada/Median-Filtering",
+ "spark": "misc/SPARK2/Ada-SPARK-Median-Filtering",
+ "gen": "array:64:64:0:255",
+ "cases": 1000
+}

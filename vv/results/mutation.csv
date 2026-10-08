@@ -1,0 +1,13 @@
+folder,baseline,sites,mutants,killed,survived,stillborn,score
+misc/Ada/Polynomial-Long-Division,pass,45,8,7,1,0,7/8
+geometry/Ada/Bresenhams-Line-Algorithm,pass,60,8,5,3,0,5/8
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,pass,10,8,8,0,0,8/8
+misc/Ada/Knuth-Bendix-Completion,pass,135,8,5,3,0,5/8
+misc/Ada/Chinese-Whispers,killed,50,0,0,0,0,
+misc/Ada/Nonlinear-Optimization,pass,262,8,7,1,0,7/8
+graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,pass,5,5,5,0,0,5/5
+numerical/SPARK2/Ada-SPARK-Valid-Perfect-Square,pass,0,0,0,0,0,
+misc/Ada/Golomb-Coding,pass,63,8,7,1,0,7/8
+misc/Ada/Replicator-Equation,pass,44,8,6,2,0,6/8
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,pass,9,8,6,2,0,6/8
+numerical/Ada/Cantor-Zassenhaus,pass,130,8,3,5,0,3/8

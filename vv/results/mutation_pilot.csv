@@ -1,0 +1,9 @@
+folder,baseline,sites,mutants,killed,survived,stillborn,score
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,pass,14,8,5,3,0,5/8
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,pass,14,8,8,0,0,8/8
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,pass,19,8,7,0,1,7/7
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,pass,5,5,5,0,0,5/5
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,pass,18,8,7,1,0,7/8
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,pass,11,8,6,2,0,6/8
+strings/SPARK2/Ada-SPARK-Rabin-Karp,pass,11,8,5,3,0,5/8
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,pass,116,8,2,5,1,2/7

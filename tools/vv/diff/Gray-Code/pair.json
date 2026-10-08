@@ -1,0 +1,6 @@
+{
+ "ada": "misc/Ada/Gray-Code",
+ "spark": "misc/SPARK2/Ada-SPARK-Gray-Code",
+ "gen": "array:1:1:0:4294967295",
+ "cases": 5000
+}

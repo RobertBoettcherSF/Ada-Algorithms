@@ -1,0 +1,7 @@
+{
+ "ada": "numerical/Ada/Binary-GCD",
+ "spark": "numerical/SPARK4/Binary-Gcd",
+ "gen": "array:2:2:0:4611686018427387903",
+ "zero_edge": true,
+ "cases": 3000
+}

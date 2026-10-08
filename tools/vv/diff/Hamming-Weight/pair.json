@@ -1,0 +1,6 @@
+{
+ "ada": "misc/Ada/Hamming-Weight",
+ "spark": "misc/SPARK2/Ada-SPARK-Hamming-Weight",
+ "gen": "array:1:1:0:1000000000",
+ "cases": 5000
+}

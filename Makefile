@@ -18,7 +18,7 @@ TEST_BINS := \
 
 HARNESS := $(BIN_DIR)/harness
 
-.PHONY: all list test clean proof-index
+.PHONY: all list test clean proof-index vv vv-validate
 
 all: $(HARNESS) $(TEST_BINS)
 
@@ -61,3 +61,14 @@ RESULTS    ?= /tmp/aa_res
 PROVE_LOGS ?= /tmp/aa_prove
 proof-index:
 	python3 tools/proof_index.py --results $(RESULTS) --logs $(PROVE_LOGS)
+
+# Verification + validation over all folders (docs/VV.md): build+tests on GNAT 14/12,
+# Silver proofs with a step budget, differential + mutation testing, index refresh.
+#   make vv                         full run (hours)
+#   make vv VV_IDS=ids.txt          a subset;  VV_SKIP="build prove" to run validation only
+vv:
+	tools/vv/run_vv.sh
+
+# Validation only (differential tests + mutation sample), then refresh the index from existing results.
+vv-validate:
+	VV_SKIP="build prove" VV_OUT=$(RESULTS) VV_PROVE_LOGS=$(PROVE_LOGS) tools/vv/run_vv.sh

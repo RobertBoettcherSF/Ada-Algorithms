@@ -1,0 +1,6 @@
+{
+ "ada": "misc/Ada/Longest-Increasing-Subsequence",
+ "spark": "misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence",
+ "gen": "array:8:8:-100:100",
+ "cases": 5000
+}

@@ -24,5 +24,12 @@ if [ -z "$gpr" ]; then
   gpr=aa_generated.gpr; how=generated
 fi
 start=$(date +%s)
-timeout 1500 gnatprove -P "$gpr" --mode=silver --level=2 -j1 --output=oneline -k > prove.log 2>&1; rc=$?
-echo "{\"id\":\"$id\",\"status\":\"done\",\"rc\":$rc,\"secs\":$(( $(date +%s)-start )),\"gpr\":\"$gpr\",\"how\":\"$how\"}"
+# AA_PROVE_STEPS=N: deterministic step budget instead of the wall-clock timeout (used by make vv)
+if [ -n "${AA_PROVE_STEPS:-}" ]; then
+  timeout 7200 gnatprove -P "$gpr" --mode=silver --level=2 --timeout=0 --steps="$AA_PROVE_STEPS" --counterexamples=off -j2 --output=oneline -k > prove.log 2>&1; rc=$?
+  st=",\"steps\":$AA_PROVE_STEPS"
+else
+  timeout 1500 gnatprove -P "$gpr" --mode=silver --level=2 -j1 --output=oneline -k > prove.log 2>&1; rc=$?
+  st=""
+fi
+echo "{\"id\":\"$id\",\"status\":\"done\",\"rc\":$rc,\"secs\":$(( $(date +%s)-start )),\"gpr\":\"$gpr\",\"how\":\"$how\"$st}"

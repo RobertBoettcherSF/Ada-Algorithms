@@ -1,0 +1,7 @@
+{
+ "ada": "numerical/Ada/Euclidean-Algorithm",
+ "spark": "numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm",
+ "gen": "array:2:2:0:4611686018427387903",
+ "zero_edge": true,
+ "cases": 3000
+}

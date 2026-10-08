@@ -1,0 +1,11 @@
+pair,ada,spark,seed,cases,result,disagree,crash_ada,crash_spark,first_case,ada_out,spark_out
+Adler-32,misc/Ada/Adler-32,misc/SPARK2/Ada-SPARK-Adler32,20261008,2000,agree,0,0,0,,,
+Binary-GCD,numerical/Ada/Binary-GCD,numerical/SPARK4/Binary-Gcd,20261008,3000,agree,0,0,0,,,
+Delta-Encoding,misc/Ada/Delta-Encoding,misc/SPARK2/Ada-SPARK-Delta-Encoding,20261008,3000,agree,0,0,0,,,
+Euclidean-Algorithm,numerical/Ada/Euclidean-Algorithm,numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,20261008,3000,agree,0,0,0,,,
+Gray-Code,misc/Ada/Gray-Code,misc/SPARK2/Ada-SPARK-Gray-Code,20261008,5000,agree,0,0,0,,,
+Hamming-Weight,misc/Ada/Hamming-Weight,misc/SPARK2/Ada-SPARK-Hamming-Weight,20261008,5000,agree,0,0,0,,,
+Kadanes-Algorithm,misc/Ada/Kadanes-Algorithm,misc/SPARK2/Ada-SPARK-Kadanes-Algorithm,20261008,5000,agree,0,0,0,,,
+Longest-Increasing-Subsequence,misc/Ada/Longest-Increasing-Subsequence,misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,20261008,5000,agree,0,0,0,,,
+Median-Filtering,misc/Ada/Median-Filtering,misc/SPARK2/Ada-SPARK-Median-Filtering,20261008,1000,agree,0,0,0,,,
+Pearson-Hashing,hashing/Ada/Pearson-Hashing,hashing/SPARK2/Ada-SPARK-Pearson-Hashing,20261008,2000,DISAGREE (known),1992,0,0,15 97 98 97 122 121 97 97 97 97 97 121 97 98 122 121, 45, 9

@@ -1,0 +1,7 @@
+{
+ "ada": "misc/Ada/Delta-Encoding",
+ "spark": "misc/SPARK2/Ada-SPARK-Delta-Encoding",
+ "gen": "array:1:16:-128:127",
+ "cases": 3000,
+ "note": "Ada side: sum of Encode_Integer_Delta (2 .. N) (= last - first); SPARK side: Net_Delta"
+}

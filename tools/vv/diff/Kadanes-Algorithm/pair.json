@@ -1,0 +1,6 @@
+{
+ "ada": "misc/Ada/Kadanes-Algorithm",
+ "spark": "misc/SPARK2/Ada-SPARK-Kadanes-Algorithm",
+ "gen": "array:4:4:-100:100",
+ "cases": 5000
+}

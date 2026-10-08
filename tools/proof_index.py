@@ -7,7 +7,7 @@ tools/audit/prove_folder.sh (JSON lines) plus the gnatprove logs:
 DIR must contain build.jsonl and prove.jsonl (last line per folder wins).
 Run from the repo root.  Without results the columns show 'not run'.
 """
-import argparse, csv, difflib, hashlib, json, os, re, collections
+import glob, argparse, csv, difflib, hashlib, json, os, re, collections
 LEVELS = ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4')
 SKIP = {'bin', 'obj', 'src', 'tests', 'gnatprove'}
 ap = argparse.ArgumentParser()
@@ -15,6 +15,7 @@ ap.add_argument('--results', default='')
 ap.add_argument('--logs', default='')
 ap.add_argument('--root', default='.')
 ap.add_argument('--steps-logs', default='', help='workdir of step-budget reruns (prove_steps.jsonl in --results)')
+ap.add_argument('--vv', default='vv/results', help='V&V results dir (diff.csv, mutation*.csv); kat registry: tools/vv/kat_registry.csv')
 ap.add_argument('--tool-info', default='', help='text file with gnatprove --version output')
 ap.add_argument('--batch-cmd', default='gnatprove -P <folder gpr> --mode=silver --level=2 -j1 --output=oneline -k')
 ap.add_argument('--steps-cmd', default='gnatprove -P <folder gpr> --mode=silver --level=2 --timeout=0 --steps=<N> --counterexamples=off -j2 --output=oneline -k')
@@ -122,7 +123,7 @@ for topic, lev, alg, p in folders:
                      warnings_gnat14=b.get('w14', ''), warnings_gnat12=b.get('w12', ''),
                      silver=(silver(fid, has_spark, ok('u14')) if has_mode or not has_spark else 'skipped (no SPARK_Mode)'),
                      checks='', functional_checks='', trivial='',
-                     proof_run=('steps=%s' % S[fid].get('steps') if fid in S else ('level2-timeout' if fid in P else '')) if has_spark else '',
+                     proof_run=('steps=%s' % S[fid].get('steps') if fid in S else (('steps=%s' % P[fid]['steps']) if P.get(fid, {}).get('steps') else ('level2-timeout' if fid in P else ''))) if has_spark else '',
                      proof_gpr=(P.get(fid, {}).get('gpr', '') + (' (generated)' if P.get(fid, {}).get('how') == 'generated' else '')) if has_spark else '',
                      shared_sources=' '.join(b.get('shared', [])), stub=('yes' if re.search(r'(^|-)stub$', alg, re.I) and fid not in GEN else ''), generalised=('yes' if fid in GEN else ''), pair='', duplicate_of=''))
     texts[fid] = pkg_text(p)
@@ -133,6 +134,27 @@ for r in rows:
         if t is not None:
             r['checks'], r['functional_checks'] = t, f
             r['trivial'] = 'yes' if t <= TRIVIAL_MAX else ''
+
+# V&V columns (docs/VV.md): differential test, mutation score, known-answer vectors
+def _csv(path):
+    return list(csv.DictReader(open(path))) if os.path.exists(path) else []
+VVD = os.path.join(a.root, a.vv) if not os.path.isabs(a.vv) else a.vv
+diff_by = {}
+for d in _csv(os.path.join(VVD, 'diff.csv')):
+    v = d['result'] if d['result'] == 'agree' else f"{d['result']} {d['disagree']}/{d['cases']}"
+    for side in ('ada', 'spark'):
+        diff_by[d[side]] = f"{v} (vs {d['spark' if side == 'ada' else 'ada']}, {d['cases']} cases)"
+mut_by = {}
+for mf in sorted(glob.glob(os.path.join(VVD, 'mutation*.csv'))):
+    if mf.endswith('_detail.csv'):
+        continue
+    for m in _csv(mf):
+        mut_by[m['folder']] = m['score'] or ('baseline ' + m['baseline'] if m['baseline'] != 'pass' else 'no sites')
+kat_by = {k['folder']: k['source'] for k in _csv(os.path.join(a.root, 'tools', 'vv', 'kat_registry.csv'))}
+for r in rows:
+    r['diff_test'] = diff_by.get(r['folder'], '')
+    r['mutation'] = mut_by.get(r['folder'], '')
+    r['kat'] = kat_by.get(r['folder'], '')
 
 # duplicates: identical package sources (comments/whitespace ignored) or same name+level with >=90% similar text
 by_hash = collections.defaultdict(list)
@@ -206,6 +228,18 @@ for lev in ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4', 'All'):
              f"{c(lambda r: str(r['warnings_gnat14'])=='0' and r['build_gnat14']=='yes', s)} | {c(lambda r: str(r['warnings_gnat12'])=='0' and r['build_gnat12']=='yes', s)} | "
              f"{c(lambda r: r['silver']=='proven' and not r['stub'], s)} | {c(lambda r: r['silver']=='proven' and bool(r['stub']), s)} | {c(lambda r: r['trivial']=='yes', s)} | "
              f"{c(lambda r: r['silver'].endswith('unproved'), s)} | {c(lambda r: r['silver'] in ('tool crash','timeout'), s)} | {c(lambda r: r['silver']=='not built', s)} | {c(lambda r: r['silver']=='not run', s)} |")
+vvrows = [r for r in rows if r['diff_test'] or r['mutation'] or r['kat']]
+if vvrows:
+    nd = len({d['pair'] for d in _csv(os.path.join(VVD, 'diff.csv'))})
+    kk = sum(int(m['killed']) for mf in glob.glob(os.path.join(VVD, 'mutation*.csv')) if not mf.endswith('_detail.csv') for m in _csv(mf))
+    ss = sum(int(m['survived']) for mf in glob.glob(os.path.join(VVD, 'mutation*.csv')) if not mf.endswith('_detail.csv') for m in _csv(mf))
+    L += ['', '## V&V (validation) results', '',
+          f'Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: {nd}; mutants killed/survived: {kk}/{ss}'
+          + (f' (score {100*kk//max(1,kk+ss)}%)' if kk + ss else '') + f'; folders with registered known-answer vectors: {len(kat_by)}. '
+          'Columns `diff_test`, `mutation`, `kat` in PROOFS.csv.', '',
+          '| Folder | Differential test | Mutation (killed/total) | Known-answer source |', '|---|---|---|---|']
+    for r in vvrows:
+        L.append(f"| {r['folder']} | {r['diff_test']} | {r['mutation']} | {r['kat']} |")
 L += ['', '| Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Checks (func) | Pair | Duplicate of |', '|---|---|---|---|---|---|---|---|---|---|---|---|']
 for r in rows:
     L.append(f"| {r['folder']}{' (stub)' if r['stub'] else ''} | {r['make_test']} | {r['build_gnat14']} | {r['build_gnat12']} | {r['tests_pass_gnat14']} | {r['tests_pass_gnat12']} | "
