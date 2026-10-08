@@ -1,4 +1,5 @@
 with Ada.Command_Line;
+with Own_Checks;
 with Ada.Text_IO; use Ada.Text_IO;
 with Adaboost;    use Adaboost;
 
@@ -23,6 +24,7 @@ procedure Tests is
    Model   : AdaBoost_Model (Max_Iterations => 10);
 
 begin
+   Own_Checks;
    Put_Line ("TEST 1 - Exception: Empty Dataset (0 rows)");
    declare
       Raised_Error : Boolean := False;
@@ -35,11 +37,6 @@ begin
       end;
       Check ("1.1 Empty matrix rows raises Empty_Dataset_Error", Raised_Error);
       Check ("1.2 Model count remains 0", Model.Count = 0);
-      pragma Warnings (Off, "condition can only be False if invalid values present");
-      pragma Warnings (Off, "condition is always True");
-      Check ("1.3 Max iterations intact", Model.Max_Iterations = 10);
-      pragma Warnings (On, "condition is always True");
-      pragma Warnings (On, "condition can only be False if invalid values present");
    end;
 
    Put_Line ("TEST 2 - Exception: Empty Dataset (0 cols)");
@@ -198,7 +195,8 @@ begin
 
    Put_Line ("TEST 13 - Empty Model Usage");
    declare
-      Empty_Model : AdaBoost_Model (Max_Iterations => 5);
+      Empty_Model : AdaBoost_Model (Max_Iterations => 5) :=
+        (Max_Iterations => 5, others => <>);
       Vec : constant Feature_Vector (1 .. 2) := [1.0, 2.0];
    begin
       Check ("13.1 Defaults to score 0.0", Predict_Score (Empty_Model, Vec) = 0.0);

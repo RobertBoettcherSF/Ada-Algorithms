@@ -1,0 +1,16 @@
+AdaBoost own checks (own_checks.adb)
+
+Reference: Yoav Freund and Robert E. Schapire, "A decision-theoretic
+generalization of on-line learning and an application to boosting",
+Journal of Computer and System Sciences 55 (1997): sample weights start
+at 1/n, each round's weak learner is the decision stump of least weighted
+error, its weight is (1/2) ln ((1-e)/e), and the sample weights are
+multiplied by exp(-alpha y h) and normalized. A stump no better than a
+coin toss (error >= 1/2) ends training. Computed here, not taken from the
+program's output.
+
+Test data: LCG, default seed 20261008, printed, overridable with AA_SEED.
+
+Mutant split recorded before these checks (seed 20261008): standard family
+17 tuning / 17 held-out, so the held-out half is topped up with the alt
+family.
