@@ -1,0 +1,11 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own reference code written for this repository (MIT);
+nothing is copied from the program's output or from third-party test suites.
+
+* Own reference: the multiplicative formula for binomial coefficients,
+  C(n, 0) = 1, C(n, k) = C(n, k - 1) * (n - k + 1) / k (exact at every
+  step), in Long_Long_Integer without a cap, for every n, k in 0 .. 32.
+* Properties: C(n, k) = C(n, n - k); the row sum is 2**n; entries with
+  k > n are 0 (the folder's convention, from its README and original test).

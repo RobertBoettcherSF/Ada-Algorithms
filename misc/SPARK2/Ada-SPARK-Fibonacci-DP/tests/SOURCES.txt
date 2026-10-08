@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own reference code written for this repository (MIT);
+nothing is copied from the program's output or from third-party test suites.
+
+* Definition used: F(0) = 0, F(1) = 1 (README and original test).
+* Own brute-force reference: for n >= 2, F(n) is the number of 0/1 strings
+  of length n - 2 with no two adjacent 1s (a string starts with 0 followed
+  by any valid string, or with 10 followed by any valid string, which gives
+  the Fibonacci recurrence); counted by trying all 2**(n-2) bit patterns.
+  Checked for every n in 0 .. 10 (the whole Input range).
