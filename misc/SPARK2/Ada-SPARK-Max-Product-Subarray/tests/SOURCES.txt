@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (tests.adb)
+=====================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* 2 3 -2 4 -1 2 -> 96 (the whole array) and -2 0 -1 4 3 -2 -> 24
+  (-1 4 3 -2), by hand.
+* Own reference: the largest product over every non-empty contiguous
+  subarray (the standard problem statement), by enumerating all subarrays
+  in Long_Long_Integer.
+* Inputs: every array over -6 .. 6 (13**6 = 4,826,809, exhaustive).
+* Rejection: elements 10, -10 and 7 lie outside the element range whose
+  products provably fit Result (6**6 = 46,656 <= 100,000); they must raise
+  Constraint_Error rather than produce a capped product.
