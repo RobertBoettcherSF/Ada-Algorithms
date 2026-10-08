@@ -17,7 +17,9 @@ package Recursive_Descent_Parser is
    --   expression = term { ("+" | "-") term }
    --   term       = factor { ("*" | "/") factor }
    --   factor     = "(" expression ")" | integer
-   -- Raises: Syntax_Error on malformed strings, Evaluation_Error on div/0.
+   -- Raises: Syntax_Error on malformed strings, Evaluation_Error on div/0,
+   -- Constraint_Error when a literal or any intermediate value (each
+   -- operator applied left to right, as parsed) leaves Value_Type.
    function Evaluate (Expression : String) return Value_Type
      with Global => null;
 

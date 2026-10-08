@@ -15,4 +15,11 @@ standard generator (seed 20261008).
   It is printed with the usual precedence and left associativity:
   parentheses where the grammar needs them, plus redundant ones at random.
 * Checks: Evaluate returns the tree's value and Is_Valid accepts the text.
+  The tree is evaluated in Long_Long_Integer node by node; when any node
+  leaves Integer (depth 4 with literals up to 20 reaches 20**16; AA_SEED
+  1, 2 and 22 each draw one such tree in 20000) Evaluate must raise
+  Constraint_Error, as the spec documents, and Is_Valid still accepts.
+* Fixed overflow cases (own arithmetic): 65536*65536, 2147483647+1,
+  0-2147483647-2, (46341*46341)/2 raise Constraint_Error; 46340*46340 =
+  2147395600 and 2147483647-1+1 = 2147483647 stay in range.
 * Inputs: 20000 random expressions.

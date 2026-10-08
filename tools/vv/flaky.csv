@@ -1510,7 +1510,7 @@ parsing/Ada/LR-Parser,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat
 parsing/Ada/Operator-Precedence-Parser,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 parsing/Ada/Packrat-Parser,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 parsing/Ada/Pratt-Parser,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
-parsing/Ada/Recursive-Descent-Parser,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,3,1:fail 2:fail 22:fail,yes,yes,AA_SEED=1: TEST 14 — Translation (To_Postfix) Error Handling,repeat from pass 1 (10 runs GNAT 14)
+parsing/Ada/Recursive-Descent-Parser,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,"FIXED: seeds 1,2,22 drew trees whose value overflows Integer (20**16 reachable); Integer oracle could not express it, Evaluate raised Constraint_Error at adb:135. Oracle now Long_Long_Integer per node; overflow trees must raise Constraint_Error (spec documents it); rerun 30 seeds 0 failed (GNAT 14 and 12)"
 parsing/Ada/Shunting-Yard-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 parsing/Ada/Simple-LR-Parser,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 parsing/Ada/Simple-Precdence-Parser,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
