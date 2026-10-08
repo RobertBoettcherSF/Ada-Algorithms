@@ -1,4 +1,5 @@
 with Merge_Sorted_Arrays;
+with Own_Checks;
 procedure Tests is
    use type Merge_Sorted_Arrays.Output_Array;
    Left : constant Merge_Sorted_Arrays.Input_Array := [1, 4, 9];
@@ -6,4 +7,5 @@ procedure Tests is
    Expected : constant Merge_Sorted_Arrays.Output_Array := [1, 2, 3, 4, 8, 9];
 begin
    pragma Assert (Merge_Sorted_Arrays.Merge (Left, Right) = Expected);
+   Own_Checks;
 end Tests;

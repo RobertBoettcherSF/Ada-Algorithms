@@ -10,3 +10,13 @@ sorting/SPARK2/Ada-SPARK-Patience-Sort,sorted + permutation + own insertion-sort
 sorting/SPARK2/Ada-SPARK-Shaker-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
 sorting/SPARK2/Ada-SPARK-Tournament-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
 sorting/SPARK2/Binary-Insertion-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Flash-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Heap-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Intro-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Quick-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Smooth-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Tim-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Wiggle-Sort,wiggle order on every adjacent pair + permutation; 4000 inputs
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity,evens before odds + permutation; 3000 random
+sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,elementwise square computed independently; 3000 random
+sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,own concatenate + insertion-sort reference; 5000 random sorted pairs

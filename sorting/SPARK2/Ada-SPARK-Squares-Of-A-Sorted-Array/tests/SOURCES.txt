@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Property (README: "elementwise square transform"): Result (I) = A (I) * A (I),
+  computed independently in the test. Note: despite the folder name the
+  package does not sort the squares; the README describes the elementwise
+  transform and that is what is checked.
+* Inputs: extremes, constants, zeros, 3,000 random arrays.

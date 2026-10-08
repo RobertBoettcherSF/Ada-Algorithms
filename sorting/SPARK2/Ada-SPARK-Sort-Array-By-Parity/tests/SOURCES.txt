@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Property (README: even values before odd values): no even value after the
+  first odd one.
+* Property: the result is a permutation of the input (value counts equal).
+* Inputs: all odd, all even, alternating, extremes, 3,000 random arrays.

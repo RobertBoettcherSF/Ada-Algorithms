@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Sort_Array_By_Parity; use Sort_Array_By_Parity;
+with Own_Checks;
 procedure Tests is
    A : Int_Array := [others => 0];
    R : Int_Array;
@@ -17,4 +18,5 @@ begin
          end if;
       end loop;
    end;
+   Own_Checks;
 end Tests;
