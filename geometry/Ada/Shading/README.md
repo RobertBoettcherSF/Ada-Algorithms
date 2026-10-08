@@ -8,7 +8,7 @@ This project provides a complete, strongly-typed implementation of 3D computer g
 - Gouraud Shading: Evaluates illumination at each polygon vertex and bilinearly interpolates resulting color intensities across the surface using barycentric coordinates.
 - Phong Shading: Bilinearly interpolates surface normal vectors across polygon vertices, re-normalizes them per sample, and evaluates full Phong illumination (ambient, diffuse, specular) per fragment.
 - Deferred Shading: Implements a two-pass rendering architecture:
-  - Pass 1 (Geometry Pass): Records surface position, normal, albedo, and depth into a G-Buffer with depth testing/culling.
+  - Pass 1 (Geometry Pass): Records surface position, normal, depth and the whole material (diffuse albedo, ambient and specular colors and coefficients, shininess) into a G-Buffer with depth testing/culling, so the lighting pass gives the same color as forward shading of the visible fragment.
   - Pass 2 (Lighting Pass): Iterates over the screen-space G-Buffer to compute lighting contributions without redundant shading of occluded fragments.
 - Light Source Types:
   - Ambient Lighting: Omnidirectional omnipresent background lighting.

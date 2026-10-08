@@ -14,9 +14,8 @@
 --    normal; Gouraud = the model at the vertices, colors interpolated;
 --    Phong = the model at the interpolated position with the renormalized
 --    interpolated normal; deferred = the geometry pass keeps the closest
---    fragment, the lighting pass is the model with the pixel's stored
---    material (diffuse coefficient 0.8, white specular, as the code's
---    lighting pass builds it).
+--    fragment, and the lighting pass gives what forward shading of that
+--    fragment with its material gives.
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Environment_Variables;
@@ -369,13 +368,7 @@ begin
                     "geometry pass keeps the closest fragment");
             Deferred_Lighting_Pass (Buf, FB, View, Ls);
             declare
-               Pix : constant G_Buffer_Pixel := Buf (2, 5);
-               PM  : constant Material :=
-                 (Ambient_Color => Pix.Albedo, Diffuse_Color => Pix.Albedo, Specular_Color => White,
-                  Ambient_Coeff => Pix.Ambient_Amt, Diffuse_Coeff => 0.8, Specular_Coeff => Pix.Specular_Amt,
-                  Shininess => Pix.Shininess);
             begin
-               Expect (Same (FB (2, 5), Sum_Lights (Pix.Position, Pix.Normal, View, PM, Ls)), "deferred lighting = the model");
                --  deferred shading defers the same lighting: the result must
                --  equal forward shading of the closest fragment with its
                --  own material

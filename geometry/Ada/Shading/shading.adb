@@ -484,7 +484,10 @@ package body Shading with SPARK_Mode => On is
             Depth        => Depth,
             Ambient_Amt  => Mat.Ambient_Coeff,
             Specular_Amt => Mat.Specular_Coeff,
-            Shininess    => Mat.Shininess);
+            Shininess    => Mat.Shininess,
+            Ambient_Col  => Mat.Ambient_Color,
+            Specular_Col => Mat.Specular_Color,
+            Diffuse_Amt  => Mat.Diffuse_Coeff);
       end if;
    end Deferred_Geometry_Pass;
 
@@ -505,11 +508,11 @@ package body Shading with SPARK_Mode => On is
                declare
                   Pix : constant G_Buffer_Pixel := Buffer (Row, Col);
                   Pixel_Mat : constant Material :=
-                    (Ambient_Color  => Pix.Albedo,
+                    (Ambient_Color  => Pix.Ambient_Col,
                      Diffuse_Color  => Pix.Albedo,
-                     Specular_Color => White,
+                     Specular_Color => Pix.Specular_Col,
                      Ambient_Coeff  => Pix.Ambient_Amt,
-                     Diffuse_Coeff  => 0.8,
+                     Diffuse_Coeff  => Pix.Diffuse_Amt,
                      Specular_Coeff => Pix.Specular_Amt,
                      Shininess      => Pix.Shininess);
                begin

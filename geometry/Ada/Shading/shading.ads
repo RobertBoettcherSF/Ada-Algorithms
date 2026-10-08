@@ -103,15 +103,20 @@ package Shading with SPARK_Mode => On is
 
    --  G-Buffer fragment for Deferred Shading:
    --  Stores world position, normal, material, and depth for lighting pass.
+   --  It stores the whole material, so the lighting pass shades a pixel
+   --  exactly as forward shading would shade the visible fragment.
    type G_Buffer_Pixel is record
       Valid        : Boolean   := False;
       Position     : Vector_3D := (0.0, 0.0, 0.0);
       Normal       : Vector_3D := (0.0, 1.0, 0.0);
-      Albedo       : Color_RGB := Black;
+      Albedo       : Color_RGB := Black;   --  diffuse color
       Depth        : Real      := 0.0;
       Ambient_Amt  : Intensity_Value := 0.1;
       Specular_Amt : Intensity_Value := 0.5;
       Shininess    : Shininess_Value := 32.0;
+      Ambient_Col  : Color_RGB := (0.1, 0.1, 0.1);
+      Specular_Col : Color_RGB := White;
+      Diffuse_Amt  : Intensity_Value := 0.8;
    end record;
 
    type G_Buffer is array (Positive range <>, Positive range <>) of G_Buffer_Pixel;
