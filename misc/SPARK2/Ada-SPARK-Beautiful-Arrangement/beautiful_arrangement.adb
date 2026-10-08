@@ -4,7 +4,7 @@ package body Beautiful_Arrangement with SPARK_Mode => On is
    function Is_Beautiful (A : Arrangement; N : Size) return Boolean is
    begin
       for I in Size range 1 .. N loop
-         if A (I) = 0 then
+         if A (I) = 0 or else A (I) > N then   --  must be a permutation of 1 .. N
             return False;
          end if;
          if not (A (I) mod I = 0 or else I mod A (I) = 0) then
