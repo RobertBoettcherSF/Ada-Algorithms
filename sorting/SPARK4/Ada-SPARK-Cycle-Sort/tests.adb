@@ -170,7 +170,7 @@ is
    --  Same contents placed at Origin .. Origin + Len - 1. Both entry
    --  points must give the reference sort slot for slot, and the write
    --  count must equal the misplaced positions (origin-independent).
-   function Shifted_Ok (Src : Element_Array; Origin : Positive)
+   function Shifted_Ok (Src : Element_Array; Origin : Live_Index)
      return Boolean
    is
       A, B : Element_Array (Origin .. Origin + Src'Length - 1);

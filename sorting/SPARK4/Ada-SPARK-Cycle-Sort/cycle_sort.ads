@@ -35,7 +35,11 @@ is
    --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
 
-   type Element_Array is array (Positive range <>) of Integer;
+   --  Live slots; the index subtype carries the 1 .. Max_N origin range
+   --  (same shape as the other SPARK sorts), In_Bounds adds the length.
+   subtype Live_Index is Positive range 1 .. Max_N;
+
+   type Element_Array is array (Live_Index range <>) of Integer;
 
    ---------------------------------------------------------------------------
    -- Shape / sortedness guards (expression functions — usable in contracts)

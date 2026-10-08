@@ -20,7 +20,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Cycle-Sort](https:/
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $10\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Any `A'First` in `1 .. Max_N` (at most `Max_N` elements): cycle starts run `A'First .. A'Last - 1`, destinations are `CS + #{smaller keys after CS}`; tests sort shifted copies at origins 2, 7, 33 and slices flush to `Max_N`, with write counts checked at every origin.
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements): cycle starts run `A'First .. A'Last - 1`, destinations are `CS + #{smaller keys after CS}`; tests sort shifted copies at origins 2, 7, 33 and slices flush to `Max_N`, with write counts checked at every origin.
 * `Sort_Counting_Writes` is a procedure with `Writes : out Natural` (SPARK functions cannot have `in out` arrays) and light contracts on the tally.
 * Nested `Cycle_Step` plus `Dest_Index` / `Advance_Past_Equals` so Level 4 can prove `Is_Sorted` without claiming full cycle-placement postconditions.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality and exact write counts are **checked by tests**, not claimed as Level-4 postconditions. Zero `pragma Annotate (GNATprove, Intentional, …)`.
