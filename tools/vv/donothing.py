@@ -9,7 +9,10 @@ scratch copy, by a trivial body that still compiles:
   Boolean function-> return False / return True  (two variants)
   other function  -> return the first parameter of the same type (identity),
                      else a default object (scalars zero-filled), else [].
-Then the folder's tests are built (GNAT 14, -gnat2022 -gnata) and run.
+Then the folder's tests are built (GNAT 14, -gnat2022 -gnata) and run; a
+folder whose unmodified tests fail under -gnata but pass without it (the
+uniform stage-1 build does not use -gnata) is checked without -gnata
+(column gnata = no).
 Postconditions, contract cases and type invariants are switched off
 (Assertion_Policy Ignore) so the tests themselves, not the spec, must notice;
 preconditions and the tests' own pragma Assert stay on. Scalars are
@@ -19,8 +22,11 @@ Result per subprogram: killed (tests fail, raise, or hang), survived (tests
 still pass), stillborn (no trivial body compiles). The *main* subprogram is
 the public one whose name shares a word with the folder name
 (Sort, Run_Chinese_Whispers; subprograms that take input first, since a
-zero-filled constructor / Initialize result is often the right answer), else the one the tests name most often; Boolean
-predicates such as Is_Sorted only when nothing else is called; a folder is flagged 'weak' when the
+zero-filled constructor / Initialize result is often the right answer; container
+plumbing such as Append / Set_Node / Add_Word last), else the one the tests name
+most often; Boolean predicates such as Is_Sorted only when nothing else is
+called, or when the predicate is the folder's own algorithm (Is_Balanced in
+Balanced-Binary-Tree); a folder is flagged 'weak' when the
 do-nothing version of its main subprogram survives. Other survivors are listed
 for information.
 
@@ -122,11 +128,11 @@ def variants(kind, params, rt):
     v.append(('empty', 'begin\n      return [];\n   '))
     return v
 
-def run_tests(work, timeout=20):
+def run_tests(work, timeout=20, gnata=True):
     main = next((m for m in MAINS if os.path.exists(os.path.join(work, m))), None)
     os.makedirs(os.path.join(work, 'obj'), exist_ok=True)
     inc = [f'-I{d}' for d in ('src', 'tests') if os.path.isdir(os.path.join(work, d))]
-    b = subprocess.run([GNATMAKE, '-q', '-f', '-gnat2022', '-gnata', '-gnatec=' + os.path.join(work, 'dn.adc'), *inc,
+    b = subprocess.run([GNATMAKE, '-q', '-f', '-gnat2022', *(['-gnata'] if gnata else []), '-gnatec=' + os.path.join(work, 'dn.adc'), *inc,
                         '-D', 'obj', main, '-o', 'tbin', '-bargs', '-S00'], cwd=work, capture_output=True, text=True, errors='replace')
     if b.returncode != 0:
         return 'stillborn'
@@ -142,7 +148,7 @@ def run_tests(work, timeout=20):
 def check_folder(fid, work_root):
     src = os.path.join(ROOT, fid)
     main = next((m for m in MAINS if os.path.exists(os.path.join(src, m))), None)
-    row = dict(folder=fid, baseline='', main='', main_result='', verdict='', subprograms=0, survived='', killed=0, stillborn=0)
+    row = dict(folder=fid, baseline='', main='', main_result='', verdict='', subprograms=0, survived='', killed=0, stillborn=0, gnata='')
     if not main:
         row['verdict'] = 'no tests'; return row, []
     work = tempfile.mkdtemp(prefix=fid.replace('/', '_') + '_', dir=work_root)
@@ -150,8 +156,14 @@ def check_folder(fid, work_root):
         shutil.copytree(src, work, dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('obj', 'bin', 'gnatprove', '*.o', '*.ali'))
         open(os.path.join(work, 'dn.adc'), 'w').write(ADC)
+        # assertions on (-gnata) so that pragma Assert in the tests counts; folders whose own tests only
+        # pass without -gnata (the uniform build of stage 1 does not use it) are checked that way instead
+        gnata = True
         row['baseline'] = run_tests(work, timeout=60)
-        if row['baseline'] != 'survived':
+        if row['baseline'] != 'survived' and run_tests(work, timeout=60, gnata=False) == 'survived':
+            gnata, row['baseline'] = False, 'survived (without -gnata)'
+        row['gnata'] = 'yes' if gnata else 'no'
+        if not row['baseline'].startswith('survived'):
             row['verdict'] = 'baseline ' + ('fails' if row['baseline'] == 'killed' else 'does not build'); return row, []
         tests_text = ''.join(open(f, errors='replace').read() for f in glob.glob(os.path.join(work, '**', 'test*.ad[sb]'), recursive=True)
                              + [os.path.join(work, main)])
@@ -205,7 +217,7 @@ def check_folder(fid, work_root):
             res, used = 'stillborn', ''
             for vname, vbody in variants(kind, params, rt):      # every variant that compiles; survived if any survives
                 open(adb, 'w').write(orig[:bs] + '\n   ' + vbody + orig[es:])
-                r = run_tests(work)
+                r = run_tests(work, gnata=gnata)
                 if r == 'stillborn':
                     continue
                 if res != 'survived':
@@ -246,7 +258,7 @@ def main():
                 return check_folder(f, a.work)
             except Exception as e:      # one odd folder must not stop the run
                 return dict(folder=f, baseline='', main='', main_result='', verdict=f'tool error ({type(e).__name__})',
-                            subprograms=0, survived='', killed=0, stillborn=0), []
+                            subprograms=0, survived='', killed=0, stillborn=0, gnata=''), []
         for row, d in ex.map(safe, ids):
             rows.append(row); det += d
             print(f"{row['folder']:60s} {row['verdict']:12s} main={row['main']}:{row['main_result']} survived=[{row['survived']}]", flush=True)
