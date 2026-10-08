@@ -4,10 +4,12 @@
 --  Tests PASS when they disprove this assumption (code works correctly).
 -- ============================================================================
 
+with Ada.Command_Line;
 with Ada.Text_IO;
 with Reference_Counting;
 
 procedure Tests is
+   Failures : Natural := 0;
 
    -- Shorthand for reference counting types
    use Reference_Counting;
@@ -24,6 +26,7 @@ procedure Tests is
          Put_Line("  PASS: " & Test_Name);
       else
          Put_Line("  FAIL: " & Test_Name);
+         Failures := Failures + 1;
       end if;
    end Print_Result;
 
@@ -596,4 +599,7 @@ begin
    Put_Line("========================================================================");
    Put_Line("  Test Suite Complete");
    Put_Line("========================================================================");
+   if Failures > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

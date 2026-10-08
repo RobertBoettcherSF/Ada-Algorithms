@@ -1,3 +1,4 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Warped_LPC; use Warped_LPC;
 
@@ -136,4 +137,7 @@ begin
    Run_Tests;
    Put_Line ("");
    Put_Line ("Summary: " & Integer'Image(Pass_Count) & " / " & Integer'Image(Test_Count) & " Assumptions Proven False (Tests Passed).");
+   if Pass_Count /= Test_Count then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

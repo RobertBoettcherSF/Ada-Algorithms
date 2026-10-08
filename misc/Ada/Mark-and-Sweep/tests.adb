@@ -1,8 +1,10 @@
 -- tests.adb
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Mark_And_Sweep; use Mark_And_Sweep;
 
 procedure Tests is
+   Failures : Natural := 0;
    Heap : Heap_Array;
    Idx1, Idx2, Idx3 : Object_Index;
    
@@ -13,6 +15,7 @@ procedure Tests is
          Put_Line("    PASS : " & Assertion_Name);
       else
          Put_Line("    FAIL : " & Assertion_Name);
+         Failures := Failures + 1;
       end if;
    end Report;
 
@@ -156,4 +159,7 @@ begin
       when others => Report("15.1 Assert Invalid_Reference on unallocated 'From' node", False);
    end;
 
+   if Failures > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

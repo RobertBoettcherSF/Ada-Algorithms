@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ambient_Occlusion; use Ambient_Occlusion;
 
@@ -365,6 +366,8 @@ begin
    Put_Line ("Passed:" & Pass_Count'Image);
    Put_Line ("Failed:" & Fail_Count'Image);
    Put_Line ("================================");
-   pragma Assert (Fail_Count = 0, "Some Ambient_Occlusion tests failed");
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
    Put_Line ("All tests passed.");
 end Tests;

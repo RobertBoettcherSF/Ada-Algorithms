@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO;
 with Dantzig_Wolfe_Decomposition; use Dantzig_Wolfe_Decomposition;
 
@@ -580,5 +581,8 @@ begin
       Ada.Text_IO.Put_Line ("RESULT: FAIL (need Pass_Count >= 100)");
    else
       Ada.Text_IO.Put_Line ("RESULT: PASS");
+   end if;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

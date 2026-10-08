@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Differential_Evolution; use Differential_Evolution;
 
@@ -709,5 +710,8 @@ begin
       Put_Line ("NO FAILURES (but Pass_Count < 80)");
    else
       Put_Line ("SOME FAILED");
+   end if;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

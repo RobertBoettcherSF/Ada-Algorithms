@@ -1,9 +1,11 @@
 -- tests.adb
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Shannon_Fano_Elias; use Shannon_Fano_Elias;
 
 procedure Tests is
+   Failures : Natural := 0;
    Data_Empty : Symbol_Array (1 .. 0);
    Data_Valid : Symbol_Array (1 .. 3) := 
      ((1, 0.5, 0.0, 0.0, 1, Null_Unbounded_String),
@@ -40,6 +42,7 @@ begin
    begin
       Encode (Data_Empty);
       Put_Line ("      FAIL: Allowed empty input without exception.");
+      Failures := Failures + 1;
    exception
       when Empty_Input =>
          Put_Line ("      PASS: Correctly isolated and rejected empty input. Assumption disproven.");
@@ -51,6 +54,7 @@ begin
    begin
       Encode (Data_Neg);
       Put_Line ("      FAIL: Allowed 0.0 probability.");
+      Failures := Failures + 1;
    exception
       when Invalid_Distribution =>
          Put_Line ("      PASS: Caught 0.0 probability cleanly. Assumption disproven.");
@@ -62,6 +66,7 @@ begin
    begin
       Encode (Data_Sum_Under);
       Put_Line ("      FAIL: Executed with sum = 0.8.");
+      Failures := Failures + 1;
    exception
       when Invalid_Distribution =>
          Put_Line ("      PASS: Strict summation validation enforced. Assumption disproven.");
@@ -73,6 +78,7 @@ begin
    begin
       Encode (Data_Sum_Over);
       Put_Line ("      FAIL: Executed with sum = 1.2.");
+      Failures := Failures + 1;
    exception
       when Invalid_Distribution =>
          Put_Line ("      PASS: Caught sum exceeding 1.0 constraint. Assumption disproven.");
@@ -85,6 +91,7 @@ begin
       Put_Line ("      PASS: Length for P=0.5 is 2. Assumption disproven.");
    else
       Put_Line ("      FAIL: Length calculation incorrect.");
+      Failures := Failures + 1;
    end if;
 
    -- TEST 6
@@ -94,6 +101,7 @@ begin
       Put_Line ("      PASS: Length for P=0.25 is 3. Assumption disproven.");
    else
       Put_Line ("      FAIL: Length calculation incorrect for P=0.25.");
+      Failures := Failures + 1;
    end if;
 
    -- TEST 7
@@ -103,6 +111,7 @@ begin
       Put_Line ("      PASS: Length for P=0.75 correctly evaluates to 2. Assumption disproven.");
    else
       Put_Line ("      FAIL: Expected 2.");
+      Failures := Failures + 1;
    end if;
 
    -- TEST 8
@@ -112,6 +121,7 @@ begin
       Put_Line ("      PASS: Correctly mapped 0.5 to '10'. Assumption disproven.");
    else
       Put_Line ("      FAIL: Binary translation failed.");
+      Failures := Failures + 1;
    end if;
 
    -- TEST 9
@@ -121,6 +131,7 @@ begin
       Put_Line ("      PASS: Correctly mapped 0.625 to '101'. Assumption disproven.");
    else
       Put_Line ("      FAIL: Precision lost in binary string.");
+      Failures := Failures + 1;
    end if;
 
    -- RUN ENCODE ON VALID DATA
@@ -133,6 +144,7 @@ begin
       Put_Line ("      PASS: Modified CDF perfectly aligns with P(x)/2 offset. Assumption disproven.");
    else
       Put_Line ("      FAIL: Modified CDF mathematically invalid.");
+      Failures := Failures + 1;
    end if;
 
    -- TEST 11
@@ -144,6 +156,7 @@ begin
       Put_Line ("      PASS: Generated codes match theoretical '01', '101', '111'. Assumption disproven.");
    else
       Put_Line ("      FAIL: Code output drifted from theoretical spec.");
+      Failures := Failures + 1;
    end if;
 
    -- TEST 12
@@ -165,6 +178,7 @@ begin
          Put_Line ("      PASS: System proven Prefix-Free. Codes do not overlap. Assumption disproven.");
       else
          Put_Line ("      FAIL: Codes are not uniquely decodable.");
+         Failures := Failures + 1;
       end if;
    end;
 
@@ -181,9 +195,13 @@ begin
          Put_Line ("      PASS: Kraft sum = " & Long_Float'Image(Kraft_Sum) & " <= 1.0. Assumption disproven.");
       else
          Put_Line ("      FAIL: Violated Kraft Inequality.");
+         Failures := Failures + 1;
       end if;
    end;
 
    Put_Line ("------------------------------------------------------");
    Put_Line ("ALL VERIFICATIONS COMPLETE.");
+   if Failures > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

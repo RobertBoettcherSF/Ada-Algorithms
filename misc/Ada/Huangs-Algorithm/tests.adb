@@ -1,3 +1,4 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Exceptions; use Ada.Exceptions;
 with Huangs_Algorithm; use Huangs_Algorithm;
@@ -160,4 +161,7 @@ begin
 
    Put_Line ("-------------------------------------------------------------");
    Put_Line ("Test Summary: " & Integer'Image(Passed_Tests) & " / " & Integer'Image(Total_Tests) & " Assertions Passed.");
+   if Passed_Tests /= Total_Tests then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

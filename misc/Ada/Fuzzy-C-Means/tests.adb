@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Fuzzy_C_Means; use Fuzzy_C_Means;
 
@@ -745,5 +746,7 @@ begin
    Put_Line ("Passed :" & Natural'Image (Pass_Count));
    Put_Line ("Failed :" & Natural'Image (Fail_Count));
    Put_Line ("========================");
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

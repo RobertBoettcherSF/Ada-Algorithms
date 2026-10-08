@@ -1,4 +1,5 @@
 with Ada.Text_IO;
+with Ada.Command_Line;
 with Fair_Share_Scheduler;
 
 procedure Tests is
@@ -380,6 +381,7 @@ begin
 
    if Failed_Tests > 0 then
       Ada.Text_IO.Put_Line("SOME TESTS FAILED!");
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    else
       Ada.Text_IO.Put_Line("ALL TESTS PASSED!");
    end if;

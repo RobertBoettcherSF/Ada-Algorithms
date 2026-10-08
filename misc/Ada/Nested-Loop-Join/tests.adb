@@ -1,3 +1,4 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Nested_Loop_Join; use Nested_Loop_Join;
 with Ada.Exceptions;
@@ -87,5 +88,8 @@ begin
       Put_Line ("STATUS: SUCCEEDED. All pessimistic assumptions disproven.");
    else
       Put_Line ("STATUS: FAILED. Bugs detected.");
+   end if;
+   if Passed_Tests /= Total_Tests then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

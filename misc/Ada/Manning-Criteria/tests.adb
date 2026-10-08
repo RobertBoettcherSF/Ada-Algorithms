@@ -3,6 +3,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO;
 with Manning_Criteria;
 
@@ -395,5 +396,8 @@ begin
       Put_Line ("All tests passed.");
    else
       Put_Line ("SOME TESTS FAILED.");
+   end if;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

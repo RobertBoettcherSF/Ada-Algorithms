@@ -16,11 +16,13 @@
 --    - PASS = assumption proven false (code behaves correctly).
 --
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Real_Time; use Ada.Real_Time;
 with Karns_Algorithm; use Karns_Algorithm;
 
 procedure Tests is
+   Failures : Natural := 0;
 
    --  Helper procedure to print test results
    procedure Print_Test_Result (
@@ -33,6 +35,7 @@ procedure Tests is
          Put_Line("  " & Subtest_Name & " PASS");
       else
          Put_Line("  " & Subtest_Name & " FAIL: " & Message);
+         Failures := Failures + 1;
       end if;
    end Print_Test_Result;
 
@@ -547,4 +550,7 @@ begin
    New_Line;
    
    Put_Line("=== All Tests Completed ===");
+   if Failures > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

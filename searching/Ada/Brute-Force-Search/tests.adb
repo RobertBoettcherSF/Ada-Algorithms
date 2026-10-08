@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Brute_Force_Search; use Brute_Force_Search;
 
@@ -575,5 +576,8 @@ begin
       Put_Line ("ALL PASS");
    else
       Put_Line ("SOME FAILURES");
+   end if;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

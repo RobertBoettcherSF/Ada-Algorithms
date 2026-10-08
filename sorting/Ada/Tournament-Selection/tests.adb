@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Tournament_Selection; use Tournament_Selection;
 
@@ -859,5 +860,8 @@ begin
       Put_Line ("RESULT: ALL PASS (but <100 checks)");
    else
       Put_Line ("RESULT: FAILURES PRESENT");
+   end if;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

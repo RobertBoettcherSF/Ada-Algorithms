@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Evolutionary_Computation; use Evolutionary_Computation;
 
@@ -506,5 +507,8 @@ begin
       Put_Line ("OK but Pass_Count < 100");
    else
       Put_Line ("FAILED");
+   end if;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

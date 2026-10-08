@@ -1,5 +1,6 @@
 -- tests.adb
 -- Standalone test suite verifying robustness, correctness, and limits.
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Difference_Map; use Difference_Map;
 
@@ -132,4 +133,7 @@ begin
       Put_Line ("STATUS: SYSTEM CONTAINS DEFECTS.");
    end if;
 
+   if Passed_Tests /= Total_Tests then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

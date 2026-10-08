@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO;
 with Delayed_Column_Generation; use Delayed_Column_Generation;
 
@@ -630,5 +631,8 @@ begin
       Ada.Text_IO.Put_Line ("RESULT: FAILED");
    else
       Ada.Text_IO.Put_Line ("RESULT: ALL PASSED");
+   end if;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

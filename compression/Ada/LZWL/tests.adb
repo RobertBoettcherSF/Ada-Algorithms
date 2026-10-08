@@ -1,3 +1,4 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with LZWL; use LZWL;
@@ -185,4 +186,7 @@ begin
       Put_Line ("WARNING: SOME TESTS FAILED");
    end if;
 
+   if Passed_Tests /= Total_Tests then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

@@ -1,3 +1,4 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Dynamic_Markov_Compression; use Dynamic_Markov_Compression;
 
@@ -104,5 +105,8 @@ begin
       -- Return non-zero conceptually for makefile
    else
       Put_Line ("ALL TESTS PASSED.");
+   end if;
+   if not Passed_All then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

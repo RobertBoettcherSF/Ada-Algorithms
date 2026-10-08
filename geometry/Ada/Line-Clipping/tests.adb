@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Line_Clipping; use Line_Clipping;
 with Own_Checks;
@@ -461,6 +462,8 @@ begin
    New_Line;
    Put_Line ("Results: " & Pass_Count'Image & " passed, "
              & Fail_Count'Image & " failed");
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
    Own_Checks;
 end Tests;

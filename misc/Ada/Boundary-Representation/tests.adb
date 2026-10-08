@@ -1,3 +1,4 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Boundary_Representation; use Boundary_Representation;
 
@@ -236,5 +237,7 @@ begin
       Put_Line ("FAILED: Tests did not pass completely.");
    end if;
 
-   pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

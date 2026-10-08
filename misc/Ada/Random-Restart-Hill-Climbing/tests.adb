@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Random_Restart_Hill_Climbing; use Random_Restart_Hill_Climbing;
 
@@ -625,5 +626,8 @@ begin
       Put_Line ("OK but Pass_Count < 100");
    else
       Put_Line ("SOME TESTS FAILED");
+   end if;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

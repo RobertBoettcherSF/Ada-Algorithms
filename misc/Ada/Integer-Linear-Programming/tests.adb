@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO;
 with Integer_Linear_Programming; use Integer_Linear_Programming;
 
@@ -505,7 +506,8 @@ begin
       & "  Fail_Count =" & Fail_Count'Image);
    Ada.Text_IO.Put_Line ("=====================================");
 
-   pragma Assert (Fail_Count = 0);
-   pragma Assert (Pass_Count >= 100);
+   if Fail_Count /= 0 or else Pass_Count < 100 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 
 end Tests;

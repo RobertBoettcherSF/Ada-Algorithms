@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Bayesian_Statistics; use Bayesian_Statistics;
 
@@ -472,5 +473,7 @@ begin
       Put_Line ("SOME TESTS FAILED");
    end if;
 
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

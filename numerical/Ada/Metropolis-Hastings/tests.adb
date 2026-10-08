@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Metropolis_Hastings; use Metropolis_Hastings;
 
@@ -512,5 +513,8 @@ begin
       Put_Line ("ALL PASSED");
    else
       Put_Line ("SOME FAILED");
+   end if;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

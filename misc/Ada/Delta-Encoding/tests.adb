@@ -1,3 +1,4 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Delta_Encoding; use Delta_Encoding;
 with Interfaces; use Interfaces;
@@ -141,5 +142,8 @@ begin
       Put_Line ("ALL 14 ASSUMPTIONS DISPROVEN: CODE FUNCTIONS PERFECTLY");
    else
       Put_Line ("SOME TESTS FAILED.");
+   end if;
+   if not Passed_All then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;

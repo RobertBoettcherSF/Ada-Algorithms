@@ -1,3 +1,4 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Yarrow; use Yarrow;
 
@@ -228,7 +229,8 @@ begin
              & Natural'Image (Fail_Count) & " failed ===");
    
    -- Final invariant assertions ensure the suite itself validates correctly
-   pragma Assert (Fail_Count = 0, "Some tests failed");
-   pragma Assert (Pass_Count >= 39, "Insufficient test assertions generated");
+   if Fail_Count /= 0 or else Pass_Count < 39 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 
 end Tests;

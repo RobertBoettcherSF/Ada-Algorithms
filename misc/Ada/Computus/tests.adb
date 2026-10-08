@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Command_Line;
 with Ada.Text_IO;
 with Computus;
 with Own_Checks;
@@ -262,4 +263,7 @@ begin
       Put_Line ("Pass count below 100");
    end if;
    Own_Checks;
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;
