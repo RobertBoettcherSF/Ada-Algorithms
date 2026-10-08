@@ -213,6 +213,18 @@ for x in _csv(os.path.join(a.root, 'tools', 'vv', 'flagship_mutation_phase2.csv'
     h = {'tuned': 'tuning', 'held-out': 'heldout', 'heldout': 'heldout'}.get(x.get('set', '').strip())
     if x.get('folder') and h and m:
         halves_by[x['folder']][h] = dict(killed=m.group(1), survived=str(int(m.group(2)) - int(m.group(1))), timeout='0')
+# the flagship worker's phase-3 never-seen held-out sets replace the phase-2 held-out half. Timeouts count
+# as survivors, as in `score` (column nonequivalent_killed_over_nonequivalent_plus_timeouts)
+for x in _csv(os.path.join(a.root, 'tools', 'vv', 'flagship_mutation_phase3.csv')):
+    m = re.match(r'^\s*(\d+)/(\d+)', x.get('nonequivalent_killed_over_nonequivalent_plus_timeouts', ''))
+    if x.get('folder') and m and 'held' in x.get('set', ''):
+        halves_by[x['folder']]['heldout'] = dict(killed=m.group(1), survived=str(int(m.group(2)) - int(m.group(1))), timeout='0')
+# sweep A2's held-out rounds (alt family or split before tests; raw k/n, equivalents left out, timeouts in n)
+for x in _csv(os.path.join(a.root, 'tools', 'vv', 'sweep_heldout_alt.csv')):
+    for h, col in (('tuning', 'mutation_tuned'), ('heldout', 'mutation_heldout')):
+        k, n = x.get(col + '_k', '').strip(), x.get(col + '_n', '').strip()
+        if x.get('folder') and k.isdigit() and n.isdigit():
+            halves_by[x['folder']][h] = dict(killed=k, survived=str(int(n) - int(k)), timeout='0')
 for ff in sorted(glob.glob(os.path.join(a.root, 'tools', 'vv', '*_halves.csv'))):   # other workers' halves, same columns
     for x in _csv(ff):
         if x.get('folder') and x.get('half') in ('tuning', 'heldout'):
