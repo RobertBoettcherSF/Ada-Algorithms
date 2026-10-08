@@ -1,6 +1,6 @@
 --  Standalone test suite for Heapsort (SPARK port).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  A'First is always 1; Max_N = 64. Sortedness is proved by SPARK;
+--  A may start at any origin (Max_N = 64). Sortedness is proved by SPARK;
 --  multiset / permutation equality is checked here. Heapsort is
 --  unstable, so tagged equal keys are only checked as a permutation.
 
@@ -358,6 +358,66 @@ begin
          A (I) := 65 - I;
       end loop;
       Expect_Sorted (A, "reverse n=64");
+   end;
+
+   Section ("11. Shifted origins (incl. flush-to-Live_Index'Last)");
+   declare
+      Origins : constant array (1 .. 4) of Natural := [2, 7, 33, 0];
+      Ok_Shift : Boolean := True;
+      Cases   : Natural := 0;
+      Seed    : Natural := 12345;
+      function Next (M : Positive) return Natural is
+         X : Natural;
+      begin
+         X := Natural ((Long_Long_Integer (Seed) * 1_103_515_245 + 12_345)
+                       mod 2_147_483_647);
+         Seed := X;
+         return X rem M;
+      end Next;
+   begin
+      for Trial in 1 .. 80 loop
+         declare
+            Len : constant Positive := 1 + Next (Max_N);
+            A1  : Element_Array (1 .. Len);
+         begin
+            for K in A1'Range loop
+               A1 (K) := Integer (Next (200)) - 100;
+            end loop;
+            for O_I in Origins'Range loop
+               declare
+                  F  : constant Positive :=
+                    (if Origins (O_I) = 0 then Max_N - Len + 1
+                     else Positive'Min (Origins (O_I), Max_N - Len + 1));
+                  AS : Element_Array (F .. F + Len - 1) := A1;
+                  A1c : Element_Array := A1;
+               begin
+                  Sort (A1c);
+                  Sort (AS);
+                  Cases := Cases + 1;
+                  for K in 0 .. Len - 1 loop
+                     if AS (F + K) /= A1c (1 + K) then
+                        Ok_Shift := False;
+                     end if;
+                  end loop;
+               end;
+            end loop;
+         end;
+      end loop;
+      Check (Ok_Shift, "Sort on shifted copies (2,7,33,Max_N-Len+1) = 1-based;"
+             & Cases'Image & " cases");
+      declare
+         Tail : Element_Array (Max_N - 5 .. Max_N);
+         Ref  : Element_Array (1 .. 6) := [9, 1, 8, 2, 7, 3];
+      begin
+         for K in 0 .. 5 loop
+            Tail (Max_N - 5 + K) := Ref (1 + K);
+         end loop;
+         Sort (Tail);
+         Sort (Ref);
+         Check (Same (Tail, Ref), "flush-to-Max_N Sort = 1-based");
+         Check (Is_Sorted (Tail) and then In_Bounds (Tail),
+                "flush-to-Max_N Is_Sorted/In_Bounds");
+      end;
    end;
 
    New_Line;

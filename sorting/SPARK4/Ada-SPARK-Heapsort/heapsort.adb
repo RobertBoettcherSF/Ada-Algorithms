@@ -1,13 +1,65 @@
---  Heapsort body — SPARK Level 4 classic in-place binary max-heap
---  heapsort. Floyd bottom-up Heapify + extract-max with Sift_Down.
---  Ghost parent-form Is_Heap / Heap_From track the heap; extract-max
---  maintains a sorted suffix and Heap_Leq_Suffix so Sort proves
---  Is_Sorted. Public Sift_Down / Heapify keep lighter Posts; the
---  stronger heap restoration lives in body helpers used by Sort.
+--  Heapsort body — First-relative binary max-heap (any A'First = Lo).
+--  Child existence is guarded before Left is computed:
+--    if I - Lo <= (Hi - Lo - 1) / 2 then Child := Lo + 2 * (I - Lo) + 1
+--  so the multiply never overflows near Index'Last. Ghost Is_Heap /
+--  Heap_From / Heap_Leq_Suffix track the heap; Sort proves Is_Sorted.
 
 package body Heapsort
   with SPARK_Mode => On
 is
+
+   function Parent (Lo, I : Index) return Index is
+     (Lo + (I - Lo - 1) / 2)
+   with
+     Global => null,
+     Pre    => I > Lo and then Lo >= 1,
+     Post   =>
+       Parent'Result in Lo .. I - 1
+       --  Linear characterisation: I is child 2k+1 or 2k+2 of slot k.
+       and then 2 * (Parent'Result - Lo) + 1 <= I - Lo
+       and then I - Lo <= 2 * (Parent'Result - Lo) + 2;
+
+   function Has_Left (Lo, Hi, I : Index) return Boolean is
+     (Hi > Lo and then I - Lo <= (Hi - Lo - 1) / 2)
+   with
+     Global => null,
+     Pre    =>
+       Lo >= 1
+       and then Hi >= Lo
+       and then I in Lo .. Hi;
+
+   function Left_Child (Lo, Hi, I : Index) return Index
+   with
+     Global => null,
+     Pre    =>
+       Lo >= 1
+       and then Hi >= Lo
+       and then I in Lo .. Hi
+       and then Has_Left (Lo, Hi, I),
+     Post   =>
+       Left_Child'Result in I + 1 .. Hi
+       and then Left_Child'Result = Lo + 2 * (I - Lo) + 1
+       and then Parent (Lo, Left_Child'Result) = I
+       and then
+         (if Left_Child'Result < Hi then
+            Parent (Lo, Left_Child'Result + 1) = I)
+   is
+      Off : constant Natural := I - Lo;
+      L   : Index;
+   begin
+      --  Has_Left => Off <= (Hi-Lo-1)/2 => 2*Off+1 <= Hi-Lo => Lo+2*Off+1 <= Hi
+      pragma Assert (2 * Off + 1 <= Hi - Lo);
+      L := Lo + 2 * Off + 1;
+      pragma Assert (L - Lo - 1 = 2 * Off);
+      pragma Assert ((L - Lo - 1) / 2 = Off);
+      pragma Assert (Parent (Lo, L) = I);
+      if L < Hi then
+         pragma Assert (L + 1 - Lo - 1 = 2 * Off + 1);
+         pragma Assert ((L + 1 - Lo - 1) / 2 = Off);
+         pragma Assert (Parent (Lo, L + 1) = I);
+      end if;
+      return L;
+   end Left_Child;
 
    function Sorted_Slice
      (A : Element_Array; L, R : Natural) return Boolean
@@ -19,62 +71,75 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
-   function Is_Heap (A : Element_Array; Last : Index) return Boolean is
-     (Last < 2
-      or else (for all I in 2 .. Last => A (I / 2) >= A (I)))
-   with
-     Ghost  => True,
-     Global => null,
-     Pre    => In_Bounds (A) and then Last <= A'Last;
-
-   function Heap_From
-     (A : Element_Array; Last : Index; Bound : Natural) return Boolean
+   function Is_Heap
+     (A : Element_Array; Lo, Last : Index) return Boolean
    is
-     (Last < 2
-      or else Bound > Natural (Last)
+     (Last <= Lo
       or else
-        (for all I in 2 .. Last =>
-           (if Natural (I / 2) >= Bound then A (I / 2) >= A (I))))
+        (for all I in Lo + 1 .. Last =>
+           A (Parent (Lo, I)) >= A (I)))
    with
      Ghost  => True,
      Global => null,
      Pre    =>
        In_Bounds (A)
+       and then Lo = A'First
+       and then Last <= A'Last
+       and then Last >= Lo - 1;
+
+   function Heap_From
+     (A : Element_Array; Lo, Last : Index; Bound : Natural)
+      return Boolean
+   is
+     (Last <= Lo
+      or else Bound > Natural (Last)
+      or else
+        (for all I in Lo + 1 .. Last =>
+           (if Natural (Parent (Lo, I)) >= Bound then
+              A (Parent (Lo, I)) >= A (I))))
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then Lo = A'First
        and then Last <= A'Last
        and then Bound <= Natural (Max_N) + 1;
 
    function Heap_Leq_Suffix
-     (A : Element_Array; Heap_Last, N : Index) return Boolean
+     (A : Element_Array; Lo, Heap_Last, N : Index) return Boolean
    is
-     (Heap_Last = 0
+     (Heap_Last < Lo
       or else Heap_Last >= N
       or else
-        (for all H in 1 .. Heap_Last =>
+        (for all H in Lo .. Heap_Last =>
            (for all S in Heap_Last + 1 .. N => A (H) <= A (S))))
    with
      Ghost  => True,
      Global => null,
      Pre    =>
        In_Bounds (A)
+       and then Lo = A'First
        and then N <= A'Last
        and then Heap_Last <= N;
 
-   --  Heap property for parents in Root .. Last except the hole R.
    function Heap_Except_Hole
-     (A : Element_Array; Last, Root, R : Index) return Boolean
+     (A : Element_Array; Lo, Last, Root, R : Index) return Boolean
    is
-     (for all I in 2 .. Last =>
-        (if I / 2 >= Root and then I / 2 /= R then A (I / 2) >= A (I)))
+     (for all I in Lo + 1 .. Last =>
+        (if Parent (Lo, I) >= Root and then Parent (Lo, I) /= R then
+           A (Parent (Lo, I)) >= A (I)))
    with
      Ghost  => True,
      Global => null,
      Pre    =>
        In_Bounds (A)
+       and then Lo = A'First
        and then Last <= A'Last
-       and then Root in 1 .. Last
+       and then Root in Lo .. Last
        and then R in Root .. Last;
 
    procedure Swap (A : in out Element_Array; X, Y : Index)
@@ -82,14 +147,14 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
+         and then X in A'Range
+         and then Y in A'Range,
        Post   =>
          In_Bounds (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
-           (for all K in 1 .. A'Last =>
+           (for all K in A'Range =>
               (if K /= X and then K /= Y then A (K) = A'Old (K)))
    is
       T : Integer;
@@ -102,41 +167,43 @@ is
       A (Y) := T;
    end Swap;
 
-   procedure Lemma_Root_Is_Max (A : Element_Array; Last : Index)
+   procedure Lemma_Root_Is_Max
+     (A : Element_Array; Lo, Last : Index)
      with
        Ghost             => True,
        Always_Terminates => True,
        Global            => null,
        Pre               =>
          In_Bounds (A)
-         and then Last in 1 .. A'Last
-         and then Is_Heap (A, Last),
+         and then Lo = A'First
+         and then Last in Lo .. A'Last
+         and then Is_Heap (A, Lo, Last),
        Post              =>
-         (for all K in 1 .. Last => A (1) >= A (K))
+         (for all K in Lo .. Last => A (Lo) >= A (K))
    is
    begin
-      for K in 1 .. Last loop
+      for K in Lo .. Last loop
          pragma Loop_Invariant
-           (for all J in 1 .. K - 1 => A (1) >= A (J));
-         pragma Loop_Invariant (Is_Heap (A, Last));
+           (for all J in Lo .. K - 1 => A (Lo) >= A (J));
+         pragma Loop_Invariant (Is_Heap (A, Lo, Last));
 
          declare
             P : Index := K;
          begin
             pragma Assert (A (P) >= A (K));
-            while P > 1 loop
-               pragma Loop_Invariant (P in 1 .. Last);
+            while P > Lo loop
+               pragma Loop_Invariant (P in Lo .. Last);
                pragma Loop_Invariant (A (P) >= A (K));
-               pragma Loop_Invariant (Is_Heap (A, Last));
+               pragma Loop_Invariant (Is_Heap (A, Lo, Last));
                pragma Loop_Variant (Decreases => P);
 
-               pragma Assert (P in 2 .. Last);
-               pragma Assert (A (P / 2) >= A (P));
-               P := P / 2;
+               pragma Assert (P in Lo + 1 .. Last);
+               pragma Assert (A (Parent (Lo, P)) >= A (P));
+               P := Parent (Lo, P);
                pragma Assert (A (P) >= A (K));
             end loop;
-            pragma Assert (P = 1);
-            pragma Assert (A (1) >= A (K));
+            pragma Assert (P = Lo);
+            pragma Assert (A (Lo) >= A (K));
          end;
       end loop;
    end Lemma_Root_Is_Max;
@@ -151,19 +218,21 @@ is
        Pre    =>
          In_Bounds (A)
          and then N in Heap_Last .. A'Last
-         and then Heap_Last in 1 .. A'Last
-         and then Root in 1 .. Heap_Last
-         and then Heap_From (A, Heap_Last, Natural (Root) + 1)
-         and then Heap_Leq_Suffix (A, Heap_Last, N),
+         and then Heap_Last in A'Range
+         and then Root in A'First .. Heap_Last
+         and then
+           Heap_From (A, A'First, Heap_Last, Natural (Root) + 1)
+         and then Heap_Leq_Suffix (A, A'First, Heap_Last, N),
        Post   =>
          In_Bounds (A)
-         and then Heap_From (A, Heap_Last, Natural (Root))
-         and then Heap_Leq_Suffix (A, Heap_Last, N)
+         and then Heap_From (A, A'First, Heap_Last, Natural (Root))
+         and then Heap_Leq_Suffix (A, A'First, Heap_Last, N)
          and then
            (for all K in Heap_Last + 1 .. A'Last => A (K) = A'Old (K))
          and then
-           (for all K in 1 .. Root - 1 => A (K) = A'Old (K))
+           (for all K in A'First .. Root - 1 => A (K) = A'Old (K))
    is
+      Lo    : constant Index := Index (A'First);
       R     : Index := Root;
       Child : Index;
       Left  : Index;
@@ -175,27 +244,30 @@ is
            (for all K in Heap_Last + 1 .. A'Last =>
               A (K) = A'Loop_Entry (K));
          pragma Loop_Invariant
-           (for all K in 1 .. Root - 1 => A (K) = A'Loop_Entry (K));
+           (for all K in Lo .. Root - 1 => A (K) = A'Loop_Entry (K));
          pragma Loop_Invariant
-           (Heap_Except_Hole (A, Heap_Last, Root, R));
+           (Heap_Except_Hole (A, Lo, Heap_Last, Root, R));
          pragma Loop_Invariant
-           (if R > Root then A (R / 2) >= A (R));
-         pragma Loop_Invariant (Heap_Leq_Suffix (A, Heap_Last, N));
-         --  Parent of hole covers hole's children when hole is internal.
+           (if R > Root then A (Parent (Lo, R)) >= A (R));
+         pragma Loop_Invariant (Heap_Leq_Suffix (A, Lo, Heap_Last, N));
          pragma Loop_Invariant
-           (if R > Root and then R <= Heap_Last / 2 then
-              A (R / 2) >= A (2 * R)
+           (if R > Root and then Has_Left (Lo, Heap_Last, R) then
+              A (Parent (Lo, R)) >= A (Left_Child (Lo, Heap_Last, R))
               and then
-              (if 2 * R < Heap_Last then A (R / 2) >= A (2 * R + 1)));
+              (if Left_Child (Lo, Heap_Last, R) < Heap_Last then
+                 A (Parent (Lo, R)) >= A (Left_Child (Lo, Heap_Last, R) + 1)));
          pragma Loop_Variant (Decreases => Heap_Last - R + 1);
 
-         if R > Heap_Last / 2 then
-            pragma Assert (Heap_From (A, Heap_Last, Natural (Root)));
+         if not Has_Left (Lo, Heap_Last, R) then
+            pragma Assert (Heap_From (A, Lo, Heap_Last, Natural (Root)));
             return;
          end if;
 
-         Left := 2 * R;
-         pragma Assert (Left in 2 .. Heap_Last);
+         Left := Left_Child (Lo, Heap_Last, R);
+         pragma Assert (Left in R + 1 .. Heap_Last);
+         pragma Assert (Parent (Lo, Left) = R);
+         pragma Assert
+           (if Left < Heap_Last then Parent (Lo, Left + 1) = R);
          Child := Left;
 
          if Left < Heap_Last and then A (Left) < A (Left + 1) then
@@ -203,51 +275,66 @@ is
          end if;
 
          pragma Assert (Child = Left or else Child = Left + 1);
-         pragma Assert (Child / 2 = R);
+         pragma Assert (Parent (Lo, Child) = R);
+         --  Child's own children (if any) are covered by Child before the swap:
+         --  hole is R, Parent(grand)=Child /= R, so Heap_Except_Hole applies.
+         pragma Assert
+           (if Has_Left (Lo, Heap_Last, Child) then
+              Parent (Lo, Left_Child (Lo, Heap_Last, Child)) = Child
+              and then A (Child) >= A (Left_Child (Lo, Heap_Last, Child))
+              and then
+              (if Left_Child (Lo, Heap_Last, Child) < Heap_Last then
+                 Parent (Lo, Left_Child (Lo, Heap_Last, Child) + 1) = Child
+                 and then
+                 A (Child) >= A (Left_Child (Lo, Heap_Last, Child) + 1)));
          pragma Assert (A (Child) >= A (Left));
          pragma Assert
            (if Left < Heap_Last then A (Child) >= A (Left + 1));
-
-         --  Parent-of-hole covers larger child ⇒ survives the upward move.
          pragma Assert
-           (if R > Root then A (R / 2) >= A (Child));
+           (if R > Root then A (Parent (Lo, R)) >= A (Child));
 
          if A (R) >= A (Child) then
             pragma Assert (A (R) >= A (Left));
             pragma Assert
               (if Left < Heap_Last then A (R) >= A (Left + 1));
             pragma Assert
-              (for all I in 2 .. Heap_Last =>
-                 (if I / 2 >= Root then A (I / 2) >= A (I)));
-            pragma Assert (Heap_From (A, Heap_Last, Natural (Root)));
+              (for all I in Lo + 1 .. Heap_Last =>
+                 (if Parent (Lo, I) = R then I = Left or else I = Left + 1));
+            pragma Assert
+              (for all I in Lo + 1 .. Heap_Last =>
+                 (if Parent (Lo, I) >= Root then
+                    A (Parent (Lo, I)) >= A (I)));
+            pragma Assert (Heap_From (A, Lo, Heap_Last, Natural (Root)));
             return;
          end if;
 
          Swap (A, R, Child);
+         --  A(R) is former A(Child); grandchildren stay under former Child value.
 
          pragma Assert (A (R) >= A (Left));
          pragma Assert
            (if Left < Heap_Last then A (R) >= A (Left + 1));
          pragma Assert (A (R) >= A (Child));
-
-         --  Old hole R is repaired; new hole Child. Parent link for Child:
-         pragma Assert (A (R) >= A (Child));
-         --  A(R) grew to old A(Child); parent of R still covers new A(R)
-         --  because parent covered Child before the swap.
-         pragma Assert (if R > Root then A (R / 2) >= A (R));
-
-         pragma Assert (Heap_Except_Hole (A, Heap_Last, Root, Child));
-         pragma Assert (Heap_Leq_Suffix (A, Heap_Last, N));
-
-         --  New parent (old R) covers Child's children (grandchildren).
+         pragma Assert (Parent (Lo, Child) = R);
+         pragma Assert (if R > Root then A (Parent (Lo, R)) >= A (R));
          pragma Assert
-           (if Child <= Heap_Last / 2 then
-              A (R) >= A (2 * Child)
+           (if Has_Left (Lo, Heap_Last, Child) then
+              A (R) >= A (Left_Child (Lo, Heap_Last, Child))
               and then
-              (if 2 * Child < Heap_Last then A (R) >= A (2 * Child + 1)));
+              (if Left_Child (Lo, Heap_Last, Child) < Heap_Last then
+                 A (R) >= A (Left_Child (Lo, Heap_Last, Child) + 1)));
+         pragma Assert
+           (for all I in Lo + 1 .. Heap_Last =>
+              (if Parent (Lo, I) = R then I = Left or else I = Left + 1));
+         pragma Assert
+           (for all I in Lo + 1 .. Heap_Last =>
+              (if Parent (Lo, I) = R then A (R) >= A (I)));
+         pragma Assert
+           (Heap_Except_Hole (A, Lo, Heap_Last, Root, Child));
+         pragma Assert (Heap_Leq_Suffix (A, Lo, Heap_Last, N));
 
          R := Child;
-         pragma Assert (if R > Root then A (R / 2) >= A (R));
+         pragma Assert (if R > Root then A (Parent (Lo, R)) >= A (R));
       end loop;
    end Sift_Down_Restore;
 
@@ -256,6 +343,7 @@ is
       Root      : Index;
       Heap_Last : Index)
    is
+      Lo    : constant Index := Index (A'First);
       R     : Index := Root;
       Child : Index;
       Left  : Index;
@@ -268,11 +356,11 @@ is
               A (K) = A'Loop_Entry (K));
          pragma Loop_Variant (Decreases => Heap_Last - R + 1);
 
-         if R > Heap_Last / 2 then
+         if not Has_Left (Lo, Heap_Last, R) then
             return;
          end if;
 
-         Left  := 2 * R;
+         Left  := Left_Child (Lo, Heap_Last, R);
          Child := Left;
 
          if Left < Heap_Last and then A (Left) < A (Left + 1) then
@@ -289,110 +377,116 @@ is
    end Sift_Down;
 
    procedure Heapify (A : in out Element_Array) is
-      Start : Index;
       N     : Index;
+      Start : Index;
+      Lo    : Index;
    begin
       if A'Length <= 1 then
          return;
       end if;
 
-      N     := A'Last;
-      Start := N / 2;
-      pragma Assert (Start in 1 .. N);
-      pragma Assert (Heap_From (A, N, Natural (Start) + 1));
-      pragma Assert (Heap_Leq_Suffix (A, N, N));
+      Lo := Index (A'First);
+      N  := Index (A'Last);
+      --  Last parent = Parent (Lo, N) = Lo + (N - Lo - 1) / 2.
+      Start := Parent (Lo, N);
+      pragma Assert (Start in Lo .. N);
+      pragma Assert (Heap_From (A, Lo, N, Natural (Start) + 1));
+      pragma Assert (Heap_Leq_Suffix (A, Lo, N, N));
 
       loop
-         pragma Loop_Invariant (Start in 1 .. N / 2);
+         pragma Loop_Invariant (Start in Lo .. Parent (Lo, N));
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Heap_From (A, N, Natural (Start) + 1));
-         pragma Loop_Invariant (Heap_Leq_Suffix (A, N, N));
+         pragma Loop_Invariant (Heap_From (A, Lo, N, Natural (Start) + 1));
+         pragma Loop_Invariant (Heap_Leq_Suffix (A, Lo, N, N));
          pragma Loop_Variant (Decreases => Start);
 
          Sift_Down_Restore (A, Start, N, N);
-         pragma Assert (Heap_From (A, N, Natural (Start)));
+         pragma Assert (Heap_From (A, Lo, N, Natural (Start)));
 
-         exit when Start = 1;
+         exit when Start = Lo;
          Start := Start - 1;
       end loop;
 
-      pragma Assert (Is_Heap (A, N));
+      pragma Assert (Is_Heap (A, Lo, N));
    end Heapify;
 
    procedure Sort (A : in out Element_Array) is
       Heap_Last : Index;
       N         : Index;
       Start     : Index;
+      Lo        : Index;
    begin
       if A'Length <= 1 then
          return;
       end if;
 
-      N := A'Last;
-      pragma Assert (N in 2 .. Max_N);
+      Lo := Index (A'First);
+      N  := Index (A'Last);
+      pragma Assert (N >= Lo + 1);
 
-      Start := N / 2;
-      pragma Assert (Heap_From (A, N, Natural (Start) + 1));
-      pragma Assert (Heap_Leq_Suffix (A, N, N));
+      Start := Parent (Lo, N);
+      pragma Assert (Heap_From (A, Lo, N, Natural (Start) + 1));
+      pragma Assert (Heap_Leq_Suffix (A, Lo, N, N));
       loop
-         pragma Loop_Invariant (Start in 1 .. N / 2);
+         pragma Loop_Invariant (Start in Lo .. Parent (Lo, N));
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Heap_From (A, N, Natural (Start) + 1));
-         pragma Loop_Invariant (Heap_Leq_Suffix (A, N, N));
+         pragma Loop_Invariant (Heap_From (A, Lo, N, Natural (Start) + 1));
+         pragma Loop_Invariant (Heap_Leq_Suffix (A, Lo, N, N));
          pragma Loop_Variant (Decreases => Start);
 
          Sift_Down_Restore (A, Start, N, N);
-         pragma Assert (Heap_From (A, N, Natural (Start)));
+         pragma Assert (Heap_From (A, Lo, N, Natural (Start)));
 
-         exit when Start = 1;
+         exit when Start = Lo;
          Start := Start - 1;
       end loop;
 
-      pragma Assert (Is_Heap (A, N));
-      Lemma_Root_Is_Max (A, N);
+      pragma Assert (Is_Heap (A, Lo, N));
+      Lemma_Root_Is_Max (A, Lo, N);
 
       Heap_Last := N;
       pragma Assert (Sorted_Slice (A, N + 1, N));
-      pragma Assert (Heap_Leq_Suffix (A, N, N));
+      pragma Assert (Heap_Leq_Suffix (A, Lo, N, N));
 
-      while Heap_Last > 1 loop
-         pragma Loop_Invariant (Heap_Last in 2 .. N);
+      while Heap_Last > Lo loop
+         pragma Loop_Invariant (Heap_Last in Lo + 1 .. N);
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Is_Heap (A, Heap_Last));
+         pragma Loop_Invariant (Is_Heap (A, Lo, Heap_Last));
          pragma Loop_Invariant (Sorted_Slice (A, Heap_Last + 1, N));
-         pragma Loop_Invariant (Heap_Leq_Suffix (A, Heap_Last, N));
+         pragma Loop_Invariant (Heap_Leq_Suffix (A, Lo, Heap_Last, N));
          pragma Loop_Variant (Decreases => Heap_Last);
 
-         Lemma_Root_Is_Max (A, Heap_Last);
-         pragma Assert (for all K in 1 .. Heap_Last => A (1) >= A (K));
+         Lemma_Root_Is_Max (A, Lo, Heap_Last);
+         pragma Assert
+           (for all K in Lo .. Heap_Last => A (Lo) >= A (K));
 
-         Swap (A, 1, Heap_Last);
+         Swap (A, Lo, Heap_Last);
 
          pragma Assert
            (Heap_Last = N
             or else A (Heap_Last) <= A (Heap_Last + 1));
          pragma Assert (Sorted_Slice (A, Heap_Last, N));
          pragma Assert
-           (for all H in 1 .. Heap_Last - 1 =>
+           (for all H in Lo .. Heap_Last - 1 =>
               (for all S in Heap_Last .. N => A (H) <= A (S)));
 
-         pragma Assert (Heap_From (A, Heap_Last - 1, 2));
+         pragma Assert (Heap_From (A, Lo, Heap_Last - 1, Natural (Lo) + 1));
 
          Heap_Last := Heap_Last - 1;
 
-         pragma Assert (Heap_Leq_Suffix (A, Heap_Last, N));
-         pragma Assert (Heap_From (A, Heap_Last, 2));
+         pragma Assert (Heap_Leq_Suffix (A, Lo, Heap_Last, N));
+         pragma Assert (Heap_From (A, Lo, Heap_Last, Natural (Lo) + 1));
 
-         Sift_Down_Restore (A, 1, Heap_Last, N);
-         pragma Assert (Is_Heap (A, Heap_Last));
+         Sift_Down_Restore (A, Lo, Heap_Last, N);
+         pragma Assert (Is_Heap (A, Lo, Heap_Last));
          pragma Assert (Sorted_Slice (A, Heap_Last + 1, N));
-         pragma Assert (Heap_Leq_Suffix (A, Heap_Last, N));
+         pragma Assert (Heap_Leq_Suffix (A, Lo, Heap_Last, N));
       end loop;
 
-      pragma Assert (Heap_Last = 1);
-      pragma Assert (Sorted_Slice (A, 2, N));
-      pragma Assert (Heap_Leq_Suffix (A, 1, N));
-      pragma Assert (A (1) <= A (2));
+      pragma Assert (Heap_Last = Lo);
+      pragma Assert (Sorted_Slice (A, Lo + 1, N));
+      pragma Assert (Heap_Leq_Suffix (A, Lo, Lo, N));
+      pragma Assert (A (Lo) <= A (Lo + 1));
       pragma Assert (Is_Sorted (A));
    end Sort;
 
