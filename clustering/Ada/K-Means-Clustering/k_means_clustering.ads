@@ -228,16 +228,15 @@ is
        and then Data'Length (1) <= Max_Points
        and then Data'Length (2) >= 1
        and then Data'Length (2) <= Max_Dims
-       and then K >= 1
-       and then K <= Max_K
-       and then K <= Data'Length (1),
+       and then K <= Max_K,
           Global => null,
           Post => Init_Centers_Forgy'Result'Length (1) = K
             and then Init_Centers_Forgy'Result'Length (2) =
                        Data'Length (2);
    --  Forgy init: choose K distinct data rows uniformly at random as
    --  initial centers, using a seeded LCG.  Raises Invalid_Argument if
-   --  K < 1 or K > N; Capacity_Exceeded if caps exceeded.
+   --  K < 1 or K > N.  Those are not subtypes (K is bounded by the data
+   --  length), so the exception is the contract, not a Pre.
 
    function Init_Centers_From_Indices
      (Data : Dataset; Idx : Index_List) return Centers
@@ -257,9 +256,7 @@ is
        and then Data'Length (1) <= Max_Points
        and then Data'Length (2) >= 1
        and then Data'Length (2) <= Max_Dims
-       and then K >= 1
-       and then K <= Max_K
-       and then K <= Data'Length (1),
+       and then K <= Max_K,
           Global => null,
           Post => Init_Centers_Spaced'Result'Length (1) = K
             and then Init_Centers_Spaced'Result'Length (2) =

@@ -1,0 +1,11 @@
+K-means own checks (own_checks.adb)
+
+Reference, computed here and not taken from the package loops:
+* squared Euclidean distance and nearest center (lowest index on a tie);
+* the mean of the points assigned to each center;
+* Forgy: each initial center is a distinct data row;
+* spaced init i_j = first + floor((j-1)*(N-1)/(K-1)), from the package comment.
+
+Toy clusters (0,0),(2,0),(0,2) and (10,10),(12,10),(10,12) have means
+(2/3, 2/3) and (32/3, 32/3). Seed 20261008, printed, AA_SEED.
+Mutant split recorded before these checks: seed 20261008, 82 tuning / 72 held-out.

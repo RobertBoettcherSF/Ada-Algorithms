@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with K_Means_Clustering; use K_Means_Clustering;
+with Own_Checks;
 
 procedure Tests is
 
@@ -576,6 +577,13 @@ begin
       Check (Squared_Distance (Q, Extract_Center (Ctr, 1))
              < Squared_Distance (Q, Extract_Center (Ctr, 2)),
              "squared distances ordered");
+   end;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
    end;
 
    New_Line;
