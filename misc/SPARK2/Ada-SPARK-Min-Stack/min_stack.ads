@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 
 package Min_Stack is
+   pragma Assertion_Policy (Pre => Check);
    Capacity : constant := 4;
    subtype Count is Natural range 0 .. Capacity;
    subtype Value is Integer range -100 .. 100;
@@ -12,8 +13,12 @@ package Min_Stack is
 
    function Empty return Stack;
    function Is_Empty (S : Stack) return Boolean;
-   function Push (S : Stack; V : Value) return Stack;
-   function Pop (S : Stack) return Stack;
-   function Top_Value (S : Stack) return Value;
-   function Min_Value (S : Stack) return Value;
+   function Push (S : Stack; V : Value) return Stack
+     with Pre => S.Size < Capacity;
+   function Pop (S : Stack) return Stack
+     with Pre => S.Size > 0;
+   function Top_Value (S : Stack) return Value
+     with Pre => S.Size > 0;
+   function Min_Value (S : Stack) return Value
+     with Pre => S.Size > 0;
 end Min_Stack;

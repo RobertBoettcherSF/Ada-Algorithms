@@ -51,10 +51,9 @@ package body Min_Stack is
    function Min_Value (S : Stack) return Value is
       M : Value := S.V1;
    begin
-      if S.Size = 0 then return 0; end if;
       if S.Size >= 2 and then S.V2 < M then M := S.V2; end if;
       if S.Size >= 3 and then S.V3 < M then M := S.V3; end if;
-      if S.Size >= 4 and then S.V4 < M then M := S.V4; end if;
+      if S.Size = 4 and then S.V4 < M then M := S.V4; end if;
       return M;
    end Min_Value;
 end Min_Stack;
