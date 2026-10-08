@@ -411,6 +411,12 @@ begin
          S32 : Natural := 11;
       begin
          Expect (Verify_Freivalds_Once (A32, B32, C32, S32) = Equal_Probably, "Once N=32 accepts the product");
+         declare
+            R32 : constant Int_Multiply_Result := Multiply_Classical_Int (A32, B32);
+         begin
+            Expect (R32.Success and then R32.N = Max_N and then Int_Mat_Equal (Int_Product_Matrix (R32), C32),
+                    "Multiply_Classical_Int N=32 (Max_N accepted)");
+         end;
          VR := Verify_Freivalds (A32, B32, C32, 3, 11);
          Expect (VR.Stat = Equal_Probably and then VR.N = Max_N and then VR.Trials_Used = 3, "Verify N=32");
       end;
