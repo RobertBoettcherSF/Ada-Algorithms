@@ -516,7 +516,8 @@ begin
         "the split ids are 10 * parent + 1 and 10 * parent + 2");
    end;
 
-   --  A split of the piercing quad must introduce the midpoint of its first edge.
+   --  The piercing quad is cut by the facing square's plane (z = 0),
+   --  not by the midpoint of its first edge.
    declare
       List : Polygon_List;
       Face : constant Polygon := Slab (1, 0.0, 0.0, 0.0, 2.0);
@@ -524,28 +525,22 @@ begin
         [(0.4, -0.5, -1.0), (0.4, 2.5, -1.0), (1.6, 2.5, 1.0), (1.6, -0.5, 1.0)];
       Q : constant Polygon := Make_Polygon (2, Pierce);
       Splits : Natural := 0;
-      Mid : constant Point_3D :=
-        ((Pierce (1).X + Pierce (2).X) / 2.0,
-         (Pierce (1).Y + Pierce (2).Y) / 2.0,
-         (Pierce (1).Z + Pierce (2).Z) / 2.0);
-      Seen : Boolean := False;
+      On_Plane : Natural := 0;
    begin
       List.Append (Face);
       List.Append (Q);
       Sort_Polygons_Adaptive (List, Max_Splits => 8, Splits_Performed => Splits);
-      if Splits > 0 then
-         for I in 1 .. Natural (List.Length) loop
+      Note (Splits >= 1, "the facing square cuts the piercing quad");
+      for I in 1 .. Natural (List.Length) loop
+         if List (I).Id /= 1 and then List (I).Id /= 2 then
             for V in 1 .. List (I).Num_Vertices loop
-               if abs (List (I).Vertices (V).X - Mid.X) < 1.0e-12
-                 and then abs (List (I).Vertices (V).Y - Mid.Y) < 1.0e-12
-                 and then abs (List (I).Vertices (V).Z - Mid.Z) < 1.0e-12
-               then
-                  Seen := True;
+               if abs (List (I).Vertices (V).Z) <= 1.0e-6 then
+                  On_Plane := On_Plane + 1;
                end if;
             end loop;
-         end loop;
-         Note (Seen, "a split inserts the midpoint of the first edge");
-      end if;
+         end if;
+      end loop;
+      Note (On_Plane >= 2, "the cut vertices lie on the square's plane");
    end;
 
    --  One polygon strictly inside another: only the point-in-polygon test can see it.

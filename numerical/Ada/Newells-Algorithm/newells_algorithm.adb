@@ -383,34 +383,113 @@ is
    --  Variant 2: Adaptive Newell's Algorithm with Polygon Splitting
    ----------------------------------------------------------------------------
 
-   --  Bisect polygon into two planar halves along its longest screen-space axis
-   --  through vertex interpolation, preserving coplanarity.
-   procedure Split_Polygon_Coplanar
-     (Poly  : Polygon;
-      Part1 : out Polygon;
-      Part2 : out Polygon)
+   --  Cut Poly by Plane into the two pieces on either side.
+   --  Newell, Newell and Sancha split the polygon that cannot be ordered
+   --  along the plane of the other one. An empty result means the plane
+   --  does not cut the polygon (or a piece would be degenerate).
+   function Split_By_Plane
+     (Poly : Polygon; Plane : Plane_3D) return Polygon_List
    is
-      V1 : Vertex_Array (1 .. Poly.Num_Vertices);
-      V2 : Vertex_Array (1 .. Poly.Num_Vertices);
-      N  : constant Positive := Poly.Num_Vertices;
-      Mid_Pt : Point_3D;
-   begin
-      --  Midpoint between opposite or separated vertices
-      Mid_Pt := (X => (Poly.Vertices (1).X + Poly.Vertices (2).X) / 2.0,
-                 Y => (Poly.Vertices (1).Y + Poly.Vertices (2).Y) / 2.0,
-                 Z => (Poly.Vertices (1).Z + Poly.Vertices (2).Z) / 2.0);
+      N      : constant Positive := Poly.Num_Vertices;
+      Cap    : constant Positive := N * 2;
+      Pos_V  : Vertex_Array (1 .. Cap);
+      Neg_V  : Vertex_Array (1 .. Cap);
+      NP, NN : Natural := 0;
+      Has_Pos : Boolean := False;
+      Has_Neg : Boolean := False;
+      Result  : Polygon_List;
 
-      for K in 1 .. N loop
-         V1 (K) := Poly.Vertices (K);
-         V2 (K) := Poly.Vertices (K);
+      function Ds (I : Positive) return Real is
+      begin
+         return Distance_To_Plane (Plane, Poly.Vertices (I));
+      end Ds;
+
+      procedure Push
+        (Buf : in out Vertex_Array; Count : in out Natural; Pt : Point_3D)
+      is
+      begin
+         if Count > 0
+           and then abs (Buf (Count).X - Pt.X) <= Epsilon
+           and then abs (Buf (Count).Y - Pt.Y) <= Epsilon
+           and then abs (Buf (Count).Z - Pt.Z) <= Epsilon
+         then
+            return;
+         end if;
+         Count := Count + 1;
+         Buf (Count) := Pt;
+      end Push;
+   begin
+      for I in 1 .. N loop
+         declare
+            D : constant Real := Ds (I);
+         begin
+            if D > Epsilon then
+               Has_Pos := True;
+            elsif D < -Epsilon then
+               Has_Neg := True;
+            end if;
+         end;
+      end loop;
+      if not Has_Pos or else not Has_Neg then
+         return Result;
+      end if;
+
+      for I in 1 .. N loop
+         declare
+            J  : constant Positive := (if I = N then 1 else I + 1);
+            A  : constant Point_3D := Poly.Vertices (I);
+            B  : constant Point_3D := Poly.Vertices (J);
+            DA : constant Real := Ds (I);
+            DB : constant Real := Ds (J);
+         begin
+            if DA >= -Epsilon then
+               Push (Pos_V, NP, A);
+            end if;
+            if DA <= Epsilon then
+               Push (Neg_V, NN, A);
+            end if;
+            if (DA > Epsilon and then DB < -Epsilon)
+              or else (DA < -Epsilon and then DB > Epsilon)
+            then
+               declare
+                  T   : constant Real := DA / (DA - DB);
+                  Hit : constant Point_3D :=
+                    (X => A.X + T * (B.X - A.X),
+                     Y => A.Y + T * (B.Y - A.Y),
+                     Z => A.Z + T * (B.Z - A.Z));
+               begin
+                  Push (Pos_V, NP, Hit);
+                  Push (Neg_V, NN, Hit);
+               end;
+            end if;
+         end;
       end loop;
 
-      V1 (2) := Mid_Pt;
-      V2 (1) := Mid_Pt;
+      if NP > 1
+        and then abs (Pos_V (NP).X - Pos_V (1).X) <= Epsilon
+        and then abs (Pos_V (NP).Y - Pos_V (1).Y) <= Epsilon
+        and then abs (Pos_V (NP).Z - Pos_V (1).Z) <= Epsilon
+      then
+         NP := NP - 1;
+      end if;
+      if NN > 1
+        and then abs (Neg_V (NN).X - Neg_V (1).X) <= Epsilon
+        and then abs (Neg_V (NN).Y - Neg_V (1).Y) <= Epsilon
+        and then abs (Neg_V (NN).Z - Neg_V (1).Z) <= Epsilon
+      then
+         NN := NN - 1;
+      end if;
+      if NP < 3 or else NN < 3 then
+         return Result;
+      end if;
 
-      Part1 := Make_Polygon (Poly.Id * 10 + 1, V1);
-      Part2 := Make_Polygon (Poly.Id * 10 + 2, V2);
-   end Split_Polygon_Coplanar;
+      Result.Append (Make_Polygon (Poly.Id * 10 + 1, Pos_V (1 .. NP)));
+      Result.Append (Make_Polygon (Poly.Id * 10 + 2, Neg_V (1 .. NN)));
+      return Result;
+   exception
+      when Degenerate_Polygon_Error =>
+         return Result;
+   end Split_By_Plane;
 
    procedure Sort_Polygons_Adaptive
      (Polygons         : in out Polygon_List;
@@ -450,14 +529,18 @@ is
                            exit;
                         else
                            if Splits < Max_Splits then
-                              Splits := Splits + 1;
                               declare
-                                 Sub1, Sub2 : Polygon (Num_Vertices => P_Elem.Num_Vertices);
+                                 Pieces : constant Polygon_List :=
+                                   Split_By_Plane (P_Elem, Q_Elem.Plane);
                               begin
-                                 Split_Polygon_Coplanar (P_Elem, Sub1, Sub2);
+                                 if Natural (Pieces.Length) /= 2 then
+                                    Splits_Performed := Splits;
+                                    return;
+                                 end if;
+                                 Splits := Splits + 1;
                                  Polygons.Delete (I);
-                                 Polygons.Insert (Before => I, New_Item => Sub1);
-                                 Polygons.Insert (Before => I + 1, New_Item => Sub2);
+                                 Polygons.Insert (Before => I, New_Item => Pieces (1));
+                                 Polygons.Insert (Before => I + 1, New_Item => Pieces (2));
                                  Preliminary_Sort (Polygons);
                                  Restart_Outer := True;
                                  exit;

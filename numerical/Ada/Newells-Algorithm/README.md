@@ -13,7 +13,7 @@ Newell's algorithm (introduced by Martin Newell, Richard Newell, and Tom Sancha 
   * Test 4: Planar half-space test (polygon Q strictly in front of the plane of polygon P).
   * Test 5: Full 2D projected polygon silhouette intersection and point containment.
 * Strict Sort Variant (`Sort_Polygons_Strict`): Non-preemptive sorting algorithm that detects cyclic overlaps and raises `Cyclic_Overlap_Error`.
-* Adaptive Split Variant (`Sort_Polygons_Adaptive`): Automatically bisects obstructing polygons along the Z dimension when cyclic dependencies occur, guaranteeing a resolved depth ordering.
+* Adaptive Split Variant (`Sort_Polygons_Adaptive`): When the five tests cannot order two polygons, one is cut by the plane of the other (Newell, Newell and Sancha 1972). That removes the cycle. If the split budget runs out before the order is resolved, the procedure returns the order it has; that order is not claimed to be a correct painter.
 * Zero Warnings: Verified under `gnatmake -gnatwa -gnat2022`.
 
 ## Usage
@@ -50,7 +50,7 @@ The test suite in `tests.adb` contains 13 test suites with over 39 assertions co
 * Inversion resolution where a polygon with deeper minimum Z must be drawn after another polygon.
 * Edge cases: Empty lists, single polygon lists, and zero-area degenerate polygons.
 * Exception handling: Verification that degenerate geometry raises `Degenerate_Polygon_Error` and cyclic overlaps are detected.
-* Adaptive sorting: Execution of polygon depth-splitting to resolve cycles.
+* Adaptive sorting: a polygon that cycles is cut by the other polygon's plane. The pieces then pass the half-space tests.
 
 ## Building
 * Compiler: GNAT supporting Ada 2022 / Ada 2023 (e.g., GNAT FSF 12+, 13+, or 14+).
