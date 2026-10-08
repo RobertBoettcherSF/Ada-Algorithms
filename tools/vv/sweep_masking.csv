@@ -3,18 +3,18 @@ sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,yes,network output sorted on all existin
 sorting/SPARK4/Ada-SPARK-Bogosort,yes,sorted on all existing tests without the finish; a bounded number of shuffles cannot be proved to sort; the finish is what guarantees the result
 sorting/SPARK4/Ada-SPARK-Burstsort,yes,sorted on all existing tests without the finish (String_Array API); burst/trie phase not proved
 sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,yes,FIXED 2e041c17: shaker passes proved to sort (window invariant); Bubble_Finish removed; silver L2 240 checks; mutation 37/66 -> 56/77 raw (56/56 justified)
-sorting/SPARK4/Ada-SPARK-Comb-Sort,no,"fails a postcondition on small inputs without the finish: the shrinking-gap loop stops before gap 1, and gap-1 passes until no swap are part of comb sort; keep them, inside the comb sort loop, and only drop a redundant extra pass"
+sorting/SPARK4/Ada-SPARK-Comb-Sort,no,"FIXED d5acd521: one comb loop with the gap-1 passes inside it (part of comb sort); no iteration cap, no gap clamp, no separate Bubble_Finish; held-out records 48051343"
 sorting/SPARK4/Ada-SPARK-Flashsort,yes,sorted on all existing tests without the finish; classification + permutation cycle phase not proved
 sorting/SPARK4/Ada-SPARK-Library-Sort,no,"FIXED 8ebba7ff (finding, failing test deb3a020): the old Library_Phase did NOT sort alone (48,020/200,000 clustered inputs unsorted; masked by Bubble_Finish); rewritten library phase proved to sort (silver L2 and level 4: 275 checks), Bubble_Finish removed; held-out mutation 68/80 raw -> 68/68 justified"
-sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,yes,sorted on all existing tests without the finish; odd-even transposition passes not proved
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,no,"FIXED 191e3e5d: odd-even cycles proved to sort and terminate (ghost Weight + Lemma_Swap_Weight); Bubble_Finish and Max_N cycle cap removed; gnatprove level 4: 269 checks"
 sorting/SPARK4/Ada-SPARK-Patience-Sorting,yes,sorted on all existing tests without the finish; pile + k-way merge phase not proved
-sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,yes,sorted on all existing tests without the finish; hole distribution phase not proved
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,no,"FIXED 310ecd82: pigeonhole phase proved to sort; Bubble_Finish, span fallback and Hole_Of clamp removed"
 sorting/SPARK4/Ada-SPARK-Postman-Sort,yes,sorted on all existing tests without the finish; digit-bucket phase not proved
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,yes,FIXED 77a3f570: Sort_Space_Bounded cocktail passes proved to sort (window invariant); Bubble_Finish removed; silver L2 477 checks; strict mutation 73/113 -> 91/124. Sort_Parallel_Network keeps its Insertion_Pass (gap-1 step of the Shell model; breaks without it by design)
 sorting/SPARK4/Ada-SPARK-Samplesort,no,"FIXED 20dcddfc (finding, failing test 2d2f543c): in-place buckets cut by partition per sorted pivot, each insertion-sorted; small N is the single last bucket; Bubble_Finish removed; silver L2 200 checks; strict mutation 73/111 -> 67/77 raw strict (10 survivors justified in sweep_equivalent.csv -> 67/67)"
 sorting/SPARK4/Ada-SPARK-Slowsort,no,"FIXED d945a39f: Slowsort_Range is proved to sort its range on its own (pairwise order plus an entry-maximum bound via ghost Max_Of; 135 checks, silver level 2 and level 4); Bubble_Finish removed"
-sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,yes,sorted on all existing tests without the finish; repeated-maximum phase not proved
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,no,"FIXED c13b44b1: height-bin phase proved to sort (ghost Sum_Below / Lemma_Zero / Lemma_Inc / Lemma_Mono); Bubble_Finish, write-cursor guard and Bin_Of clamp removed; gnatprove level 4: 138 checks"
 sorting/SPARK4/Ada-SPARK-Stooge-Sort,yes,sorted on all existing tests without the finish; recursive stooge sort not proved
 sorting/SPARK4/Ada-SPARK-Strand-Sort,no,"FIXED d28c4324: Strand_Phase is proved to sort on its own (sorted strands, sorted merges, Input empty after the capped loop; 254 checks, silver level 2 and level 4); Bubble_Finish removed"
-sorting/SPARK4/Bead-Sort,yes,sorted on all existing tests without the finish; bead (rod) phase not proved
+sorting/SPARK4/Bead-Sort,no,"FIXED f5907fe4: bead (rod) phase proved to sort; Bubble_Finish removed (follow-up 586401c5 drops type-implied invariants)"
 sorting/SPARK4/Ada-SPARK-Bucket-Sort,no,"FIXED 0bda50fa: the bucket phase is proved to sort on its own (181 checks, silver level 2 and level 4) and the final Insertion_Pass is gone; the ten GNAT 12 warnings were fixed in the code"
