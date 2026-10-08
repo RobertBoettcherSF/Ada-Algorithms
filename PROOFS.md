@@ -15,7 +15,7 @@ z3: Z3 version 4.15.4 - 64 bit
 
 * Batch (all SPARK folders): `gnatprove -P <folder gpr> --mode=silver --level=2 -j1 --output=oneline -k` - level 2 = provers cvc5,z3,altergo, `--timeout=5` s per check (wall clock), `--steps=0`, `--memlimit=1000`, per_check, counterexamples off.
 * Rerun with a deterministic step budget (rows with `proof_run` = `steps=N`; replaces the batch result): `gnatprove -P <folder gpr> --mode=silver --level=2 --timeout=0 --steps=1000000 --counterexamples=off -j2 --output=oneline -k` - no wall-clock timeout, so the result does not depend on machine load.
-* Rows rerun with steps (4): `strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings`, `strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt`, `strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence`, `strings/SPARK2/Ada-SPARK-Rabin-Karp`
+* Rows rerun with steps (5): `misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm`, `strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings`, `strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt`, `strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence`, `strings/SPARK2/Ada-SPARK-Rabin-Karp`
 
 One row per algorithm folder (full data in [`PROOFS.csv`](PROOFS.csv)). Regenerate with
 `python3 tools/proof_index.py --results <dir> --logs <prove-workdir>` (see `tools/audit/`).
@@ -26,10 +26,11 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 
 | Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven | Unproved | Not built/crash | Not run |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Ada | 908 | 870 | 878 | 881 | 883 | 864 | 688 | 668 | 5 | 0 | 5 | 17 |
+| Ada | 908 | 870 | 878 | 881 | 883 | 864 | 688 | 668 | 10 | 0 | 10 | 7 |
 | SPARK2 | 857 | 849 | 855 | 855 | 855 | 855 | 482 | 481 | 835 | 2 | 9 | 11 |
-| SPARK4 | 69 | 66 | 67 | 67 | 67 | 67 | 67 | 36 | 59 | 1 | 0 | 7 |
-| All | 1836 | 1787 | 1802 | 1805 | 1807 | 1788 | 1239 | 1187 | 900 | 3 | 14 | 36 |
+| SPARK3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 0 | 0 | 1 |
+| SPARK4 | 69 | 66 | 67 | 67 | 67 | 67 | 67 | 36 | 61 | 0 | 0 | 6 |
+| All | 1836 | 1787 | 1802 | 1805 | 1807 | 1788 | 1239 | 1187 | 907 | 2 | 19 | 25 |
 
 | Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Pair | Duplicate of |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -325,7 +326,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/Ada/Binary-Splitting | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Birkhoff-von-Neumann | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Bitap-Algorithm | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
-| misc/Ada/Black-Scholes-Model | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| misc/Ada/Black-Scholes-Model | yes | yes | yes | yes | yes | 0 | 0 | not built |  |  |
 | misc/Ada/Blind-Deconvolution | yes | yes | yes | yes | yes | 52 | 52 | no SPARK |  |  |
 | misc/Ada/Block-Nested-Loop | yes | yes | yes | yes | yes | 14 | 14 | no SPARK |  |  |
 | misc/Ada/Block-Truncation-Coding | yes | yes | yes | yes | yes | 12 | 12 | no SPARK |  |  |
@@ -450,7 +451,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/Ada/Fictitious-Play | yes | yes | yes | yes | yes | 38 | 38 | no SPARK |  |  |
 | misc/Ada/Filtered-Back-Projection | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Financial-Information-Exchange | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
-| misc/Ada/Financial-Risk-Modeling | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| misc/Ada/Financial-Risk-Modeling | yes | yes | yes | yes | yes | 0 | 0 | not built |  |  |
 | misc/Ada/Finite-Difference-Method | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/First-Order-Logic | yes | yes | yes | yes | no | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Fisher-Yates-Shuffle | yes | yes | yes | yes | yes | 0 | 0 | no SPARK | misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle |  |
@@ -466,8 +467,8 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/Ada/Frank-Wolfe-Algorithm | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Freivalds | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Fuzzy-C-Means | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
-| misc/Ada/GNAT-Studio-Notes | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/Ada/GPU-Work-Queue | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| misc/Ada/GNAT-Studio-Notes | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/Ada/GPU-Work-Queue | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | misc/Ada/GRASP | yes | yes | yes | yes | yes | 0 | 1 | no SPARK |  |  |
 | misc/Ada/Gale-Shapley-Algorithm | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Gauss-Jordan | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
@@ -535,7 +536,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/Ada/Karn-Algorithm | yes | yes | yes | yes | yes | 37 | 37 | no SPARK |  |  |
 | misc/Ada/Key-Derivation-Function | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Key-Exchange | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
-| misc/Ada/Knuth-Bendix-Completion | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| misc/Ada/Knuth-Bendix-Completion | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | misc/Ada/Krauss-Matching-Wildcards | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Lagged-Fibonacci-Generator | yes | yes | yes | yes | yes | 0 | 0 | no SPARK | misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator |  |
 | misc/Ada/Laplacian-Smoothing | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
@@ -629,7 +630,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/Ada/Orbital-Mechanics | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
 | misc/Ada/Ordered-Subset-EM | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/PBKDF2 | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
-| misc/Ada/PCIe-Transfer-Model | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| misc/Ada/PCIe-Transfer-Model | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | misc/Ada/Package-Merge-Algorithm | yes | yes | yes | yes | yes | 30 | 30 | no SPARK | misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm |  |
 | misc/Ada/Painters-Algorithm | yes | yes | yes | yes | yes | 3 | 3 | no SPARK |  |  |
 | misc/Ada/Parity-Bit | yes | yes | yes | yes | yes | 8 | 8 | no SPARK |  |  |
@@ -639,7 +640,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/Ada/Path-Tracing | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Petricks-Method | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Phonetic-Algorithms | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
-| misc/Ada/Photon-Mapping | no | no | yes | no | yes | 0 | 0 | not run |  |  |
+| misc/Ada/Photon-Mapping | no | no | yes | no | yes | 0 | 0 | not built |  |  |
 | misc/Ada/Planning-Domain-Definition-Language | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Pohlig-Hellman | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Point-Set-Registration | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
@@ -750,7 +751,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/Ada/Top-Nodes-Algorithm | yes | yes | yes | yes | yes | 2 | 2 | no SPARK | misc/SPARK2/Ada-SPARK-Top-Nodes-Algorithm |  |
 | misc/Ada/Top-Trading-Cycle | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Traffic-Light-Controller | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
-| misc/Ada/Traffic-Simulation | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| misc/Ada/Traffic-Simulation | yes | yes | yes | yes | yes | 0 | 0 | not built |  |  |
 | misc/Ada/Transform-Coding | yes | yes | yes | yes | yes | 17 | 17 | no SPARK |  |  |
 | misc/Ada/Transitive-Closure | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | misc/Ada/Trapezoidal-Rule-DE | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
@@ -1398,7 +1399,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/SPARK4/Ada-SPARK-K-Way-Merge | yes | yes | yes | yes | yes | 0 | 0 | proven | misc/Ada/K-Way-Merge |  |
 | misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator | yes | yes | yes | yes | yes | 0 | 0 | proven | misc/Ada/Lagged-Fibonacci-Generator |  |
 | misc/SPARK4/Ada-SPARK-Lemke-Howson | yes | yes | yes | yes | yes | 0 | 0 | proven | misc/Ada/Lemke-Howson |  |
-| misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | yes | yes | yes | yes | yes | 0 | 1 | 1 unproved | misc/Ada/Package-Merge-Algorithm |  |
+| misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | yes | yes | yes | yes | yes | 0 | 1 | proven | misc/Ada/Package-Merge-Algorithm |  |
 | misc/SPARK4/Ada-SPARK-Selection-Algorithm | yes | yes | yes | yes | yes | 0 | 4 | proven | misc/Ada/Selection-Algorithm |  |
 | misc/SPARK4/Ada-SPARK-Shortest-Seek-First | n/a | no | no | no | no | NA | NA | no SPARK |  |  |
 | misc/SPARK4/demo | n/a | no | no | no | no | NA | NA | skipped (no SPARK_Mode) |  |  |
@@ -1410,14 +1411,14 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | ml/Ada/Expectation-Maximization | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | ml/Ada/Forward-Backward | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | ml/Ada/Hidden-Markov-Model | yes | yes | yes | yes | yes | 0 | 1 | no SPARK |  |  |
-| ml/Ada/LPBoost | yes | yes | yes | yes | no | 0 | 0 | not run |  |  |
+| ml/Ada/LPBoost | yes | yes | yes | yes | no | 0 | 0 | proven |  |  |
 | ml/Ada/LogitBoost | yes | yes | yes | yes | yes | 115 | 115 | no SPARK |  |  |
 | ml/Ada/Naive-Bayes-Classifier | yes | yes | yes | yes | no | 0 | 0 | no SPARK |  |  |
 | ml/Ada/Neural-Network | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | ml/Ada/Perceptron | yes | yes | yes | yes | no | 0 | 0 | no SPARK |  |  |
 | ml/Ada/Policy-Iteration | yes | yes | yes | yes | yes | 0 | 3 | no SPARK |  |  |
 | ml/Ada/Pulse-Coupled-Neural-Networks | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
-| ml/Ada/Q-Learning | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| ml/Ada/Q-Learning | yes | yes | yes | yes | yes | 0 | 0 | not built |  |  |
 | ml/Ada/Random-Forest | no | yes | yes | yes | no | 0 | 0 | no SPARK |  |  |
 | ml/Ada/Reinforcement-Learning | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | ml/Ada/Support-Vector-Machine | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
@@ -1531,7 +1532,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | numerical/SPARK4/Ada-SPARK-Brents-Algorithm | yes | yes | yes | yes | yes | 0 | 0 | proven | numerical/Ada/Brents-Algorithm |  |
 | numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm | yes | yes | yes | yes | yes | 0 | 0 | proven | numerical/Ada/Euclidean-Algorithm |  |
 | numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm | yes | yes | yes | yes | yes | 0 | 0 | proven | numerical/Ada/Extended-Euclidean-Algorithm |  |
-| numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator | yes | yes | yes | yes | yes | 0 | 0 | not run | numerical/Ada/Linear-Congruential-Generator |  |
+| numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator | yes | yes | yes | yes | yes | 0 | 0 | proven | numerical/Ada/Linear-Congruential-Generator |  |
 | numerical/SPARK4/Ada-SPARK-Mersenne-Twister | yes | yes | yes | yes | yes | 0 | 0 | proven | numerical/Ada/Mersenne-Twister |  |
 | numerical/SPARK4/Ada-SPARK-Modular-Arithmetic | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
 | numerical/SPARK4/Binary-Gcd | yes | yes | yes | yes | yes | 0 | 0 | not run | numerical/Ada/Binary-GCD |  |

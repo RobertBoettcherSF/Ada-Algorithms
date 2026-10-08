@@ -163,7 +163,7 @@ L = ['# Proof index', '',
      f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
      '| Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven | Unproved | Not built/crash | Not run |',
      '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
-for lev in ('Ada', 'SPARK2', 'SPARK4', 'All'):
+for lev in ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4', 'All'):
     s = [r for r in uniq if lev == 'All' or r['level'] == lev]
     if not s: continue
     L.append(f"| {lev} | {len(s)} | {c(lambda r: r['make_test']=='yes', s)} | {c(lambda r: r['build_gnat14']=='yes', s)} | {c(lambda r: r['build_gnat12']=='yes', s)} | "
