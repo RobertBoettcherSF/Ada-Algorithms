@@ -83,7 +83,7 @@ procedure Own_Checks is
 
    function Phi (Z, C : Long_Float) return Long_Float is (1.0 - Ref_Erf (Z / Sqrt (C)));
 
-   Max_M : constant := 12;
+   Max_M : constant := 40;
    Max_F : constant := 3;
 
    procedure Check_Data (X : Feature_Matrix; Y : Label_Array; C : Long_Float; Cap : Positive;
@@ -153,9 +153,11 @@ procedure Own_Checks is
             Advantages (St, Best, Of_St);
             Expect (S > 0.0001 - 1.0E-9, What & " a round was trained after the time ran out, round" & K'Image);
             Expect (Best > 0.0001, What & " a round was trained without a positive advantage, round" & K'Image);
-            --  1e-6: the replayed margins follow the code's to about 1e-7 (its
-            --  erf is the A&S 7.1.26 approximation), which can reorder near-ties
-            Expect (Of_St >= Best - 1.0E-6, What & " stump is not the best weighted stump, round" & K'Image
+            --  1e-5: the replayed remaining time s follows the code's only to
+            --  the accuracy of its erf (A&S 7.1.26, error up to 1.5e-7), and
+            --  more loosely for large c, where Phi is flat and t sensitive
+            --  (seen: 1.2e-6 at c = 8); that can reorder near-ties
+            Expect (Of_St >= Best - 1.0E-5, What & " stump is not the best weighted stump, round" & K'Image
                     & " adv" & Of_St'Image & " best" & Best'Image);
             Expect (Alpha >= 0.0, What & " alpha >= 0, round" & K'Image);
             for I in X'Range (1) loop
@@ -218,6 +220,7 @@ procedure Own_Checks is
                      declare
                         At_Zero : constant Boolean := V (0.0) < 0.0;
                         A_Own   : Long_Float;
+                        Ran_Out   : Boolean := False;   --  doubling passed 1000
                         Unbounded : Boolean := False;
                         function F1_At (A : Long_Float) return Long_Float is
                            Sum : Long_Float := 0.0;
@@ -236,12 +239,12 @@ procedure Own_Checks is
                            while F1_At (A_Hi) > 0.0 loop
                               A_Hi := A_Hi * 2.0;
                               if A_Hi > 1000.0 then
-                                 Unbounded := True;
+                                 Ran_Out := True;
                                  exit;
                               end if;
                            end loop;
                            for It in 1 .. 200 loop
-                              exit when Unbounded;
+                              exit when Ran_Out;
                               if F1_At ((A_Lo + A_Hi) / 2.0) > 0.0 then
                                  A_Lo := (A_Lo + A_Hi) / 2.0;
                               else
@@ -258,18 +261,26 @@ procedure Own_Checks is
                               Res := Res + Z (I) * Exp (-((R (I) + Alpha * Z (I) + U_End) ** 2) / C);
                               Sc := Sc + Exp (-((R (I) + Alpha * Z (I) + U_End) ** 2) / C);
                            end loop;
-                           --  orthogonality at the end point; once every term has
-                           --  underflowed (alpha beyond ~ 20 sqrt c) the equation
-                           --  has no finite root and any such alpha is the limit
-                           --  no finite root: F1 > 0 at alpha = 0 and as alpha grows
-                           --  (the slowest-decaying Gaussian factors, smallest
+                           --  orthogonality at the end point, relative to the sum of
+                           --  its factors. Exception: the equation has no finite
+                           --  root. That needs F1 > 0 at alpha = 0 and for large
+                           --  alpha (the slowest-decaying factors, smallest
                            --  z_i (r_i + U), belong to more correct than wrong
-                           --  examples); then any alpha on the positive side is
-                           --  as good as the solver can do
+                           --  examples), and the own search to find no genuine
+                           --  root (its sign change only where every factor has
+                           --  underflowed). Then any alpha with F1 >= 0 is as good
+                           --  as a solver can do.
                            declare
                               Min_Lin : Long_Float := Long_Float'Last;
                               Lead    : Long_Float := 0.0;
+                              Sc_Own  : Long_Float := 0.0;
+                              Genuine : Boolean;
                            begin
+                              for I in X'Range (1) loop
+                                 Sc_Own := Sc_Own + Exp (-((R (I) + A_Own * Z (I) + U_End) ** 2) / C);
+                              end loop;
+                              Genuine := not Ran_Out and then Sc_Own > 0.0
+                                and then abs F1_At (A_Own) <= 1.0E-3 * Sc_Own;
                               for I in X'Range (1) loop
                                  Min_Lin := Long_Float'Min (Min_Lin, Z (I) * (R (I) + U_End));
                               end loop;
@@ -278,7 +289,7 @@ procedure Own_Checks is
                                     Lead := Lead + Z (I);
                                  end if;
                               end loop;
-                              if Lead > 0.0 and then F1_At (0.0) > 0.0 and then Res >= 0.0 then
+                              if not Genuine and then Lead > 0.0 and then F1_At (0.0) > 0.0 and then Res >= 0.0 then
                                  Unbounded := True;
                               end if;
                            end;
@@ -344,16 +355,18 @@ procedure Own_Checks is
    end Check_Data;
 
 begin
-   for Trial in 1 .. 300 loop
+   --  trials 1 .. 300: small sets; 301 .. 600: up to 40 rows, wider c range
+   for Trial in 1 .. 600 loop
       declare
-         NM  : constant Positive := 4 + Rand (Max_M - 3);
+         NM  : constant Positive := (if Trial <= 300 then 4 + Rand (9) else 13 + Rand (Max_M - 12));
          NF  : constant Positive := 1 + Rand (Max_F);
          X   : Feature_Matrix (1 .. NM, 1 .. NF);
          Y   : Label_Array (1 .. NM);
          Fs  : constant Positive := 1 + Rand (NF);
          Th  : constant Integer := Rand (5) - 2;
          Cs  : constant array (0 .. 3) of Long_Float := [0.5, 1.0, 2.0, 3.0];
-         C   : constant Long_Float := Cs (Rand (4));
+         Cw  : constant array (0 .. 3) of Long_Float := [0.25, 0.5, 4.0, 8.0];
+         C   : constant Long_Float := (if Trial <= 300 then Cs (Rand (4)) else Cw (Rand (4)));
          Cap : constant Positive := 1 + Rand (15);
       begin
          for I in X'Range (1) loop
@@ -398,7 +411,8 @@ begin
    end;
    Expect (Rounds > 1_000 and then Solved > 500, "enough replayed rounds:" & Rounds'Image & Solved'Image);
    for V in Solver_Variant loop
-      Expect (Inner_By (V) > 300 and then Ends_By (V) > 10,
+      --  end-of-range steps are the exception (about 4% of rounds here)
+      Expect (Inner_By (V) > 300 and then Ends_By (V) > 10 and then 10 * Ends_By (V) < Inner_By (V),
               V'Image & " inner / end-of-range rounds:" & Inner_By (V)'Image & Ends_By (V)'Image);
    end loop;
    if Failures > 0 then
