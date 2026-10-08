@@ -8,6 +8,7 @@ This project provides a robust, strongly-typed Ada implementation of the Histogr
 *   **Adaptive Histogram Equalization (AHE)**: Tile-based variant for localized contrast improvement.
 *   **Strong Typing**: Uses custom Ada types (`Intensity`) to prevent out-of-bounds pixel values.
 *   **Robustness**: Explicit exception handling for edge cases like empty images.
+*   **Uniform images**: When every pixel has the same intensity, the usual formula `(cdf(v) - cdf_min) / (N - cdf_min)` is 0/0. Every pixel then maps to 255, using the plain CDF mapping `cdf(v) / N * 255`.
 
 ## Testing
 The test suite assumes the implementation is potentially broken and executes 13+ assertions to disprove this.

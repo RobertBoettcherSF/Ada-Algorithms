@@ -46,8 +46,10 @@ package body Histogram_Equalization is
                     Res : Float;
                 begin
                     if Den = 0 then
-                        -- Handle edge case where all pixels have the same intensity
-                        Res := 0.0;
+                        -- Every pixel has the same intensity, so CDF(V) = Min_CDF = N
+                        -- and the shifted formula is 0/0. Use the plain CDF mapping
+                        -- CDF(V) / N * 255 instead, which gives 255.
+                        Res := (Float(CDF(Intensity(V))) / Float(N)) * 255.0;
                     else
                         Res := (Float(Num) / Float(Den)) * 255.0;
                     end if;
