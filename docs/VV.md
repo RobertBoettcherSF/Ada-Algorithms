@@ -70,7 +70,7 @@ Question asked of every folder's tests: would they notice if the code did nothin
 
 The *main* subprogram is picked heuristically: the public one that takes input and whose name shares a word with the folder name (`Sort`, `Run_Chinese_Whispers`), or an entry point (`Solve`, `Run`, ...), else the one the tests mention most; container plumbing (`Append`, `Set_Node`, `Add_Word`) comes last, and Boolean predicates count only when nothing else is called or when the predicate is the algorithm itself (`Is_Balanced`). A folder is flagged `weak` when the do-nothing version of its main subprogram still passes the tests; survivors among the other subprograms are listed in `vv/results/donothing_detail.csv` for information. `unchecked` means no trivial body of the main subprogram compiles (e.g. limited or private result types).
 
-Status (2026-10-08, full run over 1,837 folders, GNAT 14): 1,705 checked (1,641 ok, 40 weak, 24 unchecked); 122 of the checked folders only without `-gnata`; not checked: 94 whose unmodified tests fail in the scratch build, 15 whose tests do not build there, 23 without tests. 2 weak folders are Silver-proven non-trivial. Every folder that got own tests (3e) is `ok` afterwards. Results: `vv/results/donothing.csv` (one row per folder) and `vv/results/donothing_detail.csv` (one row per subprogram variant). A full run over ~1,800 folders took about 25 minutes with `-j 6` (GNAT 14 only).
+Status (2026-10-08, full run over 1,837 folders, GNAT 14): 1,705 checked (1,642 ok, 39 weak, 24 unchecked); 122 of the checked folders only without `-gnata`; not checked: 94 whose unmodified tests fail in the scratch build, 15 whose tests do not build there, 23 without tests. 1 weak folders are Silver-proven non-trivial. Every folder that got own tests (3e) is `ok` afterwards. Results: `vv/results/donothing.csv` (one row per folder) and `vv/results/donothing_detail.csv` (one row per subprogram variant). A full run over ~1,800 folders took about 25 minutes with `-j 6` (GNAT 14 only).
 
 Weak folders, by topic: 
 * concurrency/SPARK2: Course-Schedule (`Can_Finish`).
@@ -80,13 +80,13 @@ Weak folders, by topic:
 * graphs/SPARK2: Clone-Graph (`Clone`), Clone-Graph-Stub (`Clone`).
 * matrices/Ada: Sparse-Matrix (`Sparsity`).
 * misc/Ada: Banzhaf-Power-Index (`Normalized_Banzhaf`), Cheneys-Algorithm (`Allocate`), D-Star (`Start_Point`), Elser-Difference-Map-Algorithm (`Solve`), Evolutionary-Computation (`Seed_RNG`), Johnsons-Algorithm (`Johnson`), Mullers-Method (`Find_Root`), Nagles-Algorithm (`Original_Nagle`), Recovery-Exploiting-Semantics (`Log_Update`), SEQUITUR-Algorithm (`Compress`), Unicode-Collation-Algorithm (`Compare_Standard`).
-* misc/SPARK2: Jump-Game (`Can_Jump`), Mean-Variance (`Mean`), Alien-Dictionary-Stub (`Is_Valid`), Assign-Cookies (`Assigned_Count`), Candy (`Candy_Count`), Find-The-City (`Find`), Fisher-Yates-Shuffle (`Shuffle`), Flatten-Nested-List-Stub (`Flatten`), Gas-Station (`Starting_Station`), Guess-Number-Higher-Or-Lower (`Guess_Number`), Jump-Game-II (`Minimum_Jumps`), Merge-Intervals (`Merged_Intervals`), My-Linked-List-Stub (`Length_Of`), Non-Overlapping-Intervals (`Kept_Intervals`), Valid-IP-Address-Stub (`Is_Valid`).
+* misc/SPARK2: Jump-Game (`Can_Jump`), Alien-Dictionary-Stub (`Is_Valid`), Assign-Cookies (`Assigned_Count`), Candy (`Candy_Count`), Find-The-City (`Find`), Fisher-Yates-Shuffle (`Shuffle`), Flatten-Nested-List-Stub (`Flatten`), Gas-Station (`Starting_Station`), Guess-Number-Higher-Or-Lower (`Guess_Number`), Jump-Game-II (`Minimum_Jumps`), Merge-Intervals (`Merged_Intervals`), My-Linked-List-Stub (`Length_Of`), Non-Overlapping-Intervals (`Kept_Intervals`), Valid-IP-Address-Stub (`Is_Valid`).
 * numerical/Ada: Fermat-Primality-Test (`Is_Fermat_Probable_Prime`), Gradient-Descent (`Sphere_Grad`), Hybrid-Monte-Carlo (`Grad_U_Std_Normal`).
 * parsing/Ada: Cyk-Algorithm (`Free_Parse_Tree`).
 * searching/SPARK2: Insert-Into-A-Binary-Search-Tree (`Insert`), Unique-Binary-Search-Trees-II-Lite (`Root_Choices`).
 * sorting/SPARK2: Find-Minimum-In-Rotated-Sorted-Array (`Minimum`).
 
-For these the trivial body passes the folder's existing checks; they need tests whose expected answer differs from the trivial result. Jump-Game and Mean-Variance are the 2 Silver-proven non-trivial weak folders; they have no own tests yet. Among the plain Ada ones some picks are helpers rather than the algorithm (`Seed_RNG`, `Start_Point`, `Sphere_Grad`, `Grad_U_Std_Normal`, `Free_Parse_Tree`), so there the flag only says that this helper is untested. In 22 folders no trivial variant at all was caught (Jump-Game, Course-Schedule, Clone-Graph, Clone-Graph-Stub, Alien-Dictionary-Stub, Assign-Cookies, Candy, Find-The-City, Fisher-Yates-Shuffle, Gas-Station, Guess-Number-Higher-Or-Lower, Jump-Game-II, Merge-Intervals, Non-Overlapping-Intervals, Insert-Into-A-Binary-Search-Tree, Unique-Binary-Search-Trees-II-Lite, Find-Minimum-In-Rotated-Sorted-Array, Elser-Difference-Map-Algorithm, Nagles-Algorithm, Recovery-Exploiting-Semantics, SEQUITUR-Algorithm, Unicode-Collation-Algorithm): the tests did not catch a single trivial body.
+For these the trivial body passes the folder's existing checks; they need tests whose expected answer differs from the trivial result. Jump-Game is the only Silver-proven non-trivial weak folder (see 3e). Among the plain Ada ones some picks are helpers rather than the algorithm (`Seed_RNG`, `Start_Point`, `Sphere_Grad`, `Grad_U_Std_Normal`, `Free_Parse_Tree`), so there the flag only says that this helper is untested. In 22 folders no trivial variant at all was caught (Jump-Game, Course-Schedule, Clone-Graph, Clone-Graph-Stub, Alien-Dictionary-Stub, Assign-Cookies, Candy, Find-The-City, Fisher-Yates-Shuffle, Gas-Station, Guess-Number-Higher-Or-Lower, Jump-Game-II, Merge-Intervals, Non-Overlapping-Intervals, Insert-Into-A-Binary-Search-Tree, Unique-Binary-Search-Trees-II-Lite, Find-Minimum-In-Rotated-Sorted-Array, Elser-Difference-Map-Algorithm, Nagles-Algorithm, Recovery-Exploiting-Semantics, SEQUITUR-Algorithm, Unicode-Collation-Algorithm): the tests did not catch a single trivial body.
 
 ## 3e. Own tests
 
@@ -94,13 +94,13 @@ For Silver-proven non-trivial folders without a twin or a known-answer vector, w
 
 * properties of the result (sorted + permutation of the input, invariants such as BST order, bounds, round trips where an inverse exists);
 * small brute-force references written by us in the test (insertion sort, recursive edit distance, exhaustive enumeration of substrings / subsets / trees);
-* exhaustive checks where the input space is small (all 0/1 arrays of length 8 for the sorts), and many short random strings over two- or three-letter alphabets so that repeats and ties are common.
+* exhaustive checks where the input space is small (all 0/1 arrays of length 8 for the sorts, all 3,125 samples for Mean-Variance), and many short random strings over two- or three-letter alphabets so that repeats and ties are common.
 
 Never from the program's own current output, and nothing from Rosetta Code, LeetCode, Wikipedia text or GPL/GFDL sources. Random inputs come from the Park-Miller minimal standard generator (16807 mod 2**31-1, seed 20261008), written inline, so every run is the same. Where a README leaves a convention open (does depth count nodes or edges, are range bounds inclusive), only convention-independent properties are tested, e.g. the one-node tree fixes the convention, and odd range bounds with even node values make inclusivity irrelevant.
 
 Each folder has `tests/own_checks.adb` (called from its test main) and `tests/SOURCES.txt`, which states where every expected value comes from. `tools/vv/own_tests.csv` lists the folders and checks; the index shows them in column `own_tests`. A folder has a *known answer* (column `known_answer`) when it has a registered vector, own tests or an agreeing differential test, and the do-nothing check did not flag it weak; `training_ready` now requires a known answer.
 
-Status (2026-10-08): 84 folders (33 sorting, 24 trees, 15 strings, 6 searching, 5 numerical, 1 misc); all pass on GNAT 14 and GNAT 12 and all are `ok` in the do-nothing check. The proof projects list their source files, so `own_checks.adb` is outside proof scope (three projects without a source list now name it explicitly so `make test` still builds).
+Status (2026-10-08): 85 folders (33 sorting, 24 trees, 15 strings, 6 searching, 5 numerical, 2 misc); all pass on GNAT 14 and GNAT 12 and all are `ok` in the do-nothing check. The proof projects list their source files, so `own_checks.adb` is outside proof scope (three projects without a source list now name it explicitly so `make test` still builds).
 
 Findings while writing them. The code is not changed yet; for Repeated-String-Match, Newton-Raphson, Balanced-Binary-Tree and Range-Sum-BST the own tests fail and are parked (not committed) until the intended behaviour is decided, so these four do not count as having own tests:
 
@@ -113,12 +113,13 @@ Findings while writing them. The code is not changed yet; for Repeated-String-Ma
 * `sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array`: squares elementwise without sorting; the README describes the elementwise transform, so this is a naming issue (own tests check the README behaviour).
 * `sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency`: different characters with the same frequency are not kept in contiguous groups; the README does not require it, so own tests leave it out.
 * `sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II`: inputs without an exact 4/4 even/odd split lose values (outside the exercise; not checked by own tests, no precondition or subtype rules them out).
+* `misc/SPARK2/Ada-SPARK-Jump-Game`: `Can_Jump (A, N)` returns `A (N) > 0` (its postcondition says exactly that), which is not the jump game; the README calls the folder a stub, but the name has no `-Stub`, so the index does not treat it as one. Flagged weak by the do-nothing check; no own tests.
 
 ## Not done yet
 
 * CI / GitHub Actions (deliberately not added).
 * Adapters for the remaining 43 pair edges (see 3a); `Float` tolerance in the comparison.
-* Known-answer vectors (RFC / NIST / OEIS) beyond the 2 registered folders; own tests (3e) for the remaining Silver non-trivial folders without a twin, starting with the 2 weak ones (Jump-Game, Mean-Variance).
+* Known-answer vectors (RFC / NIST / OEIS) beyond the 2 registered folders; own tests (3e) for the remaining Silver non-trivial folders without a twin (Jump-Game first needs a decision on its intended behaviour, see 3e).
 * Fixes for the findings in 3e (left as they are until the intended behaviour is decided).
 * A better main-subprogram pick for the do-nothing check in plain Ada folders (some picks are helpers), and the 94 + 15 folders whose unmodified tests fail or do not build in its scratch build.
 * GNAT 12 for the differential, mutation and do-nothing stages (they use GNAT 14 only; stage 1 covers both compilers).
