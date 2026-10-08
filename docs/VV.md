@@ -251,6 +251,9 @@ sweep's removal check (sweep_fallback.py) had marked the phase as sorting
 alone, which was wrong: the tests it ran never produced a failing input.
 
 
+
+Agent B (2026-10-08, Bucket-Sort): the same masking pattern, and not a bug. The bucket phase sorted on its own (sweep_fallback.py and the phase-alone hunt both passed), but it was not proved, and a final Insertion_Pass covered it. The phase is now proved (181 checks at silver level 2 and at level 4) and the fallback is gone (0bda50fa). The ten GNAT 12 warnings (a missing Slot postcondition and a loop index bound) were fixed in the code, not suppressed. Held-out half, split seed 20261022: 25/27 raw, 25/25 after 2 justified equivalents; the always-pass dummy scores 0/33. tools/vv/sweep_heldout_B.csv records both halves.
+
 ## 3j. Silent-fail scan, compiler-version guard and timeouts (2026-10-08, night)
 
 **Silent fail.** `tools/vv/silent_fail.py` asks whether a failed check would fail `make test`. It reads the logs of the version-checked build run (`--from-logs`; `tools/audit/build_folder.sh` keeps `mk14.log`, `mk12.log`, `r14.log`, `r12.log`) or runs `make test` itself on GNAT 14. It flags three things:

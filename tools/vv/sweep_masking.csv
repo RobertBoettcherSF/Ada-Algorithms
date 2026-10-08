@@ -17,4 +17,4 @@ sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,yes,sorted on all existing tests without
 sorting/SPARK4/Ada-SPARK-Stooge-Sort,yes,sorted on all existing tests without the finish; recursive stooge sort not proved
 sorting/SPARK4/Ada-SPARK-Strand-Sort,yes,sorted on all existing tests without the finish; strand extraction + merge not proved
 sorting/SPARK4/Bead-Sort,yes,sorted on all existing tests without the finish; bead (rod) phase not proved
-sorting/SPARK4/Ada-SPARK-Bucket-Sort,yes,final Insertion_Pass over the whole array after the bucket phase (found by sweep_fallback.py); existing tests pass without it; bucket phase not proved to sort
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,no,"FIXED 0bda50fa: the bucket phase is proved to sort on its own (181 checks, silver level 2 and level 4) and the final Insertion_Pass is gone; the ten GNAT 12 warnings were fixed in the code"
