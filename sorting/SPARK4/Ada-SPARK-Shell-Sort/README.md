@@ -7,7 +7,7 @@ $$
 \text{extra space } O(1);\quad \text{time depends on the gap sequence (Ciura-class empirically subquadratic)}
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Shell-Sort](https://github.com/RobertBoettcherSF/Ada-Shell-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), arbitrary `A'First`, and a Ciura sequence extended with $\lfloor 2.25\,h\rfloor$ for $n > 701$; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and a **fixed** Ciura gap prefix that fits `Max_N` (no dynamic float gap generation). README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort), [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort), and [Ada-SPARK-Quicksort](https://github.com/RobertBoettcherSF/Ada-SPARK-Quicksort).
+This is the SPARK Level 4 port of the companion package [Ada-Shell-Sort](https://github.com/RobertBoettcherSF/Ada-Shell-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), and a Ciura sequence extended with $\lfloor 2.25\,h\rfloor$ for $n > 701$; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and a **fixed** Ciura gap prefix that fits `Max_N` (no dynamic float gap generation). README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort), [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort), and [Ada-SPARK-Quicksort](https://github.com/RobertBoettcherSF/Ada-SPARK-Quicksort).
 
 ## Features
 * **`Sort (A)`**: Classic in-place ascending Shellsort (fixed Ciura gaps + final gap-$1$ insertion).
@@ -19,7 +19,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Shell-Sort](https:/
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Fixed gap table `57, 23, 10, 4, 1` (Ciura prefix for $n \le 64$); no $\lfloor 2.25\,h\rfloor$ extension (unnecessary under `Max_N`).
 * Larger gaps prove only `In_Bounds` / RTE; the final gap-$1$ `Insertion_Pass` reuses the insertion-sort Level-4 argument for `Is_Sorted`.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
@@ -66,7 +66,7 @@ When you run `make test`, you will see all 228 assertions pass. Running `make pr
 | ------ | ---- |
 | `Element_Array` | `array (Positive range <>) of Integer` |
 | `Max_N` | Classroom capacity bound (`64`) |
-| `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
+| `In_Bounds` | `A'Length <= Max_N`, `A'First in 1 .. Max_N`, `A'Last in 0 .. Max_N` |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
 | `Sort` | Ascending in-place Shellsort (`Post => Is_Sorted`) |
 

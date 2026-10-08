@@ -23,29 +23,29 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
-   --  Insert A(I) into the sorted prefix A(1 .. I-1), yielding sorted
-   --  A(1 .. I). Gap-1 pass only (ordinary insertion sort step).
+   --  Insert A(I) into the sorted prefix A(A'First .. I-1), yielding sorted
+   --  A(A'First .. I). Gap-1 pass only (ordinary insertion sort step).
    procedure Insert_Step (A : in out Element_Array; I : Index)
      with
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then I in 2 .. A'Last
-         and then Sorted_Slice (A, 1, I - 1),
+         and then I in A'First + 1 .. A'Last
+         and then Sorted_Slice (A, A'First, I - 1),
        Post   =>
          In_Bounds (A)
-         and then Sorted_Slice (A, 1, I)
+         and then Sorted_Slice (A, A'First, I)
          and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K))
    is
       Key : constant Integer := A (I);
       J   : Index := I;
    begin
-      while J > 1 and then Key < A (J - 1) loop
-         pragma Loop_Invariant (J in 2 .. I);
-         pragma Loop_Invariant (Sorted_Slice (A, 1, J - 1));
+      while J > A'First and then Key < A (J - 1) loop
+         pragma Loop_Invariant (J in A'First + 1 .. I);
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, J - 1));
          pragma Loop_Invariant (Sorted_Slice (A, J + 1, I));
          pragma Loop_Invariant
            (for all K in J + 1 .. I => A (K) > Key);
@@ -61,17 +61,17 @@ is
          J     := J - 1;
       end loop;
 
-      pragma Assert (J in 1 .. I);
-      pragma Assert (Sorted_Slice (A, 1, J - 1));
+      pragma Assert (J in A'First .. I);
+      pragma Assert (Sorted_Slice (A, A'First, J - 1));
       pragma Assert (Sorted_Slice (A, J + 1, I));
       pragma Assert (for all K in J + 1 .. I => A (K) > Key);
-      pragma Assert (J = 1 or else A (J - 1) <= Key);
+      pragma Assert (J = A'First or else A (J - 1) <= Key);
 
       A (J) := Key;
 
-      pragma Assert (if J > 1 then A (J - 1) <= A (J));
+      pragma Assert (if J > A'First then A (J - 1) <= A (J));
       pragma Assert (if J < I then A (J) <= A (J + 1));
-      pragma Assert (Sorted_Slice (A, 1, I));
+      pragma Assert (Sorted_Slice (A, A'First, I));
    end Insert_Step;
 
    --  Ordinary insertion sort (gap = 1). Proves Is_Sorted.
@@ -82,14 +82,14 @@ is
        Post   => In_Bounds (A) and then Is_Sorted (A)
    is
    begin
-      pragma Assert (Sorted_Slice (A, 1, 1));
+      pragma Assert (Sorted_Slice (A, A'First, A'First));
 
-      for I in 2 .. A'Last loop
+      for I in A'First + 1 .. A'Last loop
          Insert_Step (A, I);
 
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, 1, I));
-         pragma Loop_Invariant (Is_Sorted (A (1 .. I)));
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, I));
+         pragma Loop_Invariant (Is_Sorted (A (A'First .. I)));
          pragma Loop_Invariant
            (for all K in I + 1 .. A'Last =>
               A (K) = A'Loop_Entry (K));
@@ -104,22 +104,21 @@ is
        Pre    =>
          In_Bounds (A)
          and then A'Length >= 2
-         and then Gap in 2 .. A'Last - 1,
+         and then Gap in 2 .. A'Length - 1,
        Post   => In_Bounds (A)
    is
       Key : Integer;
       J   : Index;
    begin
-      for I in Gap + 1 .. A'Last loop
+      for I in A'First + Gap .. A'Last loop
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (I in Gap + 1 .. A'Last + 1);
 
          Key := A (I);
          J   := I;
 
-         while J >= Gap + 1 and then A (J - Gap) > Key loop
+         while J >= A'First + Gap and then A (J - Gap) > Key loop
             pragma Loop_Invariant (In_Bounds (A));
-            pragma Loop_Invariant (J in Gap + 1 .. I);
+            pragma Loop_Invariant (J in A'First + Gap .. I);
             pragma Loop_Invariant (J <= A'Last);
             pragma Loop_Variant (Decreases => J);
 
