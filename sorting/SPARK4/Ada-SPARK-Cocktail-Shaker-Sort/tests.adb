@@ -7,6 +7,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Cocktail_Shaker_Sort; use Cocktail_Shaker_Sort;
+with Own_Checks;
 
 procedure Tests
   with SPARK_Mode => Off
@@ -475,4 +476,5 @@ begin
    if Fail_Count /= 0 then
       raise Program_Error with "Cocktail_Shaker_Sort tests failed";
    end if;
+   Own_Checks;
 end Tests;

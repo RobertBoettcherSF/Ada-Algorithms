@@ -9,9 +9,8 @@
 --  exceptions, In_Bounds / Is_Sorted contracts replace Invalid_Argument.
 --  Non-SPARK sibling allows arbitrary A'First, raises on oversized n,
 --  and loops until the window collapses; this port requires A'First = 1,
---  uses Pre => In_Bounds (A), caps outer cocktail rounds for
---  termination, and proves sortedness via a final gap-1 bubble finish
---  (same proof role as Comb_Sort / Odd_Even_Sort). Full multiset /
+--  uses Pre => In_Bounds (A), and proves sortedness of the shaker passes
+--  themselves (window invariant; Hi - Lo is the loop variant). Full multiset /
 --  permutation equality is verified by tests rather than claimed as a
 --  Level-4 postcondition (sortedness is proved).
 --
@@ -60,17 +59,15 @@ is
    -- Algorithm sketch (classic cocktail / bidirectional bubble / Wikipedia)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Maintain an active window [Lo .. Hi]
-   --  (initially 1 .. A'Last). Cap outer rounds at Max_N (n/2 rounds
-   --  suffice in theory; the cap discharges termination under Level 4):
-   --    Each round:
+   --  (initially 1 .. A'Last). While Lo < Hi:
    --      Forward pass:  for I in Lo .. Hi-1, swap if A(I) > A(I+1);
    --                     then Hi := Hi - 1  (largest key bubbled to Hi).
-   --      Backward pass: for I in reverse Lo .. Hi-1, swap if A(I) > A(I+1);
+   --      Backward pass: for I in reverse Lo+1 .. Hi, swap if A(I-1) > A(I);
    --                     then Lo := Lo + 1  (smallest key bubbled to Lo).
-   --    Stop early when Lo >= Hi or a pass performs no swaps.
-   --  After the capped cocktail phase, a final gap-1 bubble finish
-   --  (shrinking unsorted suffix + early exit) establishes Is_Sorted —
-   --  same proof role as Comb_Sort's Bubble_Finish / Odd_Even's finish.
+   --    Stop early when a pass performs no swaps (the window is sorted).
+   --  Proof: A(1 .. Lo-1) stays sorted and <= the rest, A(Hi+1 .. A'Last)
+   --  stays sorted and >= the rest; Hi - Lo decreases every round. This
+   --  proves Is_Sorted directly (no extra bubble sort at the end).
    --  Swap only when A(I) > A(I+1) (strict `>`; never `>=`) so equal
    --  keys keep relative order (stable).
    --  Empty and singleton arrays are no-ops.
@@ -85,8 +82,7 @@ is
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending in-place cocktail shaker (bidirectional bubble) sort
-   --  + gap-1 bubble finish.
+   --  Ascending in-place cocktail shaker (bidirectional bubble) sort.
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).

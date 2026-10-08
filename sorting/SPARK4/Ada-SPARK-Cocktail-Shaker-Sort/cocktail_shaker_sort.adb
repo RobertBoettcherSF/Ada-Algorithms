@@ -1,8 +1,8 @@
---  Cocktail_Shaker_Sort body — SPARK Level 4 bidirectional bubble /
---  cocktail shaker sort. Capped Lo..Hi forward+backward rounds prove
---  only In_Bounds / RTE; the final gap-1 bubble finish reuses
---  Bubble_Pass / Sorted_Slice / Prefix_Leq_Suffix so Sort proves
---  Is_Sorted (same split as Comb_Sort / Odd_Even_Sort).
+--  Cocktail_Shaker_Sort body - SPARK Level 4 bidirectional bubble
+--  (cocktail shaker) sort. Forward passes carry the window maximum up to
+--  Hi, backward passes carry the window minimum down to Lo; the window
+--  invariant (sorted prefix <= rest, sorted suffix >= rest) proves
+--  Is_Sorted directly, with no extra bubble sort at the end.
 
 package body Cocktail_Shaker_Sort
   with SPARK_Mode => On
@@ -67,60 +67,110 @@ is
       A (Y) := T;
    end Swap;
 
-   --  One forward pass over A (Lo .. Hi): bubble the maximum of that
-   --  window toward Hi via adjacent swaps. Only In_Bounds / RTE.
-   --  Swapped is set True if at least one pair was exchanged.
+   --  Window invariant shared by both passes and by the shaker loop:
+   --    A (1 .. Lo - 1) is sorted and <= everything from Lo on (the
+   --    minima already moved down by backward passes), and
+   --    A (Hi + 1 .. A'Last) is sorted and >= everything up to Hi (the
+   --    maxima already moved up by forward passes).
+
+   --  One forward pass over A (Lo .. Hi): adjacent swaps carry the
+   --  maximum of the window to Hi, so the sorted suffix grows by one.
+   --  Swapped is False iff no pair was exchanged, i.e. the window was
+   --  already sorted.
    procedure Forward_Pass
      (A       : in out Element_Array;
       Lo, Hi  : Index;
-      Swapped : in out Boolean)
+      Swapped : out Boolean)
      with
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Length >= 2
          and then Lo in 1 .. A'Last
-         and then Hi in 1 .. A'Last
-         and then Lo < Hi,
-       Post   => In_Bounds (A)
+         and then Hi in Lo + 1 .. A'Last
+         and then Sorted_Slice (A, 1, Lo - 1)
+         and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)
+         and then Sorted_Slice (A, Hi + 1, A'Last)
+         and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),
+       Post   =>
+         In_Bounds (A)
+         and then Sorted_Slice (A, 1, Lo - 1)
+         and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)
+         and then Sorted_Slice (A, Hi, A'Last)
+         and then Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)
+         and then (if not Swapped then Sorted_Slice (A, Lo, Hi))
    is
    begin
+      Swapped := False;
       for I in Lo .. Hi - 1 loop
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (I + 1 <= A'Last);
+         pragma Loop_Invariant (for all K in Lo .. I => A (K) <= A (I));
+         pragma Loop_Invariant
+           (for all K in 1 .. Lo - 1 => A (K) = A'Loop_Entry (K));
+         pragma Loop_Invariant
+           (for all K in I + 1 .. A'Last => A (K) = A'Loop_Entry (K));
+         pragma Loop_Invariant (Sorted_Slice (A, 1, Lo - 1));
+         pragma Loop_Invariant (Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last));
+         pragma Loop_Invariant (Sorted_Slice (A, Hi + 1, A'Last));
+         pragma Loop_Invariant (Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last));
+         pragma Loop_Invariant (if not Swapped then Sorted_Slice (A, Lo, I));
 
          if A (I) > A (I + 1) then
             Swap (A, I, I + 1);
             Swapped := True;
          end if;
+
+         pragma Assert (for all K in Lo .. I + 1 => A (K) <= A (I + 1));
+         pragma Assert (if not Swapped then Sorted_Slice (A, Lo, I + 1));
       end loop;
+
+      pragma Assert (for all K in Lo .. Hi => A (K) <= A (Hi));
+      pragma Assert (Hi = A'Last or else A (Hi) <= A (Hi + 1));
+      pragma Assert (Sorted_Slice (A, Hi, A'Last));
+      pragma Assert (Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last));
    end Forward_Pass;
 
-   --  One backward pass over A (Lo .. Hi): bubble the minimum of that
-   --  window toward Lo via adjacent swaps. Only In_Bounds / RTE.
-   --  While-loop (not reverse-for) so the index stays in Index.
+   --  One backward pass over A (Lo .. Hi): adjacent swaps carry the
+   --  minimum of the window down to Lo, so the sorted prefix grows by one.
+   --  Swapped is False iff the window was already sorted. While loop (not
+   --  reverse for) so the index stays in Index.
    procedure Backward_Pass
      (A       : in out Element_Array;
       Lo, Hi  : Index;
-      Swapped : in out Boolean)
+      Swapped : out Boolean)
      with
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Length >= 2
          and then Lo in 1 .. A'Last
-         and then Hi in 1 .. A'Last
-         and then Lo < Hi,
-       Post   => In_Bounds (A)
+         and then Hi in Lo + 1 .. A'Last
+         and then Sorted_Slice (A, 1, Lo - 1)
+         and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)
+         and then Sorted_Slice (A, Hi + 1, A'Last)
+         and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),
+       Post   =>
+         In_Bounds (A)
+         and then Sorted_Slice (A, 1, Lo)
+         and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)
+         and then Sorted_Slice (A, Hi + 1, A'Last)
+         and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last)
+         and then (if not Swapped then Sorted_Slice (A, Lo, Hi))
    is
-      I : Index;
+      I : Index := Hi;
    begin
-      --  I walks Hi, Hi-1, …, Lo+1; each step compares A(I-1), A(I).
-      I := Hi;
+      Swapped := False;
       while I > Lo loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (I in Lo + 1 .. Hi);
-         pragma Loop_Invariant (I in 2 .. A'Last);
+         pragma Loop_Invariant (for all K in I .. Hi => A (I) <= A (K));
+         pragma Loop_Invariant
+           (for all K in 1 .. I - 1 => A (K) = A'Loop_Entry (K));
+         pragma Loop_Invariant
+           (for all K in Hi + 1 .. A'Last => A (K) = A'Loop_Entry (K));
+         pragma Loop_Invariant (Sorted_Slice (A, 1, Lo - 1));
+         pragma Loop_Invariant (Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last));
+         pragma Loop_Invariant (Sorted_Slice (A, Hi + 1, A'Last));
+         pragma Loop_Invariant (Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last));
+         pragma Loop_Invariant (if not Swapped then Sorted_Slice (A, I, Hi));
          pragma Loop_Variant (Decreases => I);
 
          if A (I - 1) > A (I) then
@@ -128,117 +178,16 @@ is
             Swapped := True;
          end if;
 
+         pragma Assert (for all K in I - 1 .. Hi => A (I - 1) <= A (K));
+         pragma Assert (if not Swapped then Sorted_Slice (A, I - 1, Hi));
          I := I - 1;
       end loop;
+
+      pragma Assert (for all K in Lo .. Hi => A (Lo) <= A (K));
+      pragma Assert (Lo = 1 or else A (Lo - 1) <= A (Lo));
+      pragma Assert (Sorted_Slice (A, 1, Lo));
+      pragma Assert (Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last));
    end Backward_Pass;
-
-   --  One forward pass over A (1 .. Bound): bubble the maximum of that
-   --  range to index Bound via adjacent swaps. Preserves the already-
-   --  sorted / partitioned suffix Bound+1 .. A'Last. Swapped is True
-   --  iff at least one adjacent pair was exchanged (False ⇒ A(1 .. Bound)
-   --  was already adjacent-sorted).
-   procedure Bubble_Pass
-     (A       : in out Element_Array;
-      Bound   : Index;
-      Swapped : out Boolean)
-     with
-       Global => null,
-       Pre    =>
-         In_Bounds (A)
-         and then A'Last >= 2
-         and then Bound in 2 .. A'Last
-         and then Sorted_Slice (A, Bound + 1, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),
-       Post   =>
-         In_Bounds (A)
-         and then Sorted_Slice (A, Bound, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)
-         and then
-           (if not Swapped then Sorted_Slice (A, 1, Bound))
-   is
-   begin
-      Swapped := False;
-
-      for I in 1 .. Bound - 1 loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant
-           (for all K in 1 .. I => A (K) <= A (I));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (for all K in I + 1 .. A'Last => A (K) = A'Loop_Entry (K));
-         pragma Loop_Invariant
-           (if not Swapped then Sorted_Slice (A, 1, I));
-
-         if A (I) > A (I + 1) then
-            Swap (A, I, I + 1);
-            Swapped := True;
-         end if;
-
-         pragma Assert (for all K in 1 .. I + 1 => A (K) <= A (I + 1));
-         pragma Assert (if not Swapped then Sorted_Slice (A, 1, I + 1));
-      end loop;
-
-      pragma Assert (for all K in 1 .. Bound => A (K) <= A (Bound));
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      pragma Assert (Bound = A'Last or else A (Bound) <= A (Bound + 1));
-      pragma Assert (Sorted_Slice (A, Bound, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-      pragma Assert (if not Swapped then Sorted_Slice (A, 1, Bound));
-   end Bubble_Pass;
-
-   --  Final gap = 1: ordinary bubble sort with early exit. Proves Is_Sorted.
-   procedure Bubble_Finish (A : in out Element_Array)
-     with
-       Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
-   is
-      Bound   : Index;
-      Swapped : Boolean;
-   begin
-      Bound := A'Last;
-
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-
-      loop
-         pragma Loop_Invariant (Bound in 2 .. A'Last);
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Variant (Decreases => Bound);
-
-         Bubble_Pass (A, Bound, Swapped);
-
-         pragma Assert (Sorted_Slice (A, Bound, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-
-         if not Swapped then
-            pragma Assert (Sorted_Slice (A, 1, Bound));
-            pragma Assert (Sorted_Slice (A, Bound, A'Last));
-            pragma Assert (Is_Sorted (A));
-            return;
-         end if;
-
-         exit when Bound = 2;
-
-         Bound := Bound - 1;
-
-         pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      end loop;
-
-      pragma Assert (Bound = 2);
-      pragma Assert (Sorted_Slice (A, 2, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 1, 2, A'Last));
-      pragma Assert (Is_Sorted (A));
-   end Bubble_Finish;
 
    procedure Sort (A : in out Element_Array) is
       Lo      : Index;
@@ -252,34 +201,37 @@ is
       Lo := 1;
       Hi := A'Last;
 
-      --  Cap outer cocktail rounds at Max_N so termination proves
-      --  (n/2 bidirectional rounds suffice in theory; early exit on a
-      --  clean pass or a collapsed Lo..Hi window).
-      for Iter in 1 .. Max_N loop
+      while Lo < Hi loop
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (A'Length >= 2);
          pragma Loop_Invariant (Lo in 1 .. A'Last);
-         pragma Loop_Invariant (Hi in 1 .. A'Last);
+         pragma Loop_Invariant (Hi in Lo + 1 .. A'Last);
+         pragma Loop_Invariant (Sorted_Slice (A, 1, Lo - 1));
+         pragma Loop_Invariant (Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last));
+         pragma Loop_Invariant (Sorted_Slice (A, Hi + 1, A'Last));
+         pragma Loop_Invariant (Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last));
+         pragma Loop_Variant (Decreases => Hi - Lo);
 
-         exit when Lo >= Hi;
-
-         --  Forward: bubble largest toward Hi.
-         Swapped := False;
+         --  Forward: bubble the largest of the window up to Hi.
          Forward_Pass (A, Lo, Hi, Swapped);
-         exit when not Swapped;
+         if not Swapped then
+            --  Window sorted: prefix, window and suffix join up.
+            pragma Assert (Sorted_Slice (A, 1, A'Last));
+            return;
+         end if;
          Hi := Hi - 1;
+         exit when Lo = Hi;
 
-         exit when Lo >= Hi;
-
-         --  Backward: bubble smallest toward Lo.
-         Swapped := False;
+         --  Backward: bubble the smallest of the window down to Lo.
          Backward_Pass (A, Lo, Hi, Swapped);
-         exit when not Swapped;
+         if not Swapped then
+            pragma Assert (Sorted_Slice (A, 1, A'Last));
+            return;
+         end if;
          Lo := Lo + 1;
       end loop;
 
-      --  Gap-1 bubble finish → Is_Sorted (same role as Comb / Odd_Even).
-      Bubble_Finish (A);
+      --  Window of at most one element left between prefix and suffix.
+      pragma Assert (Sorted_Slice (A, 1, A'Last));
    end Sort;
 
 end Cocktail_Shaker_Sort;
