@@ -19,7 +19,7 @@ GNATMAKE = mutate.GNATMAKE
 UNHANDLED = re.compile(r'^raised [A-Z_][\w.]* :|^\s*FAIL|\b[1-9]\d* FAIL', re.M)
 
 def run_tests(work):
-    """mutate.run_tests with a stricter kill test: nonzero exit, timeout, a
+    """mutate.run_tests with a stricter kill test: nonzero exit, a
     FAIL line or an unhandled-exception line ("raised X : ..."). mutate.py
     also counts any "raised " in the output, so tests that print
     "State_Error raised properly" look killed even unmutated."""
@@ -35,7 +35,7 @@ def run_tests(work):
     try:
         r = subprocess.run(['./tbin'], cwd=work, capture_output=True, text=True, timeout=30)
     except subprocess.TimeoutExpired:
-        return 'killed'
+        return 'timeout'   # reported separately; not a kill and not in the score
     if r.returncode != 0 or UNHANDLED.search(r.stdout + r.stderr):
         return 'killed'
     return 'survived'
@@ -80,12 +80,13 @@ def main():
         with ThreadPoolExecutor(a.j) as ex:
             res = list(ex.map(one, jobs))
         k = sum(r[2] == 'killed' for r in res); s = sum(r[2] == 'survived' for r in res); sb = sum(r[2] == 'stillborn' for r in res)
+        to = sum(r[2] == 'timeout' for r in res)
         for (rel, ln, c0, c1, name, rep), (b, af, r) in zip(pick, res):
             detail.append(dict(folder=fid, file=rel, line=ln + 1, op=name, before=b, after=af, result=r))
         score = '' if k + s == 0 else f'{k}/{k + s}'
         rows.append(dict(folder=fid, baseline=('pass' if base == 'survived' else base), sites=len(cand), mutants=len(pick),
-                         killed=k, survived=s, stillborn=sb, score=score))
-        print(f"{fid:60s} base={rows[-1]['baseline']:8s} sites={len(cand):4d} killed={k} survived={s} stillborn={sb} score={score}", flush=True)
+                         killed=k, survived=s, stillborn=sb, timeout=to, score=score))
+        print(f"{fid:60s} base={rows[-1]['baseline']:8s} sites={len(cand):4d} killed={k} survived={s} stillborn={sb} timeout={to} score={score}", flush=True)
     with open(a.out, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
     if detail:
