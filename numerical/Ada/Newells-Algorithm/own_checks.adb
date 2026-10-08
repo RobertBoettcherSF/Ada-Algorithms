@@ -411,6 +411,184 @@ begin
       end if;
    end;
 
+   --  Signed distance is the plane formula, including the Y term.
+   for Trial in 1 .. 20 loop
+      declare
+         Pl : constant Plane_3D :=
+           (A => R (-2.0, 2.0), B => R (-2.0, 2.0), C => R (-2.0, 2.0), D => R (-2.0, 2.0));
+         Pt : constant Point_3D := (R (-3.0, 3.0), R (-3.0, 3.0), R (-3.0, 3.0));
+         Mine : constant Real := Pl.A * Pt.X + Pl.B * Pt.Y + Pl.C * Pt.Z + Pl.D;
+      begin
+         Note (Distance_To_Plane (Pl, Pt) = Mine, "distance is A x + B y + C z + D");
+      end;
+   end loop;
+
+   --  Test 1 is strict: a gap of exactly the same 1.0e-7 literal is not disjoint.
+   declare
+      P : constant Polygon := Slab (1, 0.0, 0.0, 0.0, 1.0);
+      Q : constant Polygon := Slab (2, 1.0e-7, 0.0, 0.0, 1.0);
+      Touch : constant Polygon := Slab (3, 0.0, 1.0, 0.0, 1.0);
+   begin
+      Note (not Test_1_Z_Disjoint (P, Q),
+        "Z gap equal to 1.0e-7 is not strict separation");
+      Note (Test_1_Z_Disjoint (P, Slab (4, 1.0, 0.0, 0.0, 1.0)),
+        "a unit Z gap is strict separation");
+      --  P occupies x in [0,1], Touch occupies x in [1,2]: boxes meet, they are not disjoint.
+      Note (not Test_2_XY_Box_Disjoint (Touch, P),
+        "boxes that meet at an edge are not disjoint");
+      Note (Test_2_XY_Box_Disjoint (P, Slab (5, 0.0, 3.0, 0.0, 1.0)),
+        "a gap of 2 in X is disjoint");
+   end;
+
+   --  Test 5 against an independent crossing test and an interior point.
+   declare
+      Cross_A : constant Polygon := Make_Polygon (1,
+        [(0.0, 0.0, 0.0), (4.0, 0.0, 0.0), (2.0, 3.0, 0.0)]);
+      Cross_B : constant Polygon := Make_Polygon (2,
+        [(0.0, 1.0, 0.0), (4.0, 1.0, 0.0), (2.0, -1.0, 0.0)]);
+      Outer : constant Polygon := Slab (3, 0.0, 0.0, 0.0, 6.0);
+      Inner : constant Polygon := Make_Polygon (4,
+        [(2.0, 2.0, 0.0), (3.0, 2.0, 0.0), (2.5, 3.0, 0.0)]);
+      Apart : constant Polygon := Slab (5, 0.0, 20.0, 20.0, 1.0);
+   begin
+      Note (not Proj_Disjoint (Cross_A, Cross_B), "own test sees the crossing pair");
+      Note (not Test_5_2D_Polygons_Disjoint (Cross_A, Cross_B),
+        "crossing triangles are not projection-disjoint");
+      Note (not Proj_Disjoint (Outer, Inner) and then not Test_5_2D_Polygons_Disjoint (Outer, Inner),
+        "a triangle inside a square is not projection-disjoint");
+      Note (Proj_Disjoint (Outer, Apart) and then Test_5_2D_Polygons_Disjoint (Outer, Apart),
+        "separated squares are projection-disjoint");
+   end;
+
+   --  Adaptive sort of non-overlapping slabs must not split and must keep order.
+   declare
+      List : Polygon_List;
+      Splits : Natural := 99;
+      Zs : constant array (1 .. 4) of Real := [-3.0, -1.0, -4.0, -2.0];
+   begin
+      for K in Zs'Range loop
+         List.Append (Slab (Polygon_Id (K), Zs (K), 0.0, 0.0, 1.0));
+      end loop;
+      Sort_Polygons_Adaptive (List, Max_Splits => 4, Splits_Performed => Splits);
+      Note (Splits = 0, "no split when the five tests already order the slabs");
+      Note (Natural (List.Length) = 4, "adaptive sort keeps four slabs");
+      for I in 2 .. Natural (List.Length) loop
+         Note (Own_Before (List (I - 1), List (I)),
+           "adaptive order draws the farther slab first");
+      end loop;
+   end;
+
+   --  A split of the piercing quad must introduce the midpoint of its first edge.
+   declare
+      List : Polygon_List;
+      Face : constant Polygon := Slab (1, 0.0, 0.0, 0.0, 2.0);
+      Pierce : constant Vertex_Array (1 .. 4) :=
+        [(0.4, -0.5, -1.0), (0.4, 2.5, -1.0), (1.6, 2.5, 1.0), (1.6, -0.5, 1.0)];
+      Q : constant Polygon := Make_Polygon (2, Pierce);
+      Splits : Natural := 0;
+      Mid : constant Point_3D :=
+        ((Pierce (1).X + Pierce (2).X) / 2.0,
+         (Pierce (1).Y + Pierce (2).Y) / 2.0,
+         (Pierce (1).Z + Pierce (2).Z) / 2.0);
+      Seen : Boolean := False;
+   begin
+      List.Append (Face);
+      List.Append (Q);
+      Sort_Polygons_Adaptive (List, Max_Splits => 8, Splits_Performed => Splits);
+      if Splits > 0 then
+         for I in 1 .. Natural (List.Length) loop
+            for V in 1 .. List (I).Num_Vertices loop
+               if abs (List (I).Vertices (V).X - Mid.X) < 1.0e-12
+                 and then abs (List (I).Vertices (V).Y - Mid.Y) < 1.0e-12
+                 and then abs (List (I).Vertices (V).Z - Mid.Z) < 1.0e-12
+               then
+                  Seen := True;
+               end if;
+            end loop;
+         end loop;
+         Note (Seen, "a split inserts the midpoint of the first edge");
+      end if;
+   end;
+
+   --  One polygon strictly inside another: only the point-in-polygon test can see it.
+   --  The sample is a triangle whose first vertex the broken ray-cast formula misses.
+   declare
+      Outer : constant Polygon := Make_Polygon (1,
+        [(-1.7452972448023694, 2.0464336332577915, 0.0),
+         (0.9469519734026530, -1.9959492691004757, 0.0),
+         (3.2779700477459210, 3.8622838083012248, 0.0)]);
+      Inner : constant Polygon := Make_Polygon (2,
+        [(0.0549899410400703, 1.5269093302176635, 0.0),
+         (0.1549899410400703, 1.6269093302176635, 0.0),
+         (0.1549899410400703, 1.4269093302176635, 0.0)]);
+   begin
+      Note (Inside (Inner.Vertices (1), Outer), "own ray cast sees the inner vertex");
+      Note (not Test_5_2D_Polygons_Disjoint (Outer, Inner),
+        "a polygon inside another is not projection-disjoint");
+   end;
+
+   for Trial in 1 .. 15 loop
+      declare
+         V : Vertex_Array (1 .. 3);
+         Area : Real;
+         Cx, Cy : Real;
+         Inner_V : Vertex_Array (1 .. 3);
+         Outer_P, Inner_P : Polygon (3);
+      begin
+         V (1) := (R (-4.0, 4.0), R (-4.0, 4.0), 0.0);
+         V (2) := (R (-4.0, 4.0), R (-4.0, 4.0), 0.0);
+         V (3) := (R (-4.0, 4.0), R (-4.0, 4.0), 0.0);
+         Area := (V (2).X - V (1).X) * (V (3).Y - V (1).Y)
+           - (V (2).Y - V (1).Y) * (V (3).X - V (1).X);
+         if abs (Area) > 0.5 then
+            Cx := (V (1).X + V (2).X + V (3).X) / 3.0;
+            Cy := (V (1).Y + V (2).Y + V (3).Y) / 3.0;
+            for I in 1 .. 3 loop
+               Inner_V (I) := (0.7 * Cx + 0.3 * V (I).X, 0.7 * Cy + 0.3 * V (I).Y, 0.0);
+            end loop;
+            Outer_P := Make_Polygon (1, V);
+            Inner_P := Make_Polygon (2, Inner_V);
+            if Inside (Inner_P.Vertices (1), Outer_P) then
+               Note (not Test_5_2D_Polygons_Disjoint (Outer_P, Inner_P),
+                 "shrunk triangle is inside its parent");
+            end if;
+         end if;
+      exception
+         when Degenerate_Polygon_Error =>
+            null;
+      end;
+   end loop;
+
+   --  Random triangles: the package predicates must match the independent ones.
+   for Trial in 1 .. 30 loop
+      declare
+         function Tri (Id : Polygon_Id) return Polygon is
+            V : Vertex_Array (1 .. 3);
+         begin
+            V (1) := (R (-5.0, 5.0), R (-5.0, 5.0), R (-5.0, 5.0));
+            V (2) := (R (-5.0, 5.0), R (-5.0, 5.0), R (-5.0, 5.0));
+            V (3) := (R (-5.0, 5.0), R (-5.0, 5.0), R (-5.0, 5.0));
+            return Make_Polygon (Id, V);
+         end Tri;
+         P : Polygon (3);
+         Q : Polygon (3);
+      begin
+         P := Tri (1);
+         Q := Tri (2);
+         Note (Test_1_Z_Disjoint (P, Q) = (Z_Max (P) < Z_Min (Q) - 1.0e-7),
+           "Z test matches the vertex extents");
+         Note (Test_2_XY_Box_Disjoint (P, Q) = Box_Disjoint (P, Q),
+           "box test matches an independent min/max");
+         Note (Test_5_2D_Polygons_Disjoint (P, Q) = Proj_Disjoint (P, Q),
+           "projection test matches an independent crossing test");
+         Note (Test_3_P_Behind_Plane_Of_Q (P, Q) = All_Far (P, Cross_Normal (Q.Vertices)),
+           "behind-plane test matches the edge cross product");
+      exception
+         when Degenerate_Polygon_Error =>
+            null;
+      end;
+   end loop;
+
    Txt.Put_Line ("own checks:" & Natural'Image (Checks)
      & "  failed:" & Natural'Image (Fails));
    Fail_Count := Fails;
