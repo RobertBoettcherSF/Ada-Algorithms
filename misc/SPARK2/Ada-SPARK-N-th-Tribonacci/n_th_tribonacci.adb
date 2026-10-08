@@ -1,7 +1,9 @@
 pragma SPARK_Mode (On);
 
 package body N_Th_Tribonacci is
-   function Add_Bounded (Left, Right : Result) return Result is
+   function Add_Bounded (Left, Right : Result) return Result
+     with Post => Add_Bounded'Result = Integer'Min (Left + Right, Result'Last)
+   is
    begin
       if Left > Result'Last - Right then
          return Result'Last;
@@ -23,9 +25,9 @@ package body N_Th_Tribonacci is
          return C;
       end if;
       for I in 3 .. N loop
-         pragma Loop_Invariant (A in Result and B in Result and C in Result);
+         pragma Loop_Invariant (A <= B and then B <= C);
          declare
-            Next : Result := Add_Bounded (Add_Bounded (A, B), C);
+            Next : constant Result := Add_Bounded (Add_Bounded (A, B), C);
          begin
             A := B;
             B := C;

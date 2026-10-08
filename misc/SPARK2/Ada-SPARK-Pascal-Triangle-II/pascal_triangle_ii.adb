@@ -1,7 +1,9 @@
 pragma SPARK_Mode (On);
 
 package body Pascal_Triangle_II is
-   function Add_Bounded (Left, Right : Result) return Result is
+   function Add_Bounded (Left, Right : Result) return Result
+     with Post => Add_Bounded'Result = Integer'Min (Left + Right, Result'Last)
+   is
    begin
       if Left > Result'Last - Right then
          return Result'Last;
@@ -15,7 +17,7 @@ package body Pascal_Triangle_II is
    begin
       Values (0) := 1;
       for R in 1 .. Row_Number loop
-         pragma Loop_Invariant (Values'First = 0 and Values'Last = 32);
+         pragma Loop_Invariant (Values (0) = 1);
          for C in reverse 1 .. R loop
             Values (C) := Add_Bounded (Values (C), Values (C - 1));
          end loop;

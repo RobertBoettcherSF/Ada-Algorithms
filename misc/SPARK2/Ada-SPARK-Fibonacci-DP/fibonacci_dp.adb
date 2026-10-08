@@ -1,7 +1,9 @@
 pragma SPARK_Mode (On);
 
 package body Fibonacci_DP is
-   function Add_Bounded (Left, Right : Result) return Result is
+   function Add_Bounded (Left, Right : Result) return Result
+     with Post => Add_Bounded'Result = Integer'Min (Left + Right, Result'Last)
+   is
    begin
       if Left > Result'Last - Right then
          return Result'Last;
@@ -20,8 +22,7 @@ package body Fibonacci_DP is
          return Current;
       end if;
       for I in 2 .. N loop
-         pragma Loop_Invariant
-           (Previous in Result and Current in Result);
+         pragma Loop_Invariant (Previous <= Current);
          declare
             Next : constant Result := Add_Bounded (Previous, Current);
          begin
