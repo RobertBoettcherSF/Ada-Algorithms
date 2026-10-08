@@ -124,3 +124,5 @@ trees/SPARK2/Ada-SPARK-Implement-Trie,Insert,implement_trie.adb,silent-failure (
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,Length,longest_common_substring.adb,legitimate,base case: empty input has a defined answer (returned value),
 trees/SPARK2/Ada-SPARK-Same-Tree,Are_Same,same_tree.adb,legitimate,base case: empty input has a defined answer (returned value),
 trees/SPARK2/Ada-SPARK-Symmetric-Tree,Is_Symmetric,symmetric_tree.adb,legitimate,base case: empty input has a defined answer (returned value),
+misc/SPARK2/Ada-SPARK-Design-Number-Container-System,Add,design_number_container_system.adb,silent-failure (missed by the scanner; own test; fixed),"guard written on one line, not matched by the textual scan",7192018e/844ab0c0
+misc/SPARK2/Ada-SPARK-Design-Number-Container-System,Remove_Last,design_number_container_system.adb,silent-failure (missed by the scanner; own test; fixed),"answered 0 on empty; not matched by the textual scan",7192018e/844ab0c0

@@ -889,7 +889,7 @@ misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue,misc,SPARK2,Ada-SPARK-Desig
 misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue-Stub,misc,SPARK2,Ada-SPARK-Design-Front-Middle-Back-Queue-Stub,yes,n/a,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,,
 misc/SPARK2/Ada-SPARK-Design-Hit-Counter-Lite,misc,SPARK2,Ada-SPARK-Design-Hit-Counter-Lite,yes,n/a,yes,yes,yes,yes,2,2,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,,
 misc/SPARK2/Ada-SPARK-Design-Linked-List,misc,SPARK2,Ada-SPARK-Design-Linked-List,yes,n/a,yes,yes,yes,yes,2,2,proven,13,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,,
-misc/SPARK2/Ada-SPARK-Design-Number-Container-System,misc,SPARK2,Ada-SPARK-Design-Number-Container-System,yes,n/a,yes,yes,yes,yes,0,0,proven,9,0,,level2-timeout,design_number_container_system.gpr,,,,,,,,,,ok,,,,
+misc/SPARK2/Ada-SPARK-Design-Number-Container-System,misc,SPARK2,Ada-SPARK-Design-Number-Container-System,yes,yes,yes,yes,yes,yes,0,0,proven,9,0,,steps=1000000,design_number_container_system.gpr,,,,,,,,,,ok,yes,own tests,yes,
 misc/SPARK2/Ada-SPARK-Design-Ordered-Stream,misc,SPARK2,Ada-SPARK-Design-Ordered-Stream,yes,n/a,yes,yes,yes,yes,4,4,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,,
 misc/SPARK2/Ada-SPARK-Design-Parking-System-II,misc,SPARK2,Ada-SPARK-Design-Parking-System-II,yes,n/a,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,,
 misc/SPARK2/Ada-SPARK-Design-Skiplist-Lite,misc,SPARK2,Ada-SPARK-Design-Skiplist-Lite,yes,n/a,yes,yes,yes,yes,2,2,proven,12,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,,

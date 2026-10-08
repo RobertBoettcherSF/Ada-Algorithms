@@ -220,3 +220,4 @@ misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,own running-minimum reference; 50
 misc/SPARK2/Ada-SPARK-Sqrt-X,floor-root definition; every N in 0 .. 100
 misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown,own brute force over every buy/sell/rest sequence; 3000 random inputs
 misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream,own counting-order median (even count: Ada division); 20000 random inputs
+misc/SPARK2/Ada-SPARK-Design-Number-Container-System,own stack model; 1000 random runs x 60 operations plus full/empty rejection checks
