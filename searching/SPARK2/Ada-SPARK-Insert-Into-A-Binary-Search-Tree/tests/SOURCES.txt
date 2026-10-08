@@ -22,7 +22,12 @@ repository by the V&V sweep, agent B, 2026-10-09):
   random runs of 1 .. 16 nodes with a random node-id permutation and
   values from a random symmetric range (narrow ranges give many equal
   values); five full 16-node shapes (ascending and descending chains,
-  all equal, alternating -100 / 100, zig-zag). 4,817 runs.
+  all equal, alternating -100 / 100, zig-zag); 1,000 random runs where
+  the first k nodes of the reference are copied into the package tree
+  with Set_Node (parents first or children first, alternating), the copy
+  is checked (used nodes, values, links, unused nodes still 0,
+  Well_Formed), and the remaining nodes are inserted; Empty checked
+  field by field. 5,818 runs.
 * Seeds: the random inputs use a fixed default seed, printed at the start
   of the run ("own checks seed: ..."); set AA_SEED=<n> to run them with
   another seed.

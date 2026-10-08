@@ -83,15 +83,59 @@ procedure Own_Checks is
       end if;
    end Walk;
 
+   --  Copy the reference tree below P into T with Set_Node, children
+   --  before parents or parents before children (Parents_First).
+   procedure Copy (T : in out Tree; P : Ref_Ptr; Parents_First : Boolean) is
+   begin
+      if P /= null then
+         if Parents_First then
+            Set_Node (T, P.Id, P.V, Id_Of (P.Left), Id_Of (P.Right));
+         end if;
+         Copy (T, P.Left, Parents_First);
+         Copy (T, P.Right, Parents_First);
+         if not Parents_First then
+            Set_Node (T, P.Id, P.V, Id_Of (P.Left), Id_Of (P.Right));
+         end if;
+      end if;
+   end Copy;
+
    --  Insert Vals (I) as node Ids (I), one by one, checking after each.
+   --  The first Pre_Built pairs are not inserted: the reference inserts
+   --  them and the package tree gets them through Set_Node.
    procedure Run (Ids : Value_List; Vals : Value_List; N : Natural;
-                  What : String) is
+                  What : String; Pre_Built : Natural := 0;
+                  Parents_First : Boolean := True) is
       T     : Tree := Empty;
       Root  : Index := 0;
       Ref   : Ref_Ptr := null;
       Ok    : Boolean := True;
    begin
-      for I in 1 .. N loop
+      for I in 1 .. Pre_Built loop
+         Ref_Insert (Ref, Node_Index (Ids (I)), Vals (I));
+      end loop;
+      Copy (T, Ref, Parents_First);
+      Root := Id_Of (Ref);
+      if Pre_Built > 0 then
+         --  The copy itself must match, and unused nodes must still be 0.
+         for Id in Node_Index loop
+            declare
+               In_Ref : constant Boolean :=
+                 (for some I in 1 .. Pre_Built => Ids (I) = Id);
+            begin
+               if Is_Used (T, Id) /= In_Ref
+                 or else (not In_Ref and then
+                          (Value_Of (T, Id) /= 0 or else Left_Of (T, Id) /= 0
+                           or else Right_Of (T, Id) /= 0))
+               then
+                  Ok := False;
+               end if;
+            end;
+         end loop;
+         if not Same (T, Ref) or else not Well_Formed (T, Root) then
+            Ok := False;
+         end if;
+      end if;
+      for I in Pre_Built + 1 .. N loop
          declare
             Id : constant Node_Index := Node_Index (Ids (I));
          begin
@@ -155,6 +199,20 @@ procedure Own_Checks is
 begin
    Put_Line ("own checks seed:" & Seed'Image & " (default"
              & Default_Seed'Image & "; set AA_SEED to override)");
+   --  0. Empty: no node used, every value and link 0.
+   declare
+      E : constant Tree := Empty;
+   begin
+      Cases := Cases + 1;
+      for Id in Node_Index loop
+         if Is_Used (E, Id) or else Value_Of (E, Id) /= 0
+           or else Left_Of (E, Id) /= 0 or else Right_Of (E, Id) /= 0
+         then
+            Failures := Failures + 1;
+            Put_Line ("FAIL Empty: node" & Id'Image & " not empty");
+         end if;
+      end loop;
+   end;
    --  1. Every value sequence of length 1 .. 6 over {-1, 0, 1} (1,092;
    --     equal values go right), nodes 1 .. n in order.
    Ids := [for I in 1 .. 16 => I];
@@ -214,7 +272,31 @@ begin
          Run (Ids, Vals, N, "random" & K'Image);
       end;
    end loop;
-   --  4. Full 16-node shapes: ascending and descending chains (path of
+   --  4. 1,000 random runs where the first nodes are copied in with
+   --     Set_Node (parents first or children first) and the rest inserted.
+   for K in 1 .. 1_000 loop
+      declare
+         N     : constant Integer := Next (1, 16);
+         Pre   : constant Integer := Next (1, Long_Long_Integer (N));
+         Width : constant Integer := Next (0, 100);
+      begin
+         Ids := [for I in 1 .. 16 => I];
+         for I in reverse 2 .. 16 loop
+            declare
+               J : constant Integer := Next (1, Long_Long_Integer (I));
+               X : constant Integer := Ids (I);
+            begin
+               Ids (I) := Ids (J);
+               Ids (J) := X;
+            end;
+         end loop;
+         for I in 1 .. N loop
+            Vals (I) := Next (Long_Long_Integer (-Width), Long_Long_Integer (Width));
+         end loop;
+         Run (Ids, Vals, N, "Set_Node + random" & K'Image, Pre, K mod 2 = 0);
+      end;
+   end loop;
+   --  5. Full 16-node shapes: ascending and descending chains (path of
    --     15 links), all equal, extremes -100 / 100 alternating, zig-zag.
    Ids := [for I in 1 .. 16 => I];
    Run (Ids, [for I in 1 .. 16 => I * 6 - 100], 16, "ascending chain");
