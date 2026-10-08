@@ -72,7 +72,7 @@ is
       --  At most Max_N iterations; each step returns or shrinks [Lo,Hi]
       --  by at least one index (worst-case interpolation is O(n)).
       for Guard in 1 .. Max_N loop
-         pragma Loop_Invariant (Lo >= 1);
+         pragma Loop_Invariant (Lo >= A'First);
          pragma Loop_Invariant (Hi <= A'Last);
          pragma Loop_Invariant (Lo <= Hi + 1);
          pragma Loop_Invariant

@@ -7,21 +7,21 @@ $$
 \textit{pos} = L + \left\lfloor\frac{(K - A(L))\cdot(H - L)}{A(H) - A(L)}\right\rfloor
 $$
 
-using `Long_Long_Integer` intermediates for the multiply. Average complexity is $O(\log\log n)$ probes on uniformly distributed keys; worst case is $O(n)$ (e.g. exponentially growing keys), so the search loop is bounded by `Max_N` iterations. The absent sentinel is always $0$ (live indices are $1 .. N$).
+using `Long_Long_Integer` intermediates for the multiply. Average complexity is $O(\log\log n)$ probes on uniformly distributed keys; worst case is $O(n)$ (e.g. exponentially growing keys), so the search loop is bounded by `Max_N` iterations. The absent sentinel is always $0$, which is outside every `A'Range` (live indices are `A'First .. A'Last` within $1 .. $`Max_N`), so `A` may start at any origin.
 
-This is the SPARK Level 4 port of the companion package [Ada-Interpolation-Search](https://github.com/RobertBoettcherSF/Ada-Interpolation-Search) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), arbitrary `A'First`, and sentinel $A'\mathit{First}-1$; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK search sibling: [Ada-SPARK-Binary-Search](https://github.com/RobertBoettcherSF/Ada-SPARK-Binary-Search).
+This is the SPARK Level 4 port of the companion package [Ada-Interpolation-Search](https://github.com/RobertBoettcherSF/Ada-Interpolation-Search) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`) and sentinel $A'\mathit{First}-1$; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK search sibling: [Ada-SPARK-Binary-Search](https://github.com/RobertBoettcherSF/Ada-SPARK-Binary-Search).
 
 ## Features
 * **`Find`**: Classic interpolation / predictive search with equal-run handling when $A(H) = A(L)$.
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards used in every entry-point `Pre`.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, overflow in the interpolation probe, and non-termination of the bounded search loop.
 * **Contract Discipline**: Preconditions replace exceptions; oversized / unsorted arrays are `Pre` violations rather than `Invalid_Argument`.
-* **Sentinel $0$**: Absent keys return $0$; live indices stay in $1 .. N$.
+* **Sentinel $0$**: Absent keys return $0$; hits are indexes in `A'Range` (any `A'First`).
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length and sortedness are `Pre => In_Bounds (A) and then Is_Sorted (A)`.
-* Indices fixed at `A'First = 1`; miss sentinel is $0$ (sibling allows arbitrary `A'First` and returns $A'\mathit{First}-1$).
+* Any `A'First` (the probe $Lo + \ldots$ is relative to the live window); miss sentinel is $0$ (the sibling returns $A'\mathit{First}-1$).
 * Search loop is a bounded `for` loop with `pragma Loop_Invariant` so termination is immediate for the prover (covers worst-case $O(n)$).
 * Overflow-safe probe uses `Long_Long_Integer` for $(K - A(L))\cdot(H - L)$ before dividing by $A(H) - A(L)$.
 * Posts prove “hit ⇒ correct index”; full “miss ⇒ key absent” completeness is exercised by tests rather than claimed as a Level-4 post without extra ghost lemmas.

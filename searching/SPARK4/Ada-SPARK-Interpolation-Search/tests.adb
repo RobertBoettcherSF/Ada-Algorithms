@@ -1,6 +1,6 @@
 --  Standalone test suite for Interpolation_Search (SPARK port).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  Sentinel is always 0 (indices are 1 .. N).
+--  Sentinel is always 0 (never in A'Range); A may start at any origin.
 
 pragma Ada_2022;
 
@@ -52,7 +52,7 @@ is
      (A : Element_Array; Key : Integer; Got : Index) return Boolean
    is
    begin
-      return Got >= 1 and then Got <= A'Last and then A (Got) = Key;
+      return Got in A'Range and then A (Got) = Key;
    end Is_Hit;
 
    procedure Expect_Hit
@@ -406,6 +406,60 @@ begin
       Expect_Hit (W, -1000, "wide -1000");
       Expect_Miss (W, 1, "wide miss 1");
       Expect_Miss (W, Integer'Last, "wide miss Last");
+   end;
+
+   Section ("14. Shifted origins (incl. near Live_Index'Last) = 1-based");
+   declare
+      Origins : constant array (1 .. 4) of Natural := [2, 7, 33, 0];
+      Same    : Boolean := True;
+      Cases   : Natural := 0;
+   begin
+      for Trial in 1 .. 60 loop
+         declare
+            Len  : constant Positive := 1 + Next_Mod (Max_N);
+            A1   : Element_Array (1 .. Len);
+            V    : Integer := Next_Mod (20) - 10;
+         begin
+            for K in A1'Range loop
+               V := V + Next_Mod (4) * (1 + Next_Mod (3) * Next_Mod (3));
+               A1 (K) := V;
+            end loop;
+            for O_I in Origins'Range loop
+               declare
+                  --  Origin 0 slot: flush against Live_Index'Last (= Max_N).
+                  F  : constant Positive :=
+                    (if Origins (O_I) = 0 then Max_N - Len + 1
+                     else Positive'Min (Origins (O_I), Max_N - Len + 1));
+                  AS : constant Element_Array (F .. F + Len - 1) := A1;
+               begin
+                  for Key in A1 (1) - 2 .. A1 (Len) + 2 loop
+                     declare
+                        R1 : constant Index := Find (A1, Key);
+                        RS : constant Index := Find (AS, Key);
+                     begin
+                        Cases := Cases + 1;
+                        if (R1 = 0) /= (RS = 0)
+                          or else (R1 /= 0 and then RS - F /= R1 - 1)
+                          or else (RS /= 0 and then AS (RS) /= Key)
+                        then
+                           Same := False;
+                        end if;
+                     end;
+                  end loop;
+               end;
+            end loop;
+         end;
+      end loop;
+      Check (Same, "Find on shifted copies (origins 2, 7, 33, Max_N-Len+1)"
+             & " = 1-based offset;" & Cases'Image & " cases");
+      declare
+         Tail : constant Element_Array (Max_N - 4 .. Max_N) := [1, 3, 5, 7, 9];
+      begin
+         Check (Idx (Find (Tail, 9)) = Max_N, "flush-to-Max_N hit at Live_Index'Last");
+         Check (Idx (Find (Tail, 1)) = Max_N - 4, "flush-to-Max_N hit at first");
+         Check (Idx (Find (Tail, 4)) = 0, "flush-to-Max_N miss sentinel 0");
+         Check (In_Bounds (Tail) and then Is_Sorted (Tail), "flush-to-Max_N In_Bounds/Is_Sorted");
+      end;
    end;
 
    New_Line;

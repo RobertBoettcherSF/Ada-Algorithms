@@ -10,13 +10,14 @@
 --  Average O(log log n) probes on uniformly distributed keys; worst
 --  case O(n) (e.g. exponentially growing keys) — the search loop is
 --  therefore bounded by Max_N iterations. Sentinel 0 when the key is
---  absent (indices are always 1 .. N).
+--  absent: 0 is outside every A'Range (indices are Live_Index >= 1),
+--  so A may start at any origin.
 --
 --  SPARK port of Ada-Interpolation-Search: hard Max_N bound, no
 --  exceptions, contracts and Is_Sorted replace Invalid_Argument /
---  unchecked sortedness. Non-SPARK sibling allows arbitrary A'First and
---  sentinel A'First−1; this port requires A'First = 1 and returns 0 on
---  a miss.
+--  unchecked sortedness. Like the non-SPARK sibling it accepts any
+--  A'First (the probe Lo + ... is relative to the live window); it
+--  returns 0 on a miss.
 --
 --  Reference: https://en.wikipedia.org/wiki/Interpolation_search
 
@@ -36,7 +37,8 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. 0 is the absent sentinel.
+   --  Live indices are A'First .. A'Last within 1 .. Max_N. 0 is the
+   --  absent sentinel (never a live index).
    subtype Index is Natural range 0 .. Max_N;
    subtype Ext_Index is Natural range 0 .. Max_N + 1;
    --  Ext_Index covers Lo / Hi cursors that may briefly become Hi + 1
@@ -51,10 +53,11 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements,
+   --  any origin (Live_Index already keeps non-empty bounds in
+   --  1 .. Max_N).
 
    function Is_Sorted (A : Element_Array) return Boolean is
      (for all I in A'Range =>
@@ -70,7 +73,7 @@ is
    -- Algorithm sketch (Wikipedia interpolation / predictive search)
    ---------------------------------------------------------------------------
    --  Assume Is_Sorted (A) and In_Bounds (A).
-   --  Lo ← 1, Hi ← A'Last; while Lo ≤ Hi and Key ∈ [A(Lo), A(Hi)]:
+   --  Lo ← A'First, Hi ← A'Last; while Lo ≤ Hi and Key ∈ [A(Lo), A(Hi)]:
    --    if A(Hi) = A(Lo), the remaining window is an equal-value run
    --      (hit Lo or miss);
    --    else estimate
@@ -89,10 +92,10 @@ is
        Global => null,
        Pre    => In_Bounds (A) and then Is_Sorted (A),
        Post   =>
-         Find'Result <= A'Last
+         (Find'Result = 0 or else Find'Result in A'Range)
          and then (if Find'Result > 0 then A (Find'Result) = Key);
    --  Interpolation (predictive) search for Key. Returns any index I in
-   --  1 .. A'Last with A(I) = Key, or 0 if Key is absent (or A empty).
+   --  A'Range with A(I) = Key, or 0 if Key is absent (or A empty).
    --  Duplicates: any matching index is acceptable.
 
 end Interpolation_Search;
