@@ -6,7 +6,7 @@ package body Extended_Euclidean is
       Divisor   : Natural := B;
    begin
       while Divisor /= 0 loop
-         pragma Loop_Invariant (Remainder in 1 .. 1_000 and Divisor in 0 .. 1_000);
+         pragma Loop_Invariant (Remainder in 1 .. 1_000 and Divisor <= 1_000);
          pragma Loop_Variant (Decreases => Divisor);
          declare
             Next : constant Natural := Remainder mod Divisor;
