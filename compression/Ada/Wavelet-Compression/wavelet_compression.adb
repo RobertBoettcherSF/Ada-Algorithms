@@ -146,14 +146,16 @@ package body Wavelet_Compression is
    -------------------------------------------------
    -- Lossless Compression (Integer Lifting Scheme) 1D
    -------------------------------------------------
-   --  Floor division by 2 (toward -infinity). Ada "/" truncates toward zero,
-   --  which is not the S-transform on a negative sum or detail.
-   function Floor_Div_2 (N : Integer) return Integer is
+   --  Floor division by 2, toward -infinity. Ada "/" truncates toward zero.
+   --  Even negatives are already on a multiple of 2, so "/" matches floor.
+   --  An odd negative is one below that. (N - 1) is not used: it overflows
+   --  when N is Long_Integer'First.
+   function Floor_Div_2 (N : Long_Integer) return Long_Integer is
    begin
-      if N >= 0 then
+      if N >= 0 or else N mod 2 = 0 then
          return N / 2;
       else
-         return (N - 1) / 2;
+         return N / 2 - 1;
       end if;
    end Floor_Div_2;
 
@@ -169,12 +171,14 @@ package body Wavelet_Compression is
 
       for I in 0 .. Half - 1 loop
          declare
-            X : constant Integer := Input (Input'First + 2 * I);
-            Y : constant Integer := Input (Input'First + 2 * I + 1);
+            X : constant Long_Integer := Input (Input'First + 2 * I);
+            Y : constant Long_Integer := Input (Input'First + 2 * I + 1);
+            --  Lifting: d = y - x, s = x + floor(d/2). Same value as
+            --  floor((x+y)/2) when the sum fits, and x+y is never formed.
+            D : constant Long_Integer := Y - X;
          begin
-            --  S-transform: s = floor((x+y)/2), d = y-x.
-            Result (Out_Idx + I) := Floor_Div_2 (X + Y);
-            Result (Out_Idx + Half + I) := Y - X;
+            Result (Out_Idx + I) := X + Floor_Div_2 (D);
+            Result (Out_Idx + Half + I) := D;
          end;
       end loop;
 
@@ -185,7 +189,7 @@ package body Wavelet_Compression is
       Result  : Signal_1D_Int (Input'Range);
       Half    : constant Natural := Input'Length / 2;
       Out_Idx : constant Positive := Result'First;
-      Avg, Diff : Integer;
+      Avg, Diff : Long_Integer;
    begin
       if Input'Length = 1 then return Input; end if;
       if Input'Length mod 2 /= 0 then
@@ -203,5 +207,88 @@ package body Wavelet_Compression is
 
       return Result;
    end Inverse_Haar_1D_Lossless;
+
+   --  Transform or invert the prefix of length Width. Width is even.
+   procedure Lift_Prefix (Buf : in out Signal_1D_Int; Width : Positive; Forward : Boolean) is
+      Half : constant Natural := Width / 2;
+      Tmp  : Signal_1D_Int (1 .. Width);
+   begin
+      if Forward then
+         for I in 0 .. Half - 1 loop
+            declare
+               X : constant Long_Integer := Buf (Buf'First + 2 * I);
+               Y : constant Long_Integer := Buf (Buf'First + 2 * I + 1);
+               D : constant Long_Integer := Y - X;
+            begin
+               Tmp (1 + I) := X + Floor_Div_2 (D);
+               Tmp (1 + Half + I) := D;
+            end;
+         end loop;
+      else
+         for I in 0 .. Half - 1 loop
+            declare
+               S : constant Long_Integer := Buf (Buf'First + I);
+               D : constant Long_Integer := Buf (Buf'First + Half + I);
+               A : constant Long_Integer := S - Floor_Div_2 (D);
+            begin
+               Tmp (1 + 2 * I) := A;
+               Tmp (1 + 2 * I + 1) := A + D;
+            end;
+         end loop;
+      end if;
+      for I in 0 .. Width - 1 loop
+         Buf (Buf'First + I) := Tmp (1 + I);
+      end loop;
+   end Lift_Prefix;
+
+   function Lowpass_Width (Length : Natural; Levels : Natural) return Natural is
+      Width : Natural := Length;
+   begin
+      for L in 1 .. Levels loop
+         if Width < 2 or else Width mod 2 /= 0 then
+            raise Invalid_Dimensions with
+              "Signal length must be divisible by 2**Levels.";
+         end if;
+         Width := Width / 2;
+      end loop;
+      return Width;
+   end Lowpass_Width;
+
+   function Forward_Haar_Levels
+     (Input : Signal_1D_Int; Levels : Natural) return Signal_1D_Int
+   is
+      Result : Signal_1D_Int (Input'Range) := Input;
+      Width  : Natural := Input'Length;
+   begin
+      if Levels = 0 or else Input'Length <= 1 then
+         return Result;
+      end if;
+      for L in 1 .. Levels loop
+         if Width < 2 or else Width mod 2 /= 0 then
+            raise Invalid_Dimensions with
+              "Signal length must be divisible by 2**Levels.";
+         end if;
+         Lift_Prefix (Result, Width, Forward => True);
+         Width := Width / 2;
+      end loop;
+      return Result;
+   end Forward_Haar_Levels;
+
+   function Inverse_Haar_Levels
+     (Input : Signal_1D_Int; Levels : Natural) return Signal_1D_Int
+   is
+      Result : Signal_1D_Int (Input'Range) := Input;
+      Width  : Natural;
+   begin
+      if Levels = 0 or else Input'Length <= 1 then
+         return Result;
+      end if;
+      Width := Lowpass_Width (Input'Length, Levels);
+      while Width < Input'Length loop
+         Width := Width * 2;
+         Lift_Prefix (Result, Width, Forward => False);
+      end loop;
+      return Result;
+   end Inverse_Haar_Levels;
 
 end Wavelet_Compression;

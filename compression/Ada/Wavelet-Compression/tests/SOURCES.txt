@@ -7,13 +7,19 @@ Float Haar, non-normalized, written here:
   orthonormal scaling by 1/sqrt(2). A 2D level is that 1D step on each row,
   then on each column.
 
-Integer form: the S-transform of Calderbank, Daubechies and Sweldens,
-"Wavelet Transforms That Map Integers to Integers", Applied and
-Computational Harmonic Analysis 5 (1998), 332-369:
-  s = floor((x + y) / 2),  d = y - x
+Integer form: the lifting S-transform of Calderbank, Daubechies and
+Sweldens, "Wavelet Transforms That Map Integers to Integers", Applied and
+Computational Harmonic Analysis 5 (1998), 332-369, written so the sum is
+never formed:
+  d = y - x,  s = x + floor(d / 2)
   inverse: x = s - floor(d / 2),  y = x + d
-Floor is toward -infinity, not Ada's truncating division.
-Low coefficients, then details.
+This equals floor((x+y)/2) when the sum fits. Floor is toward -infinity.
+An even value, including the most negative one, divides evenly; an odd
+negative is one below Ada's truncating division. Coefficients are
+Long_Integer: a detail is about twice a sample, and another level can
+double that again (2**31 is not an Integer).
+Low coefficients, then details. Further levels repeat the step on the
+low-pass prefix only.
 
 Seed 20261008, printed, overridable with AA_SEED.
 Mutant split recorded before these checks: seed 20261008, 42 tuning / 36 held-out.

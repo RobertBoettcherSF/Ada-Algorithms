@@ -32,12 +32,14 @@ procedure Own_Checks (Fail_Count : out Natural) is
       return Seed;
    end Next_U;
 
-   function Floor_Div_2 (N : Integer) return Integer is
+   function Floor_Div_2 (N : Long_Integer) return Long_Integer is
    begin
-      if N >= 0 then
+      --  Even values, including Long_Integer'First, divide evenly.
+      --  An odd negative truncates toward zero, so floor is one less.
+      if N >= 0 or else N mod 2 = 0 then
          return N / 2;
       else
-         return (N - 1) / 2;
+         return N / 2 - 1;
       end if;
    end Floor_Div_2;
 
@@ -69,10 +71,10 @@ procedure Own_Checks (Fail_Count : out Natural) is
       end if;
       for I in 0 .. Half - 1 loop
          declare
-            X : constant Integer := Input (Input'First + 2 * I);
-            Y : constant Integer := Input (Input'First + 2 * I + 1);
-            S : constant Integer := Floor_Div_2 (X + Y);
-            D : constant Integer := Y - X;
+            X : constant Long_Integer := Input (Input'First + 2 * I);
+            Y : constant Long_Integer := Input (Input'First + 2 * I + 1);
+            D : constant Long_Integer := Y - X;
+            S : constant Long_Integer := X + Floor_Div_2 (D);
          begin
             Result (Result'First + I) := S;
             Result (Result'First + Half + I) := D;
@@ -90,9 +92,9 @@ procedure Own_Checks (Fail_Count : out Natural) is
       end if;
       for I in 0 .. Half - 1 loop
          declare
-            S    : constant Integer := Input (Input'First + I);
-            D    : constant Integer := Input (Input'First + Half + I);
-            Even : constant Integer := S - Floor_Div_2 (D);
+            S    : constant Long_Integer := Input (Input'First + I);
+            D    : constant Long_Integer := Input (Input'First + Half + I);
+            Even : constant Long_Integer := S - Floor_Div_2 (D);
          begin
             Result (Result'First + 2 * I) := Even;
             Result (Result'First + 2 * I + 1) := Even + D;
@@ -174,7 +176,7 @@ begin
    --  Hand values, not (A+B)/2. A sum that does not fit in Integer must
    --  still transform: the lifting step never forms A+B.
    declare
-      procedure Check_Pair (A, B, Expect_S, Expect_D : Integer; Label : String) is
+      procedure Check_Pair (A, B, Expect_S, Expect_D : Long_Integer; Label : String) is
          Sig : constant Signal_1D_Int := [A, B];
          Got : Signal_1D_Int (Sig'Range);
          Back : Signal_1D_Int (Sig'Range);
@@ -194,9 +196,31 @@ begin
       --  Both negative, odd sum: floor((-8-3)/2) = -6, detail -3-(-8) = 5.
       Check_Pair (-8, -3, -6, 5, "both negative (-8, -3)");
       --  (Last, Last): Last+Last does not fit. Lifting detail is 0.
-      Check_Pair (Integer'Last, Integer'Last, Integer'Last, 0, "(Last, Last)");
-      --  Detail is Integer'First. (N-1)/2 overflows on that detail.
-      Check_Pair (0, Integer'First, Integer'First / 2, Integer'First, "(0, First)");
+      Check_Pair (Long_Integer (Integer'Last), Long_Integer (Integer'Last),
+        Long_Integer (Integer'Last), 0, "(Last, Last)");
+      --  Detail is Long_Integer'First. (N - 1) would overflow.
+      Check_Pair (0, Long_Integer'First, Long_Integer'First / 2, Long_Integer'First,
+        "(0, First)");
+      --  2**31 is not an Integer. Detail of (-2**30, 2**30) is exactly that.
+      Check_Pair (-(2**30), 2**30, 0, 2**31, "detail 2**31 needs headroom");
+   end;
+
+   --  Two levels on values whose first detail is 2**31. The low-pass of
+   --  the second level is the average of those averages.
+   declare
+      Sig : constant Signal_1D_Int := [-(2**30), 2**30, -(2**30), 2**30];
+      Got : Signal_1D_Int (Sig'Range);
+      Back : Signal_1D_Int (Sig'Range);
+   begin
+      Got := Forward_Haar_Levels (Sig, 2);
+      Note (Got (1) = 0 and then Got (2) = 0
+        and then Got (3) = 2**31 and then Got (4) = 2**31,
+        "two levels keep a 2**31 detail");
+      Back := Inverse_Haar_Levels (Got, 2);
+      Note (Same_Int (Back, Sig), "two levels restore the signal");
+   exception
+      when Constraint_Error =>
+         Note (False, "two levels raised Constraint_Error");
    end;
 
    --  S-transform on a pair whose sum is odd, and on negatives.
@@ -236,7 +260,7 @@ begin
          Back : Signal_1D_Int (1 .. N);
       begin
          for I in Sig'Range loop
-            Sig (I) := Integer (Next_U mod 41) - 20;
+            Sig (I) := Long_Integer (Integer (Next_U mod 41) - 20);
             Flt (I) := Float (Sig (I)) / 5.0;
          end loop;
          Got := Forward_Haar_1D_Lossless (Sig);
