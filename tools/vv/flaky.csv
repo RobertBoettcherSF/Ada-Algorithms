@@ -488,7 +488,7 @@ misc/Ada/Integer-Factorization,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,n
 misc/Ada/Integer-Linear-Programming,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 misc/Ada/Intersection-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 misc/Ada/Inverse-Iteration,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
-misc/Ada/Johnsons-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,no,yes,,init: Initialize_Scalars build fail: raised CONSTRAINT_ERROR : johnsons_algorithm.adb:527 invalid data; repeat from pass 1 (10 runs GNAT 14)
+misc/Ada/Johnsons-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,FIXED: All_Pairs left Dist/Prev cells beyond N undefined (Last >= N allowed); Reconstruct_Path copied whole row -> IS invalid data at adb:527. Now defined unreachable (Infinity/0); test section 24 (red before fix); rerun init yes
 misc/Ada/Jump-And-Walk,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 misc/Ada/K-Nearest-Neighbours,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,n/a,no,,init: baseline -gnata build fail: FAIL - 10.1 Predict_Classification raises on empty; repeat from pass 1 (10 runs GNAT 14)
 misc/Ada/K-Way-Merge,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,repeat from pass 1 (10 runs GNAT 14)

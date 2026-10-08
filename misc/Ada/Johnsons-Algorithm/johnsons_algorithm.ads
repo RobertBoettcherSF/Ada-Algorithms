@@ -142,7 +142,9 @@ is
    --  (Infinity if unreachable) and Prev encodes predecessor trees per
    --  source (Prev(U,U) = 0). On Negative_Cycle, Dist/Prev are unspecified.
    --  Requires Dist/Prev First = 1 and Last >= N on both dims when N > 0;
-   --  raises Invalid_Argument otherwise, or when N = 0.
+   --  raises Invalid_Argument otherwise, or when N = 0. When Last > N, on
+   --  Success every cell with U > N or V > N is defined as unreachable
+   --  (Dist = Infinity, Prev = 0): those indices name no vertex of G.
 
    procedure All_Pairs
      (G      : Graph;

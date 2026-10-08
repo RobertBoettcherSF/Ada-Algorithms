@@ -680,6 +680,56 @@ begin
    Check (Distance (G, 1, 2) = 1, "min of parallels = 1");
 
    ------------------------------------------------------------------
+   Section ("24. Oversized Dist/Prev: cells beyond N are defined");
+   ------------------------------------------------------------------
+   --  The spec allows Last >= N. Cells for vertices N+1 .. Last name no
+   --  vertex of G, so they must read as unreachable (Dist = Infinity,
+   --  Prev = 0) instead of keeping whatever the caller's buffer held.
+   --  Reconstruct_Path (matrix) copies the whole row, so an undefined
+   --  cell there was an uninitialised read (Initialize_Scalars + -gnatVa
+   --  raised "invalid data" at the row copy).
+   declare
+      Big_D  : Dist_Matrix (1 .. 8, 1 .. 8) := [others => [others => 7]];
+      Big_P  : Prev_Matrix (1 .. 8, 1 .. 8) := [others => [others => 7]];
+      Only_D : Dist_Matrix (1 .. 8, 1 .. 8) := [others => [others => 7]];
+      Beyond_D, Beyond_P, Only_Beyond : Boolean := True;
+   begin
+      Clear (G, 3);
+      Add_Edge (G, 1, 2, 4);
+      Add_Edge (G, 2, 3, -1);
+      All_Pairs (G, Big_D, Big_P, St);
+      Check (St = Success, "oversized Success");
+      Check (Big_D (1, 3) = 3 and then Big_P (1, 3) = 2,
+             "oversized in-graph cells correct");
+      for U in Vertex_Id range 1 .. 8 loop
+         for V in Vertex_Id range 1 .. 8 loop
+            if U > 3 or else V > 3 then
+               Beyond_D := Beyond_D and then Big_D (U, V) = Infinity;
+               Beyond_P := Beyond_P and then Big_P (U, V) = 0;
+            end if;
+         end loop;
+      end loop;
+      Check (Beyond_D, "Dist beyond N = Infinity");
+      Check (Beyond_P, "Prev beyond N = 0");
+      Ok := Reconstruct_Path (Big_P, 1, 6, Path, Len);
+      Check (not Ok and then Len = 0, "recon to vertex beyond N fails");
+      Ok := Reconstruct_Path (Big_P, 1, 3, Path, Len);
+      Check (Ok and then Len = 3 and then Path (1) = 1
+             and then Path (2) = 2 and then Path (3) = 3,
+             "recon 1->2->3 through oversized matrix");
+
+      All_Pairs (G, Only_D, St);
+      for U in Vertex_Id range 1 .. 8 loop
+         for V in Vertex_Id range 1 .. 8 loop
+            if U > 3 or else V > 3 then
+               Only_Beyond := Only_Beyond and then Only_D (U, V) = Infinity;
+            end if;
+         end loop;
+      end loop;
+      Check (Only_Beyond, "no-Prev overload: Dist beyond N = Infinity");
+   end;
+
+   ------------------------------------------------------------------
    -- Summary
    ------------------------------------------------------------------
    New_Line;

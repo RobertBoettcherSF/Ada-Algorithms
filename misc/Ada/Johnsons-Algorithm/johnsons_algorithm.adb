@@ -280,6 +280,15 @@ is
       Row_Prev  : Prev_Array (1 .. Vertex_Id (N));
       Recovered : Distance_Value;
    begin
+      --  Callers may pass Last > N (Validate_*_Bounds only require
+      --  Last >= N). Rows / columns N+1 .. Last name no vertex of G, so
+      --  they are unreachable by definition: Dist = Infinity, Prev = 0.
+      --  Writing every cell keeps the out-mode results fully defined;
+      --  Reconstruct_Path (matrix) reads a whole row.
+      Dist := [others => [others => Infinity]];
+      if Fill_Prev then
+         Prev := [others => [others => 0]];
+      end if;
       for S in Vertex_Id range 1 .. Vertex_Id (N) loop
          Dense_Dijkstra_Reweighted (G, S, H, Row_Dist, Row_Prev);
          for V in Vertex_Id range 1 .. Vertex_Id (N) loop
