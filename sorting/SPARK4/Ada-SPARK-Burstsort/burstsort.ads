@@ -3,7 +3,7 @@
 --  strings. Shared prefixes are refined by character depth; unsorted
 --  suffixes live in buckets; buckets larger than Burst_Threshold are
 --  "burst" (redistributed at the next depth). Small buckets are finished
---  with insertion sort. A final gap-1 bubble finish proves Is_Sorted.
+--  with insertion sort. SPARK proves that this alone sorts (Is_Sorted).
 --
 --  SPARK port of Ada-Burstsort: hard Max_N / Max_String_Len bounds, no
 --  Unchecked_Deallocation / heap trie pointers (static work buffers only),
@@ -12,9 +12,10 @@
 --  64, Burst_Threshold = 8, Alphabet_Size = 256, and arbitrary A'First;
 --  this port requires A'First = 1, uses an educational MSD-bucket
 --  approximation of the burst trie (same emit order: Ended, then
---  character buckets 0 .. Alphabet_Size-1), and proves sortedness via
---  Bubble_Finish. Full multiset / permutation equality is verified by
---  tests rather than claimed as a Level-4 postcondition.
+--  character buckets 0 .. Alphabet_Size-1), and proves that the burst
+--  phase itself sorts (no bubble-sort safety net). Full multiset /
+--  permutation equality is verified by tests rather than claimed as a
+--  Level-4 postcondition.
 --
 --  Reference: https://en.wikipedia.org/wiki/Burstsort
 
@@ -93,7 +94,7 @@ is
    function ">" (Left, Right : Bounded_String) return Boolean is
      (Right < Left)
    with Global => null;
-   --  Strict greater-than (used by Bubble_Pass).
+   --  Strict greater-than.
 
    ---------------------------------------------------------------------------
    -- Shape / sortedness guards (expression functions — usable in contracts)
@@ -115,7 +116,7 @@ is
    --  vacuous).
 
    ---------------------------------------------------------------------------
-   -- Algorithm sketch (MSD burst buckets + insertion + bubble finish)
+   -- Algorithm sketch (MSD burst buckets + insertion)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Copy A into a fixed Work buffer (1 .. Max_N).
    --  Educational burst-trie approximation (MSD by character depth):
@@ -125,12 +126,9 @@ is
    --    bucketed by Data (Depth+1). Buckets with count > Burst_Threshold
    --    are "burst" (recurse at Depth+1); small char-buckets are
    --    insertion-sorted. Emit order matches a burst-trie in-order walk.
-   --  Copy Work back into A.
-   --  After the burst phase, a final gap-1 bubble finish (shrinking
-   --  unsorted suffix + early exit) establishes Is_Sorted — same proof
-   --  role as Strand_Sort / Comb_Sort / Odd_Even_Sort.
-   --  Burst/insert/collect prove only In_Bounds / RTE; sortedness is
-   --  discharged by Bubble_Finish.
+   --  Copy Work back into A. Every slice shares its first Depth
+   --  characters, so Ended strings sort first and a smaller character at
+   --  Depth + 1 means a smaller string: the burst phase proves Is_Sorted.
    --  Empty and singleton arrays are no-ops.
    --  Do not `with` sibling Ada-* packages.
 
@@ -143,7 +141,7 @@ is
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Lexicographic ascending educational burstsort + bubble finish.
+   --  Lexicographic ascending educational burstsort.
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
