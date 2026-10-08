@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 19:11 CEST.
+Generated 2026-10-08 19:14 CEST.
 
 ## Proof setup
 
@@ -26,7 +26,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 **Training-ready: 10 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. Under the old rule: 267 folders.
 
-**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 259 folders (column `own_tests`).
+**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 260 folders (column `own_tests`).
 
 **Silver headline (duplicates counted once):** 483 real SPARK folders proven non-trivially, 305 proven but trivial (<= 3 checks), 143 stubs proven (separate), 3 with unproved checks, 10 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 143 proven real folders also prove functional contracts
 
@@ -42,7 +42,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 ## V&V (validation) results
 
-Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%); `mutation_tr.csv` 2336 killed / 1774 survived (56%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 246 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
+Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%); `mutation_tr.csv` 2502 killed / 1895 survived (56%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 247 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
 
 | Folder | Differential test | Mutation (killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |
 |---|---|---|---|---|---|---|
@@ -323,7 +323,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/Ada/Cycle-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Cycle-Sort, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Flashsort | agree (vs sorting/SPARK4/Ada-SPARK-Flashsort, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Gnome-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Gnome-Sort, 1000 cases) |  |  |  | ok | diff agree |
-| sorting/Ada/Heapsort | agree (vs sorting/SPARK4/Ada-SPARK-Heapsort, 1000 cases) |  |  |  | ok | diff agree |
+| sorting/Ada/Heapsort | agree (vs sorting/SPARK4/Ada-SPARK-Heapsort, 1000 cases) |  |  | Sort vs own insertion sort; Heapify heap property; Sift_Down Pre rejects out-of-range calls (contract gap) | ok | own tests, diff agree |
 | sorting/Ada/Insertion-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Insertion-Sort, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Introsort | agree (vs sorting/SPARK4/Ada-SPARK-Introsort, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Library-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Library-Sort, 1000 cases) |  |  |  | ok | diff agree |
@@ -373,45 +373,45 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Smooth-Sort | agree (vs sorting/Ada/Smoothsort, 1000 cases) |  |  | sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random | ok | own tests, diff agree |
 | sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity |  | 12/19 |  | evens before odds + permutation; 3000 random | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II |  | 9/20 |  | parity at every position + permutation; 3000 random 4-even/4-odd inputs; unbalanced inputs rejected (2003 cases) | ok | own tests |
-| sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency |  |  |  | non-increasing input frequency + permutation; 4000 random; equal characters grouped | ok | own tests |
+| sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency |  | 9/20 |  | non-increasing input frequency + permutation; 4000 random; equal characters grouped | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Sort-Colors |  | 13/20 |  | own insertion-sort reference on Data(1..Length); tail unchanged; every Length + 3000 random | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Sort-List-Lite |  | 9/19 |  | own insertion-sort reference; every length 0..16; 4800 random | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array |  | 14/20 |  | own square + insertion-sort reference on 3000+ sorted inputs; unsorted inputs rejected | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Tim-Sort | agree (vs sorting/Ada/Timsort, 1000 cases) |  |  | sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random | ok | own tests, diff agree |
 | sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub |  | 13/20 |  | bounds kept + own insertion-sort reference; lengths 0..40; extreme values; high bounds | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Tournament-Sort |  |  |  | sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random | ok | own tests |
-| sorting/SPARK2/Ada-SPARK-Wiggle-Sort |  |  |  | wiggle order on every adjacent pair + permutation; 4000 inputs | ok | own tests |
+| sorting/SPARK2/Ada-SPARK-Wiggle-Sort |  | 13/20 |  | wiggle order on every adjacent pair + permutation; 4000 inputs | ok | own tests |
 | sorting/SPARK2/Binary-Insertion-Sort |  |  |  | sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random | ok | own tests |
 | sorting/SPARK4/Ada-SPARK-Bitonic-Sorter | agree (vs sorting/Ada/Bitonic-Sorter, 1000 cases) | 7/13 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Bogosort | agree (vs sorting/Ada/Bogosort, 1000 cases) | 6/13 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Bubble-Sort | agree (vs sorting/Ada/Bubble-Sort, 1000 cases) | 9/11 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Bucket-Sort | agree (vs sorting/Ada/Bucket-Sort, 1000 cases) | 13/19 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | agree (vs sorting/Ada/Cocktail-Shaker-Sort, 1000 cases) |  |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | agree (vs sorting/Ada/Cocktail-Shaker-Sort, 1000 cases) | 10/15 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Comb-Sort | agree (vs sorting/Ada/Comb-Sort, 1000 cases) | 11/13 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Counting-Sort | agree (vs sorting/Ada/Counting-Sort, 1000 cases) | baseline killed |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Cycle-Sort | agree (vs sorting/Ada/Cycle-Sort, 1000 cases) | 5/13 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Flashsort | agree (vs sorting/Ada/Flashsort, 1000 cases) | 6/15 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Gnome-Sort | agree (vs sorting/Ada/Gnome-Sort, 1000 cases) |  |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Gnome-Sort | agree (vs sorting/Ada/Gnome-Sort, 1000 cases) | 12/13 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Heapsort | agree (vs sorting/Ada/Heapsort, 1000 cases) | 9/12 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Insertion-Sort | agree (vs sorting/Ada/Insertion-Sort, 1000 cases) | 14/16 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Introsort | agree (vs sorting/Ada/Introsort, 1000 cases) | 9/10 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Library-Sort | agree (vs sorting/Ada/Library-Sort, 1000 cases) | 8/13 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Merge-Sort | agree (vs sorting/Ada/Merge-Sort, 1000 cases) |  |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Merge-Sort | agree (vs sorting/Ada/Merge-Sort, 1000 cases) | 12/12 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Odd-Even-Sort | agree (vs sorting/Ada/Odd-Even-Sort, 1000 cases) | 8/11 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Pancake-Sorting | agree (vs sorting/Ada/Pancake-Sorting, 1000 cases) | 9/14 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Patience-Sorting | agree (vs sorting/Ada/Patience-Sorting, 1000 cases) | 5/16 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort | agree (vs sorting/Ada/Pigeonhole-Sort, 1000 cases) | 4/16 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Postman-Sort | agree (vs sorting/Ada/Postman-Sort, 1000 cases) |  |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Postman-Sort | agree (vs sorting/Ada/Postman-Sort, 1000 cases) | 6/18 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Quantum-Sort | agree (vs sorting/Ada/Quantum-Sort, 1000 cases) | 10/15 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Quicksort | agree (vs sorting/Ada/Quicksort, 1000 cases) | 9/10 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Radix-Sort | agree (vs sorting/Ada/Radix-Sort, 1000 cases) | 0/15 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Samplesort | agree (vs sorting/Ada/Samplesort, 1000 cases) | 7/13 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Selection-Sort | agree (vs sorting/Ada/Selection-Sort, 1000 cases) |  |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Selection-Sort | agree (vs sorting/Ada/Selection-Sort, 1000 cases) | 10/12 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Shell-Sort | agree (vs sorting/Ada/Shell-Sort, 1000 cases) | 14/17 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Slowsort | agree (vs sorting/Ada/Slowsort, 1000 cases) | 7/11 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Smoothsort | agree (vs sorting/Ada/Smoothsort, 1000 cases) | 12/16 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Spaghetti-Sort | agree (vs sorting/Ada/Spaghetti-Sort, 1000 cases) | 8/14 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Stooge-Sort | agree (vs sorting/Ada/Stooge-Sort, 1000 cases) |  |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Stooge-Sort | agree (vs sorting/Ada/Stooge-Sort, 1000 cases) | 5/11 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Strand-Sort | agree (vs sorting/Ada/Strand-Sort, 1000 cases) | 7/17 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Timsort | agree (vs sorting/Ada/Timsort, 1000 cases) | 10/13 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Tree-Sort | agree (vs sorting/Ada/Tree-Sort, 1000 cases) | 8/15 |  |  | ok | diff agree |
@@ -426,7 +426,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | strings/Ada/String-Metrics |  |  |  |  | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Boyer-Moore | agree (vs strings/Ada/Boyer-Moore, 1000 cases) |  |  |  | ok | diff agree |
 | strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings |  |  |  | own count of symbols <= Allowed; exhaustive 32768 | ok | own tests |
-| strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance | agree (vs strings/Ada/Damerau-Levenshtein-Distance, 1000 cases) |  |  |  | ok | diff agree |
+| strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance | agree (vs strings/Ada/Damerau-Levenshtein-Distance, 1000 cases) | 16/17 |  |  | ok | diff agree |
 | strings/SPARK2/Ada-SPARK-Edit-Distance |  | 11/20 |  | own recursive Levenshtein reference; every length pair; 3750 random | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Encode-And-Decode-Strings-Lite |  | 2/20 |  | round trip both ways + constant non-zero XOR key; all 256 bytes | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Find-All-Anagrams-In-A-String |  | 10/20 |  | own window count reference; 5000 random | ok | own tests |
@@ -437,44 +437,44 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub |  | 18/18 |  | 2000 random pairs vs Long_Long_Integer + hand arithmetic + (10^30-1)^2 by algebra | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String |  | 10/20 |  | own width-100 line-filling simulation; 4000 random | ok | own tests |
 | strings/SPARK2/Ada-SPARK-One-Edit-Distance |  | 15/18 |  | own Levenshtein = 1 reference; random strings with 0-2 edits | ok | own tests |
-| strings/SPARK2/Ada-SPARK-Rabin-Karp | agree (vs strings/Ada/Rabin-Karp, 1000 cases) | 5/8 |  |  | ok | diff agree |
+| strings/SPARK2/Ada-SPARK-Rabin-Karp | agree (vs strings/Ada/Rabin-Karp, 1000 cases) | 8/11 |  |  | ok | diff agree |
 | strings/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-In-String |  | 10/20 |  | own repeated leftmost-pair removal reference; 4000 random | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Repeated-String-Match |  | 2/2 |  | own brute force (concatenate K copies + naive search); hand cases; 20000 random | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Reverse-Vowels-Of-A-String |  | 7/17 |  | swap of positions 2 and 5; rest unchanged; 4000 random | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Reverse-Words-In-A-String-III |  | 11/20 |  | own per-word reversal reference; 4000 random | ok | own tests |
-| strings/SPARK2/Ada-SPARK-Rotate-String |  |  |  | own every-shift reference; 4000 random | ok | own tests |
+| strings/SPARK2/Ada-SPARK-Rotate-String |  | 7/20 |  | own every-shift reference; 4000 random | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert |  | 4/20 |  | own digit sum via decimal image; exhaustive 0..9999 | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Total-Hamming-Distance |  | 6/20 |  | own bit-by-bit reference; single bits + 5000 random | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Z-Algorithm |  | 8/20 |  | own longest-common-prefix reference for I>=2; 5000 random | ok | own tests |
 | strings/SPARK3/Levenshtein-Distance | agree (vs strings/Ada/Levenshtein-Distance, 1000 cases) |  |  |  | ok | diff agree |
 | trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree |  | 11/14 |  | own recursive height reference; hand cases incl. cycle; 20000 random trees | ok | own tests |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder |  |  |  | own recursive subtree sum; 4000 random trees + empty | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder |  | 7/19 |  | own recursive subtree sum; 4000 random trees + empty | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order |  | 8/20 |  | own recursive subtree sum; 4000 random trees + empty | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth |  | 8/20 |  | own recursive height (convention fixed by one-node tree); 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth |  | 8/19 |  | own recursive min root-to-leaf depth (convention fixed by one-node tree); 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder |  | 9/20 |  | own recursive subtree-sum reference; empty tree; 4000 random shapes | ok | own tests |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder |  |  |  | own recursive subtree sum; 4000 random trees + empty | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder |  | 6/20 |  | own recursive subtree sum; 4000 random trees + empty | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree |  | 7/20 |  | own sum of values >= each element for strictly increasing sequences; 4000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Count-Binary-Substrings |  | 7/19 |  | own all-substrings k-zeros/k-ones check; 4000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree |  | 5/19 |  | own recursive longest path (edges/nodes fixed by one-node tree); 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget |  | 9/20 |  | own all-windows cost check; 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Implement-Trie |  |  |  | own exact-membership reference; 4000 random word sets; own full-structure check: Max_Words distinct words then one more must be rejected | ok | own tests |
-| trees/SPARK2/Ada-SPARK-Insert-Into-BST |  |  |  | own set reference + own reference BST shape (insertion order) + separate order check; 4000 random runs incl. duplicates | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Insert-Into-BST |  | 10/18 |  | own set reference + own reference BST shape (insertion order) + separate order check; 4000 random runs incl. duplicates | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Invert-Binary-Tree |  | 3/20 |  | children swapped at every node; 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Longest-Common-Substring |  | 6/18 |  | own all-start-pairs reference; all string pairs up to length 4 over {a;b} and {a;b;c} (exhaustive) | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring |  | 9/16 |  | own all-substrings palindrome check; 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat |  | 7/17 |  | own all-substrings distinctness check; 5000 random | ok | own tests |
-| trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating |  |  |  | own all-substrings distinctness check; 5000 random | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating |  | 10/12 |  | own all-substrings distinctness check; 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST |  | 8/20 |  | own parent-climbing LCA on generated BSTs; 4000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST |  | 9/20 |  | own parent-climbing LCA on generated BSTs; 4000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree |  | 7/20 |  | own recursive height (convention fixed by one-node tree); 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees |  | 8/19 |  | own overlay reference per heap position; result walked from its root; 4000 random pairs | ok | own tests |
-| trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree |  |  |  | own recursive min root-to-leaf depth (convention fixed by one-node tree); 4000 random trees | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree |  | 9/20 |  | own recursive min root-to-leaf depth (convention fixed by one-node tree); 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Minimum-Window-Substring |  | 8/12 |  | own all-windows A/B/C check; 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters |  | 6/19 |  | own all-substrings check; exhaustive 6561 | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Range-Sum-BST |  | 6/8 |  | own full-traversal reference; hand cases; 20000 random BSTs + ranges | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST |  | 6/20 |  | own whole-tree range sum with odd bounds; 4000 random BSTs | ok | own tests |
-| trees/SPARK2/Ada-SPARK-Same-Tree |  |  |  | own recursive comparison vs renumbered copies; 4000 pairs | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Same-Tree |  | 5/18 |  | own recursive comparison vs renumbered copies; 4000 pairs | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree |  | 9/19 |  | own identical-subtree check (copied/absent patterns); 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Symmetric-Tree |  | 8/18 |  | own mirror comparison; 4000 trees (half built symmetric) | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles |  | 12/20 |  | own recursive path enumeration; exhaustive 65536 grids | ok | own tests |

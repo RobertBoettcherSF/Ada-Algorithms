@@ -245,3 +245,4 @@ misc/Ada/Bowyer-Watson,own hull/in-circle geometry: Delaunay property; count 2n-
 graphs/Ada/Dijkstras-Algorithm,distances + Prev paths vs own simple-path enumeration; 4000 random digraphs n<=6 (greedy family)
 graphs/Ada/Bellman-Ford-Algorithm,negative-cycle status + distances + Prev paths vs own simple-path/cycle enumeration; 4000 random digraphs (greedy family)
 graphs/Ada/Floyd-Warshall-Algorithm,negative-cycle status + all-pairs distances + Next paths vs own enumeration; 3000 random digraphs (greedy family)
+sorting/Ada/Heapsort,Sort vs own insertion sort; Heapify heap property; Sift_Down Pre rejects out-of-range calls (contract gap)
