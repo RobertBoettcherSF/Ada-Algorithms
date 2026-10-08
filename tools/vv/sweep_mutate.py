@@ -18,7 +18,7 @@ held half up to >= 20 non-equivalent mutants with --family alt.
 import argparse, csv, os, random, re, shutil, sys
 from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import mutate, subprocess
+import mutate, subprocess, hashlib
 
 GNATMAKE = mutate.GNATMAKE
 # room rule 2026-10-08 19:25: kill = nonzero exit status or a FAIL line (not one reporting 0 failures);
@@ -114,6 +114,17 @@ def alt_sites(path):
                 out.append((ln, m.start(), m.end(), 'swap arguments', f'({m.group(2)}, {m.group(1)})'))
     return out
 
+def split_half(src, cand, seed):
+    """'tune' or 'held' for one candidate (name, edits). Keyed on the seed and
+    the mutated line's text, column, operator and replacement (not on list
+    position), so a fix elsewhere in the folder does not move mutants between
+    the halves; a mutant on an edited line gets a new key."""
+    key = [str(seed), cand[0]]
+    for rel, ln, c0, c1, rep in cand[1]:
+        text = open(os.path.join(src, rel), errors='replace').read().split('\n')[ln]
+        key += [rel, text.strip(), str(c0 - (len(text) - len(text.lstrip()))), text[c0:c1], rep]
+    return 'held' if int(hashlib.sha256('\x1f'.join(key).encode()).hexdigest(), 16) % 2 else 'tune'
+
 def candidates(src, family, rng):
     """List of (name, [edits]) for the folder's library code."""
     std = [(name, [(rel, ln, c0, c1, rep)]) for rel in lib_files(src)
@@ -154,9 +165,7 @@ def main():
         base = run_tests(wk + '/base')
         cand = candidates(src, a.family, random.Random(a.seed + 1))
         if a.split_seed is not None and a.half:
-            order = list(range(len(cand))); random.Random(a.split_seed).shuffle(order)
-            keep = set(order[:len(cand) // 2]) if a.half == 'tune' else set(order[len(cand) // 2:])
-            cand = [c for i, c in enumerate(cand) if i in keep]
+            cand = [c for c in cand if split_half(src, c, a.split_seed) == a.half]
         rng = random.Random(a.seed)
         pick = rng.sample(cand, min(a.max, len(cand))) if base == 'survived' else []
         jobs = [(src, f'{wk}/m{i}', edits) for i, (name, edits) in enumerate(pick)]
