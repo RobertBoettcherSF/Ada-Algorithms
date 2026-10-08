@@ -202,7 +202,7 @@ is
          Span := 1.0;
       end if;
       --  Large enclosing triangle (educational; generous margin).
-      Margin := 20.0 * Span + 10.0;
+      Margin := 1.0E6 * Span + 10.0;
       Mid_X := (Box.Min_X + Box.Max_X) / 2.0;
       Mid_Y := (Box.Min_Y + Box.Max_Y) / 2.0;
 
@@ -216,13 +216,84 @@ is
    end Build_Super_Triangle;
 
    ---------------------------------------------------------------------------
+   -- Circumcircle test with the super vertices treated as points at infinity
+   ---------------------------------------------------------------------------
+   --  A finite super-triangle lies inside the huge circumcircles of nearly
+   --  collinear hull edges, so its triangles were wrongly kept "good" and the
+   --  final strip lost hull triangles. Each super vertex is therefore taken in
+   --  the limit Margin -> infinity, in its direction from the box centre:
+   --  * one super vertex S on finite edge U-V: the circle becomes the open
+   --    half-plane of line UV on S's side (points on the line count only
+   --    strictly between U and V, which every finite circle through U, V holds);
+   --  * two super vertices with directions D1, D2 and finite vertex U: the
+   --    half-plane (P - U) . Cc > 0, Cc = circumcentre of (0, D1, D2);
+   --  * three super vertices: every site is inside.
+
+   Super_Dir : constant array (0 .. 2) of Point :=
+     [(X => -1.0, Y => -1.0), (X => 1.0, Y => -1.0), (X => 0.0, Y => 1.0)];
+
+   function In_Circle_Ext
+     (Work : Point_Array; Tri : Triangle; P : Point; First_Super : Point_Index)
+      return Boolean
+   is
+      V : constant array (1 .. 3) of Point_Index := [Tri.A, Tri.B, Tri.C];
+      Fin : array (1 .. 3) of Point_Index := [others => 1];
+      Dir : array (1 .. 3) of Point := [others => (X => 0.0, Y => 0.0)];
+      NF, NS : Natural := 0;
+   begin
+      for I in V'Range loop
+         if V (I) >= First_Super then
+            NS := NS + 1;
+            Dir (NS) := Super_Dir (Natural (V (I) - First_Super));
+         else
+            NF := NF + 1;
+            Fin (NF) := V (I);
+         end if;
+      end loop;
+      case NS is
+         when 0 =>
+            return In_Circumcircle (Work (Tri.A), Work (Tri.B), Work (Tri.C), P);
+         when 1 =>
+            declare
+               U : constant Point := Work (Fin (1));
+               W : constant Point := Work (Fin (2));
+               Side_S : constant Real := (W.X - U.X) * Dir (1).Y - (W.Y - U.Y) * Dir (1).X;
+               Side_P : constant Real := Orient2D (U, W, P);
+               Scale  : constant Real := Real'Max (1.0, Dist2 (U, W));
+            begin
+               if abs Side_P <= Epsilon * Scale then
+                  return (P.X - U.X) * (W.X - U.X) + (P.Y - U.Y) * (W.Y - U.Y) > 0.0
+                    and then (P.X - W.X) * (U.X - W.X) + (P.Y - W.Y) * (U.Y - W.Y) > 0.0;
+               end if;
+               return (Side_P > 0.0) = (Side_S > 0.0);
+            end;
+         when 2 =>
+            declare
+               U  : constant Point := Work (Fin (1));
+               D1 : constant Point := Dir (1);
+               D2 : constant Point := Dir (2);
+               L1 : constant Real := D1.X * D1.X + D1.Y * D1.Y;
+               L2 : constant Real := D2.X * D2.X + D2.Y * D2.Y;
+               Dn : constant Real := 2.0 * (D1.X * D2.Y - D1.Y * D2.X);
+               Cx : constant Real := (L1 * D2.Y - L2 * D1.Y) / Dn;
+               Cy : constant Real := (L2 * D1.X - L1 * D2.X) / Dn;
+            begin
+               return (P.X - U.X) * Cx + (P.Y - U.Y) * Cy > Epsilon;
+            end;
+         when others =>
+            return True;
+      end case;
+   end In_Circle_Ext;
+
+   ---------------------------------------------------------------------------
    -- Insert one site
    ---------------------------------------------------------------------------
 
    procedure Insert_Point
      (Work   : Point_Array;
       Mesh   : in out Triangulation;
-      P_Idx  : Point_Index)
+      P_Idx  : Point_Index;
+      First_Super : Point_Index)
    is
       Bad      : array (1 .. Max_Triangles) of Boolean := [others => False];
       Bad_Count : Natural := 0;
@@ -237,9 +308,7 @@ is
          declare
             Tri : constant Triangle := Mesh.Tris (I);
          begin
-            if In_Circumcircle
-              (Work (Tri.A), Work (Tri.B), Work (Tri.C), P)
-            then
+            if In_Circle_Ext (Work, Tri, P, First_Super) then
                Bad (I) := True;
                Bad_Count := Bad_Count + 1;
             end if;
@@ -373,7 +442,7 @@ is
         (Mesh, Make_CCW (Work, Super_A, Super_B, Super_C));
 
       for P_Idx in 1 .. Point_Index (N) loop
-         Insert_Point (Work, Mesh, P_Idx);
+         Insert_Point (Work, Mesh, P_Idx, Super_A);
       end loop;
 
       --  Strip triangles incident to any super-triangle vertex.
