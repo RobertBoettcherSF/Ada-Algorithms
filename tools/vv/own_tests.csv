@@ -149,3 +149,4 @@ hashing/SPARK2/Ada-SPARK-Design-HashSet,model-based: 2000 random Add/Remove sequ
 geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,own monotone-chain hull (strict) as cyclic sequence; 20000 random distinct point sets prepared in Graham order (own exact angle sort) + collinear and extreme cases
 geometry/SPARK2/Ada-SPARK-Point-In-Polygon,own winding-number reference (exact integers); 4000 random simple triangles/quads x 60 off-boundary queries; degenerate 1-2 vertex polygons contain nothing
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Zobrist properties via public Hash: XOR of per-(position;character) keys independent of other characters; one changed character changes the hash; distinct keys per position
+matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,own property: R(2;1)=0 and same integer solution set on a 31x31 grid; every first-column pair x 60 random completions + zero-pivot cases

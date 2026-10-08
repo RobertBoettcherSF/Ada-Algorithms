@@ -26,3 +26,4 @@ misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,Limit below Length is infeasible
 numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,"butterflies clamp into Sample; full-range inputs saturate, result is not the DFT (saturation scan)",fixed,36986154,2ad89f4e
 sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,Solve groups by odd/even value instead of odd/even position (standard statement: positions); README silent,fixed,d3958231,688de179
 matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,"Order_From returned the fixed order from (1,1) for every origin; 15 of 16 origins wrong (own tests)",fixed,776fd242,fb6dae18
+matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,"zero pivot: row 2 became a multiple of row 1 (second equation lost); all-zero first column zeroed row 2 (own tests)",fixed,4e577abb,9fd97960
