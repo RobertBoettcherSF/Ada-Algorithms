@@ -161,3 +161,5 @@ misc/SPARK2/Ada-SPARK-Add-Binary,own reference (A + B) mod 2^8; every pair of 8-
 misc/SPARK2/Ada-SPARK-Broken-Calculator,own breadth-first search over 0..64 (double / decrement); every start and target in 1..32
 misc/SPARK2/Ada-SPARK-Combination-Sum-IV,own recursive enumeration of ordered sequences of parts {1;2;3}; every target 0..12
 misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,own enumeration of all 2^7 cut sets (min heaviest day); 3000 random weight lists x every day count
+misc/SPARK2/Ada-SPARK-Car-Pooling,own per-stop count (Pickup <= stop < Dropoff); 20000 random trip sets x limits 0..12; back-to-back case
+misc/SPARK2/Ada-SPARK-3Sum-Closest,own enumeration of all triples (result is a triple sum at minimal distance); 4000 random arrays; lengths 0..2 rejected

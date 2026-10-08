@@ -29,3 +29,5 @@ matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,"Order_From returned th
 matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,"zero pivot: row 2 became a multiple of row 1 (second equation lost); all-zero first column zeroed row 2 (own tests)",fixed,4e577abb,9fd97960
 misc/SPARK2/Ada-SPARK-Add-Binary,"1 + 1 + carry wrote bit 0 instead of 1 (e.g. 3 + 3 = 4) (own tests)",fixed,87249cad,fadbfa61
 misc/SPARK2/Ada-SPARK-Broken-Calculator,"returned |Start - Target| instead of the fewest double/decrement operations; 479 of 1024 pairs wrong (own tests)",fixed,4d2c6fb6,5d01cb52
+misc/SPARK2/Ada-SPARK-Car-Pooling,"Feasible ignored Pickup/Dropoff and compared the total of all trips with Limit (own tests)",fixed,1c2e3f70,ec66923a
+misc/SPARK2/Ada-SPARK-3Sum-Closest,"Length 0..2 (no triple) answered with 0 instead of rejected (own tests)",fixed,b06276da,84cebc73
