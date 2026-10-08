@@ -122,3 +122,4 @@ misc/SPARK2/Ada-SPARK-Range-Sum-Query-Immutable,own direct sums; 500 random arra
 misc/SPARK2/Ada-SPARK-Third-Maximum-Number,own distinct-value scan (arrays with >= 3 distinct values); 6000 random
 misc/SPARK2/Ada-SPARK-Valid-Parentheses,own stack check; all 46656 strings over ()[]{} (exhaustive)
 misc/SPARK2/Ada-SPARK-Roman-To-Int,own encoder round trip; every value 1..3999 with a numeral of at most 7 letters
+misc/SPARK2/Ada-SPARK-Jump-Game,own breadth-first reachability reference; hand cases; 20000 random arrays
