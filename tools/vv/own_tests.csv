@@ -132,3 +132,4 @@ misc/SPARK2/Ada-SPARK-Basic-Calculator-II,exact integer result for every operand
 misc/SPARK2/Ada-SPARK-Max-Product-Subarray,own all-subarrays reference in Long_Long_Integer; all 13**6 arrays over -6..6; out-of-range elements rejected (in tests.adb)
 misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,minimality property (meets the limit; D - 1 does not); 73 limits + 3000 random; infeasible limits rejected (in tests.adb)
 misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,own one-bar-at-a-time reference; every price 1..1000 x budgets 0..3200 (in tests.adb)
+misc/SPARK2/Ada-SPARK-Partition-List,stable partition vs own two-filter reference; all lists of length 0..7 over {0,1,2} x pivots -1..3 + 3000 random
