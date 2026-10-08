@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Interpretation (README: Simpson-rule integrator for f(x) = x squared; the
+  folder's example 10 -> 333 = 1000/3 truncated): composite Simpson rule on
+  [0, Steps] with step 1.
+* Own reference: the weighted sum f(0) + 4 f(1) + 2 f(2) + ... + 4 f(N-1) + f(N),
+  divided by 3 (h / 3 with h = 1), truncated.
+* Inputs: every even Steps in 2 .. 20 (exhaustive).

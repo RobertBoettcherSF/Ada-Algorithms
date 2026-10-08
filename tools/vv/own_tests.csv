@@ -46,3 +46,14 @@ strings/SPARK2/Ada-SPARK-Find-All-Anagrams-In-A-String,own window count referenc
 strings/SPARK2/Ada-SPARK-Encode-And-Decode-Strings-Lite,round trip both ways + constant non-zero XOR key; all 256 bytes
 strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String,own width-100 line-filling simulation; 4000 random
 strings/SPARK2/Ada-SPARK-Reverse-Vowels-Of-A-String,swap of positions 2 and 5; rest unchanged; 4000 random
+numerical/SPARK2/Ada-SPARK-Count-Primes,own trial-division count of primes < N; exhaustive 0..30
+numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,own trial division for Is_Prime and Below; exhaustive 0..100
+numerical/SPARK2/Ada-SPARK-Minimum-Limit-Of-Balls-In-A-Bag,own linear scan over L with ceiling(B/L)-1 splits; 2000 random
+numerical/SPARK2/Ada-SPARK-Modular-Exponentiation,own repeated multiplication mod M; exhaustive 173417
+numerical/SPARK2/Ada-SPARK-Simpson-Rule,own composite Simpson weighted sum on [0;Steps]; exhaustive
+searching/SPARK2/Ada-SPARK-Exponential-Search,own linear-scan membership (index holds target or 0); 5000 random sorted
+searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix,own linear-scan membership on row-major sorted matrices; 4000 random
+searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,own all-pairs subtree check; 4000 random trees (valid; perturbed; shuffled)
+searching/SPARK2/Bst-Insert-Search,own set membership after distinct inserts (depth <= 5); 2917 sequences
+searching/SPARK2/Ada-SPARK-Word-Search-II-Lite,own left-to-right row scan; 5000 random boards
+searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,own wildcard matcher; 4000 random dictionaries

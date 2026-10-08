@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: a tree is valid when, for every node, every value
+  in its left subtree is smaller and every value in its right subtree is larger
+  (checked by visiting whole subtrees, not by passing bounds down one path).
+* Inputs: 4,000 random tree shapes with 1 .. 15 nodes rooted at node 1; a third
+  get in-order increasing values (valid), a third the same with one node
+  changed to a random odd value, a third shuffled distinct values. All values
+  are distinct, so the strict/non-strict convention for equal keys is not
+  involved.

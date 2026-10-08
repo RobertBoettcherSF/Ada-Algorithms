@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: linear scan for membership. If Target occurs, the result must
+  be an index holding Target (any one, so duplicates are allowed); otherwise 0.
+* Inputs: 5,000 random arrays sorted by an own insertion sort (values 0 .. 12
+  for many duplicates, or 0 .. 1000), a third of the targets taken from the
+  array, the rest random.

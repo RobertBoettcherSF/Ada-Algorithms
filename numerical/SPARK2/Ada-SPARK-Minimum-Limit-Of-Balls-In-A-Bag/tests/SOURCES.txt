@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: a bag of B balls split into parts of at most L
+  balls needs ceiling (B / L) - 1 operations; the answer is the first L = 1, 2,
+  ... whose total is <= Allowed (found by linear scan, not binary search).
+* Inputs: 2,000 random bag arrays (values 1 .. 20 or 1 .. 1000) with random
+  budgets (0 .. 40 or 0 .. 8000).

@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: after inserting a sequence of distinct keys, Contains (V) must
+  be True exactly for the inserted keys (checked for every V in -32 .. 32).
+* Only sequences whose unbalanced BST has depth <= 5 are used (computed by an
+  own model: an earlier key is an ancestor iff no key inserted before it lies
+  strictly between the two). The package stores node K's children at 2K and
+  2K + 1 inside 31 slots, so deeper trees do not fit; that limit is not stated
+  anywhere (the folder has no README) and is reported separately.
+* Inputs: 4,000 random sequences of 0 .. 20 distinct keys in -30 .. 30.

@@ -1,0 +1,82 @@
+--  Own tests for Count_Primes (see tests/SOURCES.txt).
+--  Count_Primes_Below (N) = number of primes p < N.
+pragma Ada_2022;
+with Ada.Text_IO;
+with Count_Primes; use Count_Primes;
+
+procedure Own_Checks is
+   Failures : Natural := 0;
+   Cases    : Natural := 0;
+
+   --  Park-Miller "minimal standard" generator (x := 16807 x mod (2**31 - 1)).
+   Seed : Long_Long_Integer := 20_261_008;
+   function Next (Lo, Hi : Integer) return Integer is
+   begin
+      Seed := (Seed * 16_807) mod 2_147_483_647;
+      return Integer (Long_Long_Integer (Lo)
+                      + Seed mod (Long_Long_Integer (Hi) - Long_Long_Integer (Lo) + 1));
+   end Next;
+   pragma Warnings (Off, Next);
+
+   procedure Report (Ok : Boolean; Label : String) is
+   begin
+      Cases := Cases + 1;
+      if not Ok then
+         Failures := Failures + 1;
+         if Failures <= 5 then
+            Ada.Text_IO.Put_Line ("  FAIL own check: " & Label);
+         end if;
+      end if;
+   end Report;
+
+   --  Own reference: straight insertion sort.
+   type IArr is array (Positive range <>) of Integer;
+   procedure Ins_Sort (A : in out IArr) is
+      T : Integer;
+      J : Positive;
+   begin
+      for I in A'First + 1 .. A'Last loop
+         T := A (I);
+         J := I;
+         while J > A'First and then A (J - 1) > T loop
+            A (J) := A (J - 1);
+            J := J - 1;
+         end loop;
+         A (J) := T;
+      end loop;
+   end Ins_Sort;
+   pragma Warnings (Off, Ins_Sort);
+
+   --  Own reference: trial division.
+   function Prime (V : Natural) return Boolean is
+   begin
+      if V < 2 then
+         return False;
+      end if;
+      for D in 2 .. V - 1 loop
+         if V mod D = 0 then
+            return False;
+         end if;
+      end loop;
+      return True;
+   end Prime;
+   function Below_Ref (V : Natural) return Natural is
+      C : Natural := 0;
+   begin
+      for X in 0 .. V - 1 loop
+         if Prime (X) then
+            C := C + 1;
+         end if;
+      end loop;
+      return C;
+   end Below_Ref;
+begin
+   for V in Limit loop
+      Report (Count_Primes_Below (V) = Below_Ref (V), "N =" & V'Image);
+   end loop;
+   if Failures > 0 then
+      Ada.Text_IO.Put_Line ("FAIL own checks:" & Failures'Image & " of" & Cases'Image);
+      raise Program_Error with "own checks failed";
+   end if;
+   Ada.Text_IO.Put_Line ("PASS own checks:" & Cases'Image & " inputs (own trial-division reference, exhaustive)");
+end Own_Checks;

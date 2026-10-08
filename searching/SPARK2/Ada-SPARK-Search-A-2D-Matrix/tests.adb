@@ -1,4 +1,5 @@
 with Search_A_2D_Matrix;
+with Own_Checks;
 procedure Tests is
    Grid : constant Search_A_2D_Matrix.Matrix :=
      ((1,  2,  3,  4,  5,  6,  7,  8),
@@ -12,4 +13,5 @@ procedure Tests is
 begin
    pragma Assert (Search_A_2D_Matrix.Contains (Grid, 37));
    pragma Assert (not Search_A_2D_Matrix.Contains (Grid, 99));
+   Own_Checks;
 end Tests;

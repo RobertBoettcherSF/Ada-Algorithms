@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Minimum_Limit_Of_Balls_In_A_Bag;
+with Own_Checks;
 use Minimum_Limit_Of_Balls_In_A_Bag;
 
 procedure Tests is
@@ -7,4 +8,5 @@ procedure Tests is
 begin
    Assert (Minimum_Limit (Bags, 0) = 9);
    Assert (Minimum_Limit (Bags, 4) = 5);
+   Own_Checks;
 end Tests;

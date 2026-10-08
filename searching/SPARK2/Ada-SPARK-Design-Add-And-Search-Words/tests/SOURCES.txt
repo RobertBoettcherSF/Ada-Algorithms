@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: a pattern matches a word when the lengths are equal and every
+  pattern character is "." or equal to the word's character; Search must be
+  True exactly when some added word matches.
+* Inputs: 4,000 random dictionaries of 0 .. 8 words (length 0 .. 4 over 'a' ..
+  'b') and random patterns of length 0 .. 4 with about one "." in three.

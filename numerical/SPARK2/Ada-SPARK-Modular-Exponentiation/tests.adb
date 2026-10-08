@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Modular_Exponentiation; use Modular_Exponentiation;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -7,4 +8,5 @@ begin
    pragma Assert (Power (7, 0, 13) = 1);
    pragma Assert (Power (3, 5, 7) = 5);
    Put_Line ("modular exponentiation checks passed");
+   Own_Checks;
 end Tests;

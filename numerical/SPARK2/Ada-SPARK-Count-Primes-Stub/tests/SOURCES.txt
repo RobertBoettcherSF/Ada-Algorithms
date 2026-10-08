@@ -1,0 +1,11 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: own trial division for Is_Prime, and the count of
+  X in 0 .. V - 1 passing it for Below ("below" = strictly less than).
+* Inputs: every V in 0 .. 100 (exhaustive) for both functions.
