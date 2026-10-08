@@ -1,5 +1,6 @@
 pragma Ada_2022;
 with Longest_Common_Substring;
+with Own_Checks;
 use Longest_Common_Substring;
 procedure Tests is
    A : constant Char_Array := "abca";
@@ -7,4 +8,5 @@ procedure Tests is
 begin
    pragma Assert (Length (A, B) = 2);
    pragma Assert (Length ("ab", "xy") = 0);
+   Own_Checks;
 end Tests;

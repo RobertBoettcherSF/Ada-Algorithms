@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: the overlay of the two input trees, computed per heap
+  position in the test (a node exists where it exists in A or in B; its value
+  is the sum of the values present). The merged tree is walked from its node
+  1 and compared position by position, so the result's node numbering is
+  free; only its shape and values are checked.
+* Inputs: 4,000 pairs of random trees in heap layout (children of K at 2K and
+  2K + 1, up to 15 nodes, closed under parent), values in -500 .. 500 so
+  that sums stay inside Value; pairs where both trees are empty are skipped.

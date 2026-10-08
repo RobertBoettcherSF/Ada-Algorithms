@@ -2,6 +2,7 @@ pragma Ada_2022;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Text_IO; use Ada.Text_IO;
 with Huffman_Coding; use Huffman_Coding;
+with Own_Checks;
 procedure Tests is
    Data : constant Symbol_Array :=
      ('a', 'b', 'a', 'c', 'a', 'b', 'a', 'd');
@@ -14,4 +15,5 @@ begin
    Assert (Most_Frequent (F) = 'a');
    Put_Line ("PASS Huffman_Coding frequency helpers");
    Put_Line ("All Huffman_Coding SPARK topic tests passed.");
+   Own_Checks;
 end Tests;

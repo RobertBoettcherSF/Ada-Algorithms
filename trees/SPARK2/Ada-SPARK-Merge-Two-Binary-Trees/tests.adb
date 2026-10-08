@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Merge_Two_Binary_Trees; use Merge_Two_Binary_Trees;
+with Own_Checks;
 procedure Tests is
    A : Tree := Empty; B : Tree := Empty; C : Tree;
 begin
@@ -10,4 +11,5 @@ begin
    if Value_At (C, 1) /= 4 or else Left_Child (C, 1) /= 2
      or else Right_Child (C, 1) /= 3 then raise Program_Error; end if;
    Put_Line ("Merge binary trees: PASS");
+   Own_Checks;
 end Tests;

@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: C is an interleaving of A and B when C can be read off by
+  taking characters from the front of A or of B, keeping each one's order and
+  using every character of both exactly once (so NC = NA + NB); checked by
+  recursion over the two read positions.
+* Inputs: every triple of words of length 0 .. 4 over the symbols {0, 1}
+  (31**3 = 29,791 triples); positions beyond a word's length hold symbol 7,
+  so the result must not depend on them.

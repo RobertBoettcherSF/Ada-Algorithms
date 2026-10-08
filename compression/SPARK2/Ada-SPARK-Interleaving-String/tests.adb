@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Interleaving_String; use Interleaving_String;
+with Own_Checks;
 
 procedure Tests is
    A : Word := (1, 2, 0, 0);
@@ -10,4 +11,5 @@ begin
    Assert (Is_Interleaving (A, B, C, 2, 2, 4));
    Assert (not Is_Interleaving (A, B, D, 2, 2, 4));
    Assert (Is_Interleaving (A, B, C, 0, 0, 0));
+   Own_Checks;
 end Tests;

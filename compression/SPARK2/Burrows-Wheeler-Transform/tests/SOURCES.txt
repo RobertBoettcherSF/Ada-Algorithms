@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: the rotation of X starting at S is X (S .. 8) followed by
+  X (1 .. S - 1) (the rotations the Burrows-Wheeler transform sorts);
+  Rotation_Character must return its character at offset O, and for two
+  different rotations Rotation_Less must say whether the first is
+  lexicographically smaller (computed in the test character by character).
+  Equal rotations (left = right, or periodic texts) are not checked, so
+  whether "less" is strict does not matter.
+* Inputs: 4,000 random 8-character texts, half over {a, b}, half over
+  {a, b, c}, all 64 offsets and all 64 ordered pairs of start positions.

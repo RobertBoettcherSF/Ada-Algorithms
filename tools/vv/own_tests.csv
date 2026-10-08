@@ -84,3 +84,12 @@ trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST,own parent-climbing LCA on gen
 trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST,own parent-climbing LCA on generated BSTs; 4000 random
 trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree,own identical-subtree check (copied/absent patterns); 5000 random
 misc/SPARK2/Ada-SPARK-Mean-Variance,mean in [floor; ceil] of S/5 + population variance in [floor; ceil] of (5Q - S**2)/25; constant samples; all 3125 inputs (exhaustive)
+trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder,own recursive subtree-sum reference; empty tree; 4000 random shapes
+trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees,own overlay reference per heap position; result walked from its root; 4000 random pairs
+trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree,own sum of values >= each element for strictly increasing sequences; 4000 random
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,Contains vs own set over the whole Value range + Size; 2000 random distinct-key sequences
+trees/SPARK2/Ada-SPARK-Longest-Common-Substring,own all-start-pairs reference; all string pairs up to length 4 over {a;b} and {a;b;c} (exhaustive)
+compression/SPARK2/Ada-SPARK-Interleaving-String,own recursive interleaving reference; all 29791 triples up to length 4 over {0;1} (exhaustive)
+compression/SPARK2/Ada-SPARK-String-Compression,round trip (expand runs = input) + counts >= 1 + maximal runs; 5000 random
+compression/SPARK2/Burrows-Wheeler-Transform,rotation characters and lexicographic order of different rotations from the definition; 4000 random
+compression/SPARK3/Huffman-Coding,own symbol counts; distinct count; most frequent has maximal count; 4000 random
