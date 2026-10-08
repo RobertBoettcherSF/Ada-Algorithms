@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Silent-failure scan (docs/VV.md 3i): does a failing test make `make test` fail?
+"""Silent-failure scan (docs/VV.md 3j): does a failing test make `make test` fail?
 
 For every folder, in a scratch copy, run the standard `make test` once with GNAT 14
 (folders without a Makefile: gnatmake -gnat2022 on the test main, run it) and record

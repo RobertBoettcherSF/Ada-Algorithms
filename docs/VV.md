@@ -91,6 +91,15 @@ Tests strengthened while looking at survivors can overfit, so the 90% bar is sco
 - The held-out half needs at least 20 non-equivalent mutants. If there are too few, it is topped up from an alternative operator family (`sweep_mutate.py`, added by the sweep).
 - A folder whose tests were already tuned against all its mutants takes its held-out set from the alternative family or from mutants never shown, only.
 - PROOFS.csv stores raw killed/total for both halves (`mutation_tuned_k`, `mutation_tuned_n`, `mutation_heldout_k`, `mutation_heldout_n`) next to the percentages. PROOFS.md shows them as e.g. 18/20.
+- Tooling: `tools/vv/heldout.py split` makes a hash-stable split (seed 20261108). Mutants already published in an earlier result are forced into the tuning half. `heldout.py score --half tuning|heldout` writes `vv/results/mutation_halves.csv`. The index reads that file, the `tools/vv/*_halves.csv` files and the flagship's `flagship_mutation_phase2.csv`.
+- A folder with a tuning score but no held-out score is not training-ready ("held-out score pending").
+- Flagship held-out results folded in (19:56 rule):
+  - Conflict-Driven-Clause-Learning: 23/28, fails the bar.
+  - Verified-Unification-Engine: 33/39, fails.
+  - Automated-Theorem-Proving: 32/32, passes.
+  - Rete-Algorithm: 28/31, passes.
+  - Hindley-Milner-Type-System: 19/19, below the 20-mutant minimum.
+- Most sole-mutation folders have 20 or fewer operator sites, and all of them were published, so their held-out half is empty. They wait for the alternative operator family in `sweep_mutate.py`.
 
 ### Stricter training-ready rule (2026-10-08)
 
@@ -100,6 +109,10 @@ A folder that met the old rule (builds and tests on GNAT 12 and 14, Silver non-t
 2. **Independent reference** (`ref_independent`): the expected values come from a different method than the code under test, either a registered vector or own tests (brute force or an independent property). Agreement with the twin alone (`twin_only` = yes) does not count, because twins can share a wrong answer.
 3. **Warnings:** zero warnings with `-gnatwa -gnat2022` on GNAT 14 and on GNAT 12 (columns `warnings_gnat14`, `warnings_gnat12`). The fix has to be in the code. A folder with `pragma Warnings (Off ...)` in its sources, or `-gnatws`/`-gnatwA` in its gpr, Makefile or .adc, has `warnings_suppressed` = yes and is not training-ready. The list is in `tools/vv/warnings_suppressed.csv`.
 4. **Proof escapes:** every `pragma Assume` and `pragma Annotate (GNATprove, ...)` is listed in `tools/vv/proof_escapes.csv` with file, line and its written reason (the column `proof_escapes` holds the count). An escape without a reason sets `silver` to `proven, unjustified escape`, so the folder no longer counts as Silver non-trivial. Both lists are written by `tools/vv/escapes_scan.py`.
+5. **Silent fail** (`silent_fail` = yes, from `tools/vv/silent_fail.csv`, see 3j): a failed check would not fail `make test`.
+6. **Compiler versions verified** (`compiler_14_version`, `compiler_12_version`): the exact first line of `gnatmake --version` from the run that produced the build and test result, or `unverified`. Both must be verified.
+
+Warnings (item 3) count distinct warning lines over the uniform `-gnatwa -gnat2022` build and the folder's own `make test` build. Some warnings appear only under the folder's own flags, for example `-gnata`.
 
 ## 3d. Do-nothing check
 
@@ -173,7 +186,7 @@ Status (2026-10-08): 979 programs in 901 folders (889 test mains, 90 other mains
 - 1 Constraint_Error, a real bug: Lempel-Ziv-Ross-Williams overflowed on inputs indexed from `Stream_Element_Offset'First`, which is what every positional aggregate gets, its own `main.adb` included. Fixed by sliding inputs to 1-based buffers.
 - A second real defect came from the not-built list: Prediction-By-Partial-Matching did not compile, so its `make test` always failed. Fixed.
 - Asymetric-Public-Key-Encryption's test reads an unassigned out parameter (a test bug).
-- Association-Rule-Learning test 11.3 also fails in the normal build; it needs review.
+- Association-Rule-Learning test 11.3 also fails in the normal build. Resolved: the expected value in the test was wrong (Conviction({1} -> {9}) is 1.0, not 1.25); fixed in 6b053fea / 641ce4b2.
 
 Random-input driver (`tools/vv/random_drive.py`, `tools/vv/random_drive.csv`): it covers every public subprogram of a non-generic package spec whose parameters are all simple. That means integers, modular and range types and integer subtypes declared in the spec, Boolean, Character, String, and unconstrained arrays of these. Each one gets 2000 seeded random calls with all checks on, with extra weight near both ends of each range. Only a failed language check inside the library counts as a crash: precondition failures and explicit raises are rejections of the input. 377 folders were driven:
 - 334 ok, plus 2 with only explicit raises.
@@ -187,7 +200,7 @@ Random-input driver (`tools/vv/random_drive.py`, `tools/vv/random_drive.csv`): i
 
 Plain-Ada sample (`tools/vv/sample_ada_30.txt`, results in `sample_ada_30_results.csv`): misc/Ada/docs is not an algorithm folder, so n = 29. Bugs so far: Prediction-By-Partial-Matching (did not compile; found by the crash run) and Bowyer-Watson (lost convex-hull triangles; own Delaunay/hull test). Status per folder is in the results file.
 
-Many plain-Ada test mains end with `pragma Assert (Fail_Count = 0)`, and their Makefiles do not pass `-gnata`. In a normal build such a test reports failures but still exits 0. The crash run shows that every such run fails only on contract-versus-defensive-raise checks.
+Many plain-Ada test mains end with `pragma Assert (Fail_Count = 0)`, and their Makefiles do not pass `-gnata`. In a normal build such a test reports failures but still exits 0. The crash run shows that every such run fails only on contract-versus-defensive-raise checks. Fixed in the silent-fail scan (3j): those harnesses now set the exit status themselves.
 
 ## Not done yet
 
@@ -223,3 +236,31 @@ First alt-family round (seed 20261108; equivalent survivors left out of n, timeo
 - Hidden-Subgroup-Problem (after the Simon GF(2) fix): 164/166 (98.8%; 166/166 with timeouts as kills), all 185 alt mutants; 18 survivors equivalent (exhaustive, `tools/vv/sweep_equiv_hsp.py`, plus written reasons); 2 timeouts; 1 stillborn.
 - RSA: 47/50 (94.0%; 50/50 with timeouts as kills), all 54 alt mutants; 4 survivors equivalent (gcd argument order; two pairs of already-justified defensive-bound mutants); 3 timeouts (deleted loop steps).
 - Matrix-Multiplication: its first-order held-out score (seed 20261108, 358/364 = 98.4%) is kept as recorded, with the N = 32 Integer-product gap visible; the max-size test added afterwards counts only from the alt round with seed 20261109 (`tools/vv/sweep_heldout_alt.csv`).
+
+## 3j. Silent-fail scan, compiler-version guard and timeouts (2026-10-08, night)
+
+**Silent fail.** `tools/vv/silent_fail.py` asks whether a failed check would fail `make test`. It reads the logs of the version-checked build run (`--from-logs`; `tools/audit/build_folder.sh` keeps `mk14.log`, `mk12.log`, `r14.log`, `r12.log`) or runs `make test` itself on GNAT 14. It flags three things:
+- A run with exit status 0 that prints the word FAIL or FAILED. Lines reporting zero failures do not count, nor do lines that start with PASS/OK, nor expected-failure labels. Inspected label lines (section headers, "Assume ... fail" hypotheses, a protocol message called FAIL) are listed in `tools/vv/silent_fail_reviewed.csv`.
+- `assert_only`: the test main's only exit signal is a `pragma Assert` that the standard build ignores, because there is no `-gnata` and no `Assertion_Policy (Check)`.
+- `no_exit_signal`: the test main prints FAIL text, but nothing in it can set a non-zero exit status.
+
+The index column `silent_fail` = yes blocks training_ready.
+
+First scan, 1840 folders, GNAT 14.2.0 and 12.2.0 logs:
+- 4 runs printed FAIL with exit 0. All 4 were real failing tests, fixed test-first (findings registry):
+  - Histogram-Equalization: uniform images mapped to 0.
+  - Association-Rule-Learning: the Pre contracts were unchecked without `-gnata`, and test 11.3 had a wrong expected value.
+  - Nagles-Algorithm: an unset out parameter, a Merge_Packets size bug, and buffered bytes dropped after a segment was sent.
+  - Random-Forest: test 9.1 depended on unchecked Pre and time-seeded sampling.
+- 169 harnesses were assert_only and 77 had no exit signal. All now set `Ada.Command_Line.Set_Exit_Status (Failure)` from their own failure counter (c6983f49). No check was changed.
+- Rerunning those folders exposed one more intermittent failure: Backpropagation's XOR test used time-seeded weights (5946190a / d1f050a6).
+- After the fixes, the scan finds 0 silent fails.
+
+**Compiler-version guard.** Every build and test result must name the compiler that produced it:
+- `tools/audit/build_folder.sh` records `gnatmake --version` (and the gcc line) for both toolchains on each run. It refuses to record a result with a JSON error and exit 2 if the GNAT 14 slot does not report 14, or the GNAT 12 slot does not report 12.
+- `tools/vv/sweep_check.sh` does the same.
+- `mutate.py`, `sweep_mutate.py` and `silent_fail.py` call `mutate.require_version(14)` and write the version into every row.
+- PROOFS.csv has `compiler_14_version` and `compiler_12_version`. Results from runs that did not record a version are `unverified` and block training_ready.
+- Every folder was rerun with the guard (`/workspace/aa/v2/build_v.jsonl`, appended per batch, last record wins).
+
+**Timeouts.** The mutation and silent-fail runners start each test in its own process group (`start_new_session`) and set a parent-death signal (`prctl(PR_SET_PDEATHSIG)`). On a timeout they kill the whole group, and the result is recorded as `timeout`, not as a kill. Before this change, a timed-out `make test` could leave `./tbin` spinning. `build_folder.sh` runs each step under `timeout -k 10` (GNU timeout signals the whole process group, then SIGKILL after 10 s) (`AA_MAKE_TIMEOUT`, default 900 s).
