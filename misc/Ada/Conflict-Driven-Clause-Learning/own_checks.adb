@@ -24,7 +24,7 @@ procedure Own_Checks is
    end Rand;
 
    Max_Clauses : constant := 600;
-   Max_Width   : constant := 4;
+   Max_Width   : constant := 7;
    type Lit_Row is array (1 .. Max_Width) of Integer;
    type Clause_Table is array (1 .. Max_Clauses) of Lit_Row;   --  0 = unused slot
    type CNF is record
@@ -132,19 +132,49 @@ procedure Own_Checks is
       return R;
    end To_Formula;
 
-   type Variant is (Basic, Restarts, Deletion);
+   type Variant is (Basic, Restarts, Deletion, Instr_Plain, Instr_Low);
+   --  Instr_Plain: Solve_Instrumented without restarts / deletion (counters
+   --  must show none); Instr_Low: restarts after every conflict and at most
+   --  one learned clause kept, so small formulas exercise both.
+   Total_Restarts, Total_Deleted, Total_Conflicts : Natural := 0;
    procedure Run (V : Variant; F : Formula; A : out Assignment_Array; P : Positive; S : out Solve_Status) is
    begin
       case V is
          when Basic    => S := Solve_Basic (F, A);
          when Restarts => S := Solve_With_Restarts (F, A, P);
          when Deletion => S := Solve_With_Clause_Deletion (F, A, P);
+         when Instr_Plain | Instr_Low =>
+            declare
+               Low : constant Boolean := V = Instr_Low;
+               St  : Solve_Statistics;
+            begin
+               Solve_Instrumented (F, A, Low, 1, Low, 1, S, St);
+               if not Low and then (St.Restarts /= 0 or else St.Deleted /= 0) then
+                  Fail ("counters: restarts or deletions without the option");
+               end if;
+               if St.Learned /= St.Conflicts - (if S = Unsatisfiable then 1 else 0)
+                 or else St.Restarts > St.Conflicts or else St.Deleted > St.Learned
+                 or else St.Peak_Learned > St.Learned
+                 or else (S = Unsatisfiable and then St.Conflicts = 0)
+                 or else (Low and then St.Peak_Learned < Natural'Min (St.Learned, 1))
+                 or else (Low and then St.Restarts /= St.Learned)
+               then
+                  Fail ("counters inconsistent: conflicts" & St.Conflicts'Image & " learned" & St.Learned'Image
+                        & " deleted" & St.Deleted'Image & " restarts" & St.Restarts'Image
+                        & " peak" & St.Peak_Learned'Image);
+               end if;
+               if Low then
+                  Total_Restarts := Total_Restarts + St.Restarts;
+                  Total_Deleted := Total_Deleted + St.Deleted;
+                  Total_Conflicts := Total_Conflicts + St.Conflicts;
+               end if;
+            end;
       end case;
    end Run;
 
    type Count_Row is array (Variant) of Natural;
    Sat_Agree, Sat_Total, Unsat_Agree, Unsat_Total, Easy_Agree, Easy_Total,
-     Big_OK, Big_Total : Count_Row := [others => 0];
+     Big_OK, Big_Total, Big_UNSAT_OK, Big_UNSAT_Total : Count_Row := [others => 0];
 
    procedure Compare (F : CNF; Label : String; Expect : Boolean;
                       Agree, Total : in out Count_Row) is
@@ -257,7 +287,7 @@ begin
       F.N := Rand (1, 6); F.M := Rand (0, 8);
       F.C := [others => [others => 0]];
       for I in 1 .. F.M loop
-         for J in 1 .. Rand (1, Max_Width) loop
+         for J in 1 .. Rand (1, 4) loop
             F.C (I) (J) := Rand (1, F.N) * (if Rand (0, 1) = 1 then 1 else -1);
          end loop;
       end loop;
@@ -269,6 +299,14 @@ begin
    Compare (F, "PHP(3,2)", False, Unsat_Agree, Unsat_Total);
    Pigeonhole (F, 4, 3);
    Compare (F, "PHP(4,3)", False, Unsat_Agree, Unsat_Total);
+   --  beyond brute force (20, 30, 42 variables): UNSAT by the pigeonhole
+   --  principle; each run of each variant takes well under a second
+   Pigeonhole (F, 5, 4);
+   Compare (F, "PHP(5,4)", False, Big_UNSAT_OK, Big_UNSAT_Total);
+   Pigeonhole (F, 6, 5);
+   Compare (F, "PHP(6,5)", False, Big_UNSAT_OK, Big_UNSAT_Total);
+   Pigeonhole (F, 7, 6);
+   Compare (F, "PHP(7,6)", False, Big_UNSAT_OK, Big_UNSAT_Total);
 
    --  4. beyond brute force: planted solution, 40 .. 120 vars, M = 4 N;
    --     any UNSAT is wrong, any SAT model is checked clause by clause
@@ -297,8 +335,15 @@ begin
       Put_Line ("own checks " & V'Image & ": phase-transition SAT" & Sat_Agree (V)'Image & " /" & Sat_Total (V)'Image
         & ", UNSAT" & Unsat_Agree (V)'Image & " /" & Unsat_Total (V)'Image & " (incl. PHP)"
         & ", easy" & Easy_Agree (V)'Image & " /" & Easy_Total (V)'Image
-        & ", planted 30-120 vars" & Big_OK (V)'Image & " /" & Big_Total (V)'Image);
+        & ", planted 30-120 vars" & Big_OK (V)'Image & " /" & Big_Total (V)'Image
+        & ", PHP(5,4) PHP(6,5) PHP(7,6) UNSAT" & Big_UNSAT_OK (V)'Image & " /" & Big_UNSAT_Total (V)'Image);
    end loop;
+   Put_Line ("own checks: low-threshold runs (restart every conflict, keep 1 learned clause):"
+             & Total_Conflicts'Image & " conflicts," & Total_Restarts'Image & " restarts,"
+             & Total_Deleted'Image & " learned clauses deleted");
+   if Total_Restarts = 0 or else Total_Deleted = 0 then
+      Fail ("low-threshold runs never restarted or never deleted a clause");
+   end if;
    if Failures > 0 then
       raise Program_Error with "own checks:" & Failures'Image & " failures";
    end if;

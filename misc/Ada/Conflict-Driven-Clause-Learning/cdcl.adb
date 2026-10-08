@@ -240,11 +240,14 @@ package body CDCL is
    end Decide;
 
    -- Core Solver Logic incorporating Variants
-   function Solve_Internal (F : Formula; Assignments : out Assignment_Array; Use_Restarts : Boolean; Restart_Interval : Positive; Use_Deletion : Boolean; Max_Learned : Positive) return Solve_Status is
+   procedure Solve_Internal (F : Formula; Assignments : out Assignment_Array; Use_Restarts : Boolean; Restart_Interval : Positive; Use_Deletion : Boolean; Max_Learned : Positive;
+                             Status : out Solve_Status; Stats : out Solve_Statistics) is
       S : CDCL_State (Variable_Id (F.Variables_Count));
       Conflicts_Since_Restart   : Natural := 0;
       Current_Restart_Threshold : Natural := Restart_Interval;
    begin
+      Stats := (others => 0);
+      Status := Unknown;
       --  Each clause enters the solver with duplicate literals removed:
       --  Evaluate counts unassigned occurrences and Analyze_Conflict counts
       --  current-level occurrences, so (x or x) was never unit and a
@@ -269,8 +272,10 @@ package body CDCL is
          begin
             if Conflict_Id /= 0 then
                S.Conflicts := S.Conflicts + 1;
+               Stats.Conflicts := S.Conflicts;
                if S.Current_Level = 0 then
-                  return Unsatisfiable;
+                  Status := Unsatisfiable;
+                  return;
                end if;
 
                declare
@@ -279,6 +284,7 @@ package body CDCL is
                begin
                   Analyze_Conflict (S, Conflict_Id, Learned, Back_Level);
                   S.Clauses.Append (Learned);
+                  Stats.Learned := Stats.Learned + 1;
                   Backjump (S, Back_Level);
 
                   --  Delete the oldest learned clause that is not the reason
@@ -292,6 +298,7 @@ package body CDCL is
                               S.Assignments (V).Value = Unassigned or else S.Assignments (V).Reason /= Victim)
                         then
                            S.Clauses.Delete (Victim);
+                           Stats.Deleted := Stats.Deleted + 1;
                            for V in S.Assignments'Range loop
                               if S.Assignments (V).Reason > Victim then
                                  S.Assignments (V).Reason := S.Assignments (V).Reason - 1;
@@ -302,6 +309,7 @@ package body CDCL is
                      end loop;
                   end if;
 
+                  Stats.Peak_Learned := Natural'Max (Stats.Peak_Learned, Natural (S.Clauses.Length) - S.Original_Count);
                   declare
                      Unit_Lit : Literal := 0;
                   begin
@@ -321,6 +329,7 @@ package body CDCL is
                   Conflicts_Since_Restart := Conflicts_Since_Restart + 1;
                   if Conflicts_Since_Restart >= Current_Restart_Threshold then
                      Backjump (S, 0);
+                     Stats.Restarts := Stats.Restarts + 1;
                      Conflicts_Since_Restart := 0;
                      Current_Restart_Threshold := Current_Restart_Threshold + (Current_Restart_Threshold / 2);
                   end if;
@@ -331,7 +340,8 @@ package body CDCL is
                   for I in 1 .. F.Variables_Count loop
                      Assignments (Variable_Id (I)) := S.Assignments (Variable_Id (I)).Value;
                   end loop;
-                  return Satisfiable;
+                  Status := Satisfiable;
+                  return;
                else
                   Decide (S);
                end if;
@@ -340,19 +350,41 @@ package body CDCL is
       end loop;
    end Solve_Internal;
 
-   function Solve_Basic (F : Formula; Assignments : out Assignment_Array) return Solve_Status is
+   procedure Solve_Instrumented
+     (F                : Formula;
+      Assignments      : out Assignment_Array;
+      Use_Restarts     : Boolean;
+      Restart_Interval : Positive;
+      Use_Deletion     : Boolean;
+      Max_Learned      : Positive;
+      Status           : out Solve_Status;
+      Stats            : out Solve_Statistics) is
    begin
-      return Solve_Internal (F, Assignments, Use_Restarts => False, Restart_Interval => 1, Use_Deletion => False, Max_Learned => 1);
+      Solve_Internal (F, Assignments, Use_Restarts, Restart_Interval, Use_Deletion, Max_Learned, Status, Stats);
+   end Solve_Instrumented;
+
+   function Solve_Basic (F : Formula; Assignments : out Assignment_Array) return Solve_Status is
+      Status : Solve_Status;
+      Stats  : Solve_Statistics;
+   begin
+      Solve_Internal (F, Assignments, False, 1, False, 1, Status, Stats);
+      return Status;
    end Solve_Basic;
 
    function Solve_With_Restarts (F : Formula; Assignments : out Assignment_Array; Restart_Interval : Positive) return Solve_Status is
+      Status : Solve_Status;
+      Stats  : Solve_Statistics;
    begin
-      return Solve_Internal (F, Assignments, Use_Restarts => True, Restart_Interval => Restart_Interval, Use_Deletion => False, Max_Learned => 1);
+      Solve_Internal (F, Assignments, True, Restart_Interval, False, 1, Status, Stats);
+      return Status;
    end Solve_With_Restarts;
 
    function Solve_With_Clause_Deletion (F : Formula; Assignments : out Assignment_Array; Max_Learned : Positive) return Solve_Status is
+      Status : Solve_Status;
+      Stats  : Solve_Statistics;
    begin
-      return Solve_Internal (F, Assignments, Use_Restarts => False, Restart_Interval => 1, Use_Deletion => True, Max_Learned => Max_Learned);
+      Solve_Internal (F, Assignments, False, 1, True, Max_Learned, Status, Stats);
+      return Status;
    end Solve_With_Clause_Deletion;
 
    function Is_Satisfied (F : Formula; Assignments : Assignment_Array) return Boolean is

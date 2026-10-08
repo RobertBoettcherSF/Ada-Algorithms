@@ -46,6 +46,27 @@ package CDCL is
    function Solve_With_Clause_Deletion (F : Formula; Assignments : out Assignment_Array; Max_Learned : Positive) return Solve_Status
      with Pre => F.Variables_Count > 0 and then Assignments'Length = F.Variables_Count;
 
+   -- Instrumented run (any variant) with per-run counters, so tests can
+   -- show that restarts and clause deletion actually happen.
+   type Solve_Statistics is record
+      Conflicts    : Natural := 0;  -- conflicts met (the last one, at level 0, ends an UNSAT run)
+      Learned      : Natural := 0;  -- learned clauses added
+      Deleted      : Natural := 0;  -- learned clauses deleted
+      Restarts     : Natural := 0;
+      Peak_Learned : Natural := 0;  -- most learned clauses held at once (after deletion)
+   end record;
+
+   procedure Solve_Instrumented
+     (F                : Formula;
+      Assignments      : out Assignment_Array;
+      Use_Restarts     : Boolean;
+      Restart_Interval : Positive;
+      Use_Deletion     : Boolean;
+      Max_Learned      : Positive;
+      Status           : out Solve_Status;
+      Stats            : out Solve_Statistics)
+     with Pre => F.Variables_Count > 0 and then Assignments'Length = F.Variables_Count;
+
    -- Helper: to validate an assignment against a formula
    function Is_Satisfied (F : Formula; Assignments : Assignment_Array) return Boolean;
 

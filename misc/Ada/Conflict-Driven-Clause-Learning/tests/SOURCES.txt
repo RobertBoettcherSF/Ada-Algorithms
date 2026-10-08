@@ -14,6 +14,15 @@ Sources of the expected values in own_checks.adb (own code, MIT)
   brute force: 12 formulas with 30 .. 120 variables and 4 N clauses built
   around a hidden assignment (clauses it falsifies get a literal flipped),
   so UNSAT is always wrong there.
+* Beyond brute force, UNSAT: PHP(5,4), PHP(6,5), PHP(7,6) (20, 30, 42
+  variables; pigeonhole principle). PHP(6,5) takes about 0.006 s and 50
+  conflicts with Solve_Basic.
+* Solve_Instrumented counters: without the options there are no restarts
+  and no deletions; learned = conflicts (minus the final level-0 conflict
+  of an UNSAT run); restarts <= conflicts; deleted <= learned; an UNSAT run
+  has a conflict. Low-threshold runs (restart after every conflict, keep
+  one learned clause) must restart and delete at all (totals reported) and
+  hold at least min (learned, 1) learned clauses at their peak.
 * All three solver variants (Basic, Restarts with interval 1 .. 6, Clause
   deletion with Max_Learned 1 .. 6) on every formula. Park-Miller PRNG,
   seed 20261008.
