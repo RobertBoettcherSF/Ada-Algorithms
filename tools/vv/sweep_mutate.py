@@ -9,6 +9,11 @@ mutants say nothing about the code under test.) Up to --max mutants per
 folder (seeded sample of all sites), run in parallel.
 
 usage: sweep_mutate.py FOLDER... [--max 40] [-j 6] [--out file.csv]
+       [--family std|alt] [--split-seed N --half tune|held]
+Held-out rule (docs/VV.md 3i): for a new folder, split with a recorded
+--split-seed before writing tests, look only at --half tune survivors, score
+the bar on --half held (survivor lines are hidden in the detail file); top the
+held half up to >= 20 non-equivalent mutants with --family alt.
 """
 import argparse, csv, os, random, re, shutil, sys
 from concurrent.futures import ThreadPoolExecutor
@@ -55,17 +60,75 @@ def lib_files(src):
                 yield os.path.relpath(os.path.join(d, f), src)
 
 def one(args):
-    src, w, rel, ln, c0, c1, rep = args
+    # (src, work, edits) with edits = [(rel, ln, c0, c1, rep)], one per line
+    # (second-order: two); the older single-edit form (src, work, rel, ln, c0,
+    # c1, rep) is still accepted for callers that import this module.
+    if len(args) == 7:
+        src, w, rel, ln, c0, c1, rep = args
+        edits = [(rel, ln, c0, c1, rep)]
+    else:
+        src, w, edits = args
     shutil.rmtree(w, ignore_errors=True); shutil.copytree(src, w, ignore=IGN)
     if DUMMY:
         mutate.make_dummy(w)
-    p = os.path.join(w, rel)
-    lines = open(p, errors='replace').read().split('\n')
-    orig = lines[ln]; lines[ln] = orig[:c0] + rep + orig[c1:]
-    open(p, 'w').write('\n'.join(lines))
+    befores, afters = [], []
+    for rel, ln, c0, c1, rep in edits:
+        p = os.path.join(w, rel)
+        lines = open(p, errors='replace').read().split('\n')
+        orig = lines[ln]; lines[ln] = orig[:c0] + rep + orig[c1:]
+        open(p, 'w').write('\n'.join(lines))
+        befores.append(orig.strip()[:100]); afters.append(lines[ln].strip()[:100])
     res = run_tests(w)
     shutil.rmtree(w, ignore_errors=True)
-    return orig.strip()[:100], lines[ln].strip()[:100], res
+    return ' || '.join(befores), ' || '.join(afters), res
+
+# Alternative operator family (docs/VV.md 3i, held-out sets for small folders):
+# statement deletion, integer-constant replacement, argument swap, and
+# second-order mutants (two standard mutants on different lines).
+ALT_STMT = re.compile(r'^(\s*)([A-Za-z_][\w.]*(?:\s*\([^;]*\))?\s*:=\s*[^;]+;)\s*(--.*)?$')
+ALT_INT = re.compile(r'(?<![\w.#\'])(\d+)(?![\w.#])')
+ALT_SWAP = re.compile(r'\(\s*([A-Za-z_][\w.]*)\s*,\s*([A-Za-z_][\w.]*)\s*\)')
+
+def alt_sites(path):
+    out = []
+    in_pragma = False
+    for ln, line in enumerate(open(path, errors='replace').read().split('\n')):
+        code = line.split('--')[0]
+        starts = bool(re.match(r'\s*pragma\b', code, re.I))
+        skip = in_pragma or starts
+        if (in_pragma or starts) and ';' not in code:
+            in_pragma = True
+        elif ';' in code:
+            in_pragma = False
+        if skip or mutate.SKIP_LINE.search(code) or code.count('"') or re.search(r'\b(constant|range|array|type|subtype)\b', code, re.I):
+            continue
+        m = ALT_STMT.match(code)
+        if m and not re.match(r'\s*\w+\s*:\s', code):          # an assignment statement, not a declaration
+            out.append((ln, m.start(2), m.end(2), 'delete statement', 'null;'))
+        for m in ALT_INT.finditer(code):
+            n = int(m.group(1))
+            for r in sorted({n + 1, n - 1, 0} - {n, -1}):
+                out.append((ln, m.start(1), m.end(1), f'constant {n} -> {r}', str(r)))
+        for m in ALT_SWAP.finditer(code):
+            if m.group(1) != m.group(2) and not re.search(r'\b(in|loop|range)\b', code[:m.start()].split(';')[-1][-6:]):
+                out.append((ln, m.start(), m.end(), 'swap arguments', f'({m.group(2)}, {m.group(1)})'))
+    return out
+
+def candidates(src, family, rng):
+    """List of (name, [edits]) for the folder's library code."""
+    std = [(name, [(rel, ln, c0, c1, rep)]) for rel in lib_files(src)
+           for (ln, c0, c1, name, rep) in mutate.sites(os.path.join(src, rel))]
+    if family == 'std':
+        return std
+    alt = [(name, [(rel, ln, c0, c1, rep)]) for rel in lib_files(src)
+           for (ln, c0, c1, name, rep) in alt_sites(os.path.join(src, rel))]
+    # second-order: random pairs of standard mutants on different lines (as many as std sites)
+    pairs = []
+    for _ in range(len(std)):
+        a, b = rng.sample(std, 2) if len(std) >= 2 else (None, None)
+        if a and (a[1][0][0], a[1][0][1]) != (b[1][0][0], b[1][0][1]):
+            pairs.append((a[0] + ' + ' + b[0], a[1] + b[1]))
+    return alt + pairs
 
 def main():
     ap = argparse.ArgumentParser()
@@ -73,6 +136,12 @@ def main():
     ap.add_argument('-j', type=int, default=6); ap.add_argument('--seed', type=int, default=20261008)
     ap.add_argument('--out', default='/tmp/sweep_mut.csv'); ap.add_argument('--work', default='/tmp/sweep_mut')
     ap.add_argument('--dummy', action='store_true', help='control (a): always-passing test that checks nothing; must score 0')
+    ap.add_argument('--family', choices=('std', 'alt'), default='std',
+                    help='std: mutate.py operators; alt: statement deletion, constant replacement, argument swap, second-order')
+    ap.add_argument('--split-seed', type=int, default=None,
+                    help='split the candidate list into two halves with this seed (record it); use with --half')
+    ap.add_argument('--half', choices=('tune', 'held'), default=None,
+                    help='tune: the half whose survivors may be looked at; held: the scoring half (survivor lines hidden)')
     a = ap.parse_args()
     global DUMMY
     DUMMY = a.dummy
@@ -83,19 +152,26 @@ def main():
         if DUMMY:
             mutate.make_dummy(wk + '/base')
         base = run_tests(wk + '/base')
-        cand = [(rel,) + s for rel in lib_files(src) for s in mutate.sites(os.path.join(src, rel))]
+        cand = candidates(src, a.family, random.Random(a.seed + 1))
+        if a.split_seed is not None and a.half:
+            order = list(range(len(cand))); random.Random(a.split_seed).shuffle(order)
+            keep = set(order[:len(cand) // 2]) if a.half == 'tune' else set(order[len(cand) // 2:])
+            cand = [c for i, c in enumerate(cand) if i in keep]
         rng = random.Random(a.seed)
         pick = rng.sample(cand, min(a.max, len(cand))) if base == 'survived' else []
-        jobs = [(src, f'{wk}/m{i}', rel, ln, c0, c1, rep) for i, (rel, ln, c0, c1, name, rep) in enumerate(pick)]
+        jobs = [(src, f'{wk}/m{i}', edits) for i, (name, edits) in enumerate(pick)]
         with ThreadPoolExecutor(a.j) as ex:
             res = list(ex.map(one, jobs))
         k = sum(r[2] == 'killed' for r in res); s = sum(r[2] == 'survived' for r in res); sb = sum(r[2] == 'stillborn' for r in res)
         to = sum(r[2] == 'timeout' for r in res)
-        for (rel, ln, c0, c1, name, rep), (b, af, r) in zip(pick, res):
-            detail.append(dict(folder=fid, file=rel, line=ln + 1, op=name, before=b, after=af, result=r))
+        for (name, edits), (b, af, r) in zip(pick, res):
+            hide = a.half == 'held'
+            detail.append(dict(folder=fid, file=edits[0][0], line=('hidden' if hide else '+'.join(str(e[1] + 1) for e in edits)),
+                               op=name, before=('hidden' if hide else b), after=('hidden' if hide else af), result=r))
         score = '' if k + s + to == 0 else f'{k}/{k + s + to}'          # timeouts are not kills
         score_t = '' if k + s + to == 0 else f'{k + to}/{k + s + to}'   # reported both ways
-        rows.append(dict(folder=fid, baseline=('pass' if base == 'survived' else base), sites=len(cand), mutants=len(pick),
+        rows.append(dict(folder=fid, family=a.family, split_seed=('' if a.split_seed is None else a.split_seed), half=(a.half or ''),
+                         seed=a.seed, baseline=('pass' if base == 'survived' else base), sites=len(cand), mutants=len(pick),
                          killed=k, survived=s, timeout=to, stillborn=sb, score=score, score_with_timeouts=score_t))
         print(f"{fid:60s} base={rows[-1]['baseline']:8s} sites={len(cand):4d} killed={k} survived={s} timeout={to} stillborn={sb} score={score}", flush=True)
     with open(a.out, 'w', newline='') as f:
