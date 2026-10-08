@@ -42,7 +42,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 248 assertions pass. Running `make prove` reports `Success: all checks proved (274 checks).`
+When you run `make test`, you will see all 248 assertions pass. Running `make prove` reports `Success: all checks proved (498 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia `bdeac` ordinals, signed domain, power-of-two and odd lengths up to `Max_N`.
@@ -63,7 +63,9 @@ When you run `make test`, you will see all 248 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Outer loop grows a sorted prefix with the partition property vs. the remaining suffix; `Dest_Index` supplies the closing-write inequality that discharges `Is_Sorted`.
-* **GNATprove Level 4:** `Success: all checks proved (274 checks).`
+* Every cycle is proved to close: ghost counts give each key its block of final slots, each write settles one more slot without moving any block, and the loop variant is the number of settled slots. There is no step cap, no selection-sort safety net after the cycle, and no clamp on the write count.
+* Ghost code runs under `-gnata` like the rest: each position's block is cached in ghost arrays so the settled count costs O(n) per check. One exception: the postcondition of `Lemma_Update` (one write leaves every block unchanged) would cost O(n^3) per write if checked at each recursion level, so it carries `Assertion_Policy (Post => Ignore)`; GNATprove still proves it, and `Cycle_Step` checks the same predicate (`Update_Ok`) at the top level, plus its consequence for every position, with executed `Assert`s after each write.
+* **GNATprove Level 4:** `Success: all checks proved (498 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
