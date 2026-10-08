@@ -14,3 +14,8 @@ copied from the program's output or from third-party test suites.
   Integer range and -3 .. 3 (Park-Miller minimal standard generator, seed
   20261008); full-length ascending, descending and alternating-extreme
   arrays. Applied to: Samplesort.Sort.
+
+* Named-phase check (tests/phase_alone.sh, run by make test): the same two
+  properties on the same inputs, against a scratch copy of the library in
+  which the final Bubble_Finish call of Sort is replaced by null, so only
+  the named samplesort phase sorts (docs/VV.md 3i, pattern 7).
