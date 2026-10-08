@@ -43,6 +43,8 @@ is
    subtype Symbol_Index is Positive range 1 .. Max_Symbols;
    subtype Freq_Value is Positive range 1 .. Max_Freq;
    subtype Length_Value is Natural range 0 .. Max_L;
+   --  Permitted maximum code-word length L; 2 ** L <= 2 ** 16 fits in Natural.
+   subtype Code_Length is Positive range 1 .. Max_L;
 
    type Symbol_Frequencies is array (Symbol_Index range <>) of Freq_Value;
    type Code_Lengths is array (Symbol_Index range <>) of Natural;
@@ -59,17 +61,10 @@ is
 
    --  True iff an alphabet of N symbols admits some binary prefix code
    --  with every code word length at most L (Kraft: N ≤ 2^L).
-   --  Powers of two 2 ** 1 .. 2 ** Max_L, spelled out so provers need no
-   --  reasoning about exponentiation with a variable exponent.
-   Pow2 : constant array (1 .. Max_L) of Positive :=
-     [2, 4, 8, 16, 32, 64, 128, 256, 512, 1_024, 2_048, 4_096, 8_192,
-      16_384, 32_768, 65_536];
-
-   function Can_Encode (N : Natural; L : Positive) return Boolean is
-     (L in 1 .. Max_L and then N <= Pow2 (L))
+   function Can_Encode (N : Natural; L : Code_Length) return Boolean is
+     (N <= 2 ** L)
    with
-     Global => null,
-     Pre    => L <= Max_L;
+     Global => null;
 
    ---------------------------------------------------------------------------
    -- Algorithm sketch (space-efficient package-merge)
