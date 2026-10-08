@@ -78,6 +78,73 @@ begin
         "U = 0.5, inside the weight-9 bin, picks the point at 3");
    end;
 
+   --  One uniform center. Seed set Natural 0 .. 3999, fixed. Twenty
+   --  distinct rows, expected 200 each, df = 19. 36.191 is the chi-square
+   --  point for p = 0.01. Rounding U*Span then clamping makes the last
+   --  row about three times the first.
+   declare
+      Rows : Dataset (1 .. 20, 1 .. 1);
+      Count : array (1 .. 20) of Natural := [others => 0];
+      Stat : Real := 0.0;
+   begin
+      for P in Rows'Range (1) loop
+         Rows (P, 1) := Real (P);
+      end loop;
+      for S in 0 .. 3999 loop
+         declare
+            Got : constant Centers := Init_Centers_Uniform_First (Rows, S);
+            Idx : constant Integer := Integer (Got (1, 1));
+         begin
+            if Idx in 1 .. 20 then
+               Count (Idx) := Count (Idx) + 1;
+            else
+               Count (1) := Count (1) + 4000;
+            end if;
+         end;
+      end loop;
+      for P in Count'Range loop
+         declare
+            Diff : constant Real := Real (Count (P)) - 200.0;
+         begin
+            Stat := Stat + Diff * Diff / 200.0;
+         end;
+      end loop;
+      Note (Stat < 36.191, "uniform first center, seeds 0 .. 3999");
+   end;
+
+   --  Injected first center. U set is I / 4000 for I in 0 .. 3999, all
+   --  below 1. Same 20 rows and the same 36.191 threshold.
+   declare
+      Rows : Dataset (1 .. 20, 1 .. 1);
+      Count : array (1 .. 20) of Natural := [others => 0];
+      Stat : Real := 0.0;
+   begin
+      for P in Rows'Range (1) loop
+         Rows (P, 1) := Real (P);
+      end loop;
+      for I in 0 .. 3999 loop
+         declare
+            U : constant Unit_Interval := Unit_Interval (Real (I) / 4000.0);
+            Got : constant Centers := Init_Centers_KMeansPP (Rows, 1, [U]);
+            Idx : constant Integer := Integer (Got (1, 1));
+         begin
+            if Idx in 1 .. 20 then
+               Count (Idx) := Count (Idx) + 1;
+            else
+               Count (1) := Count (1) + 4000;
+            end if;
+         end;
+      end loop;
+      for P in Count'Range loop
+         declare
+            Diff : constant Real := Real (Count (P)) - 200.0;
+         begin
+            Stat := Stat + Diff * Diff / 200.0;
+         end;
+      end loop;
+      Note (Stat < 36.191, "injected first center, U = I / 4000");
+   end;
+
    Txt.Put_Line ("own checks:" & Natural'Image (Checks)
      & "  failed:" & Natural'Image (Fails));
    Fail_Count := Fails;
