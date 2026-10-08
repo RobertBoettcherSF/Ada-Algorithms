@@ -17,9 +17,18 @@ signal in the test main (no Set_Exit_Status, OS_Exit, raise, or FAIL output).
 Columns: folder, make_rc, fail_hits, first_hit, assert_unchecked, assert_only,
 silent_fail (yes when status 0 with hits, or assert_only), note.
 
+Runs use mutate.run_limited (a timeout kills the whole process group) and GNAT 14 pinned by
+path and checked (mutate.require_version). --from-logs reads the logs that
+tools/audit/build_folder.sh keeps (AA_WORK/<folder_with_underscores>/mk14.log, mk12.log, r14.log,
+r12.log) with the exit codes and compiler versions from its JSON lines instead of rebuilding;
+a folder counts once per compiler (columns make_rc / make_rc_12, fail_hits / fail_hits_12).
+
 usage: silent_fail.py [--from-file ids.txt] [-j N] [--out tools/vv/silent_fail.csv] [--timeout S]
+       silent_fail.py --from-logs AA_WORK --jsonl build.jsonl [--out ...]
 """
-import argparse, csv, os, re, shutil, subprocess, tempfile
+import argparse, csv, json, os, re, shutil, subprocess, sys, tempfile
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import mutate
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -84,8 +93,9 @@ def run(fid, work_root, timeout):
         e = env14()
         try:
             if os.path.exists(os.path.join(work, 'Makefile')):
-                r = subprocess.run(['make', 'test'], cwd=work, env=e, capture_output=True, text=True,
-                                   timeout=timeout, errors='replace')
+                r = mutate.run_limited(['make', 'test'], work, timeout, env=e)
+                if r is None:
+                    raise subprocess.TimeoutExpired('make test', timeout)
                 rc, out = r.returncode, r.stdout + r.stderr
             else:
                 m = next((m for m in MAINS if os.path.exists(os.path.join(work, m))), None)
@@ -98,8 +108,9 @@ def run(fid, work_root, timeout):
                     if b.returncode:
                         rc, out, note = b.returncode, b.stdout + b.stderr, 'test main does not build'
                     else:
-                        r = subprocess.run(['./sf_test'], cwd=work, env=e, capture_output=True, text=True,
-                                           timeout=timeout, errors='replace')
+                        r = mutate.run_limited(['./sf_test'], work, timeout, env=e)
+                        if r is None:
+                            raise subprocess.TimeoutExpired('sf_test', timeout)
                         rc, out, note = r.returncode, r.stdout + r.stderr, 'no Makefile: gnatmake test main'
         except subprocess.TimeoutExpired:
             rc, note = 'timeout', 'timeout'
@@ -112,8 +123,30 @@ def run(fid, work_root, timeout):
                 assert_unchecked=au, assert_only='yes' if only else 'no',
                 silent_fail='yes' if silent else 'no', note=note)
 
+def from_logs(fid, logs, rec):
+    d = os.path.join(logs, fid.replace('/', '_'))
+    def rd(n):
+        p = os.path.join(d, n)
+        return open(p, errors='replace').read() if os.path.exists(p) else ''
+    out = {}
+    for v in ('14', '12'):
+        if rec.get('mk' + v) not in (None, 'NA'):
+            rc, txt = rec['mk' + v], rd('mk%s.log' % v)
+        else:
+            rc, txt = rec.get('r' + v), rd('r%s.log' % v)
+        rc = int(rc) if str(rc).lstrip('-').isdigit() else (rc or '')
+        out[v] = (rc, hits(txt))
+    au, only = static(os.path.join(ROOT, fid))
+    (rc14, h14), (rc12, h12) = out['14'], out['12']
+    silent = (rc14 == 0 and bool(h14)) or (rc12 == 0 and bool(h12)) or only
+    return dict(folder=fid, make_rc=rc14, fail_hits=len(h14), first_hit=((h14 or h12 or [''])[0])[:160],
+                assert_unchecked=au, assert_only='yes' if only else 'no',
+                silent_fail='yes' if silent else 'no', note='from build logs',
+                make_rc_12=rc12, fail_hits_12=len(h12), compiler_14=rec.get('ver14', ''), compiler_12=rec.get('ver12', ''))
+
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument('--from-logs'); ap.add_argument('--jsonl')
     ap.add_argument('--from-file'); ap.add_argument('-j', type=int, default=4)
     ap.add_argument('--out', default=os.path.join(ROOT, 'tools/vv/silent_fail.csv'))
     ap.add_argument('--timeout', type=int, default=300); ap.add_argument('--work')
@@ -122,10 +155,24 @@ def main():
         ids = [l.strip() for l in open(a.from_file) if l.strip()]
     else:
         ids = sorted(r['folder'] for r in csv.DictReader(open(os.path.join(ROOT, 'PROOFS.csv'))))
-    wr = a.work or tempfile.mkdtemp(prefix='silent_fail_')
-    os.makedirs(wr, exist_ok=True)
-    with ThreadPoolExecutor(a.j) as ex:
-        rows = list(ex.map(lambda f: run(f, wr, a.timeout), ids))
+    if a.from_logs:
+        recs = {}
+        for l in open(a.jsonl):
+            try:
+                d = json.loads(l)
+            except ValueError:
+                continue
+            if 'error' not in d and str(d.get('ver14', '')).startswith('GNATMAKE 14.') and str(d.get('ver12', '')).startswith('GNATMAKE 12.'):
+                recs[d['id']] = d
+        rows = [from_logs(f, a.from_logs, recs[f]) for f in ids if f in recs]
+    else:
+        ver = mutate.require_version(14, '/usr/bin/gnatmake')
+        wr = a.work or tempfile.mkdtemp(prefix='silent_fail_')
+        os.makedirs(wr, exist_ok=True)
+        with ThreadPoolExecutor(a.j) as ex:
+            rows = list(ex.map(lambda f: run(f, wr, a.timeout), ids))
+        for r in rows:
+            r['compiler_14'] = ver
     with open(a.out, 'w', newline='') as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()), lineterminator='\n')
         w.writeheader(); w.writerows(rows)

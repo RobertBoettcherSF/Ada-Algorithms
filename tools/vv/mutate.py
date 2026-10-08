@@ -13,10 +13,46 @@ Score = killed / (killed + survived).
 
 usage: mutate.py [--seed S] [--per-folder K] [--sample N | --folders F ...] [--out results.csv]
 """
-import argparse, csv, glob, os, random, re, shutil, subprocess
+import argparse, csv, glob, os, random, re, shutil, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-GNATMAKE = os.environ.get('VV_GNATMAKE', 'gnatmake')
+GNATMAKE = os.environ.get('VV_GNATMAKE', '/usr/bin/gnatmake')   # GNAT 14, pinned by path, checked below
+
+def compiler_version(gnatmake=None):
+    """First line of `gnatmake --version` for the compiler actually used, e.g. 'GNATMAKE 14.2.0'."""
+    r = subprocess.run([gnatmake or GNATMAKE, '--version'], capture_output=True, text=True)
+    return (r.stdout.splitlines() or [''])[0].strip()
+
+def require_version(major, gnatmake=None):
+    """Refuse to record results from the wrong compiler (PATH mix-ups ran GNAT 12 as 'GNAT 14')."""
+    v = compiler_version(gnatmake)
+    if not re.match(rf'GNATMAKE {major}\.', v):
+        sys.exit(f'refusing to run: expected GNAT {major}, {gnatmake or GNATMAKE} says {v!r}')
+    return v
+
+def _die_with_parent():
+    try:
+        import ctypes, signal
+        ctypes.CDLL('libc.so.6').prctl(1, signal.SIGKILL)   # PR_SET_PDEATHSIG: no orphans if the scorer dies
+    except Exception:
+        pass
+
+def run_limited(cmd, cwd, timeout, env=None):
+    """subprocess.run with a timeout that kills the whole process group (make, test binaries and
+    their children), and children that die with the scorer. Returns CompletedProcess or None on timeout."""
+    p = subprocess.Popen(cmd, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+                         errors='replace', start_new_session=True, preexec_fn=_die_with_parent)
+    try:
+        out, err = p.communicate(timeout=timeout)
+        return subprocess.CompletedProcess(cmd, p.returncode, out, err)
+    except subprocess.TimeoutExpired:
+        import signal
+        try:
+            os.killpg(p.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        p.communicate()
+        return None
 
 # (name, regex, replacement); applied to one match at a time, code part of a line only
 OPS = [
@@ -82,10 +118,9 @@ def run_tests(work):
                        cwd=work, capture_output=True, text=True)
     if b.returncode != 0:
         return 'stillborn'
-    try:
-        r = subprocess.run(['./tbin'], cwd=work, capture_output=True, text=True, timeout=30)
-    except subprocess.TimeoutExpired:
-        return 'timeout'   # reported separately; not a kill for the 90% bar
+    r = run_limited(['./tbin'], work, 30)
+    if r is None:
+        return 'timeout'   # reported separately; not a kill for the 90% bar (process group killed)
     out = r.stdout + r.stderr
     # a kill is a test failure: nonzero exit status, or a FAIL line that does not report zero failures.
     # Text such as 'raised' is not a kill (expected-exception tests print it on success).
@@ -105,6 +140,7 @@ def main():
     ap.add_argument('--work', default='/tmp/vv_mut')
     ap.add_argument('--dummy', action='store_true', help='control (a): always-passing test that checks nothing; must score 0')
     a = ap.parse_args()
+    VER = require_version(14)   # GNAT 14 only; the version goes into every row
     rng = random.Random(a.seed)
     if a.folders:
         folders = a.folders
@@ -149,7 +185,7 @@ def main():
         score = '' if k + s_ + to == 0 else f'{k}/{k + s_ + to}'
         score_t = '' if k + s_ + to == 0 else f'{k + to}/{k + s_ + to}'
         rows.append(dict(folder=fid, baseline=('pass' if base == 'survived' else base), sites=len(cand), mutants=len(pick),
-                         killed=k, survived=s_, timeout=to, stillborn=sb, score=score, score_with_timeouts=score_t))
+                         killed=k, survived=s_, timeout=to, stillborn=sb, score=score, score_with_timeouts=score_t, compiler=VER))
         print(f"{fid:60s} base={rows[-1]['baseline']:8s} sites={len(cand):4d} killed={k} survived={s_} timeout={to} stillborn={sb} score={score}", flush=True)
     with open(a.out, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)

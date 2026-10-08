@@ -6,6 +6,12 @@ directory, so the repo tree is never written to.
 * `build_folder.sh <topic/LEVEL/Folder>` - `make test` with GNAT 14 (system `/usr/bin`) and GNAT 12
   (`GNAT12_BIN`, default: Alire `~/.local/alr/gnat_native_12*/bin`), plus a uniform
   `gnatmake -gnatwa -gnat2022 tests.adb` build on both for the warning count. Prints one JSON line.
+  It refuses to run (JSON line with `error`, exit 2) unless the first line of `gnatmake --version` says
+  14 on the GNAT 14 PATH and 12 on the GNAT 12 PATH (gcc's version too). It records both strings
+  (`ver14`, `ver12`; PROOFS.csv `compiler_14_version` / `compiler_12_version`). The warning count
+  (`wall14`, `wall12`) is the number of distinct warnings over the uniform build and the folder's own
+  `make test` build, because some warnings only appear with the folder's flags (e.g. `-gnata`).
+  `make test` timeouts default to 900 s (`AA_MAKE_TIMEOUT`); `timeout` kills the whole process group.
 * `prove_folder.sh <topic/LEVEL/Folder>` - `gnatprove --mode=silver --level=2` on the folder's own
   .gpr (Makefile `PROOF_PROJECT`, else `proof*.gpr`, else the Makefile project, else the only .gpr;
   generates `aa_generated.gpr` only when there is none). Prints one JSON line.

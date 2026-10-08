@@ -39,9 +39,8 @@ def run_tests(work):
                        cwd=work, capture_output=True, text=True)
     if b.returncode != 0:
         return 'stillborn'
-    try:
-        r = subprocess.run(['./tbin'], cwd=work, capture_output=True, text=True, timeout=30)
-    except subprocess.TimeoutExpired:
+    r = mutate.run_limited(['./tbin'], work, 30)   # timeout kills the whole process group
+    if r is None:
         return 'timeout'
     if r.returncode != 0 or any(FAIL_LINE.search(l) and not ZERO_FAIL.search(l) for l in (r.stdout + r.stderr).split('\n')):
         return 'killed'
@@ -154,6 +153,7 @@ def main():
     ap.add_argument('--half', choices=('tune', 'held'), default=None,
                     help='tune: the half whose survivors may be looked at; held: the scoring half (survivor lines hidden)')
     a = ap.parse_args()
+    VER = mutate.require_version(14)   # GNAT 14 only; the version goes into every row
     global DUMMY
     DUMMY = a.dummy
     rows, detail = [], []
@@ -181,7 +181,7 @@ def main():
         score_t = '' if k + s + to == 0 else f'{k + to}/{k + s + to}'   # reported both ways
         rows.append(dict(folder=fid, family=a.family, split_seed=('' if a.split_seed is None else a.split_seed), half=(a.half or ''),
                          seed=a.seed, baseline=('pass' if base == 'survived' else base), sites=len(cand), mutants=len(pick),
-                         killed=k, survived=s, timeout=to, stillborn=sb, score=score, score_with_timeouts=score_t))
+                         killed=k, survived=s, timeout=to, stillborn=sb, score=score, score_with_timeouts=score_t, compiler=VER))
         print(f"{fid:60s} base={rows[-1]['baseline']:8s} sites={len(cand):4d} killed={k} survived={s} timeout={to} stillborn={sb} score={score}", flush=True)
     with open(a.out, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)

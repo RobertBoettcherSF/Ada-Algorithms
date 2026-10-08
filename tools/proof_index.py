@@ -124,7 +124,9 @@ for topic, lev, alg, p in folders:
     rows.append(dict(folder=fid, topic=topic, level=lev, algorithm=alg, make_test=mk, make_test_gnat12=mk12,
                      build_gnat14=ok('u14'), build_gnat12=ok('u12'),
                      tests_pass_gnat14=tp14, tests_pass_gnat12=tp12,
-                     warnings_gnat14=b.get('w14', ''), warnings_gnat12=b.get('w12', ''),
+                     warnings_gnat14=str(b['wall14']) if 'wall14' in b else b.get('w14', ''), warnings_gnat12=str(b['wall12']) if 'wall12' in b else b.get('w12', ''),
+                     compiler_14_version=(b.get('ver14') if str(b.get('ver14', '')).startswith('GNATMAKE 14.') else ('unverified' if b else '')),
+                     compiler_12_version=(b.get('ver12') if str(b.get('ver12', '')).startswith('GNATMAKE 12.') else ('unverified' if b else '')),
                      silver=(silver(fid, has_spark, ok('u14')) if has_mode or not has_spark else 'skipped (no SPARK_Mode)'),
                      checks='', functional_checks='', trivial='',
                      proof_run=('steps=%s' % S[fid].get('steps') if fid in S else (('steps=%s' % P[fid]['steps']) if P.get(fid, {}).get('steps') else ('level2-timeout' if fid in P else ''))) if has_spark else '',
@@ -183,8 +185,32 @@ for x in _csv(os.path.join(a.root, 'tools', 'vv', 'sweep_progress.csv')):
 mask_by = set()
 for x in _csv(os.path.join(a.root, 'tools', 'vv', 'sweep_masking.csv')):
     flag = (x.get('masked_by_finish') or x.get('masked') or 'yes').strip().lower()
+    if (x.get('note') or '').strip().upper().startswith('FIXED'):   # the sweep fixed it (finish removed, phase proved)
+        continue
     if x.get('folder') and flag in ('yes', 'y', 'true', '1'):
         mask_by.add(x['folder'])
+# tools/vv/sweep_fallback.csv (folder,file,line,caller,call,verdict,...): a named phase followed by a
+# fallback sort; informational column `fallback` while the call is still in the file (a gap-1 Shell step is legitimate).
+fallback_by = collections.defaultdict(list)
+for x in _csv(os.path.join(a.root, 'tools', 'vv', 'sweep_fallback.csv')):
+    fp = os.path.join(a.root, x.get('folder', ''), x.get('file', ''))
+    still = os.path.exists(fp) and re.search(r'\b%s\s*\(' % re.escape(x.get('call', '') or '#'), open(fp, errors='replace').read())
+    if x.get('folder') and still:
+        fallback_by[x['folder']].append(f"{x['call']}: {x['verdict']}")   # informational; masking is sweep_masking.csv's call
+# tools/vv/sweep_mutate_by_sub.csv: non-ghost subprograms with mutants but none killed (flag 'unchecked')
+unchecked_by = collections.Counter(x['folder'] for x in _csv(os.path.join(a.root, 'tools', 'vv', 'sweep_mutate_by_sub.csv'))
+                                   if x.get('flag', '').strip() == 'unchecked' and x.get('ghost', '').strip() not in ('yes', 'ghost'))
+# tools/vv/silent_fail.csv: make test prints a failure but exits 0, or pragma Assert is the only failure
+# signal and the standard build has no -gnata. make test 'passes' is then meaningless: not training-ready.
+silent_by = {x['folder']: x for x in _csv(os.path.join(a.root, 'tools', 'vv', 'silent_fail.csv')) if x.get('silent_fail') == 'yes'}
+# held-out mutation halves (tools/vv/heldout.py -> vv/results/mutation_halves.csv; last row per folder and half)
+halves_by = collections.defaultdict(dict)
+for x in _csv(os.path.join(a.root, 'vv', 'results', 'mutation_halves.csv')):
+    halves_by[x['folder']][x['half']] = x
+for ff in sorted(glob.glob(os.path.join(a.root, 'tools', 'vv', '*_halves.csv'))):   # other workers' halves, same columns
+    for x in _csv(ff):
+        if x.get('folder') and x.get('half') in ('tuning', 'heldout'):
+            halves_by[x['folder']][x['half']] = x
 # surviving mutants accepted as equivalent (tools/vv/sweep_equivalent.csv): only with exhaustive evidence
 # or a written reason; key = folder + file basename + line + operator, matched against vv/results/mutation*_detail.csv
 equiv_keys = set()
@@ -220,6 +246,15 @@ for r in rows:
     if esc_bare[r['folder']] and r['silver'] == 'proven':   # rule 4: an unexplained escape voids the proof claim
         r['silver'] = 'proven, unjustified escape'
     r['masked_by_finish'] = 'yes' if r['folder'] in mask_by else ''
+    r['fallback'] = '; '.join(fallback_by.get(r['folder'], []))
+    r['unchecked_subprograms'] = str(unchecked_by[r['folder']]) if unchecked_by[r['folder']] else ''
+    r['silent_fail'] = 'yes' if r['folder'] in silent_by else ''
+    hv = halves_by.get(r['folder'], {})
+    for h, col in (('tuning', 'mutation_tuned'), ('heldout', 'mutation_heldout')):
+        x = hv.get(h)
+        n = (int(x['killed']) + int(x['survived']) + int(x['timeout'])) if x else 0
+        r[col + '_k'] = x['killed'] if x else ''
+        r[col + '_n'] = str(n) if x else ''
     m = re.match(r'^(\d+)/(\d+)$', r['mutation'])
     eq = equiv_by[r['folder']] if m else 0
     den = int(m.group(2)) - eq if m else 0
@@ -252,6 +287,11 @@ def training_ready(r):
 #  (3) zero warnings with -gnatwa on GNAT 14 and 12, and no suppression (warnings_suppressed);
 #  (4) no proof escape (pragma Assume / Annotate) without a written reason (else not Silver non-trivial).
 def mutation_ok(r):
+    if r['mutation_heldout_n']:   # held-out half scored: it alone decides, and needs >= 20 non-equivalent mutants
+        k, n = int(r['mutation_heldout_k']), int(r['mutation_heldout_n'])
+        return n >= 20 and 10 * k >= 9 * n
+    if r['mutation_tuned_n']:     # tests were tuned on survivors: only a held-out score may count
+        return False
     if r['mutation_score'] == 'no sites': return True
     m = re.match(r'^(\d+)/(\d+)$', r['mutation'])
     if not m or int(m.group(2)) == 0: return False
@@ -259,12 +299,16 @@ def mutation_ok(r):
     return den <= 0 or 10 * int(m.group(1)) >= 9 * den
 def drop_reasons(r):
     out = []
-    if not mutation_ok(r): out.append('mutation < 90%' if r['mutation_score'] not in ('',) else 'mutation not run')
+    if not mutation_ok(r) and r['mutation_tuned_n'] and not r['mutation_heldout_n']: out.append('held-out score pending')
+    elif not mutation_ok(r): out.append(('held-out < 20 mutants' if int(r['mutation_heldout_n']) < 20 else 'held-out mutation < 90%') if r['mutation_heldout_n'] else ('mutation < 90%' if r['mutation_score'] not in ('',) else 'mutation not run'))
     if r['ref_independent'] != 'yes': out.append('twin only' if r['twin_only'] else 'old_unverified answers only')
     if r['warnings_gnat14'] != '0' or r['warnings_gnat12'] != '0': out.append('warnings')
     if r['warnings_suppressed']: out.append('warnings suppressed')
     if esc_bare[r['folder']]: out.append('unjustified proof escape')
     if r['masked_by_finish']: out.append('masked by Bubble_Finish')
+    if r['silent_fail']: out.append('silent fail')
+    if r['compiler_14_version'] in ('', 'unverified') or r['compiler_12_version'] in ('', 'unverified'):
+        out.append('compiler version unverified')
     return out
 # known_answer_source (room rule 2026-10-08 19:25): where the expected values come from.
 #   own          own tests (tools/vv/own_tests.csv, the sweep's tests): brute force or independent properties

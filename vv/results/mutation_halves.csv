@@ -1,0 +1,3 @@
+folder,half,split_seed,sample_seed,baseline,sites_half,mutants,killed,survived,timeout,stillborn,equivalent,score,short
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,20261108,20261109,pass,11,11,4,0,0,0,7,4/4,no
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,20261108,20261109,pass,15,15,7,0,0,4,4,7/7,no

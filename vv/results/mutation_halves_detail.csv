@@ -1,0 +1,27 @@
+folder,half,file,line,op,before,after,result
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,11,+ -> -,return Hash_Value (Position + 1) * 16#9E3779B1#,return Hash_Value (Position - 1) * 16#9E3779B1#,killed
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,5,- -> +,subtype Pos_Index is Natural range 0 .. Max_Len - 1;,subtype Pos_Index is Natural range 0 .. Max_Len + 1;,equivalent
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,12,* -> +,+ Hash_Value (Character'Pos (C) + 1) * 16#85EBCA6B#;,+ Hash_Value (Character'Pos (C) + 1) + 16#85EBCA6B#;,equivalent
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,11,+ 1 -> + 0,return Hash_Value (Position + 1) * 16#9E3779B1#,return Hash_Value (Position + 0) * 16#9E3779B1#,equivalent
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,12,+ 1 -> + 0,+ Hash_Value (Character'Pos (C) + 1) * 16#85EBCA6B#;,+ Hash_Value (Character'Pos (C) + 0) * 16#85EBCA6B#;,equivalent
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,5,- 1 -> - 0,subtype Pos_Index is Natural range 0 .. Max_Len - 1;,subtype Pos_Index is Natural range 0 .. Max_Len - 0;,equivalent
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,11,* -> +,return Hash_Value (Position + 1) * 16#9E3779B1#,return Hash_Value (Position + 1) + 16#9E3779B1#,equivalent
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,19,- 1 -> - 0,"H := H xor Key (Pos_Index (I - 1), Text (I));","H := H xor Key (Pos_Index (I - 0), Text (I));",killed
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,19,- -> +,"H := H xor Key (Pos_Index (I - 1), Text (I));","H := H xor Key (Pos_Index (I + 1), Text (I));",killed
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,12,+ -> -,+ Hash_Value (Character'Pos (C) + 1) * 16#85EBCA6B#;,+ Hash_Value (Character'Pos (C) - 1) * 16#85EBCA6B#;,killed
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,tuning,zobrist_hashing.adb,12,+ -> -,+ Hash_Value (Character'Pos (C) + 1) * 16#85EBCA6B#;,- Hash_Value (Character'Pos (C) + 1) * 16#85EBCA6B#;,equivalent
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,13,+ 1 -> + 0,L.Size := L.Size + 1;,L.Size := L.Size + 0;,killed
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,12,< -> <=,if L.Size < Count'Last then,if L.Size <= Count'Last then,equivalent
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,34,and then -> or else,if I <= L.Size and then not Found and then L.Data (I) = V then,if I <= L.Size and then not Found or else L.Data (I) = V then,stillborn
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,34,<= -> <,if I <= L.Size and then not Found and then L.Data (I) = V then,if I < L.Size and then not Found and then L.Data (I) = V then,killed
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,41,< -> <=,if J < L.Size and then J < Position'Last and then J >= Where then,if J < L.Size and then J <= Position'Last and then J >= Where then,equivalent
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,42,+ 1 -> + 0,L.Data (J) := L.Data (J + 1);,L.Data (J) := L.Data (J + 0);,killed
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,34,and then -> or else,if I <= L.Size and then not Found and then L.Data (I) = V then,if I <= L.Size or else not Found and then L.Data (I) = V then,stillborn
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,34,= -> /=,if I <= L.Size and then not Found and then L.Data (I) = V then,if I <= L.Size and then not Found and then L.Data (I) /= V then,killed
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,13,+ -> -,L.Size := L.Size + 1;,L.Size := L.Size - 1;,killed
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,42,+ -> -,L.Data (J) := L.Data (J + 1);,L.Data (J) := L.Data (J - 1);,killed
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,32,> -> >=,if L.Size > 0 then,if L.Size >= 0 then,equivalent
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,41,and then -> or else,if J < L.Size and then J < Position'Last and then J >= Where then,if J < L.Size and then J < Position'Last or else J >= Where then,stillborn
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,41,and then -> or else,if J < L.Size and then J < Position'Last and then J >= Where then,if J < L.Size or else J < Position'Last and then J >= Where then,stillborn
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,41,< -> <=,if J < L.Size and then J < Position'Last and then J >= Where then,if J <= L.Size and then J < Position'Last and then J >= Where then,equivalent
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,tuning,remove_linked_list_elements.adb,41,>= -> >,if J < L.Size and then J < Position'Last and then J >= Where then,if J < L.Size and then J < Position'Last and then J > Where then,killed
