@@ -627,6 +627,230 @@ begin
       end;
    end loop;
 
+   --  Fan of triangle cross products, not Newell's edge sum.
+   --  Concave, first-three collinear, and a slightly non-planar quad.
+   declare
+      function Fan (V : Vertex_Array) return Plane_3D is
+         O  : constant Point_3D := V (V'First);
+         Nx : Real := 0.0;
+         Ny : Real := 0.0;
+         Nz : Real := 0.0;
+      begin
+         for I in V'First + 1 .. V'Last - 1 loop
+            declare
+               A  : constant Point_3D := V (I);
+               B  : constant Point_3D := V (I + 1);
+               Ax : constant Real := A.X - O.X;
+               Ay : constant Real := A.Y - O.Y;
+               Az : constant Real := A.Z - O.Z;
+               Bx : constant Real := B.X - O.X;
+               By : constant Real := B.Y - O.Y;
+               Bz : constant Real := B.Z - O.Z;
+            begin
+               Nx := Nx + Ay * Bz - Az * By;
+               Ny := Ny + Az * Bx - Ax * Bz;
+               Nz := Nz + Ax * By - Ay * Bx;
+            end;
+         end loop;
+         declare
+            Len : constant Real := Math.Sqrt (Nx * Nx + Ny * Ny + Nz * Nz);
+         begin
+            if Len <= 1.0e-12 then
+               raise Degenerate_Polygon_Error;
+            end if;
+            return (A => Nx / Len, B => Ny / Len, C => Nz / Len,
+                    D => -((Nx / Len) * O.X + (Ny / Len) * O.Y + (Nz / Len) * O.Z));
+         end;
+      end Fan;
+
+      procedure Plane_Agrees (V : Vertex_Array; Label : String) is
+         Got : constant Plane_3D := Compute_Plane (V);
+         Ref : constant Plane_3D := Fan (V);
+         Dot : constant Real := abs (Got.A * Ref.A + Got.B * Ref.B + Got.C * Ref.C);
+      begin
+         Note (Dot > 1.0 - 1.0e-8, Label);
+      end Plane_Agrees;
+   begin
+      Plane_Agrees
+        ([(0.0, 0.0, 0.0), (3.0, 0.0, 0.0), (1.0, 1.0, 0.0), (3.0, 2.0, 0.0)],
+         "concave quad normal matches the fan");
+      Plane_Agrees
+        ([(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (2.0, 0.0, 0.0), (1.0, 1.0, 1.0)],
+         "first three collinear; fan of the rest still matches");
+      Plane_Agrees
+        ([(0.0, 0.0, 0.0), (1.0, 0.0, 0.02), (1.0, 1.0, -0.01), (0.0, 1.0, 0.03)],
+         "slightly non-planar quad matches the fan");
+   end;
+
+   --  Painter's order against an independent z-buffer.
+   --  Larger Z is nearer. Painting back-to-front, the last polygon that
+   --  covers a pixel must be the one the z-buffer says is nearest, and its
+   --  depth must be the depth of the original surface (a split has to cut
+   --  the real polygons, not replace them with a different shape).
+   declare
+      function Fan_Of (V : Vertex_Array) return Plane_3D is
+         O  : constant Point_3D := V (V'First);
+         Nx : Real := 0.0;
+         Ny : Real := 0.0;
+         Nz : Real := 0.0;
+      begin
+         for I in V'First + 1 .. V'Last - 1 loop
+            declare
+               A : constant Point_3D := V (I);
+               B : constant Point_3D := V (I + 1);
+               Ax : constant Real := A.X - O.X;
+               Ay : constant Real := A.Y - O.Y;
+               Az : constant Real := A.Z - O.Z;
+               Bx : constant Real := B.X - O.X;
+               By : constant Real := B.Y - O.Y;
+               Bz : constant Real := B.Z - O.Z;
+            begin
+               Nx := Nx + Ay * Bz - Az * By;
+               Ny := Ny + Az * Bx - Ax * Bz;
+               Nz := Nz + Ax * By - Ay * Bx;
+            end;
+         end loop;
+         declare
+            Len : constant Real := Math.Sqrt (Nx * Nx + Ny * Ny + Nz * Nz);
+         begin
+            if Len <= 1.0e-12 then
+               raise Degenerate_Polygon_Error;
+            end if;
+            return (A => Nx / Len, B => Ny / Len, C => Nz / Len,
+                    D => -((Nx / Len) * O.X + (Ny / Len) * O.Y + (Nz / Len) * O.Z));
+         end;
+      end Fan_Of;
+
+      function Covers (Poly : Polygon; X, Y : Real) return Boolean is
+         Pt : constant Point_3D := (X, Y, 0.0);
+      begin
+         return Inside (Pt, Poly);
+      end Covers;
+
+      function Depth_Of (Poly : Polygon; X, Y : Real) return Real is
+         Pl : constant Plane_3D := Fan_Of (Poly.Vertices);
+      begin
+         return -(Pl.A * X + Pl.B * Y + Pl.D) / Pl.C;
+      end Depth_Of;
+
+      procedure Z_Buffer_Agrees
+        (Original : Polygon_List; Painted : Polygon_List; Label : String)
+      is
+         Min_X : Real := Original (1).Vertices (1).X;
+         Max_X : Real := Min_X;
+         Min_Y : Real := Original (1).Vertices (1).Y;
+         Max_Y : Real := Min_Y;
+         Covered : Natural := 0;
+         Bad : Natural := 0;
+         N : constant := 12;
+      begin
+         for I in 1 .. Natural (Original.Length) loop
+            for V in 1 .. Original (I).Num_Vertices loop
+               Min_X := Real'Min (Min_X, Original (I).Vertices (V).X);
+               Max_X := Real'Max (Max_X, Original (I).Vertices (V).X);
+               Min_Y := Real'Min (Min_Y, Original (I).Vertices (V).Y);
+               Max_Y := Real'Max (Max_Y, Original (I).Vertices (V).Y);
+            end loop;
+         end loop;
+         if Max_X - Min_X < 1.0e-6 then
+            Max_X := Min_X + 1.0;
+         end if;
+         if Max_Y - Min_Y < 1.0e-6 then
+            Max_Y := Min_Y + 1.0;
+         end if;
+         for Iy in 0 .. N - 1 loop
+            for Ix in 0 .. N - 1 loop
+               declare
+                  X : constant Real :=
+                    Min_X + (Max_X - Min_X) * (Real (Ix) + 0.5) / Real (N);
+                  Y : constant Real :=
+                    Min_Y + (Max_Y - Min_Y) * (Real (Iy) + 0.5) / Real (N);
+                  True_Z : Real := -1.0e30;
+                  Hit : Boolean := False;
+                  Paint_Z : Real := -1.0e30;
+                  Paint_Hit : Boolean := False;
+               begin
+                  for I in 1 .. Natural (Original.Length) loop
+                     if Covers (Original (I), X, Y) then
+                        declare
+                           Z : constant Real := Depth_Of (Original (I), X, Y);
+                        begin
+                           if Z > True_Z then
+                              True_Z := Z;
+                              Hit := True;
+                           end if;
+                        end;
+                     end if;
+                  end loop;
+                  if Hit then
+                     Covered := Covered + 1;
+                     for I in 1 .. Natural (Painted.Length) loop
+                        if Covers (Painted (I), X, Y) then
+                           Paint_Z := Depth_Of (Painted (I), X, Y);
+                           Paint_Hit := True;
+                        end if;
+                     end loop;
+                     if not Paint_Hit or else abs (Paint_Z - True_Z) > 1.0e-3 then
+                        Bad := Bad + 1;
+                     end if;
+                  end if;
+               end;
+            end loop;
+         end loop;
+         Note (Covered > 0, Label & " (grid sees the polygons)");
+         Note (Bad = 0, Label);
+      end Z_Buffer_Agrees;
+   begin
+      --  Separated constant-Z slabs: strict order is a correct painter.
+      for Trial in 1 .. 4 loop
+         declare
+            Orig : Polygon_List;
+            Sorted : Polygon_List;
+            Zs : constant array (1 .. 3) of Real :=
+              [R (-3.0, -2.0), R (-1.0, 0.0), R (1.0, 2.0)];
+         begin
+            for K in Zs'Range loop
+               Orig.Append (Slab (Polygon_Id (K), Zs (K),
+                 R (-0.5, 0.5), R (-0.5, 0.5), 1.2));
+            end loop;
+            Sorted := Orig;
+            Sort_Polygons_Strict (Sorted);
+            Z_Buffer_Agrees (Orig, Sorted, "strict slabs match the z-buffer");
+         end;
+      end loop;
+
+      --  Interlocking triangles. Neither whole triangle is a correct last
+      --  painter on the overlap, so the adaptive split has to cut them.
+      declare
+         Orig : Polygon_List;
+         Sorted : Polygon_List;
+         Splits : Natural := 0;
+         A : constant Polygon := Make_Polygon (1,
+           [(0.0, 0.0, 0.0), (2.0, 0.0, 0.0), (1.0, 2.0, 1.0)]);
+         B : constant Polygon := Make_Polygon (2,
+           [(0.2, 0.4, 1.0), (1.8, 0.4, 1.0), (1.0, 1.2, 0.0)]);
+         Raised : Boolean := False;
+      begin
+         Orig.Append (A);
+         Orig.Append (B);
+         Sorted := Orig;
+         begin
+            Sort_Polygons_Strict (Sorted);
+         exception
+            when Cyclic_Overlap_Error =>
+               Raised := True;
+         end;
+         Note (Raised, "interlocking triangles are a strict-sort cycle");
+         Sorted := Orig;
+         Sort_Polygons_Adaptive
+           (Sorted, Max_Splits => 8, Splits_Performed => Splits);
+         Note (Splits >= 1, "adaptive split cuts the interlock");
+         Note (Splits <= 8, "interlock stays inside the split budget");
+         Z_Buffer_Agrees
+           (Orig, Sorted, "adaptive order matches the z-buffer on the interlock");
+      end;
+   end;
+
    Txt.Put_Line ("own checks:" & Natural'Image (Checks)
      & "  failed:" & Natural'Image (Fails));
    Fail_Count := Fails;

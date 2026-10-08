@@ -15,3 +15,5 @@ Reference, computed here and not taken from the program:
 
 Test data: LCG, default seed 20261008, printed, overridable with AA_SEED.
 Mutant split recorded before these checks: seed 20261008, 81 tuning / 82 held-out.
+
+Depth order: a 12x12 z-buffer (larger Z nearer). Painting the sorted list back to front must reproduce that buffer, including after a split of interlocking triangles. The plane check for concave, first-three-collinear and slightly non-planar quads is a fan of triangle cross products, not Newell's sum.
