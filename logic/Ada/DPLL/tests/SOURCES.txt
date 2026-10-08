@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: the existing hand-written cases (literal helpers, builders,
+  propagation, small satisfiable / unsatisfiable formulas).
+* Own reference: brute-force satisfiability over all 2**N assignments,
+  written in the test. A Satisfiable answer must come with a model that
+  satisfies every clause (own evaluator) and assigns every variable that
+  occurs in the formula; Is_Satisfiable must agree; the same formula
+  written as DIMACS text (own writer) and read with From_DIMACS_Lite must
+  give the same answer.
+* Inputs: 3,000 random CNF formulas over 1 .. 8 variables with 0 .. 4N+2
+  clauses of 1 .. 4 distinct variables (about 1 in 31 clauses empty), so
+  both satisfiable and unsatisfiable formulas are common (1,270 and 1,730
+  of the 3,000).

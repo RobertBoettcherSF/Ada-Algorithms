@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with DPLL; use DPLL;
+with Own_Checks;
 
 procedure Tests
   with SPARK_Mode => Off
@@ -664,6 +665,8 @@ begin
       A (2) := Is_True;
       Check (Clause_Is_Satisfied (C, A), "3-lit sat by +2");
    end;
+
+   Own_Checks;
 
    New_Line;
    Put_Line ("Pass_Count =" & Pass_Count'Image);
