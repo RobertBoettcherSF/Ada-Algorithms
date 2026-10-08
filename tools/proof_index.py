@@ -161,13 +161,32 @@ dn_by = {d['folder']: d['verdict'] for d in _csv(os.path.join(VVD, 'donothing.cs
 own_by = {o['folder']: o['checks'] for o in _csv(os.path.join(a.root, 'tools', 'vv', 'own_tests.csv'))}
 # findings registry (tools/vv/findings.csv): a folder with an open finding is not training-ready
 find_open = collections.Counter(f['folder'] for f in _csv(os.path.join(a.root, 'tools', 'vv', 'findings.csv')) if f['status'] == 'open')
+# the sweep worker's registry (tools/vv/findings_sweep.csv) counts the same way
+find_open.update(f['folder'] for f in _csv(os.path.join(a.root, 'tools', 'vv', 'findings_sweep.csv')) if f.get('status') == 'open')
+# sweep progress (tools/vv/sweep_progress.csv, written by the sweep worker): informational column `sweep`
+sweep_by = {}
+for x in _csv(os.path.join(a.root, 'tools', 'vv', 'sweep_progress.csv')):
+    if x.get('folder'):
+        sweep_by[x['folder']] = x.get('status') or next((v for k, v in x.items() if k != 'folder' and v), '')
+# training_ready rules 3 and 4 (tools/vv/escapes_scan.py): warning suppression and proof escapes
+supp_by = collections.Counter(x['folder'] for x in _csv(os.path.join(a.root, 'tools', 'vv', 'warnings_suppressed.csv')))
+esc_all = collections.Counter(x['folder'] for x in _csv(os.path.join(a.root, 'tools', 'vv', 'proof_escapes.csv')))
+esc_bare = collections.Counter(x['folder'] for x in _csv(os.path.join(a.root, 'tools', 'vv', 'proof_escapes.csv')) if x['justified'] != 'yes')
 for r in rows:
     r['open_findings'] = str(find_open[r['folder']]) if find_open[r['folder']] else ''
     r['diff_test'] = diff_by.get(r['folder'], '')
     r['mutation'] = mut_by.get(r['folder'], '')
     r['kat'] = kat_by.get(r['folder'], '')
     r['do_nothing'] = dn_by.get(r['folder'], '')
-    r['own_tests'] = 'yes' if r['folder'] in own_by else ''
+    r['own_tests'] = 'yes' if r['folder'] in own_by or os.path.exists(os.path.join(a.root, r['folder'], 'tests', 'SOURCES_sweep.txt')) else ''
+    r['sweep'] = sweep_by.get(r['folder'], '')
+    r['warnings_suppressed'] = 'yes' if supp_by[r['folder']] else ''
+    r['proof_escapes'] = str(esc_all[r['folder']]) if esc_all[r['folder']] else ''
+    if esc_bare[r['folder']] and r['silver'] == 'proven':   # rule 4: an unexplained escape voids the proof claim
+        r['silver'] = 'proven, unjustified escape'
+    m = re.match(r'^(\d+)/(\d+)$', r['mutation'])
+    r['mutation_score'] = (f"{100 * int(m.group(1)) // int(m.group(2))}%" if m and int(m.group(2)) else
+                           ('no sites' if r['mutation'] == 'no sites' else ''))
 
 # known_answer: the expected values come from somewhere other than the program itself - a registered
 # known-answer vector, own tests (properties / own brute-force reference), or an agreeing differential
@@ -187,9 +206,32 @@ def training_ready(r):
             and not r['open_findings']
             and r['silver'] == 'proven' and not r['trivial'] and not r['stub']
             and bool(r['known_answer']))
+# Stricter rule (Robert, 2026-10-08 18:55), on top of the above:
+#  (1) mutation: the folder's tests kill >= 90% of the planted mutants (vv/results/mutation*.csv; survivors are
+#      counted as non-equivalent until reviewed; 'no sites' passes, no run fails);
+#  (2) ref_independent: the known answer comes from a different method (registered vector or own tests:
+#      brute force / independent property); twin agreement alone (twin_only) does not count;
+#  (3) zero warnings with -gnatwa on GNAT 14 and 12, and no suppression (warnings_suppressed);
+#  (4) no proof escape (pragma Assume / Annotate) without a written reason (else not Silver non-trivial).
+def mutation_ok(r):
+    if r['mutation_score'] == 'no sites': return True
+    m = re.match(r'^(\d+)/(\d+)$', r['mutation'])
+    return bool(m) and int(m.group(2)) > 0 and 10 * int(m.group(1)) >= 9 * int(m.group(2))
+def drop_reasons(r):
+    out = []
+    if not mutation_ok(r): out.append('mutation < 90%' if r['mutation_score'] not in ('',) else 'mutation not run')
+    if r['ref_independent'] != 'yes': out.append('twin only')
+    if r['warnings_gnat14'] != '0' or r['warnings_gnat12'] != '0': out.append('warnings')
+    if r['warnings_suppressed']: out.append('warnings suppressed')
+    if esc_bare[r['folder']]: out.append('unjustified proof escape')
+    return out
 for r in rows:
     r['known_answer'] = known_answer(r)
-    r['training_ready'] = 'yes' if training_ready(r) else ''
+    r['ref_independent'] = 'yes' if (r['kat'] or r['own_tests']) and r['do_nothing'] != 'weak' else ('no' if r['known_answer'] else '')
+    r['twin_only'] = 'yes' if r['known_answer'] == 'diff agree' else ''
+    r['training_ready_old'] = 'yes' if training_ready(r) else ''
+    r['tr_drop'] = '; '.join(drop_reasons(r)) if r['training_ready_old'] else ''
+    r['training_ready'] = 'yes' if r['training_ready_old'] and not r['tr_drop'] else ''
 
 # duplicates: identical package sources (comments/whitespace ignored) or same name+level with >=90% similar text
 by_hash = collections.defaultdict(list)
@@ -297,7 +339,7 @@ L = ['# Proof index', '',
      'Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder\'s own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build\'s test binary exits 0 with no FAIL lines.',
      'Silver: `gnatprove --mode=silver --level=2` on the folder\'s own .gpr (generated where none exists).', '',
      f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub or README says stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
-     f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).", '',
+     f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. Under the old rule: {c(lambda r: r['training_ready_old']=='yes')} folders.", '',
      f"**Do-nothing check:** {c(lambda r: r['do_nothing'] in ('ok', 'weak') or r['do_nothing'].startswith('unchecked'))} folders checked, {c(lambda r: r['do_nothing']=='weak')} flagged weak (tests still pass when the main subprogram does nothing), {c(lambda r: r['do_nothing'].startswith('unchecked'))} unchecked (no trivial body compiles); {c(lambda r: r['do_nothing']=='weak' and r['silver']=='proven' and not r['trivial'] and not r['stub'])} of the weak ones are Silver-proven non-trivial. Own tests: {c(lambda r: r['own_tests']=='yes')} folders (column `own_tests`).", '',
      '**Silver headline (duplicates counted once):** ' + headline, '',
      '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged, and so is every folder listed in `tools/readme_stubs.txt` (its README calls it a stub); the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
@@ -346,7 +388,8 @@ block = '\n'.join([
     '|---|---:|',
     f'| Algorithm folders (duplicates counted once) | {len(uniq)} |',
     f"| Silver-proven, non-trivial (not stubs, more than {TRIVIAL_MAX} checks) | {c(lambda r: r['silver']=='proven' and not r['stub'] and not r['trivial'])} |",
-    f"| Training-ready (answers checked; rule in PROOFS.md) | {c(lambda r: r['training_ready']=='yes')} |",
+    f"| Training-ready (stricter rule: mutants >= 90% killed, independent reference, 0 warnings without suppression, no unexplained proof escape; PROOFS.md) | {c(lambda r: r['training_ready']=='yes')} |",
+    f"| Training-ready under the previous rule | {c(lambda r: r['training_ready_old']=='yes')} |",
     f'| Open findings (`tools/vv/findings.csv`) | {n_open} |',
     f"| Implementation candidates (stubs, column `implement_next`; docs/IMPLEMENT.md) | {c(lambda r: r['implement_next']=='yes')} |",
     END])

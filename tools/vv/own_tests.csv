@@ -242,3 +242,6 @@ misc/Ada/Computus,Gregorian Easter 1583..9999 vs own Clavius epact; Julian Easte
 geometry/Ada/Line-Clipping,all 4 clippers vs own brute-force sampling (4001 samples); 3000 random window/segment pairs (sample_ada_30)
 misc/Ada/Backtracking,N-Queens/subset-sum/colouring vs own exhaustive search (sample_ada_30)
 misc/Ada/Bowyer-Watson,own hull/in-circle geometry: Delaunay property; count 2n-2-h; area = hull area; 1500 random sets (sample_ada_30)
+graphs/Ada/Dijkstras-Algorithm,distances + Prev paths vs own simple-path enumeration; 4000 random digraphs n<=6 (greedy family)
+graphs/Ada/Bellman-Ford-Algorithm,negative-cycle status + distances + Prev paths vs own simple-path/cycle enumeration; 4000 random digraphs (greedy family)
+graphs/Ada/Floyd-Warshall-Algorithm,negative-cycle status + all-pairs distances + Next paths vs own enumeration; 3000 random digraphs (greedy family)

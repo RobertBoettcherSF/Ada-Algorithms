@@ -1074,7 +1074,7 @@ graphs/Ada/Edmonds-Karp-Algorithm,survived,Max_Flow,killed,ok,11,,11,0,yes
 graphs/Ada/Elliptic-Curve-Cryptography,survived,Point_Add,killed,ok,6,,6,0,yes
 graphs/Ada/Euclidean-Minimum-Spanning-Tree,survived,Rounded_Euclidean,killed,ok,8,,8,0,yes
 graphs/Ada/Floyd-Steinberg-Dithering,killed,,,baseline fails,0,,0,0,yes
-graphs/Ada/Floyd-Warshall-Algorithm,survived,Floyd_Warshall,survived,weak,31,Floyd_Warshall Floyd_Warshall Floyd_Warshall Has_Negative_Cycle,27,0,yes
+graphs/Ada/Floyd-Warshall-Algorithm,survived,Floyd_Warshall,killed,ok,31,Floyd_Warshall,30,0,yes
 graphs/Ada/Floyds-Cycle-Finding-Algorithm,survived,Find_Cycle,killed,ok,19,,19,0,yes
 graphs/Ada/Ford-Fulkerson-Algorithm,survived,Max_Flow,killed,ok,12,,12,0,yes
 graphs/Ada/Hungarian-Algorithm,survived,Solve_Minimize,killed,ok,11,,11,0,yes
