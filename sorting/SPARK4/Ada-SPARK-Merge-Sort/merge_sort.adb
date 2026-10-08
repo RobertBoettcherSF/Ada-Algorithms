@@ -74,7 +74,6 @@ is
      (A : Element_Array; Width : Positive; Lo, Hi : Index)
      with
        Ghost             => True,
-       Always_Terminates => True,
        Global            => null,
        Pre               =>
          In_Bounds (A)
@@ -95,7 +94,6 @@ is
      (A : Element_Array; Width : Positive; Lo : Index)
      with
        Ghost             => True,
-       Always_Terminates => True,
        Global            => null,
        Pre               =>
          In_Bounds (A)
@@ -262,11 +260,10 @@ is
      (A : Element_Array; Width : Positive; Lo : Index)
      with
        Ghost             => True,
-       Always_Terminates => True,
        Global            => null,
        Pre               =>
          In_Bounds (A)
-         and then Width in 1 .. Max_N / 2
+         and then Width <= Max_N / 2
          and then Lo in 1 .. A'Last
          and then A'Last < Lo + Width
          and then (Lo - 1) rem Width = 0
@@ -315,14 +312,13 @@ is
       Lo    : Index)
      with
        Global             => null,
-       Always_Terminates  => True,
        Subprogram_Variant => (Decreases => A'Last + 1 - Lo),
        Pre                =>
          In_Bounds (A)
          and then A'Last >= 2
          and then Temp'First = 1
          and then Temp'Last = Max_N
-         and then Width in 1 .. A'Last - 1
+         and then Width <= A'Last - 1
          and then Width <= Max_N / 2
          and then Lo in 1 .. A'Last + 1
          and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0)
@@ -395,7 +391,7 @@ is
          and then A'Last >= 2
          and then Temp'First = 1
          and then Temp'Last = Max_N
-         and then Width in 1 .. A'Last - 1
+         and then Width <= A'Last - 1
          and then Sorted_Runs (A, Width),
        Post   =>
          In_Bounds (A)
@@ -438,12 +434,12 @@ is
       end if;
 
       N := A'Last;
-      pragma Assert (N in 2 .. Max_N);
+      pragma Assert (N >= 2);
       pragma Assert (Sorted_Runs (A, 1));
 
       Width := 1;
       while Width < N loop
-         pragma Loop_Invariant (Width in 1 .. N - 1);
+         pragma Loop_Invariant (Width <= N - 1);
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (Sorted_Runs (A, Width));
          pragma Loop_Variant (Increases => Width);
