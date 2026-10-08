@@ -6,8 +6,13 @@ repository (MIT); nothing is copied from the program's output or from
 third-party test suites. Random inputs come from the Park-Miller minimal
 standard generator (seed 20261008).
 
-* Own reference: a Boolean set over the whole Value range, filled in the
+* Own reference set: a Boolean set over the whole Value range, filled in the
   test; after the inserts, Contains must match it for every value and Size
-  must equal the number of inserted values. Only distinct values are
-  inserted, so how duplicates are treated does not matter.
-* Inputs: 2,000 random sequences of 0 .. 31 distinct values in -100 .. 100.
+  must equal the number of distinct inserted values (inserting a value that
+  is already present leaves the tree unchanged).
+* Own reference BST: Ref_Insert in own_checks.adb builds the binary search
+  tree by plain insertion (smaller left, larger right); the tree under test
+  must have exactly the same shape (same value at every position, every
+  node reachable from Root), and Ordered_In checks the BST order on its own.
+* Inputs: 2,000 random sequences of 0 .. 31 distinct values in -100 .. 100,
+  and 2,000 random sequences of up to 31 values in -12 .. 12 (duplicates).
