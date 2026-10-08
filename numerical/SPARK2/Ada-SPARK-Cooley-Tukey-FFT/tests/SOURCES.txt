@@ -1,0 +1,23 @@
+Sources of every expected value in this folder's own tests (tests.adb)
+=====================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* By hand: an impulse of 100 at position 0 gives 100 in every bin; zero
+  gives zero; 50, -50, 50, ... gives 400 in bin 4 and 0 elsewhere.
+* Own reference: the unnormalised DFT X(k) = sum over n of
+  x(n) * exp(-2 pi i k n / 8), computed in Long_Float in the test.
+  Tolerance 1.5 per output component, from the error analysis: stages 1
+  and 2 and the 0- and 90-degree twiddles of stage 3 are exact in integer
+  arithmetic; the two 45-degree twiddles of stage 3 use 724 / 1024 for
+  cos(pi/4) (error 7.6e-5 times |re| + |im| <= 2 * 4 * 212, i.e. < 0.13)
+  and truncate the product (error < 1).
+* Inputs: every single impulse of +-212, real and imaginary; 20,000
+  random inputs (components -212 .. 212, every fifth with every component
+  at +-212).
+* Rejection: inputs whose bin 0 is 8,000, 16,384 or 2,400 + 2,400i do not
+  fit Sample (-2048 .. 2048); they must raise Constraint_Error rather than
+  return clamped values.
