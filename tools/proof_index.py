@@ -38,10 +38,17 @@ def norm_name(n):
     n = re.sub(r'[^a-z0-9]', '', n)
     return re.sub(r'algorithm$', '', n) or n
 
+def srcfiles(path):
+    out = []
+    for dp, dn, fn in os.walk(path):
+        dn[:] = [d for d in dn if d not in ('obj', 'bin', 'gnatprove')]
+        out += [os.path.relpath(os.path.join(dp, f), path) for f in fn if f.endswith(('.ads', '.adb'))]
+    return out
+
 def pkg_text(path):
     out = []
-    for f in sorted(os.listdir(path)):
-        if f.endswith(('.ads', '.adb')) and not f.startswith('test'):
+    for f in sorted(srcfiles(path)):
+        if not os.path.basename(f).startswith(('test', 'main')):
             t = open(os.path.join(path, f), errors='replace').read()
             t = re.sub(r'--[^\n]*', '', t)
             out.append(re.sub(r'\s+', ' ', t).strip().lower())
@@ -77,9 +84,10 @@ rows = []
 texts = {}
 for topic, lev, alg, p in folders:
     fid = f'{topic}/{lev}/{alg}'
-    srcs = [f for f in os.listdir(p) if f.endswith(('.ads', '.adb'))]
-    has_spark = any(spark_on.search(open(os.path.join(p, f), errors='replace').read())
-                    for f in srcs if not f.startswith('test')) or (lev != 'Ada' and bool(srcs))
+    srcs = srcfiles(p)
+    has_mode = any(spark_on.search(open(os.path.join(p, f), errors='replace').read())
+                   for f in srcs if not os.path.basename(f).startswith('test'))
+    has_spark = has_mode or (lev != 'Ada' and bool(srcs))
     b = B.get(fid, {})
     def ok(k): return '' if not b else ('yes' if b.get(k) == '0' else 'no')
     mk = '' if not b else ('n/a' if b.get('mk14') in ('NA', None) else ('yes' if b.get('mk14') == '0' and not b.get('fail_mk14') else 'no'))
@@ -89,7 +97,7 @@ for topic, lev, alg, p in folders:
                      build_gnat14=ok('u14'), build_gnat12=ok('u12'),
                      tests_pass_gnat14=tp14, tests_pass_gnat12=tp12,
                      warnings_gnat14=b.get('w14', ''), warnings_gnat12=b.get('w12', ''),
-                     silver=silver(fid, has_spark, ok('u14')),
+                     silver=(silver(fid, has_spark, ok('u14')) if has_mode or not has_spark else 'skipped (no SPARK_Mode)'),
                      proof_gpr=(P.get(fid, {}).get('gpr', '') + (' (generated)' if P.get(fid, {}).get('how') == 'generated' else '')) if has_spark else '',
                      shared_sources=' '.join(b.get('shared', [])), pair='', duplicate_of=''))
     texts[fid] = pkg_text(p)
