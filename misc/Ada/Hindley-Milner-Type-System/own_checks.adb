@@ -13,6 +13,11 @@ with Ada.Exceptions;
 with Hindley_Milner; use Hindley_Milner;
 
 procedure Own_Checks is
+   type Pair_Row is record
+      Term, Want : Unbounded_String;
+   end record;
+   type Pair_List is array (Positive range <>) of Pair_Row;
+   type Term_List is array (Positive range <>) of Unbounded_String;
    Failures, Passed : Natural := 0;
 
    procedure Fail (What : String) is
@@ -375,13 +380,73 @@ begin
          Passed := Passed + 1;
       end if;
    end;
-   --  Random soundness check: terms are generated from a target type (so
-   --  they are well-typed by construction, independently of the inference),
-   --  over the rigid base types A and B. The inferred type must be at least
-   --  as general as the target: one-way matching (own code) must find a
-   --  substitution of the inferred type variables that yields the target.
-   --  Embedding the ill-typed self-application (y y) of a lambda-bound y
-   --  anywhere must make inference fail.
+   --  Fixed let-polymorphism cases (room list), with constants one : Int
+   --  and tt : Bool in the environment and K = \a.\b.a for a pair:
+   --  (a) let id = \x.x in K (id one) (id tt) : Int (id used at Int, Bool);
+   --  (b) \x. let y = x in K (y one) (y tt) must be rejected (y's type is
+   --      still free in the environment, so it must not be generalized);
+   --  (c) \x. x x must be rejected (occurs check; also in Ill_Typed).
+   declare
+      Env : Environment;
+      function Infer_Env (S : String) return Type_Ref is (Algorithm_W (Ctx, Env, Parse (S)).T);
+   begin
+      Env.Insert (To_Unbounded_String ("one"), (Bound => Var_Sets.Empty_Set, T => Make_Const_Type ("Int")));
+      Env.Insert (To_Unbounded_String ("tt"), (Bound => Var_Sets.Empty_Set, T => Make_Const_Type ("Bool")));
+      for C of Pair_List'((+"let id = \x.x in (\a.\b.a) (id one) (id tt)", +"Int"),
+                          (+"let id = \x.x in (\a.\b.b) (id one) (id tt)", +"Bool"),
+                          (+"let k = \a.\b.a in k (k one tt) (k tt one)", +"Int"))
+      loop
+         begin
+            declare
+               Got : constant String := Canonical (Infer_Env (To_String (C.Term)));
+            begin
+               if Got /= To_String (C.Want) then
+                  Fail ("(a) " & To_String (C.Term) & ": inferred " & Got & ", expected " & To_String (C.Want));
+               else
+                  Passed := Passed + 1;
+               end if;
+            end;
+         exception
+            when E : others =>
+               Fail ("(a) " & To_String (C.Term) & " rejected: " & Ada.Exceptions.Exception_Name (E));
+         end;
+      end loop;
+      for S of Term_List'(+"\x.let y = x in (\a.\b.a) (y one) (y tt)",
+                          +"\x.x x",
+                          +"\f.let g = f in (\a.\b.a) (g one) (g tt)",
+                          +"one tt")
+      loop
+         begin
+            declare
+               T : constant Type_Ref := Infer_Env (To_String (S));
+            begin
+               Fail ("(b)/(c) " & To_String (S) & " accepted at " & Canonical (T));
+            end;
+         exception
+            when Unification_Error => Passed := Passed + 1;
+            when E : others =>
+               Fail ("(b)/(c) " & To_String (S) & " raised " & Ada.Exceptions.Exception_Name (E));
+         end;
+      end loop;
+   end;
+
+   --  Random soundness check. Terms are generated in this file's own syntax
+   --  tree from a target type over the base types Int and Bool (constants
+   --  one : Int, tt : Bool in the environment), so they are well-typed by
+   --  construction. Lets are generated too: polymorphic id = \x.x and
+   --  k = \x.\y.x used at several types, and monomorphic lets of generated
+   --  values. Two independent references:
+   --  * one-way matching (own code): the inferred type must be at least as
+   --    general as the generating type;
+   --  * a separate checker: every let is expanded by substitution (after
+   --    checking its value), then plain monomorphic inference with an own
+   --    unifier gives the principal type, which must equal the engine's up
+   --    to renaming, and a rejection reason (mismatch or occurs check).
+   --  Ill-typed variants: occurs check by embedding a self-application
+   --  (\yy. E (yy yy)); mismatch only by applying a constant (one E) and by
+   --  using a lambda-bound variable at two types (\zz. K (zz one) (zz E));
+   --  the reference must agree they are ill-typed, and must report >0
+   --  rejections for each reason.
    declare
       Seed : Long_Long_Integer := 20261008;
       function Rand (Lo, Hi : Integer) return Integer is
@@ -389,10 +454,10 @@ begin
          Seed := (Seed * 16807) mod 2147483647;
          return Lo + Integer (Seed mod Long_Long_Integer (Hi - Lo + 1));
       end Rand;
-      A_T : constant Type_Ref := Make_Const_Type ("A");
-      B_T : constant Type_Ref := Make_Const_Type ("B");
+      Int_B  : constant Type_Ref := Make_Const_Type ("Int");
+      Bool_B : constant Type_Ref := Make_Const_Type ("Bool");
       function Rand_Type (D : Natural) return Type_Ref is
-        (if D = 0 or else Rand (1, 3) = 1 then (if Rand (0, 1) = 0 then A_T else B_T)
+        (if D = 0 or else Rand (1, 3) = 1 then (if Rand (0, 1) = 0 then Int_B else Bool_B)
          else Make_Arrow_Type (Rand_Type (D - 1), Rand_Type (D - 1)));
       function Same (X, Y : Type_Ref) return Boolean is
         (X.Kind = Y.Kind and then
@@ -400,46 +465,266 @@ begin
               when Kind_Var   => Num (Natural (X.Id)) = Num (Natural (Y.Id)),
               when Kind_Const  => To_String (X.Name) = To_String (Y.Name),
               when Kind_Arrow => Same (X.Left, Y.Left) and then Same (X.Right, Y.Right)));
-      --  context of lambda-bound variables
-      Ctx_Names : array (1 .. 40) of Unbounded_String;
-      Ctx_Types : array (1 .. 40) of Type_Ref;
+
+      --  own syntax tree
+      type R_Kind is (R_Var, R_Abs, R_App, R_Let);
+      type R_Node is record
+         Kind : R_Kind := R_Var;
+         Name : Unbounded_String;
+         A, B : Natural := 0;
+      end record;
+      type Tree_Arr is array (Positive range <>) of R_Node;
+      type Tree_Ptr is access Tree_Arr;
+      Tree : constant Tree_Ptr := new Tree_Arr (1 .. 200_000);
+      N_Tree : Natural := 0;
+      Too_Big : exception;
+      function Node (K : R_Kind; Name : String; A, B : Natural) return Positive is
+      begin
+         if N_Tree = Tree'Last then
+            raise Too_Big;
+         end if;
+         N_Tree := N_Tree + 1;
+         Tree (N_Tree) := (K, To_Unbounded_String (Name), A, B);
+         return N_Tree;
+      end Node;
+      function To_Engine (N : Positive) return Expr_Ref is
+        (case Tree (N).Kind is
+           when R_Var => Make_Var_Expr (To_String (Tree (N).Name)),
+           when R_Abs => Make_Abs_Expr (To_String (Tree (N).Name), To_Engine (Tree (N).A)),
+           when R_App => Make_App_Expr (To_Engine (Tree (N).A), To_Engine (Tree (N).B)),
+           when R_Let => Make_Let_Expr (To_String (Tree (N).Name), To_Engine (Tree (N).A), To_Engine (Tree (N).B)));
+
+      --  generation context: monomorphic variables, and polymorphic id / k
+      Ctx_Names : array (1 .. 60) of Unbounded_String;
+      Ctx_Types : array (1 .. 60) of Type_Ref;   --  null for id / k
+      Ctx_Poly  : array (1 .. 60) of Character;   --  'm', 'i' (id), 'k' (k)
       N_Ctx : Natural := 0;
       Fresh : Natural := 0;
+      Lets_Poly, Lets_Mono : Natural := 0;
       Failed : exception;
-      function Gen (T : Type_Ref; D : Natural) return Expr_Ref is
+      procedure Push (Name : String; T : Type_Ref; P : Character) is
       begin
-         --  a variable of exactly this type, sometimes
-         if Rand (1, 3) = 1 or else D = 0 or else T.Kind /= Kind_Arrow then
+         N_Ctx := N_Ctx + 1;
+         Ctx_Names (N_Ctx) := To_Unbounded_String (Name);
+         Ctx_Types (N_Ctx) := T;
+         Ctx_Poly (N_Ctx) := P;
+      end Push;
+      function Fits (I : Positive; T : Type_Ref) return Boolean is
+        (case Ctx_Poly (I) is
+           when 'i' => T.Kind = Kind_Arrow and then Same (T.Left, T.Right),
+           when 'k' => T.Kind = Kind_Arrow and then T.Right.Kind = Kind_Arrow
+                         and then Same (T.Left, T.Right.Right),
+           when others => Same (Ctx_Types (I), T));
+      function Gen (T : Type_Ref; D : Natural) return Positive is
+         R : constant Integer := Rand (1, 12);
+      begin
+         if R <= 4 or else D = 0 or else T.Kind /= Kind_Arrow then
             for I in reverse 1 .. N_Ctx loop
-               if Same (Ctx_Types (I), T) then
-                  return Make_Var_Expr (To_String (Ctx_Names (I)));
+               if Fits (I, T) and then (D = 0 or else Rand (0, 2) > 0) then
+                  return Node (R_Var, To_String (Ctx_Names (I)), 0, 0);
                end if;
             end loop;
          end if;
-         if T.Kind = Kind_Arrow and then (D = 0 or else Rand (1, 2) = 1) then
+         if D > 0 and then R = 5 then            --  polymorphic let
             Fresh := Fresh + 1;
-            N_Ctx := N_Ctx + 1;
-            Ctx_Names (N_Ctx) := To_Unbounded_String ("v" & Num (Fresh));
-            Ctx_Types (N_Ctx) := T.Left;
             declare
-               Name : constant String := To_String (Ctx_Names (N_Ctx));
-               Body_E : constant Expr_Ref := Gen (T.Right, (if D = 0 then 0 else D - 1));
+               Name : constant String := "p" & Num (Fresh);
+               Is_K : constant Boolean := Rand (0, 1) = 1;
+               X : constant String := "x" & Num (Fresh);
+               Y : constant String := "y" & Num (Fresh);
+               Val : constant Positive :=
+                 (if Is_K then Node (R_Abs, X, Node (R_Abs, Y, Node (R_Var, X, 0, 0), 0), 0)
+                  else Node (R_Abs, X, Node (R_Var, X, 0, 0), 0));
             begin
-               N_Ctx := N_Ctx - 1;
-               return Make_Abs_Expr (Name, Body_E);
+               Push (Name, null, (if Is_K then 'k' else 'i'));
+               declare
+                  Body_N : constant Positive := Gen (T, D - 1);
+               begin
+                  N_Ctx := N_Ctx - 1;
+                  Lets_Poly := Lets_Poly + 1;
+                  return Node (R_Let, Name, Val, Body_N);
+               end;
+            end;
+         elsif D > 0 and then R = 6 then         --  monomorphic let
+            Fresh := Fresh + 1;
+            declare
+               Name : constant String := "m" & Num (Fresh);
+               VT : constant Type_Ref := Rand_Type (1);
+               Val : constant Positive := Gen (VT, D - 1);
+            begin
+               Push (Name, VT, 'm');
+               declare
+                  Body_N : constant Positive := Gen (T, D - 1);
+               begin
+                  N_Ctx := N_Ctx - 1;
+                  Lets_Mono := Lets_Mono + 1;
+                  return Node (R_Let, Name, Val, Body_N);
+               end;
+            end;
+         end if;
+         if T.Kind = Kind_Arrow and then (D = 0 or else R <= 9) then
+            Fresh := Fresh + 1;
+            declare
+               Name : constant String := "v" & Num (Fresh);
+            begin
+               Push (Name, T.Left, 'm');
+               declare
+                  Body_N : constant Positive := Gen (T.Right, (if D = 0 then 0 else D - 1));
+               begin
+                  N_Ctx := N_Ctx - 1;
+                  return Node (R_Abs, Name, Body_N, 0);
+               end;
             end;
          elsif D = 0 then
-            raise Failed;   --  no variable of this base type in scope
+            raise Failed;
          else
             declare
                Arg_T : constant Type_Ref := Rand_Type (1);
-               Fn : constant Expr_Ref := Gen (Make_Arrow_Type (Arg_T, T), D - 1);
-               Ar : constant Expr_Ref := Gen (Arg_T, D - 1);
+               Fn : constant Positive := Gen (Make_Arrow_Type (Arg_T, T), D - 1);
+               Ar : constant Positive := Gen (Arg_T, D - 1);
             begin
-               return Make_App_Expr (Fn, Ar);
+               return Node (R_App, "", Fn, Ar);
             end;
          end if;
       end Gen;
+
+      --  reference checker: own types with bindings, own unifier
+      type Q_Kind is (Q_Var, Q_Base, Q_Arrow);
+      type Q_Node is record
+         Kind : Q_Kind := Q_Var;
+         Base : Character := ' ';     --  'I' Int, 'B' Bool
+         L, R : Natural := 0;
+         Bound : Natural := 0;        --  for Q_Var: 0 = unbound
+      end record;
+      type Q_Arr is array (Positive range <>) of Q_Node;
+      type Q_Ptr is access Q_Arr;
+      Q : constant Q_Ptr := new Q_Arr (1 .. 200_000);
+      N_Q : Natural := 0;
+      Ref_Mismatch, Ref_Occurs, Ref_Unbound : exception;
+      function Q_New (N : Q_Node) return Positive is
+      begin
+         if N_Q = Q'Last then
+            raise Too_Big;
+         end if;
+         N_Q := N_Q + 1;
+         Q (N_Q) := N;
+         return N_Q;
+      end Q_New;
+      function Find (T : Positive) return Positive is
+        (if Q (T).Kind = Q_Var and then Q (T).Bound /= 0 then Find (Q (T).Bound) else T);
+      function Occurs (V, T : Positive) return Boolean is
+         F : constant Positive := Find (T);
+      begin
+         return F = V or else
+           (Q (F).Kind = Q_Arrow and then (Occurs (V, Q (F).L) or else Occurs (V, Q (F).R)));
+      end Occurs;
+      procedure Q_Unify (A, B : Positive) is
+         FA : constant Positive := Find (A);
+         FB : constant Positive := Find (B);
+      begin
+         if FA = FB then
+            return;
+         elsif Q (FA).Kind = Q_Var then
+            if Occurs (FA, FB) then
+               raise Ref_Occurs;
+            end if;
+            Q (FA).Bound := FB;
+         elsif Q (FB).Kind = Q_Var then
+            Q_Unify (FB, FA);
+         elsif Q (FA).Kind = Q_Base and then Q (FB).Kind = Q_Base then
+            if Q (FA).Base /= Q (FB).Base then
+               raise Ref_Mismatch;
+            end if;
+         elsif Q (FA).Kind = Q_Arrow and then Q (FB).Kind = Q_Arrow then
+            Q_Unify (Q (FA).L, Q (FB).L);
+            Q_Unify (Q (FA).R, Q (FB).R);
+         else
+            raise Ref_Mismatch;
+         end if;
+      end Q_Unify;
+      --  substitution of a let value for its name (binder names are unique
+      --  in generated terms, so no capture can occur)
+      function Subst (N : Positive; X : String; V : Positive) return Positive is
+        (case Tree (N).Kind is
+           when R_Var => (if To_String (Tree (N).Name) = X then V else N),
+           when R_Abs => (if To_String (Tree (N).Name) = X then N
+                          else Node (R_Abs, To_String (Tree (N).Name), Subst (Tree (N).A, X, V), 0)),
+           when R_App => Node (R_App, "", Subst (Tree (N).A, X, V), Subst (Tree (N).B, X, V)),
+           when R_Let => Node (R_Let, To_String (Tree (N).Name), Subst (Tree (N).A, X, V),
+                               (if To_String (Tree (N).Name) = X then Tree (N).B
+                                else Subst (Tree (N).B, X, V))));
+      R_Names : array (1 .. 200) of Unbounded_String;
+      R_Types : array (1 .. 200) of Positive;
+      N_R : Natural := 0;
+      function Q_Infer (N : Positive) return Positive is
+      begin
+         case Tree (N).Kind is
+            when R_Var =>
+               for I in reverse 1 .. N_R loop
+                  if R_Names (I) = Tree (N).Name then
+                     return R_Types (I);
+                  end if;
+               end loop;
+               if To_String (Tree (N).Name) = "one" then
+                  return Q_New ((Kind => Q_Base, Base => 'I', others => <>));
+               elsif To_String (Tree (N).Name) = "tt" then
+                  return Q_New ((Kind => Q_Base, Base => 'B', others => <>));
+               end if;
+               raise Ref_Unbound;
+            when R_Abs =>
+               declare
+                  P : constant Positive := Q_New ((Kind => Q_Var, others => <>));
+               begin
+                  N_R := N_R + 1;
+                  R_Names (N_R) := Tree (N).Name;
+                  R_Types (N_R) := P;
+                  declare
+                     B : constant Positive := Q_Infer (Tree (N).A);
+                  begin
+                     N_R := N_R - 1;
+                     return Q_New ((Kind => Q_Arrow, L => P, R => B, others => <>));
+                  end;
+               end;
+            when R_App =>
+               declare
+                  F : constant Positive := Q_Infer (Tree (N).A);
+                  A : constant Positive := Q_Infer (Tree (N).B);
+                  Res : constant Positive := Q_New ((Kind => Q_Var, others => <>));
+               begin
+                  Q_Unify (F, Q_New ((Kind => Q_Arrow, L => A, R => Res, others => <>)));
+                  return Res;
+               end;
+            when R_Let =>
+               declare
+                  Discard : constant Positive := Q_Infer (Tree (N).A);   --  the value must be typable
+                  pragma Unreferenced (Discard);
+               begin
+                  return Q_Infer (Subst (Tree (N).B, To_String (Tree (N).Name), Tree (N).A));
+               end;
+         end case;
+      end Q_Infer;
+      function Q_To_Engine (T : Positive) return Type_Ref is
+         F : constant Positive := Find (T);
+      begin
+         case Q (F).Kind is
+            when Q_Var => return Make_Var_Type (Var_Id (900_000 + F));
+            when Q_Base => return (if Q (F).Base = 'I' then Int_B else Bool_B);
+            when Q_Arrow => return Make_Arrow_Type (Q_To_Engine (Q (F).L), Q_To_Engine (Q (F).R));
+         end case;
+      end Q_To_Engine;
+      type Verdict is (Typed, Mismatch, Occurs_Fail, Unbound);
+      Ref_Type : Type_Ref;
+      function Reference (N : Positive) return Verdict is
+      begin
+         N_R := 0;
+         Ref_Type := Q_To_Engine (Q_Infer (N));
+         return Typed;
+      exception
+         when Ref_Mismatch => return Mismatch;
+         when Ref_Occurs => return Occurs_Fail;
+         when Ref_Unbound => return Unbound;
+      end Reference;
+
       Keys2 : array (1 .. 64) of Unbounded_String;
       Vals2 : array (1 .. 64) of Type_Ref;
       NK2 : Natural := 0;
@@ -460,20 +745,66 @@ begin
             when Kind_Arrow => return T.Kind = Kind_Arrow and then Match (P.Left, T.Left) and then Match (P.Right, T.Right);
          end case;
       end Match;
-      Sound, Generated, Rejected, Ill : Natural := 0;
+      Env : Environment;
+      Sound, Same_As_Ref, Generated, With_Let : Natural := 0;
+      Rej : array (Verdict) of Natural := [others => 0];
+      Ill_Total : Natural := 0;
+      Msg_Agree : Natural := 0;
+      procedure Check_Ill (N : Positive; Label : String) is
+         V : constant Verdict := Reference (N);
+      begin
+         Ill_Total := Ill_Total + 1;
+         if V = Typed then
+            Fail ("reference checker accepts the ill-typed variant " & Label);
+            return;
+         end if;
+         begin
+            declare
+               S : constant Type_Ref := Algorithm_W (Ctx, Env, To_Engine (N)).T;
+            begin
+               Fail (Label & " (" & V'Image & ") accepted at " & Canonical (S));
+            end;
+         exception
+            when E : Unification_Error =>
+               Rej (V) := Rej (V) + 1;
+               declare
+                  M : constant String := Ada.Exceptions.Exception_Message (E);
+               begin
+                  if (V = Occurs_Fail and then M'Length >= 6 and then M (M'First .. M'First + 5) = "Occurs")
+                    or else (V = Mismatch and then M'Length >= 4 and then M (M'First .. M'First + 3) = "Type")
+                  then
+                     Msg_Agree := Msg_Agree + 1;
+                  end if;
+               end;
+         end;
+      end Check_Ill;
+      K_Term : Positive;
    begin
+      Env.Insert (To_Unbounded_String ("one"), (Bound => Var_Sets.Empty_Set, T => Int_B));
+      Env.Insert (To_Unbounded_String ("tt"), (Bound => Var_Sets.Empty_Set, T => Bool_B));
       for Round in 1 .. 1500 loop
          declare
             T : constant Type_Ref := Make_Arrow_Type (Rand_Type (2), Rand_Type (2));
+            Lets_Before : constant Natural := Lets_Poly + Lets_Mono;
          begin
             N_Ctx := 0;
+            N_Tree := 0;
+            N_Q := 0;
             declare
-               E : constant Expr_Ref := Gen (T, 4);
+               E : constant Positive := Gen (T, 4);
+               V : Verdict;
             begin
                Generated := Generated + 1;
+               if Lets_Poly + Lets_Mono > Lets_Before then
+                  With_Let := With_Let + 1;
+               end if;
+               V := Reference (E);
+               if V /= Typed then
+                  Fail ("reference checker rejects a generated term (" & V'Image & ")");
+               end if;
                begin
                   declare
-                     S : constant Type_Ref := Infer_Poly (E);
+                     S : constant Type_Ref := Algorithm_W (Ctx, Env, To_Engine (E)).T;
                   begin
                      NK2 := 0;
                      if Match (S, T) then
@@ -481,35 +812,45 @@ begin
                      else
                         Fail ("random term of type " & Canonical (T) & ": inferred " & Canonical (S) & ", not more general");
                      end if;
+                     if V = Typed then
+                        if Canonical (S) = Canonical (Ref_Type) then
+                           Same_As_Ref := Same_As_Ref + 1;
+                        else
+                           Fail ("random term: engine type " & Canonical (S) & ", reference type " & Canonical (Ref_Type));
+                        end if;
+                     end if;
                   end;
                exception
                   when Unification_Error | Unbound_Variable_Error =>
                      Fail ("random well-typed term of type " & Canonical (T) & " rejected");
                end;
-               --  ill-typed: \y. E (y y)  (E's type is an arrow, so this is
-               --  only wrong because of the self-application)
-               begin
-                  declare
-                     S : constant Type_Ref := Infer_Poly
-                       (Make_Abs_Expr ("yy", Make_App_Expr (E, Make_App_Expr (Make_Var_Expr ("yy"), Make_Var_Expr ("yy")))));
-                  begin
-                     Fail ("term with a self-application accepted at " & Canonical (S));
-                  end;
-               exception
-                  when Unification_Error =>
-                     Rejected := Rejected + 1;
-               end;
-               Ill := Ill + 1;
+               --  ill-typed variants
+               K_Term := Node (R_Abs, "ka", Node (R_Abs, "kb", Node (R_Var, "ka", 0, 0), 0), 0);
+               Check_Ill (Node (R_Abs, "yy", Node (R_App, "", E,
+                            Node (R_App, "", Node (R_Var, "yy", 0, 0), Node (R_Var, "yy", 0, 0))), 0),
+                          "self-application");
+               Check_Ill (Node (R_App, "", Node (R_Var, "one", 0, 0), E), "constant applied");
+               Check_Ill (Node (R_Abs, "zz",
+                            Node (R_App, "", Node (R_App, "", K_Term,
+                                    Node (R_App, "", Node (R_Var, "zz", 0, 0), Node (R_Var, "one", 0, 0))),
+                                  Node (R_App, "", Node (R_Var, "zz", 0, 0), E)), 0),
+                          "lambda-bound variable at two types");
             end;
          exception
-            when Failed => null;
+            when Failed | Too_Big => null;
          end;
       end loop;
-      Put_Line ("own checks: random well-typed terms" & Sound'Image & " /" & Generated'Image
-                & " inferred at least as general as their generating type; ill-typed variants rejected"
-                & Rejected'Image & " /" & Ill'Image);
-      if Generated < 100 then
-         Fail ("too few random terms generated");
+      Put_Line ("own checks: random well-typed terms" & Generated'Image & " (" & With_Let'Image
+                & " with let; lets: polymorphic" & Lets_Poly'Image & ", monomorphic" & Lets_Mono'Image
+                & "): at least as general as the generating type" & Sound'Image
+                & ", equal to the let-expanding reference" & Same_As_Ref'Image);
+      Put_Line ("own checks: ill-typed variants" & Ill_Total'Image & " rejected by reason (reference): mismatch"
+                & Rej (Mismatch)'Image & ", occurs check" & Rej (Occurs_Fail)'Image & "; engine message names the same reason" & Msg_Agree'Image);
+      if Generated < 100 or else With_Let < 50 or else Lets_Poly < 50 then
+         Fail ("too few random terms / lets generated");
+      end if;
+      if Rej (Mismatch) = 0 or else Rej (Occurs_Fail) = 0 then
+         Fail ("ill-typed variants did not exercise both rejection reasons");
       end if;
    end;
    Put_Line ("own checks:" & Passed'Image & " passed (" & Typable'Length'Image & " hand-derived principal types,"
