@@ -133,7 +133,7 @@ procedure Tests is
 
       Print_Assertion("3.1 Assert Build_Lulea_Trie(single entry) succeeds");
       declare
-         Single_Entry : constant Routing_Table(1..1) := (1 => Entry1);
+         Single_Entry : constant Routing_Table(1..1) := [1 => Entry1];
       begin
          declare
             Built : constant Lulea_Trie := Build_Lulea_Trie(Single_Entry);
@@ -145,7 +145,7 @@ procedure Tests is
 
       Print_Assertion("3.2 Assert Lookup(single entry, 0.0.0.0) succeeds");
       declare
-         Single_Entry : constant Routing_Table(1..1) := (1 => Entry1);
+         Single_Entry : constant Routing_Table(1..1) := [1 => Entry1];
       begin
          declare
             Trie : constant Lulea_Trie := Build_Lulea_Trie(Single_Entry);
@@ -159,7 +159,7 @@ procedure Tests is
       Print_Assertion("3.3 Assert Lookup(trie, 255.255.255.255) raises Lookup_Failure_Error (outside 0/8)");
       begin
          declare
-            Single_Entry : constant Routing_Table(1..1) := (1 => Entry1);
+            Single_Entry : constant Routing_Table(1..1) := [1 => Entry1];
          begin
             declare
                Trie : constant Lulea_Trie := Build_Lulea_Trie(Single_Entry);
