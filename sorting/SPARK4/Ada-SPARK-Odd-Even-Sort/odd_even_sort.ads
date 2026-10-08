@@ -9,9 +9,9 @@
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling allows arbitrary A'First, raises on oversized n, and loops
 --  until a clean cycle; this port requires A'First = 1, uses
---  Pre => In_Bounds (A), caps outer odd–even phases for termination, and
---  proves sortedness via a final gap-1 bubble finish (same proof role as
---  Comb_Sort / Shell_Sort). Full multiset / permutation equality is
+--  Pre => In_Bounds (A), keeps the sibling's loop until a clean cycle,
+--  and proves that this loop sorts and terminates (no cap, no fallback
+--  pass). Full multiset / permutation equality is
 --  verified by tests rather than claimed as a Level-4 postcondition
 --  (sortedness is proved).
 --
@@ -59,18 +59,18 @@ is
    ---------------------------------------------------------------------------
    -- Algorithm sketch (Wikipedia sequential listing, 0-based odd then even)
    ---------------------------------------------------------------------------
-   --  Assume In_Bounds (A). Cap outer cycles at Max_N (n ≤ Max_N suffices
-   --  in theory; the cap discharges termination under Level 4):
+   --  Assume In_Bounds (A). Repeat cycles until one makes no swap:
    --    Each cycle:
    --      Odd phase:  compare/swap 1-based indices (2,3), (4,5), …
    --                  (= Wikipedia 0-based offsets 1,3,5, …)
    --      Even phase: compare/swap 1-based indices (1,2), (3,4), …
    --                  (= Wikipedia 0-based offsets 0,2,4, …)
-   --    Stop early when a full cycle performs no swaps.
-   --  After the capped odd–even phase, a final gap-1 bubble finish
-   --  (shrinking unsorted suffix + early exit) establishes Is_Sorted —
-   --  same proof role as Comb_Sort's Bubble_Finish / Shell's gap-1
-   --  insertion. Swap only when A(I) > A(I+1) (strict `>`; never `>=`)
+   --    Stop when a full cycle performs no swaps.
+   --  Proof: a swap-free cycle has seen every neighbour pair in order, so
+   --  Is_Sorted holds on exit. Termination: the ghost Weight (A) = sum of
+   --  K * A (K) rises by A (I) - A (I + 1) >= 1 with every swap and is
+   --  bounded, so it is the loop variant of the cycle loop.
+   --  Swap only when A(I) > A(I+1) (strict `>`; never `>=`)
    --  so equal keys keep relative order (stable).
    --  Empty and singleton arrays are no-ops.
    --  Do not `with` sibling Ada-* packages.
@@ -84,7 +84,7 @@ is
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending in-place odd–even (brick) sort + gap-1 bubble finish.
+   --  Ascending in-place odd–even (brick) sort (no finishing pass).
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
