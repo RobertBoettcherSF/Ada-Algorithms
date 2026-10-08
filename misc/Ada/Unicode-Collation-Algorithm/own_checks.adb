@@ -88,6 +88,30 @@ begin
          raise Program_Error;
       end if;
    end loop;
+   --  documented default order: letters by alphabet at the primary level with
+   --  lower case before upper case at the tertiary level, digits before letters
+   for X in Character range 'a' .. 'z' loop
+      declare
+         UX : constant Character := Character'Val (Character'Pos (X) - 32);
+      begin
+         if Compare_Standard ([X], [UX], Default) /= Less
+           or else Compare_Standard ([UX], [X], Default) /= Greater
+           or else Compare_Standard ([X, 'b'], [UX, 'a'], Default) /= Greater   --  primary level first
+           or else Compare_Standard ("9", [UX], Default) /= Less
+         then
+            Ada.Text_IO.Put_Line ("FAIL own check: default order around " & X'Image);
+            raise Program_Error;
+         end if;
+         for Y in Character range 'a' .. 'z' loop
+            if X < Y and then (Compare_Standard ([UX], [Y], Default) /= Less
+                               or else Compare_Standard ([X], [Y], Default) /= Less)
+            then
+               Ada.Text_IO.Put_Line ("FAIL own check: default primary order " & X'Image & Y'Image);
+               raise Program_Error;
+            end if;
+         end loop;
+      end;
+   end loop;
    for KA in Str_Index loop
       for KB in Str_Index loop
          declare
