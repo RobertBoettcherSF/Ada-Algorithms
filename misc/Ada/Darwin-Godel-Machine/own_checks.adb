@@ -102,6 +102,41 @@ begin
          Fail ("Evolve_Preemptive accepted a gain of 10 for threshold 50 at the top of the range");
       end if;
    end;
+   --  Boundaries of the stated rules (values computed by hand from the
+   --  rules, see tests/SOURCES.txt): fitness must rise strictly; Verify_Strict
+   --  allows a complexity increase of at most 50; in Dynamic_Env each unit of
+   --  complexity above 100 costs 0.1 fitness.
+   declare
+      At_101 : constant Agent_State := Create_Agent (1, 10.0, 101);
+      At_100 : constant Agent_State := Create_Agent (2, 10.0, 100);
+   begin
+      if abs (Float (Evaluate (At_101, Dynamic_Env)) - 9.9) > 1.0E-4 then
+         Fail ("Evaluate: fitness 10, complexity 101, dynamic should be 9.9, got" & Evaluate (At_101, Dynamic_Env)'Image);
+      end if;
+      if Evaluate (At_100, Dynamic_Env) /= 10.0 then
+         Fail ("Evaluate: complexity 100 carries no penalty, got" & Evaluate (At_100, Dynamic_Env)'Image);
+      end if;
+   end;
+   declare
+      Base : constant Agent_State := Create_Agent (1, 10.0, 0);
+      C50  : constant Agent_State := Create_Agent (2, 20.0, 50);
+      C51  : constant Agent_State := Create_Agent (3, 20.0, 51);
+   begin
+      if not Verify_Strict (Base, C50, Static_Env) then
+         Fail ("Verify_Strict must accept a complexity increase of exactly 50");
+      end if;
+      if Verify_Strict (Base, C51, Static_Env) then
+         Fail ("Verify_Strict must reject a complexity increase of 51");
+      end if;
+   end;
+   declare
+      Base : constant Agent_State := Create_Agent (1, 10.0, 0);
+      Same : constant Agent_State := Create_Agent (2, 10.0, 0);
+   begin
+      if Verify_Heuristic (Base, Same, Static_Env) then
+         Fail ("Verify_Heuristic must reject an equal evaluation (fitness must rise)");
+      end if;
+   end;
    Put_Line ("own checks: selection rule checked on" & Rounds'Image & " random populations (demo folder)");
    if Failures > 0 then
       raise Program_Error with "own checks:" & Failures'Image & " failures";

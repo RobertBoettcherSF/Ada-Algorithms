@@ -10,3 +10,9 @@ Sources of the expected values in own_checks.adb (own code, MIT)
   (thresholds 0.25 .. 50, so the capped target is never reached), else Base.
 * tests.adb: exit status is now nonzero when a check fails.
 Park-Miller PRNG, seed 20261008. Nothing is taken from the program's output.
+* Rule boundaries (added 2026-10-09 from tuning-half survivors, split seed
+  20261809): Evaluate in Dynamic_Env subtracts 0.1 per complexity unit above
+  100 (fitness 10, complexity 101 -> 9.9 by hand; complexity 100 -> 10, no
+  penalty); Verify_Strict accepts a complexity increase of 50 and rejects 51
+  (README: "caps the complexity increase at 50"); Verify_Heuristic rejects an
+  equal evaluation (README: "fitness must rise").
