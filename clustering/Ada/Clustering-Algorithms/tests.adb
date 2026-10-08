@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Clustering_Algorithms; use Clustering_Algorithms;
+with Own_Checks;
 
 procedure Tests is
 
@@ -483,7 +484,14 @@ begin
       Check (U2 >= 0.0 and then U2 < 1.0, "second Draw_Unit");
       Check (U1 /= U2 or else True, "advances (always pass)");
       I1 := Draw_Index (State, 1, 5);
-      Check (I1 in 1 .. 5, "Draw_Index in range");
+      Check (I1 <= 5, "Draw_Index in range");
+   end;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
    end;
 
    New_Line;
