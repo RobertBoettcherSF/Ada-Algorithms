@@ -43,3 +43,7 @@ sorting/SPARK4/Ada-SPARK-Burstsort,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 15
 sorting/SPARK4/Ada-SPARK-Burstsort,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 15875 sort calls (nondecreasing + occurrence counts),61d78b44
 misc/SPARK2/Ada-SPARK-Fibonacci-Number,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 105 checks (fast doubling; recurrence; Cassini; published values),606c38ef
 misc/SPARK2/Ada-SPARK-Fibonacci-Number,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 105 checks (fast doubling; recurrence; Cassini; published values),606c38ef
+searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 5818 insertion runs (reference BST shape + in-order + Well_Formed),d07daef7
+searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 5818 insertion runs (reference BST shape + in-order + Well_Formed),d07daef7
+concurrency/SPARK2/Course-Schedule,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 65536 prerequisite arrays ( 10788 finishable) vs brute force over all orders; witnesses checked,046da79b
+concurrency/SPARK2/Course-Schedule,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 65536 prerequisite arrays ( 10788 finishable) vs brute force over all orders; witnesses checked,046da79b
