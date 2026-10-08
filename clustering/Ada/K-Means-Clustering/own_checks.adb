@@ -33,17 +33,19 @@ procedure Own_Checks (Fail_Count : out Natural) is
       return Seed;
    end Next_U;
 
-   --  Uniform index in 0 .. Span-1. Reject the incomplete residue class
-   --  so the draw is not biased toward the low offsets.
+   --  Uniform index in 0 .. Span-1. Reject the incomplete residue class,
+   --  then take the high bits. State mod Span would use the weak low bits
+   --  of this LCG (a span of 2 alternates).
    function Fair_Off (State : in out U32; Span : Natural) return Natural is
       Sp : constant U32 := U32 (Span);
       Bound : constant U32 := (U32'Last / Sp) * Sp;
+      Bucket : constant U32 := Bound / Sp;
    begin
       loop
          State := State * 1664525 + 1013904223;
          exit when State < Bound;
       end loop;
-      return Natural (State mod Sp);
+      return Natural (State / Bucket);
    end Fair_Off;
 
    function Unit return Real is
@@ -364,8 +366,10 @@ begin
       end loop;
    end;
 
-   --  One center, twenty distinct rows, four thousand seeds. The draws are
-   --  the package's; the chi-square is computed here against a flat rate.
+   --  One center, twenty distinct rows. Seed set is Natural 0 .. 3999,
+   --  fixed; a failure changes the draw, not this set. Expected count 200,
+   --  df = 19. 36.191 is the chi-square point for p = 0.01, so a pass is
+   --  p >= 0.01. The statistic is the package's draws against a flat rate.
    declare
       Data : Dataset (1 .. 20, 1 .. 1);
       Count : array (1 .. 20) of Natural := [others => 0];
@@ -393,8 +397,29 @@ begin
             Stat := Stat + Diff * Diff / Expect;
          end;
       end loop;
-      --  df = 19. 43.8 is the 0.001 point; 50 leaves the fair sampler room.
-      Note (Stat < 50.0, "Forgy picks each row about equally often");
+      Note (Stat < 36.191, "Forgy picks each row about equally often");
+   end;
+
+   --  One stream, seed 0, 4000 draws of a span of 2. 3999 adjacent pairs.
+   --  A fair stream matches on about half of them. 1926 is the lower 0.01
+   --  point of Binomial(3999, 1/2). The low bits of this LCG match on none.
+   declare
+      State : RNG_State;
+      Prev : Natural := 0;
+      Same : Natural := 0;
+   begin
+      Seed_RNG (State, 0);
+      for I in 1 .. 4000 loop
+         declare
+            Idx : constant Natural := Natural (Draw_Index (State, 1, 2));
+         begin
+            if I > 1 and then Idx = Prev then
+               Same := Same + 1;
+            end if;
+            Prev := Idx;
+         end;
+      end loop;
+      Note (Same >= 1926, "a span of 2 does not alternate");
    end;
 
    --  Seed 0, twenty rows. An independent Numerical Recipes step picks row 6
