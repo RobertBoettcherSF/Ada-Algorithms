@@ -1,0 +1,18 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: 2x + y = 5, x - y = 1 -> rows (2, 1, 5) and (0, -3, -3), by
+  hand.
+* Own property (what an elimination step is for): the reduced system has
+  R (2, 1) = 0 and the same solution set as the input: every integer
+  (X, Y) with |X|, |Y| <= 15 solves the two input equations exactly when it
+  solves the two reduced ones.
+* Inputs: every pair of first-column entries -10 .. 10 with 60 random
+  completions each (every third built around an integer solution), plus a
+  zero-pivot system with the unique solution (2, 1) and a system whose first
+  column is all zero, by hand.
