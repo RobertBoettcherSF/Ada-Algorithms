@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Nested_Sampling; use Nested_Sampling;
 
 procedure Tests is
@@ -624,5 +625,10 @@ begin
       raise Program_Error with
         "Nested_Sampling tests failed:" & Fail_Count'Image;
    end if;
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

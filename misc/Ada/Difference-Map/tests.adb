@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Difference_Map; use Difference_Map;
 
 procedure Tests is

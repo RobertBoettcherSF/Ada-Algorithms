@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Weiler_Atherton; use Weiler_Atherton;
 
 procedure Tests is
@@ -435,5 +436,10 @@ begin
    New_Line;
    Put_Line ("----------------------------------------");
    Put_Line ("Passed:" & Pass_Count'Image & "  Failed:" & Fail_Count'Image);
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

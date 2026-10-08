@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Queuing_Theory; use Queuing_Theory;
 
 procedure Tests is
@@ -511,7 +512,12 @@ begin
    Put_Line ("Passed :" & Natural'Image (Pass_Count));
    Put_Line ("Failed :" & Natural'Image (Fail_Count));
    Put_Line ("================================");
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
    if Fail_Count = 0 then
       Put_Line ("ALL TESTS PASSED");
    else

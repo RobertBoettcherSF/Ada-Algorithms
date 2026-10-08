@@ -1,4 +1,5 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Progressive_Jackpot; use Progressive_Jackpot;
 
 procedure Tests is
@@ -231,5 +232,7 @@ begin
    Put_Line ("Failed : " & Natural'Image (Fail_Count));
    Put_Line ("===============================================");
 
-   pragma Assert (Fail_Count = 0, "One or more assertions failed during the testing phase.");
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

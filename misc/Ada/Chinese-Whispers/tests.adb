@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Assertions;
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Chinese_Whispers; use Chinese_Whispers;
 
 procedure Tests is
@@ -622,5 +623,10 @@ begin
    Put_Line ("Passed:" & Pass_Count'Image);
    Put_Line ("Failed:" & Fail_Count'Image);
    Put_Line ("----------------------------------------");
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

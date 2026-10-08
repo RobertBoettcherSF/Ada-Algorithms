@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Hidden_Markov_Model; use Hidden_Markov_Model;
 
 procedure Tests is
@@ -586,6 +587,11 @@ begin
    Put_Line ("---------------------------------------------------");
    Put_Line ("Passed:" & Natural'Image (Pass_Count)
              & "  Failed:" & Natural'Image (Fail_Count));
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
    Put_Line ("All checks passed (Fail_Count = 0).");
 end Tests;

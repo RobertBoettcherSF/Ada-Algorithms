@@ -10,6 +10,8 @@ concurrency/Ada/sjn,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target 
 cryptography/Ada/RC4,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,n/a,no,,init: baseline -gnata build nobuild: rc4.adb:86:04: error: incorrect application of SPARK_Mode at line 2 rc4.adb:86:04: error: value Off was set for SPARK_Mo
 cryptography/Ada/Shamirs-Secret-Sharing,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,n/a,no,,init: baseline -gnata build fail: TEST 12 — Error on Duplicate Shares
 geometry/Ada/Dithering,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+geometry/Ada/Liang-Barsky,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+graphs/Ada/Shortest-Path-Problem,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
 graphs/Ada/subgraph-isomorphism,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,no make test: gnatmake test main
 hashing/Ada/Zobrist-Hashing,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
 logic/Ada/Davis-Putnam,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
@@ -81,4 +83,3 @@ numerical/Ada/Fermat-Primality-Test,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,
 numerical/Ada/Pareto-Interpolation,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
 sorting/SPARK4/Ada-SPARK-Counting-Sort,GNATMAKE 14.2.0,1,0,0,1,1,yes,no,,,,n/a,no,timeout,"timed out once, not repeated (slow, not flaky); init: baseline -gnata build timeout: timeout"
 strings/Ada/Karplus-Strong-String-Synthesis,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
-geometry/Ada/Liang-Barsky,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,

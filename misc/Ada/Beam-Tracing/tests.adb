@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Beam_Tracing; use Beam_Tracing;
 
 procedure Tests is
@@ -389,6 +390,11 @@ begin
       raise Program_Error with "test failures:" & Natural'Image (Fail_Count);
    end if;
 
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 
 end Tests;

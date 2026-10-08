@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Bees_Algorithm; use Bees_Algorithm;
 
 procedure Tests is

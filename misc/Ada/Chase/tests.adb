@@ -3,6 +3,7 @@
 --  14 tests assuming the code is broken (PASS when assumption is disproven)
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Ada.Assertions; use Ada.Assertions;
 with Chase; use Chase;
 

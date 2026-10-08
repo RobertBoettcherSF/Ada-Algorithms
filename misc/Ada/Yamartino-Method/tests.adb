@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Yamartino_Method; use Yamartino_Method;
 
 procedure Tests is
@@ -463,7 +464,12 @@ begin
    Put_Line ("Failed :" & Fail_Count'Image);
    Put_Line ("=================================");
 
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 
 exception
    when others =>

@@ -614,5 +614,7 @@ begin
    if Fail_Count /= 0 then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

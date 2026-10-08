@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO;
+with Ada.Command_Line;
 with Doomsday;
 
 procedure Tests is

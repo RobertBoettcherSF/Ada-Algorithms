@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Numerics;
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Miser;       use Miser;
 
 procedure Tests is

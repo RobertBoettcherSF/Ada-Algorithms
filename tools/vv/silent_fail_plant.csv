@@ -1,0 +1,1841 @@
+folder,counter,planted_line,planted_rc,plant_ok,plant_note,compiler_14
+clustering/Ada/Average-Linkage-Clustering,Fail_Count,539,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/Canopy-Clustering,Fail_Count,564,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/Clustering,Fail_Count,167,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/Clustering-Algorithms,Fail_Count,493,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/Complete-Linkage-Clustering,Fail_Count,510,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/DBSCAN,Fail_Count,541,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/FLAME-Clustering,Fail_Count,596,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/Fuzzy-Clustering,Fail_Count,795,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/K-Means-Clustering,Fail_Count,586,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/K-Means-Plus-Plus,Fail_Count,595,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/Lloyds-Algorithm,Fail_Count,566,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/OPTICS,Fail_Count,641,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/Single-Linkage-Clustering,Fail_Count,500,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/WACA-Clustering,Fail_Count,547,2,yes,,GNATMAKE 14.2.0
+clustering/Ada/Wards-Method,Fail_Count,553,2,yes,,GNATMAKE 14.2.0
+clustering/SPARK2/K-Means-Step,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Adaptive-Huffman,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Arithmetic-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Audio-Compression,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Berlekamp-Massey-Algorithm,Fail_Count,169,2,yes,,GNATMAKE 14.2.0
+compression/Ada/Berlekamp-Root-Finding,Fail_Count,658,2,yes,,GNATMAKE 14.2.0
+compression/Ada/Burrows-Wheeler-Transform,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Deflate,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Dynamic-Markov-Compression,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Earley-Parser,Fail_Count,262,2,yes,,GNATMAKE 14.2.0
+compression/Ada/Fast-Efficient-Lossless-Image-Compression-System,Failed_Count,270,2,yes,,GNATMAKE 14.2.0
+compression/Ada/Fractal-Compression,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Huffmann-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Image-Compression,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/LZ77-LZ78,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/LZWL,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/LZX,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Fail_Count,177,2,yes,,GNATMAKE 14.2.0
+compression/Ada/Run-Length-Encoding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Speech-Compression,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Verlet-Integration,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Video-Compression,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/Ada/Wavelet-Compression,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/SPARK2/Ada-SPARK-Compress-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/SPARK2/Ada-SPARK-Interleaving-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/SPARK2/Ada-SPARK-LZ77,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/SPARK2/Ada-SPARK-Move-To-Front,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/SPARK2/Ada-SPARK-Run-Length-Encoding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/SPARK2/Ada-SPARK-String-Compression,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/SPARK2/Burrows-Wheeler-Transform,,,,n/a,no failure counter,GNATMAKE 14.2.0
+compression/SPARK3/Huffman-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/Ada/Dekker,,,,n/a,no test main,GNATMAKE 14.2.0
+concurrency/Ada/Lamport-Ordering,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/Ada/Paxos-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/Ada/Vector-Clocks,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/Ada/lamport,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/Ada/lds-scheduler,,,,n/a,no test main,GNATMAKE 14.2.0
+concurrency/Ada/mlfq,,,,n/a,no test main,GNATMAKE 14.2.0
+concurrency/Ada/peterson,,,,n/a,no test main,GNATMAKE 14.2.0
+concurrency/Ada/sjn,,,,n/a,no test main,GNATMAKE 14.2.0
+concurrency/SPARK2/Ada-SPARK-Course-Schedule-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/SPARK2/Ada-SPARK-Course-Schedule-II-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/SPARK2/Ada-SPARK-Dekkers-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/SPARK2/Ada-SPARK-Lamports-Bakery-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/SPARK2/Ada-SPARK-Petersons-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/SPARK2/Ada-SPARK-Task-Scheduler,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+concurrency/SPARK2/Course-Schedule,,,,n/a,no failure counter,GNATMAKE 14.2.0
+cryptography/Ada/Aes,Fail_Count,219,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Argon2,Fail_Count,213,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Asymetric-Public-Key-Encryption,Fail_Count,232,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/BLAKE,Fail_Count,148,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Bcrypt,Fail_Count,153,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Blowfish,Fail_Count,251,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/ChaCha20,Fail_Count,198,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Data-Encryption-Standard,Fail_Count,240,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/ECDSA,Fail_Count,158,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Elliptic-Curve-Diffie-Hellman,Fail_Count,202,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Fortuna,Fail_Count,212,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/HMAC,Fail_Count,217,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/IDEA,Fail_Count,179,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Lenstra-Elliptic-Curve-Factorization,Fail_Count,406,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/MD5,Fail_Count,147,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/NTRUEncrypt,Fail_Count,125,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/RC4,Fail_Count,305,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/RSA,Fail_Count,215,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/SHA3,Fail_Count,186,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Shamirs-Secret-Sharing,Fail_Count,217,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Stochastic-Universal-Sampling,Fail_Count,833,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Symetric-Encryption,Fail_Count,327,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Threefish,Fail_Count,205,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Tiny-Encryption-Algorithm,Fail_Count,218,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Twofish,Fail_Count,205,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Universal-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+cryptography/Ada/Universal-Variable-Formulation,Fail_Count,426,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/WHIRLPOOL,Fail_Count,203,2,yes,,GNATMAKE 14.2.0
+cryptography/Ada/Yarrow-Algorithm,Fail_Count,232,2,yes,,GNATMAKE 14.2.0
+cryptography/SPARK2/Ada-SPARK-Level-Order-Traversal-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+cryptography/SPARK2/Ada-SPARK-MD5,,,,n/a,no failure counter,GNATMAKE 14.2.0
+cryptography/SPARK2/Ada-SPARK-SHA-1,,,,n/a,no failure counter,GNATMAKE 14.2.0
+cryptography/SPARK2/Bit-Reversal,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Adaptive-Histogram-Equalization,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Ambient-Occlusion,Fail_Count,369,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Bresenhams-Line-Algorithm,Fail_Count,200,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Canny-Edge-Detector,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Clipping,Fail_Count,452,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Closest-Pair-Problem,Fail_Count,512,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Cohen-Sutherland,Fail_Count,489,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Constructive-Solid-Geometry,Fail_Count,241,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Convex-Hull-Algorithms,Fail_Count,513,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Delaunay-Triangulation,Fail_Count,506,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Dithering,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Fast-Clipping,Fail_Count,453,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Generalised-Hough-Transform,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Gift-Wrapping,Fail_Count,569,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Gouraud-Shading,Fail_Count,364,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Grabcut,Fail_Count,230,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Graham-Scan,Fail_Count,553,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Histogram-Equalization,Failures,100,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Hough-Transform,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Isosurfaces,Fail_Count,412,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Kirkpatrick-Seidel,Fail_Count,554,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Liang-Barsky,Fail_Count,388,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Line-Clipping,Fail_Count,465,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Line-Segment-Intersection,Fail_Count,603,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Marching-Cubes,Fail_Count,517,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Ordered-Dithering,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Phong-Shading,Fail_Count,289,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Point-In-Polygon,Fail_Count,412,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Polygon-Triangulation,Fail_Count,459,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Quasitriangulation,Fail_Count,407,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Quickhull,Fail_Count,522,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Radiosity,Fail_Count,441,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Ramer-Douglas-Peucker-Algorithm,Fail_Count,253,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Ray-Tracing,Fail_Count,287,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Riemersma-Dithering,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Segmentation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Shading,Fail_Count,472,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Slerp,Fail_Count,318,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Sutherland-Hodgman,Fail_Count,463,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Triangulation,Fail_Count,472,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Vatti,Fail_Count,383,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Vincenty,Fail_Count,495,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Voronoi-Diagrams,Fail_Count,580,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Warnock-Algorithm,Fail_Count,254,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Watershed-Transformation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/Ada/Weiler-Atherton,Fail_Count,442,2,yes,,GNATMAKE 14.2.0
+geometry/Ada/Xiaolin-Wus-Line-Algorithm,Fail_Count,279,2,yes,,GNATMAKE 14.2.0
+geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/SPARK2/Ada-SPARK-Point-In-Polygon,,,,n/a,no failure counter,GNATMAKE 14.2.0
+geometry/SPARK2/Closest-Pair-Brute,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/Ada/A-Star,Fail_Count,988,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Bellman-Ford-Algorithm,Fail_Count,703,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Boruvkas-Algorithm,Fail_Count,789,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Cliques,Fail_Count,920,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Coin-Graph,Fail_Count,708,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Cryptographically-Secure-Pseudo-Random-Number-Generators,Fail_Count,283,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Cryptographically-Secure-Pseudorandom-Number-Generator,Fail_Count,278,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Dijkstra-Scholten-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/Ada/Dijkstras-Algorithm,Fail_Count,636,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Dinics-Algorithm,Fail_Count,670,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Edmonds-Karp-Algorithm,Fail_Count,670,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Elliptic-Curve-Cryptography,Fail_Count,176,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Euclidean-Minimum-Spanning-Tree,Fail_Count,774,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Floyd-Steinberg-Dithering,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/Ada/Floyd-Warshall-Algorithm,Fail_Count,789,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,Fail_Count,662,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Ford-Fulkerson-Algorithm,Fail_Count,583,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Hungarian-Algorithm,Fail_Count,760,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Hungarian-Method,Fail_Count,627,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Kosarajus-Algorithm,Fail_Count,1318,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Kruskals-Algorithm,Fail_Count,753,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/MaxCliqueDyn,Fail_Count,626,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Minimum-Spanning-Tree,Fail_Count,703,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/PageRank,Fail_Count,669,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Post-Quantum-Cryptography,Fail_Count,179,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Prims-Algorithm,Fail_Count,857,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Shortest-Path-Problem,Fail_Count,732,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Tarjans-Off-Line-Lowest-Common-Ancestors,Fail_Count,555,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/Tarjans-Strongly-Connected-Components,Fail_Count,776,2,yes,,GNATMAKE 14.2.0
+graphs/Ada/subgraph-isomorphism,,,,n/a,no test main,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Bellman-Ford-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Clone-Graph,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Clone-Graph-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Dijkstra-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Floyd-Warshall,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Floyd-Warshall-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Kruskal-MST-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Kruskals-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Prims-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Ada-SPARK-Shortest-Path-In-Binary-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK2/Bellman-Ford-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+graphs/SPARK4/A-Star,Fail_Count,465,2,yes,,GNATMAKE 14.2.0
+graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Fail_Count,361,2,yes,,GNATMAKE 14.2.0
+graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Fail_Count,197,2,yes,,GNATMAKE 14.2.0
+hashing/Ada/Bloom-Filter,Fail_Count,413,2,yes,,GNATMAKE 14.2.0
+hashing/Ada/Geohash,Fail_Count,444,2,yes,,GNATMAKE 14.2.0
+hashing/Ada/Geometric-Hashing,Fail_Count,468,2,yes,,GNATMAKE 14.2.0
+hashing/Ada/Hash-Functions,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/Ada/Hash-Join,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/Ada/Locality-Sensitive-Hashing,Fail_Count,266,2,yes,,GNATMAKE 14.2.0
+hashing/Ada/Pearson-Hashing,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/Ada/SipHash,Fail_Count,172,2,yes,,GNATMAKE 14.2.0
+hashing/Ada/Tiger-Hash,Fail_Count,177,2,yes,,GNATMAKE 14.2.0
+hashing/Ada/Zobrist-Hashing,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/SPARK2/Ada-SPARK-Design-HashMap,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/SPARK2/Ada-SPARK-Design-HashMap-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/SPARK2/Ada-SPARK-Design-HashSet,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/SPARK2/Ada-SPARK-Design-HashSet-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/SPARK2/Ada-SPARK-FNV-Hash,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/SPARK2/Ada-SPARK-Pearson-Hashing,Failures,29,2,yes,,GNATMAKE 14.2.0
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,,,,n/a,no failure counter,GNATMAKE 14.2.0
+hashing/SPARK2/Bloom-Filter,,,,n/a,no failure counter,GNATMAKE 14.2.0
+logic/Ada/Automated-Theorem-Proving,Fail_Count,309,2,yes,,GNATMAKE 14.2.0
+logic/Ada/Chaff,Fail_Count,505,2,yes,,GNATMAKE 14.2.0
+logic/Ada/Constraint-Satisfaction,Fail_Count,501,2,yes,,GNATMAKE 14.2.0
+logic/Ada/DPLL,Fail_Count,680,2,yes,,GNATMAKE 14.2.0
+logic/Ada/DPLL-Algorithm,Fail_Count,335,2,yes,,GNATMAKE 14.2.0
+logic/Ada/Davis-Putnam,Fail_Count,646,2,yes,,GNATMAKE 14.2.0
+logic/Ada/Verified-Unification-Engine,Fail_Count,222,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Chain-Matrix-Multiplication,Fail_Count,359,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Eigenvalue-Algorithms,Fail_Count,591,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Gaussian-Elimination,Fail_Count,459,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Jacobi-Eigenvalue,Fail_Count,611,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Matrix-Multiplication,Fail_Count,503,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Quantum-Singular-Value-Transformation,Fail_Count,184,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/SMAWK,Fail_Count,319,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Schonhage-Strassen,Fail_Count,302,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Sparse-Matrix,Fail_Count,396,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Strassen,Fail_Count,503,2,yes,,GNATMAKE 14.2.0
+matrices/Ada/Symbolic-Cholesky-Decomposition,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Check-If-Matrix-Is-X-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Matrix-Chain-Multiplication,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Matrix-Diagonal-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Matrix-Multiply,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Reshape-The-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Set-Matrix-Zeroes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Spiral-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Spiral-Matrix-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-The-K-Weakest-Rows-In-A-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Toeplitz-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Ada-SPARK-Transpose-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+matrices/SPARK2/Matrix-01,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/A-Law-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/AC-3,Fail_Count,533,2,yes,,GNATMAKE 14.2.0
+misc/Ada/ACORN-Generator,Fail_Count,661,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Adaptive-Additive-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Addition-Chain-Exponentiation,Fail_Count,443,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Adler-32,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Aharonov-Jones-Landau-Algorithm,Fail_Count,145,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Algorithm-X,Fail_Count,503,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Algorithms-For-Calculating-Variance,Fail_Count,562,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Alpha-Beta-Pruning,Fail_Count,443,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Alpha-Max-Plus-Beta-Min,Fail_Count,488,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Amplitude-Amplification,Fail_Count,194,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Ant-Colony-Optimization,Fail_Count,542,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Approximate-Counting,Fail_Count,435,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Apriori-Algorithm,Fail_Count,308,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Association-Rule-Learning,Fail_Count,303,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Automated-Planning-And-Scheduling,Fail_Count,266,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Automatic-Train-Operation,Fail_Count,160,2,yes,,GNATMAKE 14.2.0
+misc/Ada/B-Star,Fail_Count,863,2,yes,,GNATMAKE 14.2.0
+misc/Ada/BCH-Codes,Fail_Count,209,2,yes,,GNATMAKE 14.2.0
+misc/Ada/BCJR-Algorithm,Fail_Count,214,2,yes,,GNATMAKE 14.2.0
+misc/Ada/BHT-Algorithm,Fail_Count,195,2,yes,,GNATMAKE 14.2.0
+misc/Ada/BLAST,Fail_Count,662,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Baby-Step-Giant-Step,Fail_Count,587,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Backtracking,Fail_Count,736,0,no,,GNATMAKE 14.2.0
+misc/Ada/Backward-Euler,Fail_Count,461,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Backward-Induction,Fail_Count,742,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Baillie-PSW,Fail_Count,282,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bankers-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Banzhaf-Power-Index,Fail_Count,1090,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Barnes-Hut,Fail_Count,515,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Baum-Welch,Fail_Count,836,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bayesian-Nash-Equilibrium,Fail_Count,764,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bayesian-Statistics,Fail_Count,476,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Beam-Tracing,Fail_Count,396,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bees-Algorithm,Fail_Count,567,0,no,,GNATMAKE 14.2.0
+misc/Ada/Beginner-Embedded-API,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Bensons-Algorithm,Fail_Count,584,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bentley-Ottmann,Fail_Count,474,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Berkeley-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Bernstein-Varizani-Algorithm,Fail_Count,173,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Best-Bin-First,Fail_Count,637,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Binary-Space-Partitioning,Fail_Count,501,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Binary-Splitting,Fail_Count,486,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Birkhoff-von-Neumann,Fail_Count,578,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bitap-Algorithm,Fail_Count,507,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Black-Scholes-Model,Fail_Count,202,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Blind-Deconvolution,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Block-Nested-Loop,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Block-Truncation-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Blossom-Algorithm,Fail_Count,614,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Blum-Blum-Shub,Fail_Count,258,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Booth-Multiplication,Fail_Count,282,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bootstrap-Aggregating,Fail_Count,361,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Boson-Sampling,Fail_Count,121,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Boundary-Representation,Fail_Count,240,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bowyer-Watson,Fail_Count,478,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Branch-and-Bound,Fail_Count,484,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Branch-and-Cut,Fail_Count,511,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bron-Kerbosch,Fail_Count,803,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Buchbergers-Algorithm,Fail_Count,530,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Buddy-Memory-Allocation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Buechi-Automaton,Fail_Count,248,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Bully-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Buzens-Algorithm,Fail_Count,578,0,no,,GNATMAKE 14.2.0
+misc/Ada/C4.5-Algorithm,Fail_Count,224,2,yes,,GNATMAKE 14.2.0
+misc/Ada/CHS-Conversion,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Cannons-Algorithm,Fail_Count,412,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Chaitins-Algorithm,Fail_Count,185,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Chandra-Toueg,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Chans-Algorithm,Fail_Count,625,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Chase,Fail_Count,554,0,no,,GNATMAKE 14.2.0
+misc/Ada/Cheneys-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Chews-Second-Algorithm,Fail_Count,570,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Chinese-Whispers,Fail_Count,629,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Christofides-Algorithm,Fail_Count,835,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Code-Excited-Linear-Prediction,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Collision-Detection,Fail_Count,551,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Coloring-Algorithm,Fail_Count,737,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Combinatorial-Auction,Fail_Count,820,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Combinatorial-Optimization,Fail_Count,478,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Communications-Based-Train-Control,Fail_Count,169,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Computation-Of-Pi,Fail_Count,516,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Computer-Vision,Fail_Count,231,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Computus,Fail_Count,266,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Cone-Algorithm,Fail_Count,649,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Cone-Tracing,Fail_Count,394,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Conflict-Driven-Clause-Learning,Fail_Count,278,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Congruence-Of-Squares,Fail_Count,554,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Connected-Component-Labeling,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Constraint-Algorithm,Fail_Count,661,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Contour-Lines,Fail_Count,413,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Coppersmith-Winograd,Fail_Count,506,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Core,Fail_Count,748,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Corporate-Wars-Sim,Failed,161,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Correlated-Equilibrium,Fail_Count,830,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Crank-Nicolson,Fail_Count,602,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Cristians-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Cross-Entropy-Method,Fail_Count,638,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Cuthill-McKee,Fail_Count,429,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Cutting-Plane-Method,Fail_Count,509,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Cyclic-Redundancy-Check,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Cyrus-Beck,Fail_Count,424,2,yes,,GNATMAKE 14.2.0
+misc/Ada/D-Star,Fail_Count,559,2,yes,,GNATMAKE 14.2.0
+misc/Ada/DDA-Line-Algorithm,Fail_Count,183,2,yes,,GNATMAKE 14.2.0
+misc/Ada/DSA,Fail_Count,199,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Damm-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Dancing-Links,Fail_Count,552,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Dantzig-Wolfe-Decomposition,Fail_Count,585,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Darwin-Godel-Machine,Fail_Count,244,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Data-Flow-Analysis,Fail_Count,269,2,yes,,GNATMAKE 14.2.0
+misc/Ada/De-Boor,Fail_Count,567,2,yes,,GNATMAKE 14.2.0
+misc/Ada/De-Casteljau,Fail_Count,567,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Delayed-Column-Generation,Fail_Count,635,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Delivery-Mission-FSM,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/Delivery-Safety-Supervisor,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/Delta-Encoding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Demon-Method,Fail_Count,659,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Description-Logic,Fail_Count,239,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Deutsch-Josza-Algorithm,Fail_Count,207,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Dice-Coefficient,Fail_Count,603,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Dictionary-Coder,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Difference-Map,Fail_Count,590,0,no,,GNATMAKE 14.2.0
+misc/Ada/Differential-Evolution,Fail_Count,714,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Diffie-Hellman-Key-Exchange,Fail_Count,323,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Discrete-Event-Simulation,Fail_Count,242,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Discrete-Fourier-Transformation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Discrete-Logarithm,Fail_Count,622,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Division-Algorithms,Fail_Count,545,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Doomsday,Fail_Count,379,0,no,,GNATMAKE 14.2.0
+misc/Ada/Double-Dabble,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Dynamic-Programming,Fail_Count,338,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Dynamic-Time-Warping,Fail_Count,340,2,yes,,GNATMAKE 14.2.0
+misc/Ada/EIGamal,Fail_Count,182,2,yes,,GNATMAKE 14.2.0
+misc/Ada/ESC-Algorithm,Fail_Count,497,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Eclat-Algorithm,Fail_Count,207,2,yes,,GNATMAKE 14.2.0
+misc/Ada/EdDSA,Fail_Count,145,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Edmonds-Algorithm,Fail_Count,697,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Elevator-Algorithm,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/Elias-Delta-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Elias-Gamma-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Elias-Omega-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Ellipsoid-Method,Fail_Count,580,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Elser-Difference-Map-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Entropy-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Entropy-Coding-With-Known-Entropy-Characteristics,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Error-Diffusion,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Espresso-Heuristic-Logic-Minimizer,Fail_Count,199,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Estimation-Theory,Fail_Count,547,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Euclidean-Distance-Transform,Fail_Count,508,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Euler-Integration,Fail_Count,505,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Evolution-Strategy,Fail_Count,591,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Evolutionary-Computation,Fail_Count,511,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Exact-Cover,Fail_Count,488,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Exponential-Backoff,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Exponential-Golomb-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Exponentiating-By-Squaring,Fail_Count,435,2,yes,,GNATMAKE 14.2.0
+misc/Ada/FP-Growth-Algorithm,Fail_Count,222,2,yes,,GNATMAKE 14.2.0
+misc/Ada/False-Nearest-Neighbor,Fail_Count,687,2,yes,,GNATMAKE 14.2.0
+misc/Ada/False-Position-Method,Fail_Count,472,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Fast-Cosine-Transform-Algorithms,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Fast-Folding-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Fast-Multipole-Method,Fail_Count,488,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Faugere-F4,Fail_Count,456,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Featherstone,Fail_Count,512,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Feature-Detection,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Fermat-Factorization,Fail_Count,372,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Fibonacci-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Fictitious-Play,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Filtered-Back-Projection,Fail_Count,465,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Financial-Information-Exchange,Fail_Count,229,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Financial-Risk-Modeling,Fail_Count,153,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Finite-Difference-Method,Fail_Count,846,2,yes,,GNATMAKE 14.2.0
+misc/Ada/First-Order-Logic,Fail_Count,261,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Fisher-Yates-Shuffle,Fail_Count,447,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Fitness-Proportionate-Selection,Fail_Count,815,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Fletchers-Checksum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Flood-Fill,Fail_Count,393,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Flow-Networks,Fail_Count,800,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Force-Based-Algorithms,Fail_Count,757,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Fortunes-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Forward-Error-Correction,Fail_Count,284,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Foundations-Curriculum,Fail_Count,153,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Fowler-Noll-Vo,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Frank-Wolfe-Algorithm,Fail_Count,676,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Freivalds,Fail_Count,508,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Fuzzy-C-Means,Fail_Count,749,2,yes,,GNATMAKE 14.2.0
+misc/Ada/GNAT-Studio-Notes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/GPU-Work-Queue,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/GRASP,Fail_Count,596,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Gale-Shapley-Algorithm,Fail_Count,1043,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Gauss-Jordan,Fail_Count,539,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Gauss-Seidel,Fail_Count,507,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Gene-Expression-Programming,Failed,420,2,yes,,GNATMAKE 14.2.0
+misc/Ada/General-Problem-Solver,Fail_Count,774,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Generational-Garbage-Collector,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Genetic-Algorithms,Fail_Count,580,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Gerchberg-Saxton-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Gibbs-Sampling,Fail_Count,439,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Gilbert-Johnson-Keerthi,Fail_Count,627,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Glauber-Dynamics,Fail_Count,786,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Global-Illumination,Fail_Count,394,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Goertzel-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Goldschmidt-Division,Fail_Count,495,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Golomb-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Gospers-Algorithm,Fail_Count,422,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Gram-Schmidt,Fail_Count,474,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Gray-Code,Fail_Count,149,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Ground-State,Fail_Count,581,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Grovers-Algorithm,Fail_Count,157,2,yes,,GNATMAKE 14.2.0
+misc/Ada/GrowCut,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/HHL-Algorithm,Fail_Count,195,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hadamard-Test,Fail_Count,211,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hadamard-Transform,Fail_Count,237,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Half-Toning,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Halleys-Method,Fail_Count,611,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hamiltonian-Simulation,Fail_Count,201,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hamming-7-4,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Hamming-Code,Fail_Count,243,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hamming-Weight,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Heaps-Algorithm,Fail_Count,423,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hidden-Linear-Function-Problem,Fail_Count,228,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hidden-Shift-Problem,Fail_Count,244,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hidden-Subgroup-Problem,Fail_Count,189,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hidden-Surface-Removal,Fail_Count,262,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,Fail_Count,329,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hindley-Milner-Type-System,Fail_Count,246,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hirschbergs-Algorithm,Fail_Count,382,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hopcroft-Karp-Algorithm,Fail_Count,553,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hopcrofts-Algorithm,Fail_Count,238,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Hopfield-Net,Fail_Count,202,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Huangs-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Hybrid-Algorithms,Fail_Count,506,2,yes,,GNATMAKE 14.2.0
+misc/Ada/ID3-Algorithm,Fail_Count,349,2,yes,,GNATMAKE 14.2.0
+misc/Ada/ITP-Method,Fail_Count,444,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Image-Based-Lighting,Fail_Count,222,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Incremental-Encoding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Index-Calculus,Fail_Count,444,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Inside-Out-Algorithm,Fail_Count,232,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Integer-Factorization,Fail_Count,430,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Integer-Linear-Programming,Fail_Count,509,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Intersection-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Inverse-Iteration,Fail_Count,530,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Johnsons-Algorithm,Fail_Count,688,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Jump-And-Walk,Fail_Count,442,2,yes,,GNATMAKE 14.2.0
+misc/Ada/K-Nearest-Neighbours,Fail_Count,228,2,yes,,GNATMAKE 14.2.0
+misc/Ada/K-Way-Merge,Fail_Count,430,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Kabsch,Fail_Count,689,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Kadanes-Algorithm,Fail_Count,295,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Kahan-Summation,Fail_Count,415,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Kalman-Filter,Fail_Count,573,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Kargers-Algorithm,Fail_Count,411,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Karmarkars-Algorithm,Fail_Count,705,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Karn-Algorithm,Failures,553,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Key-Derivation-Function,Fail_Count,218,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Key-Exchange,Fail_Count,203,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Knuth-Bendix-Completion,Fail_Count,443,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Krauss-Matching-Wildcards,Fail_Count,233,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Lagged-Fibonacci-Generator,Fail_Count,810,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Laplacian-Smoothing,Fail_Count,626,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Lax-Wendroff,Fail_Count,618,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Lemke-Howson,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Lempel-Ziv-Jeff-Bonwick,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Lempel-Ziv-Markov-Chain-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Lempel-Ziv-Oberhurmer,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Lempel-Ziv-Ross-Williams,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Lempel-Ziv-Stac,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Lempel-Ziv-Storer-Szymanski,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Lempel-Ziv-Welch,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Lenstra-Lenstra-Lovasz,Fail_Count,577,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Lesk,Fail_Count,489,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Level-Set-Method,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Levinson-Recursion,Fail_Count,371,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Lexical-Analysis,Fail_Count,200,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Linde-Buzo-Gray,Fail_Count,588,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Linde-Buzo-Gray-Algorithm,Fail_Count,229,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Line-Drawing,Fail_Count,253,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Linear-Feedback-Shift-Register,Fail_Count,239,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Linear-Multistep-Methods,Fail_Count,615,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Linear-Predictive-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Linear-Programming,Fail_Count,455,2,yes,,GNATMAKE 14.2.0
+misc/Ada/List-Scheduling,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/Locomotion-Mode-Interlock,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/Long-Division,Fail_Count,494,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Longest-Increasing-Subsequence,Fail_Count,314,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Longest-Path-Problem,Fail_Count,761,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Longitudinal-Redundacy-Check,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Luhn-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Luhn-Mod-N-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Luleas-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Maekawas-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Manning-Criteria,Fail_Count,400,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Marching-Squares,Fail_Count,427,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Marching-Tetrahedrons,Fail_Count,463,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Marching-Triangles,Fail_Count,415,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Mark-Compact-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Mark-and-Sweep,Failures,162,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Marr-Hildreth-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Marzullos-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Match-Rating-Approach,Fail_Count,435,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Matching-Wildcards,Fail_Count,191,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Maximum-Parsimony,Fail_Count,605,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Mechanistic-Interpretability,Fail_Count,198,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Median-Filtering,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Memetic-Algorithm,Fail_Count,650,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Memory-Channel-Model,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Message-Authentication-Codes,Fail_Count,309,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Midpoint-Circle-Algorithm,Fail_Count,264,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Min-Conflicts,Fail_Count,530,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Minimax,Fail_Count,562,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Minimum-Bounding-Box,Fail_Count,510,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Minimum-Degree,Fail_Count,403,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Mirror-Descent,Fail_Count,810,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Modular-Square-Root,Fail_Count,603,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Montgomery-Reduction,Fail_Count,458,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Moores-Algorithm,Fail_Count,251,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Mu-Law-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Mullers-Method,Fail_Count,424,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Multigrid-Methods,Fail_Count,735,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Multiplication-Algorithms,Fail_Count,448,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Multiplicative-Inverse-Algorithms,Fail_Count,461,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Multiplicative-Weight-Update-Method,Fail_Count,710,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Multivariate-Division-Algorithm,Fail_Count,653,2,yes,,GNATMAKE 14.2.0
+misc/Ada/N-Body-Problems,Fail_Count,629,2,yes,,GNATMAKE 14.2.0
+misc/Ada/NEF-Adaptive-OSC,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/NEF-Neurorobotics-Core,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Nagles-Algorithm,Failures,342,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Naimi-Trehel,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Nearest-Neighbor-Algorithm,Fail_Count,1149,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Nelder-Mead,Fail_Count,491,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Nested-Loop-Join,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Nested-Sampling,Fail_Count,631,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Nesting-Algorithm,Fail_Count,497,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Newton-Multiplicative-Inverse,Fail_Count,472,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Newtons-Method,Fail_Count,508,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Newtons-Method-in-Optimization,Fail_Count,574,0,no,,GNATMAKE 14.2.0
+misc/Ada/Nicholl-Lee-Nicholl,Fail_Count,481,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Non-Local-Quantum-Computation,Fail_Count,182,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Non-Restoring-Division,Fail_Count,489,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Nonblocking-Minimal-Spanning-Switch,Fail_Count,558,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Nonlinear-Optimization,Fail_Count,571,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Nth-Root,Fail_Count,491,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Nucleolus,Fail_Count,819,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Odds-Algorithm,Fail_Count,477,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Odlyzko-Schonhage,Fail_Count,636,2,yes,,GNATMAKE 14.2.0
+misc/Ada/One-Attribute-Rule,Fail_Count,245,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Operations-Research,Fail_Count,250,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Orbital-Mechanics,Fail_Count,316,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Ordered-Subset-EM,Fail_Count,687,2,yes,,GNATMAKE 14.2.0
+misc/Ada/PBKDF2,Fail_Count,262,2,yes,,GNATMAKE 14.2.0
+misc/Ada/PCIe-Transfer-Model,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Package-Merge-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Painters-Algorithm,Fail_Count,273,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Parity-Bit,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Partial-Differential-Equation,Fail_Count,634,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Particle-Swarm,Fail_Count,478,0,no,,GNATMAKE 14.2.0
+misc/Ada/Path-Based-Strong-Component,Fail_Count,1253,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Path-Tracing,Fail_Count,352,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Petricks-Method,Fail_Count,246,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Phonetic-Algorithms,Fail_Count,477,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Photon-Mapping,Fail_Count,254,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Planning-Domain-Definition-Language,Fail_Count,308,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Pohlig-Hellman,Fail_Count,482,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Point-Set-Registration,Fail_Count,619,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Poly1305,Fail_Count,234,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Polynomial-Long-Division,Fail_Count,452,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Power-Iteration,Fail_Count,550,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Powerset-Construction,Fail_Count,314,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Prediction-By-Partial-Matching,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Program-Synthesis,Fail_Count,299,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Progressive-Jackpot,Fail_Count,235,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Proof-Of-Work-Algorithms,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Prufer-Coding,Fail_Count,730,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Pseudorandom-Number-Generator,Fail_Count,806,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Pulmonary-Embolism-Algorithms,Fail_Count,555,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Push-Relabel-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/QR-Algorithm,Fail_Count,640,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Quantum-Annealing,Fail_Count,211,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Quantum-Artificial-Life,Fail_Count,189,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Quantum-Counting-Algorithm,Fail_Count,209,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Quantum-Fourier-Transform,Fail_Count,244,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Quantum-Optimization-Algorithms,Fail_Count,248,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Quantum-Phase-Estimation-Algorithm,Fail_Count,194,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Queuing-Theory,Fail_Count,521,0,no,,GNATMAKE 14.2.0
+misc/Ada/Quine-McCluskey-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/RANSAC,Fail_Count,680,2,yes,,GNATMAKE 14.2.0
+misc/Ada/RIPEMD-160,Fail_Count,330,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Radial-Basis-Function-Network,Fail_Count,345,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Rainflow-Counting,Fail_Count,495,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Random-Restart-Hill-Climbing,Fail_Count,630,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Random-Walker,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Range-Encoding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Rayleigh-Quotient-Iteration,Fail_Count,499,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Rayleigh-Ritz-Method,Fail_Count,755,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Raymonds-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Recovery-Exploiting-Semantics,Total_Failed,178,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Redundancy-Checks,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Reed-Solomon-Error-Correction,Fail_Count,180,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Reference-Counting,Failures,602,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Region-Growing,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Regret-Minimization,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Relevance-Vector-Machine,Fail_Count,178,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Replicator-Equation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Restoring-Division,Fail_Count,451,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Rete-Algorithm,Fail_Count,195,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Reverse-Delete-Algorithm,Fail_Count,767,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Ricart-Agrawala-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Rice-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Richardson-Lucy-Deconvolution,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Ridders-Method,Fail_Count,410,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Risch-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Rotating-Calipers,Fail_Count,479,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Rounding-Functions,Fail_Count,333,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Rupperts-Algorithm,Fail_Count,493,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Ruzzo-Tompa,Fail_Count,461,2,yes,,GNATMAKE 14.2.0
+misc/Ada/SEQUITUR-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/SRT-Division,Fail_Count,432,2,yes,,GNATMAKE 14.2.0
+misc/Ada/SSS-Star,Fail_Count,735,2,yes,,GNATMAKE 14.2.0
+misc/Ada/SUBCLU,Fail_Count,617,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Salsa20,Fail_Count,223,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Scale-Invariant-Feature-Transform,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Scanline-Rendering,Fail_Count,310,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Schensted,Fail_Count,440,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Schreier-Sims,Fail_Count,444,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Scoring-Algorithm,Fail_Count,606,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Seam-Carving,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Secret-Sharing,Fail_Count,212,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Selection-Algorithm,Fail_Count,410,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Self-Organizing-Map,Fail_Count,197,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Semi-Space-Collectors,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Sethi-Ullman-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Shannon-Fano-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Shannon-Fano-Elias-Coding,Failures,204,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Shapley-Value,Fail_Count,899,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Shoelace-Algorithm,Fail_Count,437,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Shors-Algorithm,Fail_Count,173,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Shortest-Common-Supersequence-Problem,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Simons-Problem,Fail_Count,169,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Simulated-Annealing,Fail_Count,671,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Sinkhorn-Knopp-Algorithm,Fail_Count,704,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Slot-Machine,Fail_Count,229,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Spectral-Layout,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Speeded-Up-Robust-Features,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Spigot-Algorithm,Fail_Count,482,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Square-Root-Algorithms,Fail_Count,428,2,yes,,GNATMAKE 14.2.0
+misc/Ada/State-Action-Reward-State-Action,Fail_Count,279,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Steinhaus-Johnson-Trotter,Fail_Count,419,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Stochastic-Tunneling,Fail_Count,593,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Stones-Method,Fail_Count,358,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Strongly-Connected-Components,Fail_Count,992,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Structured-SVM,Fail_Count,327,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Subset-Sum-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Successive-Over-Relaxation,Fail_Count,437,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Sukhotin,Fail_Count,572,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Summed-Area-Table,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Supervised-Learning,Fail_Count,270,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Swap-Test,Fail_Count,202,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Swarm-Intelligence,Fail_Count,479,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Sweep-And-Prune,Fail_Count,593,2,yes,,GNATMAKE 14.2.0
+misc/Ada/System-of-Linear-Equations,Fail_Count,507,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Tarski-Kuratowski-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Temporal-Difference-Learning,Fail_Count,240,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Term-Rewriting,Fail_Count,225,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Texas-Medication-Algorithm-Project,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Thomas-Algorithm,Fail_Count,418,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Todd-Coxeter,Fail_Count,463,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Tomasulo-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Toom-Cook,Fail_Count,426,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Top-Nodes-Algorithm,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/Top-Trading-Cycle,Fail_Count,907,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Traffic-Light-Controller,Fail_Count,201,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Traffic-Simulation,Fail_Count,165,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Transform-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Transitive-Closure,Fail_Count,745,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Trapezoidal-Rule-DE,Fail_Count,514,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Travelling-Salesman-Problem,Fail_Count,992,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Trial-Division,Fail_Count,485,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Truncated-Binary-Encoding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Truncated-Binary-Exponential-Backoff,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Truncation-Selection,Fail_Count,783,2,yes,,GNATMAKE 14.2.0
+misc/Ada/TrustRank,Fail_Count,614,2,yes,,GNATMAKE 14.2.0
+misc/Ada/TurboQuant,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Ukkonens-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Unary-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Unicode-Collation-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Unrestricted-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/VEGAS-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Variational-Method,Fail_Count,492,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Variational-Quantum-Eigensolver,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Vector-Quantization,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Vehicle-Routing-Problem,Fail_Count,998,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Velvet,Fail_Count,722,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Verhoeff-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Vickrey-Clarke-Groves-Mechanism,Fail_Count,1241,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Wang-Landau,Fail_Count,453,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Warnsdorffs-Rule,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Warped-Linear-Predictive-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Xor-Swap-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Yamartino-Method,Fail_Count,470,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Zellers-Congruence-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/Zero-Attribute-Rule,Fail_Count,209,2,yes,,GNATMAKE 14.2.0
+misc/Ada/Zhu-Takaoka,Fail_Count,256,2,yes,,GNATMAKE 14.2.0
+misc/Ada/arc-cache,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/clock-replacement,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/docs,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/earliest-deadline,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/fair-share,Failed_Tests,395,2,yes,,GNATMAKE 14.2.0
+misc/Ada/page-replacement-algorithms,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/rate-monotonic,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/Ada/round-robin,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/scripts,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/Ada/srt-simulation,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-3Sum-Closest,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-4Sum-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Accounts-Merge-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Add-Binary,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Add-Digits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Add-Two-Numbers,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Add-Two-Numbers-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Add-Without-Plus,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Adler32,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Alert-Using-Same-Key-Card-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Alien-Dictionary-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Alien-Dictionary-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-All-Paths-From-Source-To-Target,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Argmax,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Arranging-Coins,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Array-Partition-I,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-As-Far-From-Land-As-Possible,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Assign-Cookies,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Asteroid-Collision,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Authentication-Manager-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Available-Captures-For-Rook,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bankers-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Base64-Decode,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Base64-Encode,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Baseball-Game,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Basic-Calculator,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Basic-Calculator-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Basic-Calculator-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Beautiful-Array-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Binary-Number-With-Alternating-Bits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Binary-To-Integer,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Binary-Watch,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Binomial-Coefficient,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bitset,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bitwise-OR-Of-Numbers-Range,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bitwise-ORs-Of-Subarrays-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bitwise-XOR-Of-All-Pairings,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Boats-To-Save-People,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bounding-Box,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bray-Curtis,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Broken-Calculator,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Browser-History-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bulb-Switcher,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Bump-Arena,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-CRC32,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-CSR-Row-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Can-Place-Flowers,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Canberra-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Candy,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Car-Pooling,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Cheapest-Flights,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Cheapest-Flights-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Check-If-The-Sentence-Is-Pangram,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Cherry-Pickup-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Circular-Deque-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Circular-Queue,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Clamp,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Climbing-Stairs,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Coin-Change,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Coin-Change-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Combination-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Combination-Sum-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Combination-Sum-III,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Combination-Sum-IV,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Complement-Of-Base-10,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Complement-Of-Base-10-Integer,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Contains-Duplicate,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Contains-Duplicate-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Contiguous-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Continuous-Subarray-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Convert-1D-Array-Into-2D-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Convert-A-Number-To-Hexadecimal,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Cosine-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Cosine-Similarity,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Count-And-Say,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,Failures,57,2,yes,,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Count-Sub-Islands,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Count-Triplets-That-Can-Form-Two-Arrays-Of-Equal-XOR,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Counting-Bits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Covariance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Crawler-Log-Folder,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Create-Maximum-Number-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Critical-Connections-In-A-Network-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Daily-Temperatures,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Decode-Ways,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Decode-Ways-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Decode-XORed-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Delete-And-Earn,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Delta-Encoding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Deque-Bounded,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-A-Leaderboard,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-An-Ordered-Stream,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Bitset,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Browser-History,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Circular-Deque,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Circular-Queue,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Circular-Queue-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Food-Rating-System,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Hit-Counter-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Linked-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Number-Container-System,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Ordered-Stream,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Parking-System-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Skiplist-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Twitter-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Detect-Capital,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Diagonal-Traverse,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Dice-Coefficient,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Difference-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Disjoint-Set-Forest,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Distinct-Subsequences,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Divisor-Game,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Dot-Product,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Dungeon-Game-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Duplicate-Zeros,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Dutch-National-Flag,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Earliest-Deadline-First-Scheduling,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Elevator-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Eliminate-Maximum-Number-Of-Monsters,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Encode-And-Decode-TinyURL-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Euclidean-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Eval-RPN,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Evaluate-Division-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Evaluate-Division-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Evaluate-Reverse-Polish-Notation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Exclusive-Time-Of-Functions-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Factorial,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Factorial-Trailing-Zeroes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Fair-Candy-Swap,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Fast-Pow,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Fibonacci-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Final-Prices-With-A-Special-Discount,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-All-Duplicates-In-An-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-All-Numbers-Disappeared,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-Common-Characters,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-First-And-Last-Position,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-K-Closest-Elements,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-Median-Data-Stream-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-Peak-Element,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-The-City,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-The-City-With-Smallest-Number-Of-Neighbors,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-The-Difference,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-The-Duplicate-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-The-Original-Array-Of-Prefix-XOR,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-The-Town-Judge,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Find-Words-That-Can-Be-Formed,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-First-Bad-Version,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-First-Unique-Char,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-First-Unique-Character,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Fixed-Point-Iteration,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Fizz-Buzz,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Flatten-Nested-List-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Flipping-An-Image,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Flood-Fill,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Four-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Fruit-Into-Baskets,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Game-Of-Life-Step,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Gas-Station,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Generate-Parentheses,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Goat-Latin,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Gray-Code,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Greatest-Common-Divisor,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Group-Anagrams,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Group-Anagrams-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Grumpy-Bookstore-Owner,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Guess-Number-Higher-Or-Lower,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Hamming-Code,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Hamming-Weight,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Hand-Of-Straights-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Happy-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Heap-Push-Pop,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Heaters,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Height-Checker,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Histogram-Bin,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Hit-Counter-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Horner-Scheme,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-House-Robber,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-House-Robber-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-How-Many-Numbers-Are-Smaller,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-IPO-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Image-Smoother,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Implement-Queue-Using-Stacks,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Implement-Stack-Using-Queues,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Implement-StrStr,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Insert-Delete-GetRandom-O1,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Insert-Interval,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Int-To-Roman-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Integer-Break,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Integer-To-English-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Integer-To-Roman,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Is-Palindrome,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Is-Subsequence,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Island-Perimeter,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Jaccard-Index,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Jump-Game,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Jump-Game-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-K-Closest-Points-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-K-Closest-Points-To-Origin,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Kadanes-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Keyboard-Row,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Keys-And-Rooms,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Knapsack-01,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Knight-Probability-In-Chessboard-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Koko-Eating-Bananas,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Kth-Largest-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Kth-Largest-Element,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Kth-Largest-Element-In-A-Stream,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Kth-Largest-Element-In-An-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Kth-Largest-In-Stream-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-L1-Norm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-L2-Norm-Squared,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-LFU-Cache-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-LRU-Cache-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Largest-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Last-Stone-Weight,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Last-Stone-Weight-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Least-Common-Multiple,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Lemonade-Change,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Length-Of-Last-Word,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Letter-Case-Permutation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-License-Key-Formatting,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Line-Intersection,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Line-Reflection,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Linked-List-Cycle,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Linked-List-Cycle-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Longest-Ones,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Longest-Repeating-Character-Replacement,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Magnetic-Force-Between-Two-Balls,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Majority-Element,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Majority-Element-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Manacher,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Manhattan-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Map-Sum-Pairs,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Mark-And-Sweep,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Matchsticks-To-Square-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Area-Of-Island,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones-III,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Heap,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Path-Sum-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Points-On-A-Line-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Stack,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Max-Stack-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximal-Rectangle,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximal-Square,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-Candies-Allocated-To-K-Children,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-Points-You-Can-Obtain-From-Cards,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-Product-Of-Word-Lengths,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-Subarray,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-Subarray-Circular,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-Units-On-A-Truck,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Maximum-XOR-Of-Two-Numbers,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Mean-Variance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Median-Filtering,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Median-Of-Three,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Meeting-Rooms,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Meeting-Rooms-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Merge-Intervals,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Min-Cost-Connect-Cities-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Min-Cost-To-Connect-All-Points,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Min-Heap,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Min-Max-Normalize,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Min-Stack,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-ASCII-Delete-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-Bit-Flips-To-Convert-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-Cost-To-Move-Chips,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-Deletions-To-Make-Character-Frequencies-Unique,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Arrows,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Days-To-Make-M-Bouquets,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Moves-To-Seat,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-Operations-To-Make-The-Array-Increasing,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-Path-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Minimum-Sum-Of-Four-Digit-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Missing-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Missing-Ranges-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Monotonic-Stack,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Most-Common-Word,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Move-Zeroes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Moving-Average,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Moving-Average-From-Data-Stream,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-My-Calendar-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-My-Linked-List-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-N-Queens-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-N-Repeated-Element-In-Size-2N-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Nearest-Exit-From-Entrance-In-Maze,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Neighboring-Bitwise-XOR,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Network-Delay-Time,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Network-Delay-Time-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-New-21-Game-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Next-Greater-Element-I,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Next-Greater-Element-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Next-Permutation-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Nim-Game,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Non-Decreasing-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Nth-Digit,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,Failures,51,2,yes,,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Nth-Ugly-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Complement,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Of-1-Bits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Of-1-Bits-In-Range,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Of-Connected-Components,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Of-Good-Pairs,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Of-Islands,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Of-Provinces,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Of-Recent-Calls,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Of-Steps-To-Reduce-A-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Number-Of-Steps-To-Reduce-A-Number-In-Binary-Representation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-One-Hot,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Ones-And-Zeroes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Online-Stock-Span,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Online-Stock-Span-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Open-The-Lock,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Ordered-Stream-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Out-Of-Boundary-Paths-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Overlap-Coefficient,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-PN-Counter,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Flow,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Paint-Fence-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Paint-House-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Palindrome-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Palindrome-Pairs-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Parity-Bits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Parking-System-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Partition-Equal-Subset-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Partition-Labels,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Partition-List,Failures,111,2,yes,,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Pascal-Triangle,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Path-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Path-Sum-III-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Path-With-Minimum-Effort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Peak-Index-In-Mountain-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Pearson-Correlation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Permutations,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Permutations-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Plus-One,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Population-Count,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Pow-X-N,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,Failures,77,2,yes,,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Power-Of-Four,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Power-Of-Three,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Power-Of-Two,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Powx-N,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Prefix-Sums,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Prim-MST-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Priority-Queue-Binary-Heap,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Product-Except-Self,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Product-Of-Array-Except-Self,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Product-Of-Numbers-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Projection-Area-Of-3D-Shapes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Queue-Reconstruction-By-Height,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Queue-Using-Stacks,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Random-Pick-With-Weight-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Randomized-Collection,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Randomized-Set,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Range-Addition,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Range-Module-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Range-Sum-Query,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Range-Sum-Query-2D-Immutable,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Range-Sum-Query-Immutable,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Ransom-Note,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Rate-Monotonic-Scheduling,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,Failed,159,2,yes,,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reach-A-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Recent-Counter,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Rectangle-Area,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Rectangle-Overlap,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reduce-Array-Size-To-The-Half,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Redundant-Connection,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Redundant-Connection-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Redundant-Connection-II-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reference-Counting,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Regular-Expression-Matching-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Remove-Duplicate-Letters,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Remove-Element,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Remove-K-Digits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reorder-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Replace-Elements-With-Greatest-On-Right,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Replace-Words,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reservoir-Sampling,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Restore-IP-Addresses,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reverse-Bits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reverse-Integer,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reverse-Only-Letters,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reverse-Pairs-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reverse-Vowels,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Reverse-Words,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Ring-Buffer,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Robot-Return-To-Origin,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Roman-To-Int,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Roman-To-Integer,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Rotate-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Rotate-Image,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Rotate-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Rotting-Oranges,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Round-Robin-Scheduling,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Seat-Manager-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Seat-Reservation-Manager,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Self-Dividing-Numbers,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sequence-Reconstruction-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Shift-2D-Grid,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Shortest-Bridge,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Shortest-Common-Supersequence-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Shortest-Completing-Word,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Shortest-Job-Next,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Shortest-Remaining-Time,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sigmoid,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Simplify-Path-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Single-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Single-Number-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Single-Number-III,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sliding-Window-Max,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sliding-Window-Maximum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sliding-Window-Median,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Snapshot-Array-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Softmin,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Soup-Servings-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Spearman-Rank-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sqrt-Integer,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sqrt-X,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sqrtx,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Stack-Bounded,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Stack-Using-Queues-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Standard-Score,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Stock-Spanner-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Stream-Of-Characters-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Strstr-Naive,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Student-Attendance-Record-I,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Subarray-Sum-Equals-K,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Subarrays-With-K-Different-Integers,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Subsets,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Subsets-Bitmask,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Subsets-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Subtract-Product-Sum-Digits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Subtract-The-Product-And-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sudoku-Solver-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sum-Of-Left-Leaves,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sum-Of-Two-Integers,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Sum-Root-To-Leaf-Numbers,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Summary-Ranges,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Super-Ugly-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Surface-Area-Of-3D-Shapes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Surrounded-Regions,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Tanimoto,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Target-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Target-Sum-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-The-Skyline-Problem-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Third-Maximum-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Three-Divisors,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Three-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Three-Sum-Closest-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Tic-Tac-Toe-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Time-Based-Key-Value-Store,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Time-Map-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Title-To-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-To-Lower-Case,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Elements,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Top-Nodes-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Trapezoidal-Rule,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water-II-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Triangle,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Triangle-Min-Path,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Tribonacci,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Tweet-Counts-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Two-City-Scheduling,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Two-Pointers-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Two-Sum,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-UTF-8-Validation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Ugly-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Ugly-Number-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Uncommon-Words-From-Two-Sentences,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Underground-System-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Union-Find,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Unique-Email-Addresses,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Unique-Morse-Code-Words,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Unique-Paths,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Valid-Anagram,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Valid-IP-Address-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Valid-Number-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Valid-Palindrome,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Valid-Palindrome-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Valid-Parentheses,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Valid-Square,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Valid-Sudoku-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Valid-Word-Abbreviation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Vector-2D-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Vector-Dot-Cross,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Water-Bottles,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Wiggle-Subsequence,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Wildcard-Matching-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Word-Break,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Word-Break-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Word-Break-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Word-Ladder-II-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Word-Ladder-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Word-Ladder-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Word-Pattern,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-XOR-Of-Numbers-Range,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-XOR-Operation-In-An-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK2/Pattern-132,,,,n/a,no failure counter,GNATMAKE 14.2.0
+misc/SPARK4/Acorn-Generator,Fail_Count,446,2,yes,,GNATMAKE 14.2.0
+misc/SPARK4/Ada-SPARK-Accumulator,Fail_Count,165,2,yes,,GNATMAKE 14.2.0
+misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,Fail_Count,340,2,yes,,GNATMAKE 14.2.0
+misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Fail_Count,381,2,yes,,GNATMAKE 14.2.0
+misc/SPARK4/Ada-SPARK-K-Way-Merge,Fail_Count,427,2,yes,,GNATMAKE 14.2.0
+misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator,Fail_Count,576,2,yes,,GNATMAKE 14.2.0
+misc/SPARK4/Ada-SPARK-Lemke-Howson,Fail_Count,143,2,yes,,GNATMAKE 14.2.0
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,Fail_Count,366,2,yes,,GNATMAKE 14.2.0
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,Fail_Count,446,2,yes,,GNATMAKE 14.2.0
+misc/SPARK4/Ada-SPARK-Shortest-Seek-First,,,,n/a,no test main,GNATMAKE 14.2.0
+misc/SPARK4/demo,,,,n/a,no test main,GNATMAKE 14.2.0
+ml/Ada/AdaBoost,Fail_Count,212,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Alopex,Fail_Count,311,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Backpropagation,Fail_Count,348,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Boosting-Meta-Algorithm,Fail_Count,230,2,yes,,GNATMAKE 14.2.0
+ml/Ada/BrownBoost,Fail_Count,230,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Expectation-Maximization,Fail_Count,689,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Forward-Backward,Fail_Count,656,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Hidden-Markov-Model,Fail_Count,593,2,yes,,GNATMAKE 14.2.0
+ml/Ada/LPBoost,Fail_Count,220,2,yes,,GNATMAKE 14.2.0
+ml/Ada/LogitBoost,Fail_Count,252,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Naive-Bayes-Classifier,Fail_Count,225,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Neural-Network,Fail_Count,269,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Perceptron,Fail_Count,282,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Policy-Iteration,Fail_Count,1032,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Pulse-Coupled-Neural-Networks,Fail_Count,258,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Q-Learning,Fail_Count,210,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Random-Forest,Fail_Count,232,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Reinforcement-Learning,Fail_Count,190,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Support-Vector-Machine,Fail_Count,184,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Value-Iteration,Fail_Count,1069,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Viterbi,Fail_Count,643,2,yes,,GNATMAKE 14.2.0
+ml/Ada/Winnow-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+ml/SPARK2/Ada-SPARK-ReLU,,,,n/a,no failure counter,GNATMAKE 14.2.0
+ml/SPARK2/Ada-SPARK-Softmax,,,,n/a,no failure counter,GNATMAKE 14.2.0
+ml/SPARK2/Linear-Regression,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Aks-Primality-Test,Fail_Count,315,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Arnoldi,Fail_Count,604,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/BBP,Fail_Count,433,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/BFGS,Fail_Count,460,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/BKM,Fail_Count,361,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Biconjugate-Gradient,Fail_Count,463,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Bicubic-Interpolation,Fail_Count,512,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Bilinear-Interpolation,Fail_Count,459,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Binary-GCD,Fail_Count,294,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Birkhoff-Interpolation,Fail_Count,496,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Bisection-Method,Fail_Count,444,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Bluesteins-FFT-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Borwein,Fail_Count,502,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Brents-Algorithm,Fail_Count,677,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Bruuns-FFT-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/CORDIC,Fail_Count,394,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Cantor-Zassenhaus,Fail_Count,425,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Chakravala,Fail_Count,307,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Chudnovsky,Fail_Count,425,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Cipolla,Fail_Count,587,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Conjugate-Gradient,Fail_Count,390,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Cooley-Tukey-FFT-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Cubic-Interpolation,Fail_Count,563,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Dixon,Fail_Count,490,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Euclidean-Algorithm,Fail_Count,131,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Extended-Euclidean-Algorithm,Fail_Count,311,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Fast-Fourier-Transform,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Fermat-Primality-Test,Fail_Count,357,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Furer,Fail_Count,302,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Gauss-Legendre,Fail_Count,446,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Gauss-Newton,Fail_Count,610,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/General-Number-Field-Sieve,Fail_Count,482,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Gradient-Descent,Fail_Count,693,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Hermite-Interpolation,Fail_Count,637,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Hybrid-Monte-Carlo,Fail_Count,513,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Interior-Point-Method,Fail_Count,679,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Karatsuba,Fail_Count,444,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Lagrange-Interpolation,Fail_Count,637,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Lanczos,Fail_Count,583,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Lanczos-Resampling,Fail_Count,404,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Levenberg-Marquardt,Fail_Count,596,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Linear-Congruential-Generator,Fail_Count,877,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Linear-Interpolation,Fail_Count,473,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Lucas-Primality-Test,Fail_Count,414,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/MISER,Fail_Count,469,0,no,,GNATMAKE 14.2.0
+numerical/Ada/Mersenne-Twister,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Metropolis-Hastings,Fail_Count,517,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Metropolis-Light-Transport,Fail_Count,233,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Miller-Rabin,Fail_Count,366,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Monotone-Cubic-Interpolation,Fail_Count,558,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Multivariate-Interpolation,Fail_Count,425,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Nearest-Neighbor-Interpolation,Fail_Count,496,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Neville,Fail_Count,585,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Newells-Algorithm,Fail_Count,300,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Newton-Raphson-Division,Fail_Count,535,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Pareto-Interpolation,Fail_Count,706,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Partial-Least-Squares,Fail_Count,636,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Pollards-Kangaroo-Algorithm,Fail_Count,471,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Pollards-P-1,Fail_Count,412,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Pollards-Rho,Fail_Count,370,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Pollards-Rho-Logarithms,Fail_Count,490,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Polynomial-Interpolation,Fail_Count,606,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Primality-Test,Fail_Count,392,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Prime-Factor-FFT-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Prime-Factorization,Fail_Count,507,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Quadratic-Sieve,Fail_Count,537,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Raders-FFT-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Runge-Kutta,Fail_Count,542,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Secant-Method,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Sieve-Of-Atkin,Fail_Count,342,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Sieve-Of-Eratosthenes,Fail_Count,325,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Sieve-Of-Sundaram,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Special-Number-Field-Sieve,Fail_Count,472,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Spline-Interpolation,Fail_Count,471,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Tonelli-Shanks,Fail_Count,564,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Tricubic-Interpolation,Fail_Count,487,2,yes,,GNATMAKE 14.2.0
+numerical/Ada/Trigonometric-Interpolation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/Ada/Ziggurat-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Bisection-Method,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Chebyshev-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Count-Primes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Extended-Euclidean,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Lagrange-Interpolation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Maximum-Performance-Of-A-Team-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Minimum-Limit-Of-Balls-In-A-Bag,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Modular-Exponentiation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Newton-Raphson,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Perfect-Number,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Perfect-Squares,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Prime-Check,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Prime-Number-Of-Set-Bits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Prime-Number-Of-Set-Bits-In-Binary-Representation,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Secant-Method,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Sieve-Of-Eratosthenes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Simpson-Rule,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Successful-Pairs-Of-Spells-And-Potions,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Valid-Perfect-Square,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Ada-SPARK-Walls-And-Gates,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK2/Babylonian-Sqrt,,,,n/a,no failure counter,GNATMAKE 14.2.0
+numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Fail_Count,204,2,yes,,GNATMAKE 14.2.0
+numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,Fail_Count,156,2,yes,,GNATMAKE 14.2.0
+numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,Fail_Count,232,2,yes,,GNATMAKE 14.2.0
+numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator,Fail_Count,540,2,yes,,GNATMAKE 14.2.0
+numerical/SPARK4/Ada-SPARK-Mersenne-Twister,Fail_Count,248,2,yes,,GNATMAKE 14.2.0
+numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,Fail_Count,831,2,yes,,GNATMAKE 14.2.0
+numerical/SPARK4/Binary-Gcd,Fail_Count,299,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Canonical-LR-Parser,Fail_Count,273,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Cyk-Algorithm,Fail_Count,267,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/GLR-Parser,Fail_Count,217,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/LALR,Fail_Count,287,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/LL-Parser,Fail_Count,230,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/LR-Parser,Fail_Count,248,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Operator-Precedence-Parser,Fail_Count,123,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Packrat-Parser,Fail_Count,185,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Pratt-Parser,Fail_Count,157,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Recursive-Descent-Parser,Fail_Count,129,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Shunting-Yard-Algorithm,Fail_Count,257,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Simple-LR-Parser,Fail_Count,196,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Simple-Precdence-Parser,Fail_Count,189,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Simplex-Algorithm,Fail_Count,622,2,yes,,GNATMAKE 14.2.0
+parsing/Ada/Step-Parser,Fail_Count,145,2,yes,,GNATMAKE 14.2.0
+parsing/SPARK2/Ada-SPARK-Sparse-Set,,,,n/a,no failure counter,GNATMAKE 14.2.0
+parsing/SPARK2/Ada-SPARK-Sparse-Vector-Dot-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+parsing/SPARK2/Sparse-Dot,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/Ada/Beam-Search,Fail_Count,1051,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Best-First-Search,Fail_Count,851,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Bidirectional-Search,Fail_Count,656,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Binary-Search,Fail_Count,382,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Breadth-First-Search,Fail_Count,749,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Brute-Force-Search,Fail_Count,580,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Chien-Search,Fail_Count,561,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Depth-First-Search,Fail_Count,704,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Eytzinger-Binary-Search,Fail_Count,489,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Fibonacci-Search,Fail_Count,496,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Golden-Section-Search,Fail_Count,239,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Grid-Search,Fail_Count,666,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Harmony-Search,Fail_Count,610,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Hyperlink-Induced-Topic-Search,Fail_Count,572,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Interpolation-Search,Fail_Count,358,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Introselect,Fail_Count,556,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Iterative-Deepening-Depth-First-Search,Fail_Count,547,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Jump-Point-Search,Fail_Count,728,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Jump-Search,Fail_Count,474,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Lexicographic-Breadth-First-Search,Fail_Count,877,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Line-Search,Fail_Count,619,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Linear-Search,Fail_Count,451,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Local-Search,Fail_Count,542,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Monte-Carlo-Tree-Search,Fail_Count,764,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Nearest-Neighbor-Search,Fail_Count,555,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Quantum-Walk-Search,Fail_Count,241,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Quickselect,Fail_Count,511,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Random-Search,Fail_Count,684,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Substring-Search,Fail_Count,356,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Tabu-Search,Fail_Count,751,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Ternary-Search,Fail_Count,426,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Trigram-Search,Fail_Count,566,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Uniform-Binary-Search,Fail_Count,372,2,yes,,GNATMAKE 14.2.0
+searching/Ada/Uniform-Cost-Search,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Exponential-Search,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Increasing-Order-Search-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Naive-String-Search,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Search-2D-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Search-In-A-Binary-Search-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Search-Insert-Position,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Trigram-Search,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Trim-A-Binary-Search-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Word-Search,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Ada-SPARK-Word-Search-II-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK2/Bst-Insert-Search,,,,n/a,no failure counter,GNATMAKE 14.2.0
+searching/SPARK4/Ada-SPARK-Binary-Search,Fail_Count,347,2,yes,,GNATMAKE 14.2.0
+searching/SPARK4/Ada-SPARK-Fibonacci-Search,Fail_Count,509,2,yes,,GNATMAKE 14.2.0
+searching/SPARK4/Ada-SPARK-Interpolation-Search,Fail_Count,414,2,yes,,GNATMAKE 14.2.0
+searching/SPARK4/Ada-SPARK-Introselect,Fail_Count,480,2,yes,,GNATMAKE 14.2.0
+searching/SPARK4/Ada-SPARK-Jump-Search,Fail_Count,475,2,yes,,GNATMAKE 14.2.0
+searching/SPARK4/Ada-SPARK-Linear-Search,Fail_Count,372,2,yes,,GNATMAKE 14.2.0
+searching/SPARK4/Ada-SPARK-Quickselect,Fail_Count,446,2,yes,,GNATMAKE 14.2.0
+searching/SPARK4/Ada-SPARK-Ternary-Search,Fail_Count,483,2,yes,,GNATMAKE 14.2.0
+searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,Fail_Count,390,2,yes,,GNATMAKE 14.2.0
+searching/SPARK4/Best-First-Search,Fail_Count,358,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Bead-Sort,Fail_Count,337,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Bitonic-Sorter,Fail_Count,264,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Bogosort,Fail_Count,360,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Bubble-Sort,Fail_Count,515,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Bucket-Sort,Fail_Count,269,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Burstsort,Fail_Count,335,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Cocktail-Shaker-Sort,Fail_Count,515,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Comb-Sort,Fail_Count,406,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Counting-Sort,Fail_Count,292,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Cycle-Sort,Fail_Count,436,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Flashsort,Fail_Count,403,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Gnome-Sort,Fail_Count,550,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Heapsort,Fail_Count,362,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Insertion-Sort,Fail_Count,452,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Introsort,Fail_Count,439,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Library-Sort,Fail_Count,463,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Merge-Sort,Fail_Count,404,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Odd-Even-Sort,Fail_Count,550,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Pancake-Sorting,Fail_Count,363,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Patience-Sorting,Fail_Count,391,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Pigeonhole-Sort,Fail_Count,289,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Postman-Sort,Fail_Count,367,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Quantum-Sort,Fail_Count,184,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Quicksort,Fail_Count,427,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Radix-Sort,Fail_Count,350,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Samplesort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/Ada/Selection-Sort,Fail_Count,334,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Shell-Sort,Fail_Count,402,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Slowsort,Fail_Count,351,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Smoothsort,Fail_Count,298,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Sort-Merge-Join,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/Ada/Sorted-List,Fail_Count,369,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Spaghetti-Sort,Fail_Count,308,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Stooge-Sort,Fail_Count,382,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Strand-Sort,Fail_Count,353,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Timsort,Fail_Count,476,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Topological-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/Ada/Tournament-Selection,Fail_Count,864,2,yes,,GNATMAKE 14.2.0
+sorting/Ada/Tree-Sort,Fail_Count,439,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Bitonic-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Block-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Circle-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Cocktail-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Count-Negative-Numbers-In-A-Sorted-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Find-Median-Sorted-Arrays-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Flash-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Heap-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Intro-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,Failures,110,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Pancake-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Patience-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Quick-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Relative-Sort-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-Sorted,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Shaker-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Shortest-Unsorted-Continuous-Subarray,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Smooth-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Sort-An-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Sort-Colors,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Sort-Integers-By-The-Number-Of-1-Bits,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Sort-List-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Tim-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,Failures,76,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Tournament-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Two-Sum-II-Input-Array-Is-Sorted,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Ada-SPARK-Wiggle-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK2/Binary-Insertion-Sort,,,,n/a,no failure counter,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,Fail_Count,401,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Bogosort,Fail_Count,347,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Bubble-Sort,Fail_Count,468,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,Fail_Count,433,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Burstsort,Fail_Count,339,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,Fail_Count,486,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Comb-Sort,Fail_Count,407,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Counting-Sort,Fail_Count,397,timeout,n/a,planted build: timeout,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,Fail_Count,458,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Flashsort,Fail_Count,421,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Gnome-Sort,Fail_Count,472,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Heapsort,Fail_Count,368,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,Fail_Count,426,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Introsort,Fail_Count,512,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Library-Sort,Fail_Count,417,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Merge-Sort,Fail_Count,425,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,Fail_Count,480,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Pancake-Sorting,Fail_Count,341,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,Fail_Count,420,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,Fail_Count,285,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Postman-Sort,Fail_Count,384,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,Fail_Count,511,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Quicksort,Fail_Count,491,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Radix-Sort,Fail_Count,359,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Samplesort,Fail_Count,409,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Selection-Sort,Fail_Count,386,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Shell-Sort,Fail_Count,406,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Slowsort,Fail_Count,374,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Smoothsort,Fail_Count,326,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Fail_Count,280,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Sorted-List,Fail_Count,376,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Fail_Count,347,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,Fail_Count,372,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Strand-Sort,Fail_Count,415,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Timsort,Fail_Count,490,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Topological-Sort,Fail_Count,444,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Ada-SPARK-Tree-Sort,Fail_Count,443,2,yes,,GNATMAKE 14.2.0
+sorting/SPARK4/Bead-Sort,Fail_Count,329,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Aho-Corasick,Fail_Count,367,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Boyer-Moore,Fail_Count,312,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Boyer-Moore-Horspool,Fail_Count,308,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Daitch-Mokotoff-Soundex,Fail_Count,456,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Damerau-Levenshtein-Distance,Fail_Count,506,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Double-Metaphone,Fail_Count,526,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Hamming-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/Ada/Jaro-Winkler-Distance,Fail_Count,519,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Karplus-Strong-String-Synthesis,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/Ada/Knuth-Morris-Pratt,Fail_Count,350,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Levenshtein-Coding,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/Ada/Levenshtein-Distance,Fail_Count,473,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Longest-Common-Subsequence,Fail_Count,306,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Metaphone,Fail_Count,377,2,yes,,GNATMAKE 14.2.0
+strings/Ada/NYSIIS,Fail_Count,431,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Needleman-Wunsch,Fail_Count,268,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Rabin-Karp,Fail_Count,324,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Smith-Waterman,Fail_Count,361,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Soundex,Fail_Count,463,2,yes,,GNATMAKE 14.2.0
+strings/Ada/Stemming,Fail_Count,366,2,yes,,GNATMAKE 14.2.0
+strings/Ada/String-Metrics,Fail_Count,677,2,yes,,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Bounded-String-Builder,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Boyer-Moore,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Check-If-Two-String-Arrays-Are-Equivalent,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Decode-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Decode-String-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Edit-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Encode-And-Decode-Strings-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Find-All-Anagrams-In-A-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-First-Unique-Character-In-A-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Hamming-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Isomorphic-Strings,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Longest-Common-Prefix,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Make-The-String-Great,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,Failures,66,2,yes,,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-One-Edit-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Permutation-In-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Rabin-Karp,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-In-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Reorganize-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Reorganize-String-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Repeated-String-Match,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Reverse-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Reverse-String-II,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Reverse-Vowels-Of-A-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Reverse-Words-In-A-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Reverse-Words-In-A-String-III,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Rotate-String,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Total-Hamming-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Ada-SPARK-Z-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK2/Add-Strings,,,,n/a,no failure counter,GNATMAKE 14.2.0
+strings/SPARK3/Levenshtein-Distance,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/Ada/Abstract-Interpretation,Fail_Count,168,2,yes,,GNATMAKE 14.2.0
+trees/Ada/Abstract-Syntax-Tree,Fail_Count,195,2,yes,,GNATMAKE 14.2.0
+trees/Ada/Context-Tree-Weighting,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/Ada/Decision-Trees,Fail_Count,295,2,yes,,GNATMAKE 14.2.0
+trees/Ada/Embedded-Zerotree-Wavelet,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/Ada/Longest-Common-Substring,Fail_Count,293,2,yes,,GNATMAKE 14.2.0
+trees/Ada/Red-Black-Tree,Fail_Count,168,2,yes,,GNATMAKE 14.2.0
+trees/Ada/Set-Partitioning-In-Hierarchical-Trees,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-BST-Iterator-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Binary-Tree-Paths,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Delete-Node-In-A-BST-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Find-Mode-In-BST,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Implement-Trie,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Invert-Binary-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Leaf-Similar-Trees,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Longest-Common-Substring,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Maximum-Binary-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-N-Ary-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Minimum-Height-Trees,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-N-Ary-Tree-Level-Order-Traversal,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-N-Ary-Tree-Postorder-Traversal,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-N-Ary-Tree-Preorder-Traversal,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Range-Sum-BST,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Red-Black-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Same-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Symmetric-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Trim-BST-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Two-Sum-BST-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Univalued-Binary-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Ada-SPARK-Validate-BST-Stub,,,,n/a,no failure counter,GNATMAKE 14.2.0
+trees/SPARK2/Average-Of-Levels-In-Binary-Tree,,,,n/a,no failure counter,GNATMAKE 14.2.0
