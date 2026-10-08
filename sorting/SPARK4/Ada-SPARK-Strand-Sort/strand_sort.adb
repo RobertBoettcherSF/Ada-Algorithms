@@ -1,7 +1,8 @@
---  Strand_Sort body — SPARK Level 4 strand sort with static buffers.
---  Strand extraction + merge prove only In_Bounds / RTE; the final gap-1
---  bubble finish reuses Bubble_Pass / Sorted_Slice / Prefix_Leq_Suffix so
---  Sort proves Is_Sorted (same split as Comb_Sort / Odd_Even_Sort).
+--  Strand_Sort body: SPARK Level 4 strand sort with static buffers.
+--  Strand_Phase is proved to sort on its own: every strand is
+--  nondecreasing, the merge keeps Output nondecreasing, and each outer
+--  iteration moves at least one element, so Input is empty after at most
+--  N iterations and Output holds all N elements. No fallback pass.
 
 package body Strand_Sort
   with SPARK_Mode => On
@@ -24,166 +25,12 @@ is
        and then L >= 1
        and then R <= A'Last;
 
-   --  Every element of A (Lo_P .. Hi_P) is <= every element of A (Lo_S .. Hi_S).
-   function Prefix_Leq_Suffix
-     (A                      : Element_Array;
-      Lo_P, Hi_P, Lo_S, Hi_S : Natural) return Boolean
-   is
-     (Hi_P < Lo_P
-      or else Hi_S < Lo_S
-      or else
-        (for all K in Lo_P .. Hi_P =>
-           (for all L in Lo_S .. Hi_S => A (K) <= A (L))))
-   with
-     Ghost  => True,
-     Global => null,
-     Pre    =>
-       In_Bounds (A)
-       and then Lo_P >= 1
-       and then Hi_P <= A'Last
-       and then Lo_S >= 1
-       and then Hi_S <= A'Last;
-
-   procedure Swap (A : in out Element_Array; X, Y : Index)
-     with
-       Global => null,
-       Pre    =>
-         In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
-       Post   =>
-         In_Bounds (A)
-         and then A (X) = A'Old (Y)
-         and then A (Y) = A'Old (X)
-         and then
-           (for all K in 1 .. A'Last =>
-              (if K /= X and then K /= Y then A (K) = A'Old (K)))
-   is
-      T : Integer;
-   begin
-      if X = Y then
-         return;
-      end if;
-      T     := A (X);
-      A (X) := A (Y);
-      A (Y) := T;
-   end Swap;
-
-   --  One forward pass over A (1 .. Bound): bubble the maximum of that
-   --  range to index Bound via adjacent swaps. Preserves the already-
-   --  sorted / partitioned suffix Bound+1 .. A'Last. Swapped is True
-   --  iff at least one adjacent pair was exchanged (False ⇒ A(1 .. Bound)
-   --  was already adjacent-sorted).
-   procedure Bubble_Pass
-     (A       : in out Element_Array;
-      Bound   : Index;
-      Swapped : out Boolean)
-     with
-       Global => null,
-       Pre    =>
-         In_Bounds (A)
-         and then A'Last >= 2
-         and then Bound in 2 .. A'Last
-         and then Sorted_Slice (A, Bound + 1, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),
-       Post   =>
-         In_Bounds (A)
-         and then Sorted_Slice (A, Bound, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)
-         and then
-           (if not Swapped then Sorted_Slice (A, 1, Bound))
-   is
-   begin
-      Swapped := False;
-
-      for I in 1 .. Bound - 1 loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant
-           (for all K in 1 .. I => A (K) <= A (I));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (for all K in I + 1 .. A'Last => A (K) = A'Loop_Entry (K));
-         pragma Loop_Invariant
-           (if not Swapped then Sorted_Slice (A, 1, I));
-
-         if A (I) > A (I + 1) then
-            Swap (A, I, I + 1);
-            Swapped := True;
-         end if;
-
-         pragma Assert (for all K in 1 .. I + 1 => A (K) <= A (I + 1));
-         pragma Assert (if not Swapped then Sorted_Slice (A, 1, I + 1));
-      end loop;
-
-      pragma Assert (for all K in 1 .. Bound => A (K) <= A (Bound));
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      pragma Assert (Bound = A'Last or else A (Bound) <= A (Bound + 1));
-      pragma Assert (Sorted_Slice (A, Bound, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-      pragma Assert (if not Swapped then Sorted_Slice (A, 1, Bound));
-   end Bubble_Pass;
-
-   --  Final gap = 1: ordinary bubble sort with early exit. Proves Is_Sorted.
-   procedure Bubble_Finish (A : in out Element_Array)
-     with
-       Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
-   is
-      Bound   : Index;
-      Swapped : Boolean;
-   begin
-      Bound := A'Last;
-
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-
-      loop
-         pragma Loop_Invariant (Bound in 2 .. A'Last);
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Variant (Decreases => Bound);
-
-         Bubble_Pass (A, Bound, Swapped);
-
-         pragma Assert (Sorted_Slice (A, Bound, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-
-         if not Swapped then
-            pragma Assert (Sorted_Slice (A, 1, Bound));
-            pragma Assert (Sorted_Slice (A, Bound, A'Last));
-            pragma Assert (Is_Sorted (A));
-            return;
-         end if;
-
-         exit when Bound = 2;
-
-         Bound := Bound - 1;
-
-         pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      end loop;
-
-      pragma Assert (Bound = 2);
-      pragma Assert (Sorted_Slice (A, 2, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 1, 2, A'Last));
-      pragma Assert (Is_Sorted (A));
-   end Bubble_Finish;
-
    --  Strand extraction + merge into Output, then copy back to A.
-   --  Only In_Bounds / RTE are proved here (sortedness from Bubble_Finish).
    procedure Strand_Phase (A : in out Element_Array)
      with
        Global => null,
        Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A)
+       Post   => In_Bounds (A) and then Is_Sorted (A)
    is
       N : constant Index := A'Last;
 
@@ -215,7 +62,9 @@ is
          pragma Loop_Invariant (Input_Len <= N);
          pragma Loop_Invariant (Output_Len <= N);
          pragma Loop_Invariant (Input_Len + Output_Len = N);
-         pragma Loop_Invariant (N in 2 .. Max_N);
+         pragma Loop_Invariant (N >= 2);
+         pragma Loop_Invariant (Input_Len + Iter - 1 <= N);
+         pragma Loop_Invariant (Sorted_Slice (Output, 1, Output_Len));
 
          exit when Input_Len = 0;
 
@@ -227,16 +76,16 @@ is
 
          for X in 2 .. Input_Len loop
             pragma Loop_Invariant (In_Bounds (A));
-            pragma Loop_Invariant (X in 2 .. Input_Len + 1);
             pragma Loop_Invariant (Strand_Len >= 1);
             pragma Loop_Invariant (Strand_Len <= X - 1);
             pragma Loop_Invariant (Remaining_Len <= X - 2);
             pragma Loop_Invariant (Strand_Len + Remaining_Len = X - 1);
-            pragma Loop_Invariant (Strand_Len <= Max_N);
-            pragma Loop_Invariant (Remaining_Len <= Max_N);
             pragma Loop_Invariant (Input_Len <= N);
             pragma Loop_Invariant (Output_Len <= N);
             pragma Loop_Invariant (Input_Len + Output_Len = N);
+            pragma Loop_Invariant (Strand (Strand_Len) = Last_Taken);
+            pragma Loop_Invariant (Sorted_Slice (Strand, 1, Strand_Len));
+            pragma Loop_Invariant (Sorted_Slice (Output, 1, Output_Len));
 
             if Input (X) >= Last_Taken then
                Strand_Len := Strand_Len + 1;
@@ -255,12 +104,13 @@ is
 
          for X in 1 .. Remaining_Len loop
             pragma Loop_Invariant (In_Bounds (A));
-            pragma Loop_Invariant (X in 1 .. Remaining_Len + 1);
             pragma Loop_Invariant (Remaining_Len <= Input_Len);
             pragma Loop_Invariant (Input_Len <= N);
             pragma Loop_Invariant (Input_Len + Output_Len = N);
             pragma Loop_Invariant (Strand_Len + Remaining_Len = Input_Len);
             pragma Loop_Invariant (Output_Len + Strand_Len <= N);
+            pragma Loop_Invariant (Sorted_Slice (Strand, 1, Strand_Len));
+            pragma Loop_Invariant (Sorted_Slice (Output, 1, Output_Len));
 
             Input (X) := Remaining (X);
          end loop;
@@ -282,6 +132,15 @@ is
             pragma Loop_Invariant (Merged_Len = Output_Len + Strand_Len);
             pragma Loop_Invariant (Merged_Len <= N);
             pragma Loop_Invariant (Input_Len + Output_Len + Strand_Len = N);
+            pragma Loop_Invariant (Sorted_Slice (Strand, 1, Strand_Len));
+            pragma Loop_Invariant (Sorted_Slice (Output, 1, Output_Len));
+            pragma Loop_Invariant (Sorted_Slice (Remaining, 1, K - 1));
+            pragma Loop_Invariant
+              (if K > 1 and then I <= Output_Len
+               then Remaining (K - 1) <= Output (I));
+            pragma Loop_Invariant
+              (if K > 1 and then J <= Strand_Len
+               then Remaining (K - 1) <= Strand (J));
             pragma Loop_Variant
               (Decreases => (Output_Len + 1 - I) + (Strand_Len + 1 - J));
 
@@ -304,6 +163,15 @@ is
             pragma Loop_Invariant (Merged_Len = Output_Len + Strand_Len);
             pragma Loop_Invariant (Merged_Len <= N);
             pragma Loop_Invariant (Input_Len + Output_Len + Strand_Len = N);
+            pragma Loop_Invariant (Sorted_Slice (Strand, 1, Strand_Len));
+            pragma Loop_Invariant (Sorted_Slice (Output, 1, Output_Len));
+            pragma Loop_Invariant (Sorted_Slice (Remaining, 1, K - 1));
+            pragma Loop_Invariant
+              (if K > 1 and then I <= Output_Len
+               then Remaining (K - 1) <= Output (I));
+            pragma Loop_Invariant
+              (if K > 1 and then J <= Strand_Len
+               then Remaining (K - 1) <= Strand (J));
             pragma Loop_Variant (Decreases => Output_Len + 1 - I);
 
             Remaining (K) := Output (I);
@@ -320,6 +188,15 @@ is
             pragma Loop_Invariant (Merged_Len = Output_Len + Strand_Len);
             pragma Loop_Invariant (Merged_Len <= N);
             pragma Loop_Invariant (Input_Len + Output_Len + Strand_Len = N);
+            pragma Loop_Invariant (Sorted_Slice (Strand, 1, Strand_Len));
+            pragma Loop_Invariant (Sorted_Slice (Output, 1, Output_Len));
+            pragma Loop_Invariant (Sorted_Slice (Remaining, 1, K - 1));
+            pragma Loop_Invariant
+              (if K > 1 and then I <= Output_Len
+               then Remaining (K - 1) <= Output (I));
+            pragma Loop_Invariant
+              (if K > 1 and then J <= Strand_Len
+               then Remaining (K - 1) <= Strand (J));
             pragma Loop_Variant (Decreases => Strand_Len + 1 - J);
 
             Remaining (K) := Strand (J);
@@ -328,24 +205,35 @@ is
          end loop;
 
          pragma Assert (K = Merged_Len + 1);
+         pragma Assert (Sorted_Slice (Remaining, 1, Merged_Len));
          Output_Len := Merged_Len;
          pragma Assert (Input_Len + Output_Len = N);
 
          for X in 1 .. Output_Len loop
             pragma Loop_Invariant (In_Bounds (A));
-            pragma Loop_Invariant (X in 1 .. Output_Len + 1);
             pragma Loop_Invariant (Output_Len <= N);
             pragma Loop_Invariant (Input_Len + Output_Len = N);
+            pragma Loop_Invariant (Sorted_Slice (Remaining, 1, Output_Len));
+            pragma Loop_Invariant
+              (for all T in 1 .. X - 1 => Output (T) = Remaining (T));
 
             Output (X) := Remaining (X);
          end loop;
+         pragma Assert (Sorted_Slice (Output, 1, Output_Len));
       end loop;
+
+      --  Every iteration moved at least one element, so Input is empty.
+      pragma Assert (Input_Len = 0);
+      pragma Assert (Output_Len = N);
 
       for X in 1 .. N loop
          pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant
+           (for all T in 1 .. X - 1 => A (T) = Output (T));
 
          A (X) := Output (X);
       end loop;
+      pragma Assert (Sorted_Slice (Output, 1, N));
    end Strand_Phase;
 
    procedure Sort (A : in out Element_Array) is
@@ -355,9 +243,6 @@ is
       end if;
 
       Strand_Phase (A);
-
-      --  Gap-1 bubble finish → Is_Sorted (same role as Comb / Odd_Even).
-      Bubble_Finish (A);
    end Sort;
 
 end Strand_Sort;

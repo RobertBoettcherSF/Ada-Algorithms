@@ -8,10 +8,10 @@
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling uses Max_N = 4096, allows arbitrary A'First, and raises on
 --  oversized n; this port requires A'First = 1, uses fixed Input / Strand /
---  Output / Remaining buffers of size Max_N, and proves sortedness via a
---  final gap-1 bubble finish (same proof role as Comb_Sort / Odd_Even_Sort /
---  Shell_Sort). Full multiset / permutation equality is verified by tests
---  rather than claimed as a Level-4 postcondition (sortedness is proved).
+--  Output / Remaining buffers of size Max_N, and proves that the strand
+--  phase sorts on its own (sorted strands, sorted merges, all N elements
+--  merged within N outer iterations). Full multiset / permutation equality
+--  is verified by tests rather than claimed as a Level-4 postcondition.
 --
 --  Reference: https://en.wikipedia.org/wiki/Strand_sort
 
@@ -55,7 +55,7 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
-   -- Algorithm sketch (strand extraction + merge + bubble finish)
+   -- Algorithm sketch (strand extraction + merge)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Allocate fixed buffers Input, Strand, Output,
    --  Remaining : Element_Array (1 .. Max_N). Copy A into Input.
@@ -65,11 +65,10 @@ is
    --    Merge Strand into Output (stable two-way merge, prefer left on ≤).
    --    Replace Input with Remaining.
    --  Copy Output back into A.
-   --  After the strand phase, a final gap-1 bubble finish (shrinking unsorted
-   --  suffix + early exit) establishes Is_Sorted — same proof role as
-   --  Comb_Sort's Bubble_Finish / Odd_Even_Sort / Shell's gap-1 insertion.
-   --  Strand/merge posts that would fight Level 4 are intentionally limited
-   --  to In_Bounds / RTE; sortedness is discharged by Bubble_Finish.
+   --  Level 4 proves each strand nondecreasing, each merge result
+   --  nondecreasing, and Input empty after the capped outer loop (every
+   --  iteration moves at least one element), so Output, copied back into A,
+   --  is sorted. There is no fallback pass.
    --  Empty and singleton arrays are no-ops.
    --  Do not `with` sibling Ada-* packages.
 
@@ -82,7 +81,8 @@ is
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending strand sort (static buffers) + gap-1 bubble finish.
+   --  Ascending strand sort (static buffers); the strand phase alone
+   --  establishes Is_Sorted.
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
