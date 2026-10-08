@@ -403,6 +403,40 @@ begin
       Expect (VR.Stat = Dimension_Error and then VR.Trials_Used = 0 and then VR.N = 0
               and then VR.Failures = 0 and then VR.Seed_Final = 9, "Verify 0x0");
       Expect (not Multiply_Classical_Int (E, E).Success and then Multiply_Classical_Int (E, E).N = 0, "Int 0x0");
+      --  Max_N itself is accepted by every Integer path
+      declare
+         A32 : constant Int_Matrix := Rand_Int_Mat (Max_N, 1, 1, -3, 3);
+         B32 : constant Int_Matrix := Rand_Int_Mat (Max_N, 1, 1, -3, 3);
+         C32 : constant Int_Matrix := Ref_Int_Product (A32, B32);
+         S32 : Natural := 11;
+      begin
+         Expect (Verify_Freivalds_Once (A32, B32, C32, S32) = Equal_Probably, "Once N=32 accepts the product");
+         VR := Verify_Freivalds (A32, B32, C32, 3, 11);
+         Expect (VR.Stat = Equal_Probably and then VR.N = Max_N and then VR.Trials_Used = 3, "Verify N=32");
+      end;
+      --  Int_Mat_Equal with different index origins, a difference at every position
+      declare
+         A : constant Int_Matrix := Rand_Int_Mat (3, 4, 2, -9, 9);
+         B : Int_Matrix (7 .. 9, 1 .. 3);
+      begin
+         for I in 0 .. 2 loop
+            for J in 0 .. 2 loop
+               B (7 + I, 1 + J) := A (4 + I, 2 + J);
+            end loop;
+         end loop;
+         Expect (Int_Mat_Equal (A, B) and then Int_Mat_Equal (A => B, B => A), "Int_Mat_Equal offset origins");
+         for I in 0 .. 2 loop
+            for J in 0 .. 2 loop
+               declare
+                  C : Int_Matrix := B;
+               begin
+                  C (7 + I, 1 + J) := C (7 + I, 1 + J) + 1;
+                  Expect (not Int_Mat_Equal (A, C) and then not Int_Mat_Equal (C, A),
+                          "Int_Mat_Equal offset origins, difference at" & I'Image & J'Image);
+               end;
+            end loop;
+         end loop;
+      end;
    end;
    ---------------------------------------------------------------- LCG
    for Seed in 0 .. 3000 loop
