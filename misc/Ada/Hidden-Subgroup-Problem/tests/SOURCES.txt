@@ -1,0 +1,16 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Oracles with a known hidden subgroup: on Z_N (N = 2 .. 40) the oracle
+  f (x) = 7 * (x mod r) + 1 is constant exactly on the cosets of H = r Z_N
+  for every divisor r of N, so the period is r by construction and H is the
+  set of multiples of r. Solve_Abelian_HSP must return generators whose
+  generated subgroup (closure under addition mod N) equals H; the answer is
+  also certificate-checked with Verify_Hidden_Subgroup.
+* Verify_Hidden_Subgroup: [h] is accepted iff r divides h (every h, every r).
+* Evaluate_Character_Orthogonality: g * h = 0 mod N iff N / gcd (N, h)
+  divides g (number-theoretic property, not the product test).
+* Greatest_Common_Divisor: largest common divisor by downward search,
+  0 .. 60 squared.
+* Simon (n = 1 .. 5 bits, every s /= 0): f (x) = min (x, x xor s), whose
+  hidden string is s by construction; s = 0 must raise Subgroup_Not_Found.
+Nothing is taken from the program's output or from third-party test suites.

@@ -1,5 +1,7 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Hidden_Subgroup_Problem; use Hidden_Subgroup_Problem;
+with Own_Checks;
 
 procedure Tests is
    Pass_Count : Natural := 0;
@@ -19,6 +21,7 @@ procedure Tests is
    Ex_Caught : Boolean;
 
 begin
+   Own_Checks;   --  sweep: independent references (own_checks.adb, tests/SOURCES.txt)
    -- TEST 1 — Simon's Problem Solver (s = 3)
    Put_Line ("TEST 1 — Simon's Problem Solver (s = 3)");
    declare
@@ -185,5 +188,8 @@ begin
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
             & Natural'Image (Fail_Count) & " failed ===");
-   pragma Assert (Fail_Count = 0, "Some tests failed");
+   --  pragma Assert is ignored without -gnata, so make test needs the exit status
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;
