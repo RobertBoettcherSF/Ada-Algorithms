@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: a word is contained exactly when it equals (same length, same
+  letters; trailing storage ignored) one of the inserted words, so prefixes of
+  inserted words are not contained unless inserted themselves.
+* Inputs: 4,000 random sets of 0 .. 8 inserted words (length 0 .. 4 over
+  'a' .. 'b'), 10 queries each (3 taken from the inserted words).

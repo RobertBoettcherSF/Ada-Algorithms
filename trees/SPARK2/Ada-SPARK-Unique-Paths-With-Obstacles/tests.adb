@@ -1,4 +1,5 @@
 with Unique_Paths_With_Obstacles;
+with Own_Checks;
 procedure Tests is
    Clear : constant Unique_Paths_With_Obstacles.Grid :=
      (others => (others => False));
@@ -9,4 +10,5 @@ begin
    pragma Assert (Unique_Paths_With_Obstacles.Count (Blocked) = 8);
    Blocked (1, 1) := True;
    pragma Assert (Unique_Paths_With_Obstacles.Count (Blocked) = 0);
+   Own_Checks;
 end Tests;

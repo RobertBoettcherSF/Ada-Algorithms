@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Subtree_Of_Another_Tree; use Subtree_Of_Another_Tree;
+with Own_Checks;
 procedure Tests is
    T : Tree := Empty; P : Tree := Empty; Q : Tree := Empty;
 begin
@@ -9,4 +10,5 @@ begin
    Set_Node (Q, 1, 6, 0, 0);
    if not Is_Subtree (T, 1, P, 1) or else Is_Subtree (T, 1, Q, 1) then raise Program_Error; end if;
    Put_Line ("Subtree check: PASS");
+   Own_Checks;
 end Tests;

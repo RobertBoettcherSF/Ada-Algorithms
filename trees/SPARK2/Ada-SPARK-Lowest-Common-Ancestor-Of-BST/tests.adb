@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Lowest_Common_Ancestor_Of_BST; use Lowest_Common_Ancestor_Of_BST;
+with Own_Checks;
 procedure Tests is
    T : Tree := Empty;
 begin
@@ -9,4 +10,5 @@ begin
    if Lowest_Common_Ancestor (T, 1, 0, 4) /= 2
      or else Lowest_Common_Ancestor (T, 1, 4, 9) /= 1 then raise Program_Error; end if;
    Put_Line ("Lowest common ancestor: PASS");
+   Own_Checks;
 end Tests;

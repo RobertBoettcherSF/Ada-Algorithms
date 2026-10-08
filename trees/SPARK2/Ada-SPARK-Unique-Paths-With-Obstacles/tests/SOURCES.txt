@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: enumerate every right/down path recursively; a path
+  through a True cell (obstacle, as in the folder's own "Blocked" example)
+  counts 0, including a blocked start or end.
+* Inputs: exhaustive, all 2**16 = 65,536 obstacle patterns.

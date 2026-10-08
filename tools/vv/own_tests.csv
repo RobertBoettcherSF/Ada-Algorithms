@@ -71,3 +71,15 @@ trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST,own whole-tree range sum with odd bounds
 trees/SPARK2/Ada-SPARK-Symmetric-Tree,own mirror comparison; 4000 trees (half built symmetric)
 trees/SPARK2/Ada-SPARK-Same-Tree,own recursive comparison vs renumbered copies; 4000 pairs
 trees/SPARK2/Ada-SPARK-Invert-Binary-Tree,children swapped at every node; 4000 random trees
+trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring,own all-substrings palindrome check; 5000 random
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat,own all-substrings distinctness check; 5000 random
+trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating,own all-substrings distinctness check; 5000 random
+trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,own all-substrings k-zeros/k-ones check; 4000 random
+trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters,own all-substrings check; exhaustive 6561
+trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles,own recursive path enumeration; exhaustive 65536 grids
+trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget,own all-windows cost check; 5000 random
+trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,own all-windows A/B/C check; 5000 random
+trees/SPARK2/Ada-SPARK-Implement-Trie,own exact-membership reference; 4000 random word sets
+trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST,own parent-climbing LCA on generated BSTs; 4000 random
+trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST,own parent-climbing LCA on generated BSTs; 4000 random
+trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree,own identical-subtree check (copied/absent patterns); 5000 random
