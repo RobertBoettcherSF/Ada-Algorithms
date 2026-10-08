@@ -11,3 +11,6 @@ standard generator (seed 20261008).
   True exactly when some added word matches.
 * Inputs: 4,000 random dictionaries of 0 .. 8 words (length 0 .. 4 over 'a' ..
   'b') and random patterns of length 0 .. 4 with about one "." in three.
+
+* full_insert_check.adb (silent no-op scan): Add_Word of a new word when all
+  Max_Words slots are used must raise Assertion_Error instead of dropping it.

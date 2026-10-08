@@ -11,3 +11,6 @@ standard generator (seed 20261008).
   inserted words are not contained unless inserted themselves.
 * Inputs: 4,000 random sets of 0 .. 8 inserted words (length 0 .. 4 over
   'a' .. 'b'), 10 queries each (3 taken from the inserted words).
+
+* full_insert_check.adb (silent no-op scan): Insert of a new word when all
+  Max_Words slots are used must raise Assertion_Error instead of dropping it.
