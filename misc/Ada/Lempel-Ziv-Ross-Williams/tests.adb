@@ -1,6 +1,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Streams; use Ada.Streams;
 with LZRW; use LZRW;
+with Own_Checks;
 
 procedure Tests is
    Total_Tests  : Integer := 0;
@@ -147,6 +148,7 @@ procedure Tests is
    end Test_7;
 
 begin
+   Own_Checks;
    Put_Line ("--- Starting LZRW Validation Test Suite ---");
    Test_1; Test_2; Test_3; Test_4; Test_5; Test_6; Test_7;
    Put_Line ("-------------------------------------------");
