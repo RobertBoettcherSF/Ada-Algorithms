@@ -2,6 +2,7 @@
 --  holds the nodes at odd positions (1st, 3rd, ...) in their original order, followed by the
 --  nodes at even positions (2nd, 4th, ...) in their original order (the standard Odd Even
 --  Linked List statement; positions, not values), and keeps its length.
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Odd_Even_Linked_List; use Odd_Even_Linked_List;
 
@@ -42,7 +43,18 @@ procedure Main is
       end loop;
    end Check;
 
-   Seed : Long_Long_Integer := 20261008;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Long_Integer := AA_Seed (20261008);
    function Next (Lo, Hi : Integer) return Integer is
    begin
       Seed := (Seed * 16807) mod 2147483647;   --  Park-Miller minimal standard

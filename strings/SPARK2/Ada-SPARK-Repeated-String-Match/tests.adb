@@ -1,3 +1,4 @@
+with Ada.Environment_Variables;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Text_IO;
 with Repeated_String_Match; use Repeated_String_Match;
@@ -7,7 +8,18 @@ procedure Tests is
    A : Text := (others => ' ');
    B : Text := (others => ' ');
    Result : Repeat_Type;
-   Seed : Long_Long_Integer := 777_123;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Long_Integer := AA_Seed (777_123);
    function Next (Bound : Natural) return Natural is
    begin
       Seed := (Seed * 48271) mod 2147483647;   --  Park-Miller

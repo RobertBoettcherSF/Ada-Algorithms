@@ -3,13 +3,25 @@ pragma Ada_2022;
 --  Valid (Pushed, Popped, N): Popped (1 .. N) can be produced by pushing Pushed (1 .. N) in order onto a
 --  stack and popping at any time; values distinct (standard statement). Own reference: every
 --  interleaving of pushes and pops.
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Validate_Stack_Sequences; use Validate_Stack_Sequences;
 
 procedure Own_Checks is
    Failures : Natural := 0;
    Checked : Natural := 0;
-   Seed : Long_Long_Integer := 20261008;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Long_Integer := AA_Seed (20261008);
    function Next (Lo, Hi : Integer) return Integer is
    begin
       Seed := (Seed * 16807) mod 2147483647;   --  Park-Miller minimal standard

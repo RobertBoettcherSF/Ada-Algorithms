@@ -1,4 +1,5 @@
 pragma Ada_2022;
+with Ada.Environment_Variables;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Text_IO; use Ada.Text_IO;
 with Jump_Game; use Jump_Game;
@@ -6,7 +7,18 @@ procedure Tests is
    --  Own tests (see tests/SOURCES.txt): A (I) is the longest jump allowed from index I; Can_Jump (A, N)
    --  says whether index N can be reached from index 1. Reference: own breadth-first reachability.
    A : Steps := [others => 0];
-   Seed : Long_Long_Integer := 20261008;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Long_Integer := AA_Seed (20261008);
    function Next (Bound : Natural) return Natural is
    begin
       Seed := (Seed * 48271) mod 2147483647;   --  Park-Miller

@@ -1,11 +1,23 @@
 --  Own checks (see tests/SOURCES.txt): the container against an own stack model,
 --  and full / empty operations must be rejected, not ignored.
+with Ada.Environment_Variables;
 with Ada.Assertions;
 with Ada.Text_IO;
 with Design_Number_Container_System; use Design_Number_Container_System;
 
 procedure Own_Checks is
-   Seed : Long_Long_Integer := 20261008;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Long_Integer := AA_Seed (20261008);
    function Next (Bound : Positive) return Natural is
    begin
       Seed := (Seed * 16807) mod 2147483647;

@@ -9,11 +9,23 @@
 --    passes Verify_Heuristic and reaches Evaluate (Base) + Threshold, or
 --    Base when none does (thresholds keep the target below the maximum).
 pragma Ada_2022;
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Darwin_Godel_Machine; use Darwin_Godel_Machine;
 
 procedure Own_Checks is
-   Seed : Long_Long_Integer := 20261008;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Long_Integer := AA_Seed (20261008);
    Failures, Rounds : Natural := 0;
 
    function Rand (Lo, Hi : Integer) return Integer is   --  Park-Miller

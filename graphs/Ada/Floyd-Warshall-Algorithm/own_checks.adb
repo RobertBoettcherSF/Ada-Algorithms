@@ -3,13 +3,25 @@ pragma Ada_2022;
 --  All_Pairs on random small digraphs with negative weights (n <= 6, weights -4 .. 20) against an own
 --  exhaustive reference: Negative_Cycle exactly when some simple cycle has negative cost; otherwise every
 --  Dist entry is the minimum over all simple paths and the Next matrix gives a path of exactly that cost.
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Floyd_Warshall_Algorithm; use Floyd_Warshall_Algorithm;
 
 procedure Own_Checks is
    Failures : Natural := 0;
    Checked : Natural := 0;
-   Seed : Long_Long_Integer := 20261008;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Long_Integer := AA_Seed (20261008);
    function Next (Lo, Hi : Integer) return Integer is
    begin
       Seed := (Seed * 16807) mod 2147483647;   --  Park-Miller minimal standard

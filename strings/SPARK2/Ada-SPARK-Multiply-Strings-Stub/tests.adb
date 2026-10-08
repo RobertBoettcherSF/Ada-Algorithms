@@ -1,4 +1,5 @@
 pragma Ada_2022;
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Command_Line;
 with Multiply_Strings; use Multiply_Strings;
@@ -21,7 +22,18 @@ procedure Tests is
       return S (S'First + 1 .. S'Last);
    end Img;
 
-   Seed : Long_Long_Integer := 7;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Long_Integer := AA_Seed (7);
    All_Ok : Boolean := True;
    Nines : constant String (1 .. 30) := [others => '9'];
    Expect : constant String :=

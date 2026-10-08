@@ -1,4 +1,5 @@
 pragma Ada_2022;
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Command_Line;
 with Tim_Sort_Stub; use Tim_Sort_Stub;
@@ -47,7 +48,18 @@ procedure Tests is
      [1 => 4, 2 => 1, 3 => 7, 4 => 3, 5 => 2, 6 => 8, 7 => 5, 8 => 6];
    Empty    : constant Value_Array (1 .. 0) := [others => 0];
    Big      : Value_Array (1 .. 120);
-   Seed     : Natural := 12_345;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Natural) return Natural is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Natural := Default;
+   begin
+      if V /= "" then
+         S := Natural (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Natural'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Natural := AA_Seed (12_345);
 begin
    Case_Of (Old_Stub, "old 8-element case");
    Check (Sort (Old_Stub) = [1, 2, 3, 4, 5, 6, 7, 8], "old case exact");

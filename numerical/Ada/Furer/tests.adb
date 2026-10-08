@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Environment_Variables;
 with Ada.Command_Line;
 with Ada.Text_IO;
 with Furer; use Furer;
@@ -48,7 +49,18 @@ procedure Tests is
       return Equal (S, T);
    end Mul_Agree_Th;
 
-   Seed : Long_Integer := 42;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Integer) return Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Integer := AA_Seed (42);
 
    function Next_Rand return Natural is
    begin

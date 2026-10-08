@@ -7,6 +7,7 @@
 --  against their definitions. Every on/off/don't-care assignment for
 --  N = 1 .. 3 (3**8 = 6,561 for N = 3) and 1,500 seeded random ones for N = 4.
 pragma Ada_2022;
+with Ada.Environment_Variables;
 with Ada.Text_IO;
 with Quine_McCluskey; use Quine_McCluskey;
 
@@ -16,7 +17,18 @@ procedure Own_Checks is
    type Truth is array (0 .. 15) of Kind;
    Max_Cubes : constant := 81;   --  3**4
    type Cube_Set is array (1 .. Max_Cubes) of Boolean;
-   Seed : Long_Long_Integer := 20261008;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Long_Long_Integer := Default;
+   begin
+      if V /= "" then
+         S := Long_Long_Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Long_Long_Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Long_Long_Integer := AA_Seed (20261008);
    Functions_Checked : Natural := 0;
 
    function Rand (N : Positive) return Natural is   --  Park-Miller, 0 .. N - 1

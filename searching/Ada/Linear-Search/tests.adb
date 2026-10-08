@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Linear_Search; use Linear_Search;
 
@@ -111,7 +112,18 @@ procedure Tests is
       return A;
    end Make_Arithmetic;
 
-   Seed : Natural := 42;
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Natural) return Natural is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Natural := Default;
+   begin
+      if V /= "" then
+         S := Natural (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Natural'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+   Seed : Natural := AA_Seed (42);
 
    function Next_Mod (Modulus : Positive) return Natural is
       Mult : constant := 1_103_515_245;
