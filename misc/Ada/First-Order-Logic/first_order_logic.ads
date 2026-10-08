@@ -127,9 +127,11 @@ package First_Order_Logic is
    function Substitute_Term (T : Term_Access; Var : Variable_Name; Replacement : Term_Access) return Term_Access
      with Pre => T /= null and Replacement /= null;
 
-   --  Substitutes all free occurrences of Var in F with Replacement.
-   --  Note: This naive substitution assumes Replacement does not contain free variables 
-   --  that would become accidentally bound by quantifiers in F (no capture avoidance).
+   --  Substitutes all free occurrences of Var in F with Replacement,
+   --  avoiding capture: a quantifier whose variable occurs in Replacement
+   --  (and above a free occurrence of Var) has its variable renamed to one
+   --  used neither in F nor in Replacement. Raises Constraint_Error if all
+   --  26 variable names are in use.
    function Substitute_Formula (F : Formula_Access; Var : Variable_Name; Replacement : Term_Access) return Formula_Access
      with Pre => F /= null and Replacement /= null;
 

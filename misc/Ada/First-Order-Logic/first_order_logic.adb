@@ -281,6 +281,28 @@ package body First_Order_Logic is
       end case;
    end Substitute_Term;
 
+   --  Does Name occur anywhere (free or bound) in F?
+   function Occurs_In (F : Formula_Access; Name : Variable_Name) return Boolean is
+     (case F.Kind is
+         when Is_Predicate => Term_Contains_Var (F.Term1, Name)
+                              or else (F.Term2 /= null and then Term_Contains_Var (F.Term2, Name)),
+         when Is_Equality  => Term_Contains_Var (F.Eq_Term1, Name) or else Term_Contains_Var (F.Eq_Term2, Name),
+         when Is_Not       => Occurs_In (F.Sub_Formula, Name),
+         when Is_And | Is_Or | Is_Implies | Is_Iff => Occurs_In (F.Left, Name) or else Occurs_In (F.Right, Name),
+         when Is_Forall | Is_Exists => F.Var_Name = Name or else Occurs_In (F.Body_Formula, Name));
+
+   --  First variable name used neither in F nor in T; Constraint_Error if
+   --  all 26 are used (documented on Substitute_Formula)
+   function Unused_Variable (F : Formula_Access; T : Term_Access) return Variable_Name is
+   begin
+      for C in Variable_Name loop
+         if not Occurs_In (F, C) and then not Term_Contains_Var (T, C) then
+            return C;
+         end if;
+      end loop;
+      raise Constraint_Error with "no unused variable name for capture-avoiding renaming";
+   end Unused_Variable;
+
    function Substitute_Formula (F : Formula_Access; Var : Variable_Name; Replacement : Term_Access) return Formula_Access is
    begin
       case F.Kind is
@@ -306,20 +328,31 @@ package body First_Order_Logic is
          when Is_Iff => 
             return Make_Iff (Substitute_Formula (F.Left, Var, Replacement), Substitute_Formula (F.Right, Var, Replacement));
             
-         when Is_Forall =>
-            if F.Var_Name = Var then
-               -- Shadowing: Var is bound here, do not substitute deeper
-               return Make_Forall (F.Var_Name, Copy_Formula (F.Body_Formula));
-            else
-               return Make_Forall (F.Var_Name, Substitute_Formula (F.Body_Formula, Var, Replacement));
-            end if;
-            
-         when Is_Exists =>
-            if F.Var_Name = Var then
-               return Make_Exists (F.Var_Name, Copy_Formula (F.Body_Formula));
-            else
-               return Make_Exists (F.Var_Name, Substitute_Formula (F.Body_Formula, Var, Replacement));
-            end if;
+         when Is_Forall | Is_Exists =>
+            declare
+               Bound : Variable_Name := F.Var_Name;
+               Body_F : Formula_Access := F.Body_Formula;
+            begin
+               if Bound = Var then
+                  -- Shadowing: Var is bound here, do not substitute deeper
+                  Body_F := Copy_Formula (Body_F);
+               else
+                  -- Capture avoidance: if the bound variable occurs in the
+                  -- replacement and Var is free in the body, rename the
+                  -- bound variable to one used neither in the body nor in
+                  -- the replacement first.
+                  if Term_Contains_Var (Replacement, Bound) and then Is_Free_Variable (Body_F, Var) then
+                     declare
+                        Fresh : constant Variable_Name := Unused_Variable (Body_F, Replacement);
+                     begin
+                        Body_F := Substitute_Formula (Body_F, Bound, Make_Variable (Fresh));
+                        Bound := Fresh;
+                     end;
+                  end if;
+                  Body_F := Substitute_Formula (Body_F, Var, Replacement);
+               end if;
+               return (if F.Kind = Is_Forall then Make_Forall (Bound, Body_F) else Make_Exists (Bound, Body_F));
+            end;
       end case;
    end Substitute_Formula;
 

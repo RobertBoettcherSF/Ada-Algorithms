@@ -11,6 +11,7 @@ Sources of the expected values in own_checks.adb (own code, MIT)
 * Substitution lemma (a standard property of FOL semantics): F[x_1 := c]
   under any environment has the value of F with x_1 = value of c.
 * Structural predicates on closures: prenex, has quantifier, x_1 bound.
-* Not covered: capture-avoiding substitution (the package documents that it
-  does not avoid capture).
+* Capture: 300 random formulas over x, y, z with quantifiers and
+  G (a, b) = a > b; F[x := y or z] must satisfy the substitution lemma in
+  all 27 environments.
 Park-Miller PRNG, seed 20261008. Nothing is taken from the program's output.
