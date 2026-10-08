@@ -1,0 +1,7 @@
+folder,file,line,entity,declaration
+clustering/Ada/DBSCAN,clustering/Ada/DBSCAN/dbscan.adb,227,N,N     : constant Point_Count := Point_Count (Data'Length (1));
+misc/Ada/Bayesian-Nash-Equilibrium,misc/Ada/Bayesian-Nash-Equilibrium/bayesian_nash_equilibrium.adb,682,G,G : constant Bayesian_Game := Sheriffs_Dilemma (P_Criminal);
+misc/Ada/Edmonds-Algorithm,misc/Ada/Edmonds-Algorithm/edmonds_algorithm.adb,653,U,U : constant Natural := Natural (G.Edges (I).From);
+misc/Ada/QR-Algorithm,misc/Ada/QR-Algorithm/qr_algorithm.adb,636,Sketch_Sigma,Sketch_Sigma : constant Float := Wilkinson_Shift (Curr);
+misc/Ada/Vickrey-Clarke-Groves-Mechanism,misc/Ada/Vickrey-Clarke-Groves-Mechanism/vickrey_clarke_groves_mechanism.adb,891,Unused,Unused : constant Positive := Two_Item_Outcome_Count (N);
+misc/Ada/Vickrey-Clarke-Groves-Mechanism,misc/Ada/Vickrey-Clarke-Groves-Mechanism/vickrey_clarke_groves_mechanism.adb,907,Unused,Unused : constant Positive := Two_Item_Outcome_Count (N);

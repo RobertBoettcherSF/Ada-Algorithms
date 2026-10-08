@@ -95,7 +95,10 @@ def main():
         base = run_tests(work0 + '/base')
         cand = []
         for f in sorted(glob.glob(os.path.join(src, '**', '*.adb'), recursive=True)):
-            if os.path.basename(f).startswith('test') or os.path.basename(f) == 'main.adb':
+            rel = os.path.relpath(f, src)
+            b = os.path.basename(f)
+            # test code is not the code under test: skip test mains, own checks, demo mains and tests/ trees
+            if b.startswith(('test', 'own_checks')) or b == 'main.adb' or rel.split(os.sep)[0] in ('tests', 'test', 'obj'):
                 continue
             cand += [(os.path.relpath(f, src),) + s for s in sites(f)]
         pick = rng.sample(cand, min(a.per_folder, len(cand))) if base == 'survived' else []

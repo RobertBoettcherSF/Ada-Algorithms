@@ -163,6 +163,15 @@ own_by = {o['folder']: o['checks'] for o in _csv(os.path.join(a.root, 'tools', '
 find_open = collections.Counter(f['folder'] for f in _csv(os.path.join(a.root, 'tools', 'vv', 'findings.csv')) if f['status'] == 'open')
 # the sweep worker's registry (tools/vv/findings_sweep.csv) counts the same way
 find_open.update(f['folder'] for f in _csv(os.path.join(a.root, 'tools', 'vv', 'findings_sweep.csv')) if f.get('status') == 'open')
+# the flagship worker's registry (tools/vv/findings_flagship.csv) counts the same way
+find_open.update(f['folder'] for f in _csv(os.path.join(a.root, 'tools', 'vv', 'findings_flagship.csv')) if f.get('status') == 'open')
+# flagship results (tools/vv/flagship_*.csv, any file with a `folder` column): informational column `flagship`
+flag_by = collections.defaultdict(list)
+for ff in sorted(glob.glob(os.path.join(a.root, 'tools', 'vv', 'flagship_*.csv'))):
+    stem = os.path.basename(ff)[len('flagship_'):-len('.csv')]
+    for x in _csv(ff):
+        if x.get('folder') and stem not in flag_by[x['folder']]:
+            flag_by[x['folder']].append(stem)
 # sweep progress (tools/vv/sweep_progress.csv, written by the sweep worker): informational column `sweep`
 sweep_by = {}
 for x in _csv(os.path.join(a.root, 'tools', 'vv', 'sweep_progress.csv')):
@@ -198,6 +207,7 @@ for r in rows:
     r['kat'] = kat_by.get(r['folder'], '')
     r['do_nothing'] = dn_by.get(r['folder'], '')
     r['sweep'] = sweep_by.get(r['folder'], '')
+    r['flagship'] = ' '.join(flag_by.get(r['folder'], []))
     r['own_tests'] = 'yes' if r['folder'] in own_by or r['sweep'].startswith('own tests') or os.path.exists(os.path.join(a.root, r['folder'], 'tests', 'SOURCES_sweep.txt')) else ''
     r['warnings_suppressed'] = 'yes' if supp_by[r['folder']] else ''
     r['proof_escapes'] = str(esc_all[r['folder']]) if esc_all[r['folder']] else ''
