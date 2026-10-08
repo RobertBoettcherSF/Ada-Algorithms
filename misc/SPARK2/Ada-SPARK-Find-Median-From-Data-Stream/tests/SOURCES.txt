@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: put Input (1 .. Count) in order by counting, for each
+  value, how many values come before it (smaller, or equal and earlier);
+  the median is the middle value, or for an even Count the two middle
+  values added and divided by 2 with Ada integer division (truncation
+  toward zero; the convention is stated in the README).
+* Inputs: 20000 random inputs (Count 1 .. 8, values -100 .. 100 or
+  -3 .. 3 for many ties).

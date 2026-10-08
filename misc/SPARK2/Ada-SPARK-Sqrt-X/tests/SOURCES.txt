@@ -1,0 +1,10 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* Own property (definition of the floor square root): R * R <= N and
+  N < (R + 1) * (R + 1).
+* Inputs: every N in 0 .. 100.

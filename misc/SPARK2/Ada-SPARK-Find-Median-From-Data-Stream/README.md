@@ -9,3 +9,8 @@ The implementation is Ada 2022 with `SPARK_Mode => On`.  The input bounds are in
 make test
 make prove
 ```
+
+`Median (Input, Count)` looks at `Input (1 .. Count)`. For an odd `Count`
+it is the middle value in sorted order. For an even `Count` it is the two
+middle values added and divided by 2 with Ada integer division, which
+truncates toward zero (for example the median of -3 and 0 is -1).
