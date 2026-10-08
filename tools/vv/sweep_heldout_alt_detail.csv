@@ -1,0 +1,645 @@
+round,folder,file,line,op,before,after,result
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,685,constant 3 -> 2,Combined (1 .. 3) := Buf (1 .. 3);,Combined (1 .. 2) := Buf (1 .. 3);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,499+339,or else -> and then + = -> /=,or else || or else C = 'T' or else C = 'G';,and then || or else C = 'T' or else C /= 'G';,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,480,constant 2 -> 1,elsif not Is_Last and then Is_Front_V (Buf (N + 2)) then,elsif not Is_Last and then Is_Front_V (Buf (N + 1)) then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,652,delete statement,Len := Out_Len;,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,299+142,and then -> or else + + 1 -> + 0,if Key_Len > 1 and then Key (Key_Len) = 'S' then || return Buf (Len - Suffix'Length + 1 .. Len) = Suffix;,if Key_Len > 1 or else Key (Key_Len) = 'S' then || return Buf (Len - Suffix'Length + 0 .. Len) = Suffix;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,382+30,= -> /= + = -> /=,return N + 1 < Len and then Buf (N + 2) = C; || or else C = 'O' or else C = 'U';,return N + 1 < Len and then Buf (N + 2) /= C; || or else C = 'O' or else C /= 'U';,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,60,constant 6 -> 5,return 6;,return 5;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,245+498,+ -> - + - 1 -> - 0,Buf (I + 1) := 'F'; || if (N + 1 = Len - 1 and then Next_Is ('H')),Buf (I - 1) := 'F'; || if (N + 1 = Len - 0 and then Next_Is ('H')),killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,231+338,= -> /= + = -> /=,if Curr = 'S' and then Nextc = 'C' and then Anext = 'H' then || return C = 'C' or else C = 'S' or else C = 'P',if Curr /= 'S' and then Nextc = 'C' and then Anext = 'H' then || return C /= 'C' or else C = 'S' or else C = 'P',killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,232,delete statement,Buf (I) := 'S';,null;,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,303+92,and then -> or else + = -> /=,and then Key (Key_Len - 1) = 'A' || if Code = 0 then,or else Key (Key_Len - 1) = 'A' || if Code /= 0 then,stillborn
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,288,delete statement,Key_Len := 1;,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,50,constant 1 -> 0,return 1;,return 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,293+407,- 1 -> - 0 + + 1 -> + 0,if Buf (I) /= Buf (I - 1) then || Len := Len + 1;,if Buf (I) /= Buf (I - 0) then || Len := Len + 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,651,constant 1 -> 2,Buf (1 .. Out_Len) := Out_Buf (1 .. Out_Len);,Buf (1 .. Out_Len) := Out_Buf (2 .. Out_Len);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,480+476,and then -> or else + and then -> or else,elsif not Is_Last and then Is_Front_V (Buf (N + 2)) then || elsif Prev_Is ('S') and then Next_Is ('H') then,elsif not Is_Last or else Is_Front_V (Buf (N + 2)) then || elsif Prev_Is ('S') or else Next_Is ('H') then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,242+221,= -> /= + + 1 -> + 0,if Curr = 'P' and then Nextc = 'H' then || Buf (I + 1) := 'N';,if Curr /= 'P' and then Nextc = 'H' then || Buf (I + 0) := 'N';,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,234,delete statement,Buf (I + 1) := 'S';,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,620,constant 0 -> 1,Len := 0;,Len := 1;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,170+132,- -> + + = -> /=,Len := Len - 1; || return Buf (1 .. Prefix'Length) = Prefix;,Len := Len + 1; || return Buf (1 .. Prefix'Length) /= Prefix;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,307+458,- -> + + = -> /=,Key_Len := Key_Len - 1; || if Symb = 'C' or else not Prev_Is (Symb) then,Key_Len := Key_Len + 1; || if Symb /= 'C' or else not Prev_Is (Symb) then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,30+498,or else -> and then + + -> -,or else C = 'O' or else C = 'U'; || if (N + 1 = Len - 1 and then Next_Is ('H')),and then C = 'O' or else C = 'U'; || if (N - 1 = Len - 1 and then Next_Is ('H')),stillborn
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,472+258,and then -> or else + = -> /=,and then not Is_Last || if Curr = 'W' and then Is_Vowel_AEIOU (Prev) then,or else not Is_Last || if Curr /= 'W' and then Is_Vowel_AEIOU (Prev) then,stillborn
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,489+194,+ -> - + and then -> or else,and then Is_Front_V (Buf (N + 3)) || if Curr = 'E' and then Nextc = 'V' then,and then Is_Front_V (Buf (N - 3)) || if Curr = 'E' or else Nextc = 'V' then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,686,constant 4 -> 0,Combined (4 .. 6) := Buf (Len - 2 .. Len);,Combined (0 .. 6) := Buf (Len - 2 .. Len);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,440,delete statement,Buf (1) := 'S';,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,487+29,< -> <= + = -> /=,if N + 2 < Len || return C = 'A' or else C = 'E' or else C = 'I',if N + 2 <= Len || return C = 'A' or else C = 'E' or else C /= 'I',killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,431+487,= -> /= + + -> -,elsif First = 'W' and then Second = 'R' then || if N + 2 < Len,elsif First = 'W' and then Second /= 'R' then || if N - 2 < Len,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,300+370,- -> + + + -> -,Key_Len := Key_Len - 1; || Code_Len := Code_Len + 1;,Key_Len := Key_Len + 1; || Code_Len := Code_Len - 1;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,417,constant 1 -> 0,return Buf (1 .. 1);,return Buf (1 .. 0);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,58,constant 5 -> 6,return 5;,return 6;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,434+302,- -> + + > -> >=,for I in 1 .. Len - 1 loop || if Key_Len > 2,for I in 1 .. Len + 1 loop || if Key_Len >= 2,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,498+623,+ 1 -> + 0 + + 1 -> + 0,if (N + 1 = Len - 1 and then Next_Is ('H')) || Len := Len + 1;,if (N + 0 = Len - 1 and then Next_Is ('H')) || Len := Len + 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,259,delete statement,Buf (I) := Prev;,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,194+333,= -> /= + or else -> and then,if Curr = 'E' and then Nextc = 'V' then || return C = 'E' or else C = 'I' or else C = 'Y';,if Curr = 'E' and then Nextc /= 'V' then || return C = 'E' or else C = 'I' and then C = 'Y';,stillborn
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,577+30,+ 1 -> + 0 + or else -> and then,if not Is_Last and then Vowel_At (N + 1) then || or else C = 'O' or else C = 'U';,if not Is_Last and then Vowel_At (N + 0) then || and then C = 'O' or else C = 'U';,stillborn
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,276+306,+ 1 -> + 0 + - -> +,Len := Len + 1; || Key (Key_Len - 1) := 'Y';,Len := Len + 0; || Key (Key_Len + 1) := 'Y';,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,221,delete statement,Buf (I + 1) := 'N';,null;,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,236+197,+ -> - + + -> -,if I + 1 < Len then || Buf (I + 1) := 'F';,if I - 1 < Len then || Buf (I - 1) := 'F';,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,197+116,+ -> - + = -> /=,Buf (I + 1) := 'F'; || return Soundex (A) = Soundex (B);,Buf (I - 1) := 'F'; || return Soundex (A) /= Soundex (B);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,524+392,> -> >= + < -> <=,elsif N > 0 and then Is_Varson (Buf (N)) then || return I < Len and then Is_Vowel_AEIOU (Buf (I + 1));,elsif N >= 0 and then Is_Varson (Buf (N)) then || return I <= Len and then Is_Vowel_AEIOU (Buf (I + 1));,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,236,constant 1 -> 0,if I + 1 < Len then,if I + 0 < Len then,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,236,constant 1 -> 2,if I + 1 < Len then,if I + 2 < Len then,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,434+281,- 1 -> - 0 + = -> /=,for I in 1 .. Len - 1 loop || if Len = 0 then,for I in 1 .. Len - 0 loop || if Len /= 0 then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,169,constant 1 -> 0,Buf (Len - 1) := 'Y';,Buf (Len - 0) := 'Y';,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,640,constant 1 -> 2,for I in 1 .. Len loop,for I in 2 .. Len loop,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,192+435,+ -> - + + -> -,(if I + 1 < Len then Buf (I + 2) else ' '); || Buf (I) := Buf (I + 1);,(if I - 1 < Len then Buf (I + 2) else ' '); || Buf (I) := Buf (I - 1);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,352,constant 1 -> 2,if Pos + Test'Length - 1 > Len then,if Pos + Test'Length - 2 > Len then,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,56,constant 4 -> 3,return 4;,return 3;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,577,constant 1 -> 0,if not Is_Last and then Vowel_At (N + 1) then,if not Is_Last and then Vowel_At (N + 0) then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,178+190,- 1 -> - 0 + < -> <=,Len := Len - 1; || (if I < Len then Buf (I + 1) else ' ');,Len := Len - 0; || (if I <= Len then Buf (I + 1) else ' ');,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,349+623,= -> /= + + 1 -> + 0,if Test'Length = 0 then || Len := Len + 1;,if Test'Length /= 0 then || Len := Len + 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,276,constant 1 -> 0,Len := Len + 1;,Len := Len + 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,524,constant 0 -> 1,elsif N > 0 and then Is_Varson (Buf (N)) then,elsif N > 1 and then Is_Varson (Buf (N)) then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,461+177,= -> /= + - -> +,if N = 0 then || Buf (Len - 1) := 'D';,if N /= 0 then || Buf (Len + 1) := 'D';,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,447,constant 1 -> 0,Len := Len - 1;,Len := Len - 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,142,constant 1 -> 0,return Buf (Len - Suffix'Length + 1 .. Len) = Suffix;,return Buf (Len - Suffix'Length + 0 .. Len) = Suffix;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,52,constant 2 -> 3,return 2;,return 3;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,237+192,+ -> - + + -> -,Buf (I + 2) := 'S'; || (if I + 1 < Len then Buf (I + 2) else ' ');,Buf (I - 2) := 'S'; || (if I - 1 < Len then Buf (I + 2) else ' ');,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,623+456,+ 1 -> + 0 + + -> -,Len := Len + 1; || Symb := Buf (N + 1);,Len := Len + 0; || Symb := Buf (N - 1);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,245+500,+ -> - + - -> +,Buf (I + 1) := 'F'; || (N + 1 < Len - 1,Buf (I - 1) := 'F'; || (N + 1 < Len + 1,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,635+455,= -> /= + < -> <=,if Len = 0 then || while Code_Len < Metaphone_Max_Code and then N < Len loop,if Len /= 0 then || while Code_Len < Metaphone_Max_Code and then N <= Len loop,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,360,constant 0 -> 1,Len      : Natural := 0;,Len      : Natural := 1;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,667,constant 2 -> 0,for I in 2 .. Len loop,for I in 0 .. Len loop,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,14+231,or else -> and then + = -> /=,return (C in 'A' .. 'Z') or else (C in 'a' .. 'z'); || if Curr = 'S' and then Nextc = 'C' and then Anext = 'H' then,return (C in 'A' .. 'Z') and then (C in 'a' .. 'z'); || if Curr = 'S' and then Nextc = 'C' and then Anext /= 'H' then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,685,constant 3 -> 0,Combined (1 .. 3) := Buf (1 .. 3);,Combined (1 .. 3) := Buf (1 .. 0);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,300,delete statement,Key_Len := Key_Len - 1;,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,526+142,+ -> - + - -> +,elsif Vowel_At (N + 1) then || return Buf (Len - Suffix'Length + 1 .. Len) = Suffix;,elsif Vowel_At (N - 1) then || return Buf (Len + Suffix'Length + 1 .. Len) = Suffix;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,338+310,= -> /= + - 1 -> - 0,return C = 'C' or else C = 'S' or else C = 'P' || Key_Len := Key_Len - 1;,return C /= 'C' or else C = 'S' or else C = 'P' || Key_Len := Key_Len - 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,382+524,= -> /= + > -> >=,return N + 1 < Len and then Buf (N + 2) = C; || elsif N > 0 and then Is_Varson (Buf (N)) then,return N + 1 < Len and then Buf (N + 2) /= C; || elsif N >= 0 and then Is_Varson (Buf (N)) then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,289,delete statement,Key (1) := Buf (1);,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,310+445,- 1 -> - 0 + + 1 -> + 0,Key_Len := Key_Len - 1; || Buf (I) := Buf (I + 1);,Key_Len := Key_Len - 0; || Buf (I) := Buf (I + 0);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,42+499,= -> /= + or else -> and then,return U = 'H' or else U = 'W'; || or else,return U = 'H' or else U /= 'W'; || and then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,52,constant 2 -> 1,return 2;,return 1;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,502,constant 2 -> 3,and then not Vowel_At (N + 2)),and then not Vowel_At (N + 3)),killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,192+258,+ -> - + = -> /=,(if I + 1 < Len then Buf (I + 2) else ' '); || if Curr = 'W' and then Is_Vowel_AEIOU (Prev) then,(if I + 1 < Len then Buf (I - 2) else ' '); || if Curr /= 'W' and then Is_Vowel_AEIOU (Prev) then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,447,constant 1 -> 2,Len := Len - 1;,Len := Len - 2;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,510,delete statement,Hard := Prev_Is ('G');,null;,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,435+92,+ -> - + = -> /=,Buf (I) := Buf (I + 1); || if Code = 0 then,Buf (I) := Buf (I - 1); || if Code /= 0 then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,673,constant 1 -> 2,Buf (1 .. Out_Len) := Out_Buf (1 .. Out_Len);,Buf (1 .. Out_Len) := Out_Buf (2 .. Out_Len);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,433+349,and then -> or else + = -> /=,elsif First = 'W' and then Second = 'H' then || if Test'Length = 0 then,elsif First = 'W' or else Second = 'H' then || if Test'Length /= 0 then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,190+303,+ -> - + - -> +,(if I < Len then Buf (I + 1) else ' '); || and then Key (Key_Len - 1) = 'A',(if I < Len then Buf (I - 1) else ' '); || and then Key (Key_Len + 1) = 'A',killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,195,delete statement,Buf (I) := 'A';,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,434,constant 1 -> 2,for I in 1 .. Len - 1 loop,for I in 2 .. Len - 1 loop,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,243,delete statement,Buf (I) := 'F';,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,635,constant 0 -> 1,if Len = 0 then,if Len = 1 then,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,444+187,- -> + + - -> +,for I in 1 .. Len - 1 loop || Prev  : constant Character := Buf (I - 1);,for I in 1 .. Len + 1 loop || Prev  : constant Character := Buf (I + 1);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,685,constant 1 -> 0,Combined (1 .. 3) := Buf (1 .. 3);,Combined (0 .. 3) := Buf (1 .. 3);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,42+21,or else -> and then + - -> +,return U = 'H' or else U = 'W'; || (Character'Pos (C) - Character'Pos ('a') + Character'Pos ('A'));,return U = 'H' and then U = 'W'; || (Character'Pos (C) + Character'Pos ('a') + Character'Pos ('A'));,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,649,constant 1 -> 2,Len := Out_Len + 1;,Len := Out_Len + 2;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,92,constant 0 -> 1,if Code = 0 then,if Code = 1 then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,444,constant 1 -> 0,for I in 1 .. Len - 1 loop,for I in 0 .. Len - 1 loop,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,534+512,> -> >= + + -> -,if N > 0 then || and then Is_Front_V (Buf (N + 2)),if N >= 0 then || and then Is_Front_V (Buf (N - 2)),killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,221,constant 1 -> 2,Buf (I + 1) := 'N';,Buf (I + 2) := 'N';,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,489,constant 3 -> 2,and then Is_Front_V (Buf (N + 3)),and then Is_Front_V (Buf (N + 2)),killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,492,delete statement,N := N + 2;,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,426+75,and then -> or else + = -> /=,and then Second = 'N' || if Name'Length = 0 or else Name'Length > Max_Len then,or else Second = 'N' || if Name'Length /= 0 or else Name'Length > Max_Len then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,72,constant 0 -> 1,Prev       : Natural := 0;,Prev       : Natural := 1;,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,513+382,and then -> or else + + -> -,and then not Hard || return N + 1 < Len and then Buf (N + 2) = C;,or else not Hard || return N - 1 < Len and then Buf (N + 2) = C;,stillborn
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,209,delete statement,Buf (I) := 'G';,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,29+382,= -> /= + + -> -,return C = 'A' or else C = 'E' or else C = 'I' || return N + 1 < Len and then Buf (N + 2) = C;,return C /= 'A' or else C = 'E' or else C = 'I' || return N + 1 < Len and then Buf (N - 2) = C;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,85,constant 1 -> 2,Result (1) := To_Upper (C);,Result (2) := To_Upper (C);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,86,delete statement,Prev := Soundex_Map (C);,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,500,constant 1 -> 0,(N + 1 < Len - 1,(N + 0 < Len - 1,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,708,constant 1 -> 0,return Buf (1 .. Len);,return Buf (0 .. Len);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,685,constant 3 -> 0,Combined (1 .. 3) := Buf (1 .. 3);,Combined (1 .. 0) := Buf (1 .. 3);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,444,constant 1 -> 2,for I in 1 .. Len - 1 loop,for I in 2 .. Len - 1 loop,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,685,constant 1 -> 2,Combined (1 .. 3) := Buf (1 .. 3);,Combined (2 .. 3) := Buf (1 .. 3);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,75+276,= -> /= + + -> -,if Name'Length = 0 or else Name'Length > Max_Len then || Len := Len + 1;,if Name'Length /= 0 or else Name'Length > Max_Len then || Len := Len - 1;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,42+192,or else -> and then + + -> -,return U = 'H' or else U = 'W'; || (if I + 1 < Len then Buf (I + 2) else ' ');,return U = 'H' and then U = 'W'; || (if I + 1 < Len then Buf (I - 2) else ' ');,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,498,constant 1 -> 2,if (N + 1 = Len - 1 and then Next_Is ('H')),if (N + 2 = Len - 1 and then Next_Is ('H')),killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,307+648,- 1 -> - 0 + + 1 -> + 0,Key_Len := Key_Len - 1; || Buf (2 .. Out_Len + 1) := Out_Buf (1 .. Out_Len);,Key_Len := Key_Len - 0; || Buf (2 .. Out_Len + 0) := Out_Buf (1 .. Out_Len);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,492+426,+ -> - + and then -> or else,N := N + 2; || and then Second = 'N',N := N - 2; || or else Second = 'N',killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,165,constant 2 -> 0,if Len < 2 then,if Len < 0 then,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,267,constant 1 -> 2,Key     : String (1 .. Max_Len);,Key     : String (2 .. Max_Len);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,638,constant 1 -> 2,First := Buf (1);,First := Buf (2);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,98,constant 1 -> 2,Result (1 + Digits_Set) := Digit_Char (Code);,Result (2 + Digits_Set) := Digit_Char (Code);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,192,constant 2 -> 1,(if I + 1 < Len then Buf (I + 2) else ' ');,(if I + 1 < Len then Buf (I + 1) else ' ');,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,498,constant 1 -> 2,if (N + 1 = Len - 1 and then Next_Is ('H')),if (N + 1 = Len - 2 and then Next_Is ('H')),killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,687,constant 1 -> 0,Buf (1 .. MRA_Max_Code) := Combined;,Buf (0 .. MRA_Max_Code) := Combined;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,673,constant 1 -> 2,Buf (1 .. Out_Len) := Out_Buf (1 .. Out_Len);,Buf (2 .. Out_Len) := Out_Buf (1 .. Out_Len);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,291,constant 2 -> 1,for I in 2 .. Len loop,for I in 1 .. Len loop,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,170+142,- -> + + + -> -,Len := Len - 1; || return Buf (Len - Suffix'Length + 1 .. Len) = Suffix;,Len := Len + 1; || return Buf (Len - Suffix'Length - 1 .. Len) = Suffix;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,338+333,or else -> and then + or else -> and then,return C = 'C' or else C = 'S' or else C = 'P' || return C = 'E' or else C = 'I' or else C = 'Y';,return C = 'C' or else C = 'S' and then C = 'P' || return C = 'E' and then C = 'I' or else C = 'Y';,stillborn
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,407,delete statement,Len := Len + 1;,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,512,constant 2 -> 1,and then Is_Front_V (Buf (N + 2)),and then Is_Front_V (Buf (N + 1)),killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,648+435,+ -> - + + -> -,Buf (2 .. Out_Len + 1) := Out_Buf (1 .. Out_Len); || Buf (I) := Buf (I + 1);,Buf (2 .. Out_Len - 1) := Out_Buf (1 .. Out_Len); || Buf (I) := Buf (I - 1);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,639,delete statement,First_Vowel := Is_Vowel_AEIOU (First);,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,310,constant 1 -> 0,Key_Len := Key_Len - 1;,Key_Len := Key_Len - 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,251+445,and then -> or else + + -> -,and then (not Is_Vowel_AEIOU (Prev) || Buf (I) := Buf (I + 1);,or else (not Is_Vowel_AEIOU (Prev) || Buf (I) := Buf (I - 1);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,250+21,= -> /= + + -> -,if Curr = 'H' || (Character'Pos (C) - Character'Pos ('a') + Character'Pos ('A'));,if Curr /= 'H' || (Character'Pos (C) - Character'Pos ('a') - Character'Pos ('A'));,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,58,constant 5 -> 0,return 5;,return 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,310+132,- -> + + = -> /=,Key_Len := Key_Len - 1; || return Buf (1 .. Prefix'Length) = Prefix;,Key_Len := Key_Len + 1; || return Buf (1 .. Prefix'Length) /= Prefix;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,623,constant 1 -> 2,Len := Len + 1;,Len := Len + 2;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,300,constant 1 -> 2,Key_Len := Key_Len - 1;,Key_Len := Key_Len - 2;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,270+669,> -> >= + + 1 -> + 0,if Name'Length = 0 or else Name'Length > Max_Len then || Out_Len := Out_Len + 1;,if Name'Length = 0 or else Name'Length >= Max_Len then || Out_Len := Out_Len + 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,187+445,- 1 -> - 0 + + 1 -> + 0,Prev  : constant Character := Buf (I - 1); || Buf (I) := Buf (I + 1);,Prev  : constant Character := Buf (I - 0); || Buf (I) := Buf (I + 0);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,355+435,= -> /= + + 1 -> + 0,return Buf (Pos .. Pos + Test'Length - 1) = Test; || Buf (I) := Buf (I + 1);,return Buf (Pos .. Pos + Test'Length - 1) /= Test; || Buf (I) := Buf (I + 0);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,165,constant 2 -> 1,if Len < 2 then,if Len < 1 then,survived
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,94,delete statement,Prev := 0;,null;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,600,constant 1 -> 2,return Code (1 .. Code_Len);,return Code (2 .. Code_Len);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,577+293,and then -> or else + - -> +,if not Is_Last and then Vowel_At (N + 1) then || if Buf (I) /= Buf (I - 1) then,if not Is_Last or else Vowel_At (N + 1) then || if Buf (I) /= Buf (I + 1) then,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,524+425,and then -> or else + = -> /=,elsif N > 0 and then Is_Varson (Buf (N)) then || if (First = 'K' or else First = 'G' or else First = 'P'),elsif N > 0 or else Is_Varson (Buf (N)) then || if (First = 'K' or else First = 'G' or else First /= 'P'),killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,438,constant 1 -> 0,Buf (1) := 'W';,Buf (0) := 'W';,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,665,constant 1 -> 0,Out_Len := 1;,Out_Len := 0;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,392+382,+ 1 -> + 0 + = -> /=,return I < Len and then Is_Vowel_AEIOU (Buf (I + 1)); || return N + 1 < Len and then Buf (N + 2) = C;,return I < Len and then Is_Vowel_AEIOU (Buf (I + 0)); || return N + 1 < Len and then Buf (N + 2) /= C;,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,473,constant 2 -> 3,and then Is_Front_V (Buf (N + 2)),and then Is_Front_V (Buf (N + 3)),killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,708,constant 1 -> 2,return Buf (1 .. Len);,return Buf (2 .. Len);,killed
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,29+502,= -> /= + and then -> or else,return C = 'A' or else C = 'E' or else C = 'I' || and then not Vowel_At (N + 2)),return C = 'A' or else C /= 'E' or else C = 'I' || or else not Vowel_At (N + 2)),stillborn
+alt seed 20261108,misc/Ada/Phonetic-Algorithms,phonetic_algorithms.adb,623,constant 1 -> 0,Len := Len + 1;,Len := Len + 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,131,constant 0 -> 1,"if Dot_Product (Bit_Mask (X), Bit_Mask (Y)) = 0 then","if Dot_Product (Bit_Mask (X), Bit_Mask (Y)) = 1 then",survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,268,constant 0 -> 1,if ((G_Char * Subgroup(I)) mod N) /= 0 then,if ((G_Char * Subgroup(I)) mod N) /= 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,93,delete statement,Free_Col := C;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,123,constant 0 -> 1,Count  : Natural := 0;,Count  : Natural := 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,171,constant 1 -> 0,for X in 1 .. Group_Element(N - 1) loop,for X in 0 .. Group_Element(N - 1) loop,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,268+84,/= -> = + - -> +,if ((G_Char * Subgroup(I)) mod N) /= 0 then || Pivot    : Pivot_Rows (0 .. Bits - 1);,if ((G_Char * Subgroup(I)) mod N) = 0 then || Pivot    : Pivot_Rows (0 .. Bits + 1);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,20,delete statement,X := Temp;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,84+171,- 1 -> - 0 + - -> +,Pivot    : Pivot_Rows (0 .. Bits - 1); || for X in 1 .. Group_Element(N - 1) loop,Pivot    : Pivot_Rows (0 .. Bits - 0); || for X in 1 .. Group_Element(N + 1) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,240+33,- 1 -> - 0 + > -> >=,for X in 0 .. Group_Element(N - 1) loop || while Val > 0 loop,for X in 0 .. Group_Element(N - 0) loop || while Val >= 0 loop,timeout
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,193,delete statement,Is_Periodic := False;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,39,constant 2 -> 3,return Count mod 2;,return Count mod 3;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,268+34,/= -> = + = -> /=,if ((G_Char * Subgroup(I)) mod N) /= 0 then || if (Val mod 2) = 1 then,if ((G_Char * Subgroup(I)) mod N) = 0 then || if (Val mod 2) /= 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,58,constant 2 -> 0,if (Row and Bit_Mask (2 ** C)) /= 0 then,if (Row and Bit_Mask (0 ** C)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,17,constant 0 -> 1,while Y /= 0 loop,while Y /= 1 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,142,constant 1 -> 0,return Result (1 .. Count);,return Result (0 .. Count);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,69+17,- 1 -> - 0 + /= -> =,for C in 1 .. Bits - 1 loop || while Y /= 0 loop,for C in 1 .. Bits - 0 loop || while Y = 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,184,constant 1 -> 0,for R in 1 .. Period_Type(N) loop,for R in 0 .. Period_Type(N) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,285,constant 5 -> 0,"return Bit_Mask'Min(X, X xor 5);","return Bit_Mask'Min(X, X xor 0);",killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,52,delete statement,Pivot := [others => 0];,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,103,constant 2 -> 1,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (1 ** Free_Col)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,172+128,/= -> = + - -> +,if Oracle(X) /= Base_Val then || for Y in 0 .. Size - 1 loop,if Oracle(X) = Base_Val then || for Y in 0 .. Size + 1 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,69+49,- -> + + - 1 -> - 0,for C in 1 .. Bits - 1 loop || Full : constant Bit_Mask := Bit_Mask (2 ** Bits - 1);,for C in 1 .. Bits + 1 loop || Full : constant Bit_Mask := Bit_Mask (2 ** Bits - 0);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,69+35,- 1 -> - 0 + + 1 -> + 0,for C in 1 .. Bits - 1 loop || Count := Count + 1;,for C in 1 .. Bits - 0 loop || Count := Count + 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,248+84,/= -> = + - -> +,if Oracle(Shifted) /= Base_Val then || Pivot    : Pivot_Rows (0 .. Bits - 1);,if Oracle(Shifted) = Base_Val then || Pivot    : Pivot_Rows (0 .. Bits + 1);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,98+70,> -> >= + /= -> =,elsif Free > 1 then || if Pivot (C) /= 0 then,elsif Free >= 1 then || if Pivot (C) = 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,132,constant 1 -> 0,Amp (F (X)) := Amp (F (X)) + 1;,Amp (F (X)) := Amp (F (X)) + 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,85,constant 0 -> 1,Free     : Natural := 0;,Free     : Natural := 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,225,constant 1 -> 2,return [1 => Group_Element (Period) mod N];,return [2 => Group_Element (Period) mod N];,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,171,constant 1 -> 0,for X in 1 .. Group_Element(N - 1) loop,for X in 1 .. Group_Element(N - 0) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,295,constant 4 -> 0,return X mod 4;,return X mod 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,73,delete statement,Pivot (C) := Pivot (C) xor Pivot (D);,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,98+57,> -> >= + - 1 -> - 0,elsif Free > 1 then || for C in reverse 0 .. Bits - 1 loop,elsif Free >= 1 then || for C in reverse 0 .. Bits - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,173,delete statement,All_Constant := False;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,295,constant 4 -> 5,return X mod 4;,return X mod 5;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,57,constant 0 -> 1,for C in reverse 0 .. Bits - 1 loop,for C in reverse 1 .. Bits - 1 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,240+172,- 1 -> - 0 + /= -> =,for X in 0 .. Group_Element(N - 1) loop || if Oracle(X) /= Base_Val then,for X in 0 .. Group_Element(N - 0) loop || if Oracle(X) = Base_Val then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,280,constant 3 -> 2,"return Bit_Mask'Min(X, X xor 3);","return Bit_Mask'Min(X, X xor 2);",killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,57+84,- 1 -> - 0 + - -> +,for C in reverse 0 .. Bits - 1 loop || Pivot    : Pivot_Rows (0 .. Bits - 1);,for C in reverse 0 .. Bits - 0 loop || Pivot    : Pivot_Rows (0 .. Bits + 1);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,39,constant 2 -> 1,return Count mod 2;,return Count mod 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,92+103,+ 1 -> + 0 + /= -> =,Free := Free + 1; || if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,Free := Free + 0; || if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) = 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,57+188,- -> + + - -> +,for C in reverse 0 .. Bits - 1 loop || for X in 0 .. Group_Element(N - 1) loop,for C in reverse 0 .. Bits + 1 loop || for X in 0 .. Group_Element(N + 1) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,69+35,- -> + + + -> -,for C in 1 .. Bits - 1 loop || Count := Count + 1;,for C in 1 .. Bits + 1 loop || Count := Count - 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,128+172,- 1 -> - 0 + /= -> =,for Y in 0 .. Size - 1 loop || if Oracle(X) /= Base_Val then,for Y in 0 .. Size - 0 loop || if Oracle(X) = Base_Val then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,52,constant 0 -> 1,Pivot := [others => 0];,Pivot := [others => 1];,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,138,delete statement,Count := Count + 1;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,35,constant 1 -> 2,Count := Count + 1;,Count := Count + 2;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,104,delete statement,S := S or Bit_Mask (2 ** C);,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,240+49,- -> + + - -> +,for X in 0 .. Group_Element(N - 1) loop || Full : constant Bit_Mask := Bit_Mask (2 ** Bits - 1);,for X in 0 .. Group_Element(N + 1) loop || Full : constant Bit_Mask := Bit_Mask (2 ** Bits + 1);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,70,constant 0 -> 1,if Pivot (C) /= 0 then,if Pivot (C) /= 1 then,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,19,delete statement,Y := X mod Y;,null;,timeout
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,103,constant 0 -> 1,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,if Pivot (C) /= 1 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,138+57,+ -> - + - 1 -> - 0,Count := Count + 1; || for C in reverse 0 .. Bits - 1 loop,Count := Count - 1; || for C in reverse 0 .. Bits - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,132+69,+ 1 -> + 0 + - 1 -> - 0,Amp (F (X)) := Amp (F (X)) + 1; || for C in 1 .. Bits - 1 loop,Amp (F (X)) := Amp (F (X)) + 0; || for C in 1 .. Bits - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,57,constant 1 -> 2,for C in reverse 0 .. Bits - 1 loop,for C in reverse 0 .. Bits - 2 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,101,constant 2 -> 3,S := Bit_Mask (2 ** Free_Col);,S := Bit_Mask (3 ** Free_Col);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,84+92,- 1 -> - 0 + + -> -,Pivot    : Pivot_Rows (0 .. Bits - 1); || Free := Free + 1;,Pivot    : Pivot_Rows (0 .. Bits - 0); || Free := Free - 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,92,delete statement,Free := Free + 1;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,34,constant 1 -> 2,if (Val mod 2) = 1 then,if (Val mod 2) = 2 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,290,constant 3 -> 0,return X mod 3;,return X mod 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,72+71,/= -> = + - 1 -> - 0,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then || for D in reverse 0 .. C - 1 loop,if Pivot (D) = 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then || for D in reverse 0 .. C - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,103+92,/= -> = + + 1 -> + 0,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then || Free := Free + 1;,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) = 0 then || Free := Free + 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,139,delete statement,Result (Count) := Bit_Mask (Y);,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,138,constant 1 -> 0,Count := Count + 1;,Count := Count + 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,70+92,/= -> = + + 1 -> + 0,if Pivot (C) /= 0 then || Free := Free + 1;,if Pivot (C) = 0 then || Free := Free + 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,240+69,- -> + + - -> +,for X in 0 .. Group_Element(N - 1) loop || for C in 1 .. Bits - 1 loop,for X in 0 .. Group_Element(N + 1) loop || for C in 1 .. Bits + 1 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,301,constant 42 -> 41,return 42;,return 41;,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,35,constant 1 -> 0,Count := Count + 1;,Count := Count + 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,103+188,/= -> = + - -> +,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then || for X in 0 .. Group_Element(N - 1) loop,if Pivot (C) = 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then || for X in 0 .. Group_Element(N + 1) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,188,constant 1 -> 2,for X in 0 .. Group_Element(N - 1) loop,for X in 0 .. Group_Element(N - 2) loop,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,71,constant 0 -> 1,for D in reverse 0 .. C - 1 loop,for D in reverse 1 .. C - 1 loop,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,101,constant 2 -> 1,S := Bit_Mask (2 ** Free_Col);,S := Bit_Mask (1 ** Free_Col);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,72,constant 0 -> 1,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,if Pivot (D) /= 1 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,37,constant 2 -> 1,Val := Val / 2;,Val := Val / 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,58+171,/= -> = + - -> +,if (Row and Bit_Mask (2 ** C)) /= 0 then || for X in 1 .. Group_Element(N - 1) loop,if (Row and Bit_Mask (2 ** C)) = 0 then || for X in 1 .. Group_Element(N + 1) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,98,constant 1 -> 0,elsif Free > 1 then,elsif Free > 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,285,constant 5 -> 4,"return Bit_Mask'Min(X, X xor 5);","return Bit_Mask'Min(X, X xor 4);",killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,37,delete statement,Val := Val / 2;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,96,constant 0 -> 1,if Free = 0 then,if Free = 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,84,constant 0 -> 1,Pivot    : Pivot_Rows (0 .. Bits - 1);,Pivot    : Pivot_Rows (1 .. Bits - 1);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,120+57,- -> + + - 1 -> - 0,F      : array (0 .. Size - 1) of Bit_Mask; || for C in reverse 0 .. Bits - 1 loop,F      : array (0 .. Size + 1) of Bit_Mask; || for C in reverse 0 .. Bits - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,122,constant 1 -> 0,Result : Bit_Mask_Array (1 .. Size);,Result : Bit_Mask_Array (0 .. Size);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,59,constant 0 -> 1,if Pivot (C) = 0 then,if Pivot (C) = 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,103,constant 0 -> 1,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,103+128,and then -> or else + - 1 -> - 0,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then || for Y in 0 .. Size - 1 loop,if Pivot (C) /= 0 or else (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then || for Y in 0 .. Size - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,103+190,and then -> or else + + -> -,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then || Shifted : constant Group_Element := (X + Group_Element(R)) mod N;,if Pivot (C) /= 0 or else (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then || Shifted : constant Group_Element := (X - Group_Element(R)) mod N;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,132,constant 1 -> 2,Amp (F (X)) := Amp (F (X)) + 1;,Amp (F (X)) := Amp (F (X)) + 2;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,101,delete statement,S := Bit_Mask (2 ** Free_Col);,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,71,constant 1 -> 0,for D in reverse 0 .. C - 1 loop,for D in reverse 0 .. C - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,91+188,= -> /= + - -> +,if Pivot (C) = 0 then || for X in 0 .. Group_Element(N - 1) loop,if Pivot (C) /= 0 then || for X in 0 .. Group_Element(N + 1) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,72,constant 0 -> 1,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,34,constant 2 -> 3,if (Val mod 2) = 1 then,if (Val mod 3) = 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,184,constant 1 -> 2,for R in 1 .. Period_Type(N) loop,for R in 2 .. Period_Type(N) loop,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,268+120,* -> + + - -> +,if ((G_Char * Subgroup(I)) mod N) /= 0 then || F      : array (0 .. Size - 1) of Bit_Mask;,if ((G_Char + Subgroup(I)) mod N) /= 0 then || F      : array (0 .. Size + 1) of Bit_Mask;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,35,delete statement,Count := Count + 1;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,69,constant 1 -> 0,for C in 1 .. Bits - 1 loop,for C in 0 .. Bits - 1 loop,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,142,constant 1 -> 2,return Result (1 .. Count);,return Result (2 .. Count);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,71,constant 1 -> 2,for D in reverse 0 .. C - 1 loop,for D in reverse 0 .. C - 2 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,134,constant 1 -> 2,Amp (F (X)) := Amp (F (X)) - 1;,Amp (F (X)) := Amp (F (X)) - 2;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,138,constant 1 -> 2,Count := Count + 1;,Count := Count + 2;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,69,constant 1 -> 2,for C in 1 .. Bits - 1 loop,for C in 1 .. Bits - 2 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,138+120,+ 1 -> + 0 + - 1 -> - 0,Count := Count + 1; || F      : array (0 .. Size - 1) of Bit_Mask;,Count := Count + 0; || F      : array (0 .. Size - 0) of Bit_Mask;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,134+138,- 1 -> - 0 + + -> -,Amp (F (X)) := Amp (F (X)) - 1; || Count := Count + 1;,Amp (F (X)) := Amp (F (X)) - 0; || Count := Count - 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,138+188,+ -> - + - -> +,Count := Count + 1; || for X in 0 .. Group_Element(N - 1) loop,Count := Count - 1; || for X in 0 .. Group_Element(N + 1) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,58,constant 2 -> 1,if (Row and Bit_Mask (2 ** C)) /= 0 then,if (Row and Bit_Mask (1 ** C)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,70+128,/= -> = + - -> +,if Pivot (C) /= 0 then || for Y in 0 .. Size - 1 loop,if Pivot (C) = 0 then || for Y in 0 .. Size + 1 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,58,constant 2 -> 3,if (Row and Bit_Mask (2 ** C)) /= 0 then,if (Row and Bit_Mask (3 ** C)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,128,constant 1 -> 0,for Y in 0 .. Size - 1 loop,for Y in 0 .. Size - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,301,constant 42 -> 0,return 42;,return 0;,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,69+17,- -> + + /= -> =,for C in 1 .. Bits - 1 loop || while Y /= 0 loop,for C in 1 .. Bits + 1 loop || while Y = 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,86,constant 0 -> 1,Free_Col : Natural := 0;,Free_Col : Natural := 1;,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,34,constant 1 -> 0,if (Val mod 2) = 1 then,if (Val mod 2) = 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,84,constant 1 -> 0,Pivot    : Pivot_Rows (0 .. Bits - 1);,Pivot    : Pivot_Rows (0 .. Bits - 0);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,98+236,> -> >= + = -> /=,elsif Free > 1 then || if Subgroup'Length = 0 then,elsif Free >= 1 then || if Subgroup'Length /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,132,delete statement,Amp (F (X)) := Amp (F (X)) + 1;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,58,constant 0 -> 1,if (Row and Bit_Mask (2 ** C)) /= 0 then,if (Row and Bit_Mask (2 ** C)) /= 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,72,constant 2 -> 3,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (3 ** D)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,134,constant 1 -> 0,Amp (F (X)) := Amp (F (X)) - 1;,Amp (F (X)) := Amp (F (X)) - 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,120+103,- 1 -> - 0 + /= -> =,F      : array (0 .. Size - 1) of Bit_Mask; || if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,F      : array (0 .. Size - 0) of Bit_Mask; || if Pivot (C) = 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,103,constant 2 -> 3,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (3 ** Free_Col)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,280,constant 3 -> 0,"return Bit_Mask'Min(X, X xor 3);","return Bit_Mask'Min(X, X xor 0);",killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,236,constant 0 -> 1,if Subgroup'Length = 0 then,if Subgroup'Length = 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,285,constant 5 -> 6,"return Bit_Mask'Min(X, X xor 5);","return Bit_Mask'Min(X, X xor 6);",killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,301,constant 42 -> 43,return 42;,return 43;,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,280,constant 3 -> 4,"return Bit_Mask'Min(X, X xor 3);","return Bit_Mask'Min(X, X xor 4);",killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,104,constant 2 -> 0,S := S or Bit_Mask (2 ** C);,S := S or Bit_Mask (0 ** C);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,240,constant 1 -> 0,for X in 0 .. Group_Element(N - 1) loop,for X in 0 .. Group_Element(N - 0) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,156,swap arguments,"return Simon_Null_Vector (N_Bits, Eqs);","return Simon_Null_Vector (Eqs, N_Bits);",stillborn
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,34,constant 2 -> 0,if (Val mod 2) = 1 then,if (Val mod 0) = 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,59+134,= -> /= + - -> +,if Pivot (C) = 0 then || Amp (F (X)) := Amp (F (X)) - 1;,if Pivot (C) /= 0 then || Amp (F (X)) := Amp (F (X)) + 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,132+138,+ 1 -> + 0 + + -> -,Amp (F (X)) := Amp (F (X)) + 1; || Count := Count + 1;,Amp (F (X)) := Amp (F (X)) + 0; || Count := Count - 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,37,constant 2 -> 3,Val := Val / 2;,Val := Val / 3;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,104,constant 2 -> 1,S := S or Bit_Mask (2 ** C);,S := S or Bit_Mask (1 ** C);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,31,constant 0 -> 1,Count : Natural := 0;,Count : Natural := 1;,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,120+49,- -> + + - 1 -> - 0,F      : array (0 .. Size - 1) of Bit_Mask; || Full : constant Bit_Mask := Bit_Mask (2 ** Bits - 1);,F      : array (0 .. Size + 1) of Bit_Mask; || Full : constant Bit_Mask := Bit_Mask (2 ** Bits - 0);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,290,constant 3 -> 4,return X mod 3;,return X mod 4;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,37,constant 2 -> 0,Val := Val / 2;,Val := Val / 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,35+103,+ 1 -> + 0 + /= -> =,Count := Count + 1; || if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,Count := Count + 0; || if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) = 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,71+17,- 1 -> - 0 + /= -> =,for D in reverse 0 .. C - 1 loop || while Y /= 0 loop,for D in reverse 0 .. C - 0 loop || while Y = 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,134,delete statement,Amp (F (X)) := Amp (F (X)) - 1;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,34,constant 2 -> 1,if (Val mod 2) = 1 then,if (Val mod 1) = 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,92,constant 1 -> 0,Free := Free + 1;,Free := Free + 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,122,constant 1 -> 2,Result : Bit_Mask_Array (1 .. Size);,Result : Bit_Mask_Array (2 .. Size);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,63,delete statement,Row := Row xor Pivot (C);,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,295,constant 4 -> 3,return X mod 4;,return X mod 3;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,188,constant 1 -> 0,for X in 0 .. Group_Element(N - 1) loop,for X in 0 .. Group_Element(N - 0) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,128+72,- -> + + and then -> or else,for Y in 0 .. Size - 1 loop || if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,for Y in 0 .. Size + 1 loop || if Pivot (D) /= 0 or else (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,18,delete statement,Temp := Y;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,137,constant 0 -> 1,if (for some A of Amp => A /= 0) then,if (for some A of Amp => A /= 1) then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,39,constant 2 -> 0,return Count mod 2;,return Count mod 0;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,49+35,- -> + + + -> -,Full : constant Bit_Mask := Bit_Mask (2 ** Bits - 1); || Count := Count + 1;,Full : constant Bit_Mask := Bit_Mask (2 ** Bits + 1); || Count := Count - 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,58+138,/= -> = + + -> -,if (Row and Bit_Mask (2 ** C)) /= 0 then || Count := Count + 1;,if (Row and Bit_Mask (2 ** C)) = 0 then || Count := Count - 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,240,constant 0 -> 1,for X in 0 .. Group_Element(N - 1) loop,for X in 1 .. Group_Element(N - 1) loop,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,240,constant 1 -> 2,for X in 0 .. Group_Element(N - 1) loop,for X in 0 .. Group_Element(N - 2) loop,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,171,constant 1 -> 2,for X in 1 .. Group_Element(N - 1) loop,for X in 2 .. Group_Element(N - 1) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,98,constant 1 -> 2,elsif Free > 1 then,elsif Free > 2 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,69,constant 1 -> 2,for C in 1 .. Bits - 1 loop,for C in 2 .. Bits - 1 loop,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,72,constant 2 -> 1,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (1 ** D)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,188,constant 0 -> 1,for X in 0 .. Group_Element(N - 1) loop,for X in 1 .. Group_Element(N - 1) loop,survived
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,57+35,- -> + + + -> -,for C in reverse 0 .. Bits - 1 loop || Count := Count + 1;,for C in reverse 0 .. Bits + 1 loop || Count := Count - 1;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,172+71,/= -> = + - 1 -> - 0,if Oracle(X) /= Base_Val then || for D in reverse 0 .. C - 1 loop,if Oracle(X) = Base_Val then || for D in reverse 0 .. C - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,188+72,- -> + + /= -> =,for X in 0 .. Group_Element(N - 1) loop || if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,for X in 0 .. Group_Element(N + 1) loop || if Pivot (D) = 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,56,delete statement,Row := E and Full;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,35+96,+ -> - + = -> /=,Count := Count + 1; || if Free = 0 then,Count := Count - 1; || if Free /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,129,delete statement,Amp := [others => 0];,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,60,delete statement,Pivot (C) := Row;,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,246+59,+ -> - + = -> /=,Shifted : constant Group_Element := (X + Subgroup(I)) mod N; || if Pivot (C) = 0 then,Shifted : constant Group_Element := (X - Subgroup(I)) mod N; || if Pivot (C) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,92,constant 1 -> 2,Free := Free + 1;,Free := Free + 2;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,128,constant 0 -> 1,for Y in 0 .. Size - 1 loop,for Y in 1 .. Size - 1 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,84,constant 1 -> 2,Pivot    : Pivot_Rows (0 .. Bits - 1);,Pivot    : Pivot_Rows (0 .. Bits - 2);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,33,constant 0 -> 1,while Val > 0 loop,while Val > 1 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,171,constant 1 -> 2,for X in 1 .. Group_Element(N - 1) loop,for X in 1 .. Group_Element(N - 2) loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,104,constant 2 -> 3,S := S or Bit_Mask (2 ** C);,S := S or Bit_Mask (3 ** C);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,72,constant 2 -> 0,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (2 ** D)) /= 0 then,if Pivot (D) /= 0 and then (Pivot (C) and Bit_Mask (0 ** D)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,69,constant 1 -> 0,for C in 1 .. Bits - 1 loop,for C in 1 .. Bits - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,101,constant 2 -> 0,S := Bit_Mask (2 ** Free_Col);,S := Bit_Mask (0 ** Free_Col);,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,129,constant 0 -> 1,Amp := [others => 0];,Amp := [others => 1];,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,57,constant 1 -> 0,for C in reverse 0 .. Bits - 1 loop,for C in reverse 0 .. Bits - 0 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,91,constant 0 -> 1,if Pivot (C) = 0 then,if Pivot (C) = 1 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,103,constant 2 -> 0,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (2 ** Free_Col)) /= 0 then,if Pivot (C) /= 0 and then (Pivot (C) and Bit_Mask (0 ** Free_Col)) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,268+59,/= -> = + = -> /=,if ((G_Char * Subgroup(I)) mod N) /= 0 then || if Pivot (C) = 0 then,if ((G_Char * Subgroup(I)) mod N) = 0 then || if Pivot (C) /= 0 then,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,126,delete statement,F (X) := Oracle (Bit_Mask (X));,null;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,128,constant 1 -> 2,for Y in 0 .. Size - 1 loop,for Y in 0 .. Size - 2 loop,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,225,constant 1 -> 0,return [1 => Group_Element (Period) mod N];,return [0 => Group_Element (Period) mod N];,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,290,constant 3 -> 2,return X mod 3;,return X mod 2;,killed
+alt seed 20261108,misc/Ada/Hidden-Subgroup-Problem,hidden_subgroup_problem.adb,84+246,- -> + + + -> -,Pivot    : Pivot_Rows (0 .. Bits - 1); || Shifted : constant Group_Element := (X + Subgroup(I)) mod N;,Pivot    : Pivot_Rows (0 .. Bits + 1); || Shifted : constant Group_Element := (X - Subgroup(I)) mod N;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,87,delete statement,"GCD_Val := Extended_GCD (A, M, X, Y);",null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,92+61,+ -> - + * -> +,return (X mod M + M) mod M; || S := Old_S - Quotient * S;,return (X mod M - M) mod M; || S := Old_S - Quotient + S;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,65,delete statement,T := Old_T - Quotient * T;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,77,swap arguments,"Divisor := GCD (A, B);","Divisor := GCD (B, A);",survived
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,110,delete statement,"D := Modular_Inverse (E, Lambda_N);",null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,65+161,* -> + + >= -> >,T := Old_T - Quotient * T; || if Signature >= Key.N or Message >= Key.N then,T := Old_T - Quotient + T; || if Signature >= Key.N or Message > Key.N then,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,22,delete statement,Result := (Result * B) mod Modulus;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,166+88,= -> /= + /= -> =,return Computed_Msg = Message; || if GCD_Val /= One then,return Computed_Msg /= Message; || if GCD_Val = One then,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,106+81,/= -> = + * -> +,"if GCD (E, Lambda_N) /= One then || return (A / Divisor) * B;","if GCD (E, Lambda_N) = One then || return (A / Divisor) + B;",killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,53+21,/= -> = + = -> /=,while R /= Zero loop || if Exp mod Two = One then,while R = Zero loop || if Exp mod Two /= One then,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,38,delete statement,Old_R := Temp;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,151+22,>= -> > + * -> +,if Message >= Key.N then || Result := (Result * B) mod Modulus;,if Message > Key.N then || Result := (Result + B) mod Modulus;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,54,delete statement,Quotient := Old_R / R;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,53+103,/= -> = + - -> +,"while R /= Zero loop || Lambda_N := LCM (P - One, Q - One);","while R = Zero loop || Lambda_N := LCM (P - One, Q + One);",killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,106,swap arguments,"if GCD (E, Lambda_N) /= One then","if GCD (Lambda_N, E) /= One then",survived
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,120+92,>= -> > + + -> -,if Plaintext >= Key.N then || return (X mod M + M) mod M;,if Plaintext > Key.N then || return (X mod M - M) mod M;,survived
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,110,swap arguments,"D := Modular_Inverse (E, Lambda_N);","D := Modular_Inverse (Lambda_N, E);",killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,106+35,/= -> = + /= -> =,"if GCD (E, Lambda_N) /= One then || while R /= Zero loop","if GCD (E, Lambda_N) = One then || while R = Zero loop",killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,166+138,= -> /= + * -> +,return Computed_Msg = Message; || C_Blinded : constant RSA_Integer := (Ciphertext * R_E) mod Key.N;,return Computed_Msg /= Message; || C_Blinded : constant RSA_Integer := (Ciphertext + R_E) mod Key.N;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,69,delete statement,X := Old_S;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,53+65,/= -> = + * -> +,while R /= Zero loop || T := Old_T - Quotient * T;,while R = Zero loop || T := Old_T - Quotient + T;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,57+53,- -> + + /= -> =,R := Old_R - Quotient * R; || while R /= Zero loop,R := Old_R + Quotient * R; || while R = Zero loop,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,81+78,* -> + + = -> /=,return (A / Divisor) * B; || if Divisor = Zero then,return (A / Divisor) + B; || if Divisor /= Zero then,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,64,delete statement,Temp := T;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,53+65,/= -> = + - -> +,while R /= Zero loop || T := Old_T - Quotient * T;,while R = Zero loop || T := Old_T + Quotient * T;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,77,delete statement,"Divisor := GCD (A, B);",null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,60,delete statement,Temp := S;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,57+103,- -> + + - -> +,"R := Old_R - Quotient * R; || Lambda_N := LCM (P - One, Q - One);","R := Old_R + Quotient * R; || Lambda_N := LCM (P - One, Q + One);",killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,81+65,* -> + + * -> +,return (A / Divisor) * B; || T := Old_T - Quotient * T;,return (A / Divisor) + B; || T := Old_T - Quotient + T;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,62,delete statement,Old_S := Temp;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,66,delete statement,Old_T := Temp;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,103+166,- -> + + = -> /=,"Lambda_N := LCM (P - One, Q - One); || return Computed_Msg = Message;","Lambda_N := LCM (P + One, Q - One); || return Computed_Msg /= Message;",killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,138+61,* -> + + - -> +,C_Blinded : constant RSA_Integer := (Ciphertext * R_E) mod Key.N; || S := Old_S - Quotient * S;,C_Blinded : constant RSA_Integer := (Ciphertext + R_E) mod Key.N; || S := Old_S + Quotient * S;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,53+20,/= -> = + > -> >=,while R /= Zero loop || while Exp > Zero loop,while R = Zero loop || while Exp >= Zero loop,timeout
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,35+61,/= -> = + * -> +,while R /= Zero loop || S := Old_S - Quotient * S;,while R = Zero loop || S := Old_S - Quotient + S;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,25+57,* -> + + - -> +,B := (B * B) mod Modulus; || R := Old_R - Quotient * R;,B := (B + B) mod Modulus; || R := Old_R + Quotient * R;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,36,delete statement,Temp := R;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,151+53,>= -> > + /= -> =,if Message >= Key.N then || while R /= Zero loop,if Message > Key.N then || while R = Zero loop,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,92+57,+ -> - + - -> +,return (X mod M + M) mod M; || R := Old_R - Quotient * R;,return (X mod M - M) mod M; || R := Old_R + Quotient * R;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,120+161,>= -> > + >= -> >,if Plaintext >= Key.N then || if Signature >= Key.N or Message >= Key.N then,if Plaintext > Key.N then || if Signature >= Key.N or Message > Key.N then,survived
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,61,delete statement,S := Old_S - Quotient * S;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,56,delete statement,Temp := R;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,24,delete statement,Exp := Exp / Two;,null;,timeout
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,57,delete statement,R := Old_R - Quotient * R;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,165,delete statement,"Computed_Msg := Modular_Exponentiation (Signature, Key.E, Key.N);",null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,166+88,= -> /= + /= -> =,return Computed_Msg = Message; || if GCD_Val /= One then,return Computed_Msg /= Message; || if GCD_Val = One then,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,88+35,/= -> = + /= -> =,if GCD_Val /= One then || while R /= Zero loop,if GCD_Val = One then || while R = Zero loop,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,58,delete statement,Old_R := Temp;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,103,delete statement,"Lambda_N := LCM (P - One, Q - One);",null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,25,delete statement,B := (B * B) mod Modulus;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,100,delete statement,N := P * Q;,null;,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,61+161,* -> + + >= -> >,S := Old_S - Quotient * S; || if Signature >= Key.N or Message >= Key.N then,S := Old_S - Quotient + S; || if Signature > Key.N or Message >= Key.N then,killed
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,37,delete statement,R := Old_R mod R;,null;,timeout
+alt seed 20261108,cryptography/Ada/RSA,rsa.adb,70,delete statement,Y := Old_T;,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,686,constant 1 -> 2,"Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","Src (Src'First (1) + I - 1, Src'First (2) + J - 2);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,245,constant 1 -> 2,"R : Matrix (1 .. N, 1 .. N) := [others => [others => 0.0]];","R : Matrix (1 .. N, 2 .. N) := [others => [others => 0.0]];",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,644+258,+ -> - + - 1 -> - 0,"R (I, J) := M (I0 + I - 1, J0 + N + J - 1); || R (I, J) := Float ((I - 1) * N + J);","R (I, J) := M (I0 + I - 1, J0 - N + J - 1); || R (I, J) := Float ((I - 0) * N + J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,999,constant 2 -> 1,or else A'Length (2) /= N,or else A'Length (1) /= N,survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,865+258,+ -> - + - -> +,"Ar0 : constant Positive := Loc_A'First (1) + Bi * BS; || R (I, J) := Float ((I - 1) * N + J);","Ar0 : constant Positive := Loc_A'First (1) - Bi * BS; || R (I, J) := Float ((I + 1) * N + J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,581,constant 2 -> 0,if Prefer_Parallel and then N >= 2 then,if Prefer_Parallel and then N >= 0 then,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1231+1235,> -> >= + /= -> =,if N < 1 or else N > Max_N then || or else B'Length (1) /= N,if N < 1 or else N >= Max_N then || or else B'Length (1) = N,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1219,swap arguments,"P (I, J) := R.C (I, J);","P (I, J) := R.C (J, I);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,686,constant 2 -> 1,"Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","Src (Src'First (1) + I - 1, Src'First (1) + J - 1);",survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,109,constant 1 -> 0,return A'Length (1) = A'Length (2);,return A'Length (0) = A'Length (2);,stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1044+151,or else -> and then + and then -> or else,"if N < 1 or else N > Max_N || return P >= 1 and then N >= P and then N <= Max_N and then Divides (P, N);","if N < 1 and then N > Max_N || return P >= 1 and then N >= P and then N <= Max_N or else Divides (P, N);",stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,342,constant 17 -> 18,"R (I, J) := Integer ((Seed + 17 * I + 31 * J) mod 10);","R (I, J) := Integer ((Seed + 18 * I + 31 * J) mod 10);",survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,725,constant 1 -> 2,"Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","Src (Src'First (2) + I - 1, Src'First (2) + J - 1);",survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1044+408,< -> <= + * -> +,if N < 1 or else N > Max_N || S := (Long_Integer (LCG_Mul) * Long_Integer (State),if N <= 1 or else N > Max_N || S := (Long_Integer (LCG_Mul) + Long_Integer (State),killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,759,constant 1 -> 2,"C11, C12, C21, C22         : Matrix (1 .. H, 1 .. H);","C11, C12, C21, C22         : Matrix (2 .. H, 1 .. H);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1234,constant 2 -> 0,if A'Length (2) /= N,if A'Length (0) /= N,stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,644,constant 1 -> 2,"R (I, J) := M (I0 + I - 1, J0 + N + J - 1);","R (I, J) := M (I0 + I - 1, J0 + N + J - 2);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1074,constant 1 -> 0,"Loc_C : Matrix (1 .. N, 1 .. N) := [others => [others => 0.0]];","Loc_C : Matrix (1 .. N, 0 .. N) := [others => [others => 0.0]];",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1027,swap arguments,"R.C (I, J) := C_Pad (I, J);","R.C (I, J) := C_Pad (J, I);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1219,delete statement,"P (I, J) := R.C (I, J);",null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,354+965,+ -> - + - -> +,"if A (I, J) /= B (I + I_Off, J + J_Off) then || A_N (I, J) := A (I0A + I - 1, J0A + J - 1);","if A (I, J) /= B (I - I_Off, J + J_Off) then || A_N (I, J) := A (I0A + I + 1, J0A + J - 1);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1267,delete statement,"Br  := Int_Mat_Vec (BB, Rv);",null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,766,constant 1 -> 2,"T1, T2 : Matrix (1 .. H, 1 .. H);","T1, T2 : Matrix (1 .. H, 2 .. H);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1199+1001,- 1 -> - 0 + or else -> and then,for I in 0 .. N - 1 loop || or else B'Length (2) /= N,for I in 0 .. N - 0 loop || and then B'Length (2) /= N,stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1001+1258,/= -> = + - -> +,or else B'Length (2) /= N || for I in 0 .. N - 1 loop,or else B'Length (2) = N || for I in 0 .. N + 1 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1316,delete statement,Res.Seed_Final := S;,null;,survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,328,constant 1 -> 2,for J in 1 .. N loop,for J in 2 .. N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,698,constant 1 -> 2,"Dest (I0 + I - 1, J0 + N + J - 1) :=","Dest (I0 + I - 1, J0 + N + J - 2) :=",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,696,constant 1 -> 2,for I in 1 .. N loop,for I in 2 .. N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,888,constant 1 -> 0,for Bi in 0 .. P - 1 loop,for Bi in 0 .. P - 0 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,643,constant 1 -> 2,for J in 1 .. N loop,for J in 2 .. N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,873+583,- 1 -> - 0 + >= -> >,for I in 0 .. BS - 1 loop || elsif N >= 16 then,for I in 0 .. BS - 0 loop || elsif N > 16 then,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,772+1204,> -> >= + + -> -,"if Depth_K > Max_D then || + Long_Integer (A (AI0 + I, AJ0 + K))","if Depth_K >= Max_D then || + Long_Integer (A (AI0 - I, AJ0 + K))",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,551,delete statement,Info.Is_Parallel := True;,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1020,delete statement,R.Success           := True;,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1073,constant 1 -> 0,"Loc_B : Matrix (1 .. N, 1 .. N);","Loc_B : Matrix (1 .. N, 0 .. N);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1194,delete statement,R.N := 0;,null;,survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,711+686,+ -> - + + -> -,"Dest (I0 + N + I - 1, J0 + J - 1) := || Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","Dest (I0 + N - I - 1, J0 + J - 1) := || Src (Src'First (1) + I - 1, Src'First (2) - J - 1);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,685,constant 1 -> 2,"Dest (I0 + I - 1, J0 + J - 1) :=","Dest (I0 + I - 2, J0 + J - 1) :=",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,698+203,+ -> - + - -> +,"Dest (I0 + I - 1, J0 + N + J - 1) := || for J in 0 .. N - 1 loop","Dest (I0 + I - 1, J0 - N + J - 1) := || for J in 0 .. N + 1 loop",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,583,constant 16 -> 15,elsif N >= 16 then,elsif N >= 15 then,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1119+610,< -> <= + - -> +,if Step < P then || for J in 0 .. N - 1 loop,if Step <= P then || for J in 0 .. N + 1 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,699,constant 1 -> 0,"Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","Src (Src'First (0) + I - 1, Src'First (2) + J - 1);",stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1092,constant 1 -> 2,for Bi in 0 .. P - 1 loop,for Bi in 0 .. P - 2 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,316,constant 1 -> 2,"R : Int_Matrix (1 .. N, 1 .. N) := [others => [others => 0]];","R : Int_Matrix (1 .. N, 2 .. N) := [others => [others => 0]];",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,265,constant 1 -> 0,"R   : Matrix (1 .. N, 1 .. N);","R   : Matrix (1 .. N, 0 .. N);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,611,delete statement,Sum := 0.0;,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,272+686,- -> + + - 1 -> - 0,"R (I, J) := Raw - Float'Truncation (Raw); || Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","R (I, J) := Raw + Float'Truncation (Raw); || Src (Src'First (1) + I - 1, Src'First (2) + J - 0);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,823,delete statement,"C22 := Mat_Add (Mat_Sub (M1, M2), Mat_Add (M3, M6));",null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,270,constant 1 -> 0,for J in 1 .. N loop,for J in 0 .. N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1258,constant 1 -> 2,for I in 0 .. N - 1 loop,for I in 0 .. N - 2 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,906,constant 0 -> 1,for Bj in 0 .. P - 1 loop,for Bj in 1 .. P - 1 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,852,constant 1 -> 2,for I in 0 .. BS - 1 loop,for I in 0 .. BS - 2 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1044,constant 1 -> 2,if N < 1 or else N > Max_N,if N < 2 or else N > Max_N,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1000+644,/= -> = + + -> -,"or else B'Length (1) /= N || R (I, J) := M (I0 + I - 1, J0 + N + J - 1);","or else B'Length (1) = N || R (I, J) := M (I0 + I - 1, J0 - N + J - 1);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,698+891,- -> + + + -> -,"Dest (I0 + I - 1, J0 + N + J - 1) := || Src_Bj : constant Natural := (Bj + 1) mod P;","Dest (I0 + I + 1, J0 + N + J - 1) := || Src_Bj : constant Natural := (Bj - 1) mod P;",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,629,constant 1 -> 0,for J in 1 .. N loop,for J in 0 .. N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1205+957,+ -> - + or else -> and then,"* Long_Integer (B (BI0 + K, BJ0 + J)); || or else B'Length (1) /= N","* Long_Integer (B (BI0 - K, BJ0 + J)); || and then B'Length (1) /= N",stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,847+1001,+ -> - + /= -> =,Sr0 : constant Positive := Src'First (1) + Src_Bi * BS; || or else B'Length (2) /= N,Sr0 : constant Positive := Src'First (1) - Src_Bi * BS; || or else B'Length (2) = N,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,891+1084,+ -> - + + -> -,"Src_Bj : constant Natural := (Bj + 1) mod P; || Loc_B (1 + I, 1 + J) := B (BI0 + I, BJ0 + J);","Src_Bj : constant Natural := (Bj - 1) mod P; || Loc_B (1 + I, 1 - J) := B (BI0 + I, BJ0 + J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1260,constant 1 -> 2,"AA (I + 1, J + 1) := A (AI0 + I, AJ0 + J);","AA (I + 2, J + 1) := A (AI0 + I, AJ0 + J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1304+329,or else -> and then + * -> +,"or else C'Length (2) /= N || R (I, J) := (I - 1) * N + J;","and then C'Length (2) /= N || R (I, J) := (I - 1) + N + J;",stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,185,swap arguments,"R (I, J) := S * A (I, J);","R (J, I) := S * A (I, J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,880+876,+ -> - + - 1 -> - 0,"Loc_C (Cr0 + I, Cc0 + J) := Sum; || for K in 0 .. BS - 1 loop","Loc_C (Cr0 + I, Cc0 - J) := Sum; || for K in 0 .. BS - 0 loop",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,696,constant 1 -> 0,for I in 1 .. N loop,for I in 0 .. N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,391,constant 1 -> 2,"(A : Int_Matrix; Row, Col : Positive; Offset : Integer := 1)","(A : Int_Matrix; Row, Col : Positive; Offset : Integer := 2)",stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,873,constant 1 -> 2,for I in 0 .. BS - 1 loop,for I in 0 .. BS - 2 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,23,delete statement,M.Label := [others => ' '];,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,238,delete statement,"R (I, J) := Value;",null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,712,constant 1 -> 0,"Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","Src (Src'First (1) + I - 0, Src'First (2) + J - 1);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,286,delete statement,"R (I, J) := 1.0 / Float (I + J - 1);",null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,527,delete statement,Info.Runnable_Sketch := Supports_Runnable (M);,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,254,constant 1 -> 0,"R : Matrix (1 .. N, 1 .. N);","R : Matrix (0 .. N, 1 .. N);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1271,swap arguments,"if Int_Vec_Equal (ABr, Cr) then","if Int_Vec_Equal (Cr, ABr) then",survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,546,constant 1979 -> 1980,Info.Year := 1979;,Info.Year := 1980;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,282,constant 1 -> 2,"R : Matrix (1 .. N, 1 .. N);","R : Matrix (1 .. N, 2 .. N);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,342+581,+ -> - + and then -> or else,"R (I, J) := Integer ((Seed + 17 * I + 31 * J) mod 10); || if Prefer_Parallel and then N >= 2 then","R (I, J) := Integer ((Seed - 17 * I + 31 * J) mod 10); || if Prefer_Parallel or else N >= 2 then",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,417,constant 16 -> 17,return Integer ((State / 2**16) mod 2);,return Integer ((State / 2**17) mod 2);,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,711,constant 1 -> 0,"Dest (I0 + N + I - 1, J0 + J - 1) :=","Dest (I0 + N + I - 0, J0 + J - 1) :=",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,100,delete statement,"D := A (I, J) - B (I + I_Off, J + J_Off);",null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1021,delete statement,R.Scalar_Multiplies := Mults;,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,956+854,or else -> and then + + -> -,"or else A'Length (2) /= N || Dest (Dr0 + I, Dc0 + J) := Src (Sr0 + I, Sc0 + J);","and then A'Length (2) /= N || Dest (Dr0 - I, Dc0 + J) := Src (Sr0 + I, Sc0 + J);",stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1306,delete statement,Res.Stat := Dimension_Error;,null;,survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1200,constant 0 -> 1,for J in 0 .. N - 1 loop,for J in 1 .. N - 1 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,217+686,- -> + + + -> -,"R (I, J) := A (I0 + I - 1, J0 + J - 1); || Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","R (I, J) := A (I0 + I + 1, J0 + J - 1); || Src (Src'First (1) + I - 1, Src'First (2) - J - 1);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,958+698,or else -> and then + - -> +,"or else B'Length (2) /= N || Dest (I0 + I - 1, J0 + N + J - 1) :=","and then B'Length (2) /= N || Dest (I0 + I - 1, J0 + N + J + 1) :=",stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,759,constant 1 -> 2,"C11, C12, C21, C22         : Matrix (1 .. H, 1 .. H);","C11, C12, C21, C22         : Matrix (1 .. H, 2 .. H);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,876+615,- 1 -> - 0 + + -> -,for K in 0 .. BS - 1 loop || Mults := Mults + 1;,for K in 0 .. BS - 0 loop || Mults := Mults - 1;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,876,constant 1 -> 2,for K in 0 .. BS - 1 loop,for K in 0 .. BS - 2 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,949,constant 1 -> 0,"B_N   : Matrix (1 .. N, 1 .. N);","B_N   : Matrix (1 .. N, 0 .. N);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,815+1238,+ -> - + or else -> and then,Total_M := Total_M + Mults_K; || or else C'Length (2) /= N,Total_M := Total_M - Mults_K; || and then C'Length (2) /= N,stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,725,constant 2 -> 0,"Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","Src (Src'First (1) + I - 1, Src'First (0) + J - 1);",stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,965+1259,+ -> - + - -> +,"A_N (I, J) := A (I0A + I - 1, J0A + J - 1); || for J in 0 .. N - 1 loop","A_N (I, J) := A (I0A + I - 1, J0A - J - 1); || for J in 0 .. N + 1 loop",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1047+1262,/= -> = + + -> -,"or else B'Length (2) /= N || CC (I + 1, J + 1) := C (CI0 + I, CJ0 + J);","or else B'Length (2) = N || CC (I + 1, J + 1) := C (CI0 + I, CJ0 - J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,652,constant 1 -> 0,"R  : Matrix (1 .. N, 1 .. N);","R  : Matrix (0 .. N, 1 .. N);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1093,constant 1 -> 0,for Bj in 0 .. P - 1 loop,for Bj in 0 .. P - 0 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,216,constant 1 -> 2,for J in 1 .. N loop,for J in 2 .. N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,204,constant 1 -> 2,"R (1 + I, 1 + J) := A (I0 + I, J0 + J);","R (1 + I, 2 + J) := A (I0 + I, J0 + J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,204+966,+ -> - + - 1 -> - 0,"R (1 + I, 1 + J) := A (I0 + I, J0 + J); || B_N (I, J) := B (I0B + I - 1, J0B + J - 1);","R (1 + I, 1 + J) := A (I0 - I, J0 + J); || B_N (I, J) := B (I0B + I - 0, J0B + J - 1);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1207,constant 1 -> 2,"R.C (I + 1, J + 1) := Integer (Acc);","R.C (I + 1, J + 2) := Integer (Acc);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,998,constant 1 -> 0,if N < 1 or else N > Max_N,if N < 0 or else N > Max_N,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,977,delete statement,R.Padded_N          := 0;,null;,survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1218,constant 1 -> 0,for J in 1 .. R.N loop,for J in 0 .. R.N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,724,constant 1 -> 0,"Dest (I0 + N + I - 1, J0 + N + J - 1) :=","Dest (I0 + N + I - 1, J0 + N + J - 0) :=",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1234,constant 2 -> 1,if A'Length (2) /= N,if A'Length (1) /= N,survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,739+151,or else -> and then + and then -> or else,"if N <= Leaf or else N = 1 then || return P >= 1 and then N >= P and then N <= Max_N and then Divides (P, N);","if N <= Leaf and then N = 1 then || return P >= 1 and then N >= P or else N <= Max_N and then Divides (P, N);",stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1302,constant 2 -> 3,or else B'Length (2) /= N,or else B'Length (3) /= N,stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,325,constant 1 -> 0,"R : Int_Matrix (1 .. N, 1 .. N);","R : Int_Matrix (0 .. N, 1 .. N);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,823,swap arguments,"C22 := Mat_Add (Mat_Sub (M1, M2), Mat_Add (M3, M6));","C22 := Mat_Add (Mat_Sub (M2, M1), Mat_Add (M3, M6));",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1191,constant 2 -> 3,or else B'Length (2) /= N,or else B'Length (3) /= N,stillborn
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1114+724,- 1 -> - 0 + + -> -,"for Bi in 0 .. P - 1 loop || Dest (I0 + N + I - 1, J0 + N + J - 1) :=","for Bi in 0 .. P - 0 loop || Dest (I0 + N + I - 1, J0 - N + J - 1) :=",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1319,constant 1 -> 0,Res.Failures := Res.Failures + 1;,Res.Failures := Res.Failures + 0;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,146+870,> -> >= + * -> +,return P > 0 and then N mod P = 0; || Cc0 : constant Positive := Loc_C'First (2) + Bj * BS;,return P >= 0 and then N mod P = 0; || Cc0 : constant Positive := Loc_C'First (2) + Bj + BS;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,258,constant 1 -> 0,"R (I, J) := Float ((I - 1) * N + J);","R (I, J) := Float ((I - 0) * N + J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1293,delete statement,Res.Failures := 0;,null;,survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1204+1318,+ -> - + = -> /=,"+ Long_Integer (A (AI0 + I, AJ0 + K)) || elsif V = Unequal then","- Long_Integer (A (AI0 + I, AJ0 + K)) || elsif V /= Unequal then",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1014,constant 1 -> 0,"C_Pad : Matrix (1 .. P, 1 .. P);","C_Pad : Matrix (1 .. P, 0 .. P);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,787,delete statement,Max_D := Depth_K;,null;,survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,139,delete statement,P := P * 2;,null;,timeout
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,698+363,+ -> - + - -> +,"Dest (I0 + I - 1, J0 + N + J - 1) := || Off : constant Integer := V'First - U'First;","Dest (I0 - I - 1, J0 + N + J - 1) := || Off : constant Integer := V'First + U'First;",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,284,constant 1 -> 2,for I in 1 .. N loop,for I in 2 .. N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1199+1082,- 1 -> - 0 + - 1 -> - 0,for I in 0 .. N - 1 loop || for J in 0 .. N - 1 loop,for I in 0 .. N - 0 loop || for J in 0 .. N - 0 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1163,constant 1 -> 2,"Out_M : Matrix (1 .. R.N, 1 .. R.N);","Out_M : Matrix (2 .. R.N, 1 .. R.N);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1259,constant 0 -> 1,for J in 0 .. N - 1 loop,for J in 1 .. N - 1 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,203+870,- 1 -> - 0 + + -> -,for J in 0 .. N - 1 loop || Cc0 : constant Positive := Loc_C'First (2) + Bj * BS;,for J in 0 .. N - 0 loop || Cc0 : constant Positive := Loc_C'First (2) - Bj * BS;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,672+712,+ -> - + - 1 -> - 0,"R (I, J) := M (I0 + N + I - 1, J0 + N + J - 1); || Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","R (I, J) := M (I0 + N - I - 1, J0 + N + J - 1); || Src (Src'First (1) + I - 0, Src'First (2) + J - 1);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,656,constant 1 -> 0,for I in 1 .. N loop,for I in 0 .. N loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1249,constant 1 -> 0,ABr : Int_Vector (1 .. N);,ABr : Int_Vector (0 .. N);,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,685+869,- 1 -> - 0 + + -> -,"Dest (I0 + I - 1, J0 + J - 1) := || Cr0 : constant Positive := Loc_C'First (1) + Bi * BS;","Dest (I0 + I - 1, J0 + J - 0) := || Cr0 : constant Positive := Loc_C'First (1) - Bi * BS;",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,848+271,+ -> - + * -> +,Sc0 : constant Positive := Src'First (2) + Src_Bj * BS; || Raw := Float (Seed + 17 * I + 31 * J) * Phi;,Sc0 : constant Positive := Src'First (2) - Src_Bj * BS; || Raw := Float (Seed + 17 + I + 31 * J) * Phi;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1167,swap arguments,"Out_M (I, J) := R.C (I, J);","Out_M (J, I) := R.C (I, J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1074,constant 1 -> 2,"Loc_C : Matrix (1 .. N, 1 .. N) := [others => [others => 0.0]];","Loc_C : Matrix (2 .. N, 1 .. N) := [others => [others => 0.0]];",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1219,swap arguments,"P (I, J) := R.C (I, J);","P (J, I) := R.C (I, J);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,329+1304,* -> + + /= -> =,"R (I, J) := (I - 1) * N + J; || or else C'Length (2) /= N","R (I, J) := (I - 1) + N + J; || or else C'Length (2) = N",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,822,swap arguments,"C21 := Mat_Add (M2, M4);","C21 := Mat_Add (M4, M2);",survived
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1084+438,+ -> - + + -> -,"Loc_B (1 + I, 1 + J) := B (BI0 + I, BJ0 + J); || - Method_Kind'Pos (Method_Kind'First) + 1;","Loc_B (1 + I, 1 + J) := B (BI0 + I, BJ0 - J); || - Method_Kind'Pos (Method_Kind'First) - 1;",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,785,delete statement,Total_M := Total_M + Mults_K;,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1000+350,/= -> = + - -> +,or else B'Length (1) /= N || J_Off : constant Integer := B'First (2) - A'First (2);,or else B'Length (1) = N || J_Off : constant Integer := B'First (2) + A'First (2);,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,724+712,+ -> - + - -> +,"Dest (I0 + N + I - 1, J0 + N + J - 1) := || Src (Src'First (1) + I - 1, Src'First (2) + J - 1);","Dest (I0 - N + I - 1, J0 + N + J - 1) := || Src (Src'First (1) + I - 1, Src'First (2) + J + 1);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,832,delete statement,Depth := Max_D + 1;,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,874,constant 1 -> 2,for J in 0 .. BS - 1 loop,for J in 0 .. BS - 2 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,792,delete statement,Total_M := Total_M + Mults_K;,null;,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1044+408,< -> <= + * -> +,if N < 1 or else N > Max_N || S := (Long_Integer (LCG_Mul) * Long_Integer (State),if N <= 1 or else N > Max_N || S := (Long_Integer (LCG_Mul) + Long_Integer (State),killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1261+271,+ 1 -> + 0 + * -> +,"BB (I + 1, J + 1) := B (BI0 + I, BJ0 + J); || Raw := Float (Seed + 17 * I + 31 * J) * Phi;","BB (I + 1, J + 0) := B (BI0 + I, BJ0 + J); || Raw := Float (Seed + 17 * I + 31 * J) + Phi;",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1258,constant 0 -> 1,for I in 0 .. N - 1 loop,for I in 1 .. N - 1 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1261+644,+ 1 -> + 0 + - 1 -> - 0,"BB (I + 1, J + 1) := B (BI0 + I, BJ0 + J); || R (I, J) := M (I0 + I - 1, J0 + N + J - 1);","BB (I + 0, J + 1) := B (BI0 + I, BJ0 + J); || R (I, J) := M (I0 + I - 0, J0 + N + J - 1);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,865+401,+ -> - + + -> -,"Ar0 : constant Positive := Loc_A'First (1) + Bi * BS; || R (Row, Col) := R (Row, Col) + Offset;","Ar0 : constant Positive := Loc_A'First (1) - Bi * BS; || R (Row, Col) := R (Row, Col) - Offset;",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,174,swap arguments,"R (I, J) := A (I, J) - B (I + I_Off, J + J_Off);","R (I, J) := A (J, I) - B (I + I_Off, J + J_Off);",killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,1081,constant 0 -> 1,for I in 0 .. N - 1 loop,for I in 1 .. N - 1 loop,killed
+alt seed 20261109,matrices/Ada/Matrix-Multiplication,matrix_multiplication.adb,672+217,- 1 -> - 0 + - -> +,"R (I, J) := M (I0 + N + I - 1, J0 + N + J - 1); || R (I, J) := A (I0 + I - 1, J0 + J - 1);","R (I, J) := M (I0 + N + I - 0, J0 + N + J - 1); || R (I, J) := A (I0 + I + 1, J0 + J - 1);",killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,= -> /=,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,or else -> and then,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,= -> /=,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,= -> /=,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,or else -> and then,hidden,hidden,killed
+held half split 20261008 (std),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- 1 -> - 0 + and then -> or else,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,delete statement,hidden,hidden,survived
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> + + = -> /=,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> + + - -> +,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- 1 -> - 0 + and then -> or else,hidden,hidden,stillborn
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,or else -> and then + = -> /=,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> + + = -> /=,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ -> - + + -> -,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,> -> >= + + -> -,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,= -> /= + + -> -,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,delete statement,hidden,hidden,survived
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> + + - -> +,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ -> - + - 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,= -> /= + + -> -,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,and then -> or else + + -> -,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- 1 -> - 0 + and then -> or else,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> + + - 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ -> - + = -> /=,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> + + + -> -,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,and then -> or else + + -> -,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ 1 -> + 0 + - -> +,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> + + > -> >=,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> + + - 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,/= -> = + - -> +,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,= -> /= + + -> -,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,swap arguments,hidden,hidden,stillborn
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ -> - + - -> +,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- 1 -> - 0 + - 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,= -> /= + + -> -,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- 1 -> - 0 + - 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,+ -> - + - 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,= -> /= + - -> +,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,- -> + + or else -> and then,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
