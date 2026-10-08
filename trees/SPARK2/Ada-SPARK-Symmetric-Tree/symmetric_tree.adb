@@ -1,13 +1,14 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Symmetric_Tree is
    function Empty return Tree is
    begin
       return
-        (Values => (others => 0),
-         Lefts  => (others => 0),
-         Rights => (others => 0),
-         Used   => (others => False));
+        (Values => [others => 0],
+         Lefts  => [others => 0],
+         Rights => [others => 0],
+         Used   => [others => False]);
    end Empty;
 
    procedure Set_Node
@@ -36,8 +37,8 @@ package body Symmetric_Tree is
    type Pair_Stack is array (Positive range 1 .. 256) of Index;
 
    function Is_Symmetric (T : Tree; Root : Index) return Boolean is
-      Left_Nodes : Pair_Stack := (others => 0);
-      Right_Nodes : Pair_Stack := (others => 0);
+      Left_Nodes : Pair_Stack := [others => 0];
+      Right_Nodes : Pair_Stack := [others => 0];
       Top : Stack_Position;
    begin
       if Root = 0 or else not T.Used (Root) then

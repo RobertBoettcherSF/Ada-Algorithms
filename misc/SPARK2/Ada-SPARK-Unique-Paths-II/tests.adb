@@ -1,11 +1,12 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Unique_Paths_II;
 with Own_Checks;
 
 procedure Tests is
-   Open : Unique_Paths_II.Grid := (others => (others => False));
-   Blocked : Unique_Paths_II.Grid := (others => (others => False));
+   Open : constant Unique_Paths_II.Grid := [others => [others => False]];
+   Blocked : Unique_Paths_II.Grid := [others => [others => False]];
 begin
    if Unique_Paths_II.Count (3, 3, Open) /= 6 then
       raise Program_Error;

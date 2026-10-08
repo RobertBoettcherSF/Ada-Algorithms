@@ -1,9 +1,10 @@
+pragma Ada_2022;
 with Ada.Assertions; use Ada.Assertions;
 with Maximum_Subarray; use Maximum_Subarray;
 with Own_Checks;
 
 procedure Tests is
-   A : Values := (others => 0);
+   A : Values := [others => 0];
 begin
    Assert (Best_Sum (A, 0) = 0);
    A (1) := -2; A (2) := 3; A (3) := -1; A (4) := 2;

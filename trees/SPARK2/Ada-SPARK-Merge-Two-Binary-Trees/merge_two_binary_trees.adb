@@ -1,10 +1,11 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Merge_Two_Binary_Trees is
    function Empty return Tree is
    begin
-      return (Values => (others => 0), Lefts => (others => 0),
-              Rights => (others => 0), Used => (others => False));
+      return (Values => [others => 0], Lefts => [others => 0],
+              Rights => [others => 0], Used => [others => False]);
    end Empty;
 
    procedure Set_Node

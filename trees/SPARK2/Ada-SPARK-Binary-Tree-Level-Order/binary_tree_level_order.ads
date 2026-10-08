@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package Binary_Tree_Level_Order is
@@ -13,9 +14,9 @@ private
    type Value_Array is array (Index) of Value;
    type Used_Array is array (Index) of Boolean;
    type Tree is record
-      Values : Value_Array := (others => 0);
-      Lefts : Child_Array := (others => 0);
-      Rights : Child_Array := (others => 0);
-      Used : Used_Array := (others => False);
+      Values : Value_Array := [others => 0];
+      Lefts : Child_Array := [others => 0];
+      Rights : Child_Array := [others => 0];
+      Used : Used_Array := [others => False];
    end record;
 end Binary_Tree_Level_Order;

@@ -1,9 +1,10 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Range_Sum_Of_BST is
    function Empty return Tree is
    begin
-      return (Values => (others => 0), Lefts => (others => 0), Rights => (others => 0), Used => (others => False));
+      return (Values => [others => 0], Lefts => [others => 0], Rights => [others => 0], Used => [others => False]);
    end Empty;
 
    procedure Set_Node (T : in out Tree; Node : Node_Index; V : Value; Left, Right : Index) is
@@ -15,7 +16,7 @@ package body Range_Sum_Of_BST is
    end Set_Node;
 
    function Range_Sum (T : Tree; Root : Index; Low, High : Value) return Long_Long_Integer is
-      Stack : array (Node_Index) of Index := (others => 0);
+      Stack : array (Node_Index) of Index := [others => 0];
       Top : Natural range 0 .. 16;
       Current : Index;
       Total : Long_Long_Integer := 0;

@@ -1,8 +1,9 @@
+pragma Ada_2022;
 with Ada.Assertions; use Ada.Assertions;
 with Write_String_Lines; use Write_String_Lines;
 with Own_Checks;
 procedure Tests is
-   Widths : Width_Table := (others => 10);
+   Widths : constant Width_Table := [others => 10];
    Input  : Text := [others => ' '];
    Lines  : Line_Count_Type;
    Last   : Width_Type;

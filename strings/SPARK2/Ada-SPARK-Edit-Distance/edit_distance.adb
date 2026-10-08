@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Edit_Distance is
@@ -16,7 +17,7 @@ package body Edit_Distance is
      (Left, Right : Word;
       Left_Length, Right_Length : Length) return Length
    is
-      D : Table := (others => (others => 0));
+      D : Table := [others => [others => 0]];
       Diagonal, Delete_Cost, Insert_Cost : Length;
    begin
       for I in 1 .. Left_Length loop

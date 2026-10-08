@@ -1,10 +1,11 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Subtree_Of_Another_Tree is
    function Empty return Tree is
    begin
-      return (Values => (others => 0), Lefts => (others => 0),
-              Rights => (others => 0), Used => (others => False));
+      return (Values => [others => 0], Lefts => [others => 0],
+              Rights => [others => 0], Used => [others => False]);
    end Empty;
 
    procedure Set_Node
@@ -36,7 +37,7 @@ package body Subtree_Of_Another_Tree is
    type Pair_Array is array (Positive range 1 .. 256) of Index;
 
    function Same_At (A : Tree; ARoot : Index; B : Tree; BRoot : Index) return Boolean is
-      As, Bs : Pair_Array := (others => 0); Top : Stack_Position; Same : Boolean := True;
+      As, Bs : Pair_Array := [others => 0]; Top : Stack_Position; Same : Boolean := True;
    begin
       if ARoot = 0 or else BRoot = 0 then return ARoot = BRoot; end if;
       Top := 1; As (Top) := ARoot; Bs (Top) := BRoot;

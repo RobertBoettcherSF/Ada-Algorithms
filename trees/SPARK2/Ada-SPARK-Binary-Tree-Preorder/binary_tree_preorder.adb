@@ -1,10 +1,11 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 package body Binary_Tree_Preorder is
-   function Empty return Tree is begin return (Values => (others => 0), Lefts => (others => 0), Rights => (others => 0), Used => (others => False)); end Empty;
+   function Empty return Tree is begin return (Values => [others => 0], Lefts => [others => 0], Rights => [others => 0], Used => [others => False]); end Empty;
    procedure Set_Node (T : in out Tree; Node : Node_Index; V : Value; Left, Right : Index) is
    begin T.Values (Node) := V; T.Lefts (Node) := Left; T.Rights (Node) := Right; T.Used (Node) := True; end Set_Node;
    function Preorder_Sum (T : Tree; Root : Index) return Long_Long_Integer is
-      Stack : array (Index) of Index := (others => 0); Top : Index; Current : Index := Root; Total : Long_Long_Integer := 0;
+      Stack : array (Index) of Index := [others => 0]; Top : Index; Current : Index := Root; Total : Long_Long_Integer := 0;
    begin
       if Current = 0 then return 0; end if; Top := 1; Stack (Top) := Current;
       for Step in 1 .. 16 loop

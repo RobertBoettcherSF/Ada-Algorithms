@@ -1,10 +1,11 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Binary_Tree_Postorder is
    function Empty return Tree is
    begin
-      return (Values => (others => 0), Lefts => (others => 0),
-              Rights => (others => 0), Used => (others => False));
+      return (Values => [others => 0], Lefts => [others => 0],
+              Rights => [others => 0], Used => [others => False]);
    end Empty;
 
    procedure Set_Node
@@ -37,7 +38,7 @@ package body Binary_Tree_Postorder is
    type Flag_Stack is array (Positive range 1 .. 256) of Boolean;
 
    function Postorder_Sum (T : Tree; Root : Index) return Sum is
-      Nodes : Node_Stack := (others => 0); Flags : Flag_Stack := (others => False);
+      Nodes : Node_Stack := [others => 0]; Flags : Flag_Stack := [others => False];
       Top : Stack_Position; Total : Sum := 0;
    begin
       if Root = 0 or else not T.Used (Root) then return 0; end if;

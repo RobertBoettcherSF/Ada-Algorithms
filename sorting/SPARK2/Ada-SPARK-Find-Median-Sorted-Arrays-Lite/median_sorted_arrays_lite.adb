@@ -2,7 +2,7 @@ pragma Ada_2022;
 package body Median_Sorted_Arrays_Lite with SPARK_Mode => On is
    type Combined is array (Positive range 1 .. 2 * Capacity) of Value;
    function Median (A : Values; NA : Length; B : Values; NB : Length) return Integer is
-      C : Combined := (others => 0);
+      C : Combined := [others => 0];
       Total : constant Natural := NA + NB;
       Mid : Positive;
       Temp : Value;

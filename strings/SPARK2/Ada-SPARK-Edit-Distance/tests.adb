@@ -1,10 +1,11 @@
+pragma Ada_2022;
 with Ada.Assertions; use Ada.Assertions;
 with Edit_Distance; use Edit_Distance;
 with Own_Checks;
 
 procedure Tests is
-   A : Word := (others => 0);
-   B : Word := (others => 0);
+   A : Word := [others => 0];
+   B : Word := [others => 0];
 begin
    Assert (Distance (A, B, 0, 0) = 0);
    A (1) := 0; A (2) := 1; A (3) := 2;

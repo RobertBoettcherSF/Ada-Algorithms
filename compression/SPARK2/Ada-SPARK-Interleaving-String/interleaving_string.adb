@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Interleaving_String is
@@ -6,7 +7,7 @@ package body Interleaving_String is
    function Is_Interleaving
      (A, B, C : Word; NA, NB, NC : Length) return Boolean
    is
-      D : Grid := (others => (others => False));
+      D : Grid := [others => [others => False]];
       K : Natural;
    begin
       D (0, 0) := True;

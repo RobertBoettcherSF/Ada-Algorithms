@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Coin_Change_II is
@@ -15,7 +16,7 @@ package body Coin_Change_II is
    function Combinations
      (A : Amount; Denominations : Coins; N : Amount) return Count
    is
-      W : Ways := (others => 0);
+      W : Ways := [others => 0];
    begin
       W (0) := 1;
       for C in 1 .. N loop

@@ -1,11 +1,12 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 package body Binary_Tree_Level_Order is
-   function Empty return Tree is begin return (Values => (others => 0), Lefts => (others => 0), Rights => (others => 0), Used => (others => False)); end Empty;
+   function Empty return Tree is begin return (Values => [others => 0], Lefts => [others => 0], Rights => [others => 0], Used => [others => False]); end Empty;
    procedure Set_Node (T : in out Tree; Node : Node_Index; V : Value; Left, Right : Index) is
    begin T.Values (Node) := V; T.Lefts (Node) := Left; T.Rights (Node) := Right; T.Used (Node) := True; end Set_Node;
    function Level_Order_Sum (T : Tree; Root : Index) return Long_Long_Integer is
       subtype Position is Natural range 0 .. 16;
-      Queue : array (Position) of Index := (others => 0); Head : Position := 0; Tail : Position; Total : Long_Long_Integer := 0;
+      Queue : array (Position) of Index := [others => 0]; Head : Position := 0; Tail : Position; Total : Long_Long_Integer := 0;
    begin
       if Root = 0 or else not T.Used (Root) then return 0; end if;
       Tail := 1; Queue (Tail) := Root;

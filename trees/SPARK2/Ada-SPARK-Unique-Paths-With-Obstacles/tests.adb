@@ -1,8 +1,9 @@
+pragma Ada_2022;
 with Unique_Paths_With_Obstacles;
 with Own_Checks;
 procedure Tests is
    Clear : constant Unique_Paths_With_Obstacles.Grid :=
-     (others => (others => False));
+     [others => [others => False]];
    Blocked : Unique_Paths_With_Obstacles.Grid := Clear;
 begin
    Blocked (2, 2) := True;

@@ -3,7 +3,7 @@ package body Bellman_Ford_Algorithm with SPARK_Mode => On is
    procedure Compute (Edges : in Edge_Array; Source : in Node; D : out Distance_Array) is
       Candidate : Distance;
    begin
-      D := (others => Infinity); D (Source) := 0;
+      D := [others => Infinity]; D (Source) := 0;
       for Pass in Node loop
          for I in Edge_Index loop
             if D (Edges (I).U) /= Infinity then

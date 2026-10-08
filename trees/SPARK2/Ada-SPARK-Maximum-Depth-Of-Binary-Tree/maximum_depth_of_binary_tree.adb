@@ -1,10 +1,11 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Maximum_Depth_Of_Binary_Tree is
    function Empty return Tree is
    begin
-      return (Values => (others => 0), Lefts => (others => 0),
-              Rights => (others => 0), Used => (others => False));
+      return (Values => [others => 0], Lefts => [others => 0],
+              Rights => [others => 0], Used => [others => False]);
    end Empty;
 
    procedure Set_Node
@@ -37,8 +38,8 @@ package body Maximum_Depth_Of_Binary_Tree is
    type Depth_Stack is array (Positive range 1 .. 256) of Depth;
 
    function Max_Depth (T : Tree; Root : Index) return Depth is
-      Nodes : Node_Stack := (others => 0);
-      Levels : Depth_Stack := (others => 0);
+      Nodes : Node_Stack := [others => 0];
+      Levels : Depth_Stack := [others => 0];
       Top : Stack_Position;
       Best : Depth := 0;
    begin

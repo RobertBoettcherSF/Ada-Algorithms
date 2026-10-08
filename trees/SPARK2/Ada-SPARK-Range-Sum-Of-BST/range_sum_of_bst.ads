@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package Range_Sum_Of_BST is
@@ -13,9 +14,9 @@ private
    type Value_Array is array (Index) of Value;
    type Used_Array is array (Index) of Boolean;
    type Tree is record
-      Values : Value_Array := (others => 0);
-      Lefts : Index_Array := (others => 0);
-      Rights : Index_Array := (others => 0);
-      Used : Used_Array := (others => False);
+      Values : Value_Array := [others => 0];
+      Lefts : Index_Array := [others => 0];
+      Rights : Index_Array := [others => 0];
+      Used : Used_Array := [others => False];
    end record;
 end Range_Sum_Of_BST;

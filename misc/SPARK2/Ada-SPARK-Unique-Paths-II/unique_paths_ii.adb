@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Unique_Paths_II is
@@ -13,7 +14,7 @@ package body Unique_Paths_II is
    function Count (Rows : Dimension; Cols : Dimension; Blocked : Grid) return Result is
       subtype Coordinate is Dimension;
       type Counts is array (Coordinate, Coordinate) of Result;
-      Ways : Counts := (others => (others => 0));
+      Ways : Counts := [others => [others => 0]];
    begin
       for R in 1 .. Rows loop
          for C in 1 .. Cols loop

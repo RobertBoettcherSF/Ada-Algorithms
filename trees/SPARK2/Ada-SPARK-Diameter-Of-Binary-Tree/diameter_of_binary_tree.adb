@@ -1,13 +1,14 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Diameter_Of_Binary_Tree is
    function Empty return Tree is
    begin
       return
-        (Values => (others => 0),
-         Lefts  => (others => 0),
-         Rights => (others => 0),
-         Used   => (others => False));
+        (Values => [others => 0],
+         Lefts  => [others => 0],
+         Rights => [others => 0],
+         Used   => [others => False]);
    end Empty;
 
    procedure Set_Node
@@ -37,8 +38,8 @@ package body Diameter_Of_Binary_Tree is
    type Height_Array is array (Node_Index) of Depth;
 
    function Diameter (T : Tree; Root : Index) return Diameter_Value is
-      Heights : Height_Array := (others => 0);
-      Nodes : Node_Stack := (others => 0);
+      Heights : Height_Array := [others => 0];
+      Nodes : Node_Stack := [others => 0];
       Top : Stack_Position;
       Best : Diameter_Value := 0;
    begin

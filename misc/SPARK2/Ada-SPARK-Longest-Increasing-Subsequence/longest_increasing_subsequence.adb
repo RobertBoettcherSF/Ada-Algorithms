@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Longest_Increasing_Subsequence is
@@ -11,7 +12,7 @@ package body Longest_Increasing_Subsequence is
    end Add_One;
 
    function Compute (Values : Element_Array) return Result is
-      Lengths : array (Index) of Result := (others => 1);
+      Lengths : array (Index) of Result := [others => 1];
       Best : Result := 1;
    begin
       for I in Index loop

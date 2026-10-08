@@ -13,7 +13,7 @@ package body Longest_Palindromic_Subsequence with SPARK_Mode => On is
    end Increment;
 
    function Longest_Length (Input : Text; N : Length) return Length is
-      D : Table := (others => (others => 0));
+      D : Table := [others => [others => 0]];
    begin
       for I in reverse 1 .. N loop
          D (I, I) := 1;

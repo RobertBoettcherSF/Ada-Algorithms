@@ -1,10 +1,11 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Validate_Binary_Search_Tree is
    function Empty return Tree is
    begin
-      return (Values => (others => 0), Lefts => (others => 0),
-              Rights => (others => 0), Used => (others => False));
+      return (Values => [others => 0], Lefts => [others => 0],
+              Rights => [others => 0], Used => [others => False]);
    end Empty;
 
    procedure Set_Node
@@ -37,8 +38,8 @@ package body Validate_Binary_Search_Tree is
    type Bound_Stack is array (Positive range 1 .. 256) of Integer;
 
    function Is_Valid_BST (T : Tree; Root : Index) return Boolean is
-      Nodes : Node_Stack := (others => 0);
-      Lows, Highs : Bound_Stack := (others => -101);
+      Nodes : Node_Stack := [others => 0];
+      Lows, Highs : Bound_Stack := [others => -101];
       Top : Stack_Position; Valid : Boolean := True;
    begin
       if Root = 0 or else not T.Used (Root) then return True; end if;

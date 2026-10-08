@@ -1,10 +1,11 @@
+pragma Ada_2022;
 with Ada.Assertions; use Ada.Assertions;
 with Remove_Duplicates_From_Sorted_Array_II;
 with Own_Checks;
 use Remove_Duplicates_From_Sorted_Array_II;
 
 procedure Tests is
-   Data : Values := (1, 1, 1, 2, 2, 3, others => 0);
+   Data : Values := [1, 1, 1, 2, 2, 3, others => 0];
    Length : Length_Type := 6;
 begin
    Keep_Two (Data, Length);
