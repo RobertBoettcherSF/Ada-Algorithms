@@ -280,10 +280,16 @@ package body Automated_Theorem_Proving is
    end Is_Satisfiable_DPLL;
 
 
+   --  Same set of literals (repeats ignored)
+   function Same_Literals (A, B : Clause) return Boolean is
+     ((for all L of A => Contains_Literal (B, L))
+      and then (for all L of B => Contains_Literal (A, L)));
+
    function Is_Satisfiable_DP_Resolution (Formula : CNF_Formula) return Boolean is
       Current_F : CNF_Formula := Formula;
       Max_V     : Variable_ID := 1;
    begin
+
       --  Find maximum variable to eliminate
       for C of Current_F loop
          for L of C loop
@@ -317,7 +323,12 @@ package body Automated_Theorem_Proving is
                   declare
                      Res : constant Clause := Resolve_Clauses (C1, C2, V);
                   begin
-                     if not Is_Tautology (Res) then
+                     --  Skip tautologies and resolvents already present (as
+                     --  sets of literals): without this the clause set grows
+                     --  with copies and exhausts memory on 9-variable 3-SAT.
+                     if not Is_Tautology (Res)
+                       and then not (for some D of S_None => Same_Literals (D, Res))
+                     then
                         S_None.Append (Res);
                      end if;
                   end;
