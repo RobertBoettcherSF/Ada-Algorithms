@@ -606,6 +606,43 @@ begin
       Fail ("policy replay never saw a restart, a deletion or a clause kept as a reason, or fewer than 80 bounded runs");
    end if;
 
+   --  Regression (finding: restart schedule, fixed in a2303581 before this
+   --  test): T5 needs restart gaps that grow by a factor >= 3/2 from every
+   --  interval, also from 1. The old schedule t + t / 2 kept t = 1 forever,
+   --  which with clause deletion gave no termination bound.
+   declare
+      G  : CNF;
+      F2 : Formula;
+      T  : Solve_Trace;
+      St : Solve_Statistics;
+      S  : Solve_Status;
+      Last, Prev_Gap : Natural := 0;
+   begin
+      Pigeonhole (G, 5, 4);
+      F2 := To_Formula (G);
+      declare
+         A : Assignment_Array (1 .. Variable_Id (G.N));
+      begin
+         Solve_Traced (F2, A, True, 1, True, 1, S, St, T);
+      end;
+      if T.Restarts < 4 then
+         Fail ("gap growth: PHP(5,4) with interval 1 restarted only" & T.Restarts'Image & " times");
+      end if;
+      for K in 1 .. T.Restarts loop
+         declare
+            Gap : constant Natural := T.Restart_At (K) - Last;
+         begin
+            if K > 1 and then 2 * Gap < 3 * Prev_Gap then
+               Fail ("gap growth: restart gap" & K'Image & " =" & Gap'Image & " after" & Prev_Gap'Image
+                     & " (interval 1; T5 needs growth by 3/2)");
+               exit;
+            end if;
+            Prev_Gap := Gap;
+            Last := T.Restart_At (K);
+         end;
+      end loop;
+   end;
+
    for V in Variant loop
       Put_Line ("own checks " & V'Image & ": phase-transition SAT" & Sat_Agree (V)'Image & " /" & Sat_Total (V)'Image
         & ", UNSAT" & Unsat_Agree (V)'Image & " /" & Unsat_Total (V)'Image & " (incl. PHP)"
