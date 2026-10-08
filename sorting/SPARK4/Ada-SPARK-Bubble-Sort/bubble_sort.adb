@@ -19,7 +19,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Every element of A (Lo_P .. Hi_P) is <= every element of A (Lo_S .. Hi_S).
@@ -37,9 +37,9 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then Lo_P >= 1
+       and then Lo_P >= A'First
        and then Hi_P <= A'Last
-       and then Lo_S >= 1
+       and then Lo_S >= A'First
        and then Hi_S <= A'Last;
 
    procedure Swap (A : in out Element_Array; X, Y : Index)
@@ -47,14 +47,14 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
+         and then X in A'Range
+         and then Y in A'Range,
        Post   =>
          In_Bounds (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
-           (for all K in 1 .. A'Last =>
+           (for all K in A'Range =>
               (if K /= X and then K /= Y then A (K) = A'Old (K)))
    is
       T : Integer;
@@ -67,10 +67,10 @@ is
       A (Y) := T;
    end Swap;
 
-   --  One forward pass over A (1 .. Bound): bubble the maximum of that
+   --  One forward pass over A (A'First .. Bound): bubble the maximum of that
    --  range to index Bound via adjacent swaps. Preserves the already-
    --  sorted / partitioned suffix Bound+1 .. A'Last. Swapped is True
-   --  iff at least one adjacent pair was exchanged (False ⇒ A(1 .. Bound)
+   --  iff at least one adjacent pair was exchanged (False ⇒ A(A'First .. Bound)
    --  was already adjacent-sorted).
    procedure Bubble_Pass
      (A       : in out Element_Array;
@@ -80,52 +80,52 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Last >= 2
-         and then Bound in 2 .. A'Last
+         and then A'Length >= 2
+         and then Bound in A'First + 1 .. A'Last
          and then Sorted_Slice (A, Bound + 1, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),
+         and then Prefix_Leq_Suffix (A, A'First, Bound, Bound + 1, A'Last),
        Post   =>
          In_Bounds (A)
          and then Sorted_Slice (A, Bound, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)
+         and then Prefix_Leq_Suffix (A, A'First, Bound - 1, Bound, A'Last)
          and then
-           (if not Swapped then Sorted_Slice (A, 1, Bound))
+           (if not Swapped then Sorted_Slice (A, A'First, Bound))
    is
    begin
       Swapped := False;
 
-      for I in 1 .. Bound - 1 loop
+      for I in A'First .. Bound - 1 loop
          pragma Loop_Invariant (In_Bounds (A));
-         --  A(I) is the maximum of A(1 .. I) so far this pass.
+         --  A(I) is the maximum of A(A'First .. I) so far this pass.
          pragma Loop_Invariant
-           (for all K in 1 .. I => A (K) <= A (I));
+           (for all K in A'First .. I => A (K) <= A (I));
          pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
          pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
+           (Prefix_Leq_Suffix (A, A'First, Bound, Bound + 1, A'Last));
          --  Suffix beyond the bubble front is unchanged this pass.
          pragma Loop_Invariant
            (for all K in I + 1 .. A'Last => A (K) = A'Loop_Entry (K));
          --  If no swaps yet, the scanned prefix is already sorted.
          pragma Loop_Invariant
-           (if not Swapped then Sorted_Slice (A, 1, I));
+           (if not Swapped then Sorted_Slice (A, A'First, I));
 
          if A (I) > A (I + 1) then
             Swap (A, I, I + 1);
             Swapped := True;
          end if;
 
-         pragma Assert (for all K in 1 .. I + 1 => A (K) <= A (I + 1));
-         pragma Assert (if not Swapped then Sorted_Slice (A, 1, I + 1));
+         pragma Assert (for all K in A'First .. I + 1 => A (K) <= A (I + 1));
+         pragma Assert (if not Swapped then Sorted_Slice (A, A'First, I + 1));
       end loop;
 
-      pragma Assert (for all K in 1 .. Bound => A (K) <= A (Bound));
+      pragma Assert (for all K in A'First .. Bound => A (K) <= A (Bound));
       pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
+      pragma Assert (Prefix_Leq_Suffix (A, A'First, Bound, Bound + 1, A'Last));
       --  Max at Bound + old partition ⇒ A(Bound) <= A(Bound+1) when Bound < Last.
       pragma Assert (Bound = A'Last or else A (Bound) <= A (Bound + 1));
       pragma Assert (Sorted_Slice (A, Bound, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-      pragma Assert (if not Swapped then Sorted_Slice (A, 1, Bound));
+      pragma Assert (Prefix_Leq_Suffix (A, A'First, Bound - 1, Bound, A'Last));
+      pragma Assert (if not Swapped then Sorted_Slice (A, A'First, Bound));
    end Bubble_Pass;
 
    procedure Sort (A : in out Element_Array) is
@@ -139,42 +139,42 @@ is
       Bound := A'Last;
 
       pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
+      pragma Assert (Prefix_Leq_Suffix (A, A'First, Bound, Bound + 1, A'Last));
 
       loop
-         pragma Loop_Invariant (Bound in 2 .. A'Last);
+         pragma Loop_Invariant (Bound in A'First + 1 .. A'Last);
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
          pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
+           (Prefix_Leq_Suffix (A, A'First, Bound, Bound + 1, A'Last));
          pragma Loop_Variant (Decreases => Bound);
 
          Bubble_Pass (A, Bound, Swapped);
 
          pragma Assert (Sorted_Slice (A, Bound, A'Last));
          pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
+           (Prefix_Leq_Suffix (A, A'First, Bound - 1, Bound, A'Last));
 
-         --  Clean pass ⇒ A(1 .. Bound) sorted; glue onto sorted suffix.
+         --  Clean pass ⇒ A(A'First .. Bound) sorted; glue onto sorted suffix.
          if not Swapped then
-            pragma Assert (Sorted_Slice (A, 1, Bound));
+            pragma Assert (Sorted_Slice (A, A'First, Bound));
             pragma Assert (Sorted_Slice (A, Bound, A'Last));
             pragma Assert (Is_Sorted (A));
             return;
          end if;
 
-         exit when Bound = 2;
+         exit when Bound = A'First + 1;
 
          Bound := Bound - 1;
 
          pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
          pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
+           (Prefix_Leq_Suffix (A, A'First, Bound, Bound + 1, A'Last));
       end loop;
 
-      pragma Assert (Bound = 2);
-      pragma Assert (Sorted_Slice (A, 2, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 1, 2, A'Last));
+      pragma Assert (Bound = A'First + 1);
+      pragma Assert (Sorted_Slice (A, A'First + 1, A'Last));
+      pragma Assert (Prefix_Leq_Suffix (A, A'First, A'First, A'First + 1, A'Last));
       pragma Assert (Is_Sorted (A));
    end Sort;
 
