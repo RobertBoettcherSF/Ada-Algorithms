@@ -1951,3 +1951,157 @@ second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newe
 second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
 second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
 second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,225,= -> /=,if Counts (K) = 0 then,if Counts (K) /= 0 then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,202,/= -> =,or else Empty'Length /= K_Count,or else Empty'Length = K_Count,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,286,- -> +,Dim_Off : constant Integer := Data'First (2) - 1;,Dim_Off : constant Integer := Data'First (2) + 1;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,72,/= -> =,if A'Length = 0 or else A'First /= B'First or else A'Last /= B'Last then,if A'Length = 0 or else A'First = B'First or else A'Last /= B'Last then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,385,- -> +,Dim_Off : constant Integer := Data'First (2) - 1;,Dim_Off : constant Integer := Data'First (2) + 1;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,48,* -> +,State := State * LCG_A + LCG_C;,State := State + LCG_A + LCG_C;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,197,- -> +,Dim_Off  : constant Integer := Data'First (2) - 1;,Dim_Off  : constant Integer := Data'First (2) + 1;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,202,or else -> and then,or else Empty'Length /= K_Count,and then Empty'Length /= K_Count,stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,351,- -> +,Dim_Off : constant Integer := Data'First (2) - 1;,Dim_Off : constant Integer := Data'First (2) + 1;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,198,- 1 -> - 0,C_Off    : constant Integer := C'First (2) - 1;,C_Off    : constant Integer := C'First (2) - 0;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,143,or else -> and then,if C'Length (1) < 1 or else D < 1 or else Query'Length /= D then,if C'Length (1) < 1 or else D < 1 and then Query'Length /= D then,stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,106,+ -> -,"Result (J) := Data (P, Dim_Index (J + Off));","Result (J) := Data (P, Dim_Index (J - Off));",killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,41,+ 1 -> + 0,RNG_State (Natural (Hi) - Natural (Lo) + 1);,RNG_State (Natural (Hi) - Natural (Lo) + 0);,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,210,< -> <=,if Lab (P) < Natural (C'First (1)),if Lab (P) <= Natural (C'First (1)),killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,201,or else -> and then,or else Lab'First /= Data'First (1),and then Lab'First /= Data'First (1),stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,72,/= -> =,if A'Length = 0 or else A'First /= B'First or else A'Last /= B'Last then,if A'Length = 0 or else A'First /= B'First or else A'Last = B'Last then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,387,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 and then D < 1 or else K < 1 then,stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,405,+ -> -,"Data (Idx, Dim_Index (C + Dim_Off));","Data (Idx, Dim_Index (C - Dim_Off));",killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,168,< -> <=,if N < 1 or else C'Length (1) < 1,if N <= 1 or else C'Length (1) < 1,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,467,/= -> =,if Init'Length (1) /= K or else Init'Length (2) /= D then,if Init'Length (1) /= K or else Init'Length (2) = D then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,307,= -> /=,if Chosen (Site_Index (Prev)) = Cand then,if Chosen (Site_Index (Prev)) /= Cand then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,252,< -> <=,or else C'Length (1) < 1,or else C'Length (1) <= 1,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,355,or else -> and then,if K < 1 or else D < 1 then,if K < 1 and then D < 1 then,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,289,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 and then D < 1 or else K < 1 then,stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,509,and then -> or else,"if not First_Iter and then Labels_Equal (Lab_Tmp, Lab_Prev) then","if not First_Iter or else Labels_Equal (Lab_Tmp, Lab_Prev) then",survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,116,- 1 -> - 0,Off    : constant Integer := C'First (2) - 1;,Off    : constant Integer := C'First (2) - 0;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,49,< -> <=,exit when State < Bound;,exit when State <= Bound;,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,33,* -> +,State := State * LCG_A + LCG_C;,State := State + LCG_A + LCG_C;,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,198,- -> +,C_Off    : constant Integer := C'First (2) - 1;,C_Off    : constant Integer := C'First (2) + 1;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,387,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D <= 1 or else K < 1 then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,231,+ -> -,"C (K, Dim_Index (J + C_Off)) :=","C (K, Dim_Index (J - C_Off)) :=",survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,437,/= -> =,if A (I) /= B (I) then,if A (I) = B (I) then,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,433,/= -> =,if A'Length /= B'Length or else A'First /= B'First then,if A'Length = B'Length or else A'First /= B'First then,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,391,> -> >=,if K > N then,if K >= N then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,147,+ -> -,Q (J) := Query (Dim_Index (J + Off_Q));,Q (J) := Query (Dim_Index (J - Off_Q));,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,387,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N <= 1 or else D < 1 or else K < 1 then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,463,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D <= 1 or else K < 1 then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,168,< -> <=,if N < 1 or else C'Length (1) < 1,if N < 1 or else C'Length (1) <= 1,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,258,or else -> and then,or else Lab (P) > Natural (C'Last (1)),and then Lab (P) > Natural (C'Last (1)),survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,251,or else -> and then,or else C'Length (2) /= Data'Length (2),and then C'Length (2) /= Data'Length (2),stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,169,or else -> and then,or else C'Length (2) /= Data'Length (2),and then C'Length (2) /= Data'Length (2),stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,257,< -> <=,if Lab (P) < Natural (C'First (1)),if Lab (P) <= Natural (C'First (1)),killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,61,<= -> <,return abs (A - B) <= Tol;,return abs (A - B) < Tol;,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,211,> -> >=,or else Lab (P) > Natural (C'Last (1)),or else Lab (P) >= Natural (C'Last (1)),killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,118,or else -> and then,if K not in C'Range (1) or else D < 1 then,if K not in C'Range (1) and then D < 1 then,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,72,or else -> and then,if A'Length = 0 or else A'First /= B'First or else A'Last /= B'Last then,if A'Length = 0 or else A'First /= B'First and then A'Last /= B'Last then,stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,352,- 1 -> - 0,Idx_Off : constant Integer := Idx'First - 1;,Idx_Off : constant Integer := Idx'First - 0;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,304,- -> +,Point_Index (Integer (Data'First (1)) + Integer (N) - 1));,Point_Index (Integer (Data'First (1)) + Integer (N) + 1));,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,400,- -> +,Span := Integer (N - 1) * Integer (J - 1) / Integer (K - 1);,Span := Integer (N - 1) * Integer (J + 1) / Integer (K - 1);,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,143,< -> <=,if C'Length (1) < 1 or else D < 1 or else Query'Length /= D then,if C'Length (1) <= 1 or else D < 1 or else Query'Length /= D then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,258,> -> >=,or else Lab (P) > Natural (C'Last (1)),or else Lab (P) >= Natural (C'Last (1)),killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,293,> -> >=,if K > N then,if K >= N then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,143,< -> <=,if C'Length (1) < 1 or else D < 1 or else Query'Length /= D then,if C'Length (1) < 1 or else D <= 1 or else Query'Length /= D then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,289,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D <= 1 or else K < 1 then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,355,< -> <=,if K < 1 or else D < 1 then,if K <= 1 or else D < 1 then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,352,- -> +,Idx_Off : constant Integer := Idx'First - 1;,Idx_Off : constant Integer := Idx'First + 1;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,312,+ 1 -> + 0,Attempts := Attempts + 1;,Attempts := Attempts + 0;,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,289,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N <= 1 or else D < 1 or else K < 1 then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,41,+ -> -,RNG_State (Natural (Hi) - Natural (Lo) + 1);,RNG_State (Natural (Hi) - Natural (Lo) - 1);,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,139,- 1 -> - 0,Off_Q      : constant Integer := Query'First - 1;,Off_Q      : constant Integer := Query'First - 0;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,335,+ -> -,"Data (Cand, Dim_Index (C + Dim_Off));","Data (Cand, Dim_Index (C - Dim_Off));",killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,211,or else -> and then,or else Lab (P) > Natural (C'Last (1)),and then Lab (P) > Natural (C'Last (1)),survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,463,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N <= 1 or else D < 1 or else K < 1 then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,216,+ 1 -> + 0,Counts (Lab_K) := Counts (Lab_K) + 1;,Counts (Lab_K) := Counts (Lab_K) + 0;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,265,+ -> -,"Total := Total + Squared_Distance (Pt, Mu);","Total := Total - Squared_Distance (Pt, Mu);",killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,400,- 1 -> - 0,Span := Integer (N - 1) * Integer (J - 1) / Integer (K - 1);,Span := Integer (N - 0) * Integer (J - 1) / Integer (K - 1);,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,24,* -> +,State := RNG_State (Seed) * LCG_A + LCG_C;,State := RNG_State (Seed) + LCG_A + LCG_C;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,204,or else -> and then,or else D /= Data'Length (2),and then D /= Data'Length (2),stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,400,- -> +,Span := Integer (N - 1) * Integer (J - 1) / Integer (K - 1);,Span := Integer (N - 1) * Integer (J - 1) / Integer (K + 1);,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,304,+ -> -,Point_Index (Integer (Data'First (1)) + Integer (N) - 1));,Point_Index (Integer (Data'First (1)) - Integer (N) - 1));,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,400,* -> +,Span := Integer (N - 1) * Integer (J - 1) / Integer (K - 1);,Span := Integer (N - 1) + Integer (J - 1) / Integer (K - 1);,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,152,or else -> and then,if First_Hit or else Cand_Sq < Best_Sq then,if First_Hit and then Cand_Sq < Best_Sq then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,72,= -> /=,if A'Length = 0 or else A'First /= B'First or else A'Last /= B'Last then,if A'Length /= 0 or else A'First /= B'First or else A'Last /= B'Last then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,116,- -> +,Off    : constant Integer := C'First (2) - 1;,Off    : constant Integer := C'First (2) + 1;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,203,or else -> and then,or else Empty'First /= C'First (1),and then Empty'First /= C'First (1),stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,25,= -> /=,if State = 0 then,if State /= 0 then,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,252,or else -> and then,or else C'Length (1) < 1,and then C'Length (1) < 1,stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,314,* -> +,if Attempts > N * 20 + 100 then,if Attempts > N + 20 + 100 then,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,76,- -> +,Diff := A (I) - B (I);,Diff := A (I) + B (I);,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,314,+ -> -,if Attempts > N * 20 + 100 then,if Attempts > N * 20 - 100 then,survived
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,495,- 1 -> - 0,P_Off : constant Integer := Data'First (1) - 1;,P_Off : constant Integer := Data'First (1) - 0;,killed
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,463,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 and then D < 1 or else K < 1 then,stillborn
+second round tune half after rejection draw split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,216,+ -> -,Counts (Lab_K) := Counts (Lab_K) + 1;,Counts (Lab_K) := Counts (Lab_K) - 1;,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,= -> /=,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,= -> /=,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,* -> +,hidden,hidden,timeout
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,= -> /=,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,survived
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
