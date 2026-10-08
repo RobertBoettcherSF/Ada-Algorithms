@@ -1,0 +1,229 @@
+folder,location,pattern,verdict,reason
+geometry/SPARK2/Closest-Pair-Brute,closest_pair_brute.adb:13,assign-last,legitimate,identity of a minimum search
+graphs/SPARK2/Ada-SPARK-Bellman-Ford-Lite,bellman_ford_lite.adb:5,assign-last,legitimate,identity of a minimum search
+graphs/SPARK2/Ada-SPARK-Dijkstra-Lite,dijkstra_lite.adb:5,assign-last,legitimate,identity of a minimum search
+graphs/SPARK2/Ada-SPARK-Floyd-Warshall-Lite,floyd_warshall_lite.adb:5,assign-last,legitimate,identity of a minimum search
+graphs/SPARK4/A-Star,a_star.ads:53,assign-last,legitimate,infinity sentinel
+graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,dijkstras_algorithm.ads:53,assign-last,legitimate,infinity sentinel
+logic/Ada/DPLL,dpll.adb:161,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+misc/SPARK2/Ada-SPARK-Basic-Calculator-II,basic_calculator_ii.adb:6,return-last,silent-wrong-answer,Evaluate clamps Left op Right into -1000..1000; 1000*2 returns 1000
+misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range,bitwise_and_of_numbers_range.adb:4,assign-last,legitimate,all-ones identity of AND
+misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation,buddy_memory_allocation.adb:7,assign-last,legitimate,initial value before search
+misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,capacity_to_ship_packages.adb:34,return-last,legitimate,unreachable fallback: capacity 800 >= 8 * 100 always ships
+misc/SPARK2/Ada-SPARK-Clamp,clamp.adb:3,saturating-name,legitimate,clamping is the algorithm (folder Clamp)
+misc/SPARK2/Ada-SPARK-Clamp,clamp.adb:14,saturating-name,legitimate,clamping is the algorithm (folder Clamp)
+misc/SPARK2/Ada-SPARK-Clamp,clamp.ads:3,saturating-name,legitimate,clamping is the algorithm (folder Clamp)
+misc/SPARK2/Ada-SPARK-Clamp,clamp.ads:7,saturating-name,legitimate,clamping is the algorithm (folder Clamp)
+misc/SPARK2/Ada-SPARK-Coin-Change-II,coin_change_ii.adb:8,sat-guard,legitimate,unreachable: at most 35 combinations <= Count'Last 100
+misc/SPARK2/Ada-SPARK-Coin-Change-II,coin_change_ii.adb:9,return-last,legitimate,unreachable: at most 35 combinations <= Count'Last 100
+misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,combination_iterator_stub.adb:8,return-last,legitimate,"cursor end position, not arithmetic"
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,delete_and_earn_stub.adb:4,saturating-name,legitimate,unreachable: 6 values of at most 10 sum to <= 60 <= 600
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,delete_and_earn_stub.adb:6,sat-guard,legitimate,unreachable: 6 values of at most 10 sum to <= 60 <= 600
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,delete_and_earn_stub.adb:7,return-last,legitimate,unreachable: 6 values of at most 10 sum to <= 60 <= 600
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,delete_and_earn_stub.adb:11,saturating-name,legitimate,unreachable: 6 values of at most 10 sum to <= 60 <= 600
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,delete_and_earn_stub.adb:15,sat-guard,legitimate,unreachable: 6 values of at most 10 sum to <= 60 <= 600
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,delete_and_earn_stub.adb:16,return-last,legitimate,unreachable: 6 values of at most 10 sum to <= 60 <= 600
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,delete_and_earn_stub.adb:30,saturating-name,legitimate,unreachable: 6 values of at most 10 sum to <= 60 <= 600
+misc/SPARK2/Ada-SPARK-Deque-Bounded,deque_bounded.adb:9,assign-last,legitimate,ring-buffer wrap of an index
+misc/SPARK2/Ada-SPARK-Deque-Bounded,deque_bounded.adb:15,assign-last,legitimate,ring-buffer wrap of an index
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb:4,saturating-name,legitimate,unreachable: Fib(10) = 55 = Result'Last
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb:6,sat-guard,legitimate,unreachable: Fib(10) = 55 = Result'Last
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb:7,return-last,legitimate,unreachable: Fib(10) = 55 = Result'Last
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb:11,saturating-name,legitimate,unreachable: Fib(10) = 55 = Result'Last
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb:26,saturating-name,legitimate,unreachable: Fib(10) = 55 = Result'Last
+misc/SPARK2/Ada-SPARK-Fibonacci-Number,fibonacci_number.adb:4,saturating-name,legitimate,unreachable: Fib(32) = 2_178_309 <= 10_000_000
+misc/SPARK2/Ada-SPARK-Fibonacci-Number,fibonacci_number.adb:6,sat-guard,legitimate,unreachable: Fib(32) = 2_178_309 <= 10_000_000
+misc/SPARK2/Ada-SPARK-Fibonacci-Number,fibonacci_number.adb:7,return-last,legitimate,unreachable: Fib(32) = 2_178_309 <= 10_000_000
+misc/SPARK2/Ada-SPARK-Fibonacci-Number,fibonacci_number.adb:11,saturating-name,legitimate,unreachable: Fib(32) = 2_178_309 <= 10_000_000
+misc/SPARK2/Ada-SPARK-Fibonacci-Number,fibonacci_number.adb:25,saturating-name,legitimate,unreachable: Fib(32) = 2_178_309 <= 10_000_000
+misc/SPARK2/Ada-SPARK-Find-The-City,find_the_city.adb:9,assign-last,legitimate,identity of a minimum search
+misc/SPARK2/Ada-SPARK-Find-The-City-With-Smallest-Number-Of-Neighbors,find_the_city_with_smallest_number_of_neighbors.adb:7,assign-last,legitimate,initial value before search
+misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,find_the_smallest_divisor.adb:21,return-last,silent-wrong-answer,Limit below Length is infeasible; returns Divisor'Last as if it were an answer
+misc/SPARK2/Ada-SPARK-First-Bad-Version,first_bad_version.adb:5,assign-last,legitimate,initial value before binary search
+misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,house_robber_iii_stub.adb:4,saturating-name,legitimate,unreachable: 6 * 100 <= 600
+misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,house_robber_iii_stub.adb:6,sat-guard,legitimate,unreachable: 6 * 100 <= 600
+misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,house_robber_iii_stub.adb:7,return-last,legitimate,unreachable: 6 * 100 <= 600
+misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,house_robber_iii_stub.adb:11,saturating-name,legitimate,unreachable: 6 * 100 <= 600
+misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,house_robber_iii_stub.adb:22,saturating-name,legitimate,unreachable: 6 * 100 <= 600
+misc/SPARK2/Ada-SPARK-Koko-Eating-Bananas,koko_eating_bananas.adb:20,return-last,legitimate,"unreachable fallback: Hour_Count >= Length, speed 100 always suffices"
+misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram,largest_rectangle_in_histogram.adb:10,assign-last,legitimate,identity of a minimum search
+misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,longest_increasing_subsequence.adb:7,return-last,legitimate,unreachable: length <= Element_Count
+misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence,longest_palindromic_subsequence.adb:11,return-last,legitimate,harmless: capped candidate only enters a max bounded by N <= Length'Last
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:6,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:11,return-last,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:15,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:32,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:33,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:34,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:35,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
+misc/SPARK2/Ada-SPARK-Maximal-Rectangle,maximal_rectangle.adb:21,assign-last,legitimate,identity of a minimum search
+misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,maximum_ice_cream_bars.adb:9,return-last,silent-wrong-answer,Budget/Price up to 32_000 is capped at Bar_Count'Last = 32
+misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray,maximum_product_subarray.adb:7,return-last,legitimate,unreachable: 4 values of |v|<=10 give |p| <= 10_000 < 100_000
+misc/SPARK2/Ada-SPARK-Maximum-Subarray,maximum_subarray.adb:7,return-last,legitimate,unreachable: 4 * 100 = 400 < 900
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:8,saturating-name,legitimate,"border replication: index clamp, not arithmetic"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:15,return-last,legitimate,"border replication: index clamp, not arithmetic"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:19,saturating-name,legitimate,"border replication: index clamp, not arithmetic"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:21,saturating-name,legitimate,"border replication: index clamp, not arithmetic"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:28,return-last,legitimate,"border replication: index clamp, not arithmetic"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:32,saturating-name,legitimate,"border replication: index clamp, not arithmetic"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:61,saturating-name,legitimate,"border replication: index clamp, not arithmetic"
+misc/SPARK2/Ada-SPARK-Min-Cost-Connect-Cities-Stub,min_cost_connect_cities_stub.adb:37,sat-guard,legitimate,"edge-count guard (n-1 edges), not saturation"
+misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Days-To-Make-M-Bouquets,minimum_number_of_days_to_make_m_bouquets.adb:23,return-last,legitimate,unreachable fallback: one bouquet of Size <= Length blooms by day 1000
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb:4,saturating-name,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb:6,sat-guard,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb:7,return-last,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb:11,saturating-name,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb:28,saturating-name,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub,nested_iterator_stub.adb:28,return-last,legitimate,"cursor end position, not arithmetic"
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,paint_house_stub.adb:4,saturating-name,legitimate,unreachable: 4 * 100 <= 400; Current := Result'Last is the identity of a minimum
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,paint_house_stub.adb:6,sat-guard,legitimate,unreachable: 4 * 100 <= 400; Current := Result'Last is the identity of a minimum
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,paint_house_stub.adb:7,return-last,legitimate,unreachable: 4 * 100 <= 400; Current := Result'Last is the identity of a minimum
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,paint_house_stub.adb:11,saturating-name,legitimate,unreachable: 4 * 100 <= 400; Current := Result'Last is the identity of a minimum
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,paint_house_stub.adb:24,assign-last,legitimate,unreachable: 4 * 100 <= 400; Current := Result'Last is the identity of a minimum
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,paint_house_stub.adb:28,saturating-name,legitimate,unreachable: 4 * 100 <= 400; Current := Result'Last is the identity of a minimum
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,paint_house_stub.adb:29,saturating-name,legitimate,unreachable: 4 * 100 <= 400; Current := Result'Last is the identity of a minimum
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb:4,saturating-name,legitimate,"unreachable: C(32,16) = 601_080_390 <= 10**9"
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb:6,sat-guard,legitimate,"unreachable: C(32,16) = 601_080_390 <= 10**9"
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb:7,return-last,legitimate,"unreachable: C(32,16) = 601_080_390 <= 10**9"
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb:11,saturating-name,legitimate,"unreachable: C(32,16) = 601_080_390 <= 10**9"
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb:20,saturating-name,legitimate,"unreachable: C(32,16) = 601_080_390 <= 10**9"
+misc/SPARK2/Ada-SPARK-Path-Sum,path_sum.adb:44,return-last,legitimate,unreachable for trees: |Wanted| + 15*100 <= 2_500 < 4_000
+misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub,peeking_iterator_stub.adb:15,return-last,legitimate,"cursor end position, not arithmetic"
+misc/SPARK2/Ada-SPARK-Random-Pick-With-Weight-Lite,random_pick_with_weight_lite.adb:13,return-last,legitimate,last index fallback after cumulative scan
+misc/SPARK2/Ada-SPARK-Reach-A-Number,reach_a_number.adb:18,return-last,legitimate,unreachable fallback: |target| <= 100 needs <= 16 steps
+misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,split_array_largest_sum.adb:34,return-last,legitimate,unreachable fallback: limit 800 >= 8 * 100
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,sum_of_subarray_minimums.adb:9,assign-last,legitimate,identity of a minimum search
+misc/SPARK2/Ada-SPARK-Target-Sum,target_sum.adb:8,sat-guard,legitimate,unreachable: at most 2**4 = 16 ways <= 100
+misc/SPARK2/Ada-SPARK-Target-Sum,target_sum.adb:9,return-last,legitimate,unreachable: at most 2**4 = 16 ways <= 100
+misc/SPARK2/Ada-SPARK-Tribonacci,tribonacci.adb:4,saturating-name,legitimate,unreachable: T(10) = 149 <= 200
+misc/SPARK2/Ada-SPARK-Tribonacci,tribonacci.adb:6,sat-guard,legitimate,unreachable: T(10) = 149 <= 200
+misc/SPARK2/Ada-SPARK-Tribonacci,tribonacci.adb:7,return-last,legitimate,unreachable: T(10) = 149 <= 200
+misc/SPARK2/Ada-SPARK-Tribonacci,tribonacci.adb:11,saturating-name,legitimate,unreachable: T(10) = 149 <= 200
+misc/SPARK2/Ada-SPARK-Tribonacci,tribonacci.adb:28,saturating-name,legitimate,unreachable: T(10) = 149 <= 200
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb:4,saturating-name,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb:6,sat-guard,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb:7,return-last,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb:11,saturating-name,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb:28,saturating-name,legitimate,unreachable: T(32) = 98_950_096 <= 10**9
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,unique_paths_ii.adb:4,saturating-name,legitimate,"unreachable: at most C(14,7) = 3_432 paths <= 10**6"
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,unique_paths_ii.adb:6,sat-guard,legitimate,"unreachable: at most C(14,7) = 3_432 paths <= 10**6"
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,unique_paths_ii.adb:7,return-last,legitimate,"unreachable: at most C(14,7) = 3_432 paths <= 10**6"
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,unique_paths_ii.adb:11,saturating-name,legitimate,"unreachable: at most C(14,7) = 3_432 paths <= 10**6"
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,unique_paths_ii.adb:29,saturating-name,legitimate,"unreachable: at most C(14,7) = 3_432 paths <= 10**6"
+misc/SPARK2/Ada-SPARK-Valid-Palindrome-II,valid_palindrome_ii.adb:5,assign-last,legitimate,array bound
+misc/SPARK2/Ada-SPARK-Valid-Palindrome-II,valid_palindrome_ii.adb:25,assign-last,legitimate,array bound
+misc/SPARK2/Ada-SPARK-Word-Break-II,word_break_ii.adb:8,sat-guard,legitimate,unreachable: at most 2**3 = 8 segmentations <= 100
+misc/SPARK2/Ada-SPARK-Word-Break-II,word_break_ii.adb:9,return-last,legitimate,unreachable: at most 2**3 = 8 segmentations <= 100
+misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub,zigzag_iterator_stub.adb:8,return-last,legitimate,"cursor end position, not arithmetic"
+misc/SPARK4/Acorn-Generator,acorn_generator.adb:109,sat-guard,legitimate,"modular carry test, not saturation"
+misc/SPARK4/Ada-SPARK-K-Way-Merge,k_way_merge.adb:131,assign-last,legitimate,identity of a minimum search
+misc/SPARK4/Ada-SPARK-K-Way-Merge,k_way_merge.adb:225,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+misc/SPARK4/Ada-SPARK-K-Way-Merge,k_way_merge.adb:226,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator,lagged_fibonacci_generator.adb:149,sat-guard,legitimate,"modular carry test, not saturation"
+misc/SPARK4/Ada-SPARK-Lemke-Howson,lemke_howson.adb:50,assign-last,legitimate,identity of a minimum search
+misc/SPARK4/Ada-SPARK-Lemke-Howson,lemke_howson.adb:150,assign-last,legitimate,identity of a minimum search
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,selection_algorithm.adb:423,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+ml/Ada/LPBoost,lpboost.adb:60,assign-last,legitimate,identity of a minimum / tolerance test
+ml/Ada/LPBoost,lpboost.adb:63,sat-guard,legitimate,identity of a minimum / tolerance test
+ml/Ada/LPBoost,lpboost.adb:150,sat-guard,legitimate,identity of a minimum / tolerance test
+ml/Ada/LPBoost,lpboost.adb:178,assign-last,legitimate,identity of a minimum / tolerance test
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:48,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:55,return-last,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:59,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:74,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:75,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:94,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:95,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:96,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:97,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Minimum-Limit-Of-Balls-In-A-Bag,minimum_limit_of_balls_in_a_bag.adb:20,return-last,legitimate,unreachable fallback: limit 1000 needs 0 operations
+searching/SPARK2/Ada-SPARK-Search-Insert-Position,search_insert_position.adb:5,assign-last,legitimate,insertion past the end is the defined answer
+searching/SPARK2/Bst-Insert-Search,bst_insert_search.adb:20,assign-last,legitimate,open interval sentinel for the root bound
+searching/SPARK4/Ada-SPARK-Binary-Search,binary_search.adb:23,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+searching/SPARK4/Ada-SPARK-Interpolation-Search,interpolation_search.adb:70,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+searching/SPARK4/Ada-SPARK-Introselect,introselect.adb:606,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+searching/SPARK4/Ada-SPARK-Quickselect,quickselect.adb:422,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+searching/SPARK4/Ada-SPARK-Ternary-Search,ternary_search.adb:29,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+searching/SPARK4/Ada-SPARK-Ternary-Search,ternary_search.adb:84,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,uniform_cost_search.ads:57,assign-last,legitimate,infinity sentinel
+searching/SPARK4/Best-First-Search,best_first_search.adb:207,assign-last,legitimate,identity of a minimum search
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,bitonic_sorter.adb:287,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,bitonic_sorter.adb:335,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,bitonic_sorter.adb:367,assign-last,legitimate,padding sentinel for power-of-two network
+sorting/SPARK4/Ada-SPARK-Bogosort,bogosort.adb:138,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Bogosort,bogosort.adb:242,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Bogosort,bogosort.adb:258,sat-guard,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Bubble-Sort,bubble_sort.adb:139,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,bucket_sort.adb:159,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Burstsort,burstsort.adb:198,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Burstsort,burstsort.adb:534,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb:202,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb:253,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Comb-Sort,comb_sort.adb:163,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Comb-Sort,comb_sort.adb:215,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Counting-Sort,counting_sort.adb:268,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Flashsort,flashsort.adb:138,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Flashsort,flashsort.adb:204,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Heapsort,heapsort.adb:299,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Heapsort,heapsort.adb:331,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Introsort,introsort.adb:490,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb:152,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb:543,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb:85,min-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb:107,min-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb:109,min-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb:278,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb:337,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb:340,sat-guard,legitimate,run end clipped to the array end
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb:353,sat-guard,legitimate,run end clipped to the array end
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb:407,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb:440,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,odd_even_sort.adb:209,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,patience_sorting.adb:152,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,patience_sorting.adb:201,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,pigeonhole_sort.adb:134,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,pigeonhole_sort.adb:233,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Postman-Sort,postman_sort.adb:135,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb:355,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb:475,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Radix-Sort,radix_sort.adb:274,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb:140,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb:249,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Slowsort,slowsort.adb:181,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Smoothsort,smoothsort.adb:289,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,sort_merge_join.adb:70,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,sort_merge_join.adb:71,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,sort_merge_join.adb:183,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,sort_merge_join.adb:184,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,spaghetti_sort.adb:135,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,spaghetti_sort.adb:205,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,stooge_sort.adb:180,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Strand-Sort,strand_sort.adb:139,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Strand-Sort,strand_sort.adb:188,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:82,min-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:104,min-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:106,min-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:322,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:512,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:568,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:571,sat-guard,legitimate,run end clipped to the array end
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:584,sat-guard,legitimate,run end clipped to the array end
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:636,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb:668,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Ada-SPARK-Tree-Sort,tree_sort.adb:334,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Bead-Sort,bead_sort.adb:136,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+sorting/SPARK4/Bead-Sort,bead_sort.adb:190,assign-last,legitimate,"array bound, not an arithmetic ceiling"
+strings/SPARK2/Ada-SPARK-Bounded-String-Builder,bounded_string_builder.adb:34,sat-guard,legitimate,"capacity check reports Status False, not saturation"
+strings/SPARK2/Ada-SPARK-Edit-Distance,edit_distance.adb:11,return-last,legitimate,"harmless: capped candidate only enters a min bounded by max(i,j) <= Length'Last"
+trees/SPARK2/Ada-SPARK-BST-Iterator-Stub,bst_iterator_stub.adb:34,return-last,legitimate,"cursor end position, not arithmetic"
+trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth,binary_tree_min_depth.adb:43,assign-last,legitimate,identity of a minimum search
+trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,count_binary_substrings.adb:21,assign-last,legitimate,unreachable: answer <= 31 < 1024
+trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,count_binary_substrings.adb:27,assign-last,legitimate,unreachable: answer <= 31 < 1024
+trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,count_binary_substrings.adb:42,assign-last,legitimate,unreachable: answer <= 31 < 1024
+trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,count_binary_substrings.adb:48,assign-last,legitimate,unreachable: answer <= 31 < 1024
+trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,diameter_of_binary_tree.adb:67,assign-last,legitimate,"unreachable for trees: height <= 15, diameter <= 14"
+trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,diameter_of_binary_tree.adb:72,assign-last,legitimate,"unreachable for trees: height <= 15, diameter <= 14"
+trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,diameter_of_binary_tree.adb:99,assign-last,legitimate,"unreachable for trees: height <= 15, diameter <= 14"
+trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget,get_equal_substrings_within_budget.adb:20,assign-last,legitimate,unreachable: 8 * 32 = 256 = Budget_Count'Last
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,insert_into_bst.adb:20,assign-last,legitimate,open interval sentinel for the root bound
+trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree,minimum_depth_of_binary_tree.adb:41,assign-last,legitimate,identity of a minimum search
