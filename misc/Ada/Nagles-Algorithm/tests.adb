@@ -302,6 +302,42 @@ begin
    Buffer.Clear;
    New_Line;
 
+   -- TEST 15: Data passed as a slice that does not start at index 1.
+   --  Buffered packets keep the caller's index range, so merging them must
+   --  index relative to 'First.
+   Put_Line("TEST 15 - Non-1-Based Slices Are Buffered And Merged");
+   declare
+      Big : Buffer_Type (1 .. 12);
+      Small_MSS : constant Natural := 4;
+      Got : Boolean := True;
+   begin
+      for I in Big'Range loop
+         Big (I) := Byte (I * 10);
+      end loop;
+      Buffer.Clear;
+      begin
+         Nagle.Original_Nagle(Small_MSS, Window_Size, Has_Unacked, Big (5 .. 7), Buffer, Send_Now, Packet_To_Send);
+         Nagle.Original_Nagle(Small_MSS, Window_Size, Has_Unacked, Big (10 .. 11), Buffer, Send_Now, Packet_To_Send);
+         Nagle.Original_Nagle(Small_MSS, Window_Size, Has_Unacked, Big (12 .. 12), Buffer, Send_Now, Packet_To_Send);
+      exception
+         when others => Got := False;
+      end;
+      Print_Result("15.1 No exception for slices starting at 5 and 10", Got);
+      Print_Result("15.2 One MSS segment sent", Got and then Send_Now and then Packet_To_Send.Size = Small_MSS);
+      Print_Result("15.3 Segment holds Big(5..7) & Big(10)",
+                   Got and then Packet_To_Send.Data /= null
+                   and then Packet_To_Send.Data.all = Big (5 .. 7) & Big (10 .. 10));
+      Print_Result("15.4 Unsent bytes kept: Big(11) and Big(12)", Got and then Buffered_Bytes(Buffer) = 2);
+      if Got then
+         Free_Test_Packet(Packet_To_Send);
+      end if;
+      for Pkg of Buffer loop
+         Free_Test_Packet(Pkg);
+      end loop;
+      Buffer.Clear;
+   end;
+   New_Line;
+
    Put_Line("=== Test Suite Complete ===" & Natural'Image (Failures) & " failed");
    if Failures > 0 then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
