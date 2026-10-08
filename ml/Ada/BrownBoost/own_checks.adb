@@ -18,6 +18,7 @@
 --  * Labels with a different index origin than the feature rows give the
 --    same model.
 pragma Ada_2022;
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Numerics.Long_Elementary_Functions; use Ada.Numerics.Long_Elementary_Functions;
 with Brown_Boost; use Brown_Boost;
@@ -44,7 +45,19 @@ procedure Own_Checks is
    end Expect;
 
    type U32 is mod 2 ** 32;
-   Lcg : U32 := 777;
+   --  test-data seed: fixed default, printed, overridable with AA_SEED
+   Default_Seed : constant U32 := 777;
+   function Seed_From_Env return U32 is
+      S : U32 := Default_Seed;
+   begin
+      if Ada.Environment_Variables.Exists ("AA_SEED") then
+         S := U32'Value (Ada.Environment_Variables.Value ("AA_SEED"));
+      end if;
+      Ada.Text_IO.Put_Line ("own checks seed:" & S'Image & " (default" & Default_Seed'Image
+                            & "; set AA_SEED to override)");
+      return S;
+   end Seed_From_Env;
+   Lcg : U32 := Seed_From_Env;
    function Rand (M : Positive) return Natural is
    begin
       Lcg := Lcg * 1664525 + 1013904223;
@@ -218,7 +231,43 @@ procedure Own_Checks is
                      --  is too high everywhere; and alpha must be the
                      --  orthogonality root at that U (own doubling + bisection).
                      declare
-                        At_Zero : constant Boolean := V (0.0) < 0.0;
+                        --  which end: the sign of the potential difference at
+                        --  U = 0 with alpha (0), the orthogonality root there
+                        --  (own doubling + bisection; past 1000 the limit), not
+                        --  with the code's alpha
+                        function Own_At_Zero return Boolean is
+                           function G (A : Long_Float) return Long_Float is
+                              Sum : Long_Float := 0.0;
+                           begin
+                              for I in X'Range (1) loop
+                                 Sum := Sum + Z (I) * Exp (-((R (I) + A * Z (I)) ** 2) / C);
+                              end loop;
+                              return Sum;
+                           end G;
+                           Lo_A : Long_Float := 0.0;
+                           Hi_A : Long_Float := 1.0;
+                           A0, P : Long_Float := 0.0;
+                        begin
+                           if G (0.0) > 0.0 then
+                              while G (Hi_A) > 0.0 and then Hi_A <= 1000.0 loop
+                                 Hi_A := Hi_A * 2.0;
+                              end loop;
+                              for It in 1 .. 200 loop
+                                 exit when Hi_A > 1000.0;
+                                 if G ((Lo_A + Hi_A) / 2.0) > 0.0 then
+                                    Lo_A := (Lo_A + Hi_A) / 2.0;
+                                 else
+                                    Hi_A := (Lo_A + Hi_A) / 2.0;
+                                 end if;
+                              end loop;
+                              A0 := (Lo_A + Hi_A) / 2.0;
+                           end if;
+                           for I in X'Range (1) loop
+                              P := P + Phi (R (I) + A0 * Z (I), C);
+                           end loop;
+                           return P - V0 < 0.0;
+                        end Own_At_Zero;
+                        At_Zero : constant Boolean := Own_At_Zero;
                         A_Own   : Long_Float;
                         Ran_Out   : Boolean := False;   --  doubling passed 1000
                         Unbounded : Boolean := False;
