@@ -22,9 +22,10 @@ import sweep_mutate as sm
 import mutate
 
 def extra_pairs(src, rng, seen, want):
+    """Further second-order pairs, then third-order triples, then leftover std singles."""
     std = sm.candidates(src, 'std', rng)
     out, tries = [], 0
-    while len(out) < want and len(std) >= 2 and tries < 50 * want:
+    while len(out) < want and len(std) >= 2 and tries < 80 * want:
         tries += 1
         a, b = rng.sample(std, 2)
         if (a[1][0][0], a[1][0][1]) == (b[1][0][0], b[1][0][1]):
@@ -33,6 +34,21 @@ def extra_pairs(src, rng, seen, want):
         if key in seen:
             continue
         seen.add(key); out.append((a[0] + ' + ' + b[0], a[1] + b[1]))
+    # third-order triples when pairs alone cannot reach the floor
+    while len(out) < want and len(std) >= 3 and tries < 120 * want:
+        tries += 1
+        a, b, c = rng.sample(std, 3)
+        key = ('tri',) + tuple(sorted([tuple(a[1][0]), tuple(b[1][0]), tuple(c[1][0])]))
+        if key in seen:
+            continue
+        seen.add(key); out.append((a[0] + ' + ' + b[0] + ' + ' + c[0], a[1] + b[1] + c[1]))
+    for name, edits in std:
+        if len(out) >= want:
+            break
+        key = ('std',) + tuple(edits[0])
+        if key in seen:
+            continue
+        seen.add(key); out.append((name, edits))
     return out
 
 def key_of(c):

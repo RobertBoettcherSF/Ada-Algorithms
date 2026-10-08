@@ -81,3 +81,4 @@ numerical/Ada/Fermat-Primality-Test,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,
 numerical/Ada/Pareto-Interpolation,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
 sorting/SPARK4/Ada-SPARK-Counting-Sort,GNATMAKE 14.2.0,1,0,0,1,1,yes,no,,,,n/a,no,timeout,"timed out once, not repeated (slow, not flaky); init: baseline -gnata build timeout: timeout"
 strings/Ada/Karplus-Strong-String-Synthesis,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+geometry/Ada/Liang-Barsky,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
