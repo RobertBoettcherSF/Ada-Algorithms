@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own reference: unit-weight relaxation (Dist (Start) = 0; lower
+  Dist (T) to Dist (F) + 1 over every arc until nothing changes).
+* Checks: Dist equals the reference for every vertex (Infinity when
+  unreachable); for every reachable V other than Start, Prev (V) is the
+  tail of an arc into V whose own distance is one less.
+* Inputs: 3000 random directed multigraphs (1 .. 8 vertices, 0 .. 16 arcs,
+  self-loops and parallel arcs allowed), random start.

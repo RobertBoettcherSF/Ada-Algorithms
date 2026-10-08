@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Kruskals_Algorithm; use Kruskals_Algorithm;
+with Own_Checks;
 
 procedure Tests is
 
@@ -752,4 +753,5 @@ begin
    if Fail_Count > 0 then
       raise Program_Error with "test failures";
    end if;
+   Own_Checks;
 end Tests;

@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own properties of a truncated binary code for N symbols, with
+  k = floor (log2 N): every codeword is k or k + 1 bits of '0' / '1'; no
+  codeword is a prefix of another (prefix-free); the code is complete
+  (the sum of 2**-length over all codewords is exactly 1); Decode_Exact
+  inverts Encode; and Decode inverts it with trailing bits too, reporting
+  exactly the codeword length as consumed.
+* Inputs: every alphabet size N in 2 .. 200 and every symbol 0 .. N - 1.

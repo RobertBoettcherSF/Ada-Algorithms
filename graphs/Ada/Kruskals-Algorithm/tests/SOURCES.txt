@@ -1,0 +1,19 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own reference: try every subset of the edges with N - 1 edges, keep the
+  ones that form a spanning tree (own component merging, no cycle, one
+  component), and take the smallest total weight.
+* Checks: Tree_Count = N - 1, every returned edge is an edge of the graph
+  (either direction, same weight), the returned weights add up to
+  Total_Weight, and Total_Weight equals the brute-force minimum.
+* Inputs: 1500 random connected multigraphs (2 .. 5 vertices, up to 10
+  edges with weights 0 .. 20; a path 1 - 2 - .. - N keeps them connected;
+  parallel edges and self-loops allowed).

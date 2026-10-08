@@ -1,6 +1,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Exceptions; use Ada.Exceptions;
 with Truncated_Binary; use Truncated_Binary;
+with Own_Checks;
 
 procedure Tests is
 
@@ -145,4 +146,5 @@ begin
    Put_Line("=========================================");
    Put_Line("ALL TESTS PROVED CORRECT. SYSTEM VERIFIED.");
 
+   Own_Checks;
 end Tests;

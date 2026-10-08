@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own reference: for each position, collect the K values around it
+  (positions outside the array take the nearest edge value, the
+  replication the spec states), sort them with an own insertion sort and
+  take the middle one.
+* Inputs: 5000 random 1D signals (length 1 .. 20, first index 1 .. 4,
+  values -3 .. 3 or -1000 .. 1000), odd kernels 1 .. 9 (also longer than the
+  signal). Even kernels and Process_2D are not covered.

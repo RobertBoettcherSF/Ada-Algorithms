@@ -2,6 +2,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Median_Filter; use Median_Filter;
+with Own_Checks;
 
 procedure Tests is
 -- Helper to print result
@@ -138,4 +139,5 @@ Report("TEST 13 - 1D Large Kernel", True);
 end;
 
 Put_Line("--- All Tests Completed ---");
+   Own_Checks;
 end Tests;
