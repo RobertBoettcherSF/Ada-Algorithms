@@ -1,5 +1,18 @@
-Own test sources for this folder (MIT, written for this repository; no
-external test data, no program output used as expected values).
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: a plain array with an explicit length. Remove_First (V)
+  deletes the first index holding V and shifts the tail left by one; when
+  V is absent nothing changes.
+* After every step, Length and every Element must equal the model.
+* Inputs: 4000 runs of 60 random steps (append while not full, else or
+  randomly remove); values mostly -3 .. 3 (many duplicates and absent
+  values), plus the extremes -100 and 100. Lists reach the full 16.
 
 * full_append_check.adb (silent no-op scan): Append on a list already holding
   Count'Last elements must raise Assertion_Error instead of dropping the value.
