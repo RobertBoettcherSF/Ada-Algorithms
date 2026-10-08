@@ -85,5 +85,20 @@ begin
    Put_Line ("PASS all A/B patterns of length 1 .. 10 match the definition");
    Assert (All_Patterns_Match ("ABC", 7), "all A/B/C patterns of length 1 .. 7");
    Put_Line ("PASS all A/B/C patterns of length 1 .. 7 match the definition");
+   --  Shifted origins: Pat at 5, Pi at 7 — same lengths as 1-based.
+   declare
+      PS : constant Char_Array (5 .. 13) := "ABABCABAB";
+      TS : Prefix_Table (7 .. 15);
+      P1 : constant Char_Array (1 .. 9) := "ABABCABAB";
+      T1 : Prefix_Table (1 .. 9);
+   begin
+      Build_Prefix (PS, TS);
+      Build_Prefix (P1, T1);
+      for K in 0 .. 8 loop
+         Assert (TS (7 + K) = T1 (1 + K), "shifted Pi slot" & K'Image);
+      end loop;
+      Assert (TS (15) = 4, "shifted ABABCABAB last = 4");
+      Put_Line ("PASS shifted Pat (5..13) / Pi (7..15) = 1-based");
+   end;
    Put_Line ("All KMP SPARK topic tests passed.");
 end Tests;

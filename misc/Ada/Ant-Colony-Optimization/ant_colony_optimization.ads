@@ -144,20 +144,17 @@ is
    --  Symmetric Euclidean distance matrix; diagonal 0.
 
    function Tour_Length (T : Tour; D : Dist_Matrix) return Non_Negative
-     with Pre => T'First = D'First (1)
-            and then T'Last = D'Last (1)
-            and then D'First (1) = D'First (2)
-            and then D'Last (1) = D'Last (2),
+     with Pre => T'Length = D'Length (1)
+            and then D'Length (1) = D'Length (2),
           Global => null;
-   --  Closed tour length (includes return edge T'Last → T'First).
+   --  Closed tour length. City labels 1..N; D row/col = D'First(k)+(c-1).
 
    function Is_Valid_Tour (T : Tour) return Boolean
      with Global => null;
-   --  True iff T is a permutation of T'First .. T'Last.
+   --  True iff T is a permutation of 1 .. T'Length (any origin).
 
    function Build_Heuristic (D : Dist_Matrix) return Heuristic_Matrix
-     with Pre => D'First (1) = D'First (2)
-            and then D'Last (1) = D'Last (2)
+     with Pre => D'Length (1) = D'Length (2)
             and then D'Length (1) >= 2
             and then D'Length (1) <= Max_Cities,
           Global => null;
@@ -180,16 +177,12 @@ is
       Visit_Count : Natural;
       Alpha       : Non_Negative;
       Beta        : Non_Negative) return Unit_Interval
-     with Pre => Tau'First (1) = Tau'First (2)
-            and then Tau'Last (1) = Tau'Last (2)
-            and then Eta'First (1) = Tau'First (1)
-            and then Eta'Last (1) = Tau'Last (1)
-            and then Eta'First (2) = Tau'First (2)
-            and then Eta'Last (2) = Tau'Last (2)
-            and then From in Tau'Range (1)
-            and then To in Tau'Range (1)
-            and then Visited'First = Tau'First (1)
-            and then Visited'Last = Tau'Last (1)
+     with Pre => Tau'Length (1) = Tau'Length (2)
+            and then Eta'Length (1) = Tau'Length (1)
+            and then Eta'Length (2) = Tau'Length (2)
+            and then From in 1 .. City_Index (Tau'Length (1))
+            and then To in 1 .. City_Index (Tau'Length (1))
+            and then Visited'Length = Tau'Length (1)
             and then Visit_Count <= Natural (Tau'Length (1)),
           Global => null;
    --  p_From→To among cities not in Visited (1 .. Visit_Count). Returns 0 if
@@ -202,8 +195,7 @@ is
 
    procedure Init_Pheromone
      (Tau : out Pheromone_Matrix; Initial : Non_Negative := 1.0)
-     with Pre => Tau'First (1) = Tau'First (2)
-            and then Tau'Last (1) = Tau'Last (2)
+     with Pre => Tau'Length (1) = Tau'Length (2)
             and then Tau'Length (1) >= 2
             and then Tau'Length (1) <= Max_Cities,
           Global => null;
@@ -216,14 +208,10 @@ is
       Alpha : Non_Negative;
       Beta  : Non_Negative;
       State : in out RNG_State)
-     with Pre => T'First = Tau'First (1)
-            and then T'Last = Tau'Last (1)
-            and then Tau'First (1) = Tau'First (2)
-            and then Tau'Last (1) = Tau'Last (2)
-            and then Eta'First (1) = Tau'First (1)
-            and then Eta'Last (1) = Tau'Last (1)
-            and then Eta'First (2) = Tau'First (2)
-            and then Eta'Last (2) = Tau'Last (2)
+     with Pre => T'Length = Tau'Length (1)
+            and then Tau'Length (1) = Tau'Length (2)
+            and then Eta'Length (1) = Tau'Length (1)
+            and then Eta'Length (2) = Tau'Length (2)
             and then T'Length >= 2
             and then T'Length <= Max_Cities,
           Global => null;
@@ -237,10 +225,8 @@ is
       Rho     : Unit_Interval;
       Q       : Non_Negative;
       Deposit : Boolean := True)
-     with Pre => Tau'First (1) = Tau'First (2)
-            and then Tau'Last (1) = Tau'Last (2)
-            and then T'First = Tau'First (1)
-            and then T'Last = Tau'Last (1),
+     with Pre => Tau'Length (1) = Tau'Length (2)
+            and then T'Length = Tau'Length (1),
           Global => null;
    --  Evaporate τ ← (1−ρ)τ, then if Deposit and Length > 0 add Q/Length on
    --  each edge of T (both directions). Single-tour convenience wrapper.
@@ -255,13 +241,10 @@ is
       Q         : Non_Negative;
       Best_Only : Boolean;
       Best_Idx  : Ant_Count)
-     with Pre => Tau'First (1) = Tau'First (2)
-            and then Tau'Last (1) = Tau'Last (2)
+     with Pre => Tau'Length (1) = Tau'Length (2)
             and then Natural (Tau'Length (1)) = Natural (N)
-            and then Tours'First = 1
-            and then Lengths'First = 1
-            and then Used in Tours'Range
-            and then Used in Lengths'Range
+            and then Tours'Length >= Natural (Used)
+            and then Lengths'Length >= Natural (Used)
             and then Best_Idx in 1 .. Used,
           Global => null;
    --  Evaporate once; deposit Δτ = Q/L on edges of every ant (or only Best_Idx
@@ -270,8 +253,7 @@ is
    function Solve_TSP
      (D   : Dist_Matrix;
       Cfg : Config) return Result
-     with Pre => D'First (1) = D'First (2)
-            and then D'Last (1) = D'Last (2)
+     with Pre => D'Length (1) = D'Length (2)
             and then D'Length (1) >= 2
             and then D'Length (1) <= Max_Cities,
           Global => null;

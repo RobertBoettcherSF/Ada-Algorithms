@@ -482,6 +482,42 @@ begin
       end loop;
    end;
 
+   ---------------------------------------------------------------------
+   Section ("14. Shifted origins: Parts at 5, Out_Phi at 3, Max_Abs_Error mixed");
+   ---------------------------------------------------------------------
+   declare
+      P1  : constant Particle_Array := Make_Random (16, 91);
+      PS  : constant Particle_Array (5 .. 20) := P1;
+      Cfg : constant FMM_Config := Domain_Config (4, Theta => 0.5, Leaf => 3);
+      B1, F1 : Real_Array (1 .. 16);
+      BS, FS : Real_Array (3 .. 18);
+      FT     : Real_Array (2 .. 17);
+      T1, TS : Tree;
+      Same_B, Same_F, Same_T : Boolean := True;
+   begin
+      Compute_Potentials_Brute (P1, 16, Cfg.Soft_Eps, B1);
+      Compute_Potentials_Brute (PS, 16, Cfg.Soft_Eps, BS);
+      Build_Tree (T1, P1, 16, Cfg);
+      Build_Tree (TS, PS, 16, Cfg);
+      Compute_Potentials_FMM (T1, P1, 16, Cfg, F1);
+      Compute_Potentials_FMM (TS, PS, 16, Cfg, FS);
+      Compute_Potentials_FMM_From_Particles (PS, 16, Cfg, FT);
+      for K in 0 .. 15 loop
+         Same_B := Same_B and then Approx (BS (3 + K), B1 (1 + K), 1.0E-12);
+         Same_F := Same_F and then Approx (FS (3 + K), F1 (1 + K), 1.0E-12);
+         Same_T := Same_T and then Approx (FT (2 + K), F1 (1 + K), 1.0E-12);
+      end loop;
+      Check (Same_B, "shifted brute potentials = 1-based");
+      Check (Same_F, "shifted FMM potentials = 1-based");
+      Check (Same_T, "shifted FMM_From_Particles (Out_Phi at 2) = 1-based");
+      Check (Approx (Root_Monopole (TS), Root_Monopole (T1), 1.0E-12),
+             "shifted root monopole = 1-based");
+      Check (Approx (Total_Charge (PS, 16), Total_Charge (P1, 16), 1.0E-12),
+             "shifted Total_Charge = 1-based");
+      Check (Approx (Max_Abs_Error (BS, FT, 16), Max_Abs_Error (B1, F1, 16), 1.0E-12),
+             "Max_Abs_Error with A at 3, B at 2 = 1-based");
+   end;
+
    New_Line;
    Put_Line ("================================");
    Put_Line ("Passed:" & Pass_Count'Image & "  Failed:" & Fail_Count'Image);

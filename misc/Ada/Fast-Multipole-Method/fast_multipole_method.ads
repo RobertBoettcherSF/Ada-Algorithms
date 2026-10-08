@@ -193,8 +193,7 @@ is
       Soft_Eps : Non_Negative;
       Out_Phi  : out Real_Array)
      with Pre => Count <= Parts'Length
-                 and then Out_Phi'Length >= Count
-                 and then Out_Phi'First = 1,
+                 and then Out_Phi'Length >= Count,
           Global => null;
    --  Naive O(N^2) soft-core log potentials. Out_Phi(i) for i in 1 .. Count.
    --  Self-interaction omitted (soft core still used between distinct pairs).
@@ -206,14 +205,12 @@ is
       Config   : FMM_Config;
       Out_Phi  : out Real_Array)
      with Pre => Count <= Parts'Length
-                 and then Out_Phi'Length >= Count
-                 and then Out_Phi'First = 1,
+                 and then Out_Phi'Length >= Count,
           Global => null;
    --  Hierarchical multipole evaluation (MAC + M2P + direct near field).
 
    function Max_Abs_Error (A, B : Real_Array; Count : Particle_Count) return Non_Negative
-     with Pre => Count <= A'Length and then Count <= B'Length
-                 and then A'First = 1 and then B'First = 1,
+     with Pre => Count <= A'Length and then Count <= B'Length,
           Global => null;
 
    function Total_Charge (Parts : Particle_Array; Count : Particle_Count) return Real
@@ -226,8 +223,7 @@ is
       Config   : FMM_Config;
       Out_Phi  : out Real_Array)
      with Pre => Count <= Parts'Length
-                 and then Out_Phi'Length >= Count
-                 and then Out_Phi'First = 1,
+                 and then Out_Phi'Length >= Count,
           Global => null;
 
 private

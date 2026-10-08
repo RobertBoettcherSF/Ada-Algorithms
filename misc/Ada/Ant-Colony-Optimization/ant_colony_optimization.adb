@@ -124,35 +124,40 @@ is
    function Tour_Length (T : Tour; D : Dist_Matrix) return Non_Negative is
       Len  : Real := 0.0;
       A, B : City_Index;
+      function Dist (P, Q : City_Index) return Non_Negative is
+        (D (D'First (1) + (P - 1), D'First (2) + (Q - 1)));
    begin
       for I in T'First .. T'Last - 1 loop
          A := T (I);
          B := T (I + 1);
-         Len := Len + Real (D (A, B));
+         Len := Len + Real (Dist (A, B));
       end loop;
       A := T (T'Last);
       B := T (T'First);
-      Len := Len + Real (D (A, B));
+      Len := Len + Real (Dist (A, B));
       return Non_Negative (Len);
    end Tour_Length;
 
    function Is_Valid_Tour (T : Tour) return Boolean is
-      Seen : array (City_Index range T'First .. T'Last) of Boolean :=
-        [others => False];
+      N : constant Natural := T'Length;
+      Seen : array (1 .. Max_Cities) of Boolean := [others => False];
       C : City_Index;
    begin
+      if N < 2 or else N > Max_Cities then
+         return False;
+      end if;
       for I in T'Range loop
          C := T (I);
-         if C < T'First or else C > T'Last then
+         if Natural (C) < 1 or else Natural (C) > N then
             return False;
          end if;
-         if Seen (C) then
+         if Seen (Positive (C)) then
             return False;
          end if;
-         Seen (C) := True;
+         Seen (Positive (C)) := True;
       end loop;
-      for I in Seen'Range loop
-         if not Seen (I) then
+      for K in 1 .. N loop
+         if not Seen (K) then
             return False;
          end if;
       end loop;
@@ -163,10 +168,12 @@ is
       N   : constant City_Count := City_Count (D'Length (1));
       Eta : Heuristic_Matrix (1 .. N, 1 .. N);
       Dist : Non_Negative;
+      function Dist_At (P, Q : City_Index) return Non_Negative is
+        (D (D'First (1) + (P - 1), D'First (2) + (Q - 1)));
    begin
       for I in 1 .. N loop
          for J in 1 .. N loop
-            Dist := D (I, J);
+            Dist := Dist_At (I, J);
             if Dist <= 0.0 then
                Eta (I, J) := Big_Heuristic;
             else
@@ -224,20 +231,24 @@ is
       Alpha       : Non_Negative;
       Beta        : Non_Negative) return Unit_Interval
    is
+      N      : constant City_Count := City_Count (Tau'Length (1));
       Total  : Real := 0.0;
       W_To   : Real := 0.0;
       W      : Real;
       Allowed : Boolean;
+      function TAt (P, Q : City_Index) return Non_Negative is
+        (Tau (Tau'First (1) + (P - 1), Tau'First (2) + (Q - 1)));
+      function EAt (P, Q : City_Index) return Non_Negative is
+        (Eta (Eta'First (1) + (P - 1), Eta'First (2) + (Q - 1)));
    begin
       if Is_Visited (To, Visited, Visit_Count) then
          return 0.0;
       end if;
 
-      for C in Tau'Range (1) loop
+      for C in 1 .. N loop
          Allowed := not Is_Visited (C, Visited, Visit_Count);
          if Allowed then
-            W := Real
-              (Edge_Weight (Tau (From, C), Eta (From, C), Alpha, Beta));
+            W := Real (Edge_Weight (TAt (From, C), EAt (From, C), Alpha, Beta));
             Total := Total + W;
             if C = To then
                W_To := W;
@@ -294,7 +305,12 @@ is
    is
       Deposit_Amt : Non_Negative;
       A, B  : City_Index;
-      N     : constant City_Index := T'Last;
+      procedure Add (P, Q : City_Index) is
+         I : constant City_Index := Tau'First (1) + (P - 1);
+         J : constant City_Index := Tau'First (2) + (Q - 1);
+      begin
+         Tau (I, J) := Non_Negative (Real (Tau (I, J)) + Real (Deposit_Amt));
+      end Add;
    begin
       if Length <= 0.0 then
          return;
@@ -303,13 +319,13 @@ is
       for I in T'First .. T'Last - 1 loop
          A := T (I);
          B := T (I + 1);
-         Tau (A, B) := Non_Negative (Real (Tau (A, B)) + Real (Deposit_Amt));
-         Tau (B, A) := Non_Negative (Real (Tau (B, A)) + Real (Deposit_Amt));
+         Add (A, B);
+         Add (B, A);
       end loop;
-      A := T (N);
+      A := T (T'Last);
       B := T (T'First);
-      Tau (A, B) := Non_Negative (Real (Tau (A, B)) + Real (Deposit_Amt));
-      Tau (B, A) := Non_Negative (Real (Tau (B, A)) + Real (Deposit_Amt));
+      Add (A, B);
+      Add (B, A);
    end Deposit_Tour;
 
    procedure Construct_Tour
@@ -321,9 +337,7 @@ is
       State : in out RNG_State)
    is
       N           : constant City_Count := City_Count (T'Length);
-      First_City  : constant City_Index := T'First;
-      Last_City   : constant City_Index := T'Last;
-      Visited     : Tour (First_City .. Last_City) := [others => First_City];
+      Visited     : Tour (1 .. N) := [others => 1];
       Visit_Count : Natural := 0;
       Current     : City_Index;
       Next_City   : City_Index;
@@ -335,20 +349,24 @@ is
       Rem_Count   : Natural;
       Pick        : Natural;
       K           : Natural;
+      function TAt (P, Q : City_Index) return Non_Negative is
+        (Tau (Tau'First (1) + (P - 1), Tau'First (2) + (Q - 1)));
+      function EAt (P, Q : City_Index) return Non_Negative is
+        (Eta (Eta'First (1) + (P - 1), Eta'First (2) + (Q - 1)));
    begin
-      Current := Next_Index (State, First_City, Last_City);
+      --  City labels are 1 .. N; tour slots are T'First + off.
+      Current := Next_Index (State, 1, N);
       Visit_Count := 1;
-      Visited (First_City) := Current;
-      T (First_City) := Current;
+      Visited (1) := Current;
+      T (T'First) := Current;
 
       while Visit_Count < Natural (N) loop
          Total := 0.0;
-         for C in First_City .. Last_City loop
+         for C in 1 .. N loop
             if not Is_Visited (C, Visited, Visit_Count) then
                Total := Total
-                 + Real
-                     (Edge_Weight
-                        (Tau (Current, C), Eta (Current, C), Alpha, Beta));
+                 + Real (Edge_Weight (TAt (Current, C), EAt (Current, C),
+                                      Alpha, Beta));
             end if;
          end loop;
 
@@ -356,11 +374,11 @@ is
          if Total > 0.0 then
             R := Real (Next_Unit (State)) * Total;
             Acc := 0.0;
-            for C in First_City .. Last_City loop
+            for C in 1 .. N loop
                if not Is_Visited (C, Visited, Visit_Count) then
                   W := Real
-                    (Edge_Weight
-                       (Tau (Current, C), Eta (Current, C), Alpha, Beta));
+                    (Edge_Weight (TAt (Current, C), EAt (Current, C),
+                                  Alpha, Beta));
                   Acc := Acc + W;
                   if R <= Acc then
                      Next_City := C;
@@ -372,14 +390,13 @@ is
          end if;
 
          if not Chosen then
-            --  Uniform among remaining (zero-weight fallback)
             Rem_Count := Natural (N) - Visit_Count;
             Pick := Natural (Real (Next_Unit (State)) * Real (Rem_Count));
             if Pick >= Rem_Count then
                Pick := Rem_Count - 1;
             end if;
             K := 0;
-            for C in First_City .. Last_City loop
+            for C in 1 .. N loop
                if not Is_Visited (C, Visited, Visit_Count) then
                   if K = Pick then
                      Next_City := C;
@@ -396,13 +413,8 @@ is
          end if;
 
          Visit_Count := Visit_Count + 1;
-         declare
-            Slot : constant City_Index :=
-              City_Index (Natural (First_City) + Visit_Count - 1);
-         begin
-            Visited (Slot) := Next_City;
-            T (Slot) := Next_City;
-         end;
+         Visited (City_Index (Visit_Count)) := Next_City;
+         T (T'First + City_Index (Visit_Count) - 1) := Next_City;
          Current := Next_City;
       end loop;
    end Construct_Tour;
@@ -436,19 +448,26 @@ is
       Slice : Tour (1 .. N);
    begin
       Evaporate (Tau, Rho);
-      if Best_Only then
-         for I in 1 .. N loop
-            Slice (I) := Tours (Best_Idx) (I);
-         end loop;
-         Deposit_Tour (Tau, Slice, Lengths (Best_Idx), Q);
-      else
-         for K in 1 .. Used loop
+      declare
+         function Ant (K : Ant_Count) return Ant_Count is
+           (Tours'First + (K - 1));
+         function Len_At (K : Ant_Count) return Non_Negative is
+           (Lengths (Lengths'First + (K - 1)));
+      begin
+         if Best_Only then
             for I in 1 .. N loop
-               Slice (I) := Tours (K) (I);
+               Slice (I) := Tours (Ant (Best_Idx)) (I);
             end loop;
-            Deposit_Tour (Tau, Slice, Lengths (K), Q);
-         end loop;
-      end if;
+            Deposit_Tour (Tau, Slice, Len_At (Best_Idx), Q);
+         else
+            for K in 1 .. Used loop
+               for I in 1 .. N loop
+                  Slice (I) := Tours (Ant (K)) (I);
+               end loop;
+               Deposit_Tour (Tau, Slice, Len_At (K), Q);
+            end loop;
+         end if;
+      end;
    end Colony_Update;
 
    function Solve_TSP

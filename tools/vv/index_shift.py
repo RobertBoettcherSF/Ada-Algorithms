@@ -50,27 +50,15 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'tools', 'vv'))
 import mutate  # noqa: E402
 
-# Intentional fixed-origin folders (room mechanical test 2026-10-08):
-# KEEP only when the algorithm does arithmetic on the index values themselves
-# (heap 2*I / I/2, Fenwick I and -I, FFT bit-reversal, 1-based DP recurrences,
-# interpolation probe using Lo/Hi). Prefer a subtype / constrained array type.
-# If indexes only walk or line two arrays up → First-relative rewrite (not fixed).
-# Empty registry entry = not fixed.
+# Intentional fixed-origin folders (room recheck 2026-10-08):
+# KEEP only Package-Merge (2*P packaging) and PGZ (degree index Poly(I)*I).
+# Heapsort/Introsort/Smoothsort/Interpolation/KMP flipped to rewrite: offset
+# heap / Lo+probe / prefix-as-offset. Prefer subtype on remaining keeps.
 FIXED_ORIGIN_REASONS: dict[str, str] = {
-    'compression/Ada/Peterson-Gorenstein-Zierler-Algorithm':
-        'index arithmetic: coefficient index is the degree (Derivative: Poly(I)*I); subtype Degree_Poly First=0; syndromes First-relative',
     'misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm':
-        'index arithmetic: package-merge pairs at 2*P-1 / 2*P',
-    'searching/SPARK4/Ada-SPARK-Interpolation-Search':
-        'index arithmetic: interpolation probe uses Lo/Hi as numeric positions',
-    'sorting/SPARK4/Ada-SPARK-Heapsort':
-        'index arithmetic: Left:=2*I, A(2*I), A(I/2), 2*R hole/child index, 1-based heap parent/child',
-    'sorting/SPARK4/Ada-SPARK-Introsort':
-        'index arithmetic: Left:=2*I, A(2*I), A(I/2), 2*R hole/child index',
-    'sorting/SPARK4/Ada-SPARK-Smoothsort':
-        'index arithmetic: Leonardo/smoothsort child roots',
-    'strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt':
-        'index arithmetic: 1-based KMP prefix recurrence Pi(i)/Len:=Pi(Len)',
+        'index arithmetic: package-merge pairs at 2*P-1 / 2*P (room recheck KEEP)',
+    'compression/Ada/Peterson-Gorenstein-Zierler-Algorithm':
+        'index arithmetic: coefficient index is the degree (Derivative Poly(I)*I); subtype Degree_Poly First=0 (room recheck KEEP)',
 }
 
 

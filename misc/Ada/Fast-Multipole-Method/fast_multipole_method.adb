@@ -155,9 +155,9 @@ package body Fast_Multipole_Method is
       end if;
       for I in First .. Particle_Index (Last) loop
          declare
-            DX : constant Real := Parts (I).X - CX;
-            DY : constant Real := Parts (I).Y - CY;
-            Q  : constant Real := Parts (I).Q;
+            DX : constant Real := Parts (Parts'First + I - 1).X - CX;
+            DY : constant Real := Parts (Parts'First + I - 1).Y - CY;
+            Q  : constant Real := Parts (Parts'First + I - 1).Q;
             Z  : constant Complex := (DX, DY);
             ZK : Complex := (1.0, 0.0);
          begin
@@ -336,8 +336,8 @@ package body Fast_Multipole_Method is
          return;
       end if;
       for I in Lo .. Hi loop
-         PX := Parts (T.Idx (I)).X;
-         PY := Parts (T.Idx (I)).Y;
+         PX := Parts (Parts'First + (T.Idx (I)) - 1).X;
+         PY := Parts (Parts'First + (T.Idx (I)) - 1).Y;
          if PX < CX then
             if PY < CY then
                Q := 0;  -- SW
@@ -358,8 +358,8 @@ package body Fast_Multipole_Method is
          Pos (Q) := Pos (Q - 1) + Counts (Q - 1);
       end loop;
       for I in Lo .. Hi loop
-         PX := Parts (T.Idx (I)).X;
-         PY := Parts (T.Idx (I)).Y;
+         PX := Parts (Parts'First + (T.Idx (I)) - 1).X;
+         PY := Parts (Parts'First + (T.Idx (I)) - 1).Y;
          if PX < CX then
             if PY < CY then
                Q := 0;
@@ -450,7 +450,7 @@ package body Fast_Multipole_Method is
                   PIdx : constant Particle_Index := T.Idx (I);
                   One  : Particle_Array (1 .. 1);
                begin
-                  One (1) := Parts (PIdx);
+                  One (1) := Parts (Parts'First + PIdx - 1);
                   P2M (M, One, 1, 1, CX, CY, T.P);
                end;
             end loop;
@@ -554,7 +554,7 @@ package body Fast_Multipole_Method is
    is
    begin
       for I in 1 .. Count loop
-         Out_Phi (I) := 0.0;
+         Out_Phi (Out_Phi'First + I - 1) := 0.0;
       end loop;
       if Count = 0 then
          return;
@@ -567,13 +567,13 @@ package body Fast_Multipole_Method is
          begin
             for J in 1 .. Count loop
                if J /= I then
-                  DX := Parts (I).X - Parts (J).X;
-                  DY := Parts (I).Y - Parts (J).Y;
+                  DX := Parts (Parts'First + I - 1).X - Parts (Parts'First + J - 1).X;
+                  DY := Parts (Parts'First + I - 1).Y - Parts (Parts'First + J - 1).Y;
                   R := Soft_Radius (DX, DY, Soft_Eps);
-                  Acc := Acc + Parts (J).Q * Log_Kernel (R);
+                  Acc := Acc + Parts (Parts'First + J - 1).Q * Log_Kernel (R);
                end if;
             end loop;
-            Out_Phi (I) := Acc;
+            Out_Phi (Out_Phi'First + I - 1) := Acc;
          end;
       end loop;
    end Compute_Potentials_Brute;
@@ -598,10 +598,10 @@ package body Fast_Multipole_Method is
       for K in Lo .. Hi loop
          PJ := T.Idx (K);
          if PJ /= Ti then
-            DX := Parts (Ti).X - Parts (PJ).X;
-            DY := Parts (Ti).Y - Parts (PJ).Y;
+            DX := Parts (Parts'First + Ti - 1).X - Parts (Parts'First + PJ - 1).X;
+            DY := Parts (Parts'First + Ti - 1).Y - Parts (Parts'First + PJ - 1).Y;
             R := Soft_Radius (DX, DY, T.Soft_Eps);
-            Acc := Acc + Parts (PJ).Q * Log_Kernel (R);
+            Acc := Acc + Parts (Parts'First + PJ - 1).Q * Log_Kernel (R);
          end if;
       end loop;
       return Acc;
@@ -626,15 +626,15 @@ package body Fast_Multipole_Method is
          return Direct_Leaf (T, Nid, Ti, Parts);
       end if;
 
-      Dist := Hypot (Parts (Ti).X - N.CX, Parts (Ti).Y - N.CY);
+      Dist := Hypot (Parts (Parts'First + Ti - 1).X - N.CX, Parts (Parts'First + Ti - 1).Y - N.CY);
       if Dist > Tiny
         and then Well_Separated
-                   (Parts (Ti).X, Parts (Ti).Y, 0.0,
+                   (Parts (Parts'First + Ti - 1).X, Parts (Parts'First + Ti - 1).Y, 0.0,
                     N.CX, N.CY, N.Size, T.Theta)
       then
          --  Far field: M2P (treat target as point; Size_target = 0)
          return Evaluate_Multipole
-           (N.Mom, Parts (Ti).X, Parts (Ti).Y, N.CX, N.CY, T.P);
+           (N.Mom, Parts (Parts'First + Ti - 1).X, Parts (Parts'First + Ti - 1).Y, N.CX, N.CY, T.P);
       end if;
 
       --  Near / not accepted: recurse children
@@ -657,13 +657,13 @@ package body Fast_Multipole_Method is
       pragma Unreferenced (Config);
    begin
       for I in 1 .. Count loop
-         Out_Phi (I) := 0.0;
+         Out_Phi (Out_Phi'First + I - 1) := 0.0;
       end loop;
       if Count = 0 or else T.Root = 0 then
          return;
       end if;
       for I in 1 .. Count loop
-         Out_Phi (I) := Eval_Node (T, T.Root, I, Parts);
+         Out_Phi (Out_Phi'First + I - 1) := Eval_Node (T, T.Root, I, Parts);
       end loop;
    end Compute_Potentials_FMM;
 
@@ -674,7 +674,7 @@ package body Fast_Multipole_Method is
       D : Real;
    begin
       for I in 1 .. Count loop
-         D := abs (A (I) - B (I));
+         D := abs (A (A'First + I - 1) - B (B'First + I - 1));
          if D > M then
             M := D;
          end if;
@@ -688,7 +688,7 @@ package body Fast_Multipole_Method is
       S : Real := 0.0;
    begin
       for I in 1 .. Count loop
-         S := S + Parts (I).Q;
+         S := S + Parts (Parts'First + I - 1).Q;
       end loop;
       return S;
    end Total_Charge;

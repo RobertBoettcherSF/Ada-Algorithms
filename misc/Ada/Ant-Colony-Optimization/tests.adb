@@ -528,6 +528,46 @@ begin
              "eta^0.5 with alpha0");
    end;
 
+   Section ("Shifted origins: D at 3, tour at 5, Tau/Eta at 2");
+   declare
+      D1 : constant Dist_Matrix := Square_4;
+      DS : Dist_Matrix (3 .. 6, 2 .. 5);
+      T1 : constant Tour (1 .. 4) := [1, 2, 3, 4];
+      TS : constant Tour (5 .. 8) := [1, 2, 3, 4];
+      Tau : Pheromone_Matrix (2 .. 5, 2 .. 5);
+      Eta : Heuristic_Matrix (7 .. 10, 4 .. 7);
+      E1  : constant Heuristic_Matrix := Build_Heuristic (D1);
+      State : RNG_State;
+      Tout : Tour (9 .. 12);
+   begin
+      for R in 1 .. 4 loop
+         for C in 1 .. 4 loop
+            DS (City_Index (R + 2), City_Index (C + 1)) :=
+              D1 (City_Index (R), City_Index (C));
+         end loop;
+      end loop;
+      Check (Approx (Real (Tour_Length (TS, DS)), Real (Tour_Length (T1, D1))),
+             "shifted Tour_Length = 1-based");
+      Check (Is_Valid_Tour (TS), "shifted Is_Valid_Tour");
+      Eta := Build_Heuristic (DS);
+      Check (Approx (Real (Eta (7, 5)), Real (E1 (1, 2)), 1.0E-9)
+             and then Approx (Real (Eta (8, 7)), Real (E1 (2, 4)), 1.0E-9),
+             "shifted Build_Heuristic");
+      Init_Pheromone (Tau, 1.0);
+      Seed_RNG (State, 11);
+      Construct_Tour (Tout, Tau, Eta, 1.0, 2.0, State);
+      Check (Is_Valid_Tour (Tout), "shifted Construct_Tour valid");
+      Check (Tour_Length (Tout, DS) > 0.0, "shifted Construct length > 0");
+      declare
+         R1 : constant Result := Solve_TSP (D1, Default_Config);
+         RS : constant Result := Solve_TSP (DS, Default_Config);
+      begin
+         Check (R1.Best_Length = RS.Best_Length
+                and then R1.Best_Tour (1 .. 4) = RS.Best_Tour (1 .. 4),
+                "shifted Solve_TSP = 1-based (same seed/config)");
+      end;
+   end;
+
    New_Line;
    Put_Line
      ("Result: Pass_Count=" & Natural'Image (Pass_Count)

@@ -2959,13 +2959,6 @@ compression/SPARK3/Huffman-Coding,Count_Frequencies,catalog,catalog,,1,function 
 hashing/SPARK2/Ada-SPARK-FNV-Hash,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,Number_Of_Runs,catalog,catalog,,1,function n_arrays=1 ret=Run_Count,
-misc/Ada/Fast-Multipole-Method,P2M,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Fast-Multipole-Method,Build_Tree,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Fast-Multipole-Method,Compute_Potentials_Brute,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/Fast-Multipole-Method,Compute_Potentials_FMM,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/Fast-Multipole-Method,Max_Abs_Error,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
-misc/Ada/Fast-Multipole-Method,Total_Charge,catalog,catalog,,1,function n_arrays=1 ret=Real,
-misc/Ada/Fast-Multipole-Method,Compute_Potentials_FMM_From_Particles,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
 misc/SPARK2/Ada-SPARK-Adler32,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_32,
 misc/SPARK2/Ada-SPARK-CRC32,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_32,
@@ -3142,7 +3135,6 @@ sorting/SPARK4/Bead-Sort,Values_Ok,catalog,catalog,,1,function n_arrays=1 ret=Bo
 sorting/SPARK4/Bead-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Bead-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,Build_Prefix,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 strings/SPARK3/Levenshtein-Distance,Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
@@ -3161,13 +3153,6 @@ graphs/SPARK4/A-Star,Arrays_OK,catalog,catalog,,3,function n_arrays=3 ret=Boolea
 graphs/SPARK4/A-Star,Heuristic_OK,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/SPARK4/A-Star,Search,catalog,catalog,,4,procedure n_arrays=4 ret=None,
 graphs/SPARK4/A-Star,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/Ant-Colony-Optimization,Euclidean_Matrix,catalog,catalog,,1,function n_arrays=1 ret=Dist_Matrix,
-misc/Ada/Ant-Colony-Optimization,Tour_Length,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
-misc/Ada/Ant-Colony-Optimization,Is_Valid_Tour,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Ant-Colony-Optimization,Transition_Probability,catalog,catalog,,1,function n_arrays=1 ret=Unit_Interval,
-misc/Ada/Ant-Colony-Optimization,Construct_Tour,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Ant-Colony-Optimization,Update_Pheromone,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Ant-Colony-Optimization,Colony_Update,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 misc/Ada/Branch-and-Bound,Total_Weight,catalog,catalog,,2,function n_arrays=2 ret=Natural,
 misc/Ada/Branch-and-Bound,Total_Value,catalog,catalog,,2,function n_arrays=2 ret=Natural,
 misc/Ada/Branch-and-Bound,Is_Feasible,catalog,catalog,,2,function n_arrays=2 ret=Boolean,
@@ -3269,10 +3254,8 @@ graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,,first_pinned,fail,rewrit
 hashing/SPARK2/Ada-SPARK-FNV-Hash,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-misc/Ada/Ant-Colony-Optimization,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Branch-and-Bound,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Combinatorial-Optimization,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-misc/Ada/Fast-Multipole-Method,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-Adler32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-CRC32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3331,7 +3314,6 @@ sorting/SPARK4/Ada-SPARK-Topological-Sort,,first_pinned,fail,rewrite_first_relat
 sorting/SPARK4/Ada-SPARK-Tree-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Bead-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,,fixed_origin_type,ok,fixed_origin_type,,KEEP: index arithmetic on index values,index arithmetic: 1-based KMP prefix recurrence Pi(i)/Len:=Pi(Len)
 strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 strings/SPARK3/Levenshtein-Distance,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3475,3 +3457,21 @@ misc/Ada/Top-Trading-Cycle,Is_Permutation,catalog,catalog,,1,function n_arrays=1
 misc/Ada/Top-Trading-Cycle,Compute_Pointing,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Top-Trading-Cycle,Compute_Pointing_With_Holdings,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 misc/Ada/Top-Trading-Cycle,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/Ada/Ant-Colony-Optimization,Euclidean_Matrix,catalog,catalog,,1,function n_arrays=1 ret=Dist_Matrix,
+misc/Ada/Ant-Colony-Optimization,Tour_Length,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
+misc/Ada/Ant-Colony-Optimization,Is_Valid_Tour,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/Ada/Ant-Colony-Optimization,Transition_Probability,catalog,catalog,,1,function n_arrays=1 ret=Unit_Interval,
+misc/Ada/Ant-Colony-Optimization,Construct_Tour,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Ant-Colony-Optimization,Update_Pheromone,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Ant-Colony-Optimization,Colony_Update,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/Ant-Colony-Optimization,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,Build_Prefix,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/Ada/Fast-Multipole-Method,P2M,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Fast-Multipole-Method,Build_Tree,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Fast-Multipole-Method,Compute_Potentials_Brute,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/Fast-Multipole-Method,Compute_Potentials_FMM,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/Fast-Multipole-Method,Max_Abs_Error,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
+misc/Ada/Fast-Multipole-Method,Total_Charge,catalog,catalog,,1,function n_arrays=1 ret=Real,
+misc/Ada/Fast-Multipole-Method,Compute_Potentials_FMM_From_Particles,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/Fast-Multipole-Method,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
