@@ -11,6 +11,11 @@
 --  * Simon_Null_Vector (the GF(2) step, called directly): every s at n = 1 .. 6
 --    from all of s-perp and from random growing subsets of it, plus random
 --    equation sets, against a brute-force null space (parity by xor folding).
+--  * Simon_Sample_Equations: for a hidden s the support is exactly s-perp
+--    (brute-force parity); one-to-one gives every y, constant gives {0}.
+--  * Solve_Simons_Problem end to end at n = 6 .. 8 (oracle min (x, x xor s)
+--    xor 165), each x queried once (2**n queries, no collision search), and
+--    oracles invariant under a subspace of dimension >= 2 -> Invalid_Oracle.
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Hidden_Subgroup_Problem; use Hidden_Subgroup_Problem;
@@ -37,6 +42,14 @@ procedure Own_Checks is
      (7 * (X mod R_Hidden) + 1);
    function Simon_Oracle (X : Bit_Mask) return Bit_Mask is
      (Bit_Mask'Min (X, X xor S_Hidden));
+   Queries : Natural := 0;
+   function Counted_Oracle (X : Bit_Mask) return Bit_Mask is
+   begin
+      Queries := Queries + 1;
+      return Bit_Mask'Min (X, X xor S_Hidden) xor 165;
+   end Counted_Oracle;
+   --  invariant under every s whose bits lie in S_Hidden
+   function Subspace_Oracle (X : Bit_Mask) return Bit_Mask is (X and not S_Hidden);
 
    --  oracles that are only meaningful on their domain: the value outside
    --  Z_N (x >= N) or outside n bits (x >= 2**n) must never be read
@@ -255,6 +268,62 @@ begin
                E := Bit_Mask (Next_Rand (2 ** Bits));
             end loop;
             Check_Null (Bits, Eqs, "random equations, trial" & Trial'Image);
+         end;
+      end loop;
+   end loop;
+   --  the sampling step: support of the measurement is exactly s-perp
+   for Bits in 1 .. 6 loop
+      for S in Bit_Mask range 0 .. Bit_Mask (2 ** Bits - 1) loop
+         S_Hidden := S;
+         declare
+            Got  : constant Bit_Mask_Array := Simon_Sample_Equations (Bits, Simon_Oracle'Unrestricted_Access);
+            Want : Bit_Mask_Array (1 .. 2 ** Bits);
+            Len  : Natural := 0;
+         begin
+            for Y in Bit_Mask range 0 .. Bit_Mask (2 ** Bits - 1) loop
+               if S = 0 or else Ref_Parity (Y, S) = 0 then
+                  Len := Len + 1;
+                  Want (Len) := Y;
+               end if;
+            end loop;
+            Expect (Got = Want (1 .. Len), "Simon_Sample_Equations = s-perp, n=" & Bits'Image & " s=" & S'Image
+                    & " got" & Got'Length'Image & " equations");
+         end;
+      end loop;
+      S_Hidden := Bit_Mask (2 ** Bits - 1);   --  constant on n bits
+      Expect (Simon_Sample_Equations (Bits, Subspace_Oracle'Unrestricted_Access) = [1 => 0],
+              "Simon_Sample_Equations constant oracle = {0}, n=" & Bits'Image);
+   end loop;
+   --  end to end at n = 6 .. 8, once per x
+   for Bits in 6 .. 8 loop
+      for K in 1 .. 40 loop
+         S_Hidden := Bit_Mask (1 + Next_Rand (2 ** Bits - 1));
+         Queries := 0;
+         begin
+            Expect (Solve_Simons_Problem (Bits, Counted_Oracle'Unrestricted_Access) = S_Hidden,
+                    "Simon n=" & Bits'Image & " s=" & S_Hidden'Image);
+         exception
+            when Subgroup_Not_Found | Invalid_Oracle =>
+               Expect (False, "Simon raised, n=" & Bits'Image & " s=" & S_Hidden'Image);
+         end;
+         Expect (Queries = 2 ** Bits, "Simon queries f once per x, n=" & Bits'Image & " got" & Queries'Image);
+      end loop;
+   end loop;
+   --  invariant under a whole subspace: one bit -> that s; two or more -> Invalid_Oracle
+   for Bits in 1 .. 6 loop
+      for M in Bit_Mask range 1 .. Bit_Mask (2 ** Bits - 1) loop
+         S_Hidden := M;
+         declare
+            One_Bit : constant Boolean := (M and (M - 1)) = 0;
+            Got     : Bit_Mask;
+         begin
+            Got := Solve_Simons_Problem (Bits, Subspace_Oracle'Unrestricted_Access);   --  may raise
+            Expect (One_Bit and then Got = M, "Simon subspace oracle, n=" & Bits'Image & " mask" & M'Image);
+         exception
+            when Invalid_Oracle =>
+               Expect (not One_Bit, "Simon single-bit oracle raised Invalid_Oracle, mask" & M'Image);
+            when Subgroup_Not_Found =>
+               Expect (False, "Simon subspace oracle raised Subgroup_Not_Found, mask" & M'Image);
          end;
       end loop;
    end loop;

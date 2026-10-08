@@ -29,12 +29,26 @@ package Hidden_Subgroup_Problem is
    ---------------------------------------------------------------------------
    -- Variant 1: Simon's Problem Solver
    -- Finds the hidden non-zero bit string s in Z_2^n such that f(x) = f(y) <=> x xor y in {0, s}
+   -- (Simon_Sample_Equations, then Simon_Null_Vector). Raises
+   -- Subgroup_Not_Found when f is one-to-one (s = 0) and Invalid_Oracle when
+   -- f is invariant under more than one non-zero s.
    ---------------------------------------------------------------------------
    function Solve_Simons_Problem
      (N_Bits : Positive;
       Oracle : Simon_Oracle_Function) return Bit_Mask
      with Pre  => N_Bits in 1 .. 8 and then Oracle /= null,
           Post => Solve_Simons_Problem'Result > 0;
+
+   ---------------------------------------------------------------------------
+   -- Simon sampling: the quantum step of Simon's algorithm, simulated
+   -- exactly. Returns, in increasing order, every y in Z_2^N_Bits that the
+   -- circuit measures with non-zero probability (for a Simon oracle with
+   -- hidden s, exactly the y with y . s = 0). Queries f only on 0 .. 2**N_Bits - 1.
+   ---------------------------------------------------------------------------
+   function Simon_Sample_Equations
+     (N_Bits : Positive;
+      Oracle : Simon_Oracle_Function) return Bit_Mask_Array
+     with Pre => N_Bits in 1 .. 8 and then Oracle /= null;
 
    ---------------------------------------------------------------------------
    -- Simon post-processing: the classical step of Simon's algorithm.

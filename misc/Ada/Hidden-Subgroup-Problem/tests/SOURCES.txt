@@ -17,4 +17,17 @@ Sources of the expected values in own_checks.adb (own code, MIT)
   "no s" answer must not change.
 * Simon (n = 1 .. 5 bits, every s /= 0): f (x) = min (x, x xor s), whose
   hidden string is s by construction; s = 0 must raise Subgroup_Not_Found.
+* Simon's GF(2) step called directly (Simon_Null_Vector, n = 1 .. 6): every
+  s from all of s-perp and from random growing subsets of it (checked after
+  each equation is added), plus 300 random equation sets per n, against a
+  brute-force null space (try every x, parity of y and x by xor folding):
+  one non-zero null vector -> that vector, none -> Subgroup_Not_Found,
+  several -> Invalid_Oracle.
+* Simon's sampling step (Simon_Sample_Equations, n = 1 .. 6, every s
+  including 0): the measured support must be exactly s-perp (all y for
+  s = 0, {0} for a constant oracle); y . s by the same xor-folding parity.
+* End to end, n = 6 .. 8, 40 random s each with f (x) = min (x, x xor s)
+  xor 165: answer s, and exactly 2**n oracle queries (no collision search);
+  f (x) = x and not M is invariant under the whole span of M's bits, so a
+  single-bit M gives s = M and two or more bits give Invalid_Oracle.
 Nothing is taken from the program's output or from third-party test suites.
