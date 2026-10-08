@@ -9,7 +9,9 @@ standard generator (seed 20261008).
 * Own reference: depth-first enumeration of every simple path from each
   vertex (minimum cost per pair) and of every simple cycle (is any of them
   negative?), with n <= 6.
-* Checks: Status = Negative_Cycle exactly when a negative cycle exists.
+* Checks: Status = Negative_Cycle and Has_Negative_Cycle exactly when a
+  negative cycle exists; the Floyd_Warshall entry points (from G, and in
+  place on an Init_Dist matrix) agree with All_Pairs.
   Otherwise every Dist (i, j) equals the minimum (Infinity when
   unreachable), and following Next from i to j gives a path of exactly
   that cost over existing edges.

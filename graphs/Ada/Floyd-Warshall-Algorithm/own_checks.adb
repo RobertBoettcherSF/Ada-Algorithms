@@ -97,6 +97,43 @@ begin
          end loop;
          All_Pairs (G.all, D, Nx, St);
          Report ((St = Negative_Cycle) = Neg, "Negative_Cycle status, own" & Neg'Image & ", run" & Run'Image);
+         Report (Has_Negative_Cycle (G.all) = Neg, "Has_Negative_Cycle, own" & Neg'Image & ", run" & Run'Image);
+         declare   --  the other entry points must agree with All_Pairs (whose result is checked below)
+            D2, D3 : Dist_Matrix (1 .. Vertex_Id (N), 1 .. Vertex_Id (N));
+            Pv : Prev_Matrix (1 .. Vertex_Id (N), 1 .. Vertex_Id (N));
+            S2, S3, S4 : Run_Status;
+         begin
+            Floyd_Warshall (G.all, D2, S2);
+            Floyd_Warshall (G.all, D3, Pv, S3);
+            Report (S2 = St and then S3 = St and then (Neg or else (D2 = D and then D3 = D)),
+                    "Floyd_Warshall (G, ...) differs from All_Pairs, run" & Run'Image);
+            Init_Dist (G.all, D2);
+            Floyd_Warshall (D2, N, S4);
+            Report (S4 = St and then (Neg or else D2 = D) and then Has_Negative_Cycle (D2, N) = Neg,
+                    "Floyd_Warshall (Dist, N) differs, run" & Run'Image);
+            declare
+               N5 : Next_Matrix (1 .. Vertex_Id (N), 1 .. Vertex_Id (N));
+               P6 : Prev_Matrix (1 .. Vertex_Id (N), 1 .. Vertex_Id (N));
+               S5, S6 : Run_Status;
+            begin
+               Init_Dist (G.all, D2); Init_Next_From_Dist (D2, N5, N);
+               Floyd_Warshall (D2, N5, N, S5);
+               Init_Dist (G.all, D3); Init_Prev_From_Dist (D3, P6, N);
+               Floyd_Warshall (D3, P6, N, S6);
+               Report (S5 = St and then S6 = St and then (Neg or else (D2 = D and then D3 = D and then N5 = Nx)),
+                       "in-place Floyd_Warshall with Next/Prev differs, run" & Run'Image);
+               D2 := [others => [others => -7]]; D3 := D2;   --  stale values must not pass for results
+               N5 := [others => [others => 0]];
+               begin   --  the raising overloads: same result, or Negative_Cycle_Error
+                  Floyd_Warshall (G.all, D2, N5);
+                  Floyd_Warshall (G.all, D3, P6);
+                  Report (not Neg and then D2 = D and then D3 = D and then N5 = Nx,
+                          "raising Floyd_Warshall differs or missed the negative cycle, run" & Run'Image);
+               exception
+                  when Negative_Cycle_Error => Report (Neg, "Negative_Cycle_Error without a negative cycle, run" & Run'Image);
+               end;
+            end;
+         end;
          if not Neg then
             for I in 1 .. N loop
                for J in 1 .. N loop
