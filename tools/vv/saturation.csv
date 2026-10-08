@@ -6,7 +6,7 @@ graphs/SPARK2/Ada-SPARK-Floyd-Warshall-Lite,floyd_warshall_lite.adb:5,assign-las
 graphs/SPARK4/A-Star,a_star.ads:53,assign-last,legitimate,infinity sentinel
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,dijkstras_algorithm.ads:53,assign-last,legitimate,infinity sentinel
 logic/Ada/DPLL,dpll.adb:161,assign-last,legitimate,"array bound, not an arithmetic ceiling"
-misc/SPARK2/Ada-SPARK-Basic-Calculator-II,basic_calculator_ii.adb:6,return-last,silent-wrong-answer,Evaluate clamps Left op Right into -1000..1000; 1000*2 returns 1000
+misc/SPARK2/Ada-SPARK-Basic-Calculator-II,basic_calculator_ii.adb:6,return-last,silent-wrong-answer,"Evaluate clamps Left op Right into -1000..1000; 1000*2 returns 1000; fixed in a16c749f (tighter input subtype, cap removed; location is in the old code)"
 misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range,bitwise_and_of_numbers_range.adb:4,assign-last,legitimate,all-ones identity of AND
 misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation,buddy_memory_allocation.adb:7,assign-last,legitimate,initial value before search
 misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,capacity_to_ship_packages.adb:34,return-last,legitimate,unreachable fallback: capacity 800 >= 8 * 100 always ships
@@ -38,7 +38,7 @@ misc/SPARK2/Ada-SPARK-Fibonacci-Number,fibonacci_number.adb:11,saturating-name,l
 misc/SPARK2/Ada-SPARK-Fibonacci-Number,fibonacci_number.adb:25,saturating-name,legitimate,unreachable: Fib(32) = 2_178_309 <= 10_000_000
 misc/SPARK2/Ada-SPARK-Find-The-City,find_the_city.adb:9,assign-last,legitimate,identity of a minimum search
 misc/SPARK2/Ada-SPARK-Find-The-City-With-Smallest-Number-Of-Neighbors,find_the_city_with_smallest_number_of_neighbors.adb:7,assign-last,legitimate,initial value before search
-misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,find_the_smallest_divisor.adb:21,return-last,silent-wrong-answer,Limit below Length is infeasible; returns Divisor'Last as if it were an answer
+misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,find_the_smallest_divisor.adb:21,return-last,silent-wrong-answer,"Limit below Length is infeasible; returns Divisor'Last as if it were an answer; fixed in 1298296e (tighter input subtype, cap removed; location is in the old code)"
 misc/SPARK2/Ada-SPARK-First-Bad-Version,first_bad_version.adb:5,assign-last,legitimate,initial value before binary search
 misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,house_robber_iii_stub.adb:4,saturating-name,legitimate,unreachable: 6 * 100 <= 600
 misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,house_robber_iii_stub.adb:6,sat-guard,legitimate,unreachable: 6 * 100 <= 600
@@ -49,13 +49,13 @@ misc/SPARK2/Ada-SPARK-Koko-Eating-Bananas,koko_eating_bananas.adb:20,return-last
 misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram,largest_rectangle_in_histogram.adb:10,assign-last,legitimate,identity of a minimum search
 misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,longest_increasing_subsequence.adb:7,return-last,legitimate,unreachable: length <= Element_Count
 misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence,longest_palindromic_subsequence.adb:11,return-last,legitimate,harmless: capped candidate only enters a max bounded by N <= Length'Last
-misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:6,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
-misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:11,return-last,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
-misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:15,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
-misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:32,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
-misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:33,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
-misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:34,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
-misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:35,saturating-name,silent-wrong-answer,Clamp caps products at 100_000; six elements of 10 give 10**6
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:6,saturating-name,silent-wrong-answer,"Clamp caps products at 100_000; six elements of 10 give 10**6; fixed in 15f41aa4 (tighter input subtype, cap removed; location is in the old code)"
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:11,return-last,silent-wrong-answer,"Clamp caps products at 100_000; six elements of 10 give 10**6; fixed in 15f41aa4 (tighter input subtype, cap removed; location is in the old code)"
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:15,saturating-name,silent-wrong-answer,"Clamp caps products at 100_000; six elements of 10 give 10**6; fixed in 15f41aa4 (tighter input subtype, cap removed; location is in the old code)"
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:32,saturating-name,silent-wrong-answer,"Clamp caps products at 100_000; six elements of 10 give 10**6; fixed in 15f41aa4 (tighter input subtype, cap removed; location is in the old code)"
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:33,saturating-name,silent-wrong-answer,"Clamp caps products at 100_000; six elements of 10 give 10**6; fixed in 15f41aa4 (tighter input subtype, cap removed; location is in the old code)"
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:34,saturating-name,silent-wrong-answer,"Clamp caps products at 100_000; six elements of 10 give 10**6; fixed in 15f41aa4 (tighter input subtype, cap removed; location is in the old code)"
+misc/SPARK2/Ada-SPARK-Max-Product-Subarray,max_product_subarray.adb:35,saturating-name,silent-wrong-answer,"Clamp caps products at 100_000; six elements of 10 give 10**6; fixed in 15f41aa4 (tighter input subtype, cap removed; location is in the old code)"
 misc/SPARK2/Ada-SPARK-Maximal-Rectangle,maximal_rectangle.adb:21,assign-last,legitimate,identity of a minimum search
 misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,maximum_ice_cream_bars.adb:9,return-last,legitimate,cap is the stock of 32 bars (standard problem: at most n bars); documented in README and Post at re-check
 misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray,maximum_product_subarray.adb:7,return-last,legitimate,unreachable: 4 values of |v|<=10 give |p| <= 10_000 < 100_000
@@ -127,15 +127,15 @@ ml/Ada/LPBoost,lpboost.adb:60,assign-last,legitimate,identity of a minimum / tol
 ml/Ada/LPBoost,lpboost.adb:63,sat-guard,legitimate,identity of a minimum / tolerance test
 ml/Ada/LPBoost,lpboost.adb:150,sat-guard,legitimate,identity of a minimum / tolerance test
 ml/Ada/LPBoost,lpboost.adb:178,assign-last,legitimate,identity of a minimum / tolerance test
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:48,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:55,return-last,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:59,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:74,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:75,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:94,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:95,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:96,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:97,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:48,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT); fixed in 2ad89f4e (tighter input subtype, cap removed; location is in the old code)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:55,return-last,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT); fixed in 2ad89f4e (tighter input subtype, cap removed; location is in the old code)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:59,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT); fixed in 2ad89f4e (tighter input subtype, cap removed; location is in the old code)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:74,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT); fixed in 2ad89f4e (tighter input subtype, cap removed; location is in the old code)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:75,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT); fixed in 2ad89f4e (tighter input subtype, cap removed; location is in the old code)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:94,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT); fixed in 2ad89f4e (tighter input subtype, cap removed; location is in the old code)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:95,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT); fixed in 2ad89f4e (tighter input subtype, cap removed; location is in the old code)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:96,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT); fixed in 2ad89f4e (tighter input subtype, cap removed; location is in the old code)"
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,cooley_tukey_fft.adb:97,saturating-name,silent-wrong-answer,"butterflies clamp into Sample; full-range inputs saturate (documented in README, still not the DFT); fixed in 2ad89f4e (tighter input subtype, cap removed; location is in the old code)"
 numerical/SPARK2/Ada-SPARK-Minimum-Limit-Of-Balls-In-A-Bag,minimum_limit_of_balls_in_a_bag.adb:20,return-last,legitimate,unreachable fallback: limit 1000 needs 0 operations
 searching/SPARK2/Ada-SPARK-Search-Insert-Position,search_insert_position.adb:5,assign-last,legitimate,insertion past the end is the defined answer
 searching/SPARK2/Bst-Insert-Search,bst_insert_search.adb:20,assign-last,legitimate,open interval sentinel for the root bound
