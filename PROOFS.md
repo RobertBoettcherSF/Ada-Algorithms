@@ -10,9 +10,9 @@ Folders: 1802; duplicates (counted once): 3; Ada<->SPARK pairs: 101.
 | Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven | Unproved | Not built/crash | Not run |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Ada | 894 | 854 | 862 | 865 | 867 | 849 | 675 | 655 | 0 | 0 | 0 | 23 |
-| SPARK2 | 841 | 833 | 839 | 839 | 839 | 839 | 471 | 470 | 184 | 2 | 0 | 653 |
-| SPARK4 | 64 | 61 | 62 | 62 | 62 | 62 | 62 | 32 | 7 | 1 | 0 | 54 |
-| All | 1799 | 1748 | 1763 | 1766 | 1768 | 1750 | 1208 | 1157 | 191 | 3 | 0 | 730 |
+| SPARK2 | 841 | 833 | 839 | 839 | 839 | 839 | 471 | 470 | 293 | 2 | 2 | 542 |
+| SPARK4 | 64 | 61 | 62 | 62 | 62 | 62 | 62 | 32 | 17 | 1 | 0 | 44 |
+| All | 1799 | 1748 | 1763 | 1766 | 1768 | 1750 | 1208 | 1157 | 310 | 3 | 2 | 609 |
 
 | Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Pair | Duplicate of |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -756,61 +756,61 @@ Folders: 1802; duplicates (counted once): 3; Ada<->SPARK pairs: 101.
 | misc/Ada/round-robin | n/a | no | no | no | no | NA | NA | no SPARK |  |  |
 | misc/Ada/scripts | n/a | no | no | no | no | NA | NA | no SPARK |  |  |
 | misc/Ada/srt-simulation | n/a | no | no | no | no | NA | NA | no SPARK |  |  |
-| misc/SPARK2/Ada-SPARK-3Sum-Closest | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-4Sum-II | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite | yes | yes | yes | yes | yes | 3 | 3 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Accounts-Merge-Stub | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Add-Binary | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Add-Digits | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Add-Two-Numbers | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Add-Two-Numbers-II | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Add-Without-Plus | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Adler32 | yes | yes | yes | yes | yes | 0 | 0 | not run | misc/Ada/Adler-32 |  |
-| misc/SPARK2/Ada-SPARK-Alert-Using-Same-Key-Card-Stub | yes | yes | yes | yes | yes | 4 | 4 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Alien-Dictionary-Lite | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Alien-Dictionary-Stub | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-All-Paths-From-Source-To-Target | yes | yes | yes | yes | yes | 3 | 3 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Argmax | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Arranging-Coins | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Array-Partition-I | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-As-Far-From-Land-As-Possible | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Assign-Cookies | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Asteroid-Collision | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Authentication-Manager-Stub | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Available-Captures-For-Rook | yes | yes | yes | yes | yes | 5 | 5 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Bankers-Algorithm | yes | yes | yes | yes | yes | 11 | 11 | not run | misc/Ada/Bankers-Algorithm |  |
-| misc/SPARK2/Ada-SPARK-Base64-Decode | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Base64-Encode | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Baseball-Game | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Basic-Calculator | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Basic-Calculator-II | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Basic-Calculator-Stub | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Beautiful-Arrangement | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Beautiful-Array-Lite | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-II | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Binary-Number-With-Alternating-Bits | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Binary-To-Integer | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Binary-Watch | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Binomial-Coefficient | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Bitset | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Bitwise-OR-Of-Numbers-Range | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Bitwise-ORs-Of-Subarrays-Lite | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Bitwise-XOR-Of-All-Pairings | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Boats-To-Save-People | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Bounding-Box | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Bray-Curtis | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Broken-Calculator | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Browser-History-Stub | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation | yes | yes | yes | yes | yes | 1 | 1 | not run | misc/Ada/Buddy-Memory-Allocation |  |
-| misc/SPARK2/Ada-SPARK-Bulb-Switcher | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| misc/SPARK2/Ada-SPARK-3Sum-Closest | yes | yes | yes | yes | yes | 2 | 2 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-4Sum-II | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite | yes | yes | yes | yes | yes | 3 | 3 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Accounts-Merge-Stub | yes | yes | yes | yes | yes | 2 | 2 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Add-Binary | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Add-Digits | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Add-Two-Numbers | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Add-Two-Numbers-II | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Add-Without-Plus | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Adler32 | yes | yes | yes | yes | yes | 0 | 0 | proven | misc/Ada/Adler-32 |  |
+| misc/SPARK2/Ada-SPARK-Alert-Using-Same-Key-Card-Stub | yes | yes | yes | yes | yes | 4 | 4 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Alien-Dictionary-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Alien-Dictionary-Stub | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-All-Paths-From-Source-To-Target | yes | yes | yes | yes | yes | 3 | 3 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Argmax | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Arranging-Coins | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Array-Partition-I | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-As-Far-From-Land-As-Possible | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Assign-Cookies | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Asteroid-Collision | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Authentication-Manager-Stub | yes | yes | yes | yes | yes | 2 | 2 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Available-Captures-For-Rook | yes | yes | yes | yes | yes | 5 | 5 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Bankers-Algorithm | yes | yes | yes | yes | yes | 11 | 11 | proven | misc/Ada/Bankers-Algorithm |  |
+| misc/SPARK2/Ada-SPARK-Base64-Decode | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Base64-Encode | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Baseball-Game | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Basic-Calculator | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Basic-Calculator-II | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Basic-Calculator-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Beautiful-Arrangement | yes | yes | yes | yes | yes | 2 | 2 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Beautiful-Array-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-II | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Binary-Number-With-Alternating-Bits | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Binary-To-Integer | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Binary-Watch | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Binomial-Coefficient | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Bitset | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Bitwise-OR-Of-Numbers-Range | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Bitwise-ORs-Of-Subarrays-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Bitwise-XOR-Of-All-Pairings | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Boats-To-Save-People | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Bounding-Box | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Bray-Curtis | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Broken-Calculator | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Browser-History-Stub | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation | yes | yes | yes | yes | yes | 1 | 1 | proven | misc/Ada/Buddy-Memory-Allocation |  |
+| misc/SPARK2/Ada-SPARK-Bulb-Switcher | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | misc/SPARK2/Ada-SPARK-Bump-Arena | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-CRC32 | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-CSR-Row-Sum | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| misc/SPARK2/Ada-SPARK-Can-Place-Flowers | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| misc/SPARK2/Ada-SPARK-CRC32 | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-CSR-Row-Sum | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| misc/SPARK2/Ada-SPARK-Can-Place-Flowers | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | misc/SPARK2/Ada-SPARK-Canberra-Distance | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
 | misc/SPARK2/Ada-SPARK-Candy | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
 | misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
@@ -1356,7 +1356,7 @@ Folders: 1802; duplicates (counted once): 3; Ada<->SPARK pairs: 101.
 | misc/SPARK2/Ada-SPARK-XOR-Operation-In-An-Array | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
 | misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub | yes | yes | yes | yes | yes | 3 | 3 | not run |  |  |
 | misc/SPARK4/Ada-SPARK-Accumulator | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
-| misc/SPARK4/Ada-SPARK-Blum-Blum-Shub | yes | yes | yes | yes | yes | 0 | 0 | not run | misc/Ada/Blum-Blum-Shub |  |
+| misc/SPARK4/Ada-SPARK-Blum-Blum-Shub | yes | yes | yes | yes | yes | 0 | 0 | proven | misc/Ada/Blum-Blum-Shub |  |
 | misc/SPARK4/Ada-SPARK-Heaps-Algorithm | yes | yes | yes | yes | yes | 0 | 3 | proven | misc/Ada/Heaps-Algorithm |  |
 | misc/SPARK4/Ada-SPARK-K-Way-Merge | yes | yes | yes | yes | yes | 0 | 0 | proven | misc/Ada/K-Way-Merge |  |
 | misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator | yes | yes | yes | yes | yes | 0 | 0 | proven | misc/Ada/Lagged-Fibonacci-Generator |  |
@@ -1685,15 +1685,15 @@ Folders: 1802; duplicates (counted once): 3; Ada<->SPARK pairs: 101.
 | sorting/SPARK4/Ada-SPARK-Radix-Sort | yes | yes | yes | yes | yes | 0 | 6 | not run | sorting/Ada/Radix-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Samplesort | yes | yes | yes | yes | yes | 0 | 3 | not run | sorting/Ada/Samplesort |  |
 | sorting/SPARK4/Ada-SPARK-Selection-Sort | yes | yes | yes | yes | yes | 0 | 0 | not run | sorting/Ada/Selection-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Shell-Sort | yes | yes | yes | yes | yes | 0 | 2 | not run | sorting/Ada/Shell-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Slowsort | yes | yes | yes | yes | yes | 0 | 1 | not run | sorting/Ada/Slowsort |  |
-| sorting/SPARK4/Ada-SPARK-Smoothsort | yes | yes | yes | yes | yes | 0 | 2 | not run | sorting/Ada/Smoothsort |  |
-| sorting/SPARK4/Ada-SPARK-Sort-Merge-Join | yes | yes | yes | yes | yes | 0 | 0 | not run | sorting/Ada/Sort-Merge-Join |  |
-| sorting/SPARK4/Ada-SPARK-Sorted-List | yes | yes | yes | yes | yes | 0 | 0 | not run | sorting/Ada/Sorted-List |  |
-| sorting/SPARK4/Ada-SPARK-Spaghetti-Sort | yes | yes | yes | yes | yes | 0 | 0 | not run | sorting/Ada/Spaghetti-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Stooge-Sort | yes | yes | yes | yes | yes | 0 | 1 | not run | sorting/Ada/Stooge-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Strand-Sort | yes | yes | yes | yes | yes | 0 | 8 | not run | sorting/Ada/Strand-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Timsort | yes | yes | yes | yes | yes | 0 | 6 | not run | sorting/Ada/Timsort |  |
+| sorting/SPARK4/Ada-SPARK-Shell-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | sorting/Ada/Shell-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Slowsort | yes | yes | yes | yes | yes | 0 | 1 | proven | sorting/Ada/Slowsort |  |
+| sorting/SPARK4/Ada-SPARK-Smoothsort | yes | yes | yes | yes | yes | 0 | 2 | proven | sorting/Ada/Smoothsort |  |
+| sorting/SPARK4/Ada-SPARK-Sort-Merge-Join | yes | yes | yes | yes | yes | 0 | 0 | proven | sorting/Ada/Sort-Merge-Join |  |
+| sorting/SPARK4/Ada-SPARK-Sorted-List | yes | yes | yes | yes | yes | 0 | 0 | proven | sorting/Ada/Sorted-List |  |
+| sorting/SPARK4/Ada-SPARK-Spaghetti-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | sorting/Ada/Spaghetti-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Stooge-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | sorting/Ada/Stooge-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Strand-Sort | yes | yes | yes | yes | yes | 0 | 8 | proven | sorting/Ada/Strand-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Timsort | yes | yes | yes | yes | yes | 0 | 6 | proven | sorting/Ada/Timsort |  |
 | sorting/SPARK4/Ada-SPARK-Topological-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | sorting/Ada/Topological-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Tree-Sort | yes | yes | yes | yes | yes | 0 | 3 | proven | sorting/Ada/Tree-Sort |  |
 | strings/Ada/Boyer-Moore | yes | yes | yes | yes | yes | 0 | 0 | no SPARK | strings/SPARK2/Ada-SPARK-Boyer-Moore |  |
@@ -1723,7 +1723,7 @@ Folders: 1802; duplicates (counted once): 3; Ada<->SPARK pairs: 101.
 | strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance | yes | yes | yes | yes | yes | 0 | 0 | proven | strings/Ada/Damerau-Levenshtein-Distance |  |
 | strings/SPARK2/Ada-SPARK-Decode-String | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Decode-String-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
-| strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
+| strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings | yes | yes | yes | yes | yes | 2 | 2 | tool crash |  |  |
 | strings/SPARK2/Ada-SPARK-Edit-Distance | yes | yes | yes | yes | yes | 4 | 4 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Encode-And-Decode-Strings-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Find-All-Anagrams-In-A-String | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
@@ -1732,7 +1732,7 @@ Folders: 1802; duplicates (counted once): 3; Ada<->SPARK pairs: 101.
 | strings/SPARK2/Ada-SPARK-Isomorphic-Strings | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt | yes | yes | yes | yes | yes | 0 | 0 | 1 unproved | strings/Ada/Knuth-Morris-Pratt |  |
 | strings/SPARK2/Ada-SPARK-Longest-Common-Prefix | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
-| strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence | yes | yes | yes | yes | yes | 0 | 0 | not run | strings/Ada/Longest-Common-Subsequence |  |
+| strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence | yes | yes | yes | yes | yes | 0 | 0 | tool crash | strings/Ada/Longest-Common-Subsequence |  |
 | strings/SPARK2/Ada-SPARK-Make-The-String-Great | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Multiply-Strings-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
@@ -1741,7 +1741,7 @@ Folders: 1802; duplicates (counted once): 3; Ada<->SPARK pairs: 101.
 | strings/SPARK2/Ada-SPARK-Permutation-In-String | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Rabin-Karp | yes | yes | yes | yes | yes | 0 | 0 | 1 unproved | strings/Ada/Rabin-Karp |  |
 | strings/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-In-String | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
-| strings/SPARK2/Ada-SPARK-Reorganize-String | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
+| strings/SPARK2/Ada-SPARK-Reorganize-String | yes | yes | yes | yes | yes | 2 | 2 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Reorganize-String-Stub | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Repeated-String-Match | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Reverse-String | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
@@ -1754,7 +1754,7 @@ Folders: 1802; duplicates (counted once): 3; Ada<->SPARK pairs: 101.
 | strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven |  | strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi (near-identical) |
 | strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert | yes | yes | yes | yes | yes | 4 | 4 | proven |  |  |
 | strings/SPARK2/Ada-SPARK-Total-Hamming-Distance | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
-| strings/SPARK2/Ada-SPARK-Z-Algorithm | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
+| strings/SPARK2/Ada-SPARK-Z-Algorithm | yes | yes | yes | yes | yes | 2 | 2 | proven |  |  |
 | trees/Ada/Abstract-Syntax-Tree | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
 | trees/Ada/Context-Tree-Weighting | yes | yes | yes | yes | yes | 5 | 5 | no SPARK |  |  |
 | trees/Ada/Decision-Trees | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |
@@ -1763,58 +1763,58 @@ Folders: 1802; duplicates (counted once): 3; Ada<->SPARK pairs: 101.
 | trees/Ada/Red-Black-Tree | yes | yes | yes | yes | yes | 3 | 3 | no SPARK | trees/SPARK2/Ada-SPARK-Red-Black-Tree |  |
 | trees/Ada/Set-Partitioning-In-Hierarchical-Trees | yes | yes | yes | yes | yes | 40 | 40 | no SPARK |  |  |
 | trees/SPARK2/Ada-SPARK-BST-Iterator-Stub | yes | yes | yes | yes | yes | 3 | 3 | proven |  |  |
-| trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree | yes | yes | yes | yes | yes | 6 | 6 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder | yes | yes | yes | yes | yes | 9 | 9 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order | yes | yes | yes | yes | yes | 9 | 9 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth | yes | yes | yes | yes | yes | 7 | 7 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth | yes | yes | yes | yes | yes | 7 | 7 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Paths | yes | yes | yes | yes | yes | 4 | 4 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder | yes | yes | yes | yes | yes | 6 | 6 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder | yes | yes | yes | yes | yes | 9 | 9 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View | yes | yes | yes | yes | yes | 3 | 3 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite | yes | yes | yes | yes | yes | 9 | 9 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite | yes | yes | yes | yes | yes | 9 | 9 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Count-Binary-Substrings | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes | yes | yes | yes | yes | yes | 4 | 4 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Delete-Node-In-A-BST-Lite | yes | yes | yes | yes | yes | 8 | 8 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree | yes | yes | yes | yes | yes | 7 | 7 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Find-Mode-In-BST | yes | yes | yes | yes | yes | 4 | 4 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget | yes | yes | yes | yes | yes | 3 | 3 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Implement-Trie | yes | yes | yes | yes | yes | 3 | 3 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Insert-Into-BST | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Invert-Binary-Tree | yes | yes | yes | yes | yes | 5 | 5 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub | yes | yes | yes | yes | yes | 5 | 5 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Leaf-Similar-Trees | yes | yes | yes | yes | yes | 3 | 3 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Longest-Common-Substring | yes | yes | yes | yes | yes | 0 | 0 | not run | trees/Ada/Longest-Common-Substring |  |
-| trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat | yes | yes | yes | yes | yes | 3 | 3 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST | yes | yes | yes | yes | yes | 4 | 4 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST | yes | yes | yes | yes | yes | 4 | 4 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Maximum-Binary-Tree | yes | yes | yes | yes | yes | 7 | 7 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree | yes | yes | yes | yes | yes | 6 | 6 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-N-Ary-Tree | yes | yes | yes | yes | yes | 9 | 9 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees | yes | yes | yes | yes | yes | 4 | 4 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree | yes | yes | yes | yes | yes | 6 | 6 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Minimum-Height-Trees | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Minimum-Window-Substring | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
+| trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree | yes | yes | yes | yes | yes | 6 | 6 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder | yes | yes | yes | yes | yes | 9 | 9 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order | yes | yes | yes | yes | yes | 9 | 9 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth | yes | yes | yes | yes | yes | 7 | 7 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth | yes | yes | yes | yes | yes | 7 | 7 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Paths | yes | yes | yes | yes | yes | 4 | 4 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder | yes | yes | yes | yes | yes | 6 | 6 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder | yes | yes | yes | yes | yes | 9 | 9 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View | yes | yes | yes | yes | yes | 3 | 3 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite | yes | yes | yes | yes | yes | 9 | 9 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite | yes | yes | yes | yes | yes | 9 | 9 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Count-Binary-Substrings | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes | yes | yes | yes | yes | yes | 4 | 4 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Delete-Node-In-A-BST-Lite | yes | yes | yes | yes | yes | 8 | 8 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree | yes | yes | yes | yes | yes | 7 | 7 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Find-Mode-In-BST | yes | yes | yes | yes | yes | 4 | 4 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite | yes | yes | yes | yes | yes | 2 | 2 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget | yes | yes | yes | yes | yes | 3 | 3 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Implement-Trie | yes | yes | yes | yes | yes | 3 | 3 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Insert-Into-BST | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Invert-Binary-Tree | yes | yes | yes | yes | yes | 5 | 5 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub | yes | yes | yes | yes | yes | 5 | 5 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Leaf-Similar-Trees | yes | yes | yes | yes | yes | 3 | 3 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Longest-Common-Substring | yes | yes | yes | yes | yes | 0 | 0 | proven | trees/Ada/Longest-Common-Substring |  |
+| trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat | yes | yes | yes | yes | yes | 3 | 3 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST | yes | yes | yes | yes | yes | 4 | 4 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST | yes | yes | yes | yes | yes | 4 | 4 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Maximum-Binary-Tree | yes | yes | yes | yes | yes | 7 | 7 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree | yes | yes | yes | yes | yes | 6 | 6 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-N-Ary-Tree | yes | yes | yes | yes | yes | 9 | 9 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees | yes | yes | yes | yes | yes | 4 | 4 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree | yes | yes | yes | yes | yes | 6 | 6 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Minimum-Height-Trees | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Minimum-Window-Substring | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
 | trees/SPARK2/Ada-SPARK-N-Ary-Tree-Level-Order-Traversal | yes | yes | yes | yes | yes | 11 | 11 | not run |  |  |
 | trees/SPARK2/Ada-SPARK-N-Ary-Tree-Postorder-Traversal | yes | yes | yes | yes | yes | 12 | 12 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-N-Ary-Tree-Preorder-Traversal | yes | yes | yes | yes | yes | 11 | 11 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Range-Sum-BST | yes | yes | yes | yes | yes | 5 | 5 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST | yes | yes | yes | yes | yes | 10 | 10 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Red-Black-Tree | yes | yes | yes | yes | yes | 0 | 0 | not run | trees/Ada/Red-Black-Tree |  |
-| trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Same-Tree | yes | yes | yes | yes | yes | 6 | 6 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree | yes | yes | yes | yes | yes | 5 | 5 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Symmetric-Tree | yes | yes | yes | yes | yes | 7 | 7 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Trim-BST-Stub | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Two-Sum-BST-Stub | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Univalued-Binary-Tree | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |
-| trees/SPARK2/Ada-SPARK-Validate-BST-Stub | yes | yes | yes | yes | yes | 7 | 7 | not run |  |  |
+| trees/SPARK2/Ada-SPARK-N-Ary-Tree-Preorder-Traversal | yes | yes | yes | yes | yes | 11 | 11 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters | yes | yes | yes | yes | yes | 2 | 2 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Range-Sum-BST | yes | yes | yes | yes | yes | 5 | 5 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST | yes | yes | yes | yes | yes | 10 | 10 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Red-Black-Tree | yes | yes | yes | yes | yes | 0 | 0 | proven | trees/Ada/Red-Black-Tree |  |
+| trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Same-Tree | yes | yes | yes | yes | yes | 6 | 6 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree | yes | yes | yes | yes | yes | 5 | 5 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Symmetric-Tree | yes | yes | yes | yes | yes | 7 | 7 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Trim-BST-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Two-Sum-BST-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles | yes | yes | yes | yes | yes | 2 | 2 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Univalued-Binary-Tree | yes | yes | yes | yes | yes | 1 | 1 | proven |  |  |
+| trees/SPARK2/Ada-SPARK-Validate-BST-Stub | yes | yes | yes | yes | yes | 7 | 7 | proven |  |  |
