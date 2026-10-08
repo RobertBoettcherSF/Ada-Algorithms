@@ -151,19 +151,34 @@ for mf in sorted(glob.glob(os.path.join(VVD, 'mutation*.csv'))):
     for m in _csv(mf):
         mut_by[m['folder']] = m['score'] or ('baseline ' + m['baseline'] if m['baseline'] != 'pass' else 'no sites')
 kat_by = {k['folder']: k['source'] for k in _csv(os.path.join(a.root, 'tools', 'vv', 'kat_registry.csv'))}
+# do-nothing check (tools/vv/donothing.py): 'weak' = the tests still pass when the main subprogram does nothing
+dn_by = {d['folder']: d['verdict'] for d in _csv(os.path.join(VVD, 'donothing.csv'))}
+# own tests (tools/vv/own_tests.csv): self-written properties / brute-force references, tests/SOURCES.txt per folder
+own_by = {o['folder']: o['checks'] for o in _csv(os.path.join(a.root, 'tools', 'vv', 'own_tests.csv'))}
 for r in rows:
     r['diff_test'] = diff_by.get(r['folder'], '')
     r['mutation'] = mut_by.get(r['folder'], '')
     r['kat'] = kat_by.get(r['folder'], '')
+    r['do_nothing'] = dn_by.get(r['folder'], '')
+    r['own_tests'] = 'yes' if r['folder'] in own_by else ''
 
-# training_ready: builds + tests pass on GNAT 12 and 14, Silver-proven non-trivially, and validated
-# by a known-answer vector or an agreeing differential test against its twin; stubs never qualify.
+# known_answer: the expected values come from somewhere other than the program itself - a registered
+# known-answer vector, own tests (properties / own brute-force reference), or an agreeing differential
+# test against the twin - and the do-nothing check did not flag the folder's tests as weak.
+def known_answer(r):
+    if r['do_nothing'] == 'weak':
+        return ''
+    src = [n for n, ok in (('kat', bool(r['kat'])), ('own tests', bool(r['own_tests'])),
+                           ('diff agree', r['diff_test'].startswith('agree'))) if ok]
+    return ', '.join(src)
+# training_ready: builds + tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a known answer.
 def training_ready(r):
     return (r['build_gnat14'] == 'yes' and r['build_gnat12'] == 'yes'
             and r['tests_pass_gnat14'] == 'yes' and r['tests_pass_gnat12'] == 'yes'
             and r['silver'] == 'proven' and not r['trivial'] and not r['stub']
-            and (bool(r['kat']) or r['diff_test'].startswith('agree')))
+            and bool(r['known_answer']))
 for r in rows:
+    r['known_answer'] = known_answer(r)
     r['training_ready'] = 'yes' if training_ready(r) else ''
 
 # duplicates: identical package sources (comments/whitespace ignored) or same name+level with >=90% similar text
@@ -226,7 +241,8 @@ L = ['# Proof index', '',
      'Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder\'s own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build\'s test binary exits 0 with no FAIL lines.',
      'Silver: `gnatprove --mode=silver --level=2` on the folder\'s own .gpr (generated where none exists).', '',
      f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
-     f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a registered known-answer vector or an agreeing differential test against its twin (column `training_ready`).", '',
+     f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).", '',
+     f"**Do-nothing check:** {c(lambda r: r['do_nothing'] in ('ok', 'weak') or r['do_nothing'].startswith('unchecked'))} folders checked, {c(lambda r: r['do_nothing']=='weak')} flagged weak (tests still pass when the main subprogram does nothing), {c(lambda r: r['do_nothing'].startswith('unchecked'))} unchecked (no trivial body compiles); {c(lambda r: r['do_nothing']=='weak' and r['silver']=='proven' and not r['trivial'] and not r['stub'])} of the weak ones are Silver-proven non-trivial. Own tests: {c(lambda r: r['own_tests']=='yes')} folders (column `own_tests`).", '',
      '**Silver headline (duplicates counted once):** ' + headline, '',
      '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged; the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
      '| Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven (real) | Proven (stub) | Trivial | Unproved | Tool crash | Not built | Not run |',
@@ -239,7 +255,7 @@ for lev in ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4', 'All'):
              f"{c(lambda r: str(r['warnings_gnat14'])=='0' and r['build_gnat14']=='yes', s)} | {c(lambda r: str(r['warnings_gnat12'])=='0' and r['build_gnat12']=='yes', s)} | "
              f"{c(lambda r: r['silver']=='proven' and not r['stub'], s)} | {c(lambda r: r['silver']=='proven' and bool(r['stub']), s)} | {c(lambda r: r['trivial']=='yes', s)} | "
              f"{c(lambda r: r['silver'].endswith('unproved'), s)} | {c(lambda r: r['silver'] in ('tool crash','timeout'), s)} | {c(lambda r: r['silver']=='not built', s)} | {c(lambda r: r['silver']=='not run', s)} |")
-vvrows = [r for r in rows if r['diff_test'] or r['mutation'] or r['kat']]
+vvrows = [r for r in rows if r['diff_test'] or r['mutation'] or r['kat'] or r['own_tests'] or r['do_nothing'] == 'weak']
 if vvrows:
     nd = len({d['pair'] for d in _csv(os.path.join(VVD, 'diff.csv'))})
     mparts = []
@@ -252,10 +268,11 @@ if vvrows:
     L += ['', '## V&V (validation) results', '',
           f'Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: {nd} ({nagree} agree on every case); mutation: '
           + ('; '.join(mparts) or 'not run') + f' (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: {len(kat_by)}. '
-          'Columns `diff_test`, `mutation`, `kat` in PROOFS.csv.', '',
-          '| Folder | Differential test | Mutation (killed/total) | Known-answer source |', '|---|---|---|---|']
+          f'Own tests: {len(own_by)} folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). '
+          'Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.', '',
+          '| Folder | Differential test | Mutation (killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |', '|---|---|---|---|---|---|---|']
     for r in vvrows:
-        L.append(f"| {r['folder']} | {r['diff_test']} | {r['mutation']} | {r['kat']} |")
+        L.append(f"| {r['folder']} | {r['diff_test']} | {r['mutation']} | {r['kat']} | {own_by.get(r['folder'], '')} | {r['do_nothing']} | {r['known_answer']} |")
 L += ['', '| Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Checks (func) | Training-ready | Pair | Duplicate of |', '|---|---|---|---|---|---|---|---|---|---|---|---|---|']
 for r in rows:
     L.append(f"| {r['folder']}{' (stub)' if r['stub'] else ''} | {r['make_test']} | {r['build_gnat14']} | {r['build_gnat12']} | {r['tests_pass_gnat14']} | {r['tests_pass_gnat12']} | "
