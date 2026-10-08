@@ -59,3 +59,4 @@ sorting/SPARK2/Binary-Insertion-Sort	hidden stub: body is the generic one-direct
 trees/SPARK2/Ada-SPARK-Implement-Trie	hidden stub: flat word list with linear lookup; no trie nodes or child links
 trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View	hidden stub: returns fixed positions 1, 3, 7, 15 of a complete tree; no traversal (absent nodes not handled)
 trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite	hidden stub: a hard-coded index permutation for one complete-tree shape; no traversal
+misc/SPARK2/Ada-SPARK-Fixed-Point-Iteration	hidden stub: one hard-wired map x -> (x + Target) / 2 run for 10 steps; no general function and no convergence test
