@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Min_Stack; use Min_Stack;
+with Own_Checks;
 
 procedure Tests is
    S : Stack := Empty;
@@ -10,4 +11,5 @@ begin
    S := Pop (S);
    if Top_Value (S) /= -2 then raise Program_Error; end if;
    Put_Line ("Minimum stack: PASS");
+   Own_Checks;
 end Tests;

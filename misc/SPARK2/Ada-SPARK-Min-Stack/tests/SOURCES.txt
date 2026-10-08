@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: hand values.
+* Own reference: an array model of the stack in the test; Top_Value is the
+  last pushed value still present, Min_Value the minimum of the model.
+* Rejection: Push on a full stack, Pop / Top_Value / Min_Value on an empty
+  one have no answer and must raise (silent no-op scan).
+* Inputs: 2000 random runs of 40 push/pop operations.
