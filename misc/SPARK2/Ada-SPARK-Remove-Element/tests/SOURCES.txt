@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: one hand case.
+* Own reference (standard statement; order of the kept elements is free):
+  collect the elements different from Target in the test and compare
+  Data (1 .. Length) with them as multisets.
+* Inputs: 20000 random arrays (Length 0 .. 32, 20% at the full 32), values
+  and Target from a small random range so removals are common; plus the
+  full array 1 .. 32 with Target 0.
