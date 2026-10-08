@@ -8,7 +8,7 @@ trees/SPARK2/Ada-SPARK-Range-Sum-BST,range sum skips the left subtree of in-rang
 misc/SPARK2/Ada-SPARK-Jump-Game,Can_Jump returns A (N) > 0; not the jump game,fixed,bf330e8,73d4188
 searching/SPARK2/Bst-Insert-Search,array-backed tree (31 slots; children of K at 2K and 2K + 1) silently loses keys deeper than 5 levels; no README,fixed,4978fef6,9fd0974e
 trees/SPARK2/Ada-SPARK-Insert-Into-BST,Insert appends in insertion order; no BST shape,fixed,e6a5de4f,2345c635
-sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,Solve keeps up to two copies of each value instead of removing every value that occurs more than once,open,,
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,Solve keeps up to two copies of each value instead of removing every value that occurs more than once,fixed,9cf8e4fa,8d6ec01d
 sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,inputs without an exact 4/4 even/odd split lose values,open,,
 sorting/SPARK2/Ada-SPARK-Sort-List-Lite,make test fails,fixed,n/a (make test itself failed),9744588
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,make test fails,fixed,n/a (make test itself failed),9744588

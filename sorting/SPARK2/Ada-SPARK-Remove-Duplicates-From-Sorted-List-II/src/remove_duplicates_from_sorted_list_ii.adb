@@ -14,6 +14,8 @@ package body Remove_Duplicates_From_Sorted_List_II is
       return L.Data (P);
    end Get;
    procedure Solve (L : in out List) is
+      --  the proof only needs Unique_At as a black box
+      pragma Annotate (GNATprove, Hide_Info, "Expression_Function_Body", Unique_At);
       Original : constant List := L;
       Write : Count := 0;
       From : array (Position) of Position := [others => 1] with Ghost;   --  output P came from input From (P)
@@ -33,5 +35,8 @@ package body Remove_Duplicates_From_Sorted_List_II is
                                      (for some P in 1 .. Write => From (P) = I2)));
       end loop;
       L.Length := Write;
+      pragma Assert (for all P in 1 .. Write =>
+                       From (P) in 1 .. Original.Length and then Unique_At (Original, From (P))
+                       and then L.Data (P) = Original.Data (From (P)));
    end Solve;
 end Remove_Duplicates_From_Sorted_List_II;
