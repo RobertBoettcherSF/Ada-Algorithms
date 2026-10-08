@@ -1,0 +1,28 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the package; the tree 8 (4, 12) built by three
+inserts, checked through the read-only accessors (shape and that every
+inserted value is reachable from the root). The original version started
+from Root = 1 on an empty tree and only checked Root; see
+tools/vv/findings_sweep.csv.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09):
+* Reference: an independent BST in own_checks.adb built from heap nodes
+  by recursive insertion (smaller values left, equal or larger right)
+  that remembers each value's node id.
+* Checks after every single Insert: same root; for every inserted node the
+  same value and the same left / right child ids as the reference; an
+  in-order walk over the package tree (cycle and dangling-link guarded)
+  visits exactly the inserted nodes, in nondecreasing value order, with
+  the same occurrence counts; Well_Formed holds.
+* Inputs: every value sequence of length 1 .. 6 over {-1, 0, 1} (1,092);
+  every insertion order of 1 .. 6 (720, node ids 16, 15, ...); 3,000
+  random runs of 1 .. 16 nodes with a random node-id permutation and
+  values from a random symmetric range (narrow ranges give many equal
+  values); five full 16-node shapes (ascending and descending chains,
+  all equal, alternating -100 / 100, zig-zag). 4,817 runs.
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..."); set AA_SEED=<n> to run them with
+  another seed.

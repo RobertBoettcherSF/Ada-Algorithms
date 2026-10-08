@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Insert_Into_A_Binary_Search_Tree; use Insert_Into_A_Binary_Search_Tree;
+with Own_Checks;
 
 procedure Tests is
    T : Tree := Empty;
@@ -41,4 +42,5 @@ begin
       raise Program_Error;
    end if;
    Put_Line ("Insert_Into_A_Binary_Search_Tree: PASS");
+   Own_Checks;
 end Tests;
