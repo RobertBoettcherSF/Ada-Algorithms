@@ -15,3 +15,4 @@ sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,d33e5235 (rebased on upstream 53e250c5 
 sorting/SPARK4/Bead-Sort,d33e5235 (rebased on upstream 53e250c5 AA_SEED reader; 586401c5 later drops two type-implied invariants),GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,pass,none,
 sorting/SPARK4/Ada-SPARK-Comb-Sort,be4812b8 (comb loop d5acd521),GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,pass,none,added after the room caught the missing row; Comb stays out of training_ready claims until this row is pushed
 sorting/SPARK4/Ada-SPARK-Cycle-Sort,28d78749 (cycle proof),GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,pass,none,cycle proof; suite about 1.8 s (ghost code executed under -gnata except Lemma_Update Post)
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,d18fe89b (write-count check),GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,pass,none,rerun after the write-count check; 397 PASS
