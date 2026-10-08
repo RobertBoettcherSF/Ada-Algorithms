@@ -231,3 +231,8 @@ sorting/Ada/Bucket-Sort,order + own multiset match; 4000 random arrays (sample_a
 sorting/Ada/Odd-Even-Sort,order + own multiset match; 4000 random arrays (sample_ada_30)
 searching/Ada/Binary-Search,Find/Find_First/Find_Last vs own linear scan; 20000 sorted arrays with duplicates (sample_ada_30)
 misc/Ada/Hamming-Weight,all five variants vs own division-by-2 count; 50000 values with edges (sample_ada_30)
+graphs/Ada/Kruskals-Algorithm,MST weight vs own brute force over edge subsets + edge validity; 1500 connected multigraphs (sample_ada_30)
+searching/Ada/Breadth-First-Search,Shortest_Paths vs own unit-weight relaxation + Prev validity; 3000 digraphs (sample_ada_30)
+misc/Ada/Median-Filtering,Process_1D vs own replicated-window median; 5000 signals; odd kernels (sample_ada_30)
+misc/Ada/Truncated-Binary-Encoding,own code properties (lengths; prefix-free; complete) + decode round trips; N in 2 .. 200 (sample_ada_30)
+misc/Ada/Division-Algorithms,truncating-division identities on all 8-bit pairs; Schoolbook and float methods on random inputs (sample_ada_30)

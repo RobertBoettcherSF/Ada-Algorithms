@@ -10,3 +10,8 @@ sorting/Ada/Bucket-Sort,pass,own tests,order and multiset; 4000 arrays (44a8f418
 sorting/Ada/Odd-Even-Sort,pass,own tests,order and multiset; 4000 arrays (44a8f418)
 searching/Ada/Binary-Search,pass,own tests,vs own linear scan; 20000 arrays (44a8f418)
 misc/Ada/Hamming-Weight,pass,own tests,five variants vs own count; 50000 values (44a8f418)
+graphs/Ada/Kruskals-Algorithm,pass,own tests,vs own brute force; 1500 graphs (eb04c3c1)
+searching/Ada/Breadth-First-Search,pass,own tests,vs own relaxation; 3000 graphs (eb04c3c1)
+misc/Ada/Median-Filtering,pass,own tests,vs own windowed median; 5000 signals (eb04c3c1)
+misc/Ada/Truncated-Binary-Encoding,pass,own tests,own code properties; N 2 .. 200 (eb04c3c1)
+misc/Ada/Division-Algorithms,pass,own tests,division identities; 321118 cases (ebeabaf6)

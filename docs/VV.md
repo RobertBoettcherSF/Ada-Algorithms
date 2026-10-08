@@ -148,6 +148,8 @@ Random-input driver (`tools/vv/random_drive.py`, `tools/vv/random_drive.csv`): i
   - 5 contract gaps, where inconsistent arguments fail a check instead of a precondition.
   - 6 need review: Quantum-Fourier-Transform, Nucleolus, Hybrid-Algorithms, Cantor-Zassenhaus, Gene-Expression-Programming, Lexical-Analysis.
 
+Plain-Ada sample (`tools/vv/sample_ada_30.txt`, results in `sample_ada_30_results.csv`): misc/Ada/docs is not an algorithm folder and is excluded, so n = 29. So far 10 folders are finished. Prediction-By-Partial-Matching was a bug (it did not compile; found by the crash run). The other 9 pass their own tests: Bucket-Sort, Odd-Even-Sort, Binary-Search, Hamming-Weight, Kruskal, Breadth-First-Search, Median-Filtering, Truncated-Binary-Encoding and Division-Algorithms. That is k = 1 of 10 so far. The remaining 19 still need own tests.
+
 Many plain-Ada test mains end with `pragma Assert (Fail_Count = 0)`, and their Makefiles do not pass `-gnata`. In a normal build such a test reports failures but still exits 0. The crash run shows that every such run fails only on contract-versus-defensive-raise checks.
 
 ## Not done yet
