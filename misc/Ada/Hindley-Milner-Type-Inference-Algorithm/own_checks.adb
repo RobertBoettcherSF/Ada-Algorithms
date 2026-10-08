@@ -315,6 +315,143 @@ begin
    Check_Unify (Arr (V (91), Int_T), Arr (Bool_T, Int_T), True, "(a -> Int) = (Bool -> Int)");
    Check_Unify (Arr (V (91), Int_T), Int_T, False, "(a -> Int) = Int");
    Check_Unify (Arr (V (91), V (92)), Arr (Arr (V (92), Int_T), V (94)), True, "(a -> b) = ((b -> Int) -> d)");
+   --  Random soundness check: terms are generated from a target type (so
+   --  they are well-typed by construction, independently of the inference),
+   --  over the rigid base types A and B. The inferred type must be at least
+   --  as general as the target: one-way matching (own code) must find a
+   --  substitution of the inferred type variables that yields the target.
+   --  Embedding the ill-typed self-application (y y) of a lambda-bound y
+   --  anywhere must make inference fail.
+   declare
+      Seed : Long_Long_Integer := 20261008;
+      function Rand (Lo, Hi : Integer) return Integer is
+      begin
+         Seed := (Seed * 16807) mod 2147483647;
+         return Lo + Integer (Seed mod Long_Long_Integer (Hi - Lo + 1));
+      end Rand;
+      A_T : constant Type_Access := Make_Type_Base ("A");
+      B_T : constant Type_Access := Make_Type_Base ("B");
+      function Rand_Type (D : Natural) return Type_Access is
+        (if D = 0 or else Rand (1, 3) = 1 then (if Rand (0, 1) = 0 then A_T else B_T)
+         else Make_Type_Arrow (Rand_Type (D - 1), Rand_Type (D - 1)));
+      function Same (X, Y : Type_Access) return Boolean is
+        (X.Kind = Y.Kind and then
+           (case X.Kind is
+              when Kind_Var   => To_String (X.Var_Name) = To_String (Y.Var_Name),
+              when Kind_Base  => To_String (X.Base_Name) = To_String (Y.Base_Name),
+              when Kind_Arrow => Same (X.Left, Y.Left) and then Same (X.Right, Y.Right)));
+      --  context of lambda-bound variables
+      Ctx_Names : array (1 .. 40) of Unbounded_String;
+      Ctx_Types : array (1 .. 40) of Type_Access;
+      N_Ctx : Natural := 0;
+      Fresh : Natural := 0;
+      Failed : exception;
+      function Gen (T : Type_Access; D : Natural) return Expr_Access is
+      begin
+         --  a variable of exactly this type, sometimes
+         if Rand (1, 3) = 1 or else D = 0 or else T.Kind /= Kind_Arrow then
+            for I in reverse 1 .. N_Ctx loop
+               if Same (Ctx_Types (I), T) then
+                  return Make_Expr_Var (To_String (Ctx_Names (I)));
+               end if;
+            end loop;
+         end if;
+         if T.Kind = Kind_Arrow and then (D = 0 or else Rand (1, 2) = 1) then
+            Fresh := Fresh + 1;
+            N_Ctx := N_Ctx + 1;
+            Ctx_Names (N_Ctx) := To_Unbounded_String ("v" & Num (Fresh));
+            Ctx_Types (N_Ctx) := T.Left;
+            declare
+               Name : constant String := To_String (Ctx_Names (N_Ctx));
+               Body_E : constant Expr_Access := Gen (T.Right, (if D = 0 then 0 else D - 1));
+            begin
+               N_Ctx := N_Ctx - 1;
+               return Make_Expr_Abs (Name, Body_E);
+            end;
+         elsif D = 0 then
+            raise Failed;   --  no variable of this base type in scope
+         else
+            declare
+               Arg_T : constant Type_Access := Rand_Type (1);
+               Fn : constant Expr_Access := Gen (Make_Type_Arrow (Arg_T, T), D - 1);
+               Ar : constant Expr_Access := Gen (Arg_T, D - 1);
+            begin
+               return Make_Expr_App (Fn, Ar);
+            end;
+         end if;
+      end Gen;
+      Keys2 : array (1 .. 64) of Unbounded_String;
+      Vals2 : array (1 .. 64) of Type_Access;
+      NK2 : Natural := 0;
+      function Match (P, T : Type_Access) return Boolean is
+      begin
+         case P.Kind is
+            when Kind_Var =>
+               for I in 1 .. NK2 loop
+                  if Keys2 (I) = To_Unbounded_String (To_String (P.Var_Name)) then
+                     return Same (Vals2 (I), T);
+                  end if;
+               end loop;
+               NK2 := NK2 + 1;
+               Keys2 (NK2) := To_Unbounded_String (To_String (P.Var_Name));
+               Vals2 (NK2) := T;
+               return True;
+            when Kind_Base => return T.Kind = Kind_Base and then To_String (P.Base_Name) = To_String (T.Base_Name);
+            when Kind_Arrow => return T.Kind = Kind_Arrow and then Match (P.Left, T.Left) and then Match (P.Right, T.Right);
+         end case;
+      end Match;
+      Sound, Generated, Rejected, Ill : Natural := 0;
+   begin
+      for Round in 1 .. 1500 loop
+         declare
+            T : constant Type_Access := Make_Type_Arrow (Rand_Type (2), Rand_Type (2));
+         begin
+            N_Ctx := 0;
+            declare
+               E : constant Expr_Access := Gen (T, 4);
+            begin
+               Generated := Generated + 1;
+               begin
+                  declare
+                     S : constant Type_Access := Infer_Poly (E);
+                  begin
+                     NK2 := 0;
+                     if Match (S, T) then
+                        Sound := Sound + 1;
+                     else
+                        Fail ("random term of type " & Canonical (T) & ": inferred " & Canonical (S) & ", not more general");
+                     end if;
+                  end;
+               exception
+                  when Unification_Error | Unbound_Variable_Error =>
+                     Fail ("random well-typed term of type " & Canonical (T) & " rejected");
+               end;
+               --  ill-typed: \y. E (y y)  (E's type is an arrow, so this is
+               --  only wrong because of the self-application)
+               begin
+                  declare
+                     S : constant Type_Access := Infer_Poly
+                       (Make_Expr_Abs ("yy", Make_Expr_App (E, Make_Expr_App (Make_Expr_Var ("yy"), Make_Expr_Var ("yy")))));
+                  begin
+                     Fail ("term with a self-application accepted at " & Canonical (S));
+                  end;
+               exception
+                  when Unification_Error =>
+                     Rejected := Rejected + 1;
+               end;
+               Ill := Ill + 1;
+            end;
+         exception
+            when Failed => null;
+         end;
+      end loop;
+      Put_Line ("own checks: random well-typed terms" & Sound'Image & " /" & Generated'Image
+                & " inferred at least as general as their generating type; ill-typed variants rejected"
+                & Rejected'Image & " /" & Ill'Image);
+      if Generated < 100 then
+         Fail ("too few random terms generated");
+      end if;
+   end;
    Put_Line ("own checks:" & Passed'Image & " passed (" & Typable'Length'Image & " hand-derived principal types,"
              & Ill_Typed'Length'Image & " ill-typed terms, unifier checks)");
    if Failures > 0 then

@@ -333,11 +333,166 @@ begin
      or else Types_Equal (Arr (Int_T, V (91)), Arr (Bool_T, V (91)))
      or else Types_Equal (V (91), V (92)) or else Types_Equal (Int_T, Bool_T)
      or else Types_Equal (Arr (Int_T, Int_T), Int_T)
+     or else not Types_Equal (null, null)
+     or else Types_Equal (Int_T, null) or else Types_Equal (null, Int_T)
    then
       Fail ("Types_Equal");
    else
       Passed := Passed + 1;
    end if;
+   --  To_String of a type variable: "a" followed by the decimal Id with no
+   --  space (Var_Id'Image without its leading blank); distinct Ids print
+   --  differently; arrows print both sides
+   declare
+      S5  : constant String := To_String (Make_Var_Type (5));
+      S15 : constant String := To_String (Make_Var_Type (15));
+      SA  : constant String := To_String (Arr (Make_Var_Type (5), Int_T));
+   begin
+      if S5 /= "a5" or else S15 /= "a15" or else (for some C of SA => C = ASCII.NUL)
+        or else SA'Length <= S5'Length + 3
+      then
+         Fail ("To_String of type variables: got """ & S5 & """, """ & S15 & """");
+      else
+         Passed := Passed + 1;
+      end if;
+   end;
+   --  Random soundness check: terms are generated from a target type (so
+   --  they are well-typed by construction, independently of the inference),
+   --  over the rigid base types A and B. The inferred type must be at least
+   --  as general as the target: one-way matching (own code) must find a
+   --  substitution of the inferred type variables that yields the target.
+   --  Embedding the ill-typed self-application (y y) of a lambda-bound y
+   --  anywhere must make inference fail.
+   declare
+      Seed : Long_Long_Integer := 20261008;
+      function Rand (Lo, Hi : Integer) return Integer is
+      begin
+         Seed := (Seed * 16807) mod 2147483647;
+         return Lo + Integer (Seed mod Long_Long_Integer (Hi - Lo + 1));
+      end Rand;
+      A_T : constant Type_Ref := Make_Const_Type ("A");
+      B_T : constant Type_Ref := Make_Const_Type ("B");
+      function Rand_Type (D : Natural) return Type_Ref is
+        (if D = 0 or else Rand (1, 3) = 1 then (if Rand (0, 1) = 0 then A_T else B_T)
+         else Make_Arrow_Type (Rand_Type (D - 1), Rand_Type (D - 1)));
+      function Same (X, Y : Type_Ref) return Boolean is
+        (X.Kind = Y.Kind and then
+           (case X.Kind is
+              when Kind_Var   => Num (Natural (X.Id)) = Num (Natural (Y.Id)),
+              when Kind_Const  => To_String (X.Name) = To_String (Y.Name),
+              when Kind_Arrow => Same (X.Left, Y.Left) and then Same (X.Right, Y.Right)));
+      --  context of lambda-bound variables
+      Ctx_Names : array (1 .. 40) of Unbounded_String;
+      Ctx_Types : array (1 .. 40) of Type_Ref;
+      N_Ctx : Natural := 0;
+      Fresh : Natural := 0;
+      Failed : exception;
+      function Gen (T : Type_Ref; D : Natural) return Expr_Ref is
+      begin
+         --  a variable of exactly this type, sometimes
+         if Rand (1, 3) = 1 or else D = 0 or else T.Kind /= Kind_Arrow then
+            for I in reverse 1 .. N_Ctx loop
+               if Same (Ctx_Types (I), T) then
+                  return Make_Var_Expr (To_String (Ctx_Names (I)));
+               end if;
+            end loop;
+         end if;
+         if T.Kind = Kind_Arrow and then (D = 0 or else Rand (1, 2) = 1) then
+            Fresh := Fresh + 1;
+            N_Ctx := N_Ctx + 1;
+            Ctx_Names (N_Ctx) := To_Unbounded_String ("v" & Num (Fresh));
+            Ctx_Types (N_Ctx) := T.Left;
+            declare
+               Name : constant String := To_String (Ctx_Names (N_Ctx));
+               Body_E : constant Expr_Ref := Gen (T.Right, (if D = 0 then 0 else D - 1));
+            begin
+               N_Ctx := N_Ctx - 1;
+               return Make_Abs_Expr (Name, Body_E);
+            end;
+         elsif D = 0 then
+            raise Failed;   --  no variable of this base type in scope
+         else
+            declare
+               Arg_T : constant Type_Ref := Rand_Type (1);
+               Fn : constant Expr_Ref := Gen (Make_Arrow_Type (Arg_T, T), D - 1);
+               Ar : constant Expr_Ref := Gen (Arg_T, D - 1);
+            begin
+               return Make_App_Expr (Fn, Ar);
+            end;
+         end if;
+      end Gen;
+      Keys2 : array (1 .. 64) of Unbounded_String;
+      Vals2 : array (1 .. 64) of Type_Ref;
+      NK2 : Natural := 0;
+      function Match (P, T : Type_Ref) return Boolean is
+      begin
+         case P.Kind is
+            when Kind_Var =>
+               for I in 1 .. NK2 loop
+                  if Keys2 (I) = To_Unbounded_String (Num (Natural (P.Id))) then
+                     return Same (Vals2 (I), T);
+                  end if;
+               end loop;
+               NK2 := NK2 + 1;
+               Keys2 (NK2) := To_Unbounded_String (Num (Natural (P.Id)));
+               Vals2 (NK2) := T;
+               return True;
+            when Kind_Const => return T.Kind = Kind_Const and then To_String (P.Name) = To_String (T.Name);
+            when Kind_Arrow => return T.Kind = Kind_Arrow and then Match (P.Left, T.Left) and then Match (P.Right, T.Right);
+         end case;
+      end Match;
+      Sound, Generated, Rejected, Ill : Natural := 0;
+   begin
+      for Round in 1 .. 1500 loop
+         declare
+            T : constant Type_Ref := Make_Arrow_Type (Rand_Type (2), Rand_Type (2));
+         begin
+            N_Ctx := 0;
+            declare
+               E : constant Expr_Ref := Gen (T, 4);
+            begin
+               Generated := Generated + 1;
+               begin
+                  declare
+                     S : constant Type_Ref := Infer_Poly (E);
+                  begin
+                     NK2 := 0;
+                     if Match (S, T) then
+                        Sound := Sound + 1;
+                     else
+                        Fail ("random term of type " & Canonical (T) & ": inferred " & Canonical (S) & ", not more general");
+                     end if;
+                  end;
+               exception
+                  when Unification_Error | Unbound_Variable_Error =>
+                     Fail ("random well-typed term of type " & Canonical (T) & " rejected");
+               end;
+               --  ill-typed: \y. E (y y)  (E's type is an arrow, so this is
+               --  only wrong because of the self-application)
+               begin
+                  declare
+                     S : constant Type_Ref := Infer_Poly
+                       (Make_Abs_Expr ("yy", Make_App_Expr (E, Make_App_Expr (Make_Var_Expr ("yy"), Make_Var_Expr ("yy")))));
+                  begin
+                     Fail ("term with a self-application accepted at " & Canonical (S));
+                  end;
+               exception
+                  when Unification_Error =>
+                     Rejected := Rejected + 1;
+               end;
+               Ill := Ill + 1;
+            end;
+         exception
+            when Failed => null;
+         end;
+      end loop;
+      Put_Line ("own checks: random well-typed terms" & Sound'Image & " /" & Generated'Image
+                & " inferred at least as general as their generating type; ill-typed variants rejected"
+                & Rejected'Image & " /" & Ill'Image);
+      if Generated < 100 then
+         Fail ("too few random terms generated");
+      end if;
+   end;
    Put_Line ("own checks:" & Passed'Image & " passed (" & Typable'Length'Image & " hand-derived principal types,"
              & Ill_Typed'Length'Image & " ill-typed terms, unifier checks)");
    if Failures > 0 then
