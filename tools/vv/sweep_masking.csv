@@ -10,8 +10,8 @@ sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,yes,sorted on all existing tests without 
 sorting/SPARK4/Ada-SPARK-Patience-Sorting,yes,sorted on all existing tests without the finish; pile + k-way merge phase not proved
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,yes,sorted on all existing tests without the finish; hole distribution phase not proved
 sorting/SPARK4/Ada-SPARK-Postman-Sort,yes,sorted on all existing tests without the finish; digit-bucket phase not proved
-sorting/SPARK4/Ada-SPARK-Quantum-Sort,yes,sorted on existing tests and own checks without the finish; the phase behind the finish is not proved; masked mutants (own-check mutation 73/113)
-sorting/SPARK4/Ada-SPARK-Samplesort,no,"Samplesort_Phase returns untouched for N < 8 (Num_Buckets), so bubble sort does all the work for small N (postcondition fails at N = 2 without the finish); bucket phase not proved (own-check mutation 73/111)"
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,yes,FIXED 77a3f570: Sort_Space_Bounded cocktail passes proved to sort (window invariant); Bubble_Finish removed; silver L2 477 checks; strict mutation 73/113 -> 91/124. Sort_Parallel_Network keeps its Insertion_Pass (gap-1 step of the Shell model; breaks without it by design)
+sorting/SPARK4/Ada-SPARK-Samplesort,no,"FIXED 20dcddfc (finding, failing test 2d2f543c): in-place buckets cut by partition per sorted pivot, each insertion-sorted; small N is the single last bucket; Bubble_Finish removed; silver L2 200 checks; strict mutation 73/111 -> 67/77 raw strict (10 survivors justified in sweep_equivalent.csv -> 67/67)"
 sorting/SPARK4/Ada-SPARK-Slowsort,yes,sorted on all existing tests without the finish; recursive slowsort not proved
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,yes,sorted on all existing tests without the finish; repeated-maximum phase not proved
 sorting/SPARK4/Ada-SPARK-Stooge-Sort,yes,sorted on all existing tests without the finish; recursive stooge sort not proved
