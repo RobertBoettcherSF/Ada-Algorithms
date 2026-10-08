@@ -1,0 +1,24 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb (sections 1 .. 12): written with the package; expected results
+come from an insertion-sort reference inside tests.adb and from
+hand-written literals.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-08):
+* Checked properties, independent of how the code sorts: the output is
+  nondecreasing, and every value occurs in the output exactly as often as in
+  the input (occurrence counts by linear scans; no sorting in the check).
+  Together with equal lengths this is "same multiset".
+* Inputs: every array of length 0 .. 6 over {0, 1, 2} (1,093); every
+  permutation of 1 .. 7 (5,040, Heap's method); 1,500 random arrays of
+  random length 0 .. Max_N mixing bucket lower edges (k * 16), keys inside
+  one bucket, keys near a bucket edge, the tiny range 0 .. 2 and the whole
+  key domain 0 .. Max_Key (Park-Miller minimal standard generator);
+  full-length descending, ascending and alternating 0 / Max_Key arrays.
+  Applied to: Bucket_Sort.Sort.
+
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..." / "tests seed: ..."); set AA_SEED=<n>
+  to run them with another seed (tools/vv/sweep_aa_seed.py).
