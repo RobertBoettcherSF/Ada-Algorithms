@@ -42,10 +42,15 @@ if os.path.exists(p):
         m = re.match(r'^\s*([^:\s]+):(\d+)\s+(.+?)\s+\(', x.get('mutant', ''))
         if m and (x.get('method', '').strip() == 'exhaustive' or x.get('range_or_reason', '').strip()):
             eq.add((x['folder'], os.path.basename(m.group(1)), int(m.group(2)), m.group(3).strip()))
+p = os.path.join(ROOT, 'tools', 'vv', 'flagship_equivalent.csv')
+if os.path.exists(p):
+    for x in csv.DictReader(open(p)):
+        if x.get('line', '').strip().isdigit() and (x.get('method', '').strip() == 'exhaustive' or x.get('range_or_reason', '').strip()):
+            eq.add((x['folder'], os.path.basename(x['file']), int(x['line']), None))
 cnt = collections.defaultdict(lambda: [0, 0, 0])
 cache = {}
 for d in csv.DictReader(open(os.path.join(ROOT, 'vv', 'results', 'mutation_tr_detail.csv'))):
-    if d['result'] not in ('killed', 'survived'):
+    if d['result'] not in ('killed', 'survived', 'timeout'):
         continue
     f = os.path.join(ROOT, d['folder'], d['file'])
     if f not in cache:
@@ -55,7 +60,8 @@ for d in csv.DictReader(open(os.path.join(ROOT, 'vv', 'results', 'mutation_tr_de
     name = min(inner, key=lambda s: s[1] - s[0])[2] if inner else '(package level)'
     c = cnt[(d['folder'], name)]
     if d['result'] == 'killed': c[0] += 1
-    elif (d['folder'], os.path.basename(d['file']), ln, d['op'].strip()) in eq: c[2] += 1
+    elif d['result'] == 'timeout': c[1] += 1   # a timeout is not a kill
+    elif (d['folder'], os.path.basename(d['file']), ln, d['op'].strip()) in eq or (d['folder'], os.path.basename(d['file']), ln, None) in eq: c[2] += 1
     else: c[1] += 1
 with open(os.path.join(ROOT, 'tools', 'vv', 'mutation_subprograms.csv'), 'w', newline='') as fh:
     w = csv.writer(fh, lineterminator='\n'); w.writerow(['folder', 'subprogram', 'killed', 'survived', 'equivalent', 'score'])

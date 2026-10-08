@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 19:20 CEST.
+Generated 2026-10-08 19:43 CEST.
 
 ## Proof setup
 
@@ -24,9 +24,9 @@ Silver: `gnatprove --mode=silver --level=2` on the folder's own .gpr (generated 
 
 Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets (name ends in -Stub or README says stub, column `stub`): 144.
 
-**Training-ready: 11 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. A sort whose proof rests on a final Bubble_Finish pass that masks the named algorithm (`tools/vv/sweep_masking.csv`, column `masked_by_finish`) is not training-ready either; a surviving mutant counts as equivalent only when `tools/vv/sweep_equivalent.csv` lists it with exhaustive evidence or a written reason. Under the old rule: 267 folders.
+**Training-ready: 11 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. The column `known_answer_source` says where the expected values come from (own / standard / old_derived / old_unverified); hard-coded answers in old tests count only when they were derived independently (`tools/vv/old_derived.csv`), never when they may have been copied from program output (old_unverified). A sort whose proof rests on a final Bubble_Finish pass that masks the named algorithm (`tools/vv/sweep_masking.csv`, column `masked_by_finish`) is not training-ready either; a surviving mutant counts as equivalent only when `tools/vv/sweep_equivalent.csv` lists it with exhaustive evidence or a written reason. Under the old rule: 267 folders.
 
-**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 267 folders (column `own_tests`).
+**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 271 folders (column `own_tests`).
 
 **Silver headline (duplicates counted once):** 483 real SPARK folders proven non-trivially, 305 proven but trivial (<= 3 checks), 143 stubs proven (separate), 3 with unproved checks, 10 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 143 proven real folders also prove functional contracts
 
@@ -46,6 +46,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 
 | Folder | Differential test | Mutation (killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |
 |---|---|---|---|---|---|---|
+| compression/Ada/Audio-Compression |  |  |  |  | ok | own tests |
 | compression/Ada/Run-Length-Encoding | agree (vs compression/SPARK2/Ada-SPARK-Run-Length-Encoding, 1000 cases) |  |  |  | ok | diff agree |
 | compression/SPARK2/Ada-SPARK-Compress-String |  | 14/20 |  | own run-length size reference (character + decimal count per run); every string over {a;b} and {a;b;c} | ok | own tests |
 | compression/SPARK2/Ada-SPARK-Interleaving-String |  | 9/18 |  | own recursive interleaving reference; all 29791 triples up to length 4 over {0;1} (exhaustive) | ok | own tests |
@@ -73,6 +74,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS |  | 11/14 |  | own recursive flood fill (4-connected); every 4x4 grid (65536) | ok | own tests |
 | graphs/SPARK2/Ada-SPARK-Prims-Algorithm |  |  |  | own brute-force minimum spanning tree over every parent array; 5000 random connected 4-node graphs | ok | own tests |
 | graphs/SPARK2/Bellman-Ford-Algorithm | agree (vs graphs/Ada/Bellman-Ford-Algorithm, 1000 cases) | 2/13 |  |  | ok | diff agree |
+| hashing/Ada/Geohash |  |  |  |  | ok | own tests |
 | hashing/Ada/Pearson-Hashing | agree (vs hashing/SPARK2/Ada-SPARK-Pearson-Hashing, 1000 cases) |  |  |  | ok | diff agree |
 | hashing/SPARK2/Ada-SPARK-Design-HashMap |  | 5/12 |  | model-based: 2000 random Put sequences vs own array model; every key checked after every operation | ok | own tests |
 | hashing/SPARK2/Ada-SPARK-Design-HashSet |  | 5/11 |  | model-based: 2000 random Add/Remove sequences vs own Boolean model; every element checked after every operation | ok | own tests |
@@ -118,6 +120,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/Ada/SEQUITUR-Algorithm |  |  |  |  | weak |  |
 | misc/Ada/Selection-Algorithm | agree (vs misc/SPARK4/Ada-SPARK-Selection-Algorithm, 1000 cases) |  |  |  | ok | diff agree |
 | misc/Ada/Truncated-Binary-Encoding |  |  |  | own code properties (lengths; prefix-free; complete) + decode round trips; N in 2 .. 200 (sample_ada_30) | ok | own tests |
+| misc/Ada/Truncated-Binary-Exponential-Backoff |  |  |  |  | ok | own tests |
 | misc/Ada/Unicode-Collation-Algorithm |  |  |  |  | weak |  |
 | misc/Ada/Zero-Attribute-Rule |  |  |  | own mean/median/mode references (ties to smallest); 10000 random sets; empty -> Empty_Dataset_Error (sample_ada_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-3Sum-Closest |  | 12/20 |  | own enumeration of all triples (result is a triple sum at minimal distance); 4000 random arrays; lengths 0..2 rejected | ok | own tests |
@@ -388,7 +391,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Bogosort | agree (vs sorting/Ada/Bogosort, 1000 cases) | 6/13 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Bubble-Sort | agree (vs sorting/Ada/Bubble-Sort, 1000 cases) | 9/11 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Bucket-Sort | agree (vs sorting/Ada/Bucket-Sort, 1000 cases) | 13/19 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | agree (vs sorting/Ada/Cocktail-Shaker-Sort, 1000 cases) | 10/15 |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | agree (vs sorting/Ada/Cocktail-Shaker-Sort, 1000 cases) | 10/15 |  |  | ok | own tests, diff agree |
 | sorting/SPARK4/Ada-SPARK-Comb-Sort | agree (vs sorting/Ada/Comb-Sort, 1000 cases) | 11/13 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Counting-Sort | agree (vs sorting/Ada/Counting-Sort, 1000 cases) | baseline killed |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Cycle-Sort | agree (vs sorting/Ada/Cycle-Sort, 1000 cases) | 5/13 |  |  | ok | diff agree |
