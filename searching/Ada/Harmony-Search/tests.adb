@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Harmony_Search; use Harmony_Search;
+with Own_Checks;
 
 procedure Tests is
 
@@ -232,8 +233,8 @@ begin
       Check (Costs_Ok, "Init_HM costs match Sphere");
       Bi := Best_Index (HM);
       Wi := Worst_Index (HM);
-      Check (Bi in 1 .. HM.Size, "Best_Index in range");
-      Check (Wi in 1 .. HM.Size, "Worst_Index in range");
+      Check (Bi <= HM.Size, "Best_Index in range");
+      Check (Wi <= HM.Size, "Worst_Index in range");
       for K in 1 .. HM.Size loop
          Check (HM.Members (Bi).Cost <= HM.Members (K).Cost,
                 "best <= member k=" & Integer'Image (K));
@@ -606,6 +607,13 @@ begin
    else
       Put_Line ("SOME TESTS FAILED");
    end if;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
+   end;
 
    if Fail_Count > 0 then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);

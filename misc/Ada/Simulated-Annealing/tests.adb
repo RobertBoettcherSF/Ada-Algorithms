@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Simulated_Annealing; use Simulated_Annealing;
+with Own_Checks;
 
 procedure Tests is
 
@@ -668,6 +669,13 @@ begin
    Put_Line ("PASS: " & Natural'Image (Pass_Count));
    Put_Line ("FAIL: " & Natural'Image (Fail_Count));
    Put_Line ("================================");
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
+   end;
+
    if Fail_Count > 0 then
       raise Program_Error with "test failures";
    end if;

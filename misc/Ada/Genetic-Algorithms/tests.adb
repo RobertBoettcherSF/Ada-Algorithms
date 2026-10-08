@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Genetic_Algorithms; use Genetic_Algorithms;
+with Own_Checks;
 
 procedure Tests is
 
@@ -577,6 +578,13 @@ begin
    else
       Put_Line ("SOME TESTS FAILED");
    end if;
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
+   end;
+
    if Fail_Count > 0 then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;

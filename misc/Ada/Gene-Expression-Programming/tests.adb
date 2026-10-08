@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Gene_Expression_Programming; use Gene_Expression_Programming;
+with Own_Checks;
 
 procedure Tests is
 
@@ -417,6 +418,13 @@ begin
    Put_Line
      ("Passed:" & Natural'Image (Passed)
       & " Failed:" & Natural'Image (Failed));
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Failed := Failed + Own_Fails;
+   end;
+
    if Failed > 0 then
       raise Program_Error with "tests failed";
    end if;

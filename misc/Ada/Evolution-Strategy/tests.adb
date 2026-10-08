@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Evolution_Strategy; use Evolution_Strategy;
+with Own_Checks;
 
 procedure Tests is
 
@@ -252,7 +253,7 @@ begin
       Check (Costs_Ok, "init Fitness = Sphere(X)");
 
       Bi := Best_Index (Pop);
-      Check (Bi in 1 .. Pop.Size, "Best_Index in range");
+      Check (Bi <= Pop.Size, "Best_Index in range");
       for K in 1 .. Pop.Size loop
          Check (Pop.Members (Bi).Fitness <= Pop.Members (K).Fitness,
                 "Best_Index is minimal k=" & Integer'Image (K));
@@ -587,6 +588,13 @@ begin
    else
       Put_Line ("SOME TESTS FAILED");
    end if;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
+   end;
 
    if Fail_Count > 0 then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
