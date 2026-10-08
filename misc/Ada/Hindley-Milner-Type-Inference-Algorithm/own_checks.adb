@@ -1005,6 +1005,10 @@ begin
    begin
       Env.Insert ("one", (Bound_Vars => String_Sets.Empty_Set, T => Int_B));
       Env.Insert ("tt", (Bound_Vars => String_Sets.Empty_Set, T => Bool_B));
+      --  regression (flakiness pass, AA_SEED=15851): a let inside a let
+      --  value, where a later let rebuilds the value's copy by substitution;
+      --  the copy's let must not be recorded a second time
+      Keep_Hand (+"\a.\b.let c = (let d = b in \e.e) in let f = b in c");
       for H in 1 .. N_Hand loop
          N_Tree := 0;
          N_Q := 0;
@@ -1014,8 +1018,8 @@ begin
       end loop;
       Put_Line ("own checks: traces of the" & Hand_Traced'Image & " fixed let terms compared, equal" & Trace_Same'Image
                 & " (lets" & Trace_Lets'Image & ", applications" & Trace_Apps'Image & ")");
-      if N_Hand /= 47 or else Trace_Same /= 47 then
-         Fail ("fixed let terms: expected 47 equal traces");
+      if N_Hand /= 48 or else Trace_Same /= 48 then
+         Fail ("fixed let terms: expected 48 equal traces");
       end if;
       Trace_Same := 0;
       Trace_Lets := 0;
