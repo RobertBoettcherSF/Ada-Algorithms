@@ -1,0 +1,15 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* 300 random networks: 1 .. 3 rules, each a chain of 1 .. 3 joins; alpha
+  tests on attribute in {a, b} and value in {x, y}; half of the joins reuse
+  an existing alpha node (shared between rules or used twice in one chain);
+  join conditions random (token index 1 .. i-1, random fields) or cross
+  joins. 1 .. 6 random facts (entity in {p, q, x}), inserted one by one
+  (odd rounds) or with Insert_WME_Batched (even rounds), then random
+  removals.
+* After every step, each beta memory size and each rule's activation count
+  is compared with a naive count: every tuple of current facts that passes
+  the alpha tests and join conditions is enumerated by recursion over all
+  facts (the textbook definition of a rule match).
+* tests.adb: exit status is now nonzero when a check fails.
+Park-Miller PRNG, seed 20261008. Nothing is taken from the program's output.

@@ -17,3 +17,5 @@ logic/Ada/Verified-Unification-Engine: syntactic check of the applied unifier,
   clash/cycle certificates for failures.
 misc/Ada/Hindley-Milner-* (both): hand-derived principal types compared up to
   alpha-renaming, ill-typed terms rejected, unifier applied and compared.
+misc/Ada/Rete-Algorithm: naive enumeration of all fact tuples per rule prefix
+  against beta memory sizes and activations.
