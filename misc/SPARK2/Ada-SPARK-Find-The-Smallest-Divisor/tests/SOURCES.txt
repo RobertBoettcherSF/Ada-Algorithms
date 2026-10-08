@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb)
+=====================================================================
+
+All checks are own properties written for this repository (MIT); nothing
+is copied from the program's output or from third-party test suites.
+Random inputs come from the Park-Miller minimal standard generator
+(seed 20261008).
+
+* 1 2 5 9 10 11 15 20 with limit 8 -> 20 (every quotient 1; with 19 the
+  value 20 needs 2) and with limit 20 -> 5 (1+1+1+2+2+3+3+4 = 17 <= 20,
+  with 4: 1+1+2+3+3+3+4+5 = 22), by hand.
+* Own property (the standard problem statement): the answer D has
+  sum of ceil(v / D) <= limit, and D = 1 or D - 1 exceeds the limit.
+  Checked for the hand array with every limit 8 .. 80 and for 3,000
+  random arrays (values 1 .. 30 or 1 .. 1000, limits 8 .. 60 or 8 .. 8000).
+* Rejection: limits 7 and 1 are below the number of values and can never
+  be met; they must raise Constraint_Error rather than return 1000.
