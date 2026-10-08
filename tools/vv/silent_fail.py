@@ -20,6 +20,14 @@ no_exit_signal=yes (static): the test main prints FAIL text, but nothing in it c
 non-zero exit status (no Set_Exit_Status, OS_Exit, raise, Ada.Assertions.Assert, and no
 checked pragma Assert). Such a harness passes today, but it would hide a failure.
 
+Planted failure (--plant, writes tools/vv/silent_fail_plant.csv): in a scratch copy, the test
+main's own failure counter (a Natural/Integer variable whose name contains Fail, e.g. Fail_Count,
+Failures) is incremented once just before the final check of that counter (the last
+"if <counter> /= 0" / "> 0" / "pragma Assert (<counter> = 0)"), and the standard `make test` is
+run. plant_ok=yes when it then exits non-zero; no when it still exits 0 (the harness cannot
+report a failure); n/a when no counter or no final check is found (plant_note says which).
+--from-logs reads that file and counts plant_ok=no as a silent failure.
+
 Reviewed hits: tools/vv/silent_fail_reviewed.csv (folder,line,verdict,reason) lists output
 lines that were inspected by hand. A line with verdict 'label' (a section header or a
 test description that contains the word, not a failed check) is not a hit.
@@ -64,6 +72,12 @@ if os.path.exists(_rv):
     for _r in csv.DictReader(open(_rv)):
         if _r['verdict'] == 'label':
             REVIEWED.setdefault(_r['folder'], set()).add(_r['line'].strip())
+
+PLANT = {}
+_pl = os.path.join(ROOT, 'tools/vv/silent_fail_plant.csv')
+if os.path.exists(_pl):
+    for _r in csv.DictReader(open(_pl)):
+        PLANT[_r['folder']] = _r['plant_ok']
 
 def hits(out, fid=None):
     h = []
@@ -123,6 +137,67 @@ def no_exit_signal(src):
         return False
     return True
 
+COUNTER = re.compile(r'^\s*(\w*Fail\w*)\s*:\s*(Natural|Integer)\b', re.I | re.M)
+
+def plant_point(text):
+    """(line index, counter, indent) for the planted increment, or (None, reason)."""
+    code = strip_comments(text)
+    names = [m.group(1) for m in COUNTER.finditer(code)]
+    if not names:
+        return None, 'no failure counter'
+    lines = code.split('\n')
+    best = None
+    for name in names:
+        n = re.escape(name)
+        pat = re.compile(r'^(\s*)(if\s+(not\s+\(\s*)?%s\s*(/=|>|=)\s*0|pragma\s+Assert\s*\(\s*%s\s*=\s*0)' % (n, n), re.I)
+        for i, l in enumerate(lines):
+            m = pat.match(l)
+            if m and (best is None or i > best[0]):
+                best = (i, name, m.group(1))
+    if best is None:
+        return None, 'no final check of ' + '/'.join(names)
+    return best, ''
+
+def run_std(work, e, timeout):
+    if os.path.exists(os.path.join(work, 'Makefile')):
+        r = mutate.run_limited(['make', 'test'], work, timeout, env=e)
+        return ('timeout', '') if r is None else (r.returncode, r.stdout + r.stderr)
+    m = next((m for m in MAINS if os.path.exists(os.path.join(work, m))), None)
+    inc = [f'-I{d}' for d in ('src', 'tests') if os.path.isdir(os.path.join(work, d))]
+    b = subprocess.run(['gnatmake', '-q', '-gnat2022'] + inc + ['-o', 'sf_test', m], cwd=work, env=e,
+                       capture_output=True, text=True, timeout=timeout, errors='replace')
+    if b.returncode:
+        return 'nobuild', b.stdout + b.stderr
+    r = mutate.run_limited(['./sf_test'], work, timeout, env=e)
+    return ('timeout', '') if r is None else (r.returncode, r.stdout + r.stderr)
+
+def plant(fid, work_root, timeout):
+    src = os.path.join(ROOT, fid)
+    m = next((x for x in MAINS if os.path.exists(os.path.join(src, x))), None)
+    row = dict(folder=fid, counter='', planted_line='', planted_rc='', plant_ok='n/a', plant_note='')
+    if not m:
+        row['plant_note'] = 'no test main'; return row
+    text = open(os.path.join(src, m), errors='replace').read()
+    pt, why = plant_point(text)
+    if pt is None:
+        row['plant_note'] = why; return row
+    i, name, ind = pt
+    work = tempfile.mkdtemp(prefix=fid.replace('/', '_') + '_', dir=work_root)
+    try:
+        shutil.copytree(src, work, dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns('obj', 'bin', 'gnatprove', '*.o', '*.ali'))
+        nl = '\r\n' if '\r\n' in text else '\n'
+        ls = text.split(nl)
+        ls.insert(i, f'{ind}{name} := {name} + 1;  -- planted failure (silent_fail.py --plant)')
+        open(os.path.join(work, m), 'w', newline='').write(nl.join(ls))
+        rc, out = run_std(work, env14(), timeout)
+    finally:
+        shutil.rmtree(work, ignore_errors=True)
+    row.update(counter=name, planted_line=i + 1, planted_rc=rc,
+               plant_ok=('yes' if isinstance(rc, int) and rc != 0 else 'no' if rc == 0 else 'n/a'),
+               plant_note=('' if isinstance(rc, int) else f'planted build: {rc}'))
+    return row
+
 def run(fid, work_root, timeout):
     src = os.path.join(ROOT, fid)
     work = tempfile.mkdtemp(prefix=fid.replace('/', '_') + '_', dir=work_root)
@@ -180,11 +255,13 @@ def from_logs(fid, logs, rec):
     au, only = static(os.path.join(ROOT, fid))
     nx = no_exit_signal(os.path.join(ROOT, fid))
     (rc14, h14), (rc12, h12) = out['14'], out['12']
-    silent = (rc14 == 0 and bool(h14)) or (rc12 == 0 and bool(h12)) or only or nx
+    pk = PLANT.get(fid, 'n/a')
+    silent = (rc14 == 0 and bool(h14)) or (rc12 == 0 and bool(h12)) or only or nx or pk == 'no'
     return dict(folder=fid, make_rc=rc14, fail_hits=len(h14), first_hit=((h14 or h12 or [''])[0])[:160],
                 assert_unchecked=au, assert_only='yes' if only else 'no', no_exit_signal='yes' if nx else 'no',
                 silent_fail='yes' if silent else 'no', note='from build logs',
-                make_rc_12=rc12, fail_hits_12=len(h12), compiler_14=rec.get('ver14', ''), compiler_12=rec.get('ver12', ''))
+                make_rc_12=rc12, fail_hits_12=len(h12), compiler_14=rec.get('ver14', ''), compiler_12=rec.get('ver12', ''),
+                plant_ok=pk)
 
 def main():
     ap = argparse.ArgumentParser()
@@ -192,11 +269,25 @@ def main():
     ap.add_argument('--from-file'); ap.add_argument('-j', type=int, default=4)
     ap.add_argument('--out', default=os.path.join(ROOT, 'tools/vv/silent_fail.csv'))
     ap.add_argument('--timeout', type=int, default=300); ap.add_argument('--work')
+    ap.add_argument('--plant', action='store_true', help='planted-failure check; writes tools/vv/silent_fail_plant.csv by default')
     a = ap.parse_args()
     if a.from_file:
         ids = [l.strip() for l in open(a.from_file) if l.strip()]
     else:
         ids = sorted(r['folder'] for r in csv.DictReader(open(os.path.join(ROOT, 'PROOFS.csv'))))
+    if a.plant:
+        ver = mutate.require_version(14, '/usr/bin/gnatmake')
+        wr = a.work or tempfile.mkdtemp(prefix='silent_plant_'); os.makedirs(wr, exist_ok=True)
+        with ThreadPoolExecutor(a.j) as ex:
+            rows = list(ex.map(lambda f: plant(f, wr, a.timeout), ids))
+        for r in rows:
+            r['compiler_14'] = ver
+        out = a.out if a.out != os.path.join(ROOT, 'tools/vv/silent_fail.csv') else _pl
+        with open(out, 'w', newline='') as fh:
+            w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()), lineterminator='\n'); w.writeheader(); w.writerows(rows)
+        from collections import Counter
+        print(len(rows), 'folders; plant_ok', dict(Counter(r['plant_ok'] for r in rows)))
+        return
     if a.from_logs:
         recs = {}
         for l in open(a.jsonl):
