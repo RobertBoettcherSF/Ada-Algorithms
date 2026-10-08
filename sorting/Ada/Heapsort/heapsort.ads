@@ -8,6 +8,7 @@ pragma Ada_2022;
 package Heapsort
   with SPARK_Mode => Off
 is
+   pragma Assertion_Policy (Pre => Check);
 
    ---------------------------------------------------------------------------
    -- Capacity bound (educational; raise Invalid_Argument on overflow)
@@ -53,12 +54,13 @@ is
    procedure Sift_Down
      (A         : in out Element_Array;
       Root      : Natural;
-      Heap_Last : Natural);
+      Heap_Last : Natural)
+     with Pre => A'First <= Root and then Root <= Heap_Last and then Heap_Last <= A'Last;
    --  Repair the max-heap property at Root within the inclusive heap
    --  range A (A'First .. Heap_Last), assuming both child subheaps (if
    --  present) already satisfy the property. Swaps Root downward until
    --  it is >= both children or becomes a leaf.
-   --  Pre: A'First <= Root <= Heap_Last <= A'Last (when A'Length > 0).
+   --  Pre (checked): A'First <= Root <= Heap_Last <= A'Last.
 
    procedure Heapify (A : in out Element_Array);
    --  Floyd bottom-up build: sift down every non-leaf from the parent of
