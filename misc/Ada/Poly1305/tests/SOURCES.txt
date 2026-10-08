@@ -1,0 +1,16 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Reference MAC: the Poly1305 definition (RFC 8439 section 2.5: clamp r,
+  add each 16-byte block with a 1 byte appended, multiply by r modulo
+  2**130 - 5, add s, keep the low 128 bits), computed by us with schoolbook
+  arithmetic on base-256 digit arrays and reduction by folding the bits
+  above 2**130 back in times 5. The code under test uses 26-bit limbs and a
+  precomputed 5 * r, so the reference is a different method. Only the
+  algorithm description is used; no RFC text or code is copied.
+* Inputs: 25 seeded random keys (Park-Miller, seed 20261008) x every
+  message length 0 .. 80; an all-0xFF key with all-0xFF and all-zero
+  messages; r = 1 with all-0xFF messages. Each message is also fed as every
+  possible two-part split through Init / Update / Update / Final.
+* The folder's existing RFC 8439 section 2.5.2 vector (tests.adb) agrees with
+  both the code and this reference.
+Nothing is taken from the program's output or from third-party test suites.

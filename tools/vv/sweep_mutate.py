@@ -13,7 +13,32 @@ usage: sweep_mutate.py FOLDER... [--max 40] [-j 6] [--out file.csv]
 import argparse, csv, os, random, re, shutil, sys
 from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import mutate
+import mutate, subprocess
+
+GNATMAKE = mutate.GNATMAKE
+UNHANDLED = re.compile(r'^raised [A-Z_][\w.]* :|^\s*FAIL|\b[1-9]\d* FAIL', re.M)
+
+def run_tests(work):
+    """mutate.run_tests with a stricter kill test: nonzero exit, timeout, a
+    FAIL line or an unhandled-exception line ("raised X : ..."). mutate.py
+    also counts any "raised " in the output, so tests that print
+    "State_Error raised properly" look killed even unmutated."""
+    main = next((m for m in ('tests.adb', 'tests/main.adb', 'src/tests.adb') if os.path.exists(os.path.join(work, m))), None)
+    if not main:
+        return 'no tests'
+    os.makedirs(os.path.join(work, 'obj'), exist_ok=True)
+    inc = [f'-I{d}' for d in ('src', 'tests') if os.path.isdir(os.path.join(work, d))]
+    b = subprocess.run([GNATMAKE, '-q', '-gnat2022', '-gnata', *inc, '-D', 'obj', main, '-o', 'tbin'],
+                       cwd=work, capture_output=True, text=True)
+    if b.returncode != 0:
+        return 'stillborn'
+    try:
+        r = subprocess.run(['./tbin'], cwd=work, capture_output=True, text=True, timeout=30)
+    except subprocess.TimeoutExpired:
+        return 'killed'
+    if r.returncode != 0 or UNHANDLED.search(r.stdout + r.stderr):
+        return 'killed'
+    return 'survived'
 
 ROOT = mutate.ROOT
 TESTNAME = re.compile(r'^(tests?|own_checks|main|demo)', re.I)
@@ -33,7 +58,7 @@ def one(args):
     lines = open(p, errors='replace').read().split('\n')
     orig = lines[ln]; lines[ln] = orig[:c0] + rep + orig[c1:]
     open(p, 'w').write('\n'.join(lines))
-    res = mutate.run_tests(w)
+    res = run_tests(w)
     shutil.rmtree(w, ignore_errors=True)
     return orig.strip()[:100], lines[ln].strip()[:100], res
 
@@ -47,7 +72,7 @@ def main():
     for fid in a.folders:
         src = os.path.join(ROOT, fid); wk = os.path.join(a.work, fid.replace('/', '_'))
         shutil.rmtree(wk, ignore_errors=True); shutil.copytree(src, wk + '/base', ignore=IGN)
-        base = mutate.run_tests(wk + '/base')
+        base = run_tests(wk + '/base')
         cand = [(rel,) + s for rel in lib_files(src) for s in mutate.sites(os.path.join(src, rel))]
         rng = random.Random(a.seed)
         pick = rng.sample(cand, min(a.max, len(cand))) if base == 'survived' else []

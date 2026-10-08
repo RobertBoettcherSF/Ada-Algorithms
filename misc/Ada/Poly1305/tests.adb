@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Poly1305;    use Poly1305;
+with Own_Checks;
 
 procedure Tests is
    Pass_Count : Natural := 0;
@@ -34,6 +35,7 @@ procedure Tests is
    Empty_Msg : constant Byte_Array (1 .. 0) := [others => 0];
    Zero_MAC : constant MAC_Type := [others => 0];
 begin
+   Own_Checks;
    -- Initialize RFC string bytes
    for I in RFC_Msg'Range loop
       RFC_Msg (I) := Byte (Character'Pos (RFC_Msg_Str (RFC_Msg_Str'First + I)));

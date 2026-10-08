@@ -13,3 +13,8 @@ misc/Ada/Integer-Factorization: sieve of Eratosthenes, divisor scans, binary
   gcd, double-and-add Mul_Mod, congruence definitions with plain integers.
 searching/Ada/Trigram-Search: trigram sets by presence over {a, b}, all pairs
   up to length 7, second argument with 'First = 2.
+misc/Ada/Poly1305: Poly1305 definition (RFC 8439 section 2.5, algorithm only)
+  computed with base-256 schoolbook arithmetic; random and extreme keys,
+  every two-part Update split.
+misc/Ada/Unicode-Collation-Algorithm: own sort-key construction compared
+  lexicographically; default, punctuation-ignoring and tailored tables.
