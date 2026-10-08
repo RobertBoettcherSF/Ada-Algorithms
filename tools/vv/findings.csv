@@ -26,18 +26,18 @@ misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,Limit below Length is infeasible
 numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,"butterflies clamp into Sample; full-range inputs saturate, result is not the DFT (saturation scan)",fixed,36986154,2ad89f4e
 sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,Solve groups by odd/even value instead of odd/even position (standard statement: positions); README silent,fixed,d3958231,688de179
 matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,"Order_From returned the fixed order from (1,1) for every origin; 15 of 16 origins wrong (own tests)",fixed,776fd242,fb6dae18
-matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,"zero pivot: row 2 became a multiple of row 1 (second equation lost); all-zero first column zeroed row 2 (own tests)",fixed,4e577abb,9fd97960
-misc/SPARK2/Ada-SPARK-Add-Binary,"1 + 1 + carry wrote bit 0 instead of 1 (e.g. 3 + 3 = 4) (own tests)",fixed,87249cad,fadbfa61
-misc/SPARK2/Ada-SPARK-Broken-Calculator,"returned |Start - Target| instead of the fewest double/decrement operations; 479 of 1024 pairs wrong (own tests)",fixed,4d2c6fb6,5d01cb52
-misc/SPARK2/Ada-SPARK-Car-Pooling,"Feasible ignored Pickup/Dropoff and compared the total of all trips with Limit (own tests)",fixed,1c2e3f70,ec66923a
-misc/SPARK2/Ada-SPARK-3Sum-Closest,"Length 0..2 (no triple) answered with 0 instead of rejected (own tests)",fixed,b06276da,84cebc73
-misc/SPARK2/Ada-SPARK-Combination-Sum-III,"Count_Choices returned 1 for every feasible (K; N); 86 of 460 counts wrong (own tests)",fixed,f4760003,bbeae5b8
+matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,zero pivot: row 2 became a multiple of row 1 (second equation lost); all-zero first column zeroed row 2 (own tests),fixed,4e577abb,9fd97960
+misc/SPARK2/Ada-SPARK-Add-Binary,1 + 1 + carry wrote bit 0 instead of 1 (e.g. 3 + 3 = 4) (own tests),fixed,87249cad,fadbfa61
+misc/SPARK2/Ada-SPARK-Broken-Calculator,returned |Start - Target| instead of the fewest double/decrement operations; 479 of 1024 pairs wrong (own tests),fixed,4d2c6fb6,5d01cb52
+misc/SPARK2/Ada-SPARK-Car-Pooling,Feasible ignored Pickup/Dropoff and compared the total of all trips with Limit (own tests),fixed,1c2e3f70,ec66923a
+misc/SPARK2/Ada-SPARK-3Sum-Closest,Length 0..2 (no triple) answered with 0 instead of rejected (own tests),fixed,b06276da,84cebc73
+misc/SPARK2/Ada-SPARK-Combination-Sum-III,Count_Choices returned 1 for every feasible (K; N); 86 of 460 counts wrong (own tests),fixed,f4760003,bbeae5b8
 misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,"Is_Beautiful accepted values above N that are multiples of their position, e.g. N = 1, A (1) = 2 (own tests)",fixed,dd3dbfb0,ad654347
 misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,"Minimum_Cuts returned N - 1 for every non-palindrome, e.g. 1 1 2 needs 1 cut not 2 (own tests; random sample sample_30.txt)",fixed,31b9084c,3223108e
 misc/SPARK2/Ada-SPARK-Queue-Using-Stacks,"Enqueue on a full queue dropped the value, Dequeue/Front on an empty queue answered silently (own tests; random sample sample_30.txt)",fixed,f910897c,59fc17da
 ml/SPARK2/Linear-Regression,"Predict truncated mean and slope separately, missing the least-squares value by up to about 2.6 (own tests; random sample sample_30.txt)",fixed,dd65b8ae,b816a12a
 misc/SPARK2/Ada-SPARK-Min-Stack,"Push on a full stack dropped the value; Pop, Top_Value and Min_Value on an empty stack answered silently (own tests; silent no-op scan)",fixed,208fbe05,f63f7977
-misc/SPARK2/Ada-SPARK-Remove-Element,"Length came back one short when the array was full (32) and its last element was kept (own tests; found during the silent no-op scan review)",fixed,01df9c65,9d9ef057
+misc/SPARK2/Ada-SPARK-Remove-Element,Length came back one short when the array was full (32) and its last element was kept (own tests; found during the silent no-op scan review),fixed,01df9c65,9d9ef057
 misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,"Append on a full list dropped the value silently (own test full_append_check; silent no-op scan; shared scaffold of 15 list folders, fixed the same way)",fixed,4ec4c68e,6a2c8040
 misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,"Append on a full list dropped the value silently (own test full_append_check; silent no-op scan; shared scaffold of 15 list folders, fixed the same way)",fixed,4ec4c68e,6a2c8040
 misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,"Append on a full list dropped the value silently (own test full_append_check; silent no-op scan; shared scaffold of 15 list folders, fixed the same way)",fixed,4ec4c68e,6a2c8040
@@ -74,5 +74,5 @@ misc/Ada/Nagles-Algorithm,Packet_To_Send (out) never assigned when data was buff
 misc/Ada/Nagles-Algorithm,Sending a merged MSS segment cleared the buffer: bytes past MSS and the new data were lost; test 14 expected no send with 2919 bytes buffered and window 2*MSS (contradicts RFC 896),fixed,4b752c46,05fc3817
 ml/Ada/Random-Forest,Test 9.1 relies on Train_Classifier Pre but make test had no -gnata: passed only when time-seeded sampling read past Labels (failed 12/30 runs on GNAT 14; final pragma Assert ignored so exit 0) (silent-fail scan),fixed,cffe5151,5f2abb08
 ml/Ada/Backpropagation,XOR integration test (13.x) used time-seeded random initial weights and failed intermittently (GNAT 12 rerun; 1/40 reruns); exit 0 because the final pragma Assert was ignored without -gnata,fixed,5946190a,d1f050a6
-misc/Ada/Nagles-Algorithm,Buffered packets are allocated with New_Data'Range but Merge_Packets indexes Pkg.Data(1 .. Size): a caller slice not starting at 1 raises Constraint_Error (code review during the fix; no test yet),open,,
+misc/Ada/Nagles-Algorithm,Buffered packets are allocated with New_Data'Range but Merge_Packets indexes Pkg.Data(1 .. Size): a caller slice not starting at 1 raises Constraint_Error (code review; test 15 with Big (5 .. 7) and Big (10 .. 11)),fixed,ed6fdc12,fa0938c3
 ml/Ada/Random-Forest,Generator is time-seeded (Reset (Gen) at elaboration) so training and the rest of the suite are not reproducible run to run (observation),open,,
