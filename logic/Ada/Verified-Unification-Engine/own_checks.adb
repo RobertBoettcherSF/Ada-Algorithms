@@ -533,6 +533,111 @@ begin
          Fail ("two variables of one chain do not unify");
       end if;
    end;
+   --  (d) Unify (X, f (X)) must return failure: terminate, raise nothing and
+   --  leave X unbound (both argument orders, fresh environment).
+   declare
+      Env : Substitution;
+      OK  : Boolean := True;
+      Xv, Fx : Term_Id;
+   begin
+      for Swap in Boolean loop
+         Reset_Pool;
+         Clear (Env);
+         Make_Variable ('x', Xv);
+         Make_Function ('f', Xv, Null_Term, Fx);
+         begin
+            if Swap then
+               Unify (Fx, Xv, Env, OK);
+            else
+               Unify (Xv, Fx, Env, OK);
+            end if;
+            if OK then
+               Fail ("(d) Unify (X, f (X)) succeeded");
+            end if;
+            if Env.Bindings ('x') /= Null_Term then
+               Fail ("(d) Unify (X, f (X)) bound X");
+            end if;
+         exception
+            when E : others =>
+               Fail ("(d) Unify (X, f (X)) raised " & Ada.Exceptions.Exception_Name (E));
+         end;
+      end loop;
+   end;
+
+   --  Deep terms and long chains inside the 32-slot pool (fuel boundaries):
+   --  * x against f(k, f(k, ... f(k, y))) with 14 .. 16 nested f: unifiable
+   --    (x does not occur); where the pool has room, applying the answer to
+   --    x rebuilds every level;
+   --  * applying the chain a -> b -> ... -> t -> k to a gives k.
+   --  Pool-full boundary: Apply needs one new slot per function node, so
+   --  f(x) under x := k succeeds with exactly one free slot and fails with
+   --  none (result Null_Term).
+   declare
+      Env : Substitution;
+      OK  : Boolean;
+      Xv, Yv, Kc, Cur, R : Term_Id;
+      Depth : Natural;
+      Ids : array (Character range 'a' .. 't') of Term_Id;
+   begin
+      for Levels in Positive range 14 .. 16 loop
+         Reset_Pool;
+         Clear (Env);
+         Make_Variable ('x', Xv);
+         Make_Variable ('y', Yv);
+         Make_Constant ('k', Kc);
+         Cur := Yv;
+         for I in 1 .. Levels loop
+            Make_Function ('f', Kc, Cur, Cur);
+         end loop;
+         Unify (Xv, Cur, Env, OK);
+         if not OK then
+            Fail ("x against a" & Levels'Image & "-deep term without x failed");
+         elsif Space_Left >= Levels then   --  room for the copy Apply builds
+            Apply_Substitution (Xv, Env, R, OK);
+            Depth := 0;
+            while OK and then R /= Null_Term and then Kind_Of (R) = Is_Function loop
+               Depth := Depth + 1;
+               R := Right_Of (R);
+            end loop;
+            if not OK or else Depth /= Levels or else R = Null_Term or else Kind_Of (R) /= Is_Variable then
+               Fail ("applying x := deep term: depth" & Depth'Image & " of" & Levels'Image);
+            end if;
+         end if;
+      end loop;
+      Reset_Pool;
+      Clear (Env);
+      for C in Ids'Range loop
+         Make_Variable (C, Ids (C));
+      end loop;
+      Make_Constant ('k', Kc);
+      for C in Character range 'a' .. 's' loop
+         Env.Bindings (C) := Ids (Character'Succ (C));
+      end loop;
+      Env.Bindings ('t') := Kc;
+      Apply_Substitution (Ids ('a'), Env, R, OK);
+      if not OK or else R = Null_Term or else Kind_Of (R) /= Is_Constant or else Name_Of (R) /= 'k' then
+         Fail ("applying a 20-binding chain to its head did not give k");
+      end if;
+      for Free in 0 .. 1 loop
+         Reset_Pool;
+         Clear (Env);
+         Make_Variable ('x', Xv);
+         Make_Constant ('k', Kc);
+         Make_Function ('f', Xv, Null_Term, Cur);
+         while Space_Left > Free loop
+            Make_Constant ('c', R);
+         end loop;
+         Env.Bindings ('x') := Kc;
+         Apply_Substitution (Cur, Env, R, OK);
+         if Free = 1 and then (not OK or else R = Null_Term or else Kind_Of (R) /= Is_Function
+                                 or else Left_Of (R) /= Kc)
+         then
+            Fail ("apply with exactly one free pool slot failed");
+         elsif Free = 0 and then (OK or else R /= Null_Term) then
+            Fail ("apply with a full pool reported success");
+         end if;
+      end loop;
+   end;
    Put_Line ("own checks: unifiable pairs (ground unifier exists)" & Unifiable_Agree'Image & " /" & Unifiable_Total'Image
      & ", Unify failures" & Fail_Answers'Image & " (no clash or cycle certificate:" & Fail_Unconfirmed'Image
      & "), skipped for pool size" & Space_Skips'Image);
