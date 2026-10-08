@@ -12,9 +12,10 @@
 --  min(n, Max_Buckets), and arbitrary A'First; this port requires
 --  A'First = 1, Element in 0 .. Max_Key, fixed Max_Buckets, and uses
 --  Pre => In_Bounds (A). Full multiset / permutation equality is
---  verified by tests rather than claimed as a Level-4 postcondition
---  (sortedness is proved via the final insertion pass, like the
---  Shellsort gap-1 argument).
+--  verified by tests rather than claimed as a Level-4 postcondition.
+--  Sortedness is proved for the bucket phase itself (bin key ranges,
+--  per-bin insertion sort, a ghost sum of bin counts); there is no
+--  final fallback pass.
 --
 --  Closest SPARK sort sibling that shares the same array shape and
 --  key cap: Ada-SPARK-Counting-Sort. README links only — do not
@@ -88,10 +89,11 @@ is
    --  Assume In_Bounds (A). Keys live in 0 .. Max_Key.
    --  1. Scatter each key X into bucket X / Bucket_Width
    --     (uniform bins; 0 → bucket 0, Max_Key → bucket Max_Buckets-1).
-   --  2. Insertion-sort each non-empty bucket (stable, good for small bins).
+   --  2. Insertion-sort each bucket (stable, good for small bins).
    --  3. Gather buckets 0 .. Max_Buckets-1 back into A.
-   --  4. Final insertion pass (Shell gap-1 pattern) proves Is_Sorted
-   --     at Level 4 without claiming a full scatter/gather postcondition.
+   --  Bucket B holds only keys B * Bucket_Width .. B * Bucket_Width +
+   --  Bucket_Width - 1 and the bin counts add up to n, which proves
+   --  Is_Sorted for the gathered array.
    --  Empty and singleton arrays are no-ops.
    --  Contrast with counting sort: that allocates one slot per key;
    --  bucket sort uses far fewer bins and finishes each with a

@@ -12,7 +12,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Bucket-Sort](https:
 ## Features
 * **`Sort (A)`**: Ascending bucket sort (scatter → per-bucket insertion → gather).
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
-* **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors; scatter / gather prove RTE; the final insertion pass (Shell gap-$1$ pattern) proves sortedness.
+* **Formal Verification**: GNATprove Level 4 — absence of index / overflow errors and `Is_Sorted` for the bucket phase itself: every key in bucket $B$ lies in $B\cdot 16 .. B\cdot 16 + 15$, the per-bucket insertion sort keeps that range and sorts the bucket, and a ghost sum of the bucket counts equals $n$, so the gather fills all of $A$ in order. No final fallback pass.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`. Element subtype enforces the key-domain cap.
 * **Static flat store**: `Max_Buckets * Max_N` cells plus a count table — no heap / unbounded vectors.
 
@@ -23,7 +23,6 @@ This is the SPARK Level 4 port of the companion package [Ada-Bucket-Sort](https:
 * No exceptions: length / shape are `Pre => In_Bounds (A)`; keys are the `Element` subtype `0 .. Max_Key`.
 * Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
 * Uniform-width bins over the closed domain $0..\mathrm{Max\_Key}$ instead of $\lfloor (k-1)\,(x-\min)/(\max-\min)\rfloor$ on a dynamic span.
-* Scatter / per-bucket insertion / gather prove only `In_Bounds` / RTE. The final insertion pass reuses the insertion-sort Level-4 argument for `Is_Sorted` (same strategy as [Ada-SPARK-Shell-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Shell-Sort) gap-$1$).
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
 
 ## Algorithm
@@ -37,7 +36,6 @@ Given an array $A$ of length $n$ with keys in $0..\mathrm{Max\_Key}$:
    so $0$ maps to bucket $0$ and $\mathrm{Max\_Key}$ to bucket $\mathrm{Max\_Buckets}-1$.
 3. **Sort** each non-empty bucket with insertion sort (stable, excellent for small bins).
 4. **Gather** buckets $0..\mathrm{Max\_Buckets}-1$ back into $A$.
-5. **Final insertion pass** (proof vehicle) — identity on a correctly gathered array.
 
 Empty and singleton arrays are no-ops.
 
@@ -57,7 +55,7 @@ Bucket sort with bucket size $1$ degenerates toward counting sort. Two buckets b
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 232 assertions pass. Running `make prove` reports `Success: all checks proved (177 checks).`
+When you run `make test`, you will see all 232 assertions pass. Running `make prove` reports `Success: all checks proved (181 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, Wikipedia-style integer example, reverse / already-sorted / almost-sorted, bin-edge clustering, power-of-two and odd lengths.
@@ -77,8 +75,8 @@ When you run `make test`, you will see all 232 assertions pass. Running `make pr
 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
-* Scatter loop tracks `Counts (B) <= I-1`; per-bucket insertion and gather discharge RTE; `Insert_Step` / `Insertion_Pass` grow a sorted prefix.
-* **GNATprove Level 4:** `Success: all checks proved (177 checks).`
+* Scatter loop tracks `Counts (B) <= I-1` and the ghost sum of bucket counts; `Insert_Step` / `Sort_Bucket` grow a sorted prefix inside a bucket key range; the gather appends the sorted buckets in order.
+* **GNATprove Level 4:** `Success: all checks proved (181 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

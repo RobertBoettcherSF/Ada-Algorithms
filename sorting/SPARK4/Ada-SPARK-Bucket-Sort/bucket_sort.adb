@@ -1,9 +1,11 @@
 --  Bucket_Sort body — SPARK Level 4 classic bucket sort. Scatter into
---  Max_Buckets uniform-width bins on a static flat store, insertion-
---  sort each bin, gather. Scatter / per-bucket insertion / gather
---  prove only In_Bounds / RTE; the final Insertion_Pass reuses the
---  Insert_Step / Sorted_Slice argument from Ada-SPARK-Insertion-Sort
---  (Shell gap-1 pattern) so Sort proves Is_Sorted.
+--  Max_Buckets uniform-width bins on a static flat store, insertion-sort
+--  each bin, gather the bins in order. Proof: every key in bin B lies in
+--  B * Bucket_Width .. B * Bucket_Width + Bucket_Width - 1, the insertion
+--  sort keeps a bin's keys in that range and sorts them, and a ghost sum
+--  of the bin counts equals n, so the gather writes all n positions and
+--  each bin's keys are above every key of the bins before it. Nothing else
+--  sorts the array.
 
 package body Bucket_Sort
   with SPARK_Mode => On
@@ -14,18 +16,33 @@ is
 
    type Flat_Store is array (Positive range 1 .. Flat_Last) of Element;
 
-   --  1-based offset of item J in bucket B. J in 1 .. Max_N.
-   function Slot (B : Bucket_Index; J : Positive) return Positive
+   subtype Bin_Count is Natural range 0 .. Max_Buckets;
+
+   --  1-based offset of item J in bucket B.
+   function Slot (B : Bucket_Index; J : Index) return Positive
    is (B * Max_N + J)
    with
      Global => null,
-     Pre    => J in 1 .. Max_N,
-     Post   => Slot'Result in 1 .. Flat_Last;
+     Pre    => J >= 1,
+     Post   => Slot'Result <= Flat_Last;
 
    --  Uniform-width bucket index over the closed key domain.
    function Bucket_Of (X : Element) return Bucket_Index
    is (X / Bucket_Width)
    with Global => null;
+
+   --  Smallest and largest key of bucket B.
+   function Low_Key (B : Bucket_Index) return Element
+   is (B * Bucket_Width)
+   with Global => null;
+
+   function High_Key (B : Bucket_Index) return Element
+   is (B * Bucket_Width + Bucket_Width - 1)
+   with Global => null;
+
+   ---------------------------------------------------------------------------
+   -- Ghost model
+   ---------------------------------------------------------------------------
 
    --  Adjacent nondecreasing on A (L .. R). Vacuous when L >= R.
    function Sorted_Slice
@@ -41,25 +58,82 @@ is
        and then L >= 1
        and then R <= A'Last;
 
+   --  Every key of A in Lo .. Hi.
+   function All_In (A : Element_Array; Lo, Hi : Element) return Boolean is
+     (for all K in A'Range => A (K) in Lo .. Hi)
+   with Ghost => True, Global => null;
+
+   --  Counts (0) + .. + Counts (K - 1).
+   function Sum (Counts : Count_Array; K : Bin_Count) return Natural is
+     (if K = 0 then 0 else Sum (Counts, K - 1) + Counts (K - 1))
+   with
+     Ghost              => True,
+     Global             => null,
+     Subprogram_Variant => (Decreases => K),
+     Pre                => (for all B in Bucket_Index => Counts (B) <= Max_N),
+     Post               => Sum'Result <= K * Max_N;
+
+   --  Adding one to Counts (B) adds one to the sums that include it.
+   procedure Lemma_Sum_Inc (C1, C2 : Count_Array; B : Bucket_Index)
+     with
+       Ghost  => True,
+       Global => null,
+       Pre    =>
+         (for all K in Bucket_Index => C1 (K) <= Max_N)
+         and then (for all K in Bucket_Index => C2 (K) <= Max_N)
+         and then C2 (B) = C1 (B) + 1
+         and then (for all K in Bucket_Index =>
+                     (if K /= B then C2 (K) = C1 (K))),
+       Post   => Sum (C2, Max_Buckets) = Sum (C1, Max_Buckets) + 1
+   is
+   begin
+      for K in Bin_Count range 1 .. Max_Buckets loop
+         pragma Loop_Invariant
+           (Sum (C2, K) = Sum (C1, K) + (if B < K then 1 else 0));
+      end loop;
+   end Lemma_Sum_Inc;
+
+   --  Sums grow with K.
+   procedure Lemma_Sum_Mono (C : Count_Array; K : Bin_Count)
+     with
+       Ghost  => True,
+       Global => null,
+       Pre    => (for all B in Bucket_Index => C (B) <= Max_N),
+       Post   => Sum (C, K) <= Sum (C, Max_Buckets)
+   is
+   begin
+      for J in Bin_Count range K .. Max_Buckets loop
+         pragma Loop_Invariant (Sum (C, K) <= Sum (C, J));
+      end loop;
+   end Lemma_Sum_Mono;
+
+   ---------------------------------------------------------------------------
+   -- Insertion sort of one bucket
+   ---------------------------------------------------------------------------
+
    --  Insert A(I) into the sorted prefix A(1 .. I-1), yielding sorted
-   --  A(1 .. I). Strict Key < A(J-1) keeps equal-key order (stable).
-   procedure Insert_Step (A : in out Element_Array; I : Index)
+   --  A(1 .. I). Strict Key < A(J-1) keeps equal-key order (stable). Keys
+   --  only move, so a key range Lo .. Hi of A is kept.
+   procedure Insert_Step
+     (A : in out Element_Array; I : Index; Lo, Hi : Element)
      with
        Global => null,
        Pre    =>
          In_Bounds (A)
          and then I in 2 .. A'Last
-         and then Sorted_Slice (A, 1, I - 1),
+         and then Sorted_Slice (A, 1, I - 1)
+         and then All_In (A, Lo, Hi),
        Post   =>
          In_Bounds (A)
          and then Sorted_Slice (A, 1, I)
+         and then All_In (A, Lo, Hi)
          and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K))
    is
       Key : constant Element := A (I);
       J   : Index := I;
    begin
       while J > 1 and then Key < A (J - 1) loop
-         pragma Loop_Invariant (J in 2 .. I);
+         pragma Loop_Invariant (J <= I);
          pragma Loop_Invariant (Sorted_Slice (A, 1, J - 1));
          pragma Loop_Invariant (Sorted_Slice (A, J + 1, I));
          pragma Loop_Invariant
@@ -68,6 +142,7 @@ is
            (for all K in J + 1 .. I => A (J - 1) <= A (K));
          pragma Loop_Invariant
            (if J < I then A (J) = A (J + 1) else A (J) = Key);
+         pragma Loop_Invariant (All_In (A, Lo, Hi));
          pragma Loop_Invariant
            (for all K in I + 1 .. A'Last => A (K) = A'Loop_Entry (K));
          pragma Loop_Variant (Decreases => J);
@@ -76,10 +151,6 @@ is
          J     := J - 1;
       end loop;
 
-      pragma Assert (J in 1 .. I);
-      pragma Assert (Sorted_Slice (A, 1, J - 1));
-      pragma Assert (Sorted_Slice (A, J + 1, I));
-      pragma Assert (for all K in J + 1 .. I => A (K) > Key);
       pragma Assert (J = 1 or else A (J - 1) <= Key);
 
       A (J) := Key;
@@ -89,141 +160,93 @@ is
       pragma Assert (Sorted_Slice (A, 1, I));
    end Insert_Step;
 
-   --  Ordinary insertion sort. Proves Is_Sorted (Shell gap-1 pattern).
-   procedure Insertion_Pass (A : in out Element_Array)
+   --  Insertion sort of one bucket's keys, all in Lo .. Hi.
+   procedure Sort_Bucket (A : in out Element_Array; Lo, Hi : Element)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
+       Pre    => In_Bounds (A) and then All_In (A, Lo, Hi),
+       Post   =>
+         In_Bounds (A)
+         and then Is_Sorted (A)
+         and then All_In (A, Lo, Hi)
    is
    begin
-      pragma Assert (Sorted_Slice (A, 1, 1));
-
       for I in 2 .. A'Last loop
-         Insert_Step (A, I);
+         Insert_Step (A, I, Lo, Hi);
 
-         pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (Sorted_Slice (A, 1, I));
-         pragma Loop_Invariant (Is_Sorted (A (1 .. I)));
-         pragma Loop_Invariant
-           (for all K in I + 1 .. A'Last =>
-              A (K) = A'Loop_Entry (K));
-      end loop;
-   end Insertion_Pass;
-
-   --  Stable insertion sort of Store (Slot (B, 1) .. Slot (B, Cnt)).
-   --  Only In_Bounds / RTE are proved (sortedness comes from Insertion_Pass).
-   procedure Sort_Bucket
-     (Store : in out Flat_Store;
-      B     : Bucket_Index;
-      Cnt   : Natural)
-     with
-       Global => null,
-       Pre    => Cnt <= Max_N,
-       Post   => True
-   is
-      Key : Element;
-      J   : Natural;
-   begin
-      if Cnt <= 1 then
-         return;
-      end if;
-
-      for I in 2 .. Cnt loop
-         pragma Loop_Invariant (Cnt in 2 .. Max_N);
-         pragma Loop_Invariant (I in 2 .. Cnt + 1);
-
-         Key := Store (Slot (B, I));
-         J   := I;
-
-         while J > 1 and then Key < Store (Slot (B, J - 1)) loop
-            pragma Loop_Invariant (J in 2 .. I);
-            pragma Loop_Invariant (J <= Max_N);
-            pragma Loop_Variant (Decreases => J);
-
-            Store (Slot (B, J)) := Store (Slot (B, J - 1));
-            J                   := J - 1;
-         end loop;
-
-         Store (Slot (B, J)) := Key;
+         pragma Loop_Invariant (All_In (A, Lo, Hi));
       end loop;
    end Sort_Bucket;
 
-   --  Scatter / per-bucket insertion / gather. RTE / In_Bounds only.
-   procedure Bucket_Pass (A : in out Element_Array)
-     with
-       Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A)
-   is
+   ---------------------------------------------------------------------------
+   -- Bucket sort
+   ---------------------------------------------------------------------------
+
+   procedure Sort (A : in out Element_Array) is
       N      : constant Index := A'Last;
       Store  : Flat_Store := [others => 0];
       Counts : Count_Array := [others => 0];
       B      : Bucket_Index;
-      Pos    : Natural;
+      Pos    : Positive;
+      Old    : Count_Array with Ghost;
    begin
-      --  Histogram + scatter into the flat store (left-to-right = stable).
-      for I in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (N = A'Last);
-         pragma Loop_Invariant
-           (for all K in Bucket_Index => Counts (K) <= I - 1);
-         pragma Loop_Invariant
-           (for all K in Bucket_Index => Counts (K) <= Max_N);
-
-         B := Bucket_Of (A (I));
-         Counts (B) := Counts (B) + 1;
-         Store (Slot (B, Counts (B))) := A (I);
-      end loop;
-
-      pragma Assert (for all K in Bucket_Index => Counts (K) <= N);
-      pragma Assert (for all K in Bucket_Index => Counts (K) <= Max_N);
-
-      --  Insertion-sort each non-empty bucket in the flat store.
-      for K in Bucket_Index loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant
-           (for all KK in Bucket_Index => Counts (KK) <= Max_N);
-
-         if Counts (K) > 0 then
-            Sort_Bucket (Store, K, Counts (K));
-         end if;
-      end loop;
-
-      --  Gather buckets 0 .. Max_Buckets-1 back into A.
-      --  The Pos <= N guard discharges the write index without a
-      --  ghost cardinality lemma (sum of counts is n at run time).
-      Pos := 1;
-      for K in Bucket_Index loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Pos >= 1);
-         pragma Loop_Invariant
-           (for all KK in Bucket_Index => Counts (KK) <= Max_N);
-
-         for J in 1 .. Counts (K) loop
-            pragma Loop_Invariant (In_Bounds (A));
-            pragma Loop_Invariant (Pos >= 1);
-            pragma Loop_Invariant (J in 1 .. Counts (K) + 1);
-            pragma Loop_Invariant (Counts (K) <= Max_N);
-
-            if Pos in 1 .. N then
-               A (Pos) := Store (Slot (K, J));
-               Pos     := Pos + 1;
-            end if;
-         end loop;
-      end loop;
-   end Bucket_Pass;
-
-   procedure Sort (A : in out Element_Array) is
-   begin
-      if A'Length <= 1 then
+      if N <= 1 then
          return;
       end if;
 
-      Bucket_Pass (A);
+      --  Scatter: A (I) goes to the end of bucket Bucket_Of (A (I))
+      --  (left to right, so equal keys keep their order).
+      for I in 1 .. N loop
+         pragma Loop_Invariant
+           (for all K in Bucket_Index => Counts (K) <= I - 1);
+         pragma Loop_Invariant (Sum (Counts, Max_Buckets) = I - 1);
+         pragma Loop_Invariant
+           (for all K in Bucket_Index =>
+              (for all J in 1 .. Counts (K) =>
+                 Store (Slot (K, J)) in Low_Key (K) .. High_Key (K)));
 
-      --  Final insertion pass → Is_Sorted (Shell gap-1 pattern).
-      Insertion_Pass (A);
+         B := Bucket_Of (A (I));
+         Old := Counts;
+         Counts (B) := Counts (B) + 1;
+         Lemma_Sum_Inc (Old, Counts, B);
+         Store (Slot (B, Counts (B))) := A (I);
+      end loop;
+
+      --  Sort each bucket (insertion sort) and append it to A.
+      Pos := 1;
+      for K in Bucket_Index loop
+         pragma Loop_Invariant (Pos = Sum (Counts, K) + 1);
+         pragma Loop_Invariant (Sorted_Slice (A, 1, Pos - 1));
+         pragma Loop_Invariant (Pos = 1 or else A (Pos - 1) < Low_Key (K));
+
+         Lemma_Sum_Mono (Counts, K + 1);
+         pragma Assert (Pos - 1 + Counts (K) <= N);
+
+         declare
+            Cnt : constant Index := Counts (K);
+            Bin : Element_Array (1 .. Cnt) :=
+              [for J in 1 .. Cnt => Store (Slot (K, J))];
+         begin
+            pragma Assert (All_In (Bin, Low_Key (K), High_Key (K)));
+
+            Sort_Bucket (Bin, Low_Key (K), High_Key (K));
+
+            for J in 1 .. Cnt loop
+               pragma Loop_Invariant (Pos = Sum (Counts, K) + J);
+               pragma Loop_Invariant (Sorted_Slice (A, 1, Pos - 1));
+               pragma Loop_Invariant
+                 (if J > 1 then A (Pos - 1) = Bin (J - 1)
+                  else Pos = 1 or else A (Pos - 1) < Low_Key (K));
+
+               A (Pos) := Bin (J);
+               Pos := Pos + 1;
+            end loop;
+         end;
+      end loop;
+
+      pragma Assert (Pos = N + 1);
+      pragma Assert (Sorted_Slice (A, 1, N));
    end Sort;
 
 end Bucket_Sort;
