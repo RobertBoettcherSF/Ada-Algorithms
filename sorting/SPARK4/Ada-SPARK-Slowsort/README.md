@@ -61,6 +61,7 @@ When you run `make test`, you will see all 192 assertions pass. Running `make pr
 * **Agreement**: `Sort` vs an independent insertion-sort reference; multiset / permutation equality on every case.
 * **Contract helpers**: `Is_Sorted` true/false; `In_Bounds` at empty / `Max_N` (all-zero under `Max_N`).
 * **Contract discipline**: Only valid call paths are exercised (no exception handlers).
+* **Own checks** (`own_checks.adb`, run at the end of `make test`; sources in `tests/SOURCES.txt`): 9,825 sort calls checked for nondecreasing output and equal occurrence counts — every array of length 0..7 over {0,1,2}, every permutation of 1..7, 1,500 random arrays up to `Max_N` (fixed printed seed, `AA_SEED` overrides), and full-length shapes.
 * **Never** feed Slowsort random $n \gg 16$ — it will not finish in reasonable time.
 
 ## Building
