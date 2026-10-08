@@ -3,7 +3,7 @@ project Longest_Word_In_Dictionary is
    for Main use ("tests.adb");
    for Object_Dir use "obj";
    for Exec_Dir use "bin";
-   for Source_Files use ("longest_word_in_dictionary.ads", "longest_word_in_dictionary.adb", "tests.adb");
+   for Source_Files use ("longest_word_in_dictionary.ads", "longest_word_in_dictionary.adb", "tests.adb", "own_checks.adb");
    package Compiler is
       for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
    end Compiler;

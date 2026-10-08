@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: the existing hand-written job-pool scenarios.
+* Own model for Bounded_Buffer (the SPARK-proved queue under the job pool):
+  a first-in first-out list in the test; after every Put / Get, Length,
+  Is_Empty and Is_Full are compared with it and every Get must return the
+  oldest value. The tasking parts (Job_Pool, Channel) are covered by the
+  existing tests only.
+* Inputs: 500 random runs of 100 operations (wrap-around and full buffer).

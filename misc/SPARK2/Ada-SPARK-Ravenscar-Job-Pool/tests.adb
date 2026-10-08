@@ -2,6 +2,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO;
 with Bounded_Buffer;
+with Own_Checks;
 with Channel;
 with Channel.Sync;
 with Demo_Jobs;
@@ -158,4 +159,5 @@ begin
    if Failed > 0 then
       raise Program_Error with "test failures";
    end if;
+   Own_Checks;
 end Tests;

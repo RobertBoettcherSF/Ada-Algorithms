@@ -9,7 +9,7 @@ package Longest_Word_In_Dictionary with SPARK_Mode => On is
    type Word_Chars is array (Position) of Letter;
    type Word is record
       Len : Length_Range := 0;
-      Chars : Word_Chars := (others => 'a');
+      Chars : Word_Chars := [others => 'a'];
    end record;
    type Word_Array is array (Word_Index) of Word;
    function Longest_Length (Words : Word_Array) return Length_Range with Global => null;

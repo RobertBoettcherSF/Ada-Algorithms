@@ -2,7 +2,7 @@ pragma Ada_2022;
 package body Image_Smoother with SPARK_Mode => On is
    procedure Smooth (Input : in Image; Output : out Image) is
    begin
-      Output := (others => (others => 0));
+      Output := [others => [others => 0]];
       Output (1, 1) := Pixel ((Input (1, 1) + Input (1, 2) + Input (2, 1) + Input (2, 2)) / 4);
       Output (1, 2) := Pixel ((Input (1, 1) + Input (1, 2) + Input (1, 3) + Input (2, 1) + Input (2, 2) + Input (2, 3)) / 6);
       Output (1, 3) := Pixel ((Input (1, 2) + Input (1, 3) + Input (1, 4) + Input (2, 2) + Input (2, 3) + Input (2, 4)) / 6);

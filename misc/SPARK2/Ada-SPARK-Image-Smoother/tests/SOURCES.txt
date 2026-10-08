@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: the hand-computed 1/9 pattern (corner 3, centre 4).
+* Own reference (standard statement): floor of the average over the cell
+  and its neighbours inside the 4x4 image, by scanning the 3x3 window.
+* Inputs: 20,000 random images (every third over 98 .. 99 to exercise the
+  largest sums), every pixel.

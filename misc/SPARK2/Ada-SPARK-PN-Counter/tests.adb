@@ -1,4 +1,5 @@
 with Pn_Counter; use Pn_Counter;
+with Own_Checks;
 
 procedure Tests is
    A, B, M : Counter;
@@ -30,4 +31,5 @@ begin
    Merge (M, B);
    pragma Assert (P_At (M, 1) = 2);
    pragma Assert (N_At (M, 2) = 2);
+   Own_Checks;
 end Tests;

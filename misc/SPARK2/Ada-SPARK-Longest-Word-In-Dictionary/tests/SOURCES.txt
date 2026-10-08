@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: a, ab, abc, abcd -> 4, by hand.
+* Own reference (standard statement, answer as a length): the longest
+  dictionary word whose every prefix of length 1 .. Len is itself a word,
+  comparing letter strings built from (Len, Chars) in the test; slots with
+  Len = 0 are empty and characters after Len are ignored.
+* Inputs: 30,000 random dictionaries of 8 words of length 0 .. 4 over two
+  letters (so prefixes are common), with random junk after Len.

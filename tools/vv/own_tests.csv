@@ -167,3 +167,9 @@ misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,own depth-first enumeratio
 misc/SPARK2/Ada-SPARK-Circular-Queue,model-based: 500 random runs of 100 operations vs own FIFO model (wrap-around and full queue)
 misc/SPARK2/Ada-SPARK-Combination-Sum-III,own enumeration of all 512 digit subsets; every K 0..9 and N 0..45 (Feasible and Count_Choices)
 misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,standard rule (permutation of 1..N + divisibility); every arrangement of 0..8 at 4 positions; 50000 random permutations N 5..8
+misc/SPARK2/Ada-SPARK-Image-Smoother,own 3x3-window floor-average reference; 20000 random images (sample_30)
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,own stable two-group reference; 50000 random arrays and pivots (sample_30)
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,Bounded_Buffer vs own FIFO model; 500 random runs of 100 operations (sample_30)
+misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,own prefix-closure reference on letter strings; 30000 random dictionaries (sample_30)
+misc/SPARK2/Ada-SPARK-PN-Counter,own model: value = sum P - sum N; merge = componentwise max; commutative/idempotent; 20000 random replica pairs (sample_30)
+misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences,own search over all push/pop interleavings; 20000 random cases with distinct values (sample_30)
