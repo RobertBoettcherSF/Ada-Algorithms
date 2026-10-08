@@ -205,6 +205,41 @@ begin
       Check_Pair (-(2**30), 2**30, 0, 2**31, "detail 2**31 needs headroom");
    end;
 
+   --  A one-sample signal has no pair. Levels 0 and 1 both return it.
+   --  A length that is not divisible by 2**Levels is Invalid_Dimensions
+   --  (length 6, two levels: the second prefix has width 3).
+   declare
+      One : constant Signal_1D_Int (4 .. 4) := [42];
+      Six : constant Signal_1D_Int := [1, 2, 3, 4, 5, 6];
+      Raised_F, Raised_I : Boolean := False;
+   begin
+      Note (Same_Int (Forward_Haar_Levels (One, 0), One), "levels 0 copies one sample");
+      Note (Same_Int (Forward_Haar_Levels (One, 1), One), "one sample forward is unchanged");
+      Note (Same_Int (Inverse_Haar_Levels (One, 1), One), "one sample inverse is unchanged");
+      begin
+         declare
+            Dummy : constant Signal_1D_Int := Forward_Haar_Levels (Six, 2);
+         begin
+            Note (False, "length 6 with 2 levels was accepted");
+         end;
+      exception
+         when Invalid_Dimensions =>
+            Raised_F := True;
+      end;
+      begin
+         declare
+            Dummy : constant Signal_1D_Int := Inverse_Haar_Levels (Six, 2);
+         begin
+            Note (False, "inverse length 6 with 2 levels was accepted");
+         end;
+      exception
+         when Invalid_Dimensions =>
+            Raised_I := True;
+      end;
+      Note (Raised_F, "length 6 with 2 levels raises Invalid_Dimensions");
+      Note (Raised_I, "inverse length 6 with 2 levels raises Invalid_Dimensions");
+   end;
+
    --  Two levels on values whose first detail is 2**31. The low-pass of
    --  the second level is the average of those averages.
    declare
