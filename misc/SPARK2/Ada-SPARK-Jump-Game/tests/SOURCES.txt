@@ -1,0 +1,6 @@
+Where the expected values in tests.adb come from
+- hand cases: worked out by hand from the problem rule (A (I) = longest jump from index I, start at 1,
+  question: can index N be reached).
+- 20,000 random cases (Park-Miller generator, seed 20261008): compared with Reference in tests.adb,
+  an own breadth-first marking of every reachable index, written for this test.
+No values were copied from the program output or from third-party sources.
