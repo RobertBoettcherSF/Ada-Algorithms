@@ -1,7 +1,7 @@
 --  Own checks (see tests/SOURCES.txt). Assume Unify is wrong or does
 --  nothing. Random pairs of small terms over variables x, y, z, constants
---  k, m and the binary symbol f (some function nodes use a missing right
---  argument, as the engine allows). Terms are also held in this file's own
+--  k, m and the binary symbol f (some function nodes have a missing left or
+--  right argument, as the engine allows). Terms are also held in this file's own
 --  tree representation, so nothing below trusts the engine's view of them.
 --  * Unifier: apply the engine's answer to both terms and compare the
 --    results syntactically (own comparison, through Kind_Of / Name_Of /
@@ -62,7 +62,7 @@ procedure Own_Checks is
          when 5      => return New_Node ((K, 'm', 0, 0));
          when others =>
             declare
-               A : constant Positive := Random_Term (Depth - 1);
+               A : constant Natural := (if Rand (1, 6) = 1 then 0 else Random_Term (Depth - 1));
                B : constant Natural := (if Rand (1, 6) = 1 then 0 else Random_Term (Depth - 1));
             begin
                return New_Node ((F, 'f', A, B));
@@ -253,7 +253,7 @@ begin
       F1 : constant Positive := New_Node ((F, 'f', Kk, Kk));
    begin
       Ground := [Kk, F1, New_Node ((F, 'f', Kk, F1)), New_Node ((F, 'f', F1, Kk)),
-                 New_Node ((F, 'f', F1, F1)), New_Node ((F, 'f', Kk, 0)), New_Node ((F, 'f', F1, 0))];
+                 New_Node ((F, 'f', F1, F1)), New_Node ((F, 'f', Kk, 0)), New_Node ((F, 'f', 0, Kk))];
    end;
    for Round in 1 .. 400 loop
       declare
