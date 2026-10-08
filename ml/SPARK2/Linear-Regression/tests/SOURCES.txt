@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: hand values on exact lines.
+* Own reference: least squares from the normal equations (n = 4, x = 1 .. 4),
+  the prediction kept as one fraction over 20 and truncated toward zero
+  once at the end.
+* Inputs: 40000 random observation sets in -100 .. 100 and X 1 .. 4.
