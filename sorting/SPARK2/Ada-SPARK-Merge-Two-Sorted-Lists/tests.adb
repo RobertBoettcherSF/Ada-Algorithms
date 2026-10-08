@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Merge_Two_Sorted_Lists; use Merge_Two_Sorted_Lists;
+with Full_Append_Check;
 with Own_Checks;
 
 procedure Tests is
@@ -11,4 +12,5 @@ begin
    if Length (R) /= 6 or else Element (R, 1) /= 1 or else Element (R, 4) /= 4 or else Element (R, 6) /= 8 then raise Program_Error; end if;
    Put_Line ("Merge two sorted lists: PASS");
    Own_Checks;
+   Full_Append_Check;
 end Tests;

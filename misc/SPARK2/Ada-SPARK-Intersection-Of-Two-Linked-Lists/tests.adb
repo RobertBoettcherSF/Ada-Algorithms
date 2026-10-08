@@ -1,4 +1,5 @@
 with Intersection_Of_Two_Linked_Lists;
+with Full_Append_Check;
 with Ada.Text_IO;
 procedure Tests is
    use Intersection_Of_Two_Linked_Lists;
@@ -12,4 +13,5 @@ begin
    pragma Assert (Common_Suffix_Length (Left, Right) = 2);
    pragma Assert (Common_Suffix_Length (Left, Other) = 0);
    Ada.Text_IO.Put_Line ("Intersection of two linked lists: OK");
+   Full_Append_Check;
 end Tests;

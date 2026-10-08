@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Reverse_Linked_List; use Reverse_Linked_List;
+with Full_Append_Check;
 
 procedure Tests is
    L : List := Empty;
@@ -9,4 +10,5 @@ begin
    Reverse_List (L);
    if Length (L) /= 4 or else Element (L, 1) /= 4 or else Element (L, 4) /= 1 then raise Program_Error; end if;
    Put_Line ("Reverse linked list: PASS");
+   Full_Append_Check;
 end Tests;

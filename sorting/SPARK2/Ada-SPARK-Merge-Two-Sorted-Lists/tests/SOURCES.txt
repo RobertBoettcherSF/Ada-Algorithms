@@ -11,3 +11,6 @@ standard generator (seed 20261008).
   length with exactly those elements.
 * Inputs: every split NA + NB <= 16, 20 random pairs each over the full Value
   range and 20 duplicate-heavy pairs over 0 .. 2.
+
+* full_append_check.adb (silent no-op scan): Append on a list already holding
+  Count'Last elements must raise Assertion_Error instead of dropping the value.

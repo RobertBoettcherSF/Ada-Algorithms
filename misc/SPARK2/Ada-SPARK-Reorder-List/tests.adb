@@ -1,4 +1,5 @@
 with Reorder_List;
+with Full_Append_Check;
 with Ada.Text_IO;
 procedure Tests is
    use Reorder_List;
@@ -12,4 +13,5 @@ begin
    pragma Assert (Element (L, 4) = 4);
    pragma Assert (Element (L, 5) = 3);
    Ada.Text_IO.Put_Line ("Reorder list: OK");
+   Full_Append_Check;
 end Tests;

@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with Swapping_Nodes_In_A_Linked_List;
+with Full_Append_Check;
 procedure Tests is
    use Swapping_Nodes_In_A_Linked_List;
    L : List := Empty;
@@ -10,4 +11,5 @@ begin
    P := 1; pragma Assert (Element (L, P) = 30);
    P := 3; pragma Assert (Element (L, P) = 10);
    Ada.Text_IO.Put_Line ("Swapping nodes in a linked list: OK");
+   Full_Append_Check;
 end Tests;

@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with Copy_List_With_Random_Pointer_Lite;
+with Full_Append_Check;
 procedure Tests is
    use Copy_List_With_Random_Pointer_Lite;
    L : List := Empty;
@@ -12,4 +13,5 @@ begin
    P := 1; pragma Assert (Element (C, P) = 7);
    pragma Assert (Random_Of (C, P) = 2);
    Ada.Text_IO.Put_Line ("Copy list with random pointer lite: OK");
+   Full_Append_Check;
 end Tests;

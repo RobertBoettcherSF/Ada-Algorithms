@@ -1,4 +1,5 @@
 with Remove_Linked_List_Elements;
+with Full_Append_Check;
 with Ada.Text_IO;
 procedure Tests is
    use Remove_Linked_List_Elements;
@@ -12,4 +13,5 @@ begin
    Remove_First (L, 4);
    pragma Assert (Element (L, 1) = 7);
    Ada.Text_IO.Put_Line ("Remove linked list elements: OK");
+   Full_Append_Check;
 end Tests;

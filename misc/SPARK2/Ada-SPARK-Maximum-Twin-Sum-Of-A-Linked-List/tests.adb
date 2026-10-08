@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with Maximum_Twin_Sum_Of_A_Linked_List;
+with Full_Append_Check;
 procedure Tests is
    use Maximum_Twin_Sum_Of_A_Linked_List;
    L : List := Empty;
@@ -9,4 +10,5 @@ begin
    Answer := Maximum_Twin_Sum (L);
    pragma Assert (Answer = 12);
    Ada.Text_IO.Put_Line ("Maximum twin sum of a linked list: OK");
+   Full_Append_Check;
 end Tests;

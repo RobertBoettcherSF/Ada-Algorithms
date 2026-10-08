@@ -1,4 +1,5 @@
 with Palindrome_Linked_List;
+with Full_Append_Check;
 with Ada.Text_IO;
 procedure Tests is
    use Palindrome_Linked_List;
@@ -11,4 +12,5 @@ begin
    pragma Assert (not Is_Palindrome (R));
    pragma Assert (Element (L, 3) = 3);
    Ada.Text_IO.Put_Line ("Palindrome linked list: OK");
+   Full_Append_Check;
 end Tests;

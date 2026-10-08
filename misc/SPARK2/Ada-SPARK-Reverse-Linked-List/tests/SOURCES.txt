@@ -1,0 +1,5 @@
+Own test sources for this folder (MIT, written for this repository; no
+external test data, no program output used as expected values).
+
+* full_append_check.adb (silent no-op scan): Append on a list already holding
+  Count'Last elements must raise Assertion_Error instead of dropping the value.

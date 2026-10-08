@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with Merge_In_Between_Linked_Lists;
+with Full_Append_Check;
 procedure Tests is
    use Merge_In_Between_Linked_Lists;
    L : List := Empty;
@@ -11,4 +12,5 @@ begin
    P := 3; pragma Assert (Element (L, P) = 9);
    P := 5; pragma Assert (Element (L, P) = 5);
    Ada.Text_IO.Put_Line ("Merge in between linked lists: OK");
+   Full_Append_Check;
 end Tests;

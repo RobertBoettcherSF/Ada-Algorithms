@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with Delete_The_Middle_Node;
+with Full_Append_Check;
 procedure Tests is
    use Delete_The_Middle_Node;
    L : List := Empty;
@@ -10,4 +11,5 @@ begin
    pragma Assert (Length (L) = 4);
    P := 3; pragma Assert (Element (L, P) = 4);
    Ada.Text_IO.Put_Line ("Delete the middle node: OK");
+   Full_Append_Check;
 end Tests;

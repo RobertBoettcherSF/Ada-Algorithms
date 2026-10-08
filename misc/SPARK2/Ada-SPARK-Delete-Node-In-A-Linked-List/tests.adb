@@ -1,4 +1,5 @@
 with Delete_Node_In_A_Linked_List;
+with Full_Append_Check;
 with Ada.Text_IO;
 procedure Tests is
    use Delete_Node_In_A_Linked_List;
@@ -10,4 +11,5 @@ begin
    pragma Assert (Length (L) = 3);
    pragma Assert (Element (L, P) = 30);
    Ada.Text_IO.Put_Line ("Delete node in a linked list: OK");
+   Full_Append_Check;
 end Tests;

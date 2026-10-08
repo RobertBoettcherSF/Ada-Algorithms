@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with Convert_Binary_Number_In_A_Linked_List_To_Integer;
+with Full_Append_Check;
 procedure Tests is
    use Convert_Binary_Number_In_A_Linked_List_To_Integer;
    L : List := Empty;
@@ -9,4 +10,5 @@ begin
    Answer := To_Integer (L);
    pragma Assert (Answer = 11);
    Ada.Text_IO.Put_Line ("Convert binary number in a linked list: OK");
+   Full_Append_Check;
 end Tests;
