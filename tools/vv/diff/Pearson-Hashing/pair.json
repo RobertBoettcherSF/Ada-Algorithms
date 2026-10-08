@@ -2,6 +2,5 @@
  "ada": "hashing/Ada/Pearson-Hashing",
  "spark": "hashing/SPARK2/Ada-SPARK-Pearson-Hashing",
  "gen": "array:1:16:97:122",
- "cases": 2000,
- "known_difference": "SPARK side uses a 16-entry toy table (Hash_Value 0 .. 15), Ada side the standard 256-entry table; outputs are not meant to match"
+ "cases": 2000
 }

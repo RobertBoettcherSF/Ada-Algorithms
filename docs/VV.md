@@ -34,11 +34,11 @@ tools/vv/diff/<Pair>/vv_ada_driver.adb    stdin: one case per line (count, value
 tools/vv/diff/<Pair>/vv_spark_driver.adb  same, calling the SPARK package
 ```
 
-The generator puts edge values first (`LO`, `HI`, 0, neighbours), then small values, then uniform random values, all from `random.Random("<seed>:<pair>")`, so a run can be repeated exactly. Drivers are built with `-gnata`, so contract violations on either side show up as crashes. Pairs that compute different things on purpose (for example a 16-entry toy hash table against the real 256-entry one) carry `known_difference` in `pair.json` and are reported as `DISAGREE (known)`.
+The generator puts edge values first (`LO`, `HI`, 0, neighbours), then small values, then uniform random values, all from `random.Random("<seed>:<pair>")`, so a run can be repeated exactly. Drivers are built with `-gnata`, so contract violations on either side show up as crashes. Pairs that compute different things on purpose can carry `known_difference` in `pair.json` and are reported as `DISAGREE (known)` (none at the moment; Pearson-Hashing had one until its SPARK twin got the real 256-entry table).
 
 Adding a pair takes 10-20 minutes: copy a similar pair, adjust the two call sites and the generator. Inputs are limited to the SPARK side's bounds (e.g. 4 or 8 elements), which keeps the comparison honest but narrow. Pairs with `Float` outputs need a tolerance (not implemented yet).
 
-Status (2026-10-08): 10 pairs: Adler-32, Binary-GCD, Delta-Encoding (Ada encode summed vs SPARK `Net_Delta`), Euclidean-Algorithm, Gray-Code (encode + decode), Hamming-Weight, Kadane, Longest-Increasing-Subsequence, Median-Filtering (8x8, 3x3 kernel), Pearson-Hashing. 9 agree on every case (1,000-5,000 cases each); Pearson disagrees as expected (toy table).
+Status (2026-10-08): 10 pairs: Adler-32, Binary-GCD, Delta-Encoding (Ada encode summed vs SPARK `Net_Delta`), Euclidean-Algorithm, Gray-Code (encode + decode), Hamming-Weight, Kadane, Longest-Increasing-Subsequence, Median-Filtering (8x8, 3x3 kernel), Pearson-Hashing. all 10 agree on every case (1,000-5,000 cases each); Pearson-Hashing agrees since its SPARK twin uses the real 256-entry table.
 
 ## 3b. Known-answer vectors
 
