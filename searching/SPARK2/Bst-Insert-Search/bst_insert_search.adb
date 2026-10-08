@@ -1,55 +1,77 @@
-pragma SPARK_Mode (On);
+pragma Ada_2022;
 
-package body BST_Insert_Search is
+package body BST_Insert_Search with SPARK_Mode => On is
    function Empty return Tree is
    begin
-      return (Values => (others => 0), Lefts => (others => 0), Rights => (others => 0), Used => (others => False));
+      return (Values => [others => 0], Lefts => [others => 0], Rights => [others => 0],
+              Lo => [others => Bound'First], Hi => [others => Bound'Last], Count => 0);
    end Empty;
 
    procedure Insert (T : in out Tree; V : Value) is
-      Current : Index := 1;
+      Cur : Slot := 1;
+      New_Slot : Slot;
    begin
-      for Step in 1 .. 31 loop
-         pragma Loop_Invariant (Current in Index);
-         if not T.Used (Current) then
-            T.Values (Current) := V; T.Lefts (Current) := 0; T.Rights (Current) := 0; T.Used (Current) := True;
-            exit;
-         elsif V < T.Values (Current) then
-            if T.Lefts (Current) = 0 then
-               T.Lefts (Current) := Index'Min (Index'Last, Current * 2);
-               Current := T.Lefts (Current);
-            else
-               Current := T.Lefts (Current);
+      if T.Count = 0 then
+         T.Count := 1;
+         T.Values (1) := V;
+         T.Lefts (1) := 0;
+         T.Rights (1) := 0;
+         T.Lo (1) := Bound'First;
+         T.Hi (1) := Bound'Last;
+         return;
+      end if;
+      --  walk down; Cur's slot grows at every step, so at most Count steps
+      for Step in Slot loop
+         pragma Loop_Invariant (T = T'Loop_Entry);
+         pragma Loop_Invariant (Cur in Step .. T.Count);
+         pragma Loop_Invariant (T.Lo (Cur) < V and then V < T.Hi (Cur));
+         if V = T.Values (Cur) then
+            return;   --  already present
+         end if;
+         New_Slot := T.Count + 1;
+         if V < T.Values (Cur) then
+            if T.Lefts (Cur) = 0 then
+               T.Values (New_Slot) := V;
+               T.Lefts (New_Slot) := 0;
+               T.Rights (New_Slot) := 0;
+               T.Lo (New_Slot) := T.Lo (Cur);
+               T.Hi (New_Slot) := T.Values (Cur);
+               T.Lefts (Cur) := New_Slot;
+               T.Count := New_Slot;
+               return;
             end if;
-         elsif V > T.Values (Current) then
-            if T.Rights (Current) = 0 then
-               T.Rights (Current) := Index'Min (Index'Last, Current * 2 + 1);
-               Current := T.Rights (Current);
-            else
-               Current := T.Rights (Current);
-            end if;
+            Cur := T.Lefts (Cur);
          else
-            exit;
+            if T.Rights (Cur) = 0 then
+               T.Values (New_Slot) := V;
+               T.Lefts (New_Slot) := 0;
+               T.Rights (New_Slot) := 0;
+               T.Lo (New_Slot) := T.Values (Cur);
+               T.Hi (New_Slot) := T.Hi (Cur);
+               T.Rights (Cur) := New_Slot;
+               T.Count := New_Slot;
+               return;
+            end if;
+            Cur := T.Rights (Cur);
          end if;
       end loop;
    end Insert;
 
    function Contains (T : Tree; V : Value) return Boolean is
-      Current : Index := 1;
-      Found : Boolean := False;
+      Cur : Index := (if T.Count = 0 then 0 else 1);
    begin
-      for Step in 1 .. 31 loop
-         pragma Loop_Invariant (Current in Index);
-         if not T.Used (Current) then
-            exit;
-         elsif V = T.Values (Current) then
-            Found := True; exit;
-         elsif V < T.Values (Current) then
-            if T.Lefts (Current) = 0 then exit; else Current := T.Lefts (Current); end if;
+      for Step in Slot loop
+         pragma Loop_Invariant (Cur = 0 or else Cur in Step .. T.Count);
+         if Cur = 0 then
+            return False;
+         elsif V = T.Values (Cur) then
+            return True;
+         elsif V < T.Values (Cur) then
+            Cur := T.Lefts (Cur);
          else
-            if T.Rights (Current) = 0 then exit; else Current := T.Rights (Current); end if;
+            Cur := T.Rights (Cur);
          end if;
       end loop;
-      return Found;
+      return False;
    end Contains;
 end BST_Insert_Search;
