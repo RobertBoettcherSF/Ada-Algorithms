@@ -89,6 +89,34 @@ is
       return Element_Array'(A);
    end Copy_Of;
 
+   --  Defining property of cycle sort: a position is written exactly when
+   --  its input key differs from the key the (independently) sorted array
+   --  holds there, and then exactly once. Equal keys already in their block
+   --  cost nothing, so this also holds with duplicates.
+   function Misplaced (Src, Sorted : Element_Array) return Natural is
+      N : Natural := 0;
+   begin
+      for I in Src'Range loop
+         if Src (I) /= Sorted (I - Src'First + Sorted'First) then
+            N := N + 1;
+         end if;
+      end loop;
+      return N;
+   end Misplaced;
+
+   procedure Expect_Writes (Src : Element_Array; Label : String) is
+      A : Element_Array := Copy_Of (Src);
+      R : Element_Array := Copy_Of (Src);
+      W : Natural;
+   begin
+      Sort_Counting_Writes (A, W);
+      Reference_Sort (R);
+      Check (Same (A, R), Label & " counting variant matches reference");
+      Check (W = Misplaced (Src, R),
+             Label & " writes =" & W'Image & ", misplaced positions ="
+             & Natural'Image (Misplaced (Src, R)));
+   end Expect_Writes;
+
    procedure Expect_Sorted (Src : Element_Array; Label : String) is
       A : Element_Array := Copy_Of (Src);
       R : Element_Array := Copy_Of (Src);
@@ -99,6 +127,7 @@ is
       Check (Boo (Is_Sorted (A)), Label & " Is_Sorted");
       Check (Same (A, R), Label & " matches reference");
       Check (Is_Permutation (A, O), Label & " permutation");
+      Expect_Writes (Src, Label);
    end Expect_Sorted;
 
    --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
@@ -422,6 +451,42 @@ begin
       Check (Nat (W) = 0, "singleton write count 0");
       Check (Int (One (1)) = 99, "singleton value after count");
    end;
+
+   --  Duplicates, counted by hand from the definition (positions whose
+   --  input key differs from the sorted key there).
+   declare
+      A : Element_Array := [2, 1, 2, 1];   --  sorted 1 1 2 2: positions 1, 4
+      W : Natural;
+   begin
+      Sort_Counting_Writes (A, W);
+      Check (Nat (W) = 2, "dups 2 1 2 1 yields 2 writes");
+      Check (Same (A, [1, 1, 2, 2]), "dups 2 1 2 1 final values");
+   end;
+   declare
+      A : Element_Array := [3, 3, 1, 1, 2, 2];   --  sorted 1 1 2 2 3 3: all 6 differ
+      W : Natural;
+   begin
+      Sort_Counting_Writes (A, W);
+      Check (Nat (W) = 6, "dups 3 3 1 1 2 2 yields 6 writes");
+   end;
+   declare
+      A : Element_Array := [1, 2, 2, 2, 1];   --  sorted 1 1 2 2 2: positions 2, 5
+      W : Natural;
+   begin
+      Sort_Counting_Writes (A, W);
+      Check (Nat (W) = 2, "dups 1 2 2 2 1 yields 2 writes");
+   end;
+   declare
+      A : Element_Array := [5, 1, 5, 5, 5];   --  sorted 1 5 5 5 5: positions 1, 2
+      W : Natural;
+   begin
+      Sort_Counting_Writes (A, W);
+      Check (Nat (W) = 2, "dups 5 1 5 5 5 yields 2 writes");
+   end;
+   Expect_Writes (Random_Array (64, 1, 3), "random n=64 range 1..3");
+   Expect_Writes (Random_Array (64, -2, 2), "random n=64 range -2..2");
+   Expect_Writes (Random_Array (40, 0, 1), "random n=40 bits");
+   Expect_Writes (Random_Array (64, -1000, 1000), "random n=64 wide");
 
    ---------------------------------------------------------------------
    Section ("11. Large magnitude and adversarial");

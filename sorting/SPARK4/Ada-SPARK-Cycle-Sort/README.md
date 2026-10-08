@@ -42,12 +42,13 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 248 assertions pass. Running `make prove` reports `Success: all checks proved (498 checks).`
+When you run `make test`, you will see all 397 assertions pass. Running `make prove` reports `Success: all checks proved (498 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia `bdeac` ordinals, signed domain, power-of-two and odd lengths up to `Max_N`.
 * **Agreement**: `Sort` vs an independent insertion-sort reference; multiset / permutation equality on every case.
 * **Write counting**: Sorted / all-equal need $0$ writes; distinct reverse $n=5$ yields $4$ writes; bounds on tiny permutations.
+* **Write count = misplaced positions** (the defining property of cycle sort): for every test array, distinct or with duplicates, `Sort_Counting_Writes` reports exactly the number of positions whose input key differs from the independently sorted key there; hand-counted duplicate cases (`2 1 2 1` → 2, `3 3 1 1 2 2` → 6, `1 2 2 2 1` → 2, `5 1 5 5 5` → 2) and random duplicate-heavy arrays. Dropping the skip-equal loop makes this fail (the cycle no longer closes).
 * **Contract helpers**: `Is_Sorted` true/false; `In_Bounds` at `Max_N` and empty.
 * **Contract discipline**: Only valid call paths are exercised (no exception handlers).
 
