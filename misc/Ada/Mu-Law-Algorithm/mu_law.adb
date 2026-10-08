@@ -86,14 +86,8 @@ package body Mu_Law is
       Expanded     : Float;
    begin
       -- Scale 8-bit companded integer to normalized float range [-1.0, 1.0]
-      Normalized_Y := Float(Y) / 127.0;
-      
-      -- Edge case clamping to avoid Constraint_Error if Float(Y)/127.0 > 1.0
-      if Normalized_Y > 1.0 then 
-         Normalized_Y := 1.0;
-      elsif Normalized_Y < -1.0 then 
-         Normalized_Y := -1.0; 
-      end if;
+      -- Clamp before the assignment: Y = -128 gives -128 / 127 < -1.0, outside Normalized_Signal
+      Normalized_Y := Float'Max (-1.0, Float'Min (1.0, Float (Y) / 127.0));
 
       -- Apply continuous expansion formula
       Normalized_X := Decode_Continuous(Normalized_Y, 255.0);

@@ -31,3 +31,7 @@ The codebase uses the standard GNAT compilation ecosystem. Everything resides in
 ```bash
 make
 # Alternatively: gnatmake -P mu_law_project.gpr
+
+`Decode_Digital` accepts every code in -128 .. 127. Code -128 decodes like
+-127, because the normalised value is clamped to -1.0 .. 1.0 before it is
+stored.
