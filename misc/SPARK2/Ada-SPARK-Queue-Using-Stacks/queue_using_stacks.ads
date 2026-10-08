@@ -11,7 +11,10 @@ package Queue_Using_Stacks is
    end record;
 
    function Empty return Queue;
-   function Enqueue (Q : Queue; V : Value) return Queue;
-   function Dequeue (Q : Queue) return Queue;
-   function Front (Q : Queue) return Value;
+   function Enqueue (Q : Queue; V : Value) return Queue
+     with Pre => Q.Size < Capacity;
+   function Dequeue (Q : Queue) return Queue
+     with Pre => Q.Size > 0;
+   function Front (Q : Queue) return Value
+     with Pre => Q.Size > 0;
 end Queue_Using_Stacks;
