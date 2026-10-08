@@ -1,3 +1,5 @@
+with Ada.Command_Line;
+with Own_Checks;
 with Ada.Text_IO; use Ada.Text_IO;
 with Darwin_Godel_Machine; use Darwin_Godel_Machine;
 
@@ -23,6 +25,7 @@ procedure Tests is
    end Get_OOB;
 
 begin
+   Own_Checks;
    Put_Line ("Starting Darwin-Gödel Machine Tests...");
    Put_Line ("");
 
@@ -238,5 +241,8 @@ begin
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
    pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count > 0 then   --  the Assert above is ignored without -gnata
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 
 end Tests;

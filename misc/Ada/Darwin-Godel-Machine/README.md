@@ -1,6 +1,18 @@
 # Darwin-Gödel Machine
 
 ## Project Overview
+> **Status: demo, not training-ready (2026-10-08 review).** Despite the name,
+> nothing here modifies itself, evolves code or proves anything: an "agent"
+> is a record of two numbers (fitness, complexity), the candidates are a
+> list supplied by the caller, and "Gödel verification" is a comparison of
+> those numbers (fitness must rise; Verify_Strict also caps the complexity
+> increase at 50). The only checkable claim, that a candidate is accepted
+> only when the stated check passes and the best such candidate is chosen,
+> is tested in own_checks.adb. Evolve_Preemptive caps its target at
+> Fitness_Value'Last, so near the top of the range it accepts gains smaller
+> than the threshold. A real implementation (archive of agents, mutation of
+> an actual program, acceptance by an executable check) is still to do.
+
 This repository contains a robust Ada 2023 implementation of the Darwin-Gödel Machine (DGM) framework for Open-Ended Evolution of Self-Improving Agents based on Arxiv 2505.22954. It implements an architecture where an agent system leverages both Darwinian adaptation (population mutation across an evolving code space) and Gödel verification (rigorous constraints to ensure safety against runaway code bloat or functional regressions). The algorithm evaluates different environmental pressures (static vs dynamic brittleness) and evolution variants to optimize recursive self-improvement safely.
 
 ## Features

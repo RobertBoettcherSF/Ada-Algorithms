@@ -1,0 +1,12 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Demo folder (see README): no answer exists that a different method could
+  reproduce beyond the selection rule, so only that is checked.
+* 2000 random populations (1 .. 6 candidates, fitness 0 .. 100 in steps of
+  0.25, complexity 0 .. 300, both environments): Evolve_Exhaustive result
+  is Base or a Verify_Strict-passing candidate with the brute-force maximum
+  evaluation; Evolve_Preemptive result is the first candidate in list
+  order passing Verify_Heuristic and reaching Evaluate (Base) + Threshold
+  (thresholds 0.25 .. 50, so the capped target is never reached), else Base.
+* tests.adb: exit status is now nonzero when a check fails.
+Park-Miller PRNG, seed 20261008. Nothing is taken from the program's output.
