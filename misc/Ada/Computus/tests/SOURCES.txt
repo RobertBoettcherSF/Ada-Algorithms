@@ -1,0 +1,21 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Gregorian_Easter and Easter for every year 1583 .. 9999 against an own
+  epact computation in the Lilius/Clavius form (a different method from
+  the folder's Meeus/Jones/Butcher formula). The result must also be a
+  Sunday by an own Julian Day Number and fall in Mar 22 .. Apr 25.
+* Julian_Easter for every year 1 .. 9999 from the definition: a Sunday
+  (own Julian-calendar day number) 1 .. 7 days after the Julian paschal
+  full moon, Mar 21 + (19 (Y mod 19) + 15) mod 30.
+* Orthodox_Easter (1583 .. 9999): must have the same day number as
+  Julian_Easter.
+* Day_Of_Week and Day_Difference on 20000 random date pairs against the
+  own day numbers.

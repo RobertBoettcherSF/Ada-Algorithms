@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO;
 with Computus;
+with Own_Checks;
 
 procedure Tests is
 
@@ -260,4 +261,5 @@ begin
    else
       Put_Line ("Pass count below 100");
    end if;
+   Own_Checks;
 end Tests;
