@@ -156,6 +156,10 @@ is
      with Global => (Input => (Pool, Count)),
           Pre    => (T1 = Null_Term or else Is_Allocated (T1))
                     and then (T2 = Null_Term or else Is_Allocated (T2)),
+          Post   => (for all V in Var_Name =>
+                       (if Env'Old.Bindings (V) /= Null_Term
+                          and then Is_Allocated (Env'Old.Bindings (V))
+                        then Env.Bindings (V) = Env'Old.Bindings (V))),
           Subprogram_Variant => (Decreases => Fuel)
    is
       Bound : Term_Id;

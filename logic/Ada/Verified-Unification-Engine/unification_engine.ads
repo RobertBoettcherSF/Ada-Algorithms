@@ -126,7 +126,14 @@ is
      (T1, T2 : Term_Id; Env : in out Substitution; Success : out Boolean)
      with Global => (Input => Term_Pool),
           Pre    => (T1 = Null_Term or else Is_Allocated (T1))
-                    and then (T2 = Null_Term or else Is_Allocated (T2));
+                    and then (T2 = Null_Term or else Is_Allocated (T2)),
+          --  Unify only adds bindings: an existing binding to a term in the
+          --  pool is never changed (proved). That the answer unifies the
+          --  two terms is tested in own_checks.adb, not proved.
+          Post   => (for all V in Var_Name =>
+                       (if Env'Old.Bindings (V) /= Null_Term
+                          and then Is_Allocated (Env'Old.Bindings (V))
+                        then Env.Bindings (V) = Env'Old.Bindings (V)));
 
    procedure Apply_Substitution
      (T : Term_Id; Env : Substitution;
