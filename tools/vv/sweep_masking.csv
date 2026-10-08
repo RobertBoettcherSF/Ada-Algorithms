@@ -1,0 +1,19 @@
+folder,sorts_without_finish,note
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,yes,network output sorted on all existing tests without the finish; network sortedness not proved (needs the 0-1 principle or a per-stage invariant)
+sorting/SPARK4/Ada-SPARK-Bogosort,yes,sorted on all existing tests without the finish; a bounded number of shuffles cannot be proved to sort; the finish is what guarantees the result
+sorting/SPARK4/Ada-SPARK-Burstsort,yes,sorted on all existing tests without the finish (String_Array API); burst/trie phase not proved
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,yes,sorted on all existing tests without the finish; shaker passes not proved
+sorting/SPARK4/Ada-SPARK-Comb-Sort,no,"fails a postcondition on small inputs without the finish: the shrinking-gap loop stops before gap 1, and gap-1 passes until no swap are part of comb sort; keep them, inside the comb sort loop, and only drop a redundant extra pass"
+sorting/SPARK4/Ada-SPARK-Flashsort,yes,sorted on all existing tests without the finish; classification + permutation cycle phase not proved
+sorting/SPARK4/Ada-SPARK-Library-Sort,yes,sorted on existing tests and own checks without the finish; Library_Phase (gapped insertion + rebalance) not proved; phase mutants survive (own-check mutation 82/154)
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,yes,sorted on all existing tests without the finish; odd-even transposition passes not proved
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,yes,sorted on all existing tests without the finish; pile + k-way merge phase not proved
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,yes,sorted on all existing tests without the finish; hole distribution phase not proved
+sorting/SPARK4/Ada-SPARK-Postman-Sort,yes,sorted on all existing tests without the finish; digit-bucket phase not proved
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,yes,sorted on existing tests and own checks without the finish; the phase behind the finish is not proved; masked mutants (own-check mutation 73/113)
+sorting/SPARK4/Ada-SPARK-Samplesort,no,"Samplesort_Phase returns untouched for N < 8 (Num_Buckets), so bubble sort does all the work for small N (postcondition fails at N = 2 without the finish); bucket phase not proved (own-check mutation 73/111)"
+sorting/SPARK4/Ada-SPARK-Slowsort,yes,sorted on all existing tests without the finish; recursive slowsort not proved
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,yes,sorted on all existing tests without the finish; repeated-maximum phase not proved
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,yes,sorted on all existing tests without the finish; recursive stooge sort not proved
+sorting/SPARK4/Ada-SPARK-Strand-Sort,yes,sorted on all existing tests without the finish; strand extraction + merge not proved
+sorting/SPARK4/Bead-Sort,yes,sorted on all existing tests without the finish; bead (rod) phase not proved
