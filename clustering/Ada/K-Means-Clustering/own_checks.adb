@@ -252,6 +252,62 @@ begin
       end;
    end loop;
 
+   --  One point, one cluster: N < 1 and K < 1 must stay strict.
+   declare
+      Data : constant Dataset := [[4.0, 5.0]];
+      Sp : constant Centers := Init_Centers_Spaced (Data, 1);
+      Fg : constant Centers := Init_Centers_Forgy (Data, 1, 1);
+      Params : constant Parameters :=
+        (K => 1, Max_Iters => 5, Tol => 1.0e-9, Seed => 1);
+      Fit : constant Result := Run_Lloyd (Data, Sp, Params);
+   begin
+      Note (abs (Sp (1, 1) - 4.0) < 1.0e-12, "spaced K=1 uses the only row");
+      Note (abs (Fg (1, 1) - 4.0) < 1.0e-12, "Forgy K=1 uses the only row");
+      Note (Fit.Iters >= 1 and then abs (Fit.Centers (1, 1) - 4.0) < 1.0e-9,
+        "Lloyd accepts a single point");
+   end;
+
+   --  Column origin is not 1. Extract and a Lloyd init must follow it.
+   declare
+      Data : constant Dataset (4 .. 6, 3 .. 4) :=
+        [[9.0, 8.0],
+         [7.0, 6.0],
+         [5.0, 4.0]];
+      Pt : constant Point := Extract_Point (Data, 5);
+      Init : constant Centers (2 .. 2, 5 .. 6) := [[7.0, 6.0]];
+      Params : constant Parameters :=
+        (K => 1, Max_Iters => 4, Tol => 1.0e-9, Seed => 1);
+      Fit : constant Result := Run_Lloyd (Data, Init, Params);
+   begin
+      Note (abs (Pt (1) - 7.0) < 1.0e-12 and then abs (Pt (2) - 6.0) < 1.0e-12,
+        "extract follows a column origin other than 1");
+      Note (abs (Fit.Centers (1, 1) - 7.0) < 1.0e-6
+        and then abs (Fit.Centers (1, 2) - 6.0) < 1.0e-6,
+        "Lloyd init follows a column origin other than 1");
+   end;
+
+   --  Forgy's first draw, from the Numerical Recipes LCG, not the package RNG.
+   declare
+      Data : constant Dataset :=
+        [[0.0, 0.0],
+         [1.0, 0.0],
+         [2.0, 0.0],
+         [3.0, 0.0]];
+      S : U32 := 3 * 1664525 + 1013904223;
+      U : Real;
+      Off : Natural;
+      Fg : constant Centers := Init_Centers_Forgy (Data, 1, 3);
+   begin
+      S := S * 1664525 + 1013904223;
+      U := Real (Long_Float (S) / 4294967296.0);
+      Off := Natural (Long_Float (U) * 4.0);
+      if Off >= 4 then
+         Off := 3;
+      end if;
+      Note (abs (Fg (1, 1) - Real (Off)) < 1.0e-9,
+        "Forgy seed 3 picks the LCG row");
+   end;
+
    Txt.Put_Line ("own checks:" & Natural'Image (Checks)
      & "  failed:" & Natural'Image (Fails));
    Fail_Count := Fails;
