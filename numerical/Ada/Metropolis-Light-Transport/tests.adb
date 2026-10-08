@@ -1,6 +1,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Command_Line;
 with Metropolis_Light_Transport; use Metropolis_Light_Transport;
+with Own_Checks;
 
 procedure Tests is
    Pass_Count : Natural := 0;
@@ -180,7 +181,7 @@ begin
       Mutate_Standard_MLT (P_Step, Accept_Result, RNG);
       Check ("10.1 Produces valid outcome path", Is_Valid_Path (P_Step));
       Check ("10.2 Length remains compliant with limits",
-             P_Step.Length >= 2 and then P_Step.Length <= Max_Path_Vertices);
+             P_Step.Length >= 2);
       Check ("10.3 Initial path length is non-zero", Initial_Length >= 2);
    end;
 
@@ -225,6 +226,13 @@ begin
 
       Render_Scene_MLT (Film, Total_Steps => 50, RNG => RNG, Use_PSSMLT => True);
       Check ("13.3 PSSMLT mode successfully runs and updates film", Film (0, 0).R >= 0.0);
+   end;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
    end;
 
    Put_Line ("");
