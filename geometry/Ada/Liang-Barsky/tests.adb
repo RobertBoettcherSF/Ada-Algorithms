@@ -304,6 +304,23 @@ begin
 
    ---------------------------------------------------------------------
    Section ("13. Cohen_Sutherland_Clip reference + agreement lattice");
+
+   --  Failing case (AA_SEED=3 / mapped seed 4): segment grazes the window at a
+   --  single corner. Sampled inside-part is Accept; Cohen_Sutherland must agree
+   --  (found flaky.py seed sweep 2026-10-08).
+   declare
+      S : constant Segment := Make_Segment ((-3.0, 10.0), (3.0, -4.0));
+      W : constant Clip_Window := Make_Window (0.0, 3.0, 1.0, 5.0);
+      R : constant Clip_Result := Liang_Barsky_Clip (S, W);
+      C : constant Clip_Result := Cohen_Sutherland_Clip (S, W);
+   begin
+      Check (R.Status = Clip_Accept, "corner-graze Liang Accept");
+      Check (C.Status = Clip_Accept, "corner-graze Cohen Accept (AA_SEED=3 case)");
+      Check (Same_Clipped_Segment (R.Clipped, C.Clipped, 1.0E-3),
+             "corner-graze Cohen matches Liang");
+   end;
+
+
    ---------------------------------------------------------------------
    declare
       W : constant Clip_Window := Make_Window (0.0, 0.0, 10.0, 10.0);
