@@ -1498,7 +1498,7 @@ numerical/SPARK4/Ada-SPARK-Brents-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n
 numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
-numerical/SPARK4/Ada-SPARK-Mersenne-Twister,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,no,yes,,"init: Initialize_Scalars build nobuild: t list may not be accurate in some cases, so please double check that the problem can still be reproduced with the set o; repeat from pass 1 (10 runs GNAT 14)"
+numerical/SPARK4/Ada-SPARK-Mersenne-Twister,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,GNAT 12.2.0/14.2.0 -gnata -gnatVa crashed on Next Post using X'Old inside an if-expression branch (reproducer tests/gnat_bug_gnatVa_old); Post rewritten with or else; init pass now yes (110ad8c6 note superseded)
 numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 numerical/SPARK4/Binary-Gcd,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,repeat from pass 1 (10 runs GNAT 14)
 parsing/Ada/Canonical-LR-Parser,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,n/a,no,,init: baseline -gnata build fail: TEST 10 — Syntax Error: Consecutive IDs; repeat from pass 1 (10 runs GNAT 14)

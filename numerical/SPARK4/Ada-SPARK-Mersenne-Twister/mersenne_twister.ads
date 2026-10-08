@@ -106,9 +106,14 @@ is
        Post    => Is_Initialised (G)
                   and then Get_Seed (G) = Get_Seed (G'Old)
                   and then Get_Index (G) in 1 .. N
-                  and then Get_Index (G) =
-                    (if Get_Index (G'Old) = N then 1
-                     else Get_Index (G'Old) + 1);
+                  and then (Get_Index (G'Old) /= N or else Get_Index (G) = 1)
+                  and then (Get_Index (G'Old) = N
+                            or else Get_Index (G) = Get_Index (G'Old) + 1);
+   --  Same meaning as Get_Index (G) = (if Get_Index (G'Old) = N then 1
+   --  else Get_Index (G'Old) + 1), written without 'Old inside an
+   --  if-expression branch: that form crashes GNAT 12.2.0 and 14.2.0
+   --  under -gnata -gnatVa (bug box in gnat_to_gnu_entity; reproducer in
+   --  tests/gnat_bug_gnatVa_old).
 
    ---------------------------------------------------------------------------
    -- Pure helpers (tempering / twist kernel pieces)

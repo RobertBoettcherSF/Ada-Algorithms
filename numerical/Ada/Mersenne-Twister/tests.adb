@@ -148,6 +148,59 @@ begin
       Put_Line("      PASS");
    end;
 
+   -- TEST 14 - Independent known answers (C++ [rand.predef], seed 5489)
+   --  ISO C++ requires the 10000th output of a default-constructed (seed 5489)
+   --  mt19937 to be 4123659995 and of mt19937_64 to be 9981545732273789042.
+   --  Mid-Twist positions from the same references (tests/SOURCES.txt).
+   Put_Line("TEST 14 - Known answers: 10000th output, seed 5489 (C++ [rand.predef])");
+   Init(MT32_A, 5489);
+   Assert (Random(MT32_A) = 3499211612, "mt19937 seed 5489 first output");
+   for I in 2 .. 226 loop
+      Temp32 := Random(MT32_A);
+   end loop;
+   Assert (Random(MT32_A) = 3922754098, "mt19937 output 227");
+   Assert (Random(MT32_A) = 2397746050, "mt19937 output 228");
+   for I in 229 .. 623 loop
+      Temp32 := Random(MT32_A);
+   end loop;
+   Assert (Random(MT32_A) = 4020325887, "mt19937 output 624 (wrap)");
+   Assert (Random(MT32_A) = 4178893912, "mt19937 output 625");
+   for I in 626 .. 9999 loop
+      Temp32 := Random(MT32_A);
+   end loop;
+   Temp32 := Random(MT32_A);
+   Assert (Temp32 = 4123659995,
+           "mt19937 10000th output" & Temp32'Image & " /= 4123659995");
+   Init(MT64_A, 5489);
+   Assert (Random(MT64_A) = 14514284786278117030, "mt19937_64 seed 5489 first");
+   for I in 2 .. 155 loop
+      Temp64 := Random(MT64_A);
+   end loop;
+   Assert (Random(MT64_A) = 489805578737239572, "mt19937_64 output 156");
+   Assert (Random(MT64_A) = 5271183164515543116, "mt19937_64 output 157");
+   for I in 158 .. 310 loop
+      Temp64 := Random(MT64_A);
+   end loop;
+   Assert (Random(MT64_A) = 11318429053286342939, "mt19937_64 output 311");
+   Assert (Random(MT64_A) = 1370093900783164344, "mt19937_64 output 312 (wrap)");
+   Assert (Random(MT64_A) = 6776537281339823025, "mt19937_64 output 313");
+   for I in 314 .. 467 loop
+      Temp64 := Random(MT64_A);
+   end loop;
+   Assert (Random(MT64_A) = 16161371278263065802, "mt19937_64 output 468");
+   for I in 469 .. 623 loop
+      Temp64 := Random(MT64_A);
+   end loop;
+   Assert (Random(MT64_A) = 15547153445796060183, "mt19937_64 output 624");
+   for I in 625 .. 9999 loop
+      Temp64 := Random(MT64_A);
+   end loop;
+   Temp64 := Random(MT64_A);
+   Assert (Temp64 = 9981545732273789042,
+           "mt19937_64 10000th output" & Temp64'Image
+           & " /= 9981545732273789042");
+   Put_Line("      PASS");
+
    Put_Line("------------------------------------------------------------");
    Put_Line("ALL TESTS PASSED: Pessimistic assumptions proven FALSE.");
 end Tests;

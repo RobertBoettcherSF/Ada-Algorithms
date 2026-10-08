@@ -1,0 +1,12 @@
+Known answers in tests.adb TEST 14 (independent of the SPARK twin):
+
+1. ISO/IEC 14882 (C++11 and later), [rand.predef]:
+   - mt19937:    "The 10000th consecutive invocation of a default-constructed object of
+                  type mt19937 shall produce the value 4123659995."
+   - mt19937_64: "... of type mt19937_64 shall produce the value 9981545732273789042."
+   Default seed 5489 (init_genrand / init_genrand64).
+2. First outputs for seed 5489: 3499211612 (mt19937; OEIS A221557, mt19937ar.c by
+   M. Matsumoto & T. Nishimura, BSD-3-Clause) and 14514284786278117030 (mt19937_64;
+   mt19937-64.c by T. Nishimura & M. Matsumoto, BSD-3-Clause). The 64-bit value was
+   recomputed with an independent Python transcription of mt19937-64.c that also
+   reproduces the C++ 10000th value.

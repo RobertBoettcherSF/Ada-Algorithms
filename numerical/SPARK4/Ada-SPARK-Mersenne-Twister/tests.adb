@@ -1,6 +1,8 @@
 --  Standalone test suite for Mersenne_Twister (SPARK port, MT19937).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  Known-answer values: OEIS A221557 / C++ std::mt19937 default seed 5489.
+--  Known-answer values: OEIS A221557 / C++ std::mt19937 default seed 5489
+--  (10000th output 4123659995) and mt19937ar.c outputs across all Twist
+--  segments; sources in tests/SOURCES.txt.
 
 pragma Ada_2022;
 
@@ -78,6 +80,53 @@ begin
       end if;
    end loop;
    Check (B, "first 20 outputs match OEIS A221557 / std::mt19937");
+
+   --  Outputs inside every Twist segment, the wrap word and later Twists.
+   --  Positions are 1-based output numbers for seed 5489. Reference:
+   --  Matsumoto-Nishimura mt19937ar.c via NumPy MT19937 legacy seeding
+   --  (init_genrand); output 10000 = 4123659995 is the C++ standard value
+   --  ([rand.predef] mt19937). See tests/SOURCES.txt.
+   declare
+      type Pos_Val is record
+         Pos : Positive;
+         Val : Unsigned_32;
+      end record;
+      type Pos_Val_Array is array (Positive range <>) of Pos_Val;
+      KAT_Seg : constant Pos_Val_Array :=
+        [(226, 2_171_099_548), (227, 3_922_754_098), (228, 2_397_746_050),
+         (229, 654_458_600),   (230, 2_161_184_684), (231, 3_546_856_898),
+         (620, 837_979_907),   (621, 2_832_983_005), (622, 1_813_414_171),
+         (623, 2_227_348_307), (624, 4_020_325_887), (625, 4_178_893_912),
+         (626, 610_818_241),   (627, 2_787_397_224), (628, 2_762_441_380),
+         (629, 3_437_393_657), (630, 2_030_369_078),
+         (1245, 1_059_716_705), (1246, 2_134_575_208), (1247, 2_862_235_859),
+         (1248, 2_538_210_759), (1249, 358_555_951),  (1250, 2_442_940_989),
+         (9995, 1_272_572_463), (9996, 684_292_957),  (9997, 3_994_113_627),
+         (9998, 1_938_116_410), (9999, 1_211_010_839),
+         (10_000, 4_123_659_995)];
+      K   : Positive := KAT_Seg'First;
+      Ok  : Boolean := True;
+   begin
+      G := Create (U32 (5489));
+      for P in 1 .. 10_000 loop
+         X := Next_Val (G);
+         if K <= KAT_Seg'Last and then KAT_Seg (K).Pos = P then
+            if X /= KAT_Seg (K).Val then
+               Ok := False;
+               Put_Line ("    mismatch at output" & P'Image
+                         & " got" & X'Image
+                         & " want" & KAT_Seg (K).Val'Image);
+            end if;
+            K := K + 1;
+         end if;
+      end loop;
+      Check (Ok and then K = KAT_Seg'Last + 1,
+             "outputs 226-231, 620-630, 1245-1250, 9995-10000 match"
+             & " mt19937ar (all three Twist segments + wrap)");
+      Check (X = 4_123_659_995,
+             "10000th output of default-seeded mt19937 = 4123659995"
+             & " (C++ [rand.predef])");
+   end;
 
    Init (G, Default_Seed);
    Check (Next_Val (G) = KAT_5489 (1), "Init(Default_Seed) first word");

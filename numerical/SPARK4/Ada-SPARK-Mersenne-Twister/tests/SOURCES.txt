@@ -1,0 +1,12 @@
+Known answers used by tests.adb (independent of the non-SPARK twin):
+
+1. ISO/IEC 14882 (C++11 and later), [rand.predef]: "Required behavior: The 10000th
+   consecutive invocation of a default-constructed object of type mt19937 shall produce
+   the value 4123659995." Default seed 5489.
+2. OEIS A221557: first outputs of MT19937 with seed 5489 (first 20 used).
+3. Outputs 226-231, 620-630, 1245-1250, 9995-10000 for seed 5489 from the reference C
+   code mt19937ar.c (M. Matsumoto, T. Nishimura, BSD-3-Clause, compatible with MIT),
+   generated with NumPy's MT19937 bit generator using legacy init_genrand seeding
+   (np.random.MT19937()._legacy_seeding(5489); random_raw), which wraps that C code.
+   Output 10000 agrees with (1). Positions chosen to hit every Twist segment:
+   I in 0..226, I in 227..622, the wrap word I = 623, and later Twists.
