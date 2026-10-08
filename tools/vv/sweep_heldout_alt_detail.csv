@@ -1079,3 +1079,163 @@ held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compr
 held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
 held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
 held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,386,+ -> -,Weights (I) := Exp (- ((Margins (I) + S)**2) / C - Max_E);,Weights (I) := Exp (- ((Margins (I) - S)**2) / C - Max_E);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,417,+ -> -,Margins (I) := Margins (I) + Alpha * Pred * Y;,Margins (I) := Margins (I) - Alpha * Pred * Y;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,23,* -> +,Y := 1.0 - ((((A5 * T + A4) * T + A3) * T + A2) * T + A1) * T * Exp (-Abs_X * Abs_X);,Y := 1.0 - ((((A5 * T + A4) * T + A3) * T + A2) * T + A1) * T * Exp (-Abs_X + Abs_X);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,446,* -> +,(if Features (Stump.Feature) * Stump.Direction >= Stump.Threshold * Stump.Direction,(if Features (Stump.Feature) + Stump.Direction >= Stump.Threshold * Stump.Direction,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,124,= -> /=,Y : constant Value_Type := (if Labels (Labels'First + (I - Features'First (1))) = Label_Positive the,Y : constant Value_Type := (if Labels (Labels'First + (I - Features'First (1))) /= Label_Positive th,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,23,* -> +,Y := 1.0 - ((((A5 * T + A4) * T + A3) * T + A2) * T + A1) * T * Exp (-Abs_X * Abs_X);,Y := 1.0 - ((((A5 * T + A4) * T + A3) * T + A2) * T + A1) + T * Exp (-Abs_X * Abs_X);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,294,* -> +,J_Det := JA * JD - JB * C_Jac;,J_Det := JA * JD - JB + C_Jac;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,368,< -> <=,while S > 0.0001 and M.Size < Capacity loop,while S > 0.0001 and M.Size <= Capacity loop,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,79,+ -> -,Sum := Sum + Z (I) * Exp (- ((R (I) + A * Z (I) + U)**2) / C);,Sum := Sum - Z (I) * Exp (- ((R (I) + A * Z (I) + U)**2) / C);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,155,< -> <=,if T < 0.0001 then,if T <= 0.0001 then,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,20,* -> +,T  : constant Value_Type := 1.0 / (1.0 + P * Abs_X);,T  : constant Value_Type := 1.0 / (1.0 + P + Abs_X);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,277,+ -> -,"V_Target := V_Target + Phi (Margins (I) + S, C);","V_Target := V_Target - Phi (Margins (I) + S, C);",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,142,+ -> -,"V_Mid := V_Mid + Phi (Margins (I) + A_Mid * Z (I) + Mid_U, C);","V_Mid := V_Mid - Phi (Margins (I) + A_Mid * Z (I) + Mid_U, C);",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,417,* -> +,Margins (I) := Margins (I) + Alpha * Pred * Y;,Margins (I) := Margins (I) + Alpha * Pred + Y;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,415,= -> /=,Y : constant Value_Type := (if Labels (Labels'First + (I - Features'First (1))) = Label_Positive the,Y : constant Value_Type := (if Labels (Labels'First + (I - Features'First (1))) /= Label_Positive th,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,348,< -> <=,if T < 0.0001 then,if T <= 0.0001 then,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,54,* -> +,"Pred := (if Features (J, F) * Dir >= Thresh * Dir then 1.0 else -1.0);","Pred := (if Features (J, F) * Dir >= Thresh + Dir then 1.0 else -1.0);",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,332,> -> >=,"if abs (F1) > 1.0e-8 * Scale (A_Curr, U_Curr)","if abs (F1) >= 1.0e-8 * Scale (A_Curr, U_Curr)",survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,122,* -> +,"(if Features (I, Stump.Feature) * Stump.Direction >= Stump.Threshold * Stump.Direction","(if Features (I, Stump.Feature) * Stump.Direction >= Stump.Threshold + Stump.Direction",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,90,> -> >=,if High_A > 1000.0 then return High_A; end if;,if High_A >= 1000.0 then return High_A; end if;,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,206,* -> +,DA1 := DA1 - (2.0 / C) * Arg * E;,DA1 := DA1 - (2.0 / C) * Arg + E;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,206,* -> +,DA1 := DA1 - (2.0 / C) * Arg * E;,DA1 := DA1 - (2.0 / C) + Arg * E;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,294,- -> +,J_Det := JA * JD - JB * C_Jac;,J_Det := JA * JD + JB * C_Jac;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,272,* -> +,"(if Features (I, Stump.Feature) * Stump.Direction >= Stump.Threshold * Stump.Direction","(if Features (I, Stump.Feature) * Stump.Direction >= Stump.Threshold + Stump.Direction",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,292,< -> <=,exit when F1 ** 2 + F2 ** 2 < 1.0e-24;,exit when F1 ** 2 + F2 ** 2 <= 1.0e-24;,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,446,>= -> >,(if Features (Stump.Feature) * Stump.Direction >= Stump.Threshold * Stump.Direction,(if Features (Stump.Feature) * Stump.Direction > Stump.Threshold * Stump.Direction,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,204,* -> +,R1 := R1 + Z (I) * E;,R1 := R1 + Z (I) + E;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,264,* -> +,exit when Hi - Lo <= 1.0e-15 * Hi;,exit when Hi - Lo <= 1.0e-15 + Hi;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,23,+ -> -,Y := 1.0 - ((((A5 * T + A4) * T + A3) * T + A2) * T + A1) * T * Exp (-Abs_X * Abs_X);,Y := 1.0 - ((((A5 * T + A4) * T + A3) * T + A2) * T - A1) * T * Exp (-Abs_X * Abs_X);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,332,* -> +,"if abs (F1) > 1.0e-8 * Scale (A_Curr, U_Curr)","if abs (F1) > 1.0e-8 + Scale (A_Curr, U_Curr)",survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,258,<= -> <,"exit when abs (R1) <= 1.0e-12 * Scale (A, U);","exit when abs (R1) < 1.0e-12 * Scale (A, U);",survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,54,* -> +,"Pred := (if Features (J, F) * Dir >= Thresh * Dir then 1.0 else -1.0);","Pred := (if Features (J, F) + Dir >= Thresh * Dir then 1.0 else -1.0);",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,146,> -> >=,if V_Mid > V_Target then,if V_Mid >= V_Target then,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,23,- -> +,Y := 1.0 - ((((A5 * T + A4) * T + A3) * T + A2) * T + A1) * T * Exp (-Abs_X * Abs_X);,Y := 1.0 + ((((A5 * T + A4) * T + A3) * T + A2) * T + A1) * T * Exp (-Abs_X * Abs_X);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,206,- -> +,DA1 := DA1 - (2.0 / C) * Arg * E;,DA1 := DA1 + (2.0 / C) * Arg * E;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,175,* -> +,K : constant Value_Type := 2.0 / Sqrt (Pi * C);,K : constant Value_Type := 2.0 / Sqrt (Pi + C);,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,282,* -> +,U_Curr := S * 0.9;,U_Curr := S + 0.9;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,53,- -> +,Y := (if Labels (Labels'First + (J - Features'First (1))) = Label_Positive then 1.0 else -1.0);,Y := (if Labels (Labels'First + (J + Features'First (1))) = Label_Positive then 1.0 else -1.0);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,207,* -> +,DU1 := DU1 - (2.0 / C) * Z (I) * Arg * E;,DU1 := DU1 - (2.0 / C) * Z (I) + Arg * E;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,205,+ -> -,"R2 := R2 + Phi (Arg, C);","R2 := R2 - Phi (Arg, C);",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,102,+ -> -,return (Low_A + High_A) / 2.0;,return (Low_A - High_A) / 2.0;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,54,>= -> >,"Pred := (if Features (J, F) * Dir >= Thresh * Dir then 1.0 else -1.0);","Pred := (if Features (J, F) * Dir > Thresh * Dir then 1.0 else -1.0);",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,55,* -> +,Adv := Adv + Weights (J) * Pred * Y;,Adv := Adv + Weights (J) + Pred * Y;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,221,> -> >=,"return (if Sc > 0.0 then (R1 / Sc) ** 2 else 1.0) + (R2 / Value_Type'Max (V_Target, 1.0e-300)) ** 2;","return (if Sc >= 0.0 then (R1 / Sc) ** 2 else 1.0) + (R2 / Value_Type'Max (V_Target, 1.0e-300)) ** 2",survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,53,= -> /=,Y := (if Labels (Labels'First + (J - Features'First (1))) = Label_Positive then 1.0 else -1.0);,Y := (if Labels (Labels'First + (J - Features'First (1))) /= Label_Positive then 1.0 else -1.0);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,201,+ -> -,Arg : constant Value_Type := Margins (I) + A * Z (I) + U;,Arg : constant Value_Type := Margins (I) + A * Z (I) - U;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,368,> -> >=,while S > 0.0001 and M.Size < Capacity loop,while S >= 0.0001 and M.Size < Capacity loop,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,96,> -> >=,if F_Mid > 0.0 then,if F_Mid >= 0.0 then,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,79,* -> +,Sum := Sum + Z (I) * Exp (- ((R (I) + A * Z (I) + U)**2) / C);,Sum := Sum + Z (I) + Exp (- ((R (I) + A * Z (I) + U)**2) / C);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,253,> -> >=,if not (A_Try > Lo and then A_Try < Hi) then,if not (A_Try >= Lo and then A_Try < Hi) then,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,253,and then -> or else,if not (A_Try > Lo and then A_Try < Hi) then,if not (A_Try > Lo or else A_Try < Hi) then,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,274,= -> /=,Y : constant Value_Type := (if Labels (Labels'First + (I - Features'First (1))) = Label_Positive the,Y : constant Value_Type := (if Labels (Labels'First + (I - Features'First (1))) /= Label_Positive th,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,201,* -> +,Arg : constant Value_Type := Margins (I) + A * Z (I) + U;,Arg : constant Value_Type := Margins (I) + A + Z (I) + U;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,204,+ -> -,R1 := R1 + Z (I) * E;,R1 := R1 - Z (I) * E;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,245,> -> >=,if Hi > 1000.0 then,if Hi >= 1000.0 then,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,30,- -> +,return 1.0 - Erf (Z / Sqrt (C));,return 1.0 + Erf (Z / Sqrt (C));,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,252,< -> <=,A_Try := (if D1 < 0.0 then A - R1 / D1 else Lo - 1.0);,A_Try := (if D1 <= 0.0 then A - R1 / D1 else Lo - 1.0);,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,208,* -> +,DU2 := DU2 - K * E;,DU2 := DU2 - K + E;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,306,+ -> -,"U_New := Value_Type'Min (Value_Type'Max (U_Curr + Lambda * dU, 0.0), S);","U_New := Value_Type'Min (Value_Type'Max (U_Curr - Lambda * dU, 0.0), S);",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,453,>= -> >,if Sum >= 0.0 then,if Sum > 0.0 then,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,264,- -> +,exit when Hi - Lo <= 1.0e-15 * Hi;,exit when Hi + Lo <= 1.0e-15 * Hi;,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,89,* -> +,High_A := High_A * 2.0;,High_A := High_A + 2.0;,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,252,- 1 -> - 0,A_Try := (if D1 < 0.0 then A - R1 / D1 else Lo - 1.0);,A_Try := (if D1 < 0.0 then A - R1 / D1 else Lo - 0.0);,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,79,+ -> -,Sum := Sum + Z (I) * Exp (- ((R (I) + A * Z (I) + U)**2) / C);,Sum := Sum + Z (I) * Exp (- ((R (I) + A * Z (I) - U)**2) / C);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,55,+ -> -,Adv := Adv + Weights (J) * Pred * Y;,Adv := Adv - Weights (J) * Pred * Y;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,50,= -> /=,Dir := (if D = 1 then 1.0 else -1.0);,Dir := (if D /= 1 then 1.0 else -1.0);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,154,- -> +,T := S - Mid_U;,T := S + Mid_U;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,300,* -> +,dU := - (-C_Jac * F1 + JA * F2) / J_Det;,dU := - (-C_Jac + F1 + JA * F2) / J_Det;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,142,* -> +,"V_Mid := V_Mid + Phi (Margins (I) + A_Mid * Z (I) + Mid_U, C);","V_Mid := V_Mid + Phi (Margins (I) + A_Mid + Z (I) + Mid_U, C);",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,55,* -> +,Adv := Adv + Weights (J) * Pred * Y;,Adv := Adv + Weights (J) * Pred + Y;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,387,+ -> -,Sum_W := Sum_W + Weights (I);,Sum_W := Sum_W - Weights (I);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,244,* -> +,Hi := Hi * 2.0;,Hi := Hi + 2.0;,survived
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,24,* -> +,return Sign * Y;,return Sign + Y;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,127,+ -> -,"V_Target := V_Target + Phi (Margins (I) + S, C);","V_Target := V_Target - Phi (Margins (I) + S, C);",killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,23,+ -> -,Y := 1.0 - ((((A5 * T + A4) * T + A3) * T + A2) * T + A1) * T * Exp (-Abs_X * Abs_X);,Y := 1.0 - ((((A5 * T + A4) * T - A3) * T + A2) * T + A1) * T * Exp (-Abs_X * Abs_X);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,185,+ -> -,Sum := Sum + Exp (- ((Margins (I) + A * Z (I) + U)**2) / C);,Sum := Sum + Exp (- ((Margins (I) + A * Z (I) - U)**2) / C);,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,94,+ -> -,Mid_A := (Low_A + High_A) / 2.0;,Mid_A := (Low_A - High_A) / 2.0;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,292,+ -> -,exit when F1 ** 2 + F2 ** 2 < 1.0e-24;,exit when F1 ** 2 - F2 ** 2 < 1.0e-24;,killed
+second round tune half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,57,> -> >=,if Adv > Max_Adv then,if Adv >= Max_Adv then,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,>= -> >,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,timeout
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,= -> /=,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,or else -> and then,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,>= -> >,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,>= -> >,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261028 (std),ml/Ada/BrownBoost,brown_boost.adb,hidden,+ -> -,hidden,hidden,killed
