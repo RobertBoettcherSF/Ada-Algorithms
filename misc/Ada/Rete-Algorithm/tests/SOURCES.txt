@@ -13,3 +13,5 @@ Sources of the expected values in own_checks.adb (own code, MIT)
   facts (the textbook definition of a rule match).
 * tests.adb: exit status is now nonzero when a check fails.
 Park-Miller PRNG, seed 20261008. Nothing is taken from the program's output.
+
+Initialize_Network (rete.ads: clears network and memories): every alpha / beta memory count is 0 afterwards, also for node ids not yet re-created; the root token is empty, so a root join with a condition on token index 1 never matches.

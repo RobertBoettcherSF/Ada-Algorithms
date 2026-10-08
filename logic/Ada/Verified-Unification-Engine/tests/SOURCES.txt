@@ -20,3 +20,5 @@ Sources of the expected values in own_checks.adb (own code, MIT)
   checked; the out-of-range test hides the value in a function), exit
   status nonzero on failure.
 Park-Miller PRNG, seed 20261008. Nothing is taken from the program's output.
+
+Phase 3: Unify (X, f (X)) must fail (occurs check), leave X unbound and raise nothing, in both argument orders; deep terms (14 .. 16 levels) and a 20-binding chain under Apply; pool-full boundary derived from the declared pool size (Max_Terms = 32).
