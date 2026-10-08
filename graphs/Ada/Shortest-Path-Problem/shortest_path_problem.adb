@@ -517,6 +517,14 @@ is
    is
       Cand : Distance_Value;
    begin
+      --  Full clear first: callers often pass a capacity larger than N
+      --  (tests use Prev_Matrix (1 .. 32, 1 .. 32)). With Initialize_Scalars,
+      --  reading the untouched skirt in Reconstruct_Path raises CE.
+      for I in Prev'Range (1) loop
+         for J in Prev'Range (2) loop
+            Prev (I, J) := 0;
+         end loop;
+      end loop;
       --  Init Prev from direct edges: Prev(I,J)=I when finite edge I≠J.
       for I in Vertex_Id range 1 .. Vertex_Id (N) loop
          for J in Vertex_Id range 1 .. Vertex_Id (N) loop
