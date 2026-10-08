@@ -71,7 +71,7 @@ begin
    Check_One ([others => Value'Last], "all Last");
    Check_One ([others => Value'First], "all First");
    Check_One ([others => 0], "zeros");
-   Check_One ([for I in Index => (if I <= 16 then -I else I - 16)], "symmetric");
+   Check_One ([for I in Index => (if I <= 16 then I - 17 else I - 16)], "symmetric");
    for K in 1 .. 3_000 loop
       for I in Index loop
          A (I) := Next (Value'First, Value'Last);

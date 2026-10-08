@@ -6,5 +6,14 @@ package Squares_Of_A_Sorted_Array with SPARK_Mode => On is
    subtype Square_Value is Integer range 0 .. 1024;
    type Int_Array is array (Index) of Value;
    type Square_Array is array (Index) of Square_Value;
-   function Squares (A : Int_Array) return Square_Array with Global => null;
+
+   --  The input of the exercise is sorted (non-decreasing): the type says so.
+   subtype Sorted_Array is Int_Array
+     with Dynamic_Predicate =>
+       (for all I in Index => (for all J in I .. Length => Sorted_Array (I) <= Sorted_Array (J)));
+
+   --  The squares of A in non-decreasing order (two pointers from both ends, largest square first).
+   function Squares (A : Sorted_Array) return Square_Array
+     with Global => null,
+          Post   => (for all I in 2 .. Length => Squares'Result (I - 1) <= Squares'Result (I));
 end Squares_Of_A_Sorted_Array;
