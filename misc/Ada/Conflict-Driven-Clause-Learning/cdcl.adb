@@ -272,14 +272,18 @@ package body CDCL is
       if not Use_Restarts then
          Bound := V;
          Known := True;
-      elsif Interval >= 2 then
+      else
          declare
             T : Long_Long_Integer := Long_Long_Integer (Interval);
          begin
             Bound := V;
-            while T < V loop
+            for Step in 1 .. 128 loop   --  R < 128 (cdcl.ads T5)
+               exit when T >= V;
+               if Step = 128 then
+                  raise Termination_Bound_Exceeded with "T5: restart gaps do not reach V (N) in 128 steps";
+               end if;
                Bound := Bound + T;
-               T := T + T / 2;
+               T := T + (T + 1) / 2;
             end loop;
             Known := True;
          end;
@@ -414,7 +418,7 @@ package body CDCL is
                         Trace.Truncated := True;
                      end if;
                      Conflicts_Since_Restart := 0;
-                     Current_Restart_Threshold := Current_Restart_Threshold + (Current_Restart_Threshold / 2);
+                     Current_Restart_Threshold := Current_Restart_Threshold + (Current_Restart_Threshold + 1) / 2;
                   end if;
                end if;
 

@@ -93,8 +93,13 @@ package CDCL is
    --  Restarts (geometric schedule): with interval I, restart k (k = 1, 2,
    --  ...) happens at the conflict that brings the conflicts since the
    --  previous restart (or since the start) to t_k, where t_1 = I and
-   --  t_(k+1) = t_k + t_k / 2 (integer division). The conflict at decision
-   --  level 0 that ends an UNSAT run is not counted.
+   --  t_(k+1) = t_k + (t_k + 1) / 2 (integer division, so the gap grows by
+   --  at least 1 and by a factor >= 3/2 also from t = 1; until 2026-10-08
+   --  it was t_k + t_k / 2, which stays 1 forever for interval 1 and gave
+   --  no termination bound together with deletion). The conflict at
+   --  decision level 0 that ends an UNSAT run is not counted. By the
+   --  lexicographically-least-model result above, the schedule never
+   --  changes an answer.
    --
    --  Clause deletion: every conflict except a final level-0 one learns one
    --  clause, whose learn ID is the conflict index. After learning, if more
@@ -120,19 +125,20 @@ package CDCL is
    --       asserts the learned literal at b (entry b grows, later ones
    --       clear): both strictly increase the profile lexicographically.
    --       Without restarts: Conflicts <= V (N).
-   --  (T5) Restarts with interval I >= 2: a period that ends in a restart
+   --  (T5) Restarts (any interval): a period that ends in a restart
    --       has t_k conflicts, all strict profile increases, so t_k < V (N);
    --       hence Restarts <= R = #{k : t_k < V (N)} and Conflicts <=
-   --       t_1 + .. + t_R + V (N). (Deletion does not affect T4 / T5.)
+   --       t_1 + .. + t_R + V (N) < 4 * V (N), as t_(k+1) >= 3/2 t_k gives
+   --       t_1 + .. + t_R < 3 * V (N) and R <= 1 + log_1.5 V (N) < 128.
+   --       (Deletion does not affect T4 / T5.)
    --  (T6) No deletion: a learned clause is never already held (it would
    --       have been unit before the decision of the conflict level, and
    --       Propagate runs to a fixpoint before each decision), and held
    --       clauses are distinct non-tautological clauses: Conflicts <= 3**N.
-   --  With interval 1 and deletion (t_k = 1 forever, clauses may be
-   --  relearned) the policies give NO termination bound; only T1 .. T3 are
-   --  checked then. T4 .. T6 are checked for N <= Max_Bounded_Vars, where
-   --  every bound fits Long_Long_Integer (V (30) < 2.4E17, the T5 sum
-   --  < 4 * V (30), 3**30 < 2.1E14); above that they are not checked
+   --  T4 .. T6 are checked for N <= Max_Bounded_Vars, where
+   --  every bound fits Long_Long_Integer (V (30) < 2.4E17, the T5 bound
+   --  < 4 * V (30), 3**30 < 2.1E14); computing the T5 bound takes < 128
+   --  steps (more raises Termination_Bound_Exceeded); above that they are not checked
    --  (Stats.Bound_Checked = False), never capped.
    Termination_Bound_Exceeded : exception;
    Max_Bounded_Vars : constant := 30;

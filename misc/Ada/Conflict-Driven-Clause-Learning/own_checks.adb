@@ -141,7 +141,7 @@ procedure Own_Checks is
 
    type Variant is (Basic, Restarts, Deletion, Instr_Plain, Instr_Low, Instr_Mid);
    --  Instr_Plain: Solve_Instrumented without restarts / deletion (counters
-   --  must show none); Instr_Low: restarts after every conflict and at most
+   --  must show none); Instr_Low: restart interval 1 (gaps 1, 2, 3, 5, ..) and at most
    --  one learned clause kept, so small formulas exercise both.
    --  Instr_Mid: restart interval 3 and a learned-clause limit of 1000.
    --  Bounds derived from the meaning of the options, not from runs:
@@ -216,7 +216,7 @@ procedure Own_Checks is
                  or else St.Peak_Learned > St.Learned
                  or else (S = Unsatisfiable and then St.Conflicts = 0)
                  or else (Low and then St.Peak_Learned < Natural'Min (St.Learned, 1))
-                 or else (Low and then St.Restarts /= St.Learned)
+                 or else (Low and then St.Learned > 0 and then St.Restarts = 0)
                then
                   Fail ("counters inconsistent: conflicts" & St.Conflicts'Image & " learned" & St.Learned'Image
                         & " deleted" & St.Deleted'Image & " restarts" & St.Restarts'Image
@@ -371,14 +371,14 @@ procedure Own_Checks is
             null;   --  cdcl.ads: no bound checked above Max_Bounded_Vars
          elsif not Rst then
             Want := V; Known := True;
-         elsif Interval >= 2 then
+         else
             declare
                T : Long_Long_Integer := Long_Long_Integer (Interval);
             begin
                Want := V;
                while T < V loop
                   Want := Want + T;
-                  T := T + T / 2;
+                  T := T + (T + 1) / 2;
                end loop;
                Known := True;
             end;
@@ -401,7 +401,7 @@ procedure Own_Checks is
          end if;
       end;
 
-      --  restarts: gaps t_1 = Interval, t_(k+1) = t_k + t_k / 2
+      --  restarts: gaps t_1 = Interval, t_(k+1) = t_k + (t_k + 1) / 2
       if not Rst and then T.Restarts /= 0 then
          Fail (Tag & "restarted with restarts off");
       end if;
@@ -420,7 +420,7 @@ procedure Own_Checks is
                   exit;
                end if;
                Last := T.Restart_At (K);
-               Gap := Gap + Gap / 2;
+               Gap := Gap + (Gap + 1) / 2;
             end loop;
             if Learning - Last >= Gap then
                Fail (Tag & "a scheduled restart is missing at the end of the run");
@@ -613,7 +613,7 @@ begin
         & ", planted 35-90 vars" & Big_OK (V)'Image & " /" & Big_Total (V)'Image
         & ", PHP(5,4) PHP(6,5) PHP(7,6) UNSAT" & Big_UNSAT_OK (V)'Image & " /" & Big_UNSAT_Total (V)'Image);
    end loop;
-   Put_Line ("own checks: low-threshold runs (restart every conflict, keep 1 learned clause):"
+   Put_Line ("own checks: low-threshold runs (restart interval 1, keep 1 learned clause):"
              & Total_Conflicts'Image & " conflicts," & Total_Restarts'Image & " restarts,"
              & Total_Deleted'Image & " learned clauses deleted");
    if Total_Restarts = 0 or else Total_Deleted = 0 or else Mid_Restarts = 0 then
