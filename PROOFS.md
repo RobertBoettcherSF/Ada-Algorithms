@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 19:14 CEST.
+Generated 2026-10-08 19:15 CEST.
 
 ## Proof setup
 
@@ -26,7 +26,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 **Training-ready: 10 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. Under the old rule: 267 folders.
 
-**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 260 folders (column `own_tests`).
+**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 265 folders (column `own_tests`).
 
 **Silver headline (duplicates counted once):** 483 real SPARK folders proven non-trivially, 305 proven but trivial (<= 3 checks), 143 stubs proven (separate), 3 with unproved checks, 10 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 143 proven real folders also prove functional contracts
 
@@ -395,17 +395,17 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Heapsort | agree (vs sorting/Ada/Heapsort, 1000 cases) | 9/12 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Insertion-Sort | agree (vs sorting/Ada/Insertion-Sort, 1000 cases) | 14/16 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Introsort | agree (vs sorting/Ada/Introsort, 1000 cases) | 9/10 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Library-Sort | agree (vs sorting/Ada/Library-Sort, 1000 cases) | 8/13 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Merge-Sort | agree (vs sorting/Ada/Merge-Sort, 1000 cases) | 12/12 |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Library-Sort | agree (vs sorting/Ada/Library-Sort, 1000 cases) | 8/13 |  |  | ok | own tests, diff agree |
+| sorting/SPARK4/Ada-SPARK-Merge-Sort | agree (vs sorting/Ada/Merge-Sort, 1000 cases) | 12/12 |  |  | ok | own tests, diff agree |
 | sorting/SPARK4/Ada-SPARK-Odd-Even-Sort | agree (vs sorting/Ada/Odd-Even-Sort, 1000 cases) | 8/11 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Pancake-Sorting | agree (vs sorting/Ada/Pancake-Sorting, 1000 cases) | 9/14 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Patience-Sorting | agree (vs sorting/Ada/Patience-Sorting, 1000 cases) | 5/16 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort | agree (vs sorting/Ada/Pigeonhole-Sort, 1000 cases) | 4/16 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Postman-Sort | agree (vs sorting/Ada/Postman-Sort, 1000 cases) | 6/18 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Quantum-Sort | agree (vs sorting/Ada/Quantum-Sort, 1000 cases) | 10/15 |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Quantum-Sort | agree (vs sorting/Ada/Quantum-Sort, 1000 cases) | 10/15 |  |  | ok | own tests, diff agree |
 | sorting/SPARK4/Ada-SPARK-Quicksort | agree (vs sorting/Ada/Quicksort, 1000 cases) | 9/10 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Radix-Sort | agree (vs sorting/Ada/Radix-Sort, 1000 cases) | 0/15 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Samplesort | agree (vs sorting/Ada/Samplesort, 1000 cases) | 7/13 |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Samplesort | agree (vs sorting/Ada/Samplesort, 1000 cases) | 7/13 |  |  | ok | own tests, diff agree |
 | sorting/SPARK4/Ada-SPARK-Selection-Sort | agree (vs sorting/Ada/Selection-Sort, 1000 cases) | 10/12 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Shell-Sort | agree (vs sorting/Ada/Shell-Sort, 1000 cases) | 14/17 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Slowsort | agree (vs sorting/Ada/Slowsort, 1000 cases) | 7/11 |  |  | ok | diff agree |
@@ -413,7 +413,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Spaghetti-Sort | agree (vs sorting/Ada/Spaghetti-Sort, 1000 cases) | 8/14 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Stooge-Sort | agree (vs sorting/Ada/Stooge-Sort, 1000 cases) | 5/11 |  |  | ok | diff agree |
 | sorting/SPARK4/Ada-SPARK-Strand-Sort | agree (vs sorting/Ada/Strand-Sort, 1000 cases) | 7/17 |  |  | ok | diff agree |
-| sorting/SPARK4/Ada-SPARK-Timsort | agree (vs sorting/Ada/Timsort, 1000 cases) | 10/13 |  |  | ok | diff agree |
+| sorting/SPARK4/Ada-SPARK-Timsort | agree (vs sorting/Ada/Timsort, 1000 cases) | 10/13 |  |  | ok | own tests, diff agree |
 | sorting/SPARK4/Ada-SPARK-Tree-Sort | agree (vs sorting/Ada/Tree-Sort, 1000 cases) | 8/15 |  |  | ok | diff agree |
 | sorting/SPARK4/Bead-Sort | agree (vs sorting/Ada/Bead-Sort, 1000 cases) | 9/15 |  |  | ok | diff agree |
 | strings/Ada/Boyer-Moore | agree (vs strings/SPARK2/Ada-SPARK-Boyer-Moore, 1000 cases) |  |  |  | ok | diff agree |
