@@ -90,7 +90,7 @@ For these the trivial body passes the folder's existing checks; they need tests 
 
 ## 3e. Own tests
 
-For Silver-proven non-trivial folders without a twin or a known-answer vector, we wrote our own tests, starting from the largest categories (sorting, strings, trees, searching, numerical, compression). The rule: assume the code is broken or does nothing, then show that it is not. Expected values come only from
+For Silver-proven non-trivial folders without a twin or a known-answer vector, we wrote our own tests, starting from the largest categories (sorting, strings, trees, searching, numerical, compression, then common misc exercises). The rule: assume the code is broken or does nothing, then show that it is not. Expected values come only from
 
 * properties of the result (sorted + permutation of the input, invariants such as BST order, bounds, round trips where an inverse exists);
 * small brute-force references written by us in the test (insertion sort, recursive edit distance, exhaustive enumeration of substrings / subsets / trees);
@@ -100,7 +100,7 @@ Never from the program's own current output, and nothing from Rosetta Code, Leet
 
 Each folder has `tests/own_checks.adb` (called from its test main) and `tests/SOURCES.txt`, which states where every expected value comes from. `tools/vv/own_tests.csv` lists the folders and checks; the index shows them in column `own_tests`. A folder has a *known answer* (column `known_answer`) when it has a registered vector, own tests or an agreeing differential test, and the do-nothing check did not flag it weak; `training_ready` now requires a known answer.
 
-Status (2026-10-08): 94 folders (33 sorting, 29 trees, 15 strings, 6 searching, 5 numerical, 4 compression, 2 misc); all pass on GNAT 14 and GNAT 12 and all are `ok` in the do-nothing check. The proof projects list their source files, so `own_checks.adb` is outside proof scope (three projects without a source list now name it explicitly so `make test` still builds).
+Status (2026-10-08): 104 folders (33 sorting, 29 trees, 15 strings, 12 misc, 6 searching, 5 numerical, 4 compression); all pass on GNAT 14 and GNAT 12 and all are `ok` in the do-nothing check. `own_checks.adb` has no `SPARK_Mode`, so it is not proved. Where a project lists its source files, it is outside the project (three build projects now name it explicitly so `make test` still builds); for the 33 own-test folders whose proof project takes every source in the folder, the Silver proof was rerun with the new tests in place and gives the same result as before.
 
 Findings while writing them. The code is not changed yet; for Repeated-String-Match, Newton-Raphson, Balanced-Binary-Tree and Range-Sum-BST the own tests fail and are parked (not committed) until the intended behaviour is decided, so these four do not count as having own tests:
 
