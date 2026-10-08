@@ -64,3 +64,4 @@ misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,"Middle returned the first of th
 misc/SPARK2/Ada-SPARK-Covariance,"Value centred every component on a fixed 5 instead of the vectors' means, so it was not a covariance (own test)",fixed,dd274886,0f8d1ee8
 misc/Ada/Lempel-Ziv-Ross-Williams,"Compress overflowed (Constraint_Error) for inputs indexed from Stream_Element_Offset'First, e.g. any positional aggregate, as in its own main.adb (all-checks crash run; own round-trip test)",fixed,e80b230e,5aa5b0b0
 misc/Ada/Prediction-By-Partial-Matching,"Package did not compile (Symbol('?') conversion of a character literal), so make test always failed (all-checks crash run; plain-Ada sample)",fixed,(existing tests.adb),b92fb275
+misc/Ada/Mu-Law-Algorithm,Decode_Digital (-128) raised Constraint_Error for a valid code: the normalised value was stored before it was clamped (seeded random-input driver; own test),fixed,2b587c6b,243dfde7

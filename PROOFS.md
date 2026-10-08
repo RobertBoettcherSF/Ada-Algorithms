@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 18:26 CEST.
+Generated 2026-10-08 18:31 CEST.
 
 ## Proof setup
 
@@ -26,7 +26,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 **Training-ready: 267 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).
 
-**Do-nothing check:** 1707 folders checked, 35 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 227 folders (column `own_tests`).
+**Do-nothing check:** 1708 folders checked, 35 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 232 folders (column `own_tests`).
 
 **Silver headline (duplicates counted once):** 483 real SPARK folders proven non-trivially, 305 proven but trivial (<= 3 checks), 143 stubs proven (separate), 3 with unproved checks, 10 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 143 proven real folders also prove functional contracts
 
@@ -42,7 +42,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 ## V&V (validation) results
 
-Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 227 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
+Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 232 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
 
 | Folder | Differential test | Mutation (killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |
 |---|---|---|---|---|---|---|
@@ -88,13 +88,14 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/Ada/Elser-Difference-Map-Algorithm |  |  |  |  | weak |  |
 | misc/Ada/Golomb-Coding |  | 7/8 |  |  | ok |  |
 | misc/Ada/Gray-Code | agree (vs misc/SPARK2/Ada-SPARK-Gray-Code, 1000 cases) |  |  |  | ok | diff agree |
-| misc/Ada/Hamming-Weight | agree (vs misc/SPARK2/Ada-SPARK-Hamming-Weight, 1000 cases) |  |  |  | ok | diff agree |
+| misc/Ada/Hamming-Weight | agree (vs misc/SPARK2/Ada-SPARK-Hamming-Weight, 1000 cases) |  |  | all five variants vs own division-by-2 count; 50000 values with edges (sample_ada_30) | ok | own tests, diff agree |
 | misc/Ada/Johnsons-Algorithm |  |  |  |  | weak |  |
 | misc/Ada/Kadanes-Algorithm | agree (vs misc/SPARK2/Ada-SPARK-Kadanes-Algorithm, 1000 cases) |  |  |  | ok | diff agree |
 | misc/Ada/Knuth-Bendix-Completion |  | 5/8 |  |  | unchecked (main stillborn) |  |
 | misc/Ada/Lempel-Ziv-Ross-Williams |  |  |  | own round-trip property; 2000 random inputs x 3 index ranges (1 .. N; from 'First; up to 'Last) | ok | own tests |
 | misc/Ada/Longest-Increasing-Subsequence | agree (vs misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence, 1000 cases) |  |  |  | ok | diff agree |
 | misc/Ada/Median-Filtering | agree (vs misc/SPARK2/Ada-SPARK-Median-Filtering, 1000 cases) |  |  |  | ok | diff agree |
+| misc/Ada/Mu-Law-Algorithm |  |  |  | all 256 codes decode without exception and non-decreasing | ok | own tests |
 | misc/Ada/Mullers-Method |  |  |  |  | weak |  |
 | misc/Ada/Nagles-Algorithm |  |  |  |  | weak |  |
 | misc/Ada/Nonlinear-Optimization |  | 7/8 |  |  | ok |  |
@@ -266,7 +267,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | numerical/SPARK4/Ada-SPARK-Mersenne-Twister | agree (vs numerical/Ada/Mersenne-Twister, 1000 cases) |  |  |  | ok | diff agree |
 | numerical/SPARK4/Binary-Gcd | agree (vs numerical/Ada/Binary-GCD, 1000 cases) |  |  |  | ok | diff agree |
 | parsing/Ada/Cyk-Algorithm |  |  |  |  | weak |  |
-| searching/Ada/Binary-Search | agree (vs searching/SPARK4/Ada-SPARK-Binary-Search, 1000 cases) |  |  |  | ok | diff agree |
+| searching/Ada/Binary-Search | agree (vs searching/SPARK4/Ada-SPARK-Binary-Search, 1000 cases) |  |  | Find/Find_First/Find_Last vs own linear scan; 20000 sorted arrays with duplicates (sample_ada_30) | ok | own tests, diff agree |
 | searching/Ada/Fibonacci-Search | agree (vs searching/SPARK4/Ada-SPARK-Fibonacci-Search, 1000 cases) |  |  |  | ok | diff agree |
 | searching/Ada/Interpolation-Search | agree (vs searching/SPARK4/Ada-SPARK-Interpolation-Search, 1000 cases) |  |  |  | ok | diff agree |
 | searching/Ada/Introselect | agree (vs searching/SPARK4/Ada-SPARK-Introselect, 1000 cases) |  |  |  | ok | diff agree |
@@ -294,7 +295,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/Ada/Bitonic-Sorter | agree (vs sorting/SPARK4/Ada-SPARK-Bitonic-Sorter, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Bogosort | agree (vs sorting/SPARK4/Ada-SPARK-Bogosort, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Bubble-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Bubble-Sort, 1000 cases) |  |  |  | ok | diff agree |
-| sorting/Ada/Bucket-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Bucket-Sort, 1000 cases) |  |  |  | ok | diff agree |
+| sorting/Ada/Bucket-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Bucket-Sort, 1000 cases) |  |  | order + own multiset match; 4000 random arrays (sample_ada_30) | ok | own tests, diff agree |
 | sorting/Ada/Cocktail-Shaker-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Comb-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Comb-Sort, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Counting-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Counting-Sort, 1000 cases) |  |  |  | ok | diff agree |
@@ -306,7 +307,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/Ada/Introsort | agree (vs sorting/SPARK4/Ada-SPARK-Introsort, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Library-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Library-Sort, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Merge-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Merge-Sort, 1000 cases) |  |  |  | ok | diff agree |
-| sorting/Ada/Odd-Even-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Odd-Even-Sort, 1000 cases) |  |  |  | ok | diff agree |
+| sorting/Ada/Odd-Even-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Odd-Even-Sort, 1000 cases) |  |  | order + own multiset match; 4000 random arrays (sample_ada_30) | ok | own tests, diff agree |
 | sorting/Ada/Pancake-Sorting | agree (vs sorting/SPARK4/Ada-SPARK-Pancake-Sorting, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Patience-Sorting | agree (vs sorting/SPARK4/Ada-SPARK-Patience-Sorting, 1000 cases) |  |  |  | ok | diff agree |
 | sorting/Ada/Pigeonhole-Sort | agree (vs sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort, 1000 cases) |  |  |  | ok | diff agree |

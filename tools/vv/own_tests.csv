@@ -226,3 +226,8 @@ misc/SPARK2/Ada-SPARK-Triangle-Min-Path,own brute force over all 8 paths; 20000 
 misc/SPARK2/Ada-SPARK-Trapping-Rain-Water-II-Lite,own min(left max; right max) reference; 5000 random arrays with junk past Length
 misc/SPARK2/Ada-SPARK-Covariance,own deviation-from-mean reference; 166375 vector pairs
 misc/Ada/Lempel-Ziv-Ross-Williams,own round-trip property; 2000 random inputs x 3 index ranges (1 .. N; from 'First; up to 'Last)
+misc/Ada/Mu-Law-Algorithm,all 256 codes decode without exception and non-decreasing
+sorting/Ada/Bucket-Sort,order + own multiset match; 4000 random arrays (sample_ada_30)
+sorting/Ada/Odd-Even-Sort,order + own multiset match; 4000 random arrays (sample_ada_30)
+searching/Ada/Binary-Search,Find/Find_First/Find_Last vs own linear scan; 20000 sorted arrays with duplicates (sample_ada_30)
+misc/Ada/Hamming-Weight,all five variants vs own division-by-2 count; 50000 values with edges (sample_ada_30)

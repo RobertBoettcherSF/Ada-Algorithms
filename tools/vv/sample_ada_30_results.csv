@@ -6,3 +6,7 @@ geometry/Ada/Line-Clipping,crash run: no bug (artefact),all-checks crash run (ch
 misc/Ada/Marching-Squares,crash run: no bug (artefact),all-checks crash run (checks_on.csv: Assertion_Error),test violates a precondition on purpose; passes with Pre ignored; own tests pending
 misc/Ada/Progressive-Jackpot,crash run: no bug (artefact),all-checks crash run (checks_on.csv: Assertion_Error),test violates a precondition on purpose; passes with Pre ignored; own tests pending
 misc/Ada/docs,not an algorithm folder,drawn in the sample,no Ada sources; excluded from the denominator (n = 29)
+sorting/Ada/Bucket-Sort,pass,own tests,order and multiset; 4000 arrays (44a8f418)
+sorting/Ada/Odd-Even-Sort,pass,own tests,order and multiset; 4000 arrays (44a8f418)
+searching/Ada/Binary-Search,pass,own tests,vs own linear scan; 20000 arrays (44a8f418)
+misc/Ada/Hamming-Weight,pass,own tests,five variants vs own count; 50000 values (44a8f418)

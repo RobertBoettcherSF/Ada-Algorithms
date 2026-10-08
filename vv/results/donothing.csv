@@ -74,7 +74,7 @@ misc/SPARK2/Ada-SPARK-Container-With-Most-Water,survived,Max_Area,killed,ok,1,,1
 misc/SPARK2/Ada-SPARK-Contiguous-Array,survived,One_Count,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Continuous-Subarray-Sum,survived,Total,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,survived,To_Integer,killed,ok,3,Empty,2,0,yes
-misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,survived,Random_Of,killed,ok,6,Empty Copy_List,4,0,yes
+misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,survived,Set_Random,killed,ok,6,Empty Copy_List,4,0,yes
 misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings,survived,Booked_Seats,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Cosine-Distance,survived,Distance,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Cosine-Similarity,survived,Similarity,killed,ok,1,,1,0,yes
@@ -104,7 +104,7 @@ misc/SPARK2/Ada-SPARK-Design-Circular-Queue,survived,Enqueue,killed,ok,5,Empty,4
 misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue,survived,Enqueue,killed,ok,3,Initialize,2,0,yes
 misc/SPARK2/Ada-SPARK-Design-Hit-Counter-Lite,survived,Hit,killed,ok,4,Empty,3,0,yes
 misc/SPARK2/Ada-SPARK-Design-Linked-List,survived,Element_At,killed,ok,6,Empty,5,0,yes
-misc/SPARK2/Ada-SPARK-Design-Number-Container-System,survived,Add,killed,ok,4,Initialize,3,0,yes
+misc/SPARK2/Ada-SPARK-Design-Number-Container-System,survived,Add,killed,ok,4,,4,0,yes
 misc/SPARK2/Ada-SPARK-Design-Ordered-Stream,survived,Insert,killed,ok,5,Empty Has_Next,3,0,yes
 misc/SPARK2/Ada-SPARK-Design-Parking-System-II,survived,Add_Car,killed,ok,3,,3,0,yes
 misc/SPARK2/Ada-SPARK-Design-Skiplist-Lite,survived,Height,killed,ok,4,Empty,3,0,yes
@@ -159,7 +159,7 @@ misc/SPARK2/Ada-SPARK-Keyboard-Row,survived,In_One_Row,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Knapsack-01,survived,Maximum_Value,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Koko-Eating-Bananas,survived,Minimum_Speed,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,survived,Touch,killed,ok,4,Empty,3,0,yes
-misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,survived,Lookup,killed,ok,5,Empty Contains,3,0,yes
+misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,survived,Lookup,killed,ok,3,Empty,2,0,yes
 misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram,survived,Max_Area,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Last-Stone-Weight,survived,Final_Weight,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Last-Stone-Weight-II,survived,Min_Remaining_Weight,killed,ok,1,,1,0,yes
@@ -267,7 +267,7 @@ misc/SPARK2/Ada-SPARK-Rectangle-Area,survived,Area,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates,survived,Remove_Duplicates,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-II,survived,Remove_Duplicates,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Remove-Duplicate-Letters,survived,Keep_First,killed,ok,1,,1,0,yes
-misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,survived,Remove_First,killed,ok,5,Empty,4,0,yes
+misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,survived,Element,killed,ok,5,Empty,4,0,yes
 misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,survived,Remove_Nth,killed,ok,5,Empty,4,0,yes
 misc/SPARK2/Ada-SPARK-Reorder-List,survived,Reorder,killed,ok,4,Empty,3,0,yes
 misc/SPARK2/Ada-SPARK-Restore-IP-Addresses,survived,Count_Valid_Segments,killed,ok,2,,2,0,yes
@@ -385,7 +385,7 @@ sorting/SPARK2/Ada-SPARK-Intro-Sort,survived,Sort,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,survived,Median,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array,survived,Merge_Sum,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,survived,Merge,killed,ok,1,,1,0,yes
-sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,survived,Merge,killed,ok,5,Empty,4,0,yes
+sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,survived,Merge,killed,ok,4,Empty,3,0,yes
 sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,survived,Solve,killed,ok,4,Empty,3,0,yes
 sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,survived,Sort,killed,ok,1,,1,0,yes
 sorting/SPARK2/Ada-SPARK-Pancake-Sort,survived,Sort,killed,ok,1,,1,0,yes
@@ -1477,7 +1477,7 @@ misc/Ada/Poly1305,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Polynomial-Long-Division,survived,Divide,killed,ok,19,Trim,18,0,yes
 misc/Ada/Power-Iteration,survived,Iterate,killed,ok,25,Is_Square,24,0,yes
 misc/Ada/Powerset-Construction,survived (without -gnata),Basic_Powerset_Construction,killed,ok,4,,4,0,no
-misc/Ada/Prediction-By-Partial-Matching,stillborn,,,baseline does not build,0,,0,0,yes
+misc/Ada/Prediction-By-Partial-Matching,survived,Update_Predictor,killed,ok,10,,10,0,yes
 misc/Ada/Program-Synthesis,survived,Synthesize_By_Example,killed,ok,9,Free,8,0,yes
 misc/Ada/Progressive-Jackpot,survived (without -gnata),Initialize_Standalone,killed,ok,8,,8,0,no
 misc/Ada/Proof-Of-Work-Algorithms,survived,Generate_Hashcash,killed,ok,6,,6,0,yes

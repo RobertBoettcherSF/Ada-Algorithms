@@ -307,7 +307,7 @@ misc/SPARK2/Ada-SPARK-Design-Linked-List,design_linked_list.adb,Push_Front,proce
 misc/SPARK2/Ada-SPARK-Design-Linked-List,design_linked_list.adb,Append,procedure,4,null,killed
 misc/SPARK2/Ada-SPARK-Design-Linked-List,design_linked_list.adb,Contains,function,4,True,killed
 misc/SPARK2/Ada-SPARK-Design-Linked-List,design_linked_list.adb,Element_At,function,4,default,killed
-misc/SPARK2/Ada-SPARK-Design-Number-Container-System,design_number_container_system.adb,Initialize,procedure,2,null,survived
+misc/SPARK2/Ada-SPARK-Design-Number-Container-System,design_number_container_system.adb,Initialize,procedure,2,null,killed
 misc/SPARK2/Ada-SPARK-Design-Number-Container-System,design_number_container_system.adb,Add,procedure,4,null,killed
 misc/SPARK2/Ada-SPARK-Design-Number-Container-System,design_number_container_system.adb,Remove_Last,procedure,2,null,killed
 misc/SPARK2/Ada-SPARK-Design-Number-Container-System,design_number_container_system.adb,Contains,function,4,True,killed
@@ -394,9 +394,7 @@ misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,lfu_cache_lite.adb,Touch,procedure,4,null,k
 misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,lfu_cache_lite.adb,Most_Frequent_Key,function,2,default,killed
 misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,lru_cache_lite.adb,Empty,function,2,default,survived
 misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,lru_cache_lite.adb,Put,procedure,4,null,killed
-misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,lru_cache_lite.adb,Length,function,2,default,killed
 misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,lru_cache_lite.adb,Lookup,function,2,default,killed
-misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,lru_cache_lite.adb,Contains,function,2,True,survived
 misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram,largest_rectangle_in_histogram.adb,Max_Area,function,4,default,killed
 misc/SPARK2/Ada-SPARK-Last-Stone-Weight,last_stone_weight.adb,Final_Weight,function,4,default,killed
 misc/SPARK2/Ada-SPARK-Last-Stone-Weight-II,last_stone_weight_ii.adb,Min_Remaining_Weight,function,6,default,killed
@@ -875,7 +873,6 @@ sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array,merge_sorted_array.adb,Merge_Sum,fun
 sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,merge_sorted_arrays.adb,Merge,function,2,default,killed
 sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,merge_two_sorted_lists.adb,Empty,function,4,default,survived
 sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,merge_two_sorted_lists.adb,Append,procedure,12,null,killed
-sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,merge_two_sorted_lists.adb,Length,function,2,default,killed
 sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,merge_two_sorted_lists.adb,Element,function,6,default,killed
 sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,merge_two_sorted_lists.adb,Merge,function,2,default,killed
 sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,src/odd_even_linked_list.adb,Empty,function,2,default,survived
@@ -8022,6 +8019,16 @@ misc/Ada/Powerset-Construction,powerset_construction.adb,Epsilon_Closure,functio
 misc/Ada/Powerset-Construction,powerset_construction.adb,Next_State_Set,function,4,empty,killed
 misc/Ada/Powerset-Construction,powerset_construction.adb,Basic_Powerset_Construction,function,12,default,killed
 misc/Ada/Powerset-Construction,powerset_construction.adb,Powerset_Construction_With_Epsilon,function,6,default,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,To_Symbol_String,function,6,empty,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,Update_Model,procedure,6,null,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,Estimate_Laplace,procedure,2,null,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,Estimate_PPMd,procedure,2,null,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,Estimate_PPM_B,procedure,2,null,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,Estimate_PPM_C,procedure,2,null,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,Initialize_Predictor,procedure,2,null,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,Update_Predictor,procedure,4,null,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,Calculate_Blended_Distribution,function,2,empty,killed
+misc/Ada/Prediction-By-Partial-Matching,ppm_algorithm.adb,Free_Predictor,procedure,2,null,killed
 misc/Ada/Program-Synthesis,program_synthesis.adb,Free,procedure,58,null,survived
 misc/Ada/Program-Synthesis,program_synthesis.adb,Clone,function,4,default,killed
 misc/Ada/Program-Synthesis,program_synthesis.adb,Evaluate_With_Holes,function,2,default,killed
