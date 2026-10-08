@@ -1,8 +1,9 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 package body Design_HashSet is
    function Empty return Set is
    begin
-      return (Present => (others => False));
+      return (Present => [others => False]);
    end Empty;
    procedure Add (S : in out Set; E : Element) is
    begin

@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 package Design_HashSet is
    Capacity : constant := 8;
@@ -10,6 +11,6 @@ package Design_HashSet is
 private
    type Membership is array (Element) of Boolean;
    type Set is record
-      Present : Membership := (others => False);
+      Present : Membership := [others => False];
    end record;
 end Design_HashSet;

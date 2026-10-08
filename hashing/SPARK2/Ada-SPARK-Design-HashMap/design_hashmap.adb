@@ -1,8 +1,9 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 package body Design_HashMap is
    function Empty return Map is
    begin
-      return (Values => (others => 0), Used => (others => False));
+      return (Values => [others => 0], Used => [others => False]);
    end Empty;
    procedure Put (M : in out Map; K : Key; V : Value) is
    begin

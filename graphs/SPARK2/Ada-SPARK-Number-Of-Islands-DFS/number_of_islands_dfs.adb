@@ -6,8 +6,8 @@ package body Number_Of_Islands_DFS with SPARK_Mode => On is
 
    procedure Explore (G : Grid; Start_R, Start_C : Coordinate; Seen : in out Grid)
      with Global => null, Pre => G (Start_R, Start_C), Post => Seen (Start_R, Start_C) is
-      Rows : Coordinate_Stack := (others => 1);
-      Cols : Coordinate_Stack := (others => 1);
+      Rows : Coordinate_Stack := [others => 1];
+      Cols : Coordinate_Stack := [others => 1];
       Top : Natural range 0 .. Stack_Size := 1;
       R : Coordinate;
       C : Coordinate;
@@ -16,7 +16,6 @@ package body Number_Of_Islands_DFS with SPARK_Mode => On is
       Rows (1) := Start_R;
       Cols (1) := Start_C;
       for Step in 1 .. 16 loop
-         pragma Loop_Invariant (Top in 0 .. Stack_Size);
          pragma Loop_Invariant (Seen (Start_R, Start_C));
          if Top > 0 then
             R := Rows (Top);
@@ -39,7 +38,7 @@ package body Number_Of_Islands_DFS with SPARK_Mode => On is
    end Explore;
 
    function Count (G : Grid) return Island_Count is
-      Seen : Grid := (others => (others => False));
+      Seen : Grid := [others => [others => False]];
       Total : Island_Count := 0;
       procedure Start (R, C : Coordinate) is
       begin

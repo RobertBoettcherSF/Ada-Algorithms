@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 package Design_HashMap is
    Capacity : constant := 4;
@@ -13,7 +14,7 @@ private
    type Value_Array is array (Key) of Value;
    type Used_Array is array (Key) of Boolean;
    type Map is record
-      Values : Value_Array := (others => 0);
-      Used : Used_Array := (others => False);
+      Values : Value_Array := [others => 0];
+      Used : Used_Array := [others => False];
    end record;
 end Design_HashMap;
