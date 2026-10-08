@@ -1,0 +1,1215 @@
+folder,file,line,op,before,after,result
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb,9,+ -> -,return Left + Right;,return Left - Right;,killed
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb,6,- -> +,if Left > Result'Last - Right then,if Left > Result'Last + Right then,survived
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb,6,> -> >=,if Left > Result'Last - Right then,if Left >= Result'Last - Right then,survived
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb,17,= -> /=,if N = 0 then,if N /= 0 then,killed
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb,19,= -> /=,elsif N = 1 then,elsif N /= 1 then,killed
+misc/SPARK2/Ada-SPARK-House-Robber-II,house_robber_ii.adb,9,+ -> -,"E5 : constant Natural := Natural'Max (E4, A (6) + E3);","E5 : constant Natural := Natural'Max (E4, A (6) - E3);",killed
+misc/SPARK2/Ada-SPARK-House-Robber-II,house_robber_ii.adb,7,+ -> -,"E3 : constant Natural := Natural'Max (E2, A (4) + E1);","E3 : constant Natural := Natural'Max (E2, A (4) - E1);",killed
+misc/SPARK2/Ada-SPARK-House-Robber-II,house_robber_ii.adb,12,+ -> -,"F3 : constant Natural := Natural'Max (F2, A (3) + F1);","F3 : constant Natural := Natural'Max (F2, A (3) - F1);",killed
+misc/SPARK2/Ada-SPARK-House-Robber-II,house_robber_ii.adb,13,+ -> -,"F4 : constant Natural := Natural'Max (F3, A (4) + F2);","F4 : constant Natural := Natural'Max (F3, A (4) - F2);",killed
+misc/SPARK2/Ada-SPARK-House-Robber-II,house_robber_ii.adb,14,+ -> -,"F5 : constant Natural := Natural'Max (F4, A (5) + F3);","F5 : constant Natural := Natural'Max (F4, A (5) - F3);",killed
+misc/SPARK2/Ada-SPARK-House-Robber-II,house_robber_ii.adb,8,+ -> -,"E4 : constant Natural := Natural'Max (E3, A (5) + E2);","E4 : constant Natural := Natural'Max (E3, A (5) - E2);",survived
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,42,- -> +,for I in 1 .. 9 - Pass loop,for I in 1 .. 9 + Pass loop,killed
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,12,< -> <=,if R < Integer (Row_Index'First) then,if R <= Integer (Row_Index'First) then,survived
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,43,+ 1 -> + 0,if W (I) > W (I + 1) then,if W (I) > W (I + 0) then,killed
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,27,> -> >=,elsif C > Integer (Col_Index'Last) then,elsif C >= Integer (Col_Index'Last) then,survived
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,25,< -> <=,if C < Integer (Col_Index'First) then,if C <= Integer (Col_Index'First) then,survived
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,61,+ -> -,"return Input (Clamp_Row (Integer (R) + DR), Clamp_Col (Integer (C) + DC));","return Input (Clamp_Row (Integer (R) + DR), Clamp_Col (Integer (C) - DC));",survived
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,14,> -> >=,elsif R > Integer (Row_Index'Last) then,elsif R >= Integer (Row_Index'Last) then,survived
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,43,+ -> -,if W (I) > W (I + 1) then,if W (I) > W (I - 1) then,killed
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,46,+ 1 -> + 0,W (I + 1) := Tmp;,W (I + 0) := Tmp;,killed
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,45,+ 1 -> + 0,W (I) := W (I + 1);,W (I) := W (I + 0);,killed
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,43,> -> >=,if W (I) > W (I + 1) then,if W (I) >= W (I + 1) then,survived
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,46,+ -> -,W (I + 1) := Tmp;,W (I - 1) := Tmp;,killed
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,61,+ -> -,"return Input (Clamp_Row (Integer (R) + DR), Clamp_Col (Integer (C) + DC));","return Input (Clamp_Row (Integer (R) - DR), Clamp_Col (Integer (C) + DC));",survived
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,45,+ -> -,W (I) := W (I + 1);,W (I) := W (I - 1);,killed
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb,9,+ -> -,return Left + Right;,return Left - Right;,killed
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb,6,- -> +,if Left > Result'Last - Right then,if Left > Result'Last + Right then,survived
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb,18,= -> /=,if N = 0 then,if N /= 0 then,killed
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb,20,= -> /=,elsif N = 1 then,elsif N /= 1 then,killed
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb,22,= -> /=,elsif N = 2 then,elsif N /= 2 then,killed
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb,6,> -> >=,if Left > Result'Last - Right then,if Left >= Result'Last - Right then,survived
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb,9,+ -> -,return Left + Right;,return Left - Right;,killed
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb,6,- -> +,if Left > Result'Last - Right then,if Left > Result'Last + Right then,survived
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb,20,- -> +,"Values (C) := Add_Bounded (Values (C), Values (C - 1));","Values (C) := Add_Bounded (Values (C), Values (C + 1));",killed
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb,20,- 1 -> - 0,"Values (C) := Add_Bounded (Values (C), Values (C - 1));","Values (C) := Add_Bounded (Values (C), Values (C - 0));",killed
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb,23,<= -> <,if Column <= Row_Number then,if Column < Row_Number then,killed
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb,6,> -> >=,if Left > Result'Last - Right then,if Left >= Result'Last - Right then,survived
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,smallest_integer_divisible_by_k.adb,8,+ 1 -> + 0,Remainder := (Remainder * 10 + 1) mod K;,Remainder := (Remainder * 10 + 0) mod K;,killed
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,smallest_integer_divisible_by_k.adb,8,+ -> -,Remainder := (Remainder * 10 + 1) mod K;,Remainder := (Remainder * 10 - 1) mod K;,survived
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,smallest_integer_divisible_by_k.adb,8,* -> +,Remainder := (Remainder * 10 + 1) mod K;,Remainder := (Remainder + 10 + 1) mod K;,killed
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,smallest_integer_divisible_by_k.adb,9,= -> /=,if Remainder = 0 then,if Remainder /= 0 then,killed
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb,9,+ -> -,return Left + Right;,return Left - Right;,killed
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb,6,- -> +,if Left > Result'Last - Right then,if Left > Result'Last + Right then,survived
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb,18,= -> /=,if N = 0 then,if N /= 0 then,killed
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb,20,= -> /=,elsif N = 1 then,elsif N /= 1 then,killed
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb,22,= -> /=,elsif N = 2 then,elsif N /= 2 then,killed
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb,6,> -> >=,if Left > Result'Last - Right then,if Left >= Result'Last - Right then,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,89,+ -> -,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo - 1 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,16,+ 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,97,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","or else Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,56,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,41,and then -> or else,and then Hi_P <= A'Last,or else Hi_P <= A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,62,= -> /=,if X = Y then,if X /= Y then,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,30,< -> <=,(Hi_P < Lo_P,(Hi_P <= Lo_P,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,154,and then -> or else,"and then Sorted_Slice (A, Hi + 1, A'Last)","or else Sorted_Slice (A, Hi + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,54,and then -> or else,and then A (X) = A'Old (Y),or else A (X) = A'Old (Y),stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,89,+ 1 -> + 0,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo + 0 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,176,- 1 -> - 0,if A (I - 1) > A (I) then,if A (I - 0) > A (I) then,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,152,and then -> or else,"and then Sorted_Slice (A, 1, Lo)","or else Sorted_Slice (A, 1, Lo)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,154,+ -> -,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,183,- -> +,I := I - 1;,I := I + 1;,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,96,- -> +,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,34,<= -> <,(for all L in Lo_S .. Hi_S => A (K) <= A (L)))),(for all L in Lo_S .. Hi_S => A (K) < A (L)))),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,145,and then -> or else,and then Hi in Lo + 1 .. A'Last,or else Hi in Lo + 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,99,- -> +,"and then Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)","and then Prefix_Leq_Suffix (A, 1, Hi + 1, Hi, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,16,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,93,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 0, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,92,+ -> -,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,55,= -> /=,and then A (Y) = A'Old (X),and then A (Y) /= A'Old (X),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,221,- 1 -> - 0,Hi := Hi - 1;,Hi := Hi - 0;,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,88,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,97,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo - 0, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,22,>= -> >,and then L >= 1,and then L > 1,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,50,and then -> or else,and then X in 1 .. A'Last,or else X in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,197,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,144,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,230,+ 1 -> + 0,Lo := Lo + 1;,Lo := Lo + 0;,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,154,+ 1 -> + 0,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,104,- -> +,for I in Lo .. Hi - 1 loop,for I in Lo .. Hi + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,155,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last)","or else Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,147,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo - 0, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,177,- -> +,"Swap (A, I - 1, I);","Swap (A, I + 1, I);",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,16,+ -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,91,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo - 0, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,23,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,100,and then -> or else,"and then (if not Swapped then Sorted_Slice (A, Lo, Hi))","or else (if not Swapped then Sorted_Slice (A, Lo, Hi))",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,22,and then -> or else,and then L >= 1,or else L >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,90,- 1 -> - 0,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,117,+ 1 -> + 0,if A (I) > A (I + 1) then,if A (I) > A (I + 0) then,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,155,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 0, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,90,- -> +,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,40,>= -> >,and then Lo_P >= 1,and then Lo_P > 1,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,91,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","or else Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,16,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,23,and then -> or else,and then R <= A'Last;,or else R <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,156,and then -> or else,"and then (if not Swapped then Sorted_Slice (A, Lo, Hi))","or else (if not Swapped then Sorted_Slice (A, Lo, Hi))",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,145,+ -> -,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo - 1 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,148,and then -> or else,"and then Sorted_Slice (A, Hi + 1, A'Last)","or else Sorted_Slice (A, Hi + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,41,<= -> <,and then Hi_P <= A'Last,and then Hi_P < A'Last,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,31,< -> <=,or else Hi_S < Lo_S,or else Hi_S <= Lo_S,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,153,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo, Lo - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,149,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Hi, Hi - 1, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,93,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","or else Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,117,> -> >=,if A (I) > A (I + 1) then,if A (I) >= A (I + 1) then,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,104,- 1 -> - 0,for I in Lo .. Hi - 1 loop,for I in Lo .. Hi - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,230,+ -> -,Lo := Lo + 1;,Lo := Lo - 1;,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,40,and then -> or else,and then Lo_P >= 1,or else Lo_P >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,99,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)","and then Prefix_Leq_Suffix (A, 1, Hi - 0, Hi, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,15,>= -> >,(L >= R,(L > R,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,147,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","or else Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,117,+ -> -,if A (I) > A (I + 1) then,if A (I) > A (I - 1) then,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,146,- 1 -> - 0,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,58,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K = Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,176,- -> +,if A (I - 1) > A (I) then,if A (I + 1) > A (I) then,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,92,and then -> or else,"and then Sorted_Slice (A, Hi + 1, A'Last)","or else Sorted_Slice (A, Hi + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,16,or else -> and then,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,183,- 1 -> - 0,I := I - 1;,I := I - 0;,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,96,and then -> or else,"and then Sorted_Slice (A, 1, Lo - 1)","or else Sorted_Slice (A, 1, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,146,and then -> or else,"and then Sorted_Slice (A, 1, Lo - 1)","or else Sorted_Slice (A, 1, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,92,+ 1 -> + 0,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,16,- -> +,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R + 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,118,+ -> -,"Swap (A, I, I + 1);","Swap (A, I, I - 1);",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,146,- -> +,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,149,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","or else Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,42,>= -> >,and then Lo_S >= 1,and then Lo_S > 1,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,148,+ 1 -> + 0,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,91,- -> +,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo + 1, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,221,- -> +,Hi := Hi - 1;,Hi := Hi + 1;,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,153,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)","or else Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,176,> -> >=,if A (I - 1) > A (I) then,if A (I - 1) >= A (I) then,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,204,< -> <=,while Lo < Hi loop,while Lo <= Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,155,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, Hi, Hi - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,99,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)","or else Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,149,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 0, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,55,and then -> or else,and then A (Y) = A'Old (X),or else A (Y) = A'Old (X),stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,97,- -> +,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo + 1, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,147,- -> +,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo + 1, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,58,and then -> or else,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X or else K /= Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,177,- 1 -> - 0,"Swap (A, I - 1, I);","Swap (A, I - 0, I);",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,32,or else -> and then,or else,and then,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,153,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,118,+ 1 -> + 0,"Swap (A, I, I + 1);","Swap (A, I, I + 0);",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,58,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K = X and then K /= Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,222,= -> /=,exit when Lo = Hi;,exit when Lo /= Hi;,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,145,+ 1 -> + 0,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo + 0 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,96,- 1 -> - 0,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,161,> -> >=,while I > Lo loop,while I >= Lo loop,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,43,and then -> or else,and then Hi_S <= A'Last;,or else Hi_S <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,98,and then -> or else,"and then Sorted_Slice (A, Hi, A'Last)","or else Sorted_Slice (A, Hi, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,148,+ -> -,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,43,<= -> <,and then Hi_S <= A'Last;,and then Hi_S < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,31,or else -> and then,or else Hi_S < Lo_S,and then Hi_S < Lo_S,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,90,and then -> or else,"and then Sorted_Slice (A, 1, Lo - 1)","or else Sorted_Slice (A, 1, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,93,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Hi, Hi - 1, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,51,and then -> or else,"and then Y in 1 .. A'Last,","or else Y in 1 .. A'Last,",stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,89,and then -> or else,and then Hi in Lo + 1 .. A'Last,or else Hi in Lo + 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,54,= -> /=,and then A (X) = A'Old (Y),and then A (X) /= A'Old (Y),killed
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,42,and then -> or else,and then Lo_S >= 1,or else Lo_S >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,cocktail_shaker_sort.adb,58,= -> /=,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K /= Y then A (K) /= A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,213,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,37,>= -> >,and then L >= 1,and then L > 1,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,335,<= -> <,and then Count <= Max_N,and then Count < Max_N,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,178,= -> /=,exit when Bound = 2;,exit when Bound /= 2;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,77,= -> /=,if X = Y then,if X /= Y then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,211,<= -> <,Count <= Cap,Count < Cap,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,56,<= -> <,and then Hi_P <= A'Last,and then Hi_P < A'Last,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,598,< -> <=,if Got < Max_N then,if Got <= Max_N then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,112,- -> +,for I in 1 .. Bound - 1 loop,for I in 1 .. Bound + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,249,= -> /=,and then W'Last = Max_Cap,and then W'Last /= Max_Cap,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,512,- 1 -> - 0,J := J - 1;,J := J - 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,581,<= -> <,if Next_Goal <= Max_N / 2 then,if Next_Goal < Max_N / 2 then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,112,- 1 -> - 0,for I in 1 .. Bound - 1 loop,for I in 1 .. Bound - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,310,and then -> or else,while P < Cap and then W (P).Occupied loop,while P < Cap or else W (P).Occupied loop,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,69,and then -> or else,and then A (X) = A'Old (Y),or else A (X) = A'Old (Y),stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,419,= -> /=,if Lo = 0 or else Lo > Max_Cap then,if Lo /= 0 or else Lo > Max_Cap then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,357,and then -> or else,and then W'Last = Max_Cap,or else W'Last = Max_Cap,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,31,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,298,+ 1 -> + 0,Pos := Pos + 1;,Pos := Pos + 0;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,282,- -> +,Offset : constant Natural := Natural (K - 1) * Natural (Step);,Offset : constant Natural := Natural (K + 1) * Natural (Step);,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,124,> -> >=,if A (I) > A (I + 1) then,if A (I) >= A (I + 1) then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,125,+ 1 -> + 0,"Swap (A, I, I + 1);","Swap (A, I, I + 0);",survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,212,and then -> or else,and then Count <= Max_N,or else Count <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,342,<= -> <,if Got <= Cap and then Got <= Max_N then,if Got <= Cap and then Got < Max_N then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,45,< -> <=,(Hi_P < Lo_P,(Hi_P <= Lo_P,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,104,and then -> or else,"and then Sorted_Slice (A, Bound, A'Last)","or else Sorted_Slice (A, Bound, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,56,and then -> or else,and then Hi_P <= A'Last,or else Hi_P <= A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,408,and then -> or else,if L >= Lo and then L >= 1 and then L <= Max_Cap,if L >= Lo or else L >= 1 and then L <= Max_Cap,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,629,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,310,< -> <=,while P < Cap and then W (P).Occupied loop,while P <= Cap and then W (P).Occupied loop,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,390,< -> <=,while R < Hi and then not W (R).Occupied loop,while R <= Hi and then not W (R).Occupied loop,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,357,= -> /=,and then W'Last = Max_Cap,and then W'Last /= Max_Cap,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,494,> -> >=,while K > P loop,while K >= P loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,38,and then -> or else,and then R <= A'Last;,or else R <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,17,+ -> -,subtype Index_Ext is Natural range 0 .. Max_N + 1;,subtype Index_Ext is Natural range 0 .. Max_N - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,271,< -> <=,while K < Count loop,while K <= Count loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,49,<= -> <,(for all L in Lo_S .. Hi_S => A (K) <= A (L)))),(for all L in Lo_S .. Hi_S => A (K) < A (L)))),killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,376,- -> +,Mid     : Cap_Cursor := Lo + (Hi - Lo) / 2;,Mid     : Cap_Cursor := Lo + (Hi + Lo) / 2;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,46,< -> <=,or else Hi_S < Lo_S,or else Hi_S <= Lo_S,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,251,and then -> or else,and then Count <= Max_N,or else Count <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,427,+ -> -,Lo := Mid + 1;,Lo := Mid - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,402,and then -> or else,while L > Lo and then not W (L).Occupied loop,while L > Lo or else not W (L).Occupied loop,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,46,or else -> and then,or else Hi_S < Lo_S,and then Hi_S < Lo_S,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,250,<= -> <,and then Count <= Cap,and then Count < Cap,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,70,and then -> or else,and then A (Y) = A'Old (X),or else A (Y) = A'Old (X),stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,263,= -> /=,if Count = 0 then,if Count /= 0 then,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,38,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,55,>= -> >,and then Lo_P >= 1,and then Lo_P > 1,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,69,= -> /=,and then A (X) = A'Old (Y),and then A (X) /= A'Old (Y),survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,227,< -> <=,if K < Max_N then,if K <= Max_N then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,105,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","or else Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,206,= -> /=,W'First = 1,W'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,100,+ -> -,"and then Sorted_Slice (A, Bound + 1, A'Last)","and then Sorted_Slice (A, Bound - 1, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,55,and then -> or else,and then Lo_P >= 1,or else Lo_P >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,209,= -> /=,"and then Dense'Last = Max_N,","and then Dense'Last /= Max_N,",killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,15,+ 1 -> + 0,subtype Cap_Cursor is Natural range 0 .. Max_Cap + 1;,subtype Cap_Cursor is Natural range 0 .. Max_Cap + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,509,and then -> or else,while J > 1 and then W (J).Occupied loop,while J > 1 or else W (J).Occupied loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,58,and then -> or else,and then Hi_S <= A'Last;,or else Hi_S <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,30,>= -> >,(L >= R,(L > R,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,444,= -> /=,if Lo = 0 then,if Lo /= 0 then,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,333,and then -> or else,and then W'Last = Max_Cap,or else W'Last = Max_Cap,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,31,- -> +,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R + 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,47,or else -> and then,or else,and then,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,408,and then -> or else,if L >= Lo and then L >= 1 and then L <= Max_Cap,if L >= Lo and then L >= 1 or else L <= Max_Cap,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,334,<= -> <,and then Count <= Cap,and then Count < Cap,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,57,and then -> or else,and then Lo_S >= 1,or else Lo_S >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,31,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,396,<= -> <,if R <= Hi and then R <= Max_Cap and then W (R).Occupied then,if R <= Hi and then R < Max_Cap and then W (R).Occupied then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,73,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K = X and then K /= Y then A (K) = A'Old (K))),survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,282,- 1 -> - 0,Offset : constant Natural := Natural (K - 1) * Natural (Step);,Offset : constant Natural := Natural (K - 0) * Natural (Step);,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,509,> -> >=,while J > 1 and then W (J).Occupied loop,while J >= 1 and then W (J).Occupied loop,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,428,> -> >=,elsif Mid_Val > X then,elsif Mid_Val >= X then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,98,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,608,+ 1 -> + 0,Inserted := Inserted + 1;,Inserted := Inserted + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,252,= -> /=,and then Dense'First = 1,and then Dense'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,287,+ -> -,Pos := Cap_Pos (1 + Offset);,Pos := Cap_Pos (1 - Offset);,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,31,+ 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,73,and then -> or else,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X or else K /= Y then A (K) = A'Old (K))),survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,73,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K = Y then A (K) = A'Old (K))),survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,621,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,100,+ 1 -> + 0,"and then Sorted_Slice (A, Bound + 1, A'Last)","and then Sorted_Slice (A, Bound + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,486,+ -> -,J := J + 1;,J := J - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,520,< -> <=,while K < P loop,while K <= P loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,288,> -> >=,if Pos > Cap then,if Pos >= Cap then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,101,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Bound, Bound - 1, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,31,+ -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,426,< -> <=,if Mid_Val < X then,if Mid_Val <= X then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,498,- -> +,W (K) := W (K - 1);,W (K) := W (K + 1);,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,294,< -> <=,while Pos < Cap and then W (Pos).Occupied loop,while Pos <= Cap and then W (Pos).Occupied loop,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,332,= -> /=,W'First = 1,W'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,432,- -> +,Hi := Mid - 1;,Hi := Mid + 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,57,>= -> >,and then Lo_S >= 1,and then Lo_S > 1,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,125,+ -> -,"Swap (A, I, I + 1);","Swap (A, I, I - 1);",survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,486,+ 1 -> + 0,J := J + 1;,J := J + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,71,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,524,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,432,- 1 -> - 0,Hi := Mid - 1;,Hi := Mid - 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,483,and then -> or else,while J < Cap and then W (J).Occupied loop,while J < Cap or else W (J).Occupied loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,599,+ -> -,Got := Got + 1;,Got := Got - 1;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,252,and then -> or else,and then Dense'First = 1,or else Dense'First = 1,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,609,+ 1 -> + 0,Src := Src + 1;,Src := Src + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,37,and then -> or else,and then L >= 1,or else L >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,298,+ -> -,Pos := Pos + 1;,Pos := Pos - 1;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,15,+ -> -,subtype Cap_Cursor is Natural range 0 .. Max_Cap + 1;,subtype Cap_Cursor is Natural range 0 .. Max_Cap - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,498,- 1 -> - 0,W (K) := W (K - 1);,W (K) := W (K - 0);,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,429,= -> /=,if Mid = 0 then,if Mid /= 0 then,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,207,= -> /=,and then W'Last = Max_Cap,and then W'Last /= Max_Cap,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,66,and then -> or else,"and then Y in 1 .. A'Last,","or else Y in 1 .. A'Last,",stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,228,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,99,and then -> or else,and then Bound in 2 .. A'Last,or else Bound in 2 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,512,- -> +,J := J - 1;,J := J + 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,208,and then -> or else,and then Dense'First = 1,or else Dense'First = 1,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,390,and then -> or else,while R < Hi and then not W (R).Occupied loop,while R < Hi or else not W (R).Occupied loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,620,< -> <=,if W (I).Occupied and then K < N then,if W (I).Occupied and then K <= N then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,228,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,394,+ -> -,R := R + 1;,R := R - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,251,<= -> <,and then Count <= Max_N,and then Count < Max_N,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,544,* -> +,Cap       : constant Cap_Pos := Cap_Pos (2 * N);,Cap       : constant Cap_Pos := Cap_Pos (2 + N);,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,376,+ -> -,Mid     : Cap_Cursor := Lo + (Hi - Lo) / 2;,Mid     : Cap_Cursor := Lo - (Hi - Lo) / 2;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,31,or else -> and then,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,406,- 1 -> - 0,L := L - 1;,L := L - 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,100,and then -> or else,"and then Sorted_Slice (A, Bound + 1, A'Last)","or else Sorted_Slice (A, Bound + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,282,* -> +,Offset : constant Natural := Natural (K - 1) * Natural (Step);,Offset : constant Natural := Natural (K - 1) + Natural (Step);,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,408,>= -> >,if L >= Lo and then L >= 1 and then L <= Max_Cap,if L >= Lo and then L > 1 and then L <= Max_Cap,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,124,+ -> -,if A (I) > A (I + 1) then,if A (I) > A (I - 1) then,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,313,+ -> -,P := P + 1;,P := P - 1;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,106,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,620,and then -> or else,if W (I).Occupied and then K < N then,if W (I).Occupied or else K < N then,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,408,<= -> <,if L >= Lo and then L >= 1 and then L <= Max_Cap,if L >= Lo and then L >= 1 and then L < Max_Cap,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,101,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","or else Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),",stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,396,and then -> or else,if R <= Hi and then R <= Max_Cap and then W (R).Occupied then,if R <= Hi and then R <= Max_Cap or else W (R).Occupied then,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,70,= -> /=,and then A (Y) = A'Old (X),and then A (Y) /= A'Old (X),survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,58,<= -> <,and then Hi_S <= A'Last;,and then Hi_S < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,577,>= -> >,exit when Inserted >= N;,exit when Inserted > N;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,523,+ -> -,W (K) := W (K + 1);,W (K) := W (K - 1);,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,579,= -> /=,if Inserted = Next_Goal then,if Inserted /= Next_Goal then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,464,= -> /=,W'First = 1,W'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,180,- 1 -> - 0,Bound := Bound - 1;,Bound := Bound - 0;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,608,+ -> -,Inserted := Inserted + 1;,Inserted := Inserted - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,124,+ 1 -> + 0,if A (I) > A (I + 1) then,if A (I) > A (I + 0) then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,180,- -> +,Bound := Bound - 1;,Bound := Bound + 1;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,427,+ 1 -> + 0,Lo := Mid + 1;,Lo := Mid + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,471,> -> >=,if P > Cap then,if P >= Cap then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,409,and then -> or else,and then W (L).Occupied,or else W (L).Occupied,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,207,and then -> or else,and then W'Last = Max_Cap,or else W'Last = Max_Cap,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,419,> -> >=,if Lo = 0 or else Lo > Max_Cap then,if Lo = 0 or else Lo >= Max_Cap then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,278,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,17,+ 1 -> + 0,subtype Index_Ext is Natural range 0 .. Max_N + 1;,subtype Index_Ext is Natural range 0 .. Max_N + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,499,- -> +,K := K - 1;,K := K + 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,209,and then -> or else,"and then Dense'Last = Max_N,","or else Dense'Last = Max_N,",stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,105,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","and then Prefix_Leq_Suffix (A, 1, Bound - 0, Bound, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,335,and then -> or else,and then Count <= Max_N,or else Count <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,98,>= -> >,and then A'Last >= 2,and then A'Last > 2,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,334,and then -> or else,and then Count <= Cap,or else Count <= Cap,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,599,+ 1 -> + 0,Got := Got + 1;,Got := Got + 0;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,253,and then -> or else,and then Dense'Last = Max_N,or else Dense'Last = Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,465,and then -> or else,"and then W'Last = Max_Cap,","or else W'Last = Max_Cap,",survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,358,and then -> or else,"and then Limit <= Max_Cap,","or else Limit <= Max_Cap,",stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,499,- 1 -> - 0,K := K - 1;,K := K - 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,284,>= -> >,if Offset >= Cap then,if Offset > Cap then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,342,and then -> or else,if Got <= Cap and then Got <= Max_N then,if Got <= Cap or else Got <= Max_N then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,313,+ 1 -> + 0,P := P + 1;,P := P + 0;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,253,= -> /=,and then Dense'Last = Max_N,and then Dense'Last /= Max_N,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,621,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,101,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 0, A'Last),",survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,73,= -> /=,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K /= Y then A (K) /= A'Old (K))),survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,294,and then -> or else,while Pos < Cap and then W (Pos).Occupied loop,while Pos < Cap or else W (Pos).Occupied loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,342,<= -> <,if Got <= Cap and then Got <= Max_N then,if Got < Cap and then Got <= Max_N then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,278,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,248,= -> /=,W'First = 1,W'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,356,= -> /=,W'First = 1,W'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,483,< -> <=,while J < Cap and then W (J).Occupied loop,while J <= Cap and then W (J).Occupied loop,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,250,and then -> or else,and then Count <= Cap,or else Count <= Cap,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,249,and then -> or else,and then W'Last = Max_Cap,or else W'Last = Max_Cap,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,602,<= -> <,if Got <= Cap then,if Got < Cap then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,65,and then -> or else,and then X in 1 .. A'Last,or else X in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,446,> -> >=,elsif Lo > Max_Cap then,elsif Lo >= Max_Cap then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,406,- -> +,L := L - 1;,L := L + 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,402,> -> >=,while L > Lo and then not W (L).Occupied loop,while L >= Lo and then not W (L).Occupied loop,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,333,= -> /=,and then W'Last = Max_Cap,and then W'Last /= Max_Cap,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,609,+ -> -,Src := Src + 1;,Src := Src - 1;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,358,<= -> <,"and then Limit <= Max_Cap,","and then Limit < Max_Cap,",killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,465,= -> /=,"and then W'Last = Max_Cap,","and then W'Last /= Max_Cap,",killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,364,< -> <=,if Limit < 1 then,if Limit <= 1 then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,524,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,394,+ 1 -> + 0,R := R + 1;,R := R + 0;,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,368,<= -> <,while Lo <= Hi loop,while Lo < Hi loop,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,419,or else -> and then,if Lo = 0 or else Lo > Max_Cap then,if Lo = 0 and then Lo > Max_Cap then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,208,= -> /=,and then Dense'First = 1,and then Dense'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,396,<= -> <,if R <= Hi and then R <= Max_Cap and then W (R).Occupied then,if R < Hi and then R <= Max_Cap and then W (R).Occupied then,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,105,- -> +,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","and then Prefix_Leq_Suffix (A, 1, Bound + 1, Bound, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,408,>= -> >,if L >= Lo and then L >= 1 and then L <= Max_Cap,if L > Lo and then L >= 1 and then L <= Max_Cap,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,523,+ 1 -> + 0,W (K) := W (K + 1);,W (K) := W (K + 0);,killed
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,582,* -> +,Next_Goal := Next_Goal * 2;,Next_Goal := Next_Goal + 2;,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,212,<= -> <,and then Count <= Max_N,and then Count < Max_N,survived
+sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,396,and then -> or else,if R <= Hi and then R <= Max_Cap and then W (R).Occupied then,if R <= Hi or else R <= Max_Cap and then W (R).Occupied then,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,212,or else -> and then,"and then (Hi < Lo or else Lo <= Hi),","and then (Hi < Lo and then Lo <= Hi),",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,36,< -> <=,(Hi_P < Lo_P,(Hi_P <= Lo_P,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,342,+ -> -,Curr := N + 1;,Curr := N - 1;,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,191,- -> +,"and then Pivots'Last = Num_Buckets - 1,","and then Pivots'Last = Num_Buckets + 1,",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,88,+ -> -,"and then Sorted_Slice (A, Bound + 1, A'Last)","and then Sorted_Slice (A, Bound - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,212,< -> <=,"and then (Hi < Lo or else Lo <= Hi),","and then (Hi <= Lo or else Lo <= Hi),",survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,49,<= -> <,and then Hi_S <= A'Last;,and then Hi_S < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,112,+ 1 -> + 0,if A (I) > A (I + 1) then,if A (I) > A (I + 0) then,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,<= -> <,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi >= Lo and then Hi <= Max_N and then Lo < Max_N then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,- 1 -> - 0,while P > 1 and then Key < Pivots (P - 1) loop,while P > 1 and then Key < Pivots (P - 0) loop,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,234,- 1 -> - 0,P        := P - 1;,P        := P - 0;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,276,- -> +,for I in 1 .. Num_Buckets - 1 loop,for I in 1 .. Num_Buckets + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,60,and then -> or else,and then A (X) = A'Old (Y),or else A (X) = A'Old (Y),stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,112,+ -> -,if A (I) > A (I + 1) then,if A (I) > A (I - 1) then,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,40,<= -> <,(for all L in Lo_S .. Hi_S => A (K) <= A (L)))),(for all L in Lo_S .. Hi_S => A (K) < A (L)))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,212,<= -> <,"and then (Hi < Lo or else Lo <= Hi),","and then (Hi < Lo or else Lo < Hi),",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,291,- 1 -> - 0,for X in 2 .. Num_Buckets - 1 loop,for X in 2 .. Num_Buckets - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,168,- 1 -> - 0,Bound := Bound - 1;,Bound := Bound - 0;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,100,- 1 -> - 0,for I in 1 .. Bound - 1 loop,for I in 1 .. Bound - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,93,- -> +,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","and then Prefix_Leq_Suffix (A, 1, Bound + 1, Bound, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,61,= -> /=,and then A (Y) = A'Old (X),and then A (Y) /= A'Old (X),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,62,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,86,>= -> >,and then A'Last >= 2,and then A'Last > 2,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,166,= -> /=,exit when Bound = 2;,exit when Bound /= 2;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,>= -> >,and then L >= 1,and then L > 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,56,and then -> or else,and then X in 1 .. A'Last,or else X in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,and then -> or else,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi >= Lo and then Hi <= Max_N or else Lo <= Max_N then,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,211,and then -> or else,and then Hi <= Max_N,or else Hi <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,317,+ -> -,Counts (B) := Counts (B) + 1;,Counts (B) := Counts (B) - 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,86,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,233,- 1 -> - 0,Work (P) := Work (P - 1);,Work (P) := Work (P - 0);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,369,< -> <=,if Indices (B) < Max_N + 1 then,if Indices (B) <= Max_N + 1 then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,191,and then -> or else,"and then Pivots'Last = Num_Buckets - 1,","or else Pivots'Last = Num_Buckets - 1,",survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,370,+ -> -,Indices (B) := Indices (B) + 1;,Indices (B) := Indices (B) - 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,387,- 1 -> - 0,if Counts (K) - 1 <= N - Starts (K) then,if Counts (K) - 0 <= N - Starts (K) then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,339,<= -> <,if Counts (K) <= N + 1 - Curr then,if Counts (K) < N + 1 - Curr then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,+ -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,92,and then -> or else,"and then Sorted_Slice (A, Bound, A'Last)","or else Sorted_Slice (A, Bound, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,29,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,191,= -> /=,"and then Pivots'Last = Num_Buckets - 1,","and then Pivots'Last /= Num_Buckets - 1,",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,and then -> or else,and then L >= 1,or else L >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,89,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Bound, Bound - 1, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,407,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,196,<= -> <,if Item <= Pivots (K) then,if Item < Pivots (K) then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,222,+ 1 -> + 0,for X in Lo + 1 .. Hi loop,for X in Lo + 0 .. Hi loop,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,283,> -> >=,if Sample > N then,if Sample >= N then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,88,and then -> or else,"and then Sorted_Slice (A, Bound + 1, A'Last)","or else Sorted_Slice (A, Bound + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,46,>= -> >,and then Lo_P >= 1,and then Lo_P > 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,89,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 0, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,29,and then -> or else,and then R <= A'Last;,or else R <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,385,> -> >=,if Counts (K) > 0 and then Starts (K) <= N then,if Counts (K) >= 0 and then Starts (K) <= N then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,301,- 1 -> - 0,P          := P - 1;,P          := P - 0;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,57,and then -> or else,"and then Y in 1 .. A'Last,","or else Y in 1 .. A'Last,",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,64,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K = X and then K /= Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,48,and then -> or else,and then Lo_S >= 1,or else Lo_S >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,233,- -> +,Work (P) := Work (P - 1);,Work (P) := Work (P + 1);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,64,and then -> or else,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X or else K /= Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,21,>= -> >,(L >= R,(L > R,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,339,- -> +,if Counts (K) <= N + 1 - Curr then,if Counts (K) <= N + 1 + Curr then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,37,or else -> and then,or else Hi_S < Lo_S,and then Hi_S < Lo_S,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,- -> +,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R + 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,387,- -> +,if Counts (K) - 1 <= N - Starts (K) then,if Counts (K) - 1 <= N + Starts (K) then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,388,- -> +,Hi := Starts (K) + Counts (K) - 1;,Hi := Starts (K) + Counts (K) + 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,369,+ 1 -> + 0,if Indices (B) < Max_N + 1 then,if Indices (B) < Max_N + 0 then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,370,+ 1 -> + 0,Indices (B) := Indices (B) + 1;,Indices (B) := Indices (B) + 0;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,195,- 1 -> - 0,for K in 1 .. Num_Buckets - 1 loop,for K in 1 .. Num_Buckets - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,264,< -> <=,if N < Num_Buckets then,if N <= Num_Buckets then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,113,+ -> -,"Swap (A, I, I + 1);","Swap (A, I, I - 1);",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,37,< -> <=,or else Hi_S < Lo_S,or else Hi_S <= Lo_S,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,+ 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,339,+ 1 -> + 0,if Counts (K) <= N + 1 - Curr then,if Counts (K) <= N + 0 - Curr then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,387,- -> +,if Counts (K) - 1 <= N - Starts (K) then,if Counts (K) + 1 <= N - Starts (K) then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,210,>= -> >,Lo >= 1,Lo > 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,93,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","or else Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,339,+ -> -,if Counts (K) <= N + 1 - Curr then,if Counts (K) <= N - 1 - Curr then,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,234,- -> +,P        := P - 1;,P        := P + 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,48,>= -> >,and then Lo_S >= 1,and then Lo_S > 1,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,>= -> >,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi > Lo and then Hi <= Max_N and then Lo <= Max_N then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,282,* -> +,Sample := I * Stride;,Sample := I + Stride;,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,93,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","and then Prefix_Leq_Suffix (A, 1, Bound - 0, Bound, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,or else -> and then,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,47,and then -> or else,and then Hi_P <= A'Last,or else Hi_P <= A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,47,<= -> <,and then Hi_P <= A'Last,and then Hi_P < A'Last,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,388,- 1 -> - 0,Hi := Starts (K) + Counts (K) - 1;,Hi := Starts (K) + Counts (K) - 0;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,> -> >=,while P > 1 and then Key < Pivots (P - 1) loop,while P >= 1 and then Key < Pivots (P - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,340,+ -> -,Curr := Curr + Counts (K);,Curr := Curr - Counts (K);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,49,and then -> or else,and then Hi_S <= A'Last;,or else Hi_S <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,385,<= -> <,if Counts (K) > 0 and then Starts (K) <= N then,if Counts (K) > 0 and then Starts (K) < N then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,- 1 -> - 0,while P > Lo and then Key < Work (P - 1) loop,while P > Lo and then Key < Work (P - 0) loop,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,250,- -> +,Pivots  : Element_Array (1 .. Num_Buckets - 1);,Pivots  : Element_Array (1 .. Num_Buckets + 1);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,191,- 1 -> - 0,"and then Pivots'Last = Num_Buckets - 1,","and then Pivots'Last = Num_Buckets - 0,",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,61,and then -> or else,and then A (Y) = A'Old (X),or else A (Y) = A'Old (X),stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,300,- 1 -> - 0,Pivots (P) := Pivots (P - 1);,Pivots (P) := Pivots (P - 0);,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,46,and then -> or else,and then Lo_P >= 1,or else Lo_P >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,250,- 1 -> - 0,Pivots  : Element_Array (1 .. Num_Buckets - 1);,Pivots  : Element_Array (1 .. Num_Buckets - 0);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,< -> <=,while P > 1 and then Key < Pivots (P - 1) loop,while P > 1 and then Key <= Pivots (P - 1) loop,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,291,- -> +,for X in 2 .. Num_Buckets - 1 loop,for X in 2 .. Num_Buckets + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,68,= -> /=,if X = Y then,if X /= Y then,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,301,- -> +,P          := P - 1;,P          := P + 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,388,+ -> -,Hi := Starts (K) + Counts (K) - 1;,Hi := Starts (K) - Counts (K) - 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,218,<= -> <,if Hi <= Lo then,if Hi < Lo then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,88,+ 1 -> + 0,"and then Sorted_Slice (A, Bound + 1, A'Last)","and then Sorted_Slice (A, Bound + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,87,and then -> or else,and then Bound in 2 .. A'Last,or else Bound in 2 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,369,+ -> -,if Indices (B) < Max_N + 1 then,if Indices (B) < Max_N - 1 then,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,387,<= -> <,if Counts (K) - 1 <= N - Starts (K) then,if Counts (K) - 1 < N - Starts (K) then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,112,> -> >=,if A (I) > A (I + 1) then,if A (I) >= A (I + 1) then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,89,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","or else Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,<= -> <,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi >= Lo and then Hi < Max_N and then Lo <= Max_N then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,211,<= -> <,and then Hi <= Max_N,and then Hi < Max_N,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,64,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K = Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,190,= -> /=,Pivots'First = 1,Pivots'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,94,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,60,= -> /=,and then A (X) = A'Old (Y),and then A (X) /= A'Old (Y),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,and then -> or else,while P > Lo and then Key < Work (P - 1) loop,while P > Lo or else Key < Work (P - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,- -> +,while P > Lo and then Key < Work (P - 1) loop,while P > Lo and then Key < Work (P + 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,113,+ 1 -> + 0,"Swap (A, I, I + 1);","Swap (A, I, I + 0);",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,342,+ 1 -> + 0,Curr := N + 1;,Curr := N + 0;,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,- -> +,while P > 1 and then Key < Pivots (P - 1) loop,while P > 1 and then Key < Pivots (P + 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,< -> <=,while P > Lo and then Key < Work (P - 1) loop,while P > Lo and then Key <= Work (P - 1) loop,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,300,- -> +,Pivots (P) := Pivots (P - 1);,Pivots (P) := Pivots (P + 1);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,64,= -> /=,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K /= Y then A (K) /= A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,38,or else -> and then,or else,and then,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,195,- -> +,for K in 1 .. Num_Buckets - 1 loop,for K in 1 .. Num_Buckets + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,317,+ 1 -> + 0,Counts (B) := Counts (B) + 1;,Counts (B) := Counts (B) + 0;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,222,+ -> -,for X in Lo + 1 .. Hi loop,for X in Lo - 1 .. Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,> -> >=,while P > Lo and then Key < Work (P - 1) loop,while P >= Lo and then Key < Work (P - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,100,- -> +,for I in 1 .. Bound - 1 loop,for I in 1 .. Bound + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,and then -> or else,while P > 1 and then Key < Pivots (P - 1) loop,while P > 1 or else Key < Pivots (P - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,and then -> or else,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi >= Lo or else Hi <= Max_N and then Lo <= Max_N then,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,212,and then -> or else,"and then (Hi < Lo or else Lo <= Hi),","or else (Hi < Lo or else Lo <= Hi),",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,168,- -> +,Bound := Bound - 1;,Bound := Bound + 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,276,- 1 -> - 0,for I in 1 .. Num_Buckets - 1 loop,for I in 1 .. Num_Buckets - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,385,and then -> or else,if Counts (K) > 0 and then Starts (K) <= N then,if Counts (K) > 0 or else Starts (K) <= N then,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,194,- -> +,"and then Sorted_Slice (A, 1, I - 1)","and then Sorted_Slice (A, 1, I + 1)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,38,< -> <=,(Hi_P < Lo_P,(Hi_P <= Lo_P,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,265,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)","and then Prefix_Leq_Suffix (A, 1, Hi - 0, Hi, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,169,+ -> -,while J >= Gap + 1 and then A (J - Gap) > Key loop,while J >= Gap - 1 and then A (J - Gap) > Key loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,88,- 1 -> - 0,"and then Sorted_Slice (A, 1, I - 1),","and then Sorted_Slice (A, 1, I - 0),",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,193,- -> +,and then I in 1 .. A'Last - 1,and then I in 1 .. A'Last + 1,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,51,<= -> <,and then Hi_S <= A'Last;,and then Hi_S < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,155,>= -> >,and then A'Length >= 2,and then A'Length > 2,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,195,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, I - 1, I, A'Last),","and then Prefix_Leq_Suffix (A, 1, I - 0, I, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,155,and then -> or else,and then A'Length >= 2,or else A'Length >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,262,and then -> or else,"and then Sorted_Slice (A, 1, Lo - 1)","or else Sorted_Slice (A, 1, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,66,= -> /=,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K /= Y then A (K) /= A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,321,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last)","or else Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,284,+ -> -,"Swap (A, I, I + 1);","Swap (A, I, I - 1);",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,30,>= -> >,and then L >= 1,and then L > 1,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,259,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 0, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,256,- 1 -> - 0,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,156,and then -> or else,"and then Gap in 2 .. A'Last - 1,","or else Gap in 2 .. A'Last - 1,",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,162,+ 1 -> + 0,for I in Gap + 1 .. A'Last loop,for I in Gap + 0 .. A'Last loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,193,- 1 -> - 0,and then I in 1 .. A'Last - 1,and then I in 1 .. A'Last - 0,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,270,- 1 -> - 0,for I in Lo .. Hi - 1 loop,for I in Lo .. Hi - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,42,<= -> <,(for all L in Lo_S .. Hi_S => A (K) <= A (L)))),(for all L in Lo_S .. Hi_S => A (K) < A (L)))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,97,- 1 -> - 0,while J > 1 and then Key < A (J - 1) loop,while J > 1 and then Key < A (J - 0) loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,51,and then -> or else,and then Hi_S <= A'Last;,or else Hi_S <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,320,+ -> -,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,465,+ 1 -> + 0,Lo := Lo + 1;,Lo := Lo + 0;,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,262,- -> +,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,312,and then -> or else,"and then Sorted_Slice (A, 1, Lo - 1)","or else Sorted_Slice (A, 1, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,283,+ 1 -> + 0,if A (I) > A (I + 1) then,if A (I) > A (I + 0) then,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,320,and then -> or else,"and then Sorted_Slice (A, Hi + 1, A'Last)","or else Sorted_Slice (A, Hi + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,40,or else -> and then,or else,and then,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,24,- -> +,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R + 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,255,+ 1 -> + 0,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo + 0 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,49,and then -> or else,and then Hi_P <= A'Last,or else Hi_P <= A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,312,- -> +,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,48,>= -> >,and then Lo_P >= 1,and then Lo_P > 1,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,203,+ -> -,for J in I + 1 .. A'Last loop,for J in I - 1 .. A'Last loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,48,and then -> or else,and then Lo_P >= 1,or else Lo_P >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,199,+ -> -,"and then Prefix_Leq_Suffix (A, 1, I, I + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, I, I - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,66,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K = Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,255,and then -> or else,and then Hi in Lo + 1 .. A'Last,or else Hi in Lo + 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,39,or else -> and then,or else Hi_S < Lo_S,and then Hi_S < Lo_S,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,50,>= -> >,and then Lo_S >= 1,and then Lo_S > 1,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,64,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,203,+ 1 -> + 0,for J in I + 1 .. A'Last loop,for J in I + 0 .. A'Last loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,349,- 1 -> - 0,I := I - 1;,I := I - 0;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,88,- -> +,"and then Sorted_Slice (A, 1, I - 1),","and then Sorted_Slice (A, 1, I + 1),",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,59,and then -> or else,"and then Y in 1 .. A'Last,","or else Y in 1 .. A'Last,",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,342,> -> >=,if A (I - 1) > A (I) then,if A (I - 1) >= A (I) then,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,66,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K = X and then K /= Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,259,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","or else Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,313,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo - 0, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,50,and then -> or else,and then Lo_S >= 1,or else Lo_S >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,31,and then -> or else,and then R <= A'Last;,or else R <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,66,and then -> or else,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X or else K /= Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,321,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, Hi, Hi - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,23,>= -> >,(L >= R,(L > R,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,58,and then -> or else,and then X in 1 .. A'Last,or else X in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,258,+ 1 -> + 0,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,313,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","or else Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,319,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)","or else Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,175,- -> +,A (J) := A (J - Gap);,A (J) := A (J + Gap);,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,413,- 1 -> - 0,for I in 1 .. A'Last - 1 loop,for I in 1 .. A'Last - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,315,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 0, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,24,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,31,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,169,+ 1 -> + 0,while J >= Gap + 1 and then A (J - Gap) > Key loop,while J >= Gap + 0 and then A (J - Gap) > Key loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,258,and then -> or else,"and then Sorted_Slice (A, Hi + 1, A'Last)","or else Sorted_Slice (A, Hi + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,384,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,283,> -> >=,if A (I) > A (I + 1) then,if A (I) >= A (I + 1) then,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,406,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,39,< -> <=,or else Hi_S < Lo_S,or else Hi_S <= Lo_S,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,24,+ 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,259,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Hi, Hi - 1, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,49,<= -> <,and then Hi_P <= A'Last,and then Hi_P < A'Last,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,257,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","or else Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,322,and then -> or else,"and then (if not Swapped then Sorted_Slice (A, Lo, Hi))","or else (if not Swapped then Sorted_Slice (A, Lo, Hi))",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,263,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","or else Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,92,+ -> -,and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in I - 1 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,258,+ -> -,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,320,+ 1 -> + 0,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,262,- 1 -> - 0,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,88,and then -> or else,"and then Sorted_Slice (A, 1, I - 1),","or else Sorted_Slice (A, 1, I - 1),",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,311,+ 1 -> + 0,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo + 0 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,97,- -> +,while J > 1 and then Key < A (J - 1) loop,while J > 1 and then Key < A (J + 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,319,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,342,- 1 -> - 0,if A (I - 1) > A (I) then,if A (I - 0) > A (I) then,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,97,< -> <=,while J > 1 and then Key < A (J - 1) loop,while J > 1 and then Key <= A (J - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,311,+ -> -,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo - 1 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,312,- 1 -> - 0,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,266,and then -> or else,"and then (if not Swapped then Sorted_Slice (A, Lo, Hi))","or else (if not Swapped then Sorted_Slice (A, Lo, Hi))",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,162,+ -> -,for I in Gap + 1 .. A'Last loop,for I in Gap - 1 .. A'Last loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,255,+ -> -,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo - 1 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,283,+ -> -,if A (I) > A (I + 1) then,if A (I) > A (I - 1) then,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,314,+ 1 -> + 0,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,265,- -> +,"and then Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)","and then Prefix_Leq_Suffix (A, 1, Hi + 1, Hi, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,395,> -> >=,if G > 1 and then G < A'Length then,if G >= 1 and then G < A'Length then,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,439,< -> <=,while Lo < Hi loop,while Lo <= Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,457,= -> /=,exit when Lo = Hi;,exit when Lo /= Hi;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,195,- -> +,"and then Prefix_Leq_Suffix (A, 1, I - 1, I, A'Last),","and then Prefix_Leq_Suffix (A, 1, I + 1, I, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,270,- -> +,for I in Lo .. Hi - 1 loop,for I in Lo .. Hi + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,413,- -> +,for I in 1 .. A'Last - 1 loop,for I in 1 .. A'Last + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,314,+ -> -,"and then Sorted_Slice (A, Hi + 1, A'Last)","and then Sorted_Slice (A, Hi - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,169,and then -> or else,while J >= Gap + 1 and then A (J - Gap) > Key loop,while J >= Gap + 1 or else A (J - Gap) > Key loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,63,and then -> or else,and then A (Y) = A'Old (X),or else A (Y) = A'Old (X),stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,92,= -> /=,and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in I + 1 .. A'Last => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,342,- -> +,if A (I - 1) > A (I) then,if A (I + 1) > A (I) then,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,87,and then -> or else,and then I in 2 .. A'Last,or else I in 2 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,318,and then -> or else,"and then Sorted_Slice (A, 1, Lo)","or else Sorted_Slice (A, 1, Lo)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,195,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, I - 1, I, A'Last),","or else Prefix_Leq_Suffix (A, 1, I - 1, I, A'Last),",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,194,and then -> or else,"and then Sorted_Slice (A, 1, I - 1)","or else Sorted_Slice (A, 1, I - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,199,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, I, I + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, I, I + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,257,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo - 0, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,263,- -> +,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo + 1, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,310,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,24,or else -> and then,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,343,- -> +,"Swap (A, I - 1, I);","Swap (A, I + 1, I);",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,432,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,24,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,192,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,63,= -> /=,and then A (Y) = A'Old (X),and then A (Y) /= A'Old (X),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,256,- -> +,"and then Sorted_Slice (A, 1, Lo - 1)","and then Sorted_Slice (A, 1, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,62,= -> /=,and then A (X) = A'Old (Y),and then A (X) /= A'Old (Y),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,314,and then -> or else,"and then Sorted_Slice (A, Hi + 1, A'Last)","or else Sorted_Slice (A, Hi + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,265,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)","or else Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,257,- -> +,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo + 1, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,92,+ 1 -> + 0,and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in I + 0 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,349,- -> +,I := I - 1;,I := I + 1;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,315,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","or else Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,192,>= -> >,and then A'Last >= 2,and then A'Last > 2,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,92,and then -> or else,and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),or else (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,97,and then -> or else,while J > 1 and then Key < A (J - 1) loop,while J > 1 or else Key < A (J - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,456,- -> +,Hi := Hi - 1;,Hi := Hi + 1;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,91,and then -> or else,"and then Sorted_Slice (A, 1, I)","or else Sorted_Slice (A, 1, I)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,256,and then -> or else,"and then Sorted_Slice (A, 1, Lo - 1)","or else Sorted_Slice (A, 1, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,169,- -> +,while J >= Gap + 1 and then A (J - Gap) > Key loop,while J >= Gap + 1 and then A (J + Gap) > Key loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,156,- -> +,"and then Gap in 2 .. A'Last - 1,","and then Gap in 2 .. A'Last + 1,",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,343,- 1 -> - 0,"Swap (A, I - 1, I);","Swap (A, I - 0, I);",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,30,and then -> or else,and then L >= 1,or else L >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,193,and then -> or else,and then I in 1 .. A'Last - 1,or else I in 1 .. A'Last - 1,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,456,- 1 -> - 0,Hi := Hi - 1;,Hi := Hi - 0;,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,313,- -> +,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo + 1, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,213,< -> <=,if A (J) < A (Min_Index) then,if A (J) <= A (Min_Index) then,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,327,> -> >=,while I > Lo loop,while I >= Lo loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,395,and then -> or else,if G > 1 and then G < A'Length then,if G > 1 or else G < A'Length then,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,319,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo, Lo - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,465,+ -> -,Lo := Lo + 1;,Lo := Lo - 1;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,364,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,254,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,321,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last)","and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 0, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,62,and then -> or else,and then A (X) = A'Old (Y),or else A (X) = A'Old (Y),stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,24,+ -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,315,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Hi, Hi - 1, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,112,- 1 -> - 0,J     := J - 1;,J     := J - 0;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,199,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, I, I + 1, A'Last)","or else Prefix_Leq_Suffix (A, 1, I, I + 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,70,= -> /=,if X = Y then,if X /= Y then,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,169,>= -> >,while J >= Gap + 1 and then A (J - Gap) > Key loop,while J > Gap + 1 and then A (J - Gap) > Key loop,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,156,- 1 -> - 0,"and then Gap in 2 .. A'Last - 1,","and then Gap in 2 .. A'Last - 0,",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,111,- -> +,A (J) := A (J - 1);,A (J) := A (J + 1);,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,111,- 1 -> - 0,A (J) := A (J - 1);,A (J) := A (J - 0);,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,176,- -> +,J     := J - Gap;,J     := J + Gap;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,194,- 1 -> - 0,"and then Sorted_Slice (A, 1, I - 1)","and then Sorted_Slice (A, 1, I - 0)",survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,263,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)","and then Prefix_Leq_Suffix (A, 1, Lo - 0, Lo, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,97,> -> >=,while J > 1 and then Key < A (J - 1) loop,while J >= 1 and then Key < A (J - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,284,+ 1 -> + 0,"Swap (A, I, I + 1);","Swap (A, I, I + 0);",killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,112,- -> +,J     := J - 1;,J     := J + 1;,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,198,and then -> or else,"and then Sorted_Slice (A, 1, I)","or else Sorted_Slice (A, 1, I)",stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,311,and then -> or else,and then Hi in Lo + 1 .. A'Last,or else Hi in Lo + 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,395,< -> <=,if G > 1 and then G < A'Length then,if G > 1 and then G <= A'Length then,killed
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,169,> -> >=,while J >= Gap + 1 and then A (J - Gap) > Key loop,while J >= Gap + 1 and then A (J - Gap) >= Key loop,survived
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,264,and then -> or else,"and then Sorted_Slice (A, Hi, A'Last)","or else Sorted_Slice (A, Hi, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,105,- 1 -> - 0,"Sorted_Slice (A, Lo, Natural'Min (Lo + Width - 1, A'Last))","Sorted_Slice (A, Lo, Natural'Min (Lo + Width - 0, A'Last))",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,25,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,176,+ -> -,J := J + 1;,J := J - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,86,- -> +,"and then Sorted_Runs_Prefix (A, Width, Lo - 1),","and then Sorted_Runs_Prefix (A, Width, Lo + 1),",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,69,<= -> <,and then Width <= Max_N,and then Width < Max_N,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,103,and then -> or else,"and then Sorted_Runs_Suffix (A, Width, Lo),","or else Sorted_Runs_Suffix (A, Width, Lo),",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,46,and then -> or else,and then (K - 1) / Width = K / Width,or else (K - 1) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,326,and then -> or else,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","or else Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,83,- 1 -> - 0,and then (Lo - 1) rem Width = 0,and then (Lo - 0) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,125,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,349,> -> >=,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo >= N - Twice then N else Lo + Twice - 1);,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,324,- 1 -> - 0,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 1 or else (Lo - 0) rem Width = 0),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,325,- 1 -> - 0,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 or else (Lo - 0) rem (2 * Width) = 0),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,84,+ -> -,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","and then Hi = Natural'Min (Lo - Width - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,142,+ -> -,J : Cursor := Mid + 1;,J : Cursor := Mid - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,61,>= -> >,(if K >= Lo,(if K > Lo,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,272,and then -> or else,"and then Sorted_Runs_Suffix (A, Width, Lo),","or else Sorted_Runs_Suffix (A, Width, Lo),",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,336,- -> +,if Lo > N - Width then,if Lo > N + Width then,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,204,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,18,+ 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,139,= -> /=,(for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),(for all K in Hi + 1 .. A'Last => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,132,and then -> or else,"and then Sorted_Slice (A, Mid + 1, Hi),","or else Sorted_Slice (A, Mid + 1, Hi),",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,84,= -> /=,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","and then Hi /= Natural'Min (Lo + Width - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,85,and then -> or else,"and then Sorted_Slice (A, Lo, Hi)","or else Sorted_Slice (A, Lo, Hi)",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,105,- -> +,"Sorted_Slice (A, Lo, Natural'Min (Lo + Width - 1, A'Last))","Sorted_Slice (A, Lo, Natural'Min (Lo + Width + 1, A'Last))",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,178,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,33,<= -> <,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 1) / Width = K / Width then A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,81,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,46,- 1 -> - 0,and then (K - 1) / Width = K / Width,and then (K - 0) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,271,- -> +,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 * Width, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,454,* -> +,Width := 2 * Width;,Width := 2 + Width;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,324,= -> /=,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 1 or else (Lo - 1) rem Width /= 0),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,139,+ 1 -> + 0,(for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),(for all K in Hi + 0 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,266,<= -> <,and then Width <= Max_N / 2,and then Width < Max_N / 2,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,203,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,337,<= -> <,if Lo <= N then,if Lo < N then,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,33,- -> +,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K + 1) / Width = K / Width then A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,17,>= -> >,(L >= R,(L > R,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,130,- 1 -> - 0,and then Mid in Lo .. Hi - 1,and then Mid in Lo .. Hi - 0,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,45,< -> <=,(if K < Bound,(if K <= Bound,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,230,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,33,= -> /=,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 1) / Width /= K / Width then A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,128,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,315,- -> +,"Subprogram_Variant => (Decreases => A'Last + 1 - Lo),","Subprogram_Variant => (Decreases => A'Last + 1 + Lo),",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,269,- 1 -> - 0,and then (Lo - 1) rem Width = 0,and then (Lo - 0) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,320,and then -> or else,and then Temp'Last = Max_N,or else Temp'Last = Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,33,+ 1 -> + 0,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 1) / Width = K / Width then A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,126,and then -> or else,and then Temp'First = 1,or else Temp'First = 1,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,62,= -> /=,and then (K - 1) / Width = K / Width,and then (K - 1) / Width /= K / Width,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,130,and then -> or else,and then Mid in Lo .. Hi - 1,or else Mid in Lo .. Hi - 1,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,33,+ -> -,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 1) / Width = K / Width then A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,46,- -> +,and then (K - 1) / Width = K / Width,and then (K + 1) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,54,and then -> or else,and then Bound <= A'Last;,or else Bound <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,324,or else -> and then,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 1 and then (Lo - 1) rem Width = 0),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,107,+ -> -,"Hi : constant Natural := Natural'Min (Lo + Width - 1, A'Last);","Hi : constant Natural := Natural'Min (Lo - Width - 1, A'Last);",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,83,- -> +,and then (Lo - 1) rem Width = 0,and then (Lo + 1) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,100,<= -> <,and then Width <= Max_N,and then Width < Max_N,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,71,+ -> -,and then Lo <= A'Last + 1;,and then Lo <= A'Last - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,46,= -> /=,and then (K - 1) / Width = K / Width,and then (K - 1) / Width /= K / Width,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,102,and then -> or else,and then (Lo - 1) rem Width = 0,or else (Lo - 1) rem Width = 0,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,11,+ 1 -> + 0,subtype Cursor is Natural range 0 .. Max_N + 1;,subtype Cursor is Natural range 0 .. Max_N + 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,395,and then -> or else,"and then Sorted_Runs (A, Width),","or else Sorted_Runs (A, Width),",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,53,<= -> <,and then Width <= Max_N,and then Width < Max_N,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,18,- -> +,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R + 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,400,* -> +,"then Sorted_Runs (A, 2 * Width)","then Sorted_Runs (A, 2 + Width)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,169,<= -> <,if A (I) <= A (J) then,if A (I) < A (J) then,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,18,or else -> and then,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,33,- 1 -> - 0,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 0) / Width = K / Width then A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,269,= -> /=,and then (Lo - 1) rem Width = 0,and then (Lo - 1) rem Width /= 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,324,and then -> or else,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),or else (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,172,+ -> -,I := I + 1;,I := I - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,47,<= -> <,then A (K) <= A (K + 1))),then A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,24,and then -> or else,and then L >= 1,or else L >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,321,<= -> <,and then Width <= A'Last - 1,and then Width < A'Last - 1,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,63,+ -> -,then A (K) <= A (K + 1))),then A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,71,+ 1 -> + 0,and then Lo <= A'Last + 1;,and then Lo <= A'Last + 0;,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,127,= -> /=,and then Temp'Last = Max_N,and then Temp'Last /= Max_N,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,172,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,322,<= -> <,and then Width <= Max_N / 2,and then Width < Max_N / 2,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,107,- -> +,"Hi : constant Natural := Natural'Min (Lo + Width - 1, A'Last);","Hi : constant Natural := Natural'Min (Lo + Width + 1, A'Last);",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,349,+ -> -,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo > N - Twice then N else Lo - Twice - 1);,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,131,and then -> or else,"and then Sorted_Slice (A, Lo, Mid)","or else Sorted_Slice (A, Lo, Mid)",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,54,<= -> <,and then Bound <= A'Last;,and then Bound < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,132,+ -> -,"and then Sorted_Slice (A, Mid + 1, Hi),","and then Sorted_Slice (A, Mid - 1, Hi),",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,326,- -> +,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 * Width, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,432,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,80,and then -> or else,and then Width <= Max_N,or else Width <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,392,= -> /=,and then Temp'First = 1,and then Temp'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,326,* -> +,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 + Width, Lo - 1)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,102,= -> /=,and then (Lo - 1) rem Width = 0,and then (Lo - 1) rem Width /= 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,62,and then -> or else,and then (K - 1) / Width = K / Width,or else (K - 1) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,323,+ 1 -> + 0,and then Lo in 1 .. A'Last + 1,and then Lo in 1 .. A'Last + 0,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,86,and then -> or else,"and then Sorted_Runs_Prefix (A, Width, Lo - 1),","or else Sorted_Runs_Prefix (A, Width, Lo - 1),",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,321,- -> +,and then Width <= A'Last - 1,and then Width <= A'Last + 1,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,270,and then -> or else,and then (Lo - 1) rem (2 * Width) = 0,or else (Lo - 1) rem (2 * Width) = 0,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,324,= -> /=,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo /= A'Last + 1 or else (Lo - 1) rem Width = 0),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,270,- 1 -> - 0,and then (Lo - 1) rem (2 * Width) = 0,and then (Lo - 0) rem (2 * Width) = 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,102,- -> +,and then (Lo - 1) rem Width = 0,and then (Lo + 1) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,84,- 1 -> - 0,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","and then Hi = Natural'Min (Lo + Width - 0, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,129,+ -> -,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo - 1 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,325,= -> /=,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo /= A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,321,- 1 -> - 0,and then Width <= A'Last - 1,and then Width <= A'Last - 0,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,319,and then -> or else,and then Temp'First = 1,or else Temp'First = 1,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,413,+ 1 -> + 0,"Lemma_Runs_To_Slice (A, Width, Width + 1);","Lemma_Runs_To_Slice (A, Width, Width + 0);",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,270,* -> +,and then (Lo - 1) rem (2 * Width) = 0,and then (Lo - 1) rem (2 + Width) = 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,18,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,271,- 1 -> - 0,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,328,<= -> <,"(if Lo <= A'Last then Sorted_Runs_Suffix (A, Width, Lo)),","(if Lo < A'Last then Sorted_Runs_Suffix (A, Width, Lo)),",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,391,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,100,and then -> or else,and then Width <= Max_N,or else Width <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,18,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,270,- -> +,and then (Lo - 1) rem (2 * Width) = 0,and then (Lo + 1) rem (2 * Width) = 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,71,<= -> <,and then Lo <= A'Last + 1;,and then Lo < A'Last + 1;,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,25,and then -> or else,and then R <= A'Last;,or else R <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,269,- -> +,and then (Lo - 1) rem Width = 0,and then (Lo + 1) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,84,- -> +,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","and then Hi = Natural'Min (Lo + Width + 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,203,+ -> -,I := I + 1;,I := I - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,83,and then -> or else,and then (Lo - 1) rem Width = 0,or else (Lo - 1) rem Width = 0,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,271,and then -> or else,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","or else Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,324,+ -> -,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last - 1 or else (Lo - 1) rem Width = 0),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,137,- -> +,(for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),(for all K in 1 .. Lo + 1 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,80,<= -> <,and then Width <= Max_N,and then Width < Max_N,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,325,or else -> and then,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 and then (Lo - 1) rem (2 * Width) = 0),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,315,+ 1 -> + 0,"Subprogram_Variant => (Decreases => A'Last + 1 - Lo),","Subprogram_Variant => (Decreases => A'Last + 0 - Lo),",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,62,- -> +,and then (K - 1) / Width = K / Width,and then (K + 1) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,47,+ 1 -> + 0,then A (K) <= A (K + 1))),then A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,394,- -> +,and then Width <= A'Last - 1,and then Width <= A'Last + 1,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,83,= -> /=,and then (Lo - 1) rem Width = 0,and then (Lo - 1) rem Width /= 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,138,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,331,and then -> or else,"and then Sorted_Runs (A, 2 * Width)","or else Sorted_Runs (A, 2 * Width)",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,391,>= -> >,and then A'Last >= 2,and then A'Last > 2,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,230,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,129,+ 1 -> + 0,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo + 0 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,132,+ 1 -> + 0,"and then Sorted_Slice (A, Mid + 1, Hi),","and then Sorted_Slice (A, Mid + 0, Hi),",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,336,> -> >=,if Lo > N - Width then,if Lo >= N - Width then,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,322,and then -> or else,and then Width <= Max_N / 2,or else Width <= Max_N / 2,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,142,+ 1 -> + 0,J : Cursor := Mid + 1;,J : Cursor := Mid + 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,394,and then -> or else,and then Width <= A'Last - 1,or else Width <= A'Last - 1,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,129,and then -> or else,and then Hi in Lo + 1 .. A'Last,or else Hi in Lo + 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,269,and then -> or else,and then (Lo - 1) rem Width = 0,or else (Lo - 1) rem Width = 0,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,126,= -> /=,and then Temp'First = 1,and then Temp'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,331,* -> +,"and then Sorted_Runs (A, 2 * Width)","and then Sorted_Runs (A, 2 + Width)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,325,+ 1 -> + 0,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 0 or else (Lo - 1) rem (2 * Width) = 0),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,84,and then -> or else,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","or else Hi = Natural'Min (Lo + Width - 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,319,= -> /=,and then Temp'First = 1,and then Temp'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,266,and then -> or else,and then Width <= Max_N / 2,or else Width <= Max_N / 2,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,63,+ 1 -> + 0,then A (K) <= A (K + 1))),then A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,327,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,229,+ -> -,J := J + 1;,J := J - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,62,- 1 -> - 0,and then (K - 1) / Width = K / Width,and then (K - 0) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,63,<= -> <,then A (K) <= A (K + 1))),then A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,406,> -> >=,if Width > Max_N / 2 then,if Width >= Max_N / 2 then,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,268,and then -> or else,and then A'Last < Lo + Width,or else A'Last < Lo + Width,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,318,>= -> >,and then A'Last >= 2,and then A'Last > 2,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,347,+ -> -,Mid : constant Index := Lo + Width - 1;,Mid : constant Index := Lo - Width - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,375,+ -> -,"Merge_From (A, Temp, Width, Hi + 1);","Merge_From (A, Temp, Width, Hi - 1);",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,11,+ -> -,subtype Cursor is Natural range 0 .. Max_N + 1;,subtype Cursor is Natural range 0 .. Max_N - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,318,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,349,- -> +,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo > N - Twice then N else Lo + Twice + 1);,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,270,= -> /=,and then (Lo - 1) rem (2 * Width) = 0,and then (Lo - 1) rem (2 * Width) /= 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,268,+ -> -,and then A'Last < Lo + Width,and then A'Last < Lo - Width,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,268,< -> <=,and then A'Last < Lo + Width,and then A'Last <= Lo + Width,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,315,+ -> -,"Subprogram_Variant => (Decreases => A'Last + 1 - Lo),","Subprogram_Variant => (Decreases => A'Last - 1 - Lo),",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,47,+ -> -,then A (K) <= A (K + 1))),then A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,393,and then -> or else,and then Temp'Last = Max_N,or else Temp'Last = Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,271,* -> +,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 + Width, Lo - 1)",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,349,- 1 -> - 0,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo > N - Twice then N else Lo + Twice - 0);,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,393,= -> /=,and then Temp'Last = Max_N,and then Temp'Last /= Max_N,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,267,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,325,= -> /=,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) /= 0),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,70,>= -> >,and then Lo >= 1,and then Lo > 1,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,324,+ 1 -> + 0,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 0 or else (Lo - 1) rem Width = 0),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,145,<= -> <,while I <= Mid and then J <= Hi loop,while I < Mid and then J <= Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,276,* -> +,Twice : constant Positive := 2 * Width;,Twice : constant Positive := 2 + Width;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,176,+ 1 -> + 0,J := J + 1;,J := J + 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,102,- 1 -> - 0,and then (Lo - 1) rem Width = 0,and then (Lo - 0) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,394,<= -> <,and then Width <= A'Last - 1,and then Width < A'Last - 1,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,349,- -> +,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo > N + Twice then N else Lo + Twice - 1);,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,373,< -> <=,if Hi < N then,if Hi <= N then,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,334,* -> +,Twice : constant Positive := 2 * Width;,Twice : constant Positive := 2 + Width;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,101,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,145,<= -> <,while I <= Mid and then J <= Hi loop,while I <= Mid and then J < Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,71,and then -> or else,and then Lo <= A'Last + 1;,or else Lo <= A'Last + 1;,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,107,- 1 -> - 0,"Hi : constant Natural := Natural'Min (Lo + Width - 1, A'Last);","Hi : constant Natural := Natural'Min (Lo + Width - 0, A'Last);",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,325,- -> +,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 or else (Lo + 1) rem (2 * Width) = 0),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,137,- 1 -> - 0,(for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),(for all K in 1 .. Lo - 0 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,394,- 1 -> - 0,and then Width <= A'Last - 1,and then Width <= A'Last - 0,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,178,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,86,- 1 -> - 0,"and then Sorted_Runs_Prefix (A, Width, Lo - 1),","and then Sorted_Runs_Prefix (A, Width, Lo - 0),",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,324,- -> +,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 1 or else (Lo + 1) rem Width = 0),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,325,and then -> or else,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),or else (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,321,and then -> or else,and then Width <= A'Last - 1,or else Width <= A'Last - 1,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,135,and then -> or else,"and then Sorted_Slice (A, Lo, Hi)","or else Sorted_Slice (A, Lo, Hi)",stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,24,>= -> >,and then L >= 1,and then L > 1,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,323,+ -> -,and then Lo in 1 .. A'Last + 1,and then Lo in 1 .. A'Last - 1,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,375,+ 1 -> + 0,"Merge_From (A, Temp, Width, Hi + 1);","Merge_From (A, Temp, Width, Hi + 0);",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,323,and then -> or else,and then Lo in 1 .. A'Last + 1,or else Lo in 1 .. A'Last + 1,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,69,and then -> or else,and then Width <= Max_N,or else Width <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,136,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,130,- -> +,and then Mid in Lo .. Hi - 1,and then Mid in Lo .. Hi + 1,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,357,+ 1 -> + 0,"Lemma_Runs_To_Slice (A, Width, Mid + 1);","Lemma_Runs_To_Slice (A, Width, Mid + 0);",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,181,<= -> <,while I <= Mid loop,while I < Mid loop,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,53,and then -> or else,and then Width <= Max_N,or else Width <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,82,and then -> or else,and then Hi in Lo .. A'Last,or else Hi in Lo .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,145,and then -> or else,while I <= Mid and then J <= Hi loop,while I <= Mid or else J <= Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,392,and then -> or else,and then Temp'First = 1,or else Temp'First = 1,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,441,< -> <=,while Width < N loop,while Width <= N loop,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,207,<= -> <,while J <= Hi loop,while J < Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,347,- -> +,Mid : constant Index := Lo + Width - 1;,Mid : constant Index := Lo + Width + 1;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,326,- 1 -> - 0,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,399,<= -> <,(if Width <= Max_N / 2,(if Width < Max_N / 2,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,18,+ -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,398,and then -> or else,and then,or else,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,105,+ -> -,"Sorted_Slice (A, Lo, Natural'Min (Lo + Width - 1, A'Last))","Sorted_Slice (A, Lo, Natural'Min (Lo - Width - 1, A'Last))",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,325,+ -> -,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last - 1 or else (Lo - 1) rem (2 * Width) = 0),survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,357,+ -> -,"Lemma_Runs_To_Slice (A, Width, Mid + 1);","Lemma_Runs_To_Slice (A, Width, Mid - 1);",killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,127,and then -> or else,and then Temp'Last = Max_N,or else Temp'Last = Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,449,> -> >=,if Width > Max_N / 2 then,if Width >= Max_N / 2 then,survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,125,>= -> >,and then A'Last >= 2,and then A'Last > 2,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,139,+ -> -,(for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),(for all K in Hi - 1 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,204,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,70,and then -> or else,and then Lo >= 1,or else Lo >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,347,- 1 -> - 0,Mid : constant Index := Lo + Width - 1;,Mid : constant Index := Lo + Width - 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,413,+ -> -,"Lemma_Runs_To_Slice (A, Width, Width + 1);","Lemma_Runs_To_Slice (A, Width, Width - 1);",survived
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,229,+ 1 -> + 0,J := J + 1;,J := J + 0;,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,325,* -> +,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 + Width) = 0),killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,320,= -> /=,and then Temp'Last = Max_N,and then Temp'Last /= Max_N,killed
+sorting/SPARK4/Ada-SPARK-Merge-Sort,merge_sort.adb,137,= -> /=,(for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),(for all K in 1 .. Lo - 1 => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,269,+ -> -,while Run_Hi < Hi and then A (Run_Hi) <= A (Run_Hi + 1) loop,while Run_Hi < Hi and then A (Run_Hi) <= A (Run_Hi - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,44,- 1 -> - 0,and then (K - 1) / Width = K / Width,and then (K - 0) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,501,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,216,= -> /=,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 1 => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,122,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,257,and then -> or else,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),or else (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,68,<= -> <,and then Lo <= A'Last + 1;,and then Lo < A'Last + 1;,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,181,= -> /=,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 1 => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,285,> -> >=,while Run_Hi < Hi and then A (Run_Hi) > A (Run_Hi + 1) loop,while Run_Hi < Hi and then A (Run_Hi) >= A (Run_Hi + 1) loop,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,181,- 1 -> - 0,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 0 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,415,+ 1 -> + 0,J := J + 1;,J := J + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,83,and then -> or else,"and then Sorted_Runs_Prefix (A, Width, Lo - 1),","or else Sorted_Runs_Prefix (A, Width, Lo - 1),",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,578,+ -> -,Mid : constant Index := Lo + Width - 1;,Mid : constant Index := Lo - Width - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,505,* -> +,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 + Width, Lo - 1)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,33,- -> +,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K + 1) / Width = K / Width then A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,384,and then -> or else,while I <= Mid and then J <= Hi loop,while I <= Mid or else J <= Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,369,- 1 -> - 0,and then Mid in Lo .. Hi - 1,and then Mid in Lo .. Hi - 0,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,182,and then -> or else,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),or else (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,216,- -> +,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo + 1 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,266,+ -> -,if A (Lo) <= A (Lo + 1) then,if A (Lo) <= A (Lo - 1) then,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,503,and then -> or else,and then (Lo - 1) rem Width = 0,or else (Lo - 1) rem Width = 0,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,52,and then -> or else,and then Bound <= A'Last;,or else Bound <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,134,- 1 -> - 0,while J > Lo and then Key < A (J - 1) loop,while J > Lo and then Key < A (J - 0) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,77,<= -> <,and then Width <= Max_N,and then Width < Max_N,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,559,<= -> <,"(if Lo <= A'Last then Sorted_Runs_Suffix (A, Width, Lo)),","(if Lo < A'Last then Sorted_Runs_Suffix (A, Width, Lo)),",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,266,+ 1 -> + 0,if A (Lo) <= A (Lo + 1) then,if A (Lo) <= A (Lo + 0) then,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,411,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,552,- -> +,and then Width <= A'Last - 1,and then Width <= A'Last + 1,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,505,- -> +,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 * Width, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,504,- 1 -> - 0,and then (Lo - 1) rem (2 * Width) = 0,and then (Lo - 0) rem (2 * Width) = 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,52,<= -> <,and then Bound <= A'Last;,and then Bound < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,18,- -> +,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R + 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,367,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,66,<= -> <,and then Width <= Max_N,and then Width < Max_N,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,551,and then -> or else,and then Temp'Last = Max_N,or else Temp'Last = Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,59,- -> +,and then (K - 1) / Width = K / Width,and then (K + 1) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,335,+ -> -,"Hi := Natural'Min (Lo + Minrun - 1, N);","Hi := Natural'Min (Lo - Minrun - 1, N);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,556,- -> +,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 or else (Lo + 1) rem (2 * Width) = 0),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,59,and then -> or else,and then (K - 1) / Width = K / Width,or else (K - 1) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,292,+ 1 -> + 0,Run_Hi := Run_Hi + 1;,Run_Hi := Run_Hi + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,98,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,366,and then -> or else,and then Temp'Last = Max_N,or else Temp'Last = Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,45,+ 1 -> + 0,then A (K) <= A (K + 1))),then A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,67,>= -> >,and then Lo >= 1,and then Lo > 1,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,83,- -> +,"and then Sorted_Runs_Prefix (A, Width, Lo - 1),","and then Sorted_Runs_Prefix (A, Width, Lo + 1),",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,269,< -> <=,while Run_Hi < Hi and then A (Run_Hi) <= A (Run_Hi + 1) loop,while Run_Hi <= Hi and then A (Run_Hi) <= A (Run_Hi + 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,151,- 1 -> - 0,J     := J - 1;,J     := J - 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,217,+ 1 -> + 0,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in Hi + 0 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,128,= -> /=,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 1 => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,68,+ -> -,and then Lo <= A'Last + 1;,and then Lo <= A'Last - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,256,and then -> or else,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),or else (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,17,>= -> >,(L >= R,(L > R,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,604,+ 1 -> + 0,"Merge_From (A, Temp, Width, Hi + 1);","Merge_From (A, Temp, Width, Hi + 0);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,80,- 1 -> - 0,and then (Lo - 1) rem Width = 0,and then (Lo - 0) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,18,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,468,+ 1 -> + 0,J := J + 1;,J := J + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,33,+ -> -,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 1) / Width = K / Width then A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,60,+ -> -,then A (K) <= A (K + 1))),then A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,555,or else -> and then,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 1 and then (Lo - 1) rem Width = 0),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,67,and then -> or else,and then Lo >= 1,or else Lo >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,469,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,79,and then -> or else,and then Hi in Lo .. A'Last,or else Hi in Lo .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,44,= -> /=,and then (K - 1) / Width = K / Width,and then (K - 1) / Width /= K / Width,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,469,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,102,+ -> -,"Sorted_Slice (A, Lo, Natural'Min (Lo + Width - 1, A'Last))","Sorted_Slice (A, Lo, Natural'Min (Lo - Width - 1, A'Last))",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,129,+ 1 -> + 0,and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in I + 0 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,313,and then -> or else,"and then A'Last >= 1,","or else A'Last >= 1,",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,500,and then -> or else,and then Width <= Max_N / 2,or else Width <= Max_N / 2,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,60,<= -> <,then A (K) <= A (K + 1))),then A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,269,+ 1 -> + 0,while Run_Hi < Hi and then A (Run_Hi) <= A (Run_Hi + 1) loop,while Run_Hi < Hi and then A (Run_Hi) <= A (Run_Hi + 0) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,102,- 1 -> - 0,"Sorted_Slice (A, Lo, Natural'Min (Lo + Width - 1, A'Last))","Sorted_Slice (A, Lo, Natural'Min (Lo + Width - 0, A'Last))",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,678,< -> <=,while Width < N loop,while Width <= N loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,129,= -> /=,and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in I + 1 .. A'Last => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,580,- -> +,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo > N + Twice then N else Lo + Twice - 1);,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,621,= -> /=,and then Temp'First = 1,and then Temp'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,377,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,502,+ -> -,and then A'Last < Lo + Width,and then A'Last < Lo - Width,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,129,and then -> or else,and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),or else (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,24,and then -> or else,and then L >= 1,or else L >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,557,* -> +,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 + Width, Lo - 1)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,371,+ 1 -> + 0,"and then Sorted_Slice (A, Mid + 1, Hi),","and then Sorted_Slice (A, Mid + 0, Hi),",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,378,= -> /=,(for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),(for all K in Hi + 1 .. A'Last => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,378,+ 1 -> + 0,(for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),(for all K in Hi + 0 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,313,>= -> >,"and then A'Last >= 1,","and then A'Last > 1,",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,77,and then -> or else,and then Width <= Max_N,or else Width <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,212,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,104,- -> +,"Hi : constant Natural := Natural'Min (Lo + Width - 1, A'Last);","Hi : constant Natural := Natural'Min (Lo + Width + 1, A'Last);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,99,= -> /=,and then (Lo - 1) rem Width = 0,and then (Lo - 1) rem Width /= 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,370,and then -> or else,"and then Sorted_Slice (A, Lo, Mid)","or else Sorted_Slice (A, Lo, Mid)",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,565,* -> +,Twice : constant Positive := 2 * Width;,Twice : constant Positive := 2 + Width;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,580,+ -> -,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo > N - Twice then N else Lo - Twice - 1);,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,624,and then -> or else,"and then Sorted_Runs (A, Width),","or else Sorted_Runs (A, Width),",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,343,+ 1 -> + 0,Lo := Hi + 1;,Lo := Hi + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,257,= -> /=,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in Hi + 1 .. A'Last => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,45,<= -> <,then A (K) <= A (K + 1))),then A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,580,> -> >=,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo >= N - Twice then N else Lo + Twice - 1);,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,11,+ 1 -> + 0,subtype Cursor is Natural range 0 .. Max_N + 1;,subtype Cursor is Natural range 0 .. Max_N + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,623,and then -> or else,and then Width <= A'Last - 1,or else Width <= A'Last - 1,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,99,- -> +,and then (Lo - 1) rem Width = 0,and then (Lo + 1) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,371,+ -> -,"and then Sorted_Slice (A, Mid + 1, Hi),","and then Sorted_Slice (A, Mid - 1, Hi),",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,236,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,81,- 1 -> - 0,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","and then Hi = Natural'Min (Lo + Width - 0, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,277,+ -> -,Run_Hi := Run_Hi + 1;,Run_Hi := Run_Hi - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,443,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,127,and then -> or else,"and then Sorted_Slice (A, Lo, I)","or else Sorted_Slice (A, Lo, I)",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,620,>= -> >,and then A'Last >= 2,and then A'Last > 2,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,255,and then -> or else,"and then Sorted_Slice (A, Lo, Hi)","or else Sorted_Slice (A, Lo, Hi)",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,102,- -> +,"Sorted_Slice (A, Lo, Natural'Min (Lo + Width - 1, A'Last))","Sorted_Slice (A, Lo, Natural'Min (Lo + Width + 1, A'Last))",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,660,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,552,- 1 -> - 0,and then Width <= A'Last - 1,and then Width <= A'Last - 0,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,549,>= -> >,and then A'Last >= 2,and then A'Last > 2,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,369,and then -> or else,and then Mid in Lo .. Hi - 1,or else Mid in Lo .. Hi - 1,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,554,+ 1 -> + 0,and then Lo in 1 .. A'Last + 1,and then Lo in 1 .. A'Last + 0,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,33,<= -> <,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 1) / Width = K / Width then A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,552,<= -> <,and then Width <= A'Last - 1,and then Width < A'Last - 1,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,33,= -> /=,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 1) / Width /= K / Width then A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,24,>= -> >,and then L >= 1,and then L > 1,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,128,- 1 -> - 0,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 0 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,620,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,18,+ -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,182,= -> /=,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in Hi + 1 .. A'Last => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,627,and then -> or else,and then,or else,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,177,and then -> or else,"and then Sorted_Slice (A, Lo, Sorted_Last),","or else Sorted_Slice (A, Lo, Sorted_Last),",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,669,<= -> <,if N <= Minrun then,if N < Minrun then,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,81,+ -> -,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","and then Hi = Natural'Min (Lo - Width - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,376,= -> /=,(for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),(for all K in 1 .. Lo - 1 => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,134,- -> +,while J > Lo and then Key < A (J - 1) loop,while J > Lo and then Key < A (J + 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,602,< -> <=,if Hi < N then,if Hi <= N then,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,553,<= -> <,and then Width <= Max_N / 2,and then Width < Max_N / 2,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,97,<= -> <,and then Width <= Max_N,and then Width < Max_N,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,80,and then -> or else,and then (Lo - 1) rem Width = 0,or else (Lo - 1) rem Width = 0,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,550,and then -> or else,and then Temp'First = 1,or else Temp'First = 1,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,176,and then -> or else,and then Hi in Sorted_Last .. A'Last,or else Hi in Sorted_Last .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,375,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,578,- -> +,Mid : constant Index := Lo + Width - 1;,Mid : constant Index := Lo + Width + 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,510,* -> +,Twice : constant Positive := 2 * Width;,Twice : constant Positive := 2 + Width;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,555,+ -> -,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last - 1 or else (Lo - 1) rem Width = 0),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,364,>= -> >,and then A'Last >= 2,and then A'Last > 2,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,236,+ -> -,I := I + 1;,I := I - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,555,- 1 -> - 0,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 1 or else (Lo - 0) rem Width = 0),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,378,+ -> -,(for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),(for all K in Hi - 1 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,59,- 1 -> - 0,and then (K - 1) / Width = K / Width,and then (K - 0) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,504,- -> +,and then (Lo - 1) rem (2 * Width) = 0,and then (Lo + 1) rem (2 * Width) = 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,555,= -> /=,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo /= A'Last + 1 or else (Lo - 1) rem Width = 0),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,292,+ -> -,Run_Hi := Run_Hi + 1;,Run_Hi := Run_Hi - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,368,+ 1 -> + 0,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo + 0 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,506,and then -> or else,"and then Sorted_Runs_Suffix (A, Width, Lo),","or else Sorted_Runs_Suffix (A, Width, Lo),",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,190,+ -> -,for I in Sorted_Last + 1 .. Hi loop,for I in Sorted_Last - 1 .. Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,549,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,546,+ 1 -> + 0,"Subprogram_Variant => (Decreases => A'Last + 1 - Lo),","Subprogram_Variant => (Decreases => A'Last + 0 - Lo),",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,104,- 1 -> - 0,"Hi : constant Natural := Natural'Min (Lo + Width - 1, A'Last);","Hi : constant Natural := Natural'Min (Lo + Width - 0, A'Last);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,567,> -> >=,if Lo > N - Width then,if Lo >= N - Width then,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,335,- -> +,"Hi := Natural'Min (Lo + Minrun - 1, N);","Hi := Natural'Min (Lo + Minrun + 1, N);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,59,= -> /=,and then (K - 1) / Width = K / Width,and then (K - 1) / Width /= K / Width,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,25,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,99,- 1 -> - 0,and then (Lo - 1) rem Width = 0,and then (Lo - 0) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,554,+ -> -,and then Lo in 1 .. A'Last + 1,and then Lo in 1 .. A'Last - 1,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,552,and then -> or else,and then Width <= A'Last - 1,or else Width <= A'Last - 1,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,68,and then -> or else,and then Lo <= A'Last + 1;,or else Lo <= A'Last + 1;,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,623,<= -> <,and then Width <= A'Last - 1,and then Width < A'Last - 1,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,33,+ 1 -> + 0,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 1) / Width = K / Width then A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,256,- -> +,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo + 1 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,182,+ 1 -> + 0,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in Hi + 0 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,503,- -> +,and then (Lo - 1) rem Width = 0,and then (Lo + 1) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,82,and then -> or else,"and then Sorted_Slice (A, Lo, Hi)","or else Sorted_Slice (A, Lo, Hi)",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,629,* -> +,"then Sorted_Runs (A, 2 * Width)","then Sorted_Runs (A, 2 + Width)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,551,= -> /=,and then Temp'Last = Max_N,and then Temp'Last /= Max_N,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,68,+ 1 -> + 0,and then Lo <= A'Last + 1;,and then Lo <= A'Last + 0;,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,503,= -> /=,and then (Lo - 1) rem Width = 0,and then (Lo - 1) rem Width /= 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,502,and then -> or else,and then A'Last < Lo + Width,or else A'Last < Lo + Width,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,277,+ 1 -> + 0,Run_Hi := Run_Hi + 1;,Run_Hi := Run_Hi + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,368,and then -> or else,and then Hi in Lo + 1 .. A'Last,or else Hi in Lo + 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,505,- 1 -> - 0,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,504,= -> /=,and then (Lo - 1) rem (2 * Width) = 0,and then (Lo - 1) rem (2 * Width) /= 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,555,and then -> or else,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),or else (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,269,<= -> <,while Run_Hi < Hi and then A (Run_Hi) <= A (Run_Hi + 1) loop,while Run_Hi < Hi and then A (Run_Hi) < A (Run_Hi + 1) loop,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,190,+ 1 -> + 0,for I in Sorted_Last + 1 .. Hi loop,for I in Sorted_Last + 0 .. Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,124,and then -> or else,"and then Sorted_Slice (A, Lo, I - 1),","or else Sorted_Slice (A, Lo, I - 1),",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,150,- -> +,A (J) := A (J - 1);,A (J) := A (J + 1);,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,285,+ -> -,while Run_Hi < Hi and then A (Run_Hi) > A (Run_Hi + 1) loop,while Run_Hi < Hi and then A (Run_Hi) > A (Run_Hi - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,18,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,621,and then -> or else,and then Temp'First = 1,or else Temp'First = 1,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,587,+ 1 -> + 0,"Lemma_Runs_To_Slice (A, Width, Mid + 1);","Lemma_Runs_To_Slice (A, Width, Mid + 0);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,442,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,180,and then -> or else,"and then Sorted_Slice (A, Lo, Hi)","or else Sorted_Slice (A, Lo, Hi)",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,641,+ 1 -> + 0,"Lemma_Runs_To_Slice (A, Width, Width + 1);","Lemma_Runs_To_Slice (A, Width, Width + 0);",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,269,and then -> or else,while Run_Hi < Hi and then A (Run_Hi) <= A (Run_Hi + 1) loop,while Run_Hi < Hi or else A (Run_Hi) <= A (Run_Hi + 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,217,+ -> -,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in Hi - 1 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,503,- 1 -> - 0,and then (Lo - 1) rem Width = 0,and then (Lo - 0) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,371,and then -> or else,"and then Sorted_Slice (A, Mid + 1, Hi),","or else Sorted_Slice (A, Mid + 1, Hi),",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,555,= -> /=,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 1 or else (Lo - 1) rem Width /= 0),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,97,and then -> or else,and then Width <= Max_N,or else Width <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,555,+ 1 -> + 0,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 0 or else (Lo - 1) rem Width = 0),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,364,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,504,* -> +,and then (Lo - 1) rem (2 * Width) = 0,and then (Lo - 1) rem (2 + Width) = 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,66,and then -> or else,and then Width <= Max_N,or else Width <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,151,- -> +,J     := J - 1;,J     := J + 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,128,- -> +,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo + 1 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,556,- 1 -> - 0,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 or else (Lo - 0) rem (2 * Width) = 0),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,546,- -> +,"Subprogram_Variant => (Decreases => A'Last + 1 - Lo),","Subprogram_Variant => (Decreases => A'Last + 1 + Lo),",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,443,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,182,+ -> -,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in Hi - 1 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,174,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,257,+ -> -,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in Hi - 1 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,256,- 1 -> - 0,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 0 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,237,- -> +,J := J - 1;,J := J + 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,81,and then -> or else,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","or else Hi = Natural'Min (Lo + Width - 1, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,335,- 1 -> - 0,"Hi := Natural'Min (Lo + Minrun - 1, N);","Hi := Natural'Min (Lo + Minrun - 0, N);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,557,- -> +,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 * Width, Lo + 1)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,51,<= -> <,and then Width <= Max_N,and then Width < Max_N,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,342,= -> /=,exit when Hi = N;,exit when Hi /= N;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,45,+ -> -,then A (K) <= A (K + 1))),then A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,343,+ -> -,Lo := Hi + 1;,Lo := Hi - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,316,and then -> or else,and then,or else,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,326,<= -> <,while Lo <= N loop,while Lo < N loop,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,44,and then -> or else,and then (K - 1) / Width = K / Width,or else (K - 1) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,217,and then -> or else,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),or else (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,81,- -> +,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","and then Hi = Natural'Min (Lo + Width + 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,213,and then -> or else,"and then Hi in Lo .. A'Last,","or else Hi in Lo .. A'Last,",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,369,- -> +,and then Mid in Lo .. Hi - 1,and then Mid in Lo .. Hi + 1,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,374,and then -> or else,"and then Sorted_Slice (A, Lo, Hi)","or else Sorted_Slice (A, Lo, Hi)",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,562,* -> +,"and then Sorted_Runs (A, 2 * Width)","and then Sorted_Runs (A, 2 + Width)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,80,= -> /=,and then (Lo - 1) rem Width = 0,and then (Lo - 1) rem Width /= 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,635,> -> >=,if Width > Max_N / 2 then,if Width >= Max_N / 2 then,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,622,= -> /=,and then Temp'Last = Max_N,and then Temp'Last /= Max_N,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,256,= -> /=,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 1 => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,578,- 1 -> - 0,Mid : constant Index := Lo + Width - 1;,Mid : constant Index := Lo + Width - 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,628,<= -> <,(if Width <= Max_N / 2,(if Width < Max_N / 2,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,44,- -> +,and then (K - 1) / Width = K / Width,and then (K + 1) / Width = K / Width,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,80,- -> +,and then (Lo - 1) rem Width = 0,and then (Lo + 1) rem Width = 0,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,252,and then -> or else,"and then Hi in Lo .. A'Last,","or else Hi in Lo .. A'Last,",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,81,= -> /=,"and then Hi = Natural'Min (Lo + Width - 1, A'Last)","and then Hi /= Natural'Min (Lo + Width - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,104,+ -> -,"Hi : constant Natural := Natural'Min (Lo + Width - 1, A'Last);","Hi : constant Natural := Natural'Min (Lo - Width - 1, A'Last);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,128,and then -> or else,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),or else (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,580,- 1 -> - 0,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo > N - Twice then N else Lo + Twice - 0);,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,468,+ -> -,J := J + 1;,J := J - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,556,+ 1 -> + 0,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 0 or else (Lo - 1) rem (2 * Width) = 0),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,317,<= -> <,(if A'Last <= Minrun then Is_Sorted (A),(if A'Last < Minrun then Is_Sorted (A),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,415,+ -> -,J := J + 1;,J := J - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,150,- 1 -> - 0,A (J) := A (J - 1);,A (J) := A (J - 0);,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,60,+ 1 -> + 0,then A (K) <= A (K + 1))),then A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,134,< -> <=,while J > Lo and then Key < A (J - 1) loop,while J > Lo and then Key <= A (J - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,123,+ 1 -> + 0,and then I in Lo + 1 .. A'Last,and then I in Lo + 0 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,223,< -> <=,while I < J loop,while I <= J loop,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,505,and then -> or else,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","or else Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,261,= -> /=,if Lo = Hi then,if Lo /= Hi then,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,123,+ -> -,and then I in Lo + 1 .. A'Last,and then I in Lo - 1 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,622,and then -> or else,and then Temp'Last = Max_N,or else Temp'Last = Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,100,and then -> or else,"and then Sorted_Runs_Suffix (A, Width, Lo),","or else Sorted_Runs_Suffix (A, Width, Lo),",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,557,and then -> or else,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","or else Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,124,- -> +,"and then Sorted_Slice (A, Lo, I - 1),","and then Sorted_Slice (A, Lo, I + 1),",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,83,- 1 -> - 0,"and then Sorted_Runs_Prefix (A, Width, Lo - 1),","and then Sorted_Runs_Prefix (A, Width, Lo - 0),",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,420,<= -> <,while I <= Mid loop,while I < Mid loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,546,+ -> -,"Subprogram_Variant => (Decreases => A'Last + 1 - Lo),","Subprogram_Variant => (Decreases => A'Last - 1 - Lo),",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,368,+ -> -,and then Hi in Lo + 1 .. A'Last,and then Hi in Lo - 1 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,417,+ 1 -> + 0,K := K + 1;,K := K + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,181,and then -> or else,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),or else (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,556,= -> /=,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo /= A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,502,< -> <=,and then A'Last < Lo + Width,and then A'Last <= Lo + Width,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,557,- 1 -> - 0,"and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)","and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 0)",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,381,+ -> -,J : Cursor := Mid + 1;,J : Cursor := Mid - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,257,+ 1 -> + 0,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in Hi + 0 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,175,and then -> or else,and then Sorted_Last in Lo .. A'Last,or else Sorted_Last in Lo .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,285,+ 1 -> + 0,while Run_Hi < Hi and then A (Run_Hi) > A (Run_Hi + 1) loop,while Run_Hi < Hi and then A (Run_Hi) > A (Run_Hi + 0) loop,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,556,and then -> or else,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),or else (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,442,+ -> -,I := I + 1;,I := I - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,285,< -> <=,while Run_Hi < Hi and then A (Run_Hi) > A (Run_Hi + 1) loop,while Run_Hi <= Hi and then A (Run_Hi) > A (Run_Hi + 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,216,- 1 -> - 0,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 0 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,217,= -> /=,and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in Hi + 1 .. A'Last => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,43,< -> <=,(if K < Bound,(if K <= Bound,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,554,and then -> or else,and then Lo in 1 .. A'Last + 1,or else Lo in 1 .. A'Last + 1,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,550,= -> /=,and then Temp'First = 1,and then Temp'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,553,and then -> or else,and then Width <= Max_N / 2,or else Width <= Max_N / 2,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,587,+ -> -,"Lemma_Runs_To_Slice (A, Width, Mid + 1);","Lemma_Runs_To_Slice (A, Width, Mid - 1);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,251,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,366,= -> /=,and then Temp'Last = Max_N,and then Temp'Last /= Max_N,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,11,+ -> -,subtype Cursor is Natural range 0 .. Max_N + 1;,subtype Cursor is Natural range 0 .. Max_N - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,25,and then -> or else,and then R <= A'Last;,or else R <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,556,or else -> and then,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 and then (Lo - 1) rem (2 * Width) = 0),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,411,+ -> -,I := I + 1;,I := I - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,266,<= -> <,if A (Lo) <= A (Lo + 1) then,if A (Lo) < A (Lo + 1) then,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,556,= -> /=,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) /= 0),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,58,>= -> >,(if K >= Lo,(if K > Lo,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,181,- -> +,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo + 1 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,185,>= -> >,if Sorted_Last >= Hi then,if Sorted_Last > Hi then,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,365,and then -> or else,and then Temp'First = 1,or else Temp'First = 1,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,18,+ 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,623,- -> +,and then Width <= A'Last - 1,and then Width <= A'Last + 1,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,623,- 1 -> - 0,and then Width <= A'Last - 1,and then Width <= A'Last - 0,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,134,> -> >=,while J > Lo and then Key < A (J - 1) loop,while J >= Lo and then Key < A (J - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,18,or else -> and then,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,417,+ -> -,K := K + 1;,K := K - 1;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,580,- -> +,(if Lo > N - Twice then N else Lo + Twice - 1);,(if Lo > N - Twice then N else Lo + Twice + 1);,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,376,- -> +,(for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),(for all K in 1 .. Lo + 1 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,123,and then -> or else,and then I in Lo + 1 .. A'Last,or else I in Lo + 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,99,and then -> or else,and then (Lo - 1) rem Width = 0,or else (Lo - 1) rem Width = 0,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,285,and then -> or else,while Run_Hi < Hi and then A (Run_Hi) > A (Run_Hi + 1) loop,while Run_Hi < Hi or else A (Run_Hi) > A (Run_Hi + 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,216,and then -> or else,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),or else (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,641,+ -> -,"Lemma_Runs_To_Slice (A, Width, Width + 1);","Lemma_Runs_To_Slice (A, Width, Width - 1);",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,51,and then -> or else,and then Width <= Max_N,or else Width <= Max_N,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,446,<= -> <,while J <= Hi loop,while J < Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,504,and then -> or else,and then (Lo - 1) rem (2 * Width) = 0,or else (Lo - 1) rem (2 * Width) = 0,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,381,+ 1 -> + 0,J : Cursor := Mid + 1;,J : Cursor := Mid + 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,567,- -> +,if Lo > N - Width then,if Lo > N + Width then,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,556,+ -> -,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last - 1 or else (Lo - 1) rem (2 * Width) = 0),survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,134,and then -> or else,while J > Lo and then Key < A (J - 1) loop,while J > Lo or else Key < A (J - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,556,* -> +,and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0),and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 + Width) = 0),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,604,+ -> -,"Merge_From (A, Temp, Width, Hi + 1);","Merge_From (A, Temp, Width, Hi - 1);",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,686,> -> >=,if Width > Max_N / 2 then,if Width >= Max_N / 2 then,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,33,- 1 -> - 0,(if (K - 1) / Width = K / Width then A (K) <= A (K + 1))),(if (K - 0) / Width = K / Width then A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,78,and then -> or else,and then Lo in 1 .. A'Last,or else Lo in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,568,<= -> <,if Lo <= N then,if Lo < N then,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,124,- 1 -> - 0,"and then Sorted_Slice (A, Lo, I - 1),","and then Sorted_Slice (A, Lo, I - 0),",killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,384,<= -> <,while I <= Mid and then J <= Hi loop,while I < Mid and then J <= Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,384,<= -> <,while I <= Mid and then J <= Hi loop,while I <= Mid and then J < Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,365,= -> /=,and then Temp'First = 1,and then Temp'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,500,<= -> <,and then Width <= Max_N / 2,and then Width < Max_N / 2,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,558,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,129,+ -> -,and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K)),and then (for all K in I - 1 .. A'Last => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,237,- 1 -> - 0,J := J - 1;,J := J - 0;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,562,and then -> or else,"and then Sorted_Runs (A, 2 * Width)","or else Sorted_Runs (A, 2 * Width)",survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,691,* -> +,Width := 2 * Width;,Width := 2 + Width;,killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,408,<= -> <,if A (I) <= A (J) then,if A (I) < A (J) then,survived
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,555,- -> +,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 1 or else (Lo + 1) rem Width = 0),killed
+sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,376,- 1 -> - 0,(for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),(for all K in 1 .. Lo - 0 => A (K) = A'Old (K)),killed

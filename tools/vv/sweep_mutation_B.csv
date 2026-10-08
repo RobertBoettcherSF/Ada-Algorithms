@@ -1,0 +1,14 @@
+folder,baseline,sites,mutants,killed,survived,stillborn,score
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,pass,5,5,3,2,0,3/5
+misc/SPARK2/Ada-SPARK-House-Robber-II,pass,6,6,5,1,0,5/6
+misc/SPARK2/Ada-SPARK-Median-Filtering,pass,14,14,7,7,0,7/14
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,pass,6,6,4,2,0,4/6
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pass,6,6,4,2,0,4/6
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,pass,4,4,3,1,0,3/4
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,pass,6,6,4,2,0,4/6
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,pass,112,112,56,21,35,56/77
+sorting/SPARK4/Ada-SPARK-Library-Sort,pass,196,196,82,72,42,82/154
+sorting/SPARK4/Ada-SPARK-Samplesort,pass,135,135,73,38,24,73/111
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,pass,171,171,91,33,47,91/124
+sorting/SPARK4/Ada-SPARK-Merge-Sort,pass,228,228,132,45,51,132/177
+sorting/SPARK4/Ada-SPARK-Timsort,pass,325,325,191,61,73,191/252
