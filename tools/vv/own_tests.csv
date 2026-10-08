@@ -31,7 +31,7 @@ sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,own unique reference
 sorting/SPARK2/Ada-SPARK-Find-Median-Sorted-Arrays-Lite,own sorted-merge median (odd exact; even exact when integer mean; else between middles); every NA;NB
 sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,own sorted-merge median (exact when integer mean; else between middles); 6000 random
 sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array,own merge-prefix-sum reference; every Length; 6400 random
-sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,non-increasing input frequency + permutation; 4000 random
+sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,non-increasing input frequency + permutation; 4000 random; equal characters grouped
 strings/SPARK2/Ada-SPARK-Edit-Distance,own recursive Levenshtein reference; every length pair; 3750 random
 strings/SPARK2/Ada-SPARK-One-Edit-Distance,own Levenshtein = 1 reference; random strings with 0-2 edits
 strings/SPARK2/Ada-SPARK-Make-The-String-Great,own repeated leftmost-pair removal reference; 4000 random

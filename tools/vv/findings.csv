@@ -16,7 +16,7 @@ misc/SPARK2/Ada-SPARK-Pascal-Triangle,rows 31 and 32 are allowed but their total
 misc/SPARK2/Ada-SPARK-Decode-Ways,lengths 30 .. 32 are allowed but the count can exceed Result; Count saturates silently,fixed,0b0aee45,210e5208
 misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,the climb ends on the last step (paying it) instead of past it; README does not say which,fixed,84269a67,ada4e663
 sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,squares elementwise without sorting despite the name (README says elementwise),fixed,600e30a5,81bcb6ad
-sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,different characters with the same frequency are not kept in contiguous groups; README silent,open,,
+sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,different characters with the same frequency are not kept in contiguous groups; README silent,fixed,bf58e7ee,da3fb07e
 misc/SPARK2/Ada-SPARK-Partition-List,no tests (tests/main.adb missing): make test fails,open,,
 sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,no tests (tests/main.adb missing): make test fails,open,,
 misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,vacuous loop invariant gave 4 warnings under -gnata in make test,fixed,n/a (make test warnings),1351fa3
