@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* tests.adb: from (1,1) the first cell is (1,1) and the second is at
+  distance 1, by hand.
+* Own properties (the standard statement): Order_From lists every cell of
+  the 4x4 matrix exactly once, starting at the origin, with Manhattan
+  distance from the origin non-decreasing; Manhattan equals
+  |row difference| + |column difference|.
+* Inputs: every origin (16); Manhattan for every pair of cells (256).
