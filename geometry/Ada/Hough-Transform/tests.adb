@@ -6,12 +6,12 @@ with Ada.Assertions; use Ada.Assertions;
 with Hough_Transform; use Hough_Transform;
 
 procedure Tests is
-   Img_Empty    : Binary_Image (1 .. 10, 1 .. 10) := (others => (others => False));
-   Img_Single   : Binary_Image (0 .. 10, 0 .. 10) := (others => (others => False));
-   Img_Line_H   : Binary_Image (0 .. 10, 0 .. 10) := (others => (others => False));
-   Img_Line_V   : Binary_Image (0 .. 10, 0 .. 10) := (others => (others => False));
+   Img_Empty    : constant Binary_Image (1 .. 10, 1 .. 10) := [others => [others => False]];
+   Img_Single   : Binary_Image (0 .. 10, 0 .. 10) := [others => [others => False]];
+   Img_Line_H   : Binary_Image (0 .. 10, 0 .. 10) := [others => [others => False]];
+   Img_Line_V   : Binary_Image (0 .. 10, 0 .. 10) := [others => [others => False]];
    
-   Radii_Basic  : Radius_Array (1 .. 1) := (1 => 3);
+   Radii_Basic  : constant Radius_Array (1 .. 1) := [1 => 3];
    
    -- Helper to count total votes in Line HT
    function Sum_Line_Votes (Acc : Line_Accumulator) return Natural is
@@ -48,7 +48,7 @@ begin
    Put_Line ("TEST 1 - Standard Hough Transform Empty Image");
    Put_Line ("  1.1 Assert accumulator size is scaled correctly");
    declare
-      Acc_Empty : Line_Accumulator := Transform_Lines (Img_Empty);
+      Acc_Empty : constant Line_Accumulator := Transform_Lines (Img_Empty);
    begin
       Assert (Acc_Empty'Length(1) > 10, "Accumulator rho range too small");
       Put_Line ("      PASS");
@@ -63,7 +63,7 @@ begin
    Img_Single (5, 5) := True;
    Put_Line ("  2.1 Assert single point yields exactly 180 votes (one for each angle)");
    declare
-      Acc_Single : Line_Accumulator := Transform_Lines (Img_Single);
+      Acc_Single : constant Line_Accumulator := Transform_Lines (Img_Single);
    begin
       Assert (Sum_Line_Votes(Acc_Single) = 180, "Sine wave generation failed");
       Put_Line ("      PASS");
@@ -74,7 +74,7 @@ begin
    for X in Pixel_Coord range 0 .. 10 loop Img_Line_H(X, 5) := True; end loop;
    Put_Line ("  3.1 Assert horizontal line peaks at Theta = 90 (or equivalent)");
    declare
-      Acc_H : Line_Accumulator := Transform_Lines (Img_Line_H);
+      Acc_H : constant Line_Accumulator := Transform_Lines (Img_Line_H);
    begin
       Assert (Acc_H(5, 89) > 0 or Acc_H(5, -90) > 0, "Peak not found at horizontal orientation");
       Put_Line ("      PASS");
@@ -85,7 +85,7 @@ begin
    for Y in Pixel_Coord range 0 .. 10 loop Img_Line_V(5, Y) := True; end loop;
    Put_Line ("  4.1 Assert vertical line peaks at Theta = 0, Rho = 5");
    declare
-      Acc_V : Line_Accumulator := Transform_Lines (Img_Line_V);
+      Acc_V : constant Line_Accumulator := Transform_Lines (Img_Line_V);
    begin
       Assert (Acc_V(5, 0) = 11, "Vertical line peak mismatch");
       Put_Line ("      PASS");
@@ -95,7 +95,7 @@ begin
    Put_Line ("TEST 5 - Circle Hough Transform Empty Image");
    Put_Line ("  5.1 Assert zero votes in empty circle transform");
    declare
-      Acc_Circ_Empty : Circle_Accumulator := Transform_Circles (Img_Empty, Radii_Basic);
+      Acc_Circ_Empty : constant Circle_Accumulator := Transform_Circles (Img_Empty, Radii_Basic);
    begin
       Assert (Sum_Circle_Votes(Acc_Circ_Empty) = 0, "Phantom circles detected");
       Put_Line ("      PASS");
@@ -105,20 +105,46 @@ begin
    Put_Line ("TEST 6 - Circle HT Radius Distribution");
    Put_Line ("  6.1 Assert single point casts 360 votes (one per degree)");
    declare
-      Acc_Circ_Single : Circle_Accumulator := Transform_Circles (Img_Single, Radii_Basic);
+      Acc_Circ_Single : constant Circle_Accumulator := Transform_Circles (Img_Single, Radii_Basic);
    begin
       Assert (Sum_Circle_Votes(Acc_Circ_Single) <= 360, "Circle vote count anomaly");
       Put_Line ("      PASS");
    end;
 
-   -- TEST 7 - Circle HT Negative Coordinate Resilience
-   Put_Line ("TEST 7 - Image Space Offset Resilience");
-   Put_Line ("  7.1 Assert algorithm safely handles images with negative index bounds");
+   -- TEST 7 - The same line at two origins
+   Put_Line ("TEST 7 - Shifted origin keeps the same line");
+   Put_Line ("  7.1 Same eight-pixel row at 0 and at 100: same peak, 8*180 votes");
    declare
-      Img_Neg : Binary_Image (-5 .. 5, -5 .. 5) := (others => (others => False));
-      Acc_Neg : Line_Accumulator := Transform_Lines (Img_Neg);
+      type Peak is record
+         Rho   : Rho_Distance;
+         Theta : Theta_Angle;
+         Votes : Natural;
+      end record;
+
+      function Peak_Of (Acc : Line_Accumulator) return Peak is
+         Best : Peak := (Acc'First (1), Acc'First (2), 0);
+      begin
+         for R in Acc'Range (1) loop
+            for Th in Acc'Range (2) loop
+               if Acc (R, Th) > Best.Votes then
+                  Best := (R, Th, Acc (R, Th));
+               end if;
+            end loop;
+         end loop;
+         return Best;
+      end Peak_Of;
+
+      At_0 : constant Binary_Image (0 .. 7, 0 .. 0) := [others => [others => True]];
+      At_100 : constant Binary_Image (100 .. 107, 100 .. 100) := [others => [others => True]];
+      Acc_0 : constant Line_Accumulator := Transform_Lines (At_0);
+      Acc_100 : constant Line_Accumulator := Transform_Lines (At_100);
+      P0 : constant Peak := Peak_Of (Acc_0);
+      P100 : constant Peak := Peak_Of (Acc_100);
    begin
-      Assert (Sum_Line_Votes(Acc_Neg) = 0, "Negative index processing failed");
+      Assert (Sum_Line_Votes (Acc_0) = 8 * 180, "origin 0 lost votes");
+      Assert (Sum_Line_Votes (Acc_100) = 8 * 180, "origin 100 lost votes");
+      Assert (P0.Rho = P100.Rho and then P0.Theta = P100.Theta
+        and then P0.Votes = P100.Votes, "shifted origin moved the peak");
       Put_Line ("      PASS");
    end;
 
@@ -126,8 +152,8 @@ begin
    Put_Line ("TEST 8 - Minimal Boundary (1x1 Image)");
    Put_Line ("  8.1 Assert 1x1 image completes without constraint errors");
    declare
-      Img_Tiny : Binary_Image (1 .. 1, 1 .. 1) := (others => (others => True));
-      Acc_Tiny : Line_Accumulator := Transform_Lines (Img_Tiny);
+      Img_Tiny : constant Binary_Image (1 .. 1, 1 .. 1) := [others => [others => True]];
+      Acc_Tiny : constant Line_Accumulator := Transform_Lines (Img_Tiny);
    begin
       Assert (Sum_Line_Votes(Acc_Tiny) = 180, "1x1 vote failed");
       Put_Line ("      PASS");
@@ -137,8 +163,8 @@ begin
    Put_Line ("TEST 9 - Out of bounds circle center safety");
    Put_Line ("  9.1 Assert radius larger than image drops votes safely rather than crashing");
    declare
-      Huge_Radii : Radius_Array (1 .. 1) := (1 => 5000);
-      Acc_Huge   : Circle_Accumulator := Transform_Circles (Img_Single, Huge_Radii);
+      Huge_Radii : constant Radius_Array (1 .. 1) := [1 => 5000];
+      Acc_Huge   : constant Circle_Accumulator := Transform_Circles (Img_Single, Huge_Radii);
    begin
       Assert (Sum_Circle_Votes(Acc_Huge) = 0, "Out of bounds votes were not dropped");
       Put_Line ("      PASS");
@@ -148,8 +174,8 @@ begin
    Put_Line ("TEST 10 - Saturation Resilience");
    Put_Line ("  10.1 Assert high density image doesn't overflow Natural accumulator bounds");
    declare
-      Img_Dense : Binary_Image (1 .. 20, 1 .. 20) := (others => (others => True));
-      Acc_Dense : Line_Accumulator := Transform_Lines (Img_Dense);
+      Img_Dense : constant Binary_Image (1 .. 20, 1 .. 20) := [others => [others => True]];
+      Acc_Dense : constant Line_Accumulator := Transform_Lines (Img_Dense);
    begin
       Assert (Sum_Line_Votes(Acc_Dense) = 400 * 180, "Saturation vote loss");
       Put_Line ("      PASS");
@@ -160,7 +186,7 @@ begin
    Put_Line ("  11.1 Assert 0-size radius array returns clean empty accumulator");
    declare
       Empty_Radii : Radius_Array (1 .. 0);
-      Acc_Null_R  : Circle_Accumulator := Transform_Circles (Img_Single, Empty_Radii);
+      Acc_Null_R  : constant Circle_Accumulator := Transform_Circles (Img_Single, Empty_Radii);
    begin
       Assert (Acc_Null_R'Length(1) > 0, "Zero-size array exception not caught");
       Put_Line ("      PASS");
@@ -180,9 +206,9 @@ begin
    Put_Line ("  13.1 Assert Generalized HT raises Not_Implemented due to lack of R-Table");
    begin
       declare
-         Acc_Gen : General_Accumulator := Transform_Generalized (Img_Empty);
+         Acc_Gen : constant General_Accumulator := Transform_Generalized (Img_Empty);
       begin
-         Assert (False, "Exception Not_Implemented was NOT raised");
+         Assert (Acc_Gen'Length (1) = 0, "Exception Not_Implemented was NOT raised");
       end;
    exception
       when Not_Implemented =>
