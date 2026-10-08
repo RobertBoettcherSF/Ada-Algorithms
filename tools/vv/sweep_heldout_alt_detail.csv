@@ -1564,3 +1564,164 @@ second round tune half split 20261030 (std),numerical/Ada/Newells-Algorithm,newe
 second round tune half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,451,> -> >=,if (DA > Epsilon and then DB < -Epsilon),if (DA >= Epsilon and then DB < -Epsilon),survived
 second round tune half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,433,or else -> and then,if not Has_Pos or else not Has_Neg then,if not Has_Pos and then not Has_Neg then,survived
 second round tune half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,98,- -> +,and then (Pt.X < (V_J.X - V_I.X) * (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),and then (Pt.X < (V_J.X - V_I.X) * (Pt.Y + V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,199,- 1 -> - 0,for I in 0 .. Half - 1 loop,for I in 0 .. Half - 0 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,26,+ 1 -> + 0,Result (Out_Idx + Half + I) := (Input (Input'First + 2*I) - Input (Input'First + 2*I + 1)) / 2.0;,Result (Out_Idx + Half + I) := (Input (Input'First + 2*I) - Input (Input'First + 2*I + 0)) / 2.0;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,235,+ -> -,Tmp (1 + 2 * I + 1) := A + D;,Tmp (1 + 2 * I - 1) := A + D;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,174,+ -> -,X : constant Detail := Input (Input'First + 2 * I);,X : constant Detail := Input (Input'First - 2 * I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,80,+ -> -,"Col_1D (1 + I - Input'First(1)) := Temp (I, J);","Col_1D (1 - I - Input'First(1)) := Temp (I, J);",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,181,+ -> -,Result (Out_Idx + Half + I) := D;,Result (Out_Idx + Half - I) := D;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,47,+ -> -,Result (Out_Idx + 2*I + 1) := Input (Input'First + I) - Input (Input'First + Half + I);,Result (Out_Idx - 2*I + 1) := Input (Input'First + I) - Input (Input'First + Half + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,158,- 1 -> - 0,return N / 2 - 1;,return N / 2 - 0;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,201,+ -> -,Diff := Input (Input'First + Half + I);,Diff := Input (Input'First + Half - I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,335,+ -> -,S : constant Integer := Integer (Input (Input'First + I));,S : constant Integer := Integer (Input (Input'First - I));,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,228,- 1 -> - 0,for I in 0 .. Half - 1 loop,for I in 0 .. Half - 0 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,47,+ 1 -> + 0,Result (Out_Idx + 2*I + 1) := Input (Input'First + I) - Input (Input'First + Half + I);,Result (Out_Idx + 2*I + 0) := Input (Input'First + I) - Input (Input'First + Half + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,305,- -> +,for I in 0 .. Half - 1 loop,for I in 0 .. Half + 1 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,240,+ -> -,Buf (Buf'First + I) := Tmp (1 + I);,Buf (Buf'First - I) := Tmp (1 + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,26,+ -> -,Result (Out_Idx + Half + I) := (Input (Input'First + 2*I) - Input (Input'First + 2*I + 1)) / 2.0;,Result (Out_Idx + Half + I) := (Input (Input'First + 2*I) - Input (Input'First + 2*I - 1)) / 2.0;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,228,- -> +,for I in 0 .. Half - 1 loop,for I in 0 .. Half + 1 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,220,+ -> -,Y : constant Detail := Buf (Buf'First + 2 * I + 1);,Y : constant Detail := Buf (Buf'First - 2 * I + 1);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,172,- -> +,for I in 0 .. Half - 1 loop,for I in 0 .. Half + 1 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,339,+ -> -,Result (Out_Idx + 2 * I) := Integer (A);,Result (Out_Idx - 2 * I) := Integer (A);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,199,- -> +,for I in 0 .. Half - 1 loop,for I in 0 .. Half + 1 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,235,* -> +,Tmp (1 + 2 * I + 1) := A + D;,Tmp (1 + 2 + I + 1) := A + D;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,45,- 1 -> - 0,for I in 0 .. Half - 1 loop,for I in 0 .. Half - 0 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,117,- -> +,"Row_1D (1 + J - Input'First(2)) := Temp (I, J);","Row_1D (1 + J + Input'First(2)) := Temp (I, J);",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,336,+ -> -,D : constant Detail := Input (Input'First + Half + I);,D : constant Detail := Input (Input'First - Half + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,340,+ -> -,Result (Out_Idx + 2 * I + 1) := Integer (A + D);,Result (Out_Idx + 2 * I - 1) := Integer (A + D);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,307,+ -> -,X : constant Integer := Input (Input'First + 2 * I);,X : constant Integer := Input (Input'First - 2 * I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,248,or else -> and then,if Width < 2 or else Width mod 2 /= 0 then,if Width < 2 and then Width mod 2 /= 0 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,172,- 1 -> - 0,for I in 0 .. Half - 1 loop,for I in 0 .. Half - 0 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,248,/= -> =,if Width < 2 or else Width mod 2 /= 0 then,if Width < 2 or else Width mod 2 = 0 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,307,* -> +,X : constant Integer := Input (Input'First + 2 * I);,X : constant Integer := Input (Input'First + 2 + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,22,- -> +,for I in 0 .. Half - 1 loop,for I in 0 .. Half + 1 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,263,<= -> <,if Levels = 0 or else Input'Length <= 1 then,if Levels = 0 or else Input'Length < 1 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,110,- -> +,"Temp (I, J) := Col_1D (1 + I - Input'First(1));","Temp (I, J) := Col_1D (1 + I + Input'First(1));",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,26,- -> +,Result (Out_Idx + Half + I) := (Input (Input'First + 2*I) - Input (Input'First + 2*I + 1)) / 2.0;,Result (Out_Idx + Half + I) := (Input (Input'First + 2*I) + Input (Input'First + 2*I + 1)) / 2.0;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,220,+ 1 -> + 0,Y : constant Detail := Buf (Buf'First + 2 * I + 1);,Y : constant Detail := Buf (Buf'First + 2 * I + 0);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,174,* -> +,X : constant Detail := Input (Input'First + 2 * I);,X : constant Detail := Input (Input'First + 2 + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,339,* -> +,Result (Out_Idx + 2 * I) := Integer (A);,Result (Out_Idx + 2 + I) := Integer (A);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,110,+ -> -,"Temp (I, J) := Col_1D (1 + I - Input'First(1));","Temp (I, J) := Col_1D (1 - I - Input'First(1));",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,239,- -> +,for I in 0 .. Width - 1 loop,for I in 0 .. Width + 1 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,263,= -> /=,if Levels = 0 or else Input'Length <= 1 then,if Levels /= 0 or else Input'Length <= 1 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,175,+ 1 -> + 0,Y : constant Detail := Input (Input'First + 2 * I + 1);,Y : constant Detail := Input (Input'First + 2 * I + 0);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,200,+ -> -,Avg  := Input (Input'First + I);,Avg  := Input (Input'First - I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,230,+ -> -,S : constant Detail := Buf (Buf'First + I);,S : constant Detail := Buf (Buf'First - I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,104,- -> +,"Col_1D (1 + I - Input'First(1)) := Input (I, J);","Col_1D (1 + I + Input'First(1)) := Input (I, J);",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,46,+ -> -,Result (Out_Idx + 2*I)     := Input (Input'First + I) + Input (Input'First + Half + I);,Result (Out_Idx + 2*I)     := Input (Input'First - I) + Input (Input'First + Half + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,283,<= -> <,if Levels = 0 or else Input'Length <= 1 then,if Levels = 0 or else Input'Length < 1 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,240,+ -> -,Buf (Buf'First + I) := Tmp (1 + I);,Buf (Buf'First + I) := Tmp (1 - I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,340,+ -> -,Result (Out_Idx + 2 * I + 1) := Integer (A + D);,Result (Out_Idx - 2 * I + 1) := Integer (A + D);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,267,or else -> and then,if Width < 2 or else Width mod 2 /= 0 then,if Width < 2 and then Width mod 2 /= 0 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,73,+ -> -,"Temp (I, J) := Row_1D (1 + J - Input'First(2));","Temp (I, J) := Row_1D (1 - J - Input'First(2));",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,47,+ -> -,Result (Out_Idx + 2*I + 1) := Input (Input'First + I) - Input (Input'First + Half + I);,Result (Out_Idx + 2*I + 1) := Input (Input'First - I) - Input (Input'First + Half + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,67,+ -> -,"Row_1D (1 + J - Input'First(2)) := Input (I, J);","Row_1D (1 - J - Input'First(2)) := Input (I, J);",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,46,+ -> -,Result (Out_Idx + 2*I)     := Input (Input'First + I) + Input (Input'First + Half + I);,Result (Out_Idx + 2*I)     := Input (Input'First + I) + Input (Input'First - Half + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,217,- -> +,for I in 0 .. Half - 1 loop,for I in 0 .. Half + 1 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,67,- -> +,"Row_1D (1 + J - Input'First(2)) := Input (I, J);","Row_1D (1 + J + Input'First(2)) := Input (I, J);",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,308,+ -> -,Y : constant Integer := Input (Input'First + 2 * I + 1);,Y : constant Integer := Input (Input'First - 2 * I + 1);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,333,- 1 -> - 0,for I in 0 .. Half - 1 loop,for I in 0 .. Half - 0 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,45,- -> +,for I in 0 .. Half - 1 loop,for I in 0 .. Half + 1 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,22,- 1 -> - 0,for I in 0 .. Half - 1 loop,for I in 0 .. Half - 0 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,234,* -> +,Tmp (1 + 2 * I) := A;,Tmp (1 + 2 + I) := A;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,47,+ -> -,Result (Out_Idx + 2*I + 1) := Input (Input'First + I) - Input (Input'First + Half + I);,Result (Out_Idx + 2*I + 1) := Input (Input'First + I) - Input (Input'First - Half + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,123,+ -> -,"Result (I, J) := Row_1D (1 + J - Input'First(2));","Result (I, J) := Row_1D (1 - J - Input'First(2));",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,180,+ -> -,Result (Out_Idx + I) := X + Floor_Div_2 (D);,Result (Out_Idx - I) := X + Floor_Div_2 (D);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,24,+ -> -,Result (Out_Idx + I) := (Input (Input'First + 2*I) + Input (Input'First + 2*I + 1)) / 2.0;,Result (Out_Idx + I) := (Input (Input'First - 2*I) + Input (Input'First + 2*I + 1)) / 2.0;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,288,* -> +,Width := Width * 2;,Width := Width + 2;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,267,/= -> =,if Width < 2 or else Width mod 2 /= 0 then,if Width < 2 or else Width mod 2 = 0 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,219,+ -> -,X : constant Detail := Buf (Buf'First + 2 * I);,X : constant Detail := Buf (Buf'First - 2 * I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,123,- -> +,"Result (I, J) := Row_1D (1 + J - Input'First(2));","Result (I, J) := Row_1D (1 + J + Input'First(2));",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,248,< -> <=,if Width < 2 or else Width mod 2 /= 0 then,if Width <= 2 or else Width mod 2 /= 0 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,217,- 1 -> - 0,for I in 0 .. Half - 1 loop,for I in 0 .. Half - 0 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,231,+ -> -,D : constant Detail := Buf (Buf'First + Half + I);,D : constant Detail := Buf (Buf'First + Half - I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,316,+ -> -,Result (Out_Idx + Half + I) := D;,Result (Out_Idx + Half - I) := D;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,220,+ -> -,Y : constant Detail := Buf (Buf'First + 2 * I + 1);,Y : constant Detail := Buf (Buf'First + 2 * I - 1);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,283,= -> /=,if Levels = 0 or else Input'Length <= 1 then,if Levels /= 0 or else Input'Length <= 1 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,224,+ -> -,Tmp (1 + Half + I) := D;,Tmp (1 + Half - I) := D;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,175,+ -> -,Y : constant Detail := Input (Input'First + 2 * I + 1);,Y : constant Detail := Input (Input'First + 2 * I - 1);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,312,- -> +,D : constant Detail := Detail (Y) - Detail (X);,D : constant Detail := Detail (Y) + Detail (X);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,223,+ -> -,Tmp (1 + I) := X + Floor_Div_2 (D);,Tmp (1 - I) := X + Floor_Div_2 (D);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,337,- -> +,A : constant Detail := Detail (S) - Floor_Div_2 (D);,A : constant Detail := Detail (S) + Floor_Div_2 (D);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,336,+ -> -,D : constant Detail := Input (Input'First + Half + I);,D : constant Detail := Input (Input'First + Half - I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,205,* -> +,Result (Out_Idx + 2 * I + 1) := Result (Out_Idx + 2 * I) + Diff;,Result (Out_Idx + 2 + I + 1) := Result (Out_Idx + 2 * I) + Diff;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,308,+ -> -,Y : constant Integer := Input (Input'First + 2 * I + 1);,Y : constant Integer := Input (Input'First + 2 * I - 1);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,267,< -> <=,if Width < 2 or else Width mod 2 /= 0 then,if Width <= 2 or else Width mod 2 /= 0 then,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,46,+ -> -,Result (Out_Idx + 2*I)     := Input (Input'First + I) + Input (Input'First + Half + I);,Result (Out_Idx + 2*I)     := Input (Input'First + I) - Input (Input'First + Half + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,117,+ -> -,"Row_1D (1 + J - Input'First(2)) := Temp (I, J);","Row_1D (1 - J - Input'First(2)) := Temp (I, J);",killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,333,- -> +,for I in 0 .. Half - 1 loop,for I in 0 .. Half + 1 loop,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,205,+ 1 -> + 0,Result (Out_Idx + 2 * I + 1) := Result (Out_Idx + 2 * I) + Diff;,Result (Out_Idx + 2 * I + 0) := Result (Out_Idx + 2 * I) + Diff;,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,219,* -> +,X : constant Detail := Buf (Buf'First + 2 * I);,X : constant Detail := Buf (Buf'First + 2 + I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,47,+ -> -,Result (Out_Idx + 2*I + 1) := Input (Input'First + I) - Input (Input'First + Half + I);,Result (Out_Idx + 2*I + 1) := Input (Input'First + I) - Input (Input'First + Half - I);,killed
+detail tune half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,305,- 1 -> - 0,for I in 0 .. Half - 1 loop,for I in 0 .. Half - 0 loop,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,or else -> and then,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,* -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,/= -> =,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,= -> /=,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,= -> /=,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,= -> /=,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,* -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,/= -> =,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,or else -> and then,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,>= -> >,hidden,hidden,survived
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,/= -> =,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,/= -> =,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,* -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,= -> /=,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,= -> /=,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,< -> <=,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,* -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,/= -> =,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,/= -> =,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,* -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,* -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,or else -> and then,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,= -> /=,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,< -> <=,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,= -> /=,hidden,hidden,killed
+detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
