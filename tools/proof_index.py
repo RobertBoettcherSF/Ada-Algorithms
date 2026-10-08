@@ -203,6 +203,14 @@ unchecked_by = collections.Counter(x['folder'] for x in _csv(os.path.join(a.root
 # tools/vv/silent_fail.csv: make test prints a failure but exits 0, or pragma Assert is the only failure
 # signal and the standard build has no -gnata. make test 'passes' is then meaningless: not training-ready.
 silent_by = {x['folder']: x for x in _csv(os.path.join(a.root, 'tools', 'vv', 'silent_fail.csv')) if x.get('silent_fail') == 'yes'}
+# tools/vv/flaky.csv (tools/vv/flaky.py, docs/VV.md 3j): repeatability (10 runs), seed sweep (AA_SEED=1..30) and
+# one Initialize_Scalars + -gnatVa run; one row per folder and compiler. flaky = yes when any row says yes;
+# no when every row measured says no. Mutation runs on a flaky folder do not count.
+flaky_by = {}
+for x in _csv(os.path.join(a.root, 'tools', 'vv', 'flaky.csv')):
+    v = x.get('flaky', '').strip()
+    if x.get('folder') and v in ('yes', 'no'):
+        flaky_by[x['folder']] = 'yes' if 'yes' in (v, flaky_by.get(x['folder'])) else 'no'
 # held-out mutation halves (tools/vv/heldout.py -> vv/results/mutation_halves.csv; last row per folder and half)
 halves_by = collections.defaultdict(dict)
 for x in _csv(os.path.join(a.root, 'vv', 'results', 'mutation_halves.csv')):
@@ -267,6 +275,7 @@ for r in rows:
     r['fallback'] = '; '.join(fallback_by.get(r['folder'], []))
     r['unchecked_subprograms'] = str(unchecked_by[r['folder']]) if unchecked_by[r['folder']] else ''
     r['silent_fail'] = 'yes' if r['folder'] in silent_by else ''
+    r['flaky'] = flaky_by.get(r['folder'], '')
     hv = halves_by.get(r['folder'], {})
     for h, col in (('tuning', 'mutation_tuned'), ('heldout', 'mutation_heldout')):
         x = hv.get(h)
@@ -305,6 +314,8 @@ def training_ready(r):
 #  (3) zero warnings with -gnatwa on GNAT 14 and 12, and no suppression (warnings_suppressed);
 #  (4) no proof escape (pragma Assume / Annotate) without a written reason (else not Silver non-trivial).
 def mutation_ok(r):
+    if r['flaky'] == 'yes':       # false kills: no mutation score counts until the flakiness is fixed
+        return False
     if r['mutation_heldout_n']:   # held-out half scored: it alone decides, and needs >= 20 non-equivalent mutants
         k, n = int(r['mutation_heldout_k']), int(r['mutation_heldout_n'])
         return n >= 20 and 10 * k >= 9 * n
@@ -317,7 +328,8 @@ def mutation_ok(r):
     return den <= 0 or 10 * int(m.group(1)) >= 9 * den
 def drop_reasons(r):
     out = []
-    if not mutation_ok(r) and r['mutation_tuned_n'] and not r['mutation_heldout_n']: out.append('held-out score pending')
+    if r['flaky'] == 'yes': out.append('flaky (mutation does not count)')
+    elif not mutation_ok(r) and r['mutation_tuned_n'] and not r['mutation_heldout_n']: out.append('held-out score pending')
     elif not mutation_ok(r): out.append(('held-out < 20 mutants' if int(r['mutation_heldout_n']) < 20 else 'held-out mutation < 90%') if r['mutation_heldout_n'] else ('mutation < 90%' if r['mutation_score'] not in ('',) else 'mutation not run'))
     if r['ref_independent'] != 'yes': out.append('twin only' if r['twin_only'] else 'old_unverified answers only')
     if r['warnings_gnat14'] != '0' or r['warnings_gnat12'] != '0': out.append('warnings')
@@ -325,6 +337,7 @@ def drop_reasons(r):
     if esc_bare[r['folder']]: out.append('unjustified proof escape')
     if r['masked_by_finish']: out.append('masked by Bubble_Finish')
     if r['silent_fail']: out.append('silent fail')
+    if r['flaky'] != 'no' and r['flaky'] != 'yes': out.append('flakiness not measured')
     if r['compiler_14_version'] in ('', 'unverified') or r['compiler_12_version'] in ('', 'unverified'):
         out.append('compiler version unverified')
     return out
@@ -455,7 +468,7 @@ L = ['# Proof index', '',
      'Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder\'s own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build\'s test binary exits 0 with no FAIL lines.',
      'Silver: `gnatprove --mode=silver --level=2` on the folder\'s own .gpr (generated where none exists).', '',
      f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub or README says stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
-     f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. The column `known_answer_source` says where the expected values come from (own / standard / old_derived / old_unverified); hard-coded answers in old tests count only when they were derived independently (`tools/vv/old_derived.csv`), never when they may have been copied from program output (old_unverified). A sort whose proof rests on a final Bubble_Finish pass that masks the named algorithm (`tools/vv/sweep_masking.csv`, column `masked_by_finish`) is not training-ready either; a surviving mutant counts as equivalent only when `tools/vv/sweep_equivalent.csv` lists it with exhaustive evidence or a written reason. Under the old rule: {c(lambda r: r['training_ready_old']=='yes')} folders.", '',
+     f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. The column `known_answer_source` says where the expected values come from (own / standard / old_derived / old_unverified); hard-coded answers in old tests count only when they were derived independently (`tools/vv/old_derived.csv`), never when they may have been copied from program output (old_unverified). A sort whose proof rests on a final Bubble_Finish pass that masks the named algorithm (`tools/vv/sweep_masking.csv`, column `masked_by_finish`) is not training-ready either; a surviving mutant counts as equivalent only when `tools/vv/sweep_equivalent.csv` lists it with exhaustive evidence or a written reason. Flaky tests (docs/VV.md 3j, `tools/vv/flaky.py` -> `tools/vv/flaky.csv`, column `flaky`): a folder is training-ready only with flaky=no - the same result in 10 repeated runs on the default seed, no failing AA_SEED in 1..30 for tests that use randomness, and no new failure in a build with `pragma Initialize_Scalars` and `-gnatVa`; on a flaky folder no mutation score counts until it is fixed. Under the old rule: {c(lambda r: r['training_ready_old']=='yes')} folders.", '',
      f"**Do-nothing check:** {c(lambda r: r['do_nothing'] in ('ok', 'weak') or r['do_nothing'].startswith('unchecked'))} folders checked, {c(lambda r: r['do_nothing']=='weak')} flagged weak (tests still pass when the main subprogram does nothing), {c(lambda r: r['do_nothing'].startswith('unchecked'))} unchecked (no trivial body compiles); {c(lambda r: r['do_nothing']=='weak' and r['silver']=='proven' and not r['trivial'] and not r['stub'])} of the weak ones are Silver-proven non-trivial. Own tests: {c(lambda r: r['own_tests']=='yes')} folders (column `own_tests`).", '',
      '**Silver headline (duplicates counted once):** ' + headline, '',
      '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged, and so is every folder listed in `tools/readme_stubs.txt` (its README calls it a stub); the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
