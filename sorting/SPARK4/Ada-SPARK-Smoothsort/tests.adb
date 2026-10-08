@@ -1,6 +1,6 @@
 --  Standalone test suite for Smoothsort (SPARK port).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  A'First is always 1; Max_N = 64. Sortedness is proved by SPARK;
+--  Any A'First in 1 .. Max_N (section 11 shifts origins); Max_N = 64. Sortedness is proved by SPARK;
 --  multiset / permutation equality is checked here. Smoothsort is
 --  unstable, so equal keys are only checked as a permutation.
 
@@ -155,6 +155,23 @@ is
       end loop;
       return A;
    end Reverse_Array;
+
+
+   --  Same contents placed at Origin .. Origin + Len - 1. Sorting the
+   --  shifted copy must give the reference sort of Src, slot for slot.
+   function Shifted_Ok (Src : Element_Array; Origin : Live_Index)
+     return Boolean
+   is
+      A : Element_Array (Origin .. Origin + Src'Length - 1);
+      R : Element_Array := Copy_Of (Src);
+   begin
+      for K in 0 .. Src'Length - 1 loop
+         A (Origin + K) := Src (Src'First + K);
+      end loop;
+      Sort (A);
+      Reference_Sort (R);
+      return Is_Sorted (A) and then Same (A, R);
+   end Shifted_Ok;
 
 begin
    Put_Line ("Smoothsort (SPARK) tests");
@@ -317,6 +334,83 @@ begin
    Expect_Sorted (Reverse_Array (17), "odd length reverse 17");
    Expect_Sorted (Reverse_Array (64), "reverse n=64");
    Expect_Sorted (Sorted_Array (64), "already sorted n=64");
+
+
+   ---------------------------------------------------------------------
+   Section ("11. Shifted origins (A'First > 1, flush to Max_N)");
+   ---------------------------------------------------------------------
+   --  Origins 2, 7, 33 and Max_N - Len + 1 (slice ends at Index'Last).
+   --  Every length, so each greedy Leonardo partition shape (stretch
+   --  roots First-relative, child roots Root - L(k) + L(k-1) / Root - 1)
+   --  is exercised away from index 1.
+   declare
+      type Origin_List is array (Positive range <>) of Positive;
+      Fixed : constant Origin_List := [2, 7, 33];
+      Pattern_Names : constant array (1 .. 5) of String (1 .. 8) :=
+        ["equal   ", "sorted  ", "reverse ", "organ   ", "random  "];
+      Ok    : Boolean;
+      Cases : Natural;
+
+      function Make (P : Positive; Len : Natural) return Element_Array is
+         A : Element_Array (1 .. Len);
+      begin
+         case P is
+            when 1 => A := [others => 42];
+            when 2 => A := Sorted_Array (Len);
+            when 3 => A := Reverse_Array (Len);
+            when 4 =>
+               for I in A'Range loop
+                  A (I) := (if 2 * I <= Len + 1 then I else Len - I + 1);
+               end loop;
+            when others => A := Random_Array (Len, -20, 20);
+         end case;
+         return A;
+      end Make;
+   begin
+      for P in Pattern_Names'Range loop
+         for O of Fixed loop
+            Ok := True;
+            Cases := 0;
+            for Len in 0 .. Max_N - O + 1 loop
+               Cases := Cases + 1;
+               if not Shifted_Ok (Make (P, Len), O) then
+                  Ok := False;
+                  Put_Line ("    mismatch origin" & O'Image & " len"
+                            & Len'Image);
+               end if;
+            end loop;
+            Check (Ok, "origin" & O'Image & " " & Pattern_Names (P)
+                   & " lens 0 .." & Natural'Image (Max_N - O + 1)
+                   & " (" & Cases'Image & " cases)");
+         end loop;
+         Ok := True;
+         for Len in 1 .. Max_N - 1 loop
+            if not Shifted_Ok (Make (P, Len), Max_N - Len + 1) then
+               Ok := False;
+               Put_Line ("    mismatch flush len" & Len'Image);
+            end if;
+         end loop;
+         Check (Ok, "flush to Max_N " & Pattern_Names (P) & " lens 1 .. 63");
+      end loop;
+   end;
+   declare
+      Tail : Element_Array (Max_N - 5 .. Max_N) := [9, -3, 9, 0, -3, 7];
+   begin
+      Check (Boo (In_Bounds (Tail)), "Tail(Max_N-5 .. Max_N) In_Bounds");
+      Sort (Tail);
+      Check (Same (Tail, Element_Array'([-3, -3, 0, 7, 9, 9])),
+             "Tail(Max_N-5 .. Max_N) sorted in place");
+   end;
+   declare
+      Wide : Element_Array (2 .. Max_N) := [others => 5];
+   begin
+      Wide (2) := 6;
+      Wide (Max_N) := 4;
+      Sort (Wide);
+      Check (Wide (2) = 4 and then Wide (Max_N) = 6
+             and then Boo (Is_Sorted (Wide)),
+             "Wide(2 .. Max_N) near-equal");
+   end;
 
    New_Line;
    Put_Line

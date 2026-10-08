@@ -9,7 +9,9 @@
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling uses First-relative offsets, Max_Length = 100_000, bit-string
 --  P / Up / Down / Trinkle / Semitrinkle, and raises on oversized n;
---  this port requires A'First = 1, Max_N = 64, a precomputed Leonardo
+--  this port takes any A'First in 1 .. Max_N (stretch roots and child
+--  roots are First-relative: the stretch rooted at R of order k starts
+--  at R - L(k) + 1 >= A'First), Max_N = 64, a precomputed Leonardo
 --  table, and Pre => In_Bounds (A). Full multiset / permutation equality
 --  is verified by tests rather than claimed as a Level-4 postcondition
 --  (sortedness is proved).
@@ -36,7 +38,8 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Live indices lie in 1 .. Max_N (any A'First); Index includes 0 so
+   --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
 
    subtype Leonardo_Order is Natural range 0 .. Max_Leonardo_Order;
@@ -50,13 +53,16 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (A'Length <= 1
+      or else (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
@@ -77,8 +83,8 @@ is
    ---------------------------------------------------------------------------
    -- Algorithm sketch (classroom Leonardo-forest heapsort)
    ---------------------------------------------------------------------------
-   --  Assume In_Bounds (A). Indices are 1-based.
-   --  1. Partition 1 .. N into greedy Leonardo stretches; Dijkstra/
+   --  Assume In_Bounds (A). Indices are First-relative.
+   --  1. Partition A'First .. A'Last into greedy Leonardo stretches; Dijkstra/
    --     Keith-layout sift on each ([Lt_{k-1}][Lt_{k-2}][root]).
    --  2. Extract-max loop: linear prefix-max scan (Level-4 stand-in for
    --     max-among-roots), swap with A(Last), shrink; proves Is_Sorted.

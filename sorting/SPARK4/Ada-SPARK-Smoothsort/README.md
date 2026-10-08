@@ -7,7 +7,7 @@ $$
 L(0)=L(1)=1,\quad L(k)=L(k-1)+L(k-2)+1,\quad n \le \mathrm{Max\_N}=64
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Smoothsort](https://github.com/RobertBoettcherSF/Ada-Smoothsort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_Length`, exceptions (`Invalid_Argument`), First-relative offsets, and the full bit-string $P$ / Up / Down / Trinkle / Semitrinkle Dijkstra pipeline with arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, a precomputed Leonardo table, and 1-based indices. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort) and [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Smoothsort](https://github.com/RobertBoettcherSF/Ada-Smoothsort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_Length`, exceptions (`Invalid_Argument`), First-relative offsets, and the full bit-string $P$ / Up / Down / Trinkle / Semitrinkle Dijkstra pipeline with arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, a precomputed Leonardo table, and First-relative stretch roots (any `A'First`). README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort) and [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
 
 ## Features
 * **`Sort (A)`**: Classroom Leonardo-forest heapsort — greedy stretch partition, Dijkstra/Keith-layout sift, then extract-max with a proved sorted-suffix argument.
@@ -20,7 +20,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Smoothsort](https:/
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $\mathrm{Max\_Length}=100\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N`: a stretch of order $k$ rooted at $R$ occupies $R-L(k)+1 .. R$ and must start at or after `A'First`; child roots are $R-L(k)+L(k-1)$ and $R-1$. Tests sort shifted copies at origins 2, 7, 33 and slices flush to `Max_N`.
 * Precomputed Leonardo table for orders $0..8$ only (`Max_Leonardo_Order = 8`; sibling table goes to $40$).
 * **Classroom extract**: after one Leonardo-forest heapify of $1..n$, Sort proves `Is_Sorted` via a linear prefix-max scan and sorted-suffix invariants (same shape as selection / heapsort extract proofs). Full Dijkstra bit-string $P$, Trinkle / Semitrinkle, and Level-4 `Is_Leo_Heap` / forest-root-max lemmas were attempted and found intractable in reasonable time — documented honestly here rather than suppressed with `Intentional` annotations.
 * Greedy largest-$L(k)$ stretch partition (educational cover of $n$) instead of the live bit-string grow loop.
@@ -68,7 +68,7 @@ When you run `make test`, you will see all 173 assertions pass. Running `make pr
 | `Element_Array` | `array (Positive range <>) of Integer` |
 | `Max_N` | Classroom capacity bound (`64`) |
 | `Max_Leonardo_Order` | Highest table order (`8`; $L(8)=67$) |
-| `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
+| `In_Bounds` | `A'Length <= Max_N`, `A'First in 1 .. Max_N`, `A'Last in 0 .. Max_N` |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
 | `Leonardo` | Precomputed Leonardo number $L(K)$ |
 | `Sort` | Ascending classroom Leonardo-forest heapsort (`Post => Is_Sorted`) |
