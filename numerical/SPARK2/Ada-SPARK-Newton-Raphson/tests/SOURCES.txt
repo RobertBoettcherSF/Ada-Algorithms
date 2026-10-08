@@ -1,0 +1,5 @@
+Where the expected values in tests.adb come from
+- Sqrt (1) = 1, Sqrt (144) = 12, Sqrt (10_000) = 100: arithmetic facts.
+- every N in 1 .. 10_000: own property check, the definition of the integer square root
+  (R * R <= N < (R + 1) * (R + 1)); no expected values are stored.
+No values were copied from the program output or from third-party sources.

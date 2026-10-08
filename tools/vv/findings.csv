@@ -5,7 +5,7 @@ strings/SPARK2/Ada-SPARK-Repeated-String-Match,Repeat_Count only compares B with
 numerical/SPARK2/Ada-SPARK-Newton-Raphson,Sqrt (k**2 - 1) returns k instead of k - 1 (52 inputs in the tested range),open,,
 trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,Is_Balanced checks a leaf-depth rule instead of height balance,open,,
 trees/SPARK2/Ada-SPARK-Range-Sum-BST,range sum skips the left subtree of in-range nodes,open,,
-misc/SPARK2/Ada-SPARK-Jump-Game,Can_Jump returns A (N) > 0; not the jump game,open,,
+misc/SPARK2/Ada-SPARK-Jump-Game,Can_Jump returns A (N) > 0; not the jump game,fixed,bf330e8,73d4188
 searching/SPARK2/Bst-Insert-Search,array-backed tree (31 slots; children of K at 2K and 2K + 1) silently loses keys deeper than 5 levels; no README,open,,
 trees/SPARK2/Ada-SPARK-Insert-Into-BST,Insert appends in insertion order; no BST shape,open,,
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,Solve keeps up to two copies of each value instead of removing every value that occurs more than once,open,,
