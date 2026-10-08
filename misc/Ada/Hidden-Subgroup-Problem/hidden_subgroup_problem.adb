@@ -164,7 +164,9 @@ package body Hidden_Subgroup_Problem is
          end if;
       end;
 
-      for R in 1 .. Period_Type(N - 1) loop
+      --  r = N always works on Z_N (x + N = x), so a one-to-one oracle has
+      --  period N (hidden subgroup {0}) rather than no period.
+      for R in 1 .. Period_Type(N) loop
          declare
             Is_Periodic : Boolean := True;
          begin
