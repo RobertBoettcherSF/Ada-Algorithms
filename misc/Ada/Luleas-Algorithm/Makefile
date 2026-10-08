@@ -1,18 +1,14 @@
 .PHONY: all test clean
 
-GNAT = gnatmake
-GNAT_FLAGS = -gnatwa -gnat2022 -gnata
-OBJ_DIR = obj
-BIN_DIR = bin
+GNAT ?= gnatmake
+FLAGS = -gnatwa -gnat2022 -gnata
 
-all: $(BIN_DIR)/tests
+all: test
 
-$(BIN_DIR)/tests: tests.adb lulea_algorithm.ads lulea_algorithm.adb
-	mkdir -p $(OBJ_DIR) $(BIN_DIR)
-	$(GNAT) $(GNAT_FLAGS) -D $(OBJ_DIR) -o $(BIN_DIR)/tests tests.adb
-
-test: $(BIN_DIR)/tests
-	$(BIN_DIR)/tests
+test:
+	mkdir -p obj bin
+	gprbuild -p -Plulea_algorithm.gpr
+	./bin/tests
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -rf obj bin
