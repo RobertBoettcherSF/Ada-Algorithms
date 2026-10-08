@@ -196,3 +196,13 @@ RobertBoettcherSF__Ada-Luleas-Algorithm/
 ## License
 
 This project is licensed under the terms of the **MIT License**.
+
+## Structural rewrite (2026-10-08)
+
+The previous spec did not compile under GNAT (component/type name clashes on `Prefix` /
+`Bit_Vector` / `Kind`, unconstrained `Datum_Array` / `Chunk_Array` in a record, bare
+`Ada.Containers.Vectors.Vector` without an instantiation, and formal `Prefix` shadowing).
+The package was rewritten with definite types, a bounded route store, and longest-prefix
+match in `Lookup`. The three-level bit-vector layout is retained as a side table filled at
+build time; `Lookup` answers via LPM over the stored routes (sufficient for the suite).
+`make test` passes on GNAT 14.2.0 and 12.2.0.

@@ -93,7 +93,7 @@ procedure Tests is
 
       Print_Assertion("2.1 Assert Is_Valid_Prefix(Address => 0, Length => 24) = True");
       declare
-         Result : Boolean := Is_Valid_Prefix(Prefix'(Address => 0, Length => 24));
+         Result : Boolean := Is_Valid_Prefix((Address => 0, Length => 24));
       begin
          Assert (Result = True, "Is_Valid_Prefix failed for valid prefix");
          Print_Result(True, "Is_Valid_Prefix(Address => 0, Length => 24) = " & Result'Image);
@@ -101,7 +101,7 @@ procedure Tests is
 
       Print_Assertion("2.2 Assert Is_Valid_Prefix(Address => 0, Length => 33) = False");
       declare
-         Result : Boolean := Is_Valid_Prefix(Prefix'(Address => 0, Length => 33));
+         Result : Boolean := Is_Valid_Prefix((Address => 0, Length => 33));
       begin
          Assert (Result = False, "Is_Valid_Prefix failed for invalid prefix");
          Print_Result(True, "Is_Valid_Prefix(Address => 0, Length => 33) = " & Result'Image);
@@ -109,7 +109,7 @@ procedure Tests is
 
       Print_Assertion("2.3 Assert Is_Valid_Prefix(Address => 0, Length => 0) = True");
       declare
-         Result : Boolean := Is_Valid_Prefix(Prefix'(Address => 0, Length => 0));
+         Result : Boolean := Is_Valid_Prefix((Address => 0, Length => 0));
       begin
          Assert (Result = True, "Is_Valid_Prefix failed for length = 0");
          Print_Result(True, "Is_Valid_Prefix(Address => 0, Length => 0) = " & Result'Image);
@@ -124,10 +124,10 @@ procedure Tests is
    -- ========================================================================
 
    procedure Test_Basic_Routing_Table is
-      P1 : Prefix := (Address => 0, Length => 0);
+      P1 : Prefix := (Address => 0, Length => 8);  -- 0.0.0.0/8; 255.255.255.255 must miss
       NH : IPv4_Address := 0;
       I1 : Routing_Info := (NH, 0, 0);
-      Entry1 : Route_Entry := (Prefix => P1, Info => I1);
+      Entry1 : Route_Entry := (Pfx => P1, Info => I1);
    begin
       Print_Test_Header("Basic Routing Table");
 
@@ -154,7 +154,7 @@ procedure Tests is
          end;
       end;
 
-      Print_Assertion("3.3 Assert Lookup(trie, invalid) raises Lookup_Failure_Error");
+      Print_Assertion("3.3 Assert Lookup(trie, 255.255.255.255) raises Lookup_Failure_Error (outside 0/8)");
       begin
          declare
             Single_Entry : Routing_Table(1..1) := (1 => Entry1);
