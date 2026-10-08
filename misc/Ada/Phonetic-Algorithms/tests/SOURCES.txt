@@ -16,7 +16,18 @@ ACEGHIKNSTWY; 5,884 words in total.
 * Metaphone (original Philips rules, 4 symbols): a transducer over
   look-behind / look-ahead strings. Note: it was written after reading the
   package spec and README, so for Metaphone the reference is a second
-  implementation of the same rule list rather than a fully blind one.
+  implementation of the same rule list rather than a fully blind one
+  (spec-derived, not blind).
+* Metaphone, independent published examples: tests/metaphone_published.txt,
+  48 distinct word / code pairs and 19 groups (223 names) asserted Metaphone-equal,
+  from Apache Commons Codec's MetaphoneTest.java (master d7bff678de1e,
+  Apache License 2.0; the variant our spec names). Codes cut to our 4
+  symbols (two pairs come from tests that set length 5 and 6; Metaphone
+  output is built left to right, so the 4-symbol code is the prefix); WHY,
+  empty in Commons Codec, raises Invalid_Argument by our spec. These were
+  written by people other than the authors of the code and of the reference,
+  so for these words the Metaphone check is blind; they all agreed with the
+  code and with sweep_phonetic_ref.py on first run.
 * Boundaries from the spec: empty, letter-free and Max_Len + 1 inputs raise
   Invalid_Argument; a Max_Len input is accepted.
 Nothing is taken from the program's output, Wikipedia text, Rosetta Code or

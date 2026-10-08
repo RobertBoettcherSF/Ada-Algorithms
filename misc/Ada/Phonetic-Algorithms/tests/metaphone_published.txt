@@ -1,0 +1,76 @@
+# Published Metaphone examples, independent of tests/vectors.txt (docs/VV.md 3i).
+# Source: Apache Commons Codec, src/test/java/org/apache/commons/codec/language/MetaphoneTest.java
+# (https://github.com/apache/commons-codec, master at d7bff678de1e, fetched 2026-10-08),
+# Apache License 2.0, (c) The Apache Software Foundation. Only the word / code pairs and the
+# groups of names asserted to share a code are used; no code is copied.
+# P WORD CODE : Commons Codec's code, cut to 4 symbols (our spec's length; Commons Codec's default
+#               is also 4 except for two tests that set 5 and 6). '!' : our spec raises
+#               Invalid_Argument where Commons Codec returns the empty code (WHY).
+# G NAME...    : names Commons Codec asserts are Metaphone-equal (isMetaphoneEqual).
+P SCIENCE SNS
+P SCENE SN
+P SCY S
+P GNU N
+P SIGNED SNT
+P GHENT KNT
+P BAUGH B
+P AXEAXE AKSK
+P howl HL
+P testing TSTN
+P The 0
+P quick KK
+P brown BRN
+P fox FKS
+P jumped JMPT
+P over OFR
+P the 0
+P lazy LS
+P dogs TKS
+P PHISH FX
+P AXEAXEAXE AKSK
+P SHOT XT
+P ODSIAN OTXN
+P PULSION PLXN
+P RETCH RX
+P WATCH WX
+P OTIA OX
+P PORTION PRXN
+P CHARACTER XRKT
+P SCHEDULE SKTL
+P SCHEMATIC SKMT
+P DISCHARGE TSKR
+P ECHO EX
+P TEACH TX
+P CHERI XR
+P CHIP XP
+P CHRIST XRST
+P CIAO X
+P CITY ST
+P CAT KT
+P DODGY TJ
+P DODGE TJ
+P ADGIEMTI AJMT
+P WHY !
+P COMB KM
+P TOMB TM
+P WOMB WM
+P CIAPO XP
+G Aero Eure
+G Albert Ailbert Alberik Albert Alberto Albrecht
+G Gary Cahra Cara Carey Cari Caria Carie Caro Carree Carri Carrie Carry Cary Cora Corey Cori Corie Correy Corri Corrie Corry Cory Gray Kara Kare Karee Kari Karia Karie Karrah Karrie Karry Kary Keri Kerri Kerrie Kerry Kira Kiri Kora Kore Kori Korie Korrie Korry
+G John Gena Gene Genia Genna Genni Gennie Genny Giana Gianna Gina Ginni Ginnie Ginny Jaine Jan Jana Jane Janey Jania Janie Janna Jany Jayne Jean Jeana Jeane Jeanie Jeanna Jeanne Jeannie Jen Jena Jeni Jenn Jenna Jennee Jenni Jennie Jenny Jinny Joan Joana Joane Joanie Joann Joanna Joanne Joeann Johna Johnna Joni Jonie Juana June Junia Junie
+G Knight Hynda Nada Nadia Nady Nat Nata Natty Neda Nedda Nedi Netta Netti Nettie Netty Nita Nydia
+G Mary Mair Maire Mara Mareah Mari Maria Marie Mary Maura Maure Meara Merrie Merry Mira Moira Mora Moria Moyra Muire Myra Myrah
+G Paris Pearcy Perris Piercy Pierz Pryse
+G Peter Peadar Peder Pedro Peter Petr Peyter Pieter Pietro Piotr
+G Ray Ray Rey Roi Roy Ruy
+G Susan Siusan Sosanna Susan Susana Susann Susanna Susannah Susanne Suzann Suzanna Suzanne Zuzana
+G White Wade Wait Waite Wat Whit Wiatt Wit Wittie Witty Wood Woodie Woody
+G Wright Rota Rudd Ryde
+G Xalan Celene Celina Celine Selena Selene Selina Seline Suellen Xylina
+G Case case
+G CASE Case
+G caSe cAsE
+G quick cookie
+G Lawrence Lorenza
+G Gary Cahra

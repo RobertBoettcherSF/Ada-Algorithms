@@ -122,6 +122,47 @@ begin
          Check_One ("encoder", E, "12 -", "!");
       end loop;
    end;
+   --  published examples (tests/metaphone_published.txt, Apache Commons Codec
+   --  MetaphoneTest, Apache-2.0): word / code pairs and groups of names that
+   --  must share one code
+   Open (F, In_File, "tests/metaphone_published.txt");
+   while not End_Of_File (F) loop
+      declare
+         L : constant String := Get_Line (F);
+      begin
+         if L'Length > 2 and then L (L'First) = 'P' then
+            declare
+               Sp : constant Natural := Ada.Strings.Fixed.Index (L (L'First + 2 .. L'Last), " ");
+            begin
+               Check_One ("Metaphone (published)", Metaphone'Access, L (L'First + 2 .. Sp - 1), L (Sp + 1 .. L'Last));
+            end;
+         elsif L'Length > 2 and then L (L'First) = 'G' then
+            declare
+               Start : Positive := L'First + 2;
+               Sp    : Natural;
+               First : Unbounded_String;
+            begin
+               loop
+                  Sp := Ada.Strings.Fixed.Index (L (Start .. L'Last), " ");
+                  declare
+                     Name : constant String := L (Start .. (if Sp = 0 then L'Last else Sp - 1));
+                  begin
+                     if First = Null_Unbounded_String then
+                        First := To_Unbounded_String (Name);
+                     else
+                        Expect (Codes_Match_Metaphone (To_String (First), Name)
+                                and then Codes_Match_Metaphone (Name, To_String (First)),
+                                "Metaphone (published) group: " & To_String (First) & " ~ " & Name);
+                     end if;
+                  end;
+                  exit when Sp = 0;
+                  Start := Sp + 1;
+               end loop;
+            end;
+         end if;
+      end;
+   end loop;
+   Close (F);
    if Failures > 0 then
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
       raise Program_Error with "own checks failed";
