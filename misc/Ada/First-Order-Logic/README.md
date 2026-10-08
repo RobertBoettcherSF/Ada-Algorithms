@@ -1,7 +1,14 @@
 # First-Order Logic Evaluator in Ada
 
 ## Project Overview
-This project provides a robust, strongly-typed Ada implementation for defining and evaluating expressions in First-Order Logic (FOL), as described in formal mathematical logic. It implements the abstract syntax representation of terms (variables, constants, functions) and formulas (predicates, equality, propositional connectives, and quantifiers). Semantic evaluation executes over a user-defined interpretation and a configurable finite domain (universe of discourse), making universal and existential quantifiers directly computable.
+> **Scope (2026-10-08 review): an evaluator, not a prover.** Formulas are evaluated over a fixed
+> 3-element domain (`Domain_Element is range 1 .. 3`), so quantifiers are checked by enumerating three
+> values. Nothing here derives or searches for proofs, and validity over all domains is not decided.
+> `Substitute_Formula` is capture-avoiding: a quantifier whose variable occurs in the replacement is
+> renamed to an unused variable (failing test 03a82873, fix eb08d1b7). Before that fix, substitution
+> under a binder could capture the variable.
+
+This project provides a robust, strongly-typed Ada implementation for defining and evaluating expressions in First-Order Logic (FOL), as described in formal mathematical logic. It implements the abstract syntax representation of terms (variables, constants, functions) and formulas (predicates, equality, propositional connectives, and quantifiers). Semantic evaluation executes over a user-defined interpretation and a fixed three-element domain (universe of discourse), making universal and existential quantifiers directly computable.
 
 ## Features
 * **Propositional Connectives**: Full evaluation of negation (`Not`), conjunction (`And`), disjunction (`Or`), implication (`Implies`), and biconditional (`Iff`).
@@ -9,7 +16,7 @@ This project provides a robust, strongly-typed Ada implementation for defining a
 * **Terms & Functions**: AST modeling and recursive evaluation of constants, variables, and unary/binary functions.
 * **Equality & Predicates**: Built-in term equality comparison alongside extensible unary and binary relation predicates via tagged abstract interpretations.
 * **Syntactic Analysis**: Automated detection of free vs. bound variables and verification of Prenex Normal Form (PNF).
-* **Variable Substitution**: Deep-copy substitution of terms into formulas with quantifier scope shadowing preservation.
+* **Variable Substitution**: Deep-copy, capture-avoiding substitution of terms into formulas (bound variables are renamed when they occur in the replacement).
 * **Ada Contract Aspects**: Extensive precondition annotations enforcing non-null pointers and valid structural invariants.
 
 ## Usage

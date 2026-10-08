@@ -18,14 +18,19 @@ gnatprove -Punification_engine.gpr -u unification_engine.adb \
 | Metric | Result |
 |--------|--------|
 | GNATprove level | 2 (CVC5) |
-| Checks proved | **176 / 176** |
+| Checks proved | **178 / 178** |
 | Unproved | 0 |
 
 The engine package is fully SPARK (`SPARK_Mode => On`). The test harness is outside
 the proof set (`-u unification_engine.adb`).
 
-> Until this bar is green, prefer “SPARK-oriented” over unqualified “verified”.
-> With 176/176 at Level 2, the unification engine itself meets that Level 2 bar.
+> What is proved and what is only tested (2026-10-08 review): the engine is **proved free of run-time
+> errors** at Level 2 (178/178). Of its functional behaviour, only one property is proved: **Unify never
+> changes an existing binding**. **Unifier correctness** (the result unifies both sides and is most
+> general) is **tested, not proved**. A full "result unifies both sides" postcondition was written
+> (ghost `Equal_Under`) and does not prove yet. Own checks cover chains, cycles and missing arguments.
+> A fuel bug (Unify (a, a) ran out of fuel on a 20-binding chain) was found and fixed (failing test
+> 5002d508, fix aee5acb9: the budget is now 2 * Max_Terms + 1).
 
 ## Design
 
@@ -36,7 +41,7 @@ Heap `access` terms blocked SPARK analysis. The redesign uses a **bounded term s
 * Binary function nodes store `Left` / `Right` as `Term_Id`
 * Variables remain `'a' .. 'z'`; `Substitution` maps `Var_Name → Term_Id`
 * `Make_Variable` / `Make_Constant` / `Make_Function` are procedures (SPARK forbids functions with `In_Out` globals)
-* `Occurs_Check`, `Unify`, and `Apply_Substitution` are fuel-bounded by `Max_Terms` for termination
+* `Occurs_Check`, `Unify`, and `Apply_Substitution` are fuel-bounded for termination (Unify: 2 * Max_Terms + 1)
 * `Reset_Pool` / `Clear` for tests and fresh queries
 * Public API carries `Pre` / `Post` / `Global`; accessors are expression functions for proof
 
