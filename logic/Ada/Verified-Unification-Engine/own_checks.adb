@@ -290,6 +290,79 @@ begin
       end loop;
       pragma Assert (Before = Unifiable_Agree);
    end;
+   --  Symbols that share a letter with a variable, and kind clashes between
+   --  a constant and a function with the same name. A constant or function
+   --  named 'x' is not the variable x, so a binding of x must not affect it;
+   --  a constant never unifies with a function term, whatever the names.
+   --  Expected answers follow from the definition of syntactic unification.
+   declare
+      Env : Substitution;
+      OK  : Boolean;
+      Xv, Kc, Xc1, Xc2, Fx1, Fx2, Fc, Ff, Fn, Yv, Fk : Term_Id;
+   begin
+      Reset_Pool;
+      Make_Variable ('x', Xv);
+      Make_Constant ('k', Kc);
+      Make_Constant ('x', Xc1);
+      Make_Constant ('x', Xc2);
+      Make_Function ('x', Kc, Kc, Fx1);
+      Make_Function ('x', Kc, Kc, Fx2);
+      Make_Constant ('f', Fc);
+      Make_Function ('f', Kc, Kc, Ff);
+      Make_Function ('f', Null_Term, Null_Term, Fn);
+      Clear (Env);
+      Env.Bindings ('x') := Kc;          --  x := k
+      Env.Bindings ('f') := Kc;          --  f := k (variable f, unrelated to symbol f)
+      Unify (Xc1, Xc2, Env, OK);
+      if not OK then
+         Fail ("constant x vs constant x with variable x bound");
+      end if;
+      Unify (Fx1, Fx2, Env, OK);
+      if not OK then
+         Fail ("function x(k,k) vs x(k,k) with variable x bound");
+      end if;
+      Unify (Xc1, Xv, Env, OK);          --  x is k, so this is constant x vs k
+      if OK then
+         Fail ("constant x unified with variable x bound to k");
+      end if;
+      Unify (Fc, Ff, Env, OK);
+      if OK then
+         Fail ("constant f unified with function f(k,k)");
+      end if;
+      Unify (Ff, Fc, Env, OK);
+      if OK then
+         Fail ("function f(k,k) unified with constant f");
+      end if;
+      Unify (Fn, Fc, Env, OK);
+      if OK then
+         Fail ("function f(_,_) unified with constant f");
+      end if;
+      Unify (Fc, Fn, Env, OK);
+      if OK then
+         Fail ("constant f unified with function f(_,_)");
+      end if;
+
+      --  Hand-built cyclic environments (Substitution is a public record):
+      --  Apply_Substitution must terminate and report failure.
+      Reset_Pool;
+      Make_Variable ('x', Xv);
+      Make_Variable ('y', Yv);
+      Make_Constant ('k', Kc);
+      Make_Function ('f', Kc, Xv, Fk);   --  f(k, x)
+      Clear (Env);
+      Env.Bindings ('x') := Yv;
+      Env.Bindings ('y') := Xv;          --  x -> y -> x
+      Apply_Substitution (Xv, Env, Fx1, OK);
+      if OK then
+         Fail ("apply with binding cycle x -> y -> x succeeded");
+      end if;
+      Clear (Env);
+      Env.Bindings ('x') := Fk;          --  x -> f(k, x)
+      Apply_Substitution (Xv, Env, Fx1, OK);
+      if OK then
+         Fail ("apply with cycle x -> f(k, x) succeeded");
+      end if;
+   end;
    Put_Line ("own checks: unifiable pairs (ground unifier exists)" & Unifiable_Agree'Image & " /" & Unifiable_Total'Image
      & ", Unify failures" & Fail_Answers'Image & " (no clash or cycle certificate:" & Fail_Unconfirmed'Image
      & "), skipped for pool size" & Space_Skips'Image);
