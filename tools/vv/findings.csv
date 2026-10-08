@@ -10,10 +10,13 @@ searching/SPARK2/Bst-Insert-Search,array-backed tree (31 slots; children of K at
 trees/SPARK2/Ada-SPARK-Insert-Into-BST,Insert appends in insertion order; no BST shape,open,,
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,Solve keeps up to two copies of each value instead of removing every value that occurs more than once,open,,
 sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,inputs without an exact 4/4 even/odd split lose values,open,,
-sorting/SPARK2/Ada-SPARK-Sort-List-Lite,make test fails,open,,
-sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,make test fails,open,,
+sorting/SPARK2/Ada-SPARK-Sort-List-Lite,make test fails,fixed,n/a (make test itself failed),9744588
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,make test fails,fixed,n/a (make test itself failed),9744588
 misc/SPARK2/Ada-SPARK-Pascal-Triangle,rows 31 and 32 are allowed but their totals do not fit Result; Row_Total saturates silently,open,,
 misc/SPARK2/Ada-SPARK-Decode-Ways,lengths 30 .. 32 are allowed but the count can exceed Result; Count saturates silently,open,,
 misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,the climb ends on the last step (paying it) instead of past it; README does not say which,open,,
 sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,squares elementwise without sorting despite the name (README says elementwise),open,,
 sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,different characters with the same frequency are not kept in contiguous groups; README silent,open,,
+misc/SPARK2/Ada-SPARK-Partition-List,no tests (tests/main.adb missing): make test fails,open,,
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,no tests (tests/main.adb missing): make test fails,open,,
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,vacuous loop invariant gave 4 warnings under -gnata in make test,fixed,n/a (make test warnings),1351fa3
