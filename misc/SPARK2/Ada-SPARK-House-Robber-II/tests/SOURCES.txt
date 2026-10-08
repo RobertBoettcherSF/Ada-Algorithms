@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own reference code written for this repository (MIT);
+nothing is copied from the program's output or from third-party test suites.
+
+* Own brute-force reference: enumerate all 2**6 subsets of the houses, keep
+  those with no two chosen houses adjacent on the circle (6 next to 1), take
+  the largest sum. Different method from the code (two linear recurrences).
+* Inputs: every array over {0,1,2,3} (4,096), every array over {0,19,20}
+  (729), one rich house at each position, 5,000 random arrays over 0 .. 20
+  (Park-Miller minimal standard generator, seed 20261008).

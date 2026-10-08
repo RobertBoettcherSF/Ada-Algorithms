@@ -1,3 +1,4 @@
 folder,tests_added,ref_method,donothing_caught,mutation_score
 strings/Ada/String-Metrics,own_checks.adb (14641 pairs),recursive edit-distance definitions + bigram presence + counts; JW properties,yes (6/6 subprograms),34/39 raw; 5 equivalent (redundant empty guards; Max tie; symmetric OSA swap) -> 34/34
 misc/Ada/Dice-Coefficient,own_checks.adb (132496 pairs + per-string counts),bigram sets by presence test (not window collection); definition of Bigram_Count,yes (4/4 subprograms),29/31 raw; 2 equivalent (empty-set early returns) -> 29/29
+misc/SPARK2/Ada-SPARK-House-Robber-II,own_checks.adb (9842 inputs: all {0..3}^6; all {0;19;20}^6; rich house at each position; 5000 random),own enumeration of all 64 subsets with the circular no-neighbours rule,yes (Maximum killed),5/6 raw; 1 equivalent (E4 + -> -: S'Max takes the base type and E4 only matters when house 6 is unused; then the 1..5 chain covers it) -> 5/5
