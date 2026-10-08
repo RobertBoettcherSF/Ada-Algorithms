@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests/main.adb, tests/own_checks.adb)
+================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests/main.adb: the original hand case (checked by hand).
+* By hand: 1 2 3 4 5 -> 2 1 4 3 5.
+* Own reference (the standard Swap Nodes in Pairs statement): swap the
+  elements at positions 1-2, 3-4, ...; an odd last element stays.
+* Inputs: every length 0 .. 16 with distinct values, and 50 random lists
+  over -3 .. 3 for every length.

@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (tests/main.adb, tests/own_checks.adb)
+================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests/main.adb: the original hand case (checked by hand).
+* By hand: 1 2 3 4 5 reversed on 2 .. 4 -> 1 4 3 2 5, on 1 .. 5 ->
+  5 4 3 2 1.
+* Own reference (the standard Reverse Linked List II statement: reverse
+  the nodes from position First to position Last, 1-based, inclusive):
+  position I in First .. Last gets the element from First + Last - I.
+* Inputs: every length 1 .. 16 with every range First <= Last <= length,
+  once with distinct values and once with random values over -3 .. 3.

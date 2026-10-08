@@ -135,3 +135,6 @@ misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,own one-bar-at-a-time reference; ev
 misc/SPARK2/Ada-SPARK-Partition-List,stable partition vs own two-filter reference; all lists of length 0..7 over {0,1,2} x pivots -1..3 + 3000 random
 sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,odd-then-even positions vs own reference; all lists of length 0..7 over {0,1,2} + 3000 random
 numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,own Long_Float DFT reference (tolerance 1.5 from the error analysis); every +-212 impulse + 20000 random inputs; spectra that do not fit Sample rejected (in tests.adb)
+misc/SPARK2/Ada-SPARK-Rotate-List,rotate right by K vs own index-formula reference; every length 1..16 x every K 0..16 (distinct + random values)
+misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,pairwise swap vs own reference; every length 0..16 (distinct + 50 random each)
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,reverse First..Last vs own reference; every length 1..16 x every range (distinct + random values)

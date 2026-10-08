@@ -1,5 +1,6 @@
 pragma SPARK_Mode (On);
 with Reverse_Linked_List_II; use Reverse_Linked_List_II;
+with Own_Checks;
 procedure Main is
    L : List := Empty;
 begin
@@ -10,4 +11,5 @@ begin
    pragma Assert (Get (L, 3) = 3);
    pragma Assert (Get (L, 4) = 2);
    pragma Assert (Get (L, 5) = 5);
+   Own_Checks;
 end Main;

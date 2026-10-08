@@ -1,5 +1,6 @@
 pragma SPARK_Mode (On);
 with Swap_Nodes_In_Pairs; use Swap_Nodes_In_Pairs;
+with Own_Checks;
 procedure Main is
    L : List := Empty;
 begin
@@ -9,4 +10,5 @@ begin
    pragma Assert (Get (L, 2) = 1);
    pragma Assert (Get (L, 3) = 4);
    pragma Assert (Get (L, 4) = 3);
+   Own_Checks;
 end Main;
