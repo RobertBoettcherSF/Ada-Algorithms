@@ -10,7 +10,7 @@ package body Three_Sum_Closest is
       end if;
    end Distance;
 
-   function Closest (Data : Values; Length : Length_Type; Target : Target_Value)
+   function Closest (Data : Values; Length : Triple_Length; Target : Target_Value)
      return Sum_Value is
       Best : Sum_Value := 0;
       Candidate : Sum_Value;
