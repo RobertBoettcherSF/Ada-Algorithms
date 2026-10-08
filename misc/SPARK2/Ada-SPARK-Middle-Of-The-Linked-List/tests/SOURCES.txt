@@ -3,3 +3,7 @@ external test data, no program output used as expected values).
 
 * full_append_check.adb (silent no-op scan): Append on a list already holding
   Count'Last elements must raise Assertion_Error instead of dropping the value.
+* own_checks.adb: for every length N in 1 .. 16 with node I holding I, Middle
+  must return node N / 2 + 1 (the middle node; for an even length the second
+  of the two middle nodes, as in the standard problem statement). Middle of
+  an empty list must raise Assertion_Error instead of answering 0.
