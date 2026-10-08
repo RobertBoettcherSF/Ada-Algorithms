@@ -37,15 +37,21 @@ is
    function Draw_Index
      (State : in out RNG_State; Lo, Hi : Point_Index) return Point_Index
    is
-      Span : constant Natural := Natural (Hi) - Natural (Lo) + 1;
-      U    : constant Unit_Interval := Draw_Unit (State);
-      Off  : Natural;
+      Span   : constant RNG_State :=
+        RNG_State (Natural (Hi) - Natural (Lo) + 1);
+      --  High bits of the LCG, after dropping the incomplete residue class.
+      --  Natural (U * Span) rounds, and the clamp then makes the last index
+      --  three times as likely as the first.
+      Bound  : constant RNG_State := (RNG_State'Last / Span) * Span;
+      Bucket : constant RNG_State := Bound / Span;
+      Off    : RNG_State;
    begin
-      Off := Natural (Long_Float (U) * Long_Float (Span));
-      if Off >= Span then
-         Off := Span - 1;
-      end if;
-      return Point_Index (Natural (Lo) + Off);
+      loop
+         State := State * LCG_A + LCG_C;
+         exit when State < Bound;
+      end loop;
+      Off := State / Bucket;
+      return Point_Index (Natural (Lo) + Natural (Off));
    end Draw_Index;
 
    -------------------------------------------------------------------------
@@ -472,7 +478,8 @@ is
       U := Draws (Draw_Ix);
       Draw_Ix := Draw_Ix + 1;
       Span := Natural (N);
-      Off := Natural (Long_Float (U) * Long_Float (Span));
+      --  Truncate. Rounding, then clamping, widens the last index.
+      Off := Natural (Long_Float'Floor (Long_Float (U) * Long_Float (Span)));
       if Off >= Span then
          Off := Span - 1;
       end if;
