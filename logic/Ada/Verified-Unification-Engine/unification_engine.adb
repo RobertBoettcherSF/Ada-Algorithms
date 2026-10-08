@@ -258,7 +258,12 @@ is
      (T1, T2 : Term_Id; Env : in out Substitution; Success : out Boolean)
    is
    begin
-      Unify_Fuel (T1, T2, Env, Max_Terms, Success);
+      --  Each call moves at least one side one step along a path of
+      --  distinct pool nodes (term and binding edges form an acyclic graph
+      --  when Env comes from Unify), so a pair needs at most 2 * Max_Terms
+      --  calls. Max_Terms alone ran out on Unify (a, a) when a heads a
+      --  chain of more than 16 bindings, since both sides are dereferenced.
+      Unify_Fuel (T1, T2, Env, 2 * Max_Terms + 1, Success);
    end Unify;
 
    ----------------------------------------------------------------------
