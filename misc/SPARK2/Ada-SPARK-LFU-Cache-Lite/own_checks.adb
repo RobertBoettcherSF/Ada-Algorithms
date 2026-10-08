@@ -73,7 +73,7 @@ begin
             end if;
             Ok := Length (C) = N;
             for Q in Key range 0 .. 24 loop
-               null;   --  Contains is added with the fix
+               Ok := Ok and then Contains (C, Q) = (Find (Q) > 0);
             end loop;
             Best := 1;
             for I in 2 .. N loop

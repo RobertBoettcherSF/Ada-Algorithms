@@ -51,8 +51,8 @@ begin
             Got : Value;
             Ok : Boolean := True;
          begin
-            if False then   --  Get is added with the fix
-               Got := 0;
+            if P > 0 and then Next (0, 2) = 0 then
+               Get (C, K, Got);
                Ok := Got = MV (P);
                To_End (P);
             else

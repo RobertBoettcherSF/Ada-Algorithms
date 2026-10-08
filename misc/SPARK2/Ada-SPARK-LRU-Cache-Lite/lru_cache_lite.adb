@@ -1,51 +1,70 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
-
 package body LRU_Cache_Lite is
    function Empty return Cache is
    begin
-      return (Keys => (others => 0), Values => (others => 0), Size => 0);
+      return (Keys => [others => 0], Values => [others => 0], Size => 0);
    end Empty;
 
-   procedure Put (C : in out Cache; K : Key; V : Value) is
-      Seen : Boolean := False;
+   function Length (C : Cache) return Count is (C.Size);
+
+   --  Position of K, 0 if absent.
+   function Find (C : Cache; K : Key) return Count is
    begin
       for I in Position loop
-         if I <= C.Size and then not Seen and then C.Keys (I) = K then
-            C.Values (I) := V;
-            Seen := True;
+         if I <= C.Size and then C.Keys (I) = K then
+            return I;
          end if;
       end loop;
-      if not Seen and then C.Size < Count'Last then
+      return 0;
+   end Find;
+
+   --  Move entry P to the most recently used end.
+   procedure Move_To_End (C : in out Cache; P : Position)
+     with Pre => P <= C.Size, Post => C.Size = C.Size'Old
+   is
+      K : constant Key := C.Keys (P);
+      V : constant Value := C.Values (P);
+   begin
+      for I in P .. C.Size - 1 loop
+         C.Keys (I) := C.Keys (I + 1);
+         C.Values (I) := C.Values (I + 1);
+      end loop;
+      C.Keys (C.Size) := K;
+      C.Values (C.Size) := V;
+   end Move_To_End;
+
+   procedure Put (C : in out Cache; K : Key; V : Value) is
+      P : constant Count := Find (C, K);
+   begin
+      if P in 1 .. C.Size then
+         C.Values (P) := V;
+         Move_To_End (C, P);
+      elsif C.Size < Count'Last then
          C.Size := C.Size + 1;
+         C.Keys (C.Size) := K;
+         C.Values (C.Size) := V;
+      else
+         Move_To_End (C, 1);        --  the least recently used entry is reused
          C.Keys (C.Size) := K;
          C.Values (C.Size) := V;
       end if;
    end Put;
 
-   function Length (C : Cache) return Count is
+   procedure Get (C : in out Cache; K : Key; V : out Value) is
+      P : constant Count := Find (C, K);
    begin
-      return C.Size;
-   end Length;
+      if P in 1 .. C.Size then
+         V := C.Values (P);
+         Move_To_End (C, P);
+      else
+         V := 0;   --  excluded by Pre => Contains (C, K)
+      end if;
+   end Get;
 
    function Lookup (C : Cache; K : Key) return Value is
-      Answer : Value := 0;
+      P : constant Count := Find (C, K);
    begin
-      for I in Position loop
-         if I <= C.Size and then C.Keys (I) = K then
-            Answer := C.Values (I);
-         end if;
-      end loop;
-      return Answer;
+      return (if P in 1 .. C.Size then C.Values (P) else 0);   --  else excluded by Pre
    end Lookup;
-
-   function Contains (C : Cache; K : Key) return Boolean is
-      Seen : Boolean := False;
-   begin
-      for I in Position loop
-         if I <= C.Size and then C.Keys (I) = K then
-            Seen := True;
-         end if;
-      end loop;
-      return Seen;
-   end Contains;
 end LRU_Cache_Lite;

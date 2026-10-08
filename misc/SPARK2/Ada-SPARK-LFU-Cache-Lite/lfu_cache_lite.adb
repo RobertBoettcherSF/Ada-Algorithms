@@ -1,22 +1,71 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
-
 package body LFU_Cache_Lite is
    function Empty return Cache is
    begin
-      return (Keys => (others => 0), Values => (others => 0),
-              Uses => (others => 0), Size => 0);
+      return (Keys => [others => 0], Values => [others => 0],
+              Uses => [others => 0], Size => 0);
    end Empty;
 
-   procedure Put (C : in out Cache; K : Key; V : Value) is
-      Seen : Boolean := False;
+   function Length (C : Cache) return Count is (C.Size);
+
+   --  Position of K, 0 if absent.
+   function Find (C : Cache; K : Key) return Count is
    begin
       for I in Position loop
-         if I <= C.Size and then not Seen and then C.Keys (I) = K then
-            C.Values (I) := V;
-            Seen := True;
+         if I <= C.Size and then C.Keys (I) = K then
+            return I;
          end if;
       end loop;
-      if not Seen and then C.Size < Count'Last then
+      return 0;
+   end Find;
+
+   --  Move entry P to the most recently used end.
+   procedure Move_To_End (C : in out Cache; P : Position)
+     with Pre => P <= C.Size, Post => C.Size = C.Size'Old
+   is
+      K : constant Key := C.Keys (P);
+      V : constant Value := C.Values (P);
+      U : constant Frequency := C.Uses (P);
+   begin
+      for I in P .. C.Size - 1 loop
+         C.Keys (I) := C.Keys (I + 1);
+         C.Values (I) := C.Values (I + 1);
+         C.Uses (I) := C.Uses (I + 1);
+      end loop;
+      C.Keys (C.Size) := K;
+      C.Values (C.Size) := V;
+      C.Uses (C.Size) := U;
+   end Move_To_End;
+
+   procedure Use_Entry (C : in out Cache; P : Position)
+     with Pre => P <= C.Size, Post => C.Size = C.Size'Old
+   is
+   begin
+      if C.Uses (P) < Frequency'Last then
+         C.Uses (P) := C.Uses (P) + 1;
+      end if;
+      Move_To_End (C, P);
+   end Use_Entry;
+
+   procedure Put (C : in out Cache; K : Key; V : Value) is
+      P : constant Count := Find (C, K);
+      Low : Position := 1;
+   begin
+      if P in 1 .. C.Size then
+         C.Values (P) := V;
+         Use_Entry (C, P);
+      else
+         if C.Size = Count'Last then
+            --  evict: fewest uses; scanning from the least recent keeps the oldest on ties
+            for I in 2 .. C.Size loop
+               if C.Uses (I) < C.Uses (Low) then
+                  Low := I;
+               end if;
+            end loop;
+            Move_To_End (C, Low);
+            C.Size := C.Size - 1;
+         end if;
          C.Size := C.Size + 1;
          C.Keys (C.Size) := K;
          C.Values (C.Size) := V;
@@ -25,18 +74,12 @@ package body LFU_Cache_Lite is
    end Put;
 
    procedure Touch (C : in out Cache; K : Key) is
+      P : constant Count := Find (C, K);
    begin
-      for I in Position loop
-         if I <= C.Size and then C.Keys (I) = K and then C.Uses (I) < Frequency'Last then
-            C.Uses (I) := C.Uses (I) + 1;
-         end if;
-      end loop;
+      if P in 1 .. C.Size then   --  always, by Pre => Contains (C, K)
+         Use_Entry (C, P);
+      end if;
    end Touch;
-
-   function Length (C : Cache) return Count is
-   begin
-      return C.Size;
-   end Length;
 
    function Most_Frequent_Key (C : Cache) return Key is
       Best : Position := 1;
