@@ -149,8 +149,8 @@ package body Wavelet_Compression is
    --  Floor division by 2, toward -infinity. Ada "/" truncates toward zero.
    --  Even negatives are already on a multiple of 2, so "/" matches floor.
    --  An odd negative is one below that. (N - 1) is not used: it overflows
-   --  when N is Long_Integer'First.
-   function Floor_Div_2 (N : Long_Integer) return Long_Integer is
+   --  when N is Detail'First.
+   function Floor_Div_2 (N : Detail) return Detail is
    begin
       if N >= 0 or else N mod 2 = 0 then
          return N / 2;
@@ -171,11 +171,11 @@ package body Wavelet_Compression is
 
       for I in 0 .. Half - 1 loop
          declare
-            X : constant Long_Integer := Input (Input'First + 2 * I);
-            Y : constant Long_Integer := Input (Input'First + 2 * I + 1);
+            X : constant Detail := Input (Input'First + 2 * I);
+            Y : constant Detail := Input (Input'First + 2 * I + 1);
             --  Lifting: d = y - x, s = x + floor(d/2). Same value as
             --  floor((x+y)/2) when the sum fits, and x+y is never formed.
-            D : constant Long_Integer := Y - X;
+            D : constant Detail := Y - X;
          begin
             Result (Out_Idx + I) := X + Floor_Div_2 (D);
             Result (Out_Idx + Half + I) := D;
@@ -189,7 +189,7 @@ package body Wavelet_Compression is
       Result  : Signal_1D_Int (Input'Range);
       Half    : constant Natural := Input'Length / 2;
       Out_Idx : constant Positive := Result'First;
-      Avg, Diff : Long_Integer;
+      Avg, Diff : Detail;
    begin
       if Input'Length = 1 then return Input; end if;
       if Input'Length mod 2 /= 0 then
@@ -216,9 +216,9 @@ package body Wavelet_Compression is
       if Forward then
          for I in 0 .. Half - 1 loop
             declare
-               X : constant Long_Integer := Buf (Buf'First + 2 * I);
-               Y : constant Long_Integer := Buf (Buf'First + 2 * I + 1);
-               D : constant Long_Integer := Y - X;
+               X : constant Detail := Buf (Buf'First + 2 * I);
+               Y : constant Detail := Buf (Buf'First + 2 * I + 1);
+               D : constant Detail := Y - X;
             begin
                Tmp (1 + I) := X + Floor_Div_2 (D);
                Tmp (1 + Half + I) := D;
@@ -227,9 +227,9 @@ package body Wavelet_Compression is
       else
          for I in 0 .. Half - 1 loop
             declare
-               S : constant Long_Integer := Buf (Buf'First + I);
-               D : constant Long_Integer := Buf (Buf'First + Half + I);
-               A : constant Long_Integer := S - Floor_Div_2 (D);
+               S : constant Detail := Buf (Buf'First + I);
+               D : constant Detail := Buf (Buf'First + Half + I);
+               A : constant Detail := S - Floor_Div_2 (D);
             begin
                Tmp (1 + 2 * I) := A;
                Tmp (1 + 2 * I + 1) := A + D;
@@ -290,5 +290,57 @@ package body Wavelet_Compression is
       end loop;
       return Result;
    end Inverse_Haar_Levels;
+
+   function Forward_Haar_Samples (Input : Sample_1D) return Signal_1D_Int is
+      Result  : Signal_1D_Int (Input'Range);
+      Half    : constant Natural := Input'Length / 2;
+      Out_Idx : constant Positive := Result'First;
+   begin
+      if Input'Length = 1 then
+         return [Input'First => Detail (Input (Input'First))];
+      end if;
+      if Input'Length mod 2 /= 0 then
+         raise Invalid_Dimensions with "Signal length must be a multiple of 2.";
+      end if;
+      for I in 0 .. Half - 1 loop
+         declare
+            X : constant Integer := Input (Input'First + 2 * I);
+            Y : constant Integer := Input (Input'First + 2 * I + 1);
+            --  Convert each sample first. Detail (Y - X) subtracts in
+            --  Integer (or only by luck in Integer'Base). The average of
+            --  two Integer samples fits back in Integer.
+            D : constant Detail := Detail (Y) - Detail (X);
+            S : constant Detail := Detail (X) + Floor_Div_2 (D);
+         begin
+            Result (Out_Idx + I) := Detail (Integer (S));
+            Result (Out_Idx + Half + I) := D;
+         end;
+      end loop;
+      return Result;
+   end Forward_Haar_Samples;
+
+   function Inverse_Haar_Samples (Input : Signal_1D_Int) return Sample_1D is
+      Result  : Sample_1D (Input'Range);
+      Half    : constant Natural := Input'Length / 2;
+      Out_Idx : constant Positive := Result'First;
+   begin
+      if Input'Length = 1 then
+         return [Input'First => Integer (Input (Input'First))];
+      end if;
+      if Input'Length mod 2 /= 0 then
+         raise Invalid_Dimensions with "Signal length must be a multiple of 2.";
+      end if;
+      for I in 0 .. Half - 1 loop
+         declare
+            S : constant Integer := Integer (Input (Input'First + I));
+            D : constant Detail := Input (Input'First + Half + I);
+            A : constant Detail := Detail (S) - Floor_Div_2 (D);
+         begin
+            Result (Out_Idx + 2 * I) := Integer (A);
+            Result (Out_Idx + 2 * I + 1) := Integer (A + D);
+         end;
+      end loop;
+      return Result;
+   end Inverse_Haar_Samples;
 
 end Wavelet_Compression;

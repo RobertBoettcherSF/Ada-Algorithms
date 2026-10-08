@@ -5,11 +5,14 @@ package Wavelet_Compression is
 
    -- Custom Types for 1D and 2D Signals
    type Signal_1D is array (Positive range <>) of Float;
-   --  Long_Integer, not Integer. One detail is a difference, about twice
-   --  a sample, and each further level can double that again. The
-   --  difference of two large Integer samples (2**31) does not fit in
-   --  Integer; Long_Integer leaves about 32 bits of headroom.
-   type Signal_1D_Int is array (Positive range <>) of Long_Integer;
+   --  Wider than Integer. A detail is a difference, about twice a sample,
+   --  and each further level can double that again. 2**31 is not an Integer.
+   --  Arithmetic is done in Detail: Detail (B) - Detail (A), never
+   --  Detail (B - A), which overflows in Integer first. The average of
+   --  two Integer samples fits back in Integer.
+   type Detail is new Long_Integer;
+   type Signal_1D_Int is array (Positive range <>) of Detail;
+   type Sample_1D is array (Positive range <>) of Integer;
    type Signal_2D is array (Positive range <>, Positive range <>) of Float;
 
    -- Exceptions
@@ -55,5 +58,10 @@ package Wavelet_Compression is
 
    function Inverse_Haar_Levels
      (Input : Signal_1D_Int; Levels : Natural) return Signal_1D_Int;
+
+   --  One level on Integer samples. The average is converted back to
+   --  Integer; the detail stays a Detail.
+   function Forward_Haar_Samples (Input : Sample_1D) return Signal_1D_Int;
+   function Inverse_Haar_Samples (Input : Signal_1D_Int) return Sample_1D;
 
 end Wavelet_Compression;

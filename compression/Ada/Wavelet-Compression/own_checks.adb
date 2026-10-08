@@ -32,9 +32,9 @@ procedure Own_Checks (Fail_Count : out Natural) is
       return Seed;
    end Next_U;
 
-   function Floor_Div_2 (N : Long_Integer) return Long_Integer is
+   function Floor_Div_2 (N : Detail) return Detail is
    begin
-      --  Even values, including Long_Integer'First, divide evenly.
+      --  Even values, including Detail'First, divide evenly.
       --  An odd negative truncates toward zero, so floor is one less.
       if N >= 0 or else N mod 2 = 0 then
          return N / 2;
@@ -71,10 +71,10 @@ procedure Own_Checks (Fail_Count : out Natural) is
       end if;
       for I in 0 .. Half - 1 loop
          declare
-            X : constant Long_Integer := Input (Input'First + 2 * I);
-            Y : constant Long_Integer := Input (Input'First + 2 * I + 1);
-            D : constant Long_Integer := Y - X;
-            S : constant Long_Integer := X + Floor_Div_2 (D);
+            X : constant Detail := Input (Input'First + 2 * I);
+            Y : constant Detail := Input (Input'First + 2 * I + 1);
+            D : constant Detail := Y - X;
+            S : constant Detail := X + Floor_Div_2 (D);
          begin
             Result (Result'First + I) := S;
             Result (Result'First + Half + I) := D;
@@ -92,9 +92,9 @@ procedure Own_Checks (Fail_Count : out Natural) is
       end if;
       for I in 0 .. Half - 1 loop
          declare
-            S    : constant Long_Integer := Input (Input'First + I);
-            D    : constant Long_Integer := Input (Input'First + Half + I);
-            Even : constant Long_Integer := S - Floor_Div_2 (D);
+            S    : constant Detail := Input (Input'First + I);
+            D    : constant Detail := Input (Input'First + Half + I);
+            Even : constant Detail := S - Floor_Div_2 (D);
          begin
             Result (Result'First + 2 * I) := Even;
             Result (Result'First + 2 * I + 1) := Even + D;
@@ -176,7 +176,7 @@ begin
    --  Hand values, not (A+B)/2. A sum that does not fit in Integer must
    --  still transform: the lifting step never forms A+B.
    declare
-      procedure Check_Pair (A, B, Expect_S, Expect_D : Long_Integer; Label : String) is
+      procedure Check_Pair (A, B, Expect_S, Expect_D : Detail; Label : String) is
          Sig : constant Signal_1D_Int := [A, B];
          Got : Signal_1D_Int (Sig'Range);
          Back : Signal_1D_Int (Sig'Range);
@@ -196,13 +196,38 @@ begin
       --  Both negative, odd sum: floor((-8-3)/2) = -6, detail -3-(-8) = 5.
       Check_Pair (-8, -3, -6, 5, "both negative (-8, -3)");
       --  (Last, Last): Last+Last does not fit. Lifting detail is 0.
-      Check_Pair (Long_Integer (Integer'Last), Long_Integer (Integer'Last),
-        Long_Integer (Integer'Last), 0, "(Last, Last)");
-      --  Detail is Long_Integer'First. (N - 1) would overflow.
-      Check_Pair (0, Long_Integer'First, Long_Integer'First / 2, Long_Integer'First,
+      Check_Pair (Detail (Integer'Last), Detail (Integer'Last),
+        Detail (Integer'Last), 0, "(Last, Last)");
+      --  Detail is Detail'First. (N - 1) would overflow.
+      Check_Pair (0, Detail'First, Detail'First / 2, Detail'First,
         "(0, First)");
       --  2**31 is not an Integer. Detail of (-2**30, 2**30) is exactly that.
       Check_Pair (-(2**30), 2**30, 0, 2**31, "detail 2**31 needs headroom");
+   end;
+
+   --  Integer samples. The difference of Last and First does not fit in
+   --  Integer (2**32-1). Hand coefficients: average -1, detail
+   --  First-Last = -4294967295, and the swap.
+   declare
+      procedure Check_Samples
+        (A, B : Integer; Expect_S, Expect_D : Detail; Label : String)
+      is
+         Sig  : constant Sample_1D := [A, B];
+         Got  : Signal_1D_Int (Sig'Range);
+         Back : Sample_1D (Sig'Range);
+      begin
+         Got := Forward_Haar_Samples (Sig);
+         Note (Got (Got'First) = Expect_S and then Got (Got'First + 1) = Expect_D, Label);
+         Back := Inverse_Haar_Samples (Got);
+         Note (Back (Back'First) = A and then Back (Back'First + 1) = B,
+           Label & " round trip");
+      exception
+         when Constraint_Error =>
+            Note (False, Label & " raised Constraint_Error");
+      end Check_Samples;
+   begin
+      Check_Samples (Integer'Last, Integer'First, -1, -4294967295, "(Last, First)");
+      Check_Samples (Integer'First, Integer'Last, -1, 4294967295, "(First, Last)");
    end;
 
    --  A one-sample signal has no pair. Levels 0 and 1 both return it.
@@ -295,7 +320,7 @@ begin
          Back : Signal_1D_Int (1 .. N);
       begin
          for I in Sig'Range loop
-            Sig (I) := Long_Integer (Integer (Next_U mod 41) - 20);
+            Sig (I) := Detail (Integer (Next_U mod 41) - 20);
             Flt (I) := Float (Sig (I)) / 5.0;
          end loop;
          Got := Forward_Haar_1D_Lossless (Sig);

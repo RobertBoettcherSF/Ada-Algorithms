@@ -15,9 +15,11 @@ never formed:
   inverse: x = s - floor(d / 2),  y = x + d
 This equals floor((x+y)/2) when the sum fits. Floor is toward -infinity.
 An even value, including the most negative one, divides evenly; an odd
-negative is one below Ada's truncating division. Coefficients are
-Long_Integer: a detail is about twice a sample, and another level can
-double that again (2**31 is not an Integer).
+negative is one below Ada's truncating division. Coefficients are Detail, a distinct 64-bit integer. Integer samples
+are converted one at a time (Detail (B) - Detail (A)); the difference
+of Integer'Last and Integer'First is -(2**32-1), which is not an
+Integer subtraction. The average is converted back to Integer. A
+further level can double a detail again (2**31 is not an Integer).
 Low coefficients, then details. Further levels repeat the step on the
 low-pass prefix only.
 
