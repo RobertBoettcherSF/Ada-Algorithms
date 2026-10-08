@@ -41,7 +41,7 @@ procedure Tests is
       if Passed then
          Put_Line("     PASS" & (if Message /= "" then " - " & Message else ""));
       else
-         Put_Line("     FAIL" & (if Message /= "" then " - " & Message else ""));
+         Put_Line("     FAILED" & (if Message /= "" then " - " & Message else ""));
       end if;
    end Print_Result;
 
@@ -55,7 +55,7 @@ procedure Tests is
 
       Print_Assertion("1.1 Assert IPv4_To_String(0) =  0. 0. 0. 0");
       declare
-         Result : String := IPv4_To_String(0);
+         Result : constant String := IPv4_To_String(0);
       begin
          Assert (Result = " 0. 0. 0. 0", "IPv4_To_String(0) failed");
          Print_Result(True, "IPv4_To_String(0) = " & Result);
@@ -64,7 +64,7 @@ procedure Tests is
       Print_Assertion("1.2 Assert IPv4_To_String(16#FFFFFFFF#) = 255.255.255.255");
       declare
          Max_IPv4 : constant IPv4_Address := 16#FFFFFFFF#;
-         Result : String := IPv4_To_String(Max_IPv4);
+         Result : constant String := IPv4_To_String(Max_IPv4);
       begin
          Assert (Result = "255.255.255.255", "IPv4_To_String(16#FFFFFFFF#) failed");
          Print_Result(True, "IPv4_To_String(16#FFFFFFFF#) = " & Result);
@@ -72,7 +72,7 @@ procedure Tests is
 
       Print_Assertion("1.3 Assert String_To_IPv4(192.168.1.1) = 3232235777");
       declare
-         Result : IPv4_Address := String_To_IPv4("192.168.1.1");
+         Result : constant IPv4_Address := String_To_IPv4("192.168.1.1");
          Expected : constant IPv4_Address := 3232235777;
       begin
          Assert (Result = Expected, "String_To_IPv4(192.168.1.1) failed");
@@ -93,25 +93,25 @@ procedure Tests is
 
       Print_Assertion("2.1 Assert Is_Valid_Prefix(Address => 0, Length => 24) = True");
       declare
-         Result : Boolean := Is_Valid_Prefix((Address => 0, Length => 24));
+         Result : constant Boolean := Is_Valid_Prefix((Address => 0, Length => 24));
       begin
-         Assert (Result = True, "Is_Valid_Prefix failed for valid prefix");
+         Assert (Result, "Is_Valid_Prefix failed for valid prefix");
          Print_Result(True, "Is_Valid_Prefix(Address => 0, Length => 24) = " & Result'Image);
       end;
 
       Print_Assertion("2.2 Assert Is_Valid_Prefix(Address => 0, Length => 33) = False");
       declare
-         Result : Boolean := Is_Valid_Prefix((Address => 0, Length => 33));
+         Result : constant Boolean := Is_Valid_Prefix((Address => 0, Length => 33));
       begin
-         Assert (Result = False, "Is_Valid_Prefix failed for invalid prefix");
+         Assert (not Result, "Is_Valid_Prefix failed for invalid prefix");
          Print_Result(True, "Is_Valid_Prefix(Address => 0, Length => 33) = " & Result'Image);
       end;
 
       Print_Assertion("2.3 Assert Is_Valid_Prefix(Address => 0, Length => 0) = True");
       declare
-         Result : Boolean := Is_Valid_Prefix((Address => 0, Length => 0));
+         Result : constant Boolean := Is_Valid_Prefix((Address => 0, Length => 0));
       begin
-         Assert (Result = True, "Is_Valid_Prefix failed for length = 0");
+         Assert (Result, "Is_Valid_Prefix failed for length = 0");
          Print_Result(True, "Is_Valid_Prefix(Address => 0, Length => 0) = " & Result'Image);
       end;
    exception
@@ -124,32 +124,34 @@ procedure Tests is
    -- ========================================================================
 
    procedure Test_Basic_Routing_Table is
-      P1 : Prefix := (Address => 0, Length => 8);  -- 0.0.0.0/8; 255.255.255.255 must miss
-      NH : IPv4_Address := 0;
-      I1 : Routing_Info := (NH, 0, 0);
-      Entry1 : Route_Entry := (Pfx => P1, Info => I1);
+      P1 : constant Prefix := (Address => 0, Length => 8);  -- 0.0.0.0/8; 255.255.255.255 must miss
+      NH : constant IPv4_Address := 0;
+      I1 : constant Routing_Info := (NH, 0, 0);
+      Entry1 : constant Route_Entry := (Pfx => P1, Info => I1);
    begin
       Print_Test_Header("Basic Routing Table");
 
       Print_Assertion("3.1 Assert Build_Lulea_Trie(single entry) succeeds");
       declare
-         Single_Entry : Routing_Table(1..1) := (1 => Entry1);
+         Single_Entry : constant Routing_Table(1..1) := (1 => Entry1);
       begin
          declare
-            Result : Lulea_Trie := Build_Lulea_Trie(Single_Entry);
+            Built : constant Lulea_Trie := Build_Lulea_Trie(Single_Entry);
          begin
+            Print_Lulea_Trie (Built);
             Print_Result(True, "Build_Lulea_Trie(single entry) succeeds");
          end;
       end;
 
       Print_Assertion("3.2 Assert Lookup(single entry, 0.0.0.0) succeeds");
       declare
-         Single_Entry : Routing_Table(1..1) := (1 => Entry1);
+         Single_Entry : constant Routing_Table(1..1) := (1 => Entry1);
       begin
          declare
-            Trie : Lulea_Trie := Build_Lulea_Trie(Single_Entry);
-            Result : Routing_Info := Lookup(Trie, 0);
+            Trie : constant Lulea_Trie := Build_Lulea_Trie(Single_Entry);
+            Got : constant Routing_Info := Lookup(Trie, 0);
          begin
+            if Got.Metric < 0 then raise Program_Error; end if;
             Print_Result(True, "Lookup(single entry, 0.0.0.0) succeeds");
          end;
       end;
@@ -157,14 +159,19 @@ procedure Tests is
       Print_Assertion("3.3 Assert Lookup(trie, 255.255.255.255) raises Lookup_Failure_Error (outside 0/8)");
       begin
          declare
-            Single_Entry : Routing_Table(1..1) := (1 => Entry1);
+            Single_Entry : constant Routing_Table(1..1) := (1 => Entry1);
          begin
             declare
-               Trie : Lulea_Trie := Build_Lulea_Trie(Single_Entry);
-               Result : Routing_Info := Lookup(Trie, 16#FFFFFFFF#);
+               Trie : constant Lulea_Trie := Build_Lulea_Trie(Single_Entry);
             begin
-               Assert (False, "Expected Lookup_Failure_Error not raised");
-               Print_Result(False, "Lookup_Failure_Error not raised");
+               declare
+                  Ignored : constant Routing_Info := Lookup(Trie, 16#FFFFFFFF#);
+               begin
+                  if Ignored.Metric = Ignored.Metric then
+                     Assert (False, "Expected Lookup_Failure_Error not raised");
+                     Print_Result(False, "Lookup_Failure_Error not raised");
+                  end if;
+               end;
             end;
          end;
       exception
@@ -195,6 +202,6 @@ begin
    Put_Line("========================================");
    Put_Line("Test Suite Complete");
    Put_Line("========================================");
-   Put_Line("All tests completed. Check PASS/FAIL results above.");
+   Put_Line("All tests completed. Check results above.");
 
 end Tests;
