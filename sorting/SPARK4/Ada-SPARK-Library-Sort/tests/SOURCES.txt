@@ -21,6 +21,8 @@ copied from the program's output or from third-party test suites.
   properties on the same inputs, against a scratch copy of the library in
   which the final Bubble_Finish call of Sort (if any) is replaced by null,
   so only the named library-sort phase sorts (docs/VV.md 3i, pattern 7).
+  When the body has no Bubble_Finish call the script says so and exits 0,
+  because the main run above already tested the library phase alone.
 
 * Seeds: the random inputs use a fixed default seed, printed at the start
   of the run ("own checks seed: ..." / "tests seed: ..."); set AA_SEED=<n>

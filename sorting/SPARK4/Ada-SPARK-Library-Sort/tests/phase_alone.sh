@@ -6,6 +6,12 @@
 #  (sorted + same multiset) against it, and exits non-zero on failure.
 set -eu
 here=$(cd "$(dirname "$0")/.." && pwd)
+if ! grep -q '^ *Bubble_Finish (A);' "$here"/library_sort.adb; then
+  #  No fallback call in the body: the scratch copy would be the library
+  #  itself, which the main test run has just checked.
+  echo "Named-phase check: Sort has no Bubble_Finish call; the main test run covers the library phase alone."
+  exit 0
+fi
 d=$(mktemp -d)
 trap 'rm -rf "$d"' EXIT
 cp "$here"/library_sort.ads "$here"/library_sort.adb "$here"/own_checks.adb "$d"/
