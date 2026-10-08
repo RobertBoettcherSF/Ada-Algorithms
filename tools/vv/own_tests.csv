@@ -142,3 +142,4 @@ matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix,lucky-number property (row m
 matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum,own clipped-block reference over every cell and radius; 2000 random matrices (128000 sums)
 compression/SPARK2/Ada-SPARK-Compress-String,own run-length size reference (character + decimal count per run); every string over {a;b} and {a;b;c}
 graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,own Warshall transitive closure; 600 random directed/symmetric graphs; every start/goal pair (153600 queries)
+matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,own properties: every cell once; starts at origin; non-decreasing Manhattan distance; every origin; Manhattan for all 256 pairs

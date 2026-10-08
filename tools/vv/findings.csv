@@ -25,3 +25,4 @@ misc/SPARK2/Ada-SPARK-Max-Product-Subarray,Clamp caps products at 100_000; six e
 misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,Limit below Length is infeasible but returns Divisor'Last as an answer (saturation scan),fixed,68fa6790,1298296e
 numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,"butterflies clamp into Sample; full-range inputs saturate, result is not the DFT (saturation scan)",fixed,36986154,2ad89f4e
 sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,Solve groups by odd/even value instead of odd/even position (standard statement: positions); README silent,fixed,d3958231,688de179
+matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,"Order_From returned the fixed order from (1,1) for every origin; 15 of 16 origins wrong (own tests)",fixed,776fd242,fb6dae18
