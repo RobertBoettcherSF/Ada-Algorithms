@@ -127,11 +127,11 @@ def run_tests(work, timeout=20):
     os.makedirs(os.path.join(work, 'obj'), exist_ok=True)
     inc = [f'-I{d}' for d in ('src', 'tests') if os.path.isdir(os.path.join(work, d))]
     b = subprocess.run([GNATMAKE, '-q', '-f', '-gnat2022', '-gnata', '-gnatec=' + os.path.join(work, 'dn.adc'), *inc,
-                        '-D', 'obj', main, '-o', 'tbin', '-bargs', '-S00'], cwd=work, capture_output=True, text=True)
+                        '-D', 'obj', main, '-o', 'tbin', '-bargs', '-S00'], cwd=work, capture_output=True, text=True, errors='replace')
     if b.returncode != 0:
         return 'stillborn'
     try:
-        r = subprocess.run(['./tbin'], cwd=work, capture_output=True, text=True, timeout=timeout)
+        r = subprocess.run(['./tbin'], cwd=work, capture_output=True, text=True, errors='replace', timeout=timeout)
     except subprocess.TimeoutExpired:
         return 'killed'
     out = r.stdout + r.stderr
@@ -241,7 +241,13 @@ def main():
     rows, det = [], []
     det_path = a.out.replace('.csv', '_detail.csv')
     with ThreadPoolExecutor(max(1, a.jobs)) as ex:
-        for row, d in ex.map(lambda f: check_folder(f, a.work), ids):
+        def safe(f):
+            try:
+                return check_folder(f, a.work)
+            except Exception as e:      # one odd folder must not stop the run
+                return dict(folder=f, baseline='', main='', main_result='', verdict=f'tool error ({type(e).__name__})',
+                            subprograms=0, survived='', killed=0, stillborn=0), []
+        for row, d in ex.map(safe, ids):
             rows.append(row); det += d
             print(f"{row['folder']:60s} {row['verdict']:12s} main={row['main']}:{row['main_result']} survived=[{row['survived']}]", flush=True)
             # write incrementally so an interruption keeps what is done
