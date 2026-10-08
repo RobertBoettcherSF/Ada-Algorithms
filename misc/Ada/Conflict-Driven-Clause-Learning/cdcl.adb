@@ -279,12 +279,28 @@ package body CDCL is
                begin
                   Analyze_Conflict (S, Conflict_Id, Learned, Back_Level);
                   S.Clauses.Append (Learned);
-
-                  if Use_Deletion and then Natural (S.Clauses.Length) > S.Original_Count + Max_Learned then
-                     S.Clauses.Delete (S.Original_Count + 1);
-                  end if;
-
                   Backjump (S, Back_Level);
+
+                  --  Delete the oldest learned clause that is not the reason
+                  --  of a current assignment (deleting a reason, or shifting
+                  --  the indices of later reasons, made Analyze_Conflict
+                  --  resolve on the wrong clause). The new clause (last) is
+                  --  about to become a reason and is never deleted.
+                  if Use_Deletion and then Natural (S.Clauses.Length) > S.Original_Count + Max_Learned then
+                     for Victim in S.Original_Count + 1 .. Natural (S.Clauses.Length) - 1 loop
+                        if (for all V in S.Assignments'Range =>
+                              S.Assignments (V).Value = Unassigned or else S.Assignments (V).Reason /= Victim)
+                        then
+                           S.Clauses.Delete (Victim);
+                           for V in S.Assignments'Range loop
+                              if S.Assignments (V).Reason > Victim then
+                                 S.Assignments (V).Reason := S.Assignments (V).Reason - 1;
+                              end if;
+                           end loop;
+                           exit;
+                        end if;
+                     end loop;
+                  end if;
 
                   declare
                      Unit_Lit : Literal := 0;
