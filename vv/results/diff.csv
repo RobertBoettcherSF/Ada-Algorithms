@@ -29,7 +29,7 @@ Package-Merge,misc/Ada/Package-Merge-Algorithm,misc/SPARK4/Ada-SPARK-Package-Mer
 Pearson-Hashing,hashing/Ada/Pearson-Hashing,hashing/SPARK2/Ada-SPARK-Pearson-Hashing,20261008,1000,agree,0,0,0,,,
 Quickselect,searching/Ada/Quickselect,searching/SPARK4/Ada-SPARK-Quickselect,20261008,1000,agree,0,0,0,,,
 Rabin-Karp,strings/Ada/Rabin-Karp,strings/SPARK2/Ada-SPARK-Rabin-Karp,20261008,1000,agree,0,0,0,,,
-Run-Length-Encoding,compression/Ada/Run-Length-Encoding,compression/SPARK2/Ada-SPARK-Run-Length-Encoding,20261008,1000,DISAGREE,32,0,0,0, 0, 1
+Run-Length-Encoding,compression/Ada/Run-Length-Encoding,compression/SPARK2/Ada-SPARK-Run-Length-Encoding,20261008,1000,agree,0,0,0,,,
 Selection-Algorithm,misc/Ada/Selection-Algorithm,misc/SPARK4/Ada-SPARK-Selection-Algorithm,20261008,1000,agree,0,0,0,,,
 Sieve-Of-Eratosthenes,numerical/Ada/Sieve-Of-Eratosthenes,numerical/SPARK2/Ada-SPARK-Sieve-Of-Eratosthenes,20261008,1000,agree,0,0,0,,,
 Sort-Bead-Sort,sorting/Ada/Bead-Sort,sorting/SPARK4/Bead-Sort,20261008,1000,agree,0,0,0,,,
