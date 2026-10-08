@@ -3068,9 +3068,6 @@ sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,In_Bounds,catalog,catalog,,1,function n_
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Keys_Ok,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Stooge-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-sorting/SPARK4/Ada-SPARK-Stooge-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-sorting/SPARK4/Ada-SPARK-Stooge-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Strand-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Strand-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Strand-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
@@ -3243,7 +3240,6 @@ sorting/SPARK4/Ada-SPARK-Radix-Sort,,first_pinned,fail,rewrite_first_relative,,R
 sorting/SPARK4/Ada-SPARK-Samplesort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-sorting/SPARK4/Ada-SPARK-Stooge-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Strand-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Timsort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Topological-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3489,3 +3485,8 @@ sorting/SPARK4/Ada-SPARK-Slowsort,Is_Sorted,catalog,catalog,,1,function n_arrays
 sorting/SPARK4/Ada-SPARK-Slowsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Slowsort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 sorting/SPARK4/Ada-SPARK-Slowsort,Sort,ok,ok,,,sort shift ok,
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,Sort,ok,ok,,,sort shift ok,

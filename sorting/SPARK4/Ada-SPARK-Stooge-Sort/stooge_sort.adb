@@ -31,7 +31,7 @@ is
    with
      Ghost  => True,
      Global => null,
-     Pre    => In_Bounds (A) and then L >= 1 and then R <= A'Last;
+     Pre    => In_Bounds (A) and then L >= A'First and then R <= A'Last;
 
    --  Number of K in L .. H with A (K) >= X.
    function Count_Ge
@@ -43,7 +43,7 @@ is
      Ghost              => True,
      Global             => null,
      Pre                =>
-       In_Bounds (A) and then L >= 1 and then H <= A'Last,
+       In_Bounds (A) and then L >= A'First and then H <= A'Last,
      Post               =>
        Count_Ge'Result <= (if H < L then 0 else H - L + 1),
      Subprogram_Variant => (Decreases => H);
@@ -60,8 +60,9 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A) and then In_Bounds (B) and then A'Last = B'Last
-       and then L >= 1 and then H <= A'Last;
+       In_Bounds (A) and then In_Bounds (B)
+       and then A'First = B'First and then A'Last = B'Last
+       and then L >= A'First and then H <= A'Last;
 
    ---------------------------------------------------------------------------
    -- Counting lemmas
@@ -72,7 +73,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then L >= 1 and then H <= A'Last
+         In_Bounds (A) and then L >= A'First and then H <= A'Last
          and then M >= L - 1 and then M <= H,
        Post   =>
          Count_Ge (A, L, H, X) = Count_Ge (A, L, M, X) + Count_Ge (A, M + 1, H, X)
@@ -89,8 +90,9 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then In_Bounds (B) and then A'Last = B'Last
-         and then L >= 1 and then H <= A'Last
+         In_Bounds (A) and then In_Bounds (B)
+         and then A'First = B'First and then A'Last = B'Last
+         and then L >= A'First and then H <= A'Last
          and then (for all K in L .. H => A (K) = B (K)),
        Post   => Count_Ge (A, L, H, X) = Count_Ge (B, L, H, X)
    is
@@ -104,7 +106,7 @@ is
      with
        Ghost  => True,
        Global => null,
-       Pre    => In_Bounds (A) and then L >= 1 and then H <= A'Last,
+       Pre    => In_Bounds (A) and then L >= A'First and then H <= A'Last,
        Post   =>
          (if (for all K in L .. H => A (K) < X)
           then Count_Ge (A, L, H, X) = 0)
@@ -124,7 +126,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then L >= 1 and then H <= A'Last
+         In_Bounds (A) and then L >= A'First and then H <= A'Last
          and then L <= M1 and then M1 <= M2 and then M2 <= H
          and then (for all K in M1 .. M2 => A (K) >= X),
        Post   => Count_Ge (A, L, H, X) >= M2 - M1 + 1
@@ -144,7 +146,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then L >= 1 and then H <= A'Last
+         In_Bounds (A) and then L >= A'First and then H <= A'Last
          and then L <= M and then M <= H,
        Post   =>
          (if (for all K in L .. M => A (K) < X)
@@ -165,7 +167,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then L >= 1 and then H <= A'Last
+         In_Bounds (A) and then L >= A'First and then H <= A'Last
          and then X <= Y
          and then (for all K in L .. H => A (K) < X or else A (K) >= Y),
        Post   => Count_Ge (A, L, H, X) = Count_Ge (A, L, H, Y)
@@ -184,8 +186,9 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then In_Bounds (B) and then A'Last = B'Last
-         and then L >= 1 and then H <= A'Last
+         In_Bounds (A) and then In_Bounds (B)
+         and then A'First = B'First and then A'Last = B'Last
+         and then L >= A'First and then H <= A'Last
          and then Same_Counts (A, B, L, H),
        Post   => Count_Ge (A, L, H, X) = Count_Ge (B, L, H, X)
    is
@@ -237,12 +240,13 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then In_Bounds (B) and then A'Last = B'Last
-         and then L >= 1 and then H <= A'Last
+         In_Bounds (A) and then In_Bounds (B)
+         and then A'First = B'First and then A'Last = B'Last
+         and then L >= A'First and then H <= A'Last
          and then L <= I and then I < J and then J <= H
          and then A (I) = B (J) and then A (J) = B (I)
          and then
-           (for all K in 1 .. A'Last =>
+           (for all K in A'Range =>
               (if K /= I and then K /= J then A (K) = B (K))),
        Post   => Count_Ge (A, L, H, X) = Count_Ge (B, L, H, X)
    is
@@ -262,12 +266,13 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then In_Bounds (B) and then A'Last = B'Last
-         and then L >= 1 and then H <= A'Last
+         In_Bounds (A) and then In_Bounds (B)
+         and then A'First = B'First and then A'Last = B'Last
+         and then L >= A'First and then H <= A'Last
          and then L <= I and then I < J and then J <= H
          and then A (I) = B (J) and then A (J) = B (I)
          and then
-           (for all K in 1 .. A'Last =>
+           (for all K in A'Range =>
               (if K /= I and then K /= J then A (K) = B (K))),
        Post   => Same_Counts (A, B, L, H)
    is
@@ -289,7 +294,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then L >= 1 and then H <= A'Last
+         In_Bounds (A) and then L >= A'First and then H <= A'Last
          and then C in 1 .. H - L + 1
          and then Sorted_Pw (A, L, H)
          and then Count_Ge (A, L, H, X) >= C,
@@ -311,8 +316,9 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A1) and then In_Bounds (A2) and then A1'Last = A2'Last
-         and then Lo >= 1 and then Hi <= A1'Last
+         In_Bounds (A1) and then In_Bounds (A2)
+         and then A1'First = A2'First and then A1'Last = A2'Last
+         and then Lo >= A1'First and then Hi <= A1'Last
          and then Lo <= Hi and then T in 1 .. Max_N
          and then Lo + 3 * T <= Hi + 1
          and then Sorted_Pw (A1, Lo, Hi - T)
@@ -342,8 +348,9 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A2) and then In_Bounds (A3) and then A2'Last = A3'Last
-         and then Lo >= 1 and then Hi <= A2'Last
+         In_Bounds (A2) and then In_Bounds (A3)
+         and then A2'First = A3'First and then A2'Last = A3'Last
+         and then Lo >= A2'First and then Hi <= A2'Last
          and then Lo <= M1 and then M1 < Hi
          and then (for all P in Lo .. M1 => A2 (P) <= A2 (M1 + 1))
          and then Same_Counts (A3, A2, Lo, M1),
@@ -369,9 +376,11 @@ is
        Pre    =>
          In_Bounds (A_In) and then In_Bounds (A0) and then In_Bounds (A1)
          and then In_Bounds (A2) and then In_Bounds (A3)
-         and then A0'Last = A_In'Last and then A1'Last = A_In'Last
-         and then A2'Last = A_In'Last and then A3'Last = A_In'Last
-         and then Lo >= 1 and then Hi <= A_In'Last
+         and then A0'First = A_In'First and then A0'Last = A_In'Last
+         and then A1'First = A_In'First and then A1'Last = A_In'Last
+         and then A2'First = A_In'First and then A2'Last = A_In'Last
+         and then A3'First = A_In'First and then A3'Last = A_In'Last
+         and then Lo >= A_In'First and then Hi <= A_In'Last
          and then Lo <= Hi and then T in 1 .. Max_N
          and then Lo + 3 * T <= Hi + 1
          and then Same_Counts (A0, A_In, Lo, Hi)
@@ -410,9 +419,11 @@ is
        Pre    =>
          In_Bounds (A_In) and then In_Bounds (A0) and then In_Bounds (A1)
          and then In_Bounds (A2) and then In_Bounds (A3)
-         and then A0'Last = A_In'Last and then A1'Last = A_In'Last
-         and then A2'Last = A_In'Last and then A3'Last = A_In'Last
-         and then Lo >= 1 and then Hi <= A_In'Last
+         and then A0'First = A_In'First and then A0'Last = A_In'Last
+         and then A1'First = A_In'First and then A1'Last = A_In'Last
+         and then A2'First = A_In'First and then A2'Last = A_In'Last
+         and then A3'First = A_In'First and then A3'Last = A_In'Last
+         and then Lo >= A_In'First and then Hi <= A_In'Last
          and then Lo <= Hi and then T in 1 .. Max_N
          and then Lo + 3 * T <= Hi + 1
          and then Same_Counts (A0, A_In, Lo, Hi)
@@ -446,14 +457,14 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
+         and then X in A'Range
+         and then Y in A'Range,
        Post   =>
          In_Bounds (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
-           (for all K in 1 .. A'Last =>
+           (for all K in A'Range =>
               (if K /= X and then K /= Y then A (K) = A'Old (K)))
    is
       T : Integer;
@@ -476,11 +487,11 @@ is
        Subprogram_Variant => (Decreases => Hi - Lo),
        Pre                =>
          In_Bounds (A)
-         and then Lo in 1 .. A'Last
+         and then Lo in A'Range
          and then Hi in Lo .. A'Last,
        Post               =>
          In_Bounds (A)
-         and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K))
+         and then (for all K in A'First .. Lo - 1 => A (K) = A'Old (K))
          and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K))
          and then Sorted_Pw (A, Lo, Hi)
          and then Same_Counts (A, A'Old, Lo, Hi)
@@ -540,7 +551,7 @@ is
          return;
       end if;
 
-      Stooge_Range (A, 1, A'Last);
+      Stooge_Range (A, A'First, A'Last);
    end Sort;
 
 end Stooge_Sort;
