@@ -2,7 +2,8 @@ Sources of the expected values in own_checks.adb (own code, MIT)
 ================================================================
 * Oracles with a known hidden subgroup: on Z_N (N = 2 .. 40) the oracle
   f (x) = 7 * (x mod r) + 1 is constant exactly on the cosets of H = r Z_N
-  for every divisor r of N, so the period is r by construction and H is the
+  for every divisor r of N (r = N included: a one-to-one oracle hides
+  H = {0}, period N), so the period is r by construction and H is the
   set of multiples of r. Solve_Abelian_HSP must return generators whose
   generated subgroup (closure under addition mod N) equals H; the answer is
   also certificate-checked with Verify_Hidden_Subgroup.

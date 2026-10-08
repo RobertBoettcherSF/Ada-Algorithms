@@ -2,7 +2,7 @@
 --  wrong or does nothing. Oracles are built with a KNOWN hidden subgroup, so
 --  the expected answer is the construction parameter, not a recomputation:
 --  * Z_N, N = 2 .. 40: f (x) = 7 * (x mod r) + 1 for every divisor r of N
---    hides H = r Z_N (period r); answers are checked by certificate
+--    (r = N included: one-to-one, H = {0}) hides H = r Z_N (period r); answers are checked by certificate
 --    (Verify_Hidden_Subgroup) and by comparing the generated subgroup with H;
 --  * Verify_Hidden_Subgroup: h is in H iff r divides h (every h, every r);
 --  * characters: g annihilates h iff N / gcd (N, h) divides g;
@@ -73,7 +73,7 @@ procedure Own_Checks is
    end Generated;
 begin
    for N in Group_Element range 2 .. 40 loop
-      for R in Group_Element range 1 .. N - 1 loop
+      for R in Group_Element range 1 .. N loop   --  R = N: one-to-one oracle, H = {0}
          if N mod R = 0 then
             R_Hidden := R;
             declare
@@ -94,21 +94,26 @@ begin
                      when Invalid_Oracle | Subgroup_Not_Found => Expect (True, "");
                   end;
                else
-                  Expect (Solve_Period_Finding (N, Coset_Oracle'Unrestricted_Access) = Period_Type (R),
-                          "period N=" & N'Image & " r=" & R'Image);
-                  declare
-                     Gens : constant Element_Array := Solve_Abelian_HSP (N, Coset_Oracle'Unrestricted_Access);
-                     T    : constant Member_Table := Generated (N, Gens);
-                     Same : Boolean := True;
                   begin
-                     for X in 0 .. N - 1 loop
-                        Same := Same and then T (X) = H_Ref (X);
-                     end loop;
-                     Expect (Same, "Solve_Abelian_HSP generates H = r Z_N, N=" & N'Image & " r=" & R'Image
-                             & " got" & Gens (Gens'First)'Image);
-                     Expect (Verify_Hidden_Subgroup (N, Gens, Coset_Oracle'Unrestricted_Access),
-                             "certificate: Verify_Hidden_Subgroup accepts the HSP answer, N=" & N'Image
-                             & " r=" & R'Image);
+                     Expect (Solve_Period_Finding (N, Coset_Oracle'Unrestricted_Access) = Period_Type (R),
+                             "period N=" & N'Image & " r=" & R'Image);
+                     declare
+                        Gens : constant Element_Array := Solve_Abelian_HSP (N, Coset_Oracle'Unrestricted_Access);
+                        T    : constant Member_Table := Generated (N, Gens);
+                        Same : Boolean := True;
+                     begin
+                        for X in 0 .. N - 1 loop
+                           Same := Same and then T (X) = H_Ref (X);
+                        end loop;
+                        Expect (Same, "Solve_Abelian_HSP generates H = r Z_N, N=" & N'Image & " r=" & R'Image
+                                & " got" & Gens (Gens'First)'Image);
+                        Expect (Verify_Hidden_Subgroup (N, Gens, Coset_Oracle'Unrestricted_Access),
+                                "certificate: Verify_Hidden_Subgroup accepts the HSP answer, N=" & N'Image
+                                & " r=" & R'Image);
+                     end;
+                  exception
+                     when Subgroup_Not_Found | Invalid_Oracle =>
+                        Expect (False, "period / HSP raised for N=" & N'Image & " r=" & R'Image);
                   end;
                end if;
                for Hh in 0 .. N - 1 loop
