@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (tests/main.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* 1 4 3 2 5 2 with pivot 3 -> 1 2 2 4 3 5, by hand.
+* Own reference (the standard Partition List statement): the values below
+  the pivot in their original order, then the values at or above it in
+  their original order; built by filtering the input twice. The length
+  must not change.
+* Inputs: every list of length 0 .. 7 over {0, 1, 2} with every pivot
+  -1 .. 3 (exhaustive), and 3,000 random lists of length 0 .. 16 (every
+  fourth full) over -20 .. 20 with pivots -25 .. 25.
