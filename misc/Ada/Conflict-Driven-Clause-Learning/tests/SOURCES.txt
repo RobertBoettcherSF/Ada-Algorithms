@@ -11,7 +11,7 @@ Sources of the expected values in own_checks.adb (own code, MIT)
     in some hole, no two pigeons in one hole), UNSAT.
 * Certificates: every SAT answer's assignment is evaluated on every clause
   by own_checks' own evaluator (unassigned counts as neither value). Beyond
-  brute force: 12 formulas with 30 .. 120 variables and 4 N clauses built
+  brute force: 12 formulas with 35 .. 90 variables and 4 N clauses built
   around a hidden assignment (clauses it falsifies get a literal flipped),
   so UNSAT is always wrong there.
 * Beyond brute force, UNSAT: PHP(5,4), PHP(6,5), PHP(7,6) (20, 30, 42

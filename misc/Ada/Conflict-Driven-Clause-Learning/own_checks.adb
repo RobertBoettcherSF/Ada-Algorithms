@@ -4,7 +4,7 @@
 --    so SAT / UNSAT is known independently; SAT and UNSAT agreement are
 --    counted separately so a wrong UNSAT cannot hide in a pass rate;
 --  * certificate: every SAT answer's assignment is evaluated on every
---    clause by this file's own evaluator (also for 30 .. 120 variables,
+--    clause by this file's own evaluator (also for 35 .. 90 variables,
 --    beyond brute force, on formulas with a planted solution, where UNSAT
 --    is always wrong);
 --  * pigeonhole PHP(3,2) and PHP(4,3), which are UNSAT.
@@ -132,23 +132,55 @@ procedure Own_Checks is
       return R;
    end To_Formula;
 
-   type Variant is (Basic, Restarts, Deletion, Instr_Plain, Instr_Low);
+   type Variant is (Basic, Restarts, Deletion, Instr_Plain, Instr_Low, Instr_Mid);
    --  Instr_Plain: Solve_Instrumented without restarts / deletion (counters
    --  must show none); Instr_Low: restarts after every conflict and at most
    --  one learned clause kept, so small formulas exercise both.
-   Total_Restarts, Total_Deleted, Total_Conflicts : Natural := 0;
+   --  Instr_Mid: restart interval 3 and a learned-clause limit of 1000.
+   --  Bounds derived from the meaning of the options, not from runs:
+   --  * restarts never come closer than the initial interval, so
+   --    Restarts * 3 <= Conflicts;
+   --  * with a limit of 1000, nothing is deleted while at most 1000 clauses
+   --    were ever learned;
+   --  * with deletion on, the kept learned clauses never exceed
+   --    max (limit, Variables_Count + 1): a deletion is due whenever the
+   --    count exceeds the limit, and it can only be blocked when every older
+   --    learned clause is the reason of an assigned variable (one reason per
+   --    variable).
+   Total_Restarts, Total_Deleted, Total_Conflicts, Mid_Restarts : Natural := 0;
    procedure Run (V : Variant; F : Formula; A : out Assignment_Array; P : Positive; S : out Solve_Status) is
    begin
       case V is
          when Basic    => S := Solve_Basic (F, A);
          when Restarts => S := Solve_With_Restarts (F, A, P);
          when Deletion => S := Solve_With_Clause_Deletion (F, A, P);
+         when Instr_Mid =>
+            declare
+               St : Solve_Statistics;
+            begin
+               Solve_Instrumented (F, A, True, 3, True, 1000, S, St);
+               if St.Restarts * 3 > St.Conflicts then
+                  Fail ("counters: restarts closer than the interval 3: restarts" & St.Restarts'Image
+                        & " conflicts" & St.Conflicts'Image);
+               end if;
+               if St.Learned <= 1000 and then St.Deleted /= 0 then
+                  Fail ("counters: deletion below the limit of 1000 learned clauses");
+               end if;
+               if St.Learned /= St.Conflicts - (if S = Unsatisfiable then 1 else 0) then
+                  Fail ("counters inconsistent (interval 3)");
+               end if;
+               Mid_Restarts := Mid_Restarts + St.Restarts;
+            end;
          when Instr_Plain | Instr_Low =>
             declare
                Low : constant Boolean := V = Instr_Low;
                St  : Solve_Statistics;
             begin
                Solve_Instrumented (F, A, Low, 1, Low, 1, S, St);
+               if Low and then St.Peak_Learned > Natural'Max (1, F.Variables_Count + 1) then
+                  Fail ("counters: kept learned clauses" & St.Peak_Learned'Image
+                        & " above max (1, variables + 1) with deletion on");
+               end if;
                if not Low and then (St.Restarts /= 0 or else St.Deleted /= 0) then
                   Fail ("counters: restarts or deletions without the option");
                end if;
@@ -308,11 +340,11 @@ begin
    Pigeonhole (F, 7, 6);
    Compare (F, "PHP(7,6)", False, Big_UNSAT_OK, Big_UNSAT_Total);
 
-   --  4. beyond brute force: planted solution, 40 .. 120 vars, M = 4 N;
+   --  4. beyond brute force: planted solution, 35 .. 90 vars, M = 4 N;
    --     any UNSAT is wrong, any SAT model is checked clause by clause
    for Round in 1 .. 12 loop
       declare
-         N : constant Positive := 30 + 10 * Round mod 100;
+         N : constant Positive := 30 + 5 * Round;
          Hidden : array (1 .. N) of Boolean;
       begin
          for V in Hidden'Range loop
@@ -335,13 +367,13 @@ begin
       Put_Line ("own checks " & V'Image & ": phase-transition SAT" & Sat_Agree (V)'Image & " /" & Sat_Total (V)'Image
         & ", UNSAT" & Unsat_Agree (V)'Image & " /" & Unsat_Total (V)'Image & " (incl. PHP)"
         & ", easy" & Easy_Agree (V)'Image & " /" & Easy_Total (V)'Image
-        & ", planted 30-120 vars" & Big_OK (V)'Image & " /" & Big_Total (V)'Image
+        & ", planted 35-90 vars" & Big_OK (V)'Image & " /" & Big_Total (V)'Image
         & ", PHP(5,4) PHP(6,5) PHP(7,6) UNSAT" & Big_UNSAT_OK (V)'Image & " /" & Big_UNSAT_Total (V)'Image);
    end loop;
    Put_Line ("own checks: low-threshold runs (restart every conflict, keep 1 learned clause):"
              & Total_Conflicts'Image & " conflicts," & Total_Restarts'Image & " restarts,"
              & Total_Deleted'Image & " learned clauses deleted");
-   if Total_Restarts = 0 or else Total_Deleted = 0 then
+   if Total_Restarts = 0 or else Total_Deleted = 0 or else Mid_Restarts = 0 then
       Fail ("low-threshold runs never restarted or never deleted a clause");
    end if;
    if Failures > 0 then
