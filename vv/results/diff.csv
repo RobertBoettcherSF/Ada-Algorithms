@@ -49,7 +49,7 @@ Sort-Heapsort-SPARK4,sorting/Ada/Heapsort,sorting/SPARK4/Ada-SPARK-Heapsort,2026
 Sort-Insertion-Sort,sorting/Ada/Insertion-Sort,sorting/SPARK4/Ada-SPARK-Insertion-Sort,20261008,1000,agree,0,0,0,,,
 Sort-Intro-Sort-SPARK2,sorting/Ada/Introsort,sorting/SPARK2/Ada-SPARK-Intro-Sort,20261008,1000,agree,0,0,0,,,
 Sort-Introsort-SPARK4,sorting/Ada/Introsort,sorting/SPARK4/Ada-SPARK-Introsort,20261008,1000,agree,0,0,0,,,
-Sort-Library-Sort,sorting/Ada/Library-Sort,sorting/SPARK4/Ada-SPARK-Library-Sort,20261008,1000,DISAGREE,6,0,0,48 -477 773 800 -975 -750 -620 -21 -945 -530 286 -221 -836 -272 -532 -98 -22 280 70 695 -564 596 287 100 -74 324 -458 -834 123 -226 738 564 -418 -789 -416 645 410 665 681 -368 -553 -135 -56 -533 944 8,-975-945-836-834-789-750-749-620-564-553-533-532-530-477-458-418-416-368-272-226-221-135-98-74-56-22-21 70 100 123 215 280 286 287 324 410 564 596 645 665 681 695 738 773 800 855 944 912,-975-945-836-834-789-750-749-620-564-553-533-532-530-477-458-418-416-368-272-226-221-135-98-74-56-22-21 70 100 123 215 280 286 287 324 410 564 596 645 665 681 695 738 773 800 855 912 944
+Sort-Library-Sort,sorting/Ada/Library-Sort,sorting/SPARK4/Ada-SPARK-Library-Sort,20261008,1000,agree,0,0,0,,,
 Sort-Merge-Sort,sorting/Ada/Merge-Sort,sorting/SPARK4/Ada-SPARK-Merge-Sort,20261008,1000,agree,0,0,0,,,
 Sort-Odd-Even-Sort,sorting/Ada/Odd-Even-Sort,sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,20261008,1000,agree,0,0,0,,,
 Sort-Pancake-Sorting,sorting/Ada/Pancake-Sorting,sorting/SPARK4/Ada-SPARK-Pancake-Sorting,20261008,1000,agree,0,0,0,,,

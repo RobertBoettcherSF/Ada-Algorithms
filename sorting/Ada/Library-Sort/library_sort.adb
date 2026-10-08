@@ -168,50 +168,53 @@ is
       end if;
    end Binary_Search_Insert;
 
-   --  Insert X at Pos: fill a gap, or shift right until a gap.
-   --  Returns False if no gap exists (caller rebalances).
+   --  Insert X at insertion point Pos (1 .. Cap + 1): every occupied slot
+   --  before Pos holds a value < X, every occupied slot at or after Pos a
+   --  value >= X. Fill the gap at Pos, or shift the run starting at Pos
+   --  right into the next gap and put X at Pos, or shift the run ending
+   --  at Pos - 1 left into the previous gap and put X at Pos - 1 (so X
+   --  stays in front of W (Pos)). Returns False if no gap exists (caller
+   --  rebalances).
    function Try_Insert
      (W   : in out Working_Array;
       Cap : Positive;
       Pos : Positive;
       X   : Integer) return Boolean
    is
-      P : Positive := Pos;
-      J : Positive;
+      J : Natural;
    begin
-      if P > Cap then
-         P := Cap;
-      end if;
-
-      if not W (P).Occupied then
-         W (P) := (Occupied => True, Value => X);
-         return True;
-      end if;
-
-      J := P;
-      while J <= Cap and then W (J).Occupied loop
-         J := J + 1;
-      end loop;
-
-      if J > Cap then
-         J := P;
-         while J > 1 and then W (J).Occupied loop
-            J := J - 1;
-         end loop;
-         if not W (J).Occupied then
-            for K in J + 1 .. P loop
-               W (K - 1) := W (K);
-            end loop;
-            W (P) := (Occupied => True, Value => X);
+      if Pos <= Cap then
+         if not W (Pos).Occupied then
+            W (Pos) := (Occupied => True, Value => X);
             return True;
          end if;
-         return False;
+
+         J := Pos;
+         while J <= Cap and then W (J).Occupied loop
+            J := J + 1;
+         end loop;
+
+         if J <= Cap then
+            for K in reverse Pos .. J - 1 loop
+               W (K + 1) := W (K);
+            end loop;
+            W (Pos) := (Occupied => True, Value => X);
+            return True;
+         end if;
       end if;
 
-      for K in reverse P .. J - 1 loop
-         W (K + 1) := W (K);
+      --  No gap at or after Pos: use the nearest gap before Pos.
+      J := Pos - 1;
+      while J >= 1 and then W (J).Occupied loop
+         J := J - 1;
       end loop;
-      W (P) := (Occupied => True, Value => X);
+      if J = 0 then
+         return False;
+      end if;
+      for K in J + 1 .. Pos - 1 loop
+         W (K - 1) := W (K);
+      end loop;
+      W (Pos - 1) := (Occupied => True, Value => X);
       return True;
    end Try_Insert;
 
