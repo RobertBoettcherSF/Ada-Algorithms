@@ -1,0 +1,12 @@
+folder,checks
+sorting/SPARK2/Ada-SPARK-Bitonic-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Block-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Circle-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Cocktail-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Pancake-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Patience-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Shaker-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Ada-SPARK-Tournament-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random
+sorting/SPARK2/Binary-Insertion-Sort,sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random

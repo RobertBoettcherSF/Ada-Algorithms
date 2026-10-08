@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* Property: the result of Sort is nondecreasing.
+* Property: the result is a permutation of the input (value counts equal).
+* Own brute-force reference: straight insertion sort (Reference in
+  own_checks.adb), compared element by element.
+* Inputs: all 2**8 zero/one arrays (0-1 principle for comparator networks,
+  Knuth, The Art of Computer Programming Vol. 3, 5.3.4), edge shapes
+  (constant, ascending, descending, alternating extremes), 2,000 random
+  arrays over the full Value range and 1,000 with many duplicates from the
+  Park-Miller minimal standard generator (seed 20261008).
