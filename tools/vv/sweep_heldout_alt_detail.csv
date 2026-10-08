@@ -922,3 +922,75 @@ alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm
 alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + >= -> >,hidden,hidden,killed
 alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 10 -> 0,hidden,hidden,stillborn
 alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + < -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,= -> /=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,= -> /=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,* -> +,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,= -> /=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,<= -> <,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,= -> /=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,/= -> =,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,> -> >=,hidden,hidden,survived
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,survived
