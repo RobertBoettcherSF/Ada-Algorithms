@@ -181,7 +181,7 @@ is
          end loop;
 
          J := Lo;
-         pragma Assert (J in 1 .. Num_Piles + 1);
+         pragma Assert (J <= Num_Piles + 1);
          pragma Assert
            (J > Num_Piles or else Pool (Pile_Tops (J)).Value >= X_Val);
 
@@ -265,7 +265,7 @@ is
          Best_Val := Pool (Pile_Tops (1)).Value;
 
          for Q in 2 .. Num_Piles loop
-            pragma Loop_Invariant (Best in 1 .. Q - 1);
+            pragma Loop_Invariant (Best < Q);
             pragma Loop_Invariant (Best_Val = Pool (Pile_Tops (Best)).Value);
             pragma Loop_Invariant
               (for all T in 1 .. Q - 1 =>
