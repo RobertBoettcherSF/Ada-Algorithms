@@ -1,9 +1,10 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Palindrome_Linked_List is
    function Empty return List is
    begin
-      return (Data => (others => 0), Size => 0);
+      return (Data => [others => 0], Size => 0);
    end Empty;
 
    procedure Append (L : in out List; V : Value) is

@@ -1,9 +1,10 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Reorder_List is
    function Empty return List is
    begin
-      return (Data => (others => 0), Size => 0);
+      return (Data => [others => 0], Size => 0);
    end Empty;
 
    procedure Append (L : in out List; V : Value) is
@@ -26,7 +27,7 @@ package body Reorder_List is
 
    procedure Reorder (L : in out List) is
       Original : constant Value_Array := L.Data;
-      Output : Value_Array := (others => 0);
+      Output : Value_Array := [others => 0];
       Out_Pos : Position := 1;
    begin
       for I in Position loop

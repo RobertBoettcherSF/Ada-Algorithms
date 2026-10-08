@@ -1,9 +1,10 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Maximum_Twin_Sum_Of_A_Linked_List is
    function Empty return List is
    begin
-      return (Data => (others => 0), Size => 0);
+      return (Data => [others => 0], Size => 0);
    end Empty;
 
    procedure Append (L : in out List; V : Value) is
@@ -22,7 +23,7 @@ package body Maximum_Twin_Sum_Of_A_Linked_List is
    function Maximum_Twin_Sum (L : List) return Twin_Sum is
       Best : Twin_Sum := 0;
       Candidate : Twin_Sum;
-      Half : Count := L.Size / 2;
+      Half : constant Count := L.Size / 2;
       J : Position;
    begin
       for I in Position loop

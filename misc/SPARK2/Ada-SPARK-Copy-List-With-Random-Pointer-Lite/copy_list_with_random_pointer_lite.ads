@@ -1,6 +1,8 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package Copy_List_With_Random_Pointer_Lite is
+   pragma Assertion_Policy (Pre => Check);
    subtype Count is Natural range 0 .. 16;
    subtype Position is Count range 1 .. 16;
    subtype Value is Integer range -100 .. 100;
@@ -8,7 +10,8 @@ package Copy_List_With_Random_Pointer_Lite is
    type List is private;
 
    function Empty return List;
-   procedure Append (L : in out List; V : Value);
+   procedure Append (L : in out List; V : Value)
+     with Pre => Length (L) < Count'Last;   --  no silent drop when full
    procedure Set_Random (L : in out List; P : Position; Target : Link_Index)
      with Pre => P <= Length (L) and then Target <= Length (L);
    function Length (L : List) return Count;
@@ -21,8 +24,8 @@ private
    type Value_Array is array (Position) of Value;
    type Link_Array is array (Position) of Link_Index;
    type List is record
-      Data : Value_Array := (others => 0);
-      Random : Link_Array := (others => 0);
+      Data : Value_Array := [others => 0];
+      Random : Link_Array := [others => 0];
       Size : Count := 0;
    end record;
 end Copy_List_With_Random_Pointer_Lite;
