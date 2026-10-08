@@ -10,7 +10,8 @@ is
       Pi (1) := 0;
       while I <= Pat'Last loop
          pragma Loop_Invariant (I in 2 .. Pat'Last + 1);
-         pragma Loop_Invariant (Len < I);
+         pragma Loop_Invariant (Len < I - 1);
+         pragma Loop_Invariant (for all K in 1 .. I - 1 => Pi (K) < K);
          if Pat (I) = Pat (Len + 1) then
             Len := Len + 1;
             Pi (I) := Len;
