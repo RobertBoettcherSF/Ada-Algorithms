@@ -2961,15 +2961,6 @@ graphs/Ada/Hungarian-Algorithm,Assignment_Cost,catalog,catalog,,1,function n_arr
 hashing/SPARK2/Ada-SPARK-FNV-Hash,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,Number_Of_Runs,catalog,catalog,,1,function n_arrays=1 ret=Run_Count,
-misc/Ada/Barnes-Hut,Build_Tree,catalog,catalog,,1,procedure n_arrays=1 ret=Natural,
-misc/Ada/Barnes-Hut,Force_Brute,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
-misc/Ada/Barnes-Hut,Force_Barnes_Hut,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
-misc/Ada/Barnes-Hut,Forces_All_Brute,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/Barnes-Hut,Forces_All_Barnes_Hut,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/Barnes-Hut,Forces_All_Barnes_Hut_From_Bodies,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-misc/Ada/Barnes-Hut,Max_Abs_Error,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
-misc/Ada/Barnes-Hut,Sum_Masses,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
-misc/Ada/Barnes-Hut,Euler_Step,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Fast-Multipole-Method,P2M,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Fast-Multipole-Method,Build_Tree,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Fast-Multipole-Method,Compute_Potentials_Brute,catalog,catalog,,2,procedure n_arrays=2 ret=None,
@@ -2978,7 +2969,6 @@ misc/Ada/Fast-Multipole-Method,Max_Abs_Error,catalog,catalog,,1,function n_array
 misc/Ada/Fast-Multipole-Method,Total_Charge,catalog,catalog,,1,function n_arrays=1 ret=Real,
 misc/Ada/Fast-Multipole-Method,Compute_Potentials_FMM_From_Particles,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
-misc/Ada/Gale-Shapley-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/Ada/Top-Trading-Cycle,Load_Endowment,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Top-Trading-Cycle,Load,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/Ada/Top-Trading-Cycle,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3225,20 +3215,6 @@ graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Cycle_Start,catalog,catal
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-misc/Ada/Min-Conflicts,Random_Board,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Min-Conflicts,Greedy_Board,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Min-Conflicts,Variable_Conflicts,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-misc/Ada/Min-Conflicts,Conflict_Count,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-misc/Ada/Min-Conflicts,Is_Solved,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Min-Conflicts,Min_Conflict_Value,catalog,catalog,,1,function n_arrays=1 ret=Column_Index,
-misc/Ada/Min-Conflicts,Pick_Conflicted_Variable,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-misc/Ada/Min-Conflicts,Step,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Min-Conflicts,Minimize_Conflicts,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Min-Conflicts,Solve_N_Queens,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/Ada/Min-Conflicts,Map_Variable_Conflicts,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-misc/Ada/Min-Conflicts,Map_Conflict_Count,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-misc/Ada/Min-Conflicts,Map_Is_Solved,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Min-Conflicts,Solve_Map_Coloring,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Differs_By_Single_Swap,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-K-Way-Merge,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3311,12 +3287,9 @@ hashing/SPARK2/Ada-SPARK-FNV-Hash,,first_pinned,fail,rewrite_first_relative,,REW
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Ant-Colony-Optimization,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-misc/Ada/Barnes-Hut,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Branch-and-Bound,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Combinatorial-Optimization,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Fast-Multipole-Method,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-misc/Ada/Gale-Shapley-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-misc/Ada/Min-Conflicts,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/Ada/Top-Trading-Cycle,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-Adler32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-CRC32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3477,3 +3450,31 @@ numerical/Ada/Brents-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=
 numerical/Ada/Brents-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
 numerical/Ada/Brents-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 numerical/Ada/Brents-Algorithm,Cycle_Length,ok,ok,,,origins 2/100 high 10000 (successor) ok,
+misc/Ada/Gale-Shapley-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/Ada/Gale-Shapley-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/Ada/Barnes-Hut,Build_Tree,catalog,catalog,,1,procedure n_arrays=1 ret=Natural,
+misc/Ada/Barnes-Hut,Force_Brute,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
+misc/Ada/Barnes-Hut,Force_Barnes_Hut,catalog,catalog,,1,function n_arrays=1 ret=Vec2,
+misc/Ada/Barnes-Hut,Forces_All_Brute,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/Barnes-Hut,Forces_All_Barnes_Hut,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/Barnes-Hut,Forces_All_Barnes_Hut_From_Bodies,catalog,catalog,,2,procedure n_arrays=2 ret=None,
+misc/Ada/Barnes-Hut,Max_Abs_Error,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
+misc/Ada/Barnes-Hut,Sum_Masses,catalog,catalog,,1,function n_arrays=1 ret=Non_Negative,
+misc/Ada/Barnes-Hut,Euler_Step,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Barnes-Hut,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/Ada/Min-Conflicts,Random_Board,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Min-Conflicts,Greedy_Board,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Min-Conflicts,Variable_Conflicts,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+misc/Ada/Min-Conflicts,Conflict_Count,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+misc/Ada/Min-Conflicts,Is_Solved,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/Ada/Min-Conflicts,Min_Conflict_Value,catalog,catalog,,1,function n_arrays=1 ret=Column_Index,
+misc/Ada/Min-Conflicts,Pick_Conflicted_Variable,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+misc/Ada/Min-Conflicts,Step,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Min-Conflicts,Minimize_Conflicts,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Min-Conflicts,Solve_N_Queens,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Min-Conflicts,Map_Variable_Conflicts,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+misc/Ada/Min-Conflicts,Map_Conflict_Count,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+misc/Ada/Min-Conflicts,Map_Is_Solved,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/Ada/Min-Conflicts,Solve_Map_Coloring,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/Ada/Min-Conflicts,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/Ada/Min-Conflicts,Variable_Conflicts,ok,ok,,,origins 2/100 high 10000 (value) ok,

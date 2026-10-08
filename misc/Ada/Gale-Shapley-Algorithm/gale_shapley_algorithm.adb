@@ -102,7 +102,8 @@ is
    is
    begin
       for K in 1 .. N loop
-         Dest (Person_Id (Row), Person_Id (K)) := Prefs (Row, K);
+         Dest (Person_Id (Row), Person_Id (K)) :=
+           Prefs (Prefs'First (1) + Row - 1, Prefs'First (2) + K - 1);
       end loop;
    end Copy_Pref_Row;
 
@@ -111,9 +112,7 @@ is
    is
       Order : constant Natural := Prefs'Length (1);
    begin
-      if Prefs'First (1) /= 1
-        or else Prefs'First (2) /= 1
-        or else Prefs'Length (2) /= Order
+      if Prefs'Length (2) /= Order
         or else Order /= Expected_N
         or else Order > Max_N
       then
@@ -286,11 +285,7 @@ is
    is
       Order : constant Natural := Proposer_Prefs'Length (1);
    begin
-      if Proposer_Prefs'First (1) /= 1
-        or else Proposer_Prefs'First (2) /= 1
-        or else Receiver_Prefs'First (1) /= 1
-        or else Receiver_Prefs'First (2) /= 1
-        or else Proposer_Prefs'Length (2) /= Order
+      if Proposer_Prefs'Length (2) /= Order
         or else Receiver_Prefs'Length (1) /= Order
         or else Receiver_Prefs'Length (2) /= Order
         or else Order > Max_N
@@ -370,9 +365,6 @@ is
       if N > Max_N then
          return False;
       end if;
-      if Prefs'First (1) /= 1 or else Prefs'First (2) /= 1 then
-         return False;
-      end if;
       if Prefs'Length (1) < N or else Prefs'Length (2) < N then
          return False;
       end if;
@@ -380,7 +372,8 @@ is
          Seen := [others => False];
          for K in 1 .. N loop
             declare
-               V : constant Natural := Prefs (I, K);
+               V : constant Natural :=
+                 Prefs (Prefs'First (1) + I - 1, Prefs'First (2) + K - 1);
             begin
                if V < 1 or else V > N or else Seen (V) then
                   return False;
@@ -403,12 +396,12 @@ is
       if N > Max_N then
          return False;
       end if;
-      if A'First /= 1 or else A'Length < N then
+      if A'Length < N then
          return False;
       end if;
       for I in 1 .. N loop
          declare
-            J : constant Natural := A (I);
+            J : constant Natural := A (A'First + I - 1);
          begin
             if J < 1 or else J > N or else Seen (J) then
                return False;

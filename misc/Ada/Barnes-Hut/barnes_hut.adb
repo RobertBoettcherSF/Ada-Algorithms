@@ -182,8 +182,8 @@ package body Barnes_Hut is
          return;
       end if;
       for I in Lo .. Hi loop
-         PX := Bodies (T.Idx (I)).Pos.X;
-         PY := Bodies (T.Idx (I)).Pos.Y;
+         PX := Bodies (Bodies'First + (T.Idx (I)) - 1).Pos.X;
+         PY := Bodies (Bodies'First + (T.Idx (I)) - 1).Pos.Y;
          if PX < CX then
             if PY < CY then
                Q := 0;
@@ -204,8 +204,8 @@ package body Barnes_Hut is
          Pos (QQ) := Pos (QQ - 1) + Counts (QQ - 1);
       end loop;
       for I in Lo .. Hi loop
-         PX := Bodies (T.Idx (I)).Pos.X;
-         PY := Bodies (T.Idx (I)).Pos.Y;
+         PX := Bodies (Bodies'First + (T.Idx (I)) - 1).Pos.X;
+         PY := Bodies (Bodies'First + (T.Idx (I)) - 1).Pos.Y;
          if PX < CX then
             if PY < CY then
                Q := 0;
@@ -259,10 +259,10 @@ package body Barnes_Hut is
       end if;
       for I in Lo .. Hi loop
          BI := T.Idx (I);
-         BM := Bodies (BI).Mass;
+         BM := Bodies (Bodies'First + BI - 1).Mass;
          M  := M + BM;
-         MX := MX + BM * Bodies (BI).Pos.X;
-         MY := MY + BM * Bodies (BI).Pos.Y;
+         MX := MX + BM * Bodies (Bodies'First + BI - 1).Pos.X;
+         MY := MY + BM * Bodies (Bodies'First + BI - 1).Pos.Y;
       end loop;
       T.Nodes (Nid).Mass := M;
       if M > Tiny then
@@ -424,8 +424,8 @@ package body Barnes_Hut is
       for J in 1 .. Count loop
          if J /= Target then
             F := Pair_Force
-              (Bodies (Target).Mass, Bodies (J).Mass,
-               Bodies (Target).Pos, Bodies (J).Pos,
+              (Bodies (Bodies'First + Target - 1).Mass, Bodies (Bodies'First + J - 1).Mass,
+               Bodies (Bodies'First + Target - 1).Pos, Bodies (Bodies'First + J - 1).Pos,
                Config.G, Config.Softening);
             Acc.X := Acc.X + F.X;
             Acc.Y := Acc.Y + F.Y;
@@ -472,8 +472,8 @@ package body Barnes_Hut is
          BJ := T.Idx (K);
          if BJ /= Ti then
             F := Pair_Force
-              (Bodies (Ti).Mass, Bodies (BJ).Mass,
-               Bodies (Ti).Pos, Bodies (BJ).Pos,
+              (Bodies (Bodies'First + Ti - 1).Mass, Bodies (Bodies'First + BJ - 1).Mass,
+               Bodies (Bodies'First + Ti - 1).Pos, Bodies (Bodies'First + BJ - 1).Pos,
                Config.G, Config.Softening);
             Acc.X := Acc.X + F.X;
             Acc.Y := Acc.Y + F.Y;
@@ -508,14 +508,14 @@ package body Barnes_Hut is
 
       --  Internal: MAC against COM
       Dist := Hypot
-        (Bodies (Ti).Pos.X - T.Nodes (Nid).COMX,
-         Bodies (Ti).Pos.Y - T.Nodes (Nid).COMY);
+        (Bodies (Bodies'First + Ti - 1).Pos.X - T.Nodes (Nid).COMX,
+         Bodies (Bodies'First + Ti - 1).Pos.Y - T.Nodes (Nid).COMY);
 
       if Accept_Node
            (Non_Negative (T.Nodes (Nid).Size), Dist, Config.Theta)
       then
          return Point_Force
-           (Bodies (Ti).Mass, Bodies (Ti).Pos,
+           (Bodies (Bodies'First + Ti - 1).Mass, Bodies (Bodies'First + Ti - 1).Pos,
             T.Nodes (Nid).Mass,
             T.Nodes (Nid).COMX, T.Nodes (Nid).COMY,
             Config.G, Config.Softening);
@@ -560,7 +560,7 @@ package body Barnes_Hut is
          return;
       end if;
       for I in 1 .. Count loop
-         Out_F (I) := Force_Brute (Bodies, Count, I, Config);
+         Out_F (Out_F'First + I - 1) := Force_Brute (Bodies, Count, I, Config);
       end loop;
    end Forces_All_Brute;
 
@@ -579,7 +579,7 @@ package body Barnes_Hut is
          return;
       end if;
       for I in 1 .. Count loop
-         Out_F (I) := Force_Barnes_Hut (T, Bodies, Count, I, Config);
+         Out_F (Out_F'First + I - 1) := Force_Barnes_Hut (T, Bodies, Count, I, Config);
       end loop;
    end Forces_All_Barnes_Hut;
 
@@ -603,7 +603,7 @@ package body Barnes_Hut is
       E : Real;
    begin
       for I in 1 .. Count loop
-         E := abs (A (I).X - B (I).X) + abs (A (I).Y - B (I).Y);
+         E := abs (A (A'First + I - 1).X - B (B'First + I - 1).X) + abs (A (A'First + I - 1).Y - B (B'First + I - 1).Y);
          if E > M then
             M := E;
          end if;
@@ -617,7 +617,7 @@ package body Barnes_Hut is
       S : Real := 0.0;
    begin
       for I in 1 .. Count loop
-         S := S + Bodies (I).Mass;
+         S := S + Bodies (Bodies'First + I - 1).Mass;
       end loop;
       return Non_Negative (S);
    end Sum_Masses;
@@ -638,13 +638,13 @@ package body Barnes_Hut is
       Build_Tree (T, Bodies, Count, Config);
       Forces_All_Barnes_Hut (T, Bodies, Count, Config, F);
       for I in 1 .. Count loop
-         if Bodies (I).Mass > Tiny then
-            AX := F (I).X / Bodies (I).Mass;
-            AY := F (I).Y / Bodies (I).Mass;
-            Bodies (I).Vel.X := Bodies (I).Vel.X + AX * Dt;
-            Bodies (I).Vel.Y := Bodies (I).Vel.Y + AY * Dt;
-            Bodies (I).Pos.X := Bodies (I).Pos.X + Bodies (I).Vel.X * Dt;
-            Bodies (I).Pos.Y := Bodies (I).Pos.Y + Bodies (I).Vel.Y * Dt;
+         if Bodies (Bodies'First + I - 1).Mass > Tiny then
+            AX := F (I).X / Bodies (Bodies'First + I - 1).Mass;
+            AY := F (I).Y / Bodies (Bodies'First + I - 1).Mass;
+            Bodies (Bodies'First + I - 1).Vel.X := Bodies (Bodies'First + I - 1).Vel.X + AX * Dt;
+            Bodies (Bodies'First + I - 1).Vel.Y := Bodies (Bodies'First + I - 1).Vel.Y + AY * Dt;
+            Bodies (Bodies'First + I - 1).Pos.X := Bodies (Bodies'First + I - 1).Pos.X + Bodies (Bodies'First + I - 1).Vel.X * Dt;
+            Bodies (Bodies'First + I - 1).Pos.Y := Bodies (Bodies'First + I - 1).Pos.Y + Bodies (Bodies'First + I - 1).Vel.Y * Dt;
          end if;
       end loop;
    end Euler_Step;

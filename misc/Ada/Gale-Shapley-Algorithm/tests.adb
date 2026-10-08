@@ -685,7 +685,7 @@ begin
       Check (not Is_Complete_Permutation (Dup, 3), "dup not perm");
       Check (not Is_Complete_Permutation (Zero, 2), "zero not perm");
       Check (not Is_Complete_Permutation (Big, 2), "oob not perm");
-      Check (not Is_Complete_Permutation (Off, 2), "off-base not perm");
+      Check (Is_Complete_Permutation (Off, 2), "off-base (2..3) perm ok");
       Check (Is_Complete_Permutation (Wide, 3), "wide extra col ok");
       Check (not Is_Complete_Permutation (Wide, 4), "wide short rows");
       Check (Is_Complete_Permutation (Ok3, Nat (0)), "N=0 ignores");
@@ -779,8 +779,20 @@ begin
       Check (Load_P_Raises (Inst, Bad_Rect), "Load rect");
       Check (Load_Both_Raises (Ok2, Bad_Dup), "Load both one bad");
       Check (Load_Both_Raises (Ok2, Bad_Rect), "Load both rect");
-      --  Off-base: First = 2
-      Check (Load_Both_Raises (Off, Off), "Load off-base");
+      --  Off-base: First = 2 loads like the 1-based Ok2 (same rows)
+      Check (not Load_Both_Raises (Off, Off), "Load off-base accepted");
+      declare
+         I1, I2 : Instance;
+         M1, M2 : Matching;
+         Mates  : constant Mate_Array (5 .. 6) := [2, 1];
+      begin
+         Load (I1, Ok2, Ok2);
+         Load (I2, Off, Off);
+         Solve (I1, M1);
+         Solve (I2, M2);
+         Check (M1 = M2, "off-base Solve = 1-based Solve");
+         Check (Is_Permutation (Mates, 2), "Is_Permutation at origin 5");
+      end;
       --  Load without matching Size
       Clear (Inst, 3);
       Check (Load_P_Raises (Inst, Ok2), "Load size mismatch");

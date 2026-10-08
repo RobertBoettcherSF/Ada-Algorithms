@@ -177,8 +177,7 @@ is
       Config : BH_Config;
       Out_F  : out Force_Array)
      with Pre => Count <= Bodies'Length
-                 and then Out_F'Length >= Count
-                 and then Out_F'First = 1,
+                 and then Out_F'Length >= Count,
           Global => null;
    --  Naive O(N^2) forces for all bodies.
 
@@ -189,8 +188,7 @@ is
       Config : BH_Config;
       Out_F  : out Force_Array)
      with Pre => Count <= Bodies'Length
-                 and then Out_F'Length >= Count
-                 and then Out_F'First = 1,
+                 and then Out_F'Length >= Count,
           Global => null;
    --  Barnes–Hut forces for all bodies (typically O(N log N)).
 
@@ -200,16 +198,14 @@ is
       Config : BH_Config;
       Out_F  : out Force_Array)
      with Pre => Count <= Bodies'Length
-                 and then Out_F'Length >= Count
-                 and then Out_F'First = 1,
+                 and then Out_F'Length >= Count,
           Global => null;
    --  Convenience: build tree then BH forces.
 
    function Max_Abs_Error
      (A, B  : Force_Array;
       Count : Body_Count) return Non_Negative
-     with Pre => Count <= A'Length and then Count <= B'Length
-                 and then A'First = 1 and then B'First = 1,
+     with Pre => Count <= A'Length and then Count <= B'Length,
           Global => null;
    --  Max over i of |Ax-Bx| + |Ay-By| (L1 per vector, then max).
 

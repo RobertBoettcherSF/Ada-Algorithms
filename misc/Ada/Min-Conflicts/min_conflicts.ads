@@ -81,14 +81,14 @@ is
      (B     : out Board;
       N     : Queens_N;
       State : in out RNG_State)
-     with Pre => B'First = 1 and then B'Last = N, Global => null;
+     with Pre => B'Length = N, Global => null;
    --  Uniform random column in 1 .. N for each row.
 
    procedure Greedy_Board
      (B     : out Board;
       N     : Queens_N;
       State : in out RNG_State)
-     with Pre => B'First = 1 and then B'Last = N, Global => null;
+     with Pre => B'Length = N, Global => null;
    --  Place queens row-by-row choosing a min-conflict column (ties random).
 
    ---------------------------------------------------------------------------
@@ -155,8 +155,7 @@ is
       Params : Parameters;
       Result : out Solve_Result)
      with Pre =>
-       B'First = 1
-       and then B'Last in Queens_N
+       B'Length in Queens_N
        and then (for all R in B'Range => B (R) in 1 .. B'Length),
        Global => null;
    --  Hill-climb from the given complete assignment (no automatic restart
@@ -167,7 +166,7 @@ is
       Params : Parameters;
       B      : out Board;
       Result : out Solve_Result)
-     with Pre => B'First = 1 and then B'Last = N, Global => null;
+     with Pre => B'Length = N, Global => null;
    --  Greedy randomised initial board, then min-conflicts with optional
    --  restarts. Each restart draws a fresh Greedy_Board.
 
@@ -210,8 +209,7 @@ is
       return Natural
      with Pre =>
        R <= CSP.Num_Regions
-       and then Colors'First = 1
-       and then Colors'Last = CSP.Num_Regions
+       and then Colors'Length = CSP.Num_Regions
        and then (for all I in Colors'Range =>
                    Colors (I) in 1 .. CSP.Num_Colors),
        Global => null;
@@ -219,8 +217,7 @@ is
    function Map_Conflict_Count
      (CSP : Map_CSP; Colors : Color_Assignment) return Natural
      with Pre =>
-       Colors'First = 1
-       and then Colors'Last = CSP.Num_Regions
+       Colors'Length = CSP.Num_Regions
        and then (for all I in Colors'Range =>
                    Colors (I) in 1 .. CSP.Num_Colors),
        Global => null;
@@ -228,8 +225,7 @@ is
    function Map_Is_Solved
      (CSP : Map_CSP; Colors : Color_Assignment) return Boolean
      with Pre =>
-       Colors'First = 1
-       and then Colors'Last = CSP.Num_Regions
+       Colors'Length = CSP.Num_Regions
        and then (for all I in Colors'Range =>
                    Colors (I) in 1 .. CSP.Num_Colors),
        Global => null;
@@ -242,8 +238,7 @@ is
      with Pre =>
        CSP.Num_Regions > 0
        and then CSP.Num_Colors > 0
-       and then Colors'First = 1
-       and then Colors'Last = CSP.Num_Regions,
+       and then Colors'Length = CSP.Num_Regions,
        Global => null;
 
 end Min_Conflicts;

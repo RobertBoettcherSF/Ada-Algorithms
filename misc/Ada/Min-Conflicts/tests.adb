@@ -516,6 +516,43 @@ begin
       Check (Pairs > 0, "N=5 mixed has conflicts");
    end;
 
+   Section ("Shifted origins: boards at 5 / colors at 3");
+   declare
+      B1 : Board (1 .. 8);
+      BS : Board (5 .. 12);
+      Q4 : constant Board (7 .. 10) := [2, 4, 1, 3];
+      Q4b : constant Board (7 .. 10) := [1, 2, 3, 4];
+      R1, RS : Solve_Result;
+      P  : constant Parameters :=
+        Default_Parameters (Max_Steps => 5_000, Seed => 4, Restarts => 50);
+      CSP : Map_CSP;
+      C1 : Color_Assignment (1 .. 4);
+      CS : Color_Assignment (3 .. 6);
+      M1, MS : Solve_Result;
+      Same : Boolean := True;
+   begin
+      Check (Is_Solved (Q4), "shifted known N=4 solved");
+      Check (Conflict_Count (Q4b) = Conflict_Count (Board'([1, 2, 3, 4])),
+             "shifted Conflict_Count = 1-based");
+      Solve_N_Queens (8, P, B1, R1);
+      Solve_N_Queens (8, P, BS, RS);
+      for K in 0 .. 7 loop
+         Same := Same and then BS (5 + K) = B1 (1 + K);
+      end loop;
+      Check (RS = R1 and then Same, "shifted Solve_N_Queens = 1-based");
+      Check (RS.Solved and then Is_Solved (BS), "shifted N=8 solved");
+      Build_Four_Region_Map (CSP);
+      CS := [1, 2, 3, 2];
+      Check (Map_Is_Solved (CSP, CS), "shifted hand coloring solved");
+      Check (Map_Variable_Conflicts (CSP, Color_Assignment'([3 => 1, 4 => 1, 5 => 1, 6 => 1]), 1)
+             = Map_Variable_Conflicts (CSP, Color_Assignment'([1, 1, 1, 1]), 1),
+             "shifted Map_Variable_Conflicts = 1-based");
+      Solve_Map_Coloring (CSP, P, C1, M1);
+      Solve_Map_Coloring (CSP, P, CS, MS);
+      Check (MS = M1 and then CS (3) = C1 (1) and then CS (6) = C1 (4),
+             "shifted Solve_Map_Coloring = 1-based");
+   end;
+
    New_Line;
    Put_Line ("======================================");
    Put_Line ("Pass_Count =" & Pass_Count'Image);

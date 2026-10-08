@@ -45,7 +45,7 @@ is
       State : in out RNG_State)
    is
    begin
-      for R in 1 .. N loop
+      for R in B'Range loop
          B (R) := Next_Natural (State, 1, N);
       end loop;
    end Random_Board;
@@ -56,11 +56,10 @@ is
      (B : Board; Row : Positive; Col : Positive) return Natural
    is
       Count : Natural := 0;
-      N     : constant Positive := B'Length;
       C2    : Positive;
       DR    : Natural;
    begin
-      for R2 in 1 .. N loop
+      for R2 in B'Range loop
          if R2 /= Row then
             C2 := B (R2);
             if C2 = Col then
@@ -89,18 +88,18 @@ is
    begin
       --  Placeholder fill so the board is a complete assignment throughout;
       --  only rows 1 .. Row-1 are consulted when placing Row.
-      for R in 1 .. N loop
+      for R in B'Range loop
          B (R) := 1;
       end loop;
 
-      for Row in 1 .. N loop
+      for Row in B'Range loop
          Best_Conf := Natural'Last;
          Best_Col  := 1;
          Tie_Count := 0;
 
          for Col in 1 .. N loop
             Conf := 0;
-            for R2 in 1 .. Row - 1 loop
+            for R2 in B'First .. Row - 1 loop
                if B (R2) = Col then
                   Conf := Conf + 1;
                elsif abs (Integer (R2) - Integer (Row)) =
@@ -209,12 +208,11 @@ is
      (B     : Board;
       State : in out RNG_State) return Natural
    is
-      N      : constant Positive := B'Length;
       Count  : Natural := 0;
       Pick   : Natural;
       Chosen : Natural := 0;
    begin
-      for R in 1 .. N loop
+      for R in B'Range loop
          if Variable_Conflicts (B, R) > 0 then
             Count := Count + 1;
             Pick := Next_Natural (State, 1, Count);
@@ -364,9 +362,9 @@ is
    begin
       for I in 1 .. CSP.Num_Edges loop
          E := CSP.Edges (I);
-         if E.A = R and then Colors (E.B) = Colors (R) then
+         if E.A = R and then Colors (Colors'First + E.B - 1) = Colors (Colors'First + R - 1) then
             Count := Count + 1;
-         elsif E.B = R and then Colors (E.A) = Colors (R) then
+         elsif E.B = R and then Colors (Colors'First + E.A - 1) = Colors (Colors'First + R - 1) then
             Count := Count + 1;
          end if;
       end loop;
@@ -381,7 +379,7 @@ is
    begin
       for I in 1 .. CSP.Num_Edges loop
          E := CSP.Edges (I);
-         if Colors (E.A) = Colors (E.B) then
+         if Colors (Colors'First + E.A - 1) = Colors (Colors'First + E.B - 1) then
             Count := Count + 1;
          end if;
       end loop;
@@ -409,7 +407,7 @@ is
       Trial      : Color_Assignment (Colors'Range) := Colors;
    begin
       for C in 1 .. CSP.Num_Colors loop
-         Trial (R) := C;
+         Trial (Trial'First + R - 1) := C;
          Conf := Map_Variable_Conflicts (CSP, Trial, R);
          if Conf < Best_Conf then
             Best_Conf  := Conf;
@@ -472,7 +470,7 @@ is
       Attempt := 0;
       loop
          for R in 1 .. CSP.Num_Regions loop
-            Colors (R) := Next_Natural (State, 1, CSP.Num_Colors);
+            Colors (Colors'First + R - 1) := Next_Natural (State, 1, CSP.Num_Colors);
          end loop;
          Steps := 0;
 
@@ -482,7 +480,7 @@ is
                if Var = 0 then
                   exit;
                end if;
-               Colors (Var) :=
+               Colors (Colors'First + Var - 1) :=
                  Map_Min_Conflict_Color (CSP, Colors, Var, State);
                Steps := Steps + 1;
                if Map_Is_Solved (CSP, Colors) then

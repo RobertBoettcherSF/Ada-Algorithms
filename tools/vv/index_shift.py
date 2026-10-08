@@ -320,13 +320,21 @@ end Idx_Shift_Driver;
         else:
             value_api = bool(VALUE_API.search(name)) and \
                 (sub['ret'] or '').split('.')[-1].lower() not in ('index', 'ext_index')
+            # Second argument is itself an index into the array (Pre says
+            # "<Param> in <Arr>'Range"): pass the 3rd slot, not the literal 3.
+            spec = re.search(r'function\s+' + re.escape(name) + r'\b.*?\breturn\s+[\w.]+(.*?);',
+                             ads_all, re.S | re.I)
+            index_arg = bool(spec and re.search(r"\b\w+\s+in\s+\w+'Range", spec.group(1)))
+            if index_arg and (sub['ret'] or '').split('.')[-1].lower() in ('natural', 'boolean', 'integer'):
+                value_api = True  # a count / flag about that slot, not an index
             rel = '' if value_api else ' - {A}\'First'
             def cmp(a, b):
                 return f'(R{a}{rel.format(A="B" + a)}) = (R{b}{rel.format(A="B" + b)})'
             origin_list = [('A', o_a)] + ([('C', o_b)] if o_b is not None else [])
             decls = '\n'.join(f'   B{n} : {tname} ({o} .. {o + 4}) := (1, 2, 3, 4, 5);' for n, o in origin_list)
             rdecl = ', '.join(f'R{n}' for n, _ in origin_list)
-            calls = '\n'.join(f'      R{n} := Integer ({name} (B{n}, 3));' for n, _ in origin_list)
+            k3 = (lambda arr: f"{arr}'First + 2") if index_arg else (lambda arr: '3')
+            calls = '\n'.join(f'      R{n} := Integer ({name} (B{n}, {k3("B" + n)}));' for n, _ in origin_list)
             checks = '\n'.join(f'      Check ({cmp(n, "1")}, "origin {o} vs 1 for key 3");' for n, o in origin_list)
             hi_block = ''
             if hi_first is not None:
@@ -336,10 +344,10 @@ end Idx_Shift_Driver;
       Long : {tname} ({hi_first} .. {hi_first} + 64);
       RL, RH : Integer;
    begin
-      for I in Low1'Range loop Low1 (I) := I - Low1'First; end loop;
-      for I in Long'Range loop Long (I) := I - Long'First; end loop;
-      RL := Integer ({name} (Low1, 32));
-      RH := Integer ({name} (Long, 32));
+      for I in Low1'Range loop Low1 (I) := I - Low1'First{" + 1" if index_arg else ""}; end loop;
+      for I in Long'Range loop Long (I) := I - Long'First{" + 1" if index_arg else ""}; end loop;
+      RL := Integer ({name} (Low1, {"Low1'First + 31" if index_arg else "32"}));
+      RH := Integer ({name} (Long, {"Long'First + 31" if index_arg else "32"}));
       Check ({hcmp}, "high-first {hi_first} agrees with First=1");
    exception
       when Constraint_Error =>
@@ -362,7 +370,7 @@ procedure Idx_Shift_Driver is
    R1, {rdecl} : Integer;
 begin
    begin
-      R1 := Integer ({name} (B1, 3));
+      R1 := Integer ({name} (B1, {k3("B1")}));
 {calls}
 {checks}
    exception

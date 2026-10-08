@@ -26,7 +26,7 @@ $$
 time — linear in the size of the two preference matrices.
 
 This package is an **Ada 2023 (ISO/IEC 8652:2023)** educational
-implementation: 1-based `Person_Id` indices, preference lists as $n\times n$
+implementation: `Person_Id` labels $1..n$, preference lists as $n\times n$
 rank-ordered permutations (or incremental `Set_*_Choice`), `Solve` /
 `Match` returning proposer$\to$receiver and receiver$\to$proposer mate
 arrays, an `Is_Stable` checker, rank lookup / `Prefers` helpers, a
@@ -178,7 +178,8 @@ matrices). Auxiliary space is $O(n^{2})$ for the stored lists.
 - **`Is_Complete_Permutation`** — validate a preference matrix.
 - **Capacity / bound guards** — `Invalid_Argument` for overflow,
   non-permutations, incomplete lists, or out-of-range ids.
-- **Educational layout** — 1-based indices; fixed arrays sized to
+- **Educational layout** — person / rank labels $1..n$ (input matrices and
+  `Mate_Array` may sit at any origin); fixed arrays sized to
   $\mathrm{Max\_N}$.
 - **Zero-warning build** —
   `gnatmake -gnatwa -gnat2022 -Pgale_shapley_algorithm.gpr`.
@@ -303,7 +304,7 @@ package Gale_Shapley_Algorithm is
 end Gale_Shapley_Algorithm;
 ```
 
-Raises `Invalid_Argument` for $n>\mathrm{Max\_N}$, non-1-based or
+Raises `Invalid_Argument` for $n>\mathrm{Max\_N}$,
 non-square `Load` matrices, preference rows that are not permutations
 of $1..n$, person / rank ids outside $1..n$, or rank lookup of a
 partner that is not on the person's list.

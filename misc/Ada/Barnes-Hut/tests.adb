@@ -504,6 +504,40 @@ begin
    end;
 
    ---------------------------------------------------------------------
+   Section ("Shifted origins: Bodies at 7, forces at 3 / 20");
+   ---------------------------------------------------------------------
+   declare
+      B1 : constant Body_Array := Make_Random (12, 77);
+      BS : Body_Array (7 .. 18);
+      C  : constant BH_Config := Cfg (Theta => 0.5);
+      T1, TS : Tree;
+      F1, H1 : Force_Array (1 .. 12);
+      FS : Force_Array (3 .. 14);
+      HS : Force_Array (20 .. 31);
+      Same : Boolean := True;
+   begin
+      for K in 0 .. 11 loop
+         BS (7 + K) := B1 (1 + K);
+      end loop;
+      Forces_All_Brute (B1, 12, C, F1);
+      Forces_All_Brute (BS, 12, C, FS);
+      Build_Tree (T1, B1, 12, C);
+      Build_Tree (TS, BS, 12, C);
+      Forces_All_Barnes_Hut (T1, B1, 12, C, H1);
+      Forces_All_Barnes_Hut (TS, BS, 12, C, HS);
+      for K in 0 .. 11 loop
+         Same := Same
+           and then Vec_Near (FS (3 + K), F1 (1 + K), 1.0E-12)
+           and then Vec_Near (HS (20 + K), H1 (1 + K), 1.0E-12);
+      end loop;
+      Check (Same, "shifted brute/BH forces = 1-based");
+      Check (Approx (Max_Abs_Error (FS, HS, 12), Max_Abs_Error (F1, H1, 12), 1.0E-12),
+             "shifted Max_Abs_Error = 1-based");
+      Check (Approx (Sum_Masses (BS, 12), Sum_Masses (B1, 12), 1.0E-12),
+             "shifted Sum_Masses = 1-based");
+   end;
+
+   ---------------------------------------------------------------------
    -- Summary
    ---------------------------------------------------------------------
    New_Line;

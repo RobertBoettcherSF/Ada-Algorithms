@@ -101,9 +101,9 @@ is
    procedure Load_Proposer_Prefs
      (Inst : in out Instance; Prefs : Pref_Matrix)
      with Global => null;
-   --  Copy Prefs as proposer lists. Requires Prefs'First(1) =
-   --  Prefs'First(2) = 1, square of order Size(Inst), each row a
-   --  permutation of 1 .. N. Raises Invalid_Argument otherwise.
+   --  Copy Prefs as proposer lists. Prefs is square of order Size(Inst)
+   --  at any origin (person i / rank k is Prefs'First(d) + i - 1), each
+   --  row a permutation of 1 .. N. Raises Invalid_Argument otherwise.
    --  Inst must already have been given a Size via Clear or Load.
 
    procedure Load_Receiver_Prefs
@@ -170,15 +170,15 @@ is
    function Is_Complete_Permutation
      (Prefs : Pref_Matrix; N : Natural) return Boolean
      with Global => null;
-   --  True iff N = 0, or Prefs is 1-based with at least N rows and
-   --  columns and each of rows 1 .. N is a permutation of 1 .. N.
+   --  True iff N = 0, or Prefs has at least N rows and columns (any
+   --  origin) and each of its first N rows is a permutation of 1 .. N.
    --  Does not raise.
 
    function Is_Permutation
      (A : Mate_Array; N : Natural) return Boolean
      with Global => null;
-   --  True iff A(1 .. N) is a permutation of 1 .. N (N = 0 ⇒ True).
-   --  Requires A'First = 1 and A'Length ≥ N; otherwise False.
+   --  True iff the first N elements of A are a permutation of 1 .. N
+   --  (N = 0 ⇒ True; any origin). A'Length < N ⇒ False.
 
    ---------------------------------------------------------------------------
    -- Algorithm sketch (Gale–Shapley deferred acceptance)
