@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's tests (tests/main.adb, tests/own_checks.adb)
+=============================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* main.adb: 1 1 1 2 3 3 -> 2, worked out by hand from the problem rule (every
+  value that occurs more than once is removed completely).
+* Own reference (own_checks.adb): keep a position when no other position
+  holds the same value, in input order; the list after Solve must equal it.
+* Hand cases: 1 2 3 3 4 4 5 -> 1 2 5; 1 1 1 2 3 -> 2 3; 16 equal values;
+  empty list; all distinct; Integer'First / Integer'Last.
+* Inputs: 5,000 random lists of 0 .. 16 values, sorted with many repeats;
+  every 5th list is unsorted (values -4 .. 4).
