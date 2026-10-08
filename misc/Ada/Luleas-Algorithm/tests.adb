@@ -15,9 +15,11 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Exceptions; use Ada.Exceptions;
+with Ada.Command_Line;
 with Lulea_Algorithm; use Lulea_Algorithm;
 
 procedure Tests is
+   Fail_Count : Natural := 0;
 
    -- ========================================================================
    --  Helper Procedures for Testing
@@ -42,6 +44,7 @@ procedure Tests is
          Put_Line("     PASS" & (if Message /= "" then " - " & Message else ""));
       else
          Put_Line("     FAILED" & (if Message /= "" then " - " & Message else ""));
+         Fail_Count := Fail_Count + 1;
       end if;
    end Print_Result;
 
@@ -202,6 +205,9 @@ begin
    Put_Line("========================================");
    Put_Line("Test Suite Complete");
    Put_Line("========================================");
-   Put_Line("All tests completed. Check results above.");
+   Put_Line("All tests completed. Failed:" & Fail_Count'Image);
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 
 end Tests;

@@ -5,6 +5,7 @@
 pragma Ada_2012;
 
 with Ada.Text_IO;
+with Ada.Command_Line;
 with Ada.Containers;
 with Ada.Exceptions;
 with ARC_Cache;
@@ -1027,6 +1028,7 @@ begin
       Ada.Text_IO.Put_Line ("All tests passed!");
    else
       Ada.Text_IO.Put_Line ("Some tests failed. See output above.");
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 
 end Test_ARC_Cache;

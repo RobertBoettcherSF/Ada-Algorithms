@@ -1,5 +1,3 @@
-with GNAT.SHA256;
-with Ada.Exceptions;
 
 package Proof_Of_Work is
 

@@ -32,7 +32,7 @@ package body Sift_Algorithm is
    procedure Generate_Descriptor(Point : in out Keypoint) is
    begin
       -- Implementation: 4x4 grid of 8-bin histograms (128 dims)
-      Point.Feature_Vector := (others => 0.0);
+      Point.Feature_Vector := [others => 0.0];
    end Generate_Descriptor;
 
 end Sift_Algorithm;

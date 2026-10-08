@@ -2,11 +2,19 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Exceptions; use Ada.Exceptions;
 with Proof_Of_Work; use Proof_Of_Work;
+with Ada.Command_Line;
 
 procedure Tests is
    Nonce  : Nonce_Type;
    Hash_R : String (1 .. 64);
    Idx    : Natural;
+   Fail_Count : Natural := 0;
+
+   procedure Note_Fail (Msg : String) is
+   begin
+      Put_Line (Msg);
+      Fail_Count := Fail_Count + 1;
+   end Note_Fail;
 begin
    Put_Line ("=================================================");
    Put_Line ("Proof-of-Work V&V Testing Suite");
@@ -21,7 +29,7 @@ begin
       Assert (Hash_R (1) = '0', "Hash does not start with 0");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 2 - Hashcash Verification Valid
@@ -31,7 +39,7 @@ begin
       Assert (Verify_Hashcash ("Block_1", 1, Nonce) = True, "Rejected valid nonce");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 3 - Hashcash Verification Invalid
@@ -41,7 +49,7 @@ begin
       Assert (Verify_Hashcash ("Block_2_Forged", 1, Nonce) = False, "Accepted forged data");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 4 - Hashcash Empty String Edge Case
@@ -52,7 +60,7 @@ begin
       Assert (Verify_Hashcash ("", 1, Nonce), "Empty string verification failed");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 5 - Hashcash Zero Difficulty Edge Case
@@ -63,7 +71,7 @@ begin
       Assert (Nonce = 0, "Zero difficulty did not return immediately with Nonce=0");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 6 - Hash Chain Generation
@@ -74,7 +82,7 @@ begin
       Assert (Hash_R'Length = 64, "Resulting Hash is invalid length");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 7 - Hash Chain Verify Valid
@@ -84,7 +92,7 @@ begin
       Assert (Verify_Hash_Chain ("SeedValue", 10, Hash_R), "Valid hash chain rejected");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 8 - Hash Chain Verify Invalid
@@ -94,7 +102,7 @@ begin
       Assert (Verify_Hash_Chain ("SeedValue", 11, Hash_R) = False, "Bypassed with wrong iterations");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 9 - Hash Chain Edge Case Size 1
@@ -105,7 +113,7 @@ begin
       Assert (Verify_Hash_Chain ("Single", 1, Hash_R), "1 iteration failed");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 10 - Memory Puzzle Generation
@@ -116,7 +124,7 @@ begin
       Assert (Idx > 0 and Idx <= 500, "Found index out of bounds");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 11 - Memory Puzzle Valid
@@ -126,7 +134,7 @@ begin
       Assert (Verify_Memory_Puzzle ("MemSeed", 'a', Idx), "Valid pointer rejected");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 12 - Memory Puzzle Invalid
@@ -137,7 +145,7 @@ begin
       Assert (Verify_Memory_Puzzle ("MemSeed", 'a', Idx + 1) = False, "Invalid pointer accepted");
       Put_Line ("     PASS (Assumption proven false)");
    exception
-      when E : others => Put_Line ("     FAIL: " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: " & Exception_Message (E));
    end;
 
    -- TEST 13 - Memory Puzzle Not Found Exception
@@ -148,7 +156,7 @@ begin
       Assert (False, "Expected PoW_Error was not raised");
    exception
       when PoW_Error => Put_Line ("     PASS (Assumption proven false)");
-      when E : others => Put_Line ("     FAIL: Unexpected exception " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: Unexpected exception " & Exception_Message (E));
    end;
    
    -- TEST 14 - Invalid Difficulty Bound
@@ -160,10 +168,14 @@ begin
       begin
          -- GNAT catches static constraint errors at compile time, so we bypass it with dynamic cast
          Invalid_Diff := Difficulty_Level (Integer'Value ("-1"));
-         Assert (False, "Allowed negative difficulty");
+         Assert (False, "Allowed negative difficulty:" & Invalid_Diff'Image);
       end;
    exception
       when Constraint_Error => Put_Line ("     PASS (Assumption proven false)");
-      when E : others => Put_Line ("     FAIL: Unexpected exception " & Exception_Message (E));
+      when E : others => Note_Fail ("     FAIL: Unexpected exception " & Exception_Message (E));
    end;
+   Put_Line ("Failed:" & Fail_Count'Image);
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

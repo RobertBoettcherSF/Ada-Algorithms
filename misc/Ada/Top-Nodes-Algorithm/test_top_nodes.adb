@@ -1,7 +1,9 @@
 with Top_Nodes_Algorithm; use Top_Nodes_Algorithm;
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 
 procedure Test_Top_Nodes is
+   Fail_Count : Natural := 0;
 
    -- Test 1: Basic initialization and availability check
    procedure Test_Initialization is
@@ -17,6 +19,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Empty calendar has availability");
       else
          Put_Line("  FAIL: Empty calendar should have availability");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -38,6 +41,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Reservation created successfully");
       else
          Put_Line("  FAIL: Reservation should succeed on empty calendar");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Check availability - should fail if we try to reserve more than capacity
@@ -46,6 +50,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Availability check correctly rejects over-capacity request");
       else
          Put_Line("  FAIL: Should not have availability for 91 when 10 already reserved");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -71,6 +76,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Availability check correctly rejects when capacity exceeded");
       else
          Put_Line("  FAIL: Should not have availability (100+1 > 100)");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Delete first reservation
@@ -82,6 +88,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Availability restored after deletion");
       else
          Put_Line("  FAIL: Should have availability after deletion");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -107,6 +114,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Time slot 0-5 is reserved (10+10=20 > 15)");
       else
          Put_Line("  FAIL: Time slot 0-5 should be reserved");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Move forward by 6 - reservation should expire (end time 5 < new start 6)
@@ -118,6 +126,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Expired reservation freed up capacity in new window");
       else
          Put_Line("  FAIL: Expired reservation should free capacity");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -139,6 +148,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Can reserve entire capacity");
       else
          Put_Line("  FAIL: Should be able to reserve entire capacity");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Try to reserve more - should fail
@@ -147,6 +157,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Cannot reserve beyond capacity");
       else
          Put_Line("  FAIL: Should not have availability beyond capacity");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -173,6 +184,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Overlapping reservations correctly sum up");
       else
          Put_Line("  FAIL: Overlapping reservations should exceed capacity");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -198,6 +210,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Wrapping reservation created");
       else
          Put_Line("  FAIL: Wrapping reservation should succeed");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Check availability at wrapped region
@@ -206,6 +219,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Wrapping reservation availability check works");
       else
          Put_Line("  FAIL: Wrapping reservation availability should work");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -237,6 +251,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: All deletions restored full capacity");
       else
          Put_Line("  FAIL: All deletions should restore full capacity");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -260,6 +275,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Can create up to Max_Reservations");
       else
          Put_Line("  FAIL: Should be able to create Max_Reservations");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Try to create one more - should fail
@@ -268,6 +284,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Cannot exceed Max_Reservations");
       else
          Put_Line("  FAIL: Should not be able to exceed Max_Reservations");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -298,6 +315,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Remaining part of reservation still active (10+10=20 > 15)");
       else
          Put_Line("  FAIL: Remaining part should still be reserved");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -319,6 +337,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Zero amount reservation created");
       else
          Put_Line("  FAIL: Zero amount reservation should succeed");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Check availability - should still be available
@@ -327,6 +346,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Zero amount doesn't affect availability");
       else
          Put_Line("  FAIL: Zero amount should not affect availability");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -348,6 +368,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Out of bounds reservation rejected");
       else
          Put_Line("  FAIL: Out of bounds reservation should be rejected");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Check availability for out of bounds - should fail
@@ -356,6 +377,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Out of bounds availability check fails");
       else
          Put_Line("  FAIL: Out of bounds availability should fail");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -393,6 +415,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Move forward on empty calendar works");
       else
          Put_Line("  FAIL: Move forward on empty calendar should work");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -419,6 +442,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Gap between consecutive reservations is available");
       else
          Put_Line("  FAIL: Gap between consecutive reservations should be available");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Check reserved area - should fail
@@ -427,6 +451,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Consecutive reservations correctly reserved (20+20=40 > 39)");
       else
          Put_Line("  FAIL: Consecutive reservations should be reserved");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -455,6 +480,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Can create new reservation after deletion");
       else
          Put_Line("  FAIL: Should be able to create reservation after deletion");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -484,6 +510,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Multiple move forward operations work correctly");
       else
          Put_Line("  FAIL: Multiple move forward should free expired reservations");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -505,6 +532,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Can reserve at window boundary");
       else
          Put_Line("  FAIL: Should be able to reserve at window boundary");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       -- Check availability at boundary
@@ -513,6 +541,7 @@ procedure Test_Top_Nodes is
          Put_Line("  PASS: Window boundary reservation works correctly");
       else
          Put_Line("  FAIL: Window boundary should be reserved");
+         Fail_Count := Fail_Count + 1;
       end if;
       
       New_Line;
@@ -545,5 +574,9 @@ begin
    
    Put_Line("========================================");
    Put_Line("All tests completed");
+   Put_Line("Failed:" & Fail_Count'Image);
    Put_Line("========================================");
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Test_Top_Nodes;

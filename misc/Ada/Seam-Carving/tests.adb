@@ -5,6 +5,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Seam_Carving; use Seam_Carving;
+with Ada.Command_Line;
 
 procedure Tests is
    Img_3x3 : constant Image (1 .. 3, 1 .. 3) :=
@@ -171,4 +172,7 @@ begin
 
    Put_Line ("=========================================");
    Put_Line ("Tests Passed: " & Passed_Tests'Image & " / " & Total_Tests'Image);
+   if Passed_Tests /= Total_Tests then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

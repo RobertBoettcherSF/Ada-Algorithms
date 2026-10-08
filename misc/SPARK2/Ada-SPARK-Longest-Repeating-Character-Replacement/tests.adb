@@ -6,4 +6,9 @@ begin
    Assert (Longest ("AABABBAA") = 4);
    Assert (Longest ("ABCDEFGH") = 2);
    Assert (Longest ("AAAAAAAA") = 8);
+   Assert (Longest ("ABABABAB") = 3);
+   Assert (Longest ("AABAABAA") = 5);
+   Assert (Longest ("ABCADABC") = 3);
+   Assert (Longest ("AAABBBAA") = 4);
+   Assert (Longest ("ABCDABCD") = 2);
 end Tests;

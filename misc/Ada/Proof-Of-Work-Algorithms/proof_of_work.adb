@@ -1,3 +1,4 @@
+with GNAT.SHA256;
 with Ada.Strings.Fixed;
 with Ada.Strings;
 

@@ -8,15 +8,22 @@ with Ada.Assertions; use Ada.Assertions;
 with Dithering;      use Dithering;
 
 procedure Tests is
-   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   --  Random test inputs: fixed default seed, printed at start;
+   --  AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer;
+
    function AA_Seed (Default : Integer) return Integer is
-      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      V : constant String :=
+        Ada.Environment_Variables.Value ("AA_SEED", "");
       S : Integer := Default;
    begin
       if V /= "" then
-         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+         S := Integer
+           (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
       end if;
-      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      Ada.Text_IO.Put_Line
+        ("AA_SEED =" & Integer'Image (S)
+         & (if V = "" then " (default)" else " (from AA_SEED)"));
       return S;
    end AA_Seed;
    Img_1x1   : Image (1 .. 1, 1 .. 1);
@@ -35,6 +42,10 @@ begin
    Put_Line ("      PASS");
    Put_Line ("  1.2 Assert Clamp bounds above 1.0");
    Assert (Clamp (1.5) = 1.0, "Failed to clamp overflow value");
+   Assert (Clamp (0.0) = 0.0, "Clamp identity at 0");
+   Assert (Clamp (1.0) = 1.0, "Clamp identity at 1");
+   Assert (Round_To_Palette (0.5) = 1.0, "0.5 rounds up (strict <)");
+   Assert (Round_To_Palette (0.499) = 0.0, "just below threshold");
    Put_Line ("      PASS");
    Put_Line ("  1.3 Assert Round_To_Palette normal boundaries");
    Assert

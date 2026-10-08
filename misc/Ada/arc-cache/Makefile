@@ -24,18 +24,16 @@ build: $(OBJ_DIR) $(BIN_DIR)
 	$(GNATMAKE) -P $(LIBRARY_PROJECT)
 	@echo "Library built successfully."
 
-# Build the test suite
+# Build and run the test suite (make test must be able to go red)
 test: $(OBJ_DIR) $(BIN_DIR)
 	@echo "Building test suite..."
 	$(GNATMAKE) -P $(TEST_PROJECT)
-	@echo "Test suite built successfully."
-
-# Run the tests
-run: test
 	@echo "Running ARC Cache tests..."
 	@echo "========================================"
 	./$(BIN_DIR)/test_arc_cache
 	@echo "========================================"
+
+run: test
 
 # Clean build artifacts
 clean:
