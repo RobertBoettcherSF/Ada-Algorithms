@@ -10,8 +10,8 @@
 --  oversize / out-of-range keys, and also exports Sort_Extraction for
 --  general Integers; this port requires A'First = 1, Pre =>
 --  In_Bounds (A) and then Keys_Ok (A), exports only the height-bin
---  Sort, and proves sortedness via a final gap-1 bubble finish (same
---  proof role as Pigeonhole_Sort / Bead_Sort / Strand_Sort / Comb_Sort).
+--  Sort, and proves that the height-bin phase itself sorts (no fallback
+--  pass: the bins are shown to hold exactly N rods).
 --  Full multiset / permutation equality is verified by tests rather
 --  than claimed as a Level-4 postcondition (sortedness is proved).
 --
@@ -74,7 +74,7 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
-   -- Algorithm sketch (Dewdney height-bin + bubble finish)
+   -- Algorithm sketch (Dewdney height-bin, proved without a finishing pass)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A) and Keys_Ok (A).
    --  1. Static Counts (0 .. Max_Key) := 0 (one bin per rod height).
@@ -83,7 +83,10 @@ is
    --     of H into A left-to-right (short rods → tall rods). Analog
    --     spaghetti extracts tallest-first / descending; we emit
    --     ascending so Sort matches the documented API contract.
-   --  4. Final gap-1 bubble finish proves Is_Sorted (Pigeonhole L4 pattern).
+   --  4. Proof: ghost Sum_Below (Counts, H) = rods in bins below H; the
+   --     tally keeps Sum_Below (Counts, Max_Key + 1) = rods seen, so the
+   --     emit cursor ends at N + 1, and each emitted rod is >= the rods
+   --     before it, which gives Is_Sorted without any finishing pass.
    --  Empty and singleton arrays are no-ops.
    --  Software cost O(n + U), U = Max_Key + 1 — not the analog O(n).
    --  The non-SPARK sibling also has Sort_Extraction (O(n²) max-pull for
@@ -99,7 +102,7 @@ is
        Global => null,
        Pre    => In_Bounds (A) and then Keys_Ok (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending educational height-bin spaghetti sort + gap-1 bubble finish.
+   --  Ascending educational height-bin spaghetti sort (no finishing pass).
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
