@@ -32,7 +32,7 @@ begin
    Check (Multiply ("0", "9999") = "0", "0 * 9999");
    Check (Multiply ("12", "34") = "408", "12 * 34");
    Check (Multiply ("9999", "9999") = "99980001", "9999 * 9999");
-   --  LeetCode examples
+   --  small products, checked by hand arithmetic
    Check (Multiply ("2", "3") = "6", "2 * 3");
    Check (Multiply ("123", "456") = "56088", "123 * 456");
    Check (Multiply ("000", "45") = "0", "leading zeros in input");

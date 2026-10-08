@@ -57,3 +57,5 @@ searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,own all-pairs subtree che
 searching/SPARK2/Bst-Insert-Search,own set membership after distinct inserts (depth <= 5); 2917 sequences
 searching/SPARK2/Ada-SPARK-Word-Search-II-Lite,own left-to-right row scan; 5000 random boards
 searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,own wildcard matcher; 4000 random dictionaries
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,own directly built digit string (first ~20000 positions) + own digit-block arithmetic for n=10^9 and 2^31
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,2000 random pairs vs Long_Long_Integer + hand arithmetic + (10^30-1)^2 by algebra

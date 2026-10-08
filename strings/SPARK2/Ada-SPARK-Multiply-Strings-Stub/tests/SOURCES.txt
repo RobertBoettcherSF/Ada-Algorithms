@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* Own reference: 2,000 random pairs (own linear congruential generator in the
+  test) multiplied with Long_Long_Integer and compared digit-for-digit.
+* Hand arithmetic: 0 * 9999 = 0, 12 * 34 = 408, 9999 * 9999 = 99980001,
+  2 * 3 = 6, 123 * 456 = 56088, "000" * 45 = 0, "123" (index 100 .. 102) * 1 =
+  123.
+* Algebra: (10**30 - 1)**2 = 10**60 - 2 * 10**30 + 1, i.e. 29 nines, an 8, 29
+  zeros and a 1.

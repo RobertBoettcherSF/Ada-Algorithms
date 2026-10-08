@@ -41,11 +41,11 @@ begin
    Check (Nth_Digit (4) = 5, "position 4 (old stub)");
    Check (Nth_Digit (9) = 1, "position 9 is '1' of 10 (old stub said 0)");
    Check (Nth_Digit (10) = 0, "position 10 is '0' of 10");
-   Check (Nth_Digit (2) = 3, "LeetCode n=3 -> 3");
-   Check (Nth_Digit (10) = 0, "LeetCode n=11 -> 0");
+   Check (Nth_Digit (2) = 3, "n=3 -> 3 (own string)");
+   Check (Nth_Digit (10) = 0, "n=11 -> 0 (own string)");
    Check (Nth_Digit (188) = 9 and then Nth_Digit (189) = 1,
           "boundary 99|100");
-   --  n = 1_000_000_000 (one-based) is digit 1 (OEIS A033307 index)
+   --  n = 1_000_000_000 (one-based) is digit 1 (own digit-block count, see tests/SOURCES.txt)
    Check (Nth_Digit (999_999_999) = 1, "n = 10**9 -> 1");
    Check (Nth_Digit (Natural'Last) = 5, "position Natural'Last (n = 2**31) -> 5");
    if Failures = 0 then

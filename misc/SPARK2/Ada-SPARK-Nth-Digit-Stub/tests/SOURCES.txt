@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (tests.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* Own brute-force reference: the string "123456789101112..." is built in the
+  test from K'Image for K = 1, 2, ... and every one of its first ~20,000
+  positions is compared with Nth_Digit.
+* Own arithmetic: n = 10**9 -> 1 and n = 2**31 -> 5 (one-based) were computed
+  by counting digit blocks (9 one-digit numbers, 90 two-digit numbers, ...)
+  with a separate script, which agrees with the directly built string on
+  the first 20,000 positions.
+* n = 3 -> 3 and n = 11 -> 0 are read off the directly built string.
