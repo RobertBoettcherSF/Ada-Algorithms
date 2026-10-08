@@ -17,7 +17,7 @@ graphs/SPARK2/Bellman-Ford-Algorithm,survived,Compute,killed,ok,1,,1,0,yes
 graphs/SPARK4/A-Star,survived,Search,killed,ok,4,,4,0,yes
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,survived,Search,killed,ok,4,,4,0,yes
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,survived,Find_Cycle,killed,ok,17,Tail_Length,16,0,yes
-hashing/SPARK2/Ada-SPARK-Design-HashMap,survived,Put,killed,ok,4,Empty Contains,2,0,yes
+hashing/SPARK2/Ada-SPARK-Design-HashMap,survived,Put,killed,ok,4,Empty,3,0,yes
 hashing/SPARK2/Ada-SPARK-Design-HashSet,survived,Add,killed,ok,4,Empty,3,0,yes
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,survived,Hash,killed,ok,1,,1,0,yes
 hashing/SPARK2/Bloom-Filter,survived,Insert,killed,ok,1,,1,0,yes

@@ -45,7 +45,7 @@ graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,floyds_cycle_finding_algo
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,floyds_cycle_finding_algorithm.adb,Wikipedia_Example,function,4,empty,killed
 hashing/SPARK2/Ada-SPARK-Design-HashMap,design_hashmap.adb,Empty,function,2,default,survived
 hashing/SPARK2/Ada-SPARK-Design-HashMap,design_hashmap.adb,Put,procedure,2,null,killed
-hashing/SPARK2/Ada-SPARK-Design-HashMap,design_hashmap.adb,Contains,function,2,True,survived
+hashing/SPARK2/Ada-SPARK-Design-HashMap,design_hashmap.adb,Contains,function,2,True,killed
 hashing/SPARK2/Ada-SPARK-Design-HashMap,design_hashmap.adb,Get,function,2,default,killed
 hashing/SPARK2/Ada-SPARK-Design-HashSet,design_hashset.adb,Empty,function,2,default,survived
 hashing/SPARK2/Ada-SPARK-Design-HashSet,design_hashset.adb,Add,procedure,2,null,killed
