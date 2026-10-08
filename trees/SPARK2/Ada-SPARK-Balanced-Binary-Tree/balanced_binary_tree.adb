@@ -31,28 +31,51 @@ package body Balanced_Binary_Tree is
       return T.Rights (Node);
    end Right_Child;
 
-   function Is_Balanced (T : Tree; Root : Index) return Boolean is
-      Nodes : array (Positive range 1 .. 31) of Index := (others => 0);
-      Levels : array (Positive range 1 .. 31) of Natural range 0 .. 31 := (others => 0);
-      Top : Natural range 0 .. 31;
-      Min_Depth : Natural range 0 .. 31 := 31;
-      Max_Depth : Natural range 0 .. 31 := 0;
+   --  Post-order walk: H = height of the tree at N (N at depth D), Ok = it is balanced.
+   procedure Walk (T : Tree; N : Node_Index; D : Positive; H : out Natural; Ok : out Boolean)
+     with Pre => D <= 31,
+          Post => Ok = Spec_Balanced (T, N, D) and then (if Ok then H = Spec_Height (T, N, D)),
+          Subprogram_Variant => (Decreases => 32 - D)
+   is
+      HL, HR : Natural := 0;
+      OkL, OkR : Boolean;
    begin
-      if Root = 0 or else not T.Used (Root) then return True; end if;
-      Top := 1; Nodes (Top) := Root; Levels (Top) := 1;
-      for Step in 1 .. 31 loop
-         if Top = 0 then null; else
-            declare N : constant Index := Nodes (Top); D : constant Natural range 0 .. 31 := Levels (Top); begin
-               Top := Top - 1;
-               if D > Max_Depth then Max_Depth := D; end if;
-               if T.Lefts (N) = 0 and then T.Rights (N) = 0 and then D < Min_Depth then Min_Depth := D; end if;
-               if D < 31 then
-                  if T.Lefts (N) /= 0 and then Top < 31 then Top := Top + 1; Nodes (Top) := T.Lefts (N); Levels (Top) := D + 1; end if;
-                  if T.Rights (N) /= 0 and then Top < 31 then Top := Top + 1; Nodes (Top) := T.Rights (N); Levels (Top) := D + 1; end if;
-               end if;
-            end;
+      H := 0;
+      if T.Lefts (N) /= 0 then
+         if D = 31 then
+            Ok := False;   --  a 32nd level: only possible with a cycle
+            return;
          end if;
-      end loop;
-      return Max_Depth - Min_Depth <= 1;
+         Walk (T, T.Lefts (N), D + 1, HL, OkL);
+         if not OkL then
+            Ok := False;
+            return;
+         end if;
+      end if;
+      if T.Rights (N) /= 0 then
+         if D = 31 then
+            Ok := False;
+            return;
+         end if;
+         Walk (T, T.Rights (N), D + 1, HR, OkR);
+         if not OkR then
+            Ok := False;
+            return;
+         end if;
+      end if;
+      Ok := abs (HL - HR) <= 1;
+      H := 1 + Natural'Max (HL, HR);
+   end Walk;
+
+   function Is_Balanced (T : Tree; Root : Index) return Boolean is
+      H : Natural;
+      Ok : Boolean;
+   begin
+      if Root = 0 or else not T.Used (Root) then
+         return True;
+      end if;
+      Walk (T, Root, 1, H, Ok);
+      pragma Assert (if Ok then H >= 1);   --  a non-empty balanced tree has height >= 1
+      return Ok;
    end Is_Balanced;
 end Balanced_Binary_Tree;
