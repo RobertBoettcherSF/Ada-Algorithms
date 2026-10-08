@@ -88,11 +88,11 @@ Corrected numbers (19:45). Over the 267 old training-ready folders: 2079 killed,
 
 Tests strengthened while looking at survivors can overfit, so the 90% bar is scored on mutants that the test work never saw:
 - Before any test work on a folder, its mutants are split at random into a tuning half and a held-out half, and the split seed is recorded. Only tuning-half survivors may guide new tests. `mutation_score_heldout` is the score on the held-out half, and training_ready uses it.
-- The held-out half needs at least 20 non-equivalent mutants. If there are too few, it is topped up from an alternative operator family (`sweep_mutate.py`, added by the sweep).
+- The held-out half needs at least 20 non-equivalent mutants. If there are too few, it is topped up from an alternative operator family (`sweep_mutate.py`, added by the sweep) or with further second-order mutants until the floor is met, then scored. A held-out row with n < 20 is a **measurement gap** (`tr_drop`: `held-out not yet measured`), not a mutation failure: it sits in the same unmeasured bucket as a missing held-out half. Only demote for mutation (`held-out mutation < 90%`) after a completed held-out round with n ≥ 20.
 - A folder whose tests were already tuned against all its mutants takes its held-out set from the alternative family or from mutants never shown, only.
 - PROOFS.csv stores raw killed/total for both halves (`mutation_tuned_k`, `mutation_tuned_n`, `mutation_heldout_k`, `mutation_heldout_n`) next to the percentages. PROOFS.md shows them as e.g. 18/20.
 - Tooling: `tools/vv/heldout.py split` makes a hash-stable split (seed 20261108). Mutants already published in an earlier result are forced into the tuning half. `heldout.py score --half tuning|heldout` writes `vv/results/mutation_halves.csv`. The index reads that file, the `tools/vv/*_halves.csv` files and the flagship's `flagship_mutation_phase2.csv`.
-- A folder with a tuning score but no held-out score is not training-ready ("held-out score pending").
+- A folder with a tuning score but no held-out score is not training-ready ("held-out score pending"). A held-out score with fewer than 20 non-equivalent mutants is likewise not training-ready (`held-out not yet measured`); top up and re-score before any mutation demotion.
 - Flagship held-out results folded in (19:56 rule):
   - Conflict-Driven-Clause-Learning: 23/28, fails the bar.
   - Verified-Unification-Engine: 33/39, fails.

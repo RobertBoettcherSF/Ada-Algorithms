@@ -324,9 +324,11 @@ def training_ready(r):
 def mutation_ok(r):
     if r['flaky'] == 'yes':       # false kills: no mutation score counts until the flakiness is fixed
         return False
-    if r['mutation_heldout_n']:   # held-out half scored: it alone decides, and needs >= 20 non-equivalent mutants
+    if r['mutation_heldout_n']:   # held-out half present: only a completed round (n >= 20) may decide
         k, n = int(r['mutation_heldout_k']), int(r['mutation_heldout_n'])
-        return n >= 20 and 10 * k >= 9 * n
+        if n < 20:                # measurement gap, not a mutation failure — top up, then score
+            return False
+        return 10 * k >= 9 * n
     if r['mutation_tuned_n']:     # tests were tuned on survivors: only a held-out score may count
         return False
     if r['mutation_score'] == 'no sites': return True
@@ -334,11 +336,15 @@ def mutation_ok(r):
     if not m or int(m.group(2)) == 0: return False
     den = int(m.group(2)) - equiv_by[r['folder']]   # listed equivalents (with evidence) leave the denominator
     return den <= 0 or 10 * int(m.group(1)) >= 9 * den
+def heldout_incomplete(r):
+    """Held-out row exists but n < 20: not yet measured (same bucket as pending / unmeasured)."""
+    return bool(r['mutation_heldout_n']) and int(r['mutation_heldout_n']) < 20
 def drop_reasons(r):
     out = []
     if r['flaky'] == 'yes': out.append('flaky (mutation does not count)')
+    elif heldout_incomplete(r): out.append('held-out not yet measured')
     elif not mutation_ok(r) and r['mutation_tuned_n'] and not r['mutation_heldout_n']: out.append('held-out score pending')
-    elif not mutation_ok(r): out.append(('held-out < 20 mutants' if int(r['mutation_heldout_n']) < 20 else 'held-out mutation < 90%') if r['mutation_heldout_n'] else ('mutation < 90%' if r['mutation_score'] not in ('',) else 'mutation not run'))
+    elif not mutation_ok(r): out.append(('held-out mutation < 90%' if r['mutation_heldout_n'] else ('mutation < 90%' if r['mutation_score'] not in ('',) else 'mutation not run')))
     if r['ref_independent'] != 'yes': out.append('twin only' if r['twin_only'] else 'old_unverified answers only')
     if r['warnings_gnat14'] != '0' or r['warnings_gnat12'] != '0': out.append('warnings')
     if r['warnings_suppressed']: out.append('warnings suppressed')
