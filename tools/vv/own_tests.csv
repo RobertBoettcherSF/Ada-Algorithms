@@ -239,3 +239,4 @@ misc/Ada/Division-Algorithms,truncating-division identities on all 8-bit pairs; 
 misc/Ada/Zero-Attribute-Rule,own mean/median/mode references (ties to smallest); 10000 random sets; empty -> Empty_Dataset_Error (sample_ada_30)
 parsing/Ada/Recursive-Descent-Parser,random expression trees vs own tree evaluation; Is_Valid; 20000 expressions (sample_ada_30)
 misc/Ada/Computus,Gregorian Easter 1583..9999 vs own Clavius epact; Julian Easter 1..9999 from definition; Orthodox; weekday/day difference vs own JDN (sample_ada_30)
+geometry/Ada/Line-Clipping,all 4 clippers vs own brute-force sampling (4001 samples); 3000 random window/segment pairs (sample_ada_30)

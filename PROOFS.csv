@@ -117,7 +117,7 @@ geometry/Ada/Hough-Transform,geometry,Ada,Hough-Transform,yes,n/a,yes,yes,yes,ye
 geometry/Ada/Isosurfaces,geometry,Ada,Isosurfaces,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,,
 geometry/Ada/Kirkpatrick-Seidel,geometry,Ada,Kirkpatrick-Seidel,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,,
 geometry/Ada/Liang-Barsky,geometry,Ada,Liang-Barsky,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,,
-geometry/Ada/Line-Clipping,geometry,Ada,Line-Clipping,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,,
+geometry/Ada/Line-Clipping,geometry,Ada,Line-Clipping,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,yes,own tests,,
 geometry/Ada/Line-Segment-Intersection,geometry,Ada,Line-Segment-Intersection,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,,
 geometry/Ada/Marching-Cubes,geometry,Ada,Marching-Cubes,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,,
 geometry/Ada/Ordered-Dithering,geometry,Ada,Ordered-Dithering,yes,yes,yes,yes,yes,yes,20,20,no SPARK,,,,,,,,,,,,,,,baseline fails,,,,

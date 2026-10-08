@@ -2,7 +2,7 @@ folder,outcome,found_by,note
 misc/Ada/Prediction-By-Partial-Matching,bug fixed,all-checks crash run (checks_on.csv: not built),package did not compile so make test always failed; fixed by qualifying '?' (see findings.csv)
 misc/Ada/Backtracking,crash run: no bug (artefact),all-checks crash run (checks_on.csv: timeout),slow not hung (normal 20.7 s; all checks 28.4 s); own tests pending
 misc/Ada/Cone-Tracing,crash run: no bug (artefact),all-checks crash run (checks_on.csv: Assertion_Error),test violates a precondition on purpose; passes with Pre ignored; own tests pending
-geometry/Ada/Line-Clipping,crash run: no bug (artefact),all-checks crash run (checks_on.csv: Assertion_Error),test violates a precondition on purpose; passes with Pre ignored; own tests pending
+geometry/Ada/Line-Clipping,pass,own tests (crash run earlier: Assertion_Error artefact: test violates a precondition on purpose),brute-force sampling reference; 11996 cases (3b8e2972)
 misc/Ada/Marching-Squares,crash run: no bug (artefact),all-checks crash run (checks_on.csv: Assertion_Error),test violates a precondition on purpose; passes with Pre ignored; own tests pending
 misc/Ada/Progressive-Jackpot,crash run: no bug (artefact),all-checks crash run (checks_on.csv: Assertion_Error),test violates a precondition on purpose; passes with Pre ignored; own tests pending
 misc/Ada/docs,not an algorithm folder,drawn in the sample,no Ada sources; excluded from the denominator (n = 29)
