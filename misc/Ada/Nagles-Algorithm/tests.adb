@@ -22,6 +22,16 @@ procedure Tests is
       end if;
    end Print_Result;
 
+   -- Total bytes held in a buffer
+   function Buffered_Bytes (B : Packet_Vectors.Vector) return Natural is
+      Total : Natural := 0;
+   begin
+      for Pkg of B loop
+         Total := Total + Pkg.Size;
+      end loop;
+      return Total;
+   end Buffered_Bytes;
+
    -- Helper to free a packet
    procedure Free_Test_Packet (Pkg : in out Packet) is
    begin
@@ -86,8 +96,15 @@ begin
    Nagle.Original_Nagle(MSS, Window_Size, Unacked, Small_Data, Buffer, Send_Now, Packet_To_Send);
    Print_Result("3.1 Send_Now = True", Send_Now);
    Print_Result("3.2 Packet_To_Send.Size = MSS", Packet_To_Send.Size = MSS);
-   Print_Result("3.3 Buffer is empty", Buffer.Is_Empty);
+   --  No byte may be lost: the 3 new bytes were neither sent nor
+   --  buffered before, so they must stay in the buffer.
+   Print_Result("3.3 Buffer holds the 3 new bytes", Buffer.Length = 1 and then Buffered_Bytes(Buffer) = 3
+                and then Buffer.First_Element.Data.all = Small_Data);
    Free_Test_Packet(Packet_To_Send);
+   for Pkg of Buffer loop
+      Free_Test_Packet(Pkg);
+   end loop;
+   Buffer.Clear;
    New_Line;
 
    -- TEST 4: Minshall Nagle - Send if last packet is full-sized
@@ -259,7 +276,10 @@ begin
    New_Line;
 
    -- TEST 14: Minshall Nagle - Large Data with Partial Last Packet
-   Put_Line("TEST 14 - Minshall Nagle: Large Data with Partial Last Packet");
+   --  2919 bytes are buffered and the window is 2 * MSS, so RFC 896 sends
+   --  a full MSS segment. The other 1459 bytes and the 3 new bytes stay
+   --  buffered, and no byte is lost.
+   Put_Line("TEST 14 - Minshall Nagle: Full Segment Out, Remainder Kept");
    Unacked := Has_Unacked;
    Buffer.Clear;
    declare
@@ -271,8 +291,10 @@ begin
       Buffer.Append(Large_Packet);
    end;
    Nagle.Minshall_Nagle(MSS, Window_Size, Unacked, Small_Data, Buffer, Send_Now, Packet_To_Send);
-   Print_Result("14.1 Send_Now = False", not Send_Now);
+   Print_Result("14.1 Send_Now = True, Size = MSS", Send_Now and then Packet_To_Send.Size = MSS);
    Print_Result("14.2 Buffer has 2 packets", Buffer.Length = 2);
+   Print_Result("14.3 Bytes conserved (1459 + 3 buffered)", Buffered_Bytes(Buffer) = MSS - 1 + 3);
+   Free_Test_Packet(Packet_To_Send);
    -- Free buffered packets
    for Pkg of Buffer loop
       Free_Test_Packet(Pkg);
