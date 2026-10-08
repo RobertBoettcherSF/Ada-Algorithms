@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: two hand arrays; they fix the convention that X counts the
+  elements equal to X (3 3 3 1 2 4 5 6 is special for 3). This differs
+  from the usual statement (X elements >= X); see sample_30_results.csv.
+* Own reference: count the elements equal to X in the test.
+* Inputs: 20000 random arrays, half the entries forced to X.
