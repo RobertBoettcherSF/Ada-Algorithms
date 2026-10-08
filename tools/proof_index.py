@@ -105,7 +105,7 @@ for topic, lev, alg, p in folders:
                      silver=(silver(fid, has_spark, ok('u14')) if has_mode or not has_spark else 'skipped (no SPARK_Mode)'),
                      proof_run=('steps=%s' % S[fid].get('steps') if fid in S else ('level2-timeout' if fid in P else '')) if has_spark else '',
                      proof_gpr=(P.get(fid, {}).get('gpr', '') + (' (generated)' if P.get(fid, {}).get('how') == 'generated' else '')) if has_spark else '',
-                     shared_sources=' '.join(b.get('shared', [])), pair='', duplicate_of=''))
+                     shared_sources=' '.join(b.get('shared', [])), stub=('yes' if re.search(r'(^|-)stub$', alg, re.I) else ''), pair='', duplicate_of=''))
     texts[fid] = pkg_text(p)
 
 # duplicates: identical package sources (comments/whitespace ignored) or same name+level with >=90% similar text
@@ -160,7 +160,7 @@ L = ['# Proof index', '',
      '`python3 tools/proof_index.py --results <dir> --logs <prove-workdir>` (see `tools/audit/`).',
      'Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder\'s own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build\'s test binary exits 0 with no FAIL lines.',
      'Silver: `gnatprove --mode=silver --level=2` on the folder\'s own .gpr (generated where none exists).', '',
-     f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}.', '',
+     f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
      '| Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven | Unproved | Not built/crash | Not run |',
      '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
 for lev in ('Ada', 'SPARK2', 'SPARK4', 'All'):
@@ -173,7 +173,7 @@ for lev in ('Ada', 'SPARK2', 'SPARK4', 'All'):
              f"{c(lambda r: r['silver'] in ('not built','tool crash','timeout'), s)} | {c(lambda r: r['silver']=='not run', s)} |")
 L += ['', '| Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Pair | Duplicate of |', '|---|---|---|---|---|---|---|---|---|---|---|']
 for r in rows:
-    L.append(f"| {r['folder']} | {r['make_test']} | {r['build_gnat14']} | {r['build_gnat12']} | {r['tests_pass_gnat14']} | {r['tests_pass_gnat12']} | "
+    L.append(f"| {r['folder']}{' (stub)' if r['stub'] else ''} | {r['make_test']} | {r['build_gnat14']} | {r['build_gnat12']} | {r['tests_pass_gnat14']} | {r['tests_pass_gnat12']} | "
              f"{r['warnings_gnat14']} | {r['warnings_gnat12']} | {r['silver']} | {r['pair']} | {r['duplicate_of']} |")
 open(os.path.join(R, 'PROOFS.md'), 'w').write('\n'.join(L) + '\n')
 print(f'{len(rows)} folders, {len(rows)-len(uniq)} duplicates, {npairs} pairs')
