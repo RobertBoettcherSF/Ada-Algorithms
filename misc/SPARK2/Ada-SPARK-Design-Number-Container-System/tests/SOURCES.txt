@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's tests (tests.adb, own_checks.adb)
+=================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: one hand case.
+* own_checks.adb: an own stack model (array plus length). After every
+  operation, Length, Contains (keys 0 .. 24) and the value returned by
+  Remove_Last must match the model. 1000 random runs of 60 operations.
+* State checks (silent no-op rule): Add on a full container and
+  Remove_Last on an empty one must be rejected (Assertion_Error), not
+  ignored or answered with 0.
