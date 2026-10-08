@@ -111,11 +111,11 @@ cryptography/Ada/Lenstra-Elliptic-Curve-Factorization,cryptography/Ada/Lenstra-E
 cryptography/Ada/Lenstra-Elliptic-Curve-Factorization,cryptography/Ada/Lenstra-Elliptic-Curve-Factorization/tests.adb,45,pragma Unreferenced (Unused) on a local without a written reason
 cryptography/Ada/Lenstra-Elliptic-Curve-Factorization,cryptography/Ada/Lenstra-Elliptic-Curve-Factorization/tests.adb,62,pragma Unreferenced (Unused) on a local without a written reason
 cryptography/Ada/Lenstra-Elliptic-Curve-Factorization,cryptography/Ada/Lenstra-Elliptic-Curve-Factorization/tests.adb,86,pragma Unreferenced (Unused) on a local without a written reason
-cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,63,"pragma Warnings (Off, ""if statement has no effect"");"
-cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,94,"pragma Warnings (Off, ""if statement has no effect"");"
-cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,141,"pragma Warnings (Off, ""if statement has no effect"");"
-cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,150,"pragma Warnings (Off, ""if statement has no effect"");"
-cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,159,"pragma Warnings (Off, ""if statement has no effect"");"
+cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,65,"pragma Warnings (Off, ""if statement has no effect"");"
+cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,96,"pragma Warnings (Off, ""if statement has no effect"");"
+cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,143,"pragma Warnings (Off, ""if statement has no effect"");"
+cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,152,"pragma Warnings (Off, ""if statement has no effect"");"
+cryptography/Ada/RSA,cryptography/Ada/RSA/tests.adb,161,"pragma Warnings (Off, ""if statement has no effect"");"
 cryptography/Ada/Shamirs-Secret-Sharing,cryptography/Ada/Shamirs-Secret-Sharing/tests.adb,155,pragma Unreferenced (S) on a local without a written reason
 cryptography/Ada/Stochastic-Universal-Sampling,cryptography/Ada/Stochastic-Universal-Sampling/stochastic_universal_sampling.adb,37,pragma Unreferenced (Cfg) on a parameter without a written reason
 cryptography/Ada/Stochastic-Universal-Sampling,cryptography/Ada/Stochastic-Universal-Sampling/tests.adb,145,pragma Unreferenced (I) on a unknown without a written reason
@@ -336,11 +336,11 @@ graphs/SPARK4/A-Star,graphs/SPARK4/A-Star/a_star.ads,210,"pragma Warnings (Off, 
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm/dijkstras_algorithm.ads,142,"pragma Warnings (Off, ""referenced before it has a value"");"
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm/dijkstras_algorithm.ads,191,"pragma Warnings (Off, ""referenced before it has a value"");"
 hashing/Ada/Geohash,hashing/Ada/Geohash/geohash.adb,182,pragma Unreferenced (Unused) on a unknown without a written reason
-hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,345,pragma Unreferenced (D) on a local without a written reason
-hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,358,pragma Unreferenced (B) on a local without a written reason
-hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,371,pragma Unreferenced (S) on a local without a written reason
-hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,384,pragma Unreferenced (S) on a local without a written reason
-hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,397,pragma Unreferenced (N) on a local without a written reason
+hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,348,pragma Unreferenced (D) on a local without a written reason
+hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,361,pragma Unreferenced (B) on a local without a written reason
+hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,374,pragma Unreferenced (S) on a local without a written reason
+hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,387,pragma Unreferenced (S) on a local without a written reason
+hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,400,pragma Unreferenced (N) on a local without a written reason
 hashing/Ada/Geometric-Hashing,hashing/Ada/Geometric-Hashing/tests.adb,79,pragma Unreferenced (T) on a local without a written reason
 hashing/Ada/Geometric-Hashing,hashing/Ada/Geometric-Hashing/tests.adb,94,pragma Unreferenced (Res) on a local without a written reason
 hashing/Ada/Geometric-Hashing,hashing/Ada/Geometric-Hashing/tests.adb,107,pragma Unreferenced (K) on a local without a written reason
@@ -354,10 +354,6 @@ hashing/Ada/Tiger-Hash,hashing/Ada/Tiger-Hash/tests.adb,160,pragma Unreferenced 
 logic/Ada/Chaff,logic/Ada/Chaff/chaff.adb,245,pragma Unreferenced (Nc) on a local without a written reason
 logic/Ada/DPLL-Algorithm,logic/Ada/DPLL-Algorithm/tests.adb,281,pragma Unreferenced (Unused_Res) on a local without a written reason
 logic/Ada/DPLL-Algorithm,logic/Ada/DPLL-Algorithm/tests.adb,295,pragma Unreferenced (Unused_Res) on a local without a written reason
-logic/Ada/Verified-Unification-Engine,logic/Ada/Verified-Unification-Engine/tests.adb,45,"pragma Warnings (Off, ""*useless assignment*"");"
-logic/Ada/Verified-Unification-Engine,logic/Ada/Verified-Unification-Engine/tests.adb,200,"pragma Warnings (Off, ""*value not in range*"");"
-logic/Ada/Verified-Unification-Engine,logic/Ada/Verified-Unification-Engine/tests.adb,201,"pragma Warnings (Off, ""*Constraint_Error*"");"
-logic/Ada/Verified-Unification-Engine,logic/Ada/Verified-Unification-Engine/tests.adb,205,pragma Unreferenced (Invalid_Var) on a local without a written reason
 matrices/Ada/Quantum-Singular-Value-Transformation,matrices/Ada/Quantum-Singular-Value-Transformation/tests.adb,149,pragma Unreferenced (Dummy) on a local without a written reason
 matrices/Ada/Schonhage-Strassen,matrices/Ada/Schonhage-Strassen/tests.adb,246,pragma Unreferenced (Unused) on a local without a written reason
 matrices/Ada/Schonhage-Strassen,matrices/Ada/Schonhage-Strassen/tests.adb,260,pragma Unreferenced (Unused) on a local without a written reason
@@ -791,9 +787,8 @@ misc/Ada/Finite-Difference-Method,misc/Ada/Finite-Difference-Method/tests.adb,63
 misc/Ada/Finite-Difference-Method,misc/Ada/Finite-Difference-Method/tests.adb,643,pragma Unreferenced (Unused) on a local without a written reason
 misc/Ada/Finite-Difference-Method,misc/Ada/Finite-Difference-Method/tests.adb,656,pragma Unreferenced (Unused) on a local without a written reason
 misc/Ada/Finite-Difference-Method,misc/Ada/Finite-Difference-Method/tests.adb,671,pragma Unreferenced (Unused) on a local without a written reason
-misc/Ada/First-Order-Logic,misc/Ada/First-Order-Logic/tests.adb,23,"pragma Warnings (Off, ""-gnatwu"");"
-misc/Ada/First-Order-Logic,misc/Ada/First-Order-Logic/tests.adb,204,pragma Unreferenced (Bad) on a local without a written reason
-misc/Ada/First-Order-Logic,misc/Ada/First-Order-Logic/tests.adb,216,pragma Unreferenced (Bad) on a local without a written reason
+misc/Ada/First-Order-Logic,misc/Ada/First-Order-Logic/tests.adb,234,pragma Unreferenced (Bad) on a local without a written reason
+misc/Ada/First-Order-Logic,misc/Ada/First-Order-Logic/tests.adb,246,pragma Unreferenced (Bad) on a local without a written reason
 misc/Ada/Fitness-Proportionate-Selection,misc/Ada/Fitness-Proportionate-Selection/fitness_proportionate_selection.adb,37,pragma Unreferenced (Cfg) on a parameter without a written reason
 misc/Ada/Fitness-Proportionate-Selection,misc/Ada/Fitness-Proportionate-Selection/tests.adb,145,pragma Unreferenced (I) on a unknown without a written reason
 misc/Ada/Fitness-Proportionate-Selection,misc/Ada/Fitness-Proportionate-Selection/tests.adb,245,pragma Unreferenced (P) on a local without a written reason
@@ -885,17 +880,16 @@ misc/Ada/Hidden-Linear-Function-Problem,misc/Ada/Hidden-Linear-Function-Problem/
 misc/Ada/Hidden-Linear-Function-Problem,misc/Ada/Hidden-Linear-Function-Problem/tests.adb,217,"pragma Warnings (Off, ""explicit membership test may be optimized away"");"
 misc/Ada/Hidden-Shift-Problem,misc/Ada/Hidden-Shift-Problem/tests.adb,137,pragma Unreferenced (Dummy) on a local without a written reason
 misc/Ada/Hidden-Shift-Problem,misc/Ada/Hidden-Shift-Problem/tests.adb,161,pragma Unreferenced (Dummy) on a local without a written reason
-misc/Ada/Hidden-Subgroup-Problem,misc/Ada/Hidden-Subgroup-Problem/tests.adb,29,"pragma Warnings (Off, ""upper bound test optimized away"");"
-misc/Ada/Hidden-Subgroup-Problem,misc/Ada/Hidden-Subgroup-Problem/tests.adb,51,"pragma Warnings (Off, ""condition can only be"");"
-misc/Ada/Hidden-Subgroup-Problem,misc/Ada/Hidden-Subgroup-Problem/tests.adb,63,"pragma Warnings (Off, ""condition can only be"");"
 misc/Ada/Hidden-Subgroup-Problem,misc/Ada/Hidden-Subgroup-Problem/tests.adb,162,pragma Unreferenced (P) on a local without a written reason
-misc/Ada/Hindley-Milner-Type-Inference-Algorithm,misc/Ada/Hindley-Milner-Type-Inference-Algorithm/tests.adb,125,pragma Unreferenced (S3) on a local without a written reason
-misc/Ada/Hindley-Milner-Type-Inference-Algorithm,misc/Ada/Hindley-Milner-Type-Inference-Algorithm/tests.adb,154,pragma Unreferenced (S) on a local without a written reason
-misc/Ada/Hindley-Milner-Type-Inference-Algorithm,misc/Ada/Hindley-Milner-Type-Inference-Algorithm/tests.adb,165,pragma Unreferenced (S) on a local without a written reason
-misc/Ada/Hindley-Milner-Type-Inference-Algorithm,misc/Ada/Hindley-Milner-Type-Inference-Algorithm/tests.adb,247,pragma Unreferenced (T2) on a local without a written reason
-misc/Ada/Hindley-Milner-Type-System,misc/Ada/Hindley-Milner-Type-System/tests.adb,95,pragma Unreferenced (S) on a local without a written reason
-misc/Ada/Hindley-Milner-Type-System,misc/Ada/Hindley-Milner-Type-System/tests.adb,118,pragma Unreferenced (S) on a local without a written reason
-misc/Ada/Hindley-Milner-Type-System,misc/Ada/Hindley-Milner-Type-System/tests.adb,226,pragma Unreferenced (S) on a local without a written reason
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,misc/Ada/Hindley-Milner-Type-Inference-Algorithm/tests.adb,128,pragma Unreferenced (S3) on a local without a written reason
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,misc/Ada/Hindley-Milner-Type-Inference-Algorithm/tests.adb,157,pragma Unreferenced (S) on a local without a written reason
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,misc/Ada/Hindley-Milner-Type-Inference-Algorithm/tests.adb,168,pragma Unreferenced (S) on a local without a written reason
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,misc/Ada/Hindley-Milner-Type-Inference-Algorithm/tests.adb,250,pragma Unreferenced (T2) on a local without a written reason
+misc/Ada/Hindley-Milner-Type-System,misc/Ada/Hindley-Milner-Type-System/own_checks.adb,229,pragma Unreferenced (S) on a local without a written reason
+misc/Ada/Hindley-Milner-Type-System,misc/Ada/Hindley-Milner-Type-System/own_checks.adb,313,pragma Unreferenced (S) on a local without a written reason
+misc/Ada/Hindley-Milner-Type-System,misc/Ada/Hindley-Milner-Type-System/tests.adb,98,pragma Unreferenced (S) on a local without a written reason
+misc/Ada/Hindley-Milner-Type-System,misc/Ada/Hindley-Milner-Type-System/tests.adb,121,pragma Unreferenced (S) on a local without a written reason
+misc/Ada/Hindley-Milner-Type-System,misc/Ada/Hindley-Milner-Type-System/tests.adb,229,pragma Unreferenced (S) on a local without a written reason
 misc/Ada/Hirschbergs-Algorithm,misc/Ada/Hirschbergs-Algorithm/tests.adb,126,pragma Unreferenced (S) on a local without a written reason
 misc/Ada/Hirschbergs-Algorithm,misc/Ada/Hirschbergs-Algorithm/tests.adb,137,pragma Unreferenced (R) on a local without a written reason
 misc/Ada/Hopcroft-Karp-Algorithm,misc/Ada/Hopcroft-Karp-Algorithm/tests.adb,73,pragma Unreferenced (A) on a local without a written reason
@@ -1180,11 +1174,11 @@ misc/Ada/Path-Tracing,misc/Ada/Path-Tracing/tests.adb,86,pragma Unreferenced (Un
 misc/Ada/Petricks-Method,misc/Ada/Petricks-Method/tests.adb,51,pragma Unreferenced (Sols) on a local without a written reason
 misc/Ada/Petricks-Method,misc/Ada/Petricks-Method/tests.adb,70,pragma Unreferenced (Sols) on a local without a written reason
 misc/Ada/Petricks-Method,misc/Ada/Petricks-Method/tests.adb,231,pragma Unreferenced (R) on a local without a written reason
-misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,54,pragma Unreferenced (Unused) on a local without a written reason
-misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,65,pragma Unreferenced (Unused) on a local without a written reason
-misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,78,pragma Unreferenced (Unused) on a local without a written reason
-misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,91,pragma Unreferenced (Unused) on a local without a written reason
-misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,104,pragma Unreferenced (Unused) on a local without a written reason
+misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,55,pragma Unreferenced (Unused) on a local without a written reason
+misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,66,pragma Unreferenced (Unused) on a local without a written reason
+misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,79,pragma Unreferenced (Unused) on a local without a written reason
+misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,92,pragma Unreferenced (Unused) on a local without a written reason
+misc/Ada/Phonetic-Algorithms,misc/Ada/Phonetic-Algorithms/tests.adb,105,pragma Unreferenced (Unused) on a local without a written reason
 misc/Ada/Pohlig-Hellman,misc/Ada/Pohlig-Hellman/pohlig_hellman.adb,134,pragma Unreferenced (Y) on a local without a written reason
 misc/Ada/Pohlig-Hellman,misc/Ada/Pohlig-Hellman/pohlig_hellman.adb,389,pragma Unreferenced (Red) on a unknown without a written reason
 misc/Ada/Pohlig-Hellman,misc/Ada/Pohlig-Hellman/tests.adb,43,pragma Unreferenced (Unused) on a local without a written reason
