@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own reference: brute-force sampling. Each segment is sampled at 4001
+  evenly spaced points in Long_Float, and each point is tested against the
+  window. A segment with no sample in the window grown by 0.01 must be
+  rejected. A segment with a sample in the window shrunk by 0.01 must be
+  accepted, with endpoints (either direction) at the first and last
+  inside samples, within one sample step plus 0.02. Grazing cases are
+  skipped.
+* All four algorithms are checked through Clip_With.
+* Inputs: 3000 random windows (sides 0.5 .. 15) and segments with
+  endpoints in -20 .. 30.

@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Line_Clipping; use Line_Clipping;
+with Own_Checks;
 
 procedure Tests is
 
@@ -461,4 +462,5 @@ begin
    Put_Line ("Results: " & Pass_Count'Image & " passed, "
              & Fail_Count'Image & " failed");
    pragma Assert (Fail_Count = 0);
+   Own_Checks;
 end Tests;
