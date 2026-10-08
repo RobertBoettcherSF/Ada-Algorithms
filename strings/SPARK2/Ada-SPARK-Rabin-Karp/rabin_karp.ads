@@ -10,5 +10,6 @@ is
      with
        Global => null,
        Pre    => Text'Length <= 32 and then Pat'Length <= 16
-                 and then Pat'Length > 0;
+                 and then Pat'Length > 0
+                 and then Text'Last < Integer'Last;
 end Rabin_Karp;
