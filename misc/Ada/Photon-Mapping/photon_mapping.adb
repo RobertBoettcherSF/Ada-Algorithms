@@ -58,8 +58,8 @@ package body Photon_Mapping with SPARK_Mode => On is
       return (R => S.R * Factor, G => S.G * Factor, B => S.B * Factor);
    end Spectral_Scale;
 
-   function Intersect_Sphere
-     (R : Ray; S : Sphere; Hit_Point : out Vector_3D; Normal : out Vector_3D) return Boolean is
+   procedure Intersect_Sphere
+     (R : Ray; S : Sphere; Hit : out Boolean; Hit_Point : out Vector_3D; Normal : out Vector_3D) is
       OC   : constant Vector_3D := Vector_Sub (R.Origin, S.Center);
       A    : constant Real      := Norm_Sq (R.Direction);
       B    : constant Real      := 2.0 * Dot (OC, R.Direction);
@@ -69,11 +69,12 @@ package body Photon_Mapping with SPARK_Mode => On is
       T1   : Real;
       T    : Real;
    begin
+      Hit       := False;
       Hit_Point := (others => 0.0);
       Normal    := (others => 0.0);
 
       if Disc < 0.0 or else A = 0.0 then
-         return False;
+         return;
       end if;
 
       T0 := (-B - Sqrt (Disc)) / (2.0 * A);
@@ -84,12 +85,12 @@ package body Photon_Mapping with SPARK_Mode => On is
       elsif T1 > 0.0001 then
          T := T1;
       else
-         return False;
+         return;
       end if;
 
       Hit_Point := Vector_Add (R.Origin, Vector_Scale (R.Direction, T));
       Normal    := Normalize (Vector_Sub (Hit_Point, S.Center));
-      return True;
+      Hit       := True;
    end Intersect_Sphere;
 
    function Russian_Roulette
@@ -113,9 +114,10 @@ package body Photon_Mapping with SPARK_Mode => On is
       Random_Val  : Real) return Photon is
       Hit_Pt : Vector_3D;
       Norm_V : Vector_3D;
-      Hit    : constant Boolean := Intersect_Sphere (Initial_Ray, Scene_Obj, Hit_Pt, Norm_V);
+      Hit    : Boolean;
       Event  : Surface_Interaction;
    begin
+      Intersect_Sphere (Initial_Ray, Scene_Obj, Hit, Hit_Pt, Norm_V);
       if not Hit then
          return (Position => (others => 0.0),
                  Power    => (others => 0.0),

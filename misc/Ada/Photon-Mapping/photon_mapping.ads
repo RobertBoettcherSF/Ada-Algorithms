@@ -82,8 +82,10 @@ package Photon_Mapping with SPARK_Mode => On is
    function Spectral_Add (A, B : Spectral_Power) return Spectral_Power;
    function Spectral_Scale (S : Spectral_Power; Factor : Real) return Spectral_Power;
 
-   function Intersect_Sphere
-     (R : Ray; S : Sphere; Hit_Point : out Vector_3D; Normal : out Vector_3D) return Boolean
+   --  A procedure (SPARK functions cannot have out parameters): Hit is True when the ray
+   --  meets the sphere at T > 0.0001; Hit_Point and Normal are 0 vectors otherwise.
+   procedure Intersect_Sphere
+     (R : Ray; S : Sphere; Hit : out Boolean; Hit_Point : out Vector_3D; Normal : out Vector_3D)
      with Pre => S.Radius > 0.0;
 
    function Russian_Roulette

@@ -51,7 +51,7 @@ begin
       Norm_V : Vector_3D;
       Is_Hit : Boolean;
    begin
-      Is_Hit := Intersect_Sphere (R, S, Hit_Pt, Norm_V);
+      Intersect_Sphere (R, S, Is_Hit, Hit_Pt, Norm_V);
       Check ("3.1 Direct ray hits sphere", Is_Hit);
       Check ("3.2 Hit point matches surface front", Hit_Pt.Z = -1.0);
       Check ("3.3 Normal vector faces backwards along ray axis", Norm_V.Z = -1.0);
@@ -67,7 +67,7 @@ begin
       Norm_V : Vector_3D;
       Is_Hit : Boolean;
    begin
-      Is_Hit := Intersect_Sphere (R, S, Hit_Pt, Norm_V);
+      Intersect_Sphere (R, S, Is_Hit, Hit_Pt, Norm_V);
       Check ("4.1 Offset ray misses sphere", not Is_Hit);
       Check ("4.2 Hit point remains at default origin", Hit_Pt.X = 0.0 and Hit_Pt.Y = 0.0);
       Check ("4.3 Normal remains zeroed on miss", Norm_V.Z = 0.0);
