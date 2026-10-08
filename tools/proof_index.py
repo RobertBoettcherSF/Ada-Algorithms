@@ -14,6 +14,10 @@ ap = argparse.ArgumentParser()
 ap.add_argument('--results', default='')
 ap.add_argument('--logs', default='')
 ap.add_argument('--root', default='.')
+ap.add_argument('--steps-logs', default='', help='workdir of step-budget reruns (prove_steps.jsonl in --results)')
+ap.add_argument('--tool-info', default='', help='text file with gnatprove --version output')
+ap.add_argument('--batch-cmd', default='gnatprove -P <folder gpr> --mode=silver --level=2 -j1 --output=oneline -k')
+ap.add_argument('--steps-cmd', default='gnatprove -P <folder gpr> --mode=silver --level=2 --timeout=0 --steps=<N> --counterexamples=off -j2 --output=oneline -k')
 a = ap.parse_args()
 R = a.root
 
@@ -28,6 +32,7 @@ def jl(p):
     return d
 B = jl(os.path.join(a.results, 'build.jsonl')) if a.results else {}
 P = jl(os.path.join(a.results, 'prove.jsonl')) if a.results else {}
+S = jl(os.path.join(a.results, 'prove_steps.jsonl')) if a.results else {}
 chk = re.compile(r'^[\w\-.]+\.ad[sb]:\d+:\d+: (high|medium|low): ')
 spark_on = re.compile(r'SPARK_Mode(\s*=>\s*On\b|\s*;|\s*\(\s*On\s*\))', re.I)
 
@@ -68,10 +73,10 @@ for topic in sorted(os.listdir(R)):
 
 def silver(fid, has_spark, built):
     if not has_spark: return 'no SPARK'
-    j = P.get(fid)
+    j, logs = (S[fid], a.steps_logs) if fid in S else (P.get(fid), a.logs)
     if not j: return 'not run'
     if j.get('status') == 'no_sources': return 'not built'
-    log = os.path.join(a.logs, fid.replace('/', '_'), 'prove.log') if a.logs else ''
+    log = os.path.join(logs, fid.replace('/', '_'), 'prove.log') if logs else ''
     txt = open(log, errors='replace').read() if log and os.path.exists(log) else ''
     n = sum(1 for l in txt.splitlines() if chk.match(l))
     if j.get('rc') == 124: return 'timeout'
@@ -98,6 +103,7 @@ for topic, lev, alg, p in folders:
                      tests_pass_gnat14=tp14, tests_pass_gnat12=tp12,
                      warnings_gnat14=b.get('w14', ''), warnings_gnat12=b.get('w12', ''),
                      silver=(silver(fid, has_spark, ok('u14')) if has_mode or not has_spark else 'skipped (no SPARK_Mode)'),
+                     proof_run=('steps=%s' % S[fid].get('steps') if fid in S else ('level2-timeout' if fid in P else '')) if has_spark else '',
                      proof_gpr=(P.get(fid, {}).get('gpr', '') + (' (generated)' if P.get(fid, {}).get('how') == 'generated' else '')) if has_spark else '',
                      shared_sources=' '.join(b.get('shared', [])), pair='', duplicate_of=''))
     texts[fid] = pkg_text(p)
@@ -141,7 +147,15 @@ with open(os.path.join(R, 'PROOFS.csv'), 'w', newline='') as f:
 uniq = [r for r in rows if not r['duplicate_of']]
 C = collections.Counter
 def c(pred, rs=uniq): return sum(1 for r in rs if pred(r))
+import datetime
+tool = open(a.tool_info).read().strip() if a.tool_info and os.path.exists(a.tool_info) else '(tool info not given)'
+reran = sorted(S)
 L = ['# Proof index', '',
+     f'Generated {datetime.datetime.now().astimezone():%Y-%m-%d %H:%M %Z}.', '',
+     '## Proof setup', '', '```', tool, '```', '',
+     f'* Batch (all SPARK folders): `{a.batch_cmd}` - level 2 = provers cvc5,z3,altergo, `--timeout=5` s per check (wall clock), `--steps=0`, `--memlimit=1000`, per_check, counterexamples off.',
+     f'* Rerun with a deterministic step budget (rows with `proof_run` = `steps=N`; replaces the batch result): `{a.steps_cmd}` - no wall-clock timeout, so the result does not depend on machine load.',
+     f'* Rows rerun with steps ({len(reran)}): ' + (', '.join(f"`{x}`" for x in reran) or 'none'), '',
      'One row per algorithm folder (full data in [`PROOFS.csv`](PROOFS.csv)). Regenerate with',
      '`python3 tools/proof_index.py --results <dir> --logs <prove-workdir>` (see `tools/audit/`).',
      'Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder\'s own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build\'s test binary exits 0 with no FAIL lines.',
