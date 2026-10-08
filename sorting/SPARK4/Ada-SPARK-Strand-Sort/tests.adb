@@ -8,6 +8,7 @@ pragma Ada_2022;
 with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Strand_Sort; use Strand_Sort;
+with Own_Checks;
 
 procedure Tests
   with SPARK_Mode => Off
@@ -415,4 +416,5 @@ begin
    if Fail_Count /= 0 then
       raise Program_Error with "Strand_Sort tests failed";
    end if;
+   Own_Checks;
 end Tests;
