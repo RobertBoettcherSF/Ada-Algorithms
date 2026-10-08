@@ -1,0 +1,7 @@
+Where the expected values in tests.adb come from
+- the original case and the hand cases (tree 10 (5 (3, 7), 15 (-, 18)) with several ranges, empty tree,
+  31 x 1000 chain): summed by hand.
+- 20,000 random binary search trees (1 .. 31 nodes built by insertion, equal values to the right,
+  Park-Miller generator seed 99001) with random ranges: compared with Ref_Sum in tests.adb, an own full
+  traversal of every node without pruning.
+No values were copied from the program output or from third-party sources.
