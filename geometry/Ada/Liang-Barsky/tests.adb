@@ -305,21 +305,64 @@ begin
    ---------------------------------------------------------------------
    Section ("13. Cohen_Sutherland_Clip reference + agreement lattice");
 
-   --  Failing case (AA_SEED=3 / mapped seed 4): segment grazes the window at a
-   --  single corner. Sampled inside-part is Accept; Cohen_Sutherland must agree
-   --  (found flaky.py seed sweep 2026-10-08).
-   declare
-      S : constant Segment := Make_Segment ((-3.0, 10.0), (3.0, -4.0));
-      W : constant Clip_Window := Make_Window (0.0, 3.0, 1.0, 5.0);
-      R : constant Clip_Result := Liang_Barsky_Clip (S, W);
-      C : constant Clip_Result := Cohen_Sutherland_Clip (S, W);
-   begin
-      Check (R.Status = Clip_Accept, "corner-graze Liang Accept");
-      Check (C.Status = Clip_Accept, "corner-graze Cohen Accept (AA_SEED=3 case)");
-      Check (Same_Clipped_Segment (R.Clipped, C.Clipped, 1.0E-3),
-             "corner-graze Cohen matches Liang");
-   end;
+   --  Boundary rule (room 2026-10-08): a point exactly on the clip edge is
+   --  inside. Point_Inside_Window and Cohen outcodes use the same exact
+   --  inclusive comparisons (no Epsilon expansion). Corner-only grazes that
+   --  failed the AA_SEED 1..30 sweep under that rule are permanent cases.
 
+   --  Permanent corner/edge graze cases from AA_SEED sweep (2026-10-08).
+   --  Every seed that failed under exact inclusive outcodes (before the
+   --  corner-on-segment Accept) is pinned here so it cannot regress.
+   declare
+      type Case_Rec is record
+         X0, Y0, X1, Y1, X_Min, Y_Min, X_Max, Y_Max : Real;
+         Seed_Tag : String (1 .. 4);
+      end record;
+      Cases : constant array (Positive range <>) of Case_Rec :=
+        [
+         (-3.0, 10.0, 3.0, -4.0, 0.0, 3.0, 1.0, 5.0, "3   "),
+         (-3.5, 5.5, 3.5, -7.5, 0.0, -1.0, 2.0, 1.0, "12  "),
+         (7.0, 8.5, 5.0, -2.5, 5.0, 3.0, 6.0, 8.0, "13  "),
+         (5.5, -6.5, 4.5, 4.5, 1.0, -5.0, 5.0, -1.0, "14  "),
+         (-3.0, 7.0, 5.0, -7.0, 1.0, 0.0, 7.0, 3.0, "15  "),
+         (-2.0, 5.5, -6.0, -5.5, -5.0, 0.0, -4.0, 2.0, "16  "),
+         (0.5, -9.5, 9.5, 9.5, 5.0, -5.0, 9.0, 0.0, "16  "),
+         (5.5, 4.5, 3.5, -5.5, 1.0, 2.0, 5.0, 4.0, "18  "),
+         (-10.0, 6.5, 4.0, -8.5, -3.0, -1.0, -2.0, 0.0, "19  "),
+         (10.0, -6.5, 2.0, 4.5, 2.0, -3.0, 6.0, -1.0, "20  "),
+         (6.5, 7.5, -2.5, -7.5, -3.0, 0.0, 2.0, 4.0, "21  "),
+         (1.5, -8.0, 6.5, 4.0, 4.0, -3.0, 8.0, -2.0, "22  "),
+         (-4.5, 7.0, 8.5, -7.0, 2.0, 0.0, 6.0, 4.0, "23  "),
+         (-3.0, -8.0, -0.5, 4.5, -2.0, -5.0, 1.0, -3.0, "23  "),
+         (-4.5, 9.5, -0.5, -2.5, -1.0, -1.0, 2.0, 0.0, "23  "),
+         (9.0, 6.5, -7.0, -6.5, -4.0, 0.0, 1.0, 2.0, "25  "),
+         (7.5, -2.0, 4.5, 8.0, 3.0, 0.0, 6.0, 3.0, "25  "),
+         (8.5, 8.5, 2.5, -9.5, 3.0, 4.0, 7.0, 5.0, "27  "),
+         (-5.5, 7.5, -0.5, -9.5, -3.0, -1.0, -1.0, 1.0, "29  "),
+         (7.5, 6.5, -2.5, -7.5, 4.0, 3.0, 5.0, 4.0, "4   "),
+         (-5.5, -8.5, -3.5, 9.5, -5.0, -5.0, -2.0, -4.0, "5   ")
+        ];
+   begin
+      for C of Cases loop
+         declare
+            S : constant Segment := Make_Segment ((C.X0, C.Y0), (C.X1, C.Y1));
+            W : constant Clip_Window :=
+              Make_Window (C.X_Min, C.Y_Min, C.X_Max, C.Y_Max);
+            R : constant Clip_Result := Liang_Barsky_Clip (S, W);
+            K : constant Clip_Result := Cohen_Sutherland_Clip (S, W);
+         begin
+            Check (R.Status = Clip_Accept,
+                   "graze seed " & C.Seed_Tag & " Liang Accept");
+            Check (K.Status = Clip_Accept,
+                   "graze seed " & C.Seed_Tag & " Cohen Accept");
+            Check (Same_Clipped_Segment (R.Clipped, K.Clipped, 1.0E-3),
+                   "graze seed " & C.Seed_Tag & " LB=CS");
+            Check (Point_Inside_Window (R.Clipped.P0, W)
+                   and then Point_Inside_Window (R.Clipped.P1, W),
+                   "graze seed " & C.Seed_Tag & " clipped inside");
+         end;
+      end loop;
+   end;
 
    ---------------------------------------------------------------------
    declare

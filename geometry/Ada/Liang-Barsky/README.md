@@ -21,6 +21,11 @@ Based on the principles described in
 and Liang & Barsky, *An Analysis and Algorithm for Polygon Clipping*,
 ACM Transactions on Graphics, 1984.
 
+
+## Boundary rule
+
+A point exactly on the clip-window edge is **inside** (inclusive). `Point_Inside_Window` and the Cohen–Sutherland outcodes use the same exact comparisons (`>=` / `<=` on the edge; no Epsilon expansion). `Epsilon` is only for `Near` / `Same_Clipped_Segment`. Corner-only grazes that the AA_SEED sweep found are permanent cases in `tests.adb`.
+
 ## Project Overview
 
 | Algorithm | Style | Notes |

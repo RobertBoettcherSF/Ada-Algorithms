@@ -117,7 +117,9 @@ is
    function Point_Inside_Window
      (P : Vec2; W : Clip_Window) return Boolean
      with Pre => Is_Valid_Window (W), Global => null;
-   --  Inclusive of the boundary (within Epsilon).
+   --  Inclusive of the boundary: X in [X_Min, X_Max] and Y in [Y_Min, Y_Max]
+   --  with exact comparisons. Cohen_Sutherland outcodes use the same rule
+   --  (boundary ⇒ outcode 0). Epsilon is for Near / Same_Clipped_Segment only.
 
    ---------------------------------------------------------------------------
    -- 1. Clip_Window: Make_Window / Is_Valid_Window
@@ -167,7 +169,7 @@ is
    function Liang_Barsky_Clip
      (S : Segment; W : Clip_Window) return Clip_Result
      with Pre => Is_Valid_Window (W), Global => null;
-   --  Accept ⇒ Clipped endpoints lie inside W (within Epsilon).
+   --  Accept ⇒ Clipped endpoints lie inside W (inclusive boundary).
 
    ---------------------------------------------------------------------------
    -- 5. Liang_Barsky_Clip_Params — clip + retained t0 / t1

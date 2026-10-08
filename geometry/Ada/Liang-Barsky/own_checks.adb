@@ -64,7 +64,7 @@ procedure Own_Checks is
          end if;
       end Expect;
    begin
-      --  boundary is inside (inclusive, within Epsilon); 2 * Epsilon beyond is outside
+      --  boundary is inside (inclusive, exact); 2 * Epsilon beyond is outside
       for I in -4 .. 6 loop
          declare
             T : constant Real := Real (I) / 2.0;
@@ -78,13 +78,17 @@ procedure Own_Checks is
       Expect (not Point_Inside_Window ((-2.0 - E2, 0.0), W) and then not Point_Inside_Window ((3.0 + E2, 0.0), W)
               and then not Point_Inside_Window ((0.0, -1.0 - E2), W) and then not Point_Inside_Window ((0.0, 4.0 + E2), W),
               "Point_Inside_Window just outside");
-      Expect (Point_Inside_Window ((-2.0 - Epsilon / 2.0, 0.0), W) and then Point_Inside_Window ((3.0 + Epsilon / 2.0, 0.0), W)
-              and then Point_Inside_Window ((0.0, -1.0 - Epsilon / 2.0), W) and then Point_Inside_Window ((0.0, 4.0 + Epsilon / 2.0), W),
-              "Point_Inside_Window within Epsilon");
-      --  exactly Epsilon away still counts, as in Near (abs (A - B) <= Tol)
-      Expect (Point_Inside_Window ((W.X_Min - Epsilon, 0.0), W) and then Point_Inside_Window ((W.X_Max + Epsilon, 0.0), W)
-              and then Point_Inside_Window ((0.0, W.Y_Min - Epsilon), W) and then Point_Inside_Window ((0.0, W.Y_Max + Epsilon), W),
-              "Point_Inside_Window at exactly Epsilon");
+      --  Just beyond the boundary is outside (exact inclusive; no Epsilon skirt).
+      Expect (not Point_Inside_Window ((-2.0 - Epsilon / 2.0, 0.0), W)
+              and then not Point_Inside_Window ((3.0 + Epsilon / 2.0, 0.0), W)
+              and then not Point_Inside_Window ((0.0, -1.0 - Epsilon / 2.0), W)
+              and then not Point_Inside_Window ((0.0, 4.0 + Epsilon / 2.0), W),
+              "Point_Inside_Window just-beyond is outside");
+      Expect (not Point_Inside_Window ((W.X_Min - Epsilon, 0.0), W)
+              and then not Point_Inside_Window ((W.X_Max + Epsilon, 0.0), W)
+              and then not Point_Inside_Window ((0.0, W.Y_Min - Epsilon), W)
+              and then not Point_Inside_Window ((0.0, W.Y_Max + Epsilon), W),
+              "Point_Inside_Window Epsilon-away is outside");
       --  windows need positive width and height
       Expect (Raises (0.0, 0.0, 0.0, 1.0) and then Raises (0.0, 0.0, 1.0, 0.0) and then Raises (1.0, 0.0, 0.0, 1.0)
               and then Raises (0.0, 1.0, 1.0, 0.0), "Make_Window accepts an empty window");

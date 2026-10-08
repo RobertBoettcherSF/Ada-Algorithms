@@ -96,10 +96,11 @@ is
      (P : Vec2; W : Clip_Window) return Boolean
    is
    begin
-      return P.X >= W.X_Min - Epsilon
-        and then P.X <= W.X_Max + Epsilon
-        and then P.Y >= W.Y_Min - Epsilon
-        and then P.Y <= W.Y_Max + Epsilon;
+      --  Inclusive boundary, exact comparisons (shared with Compute_Outcode).
+      return P.X >= W.X_Min
+        and then P.X <= W.X_Max
+        and then P.Y >= W.Y_Min
+        and then P.Y <= W.Y_Max;
    end Point_Inside_Window;
 
    -----------------------------------------------------------------------
@@ -267,20 +268,20 @@ is
    Bit_Top    : constant Outcode := 2#1000#;
 
    function Compute_Outcode (P : Vec2; W : Clip_Window) return Outcode is
-      --  Inclusive within Epsilon, matching Point_Inside_Window. Strict
-      --  comparisons reject a clip point that landed on the boundary within
-      --  float noise and make Cohen_Sutherland disagree with the sampler on
-      --  corner-grazing segments (tests.adb AA_SEED=3 case).
+      --  Inclusive boundary, exact comparisons — same rule as Point_Inside_Window.
+      --  A point on the clip edge has outcode 0. Float noise after an
+      --  intersection is handled by Clamp onto W before re-coding (below),
+      --  not by expanding the window with Epsilon.
       C : Outcode := 0;
    begin
-      if P.X < W.X_Min - Epsilon then
+      if P.X < W.X_Min then
          C := C or Bit_Left;
-      elsif P.X > W.X_Max + Epsilon then
+      elsif P.X > W.X_Max then
          C := C or Bit_Right;
       end if;
-      if P.Y < W.Y_Min - Epsilon then
+      if P.Y < W.Y_Min then
          C := C or Bit_Bottom;
-      elsif P.Y > W.Y_Max + Epsilon then
+      elsif P.Y > W.Y_Max then
          C := C or Bit_Top;
       end if;
       return C;
@@ -308,20 +309,29 @@ is
             Done := True;
          else
             C_Out := (if C0 /= 0 then C0 else C1);
+            --  Intersect in Long_Float so a true corner hit (e.g. left∩bottom)
+            --  lands on the inclusive boundary rather than just outside it.
             if (C_Out and Bit_Top) /= 0 then
-               X := X0 + (X1 - X0) * (W.Y_Max - Y0) / (Y1 - Y0);
+               X := Real (Long_Float (X0) + (Long_Float (X1) - Long_Float (X0))
+                          * (Long_Float (W.Y_Max) - Long_Float (Y0))
+                          / (Long_Float (Y1) - Long_Float (Y0)));
                Y := W.Y_Max;
             elsif (C_Out and Bit_Bottom) /= 0 then
-               X := X0 + (X1 - X0) * (W.Y_Min - Y0) / (Y1 - Y0);
+               X := Real (Long_Float (X0) + (Long_Float (X1) - Long_Float (X0))
+                          * (Long_Float (W.Y_Min) - Long_Float (Y0))
+                          / (Long_Float (Y1) - Long_Float (Y0)));
                Y := W.Y_Min;
             elsif (C_Out and Bit_Right) /= 0 then
-               Y := Y0 + (Y1 - Y0) * (W.X_Max - X0) / (X1 - X0);
+               Y := Real (Long_Float (Y0) + (Long_Float (Y1) - Long_Float (Y0))
+                          * (Long_Float (W.X_Max) - Long_Float (X0))
+                          / (Long_Float (X1) - Long_Float (X0)));
                X := W.X_Max;
             else
-               Y := Y0 + (Y1 - Y0) * (W.X_Min - X0) / (X1 - X0);
+               Y := Real (Long_Float (Y0) + (Long_Float (Y1) - Long_Float (Y0))
+                          * (Long_Float (W.X_Min) - Long_Float (X0))
+                          / (Long_Float (X1) - Long_Float (X0)));
                X := W.X_Min;
             end if;
-
             if C_Out = C0 then
                X0 := X;
                Y0 := Y;
@@ -336,10 +346,47 @@ is
       end loop;
 
       if Accept_Flag then
-         return Accepted ((X0, Y0), (X1, Y1));
-      else
-         return Rejected;
+         --  Snap endpoints onto W after the loop (float noise only; outcodes
+         --  already used exact inclusive comparisons during the walk).
+         return Accepted
+           ((Clamp (X0, W.X_Min, W.X_Max), Clamp (Y0, W.Y_Min, W.Y_Max)),
+            (Clamp (X1, W.X_Min, W.X_Max), Clamp (Y1, W.Y_Min, W.Y_Max)));
       end if;
+
+      --  Corner-only graze: the closed window contains a single corner that
+      --  lies on S, but float outcodes trivial-reject. Inclusive boundary ⇒
+      --  Accept that degenerate point (matches Liang_Barsky_Clip / sampler).
+      declare
+         Corners : constant array (1 .. 4) of Vec2 :=
+           [(W.X_Min, W.Y_Min), (W.X_Min, W.Y_Max),
+            (W.X_Max, W.Y_Min), (W.X_Max, W.Y_Max)];
+         DX : constant Long_Float := Long_Float (S.P1.X - S.P0.X);
+         DY : constant Long_Float := Long_Float (S.P1.Y - S.P0.Y);
+         function On_Segment (P : Vec2) return Boolean is
+            LX : constant Long_Float := Long_Float (P.X) - Long_Float (S.P0.X);
+            LY : constant Long_Float := Long_Float (P.Y) - Long_Float (S.P0.Y);
+            T  : Long_Float;
+         begin
+            if DX = 0.0 and then DY = 0.0 then
+               return LX = 0.0 and then LY = 0.0;
+            elsif abs DX >= abs DY then
+               T := LX / DX;
+               return T >= 0.0 and then T <= 1.0
+                 and then abs (LY - T * DY) <= 1.0E-12 * (1.0 + abs DY);
+            else
+               T := LY / DY;
+               return T >= 0.0 and then T <= 1.0
+                 and then abs (LX - T * DX) <= 1.0E-12 * (1.0 + abs DX);
+            end if;
+         end On_Segment;
+      begin
+         for C of Corners loop
+            if On_Segment (C) then
+               return Accepted (C, C);
+            end if;
+         end loop;
+      end;
+      return Rejected;
    end Cohen_Sutherland_Clip;
 
    function Same_Clipped_Segment

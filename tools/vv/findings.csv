@@ -89,3 +89,5 @@ misc/Ada/Newtons-Method-in-Optimization,silent_fail plant_ok=no: planted Fail_Co
 misc/Ada/Particle-Swarm,silent_fail plant_ok=no: planted Fail_Count increment still leaves make test exit 0 (harness cannot report failure),fixed,,
 misc/Ada/Queuing-Theory,silent_fail plant_ok=no: planted Fail_Count increment still leaves make test exit 0 (harness cannot report failure),fixed,,
 numerical/Ada/MISER,silent_fail plant_ok=no: planted Fail_Count increment still leaves make test exit 0 (harness cannot report failure),fixed,,
+geometry/Ada/Liang-Barsky,"Point_Inside_Window / Cohen outcodes used Epsilon expansion as a one-seed fix; room asked exact inclusive boundary + aligned comparisons + AA_SEED graze permanent cases (Long_Float intersect + corner-on-segment Accept)",fixed,,
+graphs/Ada/Shortest-Path-Problem,"matrix Reconstruct_Path copied Prev(Source, Prev'Range(2)) including the capacity>N skirt; under Initialize_Scalars that raised CE. Fix: No_Predecessor sentinel + walk without skirt copy; section 31 asserts sentinel is never a vertex",fixed,,
