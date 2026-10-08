@@ -1,0 +1,16 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* 80 random 3-CNF formulas (5 .. 9 atoms, M = 4.26 N or 5.2 N) and the
+  pigeonhole formula PHP(3,2), encoded in FOL: atom i = T (x_i), where
+  T (v) holds iff v = 2 in the domain 1 .. 3.
+* Expected values come from plain bit-mask enumeration written here:
+  the CNF value per assignment (compared with Evaluate_Formula, false atoms
+  mapped to a random one of 1 and 3), SAT = some mask is a model (compared
+  with the Exists-closure), validity = every mask is a model (Forall-
+  closure). SAT and UNSAT agreement reported separately; PHP(3,2) UNSAT.
+* Substitution lemma (a standard property of FOL semantics): F[x_1 := c]
+  under any environment has the value of F with x_1 = value of c.
+* Structural predicates on closures: prenex, has quantifier, x_1 bound.
+* Not covered: capture-avoiding substitution (the package documents that it
+  does not avoid capture).
+Park-Miller PRNG, seed 20261008. Nothing is taken from the program's output.

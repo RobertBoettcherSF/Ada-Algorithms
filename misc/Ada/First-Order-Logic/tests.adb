@@ -1,4 +1,5 @@
 with Ada.Command_Line;
+with Own_Checks;
 with Ada.Text_IO; use Ada.Text_IO;
 with First_Order_Logic; use First_Order_Logic;
 
@@ -75,6 +76,7 @@ procedure Tests is
    T_c : constant Term_Access := Make_Constant ('c');
 
 begin
+   Own_Checks;
 
    Put_Line ("Starting First-Order Logic Tests...");
 
