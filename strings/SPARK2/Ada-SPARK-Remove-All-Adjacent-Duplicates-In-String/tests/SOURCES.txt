@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: repeatedly delete the leftmost pair of equal
+  adjacent characters until none remains (the final string is the same for any
+  removal order).
+* Inputs: 4,000 random strings of length 0 .. 16 over 'a' .. 'b' or 'a' .. 'd'.

@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Rotate_String; use Rotate_String;
+with Own_Checks;
 procedure Tests is
    A : Text := (others => ' ');
    B : Text := (others => ' ');
@@ -12,4 +13,5 @@ begin
    B (1 .. 4) := "acbd";
    Is_Rotation (A, B, 4, Result);
    Assert (not Result);
+   Own_Checks;
 end Tests;

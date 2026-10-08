@@ -32,3 +32,17 @@ sorting/SPARK2/Ada-SPARK-Find-Median-Sorted-Arrays-Lite,own sorted-merge median 
 sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,own sorted-merge median (exact when integer mean; else between middles); 6000 random
 sorting/SPARK2/Ada-SPARK-Merge-Sorted-Array,own merge-prefix-sum reference; every Length; 6400 random
 sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,non-increasing input frequency + permutation; 4000 random
+strings/SPARK2/Ada-SPARK-Edit-Distance,own recursive Levenshtein reference; every length pair; 3750 random
+strings/SPARK2/Ada-SPARK-One-Edit-Distance,own Levenshtein = 1 reference; random strings with 0-2 edits
+strings/SPARK2/Ada-SPARK-Make-The-String-Great,own repeated leftmost-pair removal reference; 4000 random
+strings/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-In-String,own repeated leftmost-pair removal reference; 4000 random
+strings/SPARK2/Ada-SPARK-Reverse-Words-In-A-String-III,own per-word reversal reference; 4000 random
+strings/SPARK2/Ada-SPARK-Rotate-String,own every-shift reference; 4000 random
+strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert,own digit sum via decimal image; exhaustive 0..9999
+strings/SPARK2/Ada-SPARK-Total-Hamming-Distance,own bit-by-bit reference; single bits + 5000 random
+strings/SPARK2/Ada-SPARK-Z-Algorithm,own longest-common-prefix reference for I>=2; 5000 random
+strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings,own count of symbols <= Allowed; exhaustive 32768
+strings/SPARK2/Ada-SPARK-Find-All-Anagrams-In-A-String,own window count reference; 5000 random
+strings/SPARK2/Ada-SPARK-Encode-And-Decode-Strings-Lite,round trip both ways + constant non-zero XOR key; all 256 bytes
+strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String,own width-100 line-filling simulation; 4000 random
+strings/SPARK2/Ada-SPARK-Reverse-Vowels-Of-A-String,swap of positions 2 and 5; rest unchanged; 4000 random

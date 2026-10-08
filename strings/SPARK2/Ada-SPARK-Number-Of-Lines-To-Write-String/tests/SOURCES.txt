@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: simulate filling lines of width 100 (the width used by this
+  exercise; the folder's own example "helloworldx" with width 10 per letter
+  needs 2 lines only for width 100): add each character's width, start a new
+  line when it would exceed 100. Empty input gives 1 line of width 0.
+* Inputs: 4,000 random width tables (1 .. 10 or 1 .. 100) and random strings of
+  length 0 .. 32.

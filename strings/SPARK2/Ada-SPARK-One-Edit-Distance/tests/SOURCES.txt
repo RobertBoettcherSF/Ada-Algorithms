@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: the textbook recursive Levenshtein distance;
+  Is_One_Edit must be True exactly when it equals 1 (so equal strings give
+  False).
+* Inputs: 4,000 random strings over 'a' .. 'c' and copies with 0, 1 or 2 random
+  edits (substitution, insertion, deletion); the comparison is made whenever
+  both strings have at most 8 characters (the recursive reference is
+  exponential).

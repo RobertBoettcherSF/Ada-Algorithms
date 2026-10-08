@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Write_String_Lines; use Write_String_Lines;
+with Own_Checks;
 procedure Tests is
    Widths : Width_Table := (others => 10);
    Input  : Text := [others => ' '];
@@ -9,4 +10,5 @@ begin
    Input (1 .. 11) := "helloworldx";
    Lines_For (Widths, Input, 11, Lines, Last);
    Assert (Lines = 2 and then Last = 10);
+   Own_Checks;
 end Tests;

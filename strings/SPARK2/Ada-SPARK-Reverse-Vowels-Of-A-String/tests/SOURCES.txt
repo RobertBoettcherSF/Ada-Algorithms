@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Property: with vowels exactly at positions 2 and 5 (the folder's
+  precondition), reversing the vowels swaps those two characters and keeps all
+  others.
+* Inputs: 4,000 random texts with lower-case vowels from "aeiou" at 2 and 5
+  and lower-case consonants (other than 'y') elsewhere; upper case is not
+  used because whether 'A' counts as a vowel is a convention the README does
+  not fix.

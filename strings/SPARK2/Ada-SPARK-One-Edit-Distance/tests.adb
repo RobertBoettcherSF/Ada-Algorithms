@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with One_Edit_Distance; use One_Edit_Distance;
+with Own_Checks;
 procedure Tests is
    A : Text := (others => ' ');
    B : Text := (others => ' ');
@@ -15,4 +16,5 @@ begin
    B (1 .. 4) := "axye";
    Is_One_Edit (A, B, 3, 4, Result);
    Assert (not Result);
+   Own_Checks;
 end Tests;

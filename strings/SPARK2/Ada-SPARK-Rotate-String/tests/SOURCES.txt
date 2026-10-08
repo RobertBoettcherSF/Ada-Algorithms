@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own brute-force reference: try every cyclic shift 0 .. N - 1 of Left and
+  compare it with Right.
+* Inputs: 4,000 random binary strings of length 1 .. 32; two thirds of the
+  Right strings are random rotations of Left, one third independent random
+  strings. Length 0 is not checked (whether two empty buffers count as
+  rotations is a convention the README does not fix).
