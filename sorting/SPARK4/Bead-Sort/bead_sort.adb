@@ -1,10 +1,6 @@
 --  Bead_Sort body — SPARK Level 4 bead sort with static Rods.
---  Bead (drop / reconstruct) phase proves only In_Bounds / RTE; the
---  final gap-1 bubble finish reuses Bubble_Pass / Sorted_Slice /
---  Prefix_Leq_Suffix so Sort proves Is_Sorted (same split as
---  Pigeonhole_Sort / Strand_Sort / Comb_Sort / Flashsort).
---  Bubble_Finish on Natural arrays — same adjacent-swap pattern as
---  Integer sorts.
+--  The bead (drop / reconstruct) phase is proved to sort on its own;
+--  there is no finishing pass.
 
 package body Bead_Sort
   with SPARK_Mode => On
@@ -24,158 +20,39 @@ is
        and then L >= 1
        and then R <= A'Last;
 
-   --  Every element of A (Lo_P .. Hi_P) is <= every element of A (Lo_S .. Hi_S).
-   function Prefix_Leq_Suffix
-     (A                      : Element_Array;
-      Lo_P, Hi_P, Lo_S, Hi_S : Natural) return Boolean
-   is
-     (Hi_P < Lo_P
-      or else Hi_S < Lo_S
-      or else
-        (for all K in Lo_P .. Hi_P =>
-           (for all L in Lo_S .. Hi_S => A (K) <= A (L))))
+   --  Number of rods among 1 .. U carrying at least H beads (the bead
+   --  count of row H when U = Max_Value).
+   subtype Rod_Upto is Natural range 0 .. Max_Value;
+
+   function Row_Count (R : Rod_Array; H : Positive; U : Rod_Upto) return Natural is
+     (if U = 0 then 0
+      else Row_Count (R, H, U - 1) + (if R (U) >= H then 1 else 0))
    with
-     Ghost  => True,
-     Global => null,
-     Pre    =>
-       In_Bounds (A)
-       and then Lo_P >= 1
-       and then Hi_P <= A'Last
-       and then Lo_S >= 1
-       and then Hi_S <= A'Last;
+     Ghost              => True,
+     Global             => null,
+     Post               => Row_Count'Result <= U,
+     Subprogram_Variant => (Decreases => U);
 
-   procedure Swap (A : in out Element_Array; X, Y : Index)
+   --  A higher row has no more beads than a lower one.
+   procedure Lemma_Row_Mono (R : Rod_Array; H : Positive; U : Rod_Upto)
      with
-       Global => null,
-       Pre    =>
-         In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
-       Post   =>
-         In_Bounds (A)
-         and then A (X) = A'Old (Y)
-         and then A (Y) = A'Old (X)
-         and then
-           (for all K in 1 .. A'Last =>
-              (if K /= X and then K /= Y then A (K) = A'Old (K)))
+       Ghost              => True,
+       Global             => null,
+       Pre                => H < Positive'Last,
+       Post               => Row_Count (R, H + 1, U) <= Row_Count (R, H, U),
+       Subprogram_Variant => (Decreases => U)
    is
-      T : Natural;
    begin
-      if X = Y then
-         return;
+      if U > 0 then
+         Lemma_Row_Mono (R, H, U - 1);
       end if;
-      T     := A (X);
-      A (X) := A (Y);
-      A (Y) := T;
-   end Swap;
-
-   --  One forward pass over A (1 .. Bound): bubble the maximum of that
-   --  range to index Bound via adjacent swaps.
-   procedure Bubble_Pass
-     (A       : in out Element_Array;
-      Bound   : Index;
-      Swapped : out Boolean)
-     with
-       Global => null,
-       Pre    =>
-         In_Bounds (A)
-         and then A'Last >= 2
-         and then Bound in 2 .. A'Last
-         and then Sorted_Slice (A, Bound + 1, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),
-       Post   =>
-         In_Bounds (A)
-         and then Sorted_Slice (A, Bound, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)
-         and then
-           (if not Swapped then Sorted_Slice (A, 1, Bound))
-   is
-   begin
-      Swapped := False;
-
-      for I in 1 .. Bound - 1 loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant
-           (for all K in 1 .. I => A (K) <= A (I));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (for all K in I + 1 .. A'Last => A (K) = A'Loop_Entry (K));
-         pragma Loop_Invariant
-           (if not Swapped then Sorted_Slice (A, 1, I));
-
-         if A (I) > A (I + 1) then
-            Swap (A, I, I + 1);
-            Swapped := True;
-         end if;
-
-         pragma Assert (for all K in 1 .. I + 1 => A (K) <= A (I + 1));
-         pragma Assert (if not Swapped then Sorted_Slice (A, 1, I + 1));
-      end loop;
-
-      pragma Assert (for all K in 1 .. Bound => A (K) <= A (Bound));
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      pragma Assert (Bound = A'Last or else A (Bound) <= A (Bound + 1));
-      pragma Assert (Sorted_Slice (A, Bound, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-      pragma Assert (if not Swapped then Sorted_Slice (A, 1, Bound));
-   end Bubble_Pass;
-
-   --  Final gap = 1: ordinary bubble sort with early exit. Proves Is_Sorted.
-   procedure Bubble_Finish (A : in out Element_Array)
-     with
-       Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
-   is
-      Bound   : Index;
-      Swapped : Boolean;
-   begin
-      Bound := A'Last;
-
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-
-      loop
-         pragma Loop_Invariant (Bound in 2 .. A'Last);
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Variant (Decreases => Bound);
-
-         Bubble_Pass (A, Bound, Swapped);
-
-         pragma Assert (Sorted_Slice (A, Bound, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-
-         if not Swapped then
-            pragma Assert (Sorted_Slice (A, 1, Bound));
-            pragma Assert (Sorted_Slice (A, Bound, A'Last));
-            pragma Assert (Is_Sorted (A));
-            return;
-         end if;
-
-         exit when Bound = 2;
-
-         Bound := Bound - 1;
-
-         pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      end loop;
-
-      pragma Assert (Bound = 2);
-      pragma Assert (Sorted_Slice (A, 2, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 1, 2, A'Last));
-      pragma Assert (Is_Sorted (A));
-   end Bubble_Finish;
+   end Lemma_Row_Mono;
 
    --  Educational bead sort: drop beads on static rods, reconstruct
-   --  ascending rows. Only In_Bounds / RTE are proved.
+   --  ascending rows. Proved to sort on its own: row H holds
+   --  Row_Count (Rods, H, Max_Value) beads, rows are read from the top
+   --  (H = N) down, and a higher row never holds more beads than a lower
+   --  one (Lemma_Row_Mono).
    procedure Bead_Phase (A : in out Element_Array)
      with
        Global => null,
@@ -183,7 +60,7 @@ is
          In_Bounds (A)
          and then A'Length >= 2
          and then Values_Ok (A),
-       Post   => In_Bounds (A)
+       Post   => In_Bounds (A) and then Is_Sorted (A)
    is
       subtype Cursor is Natural range 0 .. Max_N + 1;
 
@@ -213,6 +90,7 @@ is
 
       --  All zeros: already sorted; nothing to drop.
       if Max_Val = 0 then
+         pragma Assert (for all K in 1 .. N => A (K) = 0);
          return;
       end if;
 
@@ -265,6 +143,9 @@ is
            (for all K in Rod_Index => Rods (K) <= N);
          pragma Loop_Invariant
            (for all K in Rod_Index => Rods (K) <= Max_N);
+         pragma Loop_Invariant (Sorted_Slice (A, 1, Idx - 1));
+         pragma Loop_Invariant
+           (if Idx > 1 then A (Idx - 1) = Row_Count (Rods, H + 1, Max_Value));
 
          Count := 0;
          for J in Rod_Index loop
@@ -275,6 +156,10 @@ is
             pragma Loop_Invariant (Count <= Max_Value);
             pragma Loop_Invariant
               (for all K in Rod_Index => Rods (K) <= N);
+            pragma Loop_Invariant (Count = Row_Count (Rods, H, J - 1));
+            pragma Loop_Invariant (Sorted_Slice (A, 1, Idx - 1));
+            pragma Loop_Invariant
+              (if Idx > 1 then A (Idx - 1) = Row_Count (Rods, H + 1, Max_Value));
 
             if Rods (J) >= H then
                Count := Count + 1;
@@ -283,11 +168,15 @@ is
 
          pragma Assert (Count <= Max_Value);
          pragma Assert (Idx in 1 .. N);
+         pragma Assert (Count = Row_Count (Rods, H, Max_Value));
+         Lemma_Row_Mono (Rods, H, Max_Value);
+         pragma Assert (if Idx > 1 then A (Idx - 1) <= Count);
          A (Idx) := Count;
          Idx := Idx + 1;
       end loop;
 
       pragma Assert (Idx = N + 1);
+      pragma Assert (Sorted_Slice (A, 1, N));
    end Bead_Phase;
 
    procedure Sort (A : in out Element_Array) is
@@ -297,9 +186,6 @@ is
       end if;
 
       Bead_Phase (A);
-
-      --  Gap-1 bubble finish → Is_Sorted (Pigeonhole / Strand L4 pattern).
-      Bubble_Finish (A);
    end Sort;
 
 end Bead_Sort;

@@ -7,9 +7,10 @@
 --  contracts replace Invalid_Argument. Non-SPARK sibling uses
 --  Max_N = Max_Value = 1_024, allows arbitrary A'First, and raises on
 --  oversized n / values; this port requires A'First = 1, Pre =>
---  In_Bounds (A) and then Values_Ok (A), and proves sortedness via a
---  final gap-1 bubble finish (same proof role as Pigeonhole_Sort /
---  Strand_Sort / Comb_Sort / Flashsort). Full multiset / permutation
+--  In_Bounds (A) and then Values_Ok (A), and proves sortedness of the
+--  bead phase itself (no finishing pass): row H is read as the number
+--  of rods holding at least H beads, and a higher row never holds more
+--  beads than a lower one. Full multiset / permutation
 --  equality is verified by tests rather than claimed as a Level-4
 --  postcondition (sortedness is proved).
 --
@@ -72,7 +73,7 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
-   -- Algorithm sketch (abacus / gravity + bubble finish)
+   -- Algorithm sketch (abacus / gravity)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A) and Values_Ok (A).
    --  1. Find M = max(A). Static Rods (1 .. Max_Value) := 0.
@@ -80,7 +81,8 @@ is
    --  3. Counters encode gravity: Rods (j) = #{ inputs ≥ j }.
    --  4. Reconstruct ascending: for H = n downto 1, A(idx) = count of
    --     rods with Rods (J) ≥ H (top rows → small values).
-   --  5. Final gap-1 bubble finish proves Is_Sorted (Pigeonhole L4 pattern).
+   --  5. Sorted because row H + 1 never holds more beads than row H
+   --     (proved with a ghost row count and a monotonicity lemma).
    --  Empty and singleton arrays are no-ops. All-zero arrays skip rods.
    --  Related to counting sort: Rods (j) is the ≥-j cumulative count.
    --  Do not `with` sibling Ada-* packages.
@@ -94,7 +96,8 @@ is
        Global => null,
        Pre    => In_Bounds (A) and then Values_Ok (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending educational bead sort + gap-1 bubble finish.
+   --  Ascending educational bead sort; the bead phase alone is proved
+   --  to sort.
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
