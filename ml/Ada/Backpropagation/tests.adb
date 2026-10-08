@@ -159,10 +159,13 @@ begin
    declare
       Grads : Network_Gradients (2, 2, 2);
    begin
-      pragma Warnings (Off, "*useless assignment*");
       Grads.DB1 := [others => 1.0];
       Grads.DW1 := [others => [others => 1.0]];
-      pragma Warnings (On, "*useless assignment*");
+      Grads.DW2 := [others => [others => 1.0]];
+      --  Precondition of the test: the gradients really are non-zero first.
+      Check ("6.0 Gradients non-zero before Zero_Gradients",
+             Grads.DB1 (1) = 1.0 and then Grads.DW1 (1, 1) = 1.0
+             and then Grads.DW2 (1, 1) = 1.0);
       Zero_Gradients (Grads);
       
       Check ("6.1 Bias gradients are zeroed", Grads.DB1 (1) = 0.0);

@@ -415,14 +415,16 @@ begin
       Orig : constant Element_Array := [9, 1, 8, 2, 7, 3, 6, 4, 5];
       Snap : constant Element_Array := Copy_Of (Orig);
       V    : Integer;
-      pragma Unreferenced (V);
    begin
+      --  Orig is a permutation of 1 .. 9, so rank K is K and the median is 5.
       for K in 1 .. Orig'Length loop
          V := Select_Kth_Copy (Orig, K);
+         Check (V = K, "copy rank k=" & K'Image);
          Check (Same (Orig, Snap),
                 "unchanged after copy k=" & K'Image);
       end loop;
       V := Median (Orig);
+      Check (V = 5, "Median of 1..9 permutation = 5");
       Check (Same (Orig, Snap), "unchanged after Median");
    end;
 

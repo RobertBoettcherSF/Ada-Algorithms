@@ -68,6 +68,8 @@ begin
             if Before < Max_Ticks then
                Increment (A, 1);
                Report (P_At (A, 1) = Before + 1 and then Value (A) = Model_Value (A), "increment");
+               Report ((for all W in Actor_Id => W = 1 or else P_At (A, W) = P_Before (W)),
+                       "increment leaves other actors' P unchanged");
             end if;
          end;
          AB := A; Merge (AB, B);
@@ -79,7 +81,6 @@ begin
          Report ((for all W in Actor_Id => P_At (AB, W) = P_At (BA, W) and then N_At (AB, W) = N_At (BA, W)), "commutative");
          Report ((for all W in Actor_Id => P_At (AA, W) = P_At (A, W) and then N_At (AA, W) = N_At (A, W)), "idempotent");
          Report (Value (AB) = Model_Value (AB), "merged value");
-         pragma Unreferenced (P_Before);
       end;
    end loop;
    if Failures = 0 then
