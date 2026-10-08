@@ -1,0 +1,17 @@
+Newell's algorithm own checks (own_checks.adb)
+
+Reference, computed here and not taken from the program:
+* plane of a triangle: the cross product of two edges, normalized
+  (Newell's summed formula is a different method; the two must be parallel
+  and every vertex must lie on the plane);
+* bounds: component-wise min and max;
+* the five tests of Newell, Newell and Sancha, "A solution to the hidden
+  surface problem", Proc. ACM National Conference 1972: Z extents disjoint,
+  screen boxes disjoint, P on the far side of Q's plane, Q on the near side
+  of P's plane, projections disjoint (own segment-crossing and ray cast);
+* after a strict sort, every earlier polygon can be drawn before every
+  later one by those tests, and the ids are a permutation. The viewer is
+  at large positive Z looking toward -Z, so a smaller Z is farther.
+
+Test data: LCG, default seed 20261008, printed, overridable with AA_SEED.
+Mutant split recorded before these checks: seed 20261008, 81 tuning / 82 held-out.

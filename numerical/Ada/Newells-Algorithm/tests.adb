@@ -6,6 +6,7 @@ with Ada.Command_Line;
 with Ada.Containers; use Ada.Containers;
 with Ada.Text_IO; use Ada.Text_IO;
 with Newells_Algorithm; use Newells_Algorithm;
+with Own_Checks;
 
 procedure Tests is
    Pass_Count : Natural := 0;
@@ -226,7 +227,7 @@ begin
       begin
          declare
             Dummy : constant Polygon := Make_Polygon (10, Degen);
-            pragma Warnings (Off, Dummy);
+            pragma Unreferenced (Dummy);
          begin
             null;
          end;
@@ -294,6 +295,13 @@ begin
    ----------------------------------------------------------------------------
    --  Summary
    ----------------------------------------------------------------------------
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
+   end;
+
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
