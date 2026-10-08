@@ -22,7 +22,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Every element of A (L .. R) is at most V.
@@ -35,7 +35,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Largest element of A (L .. R).
@@ -48,7 +48,7 @@ is
      Subprogram_Variant => (Decreases => R - L),
      Pre                =>
        In_Bounds (A)
-       and then L in 1 .. A'Last
+       and then L in A'Range
        and then R in L .. A'Last;
 
    --  Max_Of is an upper bound of its range.
@@ -59,7 +59,7 @@ is
        Subprogram_Variant => (Decreases => R - L),
        Pre                =>
          In_Bounds (A)
-         and then L in 1 .. A'Last
+         and then L in A'Range
          and then R in L .. A'Last,
        Post               => All_Leq (A, L, R, Max_Of (A, L, R))
    is
@@ -77,7 +77,7 @@ is
        Subprogram_Variant => (Decreases => R - L),
        Pre                =>
          In_Bounds (A)
-         and then L in 1 .. A'Last
+         and then L in A'Range
          and then R in L .. A'Last
          and then All_Leq (A, L, R, V),
        Post               => Max_Of (A, L, R) <= V
@@ -93,14 +93,14 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
+         and then X in A'Range
+         and then Y in A'Range,
        Post   =>
          In_Bounds (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
-           (for all K in 1 .. A'Last =>
+           (for all K in A'Range =>
               (if K /= X and then K /= Y then A (K) = A'Old (K)))
    is
       T : Integer;
@@ -123,14 +123,14 @@ is
        Subprogram_Variant => (Decreases => J - I),
        Pre                =>
          In_Bounds (A)
-         and then I in 1 .. A'Last
+         and then I in A'Range
          and then J in I .. A'Last,
        Post               =>
          In_Bounds (A)
          and then Sorted_Pairs (A, I, J)
          and then All_Leq (A, I, J, Max_Of (A'Old, I, J))
          and then
-           (for all K in 1 .. I - 1 => A (K) = A'Old (K))
+           (for all K in A'First .. I - 1 => A (K) = A'Old (K))
          and then
            (for all K in J + 1 .. A'Last => A (K) = A'Old (K))
    is
@@ -191,8 +191,8 @@ is
          return;
       end if;
 
-      Slowsort_Range (A, 1, A'Last);
-      pragma Assert (Sorted_Pairs (A, 1, A'Last));
+      Slowsort_Range (A, A'First, A'Last);
+      pragma Assert (Sorted_Pairs (A, A'First, A'Last));
    end Sort;
 
 end Slowsort;

@@ -10,7 +10,7 @@ T(n) = 2\,T\!\left(\frac{n}{2}\right) + T(n-1) + \Theta(1)
 \quad(\epsilon > 0)
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Slowsort](https://github.com/RobertBoettcherSF/Ada-Slowsort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes exceptions (`Invalid_Argument`) and arbitrary `A'First` with `Max_N = 24`; this port trades exceptions for `In_Bounds` / `Is_Sorted` contracts, fixes `A'First = 1`, uses `Max_N = 16`, and bounds recursive `Slowsort_Range` with a `Subprogram_Variant` so Level 4 can discharge the VCs. README links only — do not `with` sibling packages here. Closest SPARK sort siblings in the same recursive multiply-and-surrender spirit: [Ada-SPARK-Stooge-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Stooge-Sort) and [Ada-SPARK-Bogosort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bogosort).
+This is the SPARK Level 4 port of the companion package [Ada-Slowsort](https://github.com/RobertBoettcherSF/Ada-Slowsort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes exceptions (`Invalid_Argument`) with `Max_N = 24`; this port trades exceptions for `In_Bounds` / `Is_Sorted` contracts, accepts any `A'First` in `1 .. Max_N`, uses `Max_N = 16`, and bounds recursive `Slowsort_Range` with a `Subprogram_Variant` so Level 4 can discharge the VCs. README links only — do not `with` sibling packages here. Closest SPARK sort siblings in the same recursive multiply-and-surrender spirit: [Ada-SPARK-Stooge-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Stooge-Sort) and [Ada-SPARK-Bogosort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bogosort).
 
 ## Features
 * **`Sort (A)`**: Ascending Slowsort (recursive multiply-and-surrender); the recursion alone is proved to establish `Is_Sorted` at Level 4.
@@ -22,7 +22,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Slowsort](https://g
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 16` (sibling uses $24$) so demos stay interactive and array / arithmetic / recursion VCs stay within automated SMT reach. The recurrence is **not polynomial**; keep tests tiny.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Bounded recursive `Slowsort_Range` with `Subprogram_Variant => (Decreases => J - I)` rather than an explicit stack; midpoint uses $I + (J-I)/2$ (overflow-safe equivalent of $\lfloor(I+J)/2\rfloor$).
 * **Sortedness proof:** `Slowsort_Range (A, I, J)` proves that `A (I .. J)` ends up sorted (every pair in order) and that no element exceeds `Max_Of (A'Old, I, J)`, the largest value the range held on entry (a ghost function with two small lemmas: it bounds the range, and any bound of the range bounds it). The bound is what the surrender step needs: after the swap, `A (J)` is the largest value of the range, and the recursive call on `I .. J - 1` cannot bring in anything larger. No permutation argument is needed, and there is no fallback pass after the recursion.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
@@ -54,7 +54,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 192 assertions pass. Running `make prove` reports `Success: all checks proved (135 checks).`
+When you run `make test`, you will see all 214 assertions pass. Running `make prove` reports `Success: all checks proved (138 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, signed domain, tiny lengths only ($n \le 16$).
@@ -76,5 +76,5 @@ When you run `make test`, you will see all 192 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Recursive `Slowsort_Range` uses `Subprogram_Variant => (Decreases => J - I)` and proves `Sorted_Pairs (A, I, J)` plus the entry-maximum bound; the ghost lemmas `Lemma_Max_Upper` / `Lemma_Max_Least` are proved by recursion with their own variants.
-* **GNATprove Level 4:** `Success: all checks proved (135 checks).` (also at `--mode=silver --level=2`).
+* **GNATprove Level 4:** `Success: all checks proved (138 checks).` (also at `--mode=silver --level=2`).
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
