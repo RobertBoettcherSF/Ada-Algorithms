@@ -1,0 +1,9 @@
+folder,mutants,killed,survived,timeout,stillborn,score_killed_over_killed_plus_survived,tool,date
+misc/Ada/Conflict-Driven-Clause-Learning,50,28,10,10,2,28/38,"tools/vv/sweep_mutate.py operators and sample (seed 20261008, --max 50); timeouts (60 s) reported separately, not counted",2026-10-08
+logic/Ada/Automated-Theorem-Proving,47,35,9,3,0,35/44,same (all 47 sites),2026-10-08
+misc/Ada/Rete-Algorithm,50,35,13,2,0,35/48,same,2026-10-08
+misc/Ada/Darwin-Godel-Machine,21,10,11,0,0,10/21,same (all 21 sites),2026-10-08
+misc/Ada/First-Order-Logic,23,22,1,0,0,22/23,same (all 23 sites),2026-10-08
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,15,15,0,0,0,15/15,same (all 15 sites),2026-10-08
+misc/Ada/Hindley-Milner-Type-System,30,22,6,0,2,22/28,same (all 30 sites),2026-10-08
+logic/Ada/Verified-Unification-Engine,60,41,16,0,3,41/57,"same (--max 60); 11 survivors have written reasons in flagship_equivalent.csv",2026-10-08
