@@ -594,6 +594,7 @@ begin
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    else
       Put_Line ("SOME FAILURES");
+   Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 
 exception

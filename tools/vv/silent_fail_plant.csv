@@ -280,7 +280,7 @@ misc/Ada/Baum-Welch,Fail_Count,836,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Bayesian-Nash-Equilibrium,Fail_Count,764,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Bayesian-Statistics,Fail_Count,476,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Beam-Tracing,Fail_Count,396,2,yes,,GNATMAKE 14.2.0
-misc/Ada/Bees-Algorithm,Fail_Count,567,0,no,,GNATMAKE 14.2.0
+misc/Ada/Bees-Algorithm,Fail_Count,567,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Beginner-Embedded-API,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/Bensons-Algorithm,Fail_Count,584,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Bentley-Ottmann,Fail_Count,474,2,yes,,GNATMAKE 14.2.0
@@ -367,7 +367,7 @@ misc/Ada/Description-Logic,Fail_Count,239,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Deutsch-Josza-Algorithm,Fail_Count,207,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Dice-Coefficient,Fail_Count,603,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Dictionary-Coder,,,,n/a,no failure counter,GNATMAKE 14.2.0
-misc/Ada/Difference-Map,Fail_Count,590,0,no,,GNATMAKE 14.2.0
+misc/Ada/Difference-Map,Fail_Count,590,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Differential-Evolution,Fail_Count,714,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Diffie-Hellman-Key-Exchange,Fail_Count,323,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Discrete-Event-Simulation,Fail_Count,242,2,yes,,GNATMAKE 14.2.0
@@ -600,7 +600,7 @@ misc/Ada/Package-Merge-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/Painters-Algorithm,Fail_Count,273,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Parity-Bit,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/Partial-Differential-Equation,Fail_Count,634,2,yes,,GNATMAKE 14.2.0
-misc/Ada/Particle-Swarm,Fail_Count,478,0,no,,GNATMAKE 14.2.0
+misc/Ada/Particle-Swarm,Fail_Count,478,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Path-Based-Strong-Component,Fail_Count,1253,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Path-Tracing,Fail_Count,352,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Petricks-Method,Fail_Count,246,2,yes,,GNATMAKE 14.2.0
