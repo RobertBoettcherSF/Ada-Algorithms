@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 19:10 CEST.
+Generated 2026-10-08 19:11 CEST.
 
 ## Proof setup
 
@@ -26,7 +26,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 **Training-ready: 10 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. Under the old rule: 267 folders.
 
-**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 246 folders (column `own_tests`).
+**Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 259 folders (column `own_tests`).
 
 **Silver headline (duplicates counted once):** 483 real SPARK folders proven non-trivially, 305 proven but trivial (<= 3 checks), 143 stubs proven (separate), 3 with unproved checks, 10 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 143 proven real folders also prove functional contracts
 
@@ -91,11 +91,13 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/Ada/Chinese-Whispers |  | 7/8 |  |  | unchecked (main stillborn) |  |
 | misc/Ada/Computus |  |  |  | Gregorian Easter 1583..9999 vs own Clavius epact; Julian Easter 1..9999 from definition; Orthodox; weekday/day difference vs own JDN (sample_ada_30) | ok | own tests |
 | misc/Ada/Delta-Encoding | agree (vs misc/SPARK2/Ada-SPARK-Delta-Encoding, 1000 cases) |  |  |  | ok | diff agree |
+| misc/Ada/Dice-Coefficient |  |  |  |  | ok | own tests |
 | misc/Ada/Division-Algorithms |  |  |  | truncating-division identities on all 8-bit pairs; Schoolbook and float methods on random inputs (sample_ada_30) | ok | own tests |
 | misc/Ada/Elser-Difference-Map-Algorithm |  |  |  |  | weak |  |
 | misc/Ada/Golomb-Coding |  | 7/8 |  |  | ok |  |
 | misc/Ada/Gray-Code | agree (vs misc/SPARK2/Ada-SPARK-Gray-Code, 1000 cases) |  |  |  | ok | diff agree |
 | misc/Ada/Hamming-Weight | agree (vs misc/SPARK2/Ada-SPARK-Hamming-Weight, 1000 cases) |  |  | all five variants vs own division-by-2 count; 50000 values with edges (sample_ada_30) | ok | own tests, diff agree |
+| misc/Ada/Integer-Factorization |  |  |  |  | ok | own tests |
 | misc/Ada/Johnsons-Algorithm |  |  |  |  | weak |  |
 | misc/Ada/Kadanes-Algorithm | agree (vs misc/SPARK2/Ada-SPARK-Kadanes-Algorithm, 1000 cases) |  |  |  | ok | diff agree |
 | misc/Ada/Knuth-Bendix-Completion |  | 5/8 |  |  | unchecked (main stillborn) |  |
@@ -107,6 +109,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/Ada/Nagles-Algorithm |  |  |  |  | weak |  |
 | misc/Ada/Nonlinear-Optimization |  | 7/8 |  |  | ok |  |
 | misc/Ada/Package-Merge-Algorithm | agree (vs misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm, 1000 cases) |  |  |  | unchecked (main stillborn) | diff agree |
+| misc/Ada/Poly1305 |  |  |  |  | baseline fails | own tests |
 | misc/Ada/Polynomial-Long-Division |  | 7/8 |  |  | ok |  |
 | misc/Ada/Recovery-Exploiting-Semantics |  |  |  |  | weak |  |
 | misc/Ada/Replicator-Equation |  | 6/8 |  |  | ok |  |
@@ -156,6 +159,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Dutch-National-Flag |  | 6/16 |  | order and colour counts; all 243 arrays | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Elevator-Algorithm |  | 8/12 |  | exhaustive one-step and reach-target properties over all floor pairs (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title |  | 8/8 |  |  | ok |  |
+| misc/SPARK2/Ada-SPARK-Fibonacci-DP |  |  |  |  | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream |  | 12/19 |  | own counting-order median (even count: Ada division); 20000 random inputs | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Find-The-City |  |  |  |  | weak |  |
 | misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor |  | 2/4 |  | minimality property (meets the limit; D - 1 does not); 73 limits + 3000 random; infeasible limits rejected (in tests.adb) | ok | own tests |
@@ -168,6 +172,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Guess-Number-Higher-Or-Lower |  |  |  |  | weak |  |
 | misc/SPARK2/Ada-SPARK-Hamming-Weight | agree (vs misc/Ada/Hamming-Weight, 1000 cases) | 3/3 |  |  | ok | diff agree |
 | misc/SPARK2/Ada-SPARK-House-Robber |  | 7/20 |  | own enumeration of non-adjacent subsets; all 729 arrays over 0..2 + 5000 random | ok | own tests |
+| misc/SPARK2/Ada-SPARK-House-Robber-II |  |  |  |  | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Image-Smoother |  | 19/20 |  | own 3x3-window floor-average reference; 20000 random images (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists |  | 7/11 |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Jump-Game |  | 2/3 |  | own breadth-first reachability reference; hand cases; 20000 random arrays | ok | own tests |
@@ -191,7 +196,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Maximum-Subarray |  | 6/20 |  | own all-runs maximum (empty-run convention fixed by one negative element); all arrays over -3..3 up to length 4 + 5000 random | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List |  | 6/9 |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Mean-Variance |  | 7/20 |  | mean in [floor; ceil] of S/5 + population variance in [floor; ceil] of (5Q - S**2)/25; constant samples; all 3125 inputs (exhaustive) | ok | own tests |
-| misc/SPARK2/Ada-SPARK-Median-Filtering | agree (vs misc/Ada/Median-Filtering, 1000 cases) | 7/14 |  |  | ok | diff agree |
+| misc/SPARK2/Ada-SPARK-Median-Filtering | agree (vs misc/Ada/Median-Filtering, 1000 cases) | 7/14 |  |  | ok | own tests, diff agree |
 | misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists |  | 3/6 |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Merge-Intervals |  |  |  |  | weak |  |
 | misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List |  | 7/8 |  | own full-list check: Count'Last appends then one more must be rejected (silent no-op scan); own middle-node property for every length 1 .. 16 plus empty-list rejection | ok | own tests |
@@ -201,6 +206,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Missing-Number |  | 7/20 |  | planted missing value; all 720 orders of every 5-of-6 choice (exhaustive) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Move-Zeroes |  | 8/20 |  | own stable compaction; all 243 arrays over 0..2 + 4000 random | ok | own tests |
 | misc/SPARK2/Ada-SPARK-My-Linked-List-Stub |  |  |  |  | weak |  |
+| misc/SPARK2/Ada-SPARK-N-th-Tribonacci |  |  |  |  | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List |  | 10/19 |  | own backward scan for the nearest greater; 20000 random lists (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals |  |  |  |  | weak |  |
 | misc/SPARK2/Ada-SPARK-Nth-Digit-Stub |  | 14/14 |  | own directly built digit string (first ~20000 positions) + own digit-block arithmetic for n=10^9 and 2^31 | ok | own tests |
@@ -213,6 +219,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Partition-Around-Pivot |  | 14/20 |  | own stable two-group reference; 50000 random arrays and pivots (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Partition-List |  | 11/14 |  | stable partition vs own two-filter reference; all lists of length 0..7 over {0,1,2} x pivots -1..3 + 3000 random | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Pascal-Triangle |  | 4/20 |  | own Pascal rows built by additions; rows 0..30 (31-32 do not fit Result) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Pascal-Triangle-II |  |  |  |  | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Pow-X-N-Stub |  | 5/5 | exact powers incl. (-2)**31 = Integer'First |  | ok | kat |
 | misc/SPARK2/Ada-SPARK-Power-Of-Three |  | 11/19 |  | own 64-bit power table; 1 .. 100000 + every power and neighbours + 20000 random (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Product-Of-Array-Except-Self |  | 7/20 |  | own direct products; all 6561 arrays (exhaustive) | ok | own tests |
@@ -229,6 +236,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Robot-Return-To-Origin |  | 14/20 |  | own move counts (U = D and L = R); 20000 random walks (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Roman-To-Int |  | 10/20 |  | own encoder round trip; every value 1..3999 with a numeral of at most 7 letters | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Rotate-List |  | 12/20 |  | rotate right by K vs own index-formula reference; every length 1..16 x every K 0..16 (distinct + random values) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K |  |  |  |  | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements |  | 13/20 |  | own count of elements equal to X (folder convention); 20000 random arrays (sample_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Sqrt-X |  |  |  | floor-root definition; every N in 0 .. 100 | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums |  | 5/17 |  | own running-minimum reference; 5000 random arrays | ok | own tests |
@@ -242,6 +250,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Trapping-Rain-Water-II-Lite |  | 7/20 |  | own min(left max; right max) reference; 5000 random arrays with junk past Length | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Triangle-Min-Path |  | 12/20 |  | own brute force over all 8 paths; 20000 random triangles with junk outside the triangle | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Tribonacci |  | 14/19 |  | own defining recursion; every N 0 .. 10 (sample_30) | ok | own tests |
+| misc/SPARK2/Ada-SPARK-Tribonacci-Number |  |  |  |  | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Unique-Paths-II |  | 10/19 |  | own path recursion avoiding blocked cells; 3000 random grids | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Valid-IP-Address-Stub |  |  |  |  | weak |  |
 | misc/SPARK2/Ada-SPARK-Valid-Parentheses |  | 13/18 |  | own stack check; all 46656 strings over ()[]{} (exhaustive) | ok | own tests |
@@ -286,6 +295,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | searching/Ada/Linear-Search | agree (vs searching/SPARK4/Ada-SPARK-Linear-Search, 1000 cases) |  |  |  | ok | diff agree |
 | searching/Ada/Quickselect | agree (vs searching/SPARK4/Ada-SPARK-Quickselect, 1000 cases) |  |  |  | ok | diff agree |
 | searching/Ada/Ternary-Search | agree (vs searching/SPARK4/Ada-SPARK-Ternary-Search, 1000 cases) |  |  |  | ok | diff agree |
+| searching/Ada/Trigram-Search |  |  |  |  | ok | own tests |
 | searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words |  | 7/19 |  | own wildcard matcher; 4000 random dictionaries; own full-dictionary check: Max_Words distinct words then one more must be rejected | ok | own tests |
 | searching/SPARK2/Ada-SPARK-Exponential-Search |  | 14/20 |  | own linear-scan membership (index holds target or 0); 5000 random sorted | ok | own tests |
 | searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree |  |  |  |  | weak |  |
@@ -413,6 +423,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | strings/Ada/Levenshtein-Distance | agree (vs strings/SPARK3/Levenshtein-Distance, 1000 cases) |  |  |  | ok | diff agree |
 | strings/Ada/Longest-Common-Subsequence | agree (vs strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence, 1000 cases) |  |  |  | ok | diff agree |
 | strings/Ada/Rabin-Karp | agree (vs strings/SPARK2/Ada-SPARK-Rabin-Karp, 1000 cases) |  |  |  | ok | diff agree |
+| strings/Ada/String-Metrics |  |  |  |  | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Boyer-Moore | agree (vs strings/Ada/Boyer-Moore, 1000 cases) |  |  |  | ok | diff agree |
 | strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings |  |  |  | own count of symbols <= Allowed; exhaustive 32768 | ok | own tests |
 | strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance | agree (vs strings/Ada/Damerau-Levenshtein-Distance, 1000 cases) |  |  |  | ok | diff agree |

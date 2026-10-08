@@ -167,7 +167,7 @@ find_open.update(f['folder'] for f in _csv(os.path.join(a.root, 'tools', 'vv', '
 sweep_by = {}
 for x in _csv(os.path.join(a.root, 'tools', 'vv', 'sweep_progress.csv')):
     if x.get('folder'):
-        sweep_by[x['folder']] = x.get('status') or next((v for k, v in x.items() if k != 'folder' and v), '')
+        sweep_by[x['folder']] = x.get('status') or ('own tests (sweep); mutation ' + x['mutation_score'].split('->')[-1].strip() if x.get('tests_added') and x.get('mutation_score') else ('own tests (sweep)' if x.get('tests_added') else ''))
 # training_ready rules 3 and 4 (tools/vv/escapes_scan.py): warning suppression and proof escapes
 supp_by = collections.Counter(x['folder'] for x in _csv(os.path.join(a.root, 'tools', 'vv', 'warnings_suppressed.csv')))
 esc_all = collections.Counter(x['folder'] for x in _csv(os.path.join(a.root, 'tools', 'vv', 'proof_escapes.csv')))
@@ -178,8 +178,8 @@ for r in rows:
     r['mutation'] = mut_by.get(r['folder'], '')
     r['kat'] = kat_by.get(r['folder'], '')
     r['do_nothing'] = dn_by.get(r['folder'], '')
-    r['own_tests'] = 'yes' if r['folder'] in own_by or os.path.exists(os.path.join(a.root, r['folder'], 'tests', 'SOURCES_sweep.txt')) else ''
     r['sweep'] = sweep_by.get(r['folder'], '')
+    r['own_tests'] = 'yes' if r['folder'] in own_by or r['sweep'].startswith('own tests') or os.path.exists(os.path.join(a.root, r['folder'], 'tests', 'SOURCES_sweep.txt')) else ''
     r['warnings_suppressed'] = 'yes' if supp_by[r['folder']] else ''
     r['proof_escapes'] = str(esc_all[r['folder']]) if esc_all[r['folder']] else ''
     if esc_bare[r['folder']] and r['silver'] == 'proven':   # rule 4: an unexplained escape voids the proof claim
