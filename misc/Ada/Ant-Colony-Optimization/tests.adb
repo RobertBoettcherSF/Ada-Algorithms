@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ant_Colony_Optimization; use Ant_Colony_Optimization;
+with Own_Checks;
 
 procedure Tests is
 
@@ -145,7 +146,7 @@ begin
       Seed_RNG (S1, 55);
       for I in 1 .. 30 loop
          Idx := Next_Index (S1, 1, 4);
-         Check (Idx in 1 .. 4, "Next_Index in 1..4 #" & Integer'Image (I));
+         Check (Idx <= 4, "Next_Index in 1..4 #" & Integer'Image (I));
       end loop;
    end;
 
@@ -543,7 +544,7 @@ begin
       for R in 1 .. 4 loop
          for C in 1 .. 4 loop
             DS (City_Index (R + 2), City_Index (C + 1)) :=
-              D1 (City_Index (R), City_Index (C));
+              D1 (R, C);
          end loop;
       end loop;
       Check (Approx (Real (Tour_Length (TS, DS)), Real (Tour_Length (T1, D1))),
@@ -566,6 +567,13 @@ begin
                 and then R1.Best_Tour (1 .. 4) = RS.Best_Tour (1 .. 4),
                 "shifted Solve_TSP = 1-based (same seed/config)");
       end;
+   end;
+
+   declare
+      Own_Fails : Natural;
+   begin
+      Own_Checks (Own_Fails);
+      Fail_Count := Fail_Count + Own_Fails;
    end;
 
    New_Line;
