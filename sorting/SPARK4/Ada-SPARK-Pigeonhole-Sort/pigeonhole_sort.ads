@@ -8,8 +8,8 @@
 --  Invalid_Argument. Non-SPARK sibling uses Max_Length = Max_Range =
 --  100_000, allows arbitrary A'First, and raises on oversized n / span;
 --  this port requires A'First = 1, Pre => In_Bounds (A) and then
---  Keys_In_Range (A), and proves sortedness via a final gap-1 bubble
---  finish (same proof role as Flashsort / Strand_Sort / Comb_Sort).
+--  Keys_In_Range (A), and proves that the pigeonhole phase itself
+--  sorts (no finishing pass, no clamp on hole indices).
 --  Full multiset / permutation equality is verified by tests rather than
 --  claimed as a Level-4 postcondition (sortedness is proved).
 --
@@ -42,7 +42,10 @@ is
    type Element_Array is array (Positive range <>) of Integer;
 
    subtype Hole_Index is Natural range 0 .. Max_Range - 1;
-   type Count_Array is array (Hole_Index) of Natural;
+   subtype Hole_Count is Natural range 0 .. Max_N;
+   --  A hole never holds more than Max_N keys (and an offset never
+   --  exceeds Max_N), so the table's element subtype says so.
+   type Count_Array is array (Hole_Index) of Hole_Count;
 
    --  Static work buffer: live slots are 1 .. N with N ≤ Max_N.
    type Work_Array is array (Positive range 1 .. Max_N) of Integer;
@@ -57,14 +60,18 @@ is
    --  Shape guard used by every entry point. Empty arrays have
    --  A'Last = 0 when A'First = 1 (rejects Last < 0).
 
-   function Keys_In_Range (A : Element_Array) return Boolean
-     with
-       Global => null,
-       Pre    => In_Bounds (A);
-   --  True when A is empty/singleton, or (max − min + 1) ≤ Max_Range.
-   --  Span is computed with Long_Long_Integer so Integer'First .. Last
-   --  cannot wrap. Body-implemented (not an expression function) so the
-   --  min/max scan stays readable and proveable.
+   function Keys_In_Range (A : Element_Array) return Boolean is
+     (for all I in 1 .. A'Last =>
+        (for all J in 1 .. A'Last =>
+           Long_Long_Integer (A (I)) - Long_Long_Integer (A (J))
+             < Long_Long_Integer (Max_Range)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A);
+   --  True when A is empty/singleton, or (max − min + 1) ≤ Max_Range:
+   --  no two keys are Max_Range or more apart. Differences are taken in
+   --  Long_Long_Integer so Integer'First .. Last cannot wrap. An
+   --  expression function so the prover sees the span bound inside Sort.
 
    function Is_Sorted (A : Element_Array) return Boolean is
      (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
@@ -75,7 +82,7 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
-   -- Algorithm sketch (Wikipedia pigeonhole + bubble finish)
+   -- Algorithm sketch (pigeonhole)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A) and Keys_In_Range (A).
    --  1. Find Min and Max among A (Long_Long_Integer span check).
@@ -84,7 +91,8 @@ is
    --  4. Prefix: convert counts into starting offsets in Work.
    --  5. Stable scatter left-to-right into Work hole segments.
    --  6. Copy Work (1 .. n) back into A.
-   --  7. Final gap-1 bubble finish proves Is_Sorted (Flashsort L4 pattern).
+   --  7. Sorted because hole K fills exactly the slots after the keys of
+   --     holes 0 .. K - 1 (proved with ghost Sum_Below / Occ lemmas).
    --  Empty and singleton arrays are no-ops.
    --  Contrast with counting sort: pigeonhole *moves items into holes*
    --  then concatenates; counting builds a count table and emits keys.
@@ -99,7 +107,8 @@ is
        Global => null,
        Pre    => In_Bounds (A) and then Keys_In_Range (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending educational pigeonhole sort + gap-1 bubble finish.
+   --  Ascending educational pigeonhole sort; the pigeonhole phase alone
+   --  is proved to sort.
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).

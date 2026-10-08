@@ -1,33 +1,33 @@
 # Pigeonhole Sort in Ada/SPARK
 
 ## Project Overview
-This repository contains a formally verified educational implementation of [pigeonhole sort](https://en.wikipedia.org/wiki/Pigeonhole_sort) on an `Integer` array. Written in Ada 2022 and verified with SPARK (GNATprove Level 4), it allocates one **pigeonhole** per key in $[\mathrm{min},\mathrm{max}]$, counts items into a static hole table, converts counts to prefix offsets, stably scatters into a work buffer, copies back, then finishes with a proved gap-$1$ bubble pass. It runs in
+This repository contains a formally verified educational implementation of [pigeonhole sort](https://en.wikipedia.org/wiki/Pigeonhole_sort) on an `Integer` array. Written in Ada 2022 and verified with SPARK (GNATprove Level 4), it allocates one **pigeonhole** per key in $[\mathrm{min},\mathrm{max}]$, counts items into a static hole table, converts counts to prefix offsets, stably scatters into a work buffer, and copies back. SPARK proves that this pigeonhole phase alone sorts; there is no finishing pass. It runs in
 
 $$
 O(n + N),\quad N = \mathrm{max} - \mathrm{min} + 1,\quad n \le \mathrm{Max\_N} = 64,\quad N \le \mathrm{Max\_Range} = 256
 $$
 
-time for the pigeonhole phase (plus $O(n^2)$ worst-case for the bubble finish).
+time.
 
-This is the SPARK Level 4 port of the companion package [Ada-Pigeonhole-Sort](https://github.com/RobertBoettcherSF/Ada-Pigeonhole-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses larger caps ($\mathrm{Max\_Length} = \mathrm{Max\_Range} = 100\,000$), exceptions (`Invalid_Argument`), and arbitrary `A'First`; this port trades those for classroom bounds (`Max_N = 64`, `Max_Range = 256`), `In_Bounds` / `Keys_In_Range` / `Is_Sorted` contracts, static `Counts (0 .. Max_Range−1)` and `Work (1 .. Max_N)`, and a proved final gap-$1$ bubble finish. README links only — do not `with` sibling packages here. Closest SPARK sort siblings: [Ada-SPARK-Counting-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Counting-Sort) (fixed key domain emit), [Ada-SPARK-Bucket-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bucket-Sort), [Ada-SPARK-Flashsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Flashsort) (same Bubble_Finish proof split).
+This is the SPARK Level 4 port of the companion package [Ada-Pigeonhole-Sort](https://github.com/RobertBoettcherSF/Ada-Pigeonhole-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses larger caps ($\mathrm{Max\_Length} = \mathrm{Max\_Range} = 100\,000$), exceptions (`Invalid_Argument`), and arbitrary `A'First`; this port trades those for classroom bounds (`Max_N = 64`, `Max_Range = 256`), `In_Bounds` / `Keys_In_Range` / `Is_Sorted` contracts, static `Counts (0 .. Max_Range−1)` and `Work (1 .. Max_N)`, and a proof that the pigeonhole phase sorts on its own. README links only — do not `with` sibling packages here. Closest SPARK sort siblings: [Ada-SPARK-Counting-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Counting-Sort) (fixed key domain emit), [Ada-SPARK-Bucket-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bucket-Sort), [Ada-SPARK-Flashsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Flashsort).
 
 ## Features
-* **`Sort (A)`**: Ascending educational pigeonhole sort (count / prefix / stable scatter / copy-back), then a gap-$1$ bubble finish.
+* **`Sort (A)`**: Ascending educational pigeonhole sort (count / prefix / stable scatter / copy-back).
 * **`Is_Sorted` / `In_Bounds` / `Keys_In_Range`**: Guards for shape, key span, and sortedness; `Is_Sorted` is the proved postcondition.
-* **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors; pigeonhole phase proves `In_Bounds` / RTE; `Bubble_Pass` / `Sorted_Slice` / partition invariants prove sortedness.
+* **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors, and sortedness of the pigeonhole phase itself (ghost `Sum_Below` / `Occ` counts with induction lemmas; see Verification notes).
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays or key spans are `Pre` violations rather than `Invalid_Argument`.
 * **Static tables only**: `Counts (0 .. Max_Range−1)` and `Work (1 .. Max_N)`; hole index and span use `Long_Long_Integer`.
 
 ## Choice: `Keys_In_Range` precondition
-Callers must establish `Keys_In_Range (A)`: empty/singleton arrays are always accepted; otherwise $(\mathrm{max}-\mathrm{min}+1) \le \mathrm{Max\_Range}$ must hold, computed with `Long_Long_Integer` so `Integer'First` .. `Integer'Last` cannot wrap. The pigeonhole phase still re-checks the span defensively and returns early if it somehow exceeds `Max_Range` (Bubble_Finish then sorts). An alternative design — `Pre => In_Bounds` only, skipping pigeonhole when the span is too large — would also prove cleanly; this package prefers the explicit `Keys_In_Range` contract so invalid spans are rejected at the API boundary (matching the sibling's `Invalid_Argument` for oversized range).
+Callers must establish `Keys_In_Range (A)`: empty/singleton arrays are always accepted; otherwise $(\mathrm{max}-\mathrm{min}+1) \le \mathrm{Max\_Range}$ must hold, computed with `Long_Long_Integer` so `Integer'First` .. `Integer'Last` cannot wrap. `Keys_In_Range` is an expression function (no two keys are `Max_Range` or more apart), so the prover uses it inside the pigeonhole phase and there is no defensive re-check. An alternative design — `Pre => In_Bounds` only, skipping pigeonhole when the span is too large — would also prove cleanly; this package prefers the explicit `Keys_In_Range` contract so invalid spans are rejected at the API boundary (matching the sibling's `Invalid_Argument` for oversized range).
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` and `Max_Range = 256` (sibling uses $100\,000$ / $100\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape / span are `Pre => In_Bounds (A) and then Keys_In_Range (A)`.
 * Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
 * Static `Counts` and `Work` (sibling allocates locals sized to the live span / `A'Range`).
-* Pigeonhole phase posts only `In_Bounds` / RTE; prefix / scatter use caps and index guards so Level-4 RTE discharges without a full cardinality lemma.
-* The final gap-$1$ `Bubble_Finish` reuses the bubble-sort Level-4 argument for `Is_Sorted` (same proof split as Flashsort / Strand / Comb / Odd_Even). Full hole-order / permutation posts that would fight Level 4 are deferred to that finish and to tests.
+* The pigeonhole phase posts `Is_Sorted` itself. Ghost `Occ (A, Min, I, K)` counts how many of $A_1 .. A_I$ fall into hole $K$, and ghost `Sum_Below (Counts, K)` adds up the holes below $K$ (`Lemma_Zero` / `Lemma_Inc` / `Lemma_Mono`). The count loop shows the holes hold exactly $n$ keys; the prefix loop shows hole $K$ owns the slots right after holes $0 .. K-1$; the scatter loop shows each owned slot receives $\mathrm{Min} + K$; a ghost walk over the holes then gives sortedness. Only the $\mathrm{max}-\mathrm{min}+1$ holes that keys can reach are walked.
+* No clamps or index guards: hole indices come from a subtype conversion (`Hole_Index`) that the span bound proves in range, and the count table's element subtype is `Hole_Count` ($0 .. \mathrm{Max\_N}$).
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
 
 ## Algorithm
@@ -42,9 +42,9 @@ Given an array $A$ of length $n$:
 4. **Prefix offsets.** Convert counts into starting write cursors for each hole segment in a static work buffer.
 5. **Stable scatter.** Place each item left-to-right into its hole segment in `Work` (equal keys keep relative order).
 6. **Copy back.** Write `Work(1 .. n)` into $A$.
-7. **Gap-$1$ finish:** ordinary bubble sort with a shrinking unsorted suffix (and early exit) $\to$ fully sorted (`Is_Sorted` proved).
+7. **Why it is sorted:** hole $K$ fills exactly the slots after the keys of holes $0 .. K-1$, and every key in hole $K$ equals $A_{\min} + K$ (`Is_Sorted` proved, no finishing pass).
 
-Empty and singleton arrays are no-ops. The pigeonhole scatter is **stable**; the bubble finish preserves the already-sorted (or nearly sorted) order.
+Empty and singleton arrays are no-ops. The pigeonhole scatter is **stable**.
 
 ### Contrast with counting sort and bucket sort
 
@@ -60,9 +60,8 @@ Wikipedia highlights the structural difference: pigeonhole sort **moves items tw
 
 | Case | Time | Extra space |
 | ---- | ---- | ----------- |
-| Typical ($N = O(n)$) | $O(n + N)$ pigeonhole + $O(n^2)$ finish worst | $O(\mathrm{Max\_N} + \mathrm{Max\_Range})$ |
-| Already nearly sorted after scatter | $O(n + N)$ + early-exit bubble | static tables |
-| All-equal | $O(n)$ count/scatter + $O(n)$ bubble | static tables |
+| Typical ($N = O(n)$) | $O(n + N)$ | $O(\mathrm{Max\_N} + \mathrm{Max\_Range})$ |
+| All-equal | $O(n)$ count/scatter/copy | static tables |
 
 ## Usage
 * **Build:** `make`
@@ -70,7 +69,7 @@ Wikipedia highlights the structural difference: pigeonhole sort **moves items tw
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 181 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (254 checks)`.
+When you run `make test`, you will see all 181 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (236 checks)` (gnatprove 16.1).
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, duplicates / all-equal, signed domain, near `Integer'First` / `Integer'Last` (compact spans), lengths up to `Max_N`.
@@ -90,7 +89,7 @@ When you run `make test`, you will see all 181 assertions pass ($0$ FAIL). Runni
 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
-* Pigeonhole loops use `pragma Loop_Invariant`; outer bubble finish shrinks the unsorted suffix via `Bubble_Pass` with partition predicates.
+* Pigeonhole loops use `pragma Loop_Invariant` over ghost `Occ` / `Sum_Below` counts; a ghost walk over the holes proves `Is_Sorted` (no finishing pass).
 * **GNATprove Level 4:** `Success: all checks proved (254 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
@@ -103,7 +102,7 @@ When you run `make test`, you will see all 181 assertions pass ($0$ FAIL). Runni
 | `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
 | `Keys_In_Range` | Empty/singleton or span $\le \mathrm{Max\_Range}$ |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
-| `Sort` | Ascending pigeonhole + bubble finish (`Post => Is_Sorted`) |
+| `Sort` | Ascending pigeonhole sort (`Post => Is_Sorted`) |
 
 ## License
 MIT License — Copyright (c) 2026 Sternenfisch.

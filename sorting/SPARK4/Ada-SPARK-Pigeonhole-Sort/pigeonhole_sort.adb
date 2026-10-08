@@ -1,8 +1,7 @@
 --  Pigeonhole_Sort body — SPARK Level 4 pigeonhole sort with static
---  Counts / Work. Count + prefix + stable scatter prove only In_Bounds /
---  RTE; the final gap-1 bubble finish reuses Bubble_Pass / Sorted_Slice /
---  Prefix_Leq_Suffix so Sort proves Is_Sorted (same split as Flashsort /
---  Strand_Sort / Comb_Sort).
+--  Counts / Work. Count + prefix + stable scatter are proved to sort on
+--  their own (ghost Sum_Below / Occ with induction lemmas); there is no
+--  finishing pass and no clamp.
 
 package body Pigeonhole_Sort
   with SPARK_Mode => On
@@ -22,205 +21,108 @@ is
        and then L >= 1
        and then R <= A'Last;
 
-   --  Every element of A (Lo_P .. Hi_P) is <= every element of A (Lo_S .. Hi_S).
-   function Prefix_Leq_Suffix
-     (A                      : Element_Array;
-      Lo_P, Hi_P, Lo_S, Hi_S : Natural) return Boolean
-   is
-     (Hi_P < Lo_P
-      or else Hi_S < Lo_S
-      or else
-        (for all K in Lo_P .. Hi_P =>
-           (for all L in Lo_S .. Hi_S => A (K) <= A (L))))
+   --  Number of keys in the holes below H: C (0) + ... + C (H - 1).
+   subtype Bin_Bound is Natural range 0 .. Max_Range;
+
+   function Sum_Below (C : Count_Array; H : Bin_Bound) return Natural is
+     (if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))
    with
-     Ghost  => True,
-     Global => null,
-     Pre    =>
-       In_Bounds (A)
-       and then Lo_P >= 1
-       and then Hi_P <= A'Last
-       and then Lo_S >= 1
-       and then Hi_S <= A'Last;
+     Ghost              => True,
+     Global             => null,
+     Post               => Sum_Below'Result <= H * Max_N,
+     Subprogram_Variant => (Decreases => H);
 
-   procedure Swap (A : in out Element_Array; X, Y : Index)
+   --  All holes empty: no keys below any H.
+   procedure Lemma_Zero (C : Count_Array; H : Bin_Bound)
      with
-       Global => null,
-       Pre    =>
-         In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
-       Post   =>
-         In_Bounds (A)
-         and then A (X) = A'Old (Y)
-         and then A (Y) = A'Old (X)
-         and then
-           (for all K in 1 .. A'Last =>
-              (if K /= X and then K /= Y then A (K) = A'Old (K)))
+       Ghost              => True,
+       Global             => null,
+       Pre                => (for all K in Hole_Index => C (K) = 0),
+       Post               => Sum_Below (C, H) = 0,
+       Subprogram_Variant => (Decreases => H)
    is
-      T : Integer;
    begin
-      if X = Y then
-         return;
+      if H > 0 then
+         Lemma_Zero (C, H - 1);
       end if;
-      T     := A (X);
-      A (X) := A (Y);
-      A (Y) := T;
-   end Swap;
+   end Lemma_Zero;
 
-   --  One forward pass over A (1 .. Bound): bubble the maximum of that
-   --  range to index Bound via adjacent swaps.
-   procedure Bubble_Pass
-     (A       : in out Element_Array;
-      Bound   : Index;
-      Swapped : out Boolean)
+   --  One more key in hole J adds one to every sum that covers J.
+   procedure Lemma_Inc
+     (Before, After : Count_Array; J : Hole_Index; H : Bin_Bound)
      with
-       Global => null,
-       Pre    =>
-         In_Bounds (A)
-         and then A'Last >= 2
-         and then Bound in 2 .. A'Last
-         and then Sorted_Slice (A, Bound + 1, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),
-       Post   =>
-         In_Bounds (A)
-         and then Sorted_Slice (A, Bound, A'Last)
-         and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)
-         and then
-           (if not Swapped then Sorted_Slice (A, 1, Bound))
+       Ghost              => True,
+       Global             => null,
+       Pre                =>
+         After (J) = Before (J) + 1
+         and then (for all K in Hole_Index =>
+                     (if K /= J then After (K) = Before (K))),
+       Post               =>
+         Sum_Below (After, H) = Sum_Below (Before, H) + (if J < H then 1 else 0),
+       Subprogram_Variant => (Decreases => H)
    is
    begin
-      Swapped := False;
-
-      for I in 1 .. Bound - 1 loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant
-           (for all K in 1 .. I => A (K) <= A (I));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (for all K in I + 1 .. A'Last => A (K) = A'Loop_Entry (K));
-         pragma Loop_Invariant
-           (if not Swapped then Sorted_Slice (A, 1, I));
-
-         if A (I) > A (I + 1) then
-            Swap (A, I, I + 1);
-            Swapped := True;
-         end if;
-
-         pragma Assert (for all K in 1 .. I + 1 => A (K) <= A (I + 1));
-         pragma Assert (if not Swapped then Sorted_Slice (A, 1, I + 1));
-      end loop;
-
-      pragma Assert (for all K in 1 .. Bound => A (K) <= A (Bound));
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      pragma Assert (Bound = A'Last or else A (Bound) <= A (Bound + 1));
-      pragma Assert (Sorted_Slice (A, Bound, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-      pragma Assert (if not Swapped then Sorted_Slice (A, 1, Bound));
-   end Bubble_Pass;
-
-   --  Final gap = 1: ordinary bubble sort with early exit. Proves Is_Sorted.
-   procedure Bubble_Finish (A : in out Element_Array)
-     with
-       Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
-   is
-      Bound   : Index;
-      Swapped : Boolean;
-   begin
-      Bound := A'Last;
-
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-
-      loop
-         pragma Loop_Invariant (Bound in 2 .. A'Last);
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Variant (Decreases => Bound);
-
-         Bubble_Pass (A, Bound, Swapped);
-
-         pragma Assert (Sorted_Slice (A, Bound, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-
-         if not Swapped then
-            pragma Assert (Sorted_Slice (A, 1, Bound));
-            pragma Assert (Sorted_Slice (A, Bound, A'Last));
-            pragma Assert (Is_Sorted (A));
-            return;
-         end if;
-
-         exit when Bound = 2;
-
-         Bound := Bound - 1;
-
-         pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      end loop;
-
-      pragma Assert (Bound = 2);
-      pragma Assert (Sorted_Slice (A, 2, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 1, 2, A'Last));
-      pragma Assert (Is_Sorted (A));
-   end Bubble_Finish;
-
-   function Keys_In_Range (A : Element_Array) return Boolean is
-      Min_Val, Max_Val : Integer;
-      Span             : Long_Long_Integer;
-   begin
-      if A'Length <= 1 then
-         return True;
+      if H > 0 then
+         Lemma_Inc (Before, After, J, H - 1);
       end if;
+   end Lemma_Inc;
 
-      Min_Val := A (1);
-      Max_Val := A (1);
-
-      for I in 2 .. A'Last loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (I in 2 .. A'Last + 1);
-         pragma Loop_Invariant (Min_Val <= Max_Val);
-
-         if A (I) < Min_Val then
-            Min_Val := A (I);
-         elsif A (I) > Max_Val then
-            Max_Val := A (I);
-         end if;
-      end loop;
-
-      pragma Assert (Min_Val <= Max_Val);
-      Span :=
-        Long_Long_Integer (Max_Val) - Long_Long_Integer (Min_Val) + 1;
-      return Span <= Long_Long_Integer (Max_Range);
-   end Keys_In_Range;
-
-   --  Map key X into hole index relative to Min_Val. Callers must ensure
-   --  X ∈ [Min_Val, Min_Val + Max_Range − 1]; defensive clamp for RTE.
-   function Hole_Of (X, Min_Val : Integer) return Hole_Index
+   --  Sums only grow with H.
+   procedure Lemma_Mono (C : Count_Array; H1, H2 : Bin_Bound)
      with
-       Global => null
+       Ghost              => True,
+       Global             => null,
+       Pre                => H1 <= H2,
+       Post               => Sum_Below (C, H1) <= Sum_Below (C, H2),
+       Subprogram_Variant => (Decreases => H2)
    is
-      Diff : constant Long_Long_Integer :=
-        Long_Long_Integer (X) - Long_Long_Integer (Min_Val);
    begin
-      if Diff < 0 then
-         return 0;
-      elsif Diff >= Long_Long_Integer (Max_Range) then
-         return Max_Range - 1;
-      else
-         return Hole_Index (Diff);
+      if H2 > H1 then
+         Lemma_Mono (C, H1, H2 - 1);
       end if;
-   end Hole_Of;
+   end Lemma_Mono;
+
+   --  Key X measured from Mn, without overflow.
+   function Rel (X, Mn : Integer) return Long_Long_Integer is
+     (Long_Long_Integer (X) - Long_Long_Integer (Mn))
+   with Global => null;
+
+   --  How many of A (1 .. I) fall into hole K.
+   function Occ
+     (A : Element_Array; Mn : Integer; I : Natural; K : Hole_Index)
+      return Natural
+   is
+     (if I = 0 then 0
+      else Occ (A, Mn, I - 1, K)
+           + (if Rel (A (I), Mn) = Long_Long_Integer (K) then 1 else 0))
+   with
+     Ghost              => True,
+     Global             => null,
+     Pre                => In_Bounds (A) and then I <= A'Last,
+     Post               => Occ'Result <= I,
+     Subprogram_Variant => (Decreases => I);
+
+   procedure Lemma_Occ_Mono
+     (A : Element_Array; Mn : Integer; I, J : Natural; K : Hole_Index)
+     with
+       Ghost              => True,
+       Global             => null,
+       Pre                => In_Bounds (A) and then I <= J and then J <= A'Last,
+       Post               => Occ (A, Mn, I, K) <= Occ (A, Mn, J, K),
+       Subprogram_Variant => (Decreases => J)
+   is
+   begin
+      if J > I then
+         Lemma_Occ_Mono (A, Mn, I, J - 1, K);
+      end if;
+   end Lemma_Occ_Mono;
 
    --  Educational pigeonhole: min/max, count, prefix offsets, stable
-   --  scatter into Work, copy back. Only In_Bounds / RTE are proved.
+   --  scatter into Work, copy back. Proved to sort on its own: hole K
+   --  owns the Work slots Sum_Below (Counts, K) + 1 .. Sum_Below
+   --  (Counts, K + 1), the scatter fills exactly those slots with
+   --  Min_Val + K, and the holes are laid out in key order. Only the
+   --  Top = Max_Val - Min_Val + 1 holes that keys can reach are walked.
    procedure Pigeonhole_Phase (A : in out Element_Array)
      with
        Global => null,
@@ -228,26 +130,32 @@ is
          In_Bounds (A)
          and then A'Length >= 2
          and then Keys_In_Range (A),
-       Post   => In_Bounds (A)
+       Post   => In_Bounds (A) and then Is_Sorted (A)
    is
-      N       : constant Index := A'Last;
+      N       : constant Positive := A'Last;
       Min_Val : Integer;
       Max_Val : Integer;
-      Span    : Long_Long_Integer;
       Counts  : Count_Array := [others => 0];
+      Next    : Count_Array := [others => 0];
       Work    : Work_Array := [others => 0];
       Total   : Natural := 0;
+      Top     : Bin_Bound;
       H       : Hole_Index;
-      Dest    : Natural;
-      C       : Natural;
+      Dest    : Positive;
+      Before  : Count_Array with Ghost;
+      Prev    : Count_Array with Ghost;
+      Start   : Count_Array with Ghost;
+      Pos     : Natural := 0 with Ghost;
    begin
       Min_Val := A (1);
       Max_Val := A (1);
 
       for X in 2 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (N = A'Last);
          pragma Loop_Invariant (Min_Val <= Max_Val);
+         pragma Loop_Invariant
+           (for all J in 1 .. X - 1 => A (J) in Min_Val .. Max_Val);
+         pragma Loop_Invariant (for some J in 1 .. X - 1 => A (J) = Min_Val);
+         pragma Loop_Invariant (for some J in 1 .. X - 1 => A (J) = Max_Val);
 
          if A (X) < Min_Val then
             Min_Val := A (X);
@@ -256,85 +164,130 @@ is
          end if;
       end loop;
 
-      pragma Assert (Min_Val <= Max_Val);
-      Span :=
-        Long_Long_Integer (Max_Val) - Long_Long_Integer (Min_Val) + 1;
+      --  Keys_In_Range bounds Max_Val - Min_Val, so every key has a hole.
+      pragma Assert (Rel (Max_Val, Min_Val) < Long_Long_Integer (Max_Range));
+      pragma Assert
+        (for all J in 1 .. N =>
+           Rel (A (J), Min_Val) in 0 .. Long_Long_Integer (Max_Range) - 1);
 
-      --  Defensive: Pre says Keys_In_Range; if span still exceeds
-      --  Max_Range, skip the hole phase (Bubble_Finish will sort).
-      if Span > Long_Long_Integer (Max_Range) then
-         return;
-      end if;
-
-      pragma Assert (Span >= 1);
-      pragma Assert (Span <= Long_Long_Integer (Max_Range));
+      --  Holes 0 .. Top - 1 cover Min_Val .. Max_Val; only these are used.
+      Top := Bin_Bound (Rel (Max_Val, Min_Val) + 1);
+      pragma Assert
+        (for all J in 1 .. N => Rel (A (J), Min_Val) < Long_Long_Integer (Top));
 
       --  Count how many items fall into each pigeonhole.
+      Lemma_Zero (Counts, Top);
       for I in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (N = A'Last);
-         pragma Loop_Invariant (Min_Val <= Max_Val);
          pragma Loop_Invariant
-           (for all K in Hole_Index => Counts (K) <= I - 1);
+           (for all K in 0 .. Top - 1 => Counts (K) = Occ (A, Min_Val, I - 1, K));
          pragma Loop_Invariant
-           (for all K in Hole_Index => Counts (K) <= Max_N);
+           (for all K in Top .. Max_Range - 1 => Counts (K) = 0);
+         pragma Loop_Invariant (Sum_Below (Counts, Top) = I - 1);
 
-         H := Hole_Of (A (I), Min_Val);
+         H := Hole_Index (Rel (A (I), Min_Val));
+         Before := Counts;
          Counts (H) := Counts (H) + 1;
+         Lemma_Inc (Before, Counts, H, Top);
       end loop;
+      pragma Assert
+        (for all K in 0 .. Top - 1 => Counts (K) = Occ (A, Min_Val, N, K));
+      pragma Assert (Sum_Below (Counts, Top) = N);
 
-      pragma Assert (for all K in Hole_Index => Counts (K) <= N);
-      pragma Assert (for all K in Hole_Index => Counts (K) <= Max_N);
-
-      --  Convert counts into starting offsets (exclusive prefix).
-      --  After this, Counts (H) is the next free 1-based slot in Work
-      --  for hole H. Cap Total at N so RTE stays local (sum is n at
-      --  run time; we do not prove the cardinality lemma).
-      for HH in Hole_Index loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (N = A'Last);
+      --  Next (H) := first slot of hole H minus one (exclusive prefix).
+      --  Hole K owns the slots Next (K) + 1 .. Next (K) + Counts (K); the
+      --  invariants say these runs follow one another in key order.
+      for HH in 0 .. Top - 1 loop
+         pragma Loop_Invariant (Total = Sum_Below (Counts, HH));
          pragma Loop_Invariant (Total <= N);
-         pragma Loop_Invariant (Total <= Max_N);
+         pragma Loop_Invariant (if HH > 0 then Next (0) = 0);
          pragma Loop_Invariant
-           (for all K in Hole_Index => Counts (K) <= Max_N);
+           (for all K in 0 .. HH - 1 => Next (K) + Counts (K) <= Total);
+         pragma Loop_Invariant
+           (for all K in 0 .. HH - 1 =>
+              Next (K) + Counts (K) = (if K = HH - 1 then Total else Next (K + 1)));
+         pragma Loop_Invariant
+           (for all K1 in 0 .. HH - 1 =>
+              (for all K2 in K1 + 1 .. HH - 1 =>
+                 Next (K1) + Counts (K1) <= Next (K2)));
 
-         C := Counts (HH);
-         Counts (HH) := Total;
-         if Total <= N - C then
-            Total := Total + C;
-         else
-            Total := N;
-         end if;
+         Lemma_Mono (Counts, HH + 1, Top);
+         Next (HH) := Total;
+         Total := Total + Counts (HH);
       end loop;
-
-      pragma Assert (Total <= N);
-      pragma Assert (for all K in Hole_Index => Counts (K) <= Max_N);
+      pragma Assert (Total = N);
+      pragma Assert (Next (0) = 0);
+      pragma Assert
+        (for all K in 0 .. Top - 1 => Next (K) + Counts (K) <= N);
+      pragma Assert
+        (for all K in 0 .. Top - 1 =>
+           Next (K) + Counts (K) = (if K = Top - 1 then N else Next (K + 1)));
+      pragma Assert
+        (for all K1 in 0 .. Top - 1 =>
+           (for all K2 in K1 + 1 .. Top - 1 =>
+              Next (K1) + Counts (K1) <= Next (K2)));
+      Start := Next;
+      pragma Assert (Start (0) = 0);
+      pragma Assert
+        (for all K in 0 .. Top - 1 => Start (K) + Counts (K) <= N);
+      pragma Assert
+        (for all K in 0 .. Top - 1 =>
+           Start (K) + Counts (K) = (if K = Top - 1 then N else Start (K + 1)));
+      pragma Assert
+        (for all K1 in 0 .. Top - 1 =>
+           (for all K2 in K1 + 1 .. Top - 1 =>
+              Start (K1) + Counts (K1) <= Start (K2)));
 
       --  Stable scatter: place each item into its hole segment L→R.
       for I in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (N = A'Last);
-         pragma Loop_Invariant (Min_Val <= Max_Val);
          pragma Loop_Invariant
-           (for all K in Hole_Index => Counts (K) <= Max_N);
+           (for all K in 0 .. Top - 1 =>
+              Next (K) = Start (K) + Occ (A, Min_Val, I - 1, K));
+         pragma Loop_Invariant
+           (for all K in 0 .. Top - 1 => Next (K) <= Start (K) + Counts (K));
+         pragma Loop_Invariant
+           (for all K in 0 .. Top - 1 =>
+              (for all P in Start (K) + 1 .. Next (K) =>
+                 Rel (Work (P), Min_Val) = Long_Long_Integer (K)));
 
-         H := Hole_Of (A (I), Min_Val);
-         Dest := Counts (H) + 1;
-         if Dest in 1 .. N then
-            Work (Dest) := A (I);
-            if Counts (H) < Max_N then
-               Counts (H) := Counts (H) + 1;
-            end if;
-         end if;
+         H := Hole_Index (Rel (A (I), Min_Val));
+         Lemma_Occ_Mono (A, Min_Val, I, N, H);
+         pragma Assert (Next (H) < Start (H) + Counts (H));
+         Dest := Next (H) + 1;
+         pragma Assert
+           (for all K in 0 .. Top - 1 =>
+              (if K < H then Next (K) < Dest
+               elsif K > H then Start (K) >= Dest));
+         Work (Dest) := A (I);
+         Prev := Next;
+         Next (H) := Dest;
+         pragma Assert
+           (for all K in 0 .. Top - 1 =>
+              Next (K) = Prev (K) + (if K = H then 1 else 0));
       end loop;
+      pragma Assert
+        (for all K in 0 .. Top - 1 => Next (K) = Start (K) + Counts (K));
 
       --  Read contiguous hole segments back into A (key order).
       for I in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (N = A'Last);
-
+         pragma Loop_Invariant (for all J in 1 .. I - 1 => A (J) = Work (J));
          A (I) := Work (I);
       end loop;
+
+      --  Ghost walk over the holes: A (1 .. Pos) is sorted and holds only
+      --  keys below Min_Val + K, where Pos = Start (K).
+      for K in 0 .. Top - 1 loop
+         pragma Loop_Invariant (Pos = Start (K));
+         pragma Loop_Invariant (Sorted_Slice (A, 1, Pos));
+         pragma Loop_Invariant
+           (for all P in 1 .. Pos =>
+              Rel (A (P), Min_Val) < Long_Long_Integer (K));
+         pragma Assert
+           (for all P in Pos + 1 .. Pos + Counts (K) =>
+              Rel (A (P), Min_Val) = Long_Long_Integer (K));
+         Pos := Pos + Counts (K);
+      end loop;
+      pragma Assert (Pos = N);
+      pragma Assert (Sorted_Slice (A, 1, N));
    end Pigeonhole_Phase;
 
    procedure Sort (A : in out Element_Array) is
@@ -344,9 +297,6 @@ is
       end if;
 
       Pigeonhole_Phase (A);
-
-      --  Gap-1 bubble finish → Is_Sorted (Flashsort / Strand L4 pattern).
-      Bubble_Finish (A);
    end Sort;
 
 end Pigeonhole_Sort;
