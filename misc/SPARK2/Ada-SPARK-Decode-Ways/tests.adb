@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Decode_Ways;
+with Own_Checks;
 
 procedure Tests is
    One : constant Decode_Ways.Digit_Sequence := (1 => 1, 2 => 2, 3 => 6, others => 0);
@@ -10,4 +11,5 @@ begin
       raise Program_Error;
    end if;
    Put_Line ("Decode Ways: PASS");
+   Own_Checks;
 end Tests;

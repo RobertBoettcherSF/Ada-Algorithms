@@ -103,3 +103,13 @@ misc/SPARK2/Ada-SPARK-Product-Of-Array-Except-Self,own direct products; all 6561
 misc/SPARK2/Ada-SPARK-Number-Of-1-Bits,own bit count; 0..2**16 (exhaustive) + 20000 random + powers of two and 2**K-1
 misc/SPARK2/Ada-SPARK-Reverse-Bits,own bit mirror + involution; all 256 bytes (exhaustive)
 misc/SPARK2/Ada-SPARK-Greatest-Common-Divisor,own divisor search (definition); all pairs 1..150 + 20000 random pairs
+misc/SPARK2/Ada-SPARK-Missing-Number,planted missing value; all 720 orders of every 5-of-6 choice (exhaustive)
+misc/SPARK2/Ada-SPARK-Counting-Bits,own bit count; 0..2**16 (exhaustive) + 20000 random + powers of two
+misc/SPARK2/Ada-SPARK-Least-Common-Multiple,own multiple search (definition); all pairs 1..150 + 20000 random pairs
+misc/SPARK2/Ada-SPARK-Pascal-Triangle,own Pascal rows built by additions; rows 0..30 (31-32 do not fit Result)
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock,own all-pairs best gain; all 6561 arrays over 0..2 + 5000 random
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,own all-pairs area; 6000 random
+misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,own path enumeration (end convention fixed by one input); all 729 arrays over 0..2 + 5000 random
+misc/SPARK2/Ada-SPARK-Coin-Change-II,own multiset enumeration; all distinct denomination prefixes and amounts 1..4 (exhaustive)
+misc/SPARK2/Ada-SPARK-Decode-Ways,own recursive decoding; 4000 random + all-ones up to length 29 (30-32 can exceed Result)
+misc/SPARK2/Ada-SPARK-Knapsack-01,own subset enumeration; 5000 random item sets x all limits 0..10

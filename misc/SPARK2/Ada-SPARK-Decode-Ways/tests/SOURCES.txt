@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: decode from the left; a single digit 1 .. 9 is a code, two
+  digits form a code when the first is not 0 and the value is at most 26;
+  count all complete splits by recursion in the test.
+* Inputs: 4,000 random digit strings of length 1 .. 12 or 1 .. 29 (mostly
+  1s and 2s, some 0s and larger digits) and the all-ones strings of length
+  1 .. 29. Lengths 30 .. 32 can have more decodings than Result holds
+  (1,000,000); the function saturates there, which the README does not
+  mention. Not checked; reported in docs/VV.md 3e.

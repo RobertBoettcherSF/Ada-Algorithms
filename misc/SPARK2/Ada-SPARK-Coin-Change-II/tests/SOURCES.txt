@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: count the multisets of coins, taking K copies of the first
+  denomination and recursing on the rest (each combination counted once,
+  order ignored); N = 0 coins give no way to pay A >= 1.
+* Inputs: every denomination array over 1 .. 4 whose first N entries are
+  distinct, every N in 0 .. 4 and every amount A in 1 .. 4 (exhaustive).
+  A = 0 (whether the empty combination counts) and repeated denominations
+  are not fixed by the README and not checked.

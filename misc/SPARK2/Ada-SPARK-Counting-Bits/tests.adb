@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Counting_Bits; use Counting_Bits;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -8,4 +9,5 @@ begin
    Assert (Ones (15) = 4);
    Assert (Ones (255) = 8);
    Assert (Ones (1_000_000_000) = 13);
+   Own_Checks;
 end Tests;

@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: the rows of Pascal's triangle built by the addition rule
+  (each entry is the sum of the two above it), summed in the test.
+* Inputs: rows 0 .. 30. Rows 31 and 32 are allowed by Row_Index, but their
+  totals (2**31 and 2**32) do not fit Result (at most 2**31 - 1); the
+  function saturates there, which the README does not mention. Not checked;
+  reported in docs/VV.md 3e.
