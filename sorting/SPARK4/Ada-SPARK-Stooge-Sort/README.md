@@ -9,12 +9,12 @@ T(n) = 3\,T\!\left(\left\lceil\frac{2n}{3}\right\rceil\right) + \Theta(1)
 \Theta\!\bigl(n^{\log 3 / \log 1.5}\bigr) \approx \Theta(n^{2.709})
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Stooge-Sort](https://github.com/RobertBoettcherSF/Ada-Stooge-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes exceptions (`Invalid_Argument`) and arbitrary `A'First` with the same tiny `Max_N = 24`; this port trades exceptions for `In_Bounds` / `Is_Sorted` contracts, fixes `A'First = 1`, and bounds recursive `Stooge_Range` with a `Subprogram_Variant` so Level 4 can discharge the VCs. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape and bubble-finish proof pattern: [Ada-SPARK-Comb-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Comb-Sort) and [Ada-SPARK-Odd-Even-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Odd-Even-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Stooge-Sort](https://github.com/RobertBoettcherSF/Ada-Stooge-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes exceptions (`Invalid_Argument`) and arbitrary `A'First` with the same tiny `Max_N = 24`; this port trades exceptions for `In_Bounds` / `Is_Sorted` contracts, fixes `A'First = 1`, and bounds recursive `Stooge_Range` with a `Subprogram_Variant` so Level 4 can discharge the VCs. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Comb-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Comb-Sort) and [Ada-SPARK-Odd-Even-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Odd-Even-Sort).
 
 ## Features
-* **`Sort (A)`**: Ascending Stooge sort (recursive $2/3$–$2/3$–$2/3$), then a gap-$1$ bubble finish that discharges `Is_Sorted` at Level 4.
+* **`Sort (A)`**: Ascending Stooge sort (recursive $2/3$–$2/3$–$2/3$). The recursion alone discharges `Is_Sorted` at Level 4; there is no fallback pass.
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
-* **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, a `Subprogram_Variant` on recursive `Stooge_Range`, and bubble-finish invariants that reassemble a sorted array.
+* **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, a `Subprogram_Variant` on recursive `Stooge_Range`, and a ghost counting proof that each `Stooge_Range` call leaves its slice sorted with the same element counts.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
 * **Unstable / pessimal**: Equal keys may change relative order; prefer $n \le 16$ in demos (never large reverse-sorted inputs).
 
@@ -23,8 +23,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Stooge-Sort](https:
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
 * Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
 * Bounded recursive `Stooge_Range` with `Subprogram_Variant => (Decreases => Hi - Lo)` rather than an explicit stack; depth is at most $\mathrm{Max\_N}$.
-* **Sortedness proof:** the classic inductive “largest third lands in the last third” argument fights automated Level 4 (order-statistic / multiset VCs). `Stooge_Range` therefore proves only `In_Bounds` / RTE / termination / frame; `Sort` finishes with a gap-$1$ **`Bubble_Finish`** (same role as Comb / Odd–Even / Shell) so `Post => Is_Sorted (A)` discharges. On a correctly stooge-sorted array the finish is an $O(n)$ clean pass.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **Sortedness proof:** `Stooge_Range` proves the inductive “largest third lands in the last third” argument directly. A ghost function `Count_Ge (A, L, H, X)` counts the elements $\ge X$ in a slice; `Stooge_Range`'s postcondition says the slice is sorted and that `Count_Ge` is unchanged for every value present before or after. After the second recursive call the last $t$ places hold values no smaller than anything in the first two thirds (they are the top of a sorted slice that already contained the old last third); after the third call the first two thirds are sorted below them. `Sort` is only this recursion (the earlier gap-$1$ `Bubble_Finish` fallback was removed).
+* **SPARK proves sortedness** (`Post => Is_Sorted (A)` on `Sort`) and count preservation on the internal `Stooge_Range`; permutation equality is also **checked by tests**.
 
 ## Algorithm
 Given an array $A$ with index range $[\mathrm{Lo} .. \mathrm{Hi}]$:
@@ -35,7 +35,6 @@ Given an array $A$ with index range $[\mathrm{Lo} .. \mathrm{Hi}]$:
    - Stooge-sort $A[\mathrm{Lo} .. \mathrm{Hi}-t]$ (first $\lceil 2L/3 \rceil$).
    - Stooge-sort $A[\mathrm{Lo}+t .. \mathrm{Hi}]$ (last $\lceil 2L/3 \rceil$).
    - Stooge-sort $A[\mathrm{Lo} .. \mathrm{Hi}-t]$ again.
-3. (Level 4) Run a gap-$1$ bubble finish so `Is_Sorted` is proved.
 
 Using $t = \lfloor L/3 \rfloor$ makes the recursive span $L - t = \lceil 2L/3 \rceil$, which is required for correctness (e.g. $L=5$ must recurse on length $4$, not $3$). Empty and singleton arrays are no-ops.
 
@@ -54,7 +53,7 @@ Using $t = \lfloor L/3 \rfloor$ makes the recursive span $L - t = \lceil 2L/3 \r
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 195 assertions pass. Running `make prove` reports `Success: all checks proved (189 checks).`
+When you run `make test`, you will see all 195 assertions pass. Running `make prove` reports `Success: all checks proved (423 checks).` (also at `--mode=silver --level=2`)
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, signed domain, tiny lengths only ($n \le 16$).
@@ -74,6 +73,6 @@ When you run `make test`, you will see all 195 assertions pass. Running `make pr
 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
-* Recursive `Stooge_Range` uses `Subprogram_Variant => (Decreases => Hi - Lo)`; gap-$1$ `Bubble_Finish` uses `pragma Loop_Invariant` / `Loop_Variant` with partition predicates.
-* **GNATprove Level 4:** `Success: all checks proved (189 checks).`
+* Recursive `Stooge_Range` uses `Subprogram_Variant => (Decreases => Hi - Lo)`; its postcondition (sorted slice, frame, same counts) is proved with ghost lemmas (`Lemma_After_Second`, `Lemma_After_Third`, `Lemma_Chain`).
+* **GNATprove Level 4:** `Success: all checks proved (423 checks).` (also at `--mode=silver --level=2`)
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

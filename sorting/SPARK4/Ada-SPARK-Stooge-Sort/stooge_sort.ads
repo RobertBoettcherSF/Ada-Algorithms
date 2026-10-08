@@ -9,11 +9,13 @@
 --  sibling allows arbitrary A'First and raises on oversized n; this port
 --  requires A'First = 1, uses Pre => In_Bounds (A), and bounds recursive
 --  Stooge_Range with Subprogram_Variant => (Decreases => Hi - Lo). The
---  classic inductive "largest third" sortedness argument fights automated
---  Level 4, so Sort finishes with a gap-1 Bubble_Finish (same split as
---  Comb / Odd_Even / Shell) to prove Is_Sorted. Full multiset /
---  permutation equality is verified by tests rather than claimed as a
---  Level-4 postcondition.
+--  recursion itself is proved: Stooge_Range's postcondition says the
+--  slice Lo .. Hi is sorted and holds the same values with the same
+--  counts (a ghost counting argument: after the second call the last
+--  third holds the largest values, after the third call the first two
+--  thirds are sorted below them). Sort is only that recursion; there is
+--  no fallback pass. Sort's public Post states sortedness; the count
+--  preservation is proved inside the body and also checked by tests.
 --
 --  Reference: https://en.wikipedia.org/wiki/Stooge_sort
 
@@ -70,8 +72,8 @@ is
    --  which is required for correctness (e.g. L=5 must recurse on 4).
    --  Subprogram_Variant (Hi - Lo) strictly decreases on each recursive
    --  call. Empty and singleton arrays are no-ops.
-   --  Level 4: Stooge_Range proves RTE / termination / frame; Sort then
-   --  runs a gap-1 bubble finish to prove Is_Sorted.
+   --  Level 4: Stooge_Range proves RTE / termination / frame, that the
+   --  slice is sorted, and that element counts are preserved.
    --  Do not `with` sibling Ada-* packages.
 
    ---------------------------------------------------------------------------
@@ -83,10 +85,10 @@ is
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending Stooge sort (in-place recursive 2/3–2/3–2/3), then a
-   --  gap-1 bubble finish that discharges Is_Sorted at Level 4.
+   --  Ascending Stooge sort (in-place recursive 2/3–2/3–2/3); the
+   --  recursion alone discharges Is_Sorted at Level 4.
    --  Empty and singleton arrays are no-ops.
-   --  Post proves sortedness; multiset / permutation equality is
-   --  checked by the test suite (not claimed here at Level 4).
+   --  Post proves sortedness; count preservation is proved on the body's
+   --  Stooge_Range and checked by the test suite.
 
 end Stooge_Sort;
