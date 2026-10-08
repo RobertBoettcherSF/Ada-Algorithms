@@ -1,0 +1,18 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: the folder's own hand checks.
+* Own reference: a separate Long_Float forward pass in the test and central
+  finite differences (step 1E-3) of E = 1/2 * sum (A2 - Target)**2 for every
+  weight and bias, compared with Backward (tolerance 2E-3 + 2%, Real has 6
+  digits); Compute_Loss (the mean of squares) compared with 2 E / N_Outputs.
+* Inputs: 400 random networks (1 .. 3 inputs, 1 .. 4 hidden, 1 .. 3 outputs,
+  each activation), weights, inputs and targets in -1 .. 1; ReLU runs with a
+  pre-activation within 0.05 of the kink are skipped.

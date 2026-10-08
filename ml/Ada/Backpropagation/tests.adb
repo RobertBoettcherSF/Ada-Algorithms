@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Backpropagation; use Backpropagation;
+with Own_Checks;
 
 procedure Tests
   with SPARK_Mode => Off
@@ -320,4 +321,5 @@ begin
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
    pragma Assert (Fail_Count = 0, "Some tests failed");
+   Own_Checks;
 end Tests;

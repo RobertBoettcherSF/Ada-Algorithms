@@ -35,3 +35,4 @@ misc/SPARK2/Ada-SPARK-Combination-Sum-III,"Count_Choices returned 1 for every fe
 misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,"Is_Beautiful accepted values above N that are multiples of their position, e.g. N = 1, A (1) = 2 (own tests)",fixed,dd3dbfb0,ad654347
 misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,"Minimum_Cuts returned N - 1 for every non-palindrome, e.g. 1 1 2 needs 1 cut not 2 (own tests; random sample sample_30.txt)",fixed,31b9084c,3223108e
 misc/SPARK2/Ada-SPARK-Queue-Using-Stacks,"Enqueue on a full queue dropped the value, Dequeue/Front on an empty queue answered silently (own tests; random sample sample_30.txt)",fixed,f910897c,59fc17da
+ml/SPARK2/Linear-Regression,"Predict truncated mean and slope separately, missing the least-squares value by up to about 2.6 (own tests; random sample sample_30.txt)",fixed,dd65b8ae,b816a12a

@@ -23,3 +23,9 @@ trees/SPARK2/Ada-SPARK-Red-Black-Tree,not testable,"no tree: README calls it a d
 misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List,pass,
 misc/SPARK2/Ada-SPARK-Tanimoto,pass,
 misc/SPARK2/Ada-SPARK-Parity-Bits,pass,
+misc/SPARK2/Ada-SPARK-Water-Bottles,pass,
+misc/SPARK2/Ada-SPARK-Design-Bitset,pass,
+misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,pass (naming note),"counts elements equal to X, as its tests.adb fixes; the usual statement counts elements >= X. README does not say which; not counted as a bug"
+ml/Ada/Backpropagation,pass,"gradients match finite differences of 1/2 sum of squares; Compute_Loss is the mean of squares, so Backward is N_Outputs / 2 times its gradient (consistent scale, not a bug)"
+ml/SPARK2/Linear-Regression,bug fixed,Predict truncated mean and slope separately (dd65b8ae / b816a12a)
+misc/SPARK2/Pattern-132,pass,
