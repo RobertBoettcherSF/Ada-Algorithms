@@ -95,14 +95,15 @@ begin
    end loop;
    Put_Line("     PASS");
 
-   -- TEST 10: DPCM Extreme Delta Clipping
-   Put_Line("TEST 10 - DPCM Overflow/Clipping Handling");
-   Put_Line("  10.1 Assert a delta > 32767 is clamped safely without Constraint_Error");
+   -- TEST 10: DPCM Extreme Deltas (wraparound, lossless)
+   Put_Line("TEST 10 - DPCM Overflow Handling");
+   Put_Line("  10.1 Assert a delta > 32767 wraps modulo 2**16 and still round-trips exactly");
    declare
-      Clipped : constant Buffer_16 := Encode_DPCM(Extreme_Buffer);
+      Wrapped : constant Buffer_16 := Encode_DPCM(Extreme_Buffer);
    begin
-      -- 32767 - (-32768) = 65535 (Clamped to 32767)
-      Assert (Clipped(2) = 32767, "DPCM max delta clamp failed");
+      -- 32767 - (-32768) = 65535 = -1 (mod 65536); -32768 - 32767 = 1 (mod 65536)
+      Assert (Wrapped = Buffer_16'(-32768, -1, 1), "DPCM extreme delta wraparound failed");
+      Assert (Decode_DPCM(Wrapped) = Extreme_Buffer, "DPCM extreme round trip failed");
       Put_Line("     PASS");
    end;
 

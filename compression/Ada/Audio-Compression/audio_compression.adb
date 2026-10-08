@@ -113,55 +113,31 @@ package body Audio_Compression is
    -- =========================================================================
    -- DPCM IMPLEMENTATION (Differential PCM)
    -- =========================================================================
+   --  Residues modulo 2**16, represented in PCM_16: the 16-bit difference of
+   --  two 16-bit samples always fits after wraparound, and adding it back with
+   --  the same wraparound restores the sample exactly (lossless).
+   function Wrap_16 (Value : Integer) return PCM_16 is
+     (PCM_16 (((Value + 32768) mod 65536) - 32768));
+
    function Encode_DPCM (Input : Buffer_16) return Buffer_16 is
       Result : Buffer_16 (Input'Range);
-      Previous_Sample : Integer := 0;
-      Diff : Integer;
+      Previous_Sample : PCM_16 := 0;
    begin
-      -- Edge Case: Empty buffer
-      if Input'Length = 0 then
-         return Result;
-      end if;
-
       for I in Input'Range loop
-         -- Calculate difference using wider type to prevent overflow
-         Diff := Integer(Input(I)) - Previous_Sample;
-         
-         -- Clamp difference to fit in 16-bit PCM limit (introduces loss on extreme deltas)
-         if Diff > 32767 then Diff := 32767;
-         elsif Diff < -32768 then Diff := -32768;
-         end if;
-         
-         Result(I) := PCM_16(Diff);
-         Previous_Sample := Integer(Input(I));
+         Result(I) := Wrap_16 (Integer(Input(I)) - Integer(Previous_Sample));
+         Previous_Sample := Input(I);
       end loop;
-      
       return Result;
    end Encode_DPCM;
 
    function Decode_DPCM (Input : Buffer_16) return Buffer_16 is
       Result : Buffer_16 (Input'Range);
-      Previous_Sample : Integer := 0;
-      Current_Val : Integer;
+      Previous_Sample : PCM_16 := 0;
    begin
-      -- Edge Case: Empty buffer
-      if Input'Length = 0 then
-         return Result;
-      end if;
-
       for I in Input'Range loop
-         -- Reconstruct by adding difference to previous sample
-         Current_Val := Integer(Input(I)) + Previous_Sample;
-         
-         -- Clamp to prevent overflow on reconstruction
-         if Current_Val > 32767 then Current_Val := 32767;
-         elsif Current_Val < -32768 then Current_Val := -32768;
-         end if;
-         
-         Result(I) := PCM_16(Current_Val);
-         Previous_Sample := Current_Val;
+         Result(I) := Wrap_16 (Integer(Input(I)) + Integer(Previous_Sample));
+         Previous_Sample := Result(I);
       end loop;
-      
       return Result;
    end Decode_DPCM;
 

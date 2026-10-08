@@ -37,7 +37,8 @@ package Audio_Compression is
    -- =========================================================================
    -- VARIANT 3: DIFFERENTIAL PULSE-CODE MODULATION (DPCM)
    -- The predictive foundation for lossless codecs (FLAC/ALAC) and some lossy.
-   -- Stores the difference between consecutive samples.
+   -- Stores the difference between consecutive samples, modulo 2**16, so
+   -- Decode_DPCM (Encode_DPCM (X)) = X for every buffer (no clipping).
    -- =========================================================================
    function Encode_DPCM (Input : Buffer_16) return Buffer_16;
    function Decode_DPCM (Input : Buffer_16) return Buffer_16;
