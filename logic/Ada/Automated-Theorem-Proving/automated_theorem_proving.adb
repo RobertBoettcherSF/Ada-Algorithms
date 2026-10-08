@@ -286,9 +286,17 @@ package body Automated_Theorem_Proving is
       and then (for all L of B => Contains_Literal (A, L)));
 
    function Is_Satisfiable_DP_Resolution (Formula : CNF_Formula) return Boolean is
-      Current_F : CNF_Formula := Formula;
+      Current_F : CNF_Formula;
       Max_V     : Variable_ID := 1;
    begin
+      --  Tautological input clauses are always true and are dropped: kept,
+      --  a clause (V or not V or A) went into S_Pos and resolving it with
+      --  (not V) produced the unsound resolvent (A).
+      for C of Formula loop
+         if not Is_Tautology (C) then
+            Current_F.Append (C);
+         end if;
+      end loop;
 
       --  Find maximum variable to eliminate
       for C of Current_F loop
