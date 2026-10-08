@@ -8,8 +8,8 @@ Monorepo of small Ada and SPARK algorithm folders (educational sheets). MIT lice
 | Headline (written by `make proof-index`) | Folders |
 |---|---:|
 | Algorithm folders (duplicates counted once) | 1837 |
-| Silver-proven, non-trivial (not stubs, more than 3 checks) | 506 |
-| Training-ready (answers checked; rule in PROOFS.md) | 259 |
+| Silver-proven, non-trivial (not stubs, more than 3 checks) | 494 |
+| Training-ready (answers checked; rule in PROOFS.md) | 250 |
 | Open findings (`tools/vv/findings.csv`) | 0 |
 <!-- proof-index:end -->
 

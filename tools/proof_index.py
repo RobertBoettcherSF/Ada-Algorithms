@@ -103,6 +103,9 @@ def silver(fid, has_spark, built):
 
 # folders named *-Stub that were generalised (arbitrary length, real algorithm): no longer counted as stubs
 GEN_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'generalised_stubs.txt')
+# folders whose README calls them a stub although the name does not end in -Stub
+README_STUB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'readme_stubs.txt')
+README_STUBS = {l.split('\t')[0].strip() for l in open(README_STUB_FILE) if l.strip() and not l.startswith('#')} if os.path.exists(README_STUB_FILE) else set()
 GEN = set(l.strip() for l in open(GEN_FILE) if l.strip() and not l.startswith('#')) if os.path.exists(GEN_FILE) else set()
 rows = []
 texts = {}
@@ -126,7 +129,7 @@ for topic, lev, alg, p in folders:
                      checks='', functional_checks='', trivial='',
                      proof_run=('steps=%s' % S[fid].get('steps') if fid in S else (('steps=%s' % P[fid]['steps']) if P.get(fid, {}).get('steps') else ('level2-timeout' if fid in P else ''))) if has_spark else '',
                      proof_gpr=(P.get(fid, {}).get('gpr', '') + (' (generated)' if P.get(fid, {}).get('how') == 'generated' else '')) if has_spark else '',
-                     shared_sources=' '.join(b.get('shared', [])), stub=('yes' if re.search(r'(^|-)stub$', alg, re.I) and fid not in GEN else ''), generalised=('yes' if fid in GEN else ''), pair='', duplicate_of=''))
+                     shared_sources=' '.join(b.get('shared', [])), stub=('yes' if (re.search(r'(^|-)stub$', alg, re.I) and fid not in GEN) or fid in README_STUBS else ''), generalised=('yes' if fid in GEN else ''), pair='', duplicate_of=''))
     texts[fid] = pkg_text(p)
 
 for r in rows:
@@ -247,11 +250,11 @@ L = ['# Proof index', '',
      '`python3 tools/proof_index.py --results <dir> --logs <prove-workdir>` (see `tools/audit/`).',
      'Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder\'s own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build\'s test binary exits 0 with no FAIL lines.',
      'Silver: `gnatprove --mode=silver --level=2` on the folder\'s own .gpr (generated where none exists).', '',
-     f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
+     f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub or README says stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
      f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).", '',
      f"**Do-nothing check:** {c(lambda r: r['do_nothing'] in ('ok', 'weak') or r['do_nothing'].startswith('unchecked'))} folders checked, {c(lambda r: r['do_nothing']=='weak')} flagged weak (tests still pass when the main subprogram does nothing), {c(lambda r: r['do_nothing'].startswith('unchecked'))} unchecked (no trivial body compiles); {c(lambda r: r['do_nothing']=='weak' and r['silver']=='proven' and not r['trivial'] and not r['stub'])} of the weak ones are Silver-proven non-trivial. Own tests: {c(lambda r: r['own_tests']=='yes')} folders (column `own_tests`).", '',
      '**Silver headline (duplicates counted once):** ' + headline, '',
-     '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged; the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
+     '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged, and so is every folder listed in `tools/readme_stubs.txt` (its README calls it a stub); the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
      '| Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven (real) | Proven (stub) | Trivial | Unproved | Tool crash | Not built | Not run |',
      '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
 for lev in ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4', 'All'):
