@@ -2,6 +2,7 @@
 
 pragma Ada_2022;
 
+with Ada.Assertions;
 with Ada.Text_IO; use Ada.Text_IO;
 with Chinese_Whispers; use Chinese_Whispers;
 
@@ -115,10 +116,15 @@ begin
       Check (Raised, "self-loop raises Invalid_Argument");
 
       Raised := False;
+      --  Node 9 is outside G (3 nodes): the call breaks the precondition
+      --  A in G'Range and then B in G'Range. With assertions on (-gnata) the
+      --  precondition rejects it (Assertion_Error); with them off the body's
+      --  defensive check raises Invalid_Argument. Either is a rejection.
       begin
          Add_Undirected_Edge (G, 1, 9);
       exception
-         when Constraint_Error | Invalid_Argument => Raised := True;
+         when Constraint_Error | Invalid_Argument
+            | Ada.Assertions.Assertion_Error => Raised := True;
       end;
       Check (Raised, "out-of-range edge rejected");
 
@@ -131,7 +137,10 @@ begin
             null;
          end;
       exception
-         when Constraint_Error | Invalid_Argument => Raised := True;
+         --  Same as above: precondition N in G'Range (with -gnata) or the
+         --  body's check (without).
+         when Constraint_Error | Invalid_Argument
+            | Ada.Assertions.Assertion_Error => Raised := True;
       end;
       Check (Raised, "Degree out of range rejected");
    end;
