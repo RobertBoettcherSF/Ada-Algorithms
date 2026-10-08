@@ -21,3 +21,9 @@ misc/Ada/Rete-Algorithm: naive enumeration of all fact tuples per rule prefix
   against beta memory sizes and activations.
 misc/Ada/Darwin-Godel-Machine: demo; brute-force maximum over the candidate list
   for the selection rule only.
+Phase 2 (2026-10-08 evening), all expected values derived independently of program output:
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm, misc/Ada/Hindley-Milner-Type-System: random type-directed term generation (well-typed by construction over base types A, B); the inferred type must match the generating type by one-way matching written here; embedding a self-application (y y) of a lambda-bound y must be rejected. HM-TS also: variable rendering checked exhaustively for Ids 0 .. 20000 against digits built without 'Image.
+misc/Ada/Rete-Algorithm: capacity limits from the declared constants (Max_Nodes = 100, 8 facts per token): 100 succeed, the 101st raises Network_Full; removal from full memories; 10 x 10 cross join = 100 tokens, 9 x 9 = 81 after removing one of the facts.
+logic/Ada/Verified-Unification-Engine: symbols that share a variable's letter; constant vs function kind clashes; missing arguments on both sides; stale and cyclic hand-built environments must terminate without exceptions; a 20-binding chain built by Unify (a term unifies with itself, by definition). Proved: Unify never changes an existing binding to a pool term (gnatprove level 2).
+misc/Ada/Conflict-Driven-Clause-Learning: Solve_Instrumented counters with bounds derived from the options (Restarts * interval <= Conflicts; no deletion below the limit; kept learned clauses <= max (limit, variables + 1)).
+logic/Ada/Automated-Theorem-Proving: complete sign-pattern clause sets over 1 .. 3 of 4 variables (UNSAT), each minus one clause (SAT).
