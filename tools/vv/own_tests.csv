@@ -158,3 +158,4 @@ misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval,brute-force count for eve
 misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,own list of all 2^19 sums of distinct powers of three; every value to 2*10^6; 200000 random lookups to 10^9
 misc/SPARK2/Ada-SPARK-Binary-Watch,definition 60*H+M and validity; every reading (720)
 misc/SPARK2/Ada-SPARK-Add-Binary,own reference (A + B) mod 2^8; every pair of 8-bit values (65536)
+misc/SPARK2/Ada-SPARK-Broken-Calculator,own breadth-first search over 0..64 (double / decrement); every start and target in 1..32
