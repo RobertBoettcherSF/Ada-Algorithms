@@ -166,11 +166,11 @@ package Shading with SPARK_Mode => On is
 
    function Magnitude (V : Vector_3D) return Distance_Value;
 
-   function Normalize (V : Vector_3D) return Vector_3D with
-     Pre => Magnitude_Squared (V) > 0.0;
+   --  A zero vector raises Zero_Vector_Error (no Pre: the exception is
+   --  the contract, and a Pre would turn it into Assertion_Error).
+   function Normalize (V : Vector_3D) return Vector_3D;
 
-   function Reflect (Light_Dir, Normal : Vector_3D) return Vector_3D with
-     Pre => Magnitude_Squared (Normal) > 0.0;
+   function Reflect (Light_Dir, Normal : Vector_3D) return Vector_3D;
 
    function Make_Color (R, G, B : Real) return Color_RGB;
 
@@ -203,8 +203,7 @@ package Shading with SPARK_Mode => On is
       Normal      : Vector_3D;
       View_Pos    : Vector_3D;
       Mat         : Material;
-      Lights      : Light_Array) return Color_RGB with
-     Pre => Magnitude_Squared (Normal) > 0.0;
+      Lights      : Light_Array) return Color_RGB;
 
    --  ======================================================================
    --  Barycentric Interpolation Helpers
@@ -222,9 +221,9 @@ package Shading with SPARK_Mode => On is
       W       : Barycentric_Weights) return Color_RGB;
 
    --  Compute triangle surface face normal
-   function Triangle_Face_Normal (Tri : Triangle) return Vector_3D with
-     Pre => Magnitude_Squared (Cross_Product (Tri.V1.Position - Tri.V0.Position,
-                                              Tri.V2.Position - Tri.V0.Position)) > 0.0;
+   --  A degenerate triangle (collinear vertices) raises
+   --  Degenerate_Geometry_Error.
+   function Triangle_Face_Normal (Tri : Triangle) return Vector_3D;
 
    --  ======================================================================
    --  Variant 1: Flat Shading
@@ -236,9 +235,7 @@ package Shading with SPARK_Mode => On is
      (Tri      : Triangle;
       Mat      : Material;
       View_Pos : Vector_3D;
-      Lights   : Light_Array) return Color_RGB with
-     Pre => Magnitude_Squared (Cross_Product (Tri.V1.Position - Tri.V0.Position,
-                                              Tri.V2.Position - Tri.V0.Position)) > 0.0;
+      Lights   : Light_Array) return Color_RGB;
 
    --  ======================================================================
    --  Variant 2: Gouraud Shading
@@ -251,10 +248,7 @@ package Shading with SPARK_Mode => On is
       Mat      : Material;
       Weights  : Barycentric_Weights;
       View_Pos : Vector_3D;
-      Lights   : Light_Array) return Color_RGB with
-     Pre => (Magnitude_Squared (Tri.V0.Normal) > 0.0 and then
-             Magnitude_Squared (Tri.V1.Normal) > 0.0 and then
-             Magnitude_Squared (Tri.V2.Normal) > 0.0);
+      Lights   : Light_Array) return Color_RGB;
 
    --  ======================================================================
    --  Variant 3: Phong Shading
@@ -268,10 +262,7 @@ package Shading with SPARK_Mode => On is
       Mat      : Material;
       Weights  : Barycentric_Weights;
       View_Pos : Vector_3D;
-      Lights   : Light_Array) return Color_RGB with
-     Pre => (Magnitude_Squared (Tri.V0.Normal) > 0.0 and then
-             Magnitude_Squared (Tri.V1.Normal) > 0.0 and then
-             Magnitude_Squared (Tri.V2.Normal) > 0.0);
+      Lights   : Light_Array) return Color_RGB;
 
    --  ======================================================================
    --  Variant 4: Deferred Shading
@@ -288,8 +279,7 @@ package Shading with SPARK_Mode => On is
       Mat      : Material;
       Depth    : Real) with
      Pre => (X in Buffer'Range (1) and then
-             Y in Buffer'Range (2) and then
-             Magnitude_Squared (Normal) > 0.0);
+             Y in Buffer'Range (2));
 
    procedure Deferred_Lighting_Pass
      (Buffer   : in G_Buffer;

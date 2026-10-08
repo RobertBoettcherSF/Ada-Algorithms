@@ -336,7 +336,16 @@ begin
          for J in Ls'Range loop
             Ls (J) := Rand_Light (Light_Kind'Val (Rand (4)));
          end loop;
-         Expect (Same (Shade_Flat (T, M, View, Ls), Sum_Lights (Centroid (T), Face_Normal (T), View, M, Ls)), "flat = model at centroid");
+         declare
+            Flat : Color_RGB;
+         begin
+            Flat := Shade_Flat (T, M, View, Ls);
+            Expect (Same (Flat, Sum_Lights (Centroid (T), Face_Normal (T), View, M, Ls)), "flat = model at centroid");
+         exception
+            when Degenerate_Geometry_Error =>
+               Expect (Mag (Cross (T.V1.Position - T.V0.Position, T.V2.Position - T.V0.Position)) = 0.0,
+                       "flat shading rejected a non-degenerate triangle");
+         end;
          Expect (Same (Shade_Gouraud (T, M, Wt, View, Ls),
                        [for K in 1 .. 3 =>
                           U * To_F (Evaluate_Lighting (T.V0.Position, T.V0.Normal, View, M, Ls)) (K)
