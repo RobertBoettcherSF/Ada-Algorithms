@@ -1,0 +1,15 @@
+Float-to-integer index draws, 2026-10-09.
+
+Fixed: the index comes from the LCG high bits (rejection, then State / (Bound / Span)). A supplied unit sample uses Floor, and the maximum sample is the last bin by name. No Natural(U*Span) followed by a clamp.
+
+Done: K-Means-Clustering, K-Means-Plus-Plus (Draw_Index and the injected first center), Clustering-Algorithms, Ant-Colony-Optimization (Next_Index and the leftover-city pick), Cross-Entropy-Method, Differential-Evolution, Harmony-Search, Local-Search, Random-Restart-Hill-Climbing, Simulated-Annealing, Memetic-Algorithm, Evolution-Strategy, Evolutionary-Computation, Gene-Expression-Programming, Genetic-Algorithms, Metropolis-Light-Transport (bidirectional pixels from the Park-Miller state; primary-sample pixels by Floor, maximum sample in the last bin).
+
+Not this bug:
+- Aks-Primality-Test: Long_Float'Floor of a bound, not an index draw.
+- Amplitude-Amplification: Long_Float'Floor of a count.
+- Square-Root-Algorithms: Long_Float'Truncation of a scaled root.
+- Hough-Transform: a geometric rho bin, not a random index.
+- Shading own_checks: a falloff power converted to Natural.
+- Dynamic-Markov-Compression: integer counts scaled by a ratio.
+- MISER: Natural(N*Frac) rounds a sample count, off by at most one, not a 3:1 index.
+- Evolution-Strategy Mu_Used / Lambda_Used and Ant-Colony Ants_Used: configuration casts, not draws.
