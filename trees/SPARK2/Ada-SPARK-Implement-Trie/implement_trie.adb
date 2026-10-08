@@ -16,6 +16,9 @@ package body Implement_Trie with SPARK_Mode => On is
 
    procedure Insert (T : in out Trie; W : in Word) is
    begin
+      if Contains (T, W) then
+         return;   --  already present: idempotent, documented in the spec
+      end if;
       if T.Used < Max_Words then
          T.Used := T.Used + 1;
          T.Words (T.Used) := W;
