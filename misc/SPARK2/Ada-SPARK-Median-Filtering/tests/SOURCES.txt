@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own reference code written for this repository (MIT);
+nothing is copied from the program's output or from third-party test suites.
+
+* Definition used (from the spec comment): 3x3 window with edge
+  replication, median = 5th of the nine samples.
+* Own reference: for each target pixel, every image pixel is weighted by the
+  number of window positions that land on it after border replication
+  (product of per-axis hit counts), and the median is the smallest value v
+  with at least five weighted samples <= v. No sorting, no index clamping
+  helpers shared with the code.
+* Inputs: an ascending and a descending ramp with distinct values, 300
+  random images over 0 .. 255 and 300 over {0, 100, 200} (Park-Miller
+  minimal standard generator, seed 20261008).

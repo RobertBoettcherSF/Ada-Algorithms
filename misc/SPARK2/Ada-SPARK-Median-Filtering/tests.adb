@@ -2,6 +2,7 @@ pragma Ada_2022;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Text_IO; use Ada.Text_IO;
 with Median_Filtering; use Median_Filtering;
+with Own_Checks;
 procedure Tests is
    Uniform : constant Image := [others => [others => 42]];
    Out_I   : Image;
@@ -40,4 +41,5 @@ begin
    Put_Line ("PASS patterned 3x3 median");
 
    Put_Line ("All Median_Filtering tests passed.");
+   Own_Checks;
 end Tests;
