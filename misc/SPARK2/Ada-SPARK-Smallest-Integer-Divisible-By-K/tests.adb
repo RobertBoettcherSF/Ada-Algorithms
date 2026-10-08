@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Smallest_Integer_Divisible_By_K; use Smallest_Integer_Divisible_By_K;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -8,4 +9,5 @@ begin
    Assert (Smallest_Length (3) = 3);
    Assert (Smallest_Length (7) = 6);
    Assert (Smallest_Length (9) = 9);
+   Own_Checks;
 end Tests;

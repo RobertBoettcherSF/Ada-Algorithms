@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own reference code written for this repository (MIT);
+nothing is copied from the program's output or from third-party test suites.
+
+* Convention (README and original test): the length of the smallest repunit
+  1, 11, 111, ... divisible by K, or 0 when none exists.
+* Own reference (elementary number theory): R(n) = (10**n - 1) / 9, so
+  K | R(n) iff 9K | 10**n - 1 iff 10**n = 1 (mod 9K). For gcd (K, 10) = 1
+  the answer is the multiplicative order of 10 modulo 9K, found by stepping
+  through the powers of 10 mod 9K; for K even or a multiple of 5 no repunit
+  qualifies (repunits are odd and end in 1). Checked for every K in 1 .. 50.
