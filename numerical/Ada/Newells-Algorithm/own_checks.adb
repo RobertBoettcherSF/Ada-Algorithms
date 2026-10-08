@@ -438,6 +438,18 @@ begin
         "boxes that meet at an edge are not disjoint");
       Note (Test_2_XY_Box_Disjoint (P, Slab (5, 0.0, 3.0, 0.0, 1.0)),
         "a gap of 2 in X is disjoint");
+      --  Gap of exactly the 1.0e-7 literal is not strict separation.
+      declare
+         Left  : constant Polygon := Slab (6, 0.0, 0.0, 0.0, 1.0);
+         Right : constant Polygon := Slab (7, 0.0, 1.0 + 1.0e-7, 0.0, 1.0);
+         Below : constant Polygon := Slab (8, 0.0, 0.0, 0.0, 1.0);
+         Above : constant Polygon := Slab (9, 0.0, 0.0, 1.0, 1.0);
+      begin
+         Note (not Test_2_XY_Box_Disjoint (Right, Left),
+           "an X gap of exactly 1.0e-7 is not disjoint");
+         Note (not Test_2_XY_Box_Disjoint (Below, Above),
+           "boxes that meet on Y are not disjoint");
+      end;
    end;
 
    --  Test 5 against an independent crossing test and an interior point.
@@ -476,6 +488,32 @@ begin
          Note (Own_Before (List (I - 1), List (I)),
            "adaptive order draws the farther slab first");
       end loop;
+   end;
+
+   declare
+      List : Polygon_List;
+      Face : constant Polygon := Slab (1, 0.0, 0.0, 0.0, 2.0);
+      Pierce : constant Vertex_Array (1 .. 4) :=
+        [(0.4, -0.5, -1.0), (0.4, 2.5, -1.0), (1.6, 2.5, 1.0), (1.6, -0.5, 1.0)];
+      Q : constant Polygon := Make_Polygon (2, Pierce);
+      Splits : Natural := 0;
+      function Has (List : Polygon_List; X : Polygon_Id) return Boolean is
+      begin
+         for I in 1 .. Natural (List.Length) loop
+            if List (I).Id = X then
+               return True;
+            end if;
+         end loop;
+         return False;
+      end Has;
+   begin
+      List.Append (Face);
+      List.Append (Q);
+      Sort_Polygons_Adaptive (List, Max_Splits => 1, Splits_Performed => Splits);
+      Note (Splits = 1, "the piercing pair takes one split when the budget is 1");
+      Note ((Has (List, 1) and then Has (List, 21) and then Has (List, 22))
+        or else (Has (List, 2) and then Has (List, 11) and then Has (List, 12)),
+        "the split ids are 10 * parent + 1 and 10 * parent + 2");
    end;
 
    --  A split of the piercing quad must introduce the midpoint of its first edge.
