@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: the square (0,0) (10,0) (10,10) (0,10) contains (5,5) but not
+  (15,5), by hand.
+* Own reference: the winding number (non-zero = inside) computed with exact
+  integer cross products, a different method from the even-odd ray casting
+  in the code; the two agree for simple polygons. Query points on the
+  boundary are skipped (the README does not define them). Simplicity is
+  checked by the test (no two non-adjacent edges meet, no repeated
+  consecutive vertex, non-zero area).
+* Inputs: 4,000 random simple triangles and quadrilaterals (half of them in a
+  13x13 box, so collinear and axis-parallel edges are common, half in
+  -100 .. 100), 60 random query points each; 2,000 random 1- and 2-vertex
+  "polygons" must contain nothing.

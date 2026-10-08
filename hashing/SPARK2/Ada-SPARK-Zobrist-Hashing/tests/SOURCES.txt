@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: "abc" and "acb" hash differently and the empty text hashes to
+  0, by hand.
+* Own properties (the Zobrist construction the README describes): the hash
+  of a text is the XOR of one key per (position, character) pair, where the
+  key does not depend on the other characters - measured through the
+  public Hash as Hash (filler prefix & C) xor Hash (filler prefix); changing
+  exactly one character always changes the hash; at every position every
+  pair of printable characters has distinct keys. The keys themselves are
+  not restated (they are the code's choice).
+* Inputs: 20,000 random texts of length 0 .. 16 (half over printable ASCII,
+  half over a, b, c), and every position x every pair of printable
+  characters.
