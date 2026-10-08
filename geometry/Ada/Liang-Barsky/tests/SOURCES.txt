@@ -1,0 +1,18 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Clipping: each segment is sampled at 4,001 evenly spaced parameters and
+  every sample is tested against the window with plain coordinate
+  comparisons (Long_Float); the first and last inside samples bound the
+  expected clipped piece and parameters (tolerance: two sample spacings).
+  Liang_Barsky_Clip, Liang_Barsky_Clip_Params and Cohen_Sutherland_Clip are
+  all compared with this reference. 20,000 seeded random cases (Park-Miller,
+  seed 20261008): integer windows, endpoints on a half-integer grid, so
+  edges are often touched or run along.
+* Helpers against their definitions: Point_Inside_Window inclusive within
+  Epsilon (exactly Epsilon counts, as in Near's abs (A - B) <= Tol), windows
+  need positive width and height, vector operators, Dot, Length (squared
+  length), Near / Near_Point, Same_Clipped_Segment as undirected endpoints.
+* tests.adb: exit status is now nonzero when a check fails (the final
+  pragma Assert is ignored without -gnata), and the inverted-window test
+  also accepts the precondition failure raised under -gnata.
+Nothing is taken from the program's output or from third-party test suites.

@@ -4,6 +4,9 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Liang_Barsky; use Liang_Barsky;
+with Ada.Command_Line;
+with Ada.Assertions;
+with Own_Checks;
 
 procedure Tests is
 
@@ -52,6 +55,7 @@ procedure Tests is
    end Status_Agree;
 
 begin
+   Own_Checks;
    Put_Line ("Liang_Barsky test suite");
    Put_Line ("=======================");
 
@@ -100,7 +104,7 @@ begin
       exception
          when Invalid_Argument =>
             Raised := True;
-         when Constraint_Error =>
+         when Constraint_Error | Ada.Assertions.Assertion_Error =>   --  the Pre, when checked (-gnata)
             Raised := True;
       end;
       Check (Raised, "Make_Window inverted X raises");
@@ -381,5 +385,7 @@ begin
    New_Line;
    Put_Line ("Results: " & Pass_Count'Image & " passed, "
              & Fail_Count'Image & " failed");
-   pragma Assert (Fail_Count = 0);
+   if Fail_Count /= 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;
