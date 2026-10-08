@@ -6,8 +6,8 @@
 --
 --  SPARK port of Ada-Gnome-Sort: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
---  sibling allows arbitrary A'First and raises on oversized n; this port
---  requires A'First = 1 and uses Pre => In_Bounds (A). Full multiset /
+--  sibling raises on oversized n; this port takes any A'First in
+--  1 .. Max_N and uses Pre => In_Bounds (A). Full multiset /
 --  permutation equality is verified by tests rather than claimed as a
 --  Level-4 postcondition (sortedness is proved).
 --
@@ -29,23 +29,31 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Live indices lie in 1 .. Max_N (any A'First); Index includes 0 so
+   --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
 
-   type Element_Array is array (Positive range <>) of Integer;
+   --  Live slots; the index subtype carries the 1 .. Max_N origin range,
+   --  In_Bounds adds the length.
+   subtype Live_Index is Positive range 1 .. Max_N;
+
+   type Element_Array is array (Live_Index range <>) of Integer;
 
    ---------------------------------------------------------------------------
    -- Shape / sortedness guards (expression functions — usable in contracts)
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (A'Length <= 1
+      or else (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
@@ -56,11 +64,11 @@ is
    -- Algorithm sketch (classic gnome / stupid sort / Wikipedia)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Build a sorted prefix from left to right.
-   --  For each index I from 2 through A'Last (the new "pot"):
-   --    Let Pos := I. While Pos > 1 and A(Pos) < A(Pos-1):
+   --  For each index I from A'First + 1 through A'Last (the new "pot"):
+   --    Let Pos := I. While Pos > A'First and A(Pos) < A(Pos-1):
    --      swap A(Pos) with A(Pos-1); Pos := Pos - 1.
    --    (Otherwise advance — equals use `>=` / do not swap back.)
-   --  After the outer step for I, the prefix A(1 .. I) is sorted.
+   --  After the outer step for I, the prefix A(A'First .. I) is sorted.
    --  This is insertion sort via adjacent swaps (garden-gnome steps).
    --  Empty and singleton arrays are no-ops.
    --  Do not `with` sibling Ada-* packages.

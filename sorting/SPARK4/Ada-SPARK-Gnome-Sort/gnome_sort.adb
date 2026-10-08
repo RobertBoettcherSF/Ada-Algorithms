@@ -18,7 +18,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    procedure Swap (A : in out Element_Array; X, Y : Index)
@@ -26,14 +26,14 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
+         and then X in A'Range
+         and then Y in A'Range,
        Post   =>
          In_Bounds (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
-           (for all K in 1 .. A'Last =>
+           (for all K in A'Range =>
               (if K /= X and then K /= Y then A (K) = A'Old (K)))
    is
       T : Integer;
@@ -46,28 +46,28 @@ is
       A (Y) := T;
    end Swap;
 
-   --  Bubble A(I) left into the sorted prefix A(1 .. I-1) by adjacent
-   --  swaps, yielding sorted A(1 .. I). Strict A(Pos) < A(Pos-1) keeps
+   --  Bubble A(I) left into the sorted prefix A(A'First .. I-1) by adjacent
+   --  swaps, yielding sorted A(A'First .. I). Strict A(Pos) < A(Pos-1) keeps
    --  equal-key order (stable-ish gnome advance on >=).
    procedure Gnome_Step (A : in out Element_Array; I : Index)
      with
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then I in 2 .. A'Last
-         and then Sorted_Slice (A, 1, I - 1),
+         and then I in A'First + 1 .. A'Last
+         and then Sorted_Slice (A, A'First, I - 1),
        Post   =>
          In_Bounds (A)
-         and then Sorted_Slice (A, 1, I)
+         and then Sorted_Slice (A, A'First, I)
          and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K))
    is
       Pos : Index := I;
    begin
       --  Key sits at Pos. Left of Pos is sorted; right of Pos up to I
       --  are the bumped predecessors (all > Key, sorted).
-      while Pos > 1 and then A (Pos) < A (Pos - 1) loop
-         pragma Loop_Invariant (Pos in 2 .. I);
-         pragma Loop_Invariant (Sorted_Slice (A, 1, Pos - 1));
+      while Pos > A'First and then A (Pos) < A (Pos - 1) loop
+         pragma Loop_Invariant (Pos in A'First + 1 .. I);
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, Pos - 1));
          pragma Loop_Invariant (Sorted_Slice (A, Pos + 1, I));
          pragma Loop_Invariant
            (for all K in Pos + 1 .. I => A (K) > A (Pos));
@@ -81,14 +81,14 @@ is
          Pos := Pos - 1;
       end loop;
 
-      pragma Assert (Pos in 1 .. I);
-      pragma Assert (Sorted_Slice (A, 1, Pos - 1));
+      pragma Assert (Pos in A'First .. I);
+      pragma Assert (Sorted_Slice (A, A'First, Pos - 1));
       pragma Assert (Sorted_Slice (A, Pos + 1, I));
       pragma Assert (for all K in Pos + 1 .. I => A (K) > A (Pos));
-      pragma Assert (Pos = 1 or else A (Pos - 1) <= A (Pos));
-      pragma Assert (if Pos > 1 then A (Pos - 1) <= A (Pos));
+      pragma Assert (Pos = A'First or else A (Pos - 1) <= A (Pos));
+      pragma Assert (if Pos > A'First then A (Pos - 1) <= A (Pos));
       pragma Assert (if Pos < I then A (Pos) <= A (Pos + 1));
-      pragma Assert (Sorted_Slice (A, 1, I));
+      pragma Assert (Sorted_Slice (A, A'First, I));
    end Gnome_Step;
 
    procedure Sort (A : in out Element_Array) is
@@ -97,14 +97,14 @@ is
          return;
       end if;
 
-      pragma Assert (Sorted_Slice (A, 1, 1));
+      pragma Assert (Sorted_Slice (A, A'First, A'First));
 
-      for I in 2 .. A'Last loop
+      for I in A'First + 1 .. A'Last loop
          Gnome_Step (A, I);
 
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, 1, I));
-         pragma Loop_Invariant (Is_Sorted (A (1 .. I)));
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, I));
+         pragma Loop_Invariant (Is_Sorted (A (A'First .. I)));
          pragma Loop_Invariant
            (for all K in I + 1 .. A'Last =>
               A (K) = A'Loop_Entry (K));

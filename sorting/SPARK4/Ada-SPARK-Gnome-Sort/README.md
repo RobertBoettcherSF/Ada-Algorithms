@@ -7,7 +7,7 @@ $$
 \text{best } O(n),\quad \text{average/worst } O(n^2),\quad \text{extra space } O(1)
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Gnome-Sort](https://github.com/RobertBoettcherSF/Ada-Gnome-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape and insertion-style prefix proof: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Gnome-Sort](https://github.com/RobertBoettcherSF/Ada-Gnome-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`); this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape and insertion-style prefix proof: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
 
 ## Features
 * **`Sort (A)`**: Classic in-place ascending gnome (stupid) sort via adjacent swaps.
@@ -19,7 +19,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Gnome-Sort](https:/
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $10\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Nested `Gnome_Step` (adjacent-swap bubble of $A(I)$ into the sorted prefix) plus `pragma Loop_Invariant` / `Loop_Variant` so the swap loop and outer prefix growth are discharged at Level 4 — same proof shape as insertion sort, but with swaps instead of a shift hole.
 * Single-`Pos` while-loop of the sibling is expressed as a **bounded outer** `for I in 2 .. A'Last` plus an inner decreasing-`Pos` swap loop (equivalent insertion-via-swaps form of gnome sort).
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition (a simple ghost permutation lemma is not required here).
@@ -69,7 +69,7 @@ When you run `make test`, you will see all 242 assertions pass. Running `make pr
 | ------ | ---- |
 | `Element_Array` | `array (Positive range <>) of Integer` |
 | `Max_N` | Classroom capacity bound (`64`) |
-| `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
+| `In_Bounds` | `A'Length <= Max_N`, `A'First in 1 .. Max_N`, `A'Last in 0 .. Max_N` |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
 | `Sort` | Ascending in-place gnome sort (`Post => Is_Sorted`) |
 
