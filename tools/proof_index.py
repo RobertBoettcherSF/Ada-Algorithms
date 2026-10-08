@@ -71,6 +71,21 @@ for topic in sorted(os.listdir(R)):
             if os.path.isdir(p) and alg not in SKIP:
                 folders.append((topic, lev, alg, p))
 
+def proof_counts(fid):
+    """(total checks, functional-contract checks) from gnatprove.out of the run used, or (None, None)."""
+    logs = a.steps_logs if fid in S else a.logs
+    if not logs: return None, None
+    base = os.path.join(logs, fid.replace('/', '_'))
+    for dp, dn, fn in os.walk(base):
+        if 'gnatprove.out' in fn:
+            t = open(os.path.join(dp, 'gnatprove.out'), errors='replace').read()
+            m = re.search(r'^Total\s+(\d+)', t, re.M)
+            f = re.search(r'^Functional Contracts\s+(\d+|\.)', t, re.M)
+            return (int(m.group(1)) if m else 0), (int(f.group(1)) if f and f.group(1) != '.' else 0)
+    return None, None
+
+TRIVIAL_MAX = 3   # proven with <= this many checks -> 'trivial'
+
 def silver(fid, has_spark, built):
     if not has_spark: return 'no SPARK'
     j, logs = (S[fid], a.steps_logs) if fid in S else (P.get(fid), a.logs)
@@ -103,10 +118,18 @@ for topic, lev, alg, p in folders:
                      tests_pass_gnat14=tp14, tests_pass_gnat12=tp12,
                      warnings_gnat14=b.get('w14', ''), warnings_gnat12=b.get('w12', ''),
                      silver=(silver(fid, has_spark, ok('u14')) if has_mode or not has_spark else 'skipped (no SPARK_Mode)'),
+                     checks='', functional_checks='', trivial='',
                      proof_run=('steps=%s' % S[fid].get('steps') if fid in S else ('level2-timeout' if fid in P else '')) if has_spark else '',
                      proof_gpr=(P.get(fid, {}).get('gpr', '') + (' (generated)' if P.get(fid, {}).get('how') == 'generated' else '')) if has_spark else '',
                      shared_sources=' '.join(b.get('shared', [])), stub=('yes' if re.search(r'(^|-)stub$', alg, re.I) else ''), pair='', duplicate_of=''))
     texts[fid] = pkg_text(p)
+
+for r in rows:
+    if r['silver'] == 'proven':
+        t, f = proof_counts(r['folder'])
+        if t is not None:
+            r['checks'], r['functional_checks'] = t, f
+            r['trivial'] = 'yes' if t <= TRIVIAL_MAX else ''
 
 # duplicates: identical package sources (comments/whitespace ignored) or same name+level with >=90% similar text
 by_hash = collections.defaultdict(list)
@@ -150,6 +173,13 @@ def c(pred, rs=uniq): return sum(1 for r in rs if pred(r))
 import datetime
 tool = open(a.tool_info).read().strip() if a.tool_info and os.path.exists(a.tool_info) else '(tool info not given)'
 reran = sorted(S)
+real = [r for r in uniq if not r['stub'] and r['silver'] not in ('no SPARK',)]
+headline = (f"{c(lambda r: r['silver']=='proven' and not r['stub'] and not r['trivial'])} real SPARK folders proven non-trivially, "
+            f"{c(lambda r: r['silver']=='proven' and not r['stub'] and r['trivial']=='yes')} proven but trivial (<= {TRIVIAL_MAX} checks), "
+            f"{c(lambda r: r['silver']=='proven' and bool(r['stub']))} stubs proven (separate), "
+            f"{c(lambda r: r['silver'].endswith('unproved'))} with unproved checks, {c(lambda r: r['silver'] in ('tool crash','timeout'))} gnatprove tool crash/timeout, "
+            f"{c(lambda r: r['silver']=='not built')} not built for gnatprove, {c(lambda r: r['silver']=='not run')} not run; "
+            f"{c(lambda r: r['silver']=='proven' and not r['stub'] and (r['functional_checks'] or 0) > 0)} proven real folders also prove functional contracts")
 L = ['# Proof index', '',
      f'Generated {datetime.datetime.now().astimezone():%Y-%m-%d %H:%M %Z}.', '',
      '## Proof setup', '', '```', tool, '```', '',
@@ -161,19 +191,21 @@ L = ['# Proof index', '',
      'Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder\'s own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build\'s test binary exits 0 with no FAIL lines.',
      'Silver: `gnatprove --mode=silver --level=2` on the folder\'s own .gpr (generated where none exists).', '',
      f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
-     '| Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven | Unproved | Not built/crash | Not run |',
-     '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
+     '**Silver headline (duplicates counted once):** ' + headline, '',
+     '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged; the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
+     '| Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven (real) | Proven (stub) | Trivial | Unproved | Tool crash | Not built | Not run |',
+     '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
 for lev in ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4', 'All'):
     s = [r for r in uniq if lev == 'All' or r['level'] == lev]
     if not s: continue
     L.append(f"| {lev} | {len(s)} | {c(lambda r: r['make_test']=='yes', s)} | {c(lambda r: r['build_gnat14']=='yes', s)} | {c(lambda r: r['build_gnat12']=='yes', s)} | "
              f"{c(lambda r: r['tests_pass_gnat14']=='yes', s)} | {c(lambda r: r['tests_pass_gnat12']=='yes', s)} | "
              f"{c(lambda r: str(r['warnings_gnat14'])=='0' and r['build_gnat14']=='yes', s)} | {c(lambda r: str(r['warnings_gnat12'])=='0' and r['build_gnat12']=='yes', s)} | "
-             f"{c(lambda r: r['silver']=='proven', s)} | {c(lambda r: r['silver'].endswith('unproved'), s)} | "
-             f"{c(lambda r: r['silver'] in ('not built','tool crash','timeout'), s)} | {c(lambda r: r['silver']=='not run', s)} |")
-L += ['', '| Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Pair | Duplicate of |', '|---|---|---|---|---|---|---|---|---|---|---|']
+             f"{c(lambda r: r['silver']=='proven' and not r['stub'], s)} | {c(lambda r: r['silver']=='proven' and bool(r['stub']), s)} | {c(lambda r: r['trivial']=='yes', s)} | "
+             f"{c(lambda r: r['silver'].endswith('unproved'), s)} | {c(lambda r: r['silver'] in ('tool crash','timeout'), s)} | {c(lambda r: r['silver']=='not built', s)} | {c(lambda r: r['silver']=='not run', s)} |")
+L += ['', '| Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Checks (func) | Pair | Duplicate of |', '|---|---|---|---|---|---|---|---|---|---|---|---|']
 for r in rows:
     L.append(f"| {r['folder']}{' (stub)' if r['stub'] else ''} | {r['make_test']} | {r['build_gnat14']} | {r['build_gnat12']} | {r['tests_pass_gnat14']} | {r['tests_pass_gnat12']} | "
-             f"{r['warnings_gnat14']} | {r['warnings_gnat12']} | {r['silver']} | {r['pair']} | {r['duplicate_of']} |")
+             f"{r['warnings_gnat14']} | {r['warnings_gnat12']} | {r['silver']}{' (trivial)' if r['trivial'] else ''} | {r['checks']}{' (%s)' % r['functional_checks'] if r['functional_checks'] else ''} | {r['pair']} | {r['duplicate_of']} |")
 open(os.path.join(R, 'PROOFS.md'), 'w').write('\n'.join(L) + '\n')
 print(f'{len(rows)} folders, {len(rows)-len(uniq)} duplicates, {npairs} pairs')
