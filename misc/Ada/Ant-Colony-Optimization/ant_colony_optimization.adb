@@ -76,18 +76,28 @@ is
       return Lo + Real (U) * (Hi - Lo);
    end Next_Uniform;
 
+   --  Offset in 0 .. Span-1 from the high bits. The incomplete residue
+   --  class is rejected. No float, so there is no rounded last bin.
+   function Offset_In
+     (State : in out RNG_State; Span : Positive) return Natural
+   is
+      Sp     : constant RNG_State := RNG_State (Span);
+      Bound  : constant RNG_State := (RNG_State'Last / Sp) * Sp;
+      Bucket : constant RNG_State := Bound / Sp;
+   begin
+      loop
+         State := State * Multiplier + Increment;
+         exit when State < Bound;
+      end loop;
+      return Natural (State / Bucket);
+   end Offset_In;
+
    function Next_Index
      (State : in out RNG_State; Lo, Hi : City_Index) return City_Index
    is
-      Span : constant Natural := Natural (Hi - Lo) + 1;
-      U    : constant Unit_Interval := Next_Unit (State);
-      K    : Natural;
+      Span : constant Positive := Natural (Hi - Lo) + 1;
    begin
-      K := Natural (Real (U) * Real (Span));
-      if K >= Span then
-         K := Span - 1;
-      end if;
-      return City_Index (Natural (Lo) + K);
+      return City_Index (Natural (Lo) + Offset_In (State, Span));
    end Next_Index;
 
    ---------------------------------------------------------------------------
@@ -148,7 +158,7 @@ is
       end if;
       for I in T'Range loop
          C := T (I);
-         if Natural (C) < 1 or else Natural (C) > N then
+         if Natural (C) > N then
             return False;
          end if;
          if Seen (Positive (C)) then
@@ -391,10 +401,7 @@ is
 
          if not Chosen then
             Rem_Count := Natural (N) - Visit_Count;
-            Pick := Natural (Real (Next_Unit (State)) * Real (Rem_Count));
-            if Pick >= Rem_Count then
-               Pick := Rem_Count - 1;
-            end if;
+            Pick := Offset_In (State, Rem_Count);
             K := 0;
             for C in 1 .. N loop
                if not Is_Visited (C, Visited, Visit_Count) then
