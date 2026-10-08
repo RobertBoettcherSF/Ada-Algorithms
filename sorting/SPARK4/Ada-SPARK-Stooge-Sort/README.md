@@ -53,7 +53,7 @@ Using $t = \lfloor L/3 \rfloor$ makes the recursive span $L - t = \lceil 2L/3 \r
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 195 assertions pass. Running `make prove` reports `Success: all checks proved (423 checks).` (also at `--mode=silver --level=2`)
+When you run `make test`, you will see all 195 assertions pass, followed by the own checks (2,468 sort calls). Running `make prove` reports `Success: all checks proved (423 checks).` (the same at `--mode=silver --level=2`).
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, signed domain, tiny lengths only ($n \le 16$).

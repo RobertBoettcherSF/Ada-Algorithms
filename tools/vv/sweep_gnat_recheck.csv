@@ -33,3 +33,5 @@ sorting/SPARK4/Ada-SPARK-Strand-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks:
 sorting/SPARK4/Ada-SPARK-Strand-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 9833 sort calls (nondecreasing + occurrence counts)",964faf23
 sorting/SPARK4/Ada-SPARK-Patience-Sorting,GNAT 14,GNATLS 14.2.0,0,0,"Results:  238 PASS; 0 FAIL",b857ff07
 sorting/SPARK4/Ada-SPARK-Patience-Sorting,GNAT 12,GNATLS 12.2.0,0,0,"Results:  238 PASS; 0 FAIL",b857ff07
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 2468 sort calls (nondecreasing + occurrence counts),d81b2d5b
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 2468 sort calls (nondecreasing + occurrence counts),d81b2d5b
