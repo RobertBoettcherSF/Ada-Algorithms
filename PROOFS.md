@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 18:34 CEST.
+Generated 2026-10-08 18:36 CEST.
 
 ## Proof setup
 
@@ -26,7 +26,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 **Training-ready: 267 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).
 
-**Do-nothing check:** 1708 folders checked, 35 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 237 folders (column `own_tests`).
+**Do-nothing check:** 1708 folders checked, 35 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 0 of the weak ones are Silver-proven non-trivial. Own tests: 239 folders (column `own_tests`).
 
 **Silver headline (duplicates counted once):** 483 real SPARK folders proven non-trivially, 305 proven but trivial (<= 3 checks), 143 stubs proven (separate), 3 with unproved checks, 10 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 143 proven real folders also prove functional contracts
 
@@ -42,7 +42,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 ## V&V (validation) results
 
-Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 237 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
+Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 239 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
 
 | Folder | Differential test | Mutation (killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |
 |---|---|---|---|---|---|---|
@@ -109,6 +109,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/Ada/Selection-Algorithm | agree (vs misc/SPARK4/Ada-SPARK-Selection-Algorithm, 1000 cases) |  |  |  | ok | diff agree |
 | misc/Ada/Truncated-Binary-Encoding |  |  |  | own code properties (lengths; prefix-free; complete) + decode round trips; N in 2 .. 200 (sample_ada_30) | ok | own tests |
 | misc/Ada/Unicode-Collation-Algorithm |  |  |  |  | weak |  |
+| misc/Ada/Zero-Attribute-Rule |  |  |  | own mean/median/mode references (ties to smallest); 10000 random sets; empty -> Empty_Dataset_Error (sample_ada_30) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-3Sum-Closest |  |  |  | own enumeration of all triples (result is a triple sum at minimal distance); 4000 random arrays; lengths 0..2 rejected | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Add-Binary |  |  |  | own reference (A + B) mod 2^8; every pair of 8-bit values (65536) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Add-Without-Plus |  |  |  | own integer addition; every operand pair (40401) | ok | own tests |
@@ -270,6 +271,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | numerical/SPARK4/Ada-SPARK-Mersenne-Twister | agree (vs numerical/Ada/Mersenne-Twister, 1000 cases) |  |  |  | ok | diff agree |
 | numerical/SPARK4/Binary-Gcd | agree (vs numerical/Ada/Binary-GCD, 1000 cases) |  |  |  | ok | diff agree |
 | parsing/Ada/Cyk-Algorithm |  |  |  |  | weak |  |
+| parsing/Ada/Recursive-Descent-Parser |  |  |  | random expression trees vs own tree evaluation; Is_Valid; 20000 expressions (sample_ada_30) | ok | own tests |
 | searching/Ada/Binary-Search | agree (vs searching/SPARK4/Ada-SPARK-Binary-Search, 1000 cases) |  |  | Find/Find_First/Find_Last vs own linear scan; 20000 sorted arrays with duplicates (sample_ada_30) | ok | own tests, diff agree |
 | searching/Ada/Breadth-First-Search |  |  |  | Shortest_Paths vs own unit-weight relaxation + Prev validity; 3000 digraphs (sample_ada_30) | ok | own tests |
 | searching/Ada/Fibonacci-Search | agree (vs searching/SPARK4/Ada-SPARK-Fibonacci-Search, 1000 cases) |  |  |  | ok | diff agree |

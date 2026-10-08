@@ -236,3 +236,5 @@ searching/Ada/Breadth-First-Search,Shortest_Paths vs own unit-weight relaxation 
 misc/Ada/Median-Filtering,Process_1D vs own replicated-window median; 5000 signals; odd kernels (sample_ada_30)
 misc/Ada/Truncated-Binary-Encoding,own code properties (lengths; prefix-free; complete) + decode round trips; N in 2 .. 200 (sample_ada_30)
 misc/Ada/Division-Algorithms,truncating-division identities on all 8-bit pairs; Schoolbook and float methods on random inputs (sample_ada_30)
+misc/Ada/Zero-Attribute-Rule,own mean/median/mode references (ties to smallest); 10000 random sets; empty -> Empty_Dataset_Error (sample_ada_30)
+parsing/Ada/Recursive-Descent-Parser,random expression trees vs own tree evaluation; Is_Valid; 20000 expressions (sample_ada_30)

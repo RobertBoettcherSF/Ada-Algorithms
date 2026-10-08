@@ -15,3 +15,5 @@ searching/Ada/Breadth-First-Search,pass,own tests,vs own relaxation; 3000 graphs
 misc/Ada/Median-Filtering,pass,own tests,vs own windowed median; 5000 signals (eb04c3c1)
 misc/Ada/Truncated-Binary-Encoding,pass,own tests,own code properties; N 2 .. 200 (eb04c3c1)
 misc/Ada/Division-Algorithms,pass,own tests,division identities; 321118 cases (ebeabaf6)
+misc/Ada/Zero-Attribute-Rule,pass,own tests,mean/median/mode references; 30001 cases (a278d294)
+parsing/Ada/Recursive-Descent-Parser,pass,own tests,random expression trees; 20000 cases (a278d294)
