@@ -173,3 +173,5 @@ misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,Bounded_Buffer vs own FIFO model; 500 r
 misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,own prefix-closure reference on letter strings; 30000 random dictionaries (sample_30)
 misc/SPARK2/Ada-SPARK-PN-Counter,own model: value = sum P - sum N; merge = componentwise max; commutative/idempotent; 20000 random replica pairs (sample_30)
 misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences,own search over all push/pop interleavings; 20000 random cases with distinct values (sample_30)
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,own exhaustive search over palindromic cuts; all words of length 4 over 3 letters and N = 0 .. 4 (sample_30)
+misc/SPARK2/Ada-SPARK-Queue-Using-Stacks,own FIFO model on 500 random runs plus full/empty rejection checks (sample_30)

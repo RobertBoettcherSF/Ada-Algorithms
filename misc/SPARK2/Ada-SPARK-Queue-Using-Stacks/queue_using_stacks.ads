@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 
 package Queue_Using_Stacks is
+   pragma Assertion_Policy (Pre => Check);
    Capacity : constant := 4;
    subtype Count is Natural range 0 .. Capacity;
    subtype Value is Integer range -100 .. 100;

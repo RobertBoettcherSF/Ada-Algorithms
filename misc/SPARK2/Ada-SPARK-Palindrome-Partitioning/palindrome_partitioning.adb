@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 package body Palindrome_Partitioning is
    function Is_Palindrome (A : Word; First, Last : Positive) return Boolean
@@ -14,7 +15,7 @@ package body Palindrome_Partitioning is
 
    --  Pieces (I) = fewest palindromic pieces covering A (1 .. I); the answer is Pieces (N) - 1 cuts.
    function Minimum_Cuts (A : Word; N : Length) return Length is
-      Pieces : array (0 .. 4) of Length := (others => 0);
+      Pieces : array (0 .. 4) of Length := [others => 0];
    begin
       if N = 0 then
          return 0;

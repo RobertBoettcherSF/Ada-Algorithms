@@ -33,3 +33,5 @@ misc/SPARK2/Ada-SPARK-Car-Pooling,"Feasible ignored Pickup/Dropoff and compared 
 misc/SPARK2/Ada-SPARK-3Sum-Closest,"Length 0..2 (no triple) answered with 0 instead of rejected (own tests)",fixed,b06276da,84cebc73
 misc/SPARK2/Ada-SPARK-Combination-Sum-III,"Count_Choices returned 1 for every feasible (K; N); 86 of 460 counts wrong (own tests)",fixed,f4760003,bbeae5b8
 misc/SPARK2/Ada-SPARK-Beautiful-Arrangement,"Is_Beautiful accepted values above N that are multiples of their position, e.g. N = 1, A (1) = 2 (own tests)",fixed,dd3dbfb0,ad654347
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,"Minimum_Cuts returned N - 1 for every non-palindrome, e.g. 1 1 2 needs 1 cut not 2 (own tests; random sample sample_30.txt)",fixed,31b9084c,3223108e
+misc/SPARK2/Ada-SPARK-Queue-Using-Stacks,"Enqueue on a full queue dropped the value, Dequeue/Front on an empty queue answered silently (own tests; random sample sample_30.txt)",fixed,f910897c,59fc17da
