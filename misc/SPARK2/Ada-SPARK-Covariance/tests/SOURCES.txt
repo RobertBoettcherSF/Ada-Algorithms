@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's tests (tests.adb, own_checks.adb)
+=================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* Definition (population covariance of three values): 1/3 * sum over I of
+  (A (I) - mean A) * (B (I) - mean B), truncated toward zero.
+* own_checks.adb: computed with integer deviations, 27 * covariance =
+  sum (3 A (I) - sum A) * (3 B (I) - sum B), then divided by 27 (Ada
+  division truncates toward zero). Inputs: every A in 0 .. 10 per component
+  (1331 vectors) times B from 0, 3, 6, 9, 10 per component (125 vectors).
