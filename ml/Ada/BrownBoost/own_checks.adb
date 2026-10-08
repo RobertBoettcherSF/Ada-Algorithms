@@ -27,6 +27,10 @@ procedure Own_Checks is
    Checked  : Natural := 0;
    Rounds   : Natural := 0;
    Solved   : Natural := 0;
+   --  per variant: rounds whose step conserves the potential at an inner t
+   --  (the named solver's own result), and end-of-range rounds
+   Inner_By : array (Solver_Variant) of Natural := [others => 0];
+   Ends_By  : array (Solver_Variant) of Natural := [others => 0];
 
    procedure Expect (Cond : Boolean; What : String) is
    begin
@@ -199,16 +203,99 @@ procedure Own_Checks is
                         Scale := Scale + Exp (-((R (I) + Alpha * Z (I) + U) ** 2) / C);
                      end loop;
                      Solved := Solved + 1;
+                     Inner_By (Variant) := Inner_By (Variant) + 1;
                      Expect (abs F1 <= 1.0E-3 * Scale + 1.0E-9,
                              What & " orthogonality fails at the potential-conserving t, round" & K'Image
                              & " residual" & F1'Image & " scale" & Scale'Image & " alpha" & Alpha'Image);
                   else
-                     --  no t in [0, s] conserves the potential: only a final
-                     --  step (t = s, the time runs out) is allowed then
-                     U := 0.0;
-                     Expect (K = M.Size, What & " no t in [0, s] conserves the potential, but training went on, round"
-                             & K'Image & " alpha" & Alpha'Image & " s" & S'Image);
-                     Stop := True;
+                     --  no t in [0, s] conserves the potential for this alpha.
+                     --  Then the step must sit at the end of the time range
+                     --  that comes closest: U = 0 (t = s, the time runs out;
+                     --  only as the last round) when the potential is too low
+                     --  everywhere, U = s (t = 0, the 0.0001 minimum) when it
+                     --  is too high everywhere; and alpha must be the
+                     --  orthogonality root at that U (own doubling + bisection).
+                     declare
+                        At_Zero : constant Boolean := V (0.0) < 0.0;
+                        A_Own   : Long_Float;
+                        Unbounded : Boolean := False;
+                        function F1_At (A : Long_Float) return Long_Float is
+                           Sum : Long_Float := 0.0;
+                        begin
+                           for I in X'Range (1) loop
+                              Sum := Sum + Z (I) * Exp (-((R (I) + A * Z (I) + (if At_Zero then 0.0 else S)) ** 2) / C);
+                           end loop;
+                           return Sum;
+                        end F1_At;
+                        A_Lo : Long_Float := 0.0;
+                        A_Hi : Long_Float := 1.0;
+                     begin
+                        if F1_At (0.0) <= 0.0 then
+                           A_Own := 0.0;
+                        else
+                           while F1_At (A_Hi) > 0.0 loop
+                              A_Hi := A_Hi * 2.0;
+                              if A_Hi > 1000.0 then
+                                 Unbounded := True;
+                                 exit;
+                              end if;
+                           end loop;
+                           for It in 1 .. 200 loop
+                              exit when Unbounded;
+                              if F1_At ((A_Lo + A_Hi) / 2.0) > 0.0 then
+                                 A_Lo := (A_Lo + A_Hi) / 2.0;
+                              else
+                                 A_Hi := (A_Lo + A_Hi) / 2.0;
+                              end if;
+                           end loop;
+                           A_Own := (A_Lo + A_Hi) / 2.0;
+                        end if;
+                        declare
+                           U_End : constant Long_Float := (if At_Zero then 0.0 else S);
+                           Res, Sc : Long_Float := 0.0;
+                        begin
+                           for I in X'Range (1) loop
+                              Res := Res + Z (I) * Exp (-((R (I) + Alpha * Z (I) + U_End) ** 2) / C);
+                              Sc := Sc + Exp (-((R (I) + Alpha * Z (I) + U_End) ** 2) / C);
+                           end loop;
+                           --  orthogonality at the end point; once every term has
+                           --  underflowed (alpha beyond ~ 20 sqrt c) the equation
+                           --  has no finite root and any such alpha is the limit
+                           --  no finite root: F1 > 0 at alpha = 0 and as alpha grows
+                           --  (the slowest-decaying Gaussian factors, smallest
+                           --  z_i (r_i + U), belong to more correct than wrong
+                           --  examples); then any alpha on the positive side is
+                           --  as good as the solver can do
+                           declare
+                              Min_Lin : Long_Float := Long_Float'Last;
+                              Lead    : Long_Float := 0.0;
+                           begin
+                              for I in X'Range (1) loop
+                                 Min_Lin := Long_Float'Min (Min_Lin, Z (I) * (R (I) + U_End));
+                              end loop;
+                              for I in X'Range (1) loop
+                                 if Z (I) * (R (I) + U_End) <= Min_Lin + 1.0E-12 then
+                                    Lead := Lead + Z (I);
+                                 end if;
+                              end loop;
+                              if Lead > 0.0 and then F1_At (0.0) > 0.0 and then Res >= 0.0 then
+                                 Unbounded := True;
+                              end if;
+                           end;
+                           Expect (abs Res <= 1.0E-3 * Sc + 1.0E-300 or else Unbounded,
+                                   What & " end-of-range step: alpha" & Alpha'Image & " is not an orthogonality root at U = "
+                                   & (if At_Zero then "0" else "s") & " (own root" & A_Own'Image & "), round" & K'Image);
+                        end;
+                        Ends_By (Variant) := Ends_By (Variant) + 1;
+                        if At_Zero then
+                           U := 0.0;
+                           Expect (K = M.Size, What & " potential too low for every t, but training went on, round"
+                                   & K'Image & " alpha" & Alpha'Image & " s" & S'Image);
+                           Stop := True;
+                        else
+                           U := S;
+                        end if;
+                     end;
                   end if;
                   T := S - U;
                   if T < 0.0001 then
@@ -310,9 +397,15 @@ begin
       Expect (Predict (Empty, [1 => 0.0]) = Label_Negative, "empty model predicts negative");
    end;
    Expect (Rounds > 1_000 and then Solved > 500, "enough replayed rounds:" & Rounds'Image & Solved'Image);
+   for V in Solver_Variant loop
+      Expect (Inner_By (V) > 300 and then Ends_By (V) > 10,
+              V'Image & " inner / end-of-range rounds:" & Inner_By (V)'Image & Ends_By (V)'Image);
+   end loop;
    if Failures > 0 then
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
       raise Program_Error with "own checks failed";
    end if;
-   Put_Line ("PASS own checks:" & Checked'Image & " (" & Rounds'Image & " rounds replayed against Freund's equations)");
+   Put_Line ("PASS own checks:" & Checked'Image & " (" & Rounds'Image & " rounds replayed against Freund's equations;"
+             & " inner/end rounds bisection" & Inner_By (Bisection_Solver)'Image & Ends_By (Bisection_Solver)'Image
+             & ", newton" & Inner_By (Newton_Solver)'Image & Ends_By (Newton_Solver)'Image & ")");
 end Own_Checks;
