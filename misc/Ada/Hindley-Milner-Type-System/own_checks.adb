@@ -389,6 +389,7 @@ begin
    declare
       Env : Environment;
       function Infer_Env (S : String) return Type_Ref is (Algorithm_W (Ctx, Env, Parse (S)).T);
+      Let_Order_Cases : Natural := 0;
    begin
       Env.Insert (To_Unbounded_String ("one"), (Bound => Var_Sets.Empty_Set, T => Make_Const_Type ("Int")));
       Env.Insert (To_Unbounded_String ("tt"), (Bound => Var_Sets.Empty_Set, T => Make_Const_Type ("Bool")));
@@ -411,6 +412,53 @@ begin
                Fail ("(a) " & To_String (C.Term) & " rejected: " & Ada.Exceptions.Exception_Name (E));
          end;
       end loop;
+      --  Substitution order of let (hand-derived): in \f. let y = f E1 in
+      --  y E2 the let value fixes f : T1 -> b and the body fixes b : T2 -> c,
+      --  so the let must return the body's substitution composed AFTER the
+      --  value's: f : T1 -> (T2 -> c). Generated over E1, E2 in {one, tt}
+      --  and four body shapes (direct, K-pair, nested let, extra lambda g).
+      declare
+         subtype Base is Positive range 1 .. 2;   --  1 = one : Int, 2 = tt : Bool
+         Lit : constant array (Base) of Unbounded_String := [+"one", +"tt"];
+         Ty  : constant array (Base) of Unbounded_String := [+"Int", +"Bool"];
+      begin
+         for E1 in Base loop
+            for E2 in Base loop
+               declare
+                  A : constant String := To_String (Lit (E1));
+                  B : constant String := To_String (Lit (E2));
+                  F : constant String := "(" & To_String (Ty (E1)) & " -> (" & To_String (Ty (E2)) & " -> t0))";
+               begin
+                  for C of Pair_List'
+                    ((+("\f.let y = f " & A & " in y " & B), +("(" & F & " -> t0)")),
+                     (+("\f.let y = f " & A & " in (\a.\b.a) (y " & B & ") (y " & B & ")"), +("(" & F & " -> t0)")),
+                     (+("\f.let y = f " & A & " in let z = y " & B & " in z"), +("(" & F & " -> t0)")),
+                     (+("\f.\g.let y = f " & A & " in g (y " & B & ")"), +("(" & F & " -> ((t0 -> t1) -> t1))")))
+                  loop
+                     begin
+                        declare
+                           Got : constant String := Canonical (Infer_Env (To_String (C.Term)));
+                        begin
+                           if Got /= To_String (C.Want) then
+                              Fail ("let order " & To_String (C.Term) & ": inferred " & Got & ", expected " & To_String (C.Want));
+                           else
+                              Passed := Passed + 1;
+                              Let_Order_Cases := Let_Order_Cases + 1;
+                           end if;
+                        end;
+                     exception
+                        when E : others =>
+                           Fail ("let order " & To_String (C.Term) & " rejected: " & Ada.Exceptions.Exception_Name (E));
+                     end;
+                  end loop;
+               end;
+            end loop;
+         end loop;
+         Put_Line ("own checks: let substitution order:" & Let_Order_Cases'Image & " / 16 hand-derived cases");
+         if Let_Order_Cases /= 16 then
+            Fail ("let substitution order cases incomplete");
+         end if;
+      end;
       for S of Term_List'(+"\x.let y = x in (\a.\b.a) (y one) (y tt)",
                           +"\x.x x",
                           +"\f.let g = f in (\a.\b.a) (g one) (g tt)",
