@@ -7,5 +7,6 @@ package Gaussian_Elimination with SPARK_Mode => On is
    type Reduced_Matrix is array (Row, Column) of Long_Long_Integer;
 
    function Eliminate (Augmented : Input_Matrix) return Reduced_Matrix
-     with Global => null;
+     with Global => null,
+          Post => Eliminate'Result (2, 1) = 0;
 end Gaussian_Elimination;
