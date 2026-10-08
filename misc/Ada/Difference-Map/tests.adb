@@ -591,6 +591,7 @@ begin
       Put_Line ("ALL PASSED");
    elsif Fail_Count = 0 then
       Put_Line ("NO FAILURES (but Pass_Count < 80)");
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    else
       Put_Line ("SOME FAILURES");
    end if;

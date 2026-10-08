@@ -555,6 +555,7 @@ begin
       Put_Line("ALL TESTS PASSED - Code is correct despite pessimistic assumption!");
    else
       Put_Line("SOME TESTS FAILED - Code may have issues");
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 
 end Tests;

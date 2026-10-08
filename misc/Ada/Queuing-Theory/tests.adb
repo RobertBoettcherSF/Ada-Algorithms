@@ -522,6 +522,7 @@ begin
       Put_Line ("ALL TESTS PASSED");
    else
       Put_Line ("SOME TESTS FAILED");
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 
 end Tests;

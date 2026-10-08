@@ -269,7 +269,7 @@ misc/Ada/BCJR-Algorithm,Fail_Count,214,2,yes,,GNATMAKE 14.2.0
 misc/Ada/BHT-Algorithm,Fail_Count,195,2,yes,,GNATMAKE 14.2.0
 misc/Ada/BLAST,Fail_Count,662,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Baby-Step-Giant-Step,Fail_Count,587,2,yes,,GNATMAKE 14.2.0
-misc/Ada/Backtracking,Fail_Count,736,0,no,,GNATMAKE 14.2.0
+misc/Ada/Backtracking,Fail_Count,736,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Backward-Euler,Fail_Count,461,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Backward-Induction,Fail_Count,742,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Baillie-PSW,Fail_Count,282,2,yes,,GNATMAKE 14.2.0
@@ -309,14 +309,14 @@ misc/Ada/Buchbergers-Algorithm,Fail_Count,530,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Buddy-Memory-Allocation,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/Buechi-Automaton,Fail_Count,248,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Bully-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
-misc/Ada/Buzens-Algorithm,Fail_Count,578,0,no,,GNATMAKE 14.2.0
+misc/Ada/Buzens-Algorithm,Fail_Count,578,2,yes,,GNATMAKE 14.2.0
 misc/Ada/C4.5-Algorithm,Fail_Count,224,2,yes,,GNATMAKE 14.2.0
 misc/Ada/CHS-Conversion,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/Cannons-Algorithm,Fail_Count,412,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Chaitins-Algorithm,Fail_Count,185,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Chandra-Toueg,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/Chans-Algorithm,Fail_Count,625,2,yes,,GNATMAKE 14.2.0
-misc/Ada/Chase,Fail_Count,554,0,no,,GNATMAKE 14.2.0
+misc/Ada/Chase,Fail_Count,554,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Cheneys-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/Chews-Second-Algorithm,Fail_Count,570,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Chinese-Whispers,Fail_Count,629,2,yes,,GNATMAKE 14.2.0
@@ -374,7 +374,7 @@ misc/Ada/Discrete-Event-Simulation,Fail_Count,242,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Discrete-Fourier-Transformation,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/Discrete-Logarithm,Fail_Count,622,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Division-Algorithms,Fail_Count,545,2,yes,,GNATMAKE 14.2.0
-misc/Ada/Doomsday,Fail_Count,379,0,no,,GNATMAKE 14.2.0
+misc/Ada/Doomsday,Fail_Count,379,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Double-Dabble,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/Dynamic-Programming,Fail_Count,338,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Dynamic-Time-Warping,Fail_Count,340,2,yes,,GNATMAKE 14.2.0
@@ -580,7 +580,7 @@ misc/Ada/Nested-Sampling,Fail_Count,631,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Nesting-Algorithm,Fail_Count,497,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Newton-Multiplicative-Inverse,Fail_Count,472,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Newtons-Method,Fail_Count,508,2,yes,,GNATMAKE 14.2.0
-misc/Ada/Newtons-Method-in-Optimization,Fail_Count,574,0,no,,GNATMAKE 14.2.0
+misc/Ada/Newtons-Method-in-Optimization,Fail_Count,574,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Nicholl-Lee-Nicholl,Fail_Count,481,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Non-Local-Quantum-Computation,Fail_Count,182,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Non-Restoring-Division,Fail_Count,489,2,yes,,GNATMAKE 14.2.0
@@ -628,7 +628,7 @@ misc/Ada/Quantum-Counting-Algorithm,Fail_Count,209,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Quantum-Fourier-Transform,Fail_Count,244,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Quantum-Optimization-Algorithms,Fail_Count,248,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Quantum-Phase-Estimation-Algorithm,Fail_Count,194,2,yes,,GNATMAKE 14.2.0
-misc/Ada/Queuing-Theory,Fail_Count,521,0,no,,GNATMAKE 14.2.0
+misc/Ada/Queuing-Theory,Fail_Count,521,2,yes,,GNATMAKE 14.2.0
 misc/Ada/Quine-McCluskey-Algorithm,,,,n/a,no failure counter,GNATMAKE 14.2.0
 misc/Ada/RANSAC,Fail_Count,680,2,yes,,GNATMAKE 14.2.0
 misc/Ada/RIPEMD-160,Fail_Count,330,2,yes,,GNATMAKE 14.2.0
@@ -1437,7 +1437,7 @@ numerical/Ada/Levenberg-Marquardt,Fail_Count,596,2,yes,,GNATMAKE 14.2.0
 numerical/Ada/Linear-Congruential-Generator,Fail_Count,877,2,yes,,GNATMAKE 14.2.0
 numerical/Ada/Linear-Interpolation,Fail_Count,473,2,yes,,GNATMAKE 14.2.0
 numerical/Ada/Lucas-Primality-Test,Fail_Count,414,2,yes,,GNATMAKE 14.2.0
-numerical/Ada/MISER,Fail_Count,469,0,no,,GNATMAKE 14.2.0
+numerical/Ada/MISER,Fail_Count,469,2,yes,,GNATMAKE 14.2.0
 numerical/Ada/Mersenne-Twister,,,,n/a,no failure counter,GNATMAKE 14.2.0
 numerical/Ada/Metropolis-Hastings,Fail_Count,517,2,yes,,GNATMAKE 14.2.0
 numerical/Ada/Metropolis-Light-Transport,Fail_Count,233,2,yes,,GNATMAKE 14.2.0
