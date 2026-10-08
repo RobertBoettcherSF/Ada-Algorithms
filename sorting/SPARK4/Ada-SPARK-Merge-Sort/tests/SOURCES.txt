@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties written for this repository (MIT); nothing is
+copied from the program's output or from third-party test suites.
+
+* Property 1: the output is nondecreasing.
+* Property 2: every input value occurs in the output exactly as often as in
+  the input (occurrence counts by linear scans; no sorting in the check).
+  Together with equal lengths this is "same multiset".
+* Inputs: every array of length 0 .. 7 over {0, 1, 2} (3,280); every
+  permutation of 1 .. 7 (5,040, Heap's method); 1,500 random arrays of
+  random length 0 .. Max_N mixing Integer'First, Integer'Last, the whole
+  Integer range and -3 .. 3 (Park-Miller minimal standard generator, seed
+  20261008); full-length ascending, descending and alternating-extreme
+  arrays. Applied to: Merge_Sort.Sort.
