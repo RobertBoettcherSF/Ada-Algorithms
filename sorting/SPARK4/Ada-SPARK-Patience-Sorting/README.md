@@ -37,7 +37,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 238 assertions pass. Running `make prove` reports `Success: all checks proved (274 checks).`
+When you run `make test`, you will see all 238 assertions pass, then the own property checks (9,849 sort calls, see `tests/SOURCES.txt`). Running `make prove` reports `Success: all checks proved (274 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, patience/LIS-friendly patterns (sorted → few piles, reverse → many piles), signed domain, lengths up to `Max_N`.

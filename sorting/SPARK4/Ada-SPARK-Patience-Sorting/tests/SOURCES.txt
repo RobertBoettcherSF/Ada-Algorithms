@@ -1,0 +1,30 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the package; expected results come from an
+insertion-sort reference inside tests.adb, a permutation check, and
+hand-written literals.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-08):
+* Checked properties, independent of how the code sorts: the output is
+  nondecreasing, and every value occurs in the output exactly as often as in
+  the input (occurrence counts by linear scans; no sorting in the check).
+  Together with equal lengths this is "same multiset".
+* Inputs: every array of length 0 .. 7 over {0, 1, 2} (3,280); every
+  permutation of 1 .. 7 (5,040, Heap's method); 1,500 random arrays of
+  random length 0 .. Max_N mixing the tiny range 0 .. 2, Integer'First /
+  Integer'Last, small signed values, the whole Integer range and values
+  just below Integer'Last (Park-Miller minimal standard generator);
+  full-length descending, ascending, organ-pipe, one-small-at-the-end and
+  alternating Integer'First / Integer'Last arrays; full-length sawtooth,
+  interleaved descending runs and descending sawtooth arrays (periods
+  2 .. 9), which open many piles that empty out of order, so the merge
+  reuses emptied slots. Applied to: Patience_Sorting.Sort.
+* Named phase: Sort is only the deal + k-way merge now (the Bubble_Finish
+  fallback was removed), so every check above exercises the patience
+  phase alone.
+
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..."); set AA_SEED=<n> to run them with
+  another seed.

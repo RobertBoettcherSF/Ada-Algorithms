@@ -8,6 +8,7 @@ pragma Ada_2022;
 with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Patience_Sorting; use Patience_Sorting;
+with Own_Checks;
 
 procedure Tests
   with SPARK_Mode => Off
@@ -411,6 +412,9 @@ begin
    end;
    Expect_Sorted ([0], "zero singleton via Expect");
    Expect_Sorted ([-42], "neg singleton via Expect");
+
+   --  Own property checks (see tests/SOURCES.txt); raises on failure.
+   Own_Checks;
 
    New_Line;
    Put_Line
