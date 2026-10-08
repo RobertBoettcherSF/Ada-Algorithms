@@ -83,3 +83,4 @@ trees/SPARK2/Ada-SPARK-Implement-Trie,own exact-membership reference; 4000 rando
 trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST,own parent-climbing LCA on generated BSTs; 4000 random
 trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST,own parent-climbing LCA on generated BSTs; 4000 random
 trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree,own identical-subtree check (copied/absent patterns); 5000 random
+misc/SPARK2/Ada-SPARK-Mean-Variance,mean in [floor; ceil] of S/5 + population variance in [floor; ceil] of (5Q - S**2)/25; constant samples; all 3125 inputs (exhaustive)
