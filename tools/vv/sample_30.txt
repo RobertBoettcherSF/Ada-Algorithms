@@ -1,0 +1,40 @@
+# Random sample of 30 folders for own tests (unbiased bug-rate estimate)
+#
+# Population: rows of PROOFS.csv at f2737d30 with silver = proven, trivial != yes,
+# stub != yes, no duplicate_of, own_tests != yes and known_answer empty
+# (277 folders).
+# Pick: Python 3 random.Random(20261008).shuffle(sorted(population)), first 30.
+# Committed before any test was written; every folder below gets own tests
+# (or a recorded reason why it cannot be tested).
+#
+# seed: 20261008
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning
+misc/SPARK2/Ada-SPARK-Image-Smoother
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool
+misc/SPARK2/Ada-SPARK-Queue-Using-Stacks
+misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary
+misc/SPARK2/Ada-SPARK-PN-Counter
+misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences
+misc/SPARK2/Ada-SPARK-Robot-Return-To-Origin
+misc/SPARK2/Ada-SPARK-Rectangle-Area
+misc/SPARK2/Ada-SPARK-Nth-Ugly-Number
+misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite
+numerical/SPARK2/Ada-SPARK-Lagrange-Interpolation
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words
+misc/SPARK2/Ada-SPARK-Tribonacci
+misc/SPARK2/Ada-SPARK-Elevator-Algorithm
+misc/SPARK2/Ada-SPARK-Power-Of-Three
+misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite
+misc/SPARK2/Ada-SPARK-To-Lower-Case
+misc/SPARK2/Ada-SPARK-Longest-Ones
+trees/SPARK2/Ada-SPARK-Red-Black-Tree
+misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List
+misc/SPARK2/Ada-SPARK-Tanimoto
+misc/SPARK2/Ada-SPARK-Parity-Bits
+misc/SPARK2/Ada-SPARK-Water-Bottles
+misc/SPARK2/Ada-SPARK-Design-Bitset
+misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements
+ml/Ada/Backpropagation
+ml/SPARK2/Linear-Regression
+misc/SPARK2/Pattern-132
