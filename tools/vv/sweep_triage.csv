@@ -1,0 +1,1598 @@
+rank,folder,level,family,risk,clamp,early_exit,stub,first_match,demo_literal,warn_off,warn_off_tests,proof_escape,input_var,do_nothing,known_answer,stub_index,lib_lines,notes
+1,strings/Ada/String-Metrics,Ada,,25.0,2,5,0,3,1,0,0,0,ok,ok,,,356,first-match in Nat_Min; first-match in Nat_Max; first-match in Nat_Min3; demo literals 4
+2,misc/Ada/Nucleolus,Ada,,21.0,3,2,1,0,6,0,0,0,crash (check failed),ok,,,1023,demo literals 3 4 5 7 12 40
+3,misc/Ada/Simulated-Annealing,Ada,,20.0,4,0,0,2,0,0,0,0,ok,baseline fails,,,424,first-match in Minimize_1D; first-match in Minimize_TSP
+4,compression/Ada/Berlekamp-Root-Finding,Ada,,18.0,4,1,0,1,4,0,0,0,not driven,ok,,,825,first-match in Find_Roots_Deterministic_Small; demo literals 3 5 6 6364136223846793005
+5,geometry/Ada/Vatti,Ada,,18.0,2,9,0,0,0,0,0,0,not driven,weak,,,1214,
+6,numerical/Ada/Special-Number-Field-Sieve,Ada,,18.0,1,7,1,1,4,0,0,0,not driven,ok,,,786,first-match in Smallest_Prime_Factor; demo literals 3 5 6 12
+7,misc/Ada/Hidden-Subgroup-Problem,Ada,,17.75,2,1,0,0,3,0,3,0,crash (check failed),baseline fails,,,274,demo literals 3 4 5
+8,misc/Ada/Level-Set-Method,Ada,,17.0,8,2,0,0,1,0,0,0,not driven,baseline fails,,,167,demo literals 3
+9,misc/Ada/Marching-Squares,Ada,,17.0,3,3,0,0,2,0,0,0,ok,ok,,,798,demo literals 5 12
+10,misc/Ada/Wang-Landau,Ada,,17.0,3,2,1,0,2,0,0,0,ok,ok,,,566,demo literals 200 500
+11,misc/Ada/Bayesian-Nash-Equilibrium,Ada,,16.0,0,1,1,2,1,0,0,0,not driven,baseline fails,,,967,first-match in Is_Best_Response_For_Type_1; first-match in Is_Best_Response_For_Type_2; demo literals 12
+12,misc/Ada/Beam-Tracing,Ada,,16.0,5,4,0,0,1,0,0,0,not driven,ok,,,780,demo literals 5
+13,misc/Ada/Cross-Entropy-Method,Ada,,16.0,4,1,0,1,1,0,0,0,ok,ok,,,698,first-match in Minimize; demo literals 12
+14,misc/Ada/Photon-Mapping,Ada,,16.0,2,6,0,0,1,0,0,0,not driven,baseline does not build,,,477,demo literals 3
+15,misc/Ada/Unicode-Collation-Algorithm,Ada,,16.0,0,5,1,0,2,0,0,0,not driven,weak,,,116,demo literals 3 9
+16,misc/Ada/Variational-Method,Ada,,16.0,2,3,0,0,1,0,0,0,not driven,baseline fails,,,576,demo literals 9
+17,numerical/Ada/Dixon,Ada,,16.0,1,2,1,1,3,0,0,0,not driven,ok,,,653,first-match in Smallest_Prime_Factor; demo literals 3 5 6
+18,numerical/Ada/General-Number-Field-Sieve,Ada,,16.0,1,2,1,1,4,0,0,0,ok,ok,,,738,first-match in Smallest_Prime_Factor; demo literals 3 5 6 9
+19,numerical/Ada/Linear-Interpolation,Ada,,16.0,6,5,0,0,1,0,0,0,not driven,ok,,,462,demo literals 9
+20,numerical/Ada/Quadratic-Sieve,Ada,,16.0,1,2,1,1,3,0,0,0,not driven,ok,,,698,first-match in Smallest_Prime_Factor; demo literals 3 5 6
+21,searching/Ada/Trigram-Search,Ada,,16.0,7,3,0,0,1,0,0,0,ok,ok,,,176,demo literals 3
+22,geometry/Ada/Grabcut,Ada,,15.0,2,0,1,1,0,0,0,0,not driven,baseline fails,,,327,first-match in Solve_Max_Flow
+23,misc/Ada/Dice-Coefficient,Ada,,15.0,5,3,0,0,0,0,0,0,ok,ok,,,135,
+24,misc/Ada/Index-Calculus,Ada,,15.0,2,2,1,0,3,0,0,0,not driven,ok,,,727,demo literals 3 5 6
+25,misc/Ada/Painters-Algorithm,Ada,,15.0,5,6,0,0,0,0,0,0,not driven,ok,,,357,
+26,misc/Ada/Random-Restart-Hill-Climbing,Ada,,15.0,6,0,1,1,0,0,0,0,ok,ok,,,651,first-match in Random_Restart_Hamming
+27,misc/Ada/Speeded-Up-Robust-Features,Ada,,15.0,4,0,0,0,6,0,0,0,not driven,baseline fails,,,211,demo literals 3 4 5 6 7 9
+28,numerical/Ada/Lanczos-Resampling,Ada,,15.0,4,2,0,0,2,0,0,0,ok,ok,,,586,demo literals 4 9
+29,misc/Ada/Addition-Chain-Exponentiation,Ada,,14.0,0,8,0,1,1,0,0,0,crash (check failed),ok,,,428,first-match in Ensure_Shortest_Table; demo literals 12
+30,misc/Ada/Dynamic-Programming,Ada,,14.0,4,1,0,0,0,0,0,0,crash (check failed),ok,,,587,
+31,misc/Ada/Image-Based-Lighting,Ada,,14.0,7,0,0,0,2,0,0,0,crash (check failed),ok,,,579,demo literals 4 5
+32,misc/Ada/Stochastic-Tunneling,Ada,,14.0,4,0,1,0,0,0,0,0,ok,baseline fails,,,341,
+33,misc/Ada/System-of-Linear-Equations,Ada,,14.0,3,0,1,0,3,0,0,0,ok,ok,,,1018,demo literals 3 4 5
+34,numerical/Ada/Metropolis-Light-Transport,Ada,,14.0,8,2,0,0,1,0,0,0,not driven,ok,,,451,demo literals 3
+35,misc/SPARK4/Ada-SPARK-Lemke-Howson,SPARK4,,13.75,0,0,0,0,2,0,4,2,not driven,unchecked (main stillborn),,,259,demo literals 7 9
+36,compression/Ada/Audio-Compression,Ada,,13.0,8,2,0,0,0,0,0,0,ok,ok,,,123,
+37,matrices/Ada/Eigenvalue-Algorithms,Ada,,13.0,4,0,1,0,2,0,0,0,ok,ok,,,1638,demo literals 3 4
+38,misc/Ada/Crank-Nicolson,Ada,,13.0,3,1,0,0,2,0,0,0,not driven,ok,,,306,demo literals 3 6
+39,misc/Ada/Gene-Expression-Programming,Ada,,13.0,1,2,1,0,1,0,0,0,crash (check failed),ok,,,701,demo literals 99
+40,misc/Ada/Integer-Factorization,Ada,,13.0,0,2,1,1,4,0,0,0,not driven,ok,,,617,first-match in Smallest_Prime_Factor; demo literals 3 5 6 7
+41,misc/Ada/Minimax,Ada,,13.0,0,0,1,2,3,0,0,0,ok,ok,,,792,first-match in Alpha_Beta_Max; first-match in Alpha_Beta_Min; demo literals 4 5 6
+42,misc/Ada/Path-Tracing,Ada,,13.0,7,2,0,0,0,0,0,0,not driven,ok,,,538,
+43,parsing/Ada/LL-Parser,Ada,,13.0,1,2,0,0,6,0,0,0,ok,baseline fails,,,340,demo literals 3 4 5 6 7 9
+44,strings/Ada/Jaro-Winkler-Distance,Ada,,13.0,0,2,0,2,1,0,0,0,ok,ok,,,156,first-match in Nat_Max; first-match in Nat_Min; demo literals 4
+45,ml/Ada/Random-Forest,Ada,,12.25,2,2,1,0,0,0,1,0,not driven,ok,,,551,
+46,geometry/Ada/Weiler-Atherton,Ada,,12.0,2,7,0,0,0,0,0,0,not driven,ok,,,923,
+47,hashing/Ada/Geohash,Ada,,12.0,12,1,0,0,1,0,0,0,ok,ok,,,331,demo literals 5
+48,misc/Ada/Bayesian-Statistics,Ada,,12.0,10,0,0,0,3,0,0,0,ok,ok,,,584,demo literals 6 7 14
+49,misc/Ada/Contour-Lines,Ada,,12.0,7,1,0,0,1,0,0,0,not driven,ok,,,1073,demo literals 5
+50,misc/Ada/Global-Illumination,Ada,,12.0,11,1,0,0,1,0,0,0,not driven,ok,,,715,demo literals 5
+51,misc/Ada/Hybrid-Algorithms,Ada,,12.0,1,2,1,0,0,0,0,0,crash (check failed),ok,,,1079,
+52,misc/Ada/Marching-Tetrahedrons,Ada,,12.0,4,1,0,0,1,0,0,0,ok,ok,,,675,demo literals 12
+53,misc/Ada/Phonetic-Algorithms,Ada,,12.0,1,6,0,0,4,0,0,0,ok,ok,,,624,demo literals 3 4 5 6
+54,misc/Ada/Truncated-Binary-Exponential-Backoff,Ada,,12.0,5,0,0,0,0,0,0,0,crash (check failed),ok,,,198,
+55,misc/Ada/Velvet,Ada,,12.0,2,7,0,0,0,0,0,0,ok,ok,,,744,
+56,misc/Ada/arc-cache,Ada,,12.0,3,0,0,0,0,0,0,0,not driven,no tests,,,262,
+57,numerical/Ada/Gradient-Descent,Ada,,12.0,0,0,0,3,0,0,0,0,not driven,ok,,,702,first-match in Minimize; first-match in Maximize; first-match in Minimize_Momentum
+58,sorting/SPARK4/Ada-SPARK-Quantum-Sort,SPARK4,,12.0,2,4,0,0,3,0,0,0,not driven,ok,diff agree,,442,demo literals 4 23 57
+59,geometry/Ada/Gouraud-Shading,Ada,,11.0,52,0,0,0,2,0,0,0,not driven,ok,,,491,demo literals 7 9
+60,geometry/Ada/Isosurfaces,Ada,,11.0,13,1,0,0,0,0,0,0,ok,ok,,,1299,
+61,geometry/Ada/Marching-Cubes,Ada,,11.0,4,1,0,0,0,0,0,0,ok,ok,,,1171,
+62,geometry/Ada/Ray-Tracing,Ada,,11.0,23,0,0,0,2,0,0,0,not driven,ok,,,524,demo literals 6 12
+63,matrices/Ada/Matrix-Multiplication,Ada,,11.0,0,4,1,0,4,0,0,0,ok,ok,,,1444,demo literals 3 17 1969 1979
+64,matrices/Ada/Sparse-Matrix,Ada,,11.0,0,1,1,0,1,0,0,0,ok,weak,,,855,demo literals 3
+65,misc/Ada/Banzhaf-Power-Index,Ada,,11.0,0,0,1,0,6,0,0,0,ok,weak,,,752,demo literals 7 20 30 39 40 51
+66,misc/Ada/Chans-Algorithm,Ada,,11.0,1,3,0,0,2,0,0,0,not driven,ok,,,596,demo literals 3 5
+67,misc/Ada/Computer-Vision,Ada,,11.0,5,1,0,0,0,0,0,0,not driven,ok,,,169,
+68,misc/Ada/Correlated-Equilibrium,Ada,,11.0,0,1,0,2,1,0,0,0,not driven,ok,,,754,first-match in Is_Best_Response_Row; first-match in Is_Best_Response_Col; demo literals 40
+69,misc/Ada/Cyrus-Beck,Ada,,11.0,11,1,0,0,0,0,0,0,not driven,ok,,,638,
+70,misc/Ada/Differential-Evolution,Ada,,11.0,6,0,1,0,0,0,0,0,ok,ok,,,605,
+71,misc/Ada/Fortunes-Algorithm,Ada,,11.0,2,1,1,0,1,0,0,0,not driven,ok,,,96,demo literals 9
+72,misc/Ada/Ground-State,Ada,,11.0,2,1,0,0,0,0,0,0,ok,baseline fails,,,745,
+73,misc/Ada/Hidden-Surface-Removal,Ada,,11.0,16,1,0,0,0,0,0,0,not driven,ok,,,533,
+74,misc/Ada/NEF-Adaptive-OSC,Ada,,11.0,3,0,1,0,0,0,0,0,not driven,ok,,,249,
+75,misc/Ada/Poly1305,Ada,,11.0,1,0,1,0,9,0,0,0,not driven,baseline fails,,,230,demo literals 3 4 5 6 7 9
+76,misc/Ada/Quine-McCluskey-Algorithm,Ada,,11.0,0,6,1,0,0,0,0,0,crash (check failed),ok,,,307,
+77,misc/Ada/Yamartino-Method,Ada,,11.0,5,1,0,0,0,0,0,0,not driven,ok,,,387,
+78,misc/SPARK2/Ada-SPARK-House-Robber-II,SPARK2,,11.0,8,0,0,0,2,0,0,0,not driven,ok,,,26,demo literals 3 4
+79,misc/SPARK2/Ada-SPARK-N-th-Tribonacci,SPARK2,,11.0,3,1,0,0,0,0,0,0,not driven,ok,,,41,
+80,misc/SPARK2/Ada-SPARK-Paint-House-Stub,SPARK2,,11.0,3,1,2,0,0,0,0,0,not driven,ok,,yes,52,
+81,misc/SPARK2/Ada-SPARK-Tribonacci-Number,SPARK2,,11.0,3,1,0,0,0,0,0,0,not driven,ok,,,41,
+82,searching/Ada/Local-Search,Ada,,11.0,1,0,0,2,0,0,0,0,ok,ok,,,787,first-match in Is_Local_Optimum_Hamming; first-match in Iterated_Local_Search_Hamming
+83,searching/Ada/Random-Search,Ada,,11.0,8,1,0,0,0,0,0,0,ok,ok,,,492,
+84,compression/Ada/Deflate,Ada,,10.0,0,1,1,0,5,0,0,0,not driven,baseline fails,,,208,demo literals 3 4 5 258 65535
+85,geometry/Ada/Ambient-Occlusion,Ada,,10.0,22,0,0,0,1,0,0,0,not driven,ok,,,832,demo literals 3
+86,geometry/Ada/Liang-Barsky,Ada,,10.0,7,0,0,0,1,0,0,0,not driven,ok,,,361,demo literals 3
+87,geometry/Ada/Line-Segment-Intersection,Ada,,10.0,2,2,0,0,0,0,0,0,not driven,ok,,,737,
+88,geometry/Ada/Phong-Shading,Ada,,10.0,13,0,0,0,1,0,0,0,not driven,ok,,,487,demo literals 7
+89,graphs/Ada/Cliques,Ada,,10.0,0,3,0,1,0,0,0,0,not driven,ok,,,441,first-match in Find_Maximum_Clique
+90,matrices/Ada/SMAWK,Ada,,10.0,0,3,0,1,0,0,0,0,ok,ok,,,466,first-match in Is_Row_Minima_Monotone
+91,misc/Ada/A-Law-Algorithm,Ada,,10.0,5,0,0,0,1,0,0,0,ok,ok,,,125,demo literals 4
+92,misc/Ada/Cone-Tracing,Ada,,10.0,21,0,0,0,1,0,0,0,not driven,ok,,,566,demo literals 3
+93,misc/Ada/Espresso-Heuristic-Logic-Minimizer,Ada,,10.0,0,7,0,1,0,0,0,0,not driven,ok,,,219,first-match in Minimize_Iterative
+94,misc/Ada/Evolution-Strategy,Ada,,10.0,6,0,0,0,1,0,0,0,ok,ok,,,596,demo literals 12
+95,misc/Ada/Fibonacci-Coding,Ada,,10.0,0,3,0,0,1,0,0,0,crash (check failed),ok,,,158,demo literals 11
+96,misc/Ada/Scanline-Rendering,Ada,,10.0,12,0,0,0,1,0,0,0,not driven,ok,,,471,demo literals 6
+97,misc/Ada/Summed-Area-Table,Ada,,10.0,0,0,0,0,1,4,0,0,not driven,ok,,,142,demo literals 3
+98,misc/Ada/Thomas-Algorithm,Ada,,10.0,0,0,1,2,0,0,0,0,ok,ok,,,402,first-match in Is_Diagonally_Dominant; first-match in Is_Strictly_Diagonally_Dominant
+99,misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,SPARK2,,10.0,2,2,2,0,0,0,0,0,not driven,ok,,yes,52,
+100,ml/Ada/Expectation-Maximization,Ada,,10.0,14,0,0,0,1,0,0,0,not driven,ok,,,816,demo literals 4
+101,numerical/Ada/Biconjugate-Gradient,Ada,,10.0,1,3,0,0,1,0,0,0,ok,ok,,,507,demo literals 4
+102,numerical/Ada/MISER,Ada,,10.0,2,2,0,0,0,0,0,0,not driven,ok,,,339,
+103,trees/Ada/Embedded-Zerotree-Wavelet,Ada,,10.0,0,6,0,0,1,0,0,0,not driven,baseline fails,,,123,demo literals 4
+104,cryptography/Ada/Asymetric-Public-Key-Encryption,Ada,,9.75,0,0,0,0,3,1,4,0,ok,baseline fails,,,229,demo literals 3 5 6
+105,geometry/Ada/Shading,Ada,,9.75,30,0,0,0,0,0,3,0,not driven,ok,,,589,
+106,ml/Ada/Support-Vector-Machine,Ada,,9.75,2,0,1,0,1,0,4,0,not driven,ok,,,334,demo literals 5
+107,parsing/Ada/Cyk-Algorithm,Ada,,9.5,0,0,0,0,0,1,2,0,not driven,weak,,,288,
+108,compression/Ada/Dynamic-Markov-Compression,Ada,,9.0,7,0,0,0,0,0,0,0,not driven,ok,,,134,
+109,compression/Ada/LZ77-LZ78,Ada,,9.0,2,0,0,0,0,0,0,0,ok,baseline fails,,,206,
+110,compression/Ada/LZWL,Ada,,9.0,1,4,0,0,0,0,0,0,not driven,ok,,,339,
+111,cryptography/Ada/ChaCha20,Ada,,9.0,2,0,0,0,10,0,0,0,not driven,ok,,,177,demo literals 3 4 5 6 9 12
+112,geometry/Ada/Adaptive-Histogram-Equalization,Ada,,9.0,10,0,0,0,0,0,0,0,not driven,ok,,,187,
+113,geometry/Ada/Cohen-Sutherland,Ada,,9.0,5,0,0,0,0,0,0,0,not driven,ok,,,595,
+114,geometry/Ada/Dithering,Ada,,9.0,9,0,0,0,0,0,0,0,not driven,ok,,,263,
+115,geometry/Ada/Fast-Clipping,Ada,,9.0,9,0,0,0,0,0,0,0,not driven,ok,,,452,
+116,geometry/Ada/Slerp,Ada,,9.0,7,0,0,0,0,0,0,0,not driven,ok,,,380,
+117,geometry/Ada/Xiaolin-Wus-Line-Algorithm,Ada,,9.0,11,0,0,0,0,0,0,0,not driven,ok,,,556,
+118,logic/Ada/Chaff,Ada,,9.0,0,6,1,0,1,0,0,0,ok,ok,,,1096,demo literals 3
+119,logic/Ada/Davis-Putnam,Ada,,9.0,0,0,1,1,7,0,0,0,ok,ok,,,912,first-match in Eliminate_Variable; demo literals 3 4 5 6 7 9
+120,misc/Ada/Bankers-Algorithm,Ada,,9.0,0,3,0,0,0,0,0,0,ok,unchecked (main stillborn),,,719,
+121,misc/Ada/Barnes-Hut,Ada,,9.0,0,6,0,0,0,0,0,0,not driven,baseline fails,,,749,
+122,misc/Ada/Bees-Algorithm,Ada,,9.0,5,0,0,0,0,0,0,0,ok,ok,,,437,
+123,misc/Ada/Birkhoff-von-Neumann,Ada,,9.0,0,4,1,0,1,0,0,0,ok,ok,,,655,demo literals 3
+124,misc/Ada/Black-Scholes-Model,Ada,,9.0,2,0,0,0,3,0,0,0,not driven,ok,,,279,demo literals 3 4 5
+125,misc/Ada/Block-Truncation-Coding,Ada,,9.0,7,0,0,0,0,0,0,0,not driven,ok,,,127,
+126,misc/Ada/C4.5-Algorithm,Ada,,9.0,0,4,0,0,0,0,0,0,not driven,baseline fails,,,465,
+127,misc/Ada/Cheneys-Algorithm,Ada,,9.0,0,0,0,0,3,0,0,0,not driven,weak,,,402,demo literals 3 5 6
+128,misc/Ada/Chinese-Whispers,Ada,,9.0,0,4,0,0,0,0,0,0,ok,unchecked (main stillborn),,,499,
+129,misc/Ada/Combinatorial-Auction,Ada,,9.0,0,10,1,0,1,0,0,0,ok,ok,,,613,demo literals 3
+130,misc/Ada/Cone-Algorithm,Ada,,9.0,0,7,0,0,11,0,0,0,not driven,ok,,,434,demo literals 3 4 5 6 7 11
+131,misc/Ada/Congruence-Of-Squares,Ada,,9.0,0,0,1,1,3,0,0,0,not driven,ok,,,405,first-match in Smallest_Prime_Factor; demo literals 3 5 6
+132,misc/Ada/Coppersmith-Winograd,Ada,,9.0,0,2,1,0,6,0,0,0,ok,ok,,,828,demo literals 3 7 17 1969 1990 2010
+133,misc/Ada/Cuthill-McKee,Ada,,9.0,0,4,1,0,1,0,0,0,ok,ok,,,652,demo literals 4
+134,misc/Ada/Elevator-Algorithm,Ada,,9.0,0,6,0,0,0,0,0,0,not driven,no tests,,,190,
+135,misc/Ada/Force-Based-Algorithms,Ada,,9.0,2,0,1,0,1,0,0,0,not driven,ok,,,350,demo literals 4
+136,misc/Ada/Glauber-Dynamics,Ada,,9.0,5,0,0,0,0,0,0,0,ok,ok,,,521,
+137,misc/Ada/Knuth-Bendix-Completion,Ada,,9.0,0,6,0,0,0,0,0,0,ok,unchecked (main stillborn),,,657,
+138,misc/Ada/Nicholl-Lee-Nicholl,Ada,,9.0,5,0,0,0,0,0,0,0,not driven,ok,,,689,
+139,misc/Ada/Particle-Swarm,Ada,,9.0,3,0,0,0,0,0,0,0,ok,ok,,,354,
+140,misc/Ada/Rupperts-Algorithm,Ada,,9.0,0,3,1,0,1,0,0,0,not driven,ok,,,975,demo literals 60
+141,misc/Ada/Scoring-Algorithm,Ada,,9.0,7,0,0,0,0,0,0,0,ok,ok,,,662,
+142,misc/Ada/Seam-Carving,Ada,,9.0,4,0,0,0,0,0,0,0,not driven,ok,,,194,
+143,misc/Ada/Toom-Cook,Ada,,9.0,0,4,0,0,3,0,0,0,ok,ok,,,575,demo literals 3 4 9
+144,misc/Ada/Vehicle-Routing-Problem,Ada,,9.0,1,5,0,0,0,0,0,0,not driven,ok,,,974,
+145,numerical/Ada/Brents-Algorithm,Ada,,9.0,0,3,0,0,6,0,0,0,driver not built,ok,,,545,demo literals 3 4 5 6 7 9
+146,numerical/Ada/Cantor-Zassenhaus,Ada,,9.0,1,0,0,0,3,0,0,0,crash (check failed),ok,,,782,demo literals 3 5 6
+147,parsing/Ada/Packrat-Parser,Ada,,9.0,0,4,0,0,0,0,0,0,not driven,baseline fails,,,281,
+148,parsing/Ada/Simple-Precdence-Parser,Ada,,9.0,0,3,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,268,
+149,searching/Ada/Harmony-Search,Ada,,9.0,4,0,0,0,0,0,0,0,ok,ok,,,588,
+150,sorting/Ada/Quantum-Sort,Ada,,9.0,2,4,0,0,0,0,0,0,not driven,ok,diff agree,,127,
+151,sorting/Ada/Sort-Merge-Join,Ada,,9.0,0,6,0,0,0,0,0,0,not driven,baseline does not build,,,142,
+152,strings/Ada/Daitch-Mokotoff-Soundex,Ada,,9.0,0,6,0,0,6,0,0,0,ok,ok,,,1685,demo literals 3 4 5 7 9 26
+153,strings/Ada/Stemming,Ada,,9.0,0,9,1,0,1,0,0,0,ok,ok,,,452,demo literals 3
+154,ml/Ada/BrownBoost,Ada,,8.25,1,1,0,0,3,0,1,0,not driven,ok,,,333,demo literals 5 12 20
+155,clustering/Ada/WACA-Clustering,Ada,,8.0,1,0,1,0,0,0,0,0,ok,unchecked (main stillborn),,,510,
+156,compression/Ada/Berlekamp-Massey-Algorithm,Ada,,8.0,0,2,0,0,1,0,0,0,crash (check failed),ok,,,199,demo literals 9
+157,concurrency/SPARK2/Course-Schedule,SPARK2,,8.0,0,0,1,0,0,0,0,0,not driven,weak,,,23,23 library lines
+158,cryptography/Ada/Argon2,Ada,,8.0,0,2,0,0,1,0,0,0,crash (check failed),ok,,,256,demo literals 13
+159,cryptography/Ada/Yarrow-Algorithm,Ada,,8.0,1,0,0,0,2,0,0,0,not driven,baseline fails,,,215,demo literals 4 13
+160,geometry/Ada/Ramer-Douglas-Peucker-Algorithm,Ada,,8.0,0,3,1,0,0,0,0,0,not driven,ok,,,295,
+161,graphs/Ada/Cryptographically-Secure-Pseudorandom-Number-Generator,Ada,,8.0,1,1,0,0,8,0,0,0,not driven,ok,,,163,demo literals 3 4 5 6 9 11
+162,graphs/Ada/MaxCliqueDyn,Ada,,8.0,0,2,0,1,0,0,0,0,not driven,ok,,,309,first-match in Find_Maximum_Clique
+163,graphs/SPARK2/Ada-SPARK-Clone-Graph,SPARK2,,8.0,0,0,1,0,0,0,0,0,not driven,weak,,,14,14 library lines
+164,graphs/SPARK2/Ada-SPARK-Clone-Graph-Stub,SPARK2,,8.0,0,0,3,0,0,0,0,0,not driven,weak,,yes,14,14 library lines
+165,hashing/Ada/Bloom-Filter,Ada,,8.0,1,0,0,0,2,0,0,0,crash (check failed),ok,,,508,demo literals 30 40
+166,misc/Ada/BCJR-Algorithm,Ada,,8.0,2,1,0,0,0,0,0,0,not driven,ok,,,274,
+167,misc/Ada/Bitap-Algorithm,Ada,,8.0,2,1,0,0,0,0,0,0,ok,ok,,,200,
+168,misc/Ada/Connected-Component-Labeling,Ada,,8.0,0,2,0,0,1,0,0,0,not driven,baseline fails,,,217,demo literals 4
+169,misc/Ada/Discrete-Logarithm,Ada,,8.0,1,1,1,0,1,0,0,0,not driven,ok,,,638,demo literals 3
+170,misc/Ada/Elser-Difference-Map-Algorithm,Ada,,8.0,0,1,0,0,0,0,0,0,not driven,weak,,,174,
+171,misc/Ada/Flow-Networks,Ada,,8.0,0,0,0,2,0,0,0,0,not driven,ok,,,517,first-match in Max_Flow_Edmonds_Karp; first-match in Max_Flow_Dinic
+172,misc/Ada/Forward-Error-Correction,Ada,,8.0,0,3,0,0,2,0,0,0,ok,ok,,,179,demo literals 5 6
+173,misc/Ada/General-Problem-Solver,Ada,,8.0,0,3,1,0,0,0,0,0,ok,ok,,,465,
+174,misc/Ada/Hopcrofts-Algorithm,Ada,,8.0,0,0,0,2,0,0,0,0,not driven,ok,,,632,first-match in Minimize_Hopcroft; first-match in Minimize_Brzozowski
+175,misc/Ada/Kargers-Algorithm,Ada,,8.0,2,0,1,0,0,0,0,0,not driven,ok,,,261,
+176,misc/Ada/Lempel-Ziv-Oberhurmer,Ada,,8.0,0,1,0,0,6,0,0,0,ok,baseline fails,,,866,demo literals 3 4 7 9 65 300
+177,misc/Ada/Lesk,Ada,,8.0,0,3,1,0,0,0,0,0,ok,ok,,,721,
+178,misc/Ada/Matching-Wildcards,Ada,,8.0,0,4,1,0,0,0,0,0,ok,ok,,,134,
+179,misc/Ada/Nested-Loop-Join,Ada,,8.0,1,1,0,0,0,0,0,0,not driven,baseline does not build,,,139,
+180,misc/Ada/Pulmonary-Embolism-Algorithms,Ada,,8.0,0,0,1,0,6,0,0,0,ok,baseline fails,,,360,demo literals 3 4 5 65 75 95
+181,misc/Ada/Recovery-Exploiting-Semantics,Ada,,8.0,0,0,1,0,0,0,0,0,not driven,weak,,,230,
+182,misc/Ada/SEQUITUR-Algorithm,Ada,,8.0,0,0,1,0,0,0,0,0,ok,weak,,,65,
+183,misc/Ada/Sinkhorn-Knopp-Algorithm,Ada,,8.0,0,3,1,0,0,0,0,0,ok,ok,,,763,
+184,misc/Ada/Sweep-And-Prune,Ada,,8.0,0,3,1,0,0,0,0,0,ok,ok,,,568,
+185,misc/Ada/Todd-Coxeter,Ada,,8.0,0,5,1,0,0,0,0,0,ok,ok,,,658,
+186,misc/Ada/Vickrey-Clarke-Groves-Mechanism,Ada,,8.0,0,5,1,0,0,0,0,0,ok,ok,,,1187,
+187,misc/SPARK2/Ada-SPARK-Alien-Dictionary-Stub,SPARK2,,8.0,0,0,3,0,0,0,0,0,not driven,weak,,yes,20,20 library lines
+188,misc/SPARK2/Ada-SPARK-Assign-Cookies,SPARK2,,8.0,0,0,3,0,0,0,0,0,not driven,weak,,yes,19,19 library lines
+189,misc/SPARK2/Ada-SPARK-Candy,SPARK2,,8.0,0,0,3,0,0,0,0,0,not driven,weak,,yes,19,19 library lines
+190,misc/SPARK2/Ada-SPARK-Fibonacci-DP,SPARK2,,8.0,2,1,0,0,0,0,0,0,not driven,ok,,,38,
+191,misc/SPARK2/Ada-SPARK-Fibonacci-Number,SPARK2,,8.0,2,1,0,0,0,0,0,0,not driven,ok,,,37,
+192,misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,SPARK2,,8.0,0,0,1,0,0,0,0,0,not driven,weak,,,21,21 library lines
+193,misc/SPARK2/Ada-SPARK-Gas-Station,SPARK2,,8.0,0,0,3,0,0,0,0,0,not driven,weak,,yes,19,19 library lines
+194,misc/SPARK2/Ada-SPARK-Guess-Number-Higher-Or-Lower,SPARK2,,8.0,0,0,1,0,0,0,0,0,not driven,weak,,,19,19 library lines
+195,misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,SPARK2,,8.0,2,1,2,0,0,0,0,0,not driven,ok,,yes,42,
+196,misc/SPARK2/Ada-SPARK-Jump-Game-II,SPARK2,,8.0,0,0,3,0,0,0,0,0,not driven,weak,,yes,19,19 library lines
+197,misc/SPARK2/Ada-SPARK-Median-Filtering,SPARK2,,8.0,4,0,0,0,2,0,0,0,not driven,ok,diff agree,,100,demo literals 5 9
+198,misc/SPARK2/Ada-SPARK-Merge-Intervals,SPARK2,,8.0,0,0,3,0,0,0,0,0,not driven,weak,,yes,19,19 library lines
+199,misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals,SPARK2,,8.0,0,0,3,0,0,0,0,0,not driven,weak,,yes,19,19 library lines
+200,misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,SPARK2,,8.0,2,1,0,0,0,0,0,0,not driven,ok,,,34,
+201,misc/SPARK2/Ada-SPARK-Valid-IP-Address-Stub,SPARK2,,8.0,0,0,3,0,0,0,0,0,not driven,weak,,yes,24,24 library lines
+202,numerical/Ada/Birkhoff-Interpolation,Ada,,8.0,0,3,0,0,2,0,0,0,not driven,ok,,,450,demo literals 3 4
+203,numerical/Ada/Cubic-Interpolation,Ada,,8.0,0,7,0,0,2,0,0,0,ok,ok,,,605,demo literals 3 9
+204,numerical/Ada/Spline-Interpolation,Ada,,8.0,0,6,0,0,2,0,0,0,not driven,ok,,,622,demo literals 3 4
+205,parsing/Ada/Operator-Precedence-Parser,Ada,,8.0,0,0,0,0,2,1,0,0,ok,baseline fails,,,294,demo literals 3 9
+206,parsing/Ada/Simple-LR-Parser,Ada,,8.0,0,0,1,0,6,0,0,0,ok,baseline fails,,,401,demo literals 3 4 5 7 9 11
+207,searching/Ada/Nearest-Neighbor-Search,Ada,,8.0,0,4,1,0,0,0,0,0,ok,ok,,,800,
+208,sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array,SPARK2,,8.0,0,0,1,0,0,0,0,0,not driven,weak,,,22,22 library lines
+209,sorting/SPARK4/Ada-SPARK-Merge-Sort,SPARK4,,8.0,5,1,0,0,0,0,0,0,not driven,ok,diff agree,,423,
+210,sorting/SPARK4/Ada-SPARK-Timsort,SPARK4,,8.0,6,1,0,0,0,0,0,0,not driven,ok,diff agree,,629,
+211,strings/Ada/Double-Metaphone,Ada,,8.0,0,5,0,0,2,0,0,0,ok,ok,,,974,demo literals 3 5
+212,strings/Ada/NYSIIS,Ada,,8.0,1,2,0,0,1,0,0,0,ok,ok,,,210,demo literals 3
+213,misc/Ada/Quantum-Counting-Algorithm,Ada,,7.75,0,0,0,0,1,1,6,0,ok,baseline fails,,,157,demo literals 4
+214,misc/Ada/Financial-Information-Exchange,Ada,,7.25,0,1,1,0,10,0,1,0,not driven,ok,,,271,demo literals 3 9 35 37 38 44
+215,clustering/Ada/OPTICS,Ada,,7.0,0,2,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,588,
+216,compression/Ada/Arithmetic-Coding,Ada,,7.0,0,2,0,0,0,0,0,0,ok,baseline fails,,,366,
+217,compression/Ada/LZX,Ada,,7.0,0,2,0,0,5,0,0,0,not driven,ok,,,212,demo literals 3 4 5 32768 2_097_152
+218,concurrency/Ada/mlfq,Ada,,7.0,0,2,0,0,0,0,0,0,not driven,no tests,,,604,
+219,cryptography/Ada/SHA3,Ada,,7.0,0,2,0,0,6,0,0,0,ok,ok,,,211,demo literals 3 4 5 6 7 14
+220,cryptography/Ada/Universal-Coding,Ada,,7.0,0,0,0,0,1,0,0,0,crash (check failed),baseline fails,,,233,demo literals 3
+221,geometry/Ada/Canny-Edge-Detector,Ada,,7.0,2,0,0,0,1,0,0,0,not driven,ok,,,203,demo literals 5
+222,geometry/Ada/Convex-Hull-Algorithms,Ada,,7.0,0,2,1,0,1,0,0,0,not driven,ok,,,607,demo literals 3
+223,logic/Ada/Constraint-Satisfaction,Ada,,7.0,0,2,0,0,4,0,0,0,ok,ok,,,915,demo literals 3 4 6 7
+224,misc/Ada/Backward-Euler,Ada,,7.0,2,0,0,0,1,0,0,0,not driven,ok,,,281,demo literals 30
+225,misc/Ada/Chews-Second-Algorithm,Ada,,7.0,0,3,0,0,1,0,0,0,not driven,ok,,,973,demo literals 60
+226,misc/Ada/Ellipsoid-Method,Ada,,7.0,1,2,0,0,0,0,0,0,ok,ok,,,921,
+227,misc/Ada/Fast-Multipole-Method,Ada,,7.0,0,4,0,0,1,0,0,0,not driven,ok,,,768,demo literals 24
+228,misc/Ada/Faugere-F4,Ada,,7.0,1,2,0,0,0,0,0,0,ok,ok,,,1221,
+229,misc/Ada/Fermat-Factorization,Ada,,7.0,0,1,1,0,3,0,0,0,not driven,ok,,,176,demo literals 3 5 6
+230,misc/Ada/Fisher-Yates-Shuffle,Ada,,7.0,0,5,0,0,1,0,0,0,ok,ok,,,140,demo literals 6_364_136_223_846_793_005
+231,misc/Ada/Genetic-Algorithms,Ada,,7.0,1,0,0,1,0,0,0,0,ok,ok,,,892,first-match in Run_Maximize
+232,misc/Ada/Gospers-Algorithm,Ada,,7.0,2,0,0,0,1,0,0,0,not driven,ok,,,993,demo literals 4
+233,misc/Ada/Lempel-Ziv-Storer-Szymanski,Ada,,7.0,0,2,0,0,3,0,0,0,ok,ok,,,224,demo literals 4 7 12
+234,misc/Ada/Luleas-Algorithm,Ada,,7.0,0,1,1,0,0,0,0,0,driver not built,baseline does not build,,,564,
+235,misc/Ada/Match-Rating-Approach,Ada,,7.0,0,2,0,0,6,0,0,0,ok,ok,,,207,demo literals 3 4 5 7 11 12
+236,misc/Ada/Maximum-Parsimony,Ada,,7.0,0,0,1,0,2,0,0,0,ok,baseline fails,,,522,demo literals 3 945
+237,misc/Ada/Memetic-Algorithm,Ada,,7.0,1,0,0,1,0,0,0,0,ok,ok,,,1038,first-match in Minimize_TSP
+238,misc/Ada/Min-Conflicts,Ada,,7.0,0,0,1,0,2,0,0,0,crash (check failed),ok,,,572,demo literals 3 5
+239,misc/Ada/Mirror-Descent,Ada,,7.0,0,2,0,0,0,0,0,0,ok,baseline fails,,,583,
+240,misc/Ada/Multiplicative-Weight-Update-Method,Ada,,7.0,0,2,0,0,0,0,0,0,not driven,baseline fails,,,471,
+241,misc/Ada/Ordered-Subset-EM,Ada,,7.0,1,0,1,0,2,0,0,0,ok,ok,,,674,demo literals 3 4
+242,misc/Ada/Spigot-Algorithm,Ada,,7.0,0,3,0,0,1,0,0,0,ok,ok,,,265,demo literals 3
+243,misc/Ada/Subset-Sum-Algorithm,Ada,,7.0,0,3,0,0,1,0,0,0,not driven,ok,,,157,demo literals 60
+244,misc/Ada/Top-Nodes-Algorithm,Ada,,7.0,0,2,0,0,0,0,0,0,not driven,no tests,,,296,
+245,misc/Ada/Trial-Division,Ada,,7.0,0,0,0,1,3,0,0,0,not driven,ok,,,183,first-match in Smallest_Prime_Factor; demo literals 3 5 6
+246,misc/SPARK2/Ada-SPARK-Flatten-Nested-List-Stub,SPARK2,,7.0,0,0,2,0,1,0,0,0,not driven,weak,,yes,38,demo literals 3
+247,numerical/Ada/Arnoldi,Ada,,7.0,2,0,0,0,1,0,0,0,ok,ok,,,899,demo literals 3
+248,numerical/Ada/Conjugate-Gradient,Ada,,7.0,1,1,0,0,2,0,0,0,ok,ok,,,501,demo literals 4 5
+249,numerical/Ada/Hermite-Interpolation,Ada,,7.0,0,3,0,0,1,0,0,0,not driven,ok,,,577,demo literals 9
+250,numerical/Ada/Monotone-Cubic-Interpolation,Ada,,7.0,0,5,0,0,1,0,0,0,not driven,ok,,,574,demo literals 9
+251,numerical/SPARK4/Ada-SPARK-Brents-Algorithm,SPARK4,,7.0,0,2,0,0,4,0,0,0,not driven,ok,,,531,demo literals 3 4 5 7
+252,sorting/Ada/Library-Sort,Ada,,7.0,2,2,0,0,0,0,0,0,ok,ok,diff agree,,271,
+253,cryptography/Ada/RSA,Ada,,6.75,0,0,0,0,0,0,5,0,ok (explicit Constraint_Error/Program_Error only),weak,,,181,
+254,cryptography/Ada/Twofish,Ada,,6.75,0,0,0,0,9,1,3,0,not driven,ok,,,291,demo literals 4 5 6 7 9 11
+255,misc/Ada/Blum-Blum-Shub,Ada,,6.75,0,0,0,0,4,0,3,0,not driven,baseline fails,,,137,demo literals 3 4 5 6
+256,misc/Ada/RIPEMD-160,Ada,,6.75,1,0,0,0,9,0,3,0,ok,ok,,,229,demo literals 3 5 6 7 9 11
+257,ml/Ada/LPBoost,Ada,,6.75,0,0,0,0,4,0,3,0,not driven,unchecked (main stillborn),,,298,demo literals 3 5 9 12
+258,misc/Ada/Quantum-Phase-Estimation-Algorithm,Ada,,6.5,1,0,1,0,1,0,2,0,not driven,ok,,,166,demo literals 15
+259,numerical/Ada/Newells-Algorithm,Ada,,6.25,0,1,0,0,1,0,1,0,not driven,unchecked (main stillborn),,,473,demo literals 7
+260,clustering/Ada/K-Means-Clustering,Ada,,6.0,0,1,0,0,1,0,0,0,ok,baseline fails,,,638,demo literals 20
+261,compression/Ada/Wavelet-Compression,Ada,,6.0,0,4,0,0,0,0,0,0,ok,ok,,,152,
+262,concurrency/Ada/Vector-Clocks,Ada,,6.0,0,0,0,0,4,0,0,0,ok,baseline fails,,,237,demo literals 3 4 5 7
+263,cryptography/Ada/Data-Encryption-Standard,Ada,,6.0,0,0,0,0,9,0,0,0,not driven,baseline fails,,,293,demo literals 4 5 6 7 9 11
+264,cryptography/Ada/Threefish,Ada,,6.0,0,0,0,0,8,0,0,0,not driven,baseline fails,,,323,demo literals 4 5 6 9 11 12
+265,cryptography/Ada/Universal-Variable-Formulation,Ada,,6.0,1,0,0,0,5,0,0,0,not driven,ok,,,560,demo literals 3 5 6 7 180
+266,geometry/Ada/Hough-Transform,Ada,,6.0,0,2,1,0,0,0,0,0,not driven,ok,,,83,
+267,geometry/Ada/Sutherland-Hodgman,Ada,,6.0,0,5,0,0,0,0,0,0,not driven,ok,,,572,
+268,geometry/Ada/Watershed-Transformation,Ada,,6.0,0,0,1,0,1,0,0,0,not driven,baseline does not build,,,207,demo literals 4
+269,graphs/Ada/Hungarian-Algorithm,Ada,,6.0,0,1,0,1,0,0,0,0,ok,ok,,,313,first-match in Solve_Minimize
+270,graphs/Ada/Hungarian-Method,Ada,,6.0,0,1,0,1,0,0,0,0,ok,ok,,,254,first-match in Minimize_Assignment
+271,logic/Ada/Automated-Theorem-Proving,Ada,,6.0,0,6,0,0,0,0,0,0,not driven,ok,,,315,
+272,misc/Ada/Bentley-Ottmann,Ada,,6.0,0,3,0,0,0,0,0,0,not driven,ok,,,675,
+273,misc/Ada/Binary-Space-Partitioning,Ada,,6.0,0,6,0,0,0,0,0,0,not driven,ok,,,1108,
+274,misc/Ada/Blind-Deconvolution,Ada,,6.0,0,0,1,0,1,0,0,0,not driven,baseline fails,,,177,demo literals 12
+275,misc/Ada/De-Boor,Ada,,6.0,0,2,0,0,2,0,0,0,ok,ok,,,942,demo literals 3 4
+276,misc/Ada/Error-Diffusion,Ada,,6.0,2,0,0,0,0,0,0,0,not driven,ok,,,115,
+277,misc/Ada/Euclidean-Distance-Transform,Ada,,6.0,0,3,0,0,0,0,0,0,not driven,ok,,,368,
+278,misc/Ada/Featherstone,Ada,,6.0,0,0,1,0,1,0,0,0,not driven,baseline fails,,,736,demo literals 3
+279,misc/Ada/Flood-Fill,Ada,,6.0,0,4,0,0,0,0,0,0,not driven,ok,,,702,
+280,misc/Ada/Heaps-Algorithm,Ada,,6.0,0,3,0,0,0,0,0,0,ok,ok,,,138,
+281,misc/Ada/Hirschbergs-Algorithm,Ada,,6.0,0,3,0,0,0,0,0,0,not driven,ok,,,338,
+282,misc/Ada/Krauss-Matching-Wildcards,Ada,,6.0,0,3,0,0,0,0,0,0,ok,ok,,,53,
+283,misc/Ada/Lemke-Howson,Ada,,6.0,0,0,1,0,1,0,0,0,not driven,unchecked (main stillborn),,,169,demo literals 9
+284,misc/Ada/Mullers-Method,Ada,,6.0,0,0,0,0,0,0,0,0,not driven,weak,,,326,
+285,misc/Ada/Multivariate-Division-Algorithm,Ada,,6.0,0,2,1,0,0,0,0,0,ok,ok,,,652,
+286,misc/Ada/N-Body-Problems,Ada,,6.0,0,4,0,0,0,0,0,0,not driven,ok,,,546,
+287,misc/Ada/Nagles-Algorithm,Ada,,6.0,0,0,0,0,0,0,0,0,not driven,weak,,,222,
+288,misc/Ada/Nonblocking-Minimal-Spanning-Switch,Ada,,6.0,0,5,0,0,0,0,0,0,not driven,ok,,,552,
+289,misc/Ada/Partial-Differential-Equation,Ada,,6.0,0,1,0,0,1,0,0,0,not driven,baseline fails,,,380,demo literals 3
+290,misc/Ada/Petricks-Method,Ada,,6.0,0,2,1,0,0,0,0,0,not driven,ok,,,218,
+291,misc/Ada/Quantum-Fourier-Transform,Ada,,6.0,0,0,0,0,0,1,0,0,crash (check failed),ok,,,198,
+292,misc/Ada/SUBCLU,Ada,,6.0,0,5,0,0,0,0,0,0,ok,ok,,,835,
+293,misc/Ada/Shortest-Common-Supersequence-Problem,Ada,,6.0,2,0,0,0,0,0,0,0,ok,ok,,,94,
+294,misc/Ada/Swarm-Intelligence,Ada,,6.0,0,7,0,0,0,0,0,0,not driven,ok,,,599,
+295,misc/Ada/Top-Trading-Cycle,Ada,,6.0,0,4,0,0,0,0,0,0,ok,ok,,,900,
+296,misc/Ada/Traffic-Simulation,Ada,,6.0,2,0,0,0,0,0,0,0,not driven,ok,,,138,
+297,misc/SPARK2/Ada-SPARK-Find-The-City,SPARK2,,6.0,0,0,0,0,0,0,0,0,not driven,weak,,,39,
+298,misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Days-To-Make-M-Bouquets,SPARK2,,6.0,0,1,0,1,0,0,0,0,not driven,ok,,,35,first-match in Minimum_Day
+299,misc/SPARK2/Ada-SPARK-My-Linked-List-Stub,SPARK2,,6.0,0,0,2,0,0,0,0,0,not driven,weak,,yes,22,22 library lines
+300,misc/SPARK2/Ada-SPARK-Priority-Queue-Binary-Heap,SPARK2,,6.0,0,0,1,1,0,0,0,0,not driven,ok,,,22,first-match in Remove_Min; 22 library lines
+301,misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,SPARK2,,6.0,0,0,1,1,0,0,0,0,not driven,ok,,,21,first-match in Smallest_Length; 21 library lines
+302,misc/SPARK2/Ada-SPARK-Stack-Bounded,SPARK2,,6.0,0,7,0,0,0,0,0,0,not driven,ok,,,26,
+303,ml/Ada/LogitBoost,Ada,,6.0,1,0,0,0,0,0,0,0,not driven,baseline fails,,,216,
+304,ml/Ada/Policy-Iteration,Ada,,6.0,0,0,1,0,1,0,0,0,not driven,baseline fails,,,1216,demo literals 7
+305,ml/Ada/Value-Iteration,Ada,,6.0,0,0,1,0,1,0,0,0,not driven,baseline fails,,,1071,demo literals 7
+306,numerical/Ada/Hybrid-Monte-Carlo,Ada,,6.0,0,0,0,0,0,0,0,0,not driven,weak,,,475,
+307,numerical/Ada/Lagrange-Interpolation,Ada,,6.0,0,3,0,0,0,0,0,0,ok,ok,,,474,
+308,numerical/Ada/Lanczos,Ada,,6.0,2,0,0,0,0,0,0,0,ok,ok,,,815,
+309,numerical/Ada/Multivariate-Interpolation,Ada,,6.0,0,2,0,0,2,0,0,0,ok,ok,,,940,demo literals 4 12
+310,numerical/Ada/Pareto-Interpolation,Ada,,6.0,0,3,0,0,0,0,0,0,not driven,ok,,,472,
+311,numerical/Ada/Polynomial-Interpolation,Ada,,6.0,0,3,0,0,0,0,0,0,ok,ok,,,725,
+312,numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,SPARK4,,6.0,1,0,0,0,31,0,0,0,not driven,ok,,,1864,demo literals 4 5 6 7 11 13
+313,parsing/Ada/Canonical-LR-Parser,Ada,,6.0,0,0,0,0,6,0,0,0,not driven,baseline fails,,,404,demo literals 3 4 5 6 7 9
+314,searching/Ada/Eytzinger-Binary-Search,Ada,,6.0,0,4,0,0,0,0,0,0,ok,ok,,,161,
+315,searching/Ada/Grid-Search,Ada,,6.0,0,2,1,0,0,0,0,0,not driven,ok,,,398,
+316,searching/Ada/Monte-Carlo-Tree-Search,Ada,,6.0,2,0,0,0,0,0,0,0,not driven,ok,,,985,
+317,searching/Ada/Quantum-Walk-Search,Ada,,6.0,1,0,0,0,0,0,0,0,not driven,baseline fails,,,279,
+318,searching/Ada/Uniform-Binary-Search,Ada,,6.0,0,7,0,0,0,0,0,0,ok,ok,,,188,
+319,searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree,SPARK2,,6.0,0,0,0,0,0,0,0,0,not driven,weak,,,65,
+320,searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite,SPARK2,,6.0,0,0,2,0,0,0,0,0,not driven,weak,,yes,12,12 library lines
+321,searching/SPARK4/Ada-SPARK-Ternary-Search,SPARK4,,6.0,0,2,0,1,1,0,0,0,not driven,ok,diff agree,,137,first-match in Find_Maximum_Index; demo literals 3
+322,sorting/Ada/Burstsort,Ada,,6.0,0,5,0,0,0,0,0,0,ok,ok,,,286,
+323,sorting/Ada/Heapsort,Ada,,6.0,0,3,0,0,0,0,0,0,crash (check failed),ok,diff agree,,104,
+324,sorting/SPARK4/Ada-SPARK-Library-Sort,SPARK4,,6.0,2,1,0,0,1,0,0,0,not driven,ok,diff agree,,559,demo literals 4
+325,strings/Ada/Karplus-Strong-String-Synthesis,Ada,,6.0,0,3,0,0,0,0,0,0,not driven,ok,,,153,
+326,strings/Ada/Smith-Waterman,Ada,,6.0,0,7,0,0,0,0,0,0,not driven,ok,,,245,
+327,strings/SPARK2/Ada-SPARK-Decode-String,SPARK2,,6.0,0,1,1,0,2,0,0,0,not driven,ok,,,22,22 library lines; demo literals 3 4
+328,trees/Ada/Abstract-Interpretation,Ada,,6.0,0,21,0,0,0,0,0,0,not driven,ok,,,245,
+329,trees/Ada/Decision-Trees,Ada,,6.0,0,6,0,0,0,0,0,0,not driven,ok,,,308,
+330,trees/Ada/Longest-Common-Substring,Ada,,6.0,0,9,0,0,0,0,0,0,ok,ok,,,151,
+331,trees/Ada/Set-Partitioning-In-Hierarchical-Trees,Ada,,6.0,0,0,1,0,1,0,0,0,not driven,baseline fails,,,207,demo literals 3
+332,misc/Ada/Hidden-Linear-Function-Problem,Ada,,5.25,0,2,0,0,1,0,1,0,not driven,ok,,,215,demo literals 4
+333,clustering/Ada/Fuzzy-Clustering,Ada,,5.0,0,1,0,0,0,0,0,0,ok,unchecked (main stillborn),,,755,
+334,compression/Ada/Fractal-Compression,Ada,,5.0,0,0,1,0,0,0,0,0,not driven,baseline fails,,,257,
+335,cryptography/Ada/Fortuna,Ada,,5.0,0,1,0,0,3,0,0,0,not driven,ok,,,192,demo literals 7 15 17
+336,cryptography/Ada/Lenstra-Elliptic-Curve-Factorization,Ada,,5.0,0,0,1,0,4,0,0,0,not driven,ok,,,451,demo literals 3 4 5 6
+337,cryptography/SPARK2/Ada-SPARK-MD5,SPARK2,,5.0,0,1,3,0,1,0,0,0,not driven,ok,,yes,22,22 library lines; demo literals 55
+338,cryptography/SPARK2/Ada-SPARK-SHA-1,SPARK2,,5.0,0,1,3,0,1,0,0,0,not driven,ok,,yes,22,22 library lines; demo literals 55
+339,geometry/Ada/Graham-Scan,Ada,,5.0,0,2,0,0,1,0,0,0,not driven,ok,,,371,demo literals 3
+340,geometry/Ada/Ordered-Dithering,Ada,,5.0,0,0,0,0,2,0,0,0,ok,baseline fails,,,152,demo literals 3 4
+341,graphs/Ada/subgraph-isomorphism,Ada,,5.0,0,0,1,0,0,0,0,0,not driven,no tests,,,207,
+342,matrices/Ada/Strassen,Ada,,5.0,0,2,0,0,1,0,0,0,ok,ok,,,612,demo literals 17
+343,misc/Ada/Algorithm-X,Ada,,5.0,0,1,0,0,4,0,0,0,ok,ok,,,462,demo literals 3 4 5 7
+344,misc/Ada/BCH-Codes,Ada,,5.0,0,0,0,0,2,0,0,0,not driven,baseline fails,,,142,demo literals 3 4
+345,misc/Ada/Baby-Step-Giant-Step,Ada,,5.0,1,0,1,0,0,0,0,0,not driven,ok,,,272,
+346,misc/Ada/Backward-Induction,Ada,,5.0,0,0,1,0,0,0,0,0,ok,baseline fails,,,550,
+347,misc/Ada/Baum-Welch,Ada,,5.0,0,1,0,0,0,0,0,0,ok,unchecked (main stillborn),,,992,
+348,misc/Ada/Buddy-Memory-Allocation,Ada,,5.0,0,1,0,0,4,0,0,0,ok,ok,,,205,demo literals 3 5 13 144
+349,misc/Ada/Chase,Ada,,5.0,0,1,0,0,5,0,0,0,ok,ok,,,434,demo literals 3 4 5 6 7
+350,misc/Ada/Collision-Detection,Ada,,5.0,0,2,0,0,1,0,0,0,ok,ok,,,518,demo literals 3
+351,misc/Ada/Coloring-Algorithm,Ada,,5.0,0,2,0,0,1,0,0,0,not driven,ok,,,412,demo literals 3
+352,misc/Ada/Dancing-Links,Ada,,5.0,0,1,0,0,3,0,0,0,ok,ok,,,565,demo literals 4 6 7
+353,misc/Ada/ESC-Algorithm,Ada,,5.0,0,0,1,0,0,0,0,0,ok,baseline fails,,,162,
+354,misc/Ada/Exact-Cover,Ada,,5.0,0,0,1,0,4,0,0,0,ok,ok,,,622,demo literals 3 4 6 7
+355,misc/Ada/FP-Growth-Algorithm,Ada,,5.0,0,2,0,0,1,0,0,0,not driven,ok,,,419,demo literals 4
+356,misc/Ada/Freivalds,Ada,,5.0,0,1,0,0,3,0,0,0,ok,ok,,,458,demo literals 13 17 12345
+357,misc/Ada/Hadamard-Test,Ada,,5.0,0,2,0,0,1,0,0,0,not driven,ok,,,158,demo literals 3
+358,misc/Ada/Hopfield-Net,Ada,,5.0,0,0,1,0,0,0,0,0,not driven,baseline fails,,,199,
+359,misc/Ada/Lempel-Ziv-Jeff-Bonwick,Ada,,5.0,0,1,0,0,3,0,0,0,ok,ok,,,135,demo literals 3 4 7
+360,misc/Ada/Lempel-Ziv-Markov-Chain-Algorithm,Ada,,5.0,0,1,0,0,3,0,0,0,not driven,ok,,,141,demo literals 6 7 9
+361,misc/Ada/Lempel-Ziv-Welch,Ada,,5.0,0,2,0,0,1,0,0,0,not driven,ok,,,144,demo literals 9
+362,misc/Ada/Lexical-Analysis,Ada,,5.0,0,1,0,0,0,0,0,0,crash (check failed),ok,,,236,
+363,misc/Ada/Maekawas-Algorithm,Ada,,5.0,0,2,0,0,1,0,0,0,not driven,ok,,,319,demo literals 3
+364,misc/Ada/Parity-Bit,Ada,,5.0,0,0,1,0,0,0,0,0,not driven,baseline fails,,,71,
+365,misc/Ada/Pohlig-Hellman,Ada,,5.0,0,1,1,0,1,0,0,0,not driven,ok,,,505,demo literals 3
+366,misc/Ada/Queuing-Theory,Ada,,5.0,0,2,0,0,1,0,0,0,ok,ok,,,721,demo literals 3
+367,misc/Ada/RANSAC,Ada,,5.0,0,0,1,0,6,0,0,0,ok,ok,,,844,demo literals 4 5 15 20 30 40
+368,misc/Ada/Temporal-Difference-Learning,Ada,,5.0,0,1,0,0,0,0,0,0,not driven,baseline fails,,,180,
+369,misc/Ada/Warnsdorffs-Rule,Ada,,5.0,0,1,0,0,0,0,0,0,not driven,baseline fails,,,149,
+370,misc/Ada/rate-monotonic,Ada,,5.0,0,1,0,0,3,0,0,0,not driven,ok,,,293,demo literals 3 5 6
+371,misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,SPARK2,,5.0,0,0,1,0,3,0,0,0,not driven,ok,,,23,23 library lines; demo literals 4 5 429
+372,misc/SPARK2/Ada-SPARK-Fizz-Buzz,SPARK2,,5.0,0,0,1,0,3,0,0,0,not driven,ok,,,22,22 library lines; demo literals 3 5 15
+373,misc/SPARK2/Ada-SPARK-Number-Of-Steps-To-Reduce-A-Number-In-Binary-Representation,SPARK2,,5.0,0,0,1,0,3,0,0,0,not driven,ok,,,22,22 library lines; demo literals 3 4 12
+374,ml/Ada/Pulse-Coupled-Neural-Networks,Ada,,5.0,0,0,1,0,0,0,0,0,not driven,baseline fails,,,150,
+375,numerical/Ada/Nearest-Neighbor-Interpolation,Ada,,5.0,0,2,0,0,1,0,0,0,ok,ok,,,718,demo literals 4
+376,numerical/Ada/Pollards-P-1,Ada,,5.0,0,0,1,0,9,0,0,0,not driven,ok,,,256,demo literals 3 5 6 7 11 13
+377,numerical/Ada/Pollards-Rho,Ada,,5.0,0,0,1,0,6,0,0,0,not driven,ok,,,249,demo literals 3 5 6 7 11 13
+378,numerical/Ada/Sieve-Of-Atkin,Ada,,5.0,0,0,1,0,5,0,0,0,ok,ok,,,199,demo literals 3 4 5 7 11
+379,numerical/SPARK2/Ada-SPARK-Perfect-Number,SPARK2,,5.0,0,0,1,0,5,0,0,0,not driven,ok,,,17,17 library lines; demo literals 6 28 496 8_128 33_550_336
+380,numerical/SPARK2/Ada-SPARK-Perfect-Squares,SPARK2,,5.0,0,0,1,0,3,0,0,0,not driven,ok,,,19,19 library lines; demo literals 3 7 12
+381,parsing/Ada/LALR,Ada,,5.0,0,1,0,0,0,0,0,0,not driven,baseline fails,,,157,
+382,parsing/Ada/Step-Parser,Ada,,5.0,0,0,0,0,2,0,0,0,not driven,baseline fails,,,384,demo literals 21 10303
+383,searching/Ada/Chien-Search,Ada,,5.0,0,1,0,0,5,0,0,0,ok,ok,,,344,demo literals 3 4 5 6 7
+384,sorting/SPARK2/Ada-SPARK-Relative-Sort-Array,SPARK2,,5.0,0,0,1,0,3,0,0,0,not driven,ok,,,21,21 library lines; demo literals 3 6 7
+385,strings/Ada/Metaphone,Ada,,5.0,0,2,0,0,1,0,0,0,ok,ok,,,272,demo literals 3
+386,trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub,SPARK2,,5.0,0,0,3,0,3,0,0,0,not driven,ok,,yes,23,23 library lines; demo literals 3 5 42
+387,ml/Ada/AdaBoost,Ada,,4.5,1,0,0,0,1,0,2,0,not driven,ok,,,179,demo literals 5
+388,clustering/Ada/Clustering,Ada,,4.25,0,2,0,0,0,0,1,0,not driven,ok,,,258,
+389,misc/Ada/DSA,Ada,,4.25,0,0,0,1,0,0,1,0,not driven,ok,,,199,first-match in Sign_Deterministic
+390,cryptography/Ada/Elliptic-Curve-Diffie-Hellman,Ada,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,253,demo literals 3 4
+391,geometry/Ada/Clipping,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,706,
+392,geometry/Ada/Segmentation,Ada,,4.0,0,0,0,0,1,0,0,0,not driven,baseline does not build,,,368,demo literals 4
+393,geometry/Ada/Warnock-Algorithm,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,728,
+394,graphs/Ada/Dinics-Algorithm,Ada,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,344,first-match in Max_Flow
+395,graphs/Ada/Edmonds-Karp-Algorithm,Ada,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,329,first-match in Max_Flow
+396,graphs/Ada/Ford-Fulkerson-Algorithm,Ada,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,398,first-match in Max_Flow_BFS
+397,graphs/Ada/Kosarajus-Algorithm,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,188,
+398,logic/Ada/DPLL-Algorithm,Ada,,4.0,0,1,1,0,0,0,0,0,not driven,ok,,,531,
+399,matrices/Ada/Schonhage-Strassen,Ada,,4.0,0,1,0,0,2,0,0,0,ok,ok,,,549,demo literals 3 9
+400,misc/Ada/Amplitude-Amplification,Ada,,4.0,1,0,0,0,1,0,0,0,not driven,ok,,,161,demo literals 4
+401,misc/Ada/BLAST,Ada,,4.0,0,2,0,0,0,0,0,0,ok,ok,,,621,
+402,misc/Ada/Best-Bin-First,Ada,,4.0,0,2,0,0,0,0,0,0,ok,ok,,,723,
+403,misc/Ada/Block-Nested-Loop,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,90,
+404,misc/Ada/Blossom-Algorithm,Ada,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,412,first-match in Maximum_Matching
+405,misc/Ada/Buchbergers-Algorithm,Ada,,4.0,0,2,0,0,0,0,0,0,ok,ok,,,904,
+406,misc/Ada/Code-Excited-Linear-Prediction,Ada,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,149,demo literals 3 5
+407,misc/Ada/Delayed-Column-Generation,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,864,
+408,misc/Ada/Description-Logic,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,257,
+409,misc/Ada/Dictionary-Coder,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,172,
+410,misc/Ada/Dynamic-Time-Warping,Ada,,4.0,1,0,0,0,1,0,0,0,ok,ok,,,158,demo literals 4
+411,misc/Ada/Eclat-Algorithm,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,248,
+412,misc/Ada/Edmonds-Algorithm,Ada,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,652,first-match in Brute_Minimum_Arborescence
+413,misc/Ada/Entropy-Coding,Ada,,4.0,0,1,1,0,0,0,0,0,ok,ok,,,269,
+414,misc/Ada/Evolutionary-Computation,Ada,,4.0,1,0,0,0,1,0,0,0,ok,ok,,,887,demo literals 12
+415,misc/Ada/Fuzzy-C-Means,Ada,,4.0,0,0,0,0,1,0,0,0,ok,unchecked (main stillborn),,,608,demo literals 6
+416,misc/Ada/GRASP,Ada,,4.0,0,2,0,0,0,0,0,0,ok,ok,,,683,
+417,misc/Ada/Gale-Shapley-Algorithm,Ada,,4.0,0,2,0,0,0,0,0,0,ok,ok,,,590,
+418,misc/Ada/Hindley-Milner-Type-System,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,405,
+419,misc/Ada/Huangs-Algorithm,Ada,,4.0,0,0,0,0,1,0,0,0,not driven,baseline fails,,,96,demo literals 9
+420,misc/Ada/Kabsch,Ada,,4.0,0,0,0,0,1,0,0,0,not driven,baseline fails,,,786,demo literals 30
+421,misc/Ada/Key-Derivation-Function,Ada,,4.0,0,1,0,0,2,0,0,0,ok,ok,,,201,demo literals 3 4
+422,misc/Ada/Longest-Path-Problem,Ada,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,609,first-match in DAG_Longest_Path
+423,misc/Ada/Marching-Triangles,Ada,,4.0,0,0,0,0,1,0,0,0,ok,baseline fails,,,576,demo literals 3
+424,misc/Ada/Mark-Compact-Algorithm,Ada,,4.0,0,1,0,0,2,0,0,0,not driven,ok,,,199,demo literals 200 300
+425,misc/Ada/Marr-Hildreth-Algorithm,Ada,,4.0,0,0,0,0,1,0,0,0,not driven,baseline fails,,,206,demo literals 4
+426,misc/Ada/Minimum-Degree,Ada,,4.0,0,1,1,0,0,0,0,0,ok,ok,,,377,
+427,misc/Ada/Multiplication-Algorithms,Ada,,4.0,0,1,0,0,2,0,0,0,ok,ok,,,664,demo literals 4 9
+428,misc/Ada/Non-Local-Quantum-Computation,Ada,,4.0,0,0,0,0,1,1,0,0,not driven,ok,,,107,demo literals 68
+429,misc/Ada/Operations-Research,Ada,,4.0,0,0,0,0,1,1,0,0,not driven,ok,,,193,demo literals 9
+430,misc/Ada/Push-Relabel-Algorithm,Ada,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,241,first-match in Generic_Max_Flow
+431,misc/Ada/Rayleigh-Ritz-Method,Ada,,4.0,0,0,0,0,1,0,0,0,ok,baseline fails,,,904,demo literals 12
+432,misc/Ada/Rete-Algorithm,Ada,,4.0,0,2,0,0,0,0,0,0,ok,ok,,,403,
+433,misc/Ada/Schreier-Sims,Ada,,4.0,0,2,0,0,0,0,0,0,ok,ok,,,419,
+434,misc/Ada/Strongly-Connected-Components,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,371,
+435,misc/Ada/Tarski-Kuratowski-Algorithm,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,94,
+436,misc/Ada/Trapezoidal-Rule-DE,Ada,,4.0,1,0,0,0,1,0,0,0,not driven,ok,,,291,demo literals 30
+437,misc/SPARK2/Ada-SPARK-Base64-Decode,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,16,16 library lines; demo literals 3 4
+438,misc/SPARK2/Ada-SPARK-Base64-Encode,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,16,16 library lines; demo literals 3 4
+439,misc/SPARK2/Ada-SPARK-CSR-Row-Sum,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,24,24 library lines; demo literals 4 5
+440,misc/SPARK2/Ada-SPARK-Climbing-Stairs,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,24,24 library lines; demo literals 5 89
+441,misc/SPARK2/Ada-SPARK-Factorial-Trailing-Zeroes,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,17,17 library lines; demo literals 4 5
+442,misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,SPARK2,,4.0,0,0,3,0,2,0,0,0,not driven,ok,,yes,20,20 library lines; demo literals 3 5
+443,misc/SPARK2/Ada-SPARK-Integer-Break,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,23,23 library lines; demo literals 5 6
+444,misc/SPARK2/Ada-SPARK-Is-Subsequence,SPARK2,,4.0,0,1,3,0,0,0,0,0,not driven,ok,,yes,20,20 library lines
+445,misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,SPARK2,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,57,first-match in Longest
+446,misc/SPARK2/Ada-SPARK-Path-Sum,SPARK2,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,119,
+447,misc/SPARK2/Ada-SPARK-Product-Except-Self,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,23,23 library lines; demo literals 3 4
+448,misc/SPARK2/Ada-SPARK-Reach-A-Number,SPARK2,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,26,first-match in Minimum_Steps
+449,misc/SPARK2/Ada-SPARK-Rotate-Array,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,16,16 library lines; demo literals 3 4
+450,misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,SPARK2,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,44,first-match in Minimum_Distance
+451,misc/SPARK2/Ada-SPARK-Sigmoid,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,23,23 library lines; demo literals 50 98
+452,misc/SPARK2/Ada-SPARK-Super-Ugly-Number,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,15,15 library lines; demo literals 5 9
+453,misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub,SPARK2,,4.0,0,0,3,0,2,0,0,0,not driven,ok,,yes,16,16 library lines; demo literals 6 13
+454,misc/SPARK2/Ada-SPARK-Ugly-Number-II,SPARK2,,4.0,0,0,1,0,2,0,0,0,not driven,ok,,,18,18 library lines; demo literals 12 36
+455,misc/SPARK4/Ada-SPARK-Heaps-Algorithm,SPARK4,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,306,
+456,numerical/Ada/Chakravala,Ada,,4.0,1,0,0,0,1,0,0,0,ok,ok,,,327,demo literals 5
+457,numerical/Ada/Furer,Ada,,4.0,0,1,0,0,2,0,0,0,ok,ok,,,549,demo literals 3 9
+458,numerical/Ada/Karatsuba,Ada,,4.0,0,1,0,0,2,0,0,0,ok,ok,,,421,demo literals 4 9
+459,numerical/Ada/Newton-Raphson-Division,Ada,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,297,
+460,searching/Ada/Brute-Force-Search,Ada,,4.0,0,2,0,0,0,0,0,0,ok,ok,,,248,
+461,searching/Ada/Iterative-Deepening-Depth-First-Search,Ada,,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,301,first-match in BFS_Shortest_Path
+462,searching/Ada/Tabu-Search,Ada,,4.0,0,0,0,1,0,0,0,0,ok,ok,,,616,first-match in Minimize_TSP
+463,sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,SPARK2,,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,66,
+464,strings/Ada/Aho-Corasick,Ada,,4.0,0,2,0,0,0,0,0,0,ok,ok,,,427,
+465,hashing/Ada/SipHash,Ada,,3.75,0,0,0,0,3,0,4,0,not driven,ok,,,145,demo literals 3 7 13
+466,misc/Ada/Association-Rule-Learning,Ada,,3.75,0,0,0,0,0,0,10,0,not driven,baseline fails,,,261,
+467,misc/Ada/Semi-Space-Collectors,Ada,,3.75,0,0,0,0,0,0,4,0,not driven,baseline fails,,,168,
+468,parsing/Ada/LR-Parser,Ada,,3.75,0,0,0,0,0,0,8,0,not driven,baseline fails,,,162,
+469,misc/Ada/Moores-Algorithm,Ada,,3.5,0,0,0,0,0,1,2,0,not driven,ok,,,166,
+470,misc/Ada/HHL-Algorithm,Ada,,3.25,0,1,0,0,1,0,1,0,not driven,ok,,,160,demo literals 6
+471,misc/Ada/Midpoint-Circle-Algorithm,Ada,,3.25,0,0,0,0,0,0,1,0,driver not built,baseline fails,,,269,
+472,ml/Ada/Viterbi,Ada,,3.25,0,0,0,0,0,0,1,0,not driven,unchecked (main stillborn),,,563,
+473,clustering/Ada/Canopy-Clustering,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,385,
+474,clustering/Ada/DBSCAN,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,314,
+475,clustering/Ada/FLAME-Clustering,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,658,
+476,clustering/Ada/Lloyds-Algorithm,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,563,
+477,compression/Ada/Burrows-Wheeler-Transform,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,186,
+478,compression/Ada/Speech-Compression,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,93,
+479,compression/Ada/Video-Compression,Ada,,3.0,0,1,0,0,1,0,0,0,not driven,ok,,,160,demo literals 4
+480,concurrency/Ada/Dekker,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,89,
+481,concurrency/Ada/lds-scheduler,Ada,,3.0,0,0,0,0,0,0,0,0,ok,no tests,,,159,
+482,concurrency/Ada/peterson,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,117,
+483,concurrency/Ada/sjn,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,592,
+484,concurrency/SPARK2/Ada-SPARK-Course-Schedule-II-Stub,SPARK2,,3.0,0,0,3,0,1,0,0,0,not driven,ok,,yes,24,24 library lines; demo literals 3
+485,concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub,SPARK2,,3.0,0,0,2,0,3,0,0,0,not driven,ok,,yes,30,demo literals 3 4 5
+486,cryptography/Ada/Aes,Ada,,3.0,0,0,0,0,5,0,0,0,not driven,ok,,,355,demo literals 3 4 6 12 192
+487,cryptography/Ada/BLAKE,Ada,,3.0,0,0,0,0,12,0,0,0,ok,ok,,,297,demo literals 3 4 5 6 7 9
+488,cryptography/Ada/Bcrypt,Ada,,3.0,0,0,0,0,5,0,0,0,not driven,ok,,,261,demo literals 3 5 6 7 15
+489,cryptography/Ada/Blowfish,Ada,,3.0,0,0,0,0,3,0,0,0,ok,ok,,,400,demo literals 5 6 7
+490,cryptography/Ada/IDEA,Ada,,3.0,0,0,0,0,8,0,0,0,ok,ok,,,209,demo literals 3 5 6 9 49 50
+491,cryptography/Ada/MD5,Ada,,3.0,0,0,0,0,8,0,0,0,ok,ok,,,246,demo literals 4 5 6 7 9 11
+492,cryptography/Ada/RC4,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline does not build,,,97,
+493,cryptography/Ada/Stochastic-Universal-Sampling,Ada,,3.0,1,0,0,0,0,0,0,0,ok,ok,,,328,
+494,cryptography/Ada/Tiny-Encryption-Algorithm,Ada,,3.0,0,0,0,0,4,0,0,0,not driven,ok,,,165,demo literals 4 5 6 11
+495,cryptography/Ada/WHIRLPOOL,Ada,,3.0,0,0,0,0,5,0,0,0,ok,ok,,,199,demo literals 3 4 5 6 9
+496,geometry/Ada/Generalised-Hough-Transform,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline does not build,,,157,
+497,geometry/Ada/Kirkpatrick-Seidel,Ada,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,733,demo literals 3
+498,geometry/Ada/Quasitriangulation,Ada,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,701,demo literals 3
+499,geometry/Ada/Radiosity,Ada,,3.0,0,1,0,0,1,0,0,0,not driven,ok,,,534,demo literals 6
+500,geometry/Ada/Riemersma-Dithering,Ada,,3.0,0,1,0,0,1,0,0,0,ok,ok,,,155,demo literals 4
+501,geometry/Ada/Vincenty,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,406,
+502,graphs/Ada/Cryptographically-Secure-Pseudo-Random-Number-Generators,Ada,,3.0,0,0,0,0,9,0,0,0,not driven,ok,,,214,demo literals 3 4 5 6 7 9
+503,hashing/Ada/Hash-Join,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline does not build,,,202,
+504,hashing/Ada/Tiger-Hash,Ada,,3.0,0,0,0,0,9,0,0,0,not driven,ok,,,207,demo literals 3 4 5 6 7 9
+505,matrices/Ada/Jacobi-Eigenvalue,Ada,,3.0,1,0,0,0,0,0,0,0,ok,ok,,,839,
+506,matrices/SPARK2/Ada-SPARK-Spiral-Matrix,SPARK2,,3.0,0,0,0,0,5,0,0,0,not driven,ok,,,28,demo literals 4 5 6 7 9
+507,matrices/SPARK2/Ada-SPARK-Spiral-Matrix-II,SPARK2,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,30,demo literals 3 7 9
+508,misc/Ada/AC-3,Ada,,3.0,0,0,0,0,5,0,0,0,ok,ok,,,507,demo literals 3 4 5 6 7
+509,misc/Ada/Automatic-Train-Operation,Ada,,3.0,0,0,0,0,0,1,0,0,not driven,ok,,,137,
+510,misc/Ada/Baillie-PSW,Ada,,3.0,0,0,0,0,4,0,0,0,not driven,ok,,,365,demo literals 3 4 5 1_000_000
+511,misc/Ada/Bensons-Algorithm,Ada,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,841,demo literals 3
+512,misc/Ada/Bernstein-Varizani-Algorithm,Ada,,3.0,0,0,0,0,0,0,0,0,crash (check failed),ok,,,152,
+513,misc/Ada/Booth-Multiplication,Ada,,3.0,0,0,0,0,5,0,0,0,ok,ok,,,235,demo literals 3 4 5 6 7
+514,misc/Ada/CHS-Conversion,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,74,
+515,misc/Ada/Core,Ada,,3.0,0,0,0,0,4,0,0,0,ok,ok,,,667,demo literals 3 5 6 7
+516,misc/Ada/DDA-Line-Algorithm,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,97,
+517,misc/Ada/Damm-Algorithm,Ada,,3.0,0,0,0,0,5,0,0,0,ok,ok,,,89,demo literals 3 4 5 6 7
+518,misc/Ada/Delivery-Mission-FSM,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,93,
+519,misc/Ada/Delivery-Safety-Supervisor,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,154,
+520,misc/Ada/Doomsday,Ada,,3.0,0,0,0,0,7,0,0,0,ok,ok,,,188,demo literals 7 9 11 28 29 30
+521,misc/Ada/Double-Dabble,Ada,,3.0,0,0,0,0,3,0,0,0,driver not built,ok,,,168,demo literals 3 5 9
+522,misc/Ada/Elias-Delta-Coding,Ada,,3.0,0,0,0,0,0,0,0,0,ok,baseline fails,,,166,
+523,misc/Ada/Elias-Omega-Coding,Ada,,3.0,0,0,0,0,0,0,0,0,ok,baseline fails,,,138,
+524,misc/Ada/Entropy-Coding-With-Known-Entropy-Characteristics,Ada,,3.0,0,0,0,0,0,0,0,0,driver not built,baseline does not build,,,30,
+525,misc/Ada/Exponential-Backoff,Ada,,3.0,0,0,0,0,0,0,0,0,crash (check failed),ok,,,164,
+526,misc/Ada/Exponential-Golomb-Coding,Ada,,3.0,0,0,0,0,0,0,0,0,crash (check failed),ok,,,143,
+527,misc/Ada/Exponentiating-By-Squaring,Ada,,3.0,0,0,0,0,0,0,0,0,crash (check failed),ok,,,298,
+528,misc/Ada/Fast-Cosine-Transform-Algorithms,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,209,
+529,misc/Ada/Feature-Detection,Ada,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,163,demo literals 3
+530,misc/Ada/Financial-Risk-Modeling,Ada,,3.0,0,1,0,0,1,0,0,0,not driven,ok,,,165,demo literals 3
+531,misc/Ada/Finite-Difference-Method,Ada,,3.0,0,1,0,0,1,0,0,0,not driven,ok,,,304,demo literals 3
+532,misc/Ada/Fitness-Proportionate-Selection,Ada,,3.0,1,0,0,0,0,0,0,0,ok,ok,,,334,
+533,misc/Ada/Generational-Garbage-Collector,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,214,
+534,misc/Ada/Goertzel-Algorithm,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,123,
+535,misc/Ada/Golomb-Coding,Ada,,3.0,0,0,0,0,0,0,0,0,crash (check failed),ok,,,175,
+536,misc/Ada/Grovers-Algorithm,Ada,,3.0,0,0,0,0,3,0,0,0,ok,ok,,,288,demo literals 4 5 15
+537,misc/Ada/Hadamard-Transform,Ada,,3.0,0,0,0,0,0,0,0,0,crash (check failed),ok,,,167,
+538,misc/Ada/Half-Toning,Ada,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,93,demo literals 3 5 7
+539,misc/Ada/Hamiltonian-Simulation,Ada,,3.0,0,0,0,0,0,1,0,0,not driven,ok,,,339,
+540,misc/Ada/Hidden-Shift-Problem,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,66,
+541,misc/Ada/ITP-Method,Ada,,3.0,1,0,0,0,0,0,0,0,not driven,ok,,,376,
+542,misc/Ada/Karmarkars-Algorithm,Ada,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,851,demo literals 6
+543,misc/Ada/Lempel-Ziv-Stac,Ada,,3.0,0,0,0,0,10,0,0,0,not driven,ok,,,230,demo literals 3 4 5 6 7 9
+544,misc/Ada/Linde-Buzo-Gray-Algorithm,Ada,,3.0,1,0,0,0,0,0,0,0,not driven,ok,,,185,
+545,misc/Ada/Linear-Multistep-Methods,Ada,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,852,demo literals 3 4 30
+546,misc/Ada/Linear-Predictive-Coding,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,206,
+547,misc/Ada/List-Scheduling,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,0,
+548,misc/Ada/Locomotion-Mode-Interlock,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,107,
+549,misc/Ada/Long-Division,Ada,,3.0,0,1,0,0,1,0,0,0,ok,ok,,,556,demo literals 9
+550,misc/Ada/Manning-Criteria,Ada,,3.0,0,0,0,0,0,0,0,0,ok,baseline fails,,,166,
+551,misc/Ada/Mark-and-Sweep,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,169,
+552,misc/Ada/Marzullos-Algorithm,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,117,
+553,misc/Ada/Message-Authentication-Codes,Ada,,3.0,0,0,1,0,1,0,0,0,ok,ok,,,173,demo literals 4
+554,misc/Ada/Modular-Square-Root,Ada,,3.0,0,0,0,0,4,0,0,0,not driven,ok,,,460,demo literals 3 4 5 6
+555,misc/Ada/Montgomery-Reduction,Ada,,3.0,1,0,0,0,0,0,0,0,ok,ok,,,320,
+556,misc/Ada/Multigrid-Methods,Ada,,3.0,0,1,0,0,1,0,0,0,ok,ok,,,629,demo literals 3
+557,misc/Ada/Nested-Sampling,Ada,,3.0,0,0,1,0,1,0,0,0,ok,ok,,,614,demo literals 10_000
+558,misc/Ada/Orbital-Mechanics,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,357,
+559,misc/Ada/Planning-Domain-Definition-Language,Ada,,3.0,0,0,0,0,0,0,0,0,ok,baseline fails,,,168,
+560,misc/Ada/Quantum-Artificial-Life,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline does not build,,,181,
+561,misc/Ada/Radial-Basis-Function-Network,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,166,
+562,misc/Ada/Random-Walker,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,168,
+563,misc/Ada/Range-Encoding,Ada,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,221,demo literals 5
+564,misc/Ada/Regret-Minimization,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,86,
+565,misc/Ada/Relevance-Vector-Machine,Ada,,3.0,0,0,0,0,4,0,0,0,not driven,ok,,,347,demo literals 3 5 7 12
+566,misc/Ada/Richardson-Lucy-Deconvolution,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline does not build,,,98,
+567,misc/Ada/Ruzzo-Tompa,Ada,,3.0,0,0,0,0,0,0,0,0,crash (check failed),ok,,,257,
+568,misc/Ada/Salsa20,Ada,,3.0,0,0,0,0,11,0,0,0,not driven,ok,,,293,demo literals 3 4 5 6 9 11
+569,misc/Ada/Secret-Sharing,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,150,
+570,misc/Ada/Self-Organizing-Map,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,243,
+571,misc/Ada/Sethi-Ullman-Algorithm,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline does not build,,,203,
+572,misc/Ada/Shannon-Fano-Coding,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,119,
+573,misc/Ada/Slot-Machine,Ada,,3.0,0,0,0,0,6,0,0,0,ok,ok,,,250,demo literals 3 4 20 30 50 500
+574,misc/Ada/Sukhotin,Ada,,3.0,0,0,0,0,0,0,0,0,crash (check failed),ok,,,284,
+575,misc/Ada/Swap-Test,Ada,,3.0,0,1,0,0,1,0,0,0,not driven,ok,,,184,demo literals 4
+576,misc/Ada/Term-Rewriting,Ada,,3.0,0,0,0,0,0,0,0,0,ok,baseline fails,,,354,
+577,misc/Ada/Tomasulo-Algorithm,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,184,
+578,misc/Ada/Truncation-Selection,Ada,,3.0,1,0,0,0,0,0,0,0,ok,ok,,,264,
+579,misc/Ada/TurboQuant,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,198,
+580,misc/Ada/Verhoeff-Algorithm,Ada,,3.0,0,0,0,0,6,0,0,0,ok,ok,,,74,demo literals 3 4 5 6 7 9
+581,misc/Ada/Warped-Linear-Predictive-Coding,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,120,
+582,misc/Ada/Zellers-Congruence-Algorithm,Ada,,3.0,0,0,0,0,10,0,0,0,not driven,ok,,,95,demo literals 3 4 5 6 7 9
+583,misc/Ada/docs,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,0,
+584,misc/Ada/earliest-deadline,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,150,
+585,misc/Ada/page-replacement-algorithms,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,210,
+586,misc/Ada/round-robin,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,130,
+587,misc/Ada/scripts,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,0,
+588,misc/Ada/srt-simulation,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,172,
+589,misc/SPARK2/Ada-SPARK-Contains-Duplicate,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,23,23 library lines; demo literals 4
+590,misc/SPARK2/Ada-SPARK-Convert-1D-Array-Into-2D-Array,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,14,14 library lines; demo literals 3
+591,misc/SPARK2/Ada-SPARK-Convert-A-Number-To-Hexadecimal,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,22,22 library lines; demo literals 9
+592,misc/SPARK2/Ada-SPARK-Critical-Connections-In-A-Network-Lite,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,20,20 library lines; demo literals 3
+593,misc/SPARK2/Ada-SPARK-Daily-Temperatures,SPARK2,,3.0,0,0,0,0,4,0,0,0,not driven,ok,,,66,demo literals 3 4 5 6
+594,misc/SPARK2/Ada-SPARK-Delete-And-Earn,SPARK2,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,30,demo literals 6 12 72
+595,misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment,SPARK2,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,55,demo literals 3 4 7
+596,misc/SPARK2/Ada-SPARK-Diagonal-Traverse,SPARK2,,3.0,0,0,0,0,10,0,0,0,not driven,ok,,,33,demo literals 3 5 6 7 9 11
+597,misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,SPARK2,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,32,demo literals 4 11 144_467
+598,misc/SPARK2/Ada-SPARK-Find-Common-Characters,SPARK2,,3.0,0,0,3,0,1,0,0,0,not driven,ok,,yes,23,23 library lines; demo literals 3
+599,misc/SPARK2/Ada-SPARK-Find-The-Original-Array-Of-Prefix-XOR,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,20,20 library lines; demo literals 3
+600,misc/SPARK2/Ada-SPARK-Hand-Of-Straights-Stub,SPARK2,,3.0,0,0,2,0,4,0,0,0,not driven,ok,,yes,47,demo literals 3 5 6 7
+601,misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,23,23 library lines; demo literals 3
+602,misc/SPARK2/Ada-SPARK-How-Many-Numbers-Are-Smaller,SPARK2,,3.0,0,0,3,0,1,0,0,0,not driven,ok,,yes,21,21 library lines; demo literals 3
+603,misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays-II,SPARK2,,3.0,0,0,3,0,1,0,0,0,not driven,ok,,yes,23,23 library lines; demo literals 3
+604,misc/SPARK2/Ada-SPARK-Lemonade-Change,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,15,15 library lines; demo literals 3
+605,misc/SPARK2/Ada-SPARK-Letter-Case-Permutation,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,14,14 library lines; demo literals 4096
+606,misc/SPARK2/Ada-SPARK-N-Repeated-Element-In-Size-2N-Array,SPARK2,,3.0,0,0,3,0,1,0,0,0,not driven,ok,,yes,18,18 library lines; demo literals 3
+607,misc/SPARK2/Ada-SPARK-Neighboring-Bitwise-XOR,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,16,16 library lines; demo literals 3
+608,misc/SPARK2/Ada-SPARK-Nim-Game,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,13,13 library lines; demo literals 4
+609,misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Stub,SPARK2,,3.0,0,0,3,0,1,0,0,0,not driven,ok,,yes,22,22 library lines; demo literals 7
+610,misc/SPARK2/Ada-SPARK-Permutations-II,SPARK2,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,47,demo literals 4 24 239_500_800
+611,misc/SPARK2/Ada-SPARK-Remove-K-Digits,SPARK2,,3.0,0,0,2,0,5,0,0,0,not driven,ok,,yes,27,demo literals 3 4 5 6 7
+612,misc/SPARK2/Ada-SPARK-Sliding-Window-Median,SPARK2,,3.0,0,0,0,0,4,0,0,0,not driven,ok,,,44,demo literals 4 5 6 7
+613,misc/SPARK2/Ada-SPARK-Softmin,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,14,14 library lines; demo literals 4
+614,misc/SPARK2/Ada-SPARK-Sum-Root-To-Leaf-Numbers,SPARK2,,3.0,0,0,0,0,9,0,0,0,not driven,ok,,,27,demo literals 3 4 5 6 7 11
+615,misc/SPARK2/Ada-SPARK-Summary-Ranges,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,18,18 library lines; demo literals 6
+616,misc/SPARK2/Ada-SPARK-Two-Sum,SPARK2,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,31,demo literals 3 4 5
+617,misc/SPARK2/Ada-SPARK-Unique-Paths,SPARK2,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,27,demo literals 3 6 20
+618,misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub,SPARK2,,3.0,0,0,2,0,3,0,0,0,not driven,ok,,yes,47,demo literals 3 4 5
+619,misc/SPARK4/Ada-SPARK-Shortest-Seek-First,SPARK4,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,0,
+620,misc/SPARK4/demo,SPARK4,,3.0,0,0,0,0,0,0,0,0,not driven,no tests,,,272,
+621,ml/Ada/Alopex,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,301,
+622,ml/Ada/Forward-Backward,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,672,
+623,ml/Ada/Neural-Network,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,unchecked (main stillborn),,,314,
+624,numerical/Ada/BBP,Ada,,3.0,0,0,0,0,4,0,0,0,ok,ok,,,215,demo literals 4 5 6 18
+625,numerical/Ada/Bisection-Method,Ada,,3.0,1,0,0,0,0,0,0,0,not driven,ok,,,319,
+626,numerical/Ada/Bluesteins-FFT-Algorithm,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,167,
+627,numerical/Ada/Cipolla,Ada,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,272,demo literals 3 5 6
+628,numerical/Ada/Gauss-Newton,Ada,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,738,demo literals 3
+629,numerical/Ada/Miller-Rabin,Ada,,3.0,0,0,0,0,24,0,0,0,not driven,ok,,,182,demo literals 3 5 7 11 13 17
+630,numerical/Ada/Pollards-Rho-Logarithms,Ada,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,287,demo literals 3
+631,numerical/Ada/Tonelli-Shanks,Ada,,3.0,0,0,0,0,4,0,0,0,not driven,ok,,,270,demo literals 3 4 5 6
+632,numerical/Ada/Trigonometric-Interpolation,Ada,,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,91,
+633,numerical/SPARK2/Ada-SPARK-Valid-Perfect-Square,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,17,17 library lines; demo literals 49
+634,searching/Ada/Beam-Search,Ada,,3.0,1,0,0,0,0,0,0,0,not driven,ok,,,376,
+635,searching/Ada/Linear-Search,Ada,,3.0,0,2,1,0,0,0,0,0,not driven,ok,diff agree,,71,
+636,searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound,SPARK2,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,32,demo literals 3 4 7
+637,searching/SPARK4/Ada-SPARK-Binary-Search,SPARK4,,3.0,0,4,0,0,0,0,0,0,not driven,ok,diff agree,,151,
+638,sorting/Ada/Bitonic-Sorter,Ada,,3.0,0,3,0,0,0,0,0,0,ok,ok,diff agree,,159,
+639,sorting/Ada/Bogosort,Ada,,3.0,0,3,0,0,0,0,0,0,ok,ok,diff agree,,84,
+640,sorting/Ada/Postman-Sort,Ada,,3.0,0,2,1,0,0,0,0,0,ok,ok,diff agree,,149,
+641,sorting/Ada/Radix-Sort,Ada,,3.0,0,2,1,0,0,0,0,0,ok,ok,diff agree,,112,
+642,sorting/Ada/Selection-Sort,Ada,,3.0,0,4,0,0,0,0,0,0,ok,ok,diff agree,,92,
+643,sorting/Ada/Timsort,Ada,,3.0,0,1,1,0,2,0,0,0,ok,ok,diff agree,,245,demo literals 3 4096
+644,sorting/Ada/Tournament-Selection,Ada,,3.0,1,0,0,0,0,0,0,0,ok,ok,,,351,
+645,sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST,SPARK2,,3.0,0,0,0,0,4,0,0,0,not driven,ok,,,51,demo literals 3 4 5 6
+646,sorting/SPARK2/Ada-SPARK-Count-Negative-Numbers-In-A-Sorted-Matrix,SPARK2,,3.0,0,0,1,0,1,0,0,0,not driven,ok,,,23,23 library lines; demo literals 3
+647,sorting/SPARK4/Ada-SPARK-Topological-Sort,SPARK4,,3.0,0,0,0,0,0,1,0,0,not driven,ok,,,279,
+648,strings/Ada/Damerau-Levenshtein-Distance,Ada,,3.0,0,4,0,0,0,0,0,0,ok,ok,diff agree,,92,
+649,strings/Ada/Levenshtein-Distance,Ada,,3.0,0,4,0,0,0,0,0,0,ok,ok,diff agree,,84,
+650,strings/Ada/Soundex,Ada,,3.0,0,0,0,0,3,0,0,0,ok,ok,,,102,demo literals 3 5 6
+651,strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi,SPARK2,,3.0,0,0,0,0,3,0,0,0,not driven,ok,,,34,demo literals 3 4 5
+652,strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi-Stub,SPARK2,,3.0,0,0,2,0,3,0,0,0,not driven,,,yes,34,demo literals 3 4 5
+653,trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes,SPARK2,,3.0,0,0,0,0,4,0,0,0,not driven,ok,,,55,demo literals 3 4 5 6
+654,trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite,SPARK2,,3.0,0,0,2,0,10,0,0,0,not driven,ok,,yes,20,20 library lines; demo literals 3 4 5 6 7 9
+655,compression/Ada/Earley-Parser,Ada,,2.25,0,1,0,0,0,0,1,0,ok,ok,,,186,
+656,misc/Ada/Unrestricted-Algorithm,Ada,,2.25,0,1,0,0,0,0,1,0,ok,ok,,,119,
+657,clustering/Ada/Clustering-Algorithms,Ada,,2.0,0,1,0,0,0,0,0,0,ok,ok,,,1337,
+658,compression/SPARK2/Ada-SPARK-Move-To-Front,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+659,concurrency/Ada/lamport,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,206,demo literals 4 5
+660,concurrency/SPARK2/Ada-SPARK-Dekkers-Algorithm,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+661,concurrency/SPARK2/Ada-SPARK-Petersons-Algorithm,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+662,concurrency/SPARK2/Ada-SPARK-Task-Scheduler,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+663,cryptography/Ada/HMAC,Ada,,2.0,0,0,1,0,0,0,0,0,driver not built,ok,,,84,
+664,cryptography/Ada/Shamirs-Secret-Sharing,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,213,
+665,cryptography/Ada/Symetric-Encryption,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,166,demo literals 4 5
+666,cryptography/SPARK2/Ada-SPARK-Level-Order-Traversal-Stub,SPARK2,,2.0,0,1,2,0,0,0,0,0,not driven,ok,,yes,105,
+667,cryptography/SPARK2/Bit-Reversal,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+668,geometry/Ada/Closest-Pair-Problem,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,325,demo literals 3 7
+669,geometry/Ada/Delaunay-Triangulation,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,430,
+670,geometry/Ada/Histogram-Equalization,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,66,
+671,geometry/Ada/Voronoi-Diagrams,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,741,
+672,graphs/Ada/Elliptic-Curve-Cryptography,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,190,demo literals 3 4
+673,graphs/Ada/Post-Quantum-Cryptography,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,203,demo literals 3 192
+674,graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,35,
+675,matrices/Ada/Chain-Matrix-Multiplication,Ada,,2.0,0,1,0,0,0,0,0,0,ok,ok,,,242,
+676,matrices/Ada/Symbolic-Cholesky-Decomposition,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,62,
+677,matrices/SPARK2/Ada-SPARK-Matrix-Diagonal-Sum,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+678,matrices/SPARK2/Ada-SPARK-Toeplitz-Matrix,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+679,matrices/SPARK2/Ada-SPARK-Transpose-Matrix,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+680,matrices/SPARK2/Matrix-01,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+681,misc/Ada/Approximate-Counting,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,183,
+682,misc/Ada/Apriori-Algorithm,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,323,
+683,misc/Ada/Beginner-Embedded-API,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,108,
+684,misc/Ada/Bron-Kerbosch,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,274,
+685,misc/Ada/Cannons-Algorithm,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,451,
+686,misc/Ada/Chaitins-Algorithm,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,218,
+687,misc/Ada/Constraint-Algorithm,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,577,
+688,misc/Ada/Cyclic-Redundancy-Check,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,128,
+689,misc/Ada/Dantzig-Wolfe-Decomposition,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,1052,
+690,misc/Ada/Difference-Map,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,744,
+691,misc/Ada/EdDSA,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,229,demo literals 4 5
+692,misc/Ada/False-Nearest-Neighbor,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,410,
+693,misc/Ada/Fletchers-Checksum,Ada,,2.0,0,0,0,0,2,0,0,0,ok,ok,,,85,demo literals 65535 4294967295
+694,misc/Ada/GPU-Work-Queue,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,115,
+695,misc/Ada/Gibbs-Sampling,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,345,
+696,misc/Ada/GrowCut,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,81,
+697,misc/Ada/Halleys-Method,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,411,
+698,misc/Ada/Hamming-7-4,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,119,demo literals 5 6
+699,misc/Ada/ID3-Algorithm,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,305,
+700,misc/Ada/K-Way-Merge,Ada,,2.0,0,1,0,0,0,0,0,0,ok,ok,,,251,
+701,misc/Ada/Kalman-Filter,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,593,
+702,misc/Ada/Key-Exchange,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,166,
+703,misc/Ada/Lax-Wendroff,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,508,
+704,misc/Ada/Luhn-Algorithm,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,78,
+705,misc/Ada/Multiplicative-Inverse-Algorithms,Ada,,2.0,0,0,0,0,2,0,0,0,ok,ok,,,330,demo literals 3 5
+706,misc/Ada/Nesting-Algorithm,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,437,
+707,misc/Ada/Newtons-Method,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,335,
+708,misc/Ada/Odlyzko-Schonhage,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,455,
+709,misc/Ada/Powerset-Construction,Ada,,2.0,0,1,0,0,0,0,0,0,driver not built,ok,,,231,
+710,misc/Ada/Pseudorandom-Number-Generator,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,399,
+711,misc/Ada/Region-Growing,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,190,
+712,misc/Ada/Ricart-Agrawala-Algorithm,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,150,
+713,misc/Ada/Risch-Algorithm,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,164,
+714,misc/Ada/Schensted,Ada,,2.0,0,0,0,0,2,0,0,0,ok,ok,,,285,demo literals 6 12
+715,misc/Ada/Simons-Problem,Ada,,2.0,0,1,0,0,0,0,0,0,ok,ok,,,298,
+716,misc/Ada/Spectral-Layout,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,242,demo literals 3 7
+717,misc/Ada/Ukkonens-Algorithm,Ada,,2.0,0,1,0,0,0,0,0,0,ok,ok,,,223,
+718,misc/Ada/Vector-Quantization,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,164,
+719,misc/Ada/Xor-Swap-Algorithm,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,37,
+720,misc/SPARK2/Ada-SPARK-Add-Digits,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+721,misc/SPARK2/Ada-SPARK-Add-Two-Numbers,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+722,misc/SPARK2/Ada-SPARK-Add-Two-Numbers-II,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+723,misc/SPARK2/Ada-SPARK-Alert-Using-Same-Key-Card-Stub,SPARK2,,2.0,0,2,1,0,0,0,0,0,not driven,ok,,yes,30,
+724,misc/SPARK2/Ada-SPARK-Argmax,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+725,misc/SPARK2/Ada-SPARK-Array-Partition-I,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,32,demo literals 4 7
+726,misc/SPARK2/Ada-SPARK-As-Far-From-Land-As-Possible,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+727,misc/SPARK2/Ada-SPARK-Asteroid-Collision,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+728,misc/SPARK2/Ada-SPARK-Baseball-Game,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+729,misc/SPARK2/Ada-SPARK-Basic-Calculator,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+730,misc/SPARK2/Ada-SPARK-Basic-Calculator-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,21,21 library lines
+731,misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-II,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+732,misc/SPARK2/Ada-SPARK-Binary-Number-With-Alternating-Bits,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+733,misc/SPARK2/Ada-SPARK-Binary-To-Integer,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+734,misc/SPARK2/Ada-SPARK-Binomial-Coefficient,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,36,demo literals 4 5
+735,misc/SPARK2/Ada-SPARK-Bitset,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+736,misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+737,misc/SPARK2/Ada-SPARK-Bitwise-ORs-Of-Subarrays-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+738,misc/SPARK2/Ada-SPARK-Bitwise-XOR-Of-All-Pairings,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+739,misc/SPARK2/Ada-SPARK-Boats-To-Save-People,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+740,misc/SPARK2/Ada-SPARK-Bray-Curtis,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+741,misc/SPARK2/Ada-SPARK-Browser-History-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,24,24 library lines
+742,misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,20,20 library lines
+743,misc/SPARK2/Ada-SPARK-Can-Place-Flowers,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,13,13 library lines
+744,misc/SPARK2/Ada-SPARK-Canberra-Distance,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+745,misc/SPARK2/Ada-SPARK-Cheapest-Flights,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+746,misc/SPARK2/Ada-SPARK-Cheapest-Flights-Stub,SPARK2,,2.0,0,0,2,0,2,0,0,0,not driven,ok,,yes,26,demo literals 3 200
+747,misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+748,misc/SPARK2/Ada-SPARK-Cherry-Pickup-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,13,13 library lines
+749,misc/SPARK2/Ada-SPARK-Clamp,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+750,misc/SPARK2/Ada-SPARK-Combination-Sum,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,28,demo literals 5 7
+751,misc/SPARK2/Ada-SPARK-Combination-Sum-II,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,29,demo literals 4 6
+752,misc/SPARK2/Ada-SPARK-Complement-Of-Base-10,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+753,misc/SPARK2/Ada-SPARK-Contains-Duplicate-II,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+754,misc/SPARK2/Ada-SPARK-Contiguous-Array,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+755,misc/SPARK2/Ada-SPARK-Continuous-Subarray-Sum,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+756,misc/SPARK2/Ada-SPARK-Cosine-Similarity,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+757,misc/SPARK2/Ada-SPARK-Count-And-Say,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,33,demo literals 3 4
+758,misc/SPARK2/Ada-SPARK-Count-Triplets-That-Can-Form-Two-Arrays-Of-Equal-XOR,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+759,misc/SPARK2/Ada-SPARK-Crawler-Log-Folder,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+760,misc/SPARK2/Ada-SPARK-Decode-XORed-Array,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+761,misc/SPARK2/Ada-SPARK-Design-A-Leaderboard,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,11,11 library lines
+762,misc/SPARK2/Ada-SPARK-Design-Circular-Queue-Stub,SPARK2,,2.0,0,1,2,0,0,0,0,0,not driven,ok,,yes,31,
+763,misc/SPARK2/Ada-SPARK-Design-Food-Rating-System,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,11,11 library lines
+764,misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+765,misc/SPARK2/Ada-SPARK-Design-Linked-List,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,76,demo literals 3 4
+766,misc/SPARK2/Ada-SPARK-Dice-Coefficient,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+767,misc/SPARK2/Ada-SPARK-Difference-Array,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+768,misc/SPARK2/Ada-SPARK-Disjoint-Set-Forest,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+769,misc/SPARK2/Ada-SPARK-Distinct-Subsequences,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,42,
+770,misc/SPARK2/Ada-SPARK-Divisor-Game,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,12,12 library lines
+771,misc/SPARK2/Ada-SPARK-Dot-Product,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,16,16 library lines
+772,misc/SPARK2/Ada-SPARK-Dungeon-Game-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+773,misc/SPARK2/Ada-SPARK-Earliest-Deadline-First-Scheduling,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+774,misc/SPARK2/Ada-SPARK-Eliminate-Maximum-Number-Of-Monsters,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+775,misc/SPARK2/Ada-SPARK-Encode-And-Decode-TinyURL-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,20,20 library lines
+776,misc/SPARK2/Ada-SPARK-Euclidean-Distance,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+777,misc/SPARK2/Ada-SPARK-Eval-RPN,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+778,misc/SPARK2/Ada-SPARK-Evaluate-Division-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+779,misc/SPARK2/Ada-SPARK-Evaluate-Reverse-Polish-Notation,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+780,misc/SPARK2/Ada-SPARK-Excel-Sheet-Column,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+781,misc/SPARK2/Ada-SPARK-Exclusive-Time-Of-Functions-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,10,10 library lines
+782,misc/SPARK2/Ada-SPARK-Factorial,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,28,demo literals 5 120
+783,misc/SPARK2/Ada-SPARK-Fast-Pow,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,50,demo literals 4 1_024
+784,misc/SPARK2/Ada-SPARK-Final-Prices-With-A-Special-Discount,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+785,misc/SPARK2/Ada-SPARK-Find-Median-Data-Stream-Stub,SPARK2,,2.0,0,1,2,0,0,0,0,0,not driven,ok,,yes,37,
+786,misc/SPARK2/Ada-SPARK-Find-Peak-Element,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+787,misc/SPARK2/Ada-SPARK-Find-The-Difference,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+788,misc/SPARK2/Ada-SPARK-Find-The-Duplicate-Number,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+789,misc/SPARK2/Ada-SPARK-First-Bad-Version,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+790,misc/SPARK2/Ada-SPARK-First-Unique-Character,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,28,
+791,misc/SPARK2/Ada-SPARK-Generate-Parentheses,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+792,misc/SPARK2/Ada-SPARK-Histogram-Bin,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+793,misc/SPARK2/Ada-SPARK-Horner-Scheme,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+794,misc/SPARK2/Ada-SPARK-Insert-Delete-GetRandom-O1,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+795,misc/SPARK2/Ada-SPARK-Insert-Interval,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,19,19 library lines
+796,misc/SPARK2/Ada-SPARK-Int-To-Roman-Stub,SPARK2,,2.0,0,0,2,0,2,0,0,0,not driven,ok,,yes,37,demo literals 3 14
+797,misc/SPARK2/Ada-SPARK-Integer-To-English-Stub,SPARK2,,2.0,0,0,2,0,2,0,0,0,not driven,ok,,yes,38,demo literals 7 13
+798,misc/SPARK2/Ada-SPARK-Integer-To-Roman,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,25,demo literals 4 9
+799,misc/SPARK2/Ada-SPARK-Is-Palindrome,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+800,misc/SPARK2/Ada-SPARK-Jaccard-Index,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+801,misc/SPARK2/Ada-SPARK-Knight-Probability-In-Chessboard-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+802,misc/SPARK2/Ada-SPARK-Kth-Largest-Array,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+803,misc/SPARK2/Ada-SPARK-L1-Norm,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+804,misc/SPARK2/Ada-SPARK-L2-Norm-Squared,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,16,16 library lines
+805,misc/SPARK2/Ada-SPARK-LFU-Cache-Stub,SPARK2,,2.0,0,1,2,0,0,0,0,0,not driven,ok,,yes,64,
+806,misc/SPARK2/Ada-SPARK-LRU-Cache-Stub,SPARK2,,2.0,0,1,2,0,0,0,0,0,not driven,ok,,yes,68,
+807,misc/SPARK2/Ada-SPARK-Largest-Number,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+808,misc/SPARK2/Ada-SPARK-Last-Stone-Weight-II,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,88,demo literals 4 5
+809,misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,29,demo literals 4 81
+810,misc/SPARK2/Ada-SPARK-Line-Reflection,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+811,misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+812,misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,17,17 library lines
+813,misc/SPARK2/Ada-SPARK-Magnetic-Force-Between-Two-Balls,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+814,misc/SPARK2/Ada-SPARK-Manhattan-Distance,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,16,16 library lines
+815,misc/SPARK2/Ada-SPARK-Matchsticks-To-Square-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+816,misc/SPARK2/Ada-SPARK-Max-Area-Of-Island,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,24,24 library lines
+817,misc/SPARK2/Ada-SPARK-Max-Path-Sum-Stub,SPARK2,,2.0,0,1,2,0,0,0,0,0,not driven,ok,,yes,82,
+818,misc/SPARK2/Ada-SPARK-Max-Stack-Stub,SPARK2,,2.0,0,1,2,0,0,0,0,0,not driven,ok,,yes,65,
+819,misc/SPARK2/Ada-SPARK-Maximum-Units-On-A-Truck,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+820,misc/SPARK2/Ada-SPARK-Median-Of-Three,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+821,misc/SPARK2/Ada-SPARK-Meeting-Rooms,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,16,16 library lines
+822,misc/SPARK2/Ada-SPARK-Meeting-Rooms-II,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+823,misc/SPARK2/Ada-SPARK-Min-Max-Normalize,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,45,demo literals 3 4
+824,misc/SPARK2/Ada-SPARK-Minimum-ASCII-Delete-Sum,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,52,
+825,misc/SPARK2/Ada-SPARK-Minimum-Cost-To-Move-Chips,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+826,misc/SPARK2/Ada-SPARK-Minimum-Deletions-To-Make-Character-Frequencies-Unique,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+827,misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Arrows,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+828,misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Moves-To-Seat,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+829,misc/SPARK2/Ada-SPARK-Minimum-Operations-To-Make-The-Array-Increasing,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+830,misc/SPARK2/Ada-SPARK-Missing-Ranges-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,22,22 library lines
+831,misc/SPARK2/Ada-SPARK-Monotonic-Stack,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,45,demo literals 3 4
+832,misc/SPARK2/Ada-SPARK-Moving-Average,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+833,misc/SPARK2/Ada-SPARK-Moving-Average-From-Data-Stream,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+834,misc/SPARK2/Ada-SPARK-Nearest-Exit-From-Entrance-In-Maze,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+835,misc/SPARK2/Ada-SPARK-New-21-Game-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,12,12 library lines
+836,misc/SPARK2/Ada-SPARK-Non-Decreasing-Array,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,16,16 library lines
+837,misc/SPARK2/Ada-SPARK-Number-Complement,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+838,misc/SPARK2/Ada-SPARK-Number-Of-1-Bits-In-Range,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+839,misc/SPARK2/Ada-SPARK-Number-Of-Good-Pairs,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,17,17 library lines
+840,misc/SPARK2/Ada-SPARK-Number-Of-Islands,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,24,24 library lines
+841,misc/SPARK2/Ada-SPARK-Number-Of-Provinces,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+842,misc/SPARK2/Ada-SPARK-One-Hot,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,16,16 library lines
+843,misc/SPARK2/Ada-SPARK-Open-The-Lock,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+844,misc/SPARK2/Ada-SPARK-Ordered-Stream-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,24,24 library lines
+845,misc/SPARK2/Ada-SPARK-Out-Of-Boundary-Paths-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+846,misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Flow,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,22,22 library lines
+847,misc/SPARK2/Ada-SPARK-Paint-Fence-Lite,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,30,demo literals 4 3_194
+848,misc/SPARK2/Ada-SPARK-Paint-House-Lite,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,18,18 library lines
+849,misc/SPARK2/Ada-SPARK-Palindrome-Partitioning-II,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,55,
+850,misc/SPARK2/Ada-SPARK-Partition-Equal-Subset-Sum,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,51,demo literals 3 5
+851,misc/SPARK2/Ada-SPARK-Partition-Labels,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+852,misc/SPARK2/Ada-SPARK-Path-Sum-III-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+853,misc/SPARK2/Ada-SPARK-Peak-Index-In-Mountain-Array,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+854,misc/SPARK2/Ada-SPARK-Permutations,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,28,demo literals 5 120
+855,misc/SPARK2/Ada-SPARK-Population-Count,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+856,misc/SPARK2/Ada-SPARK-Power-Of-Four,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+857,misc/SPARK2/Ada-SPARK-Power-Of-Two,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+858,misc/SPARK2/Ada-SPARK-Powx-N,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+859,misc/SPARK2/Ada-SPARK-Prefix-Sums,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+860,misc/SPARK2/Ada-SPARK-Product-Of-Numbers-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,21,21 library lines
+861,misc/SPARK2/Ada-SPARK-Projection-Area-Of-3D-Shapes,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+862,misc/SPARK2/Ada-SPARK-Queue-Reconstruction-By-Height,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+863,misc/SPARK2/Ada-SPARK-Random-Pick-With-Weight-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+864,misc/SPARK2/Ada-SPARK-Randomized-Collection,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,64,demo literals 4 7
+865,misc/SPARK2/Ada-SPARK-Randomized-Set,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,16,16 library lines
+866,misc/SPARK2/Ada-SPARK-Range-Sum-Query,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+867,misc/SPARK2/Ada-SPARK-Rate-Monotonic-Scheduling,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+868,misc/SPARK2/Ada-SPARK-Rectangle-Overlap,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+869,misc/SPARK2/Ada-SPARK-Reduce-Array-Size-To-The-Half,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,25,
+870,misc/SPARK2/Ada-SPARK-Redundant-Connection,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,45,demo literals 3 4
+871,misc/SPARK2/Ada-SPARK-Restore-IP-Addresses,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,44,
+872,misc/SPARK2/Ada-SPARK-Reverse-Integer,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+873,misc/SPARK2/Ada-SPARK-Reverse-Pairs-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+874,misc/SPARK2/Ada-SPARK-Reverse-Words,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+875,misc/SPARK2/Ada-SPARK-Rotting-Oranges,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+876,misc/SPARK2/Ada-SPARK-Seat-Manager-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,21,21 library lines
+877,misc/SPARK2/Ada-SPARK-Seat-Reservation-Manager,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+878,misc/SPARK2/Ada-SPARK-Self-Dividing-Numbers,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+879,misc/SPARK2/Ada-SPARK-Sequence-Reconstruction-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+880,misc/SPARK2/Ada-SPARK-Shortest-Bridge,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+881,misc/SPARK2/Ada-SPARK-Shortest-Common-Supersequence-Lite,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,40,
+882,misc/SPARK2/Ada-SPARK-Shortest-Job-Next,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+883,misc/SPARK2/Ada-SPARK-Single-Number,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,34,demo literals 3 4
+884,misc/SPARK2/Ada-SPARK-Single-Number-II,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+885,misc/SPARK2/Ada-SPARK-Single-Number-III,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+886,misc/SPARK2/Ada-SPARK-Sliding-Window-Maximum,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,25,demo literals 5 7
+887,misc/SPARK2/Ada-SPARK-Snapshot-Array-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,24,24 library lines
+888,misc/SPARK2/Ada-SPARK-Soup-Servings-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,12,12 library lines
+889,misc/SPARK2/Ada-SPARK-Spearman-Rank-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,17,17 library lines
+890,misc/SPARK2/Ada-SPARK-Sqrt-Integer,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,25,demo literals 9 99
+891,misc/SPARK2/Ada-SPARK-Sqrtx,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+892,misc/SPARK2/Ada-SPARK-Subsets-Bitmask,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+893,misc/SPARK2/Ada-SPARK-Sum-Of-Two-Integers,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+894,misc/SPARK2/Ada-SPARK-Surface-Area-Of-3D-Shapes,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+895,misc/SPARK2/Ada-SPARK-Surrounded-Regions,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,21,21 library lines
+896,misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+897,misc/SPARK2/Ada-SPARK-Target-Sum,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,46,
+898,misc/SPARK2/Ada-SPARK-Target-Sum-Stub,SPARK2,,2.0,0,0,2,0,2,0,0,0,not driven,ok,,yes,47,demo literals 3 4
+899,misc/SPARK2/Ada-SPARK-The-Skyline-Problem-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+900,misc/SPARK2/Ada-SPARK-Three-Sum-Closest-Stub,SPARK2,,2.0,0,0,2,0,2,0,0,0,not driven,ok,,yes,45,demo literals 3 4
+901,misc/SPARK2/Ada-SPARK-Time-Based-Key-Value-Store,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+902,misc/SPARK2/Ada-SPARK-Title-To-Number,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+903,misc/SPARK2/Ada-SPARK-Top-Nodes-Algorithm,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+904,misc/SPARK2/Ada-SPARK-Trapezoidal-Rule,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+905,misc/SPARK2/Ada-SPARK-Triangle,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,13,13 library lines
+906,misc/SPARK2/Ada-SPARK-Two-City-Scheduling,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+907,misc/SPARK2/Ada-SPARK-UTF-8-Validation,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+908,misc/SPARK2/Ada-SPARK-Uncommon-Words-From-Two-Sentences,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,18,18 library lines
+909,misc/SPARK2/Ada-SPARK-Unique-Morse-Code-Words,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,18,18 library lines
+910,misc/SPARK2/Ada-SPARK-Valid-Palindrome,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+911,misc/SPARK2/Ada-SPARK-Valid-Square,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+912,misc/SPARK2/Ada-SPARK-Valid-Word-Abbreviation,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+913,misc/SPARK2/Ada-SPARK-Wiggle-Subsequence,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+914,misc/SPARK2/Ada-SPARK-Word-Break,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+915,misc/SPARK2/Ada-SPARK-Word-Break-II,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,33,
+916,misc/SPARK2/Ada-SPARK-Word-Break-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,21,21 library lines
+917,misc/SPARK2/Ada-SPARK-Word-Ladder-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,22,22 library lines
+918,misc/SPARK2/Ada-SPARK-Word-Pattern,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+919,misc/SPARK2/Ada-SPARK-XOR-Of-Numbers-Range,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,20,20 library lines
+920,misc/SPARK2/Ada-SPARK-XOR-Operation-In-An-Array,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+921,ml/SPARK2/Ada-SPARK-ReLU,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,16,16 library lines
+922,numerical/Ada/BKM,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,205,
+923,numerical/Ada/Borwein,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,194,
+924,numerical/Ada/Levenberg-Marquardt,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,760,
+925,numerical/Ada/Linear-Congruential-Generator,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,295,demo literals 3 4
+926,numerical/Ada/Neville,Ada,,2.0,0,1,0,0,0,0,0,0,ok,ok,,,374,
+927,numerical/Ada/Partial-Least-Squares,Ada,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,856,
+928,numerical/Ada/Ziggurat-Algorithm,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,131,demo literals 7 13
+929,numerical/SPARK2/Ada-SPARK-Bisection-Method,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+930,numerical/SPARK2/Ada-SPARK-Chebyshev-Distance,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,19,19 library lines
+931,numerical/SPARK2/Ada-SPARK-Secant-Method,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+932,numerical/SPARK2/Ada-SPARK-Walls-And-Gates,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+933,numerical/SPARK2/Babylonian-Sqrt,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+934,parsing/Ada/GLR-Parser,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,242,
+935,parsing/Ada/Shunting-Yard-Algorithm,Ada,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,371,demo literals 3 4
+936,parsing/SPARK2/Ada-SPARK-Sparse-Set,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+937,parsing/SPARK2/Ada-SPARK-Sparse-Vector-Dot-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,23,23 library lines
+938,parsing/SPARK2/Sparse-Dot,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+939,searching/Ada/Substring-Search,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,334,
+940,searching/Ada/Ternary-Search,Ada,,2.0,0,2,0,0,1,0,0,0,ok,ok,diff agree,,85,demo literals 3
+941,searching/SPARK2/Ada-SPARK-Search-2D-Matrix,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+942,searching/SPARK2/Ada-SPARK-Search-Insert-Position,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,23,23 library lines
+943,searching/SPARK2/Ada-SPARK-Trigram-Search,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,28,
+944,searching/SPARK2/Ada-SPARK-Trim-A-Binary-Search-Tree,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+945,sorting/Ada/Shell-Sort,Ada,,2.0,0,1,0,0,3,0,0,0,ok,ok,diff agree,,90,demo literals 4 9 701
+946,sorting/Ada/Smoothsort,Ada,,2.0,0,1,0,0,16,0,0,0,ok,ok,diff agree,,256,demo literals 3 4 5 6 7 9
+947,sorting/Ada/Stooge-Sort,Ada,,2.0,0,2,0,0,1,0,0,0,ok,ok,diff agree,,60,demo literals 3
+948,sorting/Ada/Topological-Sort,Ada,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,125,
+949,sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings,SPARK2,,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,31,demo literals 15 4_845
+950,sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+951,sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,34,
+952,sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+953,sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array-II,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+954,sorting/SPARK2/Ada-SPARK-Sort-Integers-By-The-Number-Of-1-Bits,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,21,21 library lines
+955,sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,SPARK4,,2.0,0,2,0,0,1,0,0,0,not driven,ok,diff agree,,343,demo literals 4
+956,sorting/SPARK4/Ada-SPARK-Burstsort,SPARK4,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,527,
+957,sorting/SPARK4/Ada-SPARK-Introsort,SPARK4,,2.0,0,1,0,0,8,0,0,0,not driven,ok,diff agree,,803,demo literals 3 4 5 6 7 12
+958,sorting/SPARK4/Ada-SPARK-Samplesort,SPARK4,,2.0,1,1,0,0,0,0,0,0,not driven,ok,diff agree,,357,
+959,sorting/SPARK4/Ada-SPARK-Shell-Sort,SPARK4,,2.0,0,1,0,0,3,0,0,0,not driven,ok,diff agree,,143,demo literals 4 23 57
+960,sorting/SPARK4/Ada-SPARK-Smoothsort,SPARK4,,2.0,0,1,0,0,9,0,0,0,not driven,ok,diff agree,,315,demo literals 4 5 6 7 9 15
+961,strings/Ada/Boyer-Moore-Horspool,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,138,
+962,strings/SPARK2/Ada-SPARK-Bounded-String-Builder,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,252,
+963,strings/SPARK2/Ada-SPARK-Decode-String-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,17,17 library lines
+964,strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings,SPARK2,,2.0,0,1,0,0,0,0,0,0,not driven,ok,,,40,
+965,strings/SPARK2/Ada-SPARK-Longest-Common-Prefix,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+966,strings/SPARK2/Ada-SPARK-Multiply-Strings-Lite,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+967,strings/SPARK2/Ada-SPARK-Permutation-In-String,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+968,strings/SPARK2/Ada-SPARK-Reverse-String,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+969,strings/SPARK2/Ada-SPARK-Reverse-Words-In-A-String,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,17,17 library lines
+970,strings/SPARK2/Add-Strings,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,14,14 library lines
+971,trees/Ada/Context-Tree-Weighting,Ada,,2.0,0,0,1,0,0,0,0,0,ok,ok,,,126,
+972,trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View,SPARK2,,2.0,0,0,2,0,2,0,0,0,not driven,ok,,yes,18,18 library lines; demo literals 3 7
+973,trees/SPARK2/Ada-SPARK-Leaf-Similar-Trees,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+974,trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,24,24 library lines
+975,trees/SPARK2/Ada-SPARK-Two-Sum-BST-Stub,SPARK2,,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,23,23 library lines
+976,trees/SPARK2/Ada-SPARK-Univalued-Binary-Tree,SPARK2,,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,22,22 library lines
+977,trees/SPARK2/Ada-SPARK-Validate-BST-Stub,SPARK2,,2.0,0,1,2,0,0,0,0,0,not driven,ok,,yes,81,
+978,misc/Ada/Program-Synthesis,Ada,,1.25,0,0,0,0,1,0,1,0,not driven,ok,,,401,demo literals 3
+979,misc/Ada/Quantum-Annealing,Ada,,1.25,0,0,0,0,1,0,1,0,not driven,ok,,,332,demo literals 42
+980,cryptography/Ada/ECDSA,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,215,demo literals 3
+981,geometry/Ada/Gift-Wrapping,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,325,demo literals 3
+982,geometry/Ada/Point-In-Polygon,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,210,demo literals 3
+983,geometry/Ada/Quickhull,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,355,demo literals 3
+984,hashing/Ada/Geometric-Hashing,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,357,demo literals 3
+985,hashing/Ada/Hash-Functions,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,96,demo literals 5381
+986,hashing/SPARK2/Ada-SPARK-Design-HashSet-Stub,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,42,demo literals 3
+987,hashing/SPARK2/Ada-SPARK-FNV-Hash,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,27,demo literals 2_166_136_261
+988,matrices/Ada/Gaussian-Elimination,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,628,demo literals 3
+989,matrices/SPARK2/Ada-SPARK-Matrix-Multiply,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,29,demo literals 3
+990,matrices/SPARK2/Ada-SPARK-Reshape-The-Matrix,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,26,demo literals 3
+991,misc/Ada/Christofides-Algorithm,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,673,demo literals 4
+992,misc/Ada/Corporate-Wars-Sim,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,205,demo literals 5
+993,misc/Ada/Darwin-Godel-Machine,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,162,demo literals 50
+994,misc/Ada/De-Casteljau,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,636,demo literals 3
+995,misc/Ada/Gauss-Jordan,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,790,demo literals 3
+996,misc/Ada/Gauss-Seidel,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,427,demo literals 3
+997,misc/Ada/Gram-Schmidt,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,487,demo literals 4
+998,misc/Ada/Hopcroft-Karp-Algorithm,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,384,demo literals 4
+999,misc/Ada/Inside-Out-Algorithm,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,264,demo literals 5
+1000,misc/Ada/Intersection-Algorithm,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,133,demo literals 3
+1001,misc/Ada/Inverse-Iteration,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,675,demo literals 3
+1002,misc/Ada/Jump-And-Walk,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,310,demo literals 3
+1003,misc/Ada/K-Nearest-Neighbours,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,251,demo literals 9
+1004,misc/Ada/Kahan-Summation,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,211,demo literals 4
+1005,misc/Ada/Lenstra-Lenstra-Lovasz,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,470,demo literals 4
+1006,misc/Ada/Line-Drawing,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,431,demo literals 4
+1007,misc/Ada/Minimum-Bounding-Box,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,444,demo literals 3
+1008,misc/Ada/NEF-Neurorobotics-Core,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,388,demo literals 4
+1009,misc/Ada/Nth-Root,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,330,demo literals 3
+1010,misc/Ada/Package-Merge-Algorithm,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,unchecked (main stillborn),diff agree,,379,demo literals 3
+1011,misc/Ada/Rainflow-Counting,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,395,demo literals 3
+1012,misc/Ada/Rayleigh-Quotient-Iteration,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,568,demo literals 3
+1013,misc/Ada/Rotating-Calipers,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,567,demo literals 3
+1014,misc/Ada/Shoelace-Algorithm,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,113,demo literals 3
+1015,misc/Ada/Square-Root-Algorithms,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,311,demo literals 4
+1016,misc/Ada/Supervised-Learning,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,286,demo literals 9
+1017,misc/Ada/Variational-Quantum-Eigensolver,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,162,demo literals 4
+1018,misc/SPARK2/Ada-SPARK-Accounts-Merge-Stub,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,52,demo literals 3
+1019,misc/SPARK2/Ada-SPARK-Bitwise-OR-Of-Numbers-Range,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,79,demo literals 7
+1020,misc/SPARK2/Ada-SPARK-Circular-Deque-Stub,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,86,demo literals 3
+1021,misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,56,demo literals 3
+1022,misc/SPARK2/Ada-SPARK-Design-Circular-Deque,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,72,demo literals 3
+1023,misc/SPARK2/Ada-SPARK-Design-Hit-Counter-Lite,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,27,demo literals 3
+1024,misc/SPARK2/Ada-SPARK-Design-Skiplist-Lite,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,42,demo literals 5
+1025,misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Number,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,28,demo literals 26
+1026,misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,30,demo literals 26
+1027,misc/SPARK2/Ada-SPARK-First-Unique-Char,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,48,demo literals 3
+1028,misc/SPARK2/Ada-SPARK-Fruit-Into-Baskets,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,103,demo literals 3
+1029,misc/SPARK2/Ada-SPARK-Island-Perimeter,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,29,demo literals 3
+1030,misc/SPARK2/Ada-SPARK-Longest-Repeating-Character-Replacement,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,102,demo literals 4
+1031,misc/SPARK2/Ada-SPARK-Majority-Element-II,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,37,demo literals 3
+1032,misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones-III,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,160,demo literals 5
+1033,misc/SPARK2/Ada-SPARK-Min-Cost-Connect-Cities-Stub,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,58,demo literals 3
+1034,misc/SPARK2/Ada-SPARK-N-Queens-Lite,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,28,demo literals 3
+1035,misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,57,demo literals 7
+1036,misc/SPARK2/Ada-SPARK-Next-Greater-Element-I,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,26,demo literals 3
+1037,misc/SPARK2/Ada-SPARK-Next-Greater-Element-II,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,26,demo literals 3
+1038,misc/SPARK2/Ada-SPARK-Next-Permutation-Stub,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,47,demo literals 3
+1039,misc/SPARK2/Ada-SPARK-Ones-And-Zeroes,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,39,demo literals 3
+1040,misc/SPARK2/Ada-SPARK-Pearson-Correlation,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,28,demo literals 5
+1041,misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,45,demo literals 3
+1042,misc/SPARK2/Ada-SPARK-Plus-One,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,26,demo literals 3
+1043,misc/SPARK2/Ada-SPARK-Pow-X-N,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,47,demo literals 3
+1044,misc/SPARK2/Ada-SPARK-Recent-Counter,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,32,demo literals 3_000
+1045,misc/SPARK2/Ada-SPARK-Shift-2D-Grid,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,31,demo literals 3
+1046,misc/SPARK2/Ada-SPARK-Sliding-Window-Max,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,31,demo literals 4
+1047,misc/SPARK2/Ada-SPARK-Subarray-Sum-Equals-K,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,40,demo literals 3
+1048,misc/SPARK2/Ada-SPARK-Subsets,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,28,demo literals 5
+1049,misc/SPARK2/Ada-SPARK-Subsets-II,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,30,demo literals 6
+1050,misc/SPARK2/Ada-SPARK-Sudoku-Solver-Lite,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,33,demo literals 3
+1051,misc/SPARK2/Ada-SPARK-Two-Pointers-Sum,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,26,demo literals 3
+1052,ml/Ada/Boosting-Meta-Algorithm,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,295,demo literals 9
+1053,numerical/Ada/Bicubic-Interpolation,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,432,demo literals 4
+1054,numerical/Ada/Bilinear-Interpolation,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,431,demo literals 4
+1055,numerical/Ada/Chudnovsky,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,161,demo literals 6
+1056,numerical/Ada/Interior-Point-Method,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,1167,demo literals 18
+1057,numerical/Ada/Pollards-Kangaroo-Algorithm,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,354,demo literals 4
+1058,numerical/Ada/Raders-FFT-Algorithm,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,208,demo literals 3
+1059,numerical/Ada/Tricubic-Interpolation,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,404,demo literals 4
+1060,numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator,SPARK4,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,349,demo literals 4
+1061,parsing/Ada/Pratt-Parser,Ada,,1.0,0,0,0,0,1,0,0,0,ok,ok,,,261,demo literals 9
+1062,searching/Ada/Line-Search,Ada,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,573,demo literals 12
+1063,searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,15,15 library lines; demo literals 5
+1064,searching/SPARK4/Ada-SPARK-Linear-Search,SPARK4,,1.0,0,2,0,0,0,0,0,0,not driven,ok,diff agree,,88,
+1065,sorting/Ada/Counting-Sort,Ada,,1.0,0,2,0,0,0,0,0,0,ok,ok,diff agree,,87,
+1066,sorting/Ada/Cycle-Sort,Ada,,1.0,0,2,0,0,0,0,0,0,ok,ok,diff agree,,91,
+1067,sorting/Ada/Introsort,Ada,,1.0,0,2,0,0,0,0,0,0,ok,ok,diff agree,,206,
+1068,sorting/Ada/Merge-Sort,Ada,,1.0,0,2,0,0,0,0,0,0,ok,ok,diff agree,,94,
+1069,sorting/Ada/Pigeonhole-Sort,Ada,,1.0,0,2,0,0,0,0,0,0,ok,ok,diff agree,,89,
+1070,sorting/Ada/Quicksort,Ada,,1.0,0,2,0,0,0,0,0,0,ok,ok,diff agree,,114,
+1071,sorting/Ada/Samplesort,Ada,,1.0,0,1,1,0,0,0,0,0,not driven,ok,diff agree,,241,
+1072,sorting/Ada/Slowsort,Ada,,1.0,0,2,0,0,0,0,0,0,ok,ok,diff agree,,59,
+1073,sorting/Ada/Spaghetti-Sort,Ada,,1.0,0,2,0,0,0,0,0,0,ok,ok,diff agree,,102,
+1074,sorting/SPARK4/Ada-SPARK-Cycle-Sort,SPARK4,,1.0,0,2,0,0,0,0,0,0,not driven,ok,diff agree,,329,
+1075,sorting/SPARK4/Ada-SPARK-Gnome-Sort,SPARK4,,1.0,0,2,0,0,0,0,0,0,not driven,ok,diff agree,,113,
+1076,sorting/SPARK4/Ada-SPARK-Heapsort,SPARK4,,1.0,0,2,0,0,0,0,0,0,not driven,ok,diff agree,,374,
+1077,sorting/SPARK4/Ada-SPARK-Insertion-Sort,SPARK4,,1.0,0,2,0,0,0,0,0,0,not driven,ok,diff agree,,93,
+1078,sorting/SPARK4/Ada-SPARK-Pancake-Sorting,SPARK4,,1.0,0,2,0,0,0,0,0,0,not driven,ok,diff agree,,380,
+1079,sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,SPARK4,,1.0,0,2,0,0,0,0,0,0,not driven,ok,diff agree,,311,
+1080,sorting/SPARK4/Ada-SPARK-Postman-Sort,SPARK4,,1.0,0,1,1,0,0,0,0,0,not driven,ok,diff agree,,401,
+1081,sorting/SPARK4/Ada-SPARK-Selection-Sort,SPARK4,,1.0,0,2,0,0,0,0,0,0,not driven,ok,diff agree,,234,
+1082,strings/Ada/Longest-Common-Subsequence,Ada,,1.0,0,0,0,1,0,0,0,0,ok,ok,diff agree,,144,first-match in Nat_Max
+1083,strings/SPARK2/Ada-SPARK-First-Unique-Character-In-A-String,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,48,demo literals 3
+1084,trees/SPARK2/Ada-SPARK-BST-Iterator-Stub,SPARK2,,1.0,0,0,2,0,1,0,0,0,not driven,ok,,yes,63,demo literals 5
+1085,trees/SPARK2/Ada-SPARK-Binary-Tree-Paths,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,47,demo literals 3
+1086,trees/SPARK2/Ada-SPARK-Find-Mode-In-BST,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,47,demo literals 3
+1087,trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-N-Ary-Tree,SPARK2,,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,72,demo literals 3
+1088,logic/Ada/Verified-Unification-Engine,Ada,,0.75,0,0,0,0,0,0,3,0,ok,ok,,,394,
+1089,misc/Ada/Deutsch-Josza-Algorithm,Ada,,0.75,0,0,0,0,0,0,10,0,ok,ok,,,137,
+1090,misc/Ada/Diffie-Hellman-Key-Exchange,Ada,,0.75,0,0,0,0,0,0,8,0,not driven,ok,,,133,
+1091,misc/Ada/First-Order-Logic,Ada,,0.25,0,0,0,0,0,0,1,0,ok,ok,,,359,
+1092,misc/Ada/Hamming-Code,Ada,,0.25,0,0,0,0,0,0,1,0,ok,ok,,,193,
+1093,misc/Ada/Shors-Algorithm,Ada,,0.25,0,0,0,0,0,0,1,0,timeout,ok,,,161,
+1094,clustering/Ada/Average-Linkage-Clustering,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,516,
+1095,clustering/Ada/Complete-Linkage-Clustering,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,513,
+1096,clustering/Ada/K-Means-Plus-Plus,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,814,
+1097,clustering/Ada/Single-Linkage-Clustering,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,513,
+1098,clustering/Ada/Wards-Method,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,451,
+1099,clustering/SPARK2/K-Means-Step,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,42,
+1100,compression/Ada/Fast-Efficient-Lossless-Image-Compression-System,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,189,
+1101,compression/Ada/Image-Compression,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,133,
+1102,compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,261,
+1103,compression/Ada/Verlet-Integration,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,107,
+1104,compression/SPARK2/Ada-SPARK-LZ77,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1105,concurrency/Ada/Lamport-Ordering,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,63,
+1106,concurrency/Ada/Paxos-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,146,
+1107,concurrency/SPARK2/Ada-SPARK-Course-Schedule-II,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,27,
+1108,concurrency/SPARK2/Ada-SPARK-Lamports-Bakery-Algorithm,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,34,
+1109,cryptography/Ada/NTRUEncrypt,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,224,
+1110,geometry/Ada/Bresenhams-Line-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,191,
+1111,geometry/Ada/Constructive-Solid-Geometry,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,156,
+1112,geometry/Ada/Polygon-Triangulation,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,375,
+1113,geometry/Ada/Triangulation,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,774,
+1114,geometry/SPARK2/Closest-Pair-Brute,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,45,
+1115,graphs/Ada/Coin-Graph,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,203,
+1116,graphs/Ada/PageRank,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,248,
+1117,graphs/Ada/Tarjans-Off-Line-Lowest-Common-Ancestors,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,431,
+1118,graphs/Ada/Tarjans-Strongly-Connected-Components,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,179,
+1119,graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,41,
+1120,hashing/Ada/Locality-Sensitive-Hashing,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,161,
+1121,hashing/Ada/Zobrist-Hashing,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,45,
+1122,hashing/SPARK2/Ada-SPARK-Design-HashMap-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,32,
+1123,hashing/SPARK2/Ada-SPARK-Pearson-Hashing,SPARK2,,0.0,0,0,0,0,3,0,0,0,not driven,ok,diff agree,,65,demo literals 113 185 209
+1124,hashing/SPARK2/Bloom-Filter,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,35,
+1125,matrices/Ada/Quantum-Singular-Value-Transformation,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,151,
+1126,matrices/SPARK2/Ada-SPARK-Check-If-Matrix-Is-X-Matrix,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,0,
+1127,matrices/SPARK2/Ada-SPARK-Matrix-Chain-Multiplication,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1128,matrices/SPARK2/Ada-SPARK-Set-Matrix-Zeroes,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,32,
+1129,matrices/SPARK2/Ada-SPARK-The-K-Weakest-Rows-In-A-Matrix,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1130,misc/Ada/ACORN-Generator,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,274,
+1131,misc/Ada/Adaptive-Additive-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,157,
+1132,misc/Ada/Aharonov-Jones-Landau-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,141,
+1133,misc/Ada/Algorithms-For-Calculating-Variance,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,498,
+1134,misc/Ada/Alpha-Beta-Pruning,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,648,
+1135,misc/Ada/Alpha-Max-Plus-Beta-Min,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,172,
+1136,misc/Ada/Automated-Planning-And-Scheduling,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,297,
+1137,misc/Ada/B-Star,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,537,
+1138,misc/Ada/BHT-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,151,
+1139,misc/Ada/Berkeley-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,106,
+1140,misc/Ada/Binary-Splitting,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,144,
+1141,misc/Ada/Bootstrap-Aggregating,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,192,
+1142,misc/Ada/Boson-Sampling,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,282,
+1143,misc/Ada/Boundary-Representation,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,277,
+1144,misc/Ada/Branch-and-Cut,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,1014,
+1145,misc/Ada/Buechi-Automaton,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,330,
+1146,misc/Ada/Bully-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,69,
+1147,misc/Ada/Buzens-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,300,
+1148,misc/Ada/Chandra-Toueg,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,154,
+1149,misc/Ada/Communications-Based-Train-Control,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,122,
+1150,misc/Ada/Computation-Of-Pi,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,261,
+1151,misc/Ada/Conflict-Driven-Clause-Learning,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,345,
+1152,misc/Ada/Cristians-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,88,
+1153,misc/Ada/Cutting-Plane-Method,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,959,
+1154,misc/Ada/Data-Flow-Analysis,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,262,
+1155,misc/Ada/Demon-Method,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,0,
+1156,misc/Ada/Discrete-Event-Simulation,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,193,
+1157,misc/Ada/Discrete-Fourier-Transformation,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,116,
+1158,misc/Ada/EIGamal,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,224,
+1159,misc/Ada/Elias-Gamma-Coding,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,112,
+1160,misc/Ada/Estimation-Theory,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,378,
+1161,misc/Ada/Euler-Integration,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,158,
+1162,misc/Ada/False-Position-Method,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,341,
+1163,misc/Ada/Fast-Folding-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,112,
+1164,misc/Ada/Fictitious-Play,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,286,
+1165,misc/Ada/Filtered-Back-Projection,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,590,
+1166,misc/Ada/Foundations-Curriculum,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,103,
+1167,misc/Ada/Fowler-Noll-Vo,Ada,,0.0,0,0,0,0,0,0,0,0,driver not built,ok,,,50,
+1168,misc/Ada/Frank-Wolfe-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,615,
+1169,misc/Ada/GNAT-Studio-Notes,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,26,
+1170,misc/Ada/Gerchberg-Saxton-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,133,
+1171,misc/Ada/Goldschmidt-Division,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,152,
+1172,misc/Ada/Hindley-Milner-Type-Inference-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,374,
+1173,misc/Ada/Incremental-Encoding,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,78,
+1174,misc/Ada/Kadanes-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,crash (check failed),ok,diff agree,,113,
+1175,misc/Ada/Karn-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,250,
+1176,misc/Ada/Lagged-Fibonacci-Generator,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,392,
+1177,misc/Ada/Laplacian-Smoothing,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,307,
+1178,misc/Ada/Levinson-Recursion,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,414,
+1179,misc/Ada/Linde-Buzo-Gray,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,623,
+1180,misc/Ada/Linear-Feedback-Shift-Register,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,135,
+1181,misc/Ada/Longitudinal-Redundacy-Check,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,51,
+1182,misc/Ada/Luhn-Mod-N-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,101,
+1183,misc/Ada/Mechanistic-Interpretability,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,137,
+1184,misc/Ada/Memory-Channel-Model,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,193,
+1185,misc/Ada/Naimi-Trehel,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,161,
+1186,misc/Ada/Nearest-Neighbor-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,316,
+1187,misc/Ada/Nelder-Mead,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,469,
+1188,misc/Ada/Newton-Multiplicative-Inverse,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,264,
+1189,misc/Ada/Non-Restoring-Division,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,224,
+1190,misc/Ada/Odds-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,258,
+1191,misc/Ada/One-Attribute-Rule,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,186,
+1192,misc/Ada/PBKDF2,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,115,
+1193,misc/Ada/PCIe-Transfer-Model,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,136,
+1194,misc/Ada/Path-Based-Strong-Component,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,171,
+1195,misc/Ada/Point-Set-Registration,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,389,
+1196,misc/Ada/Polynomial-Long-Division,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,363,
+1197,misc/Ada/Power-Iteration,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,512,
+1198,misc/Ada/Prediction-By-Partial-Matching,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,239,
+1199,misc/Ada/Progressive-Jackpot,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,219,
+1200,misc/Ada/Proof-Of-Work-Algorithms,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,147,
+1201,misc/Ada/Prufer-Coding,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,391,
+1202,misc/Ada/QR-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,783,
+1203,misc/Ada/Raymonds-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,151,
+1204,misc/Ada/Redundancy-Checks,Ada,,0.0,0,0,0,0,0,0,0,0,driver not built,ok,,,84,
+1205,misc/Ada/Reed-Solomon-Error-Correction,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,280,
+1206,misc/Ada/Reference-Counting,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,738,
+1207,misc/Ada/Replicator-Equation,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,179,
+1208,misc/Ada/Restoring-Division,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,218,
+1209,misc/Ada/Reverse-Delete-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,290,
+1210,misc/Ada/Rice-Coding,Ada,,0.0,0,0,0,0,0,0,0,0,driver not built,ok,,,167,
+1211,misc/Ada/Ridders-Method,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,352,
+1212,misc/Ada/Rounding-Functions,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,252,
+1213,misc/Ada/SRT-Division,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,246,
+1214,misc/Ada/SSS-Star,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,500,
+1215,misc/Ada/Scale-Invariant-Feature-Transform,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,45,
+1216,misc/Ada/Shannon-Fano-Elias-Coding,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,80,
+1217,misc/Ada/Shapley-Value,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,517,
+1218,misc/Ada/State-Action-Reward-State-Action,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,239,
+1219,misc/Ada/Stones-Method,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,959,
+1220,misc/Ada/Structured-SVM,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,143,
+1221,misc/Ada/Successive-Over-Relaxation,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,429,
+1222,misc/Ada/Texas-Medication-Algorithm-Project,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,147,
+1223,misc/Ada/Traffic-Light-Controller,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,289,
+1224,misc/Ada/Transform-Coding,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,126,
+1225,misc/Ada/Transitive-Closure,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,365,
+1226,misc/Ada/TrustRank,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,321,
+1227,misc/Ada/Unary-Coding,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,80,
+1228,misc/Ada/VEGAS-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,158,
+1229,misc/Ada/Zhu-Takaoka,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,211,
+1230,misc/Ada/clock-replacement,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,,,,157,
+1231,misc/Ada/fair-share,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,271,
+1232,misc/SPARK2/Ada-SPARK-4Sum-II,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,35,
+1233,misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,29,
+1234,misc/SPARK2/Ada-SPARK-Alien-Dictionary-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,37,
+1235,misc/SPARK2/Ada-SPARK-All-Paths-From-Source-To-Target,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1236,misc/SPARK2/Ada-SPARK-Available-Captures-For-Rook,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1237,misc/SPARK2/Ada-SPARK-Bankers-Algorithm,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,59,
+1238,misc/SPARK2/Ada-SPARK-Beautiful-Array-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1239,misc/SPARK2/Ada-SPARK-Bounding-Box,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,44,
+1240,misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,28,
+1241,misc/SPARK2/Ada-SPARK-Bump-Arena,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,190,
+1242,misc/SPARK2/Ada-SPARK-CRC32,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1243,misc/SPARK2/Ada-SPARK-Check-If-The-Sentence-Is-Pangram,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1244,misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,36,
+1245,misc/SPARK2/Ada-SPARK-Complement-Of-Base-10-Integer,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,47,
+1246,misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,95,
+1247,misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1248,misc/SPARK2/Ada-SPARK-Cosine-Distance,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1249,misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1250,misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1251,misc/SPARK2/Ada-SPARK-Count-Sub-Islands,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,25,
+1252,misc/SPARK2/Ada-SPARK-Create-Maximum-Number-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,39,
+1253,misc/SPARK2/Ada-SPARK-Decode-Ways-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,42,
+1254,misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1255,misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,29,
+1256,misc/SPARK2/Ada-SPARK-Deque-Bounded,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1257,misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,34,
+1258,misc/SPARK2/Ada-SPARK-Design-An-Ordered-Stream,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,51,
+1259,misc/SPARK2/Ada-SPARK-Design-Browser-History,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,65,
+1260,misc/SPARK2/Ada-SPARK-Design-Circular-Queue,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,60,
+1261,misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,27,
+1262,misc/SPARK2/Ada-SPARK-Design-Ordered-Stream,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,54,
+1263,misc/SPARK2/Ada-SPARK-Design-Parking-System-II,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,39,
+1264,misc/SPARK2/Ada-SPARK-Design-Twitter-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1265,misc/SPARK2/Ada-SPARK-Detect-Capital,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1266,misc/SPARK2/Ada-SPARK-Duplicate-Zeros,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1267,misc/SPARK2/Ada-SPARK-Evaluate-Division-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,61,
+1268,misc/SPARK2/Ada-SPARK-Fair-Candy-Swap,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,33,
+1269,misc/SPARK2/Ada-SPARK-Find-All-Duplicates-In-An-Array,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,31,
+1270,misc/SPARK2/Ada-SPARK-Find-All-Numbers-Disappeared,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,29,
+1271,misc/SPARK2/Ada-SPARK-Find-First-And-Last-Position,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1272,misc/SPARK2/Ada-SPARK-Find-K-Closest-Elements,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1273,misc/SPARK2/Ada-SPARK-Find-The-City-With-Smallest-Number-Of-Neighbors,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1274,misc/SPARK2/Ada-SPARK-Find-The-Town-Judge,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,31,
+1275,misc/SPARK2/Ada-SPARK-Find-Words-That-Can-Be-Formed,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,46,
+1276,misc/SPARK2/Ada-SPARK-Fixed-Point-Iteration,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,17,17 library lines
+1277,misc/SPARK2/Ada-SPARK-Flipping-An-Image,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,34,
+1278,misc/SPARK2/Ada-SPARK-Flood-Fill,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,33,
+1279,misc/SPARK2/Ada-SPARK-Four-Sum,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,34,
+1280,misc/SPARK2/Ada-SPARK-Game-Of-Life-Step,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,40,
+1281,misc/SPARK2/Ada-SPARK-Goat-Latin,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1282,misc/SPARK2/Ada-SPARK-Group-Anagrams-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,,,yes,51,
+1283,misc/SPARK2/Ada-SPARK-Grumpy-Bookstore-Owner,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,40,
+1284,misc/SPARK2/Ada-SPARK-Hamming-Code,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,35,
+1285,misc/SPARK2/Ada-SPARK-Happy-Number,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,53,
+1286,misc/SPARK2/Ada-SPARK-Heaters,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,33,
+1287,misc/SPARK2/Ada-SPARK-Height-Checker,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,33,
+1288,misc/SPARK2/Ada-SPARK-Hit-Counter-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,28,
+1289,misc/SPARK2/Ada-SPARK-IPO-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1290,misc/SPARK2/Ada-SPARK-Implement-Queue-Using-Stacks,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,33,
+1291,misc/SPARK2/Ada-SPARK-Implement-Stack-Using-Queues,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1292,misc/SPARK2/Ada-SPARK-Implement-StrStr,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1293,misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1294,misc/SPARK2/Ada-SPARK-K-Closest-Points-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,44,
+1295,misc/SPARK2/Ada-SPARK-K-Closest-Points-To-Origin,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,37,
+1296,misc/SPARK2/Ada-SPARK-Keyboard-Row,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,45,
+1297,misc/SPARK2/Ada-SPARK-Keys-And-Rooms,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,33,
+1298,misc/SPARK2/Ada-SPARK-Koko-Eating-Bananas,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,33,
+1299,misc/SPARK2/Ada-SPARK-Kth-Largest-Element,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1300,misc/SPARK2/Ada-SPARK-Kth-Largest-Element-In-A-Stream,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,29,
+1301,misc/SPARK2/Ada-SPARK-Kth-Largest-Element-In-An-Array,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1302,misc/SPARK2/Ada-SPARK-Kth-Largest-In-Stream-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,35,
+1303,misc/SPARK2/Ada-SPARK-Last-Stone-Weight,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,54,
+1304,misc/SPARK2/Ada-SPARK-Length-Of-Last-Word,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1305,misc/SPARK2/Ada-SPARK-License-Key-Formatting,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1306,misc/SPARK2/Ada-SPARK-Line-Intersection,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,46,
+1307,misc/SPARK2/Ada-SPARK-Linked-List-Cycle,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,32,
+1308,misc/SPARK2/Ada-SPARK-Linked-List-Cycle-II,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1309,misc/SPARK2/Ada-SPARK-Manacher,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,42,
+1310,misc/SPARK2/Ada-SPARK-Map-Sum-Pairs,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,47,
+1311,misc/SPARK2/Ada-SPARK-Mark-And-Sweep,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1312,misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1313,misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones-II,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,39,
+1314,misc/SPARK2/Ada-SPARK-Max-Heap,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,64,
+1315,misc/SPARK2/Ada-SPARK-Max-Points-On-A-Line-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1316,misc/SPARK2/Ada-SPARK-Max-Stack,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,34,
+1317,misc/SPARK2/Ada-SPARK-Maximal-Rectangle,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,44,
+1318,misc/SPARK2/Ada-SPARK-Maximum-Candies-Allocated-To-K-Children,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,35,
+1319,misc/SPARK2/Ada-SPARK-Maximum-Product-Of-Word-Lengths,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1320,misc/SPARK2/Ada-SPARK-Maximum-Subarray-Circular,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,50,
+1321,misc/SPARK2/Ada-SPARK-Maximum-XOR-Of-Two-Numbers,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1322,misc/SPARK2/Ada-SPARK-Min-Cost-To-Connect-All-Points,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,57,
+1323,misc/SPARK2/Ada-SPARK-Min-Heap,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,64,
+1324,misc/SPARK2/Ada-SPARK-Minimum-Bit-Flips-To-Convert-Number,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1325,misc/SPARK2/Ada-SPARK-Minimum-Sum-Of-Four-Digit-Number,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1326,misc/SPARK2/Ada-SPARK-Most-Common-Word,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,33,
+1327,misc/SPARK2/Ada-SPARK-My-Calendar-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,33,
+1328,misc/SPARK2/Ada-SPARK-Network-Delay-Time,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1329,misc/SPARK2/Ada-SPARK-Network-Delay-Time-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,26,
+1330,misc/SPARK2/Ada-SPARK-Nth-Digit,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,,18,18 library lines
+1331,misc/SPARK2/Ada-SPARK-Number-Of-Connected-Components,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,51,
+1332,misc/SPARK2/Ada-SPARK-Number-Of-Recent-Calls,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,32,
+1333,misc/SPARK2/Ada-SPARK-Number-Of-Steps-To-Reduce-A-Number,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1334,misc/SPARK2/Ada-SPARK-Online-Stock-Span,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1335,misc/SPARK2/Ada-SPARK-Online-Stock-Span-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,43,
+1336,misc/SPARK2/Ada-SPARK-Overlap-Coefficient,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1337,misc/SPARK2/Ada-SPARK-Palindrome-Number,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,31,
+1338,misc/SPARK2/Ada-SPARK-Palindrome-Pairs-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,39,
+1339,misc/SPARK2/Ada-SPARK-Parking-System-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,28,
+1340,misc/SPARK2/Ada-SPARK-Path-With-Minimum-Effort,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,32,
+1341,misc/SPARK2/Ada-SPARK-Range-Addition,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1342,misc/SPARK2/Ada-SPARK-Range-Module-Stub,SPARK2,,0.0,0,1,1,0,0,0,0,0,not driven,ok,,yes,35,
+1343,misc/SPARK2/Ada-SPARK-Range-Sum-Query-2D-Immutable,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1344,misc/SPARK2/Ada-SPARK-Ransom-Note,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1345,misc/SPARK2/Ada-SPARK-Redundant-Connection-II,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,33,
+1346,misc/SPARK2/Ada-SPARK-Redundant-Connection-II-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,62,
+1347,misc/SPARK2/Ada-SPARK-Reference-Counting,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1348,misc/SPARK2/Ada-SPARK-Regular-Expression-Matching-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,49,
+1349,misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1350,misc/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-II,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1351,misc/SPARK2/Ada-SPARK-Remove-Duplicate-Letters,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,37,
+1352,misc/SPARK2/Ada-SPARK-Remove-Element,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1353,misc/SPARK2/Ada-SPARK-Replace-Elements-With-Greatest-On-Right,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1354,misc/SPARK2/Ada-SPARK-Replace-Words,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,42,
+1355,misc/SPARK2/Ada-SPARK-Reservoir-Sampling,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1356,misc/SPARK2/Ada-SPARK-Reverse-Only-Letters,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,43,
+1357,misc/SPARK2/Ada-SPARK-Reverse-Vowels,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,40,
+1358,misc/SPARK2/Ada-SPARK-Ring-Buffer,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,41,
+1359,misc/SPARK2/Ada-SPARK-Roman-To-Integer,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1360,misc/SPARK2/Ada-SPARK-Rotate-Image,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1361,misc/SPARK2/Ada-SPARK-Round-Robin-Scheduling,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1362,misc/SPARK2/Ada-SPARK-Shortest-Completing-Word,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,51,
+1363,misc/SPARK2/Ada-SPARK-Shortest-Remaining-Time,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,31,
+1364,misc/SPARK2/Ada-SPARK-Simplify-Path-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,32,
+1365,misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,46,
+1366,misc/SPARK2/Ada-SPARK-Standard-Score,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1367,misc/SPARK2/Ada-SPARK-Stock-Spanner-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,25,
+1368,misc/SPARK2/Ada-SPARK-Stream-Of-Characters-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,57,
+1369,misc/SPARK2/Ada-SPARK-Strstr-Naive,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,34,
+1370,misc/SPARK2/Ada-SPARK-Student-Attendance-Record-I,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,34,
+1371,misc/SPARK2/Ada-SPARK-Subarrays-With-K-Different-Integers,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,38,
+1372,misc/SPARK2/Ada-SPARK-Subtract-Product-Sum-Digits,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,44,
+1373,misc/SPARK2/Ada-SPARK-Subtract-The-Product-And-Sum,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,,16,16 library lines
+1374,misc/SPARK2/Ada-SPARK-Sum-Of-Left-Leaves,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,91,
+1375,misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,31,
+1376,misc/SPARK2/Ada-SPARK-Three-Divisors,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,31,
+1377,misc/SPARK2/Ada-SPARK-Three-Sum,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,31,
+1378,misc/SPARK2/Ada-SPARK-Tic-Tac-Toe-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,37,
+1379,misc/SPARK2/Ada-SPARK-Time-Map-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,38,
+1380,misc/SPARK2/Ada-SPARK-Top-K-Frequent-Elements,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,39,
+1381,misc/SPARK2/Ada-SPARK-Top-K-Frequent-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,30,
+1382,misc/SPARK2/Ada-SPARK-Ugly-Number,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1383,misc/SPARK2/Ada-SPARK-Underground-System-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,32,
+1384,misc/SPARK2/Ada-SPARK-Union-Find,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,40,
+1385,misc/SPARK2/Ada-SPARK-Unique-Email-Addresses,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,49,
+1386,misc/SPARK2/Ada-SPARK-Valid-Anagram,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,31,
+1387,misc/SPARK2/Ada-SPARK-Valid-Number-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,48,
+1388,misc/SPARK2/Ada-SPARK-Valid-Palindrome-II,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,45,
+1389,misc/SPARK2/Ada-SPARK-Valid-Sudoku-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,32,
+1390,misc/SPARK2/Ada-SPARK-Vector-2D-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,27,
+1391,misc/SPARK2/Ada-SPARK-Vector-Dot-Cross,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1392,misc/SPARK2/Ada-SPARK-Wildcard-Matching-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,36,
+1393,misc/SPARK2/Ada-SPARK-Word-Ladder-II-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1394,misc/SPARK2/Ada-SPARK-Word-Ladder-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1395,misc/SPARK4/Acorn-Generator,SPARK4,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,346,
+1396,misc/SPARK4/Ada-SPARK-Accumulator,SPARK4,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,39,
+1397,misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,SPARK4,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,380,
+1398,misc/SPARK4/Ada-SPARK-K-Way-Merge,SPARK4,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,363,
+1399,misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator,SPARK4,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,505,
+1400,ml/Ada/Hidden-Markov-Model,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,1150,
+1401,ml/Ada/Naive-Bayes-Classifier,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,324,
+1402,ml/Ada/Perceptron,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,257,
+1403,ml/Ada/Q-Learning,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,140,
+1404,ml/Ada/Reinforcement-Learning,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,152,
+1405,ml/Ada/Winnow-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,130,
+1406,ml/SPARK2/Ada-SPARK-Softmax,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1407,numerical/Ada/BFGS,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,607,
+1408,numerical/Ada/Bruuns-FFT-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,80,
+1409,numerical/Ada/CORDIC,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,313,
+1410,numerical/Ada/Cooley-Tukey-FFT-Algorithm,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,123,
+1411,numerical/Ada/Fast-Fourier-Transform,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,174,
+1412,numerical/Ada/Gauss-Legendre,Ada,,0.0,0,0,0,0,0,0,0,0,ok,ok,,,141,
+1413,numerical/Ada/Mersenne-Twister,Ada,,0.0,0,0,0,0,3,0,0,0,not driven,ok,diff agree,,100,demo literals 7 11 5489
+1414,numerical/Ada/Metropolis-Hastings,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,600,
+1415,numerical/Ada/Runge-Kutta,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,295,
+1416,numerical/Ada/Secant-Method,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,93,
+1417,numerical/Ada/Sieve-Of-Sundaram,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,91,
+1418,numerical/SPARK2/Ada-SPARK-Maximum-Performance-Of-A-Team-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1419,numerical/SPARK2/Ada-SPARK-Successful-Pairs-Of-Spells-And-Potions,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1420,searching/Ada/Bidirectional-Search,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,431,
+1421,searching/Ada/Depth-First-Search,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,278,
+1422,searching/Ada/Golden-Section-Search,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,271,
+1423,searching/Ada/Hyperlink-Induced-Topic-Search,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,191,
+1424,searching/Ada/Lexicographic-Breadth-First-Search,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,404,
+1425,searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,SPARK2,,0.0,0,0,1,0,2,0,0,0,not driven,ok,,yes,32,demo literals 4 7
+1426,searching/SPARK2/Ada-SPARK-Increasing-Order-Search-Tree,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1427,searching/SPARK2/Ada-SPARK-Naive-String-Search,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,35,
+1428,searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix-II,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1429,searching/SPARK2/Ada-SPARK-Search-In-A-Binary-Search-Tree,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,58,
+1430,searching/SPARK2/Ada-SPARK-Word-Search,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,27,
+1431,searching/SPARK4/Ada-SPARK-Fibonacci-Search,SPARK4,,0.0,0,0,0,0,11,0,0,0,not driven,ok,diff agree,,115,demo literals 3 4 5 6 7 9
+1432,searching/SPARK4/Ada-SPARK-Introselect,SPARK4,,0.0,0,0,0,0,7,0,0,0,not driven,ok,diff agree,,671,demo literals 3 4 5 6 7 31
+1433,sorting/Ada/Comb-Sort,Ada,,0.0,0,1,0,0,1,0,0,0,ok,ok,diff agree,,70,demo literals 13
+1434,sorting/Ada/Pancake-Sorting,Ada,,0.0,0,1,0,0,1,0,0,0,ok,ok,diff agree,,167,demo literals 3
+1435,sorting/Ada/Sorted-List,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,148,
+1436,sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,38,
+1437,sorting/SPARK2/Ada-SPARK-Remove-Duplicates-Sorted,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,30,
+1438,sorting/SPARK2/Ada-SPARK-Shortest-Unsorted-Continuous-Subarray,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,32,
+1439,sorting/SPARK2/Ada-SPARK-Sort-An-Array,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1440,sorting/SPARK2/Ada-SPARK-Two-Sum-II-Input-Array-Is-Sorted,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,27,
+1441,sorting/SPARK4/Ada-SPARK-Comb-Sort,SPARK4,,0.0,0,1,0,0,1,0,0,0,not driven,ok,diff agree,,211,demo literals 13
+1442,sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,SPARK4,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,290,
+1443,sorting/SPARK4/Ada-SPARK-Sorted-List,SPARK4,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,372,
+1444,sorting/SPARK4/Ada-SPARK-Stooge-Sort,SPARK4,,0.0,0,1,0,0,1,0,0,0,not driven,ok,diff agree,,209,demo literals 3
+1445,strings/Ada/Levenshtein-Coding,Ada,,0.0,0,0,0,0,0,0,0,0,ok (explicit Constraint_Error/Program_Error only),ok,,,136,
+1446,strings/Ada/Needleman-Wunsch,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,202,
+1447,strings/SPARK2/Ada-SPARK-Check-If-Two-String-Arrays-Are-Equivalent,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,25,
+1448,strings/SPARK2/Ada-SPARK-Isomorphic-Strings,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,36,
+1449,strings/SPARK2/Ada-SPARK-Reorganize-String,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,29,
+1450,strings/SPARK2/Ada-SPARK-Reorganize-String-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,34,
+1451,strings/SPARK2/Ada-SPARK-Reverse-String-II,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,26,
+1452,trees/Ada/Abstract-Syntax-Tree,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,182,
+1453,trees/Ada/Red-Black-Tree,Ada,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,459,
+1454,trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,56,
+1455,trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,57,
+1456,trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,40,
+1457,trees/SPARK2/Ada-SPARK-Delete-Node-In-A-BST-Lite,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,58,
+1458,trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,75,
+1459,trees/SPARK2/Ada-SPARK-Maximum-Binary-Tree,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,47,
+1460,trees/SPARK2/Ada-SPARK-Minimum-Height-Trees,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,37,
+1461,trees/SPARK2/Ada-SPARK-N-Ary-Tree-Level-Order-Traversal,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,78,
+1462,trees/SPARK2/Ada-SPARK-N-Ary-Tree-Postorder-Traversal,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,84,
+1463,trees/SPARK2/Ada-SPARK-N-Ary-Tree-Preorder-Traversal,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,77,
+1464,trees/SPARK2/Ada-SPARK-Red-Black-Tree,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,31,
+1465,trees/SPARK2/Ada-SPARK-Trim-BST-Stub,SPARK2,,0.0,0,0,2,0,0,0,0,0,not driven,ok,,yes,61,
+1466,trees/SPARK2/Average-Of-Levels-In-Binary-Tree,SPARK2,,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,52,
+1467,misc/Ada/Gray-Code,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,153,
+1468,misc/SPARK2/Ada-SPARK-Adler32,SPARK2,,-1.0,0,0,1,0,0,0,0,0,not driven,ok,diff agree,,24,24 library lines
+1469,misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,SPARK2,,-1.0,0,0,1,0,0,0,0,0,not driven,ok,kat,,59,
+1470,misc/SPARK2/Ada-SPARK-Delta-Encoding,SPARK2,,-1.0,0,0,1,0,0,0,0,0,not driven,ok,diff agree,,18,18 library lines
+1471,misc/SPARK2/Ada-SPARK-Hamming-Weight,SPARK2,,-1.0,0,0,1,0,0,0,0,0,not driven,ok,diff agree,,23,23 library lines
+1472,misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,SPARK2,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,36,
+1473,misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,SPARK2,,-1.0,0,0,1,0,0,0,0,0,not driven,ok,kat,,47,
+1474,misc/SPARK2/Ada-SPARK-Stack-Using-Queues-Stub,SPARK2,,-1.0,0,0,1,0,1,0,0,0,not driven,ok,,yes,55,demo literals 3
+1475,misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,345,
+1476,searching/Ada/Interpolation-Search,Ada,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,64,
+1477,searching/Ada/Introselect,Ada,,-1.0,0,0,0,0,2,0,0,0,ok,ok,diff agree,,185,demo literals 4 5
+1478,searching/SPARK4/Ada-SPARK-Interpolation-Search,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,110,
+1479,sorting/Ada/Bead-Sort,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,82,
+1480,sorting/Ada/Bubble-Sort,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,66,
+1481,sorting/Ada/Cocktail-Shaker-Sort,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,75,
+1482,sorting/Ada/Flashsort,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,143,
+1483,sorting/Ada/Gnome-Sort,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,58,
+1484,sorting/Ada/Insertion-Sort,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,53,
+1485,sorting/Ada/Patience-Sorting,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,127,
+1486,sorting/Ada/Strand-Sort,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,116,
+1487,sorting/Ada/Tree-Sort,Ada,,-1.0,0,1,0,0,0,0,0,0,ok,ok,diff agree,,116,
+1488,sorting/SPARK4/Ada-SPARK-Bogosort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,251,
+1489,sorting/SPARK4/Ada-SPARK-Bubble-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,163,
+1490,sorting/SPARK4/Ada-SPARK-Bucket-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,201,
+1491,sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,246,
+1492,sorting/SPARK4/Ada-SPARK-Counting-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,341,
+1493,sorting/SPARK4/Ada-SPARK-Flashsort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,382,
+1494,sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,238,
+1495,sorting/SPARK4/Ada-SPARK-Patience-Sorting,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,324,
+1496,sorting/SPARK4/Ada-SPARK-Quicksort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,324,
+1497,sorting/SPARK4/Ada-SPARK-Radix-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,348,
+1498,sorting/SPARK4/Ada-SPARK-Slowsort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,208,
+1499,sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,252,
+1500,sorting/SPARK4/Ada-SPARK-Strand-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,314,
+1501,sorting/SPARK4/Ada-SPARK-Tree-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,372,
+1502,sorting/SPARK4/Bead-Sort,SPARK4,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,273,
+1503,strings/Ada/Boyer-Moore,Ada,,-1.0,0,0,1,0,0,0,0,0,ok,ok,diff agree,,216,
+1504,strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,SPARK2,,-1.0,0,1,0,0,0,0,0,0,not driven,ok,diff agree,,66,
+1505,strings/SPARK2/Ada-SPARK-Hamming-Distance,SPARK2,,-1.0,0,0,1,0,0,0,0,0,not driven,ok,diff agree,,16,16 library lines
+1506,misc/Ada/Adler-32,Ada,,-2.0,0,0,0,0,1,0,0,0,not driven,ok,diff agree,,57,demo literals 5552
+1507,misc/SPARK2/Ada-SPARK-Authentication-Manager-Stub,SPARK2,,-2.0,0,0,1,0,0,0,0,0,not driven,ok,,yes,37,
+1508,misc/SPARK2/Ada-SPARK-Heap-Push-Pop,SPARK2,,-2.0,0,0,1,0,0,0,0,0,not driven,ok,,yes,48,
+1509,misc/SPARK2/Ada-SPARK-Tweet-Counts-Stub,SPARK2,,-2.0,0,0,1,0,0,0,0,0,not driven,ok,,yes,32,
+1510,numerical/Ada/Sieve-Of-Eratosthenes,Ada,,-2.0,0,0,0,0,1,0,0,0,ok,ok,diff agree,,185,demo literals 3
+1511,numerical/SPARK4/Binary-Gcd,SPARK4,,-2.0,0,0,0,0,1,0,0,0,not driven,ok,diff agree,,196,demo literals 63
+1512,sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite,SPARK2,,-2.0,0,0,1,0,0,0,0,0,not driven,ok,,yes,29,
+1513,compression/Ada/Run-Length-Encoding,Ada,,-3.0,0,0,0,0,0,0,0,0,ok,ok,diff agree,,0,
+1514,compression/SPARK2/Ada-SPARK-Run-Length-Encoding,SPARK2,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,0,
+1515,hashing/Ada/Pearson-Hashing,Ada,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,43,
+1516,misc/Ada/Delta-Encoding,Ada,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,60,
+1517,misc/Ada/Longest-Increasing-Subsequence,Ada,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,157,
+1518,misc/Ada/Selection-Algorithm,Ada,,-3.0,0,0,0,0,0,0,0,0,ok,ok,diff agree,,114,
+1519,misc/SPARK2/Ada-SPARK-Gray-Code,SPARK2,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,25,
+1520,misc/SPARK2/Ada-SPARK-Kadanes-Algorithm,SPARK2,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,25,
+1521,misc/SPARK4/Ada-SPARK-Selection-Algorithm,SPARK4,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,483,
+1522,numerical/Ada/Binary-GCD,Ada,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,135,
+1523,numerical/Ada/Euclidean-Algorithm,Ada,,-3.0,0,0,0,0,0,0,0,0,ok,ok,diff agree,,111,
+1524,numerical/Ada/Extended-Euclidean-Algorithm,Ada,,-3.0,0,0,0,0,0,0,0,0,ok,ok,diff agree,,147,
+1525,numerical/SPARK2/Ada-SPARK-Extended-Euclidean,SPARK2,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,25,
+1526,numerical/SPARK2/Ada-SPARK-Sieve-Of-Eratosthenes,SPARK2,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,33,
+1527,numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm,SPARK4,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,184,
+1528,numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,SPARK4,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,216,
+1529,numerical/SPARK4/Ada-SPARK-Mersenne-Twister,SPARK4,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,188,
+1530,searching/Ada/Fibonacci-Search,Ada,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,71,
+1531,searching/Ada/Jump-Search,Ada,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,120,
+1532,searching/Ada/Quickselect,Ada,,-3.0,0,0,0,0,0,0,0,0,ok,ok,diff agree,,115,
+1533,searching/SPARK4/Ada-SPARK-Jump-Search,SPARK4,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,171,
+1534,searching/SPARK4/Ada-SPARK-Quickselect,SPARK4,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,483,
+1535,strings/Ada/Hamming-Distance,Ada,,-3.0,0,0,0,0,0,0,0,0,ok,ok,diff agree,,63,
+1536,strings/Ada/Knuth-Morris-Pratt,Ada,,-3.0,0,0,0,0,0,0,0,0,ok,ok,diff agree,,144,
+1537,strings/Ada/Rabin-Karp,Ada,,-3.0,0,0,0,0,0,0,0,0,ok,ok,diff agree,,166,
+1538,strings/SPARK2/Ada-SPARK-Boyer-Moore,SPARK2,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,35,
+1539,strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,SPARK2,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,40,
+1540,strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,SPARK2,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,51,
+1541,strings/SPARK2/Ada-SPARK-Rabin-Karp,SPARK2,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,51,
+1542,strings/SPARK3/Levenshtein-Distance,SPARK3,,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,72,
+1543,misc/Ada/Nonlinear-Optimization,Ada,other-worker,14.0,0,0,1,3,0,0,0,0,ok,ok,,,974,first-match in Minimize_GD; first-match in Minimize_Newton; first-match in Minimize_Projected_GD
+1544,numerical/Ada/Primality-Test,Ada,other-worker,13.0,0,4,0,1,11,0,0,0,not driven,ok,,,517,first-match in Miller_Rabin_Deterministic_Small; demo literals 4 5 6 7 11 13
+1545,numerical/Ada/Fermat-Primality-Test,Ada,other-worker,11.0,0,0,1,0,27,0,0,0,not driven,weak,,,173,demo literals 3 5 7 11 13 17
+1546,graphs/Ada/Floyds-Cycle-Finding-Algorithm,Ada,other-worker,9.0,0,3,0,0,6,0,0,0,driver not built,ok,,,524,demo literals 3 4 5 6 7 9
+1547,searching/Ada/Jump-Point-Search,Ada,other-worker,9.0,0,6,0,0,5,0,0,0,not driven,ok,,,642,demo literals 3 4 5 6 7
+1548,graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,SPARK4,other-worker,7.0,0,2,0,0,4,0,0,0,not driven,ok,,,501,demo literals 3 4 5 7
+1549,numerical/Ada/Prime-Factorization,Ada,other-worker,7.0,0,1,1,0,3,0,0,0,not driven,ok,,,478,demo literals 3 5 6
+1550,compression/Ada/Huffmann-Coding,Ada,other-worker,6.0,0,2,1,0,0,0,0,0,not driven,ok,,,249,
+1551,graphs/Ada/Floyd-Warshall-Algorithm,Ada,other-worker,6.0,0,0,0,0,0,0,0,0,not driven,weak,,,779,
+1552,graphs/SPARK4/A-Star,SPARK4,other-worker,6.0,0,0,0,0,0,2,0,0,not driven,ok,,,448,
+1553,graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,SPARK4,other-worker,6.0,0,0,0,0,0,2,0,0,not driven,ok,,,409,
+1554,misc/Ada/D-Star,Ada,other-worker,6.0,0,4,0,0,0,0,0,0,not driven,ok,,,710,
+1555,misc/Ada/Johnsons-Algorithm,Ada,other-worker,6.0,0,0,0,0,0,0,0,0,not driven,weak,,,550,
+1556,misc/Ada/Steinhaus-Johnson-Trotter,Ada,other-worker,6.0,0,3,0,0,0,0,0,0,ok,ok,,,171,
+1557,searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,SPARK4,other-worker,6.0,0,0,0,0,0,2,0,0,not driven,ok,,,409,
+1558,searching/SPARK4/Best-First-Search,SPARK4,other-worker,6.0,0,0,0,0,0,2,0,0,not driven,ok,,,383,
+1559,misc/Ada/Newtons-Method-in-Optimization,Ada,other-worker,5.0,0,0,0,1,1,0,0,0,ok,ok,,,924,first-match in Minimize; demo literals 3
+1560,misc/SPARK2/Ada-SPARK-Coin-Change,SPARK2,other-worker,5.0,0,0,1,0,3,0,0,0,not driven,ok,,,19,19 library lines; demo literals 3 6 9
+1561,numerical/Ada/Aks-Primality-Test,Ada,other-worker,5.0,1,0,0,0,2,0,0,0,not driven,ok,,,336,demo literals 3 4
+1562,compression/Ada/Adaptive-Huffman,Ada,other-worker,4.0,0,2,0,0,0,0,0,0,not driven,ok,,,246,
+1563,graphs/Ada/Boruvkas-Algorithm,Ada,other-worker,4.0,0,0,0,1,0,0,0,0,not driven,ok,,,327,first-match in Minimum_Spanning_Tree
+1564,misc/Ada/Ant-Colony-Optimization,Ada,other-worker,4.0,0,2,0,0,0,0,0,0,ok,ok,,,642,
+1565,numerical/Ada/Lucas-Primality-Test,Ada,other-worker,4.0,1,0,0,0,1,0,0,0,not driven,ok,,,247,demo literals 3
+1566,graphs/Ada/Floyd-Steinberg-Dithering,Ada,other-worker,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,100,
+1567,misc/Ada/Integer-Linear-Programming,Ada,other-worker,3.0,1,0,0,0,0,0,0,0,not driven,ok,,,1109,
+1568,numerical/Ada/Prime-Factor-FFT-Algorithm,Ada,other-worker,3.0,0,0,0,0,0,0,0,0,not driven,baseline fails,,,119,
+1569,searching/Ada/Uniform-Cost-Search,Ada,other-worker,3.0,0,0,0,0,0,0,0,0,not driven,baseline does not build,,,174,
+1570,graphs/Ada/Euclidean-Minimum-Spanning-Tree,Ada,other-worker,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,332,
+1571,graphs/SPARK2/Ada-SPARK-Shortest-Path-In-Binary-Matrix,SPARK2,other-worker,2.0,0,0,3,0,0,0,0,0,not driven,ok,,yes,24,24 library lines
+1572,misc/Ada/Branch-and-Bound,Ada,other-worker,2.0,0,1,0,0,0,0,0,0,ok,ok,,,424,
+1573,misc/Ada/Gilbert-Johnson-Keerthi,Ada,other-worker,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,605,demo literals 3 4
+1574,numerical/SPARK2/Ada-SPARK-Prime-Check,SPARK2,other-worker,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,18,18 library lines
+1575,numerical/SPARK2/Ada-SPARK-Prime-Number-Of-Set-Bits,SPARK2,other-worker,2.0,0,0,1,0,0,0,0,0,not driven,ok,,,15,15 library lines
+1576,numerical/SPARK2/Ada-SPARK-Prime-Number-Of-Set-Bits-In-Binary-Representation,SPARK2,other-worker,2.0,0,0,0,0,2,0,0,0,not driven,ok,,,29,demo literals 3 7
+1577,misc/Ada/Travelling-Salesman-Problem,Ada,other-worker,1.0,0,0,0,0,1,0,0,0,not driven,ok,,,721,demo literals 4
+1578,graphs/Ada/A-Star,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,424,
+1579,graphs/Ada/Dijkstra-Scholten-Algorithm,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,106,
+1580,graphs/Ada/Dijkstras-Algorithm,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,268,
+1581,graphs/Ada/Minimum-Spanning-Tree,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,458,
+1582,graphs/Ada/Prims-Algorithm,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,519,
+1583,graphs/Ada/Shortest-Path-Problem,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,757,
+1584,graphs/SPARK2/Ada-SPARK-Bellman-Ford-Lite,SPARK2,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,39,
+1585,graphs/SPARK2/Ada-SPARK-Dijkstra-Lite,SPARK2,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,34,
+1586,graphs/SPARK2/Ada-SPARK-Floyd-Warshall-Lite,SPARK2,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,36,
+1587,graphs/SPARK2/Ada-SPARK-Kruskals-Algorithm,SPARK2,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,49,
+1588,misc/Ada/Combinatorial-Optimization,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,ok,ok,,,914,
+1589,misc/Ada/Linear-Programming,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,ok,ok,,,960,
+1590,misc/Ada/Quantum-Optimization-Algorithms,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,144,
+1591,misc/SPARK2/Ada-SPARK-Prim-MST-Lite,SPARK2,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,28,
+1592,parsing/Ada/Simplex-Algorithm,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,451,
+1593,searching/Ada/Best-First-Search,Ada,other-worker,0.0,0,0,0,0,0,0,0,0,not driven,ok,,,374,
+1594,graphs/SPARK2/Ada-SPARK-Kruskal-MST-Lite,SPARK2,other-worker,-2.0,0,0,1,0,0,0,0,0,not driven,ok,,yes,27,
+1595,graphs/Ada/Bellman-Ford-Algorithm,Ada,other-worker,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,398,
+1596,graphs/SPARK2/Ada-SPARK-Floyd-Warshall,SPARK2,other-worker,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,28,
+1597,graphs/SPARK2/Bellman-Ford-Algorithm,SPARK2,other-worker,-3.0,0,0,0,0,0,0,0,0,not driven,ok,diff agree,,34,
