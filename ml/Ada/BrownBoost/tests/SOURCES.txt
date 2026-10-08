@@ -1,0 +1,29 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Definition: Y. Freund, "An adaptive version of the boost by majority
+  algorithm", Machine Learning 43 (2001): weights exp (-(r_i + s)**2 / c),
+  and each step (alpha, t) solves
+    sum_i z_i exp (-(r_i + alpha z_i + s - t)**2 / c) = 0   (orthogonality)
+    sum_i Phi (r_i + alpha z_i + s - t) = sum_i Phi (r_i + s) (potential),
+  Phi (z) = 1 - erf (z / sqrt c), z_i = h (x_i) y_i; then r_i += alpha z_i,
+  s -= t. (Equations restated from the paper, no text copied.)
+* Replay: each trained model is replayed round by round from its stored
+  stumps and alphas. The potential equation is solved here for t by
+  bisection with an own erf (Taylor series up to 2.5, continued fraction for
+  erfc beyond; not the code's A&S 7.1.26), and orthogonality must then hold
+  to 1e-3 of sum_i exp (...). The stump of each round must reach the best
+  weighted advantage over every feature / training-value threshold /
+  direction (brute force; 1e-6 slack because the replayed margins follow the
+  code's to about 1e-7), with advantage > 0.0001. A round with no t in
+  [0, s] that conserves the potential is accepted only as the final step
+  (t = s); a stump with no mistakes ends the replay (alpha unbounded).
+  Training may stop only when s <= 0.0001, the best advantage is <= 0.0001,
+  or the capacity is full.
+* Data: 300 random sets, 4 .. 12 examples, 1 .. 3 integer features in
+  -3 .. 3, labels from a random threshold stump with 20% label noise,
+  c in {0.5, 1, 2, 3}, capacity 1 .. 15, both solver variants.
+* Predict: sign of sum alpha_j h_j (x), 0 counted positive (the body's and
+  the README's convention); empty model -> negative.
+* Labels with index origin 5 must give the same model as origin 1 (the
+  precondition only asks for equal lengths).
+Nothing is taken from the program's output or from third-party test suites.

@@ -1,5 +1,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Brown_Boost; use Brown_Boost;
+with Own_Checks;
 
 procedure Tests is
    Pass_Count : Natural := 0;
@@ -17,6 +19,7 @@ procedure Tests is
    end Check;
 
 begin
+   Own_Checks;
    Put_Line ("TEST 1 - Empty Model");
    declare
       M : Ensemble_Model (10);
@@ -223,5 +226,7 @@ begin
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
-   pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;
