@@ -3,8 +3,8 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Max_Product_Subarray; use Max_Product_Subarray;
 
 procedure Tests is
-   A : constant Element_Array := (2, 3, -2, 4, -1, 2);
-   B : constant Element_Array := (-2, 0, -1, 4, 3, -2);
+   A : constant Element_Array := [2, 3, -2, 4, -1, 2];
+   B : constant Element_Array := [-2, 0, -1, 4, 3, -2];
 
    --  own reference: the largest product over every non-empty contiguous subarray, in
    --  Long_Long_Integer so that no product is capped
@@ -41,7 +41,7 @@ procedure Tests is
 
    Lo : constant := -6;
    Hi : constant := 6;
-   Digits_Of : array (Index) of Integer := (others => Lo);
+   Digits_Of : array (Index) of Integer := [others => Lo];
    V : Element_Array;
    Checked : Natural := 0;
    Done : Boolean := False;

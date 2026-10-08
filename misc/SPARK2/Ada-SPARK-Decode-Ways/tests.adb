@@ -4,8 +4,8 @@ with Decode_Ways;
 with Own_Checks;
 
 procedure Tests is
-   One : constant Decode_Ways.Digit_Sequence := (1 => 1, 2 => 2, 3 => 6, others => 0);
-   Zero : constant Decode_Ways.Digit_Sequence := (1 => 1, 2 => 0, others => 0);
+   One : constant Decode_Ways.Digit_Sequence := [1 => 1, 2 => 2, 3 => 6, others => 0];
+   Zero : constant Decode_Ways.Digit_Sequence := [1 => 1, 2 => 0, others => 0];
 begin
    if Decode_Ways.Count (One, 3) /= 3 or else Decode_Ways.Count (Zero, 2) /= 1 then
       raise Program_Error;

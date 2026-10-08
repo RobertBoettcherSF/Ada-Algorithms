@@ -2,6 +2,9 @@
 --  For inputs with 4 even and 4 odd values: Output is a permutation of Input with
 --  odd values at odd positions and even values at even positions.
 pragma Ada_2022;
+--  the rejection checks rely on the input subtype's predicate; check it even in builds
+--  without -gnata (the check is made here, at the call)
+pragma Assertion_Policy (Dynamic_Predicate => Check);
 with Ada.Text_IO;
 with Ada.Assertions;
 with Sort_Array_By_Parity_II; use Sort_Array_By_Parity_II;

@@ -1,5 +1,7 @@
 pragma Ada_2022;
 package Squares_Of_A_Sorted_Array with SPARK_Mode => On is
+   --  the predicate of Sorted_Array rejects bad input; keep it checked without -gnata too
+   pragma Assertion_Policy (Dynamic_Predicate => Check);
    Length : constant := 32;
    subtype Index is Positive range 1 .. Length;
    subtype Value is Integer range -32 .. 32;

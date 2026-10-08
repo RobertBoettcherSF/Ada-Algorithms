@@ -2,6 +2,9 @@
 --  For a sorted input, Result must be the squares of the input in non-decreasing order
 --  (own reference: square every element, then insertion sort). Unsorted input is rejected.
 pragma Ada_2022;
+--  the rejection checks rely on the input subtype's predicate; check it even in builds
+--  without -gnata (the check is made here, at the call)
+pragma Assertion_Policy (Dynamic_Predicate => Check);
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions;
 with Squares_Of_A_Sorted_Array; use Squares_Of_A_Sorted_Array;

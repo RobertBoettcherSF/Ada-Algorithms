@@ -1,5 +1,7 @@
 pragma Ada_2022;
 package Sort_Array_By_Parity_II with SPARK_Mode => On is
+   --  the predicate of Parity_Balanced rejects bad input; keep it checked without -gnata too
+   pragma Assertion_Policy (Dynamic_Predicate => Check);
    subtype Index is Positive range 1 .. 8;
    subtype Value is Integer range 0 .. 9;
    type Int_Array is array (Index) of Value;
