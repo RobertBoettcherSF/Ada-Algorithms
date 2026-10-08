@@ -100,6 +100,9 @@ def silver(fid, has_spark, built):
     if j.get('rc') != 0 or ': error:' in txt: return 'not built'
     return 'proven'
 
+# folders named *-Stub that were generalised (arbitrary length, real algorithm): no longer counted as stubs
+GEN_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'generalised_stubs.txt')
+GEN = set(l.strip() for l in open(GEN_FILE) if l.strip() and not l.startswith('#')) if os.path.exists(GEN_FILE) else set()
 rows = []
 texts = {}
 for topic, lev, alg, p in folders:
@@ -121,7 +124,7 @@ for topic, lev, alg, p in folders:
                      checks='', functional_checks='', trivial='',
                      proof_run=('steps=%s' % S[fid].get('steps') if fid in S else ('level2-timeout' if fid in P else '')) if has_spark else '',
                      proof_gpr=(P.get(fid, {}).get('gpr', '') + (' (generated)' if P.get(fid, {}).get('how') == 'generated' else '')) if has_spark else '',
-                     shared_sources=' '.join(b.get('shared', [])), stub=('yes' if re.search(r'(^|-)stub$', alg, re.I) else ''), pair='', duplicate_of=''))
+                     shared_sources=' '.join(b.get('shared', [])), stub=('yes' if re.search(r'(^|-)stub$', alg, re.I) and fid not in GEN else ''), generalised=('yes' if fid in GEN else ''), pair='', duplicate_of=''))
     texts[fid] = pkg_text(p)
 
 for r in rows:
@@ -192,7 +195,7 @@ L = ['# Proof index', '',
      'Silver: `gnatprove --mode=silver --level=2` on the folder\'s own .gpr (generated where none exists).', '',
      f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
      '**Silver headline (duplicates counted once):** ' + headline, '',
-     '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged; the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
+     '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged; the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
      '| Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven (real) | Proven (stub) | Trivial | Unproved | Tool crash | Not built | Not run |',
      '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
 for lev in ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4', 'All'):

@@ -1,0 +1,7 @@
+# Folders whose name ends in -Stub but which now implement the general algorithm
+# (arbitrary-length input up to an explicit max); see each README.
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub
+strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub
+misc/SPARK2/Ada-SPARK-Pow-X-N-Stub
+misc/SPARK2/Ada-SPARK-Count-And-Say-Stub
