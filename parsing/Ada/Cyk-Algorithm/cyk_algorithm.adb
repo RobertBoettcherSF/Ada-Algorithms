@@ -8,11 +8,6 @@ with Ada.Unchecked_Deallocation;
 
 package body Cyk_Algorithm is
 
-   -- The parse tree strictly uses anonymous access types (access Parse_Node) for Left/Right
-   -- components to prevent named access type proliferation. We suppress the warning for
-   -- anonymous access allocators globally in this body.
-   pragma Warnings (Off, "-gnatw_a");
-
    ----------------------------------------------------------------------------
    -- Is_In_CNF Implementation
    ----------------------------------------------------------------------------
@@ -47,7 +42,7 @@ package body Cyk_Algorithm is
             declare
                Prod : Production renames G.Productions (P_Idx);
             begin
-               if Prod.Kind = Terminal_Prod and then Prod.RHS_Terminal = Input (S_Idx) then
+               if Prod.Kind = Terminal_Prod and then Prod.RHS_Terminal = Input (Input'First + S_Idx - 1) then
                   P (1, S_Idx, Prod.LHS) := True;
                end if;
             end;
@@ -98,11 +93,11 @@ package body Cyk_Algorithm is
             declare
                Prod : Production renames G.Productions (P_Idx);
             begin
-               if Prod.Kind = Terminal_Prod and then Prod.RHS_Terminal = Input (S_Idx) then
+               if Prod.Kind = Terminal_Prod and then Prod.RHS_Terminal = Input (Input'First + S_Idx - 1) then
                   P (1, S_Idx, Prod.LHS).Valid := True;
                   P (1, S_Idx, Prod.LHS).Node := new Parse_Node'(Kind   => Terminal_Node,
                                                                  Symbol => Prod.LHS,
-                                                                 Term   => Input (S_Idx));
+                                                                 Term   => Input (Input'First + S_Idx - 1));
                end if;
             end;
          end loop;
@@ -126,8 +121,8 @@ package body Cyk_Algorithm is
                               P (L, S_Idx, Prod.LHS).Node := new Parse_Node'
                                 (Kind   => Nonterminal_Node,
                                  Symbol => Prod.LHS,
-                                 Left   => new Parse_Node'(Left_Cell.Node.all),
-                                 Right  => new Parse_Node'(Right_Cell.Node.all));
+                                 Left   => Parse_Node_Access'(new Parse_Node'(Left_Cell.Node.all)),
+                                 Right  => Parse_Node_Access'(new Parse_Node'(Right_Cell.Node.all)));
                            end if;
                         end;
                      end if;
@@ -175,13 +170,13 @@ package body Cyk_Algorithm is
             declare
                Prod : Weighted_Production renames G.Productions (P_Idx);
             begin
-               if Prod.Kind = Terminal_Prod and then Prod.RHS_Terminal = Input (S_Idx) then
+               if Prod.Kind = Terminal_Prod and then Prod.RHS_Terminal = Input (Input'First + S_Idx - 1) then
                   if not P (1, S_Idx, Prod.LHS).Valid or else Prod.Log_Prob > P (1, S_Idx, Prod.LHS).Log_Prob then
                      P (1, S_Idx, Prod.LHS).Valid := True;
                      P (1, S_Idx, Prod.LHS).Log_Prob := Prod.Log_Prob;
                      P (1, S_Idx, Prod.LHS).Node := new Parse_Node'(Kind   => Terminal_Node,
                                                                     Symbol => Prod.LHS,
-                                                                    Term   => Input (S_Idx));
+                                                                    Term   => Input (Input'First + S_Idx - 1));
                   end if;
                end if;
             end;
@@ -211,8 +206,8 @@ package body Cyk_Algorithm is
                                     P (L, S_Idx, Prod.LHS).Node := new Parse_Node'
                                       (Kind   => Nonterminal_Node,
                                        Symbol => Prod.LHS,
-                                       Left   => new Parse_Node'(Left_Cell.Node.all),
-                                       Right  => new Parse_Node'(Right_Cell.Node.all));
+                                       Left   => Parse_Node_Access'(new Parse_Node'(Left_Cell.Node.all)),
+                                       Right  => Parse_Node_Access'(new Parse_Node'(Right_Cell.Node.all)));
                                  end if;
                               end;
                            end if;

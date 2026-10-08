@@ -148,12 +148,12 @@ begin
    -- TEST 8 — Tree Serialization (`Tree_ToString`)
    Put_Line ("TEST 8 — Tree Serialization");
    declare
-      pragma Warnings (Off, "-gnatw_a");
+      Leaf_A : constant Parse_Node_Access := new Parse_Node'(Kind => Terminal_Node, Symbol => 'A', Term => 'a');
+      Leaf_B : constant Parse_Node_Access := new Parse_Node'(Kind => Terminal_Node, Symbol => 'B', Term => 'b');
       Node : Parse_Node_Access := new Parse_Node'(Kind => Nonterminal_Node,
                                                   Symbol => 'S',
-                                                  Left   => new Parse_Node'(Kind => Terminal_Node, Symbol => 'A', Term => 'a'),
-                                                  Right  => new Parse_Node'(Kind => Terminal_Node, Symbol => 'B', Term => 'b'));
-      pragma Warnings (On, "-gnatw_a");
+                                                  Left   => Leaf_A,
+                                                  Right  => Leaf_B);
       Str : constant String := Tree_ToString (Node);
    begin
       Check ("8.1 Tree_ToString produces non-empty string", Str'Length > 0);
@@ -244,9 +244,21 @@ begin
       Check ("13.1 Grammar count within production bounds", Pre_Satisfied);
       Check ("13.2 Nonterminal type range check ('A'..'Z')", ('A' in Nonterminal) and ('Z' in Nonterminal));
       
-      pragma Warnings (Off, "-gnatwc");
-      Check ("13.3 Log_Probability range check (0.0 is valid max log prob)", Log_Probability'(0.0) = 0.0);
-      pragma Warnings (On, "-gnatwc");
+      declare
+         --  every weight 0.0 (probability 1): the best parse has log probability 0.0
+         WG1 : constant Weighted_Grammar (3) :=
+           (Max_Productions => 3, Count => 3, Start_Sym => 'S',
+            Productions => [1 => (Kind => Binary, LHS => 'S', Log_Prob => 0.0, RHS_1 => 'A', RHS_2 => 'B'),
+                            2 => (Kind => Terminal_Prod, LHS => 'A', Log_Prob => 0.0, RHS_Terminal => 'a'),
+                            3 => (Kind => Terminal_Prod, LHS => 'B', Log_Prob => 0.0, RHS_Terminal => 'b')]);
+         Acc  : Boolean;
+         BP   : Log_Probability;
+         Root : Parse_Node_Access;
+      begin
+         Parse_Weighted (WG1, ['a', 'b'], Acc, BP, Root);
+         Check ("13.3 Log_Probability 0.0 (probability 1) is the best log prob", Acc and then BP = 0.0);
+         Free_Parse_Tree (Root);
+      end;
    end;
 
    Put_Line ("");
