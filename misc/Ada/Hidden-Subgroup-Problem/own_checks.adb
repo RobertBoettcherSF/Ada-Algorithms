@@ -17,11 +17,13 @@
 --    xor 165), each x queried once (2**n queries, no collision search), and
 --    oracles invariant under a subspace of dimension >= 2 -> Invalid_Oracle.
 pragma Ada_2022;
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Hidden_Subgroup_Problem; use Hidden_Subgroup_Problem;
 
 procedure Own_Checks is
    Failures : Natural := 0;
+   Spanned  : Natural := 0;   --  random 3n+2 sample sets that span s-perp
    Checked  : Natural := 0;
 
    procedure Expect (Cond : Boolean; What : String) is
@@ -87,7 +89,19 @@ procedure Own_Checks is
    end Ref_Null;
 
    type U32 is mod 2 ** 32;
-   Lcg : U32 := 12345;
+   --  test-data seed: fixed default, printed, overridable with AA_SEED
+   Default_Seed : constant U32 := 12345;
+   function Seed_From_Env return U32 is
+      S : U32 := Default_Seed;
+   begin
+      if Ada.Environment_Variables.Exists ("AA_SEED") then
+         S := U32'Value (Ada.Environment_Variables.Value ("AA_SEED"));
+      end if;
+      Ada.Text_IO.Put_Line ("own checks seed:" & S'Image & " (default" & Default_Seed'Image
+                            & "; set AA_SEED to override)");
+      return S;
+   end Seed_From_Env;
+   Lcg : U32 := Seed_From_Env;
    function Next_Rand (Modulus : Positive) return Natural is
    begin
       Lcg := Lcg * 1103515245 + 12345;
@@ -252,10 +266,24 @@ begin
                   Eqs (K) := Perp (1 + Next_Rand (Len));
                   Check_Null (Bits, Eqs (1 .. K), "random s-perp subset, s=" & S'Image & " k=" & K'Image);
                end loop;
-               Expect (Simon_Null_Vector (Bits, Eqs) = S, "Simon_Null_Vector from 3n+2 samples, s=" & S'Image);
+               --  3n + 2 random samples span s-perp only with high
+               --  probability (the brute-force count decides; Check_Null has
+               --  already compared every prefix with it); when they do, the
+               --  answer must be s itself
+               declare
+                  Count : Natural;
+                  First : Bit_Mask;
+               begin
+                  Ref_Null (Bits, Eqs, Count, First);
+                  Spanned := Spanned + (if Count = 1 then 1 else 0);
+                  if Count = 1 then
+                     Expect (First = S and then Simon_Null_Vector (Bits, Eqs) = S,
+                             "Simon_Null_Vector from 3n+2 spanning samples, s=" & S'Image);
+                  end if;
+               end;
             exception
                when Subgroup_Not_Found | Invalid_Oracle =>
-                  Expect (False, "Simon_Null_Vector from 3n+2 samples raised, s=" & S'Image);
+                  Expect (False, "Simon_Null_Vector from 3n+2 spanning samples raised, s=" & S'Image);
             end;
          end;
       end loop;
@@ -373,6 +401,9 @@ begin
    exception
       when Subgroup_Not_Found => Expect (True, "");
    end;
+   --  120 sample sets (every s, n = 1 .. 6); a set misses spanning with
+   --  probability about 2**(-(2n + 3)), so nearly all must span
+   Expect (Spanned >= 110, "random 3n+2 sample sets spanning s-perp:" & Spanned'Image & " of 120");
    if Failures > 0 then
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
       raise Program_Error with "own checks failed";

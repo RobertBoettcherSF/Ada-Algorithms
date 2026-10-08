@@ -3,6 +3,7 @@
 pragma Ada_2022;
 
 with Ada.Command_Line;
+with Ada.Environment_Variables;
 with Ada.Text_IO;
 with Matrix_Multiplication;
 with Own_Checks;
@@ -415,16 +416,30 @@ begin
    ---------------------------------------------------------------------
    Section ("14. Verify_Freivalds equal / unequal");
    ---------------------------------------------------------------------
+   --  Freivalds seeds: fixed defaults 42 / 7 / 99 (the earlier constants),
+   --  printed, overridable with AA_SEED (then AA_SEED, +1, +2).
+   --  With one corrupted entry a trial misses with probability 1/2, so the
+   --  corrupt-matrix run uses 30 trials (miss chance 2**(-30) for any seed).
    declare
+      function Env_Seed return Natural is
+         S : Natural := 42;
+      begin
+         if Ada.Environment_Variables.Exists ("AA_SEED") then
+            S := Natural'Value (Ada.Environment_Variables.Value ("AA_SEED")) mod 1_000_000;
+         end if;
+         Ada.Text_IO.Put_Line ("Freivalds seed:" & S'Image & " (default 42; set AA_SEED to override)");
+         return S;
+      end Env_Seed;
+      Base : constant Natural := Env_Seed;
       A : constant Int_Matrix := Int_Deterministic (4, 1);
       B : constant Int_Matrix := Int_Deterministic (4, 2);
       Good : constant Int_Multiply_Result := Multiply_Classical_Int (A, B);
       C_Ok : constant Int_Matrix := Int_Product_Matrix (Good);
       C_Bad : constant Int_Matrix := Corrupt_Entry (C_Ok, 2, 3, 1);
       V_Ok : constant Verify_Result :=
-        Verify_Freivalds (A, B, C_Ok, Trials => 10, Seed => 42);
+        Verify_Freivalds (A, B, C_Ok, Trials => 10, Seed => Base);
       V_Bad : constant Verify_Result :=
-        Verify_Freivalds (A, B, C_Bad, Trials => 10, Seed => 7);
+        Verify_Freivalds (A, B, C_Bad, Trials => 30, Seed => (if Base = 42 then 7 else Base + 1));
       V_Id : constant Verify_Result :=
         Verify_Freivalds (Int_Identity (3), Int_Identity (3),
                           Int_Identity (3), Trials => 5);
@@ -437,7 +452,7 @@ begin
       Check (V_Id.Stat = Equal_Probably, "Freivalds I*I=I");
 
       declare
-         Seed : Natural := 99;
+         Seed : Natural := (if Base = 42 then 99 else Base + 2);
          V1 : constant Verdict :=
            Verify_Freivalds_Once (A, B, C_Ok, Seed);
          V2 : constant Verdict :=

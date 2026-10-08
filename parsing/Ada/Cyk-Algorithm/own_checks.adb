@@ -15,6 +15,7 @@
 --  * the same input given with other index origins (Input'First /= 1);
 --  * Tree_ToString on hand-built trees, Free_Parse_Tree, Is_In_CNF.
 pragma Ada_2022;
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Hash;
 with Ada.Containers.Indefinite_Hashed_Maps;
@@ -36,7 +37,19 @@ procedure Own_Checks is
    end Expect;
 
    type U32 is mod 2 ** 32;
-   Lcg : U32 := 20261008;
+   --  test-data seed: fixed default, printed, overridable with AA_SEED
+   Default_Seed : constant U32 := 20261008;
+   function Seed_From_Env return U32 is
+      S : U32 := Default_Seed;
+   begin
+      if Ada.Environment_Variables.Exists ("AA_SEED") then
+         S := U32'Value (Ada.Environment_Variables.Value ("AA_SEED"));
+      end if;
+      Ada.Text_IO.Put_Line ("own checks seed:" & S'Image & " (default" & Default_Seed'Image
+                            & "; set AA_SEED to override)");
+      return S;
+   end Seed_From_Env;
+   Lcg : U32 := Seed_From_Env;
    function Rand (M : Positive) return Natural is
    begin
       Lcg := Lcg * 1664525 + 1013904223;

@@ -11,6 +11,7 @@
 --  * helpers: bit tests, exhaustive small ranges, element-wise definitions;
 --  * taxonomy: the README method and milestone tables.
 pragma Ada_2022;
+with Ada.Environment_Variables;
 with Ada.Text_IO;
 with Ada.Numerics.Elementary_Functions;
 with Interfaces; use Interfaces;
@@ -32,7 +33,20 @@ procedure Own_Checks is
    end Expect;
 
    --  xorshift32 for test data (not the package's LCG)
-   X : Unsigned_32 := 2463534242;
+   --  test-data seed: fixed default, printed, overridable with AA_SEED (xorshift: 0 is replaced by the default, it would stay 0)
+   Default_Seed : constant Unsigned_32 := 2463534242;
+   function Seed_From_Env return Unsigned_32 is
+      S : Unsigned_32 := Default_Seed;
+   begin
+      if Ada.Environment_Variables.Exists ("AA_SEED") then
+         S := Unsigned_32'Value (Ada.Environment_Variables.Value ("AA_SEED"));
+      end if;
+      if S = 0 then S := Default_Seed; end if;
+      Ada.Text_IO.Put_Line ("own checks seed:" & S'Image & " (default" & Default_Seed'Image
+                            & "; set AA_SEED to override)");
+      return S;
+   end Seed_From_Env;
+   X : Unsigned_32 := Seed_From_Env;
    function Next_Int (Lo, Hi : Integer) return Integer is
    begin
       X := X xor Shift_Left (X, 13);
