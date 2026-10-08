@@ -28,17 +28,16 @@ package Ripemd_160 is
      with Post => Is_Initialized (Ctx);
 
    -- Updates the hashing state with a Byte_Array chunk
-   procedure Update (Ctx : in out Context; Data : Byte_Array)
-     with Pre => Is_Initialized (Ctx);
+   --  An uninitialized context raises State_Error (no Pre: the exception
+   --  is the contract).
+   procedure Update (Ctx : in out Context; Data : Byte_Array);
 
    -- Updates the hashing state with a String chunk
-   procedure Update (Ctx : in out Context; Data : String)
-     with Pre => Is_Initialized (Ctx);
+   procedure Update (Ctx : in out Context; Data : String);
 
    -- Finalizes the hash, outputs the digest, and deactivates the context
    procedure Finalize (Ctx : in out Context; Digest : out Digest_Type)
-     with Pre => Is_Initialized (Ctx),
-          Post => not Is_Initialized (Ctx);
+     with Post => not Is_Initialized (Ctx);
 
    -- Validation helper for contracts
    function Is_Initialized (Ctx : Context) return Boolean;

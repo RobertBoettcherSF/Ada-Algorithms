@@ -1,0 +1,17 @@
+RIPEMD-160 own checks (own_checks.adb)
+
+The expected digests are the test vectors published by the original authors
+on https://homes.esat.kuleuven.be/~bosselae/ripemd160.html (Antoon Bosselaers,
+KU Leuven), the same values as Appendix B of H. Dobbertin, A. Bosselaers and
+B. Preneel, "RIPEMD-160: A Strengthened Version of RIPEMD" (18 April 1996,
+the authors' corrected version of the FSE 1996 paper), hosted at
+https://homes.esat.kuleuven.be/~bosselae/ripemd160/pdf/AB-9601/AB-9601.pdf.
+Copied into tests/authors_vectors.txt. No implementation was copied.
+
+Each vector is hashed in one shot and again in chunks (sizes 1, 55, 56, 63,
+64 and sizes drawn from an LCG). The chunked result is compared with the
+published digest, not with the one-shot result. The LCG seed defaults to
+20261008, is printed, and is overridable with AA_SEED.
+
+Mutant split (before these checks were written): seed 20261008, standard
+family 34 tuning / 27 held-out.

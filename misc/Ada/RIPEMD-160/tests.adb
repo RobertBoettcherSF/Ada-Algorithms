@@ -1,4 +1,5 @@
 with Ada.Command_Line;
+with Own_Checks;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ripemd_160; use Ripemd_160;
 
@@ -39,6 +40,7 @@ procedure Tests is
    Az_Hash    : constant String := "f71c27109c692c1b56bbdceb5b9d2865b3708dbc";
 
 begin
+   Own_Checks;
    Put_Line ("TEST 1 — Empty Hash Variants");
    declare
       Ctx : Context;
@@ -214,9 +216,7 @@ begin
    begin
       Ex_Raised := False;
       begin
-         pragma Warnings (Off);
          Update (Ctx_Uninit, "fail");
-         pragma Warnings (On);
       exception
          when State_Error => Ex_Raised := True;
       end;
@@ -224,9 +224,7 @@ begin
 
       Ex_Raised := False;
       begin
-         pragma Warnings (Off);
          Update (Ctx_Uninit, To_Bytes ("fail"));
-         pragma Warnings (On);
       exception
          when State_Error => Ex_Raised := True;
       end;
@@ -234,9 +232,7 @@ begin
 
       Ex_Raised := False;
       begin
-         pragma Warnings (Off);
          Finalize (Ctx_Uninit, D_Dummy);
-         pragma Warnings (On);
       exception
          when State_Error => Ex_Raised := True;
       end;
