@@ -124,3 +124,4 @@ misc/SPARK2/Ada-SPARK-Valid-Parentheses,own stack check; all 46656 strings over 
 misc/SPARK2/Ada-SPARK-Roman-To-Int,own encoder round trip; every value 1..3999 with a numeral of at most 7 letters
 misc/SPARK2/Ada-SPARK-Jump-Game,own breadth-first reachability reference; hand cases; 20000 random arrays
 numerical/SPARK2/Ada-SPARK-Newton-Raphson,integer square root property R*R <= N < (R+1)**2 over all 10000 inputs
+strings/SPARK2/Ada-SPARK-Repeated-String-Match,own brute force (concatenate K copies + naive search); hand cases; 20000 random
