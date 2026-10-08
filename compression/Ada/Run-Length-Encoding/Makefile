@@ -7,7 +7,7 @@ BIN_DIR = bin
 all: $(BIN_DIR)/tests
 
 $(BIN_DIR)/tests: tests.adb run_length_encoding.adb run_length_encoding.ads rle.gpr
-	mkdir -p $(OBJ_DIR) $(BIN_DIR) && $(GNAT) -P rle.gpr
+	mkdir -p $(OBJ_DIR) $(BIN_DIR) && $(GNAT) -gnata -P rle.gpr
 
 test: $(BIN_DIR)/tests
 	@echo "Running verification tests..."

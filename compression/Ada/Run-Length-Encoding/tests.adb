@@ -1,8 +1,10 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
+with Ada.Command_Line;
 with Run_Length_Encoding; use Run_Length_Encoding;
 
 procedure Tests is
+   Fail_Count : Natural := 0;
    T : constant Boolean := True;
    F : constant Boolean := False;
    
@@ -14,8 +16,10 @@ procedure Tests is
       Put_Line ("      PASS");
    exception
       when Assertion_Error =>
+         Fail_Count := Fail_Count + 1;
          Put_Line ("      FAIL: Assertion Error");
       when others =>
+         Fail_Count := Fail_Count + 1;
          Put_Line ("      FAIL: Unexpected Exception");
    end Run_Test;
 
@@ -146,4 +150,8 @@ begin
    Run_Test ("TEST 15 - 3.2 Assert Decode Trap: Missing Character", Test_15'Access);
    Run_Test ("TEST 16 - 3.3 Assert Decode Trap: Missing Digit Prefix", Test_16'Access);
    Run_Test ("TEST 17 - 3.4 Assert Decode Trap: Count is Zero", Test_17'Access);
+   Put_Line ("Results:" & Fail_Count'Image & " FAIL");
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

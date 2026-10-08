@@ -1,5 +1,5 @@
 GNAT    := gnatmake
-FLAGS   := -gnatwa -gnat2022
+FLAGS   := -gnatwa -gnat2022 -gnata
 .PHONY: all test clean
 all: bin/tests
 bin/tests: *.ads *.adb

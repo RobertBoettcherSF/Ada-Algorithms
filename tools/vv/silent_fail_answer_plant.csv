@@ -12,7 +12,7 @@ compression/Ada/Image-Compression,yes,lib,image_compression.adb,op = -> /=,if Im
 compression/Ada/LZ77-LZ78,yes,lib,lz_compression.adb,off_by_one_plus,return I;,2,1,1,
 compression/Ada/LZWL,yes,lib,lzwl.adb,flip_bool,return True;,2,1,1,
 compression/Ada/LZX,yes,lib,lzx_algorithm.adb,op + -> -,Input(I + Match_Len) = Input(Cursor + Match_Len) loop,2,3,2,
-compression/Ada/Run-Length-Encoding,no,lib,run_length_encoding.adb,op + -> -,return Img (Img'First + 1 .. Img'Last);,0,9,8,8 built plants all exited 0
+compression/Ada/Run-Length-Encoding,yes,lib,run_length_encoding.adb,op + -> -,return Img (Img'First + 1 .. Img'Last);,2,2,1,
 compression/Ada/Speech-Compression,yes,lib,speech_encoding.adb,op + -> -,return Sign(Sample) * (Log (1.0 + Mu_Constant * Abs_Sample) / Log (1.0 + Mu_Constant));,2,2,2,
 compression/Ada/Verlet-Integration,yes,lib,verlet_integration.adb,op + -> -,"return (X => Left.X + Right.X, Y => Left.Y + Right.Y, Z => Left.Z + Right.Z);",2,1,1,
 compression/Ada/Video-Compression,yes,lib,video_compression.adb,op = -> /=,Cu := (if U = 0 then 1.0 / Sqrt(2.0) else 1.0);,2,2,1,
@@ -46,7 +46,7 @@ cryptography/Ada/Universal-Coding,yes,lib,universal_codes.adb,op > -> >=,while T
 cryptography/SPARK2/Ada-SPARK-Level-Order-Traversal-Stub,yes,lib,level_order_traversal_stub.adb,op = -> /=,if Root = 0 or else not T.Used (Root) then,2,2,2,
 cryptography/SPARK2/Ada-SPARK-MD5,yes,lib,md5.adb,off_by_one_plus,return Block_Size;,2,1,1,
 cryptography/SPARK2/Ada-SPARK-SHA-1,yes,lib,sha_1.adb,off_by_one_plus,return Block_Size;,2,1,1,
-cryptography/SPARK2/Bit-Reversal,no,lib,bit_reversal.adb,off_by_one_plus,return Result;,0,4,4,4 built plants all exited 0
+cryptography/SPARK2/Bit-Reversal,yes,lib,bit_reversal.adb,off_by_one_plus,return Result;,2,1,1,
 geometry/Ada/Adaptive-Histogram-Equalization,yes,lib,adaptive_histogram_equalization.adb,op + -> -,"Hist(Input(R, C)) := Hist(Input(R, C)) + 1;",2,2,1,
 geometry/Ada/Canny-Edge-Detector,yes,lib,canny_edge_detector.adb,op + -> -,for I in Input'First(1) + 2 .. Input'Last(1) - 2 loop,2,1,1,
 geometry/Ada/Dithering,no,lib,dithering.adb,op < -> <=,if Val < 0.0 then,0,12,7,7 built plants all exited 0
@@ -58,7 +58,7 @@ geometry/Ada/Segmentation,yes,lib,image_segmentation.adb,op /= -> =,if Img1'Firs
 geometry/Ada/Watershed-Transformation,yes,lib,watershed_algorithm.adb,op <= -> <,return P.R >= Image'First(1) and then P.R <= Image'Last(1) and then,2,1,1,
 geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,yes,lib,convex_hull_graham.adb,op - -> +,return Long_Long_Integer (B.X - A.X) * Long_Long_Integer (C.Y - A.Y),2,1,1,
 geometry/SPARK2/Ada-SPARK-Point-In-Polygon,yes,lib,point_in_polygon.adb,op > -> >=,exit when I > Number_Of_Vertices;,2,2,1,
-geometry/SPARK2/Closest-Pair-Brute,no,lib,closest_pair_brute.adb,off_by_one_plus,return Best;,0,9,9,9 built plants all exited 0
+geometry/SPARK2/Closest-Pair-Brute,yes,lib,closest_pair_brute.adb,off_by_one_plus,return Best;,2,1,1,
 graphs/Ada/Dijkstra-Scholten-Algorithm,yes,lib,dijkstra_scholten.adb,op < -> <=,if Node < 1 or else Node > Network.Max_Node then,2,1,1,
 graphs/Ada/Floyd-Steinberg-Dithering,yes,lib,floyd_steinberg.adb,op + 1 -> + 0,"Img (X - 1, Y + 1) := Img (X - 1, Y + 1) + Quant_Error * (3.0 / 16.0);",2,2,2,
 graphs/Ada/subgraph-isomorphism,pending,,,,,,10,0,"10 plants tried, none built/ran"
@@ -351,7 +351,7 @@ misc/SPARK2/Ada-SPARK-Covariance,yes,lib,covariance.adb,op + -> -,Sum_A : consta
 misc/SPARK2/Ada-SPARK-Crawler-Log-Folder,yes,lib,crawler_log_folder.adb,op + -> -,procedure Enter (F : in out Folder_Tracker) is begin if F.Level < Capacity then F.Level := F.Level +,2,1,1,
 misc/SPARK2/Ada-SPARK-Create-Maximum-Number-Lite,yes,lib,create_maximum_number_lite.adb,off_by_one_plus,return Best;,2,1,1,
 misc/SPARK2/Ada-SPARK-Critical-Connections-In-A-Network-Lite,yes,lib,critical_connections_in_a_network_lite.adb,off_by_one_assign,Result := 3;,2,1,1,
-misc/SPARK2/Ada-SPARK-Daily-Temperatures,no,lib,daily_temperatures.adb,op > -> >=,if Temps (2) > Temps (1) then return 1;,0,8,8,8 built plants all exited 0
+misc/SPARK2/Ada-SPARK-Daily-Temperatures,yes,lib,daily_temperatures.adb,op > -> >=,if Temps (2) > Temps (1) then return 1;,2,1,1,
 misc/SPARK2/Ada-SPARK-Decode-Ways,yes,lib,decode_ways.adb,off_by_one_plus,return Previous;,2,1,1,
 misc/SPARK2/Ada-SPARK-Decode-Ways-Stub,yes,lib,decode_ways_stub.adb,op = -> /=,W1 : constant Natural := (if D (1) = 0 then 0 else 1);,2,1,1,
 misc/SPARK2/Ada-SPARK-Decode-XORed-Array,yes,main,tests.adb,main_expected_literal,"pragma Assert (Result = [5, 7, 0, 3]);",2,1,1,
@@ -602,7 +602,7 @@ misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub,yes,lib,nested_iterator_stub.adb,op +
 misc/SPARK2/Ada-SPARK-Network-Delay-Time,yes,lib,network_delay_time.adb,op = -> /=,if Edges (I).U = Source and then Edges (I).W < Result (Edges (I).V) then,2,2,2,
 misc/SPARK2/Ada-SPARK-Network-Delay-Time-Stub,yes,lib,network_delay_time_stub.adb,off_by_one_plus,return 2;,2,1,1,
 misc/SPARK2/Ada-SPARK-New-21-Game-Lite,yes,lib,new_21_game_lite.adb,op <= -> <,return Target <= 10;,2,1,1,
-misc/SPARK2/Ada-SPARK-Next-Greater-Element-I,no,lib,next_greater_element_i.adb,op > -> >=,if A > Value then return A; elsif B > Value then return B;,0,5,5,5 built plants all exited 0
+misc/SPARK2/Ada-SPARK-Next-Greater-Element-I,yes,main,tests.adb,main_expected_literal,Assert (R3 (1) = 3 and R3 (2) = 4 and R3 (3) = 4 and R3 (4) = -1);,2,7,7,
 misc/SPARK2/Ada-SPARK-Next-Greater-Element-II,yes,lib,next_greater_element_ii.adb,op > -> >=,if A > Value then return A; elsif B > Value then return B;,2,2,2,
 misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List,yes,lib,next_greater_node_in_linked_list.adb,op + -> -,for J in I + 1 .. Length loop,2,2,1,
 misc/SPARK2/Ada-SPARK-Next-Permutation-Stub,yes,main,tests.adb,main_expected_literal,"pragma Assert (Next_Permutation_Stub.Next ([1, 2, 3, 4]) = [1, 2, 4, 3]);",2,8,7,
@@ -880,10 +880,10 @@ numerical/SPARK2/Ada-SPARK-Simpson-Rule,yes,lib,simpson_rule.adb,op * -> +,retur
 numerical/SPARK2/Ada-SPARK-Successful-Pairs-Of-Spells-And-Potions,yes,lib,successful_pairs_of_spells_and_potions.adb,off_by_one_plus,return 1;,2,1,1,
 numerical/SPARK2/Ada-SPARK-Valid-Perfect-Square,yes,lib,valid_perfect_square.adb,flip_bool,return True;,2,1,1,
 numerical/SPARK2/Ada-SPARK-Walls-And-Gates,yes,lib,walls_and_gates.adb,off_by_one_plus,return Total;,2,1,1,
-numerical/SPARK2/Babylonian-Sqrt,no,lib,babylonian_sqrt.adb,off_by_one_plus,return Best;,0,6,6,6 built plants all exited 0
+numerical/SPARK2/Babylonian-Sqrt,yes,lib,babylonian_sqrt.adb,off_by_one_plus,return Best;,2,1,1,
 parsing/SPARK2/Ada-SPARK-Sparse-Set,yes,lib,sparse_set.adb,op = -> /=,function Contains (S : Set; V : Value) return Boolean is begin return S.Count > 0 and then S.Sparse ,2,2,2,
 parsing/SPARK2/Ada-SPARK-Sparse-Vector-Dot-Stub,yes,lib,sparse_vector_dot_stub.adb,off_by_one_plus,return Sum;,2,1,1,
-parsing/SPARK2/Sparse-Dot,no,lib,sparse_dot.adb,op * -> +,return Integer (Values (1)) * Integer (Dense (Indices (1))),0,6,6,6 built plants all exited 0
+parsing/SPARK2/Sparse-Dot,yes,lib,sparse_dot.adb,op * -> +,return Integer (Values (1)) * Integer (Dense (Indices (1))),2,1,1,
 searching/Ada/Uniform-Cost-Search,yes,lib,uniform_cost_search.adb,op = -> /=,if Size = 0 then,2,2,2,
 searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound,yes,lib,binary_search_lower_bound.adb,off_by_one_plus,return 1;,2,1,1,
 searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,yes,lib,binary_search_upper_bound.adb,off_by_one_plus,return 1;,2,1,1,
