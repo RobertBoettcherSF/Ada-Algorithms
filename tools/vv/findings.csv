@@ -4,7 +4,7 @@ compression/SPARK2/Ada-SPARK-Run-Length-Encoding,Run_Count started at 1: empty i
 strings/SPARK2/Ada-SPARK-Repeated-String-Match,Repeat_Count only compares B with the start of the repeated A (prefix-only); A = ab / B = ba gives 0 instead of 2,fixed,75a662a,1aa3739
 numerical/SPARK2/Ada-SPARK-Newton-Raphson,Sqrt (k**2 - 1) returns k instead of k - 1 (52 inputs in the tested range),fixed,c618183,d88e7c1
 trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,Is_Balanced checks a leaf-depth rule instead of height balance,fixed,979df670,60e98e28
-trees/SPARK2/Ada-SPARK-Range-Sum-BST,range sum skips the left subtree of in-range nodes,open,,
+trees/SPARK2/Ada-SPARK-Range-Sum-BST,range sum skips the left subtree of in-range nodes,fixed,541a3bdb,3247037d
 misc/SPARK2/Ada-SPARK-Jump-Game,Can_Jump returns A (N) > 0; not the jump game,fixed,bf330e8,73d4188
 searching/SPARK2/Bst-Insert-Search,array-backed tree (31 slots; children of K at 2K and 2K + 1) silently loses keys deeper than 5 levels; no README,open,,
 trees/SPARK2/Ada-SPARK-Insert-Into-BST,Insert appends in insertion order; no BST shape,open,,
