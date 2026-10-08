@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with System.Assertions;
+with Ada.Command_Line;
 with Association_Rules; use Association_Rules;
 
 procedure Tests is
@@ -297,5 +298,7 @@ begin
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
-   pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;
