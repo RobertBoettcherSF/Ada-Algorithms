@@ -7,7 +7,7 @@ with Ada.Command_Line;
 with Own_Checks;
 
 procedure Tests is
-   Table : Character_Table := Get_Default_Table;
+   Table : constant Character_Table := Get_Default_Table;
    Total_Tests : Integer := 0;
    Passed_Tests : Integer := 0;
 

@@ -11,9 +11,9 @@ package body Unicode_Collation is
       -- Standardize basic Alphabet (Primary weights matter, Case is Tertiary)
       for I in Character'Pos('a') .. Character'Pos('z') loop
          declare
-            C : Character := Character'Val(I);
-            Upper_C : Character := Character'Val(I - 32);
-            Base_Weight : Weight_Level := Weight_Level(I * 10);
+            C : constant Character := Character'Val(I);
+            Upper_C : constant Character := Character'Val(I - 32);
+            Base_Weight : constant Weight_Level := Weight_Level(I * 10);
          begin
             -- Lowercase: Primary = Base, Secondary = 20, Tertiary = 2 (Lower)
             Table(C) := (Primary => Base_Weight, Secondary => 20, Tertiary => 2);
@@ -103,10 +103,9 @@ package body Unicode_Collation is
    -----------------------------------------------------
    function Compare_Standard (Left, Right : String; Table : Character_Table) return Collation_Result is
    begin
-      if Left'Length = 0 and Right'Length = 0 then return Equal; end if;
-      if Left'Length = 0 then return Less; end if;
-      if Right'Length = 0 then return Greater; end if;
-
+      --  No shortcut for empty strings: a string whose characters are all
+      --  ignorable (weight 0 at every level) must compare Equal to "", and
+      --  Compare_Weights already treats an empty weight list as the shortest.
       return Compare_Weights(Get_Weights(Left, Table), Get_Weights(Right, Table));
    end Compare_Standard;
 
