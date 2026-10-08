@@ -79,6 +79,17 @@ begin
          end;
       end;
    end loop;
+   --  near the top of the fitness range: a gain smaller than the threshold
+   --  must not be accepted (Base 9_990 + threshold 50 is unreachable)
+   declare
+      Base : constant Agent_State := Create_Agent (1, 9_990.0, 10);
+      Top  : constant Agent_State := Create_Agent (2, 10_000.0, 10);
+      R    : constant Agent_State := Evolve_Preemptive (Base, [1 => Top], Static_Env, 50.0);
+   begin
+      if R.Id /= Base.Id then
+         Fail ("Evolve_Preemptive accepted a gain of 10 for threshold 50 at the top of the range");
+      end if;
+   end;
    Put_Line ("own checks: selection rule checked on" & Rounds'Image & " random populations (demo folder)");
    if Failures > 0 then
       raise Program_Error with "own checks:" & Failures'Image & " failures";
