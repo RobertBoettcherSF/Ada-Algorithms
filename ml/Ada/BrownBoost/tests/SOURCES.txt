@@ -24,6 +24,10 @@ Sources of the expected values in own_checks.adb (own code, MIT)
   c in {0.5, 1, 2, 3}, capacity 1 .. 15, both solver variants.
 * Predict: sign of sum alpha_j h_j (x), 0 counted positive (the body's and
   the README's convention); empty model -> negative.
+* Second round (visible half only): when both directions of the only
+  threshold have the same advantage, the search tries +1 first and keeps
+  it. A hand-built pair of stumps whose contributions cancel (sum 0) is
+  positive. Neither expected value is taken from a run of the package.
 * Labels with index origin 5 must give the same model as origin 1 (the
   precondition only asks for equal lengths).
 Nothing is taken from the program's output or from third-party test suites.

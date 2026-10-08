@@ -460,6 +460,68 @@ begin
    begin
       Expect (Predict (Empty, [1 => 0.0]) = Label_Negative, "empty model predicts negative");
    end;
+   --  Second round, visible half only. Two directions on one repeated
+   --  feature value have the same advantage (both call the tied points
+   --  positive). The search tries direction +1 first and keeps it on a
+   --  tie, so a point below that value is negative.
+   declare
+      X : constant Feature_Matrix (1 .. 3, 1 .. 1) :=
+        [1 => [1 => 1.0], 2 => [1 => 1.0], 3 => [1 => 1.0]];
+      Y : constant Label_Array (1 .. 3) :=
+        [Label_Positive, Label_Positive, Label_Negative];
+      M : constant Ensemble_Model := Train (X, Y, 1.0, Newton_Solver, 1);
+      Adv_Pos, Adv_Neg : Long_Float := 0.0;
+   begin
+      for I in 1 .. 3 loop
+         declare
+            Label_Sign : constant Long_Float :=
+              (if Y (I) = Label_Positive then 1.0 else -1.0);
+         begin
+            --  Every training value equals the only threshold, so both
+            --  directions predict +1 there. The advantage is the same.
+            Adv_Pos := Adv_Pos + Label_Sign;
+            Adv_Neg := Adv_Neg + Label_Sign;
+         end;
+      end loop;
+      Expect (Adv_Pos = Adv_Neg and then Adv_Pos > 0.0,
+              "both directions tie on the repeated feature");
+      Expect (M.Size = 1, "the tie still produces one stump");
+      Expect (M.Models (1).Stump.Direction = 1.0
+              and then M.Models (1).Stump.Threshold = 1.0
+              and then M.Models (1).Stump.Feature = 1,
+              "a tie keeps the first direction, +1");
+      Expect (Predict (M, [1 => 0.0]) = Label_Negative,
+              "direction +1 calls a smaller point negative");
+   end;
+
+   --  A sum of exactly zero is positive. The two stumps cancel on x = 1;
+   --  the test adds the contributions itself.
+   declare
+      M : constant Ensemble_Model :=
+        (Capacity => 2, Size => 2,
+         Models =>
+           [1 => (Stump => (Feature => 1, Threshold => 0.0, Direction => 1.0),
+                  Alpha => 1.0),
+            2 => (Stump => (Feature => 1, Threshold => 0.0, Direction => -1.0),
+                  Alpha => 1.0)]);
+      X : constant Value_Type := 1.0;
+      Sum : Long_Float := 0.0;
+   begin
+      for I in 1 .. 2 loop
+         declare
+            St : Decision_Stump renames M.Models (I).Stump;
+            Pred : constant Long_Float :=
+              (if Long_Float (X) * Long_Float (St.Direction)
+                  >= Long_Float (St.Threshold) * Long_Float (St.Direction)
+               then 1.0 else -1.0);
+         begin
+            Sum := Sum + Long_Float (M.Models (I).Alpha) * Pred;
+         end;
+      end loop;
+      Expect (Sum = 0.0, "the two stumps cancel");
+      Expect (Predict (M, [1 => X]) = Label_Positive, "a zero sum is positive");
+   end;
+
    Expect (Rounds > 1_000 and then Solved > 500, "enough replayed rounds:" & Rounds'Image & Solved'Image);
    for V in Solver_Variant loop
       --  end-of-range steps are the exception (about 4% of rounds here)
