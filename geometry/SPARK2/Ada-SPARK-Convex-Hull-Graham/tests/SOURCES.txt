@@ -1,0 +1,22 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: the unit square scaled by 2 with an inner point (1,1): a
+  non-empty hull, by hand.
+* Scan expects its input prepared the Graham way (README): the pivot (lowest,
+  then leftmost point) first, the rest sorted counter-clockwise by angle
+  around it, nearer points first on equal angles, all points distinct. The
+  test prepares random point sets that way with its own exact
+  cross-product sort.
+* Own reference: Andrew's monotone-chain hull written in the test (strict
+  turns, so collinear points are not hull vertices), counter-clockwise.
+  The returned hull must equal it as a cyclic sequence and start at the
+  pivot.
+* Inputs: 20,000 random sets of 1 .. 16 distinct points (every third set in
+  a 7x7 box, so collinear points are common; the rest in -100 .. 100), plus
+  all-collinear sets and the coordinate extremes, by hand.

@@ -143,3 +143,7 @@ matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum,own clipped-block reference over 
 compression/SPARK2/Ada-SPARK-Compress-String,own run-length size reference (character + decimal count per run); every string over {a;b} and {a;b;c}
 graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,own Warshall transitive closure; 600 random directed/symmetric graphs; every start/goal pair (153600 queries)
 matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,own properties: every cell once; starts at origin; non-decreasing Manhattan distance; every origin; Manhattan for all 256 pairs
+graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS,own recursive flood fill (4-connected); every 4x4 grid (65536)
+hashing/SPARK2/Ada-SPARK-Design-HashMap,model-based: 2000 random Put sequences vs own array model; every key checked after every operation
+hashing/SPARK2/Ada-SPARK-Design-HashSet,model-based: 2000 random Add/Remove sequences vs own Boolean model; every element checked after every operation
+geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,own monotone-chain hull (strict) as cyclic sequence; 20000 random distinct point sets prepared in Graham order (own exact angle sort) + collinear and extreme cases

@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: Put (2, 42) then Contains (2) and Get (2) = 42, by hand.
+* Own model: an array of (present, value) per key; Put stores (and
+  overwrites) the value, Contains reports presence, Get returns the last
+  value put. After every operation every key is compared with the model.
+* Inputs: 2,000 random runs of 30 operations (keys 1 .. 4, values
+  -100 .. 100, half of the operations are Puts).

@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
-with Design_HashSet; use Design_HashSet;
+with Design_HashSet;
+with Own_Checks; use Design_HashSet;
 procedure Tests is
    S : Set := Empty;
 begin
@@ -8,4 +9,5 @@ begin
    Remove (S, 3);
    if Contains (S, 3) then raise Program_Error; end if;
    Put_Line ("Design HashSet: PASS");
+   Own_Checks;
 end Tests;

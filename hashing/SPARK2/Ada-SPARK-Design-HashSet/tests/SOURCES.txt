@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: Add 3, Contains 3 but not 4, Remove 3, not Contains 3, by
+  hand.
+* Own model: a Boolean per element; Add sets it, Remove clears it (also
+  when absent, and adding twice is a no-op). After every operation every
+  element is compared with the model.
+* Inputs: 2,000 random runs of 40 Add / Remove operations on 1 .. 8.

@@ -1,6 +1,7 @@
 with Number_Of_Islands_DFS;
+with Own_Checks;
 procedure Tests is
-   Empty : constant Number_Of_Islands_DFS.Grid := (others => (others => False));
+   Empty : constant Number_Of_Islands_DFS.Grid := [others => [others => False]];
    G : Number_Of_Islands_DFS.Grid := Empty;
    Two : Number_Of_Islands_DFS.Grid := Empty;
 begin
@@ -9,4 +10,5 @@ begin
    pragma Assert (Number_Of_Islands_DFS.Count (Empty) = 0);
    pragma Assert (Number_Of_Islands_DFS.Count (G) = 1);
    pragma Assert (Number_Of_Islands_DFS.Count (Two) = 2);
+   Own_Checks;
 end Tests;

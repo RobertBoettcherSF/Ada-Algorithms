@@ -1,5 +1,6 @@
 pragma Ada_2022;
 with Convex_Hull_Graham;
+with Own_Checks;
 procedure Tests is
    use Convex_Hull_Graham;
    Points : constant Point_Array :=
@@ -10,4 +11,5 @@ procedure Tests is
 begin
    Scan (Points, 5, Hull, Count);
    pragma Assert (Count > 0);
+   Own_Checks;
 end Tests;

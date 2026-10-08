@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* tests.adb: empty grid -> 0, an L of three cells -> 1, two opposite
+  corners -> 2, by hand.
+* Own reference: number of 4-connected components of land cells (up, down,
+  left, right; no diagonals - the standard statement), by a recursive flood
+  fill written in the test.
+* Inputs: every 4x4 grid (65,536).
