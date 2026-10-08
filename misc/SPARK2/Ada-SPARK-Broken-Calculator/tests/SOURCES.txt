@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* tests.adb: 5 -> 2 takes 3 decrements; 2 -> 5 takes 4 operations
+  (2 -> 4 -> 3 -> 6 -> 5; no 3-step sequence reaches 5), by hand.
+* Own reference (the standard broken-calculator statement: the only
+  operations are "double" and "decrement by one"): breadth-first search
+  over the values 0 .. 64 written in the test (doubling past 2 * Target
+  never helps).
+* Inputs: every start and target in 1 .. 32 (1,024 pairs).
