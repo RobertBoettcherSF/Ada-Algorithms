@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Dice_Coefficient; use Dice_Coefficient;
+with Own_Checks;
 
 procedure Tests is
 
@@ -150,6 +151,7 @@ procedure Tests is
    end Formula_Dice;
 
 begin
+   Own_Checks;
    Put_Line ("Dice_Coefficient test suite");
    Put_Line ("Max_Len =" & Max_Len'Image);
 

@@ -1,2 +1,3 @@
 folder,tests_added,ref_method,donothing_caught,mutation_score
 strings/Ada/String-Metrics,own_checks.adb (14641 pairs),recursive edit-distance definitions + bigram presence + counts; JW properties,yes (6/6 subprograms),34/39 raw; 5 equivalent (redundant empty guards; Max tie; symmetric OSA swap) -> 34/34
+misc/Ada/Dice-Coefficient,own_checks.adb (132496 pairs + per-string counts),bigram sets by presence test (not window collection); definition of Bigram_Count,yes (4/4 subprograms),29/31 raw; 2 equivalent (empty-set early returns) -> 29/29

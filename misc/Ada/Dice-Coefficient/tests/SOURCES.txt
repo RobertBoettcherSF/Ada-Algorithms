@@ -1,0 +1,10 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Unique bigram sets: each of the 9 bigrams over {a, b, c} tested for
+  presence by substring search (not by collecting and de-duplicating
+  windows); Bigram_Count = max (0, length - 1) by definition.
+* Coefficient = 2 |shared| / (|T_A| + |T_B|), with the edge cases stated in
+  dice_coefficient.ads (both empty -> 1.0; empty denominator -> 0.0).
+* Inputs: all 132,496 pairs of strings over {a, b, c} of length 0 .. 5; the
+  second string is passed as a slice with 'First = 2.
+Nothing is taken from the program's output or from third-party test suites.
