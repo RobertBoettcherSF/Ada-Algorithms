@@ -100,7 +100,7 @@ Never from the program's own current output, and nothing from Rosetta Code, Leet
 
 Each folder has `tests/own_checks.adb` (called from its test main) and `tests/SOURCES.txt`, which states where every expected value comes from. `tools/vv/own_tests.csv` lists the folders and checks; the index shows them in column `own_tests`. A folder has a *known answer* (column `known_answer`) when it has a registered vector, own tests or an agreeing differential test, and the do-nothing check did not flag it weak; `training_ready` now requires a known answer.
 
-Status (2026-10-08): 104 folders (33 sorting, 29 trees, 15 strings, 12 misc, 6 searching, 5 numerical, 4 compression); all pass on GNAT 14 and GNAT 12 and all are `ok` in the do-nothing check. `own_checks.adb` has no `SPARK_Mode`, so it is not proved. Where a project lists its source files, it is outside the project (three build projects now name it explicitly so `make test` still builds); for the 33 own-test folders whose proof project takes every source in the folder, the Silver proof was rerun with the new tests in place and gives the same result as before.
+Status (2026-10-08): 114 folders (33 sorting, 29 trees, 22 misc, 15 strings, 6 searching, 5 numerical, 4 compression); all pass on GNAT 14 and GNAT 12 and all are `ok` in the do-nothing check. `own_checks.adb` has no `SPARK_Mode`, so it is not proved. Where a project lists its source files, it is outside the project (three build projects now name it explicitly so `make test` still builds); for the 36 own-test folders whose proof project takes every source in the folder, the Silver proof was rerun with the new tests in place and gives the same result as before.
 
 Findings while writing them. The code is not changed yet; for Repeated-String-Match, Newton-Raphson, Balanced-Binary-Tree and Range-Sum-BST the own tests fail and are parked (not committed) until the intended behaviour is decided, so these four do not count as having own tests:
 
@@ -115,6 +115,8 @@ Findings while writing them. The code is not changed yet; for Repeated-String-Ma
 * `sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II`: inputs without an exact 4/4 even/odd split lose values (outside the exercise; not checked by own tests, no precondition or subtype rules them out).
 * `misc/SPARK2/Ada-SPARK-Jump-Game`: `Can_Jump (A, N)` returns `A (N) > 0` (its postcondition says exactly that), which is not the jump game; the README calls the folder a stub, but the name has no `-Stub`, so the index does not treat it as one. Flagged weak by the do-nothing check; no own tests.
 * `trees/SPARK2/Ada-SPARK-Insert-Into-BST`: `Insert` appends values in insertion order; there is no tree shape. Own tests check what the interface promises (membership and size), which holds.
+* `misc/SPARK2/Ada-SPARK-Pascal-Triangle` and `misc/SPARK2/Ada-SPARK-Decode-Ways`: the input types allow rows 31 and 32 and digit strings of length 30 .. 32, whose answers do not fit the result type; both functions then saturate silently, which their READMEs do not mention. A tighter input subtype (rows 0 .. 30, lengths 1 .. 29) would make the limit explicit. Own tests cover the representable range.
+* `misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs`: the climb ends on the last step (its cost is paid) rather than past it; the README does not say which. The own tests fix the convention with one input and check every other input against it.
 
 ## Not done yet
 
