@@ -6,12 +6,20 @@
 --  exactly as often as in the input (occurrence counts, no sorting).
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Environment_Variables;
 with Quantum_Sort; use Quantum_Sort;
 
 procedure Own_Checks is
    Failures : Natural := 0;
    Cases    : Natural := 0;
-   Seed : Long_Long_Integer := 20_261_008;
+   --  Fixed default seed, printed at start; AA_SEED overrides it.
+   subtype Seed_Range is Long_Long_Integer range 1 .. 2_147_483_646;
+   Default_Seed : constant Seed_Range := 20_261_008;
+   function Initial_Seed return Seed_Range is
+     (if Ada.Environment_Variables.Exists ("AA_SEED")
+      then Seed_Range'Value (Ada.Environment_Variables.Value ("AA_SEED"))
+      else Default_Seed);
+   Seed : Long_Long_Integer := Initial_Seed;
    function Next (Lo, Hi : Long_Long_Integer) return Integer is
    begin
       Seed := (Seed * 16_807) mod 2_147_483_647;
@@ -75,6 +83,8 @@ procedure Own_Checks is
 
    Big : constant Long_Long_Integer := Long_Long_Integer (Integer'Last);
 begin
+   Put_Line ("own checks seed:" & Seed'Image & " (default"
+             & Default_Seed'Image & "; set AA_SEED to override)");
    --  1. Every array of length 0 .. 7 over {0, 1, 2} (3,280 arrays: ties, runs).
    for Len in 0 .. 7 loop
       for Code in 0 .. 3 ** Len - 1 loop

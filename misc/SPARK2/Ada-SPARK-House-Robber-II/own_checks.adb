@@ -5,12 +5,20 @@
 --  different method from the two linear recurrences in the code.
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Environment_Variables;
 with House_Robber_II; use House_Robber_II;
 
 procedure Own_Checks is
    Failures : Natural := 0;
    Cases    : Natural := 0;
-   Seed : Long_Long_Integer := 20_261_008;
+   --  Fixed default seed, printed at start; AA_SEED overrides it.
+   subtype Seed_Range is Long_Long_Integer range 1 .. 2_147_483_646;
+   Default_Seed : constant Seed_Range := 20_261_008;
+   function Initial_Seed return Seed_Range is
+     (if Ada.Environment_Variables.Exists ("AA_SEED")
+      then Seed_Range'Value (Ada.Environment_Variables.Value ("AA_SEED"))
+      else Default_Seed);
+   Seed : Long_Long_Integer := Initial_Seed;
    function Next (Lo, Hi : Integer) return Integer is
    begin
       Seed := (Seed * 16_807) mod 2_147_483_647;
@@ -65,6 +73,8 @@ procedure Own_Checks is
    Top : constant array (1 .. 3) of Money := [0, 19, 20];
    A : Values;
 begin
+   Put_Line ("own checks seed:" & Seed'Image & " (default"
+             & Default_Seed'Image & "; set AA_SEED to override)");
    --  1. Every array over {0, 1, 2, 3}: 4**6 = 4,096 inputs, all shapes.
    for Code in 0 .. 4 ** House_Count - 1 loop
       for H in House loop

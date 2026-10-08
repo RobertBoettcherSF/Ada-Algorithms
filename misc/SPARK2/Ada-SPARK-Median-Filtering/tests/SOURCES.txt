@@ -14,3 +14,7 @@ nothing is copied from the program's output or from third-party test suites.
 * Inputs: an ascending and a descending ramp with distinct values, 300
   random images over 0 .. 255 and 300 over {0, 100, 200} (Park-Miller
   minimal standard generator, seed 20261008).
+
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..." / "tests seed: ..."); set AA_SEED=<n>
+  to run them with another seed (tools/vv/sweep_aa_seed.py).

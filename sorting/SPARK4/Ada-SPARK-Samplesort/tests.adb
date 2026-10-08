@@ -6,6 +6,7 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Environment_Variables;
 with Samplesort; use Samplesort;
 with Own_Checks;
 
@@ -101,7 +102,14 @@ is
       Check (Is_Permutation (A, O), Label & " permutation");
    end Expect_Sorted;
 
-   Seed : Natural := 42;
+   --  Fixed default seed, printed at start; AA_SEED overrides it.
+   subtype Seed_Range is Natural;
+   Default_Seed : constant Seed_Range := 42;
+   function Initial_Seed return Seed_Range is
+     (if Ada.Environment_Variables.Exists ("AA_SEED")
+      then Seed_Range'Value (Ada.Environment_Variables.Value ("AA_SEED"))
+      else Default_Seed);
+   Seed : Natural := Initial_Seed;
 
    function Next_Mod (Modulus : Positive) return Natural is
       Mult : constant := 1_103_515_245;
@@ -170,6 +178,8 @@ is
    end Clustered;
 
 begin
+   Put_Line ("tests seed:" & Seed'Image & " (default"
+             & Default_Seed'Image & "; set AA_SEED to override)");
    Put_Line ("Samplesort (SPARK) tests");
    Put_Line ("========================");
 

@@ -14,3 +14,7 @@ copied from the program's output or from third-party test suites.
   Integer range and -3 .. 3 (Park-Miller minimal standard generator, seed
   20261008); full-length ascending, descending and alternating-extreme
   arrays. Applied to: Merge_Sort.Sort.
+
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..." / "tests seed: ..."); set AA_SEED=<n>
+  to run them with another seed (tools/vv/sweep_aa_seed.py).

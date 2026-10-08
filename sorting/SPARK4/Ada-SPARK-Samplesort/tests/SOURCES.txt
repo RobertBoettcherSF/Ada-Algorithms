@@ -19,3 +19,7 @@ copied from the program's output or from third-party test suites.
   properties on the same inputs, against a scratch copy of the library in
   which the final Bubble_Finish call of Sort is replaced by null, so only
   the named samplesort phase sorts (docs/VV.md 3i, pattern 7).
+
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..." / "tests seed: ..."); set AA_SEED=<n>
+  to run them with another seed (tools/vv/sweep_aa_seed.py).

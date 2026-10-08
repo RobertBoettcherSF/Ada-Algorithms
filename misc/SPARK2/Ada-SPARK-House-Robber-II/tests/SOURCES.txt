@@ -10,3 +10,7 @@ nothing is copied from the program's output or from third-party test suites.
 * Inputs: every array over {0,1,2,3} (4,096), every array over {0,19,20}
   (729), one rich house at each position, 5,000 random arrays over 0 .. 20
   (Park-Miller minimal standard generator, seed 20261008).
+
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..." / "tests seed: ..."); set AA_SEED=<n>
+  to run them with another seed (tools/vv/sweep_aa_seed.py).
