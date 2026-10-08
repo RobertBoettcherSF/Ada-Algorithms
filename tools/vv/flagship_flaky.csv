@@ -1,0 +1,15 @@
+folder,code_state,compiler,default_runs_pass,default_distinct_outputs,aa_seed_values,aa_seed_pass,aa_seed_read,initialize_scalars,failures,finding
+logic/Ada/Automated-Theorem-Proving,7df1a6ef,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,yes (overrides the Park-Miller seed 20261008),pass,none,
+logic/Ada/Verified-Unification-Engine,7df1a6ef,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,yes (overrides the Park-Miller seed 20261008),pass,none,
+misc/Ada/Conflict-Driven-Clause-Learning,7df1a6ef,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,yes (overrides the Park-Miller seed 20261008),pass,none,
+misc/Ada/Darwin-Godel-Machine,7df1a6ef,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,yes (overrides the Park-Miller seed 20261008),pass,none,
+misc/Ada/First-Order-Logic,7df1a6ef,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,yes (overrides the Park-Miller seed 20261008),pass,none,
+misc/Ada/Rete-Algorithm,7df1a6ef,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,yes (overrides the Park-Miller seed 20261008),pass,none,
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,"88852d3e / 7e1d88c1 (trace added, before the fix)",GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,13/30,yes (overrides the Park-Miller seed 20261008),pass,AA_SEED=15851 and 16 more: the reference trace in own_checks recorded a let twice when Subst rebuilt a let-value copy (test-code defect; engine output unchanged),"findings_flagship.csv HM trace reference; failing test 56ef398f, fix 19dec2a7"
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,19dec2a7,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,yes (overrides the Park-Miller seed 20261008),pass,none,rerun after the fix
+misc/Ada/Hindley-Milner-Type-System,"88852d3e / 7e1d88c1 (trace added, before the fix)",GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,13/30,yes (overrides the Park-Miller seed 20261008),pass,AA_SEED=15851 and 16 more: the reference trace in own_checks recorded a let twice when Subst rebuilt a let-value copy (test-code defect; engine output unchanged),"findings_flagship.csv HM trace reference; failing test 56ef398f, fix 19dec2a7"
+misc/Ada/Hindley-Milner-Type-System,19dec2a7,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,yes (overrides the Park-Miller seed 20261008),pass,none,rerun after the fix
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,2f129392,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,"no: tests use fixed seeds, so these are 30 more repeats",pass,none,
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,0418a298,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,"no: tests use fixed seeds, so these are 30 more repeats",pass,none,
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,d2c83b92,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,"no: tests use fixed seeds, so these are 30 more repeats",pass,none,
+sorting/SPARK4/Bead-Sort,60908285,GNATMAKE 14.2.0,10/10,1,s*7919+13 for s = 1..30,30/30,"no: tests use fixed seeds, so these are 30 more repeats",pass,none,

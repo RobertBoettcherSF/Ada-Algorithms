@@ -1,0 +1,296 @@
+folder,idx,file,line,op,before,after,result
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,0,hindley_milner.adb+hindley_milner.adb,173+165,= -> /= + = -> /=,elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then || if T1 = T2 then,elsif T1.Kind /= Kind_Base and then T2.Kind = Kind_Base then || if T1 /= T2 then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,1,hindley_milner.adb+hindley_milner.adb,179+173,= -> /= + = -> /=,elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then,elsif T1.Kind = Kind_Arrow and then T2.Kind /= Kind_Arrow then || elsif T1.Kind /= Kind_Base and then T2.Kind = Kind_Base then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,2,hindley_milner.adb+hindley_milner.adb,165+149,= -> /= + = -> /=,if T1 = T2 then || if T.Kind = Kind_Var and then S (T.Var_Name) = Name then,if T1 /= T2 then || if T.Kind /= Kind_Var and then S (T.Var_Name) = Name then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,3,hindley_milner.adb+hindley_milner.adb,179+174,= -> /= + = -> /=,elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || if S (T1.Base_Name) = S (T2.Base_Name) then,elsif T1.Kind = Kind_Arrow and then T2.Kind /= Kind_Arrow then || if S (T1.Base_Name) /= S (T2.Base_Name) then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,4,hindley_milner.adb+hindley_milner.adb,173+169,= -> /= + = -> /=,elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then || if T1.Kind = Kind_Var then,elsif T1.Kind = Kind_Base and then T2.Kind /= Kind_Base then || if T1.Kind /= Kind_Var then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,5,hindley_milner.adb+hindley_milner.adb,169+173,= -> /= + = -> /=,if T1.Kind = Kind_Var then || elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then,if T1.Kind /= Kind_Var then || elsif T1.Kind /= Kind_Base and then T2.Kind = Kind_Base then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,6,hindley_milner.adb+hindley_milner.adb,179+171,= -> /= + = -> /=,elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || elsif T2.Kind = Kind_Var then,elsif T1.Kind = Kind_Arrow and then T2.Kind /= Kind_Arrow then || elsif T2.Kind /= Kind_Var then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,7,hindley_milner.adb+hindley_milner.adb,179+165,= -> /= + = -> /=,elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || if T1 = T2 then,elsif T1.Kind = Kind_Arrow and then T2.Kind /= Kind_Arrow then || if T1 /= T2 then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,8,hindley_milner.adb+hindley_milner.adb,173+149,= -> /= + and then -> or else,elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then || if T.Kind = Kind_Var and then S (T.Var_Name) = Name then,elsif T1.Kind = Kind_Base and then T2.Kind /= Kind_Base then || if T.Kind = Kind_Var or else S (T.Var_Name) = Name then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,9,hindley_milner.adb+hindley_milner.adb,179+173,= -> /= + = -> /=,elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then,elsif T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then || elsif T1.Kind /= Kind_Base and then T2.Kind = Kind_Base then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,10,hindley_milner.adb+hindley_milner.adb,149+173,= -> /= + and then -> or else,if T.Kind = Kind_Var and then S (T.Var_Name) = Name then || elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then,if T.Kind = Kind_Var and then S (T.Var_Name) /= Name then || elsif T1.Kind = Kind_Base or else T2.Kind = Kind_Base then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,11,hindley_milner.adb+hindley_milner.adb,171+173,= -> /= + = -> /=,elsif T2.Kind = Kind_Var then || elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then,elsif T2.Kind /= Kind_Var then || elsif T1.Kind = Kind_Base and then T2.Kind /= Kind_Base then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,12,hindley_milner.adb+hindley_milner.adb,174+179,= -> /= + and then -> or else,if S (T1.Base_Name) = S (T2.Base_Name) then || elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,if S (T1.Base_Name) /= S (T2.Base_Name) then || elsif T1.Kind = Kind_Arrow or else T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,13,hindley_milner.adb+hindley_milner.adb,179+202,= -> /= + + -> -,elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || State.Next_ID := State.Next_ID + 1;,elsif T1.Kind = Kind_Arrow and then T2.Kind /= Kind_Arrow then || State.Next_ID := State.Next_ID - 1;,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,14,hindley_milner.adb+hindley_milner.adb,174+173,= -> /= + = -> /=,if S (T1.Base_Name) = S (T2.Base_Name) then || elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then,if S (T1.Base_Name) /= S (T2.Base_Name) then || elsif T1.Kind = Kind_Base and then T2.Kind /= Kind_Base then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,15,hindley_milner.adb+hindley_milner.adb,173+171,and then -> or else + = -> /=,elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then || elsif T2.Kind = Kind_Var then,elsif T1.Kind = Kind_Base or else T2.Kind = Kind_Base then || elsif T2.Kind /= Kind_Var then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,16,hindley_milner.adb+hindley_milner.adb,171+202,= -> /= + + -> -,elsif T2.Kind = Kind_Var then || State.Next_ID := State.Next_ID + 1;,elsif T2.Kind /= Kind_Var then || State.Next_ID := State.Next_ID - 1;,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,17,hindley_milner.adb+hindley_milner.adb,165+179,= -> /= + = -> /=,if T1 = T2 then || elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,if T1 /= T2 then || elsif T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,18,hindley_milner.adb+hindley_milner.adb,179+149,= -> /= + and then -> or else,elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || if T.Kind = Kind_Var and then S (T.Var_Name) = Name then,elsif T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then || if T.Kind = Kind_Var or else S (T.Var_Name) = Name then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,19,hindley_milner.adb+hindley_milner.adb,149+202,= -> /= + + 1 -> + 0,if T.Kind = Kind_Var and then S (T.Var_Name) = Name then || State.Next_ID := State.Next_ID + 1;,if T.Kind = Kind_Var and then S (T.Var_Name) /= Name then || State.Next_ID := State.Next_ID + 0;,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,20,hindley_milner.adb+hindley_milner.adb,174+169,= -> /= + = -> /=,if S (T1.Base_Name) = S (T2.Base_Name) then || if T1.Kind = Kind_Var then,if S (T1.Base_Name) /= S (T2.Base_Name) then || if T1.Kind /= Kind_Var then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,21,hindley_milner.adb+hindley_milner.adb,202+165,+ -> - + = -> /=,State.Next_ID := State.Next_ID + 1; || if T1 = T2 then,State.Next_ID := State.Next_ID - 1; || if T1 /= T2 then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,22,hindley_milner.adb+hindley_milner.adb,149+179,= -> /= + and then -> or else,if T.Kind = Kind_Var and then S (T.Var_Name) = Name then || elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,if T.Kind = Kind_Var and then S (T.Var_Name) /= Name then || elsif T1.Kind = Kind_Arrow or else T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,23,hindley_milner.adb+hindley_milner.adb,202+179,+ -> - + = -> /=,State.Next_ID := State.Next_ID + 1; || elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,State.Next_ID := State.Next_ID - 1; || elsif T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,24,hindley_milner.adb+hindley_milner.adb,173+179,and then -> or else + = -> /=,elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then || elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,elsif T1.Kind = Kind_Base or else T2.Kind = Kind_Base then || elsif T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,25,hindley_milner.adb+hindley_milner.adb,202+173,+ 1 -> + 0 + = -> /=,State.Next_ID := State.Next_ID + 1; || elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then,State.Next_ID := State.Next_ID + 0; || elsif T1.Kind = Kind_Base and then T2.Kind /= Kind_Base then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,26,hindley_milner.adb+hindley_milner.adb,173+149,and then -> or else + and then -> or else,elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then || if T.Kind = Kind_Var and then S (T.Var_Name) = Name then,elsif T1.Kind = Kind_Base or else T2.Kind = Kind_Base then || if T.Kind = Kind_Var or else S (T.Var_Name) = Name then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,27,hindley_milner.adb+hindley_milner.adb,149+179,and then -> or else + = -> /=,if T.Kind = Kind_Var and then S (T.Var_Name) = Name then || elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,if T.Kind = Kind_Var or else S (T.Var_Name) = Name then || elsif T1.Kind = Kind_Arrow and then T2.Kind /= Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,28,hindley_milner.adb+hindley_milner.adb,149+171,= -> /= + = -> /=,if T.Kind = Kind_Var and then S (T.Var_Name) = Name then || elsif T2.Kind = Kind_Var then,if T.Kind = Kind_Var and then S (T.Var_Name) /= Name then || elsif T2.Kind /= Kind_Var then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,29,hindley_milner.adb+hindley_milner.adb,173+202,= -> /= + + -> -,elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then || State.Next_ID := State.Next_ID + 1;,elsif T1.Kind /= Kind_Base and then T2.Kind = Kind_Base then || State.Next_ID := State.Next_ID - 1;,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,30,hindley_milner.adb+hindley_milner.adb,173+149,= -> /= + = -> /=,elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then || if T.Kind = Kind_Var and then S (T.Var_Name) = Name then,elsif T1.Kind /= Kind_Base and then T2.Kind = Kind_Base then || if T.Kind = Kind_Var and then S (T.Var_Name) /= Name then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,31,hindley_milner.adb+hindley_milner.adb,179+173,and then -> or else + and then -> or else,elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || elsif T1.Kind = Kind_Base and then T2.Kind = Kind_Base then,elsif T1.Kind = Kind_Arrow or else T2.Kind = Kind_Arrow then || elsif T1.Kind = Kind_Base or else T2.Kind = Kind_Base then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,32,hindley_milner.adb+hindley_milner.adb,202+179,+ 1 -> + 0 + = -> /=,State.Next_ID := State.Next_ID + 1; || elsif T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,State.Next_ID := State.Next_ID + 0; || elsif T1.Kind = Kind_Arrow and then T2.Kind /= Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,33,hindley_milner.adb+hindley_milner.adb,165+171,= -> /= + = -> /=,if T1 = T2 then || elsif T2.Kind = Kind_Var then,if T1 /= T2 then || elsif T2.Kind /= Kind_Var then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,34,hindley_milner.adb+hindley_milner.adb,174+165,= -> /= + = -> /=,if S (T1.Base_Name) = S (T2.Base_Name) then || if T1 = T2 then,if S (T1.Base_Name) /= S (T2.Base_Name) then || if T1 /= T2 then,killed
+misc/Ada/Hindley-Milner-Type-Inference-Algorithm,35,hindley_milner.adb+hindley_milner.adb,149+165,= -> /= + = -> /=,if T.Kind = Kind_Var and then S (T.Var_Name) = Name then || if T1 = T2 then,if T.Kind = Kind_Var and then S (T.Var_Name) /= Name then || if T1 /= T2 then,killed
+misc/Ada/Hindley-Milner-Type-System,0,hindley_milner.adb+hindley_milner.adb,64+47,= -> /= + = -> /=,if T = null then return Result; end if; || if L = null and R = null then return True; end if;,if T /= null then return Result; end if; || if L = null and R /= null then return True; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,1,hindley_milner.adb+hindley_milner.adb,188+47,= -> /= + = -> /=,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || if L = null and R = null then return True; end if;,elsif T1.Kind /= Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || if L = null and R /= null then return True; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,2,hindley_milner.adb+hindley_milner.adb,41+188,+ 1 -> + 0 + = -> /=,Ctx.Next_Id := Ctx.Next_Id + 1; || elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then,Ctx.Next_Id := Ctx.Next_Id + 0; || elsif T1.Kind /= Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then,killed
+misc/Ada/Hindley-Milner-Type-System,3,hindley_milner.adb+hindley_milner.adb,95+198,= -> /= + > -> >=,if T = null then return null; end if; || if S'Length > 0 and then S (S'First) = ' ' then,if T /= null then return null; end if; || if S'Length >= 0 and then S (S'First) = ' ' then,killed
+misc/Ada/Hindley-Milner-Type-System,4,hindley_milner.adb+hindley_milner.adb,188+49,= -> /= + /= -> =,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || if L.Kind /= R.Kind then return False; end if;,elsif T1.Kind = Kind_Const and then T2.Kind /= Kind_Const and then T1.Name = T2.Name then || if L.Kind = R.Kind then return False; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,5,hindley_milner.adb+hindley_milner.adb,188+41,= -> /= + + -> -,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || Ctx.Next_Id := Ctx.Next_Id + 1;,elsif T1.Kind = Kind_Const and then T2.Kind /= Kind_Const and then T1.Name = T2.Name then || Ctx.Next_Id := Ctx.Next_Id - 1;,killed
+misc/Ada/Hindley-Milner-Type-System,6,hindley_milner.adb+hindley_milner.adb,177+48,= -> /= + = -> /=,if T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || if L = null or R = null then return False; end if;,if T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then || if L = null or R /= null then return False; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,7,hindley_milner.adb+hindley_milner.adb,48+165,= -> /= + = -> /=,if L = null or R = null then return False; end if; || if T.Kind = Kind_Var and then T.Id = Id then,if L = null or R /= null then return False; end if; || if T.Kind = Kind_Var and then T.Id /= Id then,killed
+misc/Ada/Hindley-Milner-Type-System,8,hindley_milner.adb+hindley_milner.adb,49+47,/= -> = + = -> /=,if L.Kind /= R.Kind then return False; end if; || if L = null and R = null then return True; end if;,if L.Kind = R.Kind then return False; end if; || if L /= null and R = null then return True; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,9,hindley_milner.adb+hindley_milner.adb,95+177,= -> /= + = -> /=,if T = null then return null; end if; || if T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,if T /= null then return null; end if; || if T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-System,10,hindley_milner.adb+hindley_milner.adb,188+177,= -> /= + = -> /=,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || if T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,elsif T1.Kind = Kind_Const and then T2.Kind /= Kind_Const and then T1.Name = T2.Name then || if T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-System,11,hindley_milner.adb+hindley_milner.adb,53+41,= -> /= + + 1 -> + 0,return L.Id = R.Id; || Ctx.Next_Id := Ctx.Next_Id + 1;,return L.Id /= R.Id; || Ctx.Next_Id := Ctx.Next_Id + 0;,killed
+misc/Ada/Hindley-Milner-Type-System,12,hindley_milner.adb+hindley_milner.adb,55+177,= -> /= + and then -> or else,return L.Name = R.Name; || if T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,return L.Name /= R.Name; || if T1.Kind = Kind_Arrow or else T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-System,13,hindley_milner.adb+hindley_milner.adb,188+198,and then -> or else + and then -> or else,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || if S'Length > 0 and then S (S'First) = ' ' then,elsif T1.Kind = Kind_Const or else T2.Kind = Kind_Const and then T1.Name = T2.Name then || if S'Length > 0 or else S (S'First) = ' ' then,stillborn
+misc/Ada/Hindley-Milner-Type-System,14,hindley_milner.adb+hindley_milner.adb,186+48,= -> /= + = -> /=,elsif T2.Kind = Kind_Var then || if L = null or R = null then return False; end if;,elsif T2.Kind /= Kind_Var then || if L /= null or R = null then return False; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,15,hindley_milner.adb+hindley_milner.adb,198+165,and then -> or else + = -> /=,if S'Length > 0 and then S (S'First) = ' ' then || if T.Kind = Kind_Var and then T.Id = Id then,if S'Length > 0 or else S (S'First) = ' ' then || if T.Kind /= Kind_Var and then T.Id = Id then,killed
+misc/Ada/Hindley-Milner-Type-System,16,hindley_milner.adb+hindley_milner.adb,188+199,= -> /= + + -> -,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || return S (S'First + 1 .. S'Last);,elsif T1.Kind /= Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || return S (S'First - 1 .. S'Last);,killed
+misc/Ada/Hindley-Milner-Type-System,17,hindley_milner.adb+hindley_milner.adb,177+165,= -> /= + = -> /=,if T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then || if T.Kind = Kind_Var and then T.Id = Id then,if T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then || if T.Kind /= Kind_Var and then T.Id = Id then,killed
+misc/Ada/Hindley-Milner-Type-System,18,hindley_milner.adb+hindley_milner.adb,198+49,and then -> or else + /= -> =,if S'Length > 0 and then S (S'First) = ' ' then || if L.Kind /= R.Kind then return False; end if;,if S'Length > 0 or else S (S'First) = ' ' then || if L.Kind = R.Kind then return False; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,19,hindley_milner.adb+hindley_milner.adb,186+177,= -> /= + = -> /=,elsif T2.Kind = Kind_Var then || if T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,elsif T2.Kind /= Kind_Var then || if T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-System,20,hindley_milner.adb+hindley_milner.adb,48+184,= -> /= + = -> /=,if L = null or R = null then return False; end if; || elsif T1.Kind = Kind_Var then,if L = null or R /= null then return False; end if; || elsif T1.Kind /= Kind_Var then,killed
+misc/Ada/Hindley-Milner-Type-System,21,hindley_milner.adb+hindley_milner.adb,198+95,and then -> or else + = -> /=,if S'Length > 0 and then S (S'First) = ' ' then || if T = null then return null; end if;,if S'Length > 0 or else S (S'First) = ' ' then || if T /= null then return null; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,22,hindley_milner.adb+hindley_milner.adb,188+177,and then -> or else + and then -> or else,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || if T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const or else T1.Name = T2.Name then || if T1.Kind = Kind_Arrow or else T2.Kind = Kind_Arrow then,stillborn
+misc/Ada/Hindley-Milner-Type-System,23,hindley_milner.adb+hindley_milner.adb,48+95,= -> /= + = -> /=,if L = null or R = null then return False; end if; || if T = null then return null; end if;,if L = null or R /= null then return False; end if; || if T /= null then return null; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,24,hindley_milner.adb+hindley_milner.adb,188+199,= -> /= + + -> -,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || return S (S'First + 1 .. S'Last);,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name /= T2.Name then || return S (S'First - 1 .. S'Last);,killed
+misc/Ada/Hindley-Milner-Type-System,25,hindley_milner.adb+hindley_milner.adb,199+188,+ -> - + = -> /=,return S (S'First + 1 .. S'Last); || elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then,return S (S'First - 1 .. S'Last); || elsif T1.Kind = Kind_Const and then T2.Kind /= Kind_Const and then T1.Name = T2.Name then,killed
+misc/Ada/Hindley-Milner-Type-System,26,hindley_milner.adb+hindley_milner.adb,64+188,= -> /= + = -> /=,if T = null then return Result; end if; || elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then,if T /= null then return Result; end if; || elsif T1.Kind /= Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then,killed
+misc/Ada/Hindley-Milner-Type-System,27,hindley_milner.adb+hindley_milner.adb,41+95,+ 1 -> + 0 + = -> /=,Ctx.Next_Id := Ctx.Next_Id + 1; || if T = null then return null; end if;,Ctx.Next_Id := Ctx.Next_Id + 0; || if T /= null then return null; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,28,hindley_milner.adb+hindley_milner.adb,199+177,+ -> - + = -> /=,return S (S'First + 1 .. S'Last); || if T1.Kind = Kind_Arrow and then T2.Kind = Kind_Arrow then,return S (S'First - 1 .. S'Last); || if T1.Kind /= Kind_Arrow and then T2.Kind = Kind_Arrow then,killed
+misc/Ada/Hindley-Milner-Type-System,29,hindley_milner.adb+hindley_milner.adb,188+184,= -> /= + = -> /=,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || elsif T1.Kind = Kind_Var then,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name /= T2.Name then || elsif T1.Kind /= Kind_Var then,killed
+misc/Ada/Hindley-Milner-Type-System,30,hindley_milner.adb+hindley_milner.adb,165+48,and then -> or else + = -> /=,if T.Kind = Kind_Var and then T.Id = Id then || if L = null or R = null then return False; end if;,if T.Kind = Kind_Var or else T.Id = Id then || if L /= null or R = null then return False; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,31,hindley_milner.adb+hindley_milner.adb,198+47,= -> /= + = -> /=,if S'Length > 0 and then S (S'First) = ' ' then || if L = null and R = null then return True; end if;,if S'Length > 0 and then S (S'First) /= ' ' then || if L = null and R /= null then return True; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,32,hindley_milner.adb+hindley_milner.adb,188+186,and then -> or else + = -> /=,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || elsif T2.Kind = Kind_Var then,elsif T1.Kind = Kind_Const or else T2.Kind = Kind_Const and then T1.Name = T2.Name then || elsif T2.Kind /= Kind_Var then,stillborn
+misc/Ada/Hindley-Milner-Type-System,33,hindley_milner.adb+hindley_milner.adb,165+198,= -> /= + > -> >=,if T.Kind = Kind_Var and then T.Id = Id then || if S'Length > 0 and then S (S'First) = ' ' then,if T.Kind /= Kind_Var and then T.Id = Id then || if S'Length >= 0 and then S (S'First) = ' ' then,killed
+misc/Ada/Hindley-Milner-Type-System,34,hindley_milner.adb+hindley_milner.adb,188+55,= -> /= + = -> /=,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || return L.Name = R.Name;,elsif T1.Kind /= Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || return L.Name /= R.Name;,killed
+misc/Ada/Hindley-Milner-Type-System,35,hindley_milner.adb+hindley_milner.adb,165+198,= -> /= + = -> /=,if T.Kind = Kind_Var and then T.Id = Id then || if S'Length > 0 and then S (S'First) = ' ' then,if T.Kind = Kind_Var and then T.Id /= Id then || if S'Length > 0 and then S (S'First) /= ' ' then,killed
+misc/Ada/Hindley-Milner-Type-System,36,hindley_milner.adb+hindley_milner.adb,188+48,and then -> or else + = -> /=,elsif T1.Kind = Kind_Const and then T2.Kind = Kind_Const and then T1.Name = T2.Name then || if L = null or R = null then return False; end if;,elsif T1.Kind = Kind_Const or else T2.Kind = Kind_Const and then T1.Name = T2.Name then || if L /= null or R = null then return False; end if;,stillborn
+misc/Ada/Hindley-Milner-Type-System,37,hindley_milner.adb+hindley_milner.adb,199+48,+ 1 -> + 0 + = -> /=,return S (S'First + 1 .. S'Last); || if L = null or R = null then return False; end if;,return S (S'First + 0 .. S'Last); || if L = null or R /= null then return False; end if;,killed
+misc/Ada/Hindley-Milner-Type-System,38,hindley_milner.adb+hindley_milner.adb,47+41,= -> /= + + -> -,if L = null and R = null then return True; end if; || Ctx.Next_Id := Ctx.Next_Id + 1;,if L = null and R /= null then return True; end if; || Ctx.Next_Id := Ctx.Next_Id - 1;,killed
+misc/Ada/Hindley-Milner-Type-System,39,hindley_milner.adb+hindley_milner.adb,199+198,+ -> - + > -> >=,return S (S'First + 1 .. S'Last); || if S'Length > 0 and then S (S'First) = ' ' then,return S (S'First - 1 .. S'Last); || if S'Length >= 0 and then S (S'First) = ' ' then,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,76,spaghetti_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,77,spaghetti_sort.adb,hidden,- -> +,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,78,spaghetti_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,79,spaghetti_sort.adb,hidden,+ -> -,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,80,spaghetti_sort.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,81,spaghetti_sort.adb,hidden,<= -> <,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,82,spaghetti_sort.adb,hidden,<= -> <,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,83,spaghetti_sort.adb,hidden,<= -> <,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,84,spaghetti_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,85,spaghetti_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,86,spaghetti_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,87,spaghetti_sort.adb,hidden,or else -> and then,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,88,spaghetti_sort.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,89,spaghetti_sort.adb,hidden,> -> >=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,90,spaghetti_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,91,spaghetti_sort.adb,hidden,>= -> >,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,92,spaghetti_sort.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,93,spaghetti_sort.adb,hidden,>= -> >,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,94,spaghetti_sort.adb,hidden,> -> >=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,95,spaghetti_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,96,spaghetti_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,97,spaghetti_sort.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,98,spaghetti_sort.adb,hidden,- -> +,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,99,spaghetti_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,100,spaghetti_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,101,spaghetti_sort.adb,hidden,< -> <=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,102,spaghetti_sort.adb,hidden,- -> +,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,103,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,104,odd_even_sort.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,105,odd_even_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,106,odd_even_sort.adb,hidden,/= -> =,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,107,odd_even_sort.adb,hidden,<= -> <,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,108,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,109,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,110,odd_even_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,111,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,112,odd_even_sort.adb,hidden,> -> >=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,113,odd_even_sort.adb,hidden,<= -> <,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,114,odd_even_sort.adb,hidden,>= -> >,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,115,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,116,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,117,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,118,odd_even_sort.adb,hidden,* -> +,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,119,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,120,odd_even_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,121,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,122,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,123,odd_even_sort.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,124,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,125,odd_even_sort.adb,hidden,/= -> =,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,126,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,127,odd_even_sort.adb,hidden,- -> +,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,128,odd_even_sort.adb,hidden,>= -> >,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,129,odd_even_sort.adb,hidden,- -> +,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,130,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,131,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,132,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,133,odd_even_sort.adb,hidden,/= -> =,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,134,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,135,odd_even_sort.adb,hidden,> -> >=,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,136,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,137,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,138,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,139,odd_even_sort.adb,hidden,* -> +,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,140,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,141,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,142,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,143,odd_even_sort.adb,hidden,- -> +,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,144,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,145,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,146,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,147,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,148,odd_even_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,149,odd_even_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,150,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,151,odd_even_sort.adb,hidden,* -> +,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,152,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,153,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,154,odd_even_sort.adb,hidden,/= -> =,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,155,odd_even_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,156,odd_even_sort.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,157,odd_even_sort.adb,hidden,<= -> <,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,158,odd_even_sort.adb,hidden,>= -> >,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,159,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,160,odd_even_sort.adb,hidden,< -> <=,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,161,odd_even_sort.adb,hidden,* -> +,hidden,hidden,survived
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,162,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,163,odd_even_sort.adb,hidden,< -> <=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,164,odd_even_sort.adb,hidden,+ -> -,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,165,odd_even_sort.adb,hidden,< -> <=,hidden,hidden,killed
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,166,odd_even_sort.adb,hidden,and then -> or else,hidden,hidden,stillborn
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,167,odd_even_sort.adb,hidden,= -> /=,hidden,hidden,killed
+sorting/SPARK4/Bead-Sort,std-held-0,bead_sort.adb,84,> -> >=,if A (I) > Max_Val then,if A (I) >= Max_Val then,survived
+sorting/SPARK4/Bead-Sort,std-held-1,bead_sort.adb,14,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Bead-Sort,std-held-2,bead_sort.adb,47,- 1 -> - 0,"Lemma_Row_Mono (R, H, U - 1);","Lemma_Row_Mono (R, H, U - 0);",killed
+sorting/SPARK4/Bead-Sort,std-held-3,bead_sort.adb,28,= -> /=,(if U = 0 then 0,(if U /= 0 then 0,killed
+sorting/SPARK4/Bead-Sort,std-held-4,bead_sort.adb,20,and then -> or else,and then L >= 1,or else L >= 1,stillborn
+sorting/SPARK4/Bead-Sort,std-held-5,bead_sort.adb,29,+ -> -,"else Row_Count (R, H, U - 1) + (if R (U) >= H then 1 else 0))","else Row_Count (R, H, U - 1) - (if R (U) >= H then 1 else 0))",killed
+sorting/SPARK4/Bead-Sort,std-held-6,bead_sort.adb,175,+ -> -,Idx := Idx + 1;,Idx := Idx - 1;,killed
+sorting/SPARK4/Bead-Sort,std-held-7,bead_sort.adb,165,+ -> -,Count := Count + 1;,Count := Count - 1;,killed
+sorting/SPARK4/Bead-Sort,std-held-8,bead_sort.adb,123,+ 1 -> + 0,Rods (J) := Rods (J) + 1;,Rods (J) := Rods (J) + 0;,killed
+sorting/SPARK4/Bead-Sort,std-held-9,bead_sort.adb,175,+ 1 -> + 0,Idx := Idx + 1;,Idx := Idx + 0;,killed
+sorting/SPARK4/Bead-Sort,std-held-10,bead_sort.adb,165,+ 1 -> + 0,Count := Count + 1;,Count := Count + 0;,killed
+sorting/SPARK4/Bead-Sort,std-held-11,bead_sort.adb,14,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Bead-Sort,std-held-12,bead_sort.adb,62,and then -> or else,"and then Values_Ok (A),","or else Values_Ok (A),",stillborn
+sorting/SPARK4/Bead-Sort,std-held-13,bead_sort.adb,47,- -> +,"Lemma_Row_Mono (R, H, U - 1);","Lemma_Row_Mono (R, H, U + 1);",killed
+sorting/SPARK4/Bead-Sort,std-held-14,bead_sort.adb,46,> -> >=,if U > 0 then,if U >= 0 then,killed
+sorting/SPARK4/Bead-Sort,std-held-15,bead_sort.adb,109,> -> >=,if V > 0 then,if V >= 0 then,survived
+sorting/SPARK4/Bead-Sort,std-held-16,bead_sort.adb,164,>= -> >,if Rods (J) >= H then,if Rods (J) > H then,killed
+sorting/SPARK4/Bead-Sort,alt-held-0,bead_sort.adb,165,constant 1 -> 2,Count := Count + 1;,Count := Count + 2;,killed
+sorting/SPARK4/Bead-Sort,alt-held-1,bead_sort.adb,28,constant 0 -> 1,(if U = 0 then 0,(if U = 1 then 0,killed
+sorting/SPARK4/Bead-Sort,alt-held-2,bead_sort.adb,62+164,and then -> or else + >= -> >,"and then Values_Ok (A), || if Rods (J) >= H then","or else Values_Ok (A), || if Rods (J) > H then",stillborn
+sorting/SPARK4/Bead-Sort,alt-held-3,bead_sort.adb,135,constant 1 -> 0,Idx := 1;,Idx := 0;,killed
+sorting/SPARK4/Bead-Sort,alt-held-4,bead_sort.adb,75,constant 1 -> 0,for I in 1 .. N loop,for I in 0 .. N loop,killed
+sorting/SPARK4/Bead-Sort,alt-held-5,bead_sort.adb,150,delete statement,Count := 0;,null;,killed
+sorting/SPARK4/Bead-Sort,alt-held-6,bead_sort.adb,61,constant 2 -> 0,and then A'Length >= 2,and then A'Length >= 0,survived
+sorting/SPARK4/Bead-Sort,alt-held-7,bead_sort.adb,109+14,> -> >= + + 1 -> + 0,if V > 0 then || or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),if V >= 0 then || or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
+sorting/SPARK4/Bead-Sort,alt-held-8,bead_sort.adb,184,constant 1 -> 2,if A'Length <= 1 then,if A'Length <= 2 then,killed
+sorting/SPARK4/Bead-Sort,alt-held-9,bead_sort.adb,61,constant 2 -> 1,and then A'Length >= 2,and then A'Length >= 1,survived
+sorting/SPARK4/Bead-Sort,alt-held-10,bead_sort.adb,175+29,+ -> - + + -> -,"Idx := Idx + 1; || else Row_Count (R, H, U - 1) + (if R (U) >= H then 1 else 0))","Idx := Idx - 1; || else Row_Count (R, H, U - 1) - (if R (U) >= H then 1 else 0))",killed
+sorting/SPARK4/Bead-Sort,alt-held-11,bead_sort.adb,14+175,- -> + + + 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))) || Idx := Idx + 1;,or else (for all K in L .. R + 1 => A (K) <= A (K + 1))) || Idx := Idx + 0;,killed
+sorting/SPARK4/Bead-Sort,alt-held-12,bead_sort.adb,184,constant 1 -> 0,if A'Length <= 1 then,if A'Length <= 0 then,killed
+sorting/SPARK4/Bead-Sort,alt-held-13,bead_sort.adb,65+62,+ 1 -> + 0 + and then -> or else,"subtype Cursor is Natural range 0 .. Max_N + 1; || and then Values_Ok (A),","subtype Cursor is Natural range 0 .. Max_N + 0; || or else Values_Ok (A),",stillborn
+sorting/SPARK4/Bead-Sort,alt-held-14,bead_sort.adb,14+13,+ -> - + >= -> >,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))) || (L >= R,or else (for all K in L .. R - 1 => A (K) <= A (K - 1))) || (L > R,killed
+sorting/SPARK4/Bead-Sort,alt-held-15,bead_sort.adb,111,constant 1 -> 2,for J in 1 .. V loop,for J in 2 .. V loop,killed
+sorting/SPARK4/Bead-Sort,alt-held-16,bead_sort.adb,29,constant 1 -> 2,"else Row_Count (R, H, U - 1) + (if R (U) >= H then 1 else 0))","else Row_Count (R, H, U - 1) + (if R (U) >= H then 2 else 0))",killed
+sorting/SPARK4/Bead-Sort,alt-held-17,bead_sort.adb,175+14,+ 1 -> + 0 + - 1 -> - 0,Idx := Idx + 1; || or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),Idx := Idx + 0; || or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Bead-Sort,alt-held-18,bead_sort.adb,123,constant 1 -> 2,Rods (J) := Rods (J) + 1;,Rods (J) := Rods (J) + 2;,killed
+sorting/SPARK4/Bead-Sort,alt-held-19,bead_sort.adb,14,constant 1 -> 2,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 2))),killed
+sorting/SPARK4/Bead-Sort,alt-held-20,bead_sort.adb,109,constant 0 -> 1,if V > 0 then,if V > 1 then,killed
+sorting/SPARK4/Bead-Sort,alt-held-21,bead_sort.adb,99,constant 1 -> 0,for I in 1 .. N loop,for I in 0 .. N loop,killed
+sorting/SPARK4/Bead-Sort,alt-held-22,bead_sort.adb,68,constant 0 -> 1,Max_Val : Natural := 0;,Max_Val : Natural := 1;,survived
+sorting/SPARK4/Bead-Sort,alt-held-23,bead_sort.adb,164+92,>= -> > + = -> /=,if Rods (J) >= H then || if Max_Val = 0 then,if Rods (J) > H then || if Max_Val /= 0 then,killed
+sorting/SPARK4/Bead-Sort,alt-held-24,bead_sort.adb,47,constant 1 -> 2,"Lemma_Row_Mono (R, H, U - 1);","Lemma_Row_Mono (R, H, U - 2);",survived
+sorting/SPARK4/Bead-Sort,alt-held-25,bead_sort.adb,14+175,+ -> - + + -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))) || Idx := Idx + 1;,or else (for all K in L .. R - 1 => A (K) <= A (K - 1))) || Idx := Idx - 1;,killed
+sorting/SPARK4/Bead-Sort,alt-held-26,bead_sort.adb,175,delete statement,Idx := Idx + 1;,null;,killed
+sorting/SPARK4/Bead-Sort,alt-held-27,bead_sort.adb,174,delete statement,A (Idx) := Count;,null;,killed
+sorting/SPARK4/Bead-Sort,alt-held-28,bead_sort.adb,20,constant 1 -> 2,and then L >= 1,and then L >= 2,killed
+sorting/SPARK4/Bead-Sort,alt-held-29,bead_sort.adb,69,constant 0 -> 1,Rods    : Rod_Array := [others => 0];,Rods    : Rod_Array := [others => 1];,killed
+sorting/SPARK4/Bead-Sort,alt-held-30,bead_sort.adb,29+14,>= -> > + - 1 -> - 0,"else Row_Count (R, H, U - 1) + (if R (U) >= H then 1 else 0)) || or else (for all K in L .. R - 1 => A (K) <= A (K + 1)))","else Row_Count (R, H, U - 1) + (if R (U) > H then 1 else 0)) || or else (for all K in L .. R - 0 => A (K) <= A (K + 1)))",killed
+sorting/SPARK4/Bead-Sort,alt-held-31,bead_sort.adb,29+165,- -> + + + -> -,"else Row_Count (R, H, U - 1) + (if R (U) >= H then 1 else 0)) || Count := Count + 1;","else Row_Count (R, H, U + 1) + (if R (U) >= H then 1 else 0)) || Count := Count - 1;",killed
+sorting/SPARK4/Bead-Sort,alt-held-32,bead_sort.adb,92,constant 0 -> 1,if Max_Val = 0 then,if Max_Val = 1 then,killed
+sorting/SPARK4/Bead-Sort,alt-held-33,bead_sort.adb,184+164,<= -> < + >= -> >,if A'Length <= 1 then || if Rods (J) >= H then,if A'Length < 1 then || if Rods (J) > H then,killed
+sorting/SPARK4/Bead-Sort,alt-held-34,bead_sort.adb,123+184,+ -> - + <= -> <,Rods (J) := Rods (J) + 1; || if A'Length <= 1 then,Rods (J) := Rods (J) - 1; || if A'Length < 1 then,killed
+sorting/SPARK4/Bead-Sort,alt-held-35,bead_sort.adb,123+29,+ -> - + + -> -,"Rods (J) := Rods (J) + 1; || else Row_Count (R, H, U - 1) + (if R (U) >= H then 1 else 0))","Rods (J) := Rods (J) - 1; || else Row_Count (R, H, U - 1) - (if R (U) >= H then 1 else 0))",killed
+sorting/SPARK4/Bead-Sort,alt-held-36,bead_sort.adb,136,constant 1 -> 2,for H in reverse 1 .. N loop,for H in reverse 2 .. N loop,killed
+sorting/SPARK4/Bead-Sort,alt-held-37,bead_sort.adb,84+62,> -> >= + and then -> or else,"if A (I) > Max_Val then || and then Values_Ok (A),","if A (I) >= Max_Val then || or else Values_Ok (A),",stillborn
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-0,pigeonhole_sort.adb,87,- -> +,(Long_Long_Integer (X) - Long_Long_Integer (Mn)),(Long_Long_Integer (X) + Long_Long_Integer (Mn)),killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-1,pigeonhole_sort.adb,15,- -> +,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R + 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-2,pigeonhole_sort.adb,59,= -> /=,"(if K /= J then After (K) = Before (K))),","(if K /= J then After (K) /= Before (K))),",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-3,pigeonhole_sort.adb,28,- -> +,"(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))","(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H + 1))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-4,pigeonhole_sort.adb,15,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-5,pigeonhole_sort.adb,28,= -> /=,"(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))","(if H /= 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-6,pigeonhole_sort.adb,15,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-7,pigeonhole_sort.adb,174,+ 1 -> + 0,"Top := Bin_Bound (Rel (Max_Val, Min_Val) + 1);","Top := Bin_Bound (Rel (Max_Val, Min_Val) + 0);",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-8,pigeonhole_sort.adb,28,+ -> -,"(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))","(if H = 0 then 0 else Sum_Below (C, H - 1) - C (H - 1))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-9,pigeonhole_sort.adb,28,- 1 -> - 0,"(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))","(if H = 0 then 0 else Sum_Below (C, H - 0) + C (H - 1))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-10,pigeonhole_sort.adb,132,and then -> or else,"and then Keys_In_Range (A),","or else Keys_In_Range (A),",stillborn
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-11,pigeonhole_sort.adb,189,+ -> -,Counts (H) := Counts (H) + 1;,Counts (H) := Counts (H) - 1;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-12,pigeonhole_sort.adb,57,+ 1 -> + 0,After (J) = Before (J) + 1,After (J) = Before (J) + 0,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-13,pigeonhole_sort.adb,15,+ 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-14,pigeonhole_sort.adb,278,- 1 -> - 0,for K in 0 .. Top - 1 loop,for K in 0 .. Top - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-15,pigeonhole_sort.adb,14,>= -> >,(L >= R,(L > R,survived
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-16,pigeonhole_sort.adb,57,= -> /=,After (J) = Before (J) + 1,After (J) /= Before (J) + 1,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-17,pigeonhole_sort.adb,22,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-18,pigeonhole_sort.adb,295,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-19,pigeonhole_sort.adb,95,= -> /=,(if I = 0 then 0,(if I /= 0 then 0,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-20,pigeonhole_sort.adb,255,+ 1 -> + 0,Dest := Next (H) + 1;,Dest := Next (H) + 0;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-21,pigeonhole_sort.adb,278,- -> +,for K in 0 .. Top - 1 loop,for K in 0 .. Top + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-22,pigeonhole_sort.adb,65,> -> >=,if H > 0 then,if H >= 0 then,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-23,pigeonhole_sort.adb,61,= -> /=,"Sum_Below (After, H) = Sum_Below (Before, H) + (if J < H then 1 else 0),","Sum_Below (After, H) /= Sum_Below (Before, H) + (if J < H then 1 else 0),",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-24,pigeonhole_sort.adb,287,+ -> -,Pos := Pos + Counts (K);,Pos := Pos - Counts (K);,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-25,pigeonhole_sort.adb,46,- 1 -> - 0,"Lemma_Zero (C, H - 1);","Lemma_Zero (C, H - 0);",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-26,pigeonhole_sort.adb,213,+ -> -,"Lemma_Mono (Counts, HH + 1, Top);","Lemma_Mono (Counts, HH - 1, Top);",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-27,pigeonhole_sort.adb,215,+ -> -,Total := Total + Counts (HH);,Total := Total - Counts (HH);,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-28,pigeonhole_sort.adb,97,+ -> -,"+ (if Rel (A (I), Mn) = Long_Long_Integer (K) then 1 else 0))","- (if Rel (A (I), Mn) = Long_Long_Integer (K) then 1 else 0))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-29,pigeonhole_sort.adb,45,> -> >=,if H > 0 then,if H >= 0 then,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-30,pigeonhole_sort.adb,81,- 1 -> - 0,"Lemma_Mono (C, H1, H2 - 1);","Lemma_Mono (C, H1, H2 - 0);",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,std-held-31,pigeonhole_sort.adb,189,+ 1 -> + 0,Counts (H) := Counts (H) + 1;,Counts (H) := Counts (H) + 0;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-0,pigeonhole_sort.adb,189,delete statement,Counts (H) := Counts (H) + 1;,null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-1,pigeonhole_sort.adb,28,constant 1 -> 0,"(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))","(if H = 0 then 0 else Sum_Below (C, H - 0) + C (H - 1))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-2,pigeonhole_sort.adb,287,delete statement,Pos := Pos + Counts (K);,null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-3,pigeonhole_sort.adb,174,delete statement,"Top := Bin_Bound (Rel (Max_Val, Min_Val) + 1);",null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-4,pigeonhole_sort.adb,131,constant 2 -> 3,and then A'Length >= 2,and then A'Length >= 3,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-5,pigeonhole_sort.adb,187,delete statement,"H := Hole_Index (Rel (A (I), Min_Val));",null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-6,pigeonhole_sort.adb,61,constant 0 -> 1,"Sum_Below (After, H) = Sum_Below (Before, H) + (if J < H then 1 else 0),","Sum_Below (After, H) = Sum_Below (Before, H) + (if J < H then 1 else 1),",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-7,pigeonhole_sort.adb,153,constant 2 -> 3,for X in 2 .. N loop,for X in 3 .. N loop,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-8,pigeonhole_sort.adb,199,constant 0 -> 1,for HH in 0 .. Top - 1 loop,for HH in 1 .. Top - 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-9,pigeonhole_sort.adb,97+14,= -> /= + >= -> >,"+ (if Rel (A (I), Mn) = Long_Long_Integer (K) then 1 else 0)) || (L >= R","+ (if Rel (A (I), Mn) /= Long_Long_Integer (K) then 1 else 0)) || (L > R",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-10,pigeonhole_sort.adb,261,delete statement,Prev := Next;,null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-11,pigeonhole_sort.adb,95,constant 0 -> 1,(if I = 0 then 0,(if I = 0 then 1,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-12,pigeonhole_sort.adb,199+116,- -> + + - -> +,"for HH in 0 .. Top - 1 loop || Lemma_Occ_Mono (A, Mn, I, J - 1, K);","for HH in 0 .. Top + 1 loop || Lemma_Occ_Mono (A, Mn, I, J + 1, K);",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-13,pigeonhole_sort.adb,116+278,- 1 -> - 0 + - -> +,"Lemma_Occ_Mono (A, Mn, I, J - 1, K); || for K in 0 .. Top - 1 loop","Lemma_Occ_Mono (A, Mn, I, J - 0, K); || for K in 0 .. Top + 1 loop",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-14,pigeonhole_sort.adb,21,constant 1 -> 2,and then L >= 1,and then L >= 2,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-15,pigeonhole_sort.adb,260,delete statement,Work (Dest) := A (I);,null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-16,pigeonhole_sort.adb,228,delete statement,Start := Next;,null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-17,pigeonhole_sort.adb,161,delete statement,Min_Val := A (X);,null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-18,pigeonhole_sort.adb,174+15,+ 1 -> + 0 + + -> -,"Top := Bin_Bound (Rel (Max_Val, Min_Val) + 1); || or else (for all K in L .. R - 1 => A (K) <= A (K + 1)))","Top := Bin_Bound (Rel (Max_Val, Min_Val) + 0); || or else (for all K in L .. R - 1 => A (K) <= A (K - 1)))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-19,pigeonhole_sort.adb,188,delete statement,Before := Counts;,null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-20,pigeonhole_sort.adb,295,constant 1 -> 0,if A'Length <= 1 then,if A'Length <= 0 then,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-21,pigeonhole_sort.adb,28,constant 1 -> 0,"(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))","(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 0))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-22,pigeonhole_sort.adb,151,constant 1 -> 0,Max_Val := A (1);,Max_Val := A (0);,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-23,pigeonhole_sort.adb,28+15,- -> + + + -> -,"(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1)) || or else (for all K in L .. R - 1 => A (K) <= A (K + 1)))","(if H = 0 then 0 else Sum_Below (C, H + 1) + C (H - 1)) || or else (for all K in L .. R - 1 => A (K) <= A (K - 1)))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-24,pigeonhole_sort.adb,116+87,- -> + + - -> +,"Lemma_Occ_Mono (A, Mn, I, J - 1, K); || (Long_Long_Integer (X) - Long_Long_Integer (Mn))","Lemma_Occ_Mono (A, Mn, I, J + 1, K); || (Long_Long_Integer (X) + Long_Long_Integer (Mn))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-25,pigeonhole_sort.adb,189+199,+ -> - + - -> +,Counts (H) := Counts (H) + 1; || for HH in 0 .. Top - 1 loop,Counts (H) := Counts (H) - 1; || for HH in 0 .. Top + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-26,pigeonhole_sort.adb,278,constant 1 -> 2,for K in 0 .. Top - 1 loop,for K in 0 .. Top - 2 loop,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-27,pigeonhole_sort.adb,116,constant 1 -> 2,"Lemma_Occ_Mono (A, Mn, I, J - 1, K);","Lemma_Occ_Mono (A, Mn, I, J - 2, K);",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-28,pigeonhole_sort.adb,213,constant 1 -> 0,"Lemma_Mono (Counts, HH + 1, Top);","Lemma_Mono (Counts, HH + 0, Top);",survived
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-29,pigeonhole_sort.adb,151,constant 1 -> 2,Max_Val := A (1);,Max_Val := A (2);,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-30,pigeonhole_sort.adb,174,constant 1 -> 0,"Top := Bin_Bound (Rel (Max_Val, Min_Val) + 1);","Top := Bin_Bound (Rel (Max_Val, Min_Val) + 0);",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-31,pigeonhole_sort.adb,163,delete statement,Max_Val := A (X);,null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-32,pigeonhole_sort.adb,21+57,and then -> or else + = -> /=,and then L >= 1 || After (J) = Before (J) + 1,or else L >= 1 || After (J) /= Before (J) + 1,stillborn
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-33,pigeonhole_sort.adb,162+28,> -> >= + - -> +,"elsif A (X) > Max_Val then || (if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))","elsif A (X) >= Max_Val then || (if H = 0 then 0 else Sum_Below (C, H - 1) + C (H + 1))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-34,pigeonhole_sort.adb,15,constant 1 -> 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-35,pigeonhole_sort.adb,213+45,+ -> - + > -> >=,"Lemma_Mono (Counts, HH + 1, Top); || if H > 0 then","Lemma_Mono (Counts, HH - 1, Top); || if H >= 0 then",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-36,pigeonhole_sort.adb,148,constant 0 -> 1,Pos     : Natural := 0 with Ghost;,Pos     : Natural := 1 with Ghost;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-37,pigeonhole_sort.adb,28,constant 0 -> 1,"(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))","(if H = 0 then 1 else Sum_Below (C, H - 1) + C (H - 1))",killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-38,pigeonhole_sort.adb,252,delete statement,"H := Hole_Index (Rel (A (I), Min_Val));",null;,killed
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-39,pigeonhole_sort.adb,81+131,- 1 -> - 0 + >= -> >,"Lemma_Mono (C, H1, H2 - 1); || and then A'Length >= 2","Lemma_Mono (C, H1, H2 - 0); || and then A'Length > 2",killed
