@@ -1,0 +1,19 @@
+folder,description,status,test_commit,fix_commit
+sorting/Ada/Library-Sort,Library_Sort.Sort left 6/1000 differential inputs unsorted (Try_Insert put X behind an element >= X when no gap was left),fixed,8231499,1f9c932
+compression/SPARK2/Ada-SPARK-Run-Length-Encoding,Run_Count started at 1: empty input gave 1 run (Ada twin: 0),fixed,6ff32e4,6ff32e4
+strings/SPARK2/Ada-SPARK-Repeated-String-Match,Repeat_Count only compares B with the start of the repeated A (prefix-only); A = ab / B = ba gives 0 instead of 2,open,,
+numerical/SPARK2/Ada-SPARK-Newton-Raphson,Sqrt (k**2 - 1) returns k instead of k - 1 (52 inputs in the tested range),open,,
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,Is_Balanced checks a leaf-depth rule instead of height balance,open,,
+trees/SPARK2/Ada-SPARK-Range-Sum-BST,range sum skips the left subtree of in-range nodes,open,,
+misc/SPARK2/Ada-SPARK-Jump-Game,Can_Jump returns A (N) > 0; not the jump game,open,,
+searching/SPARK2/Bst-Insert-Search,array-backed tree (31 slots; children of K at 2K and 2K + 1) silently loses keys deeper than 5 levels; no README,open,,
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,Insert appends in insertion order; no BST shape,open,,
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,Solve keeps up to two copies of each value instead of removing every value that occurs more than once,open,,
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,inputs without an exact 4/4 even/odd split lose values,open,,
+sorting/SPARK2/Ada-SPARK-Sort-List-Lite,make test fails,open,,
+sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,make test fails,open,,
+misc/SPARK2/Ada-SPARK-Pascal-Triangle,rows 31 and 32 are allowed but their totals do not fit Result; Row_Total saturates silently,open,,
+misc/SPARK2/Ada-SPARK-Decode-Ways,lengths 30 .. 32 are allowed but the count can exceed Result; Count saturates silently,open,,
+misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,the climb ends on the last step (paying it) instead of past it; README does not say which,open,,
+sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,squares elementwise without sorting despite the name (README says elementwise),open,,
+sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency,different characters with the same frequency are not kept in contiguous groups; README silent,open,,

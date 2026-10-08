@@ -117,7 +117,8 @@ for topic, lev, alg, p in folders:
     mk = '' if not b else ('n/a' if b.get('mk14') in ('NA', None) else ('yes' if b.get('mk14') == '0' and not b.get('fail_mk14') else 'no'))
     tp14 = '' if not b else ('yes' if mk == 'yes' or (b.get('r14') == '0' and not b.get('fail_r14')) else 'no')
     tp12 = '' if not b else ('yes' if (b.get('mk12') == '0' and not b.get('fail_mk12')) or (b.get('r12') == '0' and not b.get('fail_r12')) else 'no')
-    rows.append(dict(folder=fid, topic=topic, level=lev, algorithm=alg, make_test=mk,
+    mk12 = '' if not b else ('n/a' if b.get('mk12') in ('NA', None) else ('yes' if b.get('mk12') == '0' and not b.get('fail_mk12') else 'no'))
+    rows.append(dict(folder=fid, topic=topic, level=lev, algorithm=alg, make_test=mk, make_test_gnat12=mk12,
                      build_gnat14=ok('u14'), build_gnat12=ok('u12'),
                      tests_pass_gnat14=tp14, tests_pass_gnat12=tp12,
                      warnings_gnat14=b.get('w14', ''), warnings_gnat12=b.get('w12', ''),
@@ -155,7 +156,10 @@ kat_by = {k['folder']: k['source'] for k in _csv(os.path.join(a.root, 'tools', '
 dn_by = {d['folder']: d['verdict'] for d in _csv(os.path.join(VVD, 'donothing.csv'))}
 # own tests (tools/vv/own_tests.csv): self-written properties / brute-force references, tests/SOURCES.txt per folder
 own_by = {o['folder']: o['checks'] for o in _csv(os.path.join(a.root, 'tools', 'vv', 'own_tests.csv'))}
+# findings registry (tools/vv/findings.csv): a folder with an open finding is not training-ready
+find_open = collections.Counter(f['folder'] for f in _csv(os.path.join(a.root, 'tools', 'vv', 'findings.csv')) if f['status'] == 'open')
 for r in rows:
+    r['open_findings'] = str(find_open[r['folder']]) if find_open[r['folder']] else ''
     r['diff_test'] = diff_by.get(r['folder'], '')
     r['mutation'] = mut_by.get(r['folder'], '')
     r['kat'] = kat_by.get(r['folder'], '')
@@ -171,10 +175,13 @@ def known_answer(r):
     src = [n for n, ok in (('kat', bool(r['kat'])), ('own tests', bool(r['own_tests'])),
                            ('diff agree', r['diff_test'].startswith('agree'))) if ok]
     return ', '.join(src)
-# training_ready: builds + tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a known answer.
+# training_ready: builds + tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and 12,
+# Silver-proven non-trivially, not a stub, a known answer, and no open finding (tools/vv/findings.csv).
 def training_ready(r):
     return (r['build_gnat14'] == 'yes' and r['build_gnat12'] == 'yes'
             and r['tests_pass_gnat14'] == 'yes' and r['tests_pass_gnat12'] == 'yes'
+            and r['make_test'] == 'yes' and r['make_test_gnat12'] == 'yes'
+            and not r['open_findings']
             and r['silver'] == 'proven' and not r['trivial'] and not r['stub']
             and bool(r['known_answer']))
 for r in rows:
@@ -241,7 +248,7 @@ L = ['# Proof index', '',
      'Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder\'s own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build\'s test binary exits 0 with no FAIL lines.',
      'Silver: `gnatprove --mode=silver --level=2` on the folder\'s own .gpr (generated where none exists).', '',
      f'Folders: {len(rows)}; duplicates (counted once): {len(rows) - len(uniq)}; Ada<->SPARK pairs: {npairs}; stub sheets (name ends in -Stub, column `stub`): {sum(1 for r in rows if r["stub"])}.', '',
-     f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).", '',
+     f"**Training-ready: {c(lambda r: r['training_ready']=='yes')} folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).", '',
      f"**Do-nothing check:** {c(lambda r: r['do_nothing'] in ('ok', 'weak') or r['do_nothing'].startswith('unchecked'))} folders checked, {c(lambda r: r['do_nothing']=='weak')} flagged weak (tests still pass when the main subprogram does nothing), {c(lambda r: r['do_nothing'].startswith('unchecked'))} unchecked (no trivial body compiles); {c(lambda r: r['do_nothing']=='weak' and r['silver']=='proven' and not r['trivial'] and not r['stub'])} of the weak ones are Silver-proven non-trivial. Own tests: {c(lambda r: r['own_tests']=='yes')} folders (column `own_tests`).", '',
      '**Silver headline (duplicates counted once):** ' + headline, '',
      '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged; the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
