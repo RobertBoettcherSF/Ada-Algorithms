@@ -8,6 +8,12 @@ package Insert_Into_A_Binary_Search_Tree is
    function Empty return Tree;
    procedure Set_Node (T : in out Tree; Node : Node_Index; V : Value; Left, Right : Index);
    procedure Insert (T : in out Tree; Root : in out Index; Node : Node_Index; V : Value);
+
+   --  Read-only view of a node (for tests and contracts).
+   function Is_Used (T : Tree; Node : Node_Index) return Boolean;
+   function Value_Of (T : Tree; Node : Node_Index) return Value;
+   function Left_Of (T : Tree; Node : Node_Index) return Index;
+   function Right_Of (T : Tree; Node : Node_Index) return Index;
 private
    type Index_Array is array (Index) of Index;
    type Value_Array is array (Index) of Value;
@@ -18,4 +24,9 @@ private
       Rights : Index_Array := (others => 0);
       Used : Used_Array := (others => False);
    end record;
+
+   function Is_Used (T : Tree; Node : Node_Index) return Boolean is (T.Used (Node));
+   function Value_Of (T : Tree; Node : Node_Index) return Value is (T.Values (Node));
+   function Left_Of (T : Tree; Node : Node_Index) return Index is (T.Lefts (Node));
+   function Right_Of (T : Tree; Node : Node_Index) return Index is (T.Rights (Node));
 end Insert_Into_A_Binary_Search_Tree;
