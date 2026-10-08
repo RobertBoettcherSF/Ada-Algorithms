@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 13:27 CEST.
+Generated 2026-10-08 13:45 CEST.
 
 ## Proof setup
 
@@ -24,9 +24,9 @@ Silver: `gnatprove --mode=silver --level=2` on the folder's own .gpr (generated 
 
 Folders: 1840; duplicates (counted once): 3; Ada<->SPARK pairs: 110; stub sheets (name ends in -Stub, column `stub`): 87.
 
-**Training-ready: 146 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).
+**Training-ready: 147 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).
 
-**Do-nothing check:** 1705 folders checked, 40 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 2 of the weak ones are Silver-proven non-trivial. Own tests: 84 folders (column `own_tests`).
+**Do-nothing check:** 1705 folders checked, 39 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 1 of the weak ones are Silver-proven non-trivial. Own tests: 85 folders (column `own_tests`).
 
 **Silver headline (duplicates counted once):** 507 real SPARK folders proven non-trivially, 338 proven but trivial (<= 3 checks), 85 stubs proven (separate), 4 with unproved checks, 9 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 141 proven real folders also prove functional contracts
 
@@ -42,7 +42,7 @@ Folders: 1840; duplicates (counted once): 3; Ada<->SPARK pairs: 110; stub sheets
 
 ## V&V (validation) results
 
-Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 84 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
+Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 85 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
 
 | Folder | Differential test | Mutation (killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |
 |---|---|---|---|---|---|---|
@@ -106,7 +106,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Jump-Game-II |  |  |  |  | weak |  |
 | misc/SPARK2/Ada-SPARK-Kadanes-Algorithm | agree (vs misc/Ada/Kadanes-Algorithm, 1000 cases) |  |  |  | ok | diff agree |
 | misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence | agree (vs misc/Ada/Longest-Increasing-Subsequence, 1000 cases) |  |  |  | ok | diff agree |
-| misc/SPARK2/Ada-SPARK-Mean-Variance |  |  |  |  | weak |  |
+| misc/SPARK2/Ada-SPARK-Mean-Variance |  |  |  | mean in [floor; ceil] of S/5 + population variance in [floor; ceil] of (5Q - S**2)/25; constant samples; all 3125 inputs (exhaustive) | ok | own tests |
 | misc/SPARK2/Ada-SPARK-Median-Filtering | agree (vs misc/Ada/Median-Filtering, 1000 cases) |  |  |  | ok | diff agree |
 | misc/SPARK2/Ada-SPARK-Merge-Intervals |  |  |  |  | weak |  |
 | misc/SPARK2/Ada-SPARK-My-Linked-List-Stub |  |  |  |  | weak |  |
@@ -1393,7 +1393,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List | yes | yes | yes | yes | yes | 3 | 3 | proven | 11 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Maximum-Units-On-A-Truck | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Maximum-XOR-Of-Two-Numbers | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Mean-Variance | yes | yes | yes | yes | yes | 1 | 1 | proven | 13 (1) |  |  |  |
+| misc/SPARK2/Ada-SPARK-Mean-Variance | yes | yes | yes | yes | yes | 1 | 1 | proven | 13 (1) | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Median-Filtering | yes | yes | yes | yes | yes | 0 | 0 | proven | 34 (9) | yes | misc/Ada/Median-Filtering |  |
 | misc/SPARK2/Ada-SPARK-Median-Of-Three | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 1 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Meeting-Rooms | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |

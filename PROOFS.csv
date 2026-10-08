@@ -1072,7 +1072,7 @@ misc/SPARK2/Ada-SPARK-Maximum-Subarray-Circular,misc,SPARK2,Ada-SPARK-Maximum-Su
 misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,misc,SPARK2,Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,yes,yes,yes,yes,yes,3,3,proven,11,0,,level2-timeout,proof.gpr,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Maximum-Units-On-A-Truck,misc,SPARK2,Ada-SPARK-Maximum-Units-On-A-Truck,yes,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,maximum_units_on_a_truck.gpr,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Maximum-XOR-Of-Two-Numbers,misc,SPARK2,Ada-SPARK-Maximum-XOR-Of-Two-Numbers,yes,yes,yes,yes,yes,0,0,proven,7,0,,level2-timeout,maximum_xor_of_two_numbers.gpr,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Mean-Variance,misc,SPARK2,Ada-SPARK-Mean-Variance,yes,yes,yes,yes,yes,1,1,proven,13,1,,level2-timeout,proof.gpr,,,,,,,,,weak,,,
+misc/SPARK2/Ada-SPARK-Mean-Variance,misc,SPARK2,Ada-SPARK-Mean-Variance,yes,yes,yes,yes,yes,1,1,proven,13,1,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Median-Filtering,misc,SPARK2,Ada-SPARK-Median-Filtering,yes,yes,yes,yes,yes,0,0,proven,34,9,,level2-timeout,median_filtering.gpr,,,,misc/Ada/Median-Filtering,,"agree (vs misc/Ada/Median-Filtering, 1000 cases)",,,ok,,diff agree,yes
 misc/SPARK2/Ada-SPARK-Median-Of-Three,misc,SPARK2,Ada-SPARK-Median-Of-Three,yes,yes,yes,yes,yes,0,0,proven,1,0,yes,level2-timeout,proof.gpr,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Meeting-Rooms,misc,SPARK2,Ada-SPARK-Meeting-Rooms,yes,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,meeting_rooms.gpr,,,,,,,,,ok,,,
