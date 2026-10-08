@@ -286,26 +286,48 @@ begin
         "Lloyd init follows a column origin other than 1");
    end;
 
-   --  Forgy's first draw, from the Numerical Recipes LCG, not the package RNG.
+   --  Forgy's draws, from the Numerical Recipes LCG, not the package RNG.
+   --  Seed 1, two centers: the sign of the additive constant changes the rows.
    declare
       Data : constant Dataset :=
         [[0.0, 0.0],
          [1.0, 0.0],
          [2.0, 0.0],
          [3.0, 0.0]];
-      S : U32 := 3 * 1664525 + 1013904223;
-      U : Real;
-      Off : Natural;
-      Fg : constant Centers := Init_Centers_Forgy (Data, 1, 3);
+      S : U32 := 1 * 1664525 + 1013904223;
+      Chosen : array (1 .. 2) of Natural := [0, 0];
+      Got : Natural := 0;
+      Fg : constant Centers := Init_Centers_Forgy (Data, 2, 1);
+      One : constant Centers := Init_Centers_From_Indices (Data, [1]);
    begin
-      S := S * 1664525 + 1013904223;
-      U := Real (Long_Float (S) / 4294967296.0);
-      Off := Natural (Long_Float (U) * 4.0);
-      if Off >= 4 then
-         Off := 3;
-      end if;
-      Note (abs (Fg (1, 1) - Real (Off)) < 1.0e-9,
-        "Forgy seed 3 picks the LCG row");
+      while Got < 2 loop
+         declare
+            U : Real;
+            Off : Natural;
+            Fresh : Boolean;
+         begin
+            S := S * 1664525 + 1013904223;
+            U := Real (Long_Float (S) / 4294967296.0);
+            Off := Natural (Long_Float (U) * 4.0);
+            if Off >= 4 then
+               Off := 3;
+            end if;
+            Fresh := True;
+            for I in 1 .. Got loop
+               if Chosen (I) = Off then
+                  Fresh := False;
+               end if;
+            end loop;
+            if Fresh then
+               Got := Got + 1;
+               Chosen (Got) := Off;
+            end if;
+         end;
+      end loop;
+      Note (abs (Fg (1, 1) - Real (Chosen (1))) < 1.0e-9
+        and then abs (Fg (2, 1) - Real (Chosen (2))) < 1.0e-9,
+        "Forgy seed 1 follows the independent LCG");
+      Note (abs (One (1, 1) - 0.0) < 1.0e-12, "a single index is a valid center");
    end;
 
    Txt.Put_Line ("own checks:" & Natural'Image (Checks)
