@@ -6,11 +6,11 @@
 --
 --  SPARK port of Ada-Comb-Sort: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
---  sibling allows arbitrary A'First, raises on oversized n, and runs the
---  classic until-gap-1-and-clean-pass loop; this port requires A'First = 1,
---  uses Pre => In_Bounds (A), caps shrinking comb iterations for
---  termination, and proves sortedness via a final gap-1 bubble finish
---  (same role as Shell's gap-1 insertion pass). Full multiset /
+--  sibling allows arbitrary A'First and raises on oversized n; both run
+--  the classic until-gap-1-and-clean-pass loop. This port requires
+--  A'First = 1, uses Pre => In_Bounds (A), proves termination with the
+--  loop variant (Gap, Bound) and sortedness from the gap-1 passes inside
+--  the same loop. Full multiset /
 --  permutation equality is verified by tests rather than claimed as a
 --  Level-4 postcondition (sortedness is proved).
 --
@@ -56,15 +56,15 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
-   -- Algorithm sketch (classic comb sort / Wikipedia)
+   -- Algorithm sketch (classic comb sort)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Gap starts at n and shrinks by ≈ 1.3:
    --      gap := max(1, floor(gap * 10 / 13))
    --  For each gap > 1, one comb pass compares/swaps A(i) with A(i+gap).
-   --  Outer shrink iterations are capped (Max_N) so termination proves.
-   --  After gaps > 1, a final gap-1 bubble finish (shrinking unsorted
-   --  suffix + early exit) establishes Is_Sorted — same proof role as
-   --  Shell_Sort's gap-1 Insertion_Pass.
+   --  Once the gap is 1, gap-1 passes repeat in the same loop until one
+   --  makes no swap (each stops one element earlier, since a gap-1 pass
+   --  leaves the maximum at the end); they establish Is_Sorted.
+   --  Termination: loop variant (Gap, Bound), no iteration cap.
    --  Empty and singleton arrays are no-ops.
    --  Do not `with` sibling Ada-* packages.
 
@@ -77,7 +77,7 @@ is
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending classic in-place comb sort (shrink ≈ 1.3 + gap-1 bubble).
+   --  Ascending classic in-place comb sort (shrink ≈ 1.3, then gap-1 passes until no swap).
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).

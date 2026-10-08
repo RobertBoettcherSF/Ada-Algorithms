@@ -1,7 +1,8 @@
 --  Comb_Sort body — SPARK Level 4 classic comb sort. Shrinking gap
---  passes (Gap > 1) only need RTE / In_Bounds; the final gap-1 bubble
---  finish reuses Bubble_Pass / Sorted_Slice / Prefix_Leq_Suffix so Sort
---  proves Is_Sorted (same split as Shell_Sort's gap-1 insertion).
+--  passes (Gap > 1) only need RTE / In_Bounds; the gap-1 passes run in
+--  the same comb loop (until one makes no swap) and Bubble_Pass /
+--  Sorted_Slice / Prefix_Leq_Suffix prove Is_Sorted. No iteration cap:
+--  the loop variant is (Gap, Bound).
 
 package body Comb_Sort
   with SPARK_Mode => On
@@ -84,7 +85,6 @@ is
    begin
       for I in 1 .. A'Last - Gap loop
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (I in 1 .. A'Last - Gap + 1);
          pragma Loop_Invariant (I + Gap <= A'Last);
 
          if A (I) > A (I + Gap) then
@@ -150,93 +150,57 @@ is
       pragma Assert (if not Swapped then Sorted_Slice (A, 1, Bound));
    end Bubble_Pass;
 
-   --  Final gap = 1: ordinary bubble sort with early exit. Proves Is_Sorted.
-   procedure Bubble_Finish (A : in out Element_Array)
-     with
-       Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
-   is
+   procedure Sort (A : in out Element_Array) is
+      Gap     : Index;
       Bound   : Index;
       Swapped : Boolean;
-   begin
-      Bound := A'Last;
-
-      pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-
-      loop
-         pragma Loop_Invariant (Bound in 2 .. A'Last);
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-         pragma Loop_Variant (Decreases => Bound);
-
-         Bubble_Pass (A, Bound, Swapped);
-
-         pragma Assert (Sorted_Slice (A, Bound, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
-
-         if not Swapped then
-            pragma Assert (Sorted_Slice (A, 1, Bound));
-            pragma Assert (Sorted_Slice (A, Bound, A'Last));
-            pragma Assert (Is_Sorted (A));
-            return;
-         end if;
-
-         exit when Bound = 2;
-
-         Bound := Bound - 1;
-
-         pragma Assert (Sorted_Slice (A, Bound + 1, A'Last));
-         pragma Assert
-           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
-      end loop;
-
-      pragma Assert (Bound = 2);
-      pragma Assert (Sorted_Slice (A, 2, A'Last));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 1, 2, A'Last));
-      pragma Assert (Is_Sorted (A));
-   end Bubble_Finish;
-
-   procedure Sort (A : in out Element_Array) is
-      Gap  : Index;
-      Next : Natural;
    begin
       if A'Length <= 1 then
          return;
       end if;
 
-      --  Gap starts at n; shrink toward 1 with ≈ 1.3 factor.
-      --  Cap outer iterations at Max_N so termination proves (from n≤64
-      --  the geometric shrink reaches 1 in far fewer than Max_N steps).
-      Gap := A'Last;
+      --  Classic comb sort in one loop: gap := max (1, floor (gap / 1.3))
+      --  before each pass (from Gap >= 2 the shrink never goes below 1);
+      --  once the gap is 1, gap-1 passes repeat until one makes no swap.
+      --  A gap-1 pass leaves the maximum of A (1 .. Bound) at Bound, so
+      --  each later gap-1 pass stops one element earlier.
+      Gap   := A'Last;
+      Bound := A'Last;
 
-      for Iter in 1 .. Max_N loop
+      loop
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (A'Length >= 2);
          pragma Loop_Invariant (Gap in 1 .. A'Last);
+         pragma Loop_Invariant (Bound in 2 .. A'Last);
+         pragma Loop_Invariant (if Gap > 1 then Bound = A'Last);
+         pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
+         pragma Loop_Invariant
+           (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
+         pragma Loop_Variant (Decreases => Gap, Decreases => Bound);
 
-         --  Shrink: gap := max(1, floor(gap / 1.3)).
-         Next := (Gap * Shrink_Num) / Shrink_Den;
-         if Next < 1 then
-            Gap := 1;
-         else
-            Gap := Next;
+         if Gap > 1 then
+            Gap := (Gap * Shrink_Num) / Shrink_Den;
          end if;
 
-         --  Leave gap = 1 to Bubble_Finish (proved sortedness).
-         exit when Gap = 1;
-
-         if Gap < A'Length then
+         if Gap > 1 then
             Comb_Pass (A, Gap);
+         else
+            Bubble_Pass (A, Bound, Swapped);
+            pragma Assert (Sorted_Slice (A, Bound, A'Last));
+            pragma Assert
+              (Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last));
+
+            if not Swapped or else Bound = 2 then
+               pragma Assert
+                 (if not Swapped then Sorted_Slice (A, 1, Bound)
+                  else Sorted_Slice (A, 2, A'Last)
+                       and then Prefix_Leq_Suffix (A, 1, 1, 2, A'Last));
+               pragma Assert (Is_Sorted (A));
+               exit;
+            end if;
+
+            Bound := Bound - 1;
          end if;
       end loop;
-
-      --  Final gap = 1: ordinary bubble sort → Is_Sorted.
-      Bubble_Finish (A);
    end Sort;
 
 end Comb_Sort;
