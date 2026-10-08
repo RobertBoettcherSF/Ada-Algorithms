@@ -53,11 +53,18 @@ is
    type Dist_Matrix is
      array (Vertex_Id range <>, Vertex_Id range <>) of Distance_Value;
 
-   --  Prev(V) = predecessor of V on a shortest Source→V path, or 0 if
-   --  none (Source itself, or unreachable / undefined under a cycle).
+   --  Sentinel for an empty Prev slot. Not a Vertex_Id (those are 1 .. N).
+   --  Reconstruct_Path treats this as "stop / no predecessor" and never
+   --  coerces it to Vertex_Id. Tests assert No_Predecessor < Vertex_Id'First.
+   No_Predecessor : constant Natural := 0;
+
+   --  Prev(V) = predecessor of V on a shortest Source→V path, or
+   --  No_Predecessor if none / V = Source / unreachable.
    type Prev_Array is array (Vertex_Id range <>) of Natural;
 
-   --  Prev(U, V) = predecessor of V on a shortest U→V path, or 0 if none.
+   --  Prev(U, V) = predecessor of V on a shortest U→V path, or
+   --  No_Predecessor if none. Floyd-Warshall only writes the live N×N block;
+   --  Reconstruct_Path walks Prev(Source, ·) without copying any capacity skirt.
    type Prev_Matrix is
      array (Vertex_Id range <>, Vertex_Id range <>) of Natural;
 

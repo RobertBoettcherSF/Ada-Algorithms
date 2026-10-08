@@ -724,6 +724,34 @@ begin
    Check (Distance_Floyd_Warshall (G, 1, 3) = 3, "taxonomy FW works");
 
    ------------------------------------------------------------------
+   Section ("31. No_Predecessor sentinel / capacity>N skirt");
+   ------------------------------------------------------------------
+   --  Failing-first under Initialize_Scalars (Makefile -gnatec=init_scalars.adc):
+   --  the old matrix Reconstruct_Path copied Prev(Source, Prev'Range(2)) and
+   --  raised CE on the uninitialized skirt of a 1..32 matrix after FW on N=4.
+   --  Fix: walk Prev(Source, ·) only along the path; never scan the skirt.
+   Check (No_Predecessor = 0, "No_Predecessor = 0");
+   Check (No_Predecessor < Natural (Vertex_Id'First),
+          "No_Predecessor < Vertex_Id'First");
+   Clear (G, 4);
+   Add_Edge (G, 1, 2, 1);
+   Add_Edge (G, 2, 4, 1);
+   Add_Edge (G, 1, 3, 1);
+   Add_Edge (G, 3, 4, 1);
+   Floyd_Warshall (G, DMat, PMat, Status);
+   Check (Status = Success, "skirt FW Success");
+   Ok := Reconstruct_Path (PMat, 1, 4, Path, Len);
+   Check (Ok, "Reconstruct on capacity>N Prev_Matrix");
+   Check (Len >= 2, "skirt path non-empty");
+   Check (Path (1) = 1 and then Path (Len) = 4, "skirt path ends");
+   for I in 1 .. Len loop
+      Check (Path (I) in 1 .. 4,
+             "path vertex is real Vertex_Id, not sentinel/skirt");
+      Check (Natural (Path (I)) /= No_Predecessor,
+             "path never carries No_Predecessor as a vertex");
+   end loop;
+
+   ------------------------------------------------------------------
    -- Summary
    ------------------------------------------------------------------
    New_Line;

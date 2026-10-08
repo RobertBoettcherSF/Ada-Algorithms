@@ -193,7 +193,7 @@ is
 
       for V in Vertex_Id range 1 .. Vertex_Id (N) loop
          Dist (V) := Infinity;
-         Prev (V) := 0;
+         Prev (V) := No_Predecessor;
       end loop;
       Dist (Source) := 0;
       Enqueue (Source);
@@ -253,7 +253,7 @@ is
 
       for V in Vertex_Id range 1 .. Vertex_Id (N) loop
          Dist (V) := Infinity;
-         Prev (V) := 0;
+         Prev (V) := No_Predecessor;
          Settled (Natural (V)) := False;
       end loop;
       Dist (Source) := 0;
@@ -337,7 +337,7 @@ is
    begin
       for I in Vertex_Id range 1 .. Vertex_Id (N) loop
          Dist (I) := Infinity;
-         Prev (I) := 0;
+         Prev (I) := No_Predecessor;
       end loop;
       Dist (Source) := 0;
 
@@ -517,23 +517,15 @@ is
    is
       Cand : Distance_Value;
    begin
-      --  Full clear first: callers often pass a capacity larger than N
-      --  (tests use Prev_Matrix (1 .. 32, 1 .. 32)). With Initialize_Scalars,
-      --  reading the untouched skirt in Reconstruct_Path raises CE.
-      for I in Prev'Range (1) loop
-         for J in Prev'Range (2) loop
-            Prev (I, J) := 0;
-         end loop;
-      end loop;
       --  Init Prev from direct edges: Prev(I,J)=I when finite edge I≠J.
       for I in Vertex_Id range 1 .. Vertex_Id (N) loop
          for J in Vertex_Id range 1 .. Vertex_Id (N) loop
             if I = J then
-               Prev (I, J) := 0;
+               Prev (I, J) := No_Predecessor;
             elsif Dist (I, J) /= Infinity then
                Prev (I, J) := Natural (I);
             else
-               Prev (I, J) := 0;
+               Prev (I, J) := No_Predecessor;
             end if;
          end loop;
       end loop;
@@ -673,7 +665,7 @@ is
       end if;
 
       if Source = Target then
-         if Prev (Source) /= 0 then
+         if Prev (Source) /= No_Predecessor then
             return False;
          end if;
          Path (1) := Source;
@@ -682,7 +674,7 @@ is
       end if;
 
       U := Natural (Target);
-      while U /= 0 loop
+      while U /= No_Predecessor loop
          Guard := Guard + 1;
          if Guard > Max_Vertices + 1 then
             Length := 0;
@@ -719,19 +711,75 @@ is
       Path   : out Path_Array;
       Length : out Natural) return Boolean
    is
-      --  Extract the Source-row of Prev into a temporary Prev_Array and
-      --  reuse the single-source walker.
-      Row : Prev_Array (Prev'Range (2));
+      --  Walk Prev(Source, ·) from Target without copying the Source row.
+      --  Callers may pass a matrix whose bounds exceed N (tests use 1 .. 32);
+      --  Floyd-Warshall only writes 1 .. N. Reading the skirt under
+      --  Initialize_Scalars is undefined — so we never scan the full row.
+      Stack     : array (1 .. Max_Vertices + 1) of Vertex_Id :=
+        [others => Vertex_Id'First];
+      Stack_Top : Natural := 0;
+      U         : Natural;
+      Pred      : Natural;
+      Guard     : Natural := 0;
    begin
+      Length := 0;
       if Source not in Prev'Range (1)
         or else Target not in Prev'Range (2)
       then
          raise Invalid_Argument;
       end if;
-      for V in Prev'Range (2) loop
-         Row (V) := Prev (Source, V);
+      if Path'First /= 1
+        or else Natural (Path'Last) < Natural (Prev'Last (2))
+      then
+         raise Invalid_Argument;
+      end if;
+
+      if Source = Target then
+         if Prev (Source, Source) /= No_Predecessor then
+            return False;
+         end if;
+         Path (1) := Source;
+         Length := 1;
+         return True;
+      end if;
+
+      U := Natural (Target);
+      while U /= No_Predecessor loop
+         Guard := Guard + 1;
+         if Guard > Max_Vertices + 1 then
+            Length := 0;
+            return False;
+         end if;
+         Stack_Top := Stack_Top + 1;
+         Stack (Stack_Top) := Vertex_Id (U);
+         if Vertex_Id (U) = Source then
+            exit;
+         end if;
+         if U not in Natural (Prev'First (2)) .. Natural (Prev'Last (2)) then
+            Length := 0;
+            return False;
+         end if;
+         Pred := Prev (Source, Vertex_Id (U));
+         --  Predecessor must be a real vertex or the sentinel — never a
+         --  skirt garbage value treated as Vertex_Id.
+         if Pred /= No_Predecessor
+           and then Pred not in Natural (Prev'First (2)) .. Natural (Prev'Last (2))
+         then
+            Length := 0;
+            return False;
+         end if;
+         U := Pred;
       end loop;
-      return Reconstruct_Path (Row, Source, Target, Path, Length);
+
+      if Stack_Top = 0 or else Stack (Stack_Top) /= Source then
+         Length := 0;
+         return False;
+      end if;
+      Length := Stack_Top;
+      for I in 1 .. Stack_Top loop
+         Path (I) := Stack (Stack_Top - I + 1);
+      end loop;
+      return True;
    end Reconstruct_Path;
 
 end Shortest_Path_Problem;
