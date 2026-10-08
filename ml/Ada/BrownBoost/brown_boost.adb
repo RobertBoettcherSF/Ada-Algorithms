@@ -177,6 +177,16 @@ package body Brown_Boost is
       A_New, U_New, F1_New, F2_New, JA_New, JB_New, JD_New, CJ_New : Value_Type;
       Improved : Boolean;
 
+      --  sum of the Gaussian factors, the natural scale of F1
+      function Scale (A, U : Value_Type) return Value_Type is
+         Sum : Value_Type := 0.0;
+      begin
+         for I in Features'Range (1) loop
+            Sum := Sum + Exp (- ((Margins (I) + A * Z (I) + U)**2) / C);
+         end loop;
+         return Sum;
+      end Scale;
+
       --  F1 = orthogonality, F2 = potential difference, and their Jacobian
       --  [JA JB; C_Jac JD] with respect to (Alpha, U)
       procedure Residuals (A, U : Value_Type; R1, R2, DA1, DU1, DU2, DA2 : out Value_Type) is
@@ -200,6 +210,63 @@ package body Brown_Boost is
          end loop;
          DA2 := -K * R1;
       end Residuals;
+
+      --  backtracking merit: F1 relative to the sum of its factors, F2
+      --  relative to the target. Plain F1**2 + F2**2 also falls when Alpha
+      --  runs off into the tails (every factor of F1 underflows), and the
+      --  earlier iteration did run off to Alpha ~ 1e15 there.
+      function Scaled_Merit (A, U, R1, R2 : Value_Type) return Value_Type is
+         Sc : constant Value_Type := Scale (A, U);
+      begin
+         return (if Sc > 0.0 then (R1 / Sc) ** 2 else 1.0) + (R2 / Value_Type'Max (V_Target, 1.0e-300)) ** 2;
+      end Scaled_Merit;
+
+      --  orthogonality root in Alpha >= 0 at a fixed U: 1-D Newton on F1
+      --  from Alpha = 0 with backtracking on |F1| / Scale (plain |F1| also
+      --  falls in the tails, where every factor decays, without any root
+      --  being near); F1 (0) <= 0 (no positive
+      --  step helps) gives 0. Where F1 has no finite root the iteration runs
+      --  out at a large Alpha with every factor underflowed.
+      function Alpha_At (U : Value_Type) return Value_Type is
+         A, A_Try, Step, Lam : Value_Type := 0.0;
+         R1, R2, D1, D2, D3, D4 : Value_Type;
+         T1, T2, T3, T4, T5, T6 : Value_Type;
+         Better : Boolean;
+      begin
+         Residuals (A, U, R1, R2, D1, D2, D3, D4);
+         if R1 <= 0.0 then
+            return 0.0;
+         end if;
+         for Iter in 1 .. 200 loop
+            exit when abs (R1) <= 1.0e-12 * Scale (A, U);
+            --  the root lies at larger Alpha while F1 > 0 and at smaller
+            --  Alpha after an overshoot; where the slope does not point
+            --  that way (D1 >= 0, e.g. all margins 0 at Alpha = 0) probe
+            --  with a unit step in the right direction
+            Step := (if D1 < 0.0 then -R1 / D1 elsif R1 > 0.0 then 1.0 else -1.0);
+            Lam := 1.0;
+            Better := False;
+            for Halving in 1 .. 60 loop
+               A_Try := Value_Type'Max (A + Lam * Step, 0.0);
+               Residuals (A_Try, U, T1, T2, T3, T4, T5, T6);
+               if abs (T1) / Scale (A_Try, U) < abs (R1) / Scale (A, U) then
+                  Better := True;
+                  exit;
+               end if;
+               Lam := Lam / 2.0;
+            end loop;
+            exit when not Better;
+            A := A_Try;
+            R1 := T1;
+            D1 := T3;
+         end loop;
+         if R1 > 0.0 and then abs (R1) > 1.0e-8 * Scale (A, U) then
+            --  F1 stays positive as far as it can be followed: no finite
+            --  root, the step is unbounded (same convention as Solve_Alpha)
+            return 2048.0;
+         end if;
+         return A;
+      end Alpha_At;
    begin
       for I in Features'Range (1) loop
          declare
@@ -217,14 +284,14 @@ package body Brown_Boost is
       U_Curr := S * 0.9;
 
       --  Newton's method on the two equations, globalised by backtracking:
-      --  a full step is taken only if it lowers F1**2 + F2**2, otherwise it
-      --  is halved (up to 40 times). Undamped steps (the earlier version, 20
-      --  iterations) could jump out of the basin and stop at a point that
-      --  satisfies neither equation.
+      --  a full step is taken only if it lowers the scaled merit (see
+      --  Scaled_Merit), otherwise it is halved (up to 40 times). Undamped
+      --  steps (the earlier version, 20 iterations) could jump out of the
+      --  basin and stop at a point that satisfies neither equation.
       Residuals (A_Curr, U_Curr, F1, F2, JA, JB, JD, C_Jac);
       for Iter in 1 .. 200 loop
-         Merit := F1 ** 2 + F2 ** 2;
-         exit when Merit < 1.0e-24;
+         Merit := Scaled_Merit (A_Curr, U_Curr, F1, F2);
+         exit when F1 ** 2 + F2 ** 2 < 1.0e-24;
 
          J_Det := JA * JD - JB * C_Jac;
          if abs (J_Det) < 1.0e-300 then
@@ -240,7 +307,7 @@ package body Brown_Boost is
             A_New := Value_Type'Max (A_Curr + Lambda * dA, 0.0);
             U_New := Value_Type'Min (Value_Type'Max (U_Curr + Lambda * dU, 0.0), S);
             Residuals (A_New, U_New, F1_New, F2_New, JA_New, JB_New, JD_New, CJ_New);
-            if F1_New ** 2 + F2_New ** 2 < Merit then
+            if Scaled_Merit (A_New, U_New, F1_New, F2_New) < Merit then
                Improved := True;
                exit;
             end if;
@@ -257,6 +324,25 @@ package body Brown_Boost is
          JD := JD_New;
          C_Jac := CJ_New;
       end loop;
+
+      --  If no (Alpha, U) with U in [0, S] satisfies both equations, the step
+      --  sits at the end of the time range that comes closest (U = 0, all the
+      --  remaining time, when the potential stays below its target; U = S
+      --  when it stays above), and Alpha is the orthogonality root at that U.
+      --  Newton stalling is how that case shows up; the end is then chosen
+      --  by the sign of the potential difference at U = 0 with Alpha (0).
+      if abs (F1) > 1.0e-8 * Scale (A_Curr, U_Curr)
+        or else abs (F2) > 1.0e-8 * Value_Type'Max (V_Target, 1.0e-300)
+      then
+         A_Curr := Alpha_At (0.0);
+         Residuals (A_Curr, 0.0, F1, F2, JA, JB, JD, C_Jac);
+         if F2 < 0.0 then
+            U_Curr := 0.0;
+         else
+            U_Curr := S;
+            A_Curr := Alpha_At (S);
+         end if;
+      end if;
 
       Alpha := A_Curr;
       T := S - U_Curr;
