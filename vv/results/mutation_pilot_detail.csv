@@ -38,12 +38,12 @@ misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,40,+ -> -,Next (
 misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,count_and_say_stub.adb,30,+ 1 -> + 0,Run := Run + 1;,Run := Run + 0;,killed
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,15,+ -> -,if Pat (I) = Pat (Len + 1) then,if Pat (I) = Pat (Len - 1) then,killed
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,16,+ 1 -> + 0,Len := Len + 1;,Len := Len + 0;,killed
-strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,19,/= -> =,elsif Len /= 0 then,elsif Len = 0 then,survived
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,19,/= -> =,elsif Len /= 0 then,elsif Len = 0 then,killed
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,23,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,15,= -> /=,if Pat (I) = Pat (Len + 1) then,if Pat (I) /= Pat (Len + 1) then,killed
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,18,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,18,+ -> -,I := I + 1;,I := I - 1;,killed
-strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,11,<= -> <,while I <= Pat'Last loop,while I < Pat'Last loop,survived
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,11,<= -> <,while I <= Pat'Last loop,while I < Pat'Last loop,killed
 strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,13,* -> +,H := (H * Base + Character'Pos (C)) rem Modulus;,H := (H + Base + Character'Pos (C)) rem Modulus;,survived
 strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,31,and then -> or else,if Hash (Window) = PH and then Window = Pat then,if Hash (Window) = PH or else Window = Pat then,survived
 strings/SPARK2/Ada-SPARK-Rabin-Karp,rabin_karp.adb,26,- -> +,for I in Text'First .. Text'First + (N - M) loop,for I in Text'First .. Text'First + (N + M) loop,killed

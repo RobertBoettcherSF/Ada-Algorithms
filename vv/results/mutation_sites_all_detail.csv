@@ -1,0 +1,128 @@
+folder,file,line,op,before,after,result
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,16,+ -> -,Len := Len + 1;,Len := Len - 1;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,11,<= -> <,while I <= Pat'Last loop,while I < Pat'Last loop,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,18,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,15,+ 1 -> + 0,if Pat (I) = Pat (Len + 1) then,if Pat (I) = Pat (Len + 0) then,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,15,+ -> -,if Pat (I) = Pat (Len + 1) then,if Pat (I) = Pat (Len - 1) then,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,15,= -> /=,if Pat (I) = Pat (Len + 1) then,if Pat (I) /= Pat (Len + 1) then,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,23,+ -> -,I := I + 1;,I := I - 1;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,18,+ -> -,I := I + 1;,I := I - 1;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,19,/= -> =,elsif Len /= 0 then,elsif Len = 0 then,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,23,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,kmp.adb,16,+ 1 -> + 0,Len := Len + 1;,Len := Len + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,127,- -> +,"and then Last_Node <= Max_Nodes - (N - 1),","and then Last_Node <= Max_Nodes + (N - 1),",survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,55,and then -> or else,and then Lengths'Last in 1 .. Max_Symbols,or else Lengths'Last in 1 .. Max_Symbols,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,156,+ 1 -> + 0,Last_Node := Last_Node + 1;,Last_Node := Last_Node + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,123,* -> +,and then 2 * N - 1 <= Max_List,and then 2 + N - 1 <= Max_List,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,101,+ -> -,L.Elems (J + 1) := Temp;,L.Elems (J - 1) := Temp;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,126,>= -> >,and then Last_Node >= N,and then Last_Node > N,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,91,- 1 -> - 0,J    : Natural := I - 1;,J    : Natural := I - 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,258,> -> >=,while Top > 0 loop,while Top >= 0 loop,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,123,- -> +,and then 2 * N - 1 <= Max_List,and then 2 * N + 1 <= Max_List,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,127,<= -> <,"and then Last_Node <= Max_Nodes - (N - 1),","and then Last_Node < Max_Nodes - (N - 1),",survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,276,+ -> -,Top := Top + 1;,Top := Top - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,241,and then -> or else,and then Select_Count <= Max_List,or else Select_Count <= Max_List,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,254,+ 1 -> + 0,Top := Top + 1;,Top := Top + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,313,- -> +,Max_Keep  : constant Positive := 2 * N - 2;,Max_Keep  : constant Positive := 2 * N + 2;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,151,* -> +,Li : constant Node_Index := L_Curr.Elems (2 * P - 1);,Li : constant Node_Index := L_Curr.Elems (2 + P - 1);,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,98,+ -> -,L.Elems (J + 1) := L.Elems (J);,L.Elems (J - 1) := L.Elems (J);,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,197,+ -> -,Next_L.Count := Next_L.Count + 1;,Next_L.Count := Next_L.Count - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,268,< -> <=,if Buf (S) < Max_L then,if Buf (S) <= Max_L then,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,172,<= -> <,while I <= Packages.Count and then J <= L_0.Count loop,while I < Packages.Count and then J <= L_0.Count loop,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,41,>= -> >,(if A >= Weight_Value'Last - B then Weight_Value'Last else A + B),(if A > Weight_Value'Last - B then Weight_Value'Last else A + B),survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,151,- -> +,Li : constant Node_Index := L_Curr.Elems (2 * P - 1);,Li : constant Node_Index := L_Curr.Elems (2 * P + 1);,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,131,<= -> <,and then Last_Node <= Last_Node'Old + (N - 1),and then Last_Node < Last_Node'Old + (N - 1),killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,123,<= -> <,and then 2 * N - 1 <= Max_List,and then 2 * N - 1 < Max_List,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,336,+ 1 -> + 0,L_0.Count := L_0.Count + 1;,L_0.Count := L_0.Count + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,126,and then -> or else,and then Last_Node >= N,or else Last_Node >= N,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,163,+ -> -,Packages.Count := Packages.Count + 1;,Packages.Count := Packages.Count - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,65,< -> <=,if Lengths (I) < 1 then,if Lengths (I) <= 1 then,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,121,* -> +,and then Max_Keep = 2 * N - 2,and then Max_Keep = 2 + N - 2,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,329,+ -> -,Last_Node := Last_Node + 1;,Last_Node := Last_Node - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,187,+ 1 -> + 0,J := J + 1;,J := J + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,355,< -> <=,if L_Curr.Count < Max_Keep then,if L_Curr.Count <= Max_Keep then,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,240,and then -> or else,and then Select_Count <= L_Curr.Count,or else Select_Count <= L_Curr.Count,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,274,< -> <=,and then Top < Max_Nodes,and then Top <= Max_Nodes,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,181,+ -> -,Next_L.Count := Next_L.Count + 1;,Next_L.Count := Next_L.Count - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,269,+ 1 -> + 0,Buf (S) := Buf (S) + 1;,Buf (S) := Buf (S) + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,213,> -> >=,if Next_L.Count > Max_Keep then,if Next_L.Count >= Max_Keep then,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,254,+ -> -,Top := Top + 1;,Top := Top - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,41,+ -> -,(if A >= Weight_Value'Last - B then Weight_Value'Last else A + B),(if A >= Weight_Value'Last - B then Weight_Value'Last else A - B),killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,131,- -> +,and then Last_Node <= Last_Node'Old + (N - 1),and then Last_Node <= Last_Node'Old + (N + 1),survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,84,<= -> <,if L.Count <= 1 then,if L.Count < 1 then,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,178,<= -> <,if Nodes (Packages.Elems (I)).Weight <=,if Nodes (Packages.Elems (I)).Weight <,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,67,> -> >=,elsif Lengths (I) > Max_Length then,elsif Lengths (I) >= Max_Length then,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,130,>= -> >,and then Last_Node >= Last_Node'Old,and then Last_Node > Last_Node'Old,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,185,+ -> -,Next_L.Count := Next_L.Count + 1;,Next_L.Count := Next_L.Count - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,199,+ -> -,I := I + 1;,I := I - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,127,and then -> or else,"and then Last_Node <= Max_Nodes - (N - 1),","or else Last_Node <= Max_Nodes - (N - 1),",stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,98,+ 1 -> + 0,L.Elems (J + 1) := L.Elems (J);,L.Elems (J + 0) := L.Elems (J);,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,131,+ -> -,and then Last_Node <= Last_Node'Old + (N - 1),and then Last_Node <= Last_Node'Old - (N - 1),killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,56,and then -> or else,"and then Max_Length in 1 .. Max_L,","or else Max_Length in 1 .. Max_L,",stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,91,- -> +,J    : Natural := I - 1;,J    : Natural := I + 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,282,+ 1 -> + 0,Top := Top + 1;,Top := Top + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,241,<= -> <,and then Select_Count <= Max_List,and then Select_Count < Max_List,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,122,<= -> <,and then Max_Keep <= Max_List,and then Max_Keep < Max_List,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,280,and then -> or else,and then Top < Max_Nodes,or else Top < Max_Nodes,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,187,+ -> -,J := J + 1;,J := J - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,132,and then -> or else,and then Last_Node <= Max_Nodes,or else Last_Node <= Max_Nodes,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,185,+ 1 -> + 0,Next_L.Count := Next_L.Count + 1;,Next_L.Count := Next_L.Count + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,183,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,343,- 1 -> - 0,for Step in 1 .. Max_Length - 1 loop,for Step in 1 .. Max_Length - 0 loop,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,99,- -> +,J := J - 1;,J := J + 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,240,<= -> <,and then Select_Count <= L_Curr.Count,and then Select_Count < L_Curr.Count,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,18,* -> +,subtype Weight_Value is Natural range 0 .. Max_Symbols * Max_Freq;,subtype Weight_Value is Natural range 0 .. Max_Symbols + Max_Freq;,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,93,>= -> >,while J >= 1,while J > 1,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,132,<= -> <,and then Last_Node <= Max_Nodes,and then Last_Node < Max_Nodes,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,274,and then -> or else,and then Top < Max_Nodes,or else Top < Max_Nodes,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,208,+ 1 -> + 0,Next_L.Count := Next_L.Count + 1;,Next_L.Count := Next_L.Count + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,124,and then -> or else,and then L_0.Count = N,or else L_0.Count = N,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,280,< -> <=,and then Top < Max_Nodes,and then Top <= Max_Nodes,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,172,<= -> <,while I <= Packages.Count and then J <= L_0.Count loop,while I <= Packages.Count and then J < L_0.Count loop,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,54,= -> /=,Lengths'First = 1,Lengths'First /= 1,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,276,+ 1 -> + 0,Top := Top + 1;,Top := Top + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,210,+ 1 -> + 0,J := J + 1;,J := J + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,199,+ 1 -> + 0,I := I + 1;,I := I + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,131,- 1 -> - 0,and then Last_Node <= Last_Node'Old + (N - 1),and then Last_Node <= Last_Node'Old + (N - 0),survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,156,+ -> -,Last_Node := Last_Node + 1;,Last_Node := Last_Node - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,41,- -> +,(if A >= Weight_Value'Last - B then Weight_Value'Last else A + B),(if A >= Weight_Value'Last + B then Weight_Value'Last else A + B),survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,197,+ 1 -> + 0,Next_L.Count := Next_L.Count + 1;,Next_L.Count := Next_L.Count + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,202,<= -> <,while J <= L_0.Count loop,while J < L_0.Count loop,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,242,<= -> <,"and then L_Curr.Count <= Max_List,","and then L_Curr.Count < Max_List,",survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,101,+ 1 -> + 0,L.Elems (J + 1) := Temp;,L.Elems (J + 0) := Temp;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,306,= -> /=,if N = 1 then,if N /= 1 then,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,264,= -> /=,if Nodes (Idx).Kind = Leaf then,if Nodes (Idx).Kind /= Leaf then,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,336,+ -> -,L_0.Count := L_0.Count + 1;,L_0.Count := L_0.Count - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,99,- 1 -> - 0,J := J - 1;,J := J - 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,121,= -> /=,and then Max_Keep = 2 * N - 2,and then Max_Keep /= 2 * N - 2,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,269,+ -> -,Buf (S) := Buf (S) + 1;,Buf (S) := Buf (S) - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,124,= -> /=,and then L_0.Count = N,and then L_0.Count /= N,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,242,and then -> or else,"and then L_Curr.Count <= Max_List,","or else L_Curr.Count <= Max_List,",stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,181,+ 1 -> + 0,Next_L.Count := Next_L.Count + 1;,Next_L.Count := Next_L.Count + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,131,and then -> or else,and then Last_Node <= Last_Node'Old + (N - 1),or else Last_Node <= Last_Node'Old + (N - 1),stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,210,+ -> -,J := J + 1;,J := J - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,121,and then -> or else,and then Max_Keep = 2 * N - 2,or else Max_Keep = 2 * N - 2,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,313,* -> +,Max_Keep  : constant Positive := 2 * N - 2;,Max_Keep  : constant Positive := 2 + N - 2;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,127,- 1 -> - 0,"and then Last_Node <= Max_Nodes - (N - 1),","and then Last_Node <= Max_Nodes - (N - 0),",survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,94,and then -> or else,and then Nodes (L.Elems (J)).Weight > Nodes (Temp).Weight,or else Nodes (L.Elems (J)).Weight > Nodes (Temp).Weight,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,127,- -> +,"and then Last_Node <= Max_Nodes - (N - 1),","and then Last_Node <= Max_Nodes - (N + 1),",survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,191,<= -> <,while I <= Packages.Count loop,while I < Packages.Count loop,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,125,and then -> or else,and then L_Curr.Count in 1 .. Max_Keep,or else L_Curr.Count in 1 .. Max_Keep,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,152,* -> +,Ri : constant Node_Index := L_Curr.Elems (2 * P);,Ri : constant Node_Index := L_Curr.Elems (2 + P);,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,218,= -> /=,if Next_L.Count = 0 then,if Next_L.Count /= 0 then,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,263,- -> +,Top := Top - 1;,Top := Top + 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,123,and then -> or else,and then 2 * N - 1 <= Max_List,or else 2 * N - 1 <= Max_List,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,343,- -> +,for Step in 1 .. Max_Length - 1 loop,for Step in 1 .. Max_Length + 1 loop,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,172,and then -> or else,while I <= Packages.Count and then J <= L_0.Count loop,while I <= Packages.Count or else J <= L_0.Count loop,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,121,- -> +,and then Max_Keep = 2 * N - 2,and then Max_Keep = 2 * N + 2,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,208,+ -> -,Next_L.Count := Next_L.Count + 1;,Next_L.Count := Next_L.Count - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,183,+ -> -,I := I + 1;,I := I - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,130,and then -> or else,and then Last_Node >= Last_Node'Old,or else Last_Node >= Last_Node'Old,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,122,and then -> or else,and then Max_Keep <= Max_List,or else Max_Keep <= Max_List,stillborn
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,329,+ 1 -> + 0,Last_Node := Last_Node + 1;,Last_Node := Last_Node + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,282,+ -> -,Top := Top + 1;,Top := Top - 1;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,163,+ 1 -> + 0,Packages.Count := Packages.Count + 1;,Packages.Count := Packages.Count + 0;,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,94,> -> >=,and then Nodes (L.Elems (J)).Weight > Nodes (Temp).Weight,and then Nodes (L.Elems (J)).Weight >= Nodes (Temp).Weight,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,123,- 1 -> - 0,and then 2 * N - 1 <= Max_List,and then 2 * N - 0 <= Max_List,survived
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,151,- 1 -> - 0,Li : constant Node_Index := L_Curr.Elems (2 * P - 1);,Li : constant Node_Index := L_Curr.Elems (2 * P - 0);,killed
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,package_merge.adb,263,- 1 -> - 0,Top := Top - 1;,Top := Top - 0;,killed

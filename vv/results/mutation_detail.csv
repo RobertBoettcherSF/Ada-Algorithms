@@ -76,3 +76,11 @@ numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,527,+ -> -,State := State 
 numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,460,= -> /=,if Modulus = 0 then,if Modulus /= 0 then,killed
 numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,173,< -> <=,if D < 0 then,if D <= 0 then,killed
 numerical/Ada/Cantor-Zassenhaus,cantor_zassenhaus.adb,32,< -> <=,if N < 2 then,if N <= 2 then,survived
+misc/Ada/Chinese-Whispers,chinese_whispers.adb,177,+ -> -,S := S + G (N).Weights (I);,S := S - G (N).Weights (I);,killed
+misc/Ada/Chinese-Whispers,chinese_whispers.adb,32,+ -> -,N.Weights (Idx) := N.Weights (Idx) + W;,N.Weights (Idx) := N.Weights (Idx) - W;,killed
+misc/Ada/Chinese-Whispers,chinese_whispers.adb,253,<= -> <,if Order'Length <= 1 then,if Order'Length < 1 then,survived
+misc/Ada/Chinese-Whispers,chinese_whispers.adb,132,= -> /=,if Idx = 0 then,if Idx /= 0 then,killed
+misc/Ada/Chinese-Whispers,chinese_whispers.adb,53,/= -> =,if Order'Length /= G'Length then,if Order'Length = G'Length then,killed
+misc/Ada/Chinese-Whispers,chinese_whispers.adb,176,= -> /=,if Labels (Nb) = L then,if Labels (Nb) /= L then,killed
+misc/Ada/Chinese-Whispers,chinese_whispers.adb,38,+ 1 -> + 0,N.Degree := N.Degree + 1;,N.Degree := N.Degree + 0;,killed
+misc/Ada/Chinese-Whispers,chinese_whispers.adb,108,= -> /=,if A = B then,if A /= B then,killed

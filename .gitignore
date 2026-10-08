@@ -12,3 +12,4 @@ b__*.ads
 b__*.adb
 *.exe
 *~
+__pycache__/
