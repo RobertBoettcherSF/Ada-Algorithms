@@ -38,7 +38,14 @@ The generator puts edge values first (`LO`, `HI`, 0, neighbours), then small val
 
 Adding a pair takes 10-20 minutes: copy a similar pair, adjust the two call sites and the generator. Inputs are limited to the SPARK side's bounds (e.g. 4 or 8 elements), which keeps the comparison honest but narrow. Pairs with `Float` outputs need a tolerance (not implemented yet).
 
-Status (2026-10-08): 10 pairs: Adler-32, Binary-GCD, Delta-Encoding (Ada encode summed vs SPARK `Net_Delta`), Euclidean-Algorithm, Gray-Code (encode + decode), Hamming-Weight, Kadane, Longest-Increasing-Subsequence, Median-Filtering (8x8, 3x3 kernel), Pearson-Hashing. all 10 agree on every case (1,000-5,000 cases each); Pearson-Hashing agrees since its SPARK twin uses the real 256-entry table.
+Status (2026-10-08): 74 of the 117 Ada <-> SPARK pair edges have adapters (67 of the 110 paired Ada folders; some Ada folders have two SPARK twins), 1,000 seeded cases each (seed 20261008). 72 agree on every case; 2 disagree (findings, not fixed):
+
+* `Sort-Library-Sort`: 6/1000 cases where the Ada `Library_Sort.Sort` returns a permutation that is not sorted (smallest found: 16 values `467 -133 589 -640 170 -423 97 -687 123 559 317 -193 807 908 886 861` -> Ada ends `... 807 886 861 908`); the SPARK twin sorts all of them.
+* `Run-Length-Encoding`: 32/1000, all the empty input. Ada `Encode_Binary` gives 0 runs, SPARK `Number_Of_Runs` gives 1 (its result subtype `Run_Count` starts at 1, so the contract cannot say 0). All non-empty inputs agree.
+
+Covered: the 10 earlier pairs; all 40 sorting pairs (`Sort-*`; SPARK2 twins use their fixed 8-element arrays, SPARK4 twins `1 .. Max_N`); searching (Binary, Jump, Interpolation, Fibonacci, Ternary, Linear search: the "any index" `Find`s are compared as found/absent with the hit checked, `Find_First`/`Find_Last`/linear `Find` by index) and selection (Quickselect, Introselect, Selection-Algorithm: k-th smallest + median); strings (Levenshtein, Damerau-Levenshtein (both OSA), LCS length, KMP prefix table, Boyer-Moore first match, Rabin-Karp found, Hamming distance); numerical (Extended-Euclidean x2 incl. the Bezout coefficients, Sieve, Mersenne-Twister outputs 1, 2, 624, 625, 1300 per seed); RLE run count; Floyd-Warshall (4x4) and Bellman-Ford (4 nodes, 16 non-negative edges); Package-Merge (weighted code length of both Ada variants vs the SPARK one, 2 .. 32 symbols, L from the feasible minimum to 16). Outputs are compared token by token (Ada `'Image` glues negative numbers together; `"-3-1"` equals `"-3 -1"`). The full run takes about 35 minutes with `-j 5`, almost all of it `Sort-Counting-Sort`: its SPARK twin's ghost contracts, checked under `-gnata`, cost about 1 s per case. Cases run in chunks of 50 (a crash re-runs only its chunk case by case) and pairs in parallel (`difftest.py -j`).
+
+Not covered yet (43 edges), by obstacle: `Float` results that need a tolerance (Point-In-Polygon, Gaussian-Elimination, Bisection, Brent, Secant, FFT, Lagrange; Dice-Coefficient's SPARK twin scores 3-bit vectors instead of bigrams); graph APIs with private graph types or records (A-Star, Dijkstra, Best-First, Uniform-Cost, Kruskal, Prim, Floyd cycle finding, Topological-Sort, Connected-Component-Labeling, Flood-Fill); generators and shuffles with differing parameter sets (ACORN, Blum-Blum-Shub, Lagged-Fibonacci, LCG, Fisher-Yates); stateful structures and simulations (Bloom filter, Buddy allocator, Mark-and-Sweep, Reference-Counting, Red-Black-Tree, Sorted-List, Banker's, Elevator, Lemke-Howson); SPARK twins that expose only a helper or a different slice of the algorithm (Burrows-Wheeler rotations, MD5 padding length, Zobrist, Hamming-Code, Top-Nodes, Trigram-Search, Longest-Common-Substring, Heap's algorithm, K-Way-Merge, Burstsort, Sort-Merge-Join). These need bigger adapters, not more runtime.
 
 ## 3b. Known-answer vectors
 
@@ -50,11 +57,14 @@ Each folder's `tests.adb` should contain at least one vector from an outside sou
 
 Surviving mutants are leads, not verdicts: some are equivalent (for example changing the rolling-hash multiplier in Rabin-Karp still finds every match, because each hash hit is confirmed by a string compare), others show real gaps in the tests (for example no test that would notice `Len /= 0` flipped in the KMP prefix table). A full run on all folders would mean roughly 1,840 x 8 rebuilds; the sample keeps it to minutes.
 
-Status (2026-10-08): 12 random folders x 8 mutants: 64 killed, 18 survived (78%); 1 folder's baseline already fails with `-gnata` (Chinese-Whispers: the tests break a precondition). Pilot set (5 generalised stubs + KMP, Rabin-Karp, Package-Merge): see `vv/results/mutation_pilot.csv`.
+Status (2026-10-08): 12 random folders x 8 mutants: 66 killed, 19 survived (77%); Chinese-Whispers now runs (7/8) since its tests accept the `-gnata` precondition failure. Pilot set (5 generalised stubs + KMP, Rabin-Karp, Package-Merge, same seed): `vv/results/mutation_pilot.csv`. All operator sites for the two folders whose test gaps were closed: `vv/results/mutation_sites_all.csv`.
+
+* KMP: sample 6/8 -> 8/8, all sites 9/11 -> 11/11 (new tests: textbook prefix tables and every A/B pattern up to length 10, A/B/C up to 7, against the definition).
+* Package-Merge: all sites 68/101 -> 70/101; sample unchanged at 2/7 because the 5 sampled survivors are equivalent: `Top < Max_Nodes` -> `<=` / `or else` (capacity guards that valid inputs never reach), insertion sort `>` -> `>=` (tie order only; costs equal), `Safe_Add` `- B` -> `+ B` (no package weight exceeds the sum of all frequencies, so saturation never triggers), and `Weight_Value` range `*` -> `+` (saturated package weights stay in nondecreasing order, so the merge picks the same items; 7,000 random cases with weights up to `Max_Freq` gave identical lengths). Most of the remaining 31 all-site survivors are in contracts of internal subprograms or in capacity guards.
 
 ## Not done yet
 
 * CI / GitHub Actions (deliberately not added).
-* Adapters for the other ~100 pairs; `Float` tolerance in the comparison.
+* Adapters for the remaining 43 pair edges (see 3a); `Float` tolerance in the comparison.
 * Filling the known-answer registry beyond the pilot folders.
 * GNAT 12 for the differential and mutation stages (they use GNAT 14 only; stage 1 covers both compilers).
