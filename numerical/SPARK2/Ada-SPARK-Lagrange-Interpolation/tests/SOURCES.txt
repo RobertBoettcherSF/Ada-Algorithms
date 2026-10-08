@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: hand values.
+* Own property (definition of interpolation): the interpolating polynomial
+  passes through every sample, so at x = -1, 0, 1 the result is Y0, Y1, Y2.
+* Inputs: every Y0, Y1, Y2 in -10 .. 10 (9261 triples), all three x.

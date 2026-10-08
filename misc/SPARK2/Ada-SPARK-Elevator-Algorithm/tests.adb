@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Elevator_Algorithm; use Elevator_Algorithm;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -8,4 +9,5 @@ begin
    if Move_One_Step (8, 3) /= 7 then raise Program_Error; end if;
    if Move_One_Step (5, 5) /= 5 then raise Program_Error; end if;
    Put_Line ("Elevator: PASS");
+   Own_Checks;
 end Tests;

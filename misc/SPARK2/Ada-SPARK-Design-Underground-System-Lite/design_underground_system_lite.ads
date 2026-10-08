@@ -14,6 +14,5 @@ package Design_Underground_System_Lite is
    function Average_Travel_Time
      (Trips : Trip_Array; Length : Trip_Count;
       From : Station_Id; To : Station_Id) return Travel_Duration
-     with Pre => Length <= Trips'Length,
-          Global => null;
+     with Global => null;   --  Trip_Count already bounds Length by Trips'Length
 end Design_Underground_System_Lite;

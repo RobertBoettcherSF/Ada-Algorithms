@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: hand values.
+* Own reference: the defining recursion with T0 = 0, T1 = T2 = 1.
+* Inputs: every N 0 .. 10.

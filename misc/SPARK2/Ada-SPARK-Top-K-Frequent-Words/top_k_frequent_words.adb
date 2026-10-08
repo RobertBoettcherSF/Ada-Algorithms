@@ -2,7 +2,7 @@ pragma Ada_2022;
 package body Top_K_Frequent_Words with SPARK_Mode => On is
    type Count_Array is array (Word_Id) of Natural range 0 .. Capacity;
    function Kth_Frequency (Words : Word_Array; N : Size; K : Size) return Frequency is
-      C : Count_Array := (others => 0);
+      C : Count_Array := [others => 0];
       Sorted : Count_Array;
       Pos : Word_Id;
       Temp : Natural;

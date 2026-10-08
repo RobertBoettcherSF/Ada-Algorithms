@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Tribonacci; use Tribonacci;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -8,4 +9,5 @@ begin
       raise Program_Error;
    end if;
    Put_Line ("Tribonacci: PASS");
+   Own_Checks;
 end Tests;

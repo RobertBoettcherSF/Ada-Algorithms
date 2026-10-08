@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Robot_Origin; use Robot_Origin;
+with Own_Checks;
 procedure Tests is
    Moves : Text := [others => ' '];
 begin
@@ -7,4 +8,5 @@ begin
    Assert (Returns_To_Origin (Moves, 4));
    Moves (1 .. 2) := "LL";
    Assert (not Returns_To_Origin (Moves, 2));
+   Own_Checks;
 end Tests;
