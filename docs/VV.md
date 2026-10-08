@@ -90,17 +90,17 @@ For these the trivial body passes the folder's existing checks; they need tests 
 
 ## 3e. Own tests
 
-For Silver-proven non-trivial folders without a twin or a known-answer vector, we wrote our own tests, starting from the largest categories (sorting, strings, trees, searching, numerical). The rule: assume the code is broken or does nothing, then show that it is not. Expected values come only from
+For Silver-proven non-trivial folders without a twin or a known-answer vector, we wrote our own tests, starting from the largest categories (sorting, strings, trees, searching, numerical, compression). The rule: assume the code is broken or does nothing, then show that it is not. Expected values come only from
 
 * properties of the result (sorted + permutation of the input, invariants such as BST order, bounds, round trips where an inverse exists);
 * small brute-force references written by us in the test (insertion sort, recursive edit distance, exhaustive enumeration of substrings / subsets / trees);
-* exhaustive checks where the input space is small (all 0/1 arrays of length 8 for the sorts, all 3,125 samples for Mean-Variance), and many short random strings over two- or three-letter alphabets so that repeats and ties are common.
+* exhaustive checks where the input space is small (all 0/1 arrays of length 8 for the sorts, all 3,125 samples for Mean-Variance, all string pairs or triples up to length 4 for Longest-Common-Substring and Interleaving-String), and many short random strings over two- or three-letter alphabets so that repeats and ties are common.
 
 Never from the program's own current output, and nothing from Rosetta Code, LeetCode, Wikipedia text or GPL/GFDL sources. Random inputs come from the Park-Miller minimal standard generator (16807 mod 2**31-1, seed 20261008), written inline, so every run is the same. Where a README leaves a convention open (does depth count nodes or edges, are range bounds inclusive), only convention-independent properties are tested, e.g. the one-node tree fixes the convention, and odd range bounds with even node values make inclusivity irrelevant.
 
 Each folder has `tests/own_checks.adb` (called from its test main) and `tests/SOURCES.txt`, which states where every expected value comes from. `tools/vv/own_tests.csv` lists the folders and checks; the index shows them in column `own_tests`. A folder has a *known answer* (column `known_answer`) when it has a registered vector, own tests or an agreeing differential test, and the do-nothing check did not flag it weak; `training_ready` now requires a known answer.
 
-Status (2026-10-08): 85 folders (33 sorting, 24 trees, 15 strings, 6 searching, 5 numerical, 2 misc); all pass on GNAT 14 and GNAT 12 and all are `ok` in the do-nothing check. The proof projects list their source files, so `own_checks.adb` is outside proof scope (three projects without a source list now name it explicitly so `make test` still builds).
+Status (2026-10-08): 94 folders (33 sorting, 29 trees, 15 strings, 6 searching, 5 numerical, 4 compression, 2 misc); all pass on GNAT 14 and GNAT 12 and all are `ok` in the do-nothing check. The proof projects list their source files, so `own_checks.adb` is outside proof scope (three projects without a source list now name it explicitly so `make test` still builds).
 
 Findings while writing them. The code is not changed yet; for Repeated-String-Match, Newton-Raphson, Balanced-Binary-Tree and Range-Sum-BST the own tests fail and are parked (not committed) until the intended behaviour is decided, so these four do not count as having own tests:
 
@@ -114,6 +114,7 @@ Findings while writing them. The code is not changed yet; for Repeated-String-Ma
 * `sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency`: different characters with the same frequency are not kept in contiguous groups; the README does not require it, so own tests leave it out.
 * `sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II`: inputs without an exact 4/4 even/odd split lose values (outside the exercise; not checked by own tests, no precondition or subtype rules them out).
 * `misc/SPARK2/Ada-SPARK-Jump-Game`: `Can_Jump (A, N)` returns `A (N) > 0` (its postcondition says exactly that), which is not the jump game; the README calls the folder a stub, but the name has no `-Stub`, so the index does not treat it as one. Flagged weak by the do-nothing check; no own tests.
+* `trees/SPARK2/Ada-SPARK-Insert-Into-BST`: `Insert` appends values in insertion order; there is no tree shape. Own tests check what the interface promises (membership and size), which holds.
 
 ## Not done yet
 
