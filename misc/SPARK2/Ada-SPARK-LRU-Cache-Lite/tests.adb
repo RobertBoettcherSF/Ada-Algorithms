@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with LRU_Cache_Lite;
+with Own_Checks;
 procedure Tests is
    use LRU_Cache_Lite;
    C : Cache := Empty;
@@ -9,4 +10,5 @@ begin
    V := Lookup (C, 4);
    pragma Assert (Contains (C, 4) and then V = 41 and then Length (C) = 1);
    Ada.Text_IO.Put_Line ("LRU cache lite: OK");
+   Own_Checks;
 end Tests;

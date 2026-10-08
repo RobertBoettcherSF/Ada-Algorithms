@@ -1,0 +1,93 @@
+pragma Ada_2022;
+--  Own tests for LFU_Cache_Lite (see tests/SOURCES.txt).
+--  LFU model: Put (new key, full) evicts the entry with the fewest uses, ties by least recent use;
+--  Put and Touch count as a use; Most_Frequent_Key = most uses, ties by least recent.
+with Ada.Text_IO; use Ada.Text_IO;
+with LFU_Cache_Lite; use LFU_Cache_Lite;
+
+procedure Own_Checks is
+   Failures : Natural := 0;
+   Checked : Natural := 0;
+   Seed : Long_Long_Integer := 20261008;
+   function Next (Lo, Hi : Integer) return Integer is
+   begin
+      Seed := (Seed * 16807) mod 2147483647;   --  Park-Miller minimal standard
+      return Lo + Integer (Seed mod Long_Long_Integer (Hi - Lo + 1));
+   end Next;
+   procedure Report (Ok : Boolean; Label : String) is
+   begin
+      Checked := Checked + 1;
+      if not Ok then
+         Failures := Failures + 1;
+         if Failures <= 10 then Put_Line ("  FAIL own check: " & Label); end if;
+      end if;
+   end Report;
+   C : Cache;
+   MK : array (1 .. 16) of Key;
+   MV : array (1 .. 16) of Value;
+   MU : array (1 .. 16) of Natural;
+   N  : Natural;
+   function Find (K : Key) return Natural is
+   begin
+      for I in 1 .. N loop
+         if MK (I) = K then return I; end if;
+      end loop;
+      return 0;
+   end Find;
+   procedure To_End (P : Positive) is   --  model: entries in recency order, most recent last
+      K : constant Key := MK (P);
+      V : constant Value := MV (P);
+      U : constant Natural := MU (P);
+   begin
+      for I in P .. N - 1 loop MK (I) := MK (I + 1); MV (I) := MV (I + 1); MU (I) := MU (I + 1); end loop;
+      MK (N) := K; MV (N) := V; MU (N) := U;
+   end To_End;
+begin
+   for Run in 1 .. 1_000 loop
+      C := Empty; N := 0;
+      for Op in 1 .. 60 loop
+         declare
+            K : constant Key := Next (0, 24);
+            V : constant Value := Next (-100, 100);
+            P : constant Natural := Find (K);
+            Ok : Boolean := True;
+            Best, Low : Natural;
+         begin
+            if P > 0 and then Next (0, 1) = 0 then
+               Touch (C, K);
+               MU (P) := MU (P) + 1; To_End (P);
+            else
+               Put (C, K, V);
+               if P > 0 then
+                  MV (P) := V; MU (P) := MU (P) + 1; To_End (P);
+               else
+                  if N = 16 then   --  evict: fewest uses, the least recent among ties
+                     Low := 1;
+                     for I in 2 .. N loop
+                        if MU (I) < MU (Low) then Low := I; end if;
+                     end loop;
+                     To_End (Low); N := N - 1;
+                  end if;
+                  N := N + 1; MK (N) := K; MV (N) := V; MU (N) := 1;
+               end if;
+            end if;
+            Ok := Length (C) = N;
+            for Q in Key range 0 .. 24 loop
+               null;   --  Contains is added with the fix
+            end loop;
+            Best := 1;
+            for I in 2 .. N loop
+               if MU (I) > MU (Best) then Best := I; end if;
+            end loop;
+            Ok := Ok and then Most_Frequent_Key (C) = MK (Best);
+            Report (Ok, "run" & Integer'Image (Run) & " op" & Integer'Image (Op));
+         end;
+      end loop;
+   end loop;
+   if Failures = 0 then
+      Put_Line ("PASS own checks:" & Natural'Image (Checked) & " cases");
+   else
+      Put_Line ("FAIL own checks:" & Natural'Image (Failures) & " of" & Natural'Image (Checked));
+      raise Program_Error;
+   end if;
+end Own_Checks;

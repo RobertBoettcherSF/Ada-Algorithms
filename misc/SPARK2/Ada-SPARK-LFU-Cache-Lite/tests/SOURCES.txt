@@ -1,0 +1,18 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: one hand case.
+* Own reference (standard LFU cache): a model list in recency order with a
+  use count per entry; Put of an existing key updates it, counts a use and
+  makes it most recent; Put of a new key on a full cache (16) first evicts
+  the entry with the fewest uses, the least recently used among ties; Touch
+  counts a use; Most_Frequent_Key is the entry with the most uses, the least
+  recently used among ties.
+* Inputs: 1000 random runs of 60 Put/Touch operations over keys 0 .. 24;
+  after every operation Length, Contains of every key and Most_Frequent_Key
+  are compared.

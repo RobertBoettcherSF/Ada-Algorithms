@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: one hand case (update of an existing key).
+* Own reference (standard LRU cache): a model list in recency order; Put of
+  an existing key updates it and makes it most recent; Put of a new key
+  appends it, and on a full cache (16) first evicts the least recently
+  used entry; Get returns the value and makes the key most recent; Lookup
+  and Contains only read.
+* Inputs: 1000 random runs of 60 Put/Get operations over keys 0 .. 24 (so
+  the cache fills and evicts often); after every operation Length,
+  Contains of every key and Lookup of every present key are compared.
