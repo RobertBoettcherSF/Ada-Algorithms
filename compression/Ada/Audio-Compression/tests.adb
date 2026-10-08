@@ -5,6 +5,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Audio_Compression; use Audio_Compression;
+with Own_Checks;
 
 procedure Tests is
    Empty_Buffer : constant Buffer_16 (1 .. 0) := (others => 0);
@@ -13,6 +14,7 @@ procedure Tests is
    
    Encoded_Buf, Decoded_Buf : Buffer_16 (1 .. 5);
 begin
+   Own_Checks;
    Put_Line("===========================================");
    Put_Line("STARTING AUDIO COMPRESSION V&V TEST SUITE");
    Put_Line("===========================================");

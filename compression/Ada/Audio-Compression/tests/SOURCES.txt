@@ -1,0 +1,9 @@
+Own checks (own_checks.adb), written for this repository, MIT.
+Reference methods, no third-party text or vectors copied:
+- DPCM: identity property Decode_DPCM (Encode_DPCM (X)) = X on 2,000 Park-Miller
+  (seed 20261008) buffers biased to full-scale values; plain integer differences
+  where they fit in 16 bits.
+- Mu-law / A-law: the continuous companding curves (mu = 255, A = 87.6, as named in
+  the package spec; the general formulas are public-domain textbook mathematics, cf.
+  ITU-T G.711 background) evaluated independently in Long_Float, rounded to nearest,
+  over all 65,536 samples and all 256 codes; monotonicity and odd symmetry.
