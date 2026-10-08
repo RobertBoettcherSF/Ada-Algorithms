@@ -267,16 +267,20 @@ is
    Bit_Top    : constant Outcode := 2#1000#;
 
    function Compute_Outcode (P : Vec2; W : Clip_Window) return Outcode is
+      --  Inclusive within Epsilon, matching Point_Inside_Window. Strict
+      --  comparisons reject a clip point that landed on the boundary within
+      --  float noise and make Cohen_Sutherland disagree with the sampler on
+      --  corner-grazing segments (tests.adb AA_SEED=3 case).
       C : Outcode := 0;
    begin
-      if P.X < W.X_Min then
+      if P.X < W.X_Min - Epsilon then
          C := C or Bit_Left;
-      elsif P.X > W.X_Max then
+      elsif P.X > W.X_Max + Epsilon then
          C := C or Bit_Right;
       end if;
-      if P.Y < W.Y_Min then
+      if P.Y < W.Y_Min - Epsilon then
          C := C or Bit_Bottom;
-      elsif P.Y > W.Y_Max then
+      elsif P.Y > W.Y_Max + Epsilon then
          C := C or Bit_Top;
       end if;
       return C;
