@@ -64,7 +64,7 @@ misc/SPARK2/Ada-SPARK-Car-Pooling,survived,Feasible,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,survived,Compute,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,survived,Is_Sum_Of_Powers_Of_Three,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,survived,Compute,killed,ok,1,,1,0,yes
-misc/SPARK2/Ada-SPARK-Circular-Queue,survived,Enqueue,killed,ok,5,Is_Full,4,0,yes
+misc/SPARK2/Ada-SPARK-Circular-Queue,survived,Enqueue,killed,ok,5,,5,0,yes
 misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,survived,Access_Page,killed,ok,2,,2,0,yes
 misc/SPARK2/Ada-SPARK-Coin-Change-II,survived,Combinations,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Combination-Sum-III,survived,Count_Choices,killed,ok,2,,2,0,yes

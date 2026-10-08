@@ -201,7 +201,7 @@ misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,cheapest_flights_within_k_
 misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,sum_powers_three.adb,Is_Sum_Of_Powers_Of_Three,function,10,True,killed
 misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,checksum_ones_complement.adb,Compute,function,4,default,killed
 misc/SPARK2/Ada-SPARK-Circular-Queue,circular_queue.adb,Initialize,procedure,2,null,killed
-misc/SPARK2/Ada-SPARK-Circular-Queue,circular_queue.adb,Is_Full,function,2,True,survived
+misc/SPARK2/Ada-SPARK-Circular-Queue,circular_queue.adb,Is_Full,function,2,True,killed
 misc/SPARK2/Ada-SPARK-Circular-Queue,circular_queue.adb,Enqueue,procedure,4,null,killed
 misc/SPARK2/Ada-SPARK-Circular-Queue,circular_queue.adb,Dequeue,procedure,4,null,killed
 misc/SPARK2/Ada-SPARK-Circular-Queue,circular_queue.adb,Peek,function,2,default,killed
