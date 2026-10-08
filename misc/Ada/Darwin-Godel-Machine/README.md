@@ -8,9 +8,9 @@
 > those numbers (fitness must rise; Verify_Strict also caps the complexity
 > increase at 50). The only checkable claim, that a candidate is accepted
 > only when the stated check passes and the best such candidate is chosen,
-> is tested in own_checks.adb. Evolve_Preemptive caps its target at
-> Fitness_Value'Last, so near the top of the range it accepts gains smaller
-> than the threshold. A real implementation (archive of agents, mutation of
+> is tested in own_checks.adb. (Evolve_Preemptive used to cap its target at
+> Fitness_Value'Last and accept gains smaller than the threshold near the
+> top of the range; an unreachable target now returns Base.) A real implementation (archive of agents, mutation of
 > an actual program, acceptance by an executable check) is still to do.
 
 This repository contains a robust Ada 2023 implementation of the Darwin-Gödel Machine (DGM) framework for Open-Ended Evolution of Self-Improving Agents based on Arxiv 2505.22954. It implements an architecture where an agent system leverages both Darwinian adaptation (population mutation across an evolving code space) and Gödel verification (rigorous constraints to ensure safety against runaway code bloat or functional regressions). The algorithm evaluates different environmental pressures (static vs dynamic brittleness) and evolution variants to optimize recursive self-improvement safely.

@@ -116,17 +116,19 @@ package body Darwin_Godel_Machine is
          if Verify_Heuristic (Base, Candidates (I), Env) then
             Cand_Eval := Evaluate (Candidates (I), Env);
             
-            -- Prevent overflow when calculating target threshold
+            -- The target Base_Eval + Threshold is computed only when it is
+            -- representable; above Fitness_Value'Last no candidate can
+            -- reach it, so the search ends with Base (no clamping).
             declare
                Base_Eval : constant Fitness_Value := Evaluate (Base, Env);
-               Target    : Fitness_Value;
             begin
-               if Fitness_Value'Last - Base_Eval >= Threshold then
-                  Target := Base_Eval + Threshold;
-               else
-                  Target := Fitness_Value'Last;
+               if Fitness_Value'Last - Base_Eval < Threshold then
+                  return Base;
                end if;
-
+            end;
+            declare
+               Target : constant Fitness_Value := Evaluate (Base, Env) + Threshold;
+            begin
                if Cand_Eval >= Target then
                   declare
                      Result : Agent_State := Candidates (I);
