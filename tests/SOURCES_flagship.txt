@@ -1,0 +1,10 @@
+Sources of expected values in the flagship checks (logic / type inference folders)
+===============================================================================
+All references are own code written for this repository (MIT): brute force,
+certificate checkers and hand-derived expected values. Nothing is taken from
+Rosetta Code, LeetCode, Wikipedia text, or GPL/GFDL material. Per-folder
+details are in <folder>/tests/SOURCES.txt.
+
+misc/Ada/Conflict-Driven-Clause-Learning: truth-table brute force, model
+  certificates, planted-solution formulas, pigeonhole PHP(3,2)/PHP(4,3)
+  (the pigeonhole principle encoding is folklore / public domain).

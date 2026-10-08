@@ -1,0 +1,22 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* SAT / UNSAT: brute force over all 2**N assignments (bit masks), written
+  for this repository; it shares no code with cdcl.adb.
+  - 200 random 3-SAT formulas, 8 .. 11 variables, three distinct variables
+    per clause, M = 4.26 N (odd rounds) or 5.2 N (even rounds), so SAT and
+    UNSAT both occur often; SAT and UNSAT agreement are reported separately.
+  - 200 easy formulas: 1 .. 6 variables, 0 .. 8 clauses of width 1 .. 4,
+    duplicate and complementary literals allowed; reported separately.
+  - Pigeonhole PHP(3,2) and PHP(4,3) (standard textbook encoding: each pigeon
+    in some hole, no two pigeons in one hole), UNSAT.
+* Certificates: every SAT answer's assignment is evaluated on every clause
+  by own_checks' own evaluator (unassigned counts as neither value). Beyond
+  brute force: 12 formulas with 30 .. 120 variables and 4 N clauses built
+  around a hidden assignment (clauses it falsifies get a literal flipped),
+  so UNSAT is always wrong there.
+* All three solver variants (Basic, Restarts with interval 1 .. 6, Clause
+  deletion with Max_Learned 1 .. 6) on every formula. Park-Miller PRNG,
+  seed 20261008.
+* tests.adb: exit status is now nonzero when a check fails (the final
+  pragma Assert is ignored without -gnata).
+Nothing is taken from the program's output or from third-party test suites.
