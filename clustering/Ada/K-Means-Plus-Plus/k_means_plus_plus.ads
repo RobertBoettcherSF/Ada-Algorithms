@@ -246,15 +246,14 @@ is
        and then Data'Length (1) <= Max_Points
        and then Data'Length (2) >= 1
        and then Data'Length (2) <= Max_Dims
-       and then K >= 1
-       and then K <= Max_K
-       and then K <= Data'Length (1),
+       and then K >= 1,
           Global => null,
           Post => Init_Centers_KMeansPP'Result'Length (1) = K
             and then Init_Centers_KMeansPP'Result'Length (2) =
                        Data'Length (2);
    --  Classic k-means++: first center uniform; subsequent centers sampled
-   --  with probability ∝ D(x)².  Uses internal LCG from Seed.
+   --  with probability proportional to D(x)^2.  Uses internal LCG from Seed.
+   --  K > N is not a subtype, so Invalid_Argument is the contract, not a Pre.
 
    function Init_Centers_KMeansPP
      (Data  : Dataset;
@@ -265,8 +264,6 @@ is
        and then Data'Length (2) >= 1
        and then Data'Length (2) <= Max_Dims
        and then K >= 1
-       and then K <= Max_K
-       and then K <= Data'Length (1)
        and then Draws'Length >= K,
           Global => null,
           Post => Init_Centers_KMeansPP'Result'Length (1) = K
@@ -285,8 +282,6 @@ is
        and then Data'Length (2) >= 1
        and then Data'Length (2) <= Max_Dims
        and then K >= 1
-       and then K <= Max_K
-       and then K <= Data'Length (1)
        and then First_Index in Data'Range (1),
           Global => null,
           Post => Init_Centers_Farthest_Point'Result'Length (1) = K
@@ -323,7 +318,6 @@ is
        and then Init'Length (1) >= 1
        and then Init'Length (2) = Data'Length (2)
        and then Params.K = Init'Length (1)
-       and then Params.K <= Max_K
        and then Params.Tol >= 0.0,
           Global => null;
    --  Standard Lloyd / batch k-means from given Init centers.
@@ -342,8 +336,6 @@ is
        and then Data'Length (2) >= 1
        and then Data'Length (2) <= Max_Dims
        and then Params.K >= 1
-       and then Params.K <= Max_K
-       and then Params.K <= Data'Length (1)
        and then Params.Tol >= 0.0,
           Global => null;
    --  Init_Centers_KMeansPP (Params.Seed) then Run_Lloyd.

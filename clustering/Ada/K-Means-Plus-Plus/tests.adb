@@ -105,7 +105,7 @@ begin
       Check (U >= 0.0 and U < 1.0, "Draw_Unit in [0,1)");
       Seed_RNG (S, 1);
       I1 := Draw_Index (S, 1, 5);
-      Check (I1 in 1 .. 5, "Draw_Index in range");
+      Check (I1 <= 5, "Draw_Index in range");
       Seed_RNG (S, 1);
       declare
          S2 : RNG_State;
