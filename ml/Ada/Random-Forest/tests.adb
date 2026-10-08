@@ -1,8 +1,20 @@
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Command_Line;
 with Random_Forest; use Random_Forest;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    Pass_Count : Natural := 0;
    Fail_Count : Natural := 0;
 
@@ -34,6 +46,7 @@ procedure Tests is
    RF_Ext : Regression_Forest (Num_Trees => 5);
 
 begin
+   Random_Forest.Set_Seed (AA_Seed (20261008));
    -- TEST 1 — Train Classification (Standard RF)
    Put_Line ("TEST 1 — Train Classification (Standard RF)");
    CF_Std := Train_Classifier (X_Class, Y_Class, 10, 5, Standard_Random_Forest);
@@ -184,6 +197,33 @@ begin
       Check ("14.1 Tree limit discriminant verified", RF_Std.Num_Trees = 10);
       Check ("14.2 Predict maintains pure global state (no side effects)", True);
       Check ("14.3 Output within bounds", Val > 0.0);
+   end;
+
+   -- TEST 15 — Reproducibility: the same seed gives the same forest
+   Put_Line ("TEST 15 — Reproducibility under Set_Seed");
+   declare
+      Seed : constant Integer := AA_Seed (424242);
+      P1, P2 : Target_Value;
+      C1, C2 : Class_Label;
+   begin
+      Set_Seed (Seed);
+      declare
+         R : constant Regression_Forest := Train_Regressor (X_Reg, Y_Reg, 7, 3, Extra_Trees);
+         C : constant Classification_Forest := Train_Classifier (X_Class, Y_Class, 7, 3, Extra_Trees);
+      begin
+         P1 := Predict_Value (R, [1 => 3.3]);
+         C1 := Predict_Class (C, [0.4, 0.6]);
+      end;
+      Set_Seed (Seed);
+      declare
+         R : constant Regression_Forest := Train_Regressor (X_Reg, Y_Reg, 7, 3, Extra_Trees);
+         C : constant Classification_Forest := Train_Classifier (X_Class, Y_Class, 7, 3, Extra_Trees);
+      begin
+         P2 := Predict_Value (R, [1 => 3.3]);
+         C2 := Predict_Class (C, [0.4, 0.6]);
+      end;
+      Check ("15.1 Same seed, same regression prediction", P1 = P2);
+      Check ("15.2 Same seed, same class prediction", C1 = C2);
    end;
 
    Put_Line ("");
