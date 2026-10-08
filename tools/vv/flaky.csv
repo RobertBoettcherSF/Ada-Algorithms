@@ -1,0 +1,83 @@
+folder,compiler,runs,passes,fails,timeouts,distinct_outputs,repeat_ok,output_varies,seeds_tried,seeds_failed,failing_seeds,init_scalars_ok,flaky,first_fail_excerpt,note
+concurrency/Ada/Dekker,GNATMAKE 14.2.0,10,0,10,0,1,yes,no,n/a,n/a,,n/a,no,exit 2,init: no test main
+concurrency/Ada/Lamport-Ordering,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+concurrency/Ada/Vector-Clocks,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+concurrency/Ada/lamport,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+concurrency/Ada/lds-scheduler,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+concurrency/Ada/mlfq,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+concurrency/Ada/peterson,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+concurrency/Ada/sjn,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+cryptography/Ada/RC4,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,n/a,no,,init: baseline -gnata build nobuild: rc4.adb:86:04: error: incorrect application of SPARK_Mode at line 2 rc4.adb:86:04: error: value Off was set for SPARK_Mo
+cryptography/Ada/Shamirs-Secret-Sharing,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,n/a,no,,init: baseline -gnata build fail: TEST 12 — Error on Duplicate Shares
+geometry/Ada/Dithering,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+graphs/Ada/subgraph-isomorphism,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,no make test: gnatmake test main
+hashing/Ada/Zobrist-Hashing,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+logic/Ada/Davis-Putnam,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Adaptive-Additive-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Aharonov-Jones-Landau-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,n/a,no,,init: baseline -gnata build fail: raised ADA.ASSERTIONS.ASSERTION_ERROR : Dynamic_Predicate failed at tests.adb:109
+misc/Ada/Amplitude-Amplification,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/Ada/BHT-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,n/a,no,,init: baseline -gnata build fail: TEST 8 -- Error Handling: Invalid Domain Constraints (N=1)
+misc/Ada/Bankers-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Block-Nested-Loop,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Bootstrap-Aggregating,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,n/a,no,,init: baseline -gnata build fail: FAIL -- 7.1 Incorrect exception raised
+misc/Ada/Buddy-Memory-Allocation,GNATMAKE 14.2.0,10,0,10,0,1,yes,no,n/a,n/a,,n/a,no,Assumption: Different-sized buddies (8 and 4) fail to merge into 12.,init: baseline -gnata build fail: Assumption: Different-sized buddies (8 and 4) fail to merge into 12.
+misc/Ada/Bully-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Cheneys-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Crank-Nicolson,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,n/a,no,,init: baseline -gnata build fail: === 1. Near / Abs_Error / Vec_Near / L2 / Max_Error ===
+misc/Ada/Darwin-Godel-Machine,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/Ada/Delivery-Mission-FSM,GNATMAKE 14.2.0,10,0,10,0,1,yes,no,n/a,n/a,,n/a,no,make: *** [Makefile:14: test] Error 4,init: no test main
+misc/Ada/Delivery-Safety-Supervisor,GNATMAKE 14.2.0,10,0,10,0,1,yes,no,n/a,n/a,,n/a,no,make: *** [Makefile:14: test] Error 4,init: no test main
+misc/Ada/Delta-Encoding,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Deutsch-Josza-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,n/a,no,,init: baseline -gnata build fail: raised ADA.ASSERTIONS.ASSERTION_ERROR : failed precondition from deutsch_jozsa.ads:28
+misc/Ada/Elevator-Algorithm,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+misc/Ada/Entropy-Coding-With-Known-Entropy-Characteristics,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Exponential-Backoff,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/Ada/Fictitious-Play,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/Ada/Fletchers-Checksum,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Fortunes-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Incremental-Encoding,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Lempel-Ziv-Storer-Szymanski,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/List-Scheduling,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+misc/Ada/Locomotion-Mode-Interlock,GNATMAKE 14.2.0,10,0,10,0,1,yes,no,n/a,n/a,,n/a,no,make: *** [Makefile:14: test] Error 4,init: no test main
+misc/Ada/Luleas-Algorithm,GNATMAKE 14.2.0,10,0,10,0,1,yes,no,n/a,n/a,,n/a,no,"lulea_algorithm.ads:56:21: error: component ""Prefix"" cannot be used before end of record declaration","init: baseline -gnata build nobuild: ror: unconstrained subtype in component declaration lulea_algorithm.ads:249:20: error: formal parameter ""Prefix"" cannot "
+misc/Ada/Maekawas-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Mark-Compact-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Mark-and-Sweep,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/NEF-Adaptive-OSC,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/NEF-Neurorobotics-Core,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Nagles-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Nesting-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Photon-Mapping,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Quantum-Artificial-Life,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,n/a,no,,init: baseline -gnata build fail: raised ADA.ASSERTIONS.ASSERTION_ERROR : failed precondition from quantum_artificial_life.ads:52
+misc/Ada/Richardson-Lucy-Deconvolution,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Scale-Invariant-Feature-Transform,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Schensted,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/Secret-Sharing,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/Ada/State-Action-Reward-State-Action,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,n/a,no,,init: baseline -gnata build fail: TEST 4 — Calculate TD Error
+misc/Ada/Swap-Test,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,n/a,no,,init: baseline -gnata build fail: raised ADA.ASSERTIONS.ASSERTION_ERROR : failed precondition from swap_test.ads:47
+misc/Ada/Truncated-Binary-Exponential-Backoff,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/Ada/VEGAS-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/Ada/Variational-Quantum-Eigensolver,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/Ada/clock-replacement,GNATMAKE 14.2.0,10,0,10,0,1,yes,no,n/a,n/a,,n/a,no,exit 2,init: no test main
+misc/Ada/docs,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+misc/Ada/earliest-deadline,GNATMAKE 14.2.0,10,0,10,0,1,yes,no,n/a,n/a,,n/a,no,exit 2,init: no test main
+misc/Ada/fair-share,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/Ada/page-replacement-algorithms,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,no make test: gnatmake test main
+misc/Ada/rate-monotonic,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+misc/Ada/round-robin,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+misc/Ada/scripts,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+misc/Ada/srt-simulation,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+misc/SPARK2/Ada-SPARK-Partition-List,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/SPARK2/Ada-SPARK-Rotate-List,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+misc/SPARK4/Ada-SPARK-Shortest-Seek-First,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+misc/SPARK4/demo,GNATMAKE 14.2.0,0,0,0,0,0,,,n/a,n/a,,n/a,no,,no test target and no test main; init: no test main
+ml/Ada/Backpropagation,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,n/a,no,,init: baseline -gnata build nobuild: backpropagation.adb:53:04: error: incorrect application of SPARK_Mode at line 5 backpropagation.adb:53:04: error: value 
+ml/Ada/Neural-Network,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+ml/Ada/Random-Forest,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
+ml/Ada/Winnow-Algorithm,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+numerical/Ada/Fermat-Primality-Test,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+numerical/Ada/Pareto-Interpolation,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,n/a,n/a,,yes,no,,
+sorting/SPARK4/Ada-SPARK-Counting-Sort,GNATMAKE 14.2.0,1,0,0,1,1,yes,no,,,,n/a,no,timeout,"timed out once, not repeated (slow, not flaky); init: baseline -gnata build timeout: timeout"
+strings/Ada/Karplus-Strong-String-Synthesis,GNATMAKE 14.2.0,10,10,0,0,1,yes,no,30,0,,yes,no,,
