@@ -33,23 +33,6 @@ procedure Own_Checks is
       end if;
    end Report;
 
-   --  Own reference: straight insertion sort.
-   type IArr is array (Positive range <>) of Integer;
-   procedure Ins_Sort (A : in out IArr) is
-      T : Integer;
-      J : Positive;
-   begin
-      for I in A'First + 1 .. A'Last loop
-         T := A (I);
-         J := I;
-         while J > A'First and then A (J - 1) > T loop
-            A (J) := A (J - 1);
-            J := J - 1;
-         end loop;
-         A (J) := T;
-      end loop;
-   end Ins_Sort;
-   pragma Warnings (Off, Ins_Sort);
 
    procedure Check_One (A : Int_Array; Label : String) is
       type Counts is array (Value) of Natural;

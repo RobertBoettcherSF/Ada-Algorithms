@@ -16,7 +16,6 @@ procedure Own_Checks is
       return Integer (Long_Long_Integer (Lo)
                       + Seed mod (Long_Long_Integer (Hi) - Long_Long_Integer (Lo) + 1));
    end Next;
-   pragma Warnings (Off, Next);
 
    procedure Report (Ok : Boolean; Label : String) is
    begin
@@ -29,23 +28,6 @@ procedure Own_Checks is
       end if;
    end Report;
 
-   --  Own reference: straight insertion sort.
-   type IArr is array (Positive range <>) of Integer;
-   procedure Ins_Sort (A : in out IArr) is
-      T : Integer;
-      J : Positive;
-   begin
-      for I in A'First + 1 .. A'Last loop
-         T := A (I);
-         J := I;
-         while J > A'First and then A (J - 1) > T loop
-            A (J) := A (J - 1);
-            J := J - 1;
-         end loop;
-         A (J) := T;
-      end loop;
-   end Ins_Sort;
-   pragma Warnings (Off, Ins_Sort);
 
    Max_Nodes : constant := 15;
    type Kids is array (0 .. Max_Nodes) of Natural;
@@ -92,21 +74,6 @@ procedure Own_Checks is
    --  own references
    function Ref_Sum (N : Natural) return Long_Long_Integer is
      (if N = 0 then 0 else Long_Long_Integer (Vals (N)) + Ref_Sum (Lefts (N)) + Ref_Sum (Rights (N)));
-   function Ref_Height (N : Natural) return Natural is      --  nodes on the longest downward path
-     (if N = 0 then 0 else 1 + Natural'Max (Ref_Height (Lefts (N)), Ref_Height (Rights (N))));
-   function Ref_Min (N : Natural) return Natural is         --  nodes on the shortest root-to-leaf path
-     (if Lefts (N) = 0 and then Rights (N) = 0 then 1
-      elsif Lefts (N) = 0 then 1 + Ref_Min (Rights (N))
-      elsif Rights (N) = 0 then 1 + Ref_Min (Lefts (N))
-      else 1 + Natural'Min (Ref_Min (Lefts (N)), Ref_Min (Rights (N))));
-   function Ref_Diam_Edges (N : Natural) return Natural is  --  edges on the longest path between two nodes
-     (if N = 0 then 0
-      else Natural'Max (Ref_Height (Lefts (N)) + Ref_Height (Rights (N)),
-                        Natural'Max (Ref_Diam_Edges (Lefts (N)), Ref_Diam_Edges (Rights (N)))));
-   pragma Warnings (Off, Ref_Sum);
-   pragma Warnings (Off, Ref_Height);
-   pragma Warnings (Off, Ref_Min);
-   pragma Warnings (Off, Ref_Diam_Edges);
 begin
    Report (Inorder_Sum (Empty, 0) = 0, "empty tree");
    for K in 1 .. 4_000 loop

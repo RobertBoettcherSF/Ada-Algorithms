@@ -44,7 +44,6 @@ procedure Own_Checks is
          A (J) := T;
       end loop;
    end Ins_Sort;
-   pragma Warnings (Off, Ins_Sort);
 
    procedure Check_One (N : Length_Type; Hi : Value; Label : String) is
       X : IArr (1 .. N);

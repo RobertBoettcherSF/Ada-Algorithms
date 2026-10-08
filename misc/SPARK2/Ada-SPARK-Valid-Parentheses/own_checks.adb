@@ -9,14 +9,6 @@ procedure Own_Checks is
    Cases    : Natural := 0;
 
    --  Park-Miller "minimal standard" generator (x := 16807 x mod (2**31 - 1)).
-   Seed : Long_Long_Integer := 20_261_008;
-   function Next (Lo, Hi : Integer) return Integer is
-   begin
-      Seed := (Seed * 16_807) mod 2_147_483_647;
-      return Integer (Long_Long_Integer (Lo)
-                      + Seed mod (Long_Long_Integer (Hi) - Long_Long_Integer (Lo) + 1));
-   end Next;
-   pragma Warnings (Off, Next);
 
    procedure Report (Ok : Boolean; Label : String) is
    begin
@@ -29,23 +21,6 @@ procedure Own_Checks is
       end if;
    end Report;
 
-   --  Own reference: straight insertion sort.
-   type IArr is array (Positive range <>) of Integer;
-   procedure Ins_Sort (A : in out IArr) is
-      T : Integer;
-      J : Positive;
-   begin
-      for I in A'First + 1 .. A'Last loop
-         T := A (I);
-         J := I;
-         while J > A'First and then A (J - 1) > T loop
-            A (J) := A (J - 1);
-            J := J - 1;
-         end loop;
-         A (J) := T;
-      end loop;
-   end Ins_Sort;
-   pragma Warnings (Off, Ins_Sort);
    Sym : constant String := "()[]{}";
    X : Text_Array;
    function Ref return Boolean is

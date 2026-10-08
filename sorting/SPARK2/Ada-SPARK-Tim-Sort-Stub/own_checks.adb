@@ -44,7 +44,6 @@ procedure Own_Checks is
          A (J) := T;
       end loop;
    end Ins_Sort;
-   pragma Warnings (Off, Ins_Sort);
 
    procedure Check_One (First : Positive; N : Natural; Lo, Hi : Integer; Label : String) is
       A : Value_Array (First .. First + N - 1);

@@ -17,7 +17,6 @@ procedure Own_Checks is
       return Integer (Long_Long_Integer (Lo)
                       + Seed mod (Long_Long_Integer (Hi) - Long_Long_Integer (Lo) + 1));
    end Next;
-   pragma Warnings (Off, Next);
 
    procedure Report (Ok : Boolean; Label : String) is
    begin
@@ -30,23 +29,6 @@ procedure Own_Checks is
       end if;
    end Report;
 
-   --  Own reference: straight insertion sort.
-   type IArr is array (Positive range <>) of Integer;
-   procedure Ins_Sort (A : in out IArr) is
-      T : Integer;
-      J : Positive;
-   begin
-      for I in A'First + 1 .. A'Last loop
-         T := A (I);
-         J := I;
-         while J > A'First and then A (J - 1) > T loop
-            A (J) := A (J - 1);
-            J := J - 1;
-         end loop;
-         A (J) := T;
-      end loop;
-   end Ins_Sort;
-   pragma Warnings (Off, Ins_Sort);
 
    S : Text := [others => '0'];
    N : Length_Type;

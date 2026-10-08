@@ -44,7 +44,6 @@ procedure Own_Checks is
          A (J) := T;
       end loop;
    end Ins_Sort;
-   pragma Warnings (Off, Ins_Sort);
 
    procedure Check_One (NA, NB : Count; Lo, Hi : Integer; Label : String) is
       A, B : List := Empty;

@@ -16,7 +16,6 @@ procedure Own_Checks is
       return Integer (Long_Long_Integer (Lo)
                       + Seed mod (Long_Long_Integer (Hi) - Long_Long_Integer (Lo) + 1));
    end Next;
-   pragma Warnings (Off, Next);
 
    procedure Report (Ok : Boolean; Label : String) is
    begin
@@ -45,7 +44,6 @@ procedure Own_Checks is
          A (J) := T;
       end loop;
    end Ins_Sort;
-   pragma Warnings (Off, Ins_Sort);
 
    G : Matrix;
    E : IArr (1 .. Rows * Cols);
