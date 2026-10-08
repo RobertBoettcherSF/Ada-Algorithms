@@ -43,7 +43,7 @@ Heap `access` terms blocked SPARK analysis. The redesign uses a **bounded term s
 ## Usage
 
 ```bash
-source /home/box/deps/spark/env.sh   # if needed for gnatprove
+# put gnatprove on PATH (e.g. Alire: alr get gnatprove)
 make test    # zero-warning build (-gnatwa -gnat2022 -gnata) + run suite
 make prove   # GNATprove Level 2, CVC5, warnings/checks as errors
 ```

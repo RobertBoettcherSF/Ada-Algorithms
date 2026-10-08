@@ -23,7 +23,7 @@ make check          # or: bash scripts/open-checks.sh
 `Studio_Probe.Abs_Diff` — absolute difference of two bounded integers, SPARK_Mode On, with V&V tests and GNATprove Level 2 (`cvc5`, warnings/checks as errors).
 
 ```bash
-source /home/box/deps/spark/env.sh   # adjust to your install
+# put gnatprove on PATH (e.g. Alire: alr get gnatprove)
 make test
 make prove
 ```

@@ -30,7 +30,7 @@ make test    # -gnatwa -gnat2022 -gnata
 make prove   # level 2, cvc5, --warnings=error --checks-as-errors=on
 ```
 
-`make prove` sources `/home/box/deps/spark/env.sh` (or put `gnatprove` on `PATH`).
+`make prove` needs `gnatprove` on `PATH` (e.g. via Alire: `alr get gnatprove`).
 
 ## LLM disclosure
 

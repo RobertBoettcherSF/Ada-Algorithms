@@ -25,7 +25,7 @@ make test
 make prove   # level 2, cvc5, warnings/checks as errors
 ```
 
-`make prove` sources `/home/box/deps/spark/env.sh` (or put `gnatprove` on `PATH`).
+`make prove` needs `gnatprove` on `PATH` (e.g. via Alire: `alr get gnatprove`).
 
 ## LLM disclosure
 

@@ -15,7 +15,7 @@ This sheet is an independent clean-room educational exercise from public CRDT li
 
 ## Verification (measured)
 
-Last successful local run (`source /home/box/deps/spark/env.sh && make prove`):
+Last successful local run (`make prove` with gnatprove on PATH):
 
 - GNATprove **Level 2**, prover `cvc5`, `--warnings=error`, `--checks-as-errors=on`
 - **23 / 23** checks proved (0 unproved; flow + CVC5)

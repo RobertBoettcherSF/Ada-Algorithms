@@ -18,7 +18,7 @@ Speckle-adjacent note: a fixed $3\times3$ median is a classical impulse/speckle 
 ## Usage
 
 ```sh
-source /home/box/deps/spark/env.sh   # where GNATprove is installed
+# put gnatprove on PATH (e.g. Alire: alr get gnatprove)
 make test
 make prove
 ```

@@ -14,7 +14,6 @@ test:
 
 prove:
 	mkdir -p obj
-	. /home/box/deps/spark/env.sh && \
 	  $(GNATPROVE) -P $(PROOF) --mode=all --level=2 --prover=cvc5 \
 	    --warnings=error --checks-as-errors=on
 
