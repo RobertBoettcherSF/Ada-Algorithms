@@ -1,0 +1,18 @@
+folder,mutant,method,range_or_reason
+misc/SPARK2/Ada-SPARK-House-Robber-II,house_robber_ii.adb:8 + -> - (A (5) + E2 -> A (5) - E2),exhaustive,"all 21**6 = 85,766,121 inputs (every house 0 .. 20): original and mutant agree on every input"
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb:6 - -> + (Result'Last - Right -> Result'Last + Right),exhaustive,whole Input range 0 .. 32 (33 inputs): agree on every input
+misc/SPARK2/Ada-SPARK-N-th-Tribonacci,n_th_tribonacci.adb:6 > -> >= (Left > Result'Last - Right -> >=),exhaustive,whole Input range 0 .. 32 (33 inputs): agree on every input
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb:6 - -> +,exhaustive,whole Input range 0 .. 32 (33 inputs): agree on every input
+misc/SPARK2/Ada-SPARK-Tribonacci-Number,tribonacci_number.adb:6 > -> >=,exhaustive,whole Input range 0 .. 32 (33 inputs): agree on every input
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb:6 - -> +,exhaustive,whole Input range 0 .. 10 (11 inputs): agree on every input
+misc/SPARK2/Ada-SPARK-Fibonacci-DP,fibonacci_dp.adb:6 > -> >=,exhaustive,whole Input range 0 .. 10 (11 inputs): agree on every input
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb:6 - -> +,exhaustive,whole domain Row_Index x Row_Index (33 x 33 = 1089 inputs): agree on every input
+misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,pascal_triangle_ii.adb:6 > -> >=,exhaustive,whole domain Row_Index x Row_Index (1089 inputs): agree on every input
+misc/SPARK2/Ada-SPARK-Smallest-Integer-Divisible-By-K,smallest_integer_divisible_by_k.adb:8 + -> - (Remainder * 10 + 1 -> Remainder * 10 - 1),exhaustive,whole Divisor range 1 .. 50 (50 inputs): agree on every input
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:12 < -> <= (Clamp_Row: R < First -> R <= First),reason,"at R = First both branches return Row_Index'First = R, so the result is the same for every R"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:14 > -> >= (Clamp_Row: R > Last -> R >= Last),reason,"at R = Last both branches return Row_Index'Last = R"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:25 < -> <= (Clamp_Col),reason,"at C = First both branches return Col_Index'First = C"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:27 > -> >= (Clamp_Col),reason,"at C = Last both branches return Col_Index'Last = C"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:43 > -> >= (Bubble_Sort swap on equal),reason,"swapping two equal values leaves the window unchanged; the pass count is fixed (8 passes, early exit only when nothing was swapped, and with >= a pass that swaps equal values just continues), so W (5) is still the 5th smallest"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:61 + -> - (R + DR -> R - DR),reason,"Median_At samples all nine (DR, DC) in -1 .. 1; negating DR permutes the nine samples, and the median of a multiset does not depend on order"
+misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb:61 + -> - (C + DC -> C - DC),reason,"same as above for DC: a permutation of the nine window samples"
