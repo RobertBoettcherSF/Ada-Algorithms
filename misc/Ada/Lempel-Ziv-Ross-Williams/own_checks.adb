@@ -39,6 +39,7 @@ begin
       begin
          for I in X'Range loop X (I) := Stream_Element (Next (Alpha)); end loop;
          Round_Trip (X, "index 1 ..");
+         if N > 0 then   --  an empty range at the limits cannot be written without overflow
          declare
             Low : Stream_Element_Array (Stream_Element_Offset'First .. Stream_Element_Offset'First + X'Length - 1);
             High : Stream_Element_Array (Stream_Element_Offset'Last - X'Length + 1 .. Stream_Element_Offset'Last);
@@ -47,6 +48,7 @@ begin
             Round_Trip (Low, "index from Stream_Element_Offset'First");
             Round_Trip (High, "index up to Stream_Element_Offset'Last");
          end;
+         end if;
       end;
    end loop;
    Ada.Text_IO.Put_Line ("PASS own checks:" & Natural'Image (Runs) & " round trips (own property)");

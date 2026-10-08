@@ -6,7 +6,9 @@ package body LZRW is
       return Input_Size * 2 + 10;
    end Max_Compressed_Size;
 
-   procedure Compress 
+   --  Works on arrays indexed from 1; Compress below slides any other index range
+   --  to 1 .. Length first, so index arithmetic cannot overflow near the limits.
+   procedure Compress_From_1 
      (Input       : in Stream_Element_Array;
       Output      : out Stream_Element_Array;
       Output_Size : out Natural;
@@ -78,9 +80,25 @@ package body LZRW is
       end case;
 
       Output_Size := Natural (Out_Idx - Output'First);
+   end Compress_From_1;
+
+   procedure Compress
+     (Input       : in Stream_Element_Array;
+      Output      : out Stream_Element_Array;
+      Output_Size : out Natural;
+      Variant     : in LZRW_Variant := LZRW1)
+   is
+      In_1  : constant Stream_Element_Array (1 .. Input'Length) := Input;
+      Out_1 : Stream_Element_Array (1 .. Output'Length);
+   begin
+      Compress_From_1 (In_1, Out_1, Output_Size, Variant);
+      Output (Output'First .. Output'First + Stream_Element_Offset (Output_Size) - 1) :=
+        Out_1 (1 .. Stream_Element_Offset (Output_Size));
    end Compress;
 
-   procedure Decompress 
+   --  Works on arrays indexed from 1; Decompress below slides any other index range
+   --  to 1 .. Length first, so index arithmetic cannot overflow near the limits.
+   procedure Decompress_From_1 
      (Input       : in Stream_Element_Array;
       Output      : out Stream_Element_Array;
       Output_Size : out Natural;
@@ -142,6 +160,20 @@ package body LZRW is
       end case;
 
       Output_Size := Natural (Out_Idx - Output'First);
+   end Decompress_From_1;
+
+   procedure Decompress
+     (Input       : in Stream_Element_Array;
+      Output      : out Stream_Element_Array;
+      Output_Size : out Natural;
+      Variant     : in LZRW_Variant := LZRW1)
+   is
+      In_1  : constant Stream_Element_Array (1 .. Input'Length) := Input;
+      Out_1 : Stream_Element_Array (1 .. Output'Length);
+   begin
+      Decompress_From_1 (In_1, Out_1, Output_Size, Variant);
+      Output (Output'First .. Output'First + Stream_Element_Offset (Output_Size) - 1) :=
+        Out_1 (1 .. Stream_Element_Offset (Output_Size));
    end Decompress;
 
 end LZRW;

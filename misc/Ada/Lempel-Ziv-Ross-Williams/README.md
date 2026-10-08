@@ -24,3 +24,8 @@ The codebase utilizes a `gnatmake` config and handles all structural compilation
 
 ```bash
 make all
+
+`Compress` and `Decompress` accept arrays with any index range, including
+those starting at `Stream_Element_Offset'First`, which is the range a
+positional aggregate such as `(65, 66, 67)` gets. They copy the data to
+1-based buffers first, so their index arithmetic cannot overflow.
