@@ -294,3 +294,77 @@ sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-36,pigeonhole_sort.adb,148,con
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-37,pigeonhole_sort.adb,28,constant 0 -> 1,"(if H = 0 then 0 else Sum_Below (C, H - 1) + C (H - 1))","(if H = 0 then 1 else Sum_Below (C, H - 1) + C (H - 1))",killed
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-38,pigeonhole_sort.adb,252,delete statement,"H := Hole_Index (Rel (A (I), Min_Val));",null;,killed
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,alt-held-39,pigeonhole_sort.adb,81+131,- 1 -> - 0 + >= -> >,"Lemma_Mono (C, H1, H2 - 1); || and then A'Length >= 2","Lemma_Mono (C, H1, H2 - 0); || and then A'Length > 2",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-0,comb_sort.adb,81,>= -> >,and then A'Length >= 2,and then A'Length > 2,survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-1,comb_sort.adb,20,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-2,comb_sort.adb,123,- 1 -> - 0,for I in 1 .. Bound - 1 loop,for I in 1 .. Bound - 0 loop,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-3,comb_sort.adb,44,>= -> >,and then Lo_P >= 1,and then Lo_P > 1,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-4,comb_sort.adb,26,>= -> >,and then L >= 1,and then L > 1,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-5,comb_sort.adb,44,and then -> or else,and then Lo_P >= 1,or else Lo_P >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-6,comb_sort.adb,192,or else -> and then,if not Swapped or else Bound = 2 then,if not Swapped and then Bound = 2 then,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-7,comb_sort.adb,109,>= -> >,and then A'Last >= 2,and then A'Last > 2,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-8,comb_sort.adb,36,or else -> and then,or else,and then,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-9,comb_sort.adb,46,and then -> or else,and then Lo_S >= 1,or else Lo_S >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-10,comb_sort.adb,90,> -> >=,if A (I) > A (I + Gap) then,if A (I) >= A (I + Gap) then,survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-11,comb_sort.adb,111,+ 1 -> + 0,"and then Sorted_Slice (A, Bound + 1, A'Last)","and then Sorted_Slice (A, Bound + 0, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-12,comb_sort.adb,111,+ -> -,"and then Sorted_Slice (A, Bound + 1, A'Last)","and then Sorted_Slice (A, Bound - 1, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-13,comb_sort.adb,55,and then -> or else,"and then Y in 1 .. A'Last,","or else Y in 1 .. A'Last,",stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-14,comb_sort.adb,20,or else -> and then,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-15,comb_sort.adb,201,- -> +,Bound := Bound - 1;,Bound := Bound + 1;,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-16,comb_sort.adb,58,= -> /=,and then A (X) = A'Old (Y),and then A (X) /= A'Old (Y),killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-17,comb_sort.adb,19,>= -> >,(L >= R,(L > R,survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-18,comb_sort.adb,54,and then -> or else,and then X in 1 .. A'Last,or else X in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-19,comb_sort.adb,34,< -> <=,(Hi_P < Lo_P,(Hi_P <= Lo_P,survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-20,comb_sort.adb,81,and then -> or else,and then A'Length >= 2,or else A'Length >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-21,comb_sort.adb,86,- -> +,for I in 1 .. A'Last - Gap loop,for I in 1 .. A'Last + Gap loop,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-22,comb_sort.adb,135,+ 1 -> + 0,if A (I) > A (I + 1) then,if A (I) > A (I + 0) then,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-23,comb_sort.adb,180,> -> >=,if Gap > 1 then,if Gap >= 1 then,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-24,comb_sort.adb,60,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-25,comb_sort.adb,59,= -> /=,and then A (Y) = A'Old (X),and then A (Y) /= A'Old (X),killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-26,comb_sort.adb,20,+ -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-27,comb_sort.adb,47,and then -> or else,and then Hi_S <= A'Last;,or else Hi_S <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-28,comb_sort.adb,117,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-29,comb_sort.adb,184,> -> >=,if Gap > 1 then,if Gap >= 1 then,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-30,comb_sort.adb,109,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-31,comb_sort.adb,47,<= -> <,and then Hi_S <= A'Last;,and then Hi_S < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-32,comb_sort.adb,62,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K = Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,std-held-33,comb_sort.adb,110,and then -> or else,and then Bound in 2 .. A'Last,or else Bound in 2 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-0,comb_sort.adb,27+54,and then -> or else + and then -> or else,and then R <= A'Last; || and then X in 1 .. A'Last,or else R <= A'Last; || or else X in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-1,comb_sort.adb,69,delete statement,T     := A (X);,null;,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-2,comb_sort.adb,201+110,- -> + + and then -> or else,Bound := Bound - 1; || and then Bound in 2 .. A'Last,Bound := Bound + 1; || or else Bound in 2 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-3,comb_sort.adb,167,delete statement,Gap   := A'Last;,null;,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-4,comb_sort.adb,112,constant 1 -> 2,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","and then Prefix_Leq_Suffix (A, 2, Bound, Bound + 1, A'Last),",survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-5,comb_sort.adb,55+123,and then -> or else + - -> +,"and then Y in 1 .. A'Last, || for I in 1 .. Bound - 1 loop","or else Y in 1 .. A'Last, || for I in 1 .. Bound + 1 loop",stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-6,comb_sort.adb,109,constant 2 -> 0,and then A'Last >= 2,and then A'Last >= 0,survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-7,comb_sort.adb,136,constant 1 -> 2,"Swap (A, I, I + 1);","Swap (A, I, I + 2);",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-8,comb_sort.adb,123+62,- -> + + /= -> =,for I in 1 .. Bound - 1 loop || (if K /= X and then K /= Y then A (K) = A'Old (K))),for I in 1 .. Bound + 1 loop || (if K /= X and then K = Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-9,comb_sort.adb,111+116,+ -> - + and then -> or else,"and then Sorted_Slice (A, Bound + 1, A'Last) || and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","and then Sorted_Slice (A, Bound - 1, A'Last) || or else Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-10,comb_sort.adb,112+38,+ 1 -> + 0 + <= -> <,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last), || (for all L in Lo_S .. Hi_S => A (K) <= A (L))))","and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 0, A'Last), || (for all L in Lo_S .. Hi_S => A (K) < A (L))))",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-11,comb_sort.adb,110,constant 2 -> 3,and then Bound in 2 .. A'Last,and then Bound in 3 .. A'Last,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-12,comb_sort.adb,81+158,and then -> or else + <= -> <,and then A'Length >= 2 || if A'Length <= 1 then,or else A'Length >= 2 || if A'Length < 1 then,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-13,comb_sort.adb,26,constant 1 -> 0,and then L >= 1,and then L >= 0,survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-14,comb_sort.adb,123,constant 1 -> 2,for I in 1 .. Bound - 1 loop,for I in 1 .. Bound - 2 loop,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-15,comb_sort.adb,116,constant 1 -> 2,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","and then Prefix_Leq_Suffix (A, 2, Bound - 1, Bound, A'Last)",survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-16,comb_sort.adb,110,constant 2 -> 1,and then Bound in 2 .. A'Last,and then Bound in 1 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-17,comb_sort.adb,111+181,and then -> or else + * -> +,"and then Sorted_Slice (A, Bound + 1, A'Last) || Gap := (Gap * Shrink_Num) / Shrink_Den;","or else Sorted_Slice (A, Bound + 1, A'Last) || Gap := (Gap + Shrink_Num) / Shrink_Den;",stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-18,comb_sort.adb,112,constant 1 -> 0,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","and then Prefix_Leq_Suffix (A, 0, Bound, Bound + 1, A'Last),",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-19,comb_sort.adb,137,delete statement,Swapped := True;,null;,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-20,comb_sort.adb,44,constant 1 -> 2,and then Lo_P >= 1,and then Lo_P >= 2,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-21,comb_sort.adb,109,constant 2 -> 3,and then A'Last >= 2,and then A'Last >= 3,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-22,comb_sort.adb,90+136,> -> >= + + 1 -> + 0,"if A (I) > A (I + Gap) then || Swap (A, I, I + 1);","if A (I) >= A (I + Gap) then || Swap (A, I, I + 0);",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-23,comb_sort.adb,111+26,+ 1 -> + 0 + >= -> >,"and then Sorted_Slice (A, Bound + 1, A'Last) || and then L >= 1","and then Sorted_Slice (A, Bound + 0, A'Last) || and then L > 1",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-24,comb_sort.adb,47+82,<= -> < + - 1 -> - 0,"and then Hi_S <= A'Last; || and then Gap in 2 .. A'Last - 1,","and then Hi_S < A'Last; || and then Gap in 2 .. A'Last - 0,",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-25,comb_sort.adb,20+180,or else -> and then + > -> >=,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))) || if Gap > 1 then,and then (for all K in L .. R - 1 => A (K) <= A (K + 1))) || if Gap >= 1 then,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-26,comb_sort.adb,110+20,and then -> or else + or else -> and then,and then Bound in 2 .. A'Last || or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else Bound in 2 .. A'Last || and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-27,comb_sort.adb,181,delete statement,Gap := (Gap * Shrink_Num) / Shrink_Den;,null;,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-28,comb_sort.adb,158,constant 1 -> 2,if A'Length <= 1 then,if A'Length <= 2 then,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-29,comb_sort.adb,192+123,or else -> and then + - -> +,if not Swapped or else Bound = 2 then || for I in 1 .. Bound - 1 loop,if not Swapped and then Bound = 2 then || for I in 1 .. Bound + 1 loop,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-30,comb_sort.adb,91+181,+ -> - + * -> +,"Swap (A, I, I + Gap); || Gap := (Gap * Shrink_Num) / Shrink_Den;","Swap (A, I, I - Gap); || Gap := (Gap + Shrink_Num) / Shrink_Den;",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-31,comb_sort.adb,20,constant 1 -> 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-32,comb_sort.adb,116,constant 1 -> 0,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","and then Prefix_Leq_Suffix (A, 0, Bound - 1, Bound, A'Last)",killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-33,comb_sort.adb,54,constant 1 -> 0,and then X in 1 .. A'Last,and then X in 0 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-34,comb_sort.adb,109+90,and then -> or else + > -> >=,and then A'Last >= 2 || if A (I) > A (I + Gap) then,or else A'Last >= 2 || if A (I) >= A (I + Gap) then,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-35,comb_sort.adb,184+109,> -> >= + >= -> >,if Gap > 1 then || and then A'Last >= 2,if Gap >= 1 then || and then A'Last > 2,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-36,comb_sort.adb,112,constant 1 -> 2,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 2, A'Last),",survived
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-37,comb_sort.adb,46+44,and then -> or else + and then -> or else,and then Lo_S >= 1 || and then Lo_P >= 1,or else Lo_S >= 1 || or else Lo_P >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-38,comb_sort.adb,192,constant 2 -> 1,if not Swapped or else Bound = 2 then,if not Swapped or else Bound = 1 then,killed
+sorting/SPARK4/Ada-SPARK-Comb-Sort,alt-held-39,comb_sort.adb,62+90,/= -> = + > -> >=,(if K /= X and then K /= Y then A (K) = A'Old (K))) || if A (I) > A (I + Gap) then,(if K /= X and then K = Y then A (K) = A'Old (K))) || if A (I) >= A (I + Gap) then,killed
