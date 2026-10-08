@@ -21,12 +21,12 @@ procedure Tests is
    -- Concrete Interpretation for testing
    type Test_Interp is new Interpretation with null record;
    
-   --  The interface fixes the formals; these overridings ignore I (and
-   --  the unary ones Arg2), declared with pragma Unreferenced, not by
-   --  switching warnings off.
+   --  The interface fixes the formals; these overridings ignore I
+   --  (pragma Unreferenced, not by switching warnings off) and read
+   --  Arg2.Value only for binary symbols (unary ones get Present = False).
    overriding function Eval_Constant (I : Test_Interp; Name : Character) return Domain_Element;
-   overriding function Eval_Function (I : Test_Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Domain_Element;
-   overriding function Eval_Predicate (I : Test_Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Boolean;
+   overriding function Eval_Function (I : Test_Interp; Name : Character; Arg1 : Domain_Element; Arg2 : Optional_Element) return Domain_Element;
+   overriding function Eval_Predicate (I : Test_Interp; Name : Character; Arg1 : Domain_Element; Arg2 : Optional_Element) return Boolean;
 
    overriding function Eval_Constant (I : Test_Interp; Name : Character) return Domain_Element is
       pragma Unreferenced (I);
@@ -37,21 +37,21 @@ procedure Tests is
                 when others => 1);
    end Eval_Constant;
 
-   overriding function Eval_Function (I : Test_Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Domain_Element is
+   overriding function Eval_Function (I : Test_Interp; Name : Character; Arg1 : Domain_Element; Arg2 : Optional_Element) return Domain_Element is
       pragma Unreferenced (I);
    begin
       return (case Name is
                 when 'f' => (if Arg1 = 3 then 1 else Arg1 + 1), -- Unary: increments mod 3
-                when 'g' => ((Arg1 + Arg2) mod 3) + 1,          -- Binary function
+                when 'g' => ((Arg1 + Arg2.Value) mod 3) + 1,    -- Binary function
                 when others => Arg1);
    end Eval_Function;
 
-   overriding function Eval_Predicate (I : Test_Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Boolean is
+   overriding function Eval_Predicate (I : Test_Interp; Name : Character; Arg1 : Domain_Element; Arg2 : Optional_Element) return Boolean is
       pragma Unreferenced (I);
    begin
       return (case Name is
                 when 'P' => Arg1 = 2,           -- Unary: True if Arg1 == 2
-                when 'G' => Arg1 > Arg2,        -- Binary: Greater than
+                when 'G' => Arg1 > Arg2.Value,  -- Binary: Greater than
                 when others => False);
    end Eval_Predicate;
 

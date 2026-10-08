@@ -34,8 +34,10 @@ procedure Own_Checks is
 
    type Interp is new Interpretation with null record;
    overriding function Eval_Constant (I : Interp; Name : Character) return Domain_Element;
-   overriding function Eval_Function (I : Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Domain_Element;
-   overriding function Eval_Predicate (I : Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Boolean;
+   overriding function Eval_Function (I : Interp; Name : Character; Arg1 : Domain_Element; Arg2 : Optional_Element) return Domain_Element;
+   overriding function Eval_Predicate (I : Interp; Name : Character; Arg1 : Domain_Element; Arg2 : Optional_Element) return Boolean;
+   --  arity seen by the interpretation in the last call (Present of Arg2)
+   Last_Function_Binary, Last_Predicate_Binary : Boolean := False;
    overriding function Eval_Constant (I : Interp; Name : Character) return Domain_Element is
       pragma Unreferenced (I, Name);
    begin
@@ -45,15 +47,17 @@ procedure Own_Checks is
    --  other function symbol returns its first argument
    function H_Table (First, Second : Domain_Element) return Domain_Element is
      (Domain_Element ((Integer (First) + 2 * Integer (Second)) mod 3 + 1));
-   overriding function Eval_Function (I : Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Domain_Element is
+   overriding function Eval_Function (I : Interp; Name : Character; Arg1 : Domain_Element; Arg2 : Optional_Element) return Domain_Element is
       pragma Unreferenced (I);
    begin
-      return (if Name = 'h' then H_Table (Arg1, Arg2) else Arg1);
+      Last_Function_Binary := Arg2.Present;
+      return (if Name = 'h' then H_Table (Arg1, Arg2.Value) else Arg1);
    end Eval_Function;
-   overriding function Eval_Predicate (I : Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Boolean is
+   overriding function Eval_Predicate (I : Interp; Name : Character; Arg1 : Domain_Element; Arg2 : Optional_Element) return Boolean is
       pragma Unreferenced (I);
    begin
-      return (if Name = 'G' then Arg1 > Arg2 else Arg1 = 2);
+      Last_Predicate_Binary := Arg2.Present;
+      return (if Name = 'G' then Arg1 > Arg2.Value else Arg1 = 2);
    end Eval_Predicate;
    I : Interp;
 
@@ -299,6 +303,18 @@ begin
          end loop;
       end loop;
       Put_Line ("own checks: binary function / predicate arguments:" & Pairs'Image & " / 9 pairs");
+      --  arity reaches the interpretation: unary symbols get no second
+      --  argument at all (Optional_Element, Present = False)
+      if Evaluate_Term (Make_Function ('f', Make_Variable ('x')), I, Env) /= Env ('x') or else Last_Function_Binary
+        or else not Evaluate_Formula (Make_Predicate ('T', Make_Constant ('c')), I, Env) or else Last_Predicate_Binary
+      then
+         Fail ("unary symbol received a second argument");
+      end if;
+      if Evaluate_Term (Hxy, I, Env) /= H_Table (Env ('x'), Env ('y')) or else not Last_Function_Binary
+        or else Evaluate_Formula (Gxy, I, Env) /= (Env ('x') > Env ('y')) or else not Last_Predicate_Binary
+      then
+         Fail ("binary symbol did not receive its second argument");
+      end if;
    end;
    if Failures > 0 then
       raise Program_Error with "own checks:" & Failures'Image & " failures";

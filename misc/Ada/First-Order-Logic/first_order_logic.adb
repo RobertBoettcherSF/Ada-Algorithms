@@ -83,12 +83,12 @@ package body First_Order_Logic is
          when Is_Function =>
             declare
                V1 : constant Domain_Element := Evaluate_Term (T.Arg1, Interp, Env);
-               V2 : Domain_Element := 1;
             begin
-               if T.Arg2 /= null then
-                  V2 := Evaluate_Term (T.Arg2, Interp, Env);
+               if T.Arg2 = null then
+                  return Interp.Eval_Function (T.Name, V1, No_Element);
+               else
+                  return Interp.Eval_Function (T.Name, V1, (Present => True, Value => Evaluate_Term (T.Arg2, Interp, Env)));
                end if;
-               return Interp.Eval_Function (T.Name, V1, V2);
             end;
       end case;
    end Evaluate_Term;
@@ -103,12 +103,12 @@ package body First_Order_Logic is
          when Is_Predicate =>
             declare
                V1 : constant Domain_Element := Evaluate_Term (F.Term1, Interp, Env);
-               V2 : Domain_Element := 1;
             begin
-               if F.Term2 /= null then
-                  V2 := Evaluate_Term (F.Term2, Interp, Env);
+               if F.Term2 = null then
+                  return Interp.Eval_Predicate (F.Pred_Name, V1, No_Element);
+               else
+                  return Interp.Eval_Predicate (F.Pred_Name, V1, (Present => True, Value => Evaluate_Term (F.Term2, Interp, Env)));
                end if;
-               return Interp.Eval_Predicate (F.Pred_Name, V1, V2);
             end;
             
          when Is_Equality =>

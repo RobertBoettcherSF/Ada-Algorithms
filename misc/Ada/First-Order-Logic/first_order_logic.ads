@@ -22,15 +22,28 @@ package First_Order_Logic is
      (I    : Interpretation; 
       Name : Character) return Domain_Element is abstract;
       
+   --  Second argument of a function or predicate symbol. A unary symbol
+   --  gets Present = False: there is no placeholder value to read (reading
+   --  Value of an absent argument raises Constraint_Error).
+   type Optional_Element (Present : Boolean := False) is record
+      case Present is
+         when True  => Value : Domain_Element;
+         when False => null;
+      end case;
+   end record;
+   No_Element : constant Optional_Element := (Present => False);
+
    function Eval_Function 
-     (I          : Interpretation; 
-      Name       : Character; 
-      Arg1, Arg2 : Domain_Element) return Domain_Element is abstract;
+     (I    : Interpretation; 
+      Name : Character; 
+      Arg1 : Domain_Element;
+      Arg2 : Optional_Element) return Domain_Element is abstract;
       
    function Eval_Predicate 
-     (I          : Interpretation; 
-      Name       : Character; 
-      Arg1, Arg2 : Domain_Element) return Boolean is abstract;
+     (I    : Interpretation; 
+      Name : Character; 
+      Arg1 : Domain_Element;
+      Arg2 : Optional_Element) return Boolean is abstract;
 
    -----------------------------------------------------------------------------
    --  Terms (Variables, Constants, Functions)
