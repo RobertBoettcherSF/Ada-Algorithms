@@ -492,6 +492,41 @@ begin
             Fail ("cyclic environment raised " & Ada.Exceptions.Exception_Name (E));
       end;
    end;
+   --  Long binding chains built by Unify itself: a -> b -> ... -> t -> k
+   --  (20 bindings, 21 pool nodes). A term always unifies with itself and
+   --  with what it is bound to; Unify must not run out of fuel here.
+   declare
+      Env : Substitution;
+      OK  : Boolean;
+      Ids : array (Character range 'a' .. 't') of Term_Id;
+      Kc  : Term_Id;
+   begin
+      Reset_Pool;
+      Clear (Env);
+      for C in Ids'Range loop
+         Make_Variable (C, Ids (C));
+      end loop;
+      Make_Constant ('k', Kc);
+      for C in Character range 'a' .. 's' loop
+         Unify (Ids (C), Ids (Character'Succ (C)), Env, OK);
+         if not OK then
+            Fail ("building the chain: unifying two fresh variables failed");
+         end if;
+      end loop;
+      Unify (Ids ('t'), Kc, Env, OK);
+      Unify (Ids ('a'), Ids ('a'), Env, OK);
+      if not OK then
+         Fail ("a variable at the head of a 20-binding chain does not unify with itself");
+      end if;
+      Unify (Ids ('a'), Kc, Env, OK);
+      if not OK then
+         Fail ("a variable bound (through 20 bindings) to k does not unify with k");
+      end if;
+      Unify (Ids ('a'), Ids ('t'), Env, OK);
+      if not OK then
+         Fail ("two variables of one chain do not unify");
+      end if;
+   end;
    Put_Line ("own checks: unifiable pairs (ground unifier exists)" & Unifiable_Agree'Image & " /" & Unifiable_Total'Image
      & ", Unify failures" & Fail_Answers'Image & " (no clash or cycle certificate:" & Fail_Unconfirmed'Image
      & "), skipped for pool size" & Space_Skips'Image);
