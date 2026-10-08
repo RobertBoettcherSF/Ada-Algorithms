@@ -5,6 +5,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Mu_Law; use Mu_Law;
+with Own_Checks;
 
 procedure Tests is
 
@@ -17,6 +18,7 @@ procedure Tests is
    end Approx_Equal;
 
 begin
+   Own_Checks;
    Put_Line ("=======================================================");
    Put_Line ("            MU-LAW V&V TEST SUITE RUNNER               ");
    Put_Line ("=======================================================");

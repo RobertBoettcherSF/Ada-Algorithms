@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+===========================================================================
+
+All checks are own properties written for this repository (MIT); nothing
+is copied from the program's output or from third-party test suites.
+tests.adb predates this file.
+
+* own_checks.adb: Decode_Digital must accept every value of its parameter
+  type Mu_Law_8_Bit (-128 .. 127) without an exception, and its result must
+  be non-decreasing in Y (mu-law expansion is monotone).
+* Found by the seeded random-input driver (tools/vv/random_drive.csv):
+  Decode_Digital (-128) raised Constraint_Error at mu_law.adb:89.
