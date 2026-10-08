@@ -1,0 +1,22 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own exhaustive references:
+  - N-Queens (N = 1 .. 9): count over all N! permutations, with the
+    diagonal test only at the leaves. Count_N_Queens must equal it, and
+    Solve_N_Queens must find a valid placement exactly when the count is
+    positive.
+  - Is_Safe_Placement vs an own check on 5000 random placements (some
+    entries out of range).
+  - Subset_Sum and Subset_Sum_Exists vs all 2**n masks (5000 random
+    arrays, n <= 12, values -20 .. 20). Chosen must sum to the target, or
+    be all False on failure.
+  - Color_Graph vs all K**n colourings (3000 random graphs, n <= 7,
+    K <= 4). The colouring must be proper, or all zeros on failure.

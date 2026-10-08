@@ -4,6 +4,7 @@ pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Backtracking; use Backtracking;
+with Own_Checks;
 
 procedure Tests is
 
@@ -737,4 +738,5 @@ begin
       Put_Line ("SOME FAILED");
    end if;
 
+   Own_Checks;
 end Tests;
