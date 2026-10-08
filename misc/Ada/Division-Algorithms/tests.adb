@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Division_Algorithms; use Division_Algorithms;
+with Own_Checks;
 
 procedure Tests is
 
@@ -542,4 +543,5 @@ begin
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
    pragma Assert (Fail_Count = 0);
+   Own_Checks;
 end Tests;

@@ -1,0 +1,18 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_ada_30.txt.)
+
+* Own properties (definition of truncating integer division, as the spec
+  states): N = Q * D + R, |R| < |D|, and R is 0 or has the sign of N. For
+  the unsigned cores: N = Q * D + R with 0 <= R < D.
+* Float methods: within a relative 1e-9 of the machine quotient N / D.
+* Inputs: every signed pair in -128 .. 127 (D /= 0, not -128 / -1) for
+  Restoring and Non_Restoring; every unsigned pair N in 0 .. 255,
+  D in 1 .. 255 (width 8) for the unsigned cores; 20000 random Natural
+  pairs up to 10^9 for Schoolbook; 20000 random float pairs.
