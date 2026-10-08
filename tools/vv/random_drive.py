@@ -88,10 +88,12 @@ def rnd(pkg, typ, disc):
         return f"{t}'Val (Rand_In (Long_Long_Integer ({t}'Pos ({t}'First)), Long_Long_Integer ({t}'Pos ({t}'Last))))"
     return SCAL[typ]
 
+SEED = 20261008   # --seed; the default reproduces tools/vv/random_drive.csv
+
 def driver(pkg, subs):
     lines = ['pragma Ada_2022;', 'with Ada.Text_IO; use Ada.Text_IO;', 'with Ada.Exceptions; use Ada.Exceptions;',
              f'with {pkg};', 'procedure RD_Main is',
-             '   Seed : Long_Long_Integer := 20261008;',
+             f'   Seed : Long_Long_Integer := {SEED};',
              '   function Next (Lo, Hi : Integer) return Integer is',
              '   begin',
              '      Seed := (Seed * 16807) mod 2147483647;',
@@ -211,7 +213,12 @@ def main():
     ap.add_argument('--from-file'); ap.add_argument('-j', type=int, default=4)
     ap.add_argument('--out', default=os.path.join(ROOT, 'tools/vv/random_drive.csv'))
     ap.add_argument('--work'); ap.add_argument('--timeout', type=int, default=20)
+    ap.add_argument('--seed', type=int, default=20261008, help='Park-Miller seed for the generated driver (1 .. 2147483646)')
     a = ap.parse_args()
+    global SEED
+    if not 1 <= a.seed <= 2147483646:
+        ap.error('--seed must be in 1 .. 2147483646')
+    SEED = a.seed
     if a.from_file:
         ids = [l.strip() for l in open(a.from_file) if l.strip() and not l.startswith('#')]
     else:
