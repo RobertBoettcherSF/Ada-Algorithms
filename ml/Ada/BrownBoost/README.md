@@ -13,7 +13,8 @@
 - **Strictly Typed Architecture:** Designed specifically around strong domains (`Value_Type`, `Class_Label`, etc.) to prevent semantic mismatches.
 - **Robust Solver Variants:**
   - `Bisection_Solver`: Derives steps utilizing iterative bisection (similar to JBoost's technique).
-  - `Newton_Solver`: Evaluates constraint differentials and applies iterative 2D Newton-Raphson approximation (as featured in Freund's original theory).
+  - `Newton_Solver`: Evaluates constraint differentials and applies iterative 2D Newton-Raphson approximation (as featured in Freund's original theory), globalised by backtracking on a scaled merit. When no step in the remaining time conserves the potential, Newton stalls; the step then takes the end of the time range that comes closest, with alpha from a bracket-safeguarded 1-D Newton on the orthogonality equation (in the own checks about 4% of rounds per variant are such end steps).
+  - Both solvers use at least 0.0001 of the remaining time per round.
 - **Built-in Weak Learners:** Evaluates and combines multidimensional decision stumps natively without requiring external ML scaffolding.
 - **Memory Constrained:** Exposes pre-allocated ensemble sizes configurable upon invocation to safely operate within constrained devices.
 - **Contract Driven:** Heavy use of Ada preconditions ensuring data dimension matching, variance legality, and robust numeric boundaries.

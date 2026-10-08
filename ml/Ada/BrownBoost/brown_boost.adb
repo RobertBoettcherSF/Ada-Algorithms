@@ -221,50 +221,48 @@ package body Brown_Boost is
          return (if Sc > 0.0 then (R1 / Sc) ** 2 else 1.0) + (R2 / Value_Type'Max (V_Target, 1.0e-300)) ** 2;
       end Scaled_Merit;
 
-      --  orthogonality root in Alpha >= 0 at a fixed U: 1-D Newton on F1
-      --  from Alpha = 0 with backtracking on |F1| / Scale (plain |F1| also
-      --  falls in the tails, where every factor decays, without any root
-      --  being near); F1 (0) <= 0 (no positive
-      --  step helps) gives 0. Where F1 has no finite root the iteration runs
-      --  out at a large Alpha with every factor underflowed.
+      --  orthogonality root in Alpha >= 0 at a fixed U: Newton on F1,
+      --  safeguarded by a bracket [Lo, Hi] with F1 (Lo) > 0 >= F1 (Hi); a
+      --  Newton step that leaves the bracket is replaced by its midpoint.
+      --  F1 (0) <= 0 (no positive step helps) gives 0; F1 > 0 up to 1000
+      --  means no finite root (2048, the Solve_Alpha convention). Plain
+      --  backtracking Newton could stop in the tails, where every factor of
+      --  F1 underflows, at a point that is no root.
       function Alpha_At (U : Value_Type) return Value_Type is
-         A, A_Try, Step, Lam : Value_Type := 0.0;
+         Lo, Hi, A, A_Try : Value_Type := 0.0;
          R1, R2, D1, D2, D3, D4 : Value_Type;
-         T1, T2, T3, T4, T5, T6 : Value_Type;
-         Better : Boolean;
       begin
-         Residuals (A, U, R1, R2, D1, D2, D3, D4);
+         Residuals (0.0, U, R1, R2, D1, D2, D3, D4);
          if R1 <= 0.0 then
             return 0.0;
          end if;
-         for Iter in 1 .. 200 loop
-            exit when abs (R1) <= 1.0e-12 * Scale (A, U);
-            --  the root lies at larger Alpha while F1 > 0 and at smaller
-            --  Alpha after an overshoot; where the slope does not point
-            --  that way (D1 >= 0, e.g. all margins 0 at Alpha = 0) probe
-            --  with a unit step in the right direction
-            Step := (if D1 < 0.0 then -R1 / D1 elsif R1 > 0.0 then 1.0 else -1.0);
-            Lam := 1.0;
-            Better := False;
-            for Halving in 1 .. 60 loop
-               A_Try := Value_Type'Max (A + Lam * Step, 0.0);
-               Residuals (A_Try, U, T1, T2, T3, T4, T5, T6);
-               if abs (T1) / Scale (A_Try, U) < abs (R1) / Scale (A, U) then
-                  Better := True;
-                  exit;
-               end if;
-               Lam := Lam / 2.0;
-            end loop;
-            exit when not Better;
-            A := A_Try;
-            R1 := T1;
-            D1 := T3;
+         Hi := 1.0;
+         loop
+            Residuals (Hi, U, R1, R2, D1, D2, D3, D4);
+            exit when R1 <= 0.0;
+            Lo := Hi;
+            Hi := Hi * 2.0;
+            if Hi > 1000.0 then
+               return 2048.0;
+            end if;
          end loop;
-         if R1 > 0.0 and then abs (R1) > 1.0e-8 * Scale (A, U) then
-            --  F1 stays positive as far as it can be followed: no finite
-            --  root, the step is unbounded (same convention as Solve_Alpha)
-            return 2048.0;
-         end if;
+         A := Lo;
+         Residuals (A, U, R1, R2, D1, D2, D3, D4);
+         for Iter in 1 .. 200 loop
+            A_Try := (if D1 < 0.0 then A - R1 / D1 else Lo - 1.0);
+            if not (A_Try > Lo and then A_Try < Hi) then
+               A_Try := (Lo + Hi) / 2.0;
+            end if;
+            A := A_Try;
+            Residuals (A, U, R1, R2, D1, D2, D3, D4);
+            exit when abs (R1) <= 1.0e-12 * Scale (A, U);
+            if R1 > 0.0 then
+               Lo := A;
+            else
+               Hi := A;
+            end if;
+            exit when Hi - Lo <= 1.0e-15 * Hi;
+         end loop;
          return A;
       end Alpha_At;
    begin
@@ -346,7 +344,8 @@ package body Brown_Boost is
 
       Alpha := A_Curr;
       T := S - U_Curr;
-      if T <= 0.0 then
+      --  same minimum step as Solve_Bisection: at least 0.0001 of the time
+      if T < 0.0001 then
           T := 0.0001;
       end if;
    end Solve_Newton;
