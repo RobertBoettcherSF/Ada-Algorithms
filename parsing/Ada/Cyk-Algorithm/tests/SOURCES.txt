@@ -1,0 +1,23 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Reference language: every terminal string of length <= 6 derivable from
+  the start symbol, generated top-down by leftmost derivations (sentential
+  forms merged, best log probability kept per form; CNF forms never shrink,
+  so longer forms are dropped). This is a different method from the
+  bottom-up CYK table. Checked on itself for a^n b^n (exactly ab, aabb,
+  aaabbb; weight of aabb by hand).
+* Grammars: a^n b^n, Dyck words over a / b, a grammar whose start symbol is
+  C, and 250 random CNF grammars (3 .. 9 rules over S, A, B, C, terminals
+  a / b, dyadic log probabilities 0, -0.25, -0.5, -1, -2, duplicates
+  allowed). Every word over {a, b} of length 1 .. 6 is tested.
+* Recognize = membership in the reference language. Parse and
+  Parse_Weighted are checked by certificate: root = start symbol, every
+  inner node a binary production, every leaf a terminal production, yield =
+  the input; the weighted tree's own weight and Best_Log_P must equal the
+  reference's best derivation weight (sums of dyadic values are exact).
+* Index origins: the same words as Input_String (7 .. 6 + n) for the hand
+  grammars and every fifth random grammar.
+* Tree_ToString on hand-built trees (format from the spec comment and the
+  body's documented layout), Free_Parse_Tree nulls its argument, Is_In_CNF on
+  random grammars (every representable production is CNF).
+Nothing is taken from the program's output or from third-party test suites.

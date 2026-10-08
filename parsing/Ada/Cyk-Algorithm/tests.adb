@@ -1,5 +1,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
 with Cyk_Algorithm; use Cyk_Algorithm;
+with Own_Checks;
 
 procedure Tests is
    Pass_Count : Natural := 0;
@@ -16,6 +18,7 @@ procedure Tests is
       end if;
    end Check;
 begin
+   Own_Checks;
    Put_Line ("=== STARTING CYK ALGORITHM TEST SUITE ===");
 
    -- TEST 1 — Basic Grammar Recognition (Positive Case)
@@ -249,5 +252,7 @@ begin
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
                     & Natural'Image (Fail_Count) & " failed ===");
-   pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;
