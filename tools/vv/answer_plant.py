@@ -38,7 +38,8 @@ INT_ASSIGN = re.compile(r'^(\s*)((?:Result|Count|Length|Size|Index|Total|Sum)\s*
 BUILD_FAIL = re.compile(
     r'\.ad[sb]:\d+:\d+:\s*(error|\(style\))|compilation phase failed|compilation of .* failed'
     r'|bind(ing)? (phase )?failed|link(ing)? (phase )?failed|gnatmake: .* (failed|not found)'
-    r'|cannot find|undefined reference', re.I)
+    # linker / driver only — do not match test prose like "cannot find target"
+    r'|cannot find -l|cannot find file|ld: .*cannot find|undefined reference', re.I)
 OPS_PER_FILE = 6
 MAX_LIB = 10
 MAX_TRIES = 20
@@ -74,6 +75,10 @@ def simple_sites(text):
             continue
         if re.search(r'\+\s*1\s*\)?$', expr):
             new, kind = re.sub(r'\+\s*1(\s*\)?)$', r'- 1\1', expr), 'off_by_one_minus'
+        elif re.fullmatch(r'\d+', expr) and int(expr) >= 1:
+            # Prefer -1 for bare literals so Result/Index subtypes still compile
+            # (return Max_Length + 1 is a compile-time CE under GNAT).
+            new, kind = str(int(expr) - 1), 'off_by_one_minus'
         else:
             new, kind = f'({expr}) + 1', 'off_by_one_plus'
         yield m.start(), m.end(), f'{m.group(1)}return {new};', kind, m.group(0).strip()
@@ -228,6 +233,19 @@ def main():
                       f"{row.get('where','')} {row.get('kind','')} {row.get('note','')}", flush=True)
     rows.sort(key=lambda r: r['folder'])
     cols = ['folder', 'answer_plant_ok', 'where', 'file', 'kind', 'detail', 'planted_rc', 'tried', 'built', 'note']
+    if args.folders and os.path.exists(args.out):
+        # Partial run (--folders): update those rows in place, keep all others.
+        new_by = {r['folder']: r for r in rows}
+        old_rows = list(csv.DictReader(open(args.out)))
+        seen = set()
+        merged = []
+        for r in old_rows:
+            if r['folder'] in new_by:
+                merged.append(new_by[r['folder']]); seen.add(r['folder'])
+            else:
+                merged.append(r)
+        merged += [r for f, r in new_by.items() if f not in seen]
+        rows = merged
     with open(args.out, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=cols, extrasaction='ignore'); w.writeheader(); w.writerows(rows)
     print('wrote', args.out, dict(Counter(r['answer_plant_ok'] for r in rows)), flush=True)

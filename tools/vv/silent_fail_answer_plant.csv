@@ -40,7 +40,7 @@ concurrency/SPARK2/Ada-SPARK-Dekkers-Algorithm,yes,lib,dekker.adb,op = -> /=,beg
 concurrency/SPARK2/Ada-SPARK-Lamports-Bakery-Algorithm,yes,lib,bakery.adb,op and then -> or else,begin return S.Number (Left) /= 0 and then (S.Number (Left) < S.Number (Right) or else (S.Number (Le,2,4,3,
 concurrency/SPARK2/Ada-SPARK-Petersons-Algorithm,yes,lib,peterson.adb,op and then -> or else,begin return S.Want (P) and then (not S.Want (Other (P)) or else S.Turn = P); end Can_Enter;,2,3,3,
 concurrency/SPARK2/Ada-SPARK-Task-Scheduler,yes,lib,task_scheduler.adb,off_by_one_plus,return 0;,2,1,1,
-concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub,no,lib,task_scheduler_stub.adb,op < -> <=,if Tasks (Order (J)) < Tasks (Order (Minimum)) then,0,3,1,1 built plants all exited 0
+concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub,yes,lib,task_scheduler_stub.adb,op < -> <=,if Tasks (Order (J)) < Tasks (Order (Minimum)) then,2,2,1,
 concurrency/SPARK2/Course-Schedule,yes,lib,course_schedule.adb,flip_bool,return True;,2,1,1,
 cryptography/Ada/Universal-Coding,yes,lib,universal_codes.adb,op > -> >=,while Temp > 0 loop,2,2,1,
 cryptography/SPARK2/Ada-SPARK-Level-Order-Traversal-Stub,yes,lib,level_order_traversal_stub.adb,op = -> /=,if Root = 0 or else not T.Used (Root) then,2,2,2,
@@ -49,7 +49,7 @@ cryptography/SPARK2/Ada-SPARK-SHA-1,yes,lib,sha_1.adb,off_by_one_plus,return Blo
 cryptography/SPARK2/Bit-Reversal,yes,lib,bit_reversal.adb,off_by_one_plus,return Result;,2,1,1,
 geometry/Ada/Adaptive-Histogram-Equalization,yes,lib,adaptive_histogram_equalization.adb,op + -> -,"Hist(Input(R, C)) := Hist(Input(R, C)) + 1;",2,2,1,
 geometry/Ada/Canny-Edge-Detector,yes,lib,canny_edge_detector.adb,op + -> -,for I in Input'First(1) + 2 .. Input'Last(1) - 2 loop,2,1,1,
-geometry/Ada/Dithering,no,lib,dithering.adb,op < -> <=,if Val < 0.0 then,0,12,7,7 built plants all exited 0
+geometry/Ada/Dithering,yes,lib,dithering.adb,op - -> +,Quant_Error := (Old_Pixel - New_Pixel) / 8.0;,2,3,2,
 geometry/Ada/Generalised-Hough-Transform,yes,lib,generalised_hough_transform.adb,op = -> /=,if Template_Edges'Length = 0 then,2,5,3,
 geometry/Ada/Hough-Transform,yes,lib,hough_transform.adb,op + -> -,Max_Rho_Float : Float := Sqrt (W**2.0 + H**2.0);,2,2,1,
 geometry/Ada/Ordered-Dithering,yes,lib,ordered_dithering.adb,flip_bool,return False;,2,1,1,
@@ -176,7 +176,7 @@ misc/Ada/Locomotion-Mode-Interlock,pending,,,,,,8,0,"8 plants tried, none built/
 misc/Ada/Longitudinal-Redundacy-Check,yes,lib,lrc.adb,off_by_one_plus,return Result;,2,1,1,
 misc/Ada/Luhn-Algorithm,yes,lib,luhn.adb,off_by_one_plus,return Sum;,2,1,1,
 misc/Ada/Luhn-Mod-N-Algorithm,yes,lib,luhn_mod_n.adb,op < -> <=,if Len < 2 or Len > 256 then,2,2,1,
-misc/Ada/Luleas-Algorithm,no,lib,lulea_algorithm.adb,flip_bool,return False;,0,14,12,12 built plants all exited 0
+misc/Ada/Luleas-Algorithm,yes,lib,lulea_algorithm.adb,flip_bool_assign,Found := True;,2,3,3,
 misc/Ada/Maekawas-Algorithm,yes,lib,maekawa.adb,flip_bool,return True;,2,1,1,
 misc/Ada/Mark-Compact-Algorithm,yes,lib,mark_compact.adb,off_by_one_plus,return I;,2,1,1,
 misc/Ada/Marr-Hildreth-Algorithm,yes,lib,marr_hildreth.adb,flip_bool,return False;,2,1,1,
@@ -192,7 +192,7 @@ misc/Ada/PCIe-Transfer-Model,yes,lib,pcie_transfer_model.adb,flip_bool_assign,Ok
 misc/Ada/Package-Merge-Algorithm,yes,lib,package_merge.adb,op + -> -,Max_Nodes : constant Positive := Coins'Length * 2 + 10;,2,2,1,
 misc/Ada/Parity-Bit,yes,lib,parity_bit.adb,off_by_one_plus,return Count;,2,1,1,
 misc/Ada/Prediction-By-Partial-Matching,yes,lib,ppm_algorithm.adb,op + 1 -> + 0,Model.Unique_Symbols := Model.Unique_Symbols + 1;,2,4,2,
-misc/Ada/Proof-Of-Work-Algorithms,no,lib,proof_of_work.adb,flip_bool,return False;,0,8,7,7 built plants all exited 0
+misc/Ada/Proof-Of-Work-Algorithms,yes,lib,proof_of_work.adb,flip_bool,return False;,2,1,1,
 misc/Ada/Push-Relabel-Algorithm,yes,lib,push_relabel.adb,op = -> /=,if C'Length(1) = 0 or C'Length(2) = 0 then,2,1,1,
 misc/Ada/Quine-McCluskey-Algorithm,yes,lib,quine_mccluskey.adb,flip_bool,return False;,2,1,1,
 misc/Ada/Random-Walker,yes,lib,random_walker.adb,op - -> +,Diff : constant Float := Intensity_A - Intensity_B;,2,1,1,
@@ -207,8 +207,8 @@ misc/Ada/Rice-Coding,yes,lib,rice_coding.adb,off_by_one_plus,return Count;,2,1,1
 misc/Ada/Richardson-Lucy-Deconvolution,yes,lib,rl_deconvolution.adb,op = -> /=,if Rows = 0 or else Cols = 0 or else K_Rows = 0 or else K_Cols = 0 then,2,2,1,
 misc/Ada/Risch-Algorithm,yes,lib,risch_algorithm.adb,op = -> /=,if E.Name = X then return Create_Val(1.0);,2,4,2,
 misc/Ada/SEQUITUR-Algorithm,yes,lib,sequitur.adb,op = -> /=,if Start_Rule.Head = null then,2,1,1,
-misc/Ada/Scale-Invariant-Feature-Transform,no,lib,sift_algorithm.adb,op = -> /=,if Width = 0 or Height = 0 then,0,2,2,2 built plants all exited 0
-misc/Ada/Seam-Carving,no,lib,seam_carving.adb,op + -> -,return abs (P1.R - P2.R) + abs (P1.G - P2.G) + abs (P1.B - P2.B);,0,14,9,9 built plants all exited 0
+misc/Ada/Scale-Invariant-Feature-Transform,yes,lib,sift_algorithm.adb,op = -> /=,if Width = 0 or Height = 0 then,2,1,1,
+misc/Ada/Seam-Carving,yes,lib,seam_carving.adb,op and then -> or else,"if X > 1 and then DP_Map (X - 1, Y - 1) < Min_Prev then",2,8,4,
 misc/Ada/Semi-Space-Collectors,yes,lib,semi_space_collector.adb,off_by_one_plus,return New_Id;,2,1,1,
 misc/Ada/Sethi-Ullman-Algorithm,yes,lib,sethi_ullman.adb,op /= -> =,if Root /= null then,2,1,1,
 misc/Ada/Shannon-Fano-Coding,yes,lib,shannon_fano.adb,op >= -> >,if Start_Idx >= End_Idx then,2,3,3,
@@ -220,7 +220,7 @@ misc/Ada/Summed-Area-Table,yes,lib,summed_area_table.adb,off_by_one_plus,return 
 misc/Ada/Tarski-Kuratowski-Algorithm,yes,lib,tarski_kuratowski.adb,flip_bool_assign,Has_Second_Order := True;,2,1,1,
 misc/Ada/Texas-Medication-Algorithm-Project,yes,lib,tmap.adb,op = -> /=,if Disease = Unspecified then,2,2,1,
 misc/Ada/Tomasulo-Algorithm,yes,lib,tomasulo_algorithm.adb,op + -> -,State.Cycle := State.Cycle + 1;,2,1,1,
-misc/Ada/Top-Nodes-Algorithm,no,lib,top_nodes_algorithm.adb,flip_bool,return False;,0,14,14,14 built plants all exited 0
+misc/Ada/Top-Nodes-Algorithm,yes,lib,top_nodes_algorithm.adb,flip_bool,return False;,2,1,1,
 misc/Ada/Transform-Coding,yes,lib,transform_coding.adb,op = -> /=,if N = 0 then,2,2,1,
 misc/Ada/Truncated-Binary-Encoding,yes,lib,truncated_binary.adb,op = -> /=,if N = 1 then,2,2,1,
 misc/Ada/Truncated-Binary-Exponential-Backoff,yes,lib,truncated_binary_exponential_backoff.adb,off_by_one_plus,return Result;,2,1,1,
@@ -237,7 +237,7 @@ misc/Ada/Warnsdorffs-Rule,yes,lib,warnsdorff.adb,op <= -> <,return X >= 1 and th
 misc/Ada/Warped-Linear-Predictive-Coding,yes,lib,warped_lpc.adb,op = -> /=,if N = 0 then,2,1,1,
 misc/Ada/Xor-Swap-Algorithm,yes,lib,xor_swap_algorithm.adb,op /= -> =,if I /= J then,2,1,1,
 misc/Ada/Zellers-Congruence-Algorithm,yes,lib,zeller.adb,op = -> /=,return (Year mod 4 = 0 and then Year mod 100 /= 0) or else (Year mod 400 = 0);,2,1,1,
-misc/Ada/arc-cache,no,lib,arc_cache.adb,flip_bool,return True;,0,17,15,15 built plants all exited 0
+misc/Ada/arc-cache,yes,lib,arc_cache.adb,flip_bool,return True;,2,1,1,
 misc/Ada/clock-replacement,yes,lib,adaptive_additive.adb,off_by_one_plus,return Result;,2,1,1,
 misc/Ada/docs,pending,,,,,,0,0,no plant site (lib=False main=False)
 misc/Ada/earliest-deadline,yes,lib,edf_scheduling.adb,op < -> <=,if Task_Count < Max_Tasks then,2,1,1,
@@ -528,7 +528,7 @@ misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,yes,lib,longest_increasing_
 misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,yes,lib,longest_mountain_in_array.adb,off_by_one_plus,return Best;,2,1,1,
 misc/SPARK2/Ada-SPARK-Longest-Ones,yes,lib,longest_ones.adb,off_by_one_plus,return Best;,2,1,1,
 misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence,yes,lib,longest_palindromic_subsequence.adb,off_by_one_minus,return Value + 1;,2,1,1,
-misc/SPARK2/Ada-SPARK-Longest-Repeating-Character-Replacement,no,lib,longest_repeating_character_replacement.adb,op = -> /=,return (B = A and then C = A) or else (C = A) or else (B = A) or else (C = B) or else (A = B and the,0,10,8,8 built plants all exited 0
+misc/SPARK2/Ada-SPARK-Longest-Repeating-Character-Replacement,yes,lib,longest_repeating_character_replacement.adb,off_by_one_minus,return 8;,2,1,1,
 misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,yes,lib,longest_word_in_dictionary.adb,flip_bool,return False;,2,1,1,
 misc/SPARK2/Ada-SPARK-Magnetic-Force-Between-Two-Balls,yes,lib,magnetic_force_between_two_balls.adb,op - -> +,return Positions (Index'Last) - Positions (Index'First);,2,1,1,
 misc/SPARK2/Ada-SPARK-Majority-Element,yes,lib,majority_element.adb,off_by_one_plus,return Candidate;,2,1,1,
@@ -607,7 +607,7 @@ misc/SPARK2/Ada-SPARK-Next-Greater-Element-II,yes,lib,next_greater_element_ii.ad
 misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List,yes,lib,next_greater_node_in_linked_list.adb,op + -> -,for J in I + 1 .. Length loop,2,2,1,
 misc/SPARK2/Ada-SPARK-Next-Permutation-Stub,yes,main,tests.adb,main_expected_literal,"pragma Assert (Next_Permutation_Stub.Next ([1, 2, 3, 4]) = [1, 2, 4, 3]);",2,8,7,
 misc/SPARK2/Ada-SPARK-Nim-Game,yes,lib,nim_game.adb,op /= -> =,return Pile mod 4 /= 0;,2,1,1,
-misc/SPARK2/Ada-SPARK-Non-Decreasing-Array,no,lib,non_decreasing_array.adb,op <= -> <,return (First <= Second and then Second <= Third),0,9,8,8 built plants all exited 0
+misc/SPARK2/Ada-SPARK-Non-Decreasing-Array,yes,lib,non_decreasing_array.adb,op and then -> or else,return (First <= Second and then Second <= Third),2,3,3,
 misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals,yes,lib,non_overlapping_intervals.adb,off_by_one_plus,return N;,2,1,1,
 misc/SPARK2/Ada-SPARK-Nth-Digit,yes,lib,nth_digit.adb,off_by_one_minus,return Index + 1;,2,1,1,
 misc/SPARK2/Ada-SPARK-Nth-Ugly-Number,yes,lib,nth_ugly_number.adb,off_by_one_plus,return Answer;,2,1,1,
@@ -805,7 +805,7 @@ misc/SPARK2/Ada-SPARK-Tweet-Counts-Stub,yes,lib,tweet_counts_stub.adb,op <= -> <
 misc/SPARK2/Ada-SPARK-Two-City-Scheduling,yes,lib,two_city_scheduling.adb,off_by_one_plus,return A_First;,2,1,1,
 misc/SPARK2/Ada-SPARK-Two-Pointers-Sum,yes,lib,two_pointers_sum.adb,op = -> /=,or else Input (2) + Input (3) = Target,2,4,3,
 misc/SPARK2/Ada-SPARK-Two-Sum,yes,lib,two_sum.adb,op = -> /=,or else Input (2) + Input (5) = Target,2,4,3,
-misc/SPARK2/Ada-SPARK-UTF-8-Validation,no,lib,utf_8_validation.adb,op <= -> <,return Value <= 127;,0,3,3,3 built plants all exited 0
+misc/SPARK2/Ada-SPARK-UTF-8-Validation,yes,lib,utf_8_validation.adb,op <= -> <,return Value <= 127;,2,1,1,
 misc/SPARK2/Ada-SPARK-Ugly-Number,yes,lib,ugly_number.adb,op = -> /=,if Value mod 2 = 0 then,2,1,1,
 misc/SPARK2/Ada-SPARK-Ugly-Number-II,yes,main,tests.adb,main_expected_literal,Assert (Nth_Ugly (1) = 1);,2,1,1,
 misc/SPARK2/Ada-SPARK-Uncommon-Words-From-Two-Sentences,yes,lib,uncommon_words_from_two_sentences.adb,op /= -> =,return (Left (1) /= Right (1) and then Left (1) /= Right (2) and then Left (1) /= Right (3)),2,1,1,
@@ -1051,13 +1051,13 @@ trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters,yes,
 trees/SPARK2/Ada-SPARK-Range-Sum-BST,yes,lib,range_sum_bst.adb,off_by_one_plus,return 0;,2,1,1,
 trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST,yes,lib,range_sum_of_bst.adb,off_by_one_plus,return 0;,2,1,1,
 trees/SPARK2/Ada-SPARK-Red-Black-Tree,yes,lib,red_black_tree.adb,op = -> /=,return C = Red;,2,1,1,
-trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern,no,lib,repeated_substring_pattern.adb,op = -> /=,(Input (1) = Input (2) and then Input (1) = Input (3),0,6,2,2 built plants all exited 0
+trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern,yes,lib,repeated_substring_pattern.adb,op = -> /=,(Input (1) = Input (2) and then Input (1) = Input (3),2,1,1,
 trees/SPARK2/Ada-SPARK-Same-Tree,yes,lib,same_tree.adb,flip_bool,return False;,2,1,1,
 trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree,yes,lib,subtree_of_another_tree.adb,op = -> /=,if ARoot = 0 or else BRoot = 0 then return ARoot = BRoot; end if;,2,2,1,
 trees/SPARK2/Ada-SPARK-Symmetric-Tree,yes,lib,symmetric_tree.adb,op = -> /=,if Root = 0 or else not T.Used (Root) then,2,2,2,
 trees/SPARK2/Ada-SPARK-Trim-BST-Stub,yes,lib,trim_bst_stub.adb,flip_bool_assign,Found := True;,2,1,1,
 trees/SPARK2/Ada-SPARK-Two-Sum-BST-Stub,yes,lib,two_sum_bst_stub.adb,flip_bool_assign,Found := True;,2,1,1,
-trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub,no,main,tests.adb,main_expected_literal,Assert (Number_Of_Trees (0) = 1); Assert (Number_Of_Trees (3) = 5); Assert (Number_Of_Trees (5) = 42,0,1,1,1 built plants all exited 0
+trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub,yes,main,tests.adb,main_expected_literal,Assert (Number_Of_Trees (1) = 1);,2,2,2,
 trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles,yes,lib,unique_paths_with_obstacles.adb,op + -> -,"A22 : constant Natural := (if G (2, 2) then 0 else A12 + A21);",2,1,1,
 trees/SPARK2/Ada-SPARK-Univalued-Binary-Tree,yes,lib,univalued_binary_tree.adb,flip_bool,return False;,2,1,1,
 trees/SPARK2/Ada-SPARK-Validate-BST-Stub,yes,lib,validate_bst_stub.adb,op = -> /=,if Root = 0 or else not T.Used (Root) then return True; end if;,2,2,1,
