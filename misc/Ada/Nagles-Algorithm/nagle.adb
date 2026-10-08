@@ -59,7 +59,8 @@ package body Nagle is
    --   3. Stops when the new buffer is full or all packets are processed
    --   4. Returns a Packet with the merged data and actual size used
    -- 
-   -- NOTE: If a packet is larger than the remaining space, only the needed bytes are copied
+   -- NOTE: If a packet is larger than the remaining space, only the needed bytes are copied.
+   --       Packet data keeps the caller's index range, so it is indexed from Data'First.
    function Merge_Packets (
       Buffer : Packet_Vectors.Vector;
       MSS    : Natural
@@ -75,13 +76,13 @@ package body Nagle is
             -- If the entire packet fits in remaining space
             if Pkg.Size <= Remaining then
                Merged_Data(Current_Index .. Current_Index + Pkg.Size - 1) := 
-                  Pkg.Data(1 .. Pkg.Size);
+                  Pkg.Data(Pkg.Data'First .. Pkg.Data'First + Pkg.Size - 1);
                Current_Index := Current_Index + Pkg.Size;
                Remaining := Remaining - Pkg.Size;
             else
                -- Copy only the remaining needed bytes
                Merged_Data(Current_Index .. Current_Index + Remaining - 1) := 
-                  Pkg.Data(1 .. Remaining);
+                  Pkg.Data(Pkg.Data'First .. Pkg.Data'First + Remaining - 1);
                Remaining := 0;
                exit;  -- Buffer is full
             end if;
