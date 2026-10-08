@@ -7,7 +7,7 @@ package body PPM_Algorithm is
          if Character'Pos(S(I)) <= 127 then
             Res(I - S'First + 1) := Symbol(S(I));
          else
-            Res(I - S'First + 1) := Symbol('?'); -- Fallback for unsupported chars
+            Res(I - S'First + 1) := Symbol'('?'); -- Fallback for unsupported chars
          end if;
       end loop;
       return Res;
