@@ -91,6 +91,44 @@ package body Nagle is
       return (Data => Merged_Data, Size => MSS - Remaining);
    end Merge_Packets;
 
+   -- After a merged MSS segment is sent, keep what was not sent.
+   --
+   -- IMPLEMENTATION: Drops the first Sent bytes of the buffered packets
+   --   (the bytes Merge_Packets copied). It keeps the unsent tail of each
+   --   packet in order, then appends New_Data, so no byte is lost.
+   --   Packets that were consumed completely are freed.
+   procedure Keep_Unsent (
+      Buffer   : in out Packet_Vectors.Vector;
+      Sent     : in     Natural;
+      New_Data : in     Buffer_Type
+   ) is
+      Kept    : Packet_Vectors.Vector;
+      To_Skip : Natural := Sent;
+      Old     : Packet;
+      Tail    : Packet;
+   begin
+      for Pkg of Buffer loop
+         Old := Pkg;
+         if Old.Data /= null and then Old.Size > 0 then
+            if To_Skip >= Old.Size then
+               To_Skip := To_Skip - Old.Size;
+            else
+               Tail.Data := new Buffer_Type(1 .. Old.Size - To_Skip);
+               Tail.Data.all := Old.Data(Old.Data'First + To_Skip .. Old.Data'First + Old.Size - 1);
+               Tail.Size := Old.Size - To_Skip;
+               Kept.Append(Tail);
+               To_Skip := 0;
+            end if;
+         end if;
+         Free_Packet(Old);
+      end loop;
+      Tail.Data := new Buffer_Type(1 .. New_Data'Length);
+      Tail.Data.all := New_Data;
+      Tail.Size := New_Data'Length;
+      Kept.Append(Tail);
+      Buffer := Kept;
+   end Keep_Unsent;
+
    -- Original Nagle's Algorithm (RFC 896)
    -- 
    -- IMPLEMENTATION:
@@ -103,7 +141,7 @@ package body Nagle is
    --   1. If there is new data to send:
    --      a. If window size >= MSS AND buffered data >= MSS:
    --         - Send a complete MSS segment now (merge buffered packets)
-   --         - Clear the buffer
+   --         - Keep the unsent buffered bytes and the new data in the buffer
    --      b. Else if there is unacknowledged data:
    --         - Buffer the new data (don't send yet)
    --      c. Else (no unacknowledged data):
@@ -130,7 +168,7 @@ package body Nagle is
          if Window_Size >= MSS and then Has_Enough_Data(Buffer, MSS) then
             Send_Now := True;
             Packet_To_Send := Merge_Packets(Buffer, MSS);
-            Buffer.Clear;  -- Clear buffer after sending
+            Keep_Unsent(Buffer, Packet_To_Send.Size, New_Data);
          else
             -- If there is unacknowledged data, buffer the new data
             if Unacked = Has_Unacked then
@@ -215,7 +253,7 @@ package body Nagle is
          elsif Window_Size >= MSS and then Has_Enough_Data(Buffer, MSS) then
             Send_Now := True;
             Packet_To_Send := Merge_Packets(Buffer, MSS);
-            Buffer.Clear;
+            Keep_Unsent(Buffer, Packet_To_Send.Size, New_Data);
          elsif Unacked = Has_Unacked then
             New_Packet.Data := new Buffer_Type(New_Data'Range);
             New_Packet.Data.all := New_Data;
