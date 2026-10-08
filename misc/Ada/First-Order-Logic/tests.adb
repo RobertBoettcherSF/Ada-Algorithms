@@ -1,3 +1,4 @@
+with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with First_Order_Logic; use First_Order_Logic;
 
@@ -19,26 +20,39 @@ procedure Tests is
    -- Concrete Interpretation for testing
    type Test_Interp is new Interpretation with null record;
    
-   -- Suppress benign unused warnings for formal parameters required by the interface
-   pragma Warnings (Off, "-gnatwu");
+   --  The interface fixes the formals; these overridings ignore I (and
+   --  the unary ones Arg2), declared with pragma Unreferenced, not by
+   --  switching warnings off.
+   overriding function Eval_Constant (I : Test_Interp; Name : Character) return Domain_Element;
+   overriding function Eval_Function (I : Test_Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Domain_Element;
+   overriding function Eval_Predicate (I : Test_Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Boolean;
+
    overriding function Eval_Constant (I : Test_Interp; Name : Character) return Domain_Element is
-      (case Name is
-         when 'c' => 2,
-         when 'd' => 3,
-         when others => 1);
+      pragma Unreferenced (I);
+   begin
+      return (case Name is
+                when 'c' => 2,
+                when 'd' => 3,
+                when others => 1);
+   end Eval_Constant;
 
    overriding function Eval_Function (I : Test_Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Domain_Element is
-      (case Name is
-         when 'f' => (if Arg1 = 3 then 1 else Arg1 + 1), -- Unary: increments mod 3
-         when 'g' => ((Arg1 + Arg2) mod 3) + 1,          -- Binary function
-         when others => Arg1);
+      pragma Unreferenced (I);
+   begin
+      return (case Name is
+                when 'f' => (if Arg1 = 3 then 1 else Arg1 + 1), -- Unary: increments mod 3
+                when 'g' => ((Arg1 + Arg2) mod 3) + 1,          -- Binary function
+                when others => Arg1);
+   end Eval_Function;
 
    overriding function Eval_Predicate (I : Test_Interp; Name : Character; Arg1, Arg2 : Domain_Element) return Boolean is
-      (case Name is
-         when 'P' => Arg1 = 2,           -- Unary: True if Arg1 == 2
-         when 'G' => Arg1 > Arg2,        -- Binary: Greater than
-         when others => False);
-   pragma Warnings (On, "-gnatwu");
+      pragma Unreferenced (I);
+   begin
+      return (case Name is
+                when 'P' => Arg1 = 2,           -- Unary: True if Arg1 == 2
+                when 'G' => Arg1 > Arg2,        -- Binary: Greater than
+                when others => False);
+   end Eval_Predicate;
 
    Interp : Test_Interp;
    Env    : Assignment := [others => 1]; -- Default environment (all vars = 1)
@@ -48,6 +62,7 @@ procedure Tests is
    T_c : constant Term_Access := Make_Constant ('c');
 
 begin
+
    Put_Line ("Starting First-Order Logic Tests...");
 
    -- TEST 1: Term Evaluation
@@ -228,4 +243,8 @@ begin
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
    pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count > 0 then   --  the Assert above is ignored without -gnata
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+
 end Tests;
