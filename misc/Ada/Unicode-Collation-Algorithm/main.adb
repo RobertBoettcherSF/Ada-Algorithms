@@ -1,90 +1,63 @@
+--  Demo of the Unicode_Collation package (default table, punctuation-ignoring comparison, tailoring).
+--  Built and run by make test, so it stays in step with the package API.
 with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Containers.Vectors;
 with Unicode_Collation; use Unicode_Collation;
 
 procedure Main is
-   package String_Vectors is new Ada.Containers.Vectors(Positive, String);
-   Vec : String_Vectors.Vector;
+   Table : constant Character_Table := Get_Default_Table;
 
-   function Compare_Wrapper (Left, Right : String) return Boolean is
+   type Word_Access is access constant String;
+   W1 : aliased constant String := "banana";
+   W2 : aliased constant String := "Apple";
+   W3 : aliased constant String := "apple";
+   W4 : aliased constant String := "co-op";
+   W5 : aliased constant String := "coop";
+   W6 : aliased constant String := "123";
+   W7 : aliased constant String := "Cherry";
+   Words : array (1 .. 7) of Word_Access :=
+     (W1'Access, W2'Access, W3'Access, W4'Access, W5'Access, W6'Access, W7'Access);
+
+   procedure Show (Left, Right : String; R : Collation_Result) is
    begin
-      return Compare(Left, Right) < 0;
-   end Compare_Wrapper;
-
-   package String_Sorting is new String_Vectors.Generic_Sorting(Compare_Wrapper);
-
+      Put_Line ("  """ & Left & """ vs """ & Right & """: " & Collation_Result'Image (R));
+   end Show;
 begin
-   Put_Line("Unicode Collation Algorithm Demo");
-   Put_Line("=================================");
-   New_Line;
+   Put_Line ("Unicode Collation Algorithm demo");
 
-   Initialize_DUCET;
-
-   String_Vectors.Append(Vec, "apple");
-   String_Vectors.Append(Vec, "Apple");
-   String_Vectors.Append(Vec, "ápple");
-   String_Vectors.Append(Vec, "banana");
-   String_Vectors.Append(Vec, "Banana");
-   String_Vectors.Append(Vec, "cherry");
-   String_Vectors.Append(Vec, "Cherry");
-   String_Vectors.Append(Vec, "apricot");
-   String_Vectors.Append(Vec, "Ápple");
-   String_Vectors.Append(Vec, "123");
-
-   Put_Line("Sorting with default settings (Tertiary strength):");
-   String_Sorting.Sort(Vec);
-   for I in 1 .. Positive(String_Vectors.Length(Vec)) loop
-      Put_Line(Integer'Image(I) & ". " & String_Vectors.Element(Vec, I));
-   end loop;
-   New_Line;
-
-   Put_Line("Sorting with Primary strength (case-insensitive):");
-   declare
-      function Compare_Primary_Wrapper (Left, Right : String) return Boolean is
+   --  Insertion sort with Compare_Standard (all three levels).
+   for I in Words'First + 1 .. Words'Last loop
+      declare
+         Key : constant Word_Access := Words (I);
+         J   : Integer := I - 1;
       begin
-         return Compare_Primary(Left, Right) < 0;
-      end Compare_Primary_Wrapper;
-      package Primary_Sorting is new String_Vectors.Generic_Sorting(Compare_Primary_Wrapper);
-   begin
-      Primary_Sorting.Sort(Vec);
-      for I in 1 .. Positive(String_Vectors.Length(Vec)) loop
-         Put_Line(Integer'Image(I) & ". " & String_Vectors.Element(Vec, I));
-      end loop;
-   end;
-   New_Line;
+         while J >= Words'First and then Compare_Standard (Words (J).all, Key.all, Table) = Greater loop
+            Words (J + 1) := Words (J);
+            J := J - 1;
+         end loop;
+         Words (J + 1) := Key;
+      end;
+   end loop;
+   Put_Line ("Sorted with Compare_Standard:");
+   for W of Words loop
+      Put_Line ("  " & W.all);
+   end loop;
 
-   Put_Line("Comparison Examples:");
-   Put_Line("-------------------");
+   Put_Line ("Comparisons:");
+   Show ("apple", "Apple", Compare_Standard ("apple", "Apple", Table));
+   Show ("123", "abc", Compare_Standard ("123", "abc", Table));
+   Show ("co-op", "coop", Compare_Standard ("co-op", "coop", Table));
+   Put_Line ("Ignoring punctuation:");
+   Show ("co-op", "coop", Compare_Ignore_Punctuation ("co-op", "coop", Table));
+
    declare
-      Result : Integer;
+      --  Tailoring: give 'z' a primary weight below 'a'.
+      Z_First : constant Character_Table :=
+        Apply_Tailoring (Table, 'z', (Primary => Table ('a').Primary - 1,
+                                      Secondary => Table ('z').Secondary,
+                                      Tertiary  => Table ('z').Tertiary));
    begin
-      Result := Compare("apple", "Apple");
-      if Result < 0 then
-         Put_Line("Compare(""apple"", ""Apple"") = " & Integer'Image(Result) & " (apple < Apple)");
-      elsif Result > 0 then
-         Put_Line("Compare(""apple"", ""Apple"") = " & Integer'Image(Result) & " (apple > Apple)");
-      else
-         Put_Line("Compare(""apple"", ""Apple"") = " & Integer'Image(Result) & " (equal)");
-      end if;
-
-      Result := Compare("apple", "ápple");
-      if Result < 0 then
-         Put_Line("Compare(""apple"", ""ápple"") = " & Integer'Image(Result) & " (apple < ápple)");
-      elsif Result > 0 then
-         Put_Line("Compare(""apple"", ""ápple"") = " & Integer'Image(Result) & " (apple > ápple)");
-      else
-         Put_Line("Compare(""apple"", ""ápple"") = " & Integer'Image(Result) & " (equal)");
-      end if;
-
-      Result := Compare("123", "abc");
-      if Result < 0 then
-         Put_Line("Compare(""123"", ""abc"") = " & Integer'Image(Result) & " (123 < abc)");
-      elsif Result > 0 then
-         Put_Line("Compare(""123"", ""abc"") = " & Integer'Image(Result) & " (123 > abc)");
-      else
-         Put_Line("Compare(""123"", ""abc"") = " & Integer'Image(Result) & " (equal)");
-      end if;
+      Put_Line ("Tailored ('z' before 'a'):");
+      Show ("zebra", "apple", Compare_Standard ("zebra", "apple", Z_First));
    end;
-
-   Put_Line("Demo complete.");
+   Put_Line ("Demo complete.");
 end Main;

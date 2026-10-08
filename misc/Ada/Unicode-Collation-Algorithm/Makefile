@@ -16,7 +16,6 @@ test: all
 	@./$(BIN_DIR)/tests
 	@echo "Running the demo (must build and run cleanly)..."
 	@./$(BIN_DIR)/main
-	@./$(BIN_DIR)/main > /dev/null
 
 clean:
 	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/*
