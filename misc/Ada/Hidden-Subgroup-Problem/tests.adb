@@ -167,7 +167,7 @@ begin
       when Subgroup_Not_Found | Invalid_Oracle =>
          Ex_Caught := True;
    end;
-   Check ("13.1 Exception raised for constant/trivial oracle", Ex_Caught);
+   Check ("13.1 Exception propagated for constant/trivial oracle", Ex_Caught);
    Check ("13.2 Exception handling mechanism verified", True);
    Check ("13.3 Program flow robust against degenerate oracles", True);
 
