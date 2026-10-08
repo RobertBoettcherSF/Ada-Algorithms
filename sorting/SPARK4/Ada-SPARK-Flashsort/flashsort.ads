@@ -6,11 +6,11 @@
 --  SPARK port of Ada-Flashsort: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling uses Max_N = 100_000, allows arbitrary A'First, and raises on
---  oversized n; this port requires A'First = 1, uses a static Border_Array
---  (1 .. Max_N) for class borders (m ≤ Max_N), and proves sortedness via a
---  final gap-1 bubble finish (same proof role as Strand_Sort / Bucket_Sort /
---  Comb_Sort). Full multiset / permutation equality is verified by tests
---  rather than claimed as a Level-4 postcondition (sortedness is proved).
+--  oversized n; this port requires A'First = 1, keeps class borders in a
+--  small static vector (m <= Max_N / Class_Divisor = 6), and proves that
+--  the flashsort phase itself sorts (no bubble-sort safety net). Full
+--  multiset / permutation equality is verified by tests rather than
+--  claimed as a Level-4 postcondition (sortedness is proved).
 --
 --  Reference: https://en.wikipedia.org/wiki/Flashsort
 
@@ -59,20 +59,20 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
-   -- Algorithm sketch (Neubert flashsort / Wikipedia + bubble finish)
+   -- Algorithm sketch (Neubert flashsort)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A).
    --  1. Find min and max. If equal, return (already sorted).
    --  2. Choose m = max(2, n / Class_Divisor) classes.
-   --  3. Histogram into static L(1 .. Max_N); prefix-sum so L(k) is the
-   --     inclusive 1-based upper border of class k.
+   --  3. Histogram the classes; inclusive prefix sums give each class
+   --     its region of the array.
    --  4. Classify with
    --        K = 1 + floor((m-1)*(x-min)/(max-min))
    --     using Long_Long_Integer; permute into classes by cycle-following
-   --     (educational; safe bounds / iteration caps for Level 4 RTE).
-   --  5. Insertion-sort within each class.
-   --  6. Final gap-1 bubble finish proves Is_Sorted (Strand / Bucket L4
-   --     pattern). Flashsort phase posts only In_Bounds / RTE.
+   --     (no iteration cap and no index clamps: the proof shows every
+   --     cycle closes and every key lands in its own region).
+   --  5. Insertion-sort within each class region. Classes are monotonic
+   --     in the key, so the array is sorted (Is_Sorted proved).
    --  Empty and singleton arrays are no-ops.
    --  Do not `with` sibling Ada-* packages.
 
@@ -85,7 +85,7 @@ is
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending educational flashsort + gap-1 bubble finish.
+   --  Ascending educational flashsort.
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
