@@ -487,6 +487,12 @@ begin
          Env.Bindings ('x') := F3;
          Unify (Xv, Xv, Env, OK);
          Unify (F3, Xv, Env, OK);
+         --  the same cycle through left arguments: x -> f(f(f(x, k), k), k)
+         Make_Function ('f', Xv, Kc, F1);
+         Make_Function ('f', F1, Kc, F2);
+         Make_Function ('f', F2, Kc, F3);
+         Env.Bindings ('x') := F3;
+         Unify (Xv, Xv, Env, OK);
       exception
          when E : others =>
             Fail ("cyclic environment raised " & Ada.Exceptions.Exception_Name (E));
