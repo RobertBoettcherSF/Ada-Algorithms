@@ -1,42 +1,16 @@
 pragma SPARK_Mode (On);
 
 package body Decode_Ways is
-   function Add_Bounded (Left, Right : Result) return Result is
-   begin
-      if Left > Result'Last - Right then
-         return Result'Last;
-      else
-         return Left + Right;
-      end if;
-   end Add_Bounded;
-
-   function Pair_Valid (Left, Right : Digit) return Boolean is
-   begin
-      return Left = 1 or else (Left = 2 and then Right <= 6);
-   end Pair_Valid;
-
    function Count (Data : Digit_Sequence; Length : Input) return Result is
-      Previous : Result;
-      Before   : Result := 1;
+      Previous : Result := (if Data (1) /= 0 then 1 else 0);   --  decodings of Data (1 .. I - 1)
+      Before   : Result := 1;                                   --  decodings of Data (1 .. I - 2)
       Current  : Result;
    begin
-      if Data (1) = 0 then
-         return 0;
-      end if;
-      Previous := 1;
       for I in 2 .. Length loop
-         pragma Loop_Invariant (Previous in Result and Before in Result);
-         if Data (I) = 0 then
-            if Pair_Valid (Data (I - 1), Data (I)) then
-               Current := Before;
-            else
-               Current := 0;
-            end if;
-         elsif Pair_Valid (Data (I - 1), Data (I)) then
-            Current := Add_Bounded (Previous, Before);
-         else
-            Current := Previous;
-         end if;
+         pragma Loop_Invariant (Previous = Ways (Data, I - 1) and then Before = Ways (Data, I - 2));
+         Current := (if Data (I) /= 0 then Previous else 0)
+                    + (if Pair_Valid (Data (I - 1), Data (I)) then Before else 0);
+         pragma Assert (Current = Ways (Data, I));
          Before := Previous;
          Previous := Current;
       end loop;
