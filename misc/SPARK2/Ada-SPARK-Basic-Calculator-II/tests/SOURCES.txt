@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb)
+=====================================================================
+
+All checks are own properties written for this repository (MIT); nothing
+is copied from the program's output or from third-party test suites.
+
+* 7 + 3 = 10, 7 * 3 = 21, 7 / 3 = 2, -7 / 2 = -3 (truncation toward zero,
+  as in the standard Basic Calculator II statement), by hand.
+* Own property: for every pair of operands in -31 .. 31, Evaluate equals
+  the exact integer result of +, -, * and / (Ada's own operators on
+  Integer, which cannot overflow there).
+* Rejection: 1000 * 2, 40 * 40 and an operand of -1000 lie outside the
+  operand range whose results provably fit; they must raise
+  Constraint_Error rather than return a clamped value.
