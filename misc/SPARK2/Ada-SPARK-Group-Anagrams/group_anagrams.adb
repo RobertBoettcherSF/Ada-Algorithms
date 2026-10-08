@@ -23,7 +23,7 @@ package body Group_Anagrams with SPARK_Mode => On is
    end Same_Anagram;
 
    function Group (Input : Word_Set) return Labels is
-      Result : Labels := (others => 1);
+      Result : Labels := [others => 1];
    begin
       if not Same_Anagram (Input (1), Input (2)) then
          Result (2) := 2;

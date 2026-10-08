@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: the water above position I is the smaller of the highest
+  bar at or left of I and the highest bar at or right of I, minus the
+  bar at I; add over 1 .. Length.
+* Inputs: 5000 random arrays (length 0 .. 32, every fifth full; heights
+  0 .. 5 or 0 .. 1000); values past Length are random and must not matter.
