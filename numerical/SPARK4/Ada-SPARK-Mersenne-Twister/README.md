@@ -42,7 +42,7 @@ When you run `make test`, you will see all 36 assertions pass. Running `make pro
 * **Contract discipline**: Create / Init / Reset postconditions; invalid `Pre` cases are not raised as exceptions.
 
 ## Building
-**Prerequisites:** GNAT with SPARK/GNATprove support, Ada 2022 (`-gnat2022`). Source the SPARK environment if needed (`source /home/box/deps/spark/env.sh`).
+**Prerequisites:** GNAT with SPARK/GNATprove support, Ada 2022 (`-gnat2022`). Put `gnatprove` on PATH if needed (e.g. via Alire: `alr get gnatprove`).
 
 **Commands:**
 * `make` — Builds the test binary.

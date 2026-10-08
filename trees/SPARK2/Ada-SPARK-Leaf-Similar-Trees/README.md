@@ -3,7 +3,7 @@
 Compares the leaf sequence of two bounded array-backed trees. Each tree has at most sixteen nodes.
 
 ```sh
-source /home/box/deps/spark/env.sh
+# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```

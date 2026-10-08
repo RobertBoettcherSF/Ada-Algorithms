@@ -26,7 +26,7 @@ Educational sheet only — not a DO-178C / ISO / third-party compliance audit.
 ## Usage
 
 ```sh
-source /home/box/deps/spark/env.sh
+# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```

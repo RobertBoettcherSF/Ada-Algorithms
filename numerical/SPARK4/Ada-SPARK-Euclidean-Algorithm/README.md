@@ -43,7 +43,7 @@ When you run `make test`, you will see all 1304 assertions pass. Running `make p
 * **Contract discipline**: Oversized LCM is rejected by `Pre` (no exception path).
 
 ## Building
-**Prerequisites:** GNAT with SPARK/GNATprove support, Ada 2022 (`-gnat2022`). Source the SPARK environment if needed (`source /home/box/deps/spark/env.sh`).
+**Prerequisites:** GNAT with SPARK/GNATprove support, Ada 2022 (`-gnat2022`). Put `gnatprove` on PATH if needed (e.g. via Alire: `alr get gnatprove`).
 
 **Commands:**
 * `make` — Builds the test binary.

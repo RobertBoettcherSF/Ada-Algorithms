@@ -4,7 +4,7 @@ A bounded SPARK ceiling-division helper for boat capacity. The population
 is limited to 32 and capacity is limited to `1 .. 32`.
 
 ```sh
-source /home/box/deps/spark/env.sh
+# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```

@@ -5,7 +5,7 @@ Compute a bounded integer median after merging two small arrays. The implementat
 ## Checks
 
 ```sh
-source /home/box/deps/spark/env.sh
+# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```

@@ -80,7 +80,7 @@ When you run `make test`, you will see all 181 assertions pass ($0$ FAIL). Runni
 * **Contract discipline**: Only valid call paths are exercised (no exception handlers). Tests stay at $n \le 64$ and key span $\le 256$.
 
 ## Building
-**Prerequisites:** GNAT with SPARK/GNATprove support, Ada 2022 (`-gnat2022`). Source the SPARK environment if needed (`source /home/box/deps/spark/env.sh`).
+**Prerequisites:** GNAT with SPARK/GNATprove support, Ada 2022 (`-gnat2022`). Put `gnatprove` on PATH if needed (e.g. via Alire: `alr get gnatprove`).
 
 **Commands:**
 * `make` — Builds the test binary.

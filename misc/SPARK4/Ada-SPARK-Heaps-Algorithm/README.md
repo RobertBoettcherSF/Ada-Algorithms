@@ -128,7 +128,7 @@ Running `make prove` reports `Success: all checks proved (235 checks).`
 
 ## Building
 **Prerequisites:** GNAT with SPARK/GNATprove support, Ada 2022 (`-gnat2022`).
-Source the SPARK environment if needed (`source /home/box/deps/spark/env.sh`).
+Put `gnatprove` on PATH if needed (e.g. via Alire: `alr get gnatprove`).
 
 **Commands:**
 * `make` — Builds the test binary.

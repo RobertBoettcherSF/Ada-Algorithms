@@ -5,7 +5,7 @@ Find a minimum bounded shipping capacity with a greedy feasibility check. The im
 ## Checks
 
 ```sh
-source /home/box/deps/spark/env.sh
+# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```

@@ -5,7 +5,7 @@ Find a peak element in a bounded array. The implementation uses fixed-size bound
 ## Checks
 
 ```sh
-source /home/box/deps/spark/env.sh
+# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```

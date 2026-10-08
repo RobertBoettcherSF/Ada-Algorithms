@@ -5,7 +5,7 @@ Find the earliest day on which one bounded consecutive bouquet can bloom. The im
 ## Checks
 
 ```sh
-source /home/box/deps/spark/env.sh
+# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```

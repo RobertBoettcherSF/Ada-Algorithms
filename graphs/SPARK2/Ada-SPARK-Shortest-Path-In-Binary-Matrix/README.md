@@ -9,7 +9,7 @@ count of open cells as a bounded path-workload metric. as a small, fully proved 
 ## Verify
 
 ```sh
-source /home/box/deps/spark/env.sh
+# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```

@@ -51,7 +51,7 @@ Vertices $\{1,2,3,4\}$ with edges $1\xrightarrow{1}2$, $1\xrightarrow{4}3$, $2\x
 * **Run tests:** `make test`
 * **Verify proofs:** `make prove`
 
-Source the SPARK environment if needed (`source /home/box/deps/spark/env.sh`).
+Put `gnatprove` on PATH if needed (e.g. via Alire: `alr get gnatprove`).
 
 **Expected output:**
 When you run `make test`, you will see all 79 assertions pass (`0 FAIL`). Running `make prove` reports `Success: all checks proved (224 checks).`.

@@ -5,7 +5,7 @@ Find the largest equal candy allocation for a bounded number of children. The im
 ## Checks
 
 ```sh
-source /home/box/deps/spark/env.sh
+# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```

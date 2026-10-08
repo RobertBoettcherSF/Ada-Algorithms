@@ -69,7 +69,7 @@ Greedy expands $1$, then prefers $3$ over $2$, then reaches $4$ along $(1,3,4)$.
 * **Run tests:** `make test`
 * **Verify proofs:** `make prove`
 
-Source the SPARK environment if needed (`source /home/box/deps/spark/env.sh`).
+Put `gnatprove` on PATH if needed (e.g. via Alire: `alr get gnatprove`).
 
 **Expected output:**
 When you run `make test`, you will see all 64 assertions pass (`0 FAIL`). Running `make prove` reports `Success: all checks proved (180 checks).`
