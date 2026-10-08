@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 13:45 CEST.
+Generated 2026-10-08 13:49 CEST.
 
 ## Proof setup
 
@@ -24,9 +24,9 @@ Silver: `gnatprove --mode=silver --level=2` on the folder's own .gpr (generated 
 
 Folders: 1840; duplicates (counted once): 3; Ada<->SPARK pairs: 110; stub sheets (name ends in -Stub, column `stub`): 87.
 
-**Training-ready: 147 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).
+**Training-ready: 156 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak (column `training_ready`).
 
-**Do-nothing check:** 1705 folders checked, 39 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 1 of the weak ones are Silver-proven non-trivial. Own tests: 85 folders (column `own_tests`).
+**Do-nothing check:** 1705 folders checked, 39 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 1 of the weak ones are Silver-proven non-trivial. Own tests: 94 folders (column `own_tests`).
 
 **Silver headline (duplicates counted once):** 507 real SPARK folders proven non-trivially, 338 proven but trivial (<= 3 checks), 85 stubs proven (separate), 4 with unproved checks, 9 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 141 proven real folders also prove functional contracts
 
@@ -42,12 +42,16 @@ Folders: 1840; duplicates (counted once): 3; Ada<->SPARK pairs: 110; stub sheets
 
 ## V&V (validation) results
 
-Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 85 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
+Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree on every case); mutation: `mutation.csv` 66 killed / 19 survived (77%); `mutation_pilot.csv` 47 killed / 12 survived (79%); `mutation_sites_all.csv` 81 killed / 31 survived (72%) (a folder in several files shows the last one: all-sites beats pilot beats sample); folders with registered known-answer vectors: 2. Own tests: 94 folders (`tools/vv/own_tests.csv`); do-nothing check: `vv/results/donothing.csv` (rows below: every folder with a V&V result or flagged weak). Columns `diff_test`, `mutation`, `kat`, `own_tests`, `do_nothing`, `known_answer` in PROOFS.csv.
 
 | Folder | Differential test | Mutation (killed/total) | Known-answer source | Own tests | Do-nothing | Known answer |
 |---|---|---|---|---|---|---|
 | compression/Ada/Run-Length-Encoding | agree (vs compression/SPARK2/Ada-SPARK-Run-Length-Encoding, 1000 cases) |  |  |  | ok | diff agree |
+| compression/SPARK2/Ada-SPARK-Interleaving-String |  |  |  | own recursive interleaving reference; all 29791 triples up to length 4 over {0;1} (exhaustive) | ok | own tests |
 | compression/SPARK2/Ada-SPARK-Run-Length-Encoding | agree (vs compression/Ada/Run-Length-Encoding, 1000 cases) |  |  |  | ok | diff agree |
+| compression/SPARK2/Ada-SPARK-String-Compression |  |  |  | round trip (expand runs = input) + counts >= 1 + maximal runs; 5000 random | ok | own tests |
+| compression/SPARK2/Burrows-Wheeler-Transform |  |  |  | rotation characters and lexicographic order of different rotations from the definition; 4000 random | ok | own tests |
+| compression/SPARK3/Huffman-Coding |  |  |  | own symbol counts; distinct count; most frequent has maximal count; 4000 random | ok | own tests |
 | concurrency/SPARK2/Course-Schedule |  |  |  |  | weak |  |
 | cryptography/Ada/RSA |  |  |  |  | weak |  |
 | geometry/Ada/Bresenhams-Line-Algorithm |  | 5/8 |  |  | ok |  |
@@ -297,18 +301,23 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order |  |  |  | own recursive subtree sum; 4000 random trees + empty | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth |  |  |  | own recursive height (convention fixed by one-node tree); 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth |  |  |  | own recursive min root-to-leaf depth (convention fixed by one-node tree); 4000 random trees | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder |  |  |  | own recursive subtree-sum reference; empty tree; 4000 random shapes | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder |  |  |  | own recursive subtree sum; 4000 random trees + empty | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree |  |  |  | own sum of values >= each element for strictly increasing sequences; 4000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Count-Binary-Substrings |  |  |  | own all-substrings k-zeros/k-ones check; 4000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree |  |  |  | own recursive longest path (edges/nodes fixed by one-node tree); 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget |  |  |  | own all-windows cost check; 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Implement-Trie |  |  |  | own exact-membership reference; 4000 random word sets | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Insert-Into-BST |  |  |  | Contains vs own set over the whole Value range + Size; 2000 random distinct-key sequences | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Invert-Binary-Tree |  |  |  | children swapped at every node; 4000 random trees | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Longest-Common-Substring |  |  |  | own all-start-pairs reference; all string pairs up to length 4 over {a;b} and {a;b;c} (exhaustive) | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring |  |  |  | own all-substrings palindrome check; 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat |  |  |  | own all-substrings distinctness check; 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating |  |  |  | own all-substrings distinctness check; 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-BST |  |  |  | own parent-climbing LCA on generated BSTs; 4000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST |  |  |  | own parent-climbing LCA on generated BSTs; 4000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree |  |  |  | own recursive height (convention fixed by one-node tree); 4000 random trees | ok | own tests |
+| trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees |  |  |  | own overlay reference per heap position; result walked from its root; 4000 random pairs | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree |  |  |  | own recursive min root-to-leaf depth (convention fixed by one-node tree); 4000 random trees | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Minimum-Window-Substring |  |  |  | own all-windows A/B/C check; 5000 random | ok | own tests |
 | trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters |  |  |  | own all-substrings check; exhaustive 6561 | ok | own tests |
@@ -359,13 +368,13 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | compression/Ada/Video-Compression | yes | yes | yes | yes | yes | 27 | 27 | no SPARK |  |  |  |  |
 | compression/Ada/Wavelet-Compression | yes | yes | yes | yes | yes | 31 | 31 | no SPARK |  |  |  |  |
 | compression/SPARK2/Ada-SPARK-Compress-String | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
-| compression/SPARK2/Ada-SPARK-Interleaving-String | yes | yes | yes | yes | yes | 10 | 10 | proven | 10 |  |  |  |
+| compression/SPARK2/Ada-SPARK-Interleaving-String | yes | yes | yes | yes | yes | 10 | 10 | proven | 10 | yes |  |  |
 | compression/SPARK2/Ada-SPARK-LZ77 | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | compression/SPARK2/Ada-SPARK-Move-To-Front | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | compression/SPARK2/Ada-SPARK-Run-Length-Encoding | yes | yes | yes | yes | yes | 0 | 0 | proven | 14 (1) | yes | compression/Ada/Run-Length-Encoding |  |
-| compression/SPARK2/Ada-SPARK-String-Compression | yes | yes | yes | yes | yes | 0 | 0 | proven | 12 |  |  |  |
-| compression/SPARK2/Burrows-Wheeler-Transform | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  | compression/Ada/Burrows-Wheeler-Transform |  |
-| compression/SPARK3/Huffman-Coding | yes | yes | yes | yes | yes | 0 | 0 | proven | 16 (2) |  |  |  |
+| compression/SPARK2/Ada-SPARK-String-Compression | yes | yes | yes | yes | yes | 0 | 0 | proven | 12 | yes |  |  |
+| compression/SPARK2/Burrows-Wheeler-Transform | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 | yes | compression/Ada/Burrows-Wheeler-Transform |  |
+| compression/SPARK3/Huffman-Coding | yes | yes | yes | yes | yes | 0 | 0 | proven | 16 (2) | yes |  |  |
 | concurrency/Ada/Dekker | no | no | no | no | no | NA | NA | no SPARK |  |  |  |  |
 | concurrency/Ada/Lamport-Ordering | no | yes | yes | yes | yes | 3 | 3 | no SPARK |  |  |  |  |
 | concurrency/Ada/Paxos-Algorithm | yes | yes | yes | yes | yes | 5 | 5 | no SPARK |  |  |  |  |
@@ -2110,12 +2119,12 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth | yes | yes | yes | yes | yes | 7 | 7 | proven | 20 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth | yes | yes | yes | yes | yes | 7 | 7 | proven | 20 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Paths | yes | yes | yes | yes | yes | 4 | 4 | proven (trivial) | 2 |  |  |  |
-| trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder | yes | yes | yes | yes | yes | 6 | 6 | proven | 21 |  |  |  |
+| trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder | yes | yes | yes | yes | yes | 6 | 6 | proven | 21 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder | yes | yes | yes | yes | yes | 9 | 9 | proven | 9 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View | yes | yes | yes | yes | yes | 3 | 3 | proven (trivial) | 2 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite | yes | yes | yes | yes | yes | 9 | 9 | proven | 5 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite | yes | yes | yes | yes | yes | 9 | 9 | proven | 5 |  |  |  |
-| trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree | yes | yes | yes | yes | yes | 1 | 1 | proven | 4 |  |  |  |
+| trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree | yes | yes | yes | yes | yes | 1 | 1 | proven | 4 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Count-Binary-Substrings | yes | yes | yes | yes | yes | 0 | 0 | proven | 12 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes | yes | yes | yes | yes | yes | 4 | 4 | proven (trivial) | 2 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 11 |  |  |  |
@@ -2125,11 +2134,11 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite | yes | yes | yes | yes | yes | 2 | 2 | proven (trivial) | 2 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget | yes | yes | yes | yes | yes | 3 | 3 | proven | 7 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Implement-Trie | yes | yes | yes | yes | yes | 3 | 3 | proven | 5 | yes |  |  |
-| trees/SPARK2/Ada-SPARK-Insert-Into-BST | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 |  |  |  |
+| trees/SPARK2/Ada-SPARK-Insert-Into-BST | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Invert-Binary-Tree | yes | yes | yes | yes | yes | 5 | 5 | proven | 4 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub (stub) | yes | yes | yes | yes | yes | 5 | 5 | proven | 11 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Leaf-Similar-Trees | yes | yes | yes | yes | yes | 3 | 3 | proven (trivial) | 2 |  |  |  |
-| trees/SPARK2/Ada-SPARK-Longest-Common-Substring | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 |  | trees/Ada/Longest-Common-Substring |  |
+| trees/SPARK2/Ada-SPARK-Longest-Common-Substring | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 | yes | trees/Ada/Longest-Common-Substring |  |
 | trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat | yes | yes | yes | yes | yes | 3 | 3 | proven | 7 (2) | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 | yes |  |  |
@@ -2138,7 +2147,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | trees/SPARK2/Ada-SPARK-Maximum-Binary-Tree | yes | yes | yes | yes | yes | 7 | 7 | proven (trivial) | 3 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree | yes | yes | yes | yes | yes | 6 | 6 | proven | 21 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-N-Ary-Tree | yes | yes | yes | yes | yes | 9 | 9 | proven (trivial) | 3 |  |  |  |
-| trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees | yes | yes | yes | yes | yes | 4 | 4 | proven | 8 |  |  |  |
+| trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees | yes | yes | yes | yes | yes | 4 | 4 | proven | 8 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree | yes | yes | yes | yes | yes | 6 | 6 | proven | 21 | yes |  |  |
 | trees/SPARK2/Ada-SPARK-Minimum-Height-Trees | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Minimum-Window-Substring | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 | yes |  |  |

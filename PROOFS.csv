@@ -38,13 +38,13 @@ compression/Ada/Verlet-Integration,compression,Ada,Verlet-Integration,yes,yes,ye
 compression/Ada/Video-Compression,compression,Ada,Video-Compression,yes,yes,yes,yes,yes,27,27,no SPARK,,,,,,,,,,,,,,ok,,,
 compression/Ada/Wavelet-Compression,compression,Ada,Wavelet-Compression,yes,yes,yes,yes,yes,31,31,no SPARK,,,,,,,,,,,,,,ok,,,
 compression/SPARK2/Ada-SPARK-Compress-String,compression,SPARK2,Ada-SPARK-Compress-String,yes,yes,yes,yes,yes,0,0,proven,7,0,,level2-timeout,compress_string.gpr,,,,,,,,,ok,,,
-compression/SPARK2/Ada-SPARK-Interleaving-String,compression,SPARK2,Ada-SPARK-Interleaving-String,yes,yes,yes,yes,yes,10,10,proven,10,0,,level2-timeout,interleaving_string_project.gpr,,,,,,,,,ok,,,
+compression/SPARK2/Ada-SPARK-Interleaving-String,compression,SPARK2,Ada-SPARK-Interleaving-String,yes,yes,yes,yes,yes,10,10,proven,10,0,,level2-timeout,interleaving_string_project.gpr,,,,,,,,,ok,yes,own tests,yes
 compression/SPARK2/Ada-SPARK-LZ77,compression,SPARK2,Ada-SPARK-LZ77,yes,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,lz77.gpr,,,,,,,,,ok,,,
 compression/SPARK2/Ada-SPARK-Move-To-Front,compression,SPARK2,Ada-SPARK-Move-To-Front,yes,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,move_to_front.gpr,,,,,,,,,ok,,,
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,compression,SPARK2,Ada-SPARK-Run-Length-Encoding,yes,yes,yes,yes,yes,0,0,proven,14,1,,steps=1000000,run_length_encoding.gpr,,,,compression/Ada/Run-Length-Encoding,,"agree (vs compression/Ada/Run-Length-Encoding, 1000 cases)",,,ok,,diff agree,yes
-compression/SPARK2/Ada-SPARK-String-Compression,compression,SPARK2,Ada-SPARK-String-Compression,yes,yes,yes,yes,yes,0,0,proven,12,0,,level2-timeout,proof.gpr,,,,,,,,,ok,,,
-compression/SPARK2/Burrows-Wheeler-Transform,compression,SPARK2,Burrows-Wheeler-Transform,yes,yes,yes,yes,yes,0,0,proven,5,0,,level2-timeout,burrows_wheeler_transform.gpr,,,,compression/Ada/Burrows-Wheeler-Transform,,,,,ok,,,
-compression/SPARK3/Huffman-Coding,compression,SPARK3,Huffman-Coding,yes,yes,yes,yes,yes,0,0,proven,16,2,,level2-timeout,huffman_coding.gpr,,,,,,,,,ok,,,
+compression/SPARK2/Ada-SPARK-String-Compression,compression,SPARK2,Ada-SPARK-String-Compression,yes,yes,yes,yes,yes,0,0,proven,12,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
+compression/SPARK2/Burrows-Wheeler-Transform,compression,SPARK2,Burrows-Wheeler-Transform,yes,yes,yes,yes,yes,0,0,proven,5,0,,level2-timeout,burrows_wheeler_transform.gpr,,,,compression/Ada/Burrows-Wheeler-Transform,,,,,ok,yes,own tests,yes
+compression/SPARK3/Huffman-Coding,compression,SPARK3,Huffman-Coding,yes,yes,yes,yes,yes,0,0,proven,16,2,,level2-timeout,huffman_coding.gpr,,,,,,,,,ok,yes,own tests,yes
 concurrency/Ada/Dekker,concurrency,Ada,Dekker,no,no,no,no,no,NA,NA,no SPARK,,,,,,,,,,,,,,no tests,,,
 concurrency/Ada/Lamport-Ordering,concurrency,Ada,Lamport-Ordering,no,yes,yes,yes,yes,3,3,no SPARK,,,,,,,,,,,,,,ok,,,
 concurrency/Ada/Paxos-Algorithm,concurrency,Ada,Paxos-Algorithm,yes,yes,yes,yes,yes,5,5,no SPARK,,,,,,,,,,,,,,ok,,,
@@ -1789,12 +1789,12 @@ trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order,trees,SPARK2,Ada-SPARK-Binary-Tre
 trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth,trees,SPARK2,Ada-SPARK-Binary-Tree-Max-Depth,yes,yes,yes,yes,yes,7,7,proven,20,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth,trees,SPARK2,Ada-SPARK-Binary-Tree-Min-Depth,yes,yes,yes,yes,yes,7,7,proven,20,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Paths,trees,SPARK2,Ada-SPARK-Binary-Tree-Paths,yes,yes,yes,yes,yes,4,4,proven,2,0,yes,level2-timeout,proof.gpr,,,,,,,,,ok,,,
-trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder,trees,SPARK2,Ada-SPARK-Binary-Tree-Postorder,yes,yes,yes,yes,yes,6,6,proven,21,0,,level2-timeout,proof.gpr,,,,,,,,,ok,,,
+trees/SPARK2/Ada-SPARK-Binary-Tree-Postorder,trees,SPARK2,Ada-SPARK-Binary-Tree-Postorder,yes,yes,yes,yes,yes,6,6,proven,21,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder,trees,SPARK2,Ada-SPARK-Binary-Tree-Preorder,yes,yes,yes,yes,yes,9,9,proven,9,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View,trees,SPARK2,Ada-SPARK-Binary-Tree-Right-Side-View,yes,yes,yes,yes,yes,3,3,proven,2,0,yes,level2-timeout,proof.gpr,,,,,,,,,ok,,,
 trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite,trees,SPARK2,Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite,yes,yes,yes,yes,yes,9,9,proven,5,0,,level2-timeout,proof.gpr,,,,,,,,,ok,,,
 trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite,trees,SPARK2,Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite,yes,yes,yes,yes,yes,9,9,proven,5,0,,level2-timeout,proof.gpr,,,,,,,,,ok,,,
-trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree,trees,SPARK2,Ada-SPARK-Convert-BST-To-Greater-Tree,yes,yes,yes,yes,yes,1,1,proven,4,0,,level2-timeout,proof.gpr,,,,,,,,,ok,,,
+trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree,trees,SPARK2,Ada-SPARK-Convert-BST-To-Greater-Tree,yes,yes,yes,yes,yes,1,1,proven,4,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,trees,SPARK2,Ada-SPARK-Count-Binary-Substrings,yes,yes,yes,yes,yes,0,0,proven,12,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes,trees,SPARK2,Ada-SPARK-Count-Complete-Tree-Nodes,yes,yes,yes,yes,yes,4,4,proven,2,0,yes,level2-timeout,proof.gpr,,,,,,,,,ok,,,
 trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub,trees,SPARK2,Ada-SPARK-Delete-Node-BST-Stub,yes,yes,yes,yes,yes,0,0,proven,11,0,,level2-timeout,proof.gpr,,yes,,,,,,,ok,,,
@@ -1804,11 +1804,11 @@ trees/SPARK2/Ada-SPARK-Find-Mode-In-BST,trees,SPARK2,Ada-SPARK-Find-Mode-In-BST,
 trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite,trees,SPARK2,Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite,yes,yes,yes,yes,yes,2,2,proven,2,0,yes,level2-timeout,proof.gpr,,,,,,,,,ok,,,
 trees/SPARK2/Ada-SPARK-Get-Equal-Substrings-Within-Budget,trees,SPARK2,Ada-SPARK-Get-Equal-Substrings-Within-Budget,yes,yes,yes,yes,yes,3,3,proven,7,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Implement-Trie,trees,SPARK2,Ada-SPARK-Implement-Trie,yes,yes,yes,yes,yes,3,3,proven,5,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
-trees/SPARK2/Ada-SPARK-Insert-Into-BST,trees,SPARK2,Ada-SPARK-Insert-Into-BST,yes,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,proof.gpr,,,,,,,,,ok,,,
+trees/SPARK2/Ada-SPARK-Insert-Into-BST,trees,SPARK2,Ada-SPARK-Insert-Into-BST,yes,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Invert-Binary-Tree,trees,SPARK2,Ada-SPARK-Invert-Binary-Tree,yes,yes,yes,yes,yes,5,5,proven,4,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub,trees,SPARK2,Ada-SPARK-Kth-Smallest-BST-Stub,yes,yes,yes,yes,yes,5,5,proven,11,0,,level2-timeout,proof.gpr,,yes,,,,,,,ok,,,
 trees/SPARK2/Ada-SPARK-Leaf-Similar-Trees,trees,SPARK2,Ada-SPARK-Leaf-Similar-Trees,yes,yes,yes,yes,yes,3,3,proven,2,0,yes,level2-timeout,proof.gpr,,,,,,,,,ok,,,
-trees/SPARK2/Ada-SPARK-Longest-Common-Substring,trees,SPARK2,Ada-SPARK-Longest-Common-Substring,yes,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,longest_common_substring.gpr,,,,trees/Ada/Longest-Common-Substring,,,,,ok,,,
+trees/SPARK2/Ada-SPARK-Longest-Common-Substring,trees,SPARK2,Ada-SPARK-Longest-Common-Substring,yes,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,longest_common_substring.gpr,,,,trees/Ada/Longest-Common-Substring,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Longest-Palindromic-Substring,trees,SPARK2,Ada-SPARK-Longest-Palindromic-Substring,yes,yes,yes,yes,yes,0,0,proven,7,0,,level2-timeout,longest_palindromic_substring.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeat,trees,SPARK2,Ada-SPARK-Longest-Substring-Without-Repeat,yes,yes,yes,yes,yes,3,3,proven,7,2,,level2-timeout,longest_substring_without_repeat.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Longest-Substring-Without-Repeating,trees,SPARK2,Ada-SPARK-Longest-Substring-Without-Repeating,yes,yes,yes,yes,yes,0,0,proven,9,0,,level2-timeout,longest_substring_without_repeating.gpr,,,,,,,,,ok,yes,own tests,yes
@@ -1817,7 +1817,7 @@ trees/SPARK2/Ada-SPARK-Lowest-Common-Ancestor-Of-BST,trees,SPARK2,Ada-SPARK-Lowe
 trees/SPARK2/Ada-SPARK-Maximum-Binary-Tree,trees,SPARK2,Ada-SPARK-Maximum-Binary-Tree,yes,yes,yes,yes,yes,7,7,proven,3,0,yes,level2-timeout,proof.gpr,,,,,,,,,ok,,,
 trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree,trees,SPARK2,Ada-SPARK-Maximum-Depth-Of-Binary-Tree,yes,yes,yes,yes,yes,6,6,proven,21,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-N-Ary-Tree,trees,SPARK2,Ada-SPARK-Maximum-Depth-Of-N-Ary-Tree,yes,yes,yes,yes,yes,9,9,proven,3,0,yes,level2-timeout,proof.gpr,,,,,,,,,ok,,,
-trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees,trees,SPARK2,Ada-SPARK-Merge-Two-Binary-Trees,yes,yes,yes,yes,yes,4,4,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,ok,,,
+trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees,trees,SPARK2,Ada-SPARK-Merge-Two-Binary-Trees,yes,yes,yes,yes,yes,4,4,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree,trees,SPARK2,Ada-SPARK-Minimum-Depth-Of-Binary-Tree,yes,yes,yes,yes,yes,6,6,proven,21,0,,level2-timeout,proof.gpr,,,,,,,,,ok,yes,own tests,yes
 trees/SPARK2/Ada-SPARK-Minimum-Height-Trees,trees,SPARK2,Ada-SPARK-Minimum-Height-Trees,yes,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,minimum_height_trees.gpr,,,,,,,,,ok,,,
 trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,trees,SPARK2,Ada-SPARK-Minimum-Window-Substring,yes,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,minimum_window_substring.gpr,,,,,,,,,ok,yes,own tests,yes
