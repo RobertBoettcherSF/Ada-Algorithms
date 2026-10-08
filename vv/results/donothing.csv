@@ -1103,10 +1103,8 @@ hashing/Ada/Zobrist-Hashing,survived,Update_Hash,killed,ok,2,,2,0,yes
 logic/Ada/Automated-Theorem-Proving,survived,Remove_Duplicates,killed,ok,9,,9,0,yes
 logic/Ada/Chaff,survived,Solve,killed,ok,42,Clause_Is_Empty Clause_Is_Conflict Has_Empty_Clause Formula_Has_Conflict Model_Satisfies Watches_Invariant Bump_Clause_Activities Build_Contradictory_Units Build_Empty_Formula,33,0,yes
 logic/Ada/Constraint-Satisfaction,survived,Is_Consistent,killed,ok,33,Empty_Domain,32,0,yes
-logic/Ada/DPLL,survived,Solve,killed,ok,33,,33,0,yes
 logic/Ada/DPLL-Algorithm,survived (without -gnata),Solve_DPLL,killed,ok,9,Negate,8,0,no
 logic/Ada/Davis-Putnam,survived,Solve,killed,ok,36,Build_Empty_Formula Build_Small_3SAT_Sat,34,0,yes
-logic/Ada/Verified-Unification-Engine,survived,Unify,killed,ok,7,,7,0,yes
 matrices/Ada/Chain-Matrix-Multiplication,survived,Matrix_Count_Of,killed,ok,10,,10,0,yes
 matrices/Ada/Eigenvalue-Algorithms,survived,Poisson_Eigenvalue,killed,ok,42,Is_Tridiagonal Is_Diagonal,40,0,yes
 matrices/Ada/Gaussian-Elimination,survived,Solve,killed,ok,28,Is_Square Is_Strictly_Diagonally_Dominant,26,0,yes
@@ -1154,7 +1152,6 @@ misc/Ada/Bayesian-Nash-Equilibrium,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Bayesian-Statistics,survived (without -gnata),Bayes_Factor,killed,ok,24,Seed_RNG,23,0,no
 misc/Ada/Beam-Tracing,survived (without -gnata),Construct_Viewing_Beam,killed,ok,21,,21,0,no
 misc/Ada/Bees-Algorithm,survived,Sphere,killed,ok,16,,16,0,yes
-misc/Ada/Beginner-Embedded-API,survived,Digital_Write,killed,ok,5,,5,0,yes
 misc/Ada/Bensons-Algorithm,survived,Solve_Biobjective,killed,ok,17,Is_Optimal_LP,16,0,yes
 misc/Ada/Bentley-Ottmann,survived,Find_Intersections,killed,ok,18,Empty_Intersection_List,17,0,yes
 misc/Ada/Berkeley-Algorithm,survived,Calculate_Offsets,killed,ok,2,,2,0,yes
@@ -1232,7 +1229,6 @@ misc/Ada/Data-Flow-Analysis,survived,Add_Edge,killed,ok,8,,8,0,yes
 misc/Ada/De-Boor,survived,Make_Point,killed,ok,40,Near Near Sub Domain_Low,36,0,yes
 misc/Ada/De-Casteljau,survived,Evaluate,killed,ok,38,Near Near,36,0,yes
 misc/Ada/Delayed-Column-Generation,survived,Add_Column,killed,ok,20,Clear_Pool,19,0,yes
-misc/Ada/Delivery-Mission-FSM,,,,no tests,0,,0,0,
 misc/Ada/Delivery-Safety-Supervisor,,,,no tests,0,,0,0,
 misc/Ada/Delta-Encoding,survived,Encode_Integer_Delta,killed,ok,4,,4,0,yes
 misc/Ada/Demon-Method,survived,Demon_Sweep,killed,ok,25,Temperature_From_Mean_Demon,24,0,yes
@@ -1305,8 +1301,6 @@ misc/Ada/Fowler-Noll-Vo,survived,Hash_FNV1_32,killed,ok,4,Hash_FNV1a_64,3,0,yes
 misc/Ada/Frank-Wolfe-Algorithm,survived,LMO_Simplex,killed,ok,31,Set_L1_Radius,30,0,yes
 misc/Ada/Freivalds,survived,Verify,killed,ok,24,Matrices_Equal,23,0,yes
 misc/Ada/Fuzzy-C-Means,survived (without -gnata),Run_Fuzzy_C_Means,stillborn,unchecked (main stillborn),15,,14,1,no
-misc/Ada/GNAT-Studio-Notes,survived,Abs_Diff,killed,ok,1,,1,0,yes
-misc/Ada/GPU-Work-Queue,survived,Submit,killed,ok,5,Create,4,0,yes
 misc/Ada/GRASP,survived,Grasp_Knapsack,killed,ok,22,Next_Unit,21,0,yes
 misc/Ada/Gale-Shapley-Algorithm,survived,Solve,killed,ok,20,Proposer_Of,19,0,yes
 misc/Ada/Gauss-Jordan,survived,Solve,killed,ok,31,Mat_Near Is_Square Is_Strictly_Diagonally_Dominant Inverse_Residual_Max_Abs,27,0,yes
@@ -1400,7 +1394,6 @@ misc/Ada/Linear-Multistep-Methods,survived,Method_Name,killed,ok,33,Characterist
 misc/Ada/Linear-Predictive-Coding,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Linear-Programming,survived,Maximize,killed,ok,34,,34,0,yes
 misc/Ada/List-Scheduling,,,,no tests,0,,0,0,
-misc/Ada/Locomotion-Mode-Interlock,,,,no tests,0,,0,0,
 misc/Ada/Long-Division,survived,From_Long_Integer,killed,ok,23,Zero Equal,21,0,yes
 misc/Ada/Longest-Increasing-Subsequence,survived,Length_DP,killed,ok,3,,3,0,yes
 misc/Ada/Longest-Path-Problem,survived,Exact_Simple_Path,killed,ok,14,,14,0,yes
@@ -1423,7 +1416,6 @@ misc/Ada/Maximum-Parsimony,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Mechanistic-Interpretability,survived,Activation_Patch,killed,ok,8,,8,0,yes
 misc/Ada/Median-Filtering,survived,Process_1D,killed,ok,2,,2,0,yes
 misc/Ada/Memetic-Algorithm,survived,Seed_RNG,killed,ok,32,One_Point_Crossover Is_Valid_Tour Order_Crossover Local_Improve_TSP,28,0,yes
-misc/Ada/Memory-Channel-Model,survived,Open_Row,killed,ok,6,Create,5,0,yes
 misc/Ada/Message-Authentication-Codes,survived,HMAC,killed,ok,5,,5,0,yes
 misc/Ada/Midpoint-Circle-Algorithm,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Min-Conflicts,survived,Variable_Conflicts,killed,ok,18,,18,0,yes
@@ -1468,7 +1460,6 @@ misc/Ada/Operations-Research,survived,Maximize,killed,ok,2,,2,0,yes
 misc/Ada/Orbital-Mechanics,killed,,,baseline fails,0,,0,0,yes
 misc/Ada/Ordered-Subset-EM,survived (without -gnata),Make_Ordered_Subsets,killed,ok,24,KL_Divergence,23,0,no
 misc/Ada/PBKDF2,survived,Derive,killed,ok,3,,3,0,yes
-misc/Ada/PCIe-Transfer-Model,survived,Record_Transfer,killed,ok,4,,4,0,yes
 misc/Ada/Package-Merge-Algorithm,survived,Coin_Collector,stillborn,unchecked (main stillborn),4,,0,4,yes
 misc/Ada/Painters-Algorithm,survived,Clear_Framebuffer,killed,ok,13,,13,0,yes
 misc/Ada/Parity-Bit,killed,,,baseline fails,0,,0,0,yes
@@ -1631,7 +1622,6 @@ misc/Ada/scripts,,,,no tests,0,,0,0,
 misc/Ada/srt-simulation,,,,no tests,0,,0,0,
 ml/Ada/AdaBoost,survived,Predict,killed,ok,3,,3,0,yes
 ml/Ada/Alopex,killed,,,baseline fails,0,,0,0,yes
-ml/Ada/Backpropagation,survived (without -gnata),Backward,killed,ok,8,,7,1,no
 ml/Ada/Boosting-Meta-Algorithm,survived,Predict_Gradient_Boosting,killed,ok,4,,2,2,yes
 ml/Ada/BrownBoost,survived,Predict,killed,ok,2,,1,1,yes
 ml/Ada/Expectation-Maximization,survived (without -gnata),GMM_EM_Fit,killed,ok,18,,18,0,no
