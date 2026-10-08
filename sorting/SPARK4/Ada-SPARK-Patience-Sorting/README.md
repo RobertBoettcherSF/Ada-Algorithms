@@ -7,12 +7,12 @@ $$
 \text{deal } O(n\log n),\quad \text{merge worst } O(n^2),\quad n \le \mathrm{Max\_N} = 64
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Patience-Sorting](https://github.com/RobertBoettcherSF/Ada-Patience-Sorting) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses a larger `Max_N` ($8192$), exceptions (`Invalid_Argument`), and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, a fixed node pool / `Top_Array` of size `Max_N`, and a proved final gap-$1$ bubble finish. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape and Bubble_Finish proof split: [Ada-SPARK-Strand-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Strand-Sort), [Ada-SPARK-Comb-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Comb-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Patience-Sorting](https://github.com/RobertBoettcherSF/Ada-Patience-Sorting) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses a larger `Max_N` ($8192$), exceptions (`Invalid_Argument`), and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, a fixed node pool / `Top_Array` of size `Max_N`, and sortedness proved directly from the deal and merge (pile order plus a popped-node invariant). README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Strand-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Strand-Sort), [Ada-SPARK-Comb-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Comb-Sort).
 
 ## Features
-* **`Sort (A)`**: Ascending patience sort via static node-pool piles + $k$-way merge, then a gap-$1$ bubble finish.
+* **`Sort (A)`**: Ascending patience sort via static node-pool piles + $k$-way merge.
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
-* **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors; deal / merge prove `In_Bounds` / RTE; `Bubble_Pass` / `Sorted_Slice` / partition invariants prove sortedness.
+* **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors; the deal and merge loop invariants (pile order, popped-node prefix, ghost count of unpopped nodes) prove sortedness.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
 * **Static buffers only**: Fixed pool of `Max_N` stack nodes and `Top_Array` of size `Max_N`.
 
@@ -21,14 +21,13 @@ This is the SPARK Level 4 port of the companion package [Ada-Patience-Sorting](h
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
 * Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First` / `Natural` index).
 * Same educational node-pool + binary-search deal + linear min-top merge structure, scaled to `Max_N`.
-* Deal / merge prove only `In_Bounds` / RTE; the final gap-$1$ `Bubble_Finish` reuses the bubble-sort Level-4 argument for `Is_Sorted` (same proof split as Comb / Odd_Even / Shell / Strand). Full pile-sortedness posts that would fight Level 4 are intentionally deferred to that finish.
+* The deal and merge prove `Is_Sorted` themselves: inside a pile every older node is $\ge$ every newer one, the unpopped nodes of a pile are its oldest ones (the top is the newest of them), so the smallest top is $\le$ every unpopped node; a ghost count of unpopped nodes shows the merge stops only after $n$ outputs. There is no bubble-sort fallback.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
 
 ## Algorithm
 1. If $n \le 1$, return.
 2. **Deal:** for each element $X$ in order, place it on the leftmost pile whose top is $\ge X$ (binary search on strictly increasing tops); if none, start a new pile to the right. Storage is a fixed pool of linked stack nodes.
 3. **Merge:** while any pile remains, pop the pile with the smallest top into the output; if that pile empties, discard it by swapping with the last active pile.
-4. **Gap-$1$ finish:** ordinary bubble sort with a shrinking unsorted suffix (and early exit) $\to$ fully sorted.
 
 Empty and singleton arrays are no-ops.
 
@@ -38,7 +37,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 238 assertions pass. Running `make prove` reports `Success: all checks proved (301 checks).`
+When you run `make test`, you will see all 238 assertions pass. Running `make prove` reports `Success: all checks proved (274 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, patience/LIS-friendly patterns (sorted → few piles, reverse → many piles), signed domain, lengths up to `Max_N`.
@@ -57,8 +56,8 @@ When you run `make test`, you will see all 238 assertions pass. Running `make pr
 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
-* Deal / merge loops use `pragma Loop_Invariant` / `Loop_Variant`; outer bubble finish shrinks the unsorted suffix via `Bubble_Pass` with partition predicates.
-* **GNATprove Level 4:** `Success: all checks proved (301 checks).`
+* Deal / merge loops use `pragma Loop_Invariant` / `Loop_Variant`; ghost state `Pile_Of` / `Alive` / `Slot_Of` plus count lemmas carry the pile-order and popped-node invariants.
+* **GNATprove Level 4:** `Success: all checks proved (274 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
@@ -68,7 +67,7 @@ When you run `make test`, you will see all 238 assertions pass. Running `make pr
 | `Max_N` | Classroom capacity bound (`64`) |
 | `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
-| `Sort` | Ascending patience sort + bubble finish (`Post => Is_Sorted`) |
+| `Sort` | Ascending patience sort: deal + $k$-way merge (`Post => Is_Sorted`) |
 
 ## License
 MIT License — Copyright (c) 2026 Sternenfisch.

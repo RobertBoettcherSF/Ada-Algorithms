@@ -10,9 +10,9 @@
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling uses Max_N = 8192, allows arbitrary A'First, and raises on
 --  oversized n; this port requires A'First = 1, uses a fixed node pool
---  and Top_Array of size Max_N, and proves sortedness via a final gap-1
---  bubble finish (same proof role as Comb_Sort / Odd_Even_Sort /
---  Shell_Sort / Strand_Sort). Full multiset / permutation equality is
+--  and Top_Array of size Max_N, and proves sortedness from the deal and
+--  merge themselves (pile order + popped-node invariant). Full
+--  multiset / permutation equality is
 --  verified by tests rather than claimed as a Level-4 postcondition
 --  (sortedness is proved).
 --
@@ -58,7 +58,7 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
-   -- Algorithm sketch (deal onto piles + k-way merge + bubble finish)
+   -- Algorithm sketch (deal onto piles + k-way merge)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Allocate a fixed node pool of Max_N stack
    --  nodes and a Top_Array of at most Max_N pile tops.
@@ -67,11 +67,11 @@ is
    --    pile. Within a pile, newer tops are <= older tops.
    --  Phase 2 — Merge: repeatedly pop the pile with the smallest top
    --    (k-way merge) into A; empty piles are discarded by swap-with-last.
-   --  After deal+merge, a final gap-1 bubble finish (shrinking unsorted
-   --  suffix + early exit) establishes Is_Sorted — same proof role as
-   --  Comb_Sort's Bubble_Finish / Odd_Even_Sort / Shell / Strand.
-   --  Deal/merge posts that would fight Level 4 are intentionally limited
-   --  to In_Bounds / RTE; sortedness is discharged by Bubble_Finish.
+   --  Proof: inside a pile every older node is >= every newer one, and
+   --  the unpopped nodes of a pile are its oldest ones with the top the
+   --  newest of them, so the smallest top is <= every unpopped node and
+   --  the merge writes A in nondecreasing order. A ghost count of
+   --  unpopped nodes shows the merge stops only after all N outputs.
    --  Empty and singleton arrays are no-ops.
    --  Do not `with` sibling Ada-* packages.
 
@@ -84,7 +84,7 @@ is
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  Ascending patience sort (static node pool) + gap-1 bubble finish.
+   --  Ascending patience sort (static node pool): deal, then k-way merge.
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
