@@ -3034,9 +3034,6 @@ sorting/SPARK4/Ada-SPARK-Flashsort,Sort,catalog,catalog,,1,procedure n_arrays=1 
 sorting/SPARK4/Ada-SPARK-Gnome-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Gnome-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Gnome-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Insertion-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-sorting/SPARK4/Ada-SPARK-Insertion-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-sorting/SPARK4/Ada-SPARK-Insertion-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Library-Sort,,static_midpoint,review,,,"sorting/SPARK4/Ada-SPARK-Library-Sort/library_sort.adb:69: else Occ_In (W, L, (L + R) / 2) + Occ_In (W, (L + R) / 2 + 1, R))",prefer Lo + (Hi - Lo) / 2
 sorting/SPARK4/Ada-SPARK-Library-Sort,,static_midpoint,review,,,sorting/SPARK4/Ada-SPARK-Library-Sort/library_sort.adb:88: M := (L + R) / 2;,prefer Lo + (Hi - Lo) / 2
 sorting/SPARK4/Ada-SPARK-Library-Sort,,static_midpoint,review,,,sorting/SPARK4/Ada-SPARK-Library-Sort/library_sort.adb:107: M := (L + R) / 2;,prefer Lo + (Hi - Lo) / 2
@@ -3267,7 +3264,6 @@ sorting/SPARK4/Ada-SPARK-Comb-Sort,,first_pinned,fail,rewrite_first_relative,,RE
 sorting/SPARK4/Ada-SPARK-Counting-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Flashsort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Gnome-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-sorting/SPARK4/Ada-SPARK-Insertion-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Library-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Merge-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3480,3 +3476,8 @@ sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1
 sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort_Counting_Writes,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Cycle-Sort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort,ok,ok,,,sort shift ok,
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,Sort,ok,ok,,,sort shift ok,
