@@ -17,3 +17,4 @@ misc/Ada/Truncated-Binary-Encoding,pass,own tests,own code properties; N 2 .. 20
 misc/Ada/Division-Algorithms,pass,own tests,division identities; 321118 cases (ebeabaf6)
 misc/Ada/Zero-Attribute-Rule,pass,own tests,mean/median/mode references; 30001 cases (a278d294)
 parsing/Ada/Recursive-Descent-Parser,pass,own tests,random expression trees; 20000 cases (a278d294)
+misc/Ada/Computus,pass,own tests,own epact reference + definitions; 75250 cases (d9006fbc)
