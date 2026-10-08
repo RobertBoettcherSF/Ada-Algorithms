@@ -134,3 +134,4 @@ misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,minimality property (meets the l
 misc/SPARK2/Ada-SPARK-Maximum-Ice-Cream-Bars,own one-bar-at-a-time reference; every price 1..1000 x budgets 0..3200 (in tests.adb)
 misc/SPARK2/Ada-SPARK-Partition-List,stable partition vs own two-filter reference; all lists of length 0..7 over {0,1,2} x pivots -1..3 + 3000 random
 sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,odd-then-even positions vs own reference; all lists of length 0..7 over {0,1,2} + 3000 random
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,own Long_Float DFT reference (tolerance 1.5 from the error analysis); every +-212 impulse + 20000 random inputs; spectra that do not fit Sample rejected (in tests.adb)
