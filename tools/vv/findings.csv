@@ -12,7 +12,7 @@ sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List-II,Solve keeps up to
 sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,inputs without an exact 4/4 even/odd split lose values,fixed,34a2b5c3,8206de17
 sorting/SPARK2/Ada-SPARK-Sort-List-Lite,make test fails,fixed,n/a (make test itself failed),9744588
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-List,make test fails,fixed,n/a (make test itself failed),9744588
-misc/SPARK2/Ada-SPARK-Pascal-Triangle,rows 31 and 32 are allowed but their totals do not fit Result; Row_Total saturates silently,open,,
+misc/SPARK2/Ada-SPARK-Pascal-Triangle,rows 31 and 32 are allowed but their totals do not fit Result; Row_Total saturates silently,fixed,407697f4,d4d03ef9
 misc/SPARK2/Ada-SPARK-Decode-Ways,lengths 30 .. 32 are allowed but the count can exceed Result; Count saturates silently,open,,
 misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,the climb ends on the last step (paying it) instead of past it; README does not say which,open,,
 sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array,squares elementwise without sorting despite the name (README says elementwise),open,,

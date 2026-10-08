@@ -10,7 +10,7 @@ standard generator (seed 20261008).
   digits form a code when the first is not 0 and the value is at most 26;
   count all complete splits by recursion in the test.
 * Inputs: 4,000 random digit strings of length 1 .. 12 or 1 .. 29 (mostly
-  1s and 2s, some 0s and larger digits) and the all-ones strings of length
-  1 .. 29. Lengths 30 .. 32 can have more decodings than Result holds
-  (1,000,000); the function saturates there, which the README does not
-  mention. Not checked; reported in docs/VV.md 3e.
+  1s and 2s, some 0s and larger digits) and the all-ones strings of every
+  length allowed by Input (the largest count for a given length). A length
+  whose count can exceed Result must not be allowed by the input type
+  (lengths 30 .. 32 were allowed before and saturated silently).

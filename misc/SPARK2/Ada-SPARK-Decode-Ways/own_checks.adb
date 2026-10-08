@@ -69,9 +69,9 @@ begin
          Report (Count (X, N) = Ref (1, N), "random" & Iter'Image);
       end;
    end loop;
-   for N in 1 .. 29 loop        --  all ones: the count grows like the Fibonacci numbers
+   for N in Input loop          --  all ones: the count grows like the Fibonacci numbers; every allowed length
       X := [others => 1];
-      Report (Count (X, N) = Ref (1, N), "ones");
+      Report (Count (X, N) = Ref (1, N), "ones, length" & N'Image);
    end loop;
    if Failures > 0 then
       Ada.Text_IO.Put_Line ("FAIL own checks:" & Failures'Image & " of" & Cases'Image);
