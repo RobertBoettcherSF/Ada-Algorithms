@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: 3 7 8 9 / 9 11 13 10 / 15 16 17 18 / 14 20 21 22 -> 15, by hand.
+* Own property (the standard statement): a lucky number is <= every
+  element of its row and >= every element of its column; Found must be
+  True exactly when such an element exists (checked by scanning all 16
+  cells), and Value must then be one of them.
+* Inputs: 10,000 random 4x4 matrices of distinct values 0 .. 99 (every
+  second one with a planted lucky number 50 at a random cell) and 10,000
+  random matrices over 0 .. 3 (many ties).

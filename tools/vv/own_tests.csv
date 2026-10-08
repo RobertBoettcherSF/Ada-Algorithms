@@ -138,3 +138,7 @@ numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,own Long_Float DFT reference (tolera
 misc/SPARK2/Ada-SPARK-Rotate-List,rotate right by K vs own index-formula reference; every length 1..16 x every K 0..16 (distinct + random values)
 misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,pairwise swap vs own reference; every length 0..16 (distinct + 50 random each)
 misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,reverse First..Last vs own reference; every length 1..16 x every range (distinct + random values)
+matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix,lucky-number property (row min and column max) checked over all cells; 20000 random matrices (distinct values with planted lucky numbers; values 0..3 with ties)
+matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum,own clipped-block reference over every cell and radius; 2000 random matrices (128000 sums)
+compression/SPARK2/Ada-SPARK-Compress-String,own run-length size reference (character + decimal count per run); every string over {a;b} and {a;b;c}
+graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,own Warshall transitive closure; 600 random directed/symmetric graphs; every start/goal pair (153600 queries)

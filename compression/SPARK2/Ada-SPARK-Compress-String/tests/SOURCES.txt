@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* tests.adb: "aabccccc" -> a2 b1 c5 = 6, "abcd    " -> a1 b1 c1 d1 + space 4
+  = 10, eight spaces -> 2, by hand.
+* Own reference (the compressed form the README describes: every run as
+  its character followed by its decimal count): sum over the runs of
+  1 + number of digits of the run length.
+* Inputs: every string of length 8 over {a, b} (256) and over {a, b, c}
+  (6,561).

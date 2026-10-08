@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: 1 2 3 4 / 5 6 7 8 / 9 1 2 3 / 4 5 6 7 with (2,2) K=1 -> 36,
+  (1,1) K=0 -> 1, (4,4) K=3 -> 73 (all cells), by hand.
+* Own reference: sum of A(I, J) over every cell with |I - Row| <= K and
+  |J - Col| <= K inside the 4x4 matrix, by scanning all 16 cells.
+* Inputs: 2,000 random matrices over 0 .. 9 (every third all 9s), every
+  cell and every radius 0 .. 3 (128,000 sums).
