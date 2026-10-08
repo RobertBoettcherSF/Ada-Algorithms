@@ -354,141 +354,6 @@ sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,523,+ 1 -> + 0,W (K) := W
 sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,582,* -> +,Next_Goal := Next_Goal * 2;,Next_Goal := Next_Goal + 2;,survived
 sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,212,<= -> <,and then Count <= Max_N,and then Count < Max_N,survived
 sorting/SPARK4/Ada-SPARK-Library-Sort,library_sort.adb,396,and then -> or else,if R <= Hi and then R <= Max_Cap and then W (R).Occupied then,if R <= Hi or else R <= Max_Cap and then W (R).Occupied then,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,212,or else -> and then,"and then (Hi < Lo or else Lo <= Hi),","and then (Hi < Lo and then Lo <= Hi),",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,36,< -> <=,(Hi_P < Lo_P,(Hi_P <= Lo_P,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,342,+ -> -,Curr := N + 1;,Curr := N - 1;,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,191,- -> +,"and then Pivots'Last = Num_Buckets - 1,","and then Pivots'Last = Num_Buckets + 1,",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,88,+ -> -,"and then Sorted_Slice (A, Bound + 1, A'Last)","and then Sorted_Slice (A, Bound - 1, A'Last)",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,212,< -> <=,"and then (Hi < Lo or else Lo <= Hi),","and then (Hi <= Lo or else Lo <= Hi),",survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,49,<= -> <,and then Hi_S <= A'Last;,and then Hi_S < A'Last;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,112,+ 1 -> + 0,if A (I) > A (I + 1) then,if A (I) > A (I + 0) then,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,<= -> <,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi >= Lo and then Hi <= Max_N and then Lo < Max_N then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,- 1 -> - 0,while P > 1 and then Key < Pivots (P - 1) loop,while P > 1 and then Key < Pivots (P - 0) loop,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,234,- 1 -> - 0,P        := P - 1;,P        := P - 0;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,276,- -> +,for I in 1 .. Num_Buckets - 1 loop,for I in 1 .. Num_Buckets + 1 loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,60,and then -> or else,and then A (X) = A'Old (Y),or else A (X) = A'Old (Y),stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,112,+ -> -,if A (I) > A (I + 1) then,if A (I) > A (I - 1) then,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,40,<= -> <,(for all L in Lo_S .. Hi_S => A (K) <= A (L)))),(for all L in Lo_S .. Hi_S => A (K) < A (L)))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,212,<= -> <,"and then (Hi < Lo or else Lo <= Hi),","and then (Hi < Lo or else Lo < Hi),",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,291,- 1 -> - 0,for X in 2 .. Num_Buckets - 1 loop,for X in 2 .. Num_Buckets - 0 loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,168,- 1 -> - 0,Bound := Bound - 1;,Bound := Bound - 0;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,100,- 1 -> - 0,for I in 1 .. Bound - 1 loop,for I in 1 .. Bound - 0 loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,93,- -> +,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","and then Prefix_Leq_Suffix (A, 1, Bound + 1, Bound, A'Last)",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,61,= -> /=,and then A (Y) = A'Old (X),and then A (Y) /= A'Old (X),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,62,and then -> or else,and then,or else,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,86,>= -> >,and then A'Last >= 2,and then A'Last > 2,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,166,= -> /=,exit when Bound = 2;,exit when Bound /= 2;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,>= -> >,and then L >= 1,and then L > 1,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,56,and then -> or else,and then X in 1 .. A'Last,or else X in 1 .. A'Last,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,and then -> or else,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi >= Lo and then Hi <= Max_N or else Lo <= Max_N then,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,211,and then -> or else,and then Hi <= Max_N,or else Hi <= Max_N,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,317,+ -> -,Counts (B) := Counts (B) + 1;,Counts (B) := Counts (B) - 1;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,86,and then -> or else,and then A'Last >= 2,or else A'Last >= 2,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,233,- 1 -> - 0,Work (P) := Work (P - 1);,Work (P) := Work (P - 0);,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,369,< -> <=,if Indices (B) < Max_N + 1 then,if Indices (B) <= Max_N + 1 then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,191,and then -> or else,"and then Pivots'Last = Num_Buckets - 1,","or else Pivots'Last = Num_Buckets - 1,",survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,370,+ -> -,Indices (B) := Indices (B) + 1;,Indices (B) := Indices (B) - 1;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,387,- 1 -> - 0,if Counts (K) - 1 <= N - Starts (K) then,if Counts (K) - 0 <= N - Starts (K) then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,339,<= -> <,if Counts (K) <= N + 1 - Curr then,if Counts (K) < N + 1 - Curr then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,+ -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K - 1))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,92,and then -> or else,"and then Sorted_Slice (A, Bound, A'Last)","or else Sorted_Slice (A, Bound, A'Last)",stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,29,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,191,= -> /=,"and then Pivots'Last = Num_Buckets - 1,","and then Pivots'Last /= Num_Buckets - 1,",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,and then -> or else,and then L >= 1,or else L >= 1,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,89,+ -> -,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Bound, Bound - 1, A'Last),",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,407,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,196,<= -> <,if Item <= Pivots (K) then,if Item < Pivots (K) then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,222,+ 1 -> + 0,for X in Lo + 1 .. Hi loop,for X in Lo + 0 .. Hi loop,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,283,> -> >=,if Sample > N then,if Sample >= N then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,88,and then -> or else,"and then Sorted_Slice (A, Bound + 1, A'Last)","or else Sorted_Slice (A, Bound + 1, A'Last)",stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,46,>= -> >,and then Lo_P >= 1,and then Lo_P > 1,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,89,+ 1 -> + 0,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 0, A'Last),",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,29,and then -> or else,and then R <= A'Last;,or else R <= A'Last;,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,385,> -> >=,if Counts (K) > 0 and then Starts (K) <= N then,if Counts (K) >= 0 and then Starts (K) <= N then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,301,- 1 -> - 0,P          := P - 1;,P          := P - 0;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,57,and then -> or else,"and then Y in 1 .. A'Last,","or else Y in 1 .. A'Last,",stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,64,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K = X and then K /= Y then A (K) = A'Old (K))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,48,and then -> or else,and then Lo_S >= 1,or else Lo_S >= 1,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,233,- -> +,Work (P) := Work (P - 1);,Work (P) := Work (P + 1);,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,64,and then -> or else,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X or else K /= Y then A (K) = A'Old (K))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,21,>= -> >,(L >= R,(L > R,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,339,- -> +,if Counts (K) <= N + 1 - Curr then,if Counts (K) <= N + 1 + Curr then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,37,or else -> and then,or else Hi_S < Lo_S,and then Hi_S < Lo_S,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,- -> +,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R + 1 => A (K) <= A (K + 1))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,387,- -> +,if Counts (K) - 1 <= N - Starts (K) then,if Counts (K) - 1 <= N + Starts (K) then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,388,- -> +,Hi := Starts (K) + Counts (K) - 1;,Hi := Starts (K) + Counts (K) + 1;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,369,+ 1 -> + 0,if Indices (B) < Max_N + 1 then,if Indices (B) < Max_N + 0 then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,370,+ 1 -> + 0,Indices (B) := Indices (B) + 1;,Indices (B) := Indices (B) + 0;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,195,- 1 -> - 0,for K in 1 .. Num_Buckets - 1 loop,for K in 1 .. Num_Buckets - 0 loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,264,< -> <=,if N < Num_Buckets then,if N <= Num_Buckets then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,113,+ -> -,"Swap (A, I, I + 1);","Swap (A, I, I - 1);",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,37,< -> <=,or else Hi_S < Lo_S,or else Hi_S <= Lo_S,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,+ 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,339,+ 1 -> + 0,if Counts (K) <= N + 1 - Curr then,if Counts (K) <= N + 0 - Curr then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,387,- -> +,if Counts (K) - 1 <= N - Starts (K) then,if Counts (K) + 1 <= N - Starts (K) then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,210,>= -> >,Lo >= 1,Lo > 1,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,93,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","or else Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)",stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,339,+ -> -,if Counts (K) <= N + 1 - Curr then,if Counts (K) <= N - 1 - Curr then,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,234,- -> +,P        := P - 1;,P        := P + 1;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,48,>= -> >,and then Lo_S >= 1,and then Lo_S > 1,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,>= -> >,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi > Lo and then Hi <= Max_N and then Lo <= Max_N then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,282,* -> +,Sample := I * Stride;,Sample := I + Stride;,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,93,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)","and then Prefix_Leq_Suffix (A, 1, Bound - 0, Bound, A'Last)",survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,22,or else -> and then,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,47,and then -> or else,and then Hi_P <= A'Last,or else Hi_P <= A'Last,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,47,<= -> <,and then Hi_P <= A'Last,and then Hi_P < A'Last,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,388,- 1 -> - 0,Hi := Starts (K) + Counts (K) - 1;,Hi := Starts (K) + Counts (K) - 0;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,> -> >=,while P > 1 and then Key < Pivots (P - 1) loop,while P >= 1 and then Key < Pivots (P - 1) loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,340,+ -> -,Curr := Curr + Counts (K);,Curr := Curr - Counts (K);,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,49,and then -> or else,and then Hi_S <= A'Last;,or else Hi_S <= A'Last;,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,385,<= -> <,if Counts (K) > 0 and then Starts (K) <= N then,if Counts (K) > 0 and then Starts (K) < N then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,- 1 -> - 0,while P > Lo and then Key < Work (P - 1) loop,while P > Lo and then Key < Work (P - 0) loop,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,250,- -> +,Pivots  : Element_Array (1 .. Num_Buckets - 1);,Pivots  : Element_Array (1 .. Num_Buckets + 1);,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,191,- 1 -> - 0,"and then Pivots'Last = Num_Buckets - 1,","and then Pivots'Last = Num_Buckets - 0,",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,61,and then -> or else,and then A (Y) = A'Old (X),or else A (Y) = A'Old (X),stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,300,- 1 -> - 0,Pivots (P) := Pivots (P - 1);,Pivots (P) := Pivots (P - 0);,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,46,and then -> or else,and then Lo_P >= 1,or else Lo_P >= 1,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,250,- 1 -> - 0,Pivots  : Element_Array (1 .. Num_Buckets - 1);,Pivots  : Element_Array (1 .. Num_Buckets - 0);,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,< -> <=,while P > 1 and then Key < Pivots (P - 1) loop,while P > 1 and then Key <= Pivots (P - 1) loop,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,291,- -> +,for X in 2 .. Num_Buckets - 1 loop,for X in 2 .. Num_Buckets + 1 loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,68,= -> /=,if X = Y then,if X /= Y then,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,301,- -> +,P          := P - 1;,P          := P + 1;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,388,+ -> -,Hi := Starts (K) + Counts (K) - 1;,Hi := Starts (K) - Counts (K) - 1;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,218,<= -> <,if Hi <= Lo then,if Hi < Lo then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,88,+ 1 -> + 0,"and then Sorted_Slice (A, Bound + 1, A'Last)","and then Sorted_Slice (A, Bound + 0, A'Last)",survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,87,and then -> or else,and then Bound in 2 .. A'Last,or else Bound in 2 .. A'Last,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,369,+ -> -,if Indices (B) < Max_N + 1 then,if Indices (B) < Max_N - 1 then,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,387,<= -> <,if Counts (K) - 1 <= N - Starts (K) then,if Counts (K) - 1 < N - Starts (K) then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,112,> -> >=,if A (I) > A (I + 1) then,if A (I) >= A (I + 1) then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,89,and then -> or else,"and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),","or else Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),",stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,<= -> <,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi >= Lo and then Hi < Max_N and then Lo <= Max_N then,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,211,<= -> <,and then Hi <= Max_N,and then Hi < Max_N,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,64,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K = Y then A (K) = A'Old (K))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,190,= -> /=,Pivots'First = 1,Pivots'First /= 1,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,94,and then -> or else,and then,or else,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,60,= -> /=,and then A (X) = A'Old (Y),and then A (X) /= A'Old (Y),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,and then -> or else,while P > Lo and then Key < Work (P - 1) loop,while P > Lo or else Key < Work (P - 1) loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,- -> +,while P > Lo and then Key < Work (P - 1) loop,while P > Lo and then Key < Work (P + 1) loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,113,+ 1 -> + 0,"Swap (A, I, I + 1);","Swap (A, I, I + 0);",killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,342,+ 1 -> + 0,Curr := N + 1;,Curr := N + 0;,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,- -> +,while P > 1 and then Key < Pivots (P - 1) loop,while P > 1 and then Key < Pivots (P + 1) loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,< -> <=,while P > Lo and then Key < Work (P - 1) loop,while P > Lo and then Key <= Work (P - 1) loop,survived
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,300,- -> +,Pivots (P) := Pivots (P - 1);,Pivots (P) := Pivots (P + 1);,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,64,= -> /=,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K /= Y then A (K) /= A'Old (K))),killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,38,or else -> and then,or else,and then,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,195,- -> +,for K in 1 .. Num_Buckets - 1 loop,for K in 1 .. Num_Buckets + 1 loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,317,+ 1 -> + 0,Counts (B) := Counts (B) + 1;,Counts (B) := Counts (B) + 0;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,222,+ -> -,for X in Lo + 1 .. Hi loop,for X in Lo - 1 .. Hi loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,229,> -> >=,while P > Lo and then Key < Work (P - 1) loop,while P >= Lo and then Key < Work (P - 1) loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,100,- -> +,for I in 1 .. Bound - 1 loop,for I in 1 .. Bound + 1 loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,296,and then -> or else,while P > 1 and then Key < Pivots (P - 1) loop,while P > 1 or else Key < Pivots (P - 1) loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,392,and then -> or else,if Hi >= Lo and then Hi <= Max_N and then Lo <= Max_N then,if Hi >= Lo or else Hi <= Max_N and then Lo <= Max_N then,stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,212,and then -> or else,"and then (Hi < Lo or else Lo <= Hi),","or else (Hi < Lo or else Lo <= Hi),",stillborn
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,168,- -> +,Bound := Bound - 1;,Bound := Bound + 1;,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,276,- 1 -> - 0,for I in 1 .. Num_Buckets - 1 loop,for I in 1 .. Num_Buckets - 0 loop,killed
-sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,385,and then -> or else,if Counts (K) > 0 and then Starts (K) <= N then,if Counts (K) > 0 or else Starts (K) <= N then,survived
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,194,- -> +,"and then Sorted_Slice (A, 1, I - 1)","and then Sorted_Slice (A, 1, I + 1)",killed
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,38,< -> <=,(Hi_P < Lo_P,(Hi_P <= Lo_P,survived
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,quantum_sort.adb,265,- 1 -> - 0,"and then Prefix_Leq_Suffix (A, 1, Hi - 1, Hi, A'Last)","and then Prefix_Leq_Suffix (A, 1, Hi - 0, Hi, A'Last)",survived
@@ -1213,3 +1078,112 @@ sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,691,* -> +,Width := 2 * Width;,Widt
 sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,408,<= -> <,if A (I) <= A (J) then,if A (I) < A (J) then,survived
 sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,555,- -> +,and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0),and then (Lo = A'Last + 1 or else (Lo + 1) rem Width = 0),killed
 sorting/SPARK4/Ada-SPARK-Timsort,timsort.adb,376,- 1 -> - 0,(for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),(for all K in 1 .. Lo - 0 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,88,and then -> or else,"and then All_In (A, Lo, I, Low, High),","or else All_In (A, Lo, I, Low, High),",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,<= -> <,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) < A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,143,+ -> -,and then Lo <= Hi + 1,and then Lo <= Hi - 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,85,and then -> or else,and then Lo >= 1,or else Lo >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,59,= -> /=,and then A (X) = A'Old (Y),and then A (X) /= A'Old (Y),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,87,and then -> or else,"and then Sorted_Slice (A, Lo, I - 1)","or else Sorted_Slice (A, Lo, I - 1)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,35,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,214,>= -> >,and then A'Last >= Num_Buckets,and then A'Last > Num_Buckets,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,63,and then -> or else,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X or else K /= Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,92,and then -> or else,"and then All_In (A, Lo, I, Low, High)","or else All_In (A, Lo, I, Low, High)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,186,and then -> or else,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),or else (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,201,+ 1 -> + 0,M := M + 1;,M := M + 0;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,233,- -> +,Pivots : Element_Array (1 .. Num_Buckets - 1);,Pivots : Element_Array (1 .. Num_Buckets + 1);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,117,- -> +,J     := J - 1;,J     := J + 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,48,<= -> <,and then R <= A'Last;,and then R < A'Last;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,178,and then -> or else,and then Lo <= A'Last + 1,or else Lo <= A'Last + 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,143,+ 1 -> + 0,and then Lo <= Hi + 1,and then Lo <= Hi + 0,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,+ -> -,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K - 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,116,- 1 -> - 0,A (J) := A (J - 1);,A (J) := A (J - 0);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,100,< -> <=,while J > Lo and then Key < A (J - 1) loop,while J > Lo and then Key <= A (J - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,67,= -> /=,if X = Y then,if X /= Y then,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,253,- 1 -> - 0,"Sort_Bucket (A, Lo, M - 1, Floor, Pivots (K));","Sort_Bucket (A, Lo, M - 0, Floor, Pivots (K));",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,87,- 1 -> - 0,"and then Sorted_Slice (A, Lo, I - 1)","and then Sorted_Slice (A, Lo, I - 0)",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,143,<= -> <,and then Lo <= Hi + 1,and then Lo < Hi + 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,+ 1 -> + 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 1 => A (K) <= A (K + 0))),survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,63,= -> /=,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K /= Y then A (K) /= A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,238,<= -> <,if A'Length <= 1 then,if A'Length < 1 then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,178,+ -> -,and then Lo <= A'Last + 1,and then Lo <= A'Last - 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,255,- 1 -> - 0,Floor := A (M - 1);,Floor := A (M - 0);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,216,and then -> or else,"and then Pivots'Last = Num_Buckets - 1,","or else Pivots'Last = Num_Buckets - 1,",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,149,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,214,and then -> or else,and then A'Last >= Num_Buckets,or else A'Last >= Num_Buckets,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,182,+ 1 -> + 0,and then M in Lo .. A'Last + 1,and then M in Lo .. A'Last + 0,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,186,- -> +,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo + 1 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,21,+ 1 -> + 0,subtype Pos is Positive range 1 .. Max_N + 1;,subtype Pos is Positive range 1 .. Max_N + 0;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,100,- -> +,while J > Lo and then Key < A (J - 1) loop,while J > Lo and then Key < A (J + 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,34,>= -> >,and then L >= 1,and then L > 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,148,and then -> or else,"and then All_In (A, Lo, Hi, Low, High)","or else All_In (A, Lo, Hi, Low, High)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,- 1 -> - 0,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R - 0 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,95,> -> >=,(if K < Lo or else K > I then A (K) = A'Old (K))),(if K < Lo or else K >= I then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,151,or else -> and then,(if K < Lo or else K > Hi then A (K) = A'Old (K))),(if K < Lo and then K > Hi then A (K) = A'Old (K))),survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,184,> -> >=,and then (for all K in M .. A'Last => A (K) > Pivot),and then (for all K in M .. A'Last => A (K) >= Pivot),survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,93,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,48,and then -> or else,and then R <= A'Last;,or else R <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,95,or else -> and then,(if K < Lo or else K > I then A (K) = A'Old (K))),(if K < Lo and then K > I then A (K) = A'Old (K))),survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,or else -> and then,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),and then (for all K in L .. R - 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,255,- -> +,Floor := A (M - 1);,Floor := A (M + 1);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,100,> -> >=,while J > Lo and then Key < A (J - 1) loop,while J >= Lo and then Key < A (J - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,182,+ -> -,and then M in Lo .. A'Last + 1,and then M in Lo .. A'Last - 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,154,+ 1 -> + 0,for I in Lo + 1 .. Hi loop,for I in Lo + 0 .. Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,183,and then -> or else,"and then All_In (A, Lo, M - 1, Floor, Pivot)","or else All_In (A, Lo, M - 1, Floor, Pivot)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,56,and then -> or else,"and then Y in 1 .. A'Last,","or else Y in 1 .. A'Last,",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,35,and then -> or else,and then R <= A'Last;,or else R <= A'Last;,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,151,> -> >=,(if K < Lo or else K > Hi then A (K) = A'Old (K))),(if K < Lo or else K >= Hi then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,116,- -> +,A (J) := A (J - 1);,A (J) := A (J + 1);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,151,< -> <=,(if K < Lo or else K > Hi then A (K) = A'Old (K))),(if K <= Lo or else K > Hi then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,34,and then -> or else,and then L >= 1,or else L >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,178,<= -> <,and then Lo <= A'Last + 1,and then Lo < A'Last + 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,55,and then -> or else,and then X in 1 .. A'Last,or else X in 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,21,+ -> -,subtype Pos is Positive range 1 .. Max_N + 1;,subtype Pos is Positive range 1 .. Max_N - 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,254,> -> >=,if M > Lo then,if M >= Lo then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,183,- -> +,"and then All_In (A, Lo, M - 1, Floor, Pivot)","and then All_In (A, Lo, M + 1, Floor, Pivot)",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,179,and then -> or else,"and then All_In (A, Lo, A'Last, Floor, Integer'Last),","or else All_In (A, Lo, A'Last, Floor, Integer'Last),",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,86,+ 1 -> + 0,and then I in Lo + 1 .. A'Last,and then I in Lo + 0 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,216,= -> /=,"and then Pivots'Last = Num_Buckets - 1,","and then Pivots'Last /= Num_Buckets - 1,",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,201,+ -> -,M := M + 1;,M := M - 1;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,28,- -> +,or else (for all K in L .. R - 1 => A (K) <= A (K + 1))),or else (for all K in L .. R + 1 => A (K) <= A (K + 1))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,178,+ 1 -> + 0,and then Lo <= A'Last + 1,and then Lo <= A'Last + 0,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,143,and then -> or else,and then Lo <= Hi + 1,or else Lo <= Hi + 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,117,- 1 -> - 0,J     := J - 1;,J     := J - 0;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,147,and then -> or else,"and then Sorted_Slice (A, Lo, Hi)","or else Sorted_Slice (A, Lo, Hi)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,27,>= -> >,(L >= R,(L > R,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,226,+ -> -,Sample := Sample + Stride;,Sample := Sample - Stride;,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,215,= -> /=,and then Pivots'First = 1,and then Pivots'First /= 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,184,and then -> or else,and then (for all K in M .. A'Last => A (K) > Pivot),or else (for all K in M .. A'Last => A (K) > Pivot),stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,59,and then -> or else,and then A (X) = A'Old (Y),or else A (X) = A'Old (Y),stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,216,- 1 -> - 0,"and then Pivots'Last = Num_Buckets - 1,","and then Pivots'Last = Num_Buckets - 0,",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,182,and then -> or else,and then M in Lo .. A'Last + 1,or else M in Lo .. A'Last + 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,242,>= -> >,if A'Last >= Num_Buckets then,if A'Last > Num_Buckets then,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,186,- 1 -> - 0,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 0 => A (K) = A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,199,<= -> <,if A (I) <= Pivot then,if A (I) < Pivot then,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,87,- -> +,"and then Sorted_Slice (A, Lo, I - 1)","and then Sorted_Slice (A, Lo, I + 1)",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,233,- 1 -> - 0,Pivots : Element_Array (1 .. Num_Buckets - 1);,Pivots : Element_Array (1 .. Num_Buckets - 0);,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,186,= -> /=,and then (for all K in 1 .. Lo - 1 => A (K) = A'Old (K)),and then (for all K in 1 .. Lo - 1 => A (K) /= A'Old (K)),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,185,and then -> or else,"and then All_In (A, Lo, A'Last, Floor, Integer'Last)","or else All_In (A, Lo, A'Last, Floor, Integer'Last)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,86,and then -> or else,and then I in Lo + 1 .. A'Last,or else I in Lo + 1 .. A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,95,= -> /=,(if K < Lo or else K > I then A (K) = A'Old (K))),(if K < Lo or else K > I then A (K) /= A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,144,and then -> or else,"and then All_In (A, Lo, Hi, Low, High),","or else All_In (A, Lo, Hi, Low, High),",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,95,< -> <=,(if K < Lo or else K > I then A (K) = A'Old (K))),(if K <= Lo or else K > I then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,91,and then -> or else,"and then Sorted_Slice (A, Lo, I)","or else Sorted_Slice (A, Lo, I)",stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,47,and then -> or else,and then L >= 1,or else L >= 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,85,>= -> >,and then Lo >= 1,and then Lo > 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,154,+ -> -,for I in Lo + 1 .. Hi loop,for I in Lo - 1 .. Hi loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,86,+ -> -,and then I in Lo + 1 .. A'Last,and then I in Lo - 1 .. A'Last,survived
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,63,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K = X and then K /= Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,100,- 1 -> - 0,while J > Lo and then Key < A (J - 1) loop,while J > Lo and then Key < A (J - 0) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,63,/= -> =,(if K /= X and then K /= Y then A (K) = A'Old (K))),(if K /= X and then K = Y then A (K) = A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,216,- -> +,"and then Pivots'Last = Num_Buckets - 1,","and then Pivots'Last = Num_Buckets + 1,",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,142,and then -> or else,and then Hi <= A'Last,or else Hi <= A'Last,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,60,and then -> or else,and then A (Y) = A'Old (X),or else A (Y) = A'Old (X),stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,215,and then -> or else,and then Pivots'First = 1,or else Pivots'First = 1,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,47,>= -> >,and then L >= 1,and then L > 1,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,100,and then -> or else,while J > Lo and then Key < A (J - 1) loop,while J > Lo or else Key < A (J - 1) loop,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,183,- 1 -> - 0,"and then All_In (A, Lo, M - 1, Floor, Pivot)","and then All_In (A, Lo, M - 0, Floor, Pivot)",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,61,and then -> or else,and then,or else,stillborn
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,142,<= -> <,and then Hi <= A'Last,and then Hi < A'Last,killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,151,= -> /=,(if K < Lo or else K > Hi then A (K) = A'Old (K))),(if K < Lo or else K > Hi then A (K) /= A'Old (K))),killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,253,- -> +,"Sort_Bucket (A, Lo, M - 1, Floor, Pivots (K));","Sort_Bucket (A, Lo, M + 1, Floor, Pivots (K));",killed
+sorting/SPARK4/Ada-SPARK-Samplesort,samplesort.adb,60,= -> /=,and then A (Y) = A'Old (X),and then A (Y) /= A'Old (X),killed
