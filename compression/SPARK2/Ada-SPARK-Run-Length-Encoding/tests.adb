@@ -1,5 +1,6 @@
 pragma Ada_2022;
 with Run_Length_Encoding;
+with Own_Checks;
 procedure Tests is
    use Run_Length_Encoding;
    A : constant Char_Array := "aaabbc";
@@ -15,4 +16,5 @@ begin
    pragma Assert (Number_Of_Runs (E) = 0);              --  empty: no runs
    pragma Assert (Number_Of_Runs (M) = Max_Length);     --  alternating: one run per char
    pragma Assert (Number_Of_Runs (M (1 .. 1)) = 1);
+   Own_Checks;
 end Tests;

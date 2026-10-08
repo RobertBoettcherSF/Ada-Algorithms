@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Hamming_Weight; use Hamming_Weight;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -7,4 +8,5 @@ begin
    Assert (Weight (7) = 3);
    Assert (Weight (16#8000#) = 1);
    Assert (Weight (1_000_000_000) = 13);
+   Own_Checks;
 end Tests;

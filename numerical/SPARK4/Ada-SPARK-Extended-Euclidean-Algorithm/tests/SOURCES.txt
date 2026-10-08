@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own references: the gcd as the largest common divisor found by brute
+  force (gcd (0, b) = b); the Bezout identity A*X + B*Y = gcd checked in
+  Long_Long_Integer, with |X|, |Y| <= Coeff_Bound; Quotients_By_Gcd
+  times the gcd giving A and B back; Divides and Mod_Nonneg from the
+  definition; the modular inverse found by search over 1 .. M - 1 (it is
+  unique, so it must equal the result).
+* Inputs: all pairs 0 .. 60, 4000 random pairs up to Max_Educational,
+  and the extremes.

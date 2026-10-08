@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: a backward scan that keeps the last match it sees
+  (which is the first index holding the key, and the first one at or
+  after Start for Find_From); Contains is "that index is non-zero".
+* Inputs: 8000 random arrays of length 0 .. Max_N with values -4 .. 4
+  plus Integer'First / Integer'Last, keys -5 .. 5 (some absent), random
+  Start.

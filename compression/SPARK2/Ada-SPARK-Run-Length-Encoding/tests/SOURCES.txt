@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: a run-length encoder that emits one (character, count)
+  pair per maximal run; the number of pairs is the expected value.
+* Inputs: 20000 random strings of length 0 .. Max_Length over one letter
+  (a single run), two letters (many runs) or 26 letters.

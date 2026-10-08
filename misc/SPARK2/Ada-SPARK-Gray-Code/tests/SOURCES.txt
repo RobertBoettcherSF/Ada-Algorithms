@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: the reflected-binary construction (the Gray code on k + 1
+  bits is the code on k bits followed by its reverse with bit k set), as a
+  table for 0 .. 4095. Encode must equal the table and Decode must invert
+  it.
+* Properties on 20000 random 32-bit words: Decode (Encode (V)) = V,
+  Encode (Decode (V)) = V, and Encode (V) and Encode (V + 1) differ in
+  exactly one bit (wrapping at 2**32 included).

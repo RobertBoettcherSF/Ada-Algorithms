@@ -1,0 +1,11 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: the largest D in 1 .. min (A, B) that divides both,
+  found by brute force.
+* All pairs 1 .. 200, plus 20000 random pairs up to 1000.

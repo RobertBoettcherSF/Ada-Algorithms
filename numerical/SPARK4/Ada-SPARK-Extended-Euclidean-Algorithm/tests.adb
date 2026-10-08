@@ -6,6 +6,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO;
 with Extended_Euclidean_Algorithm; use Extended_Euclidean_Algorithm;
+with Own_Checks;
 
 procedure Tests
   with SPARK_Mode => Off
@@ -234,4 +235,5 @@ begin
       Ada.Text_IO.Put_Line ("SOME TESTS FAILED");
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
+   Own_Checks;
 end Tests;

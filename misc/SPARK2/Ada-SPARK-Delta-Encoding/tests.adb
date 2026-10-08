@@ -1,5 +1,6 @@
 pragma Ada_2022;
 with Delta_Encoding;
+with Own_Checks;
 procedure Tests is
    use Delta_Encoding;
    A : constant Sample_Array := [0, 4, 9, 3];
@@ -7,4 +8,5 @@ procedure Tests is
 begin
    pragma Assert (Net_Delta (A) = 3);
    pragma Assert (Net_Delta (B) = 0);
+   Own_Checks;
 end Tests;

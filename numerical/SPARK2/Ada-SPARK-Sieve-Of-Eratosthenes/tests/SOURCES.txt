@@ -1,0 +1,10 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* Own reference: trial division by every D in 2 .. N - 1 (1 is not
+  prime). Sieve and Is_Prime must agree with it for every number in
+  1 .. Capacity.

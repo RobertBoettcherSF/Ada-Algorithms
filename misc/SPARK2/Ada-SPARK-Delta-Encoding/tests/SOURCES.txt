@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: delta-encode the stream (D (k) = S (k) - S (k - 1)) and
+  add up the deltas.
+* Inputs: 20000 random streams of length 1 .. Max_Length, with -128 and
+  127 overrepresented.

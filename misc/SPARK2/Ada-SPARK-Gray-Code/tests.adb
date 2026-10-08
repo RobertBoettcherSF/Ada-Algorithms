@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Interfaces;
 with Gray_Code;
+with Own_Checks;
 procedure Tests is
    use type Interfaces.Unsigned_32;
 begin
@@ -8,4 +9,5 @@ begin
    pragma Assert (Gray_Code.Encode (1) = 1);
    pragma Assert (Gray_Code.Encode (2) = 3);
    pragma Assert (Gray_Code.Decode (Gray_Code.Encode (16#1234_5678#)) = 16#1234_5678#);
+   Own_Checks;
 end Tests;
