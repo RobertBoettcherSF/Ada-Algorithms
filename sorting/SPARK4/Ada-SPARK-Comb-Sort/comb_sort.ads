@@ -6,9 +6,10 @@
 --
 --  SPARK port of Ada-Comb-Sort: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
---  sibling allows arbitrary A'First and raises on oversized n; both run
---  the classic until-gap-1-and-clean-pass loop. This port requires
---  A'First = 1, uses Pre => In_Bounds (A), proves termination with the
+--  sibling raises on oversized n; both run the classic
+--  until-gap-1-and-clean-pass loop. This port takes any A'First in
+--  1 .. Max_N (the first gap is A'Length; passes run from A'First),
+--  uses Pre => In_Bounds (A), proves termination with the
 --  loop variant (Gap, Bound) and sortedness from the gap-1 passes inside
 --  the same loop. Full multiset /
 --  permutation equality is verified by tests rather than claimed as a
@@ -32,23 +33,31 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Live indices lie in 1 .. Max_N (any A'First); Index includes 0 so
+   --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
 
-   type Element_Array is array (Positive range <>) of Integer;
+   --  Live slots; the index subtype carries the 1 .. Max_N origin range,
+   --  In_Bounds adds the length.
+   subtype Live_Index is Positive range 1 .. Max_N;
+
+   type Element_Array is array (Live_Index range <>) of Integer;
 
    ---------------------------------------------------------------------------
    -- Shape / sortedness guards (expression functions — usable in contracts)
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (A'Length <= 1
+      or else (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
