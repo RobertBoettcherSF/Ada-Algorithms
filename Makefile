@@ -18,7 +18,7 @@ TEST_BINS := \
 
 HARNESS := $(BIN_DIR)/harness
 
-.PHONY: all list test clean
+.PHONY: all list test clean proof-index
 
 all: $(HARNESS) $(TEST_BINS)
 
@@ -54,3 +54,10 @@ endif
 
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
+
+# Regenerate PROOFS.md / PROOFS.csv from per-folder results (see tools/audit/README.md).
+#   make proof-index RESULTS=/path/with/build.jsonl+prove.jsonl PROVE_LOGS=/tmp/aa_prove
+RESULTS    ?= /tmp/aa_res
+PROVE_LOGS ?= /tmp/aa_prove
+proof-index:
+	python3 tools/proof_index.py --results $(RESULTS) --logs $(PROVE_LOGS)
