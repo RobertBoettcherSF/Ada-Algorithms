@@ -19,7 +19,7 @@ package body Reverse_Linked_List_II is
       Temp : Integer;
    begin
       while I < J loop
-         pragma Loop_Invariant (I in Position and then J in Position);
+         pragma Loop_Invariant (I >= First and then J <= Last and then I + J = First + Last);
          Temp := L.Data (I);
          L.Data (I) := L.Data (J);
          L.Data (J) := Temp;
