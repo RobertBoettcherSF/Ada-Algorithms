@@ -1,0 +1,21 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: the original acyclic sample, plus a 2-cycle whose first pair
+requires course 1, a downward chain and a course that requires itself
+(added by the V&V sweep, agent B, 2026-10-09, when the stub Can_Finish
+was found; see tools/vv/findings_sweep.csv).
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09):
+* Reference: a brute force in own_checks.adb that tries all 24 orders of
+  the 4 courses; the courses can be finished exactly when some order puts
+  every Required before its Course_Number. The count of finishable
+  arrays (10,788 of 65,536) was also checked once by a separate Python
+  brute force (itertools permutations), not kept in the repository.
+* Checks: Can_Finish and Schedule.Ok equal the reference; the witness
+  is checked directly (Ok: every Required has a smaller rank than its
+  Course_Number; not Ok: the stuck set is nonempty and each member has
+  a prerequisite pair whose Required is also a member).
+* Inputs: every prerequisite array, 16 ** 4 = 65,536. There is no
+  randomness, so there is no seed.

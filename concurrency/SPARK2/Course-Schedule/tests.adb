@@ -2,6 +2,7 @@ pragma SPARK_Mode (On);
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Course_Schedule; use Course_Schedule;
+with Own_Checks;
 
 procedure Tests is
    --  Course 2 needs 1, 3 needs 2, 4 needs 2 and 3: no cycle.
@@ -42,4 +43,5 @@ begin
       raise Program_Error with "course 3 needing itself reported as finishable";
    end if;
    Put_Line ("Course schedule: PASS");
+   Own_Checks;
 end Tests;
