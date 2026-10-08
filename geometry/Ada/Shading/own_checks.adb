@@ -514,6 +514,57 @@ begin
       end;
    end;
 
+   --  boundaries the random sets never hit: N.L exactly 0 (specular must
+   --  stay off; the light only contributes while it faces the surface) and
+   --  a spot sample exactly on the cone (it is inside, angle = cutoff)
+   declare
+      M : constant Material :=
+        (Ambient_Color => Black, Diffuse_Color => Black, Specular_Color => White,
+         Ambient_Coeff => 0.0, Diffuse_Coeff => 0.0, Specular_Coeff => 1.0, Shininess => 2.0);
+      N : constant Vector_3D := V (1.0, 0.0, 0.0);
+      P : constant Vector_3D := V (0.0, 0.0, 0.0);
+      View : constant Vector_3D := V (0.0, 0.0, -5.0);   --  view dir (0,0,-1)
+      Dir : constant Light_Source :=
+        (Kind => Directional, Color => White, Intensity => 1.0, Direction => V (0.0, 0.0, -1.0), others => <>);
+      Pt : constant Light_Source :=
+        (Kind => Point_Light, Color => White, Intensity => 1.0, Position => V (0.0, 0.0, 2.0),
+         Falloff => (Kind => None, Power => 0.0), others => <>);
+   begin
+      Check_Light (P, N, View, M, [1 => Dir], "directional, N.L exactly 0: no specular");
+      Check_Light (P, N, View, M, [1 => Pt], "point light, N.L exactly 0: no specular");
+      declare
+         Sp : Light_Source :=
+           (Kind => Spot_Light, Color => White, Intensity => 1.0, Position => V (0.0, 0.0, 2.0),
+            Direction => V (0.0, 0.0, -1.0), Falloff => (Kind => None, Power => 0.0),
+            Spot_Cone_Angle_Deg => 30.0, Spot_Dropoff_Exp => 1.0);
+      begin
+         Check_Light (P, N, View, M, [1 => Sp], "spot, N.L exactly 0: no specular");
+         --  point (1,0,-1), light at the origin shining toward -Z: the angle
+         --  is exactly 45 degrees, and the cone is set to that same angle
+         --  the cone angle is arccos of the same cosine the code
+         --  compares, so the sample sits exactly on the boundary
+         Sp.Position := V (0.0, 0.0, 0.0);
+         declare
+            Pt  : constant Vector_3D := V (1.0, 0.0, -1.0);
+            Ld  : constant Vector_3D := Unit (V (-1.0, 0.0, 1.0));
+            Cos_A : constant Real := Real (Dot (V (-Long_Float (Ld.X), -Long_Float (Ld.Y), -Long_Float (Ld.Z)),
+                                               V (0.0, 0.0, -1.0)));
+         begin
+            Sp.Spot_Cone_Angle_Deg := Real_Math.Arccos (Cos_A) * 180.0 / Ada.Numerics.Pi;
+            --  diffuse only, normal toward the light: inside the cone the
+            --  color is not black, so the boundary must count as inside
+            declare
+               Md : constant Material :=
+                 (Ambient_Color => Black, Diffuse_Color => White, Specular_Color => Black,
+                  Ambient_Coeff => 0.0, Diffuse_Coeff => 1.0, Specular_Coeff => 0.0, Shininess => 2.0);
+            begin
+               Check_Light (Pt, Ld, V (1.0, 0.0, -6.0), Md, [1 => Sp],
+                            "spot sample exactly on the cone boundary");
+            end;
+         end;
+      end;
+   end;
+
    Expect (Checked > 1_000, "enough checks:" & Checked'Image);
    if Failures > 0 then
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
