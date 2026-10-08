@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Binary_Tree_Inorder; use Binary_Tree_Inorder;
+with Own_Checks;
 
 procedure Tests is
    T : Tree := Empty;
@@ -8,4 +9,5 @@ begin
    Set_Node (T, 1, 4, 2, 3); Set_Node (T, 2, 2, 0, 0); Set_Node (T, 3, 6, 0, 0);
    if Inorder_Sum (T, 1) /= 12 then raise Program_Error; end if;
    Put_Line ("Binary tree inorder: PASS");
+   Own_Checks;
 end Tests;

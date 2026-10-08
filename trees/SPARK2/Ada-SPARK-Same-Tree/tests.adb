@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Same_Tree; use Same_Tree;
+with Own_Checks;
 
 procedure Tests is
    T : Tree := Empty;
@@ -20,4 +21,5 @@ begin
       raise Program_Error;
    end if;
    Put_Line ("Same Tree: PASS");
+   Own_Checks;
 end Tests;

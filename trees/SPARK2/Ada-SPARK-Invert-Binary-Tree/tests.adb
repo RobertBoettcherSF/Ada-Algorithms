@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Invert_Binary_Tree; use Invert_Binary_Tree;
+with Own_Checks;
 
 procedure Tests is
    T : Tree := Empty;
@@ -14,4 +15,5 @@ begin
       raise Program_Error;
    end if;
    Put_Line ("Invert Binary Tree: PASS");
+   Own_Checks;
 end Tests;

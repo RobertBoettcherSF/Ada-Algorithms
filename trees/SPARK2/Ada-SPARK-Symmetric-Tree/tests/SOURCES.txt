@@ -1,0 +1,13 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: compare the left subtree with the mirror image of the right
+  subtree recursively (shape and values).
+* Trees: half random shapes (values -1 .. 1, so some are symmetric by chance),
+  half built symmetric on purpose (random left subtree of 0 .. 7 nodes, right
+  subtree = its mirrored copy), of which half get one value changed to 50.

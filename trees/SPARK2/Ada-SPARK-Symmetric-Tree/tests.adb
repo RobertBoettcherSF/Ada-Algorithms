@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Symmetric_Tree; use Symmetric_Tree;
+with Own_Checks;
 
 procedure Tests is
    T : Tree := Empty;
@@ -21,4 +22,5 @@ begin
       raise Program_Error;
    end if;
    Put_Line ("Symmetric Tree: PASS");
+   Own_Checks;
 end Tests;

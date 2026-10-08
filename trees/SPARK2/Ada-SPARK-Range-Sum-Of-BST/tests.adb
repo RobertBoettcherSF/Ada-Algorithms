@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Range_Sum_Of_BST; use Range_Sum_Of_BST;
+with Own_Checks;
 
 procedure Tests is
    T : Tree := Empty;
@@ -12,4 +13,5 @@ begin
       raise Program_Error;
    end if;
    Put_Line ("Range_Sum_Of_BST: PASS");
+   Own_Checks;
 end Tests;

@@ -59,3 +59,15 @@ searching/SPARK2/Ada-SPARK-Word-Search-II-Lite,own left-to-right row scan; 5000 
 searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,own wildcard matcher; 4000 random dictionaries
 misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,own directly built digit string (first ~20000 positions) + own digit-block arithmetic for n=10^9 and 2^31
 strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,2000 random pairs vs Long_Long_Integer + hand arithmetic + (10^30-1)^2 by algebra
+trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,own recursive subtree sum; 4000 random trees + empty
+trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order,own recursive subtree sum; 4000 random trees + empty
+trees/SPARK2/Ada-SPARK-Binary-Tree-Preorder,own recursive subtree sum; 4000 random trees + empty
+trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth,own recursive height (convention fixed by one-node tree); 4000 random trees
+trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-Binary-Tree,own recursive height (convention fixed by one-node tree); 4000 random trees
+trees/SPARK2/Ada-SPARK-Binary-Tree-Min-Depth,own recursive min root-to-leaf depth (convention fixed by one-node tree); 4000 random trees
+trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree,own recursive min root-to-leaf depth (convention fixed by one-node tree); 4000 random trees
+trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,own recursive longest path (edges/nodes fixed by one-node tree); 4000 random trees
+trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST,own whole-tree range sum with odd bounds; 4000 random BSTs
+trees/SPARK2/Ada-SPARK-Symmetric-Tree,own mirror comparison; 4000 trees (half built symmetric)
+trees/SPARK2/Ada-SPARK-Same-Tree,own recursive comparison vs renumbered copies; 4000 pairs
+trees/SPARK2/Ada-SPARK-Invert-Binary-Tree,children swapped at every node; 4000 random trees

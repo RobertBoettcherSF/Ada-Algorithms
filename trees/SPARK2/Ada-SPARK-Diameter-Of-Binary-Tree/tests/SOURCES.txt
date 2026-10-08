@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: the longest path between any two nodes, in edges, computed
+  recursively as the maximum over all nodes of height (left) + height (right).
+  Edges vs nodes is not fixed by the README: the one-node tree fixes it (0 =
+  edges, 1 = nodes) and every other tree must agree.
+* Trees: random shapes with 1 .. 15 nodes rooted at node 1 (node I hangs
+  below a random earlier node with a free slot), random values in -100 .. 100.

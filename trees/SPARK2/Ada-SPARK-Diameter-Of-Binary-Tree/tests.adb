@@ -1,6 +1,7 @@
 pragma SPARK_Mode (On);
 with Ada.Text_IO; use Ada.Text_IO;
 with Diameter_Of_Binary_Tree; use Diameter_Of_Binary_Tree;
+with Own_Checks;
 
 procedure Tests is
    T : Tree := Empty;
@@ -16,4 +17,5 @@ begin
       raise Program_Error;
    end if;
    Put_Line ("Diameter Of Binary Tree: PASS");
+   Own_Checks;
 end Tests;
