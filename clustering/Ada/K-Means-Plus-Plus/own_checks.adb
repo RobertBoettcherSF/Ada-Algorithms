@@ -145,6 +145,22 @@ begin
       Note (Stat < 36.191, "injected first center, U = I / 4000");
    end;
 
+   --  Injected first center on four rows. U = 0 is the first row,
+   --  U = 1/4 is the edge of the next row, U = 1 is the maximum and
+   --  the last row.
+   declare
+      Rows : constant Dataset := [[1.0], [2.0], [3.0], [4.0]];
+      At_0 : constant Centers := Init_Centers_KMeansPP (Rows, 1, [0.0]);
+      At_Edge : constant Centers := Init_Centers_KMeansPP (Rows, 1, [0.25]);
+      At_Max : constant Centers := Init_Centers_KMeansPP (Rows, 1, [1.0]);
+   begin
+      Note (abs (At_0 (1, 1) - 1.0) <= 1.0e-9, "U = 0 is the first row");
+      Note (abs (At_Edge (1, 1) - 2.0) <= 1.0e-9,
+        "U = 1/4 is the next row");
+      Note (abs (At_Max (1, 1) - 4.0) <= 1.0e-9,
+        "the maximum uniform is the last row");
+   end;
+
    Txt.Put_Line ("own checks:" & Natural'Image (Checks)
      & "  failed:" & Natural'Image (Fails));
    Fail_Count := Fails;

@@ -478,11 +478,18 @@ is
       U := Draws (Draw_Ix);
       Draw_Ix := Draw_Ix + 1;
       Span := Natural (N);
-      --  Truncate. Rounding, then clamping, widens the last index.
-      Off := Natural (Long_Float'Floor (Long_Float (U) * Long_Float (Span)));
-      if Off >= Span then
-         Off := Span - 1;
-      end if;
+      declare
+         --  Floor selects the bin. The maximum uniform, and a product
+         --  that reaches Span, are the last index by name.
+         Product : constant Long_Float :=
+           Long_Float'Floor (Long_Float (U) * Long_Float (Span));
+      begin
+         if U = Unit_Interval'Last or else Product >= Long_Float (Span) then
+            Off := Span - 1;
+         else
+            Off := Natural (Product);
+         end if;
+      end;
       Idx := Point_Index (Natural (Data'First (1)) + Off);
       Copy_Point_To_Center (Data, Idx, Result, 1);
       Chosen := 1;
