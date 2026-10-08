@@ -299,6 +299,16 @@ begin
       Loss   : Real;
       LR     : constant Real := 0.2;
    begin
+      --  Create_Network draws time-seeded random weights, and about 1 in 40
+      --  starts ended in a local minimum, so this test failed now and then.
+      --  Use fixed initial weights in [-1, 1] instead, so the run is the
+      --  same every time.
+      for I in 1 .. 4 loop
+         for J in 1 .. 2 loop
+            Net.W1 (I, J) := Real ((I * 7 + J * 3) mod 11) / 5.5 - 1.0;
+         end loop;
+         Net.W2 (1, I) := Real ((I * 5) mod 9) / 4.5 - 1.0;
+      end loop;
       for E in 1 .. Epochs loop
          for I in 1 .. 4 loop
             Forward (Net, Inputs (I), State);
