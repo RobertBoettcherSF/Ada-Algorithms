@@ -6,10 +6,13 @@
 set -u
 F=$1; ROOT=$(cd "$(dirname "$0")/../.." && pwd); cd "$ROOT"
 G12=$(ls -d ~/.local/alr/gnat_native_12*/bin | head -1); GPR=$(ls -d ~/.local/alr/gprbuild_*/bin | head -1)
+# GNAT 14 is the system compiler: drop any Alire toolchain from PATH for it.
+P14=$(echo "$PATH" | tr ':' '\n' | grep -v -e gnat_native -e gprbuild_ | paste -sd:)
+PATH="$P14" gnatmake --version | head -1 | grep -q " 14\." || { echo "GNAT 14 not found on the system PATH"; exit 2; }
 W=$(mktemp -d /tmp/sweepchk.XXXX)
 mkdir -p "$W/14" "$W/12"
 cp -r "$F/." "$W/14/"; cp -r "$F/." "$W/12/"; rm -rf "$W"/1?/obj "$W"/1?/bin
-r14=$( (cd "$W/14" && make -s test >log 2>&1) && echo pass || echo FAIL)
+r14=$( (cd "$W/14" && PATH="$P14" make -s test >log 2>&1) && echo pass || echo FAIL)
 r12=$( (cd "$W/12" && PATH="$G12:$GPR:$PATH" make -s test >log 2>&1) && echo pass || echo FAIL)
 w14=$(grep -c "warning:" "$W/14/log"); w12=$(grep -c "warning:" "$W/12/log")
 echo "gnat14=$r14 warnings=$w14  gnat12=$r12 warnings=$w12"
