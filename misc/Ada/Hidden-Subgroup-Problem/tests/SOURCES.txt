@@ -12,6 +12,9 @@ Sources of the expected values in own_checks.adb (own code, MIT)
   divides g (number-theoretic property, not the product test).
 * Greatest_Common_Divisor: largest common divisor by downward search,
   0 .. 60 squared.
+* Domain-only oracles (value 999 outside Z_N; identity on n bits that wraps
+  at 2**n): only the domain may be read, so periods, verification and the
+  "no s" answer must not change.
 * Simon (n = 1 .. 5 bits, every s /= 0): f (x) = min (x, x xor s), whose
   hidden string is s by construction; s = 0 must raise Subgroup_Not_Found.
 Nothing is taken from the program's output or from third-party test suites.

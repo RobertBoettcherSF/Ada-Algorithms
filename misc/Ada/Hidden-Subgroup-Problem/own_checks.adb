@@ -35,6 +35,15 @@ procedure Own_Checks is
    function Simon_Oracle (X : Bit_Mask) return Bit_Mask is
      (Bit_Mask'Min (X, X xor S_Hidden));
 
+   --  oracles that are only meaningful on their domain: the value outside
+   --  Z_N (x >= N) or outside n bits (x >= 2**n) must never be read
+   N_Domain : Group_Element := 2;
+   function Domain_Oracle (X : Group_Element) return Group_Element is
+     (if X >= N_Domain then 999 else X mod R_Hidden);
+   Bits_Domain : Natural := 1;
+   function Masked_Identity (X : Bit_Mask) return Bit_Mask is
+     (X mod Bit_Mask (2 ** Bits_Domain));
+
    function Ref_GCD (A, B : Group_Element) return Group_Element is
    begin
       if A = 0 then
@@ -145,6 +154,45 @@ begin
          S_Hidden := S;
          Expect (Solve_Simons_Problem (Bits, Simon_Oracle'Unrestricted_Access) = S,
                  "Simon n=" & Bits'Image & " s=" & S'Image);
+      end loop;
+   end loop;
+   --  one-to-one on n bits, but x and x + 2**n collide: still no s in Z_2^n
+   for Bits in 1 .. 7 loop
+      Bits_Domain := Bits;
+      begin
+         Expect (Solve_Simons_Problem (Bits, Masked_Identity'Unrestricted_Access) = 0,
+                 "Simon one-to-one on" & Bits'Image & " bits returned a value");
+      exception
+         when Subgroup_Not_Found => Expect (True, "");
+      end;
+   end loop;
+   --  oracles with junk outside Z_N: only x in 0 .. N - 1 may be read
+   for N in Group_Element range 2 .. 24 loop
+      N_Domain := N;
+      for R in Group_Element range 1 .. N loop
+         if N mod R = 0 then
+            R_Hidden := R;
+            if R = 1 then
+               begin
+                  Expect (Solve_Period_Finding (N, Domain_Oracle'Unrestricted_Access) = 0,
+                          "constant-on-Z_N oracle accepted, N=" & N'Image);
+               exception
+                  when Invalid_Oracle | Subgroup_Not_Found => Expect (True, "");
+               end;
+            else
+               begin
+                  Expect (Solve_Period_Finding (N, Domain_Oracle'Unrestricted_Access) = Period_Type (R),
+                          "period with junk outside Z_N, N=" & N'Image & " r=" & R'Image);
+               exception
+                  when Invalid_Oracle | Subgroup_Not_Found =>
+                     Expect (False, "period with junk outside Z_N raised, N=" & N'Image & " r=" & R'Image);
+               end;
+            end if;
+            for Hh in 0 .. N - 1 loop
+               Expect (Verify_Hidden_Subgroup (N, [1 => Hh], Domain_Oracle'Unrestricted_Access) = (Hh mod R = 0),
+                       "Verify with junk outside Z_N, N=" & N'Image & " r=" & R'Image & " h=" & Hh'Image);
+            end loop;
+         end if;
       end loop;
    end loop;
    --  s = 0 (one-to-one oracle): no non-zero s exists
