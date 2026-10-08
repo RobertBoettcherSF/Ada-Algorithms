@@ -57,10 +57,29 @@ begin
          end if;
       end;
    end loop;
-   --  per position, every printable character has its own key
+   --  every Character (NUL and Character'Last included) at every position hashes without an exception
    for P in 1 .. Max_Len loop
-      for C1 in Character'Val (32) .. Character'Val (126) loop
-         for C2 in Character'Succ (C1) .. Character'Val (126) loop
+      for C in Character loop
+         declare
+            S : Char_Array (1 .. P) := Filler (1 .. P);
+         begin
+            S (P) := C;
+            Report (Hash (S) = (Hash (Filler (1 .. P - 1)) xor Key_Of (P, C)), "full Character range");
+         end;
+      end loop;
+   end loop;
+   --  position-sensitive: the same character has a different key at every position
+   for C in Character loop
+      for P1 in 1 .. Max_Len loop
+         for P2 in P1 + 1 .. Max_Len loop
+            Report (Key_Of (P1, C) /= Key_Of (P2, C), "position-sensitive keys");
+         end loop;
+      end loop;
+   end loop;
+   --  per position, every character (all 256) has its own key
+   for P in 1 .. Max_Len loop
+      for C1 in Character'First .. Character'Pred (Character'Last) loop
+         for C2 in Character'Succ (C1) .. Character'Last loop
             Report (Key_Of (P, C1) /= Key_Of (P, C2), "distinct keys");
          end loop;
       end loop;
