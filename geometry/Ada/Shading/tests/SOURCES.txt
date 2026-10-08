@@ -1,0 +1,24 @@
+Shading own checks (own_checks.adb) - sources of the reference method
+
+* Phong reflection model: B. T. Phong, "Illumination for computer generated
+  pictures", Communications of the ACM 18 (6), 1975, 311-317: ambient
+  ka Ca Ia, diffuse kd Cd Il max(N.L, 0), specular ks Cs Il max(R.V, 0)**n
+  with R = 2 (N.L) N - L. Evaluated here from the formulas, per channel,
+  unclamped, then clamped once at the end.
+* Shading variants (flat at the centroid with the face normal, Gouraud =
+  lighting at the vertices then interpolation, Phong = interpolated and
+  renormalized normal, deferred = geometry pass storing surface and material
+  parameters, lighting pass shading them): the definitions in the package
+  spec comments and README; deferred shading must give the same color as
+  forward shading of the visible fragment.
+* Distance falloff 1 / (1 + d**n) (None n = 0, Linear 1, Quadratic 2,
+  Custom n), and no falloff at d = 0 or n = 0: the package's own documented
+  formula (shading.adb comment above Compute_Falloff), with an own
+  integer power by repeated squaring.
+* Spot cone: inside when the angle between the spot axis and the direction
+  to the point (arccos) is at most the cone angle and in front of the light.
+* Vector identities: a x (b x c) = b (a.c) - c (a.b); cross product
+  perpendicular to both factors; reflection keeps the length.
+
+Test data: an LCG with fixed default seed 20261008, printed at the start and
+overridable with AA_SEED (no time seeds).

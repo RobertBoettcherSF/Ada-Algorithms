@@ -2,6 +2,7 @@
 --  Complies with Ada 2023 (ISO/IEC 8652:2023).
 
 with Ada.Command_Line;
+with Own_Checks;
 with Ada.Text_IO; use Ada.Text_IO;
 with Shading;     use Shading;
 
@@ -59,6 +60,7 @@ procedure Tests is
       V2 => (Position => (0.0, 1.0, 0.0),  Normal => (0.0, 0.7071, 0.7071),  Color => White));
 
 begin
+   Own_Checks;
    --  ===================================================================
    --  TEST 1 -- Vector Primitives & Math Operations
    --  ===================================================================
@@ -383,9 +385,7 @@ begin
    begin
       begin
          declare
-            pragma Warnings (Off, "variable ""Unused_N"" is not referenced");
             Unused_N : constant Vector_3D := Triangle_Face_Normal (Collinear_Tri);
-            pragma Warnings (On, "variable ""Unused_N"" is not referenced");
          begin
             Check ("12.1 Degenerate triangle normal calculation", False);
          end;
@@ -401,10 +401,8 @@ begin
       begin
          begin
             declare
-               pragma Warnings (Off, "variable ""Unused_Norm"" is not referenced");
-               Unused_Norm : constant Vector_3D := Normalize ((0.0, 0.0, 0.0));
-               pragma Warnings (On, "variable ""Unused_Norm"" is not referenced");
-            begin
+                  Unused_Norm : constant Vector_3D := Normalize ((0.0, 0.0, 0.0));
+               begin
                Check ("12.2 Normalizing zero vector", False);
             end;
          exception
@@ -420,10 +418,8 @@ begin
       begin
          begin
             declare
-               pragma Warnings (Off, "variable ""Unused_W"" is not referenced");
-               Unused_W : constant Barycentric_Weights := Make_Barycentric (0.0, 0.0, 0.0);
-               pragma Warnings (On, "variable ""Unused_W"" is not referenced");
-            begin
+                  Unused_W : constant Barycentric_Weights := Make_Barycentric (0.0, 0.0, 0.0);
+               begin
                Check ("12.3 Zero sum barycentric weights", False);
             end;
          exception
