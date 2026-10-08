@@ -61,7 +61,7 @@ Empty and singleton arrays are no-ops. Flashsort is **not stable**.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 248 assertions pass. Running `make prove` reports `Success: all checks proved (655 checks).`
+When you run `make test`, you will see all 248 assertions pass, followed by the own checks (12,600 sort calls). Running `make prove` reports `Success: all checks proved (655 checks)` (the same at `--mode=silver --level=2`).
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, duplicates / all-equal, signed domain, `Integer'First` / `Integer'Last` class-map cases, lengths up to `Max_N`.

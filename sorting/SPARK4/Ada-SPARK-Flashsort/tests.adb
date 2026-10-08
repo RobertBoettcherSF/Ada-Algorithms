@@ -8,6 +8,7 @@ pragma Ada_2022;
 with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Flashsort; use Flashsort;
+with Own_Checks;
 
 procedure Tests
   with SPARK_Mode => Off
@@ -417,6 +418,8 @@ begin
    Put_Line
      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image
       & " FAIL");
+
+   Own_Checks;
 
    if Fail_Count /= 0 then
       raise Program_Error with "Flashsort tests failed";

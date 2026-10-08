@@ -1,0 +1,36 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the package; expected results come from an
+insertion-sort reference inside tests.adb, a permutation check, and
+hand-written literals.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09):
+* Checked properties, independent of how the code sorts: the output is
+  nondecreasing, and every value occurs in the output exactly as often as in
+  the input (occurrence counts by linear scans; no sorting in the check).
+  Together with equal lengths this is "same multiset".
+* Inputs: every array of length 0 .. 7 over {0, 1, 2} (3,280); every
+  permutation of 1 .. 7 (5,040, Heap's method); every array of length
+  0 .. 5 over {Integer'First, -1, 0, 1, Integer'Last} (3,906); class
+  borders: for lengths 2, 9, 10, 19, 20, ..., 59, 60, 64 (so every class
+  count m = 2 .. 6) and gaps D in {1, 2, 3, 7, 1000, 2**28}, two random
+  arrays with Min = 0, Max = (m - 1) * D and every other key on a class
+  border J * D or one off it (168); 200 random arrays of random length
+  0 .. Max_N, each drawn from one mode: small range, the whole Integer
+  range, one cluster plus an Integer'Last outlier, two opposite values,
+  keys near Integer'First / Integer'Last, a wide signed range
+  (Park-Miller minimal standard generator); full-length descending,
+  ascending, all-equal, organ-pipe and single-outlier arrays.
+  Applied to: Flashsort.Sort.
+* Named phase: Sort is only the flashsort phase now (the Bubble_Finish
+  fallback was removed), so every check above exercises the
+  classification, the cycle permutation and the per-class insertion sort
+  alone.
+* Volume: the ghost counting proof runs under -gnata and costs about
+  0.1 s per length-64 sort, so the long-array groups are kept small; the
+  whole run takes about 10 s, inside the 30 s mutant timeout.
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..."); set AA_SEED=<n> to run them with
+  another seed.
