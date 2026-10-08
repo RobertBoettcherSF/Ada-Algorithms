@@ -258,6 +258,8 @@ Second round (seeds recorded per folder):
 - Cyk-Algorithm (split seed 20261008, before tests): tuned 31/31 after 2 equivalent tie-break survivors; held-out std 26/26 + alt 75/77 = 101/103 (98.1%).
 - BrownBoost (split seed 20261008, before tests): tuned 49/75, 26 survivors all with a written reason; held-out std 67/85 + alt 109/134 = 176/219 (80.4%), 3 timeouts in n. Below 90%.
 
+Agent B (2026-10-08, Slowsort and Strand-Sort): two more masking cases, not bugs. Both phases sorted on their own and are now proved to (Slowsort 135 checks, Strand-Sort 254, each at silver level 2 and at level 4), and both Bubble_Finish fallbacks are gone (d5097944, 43641db9). Slowsort_Range proves pairwise order plus a bound: no element ends above the largest value the range held on entry (ghost Max_Of). That bound carries the surrender step without a permutation argument. Strand-Sort proves sorted strands, sorted merges, and an empty Input after the capped outer loop. Its ten GNAT 12 warnings (type-implied loop invariants) were fixed in the code. Both held-out halves had fewer than 20 scored std mutants, so they were topped up with the alt held half: Slowsort 43/43 (raw 19/26 std + 24/34 alt, split seed 20261023), Strand-Sort 76/76 (raw 18/19 + 58/62, split seed 20261024); dummies 0/23 and 0/38.
+
 ## 3j. Silent-fail scan, compiler-version guard and timeouts (2026-10-08, night)
 
 **Silent fail.** `tools/vv/silent_fail.py` asks whether a failed check would fail `make test`. It reads the logs of the version-checked build run (`--from-logs`; `tools/audit/build_folder.sh` keeps `mk14.log`, `mk12.log`, `r14.log`, `r12.log`) or runs `make test` itself on GNAT 14. It flags three things:
