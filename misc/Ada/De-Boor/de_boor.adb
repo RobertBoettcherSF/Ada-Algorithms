@@ -261,7 +261,7 @@ is
       --  Binary search for k with t_k <= X < t_{k+1}
       Low  := Degree;
       High := N + 1;
-      Mid  := (Low + High) / 2;
+      Mid  := Low + (High - Low) / 2;
       while X < Knots (U0 + Mid)
         or else X >= Knots (U0 + Mid + 1)
       loop
@@ -278,7 +278,7 @@ is
          if High = Low then
             exit;
          end if;
-         Mid := (Low + High) / 2;
+         Mid := Low + (High - Low) / 2;
          if Mid = Low and then High = Low + 1 then
             --  Force progress toward the correct side
             if X >= Knots (U0 + Low)

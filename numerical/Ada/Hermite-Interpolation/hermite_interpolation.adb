@@ -92,7 +92,7 @@ is
          return 0;
       end if;
       while Hi - Lo > 1 loop
-         Mid := (Lo + Hi) / 2;
+         Mid := Lo + (Hi - Lo) / 2;
          if S.X (Mid) <= X then
             Lo := Mid;
          else

@@ -445,7 +445,7 @@ is
             Lo := 1;
             Hi := N;
             while Lo < Hi loop
-               Mid := (Lo + Hi) / 2;
+               Mid := Lo + (Hi - Lo) / 2;
                if Mid < 1 then
                   Mid := 1;
                end if;

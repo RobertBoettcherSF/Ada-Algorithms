@@ -163,7 +163,7 @@ package body Photon_Mapping with SPARK_Mode => On is
    procedure Build_Kd_Tree (Tree : in out Kd_Tree) is
       procedure Median_Split (Left, Right : Positive; Depth : Natural) is
          Axis   : constant Natural := Depth mod 3;
-         Mid    : constant Positive := (Left + Right) / 2;
+         Mid    : constant Positive := Left + (Right - Left) / 2;
          Tmp    : Photon;
          J      : Positive;
       begin
