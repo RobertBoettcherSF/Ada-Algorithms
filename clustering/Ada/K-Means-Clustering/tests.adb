@@ -588,8 +588,8 @@ begin
 
    New_Line;
    Put_Line ("================================");
-   Put_Line ("PASS: " & Natural'Image (Pass_Count));
-   Put_Line ("FAIL: " & Natural'Image (Fail_Count));
+   Put_Line ("passed:" & Natural'Image (Pass_Count));
+   Put_Line ("failed:" & Natural'Image (Fail_Count));
    Put_Line ("================================");
    if Fail_Count /= 0 then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);

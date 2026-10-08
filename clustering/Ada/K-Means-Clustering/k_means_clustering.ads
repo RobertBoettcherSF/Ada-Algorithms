@@ -227,8 +227,7 @@ is
      with Pre => Data'Length (1) >= 1
        and then Data'Length (1) <= Max_Points
        and then Data'Length (2) >= 1
-       and then Data'Length (2) <= Max_Dims
-       and then K <= Max_K,
+       and then Data'Length (2) <= Max_Dims,
           Global => null,
           Post => Init_Centers_Forgy'Result'Length (1) = K
             and then Init_Centers_Forgy'Result'Length (2) =
@@ -255,8 +254,7 @@ is
      with Pre => Data'Length (1) >= 1
        and then Data'Length (1) <= Max_Points
        and then Data'Length (2) >= 1
-       and then Data'Length (2) <= Max_Dims
-       and then K <= Max_K,
+       and then Data'Length (2) <= Max_Dims,
           Global => null,
           Post => Init_Centers_Spaced'Result'Length (1) = K
             and then Init_Centers_Spaced'Result'Length (2) =
@@ -280,7 +278,6 @@ is
        and then Init'Length (1) >= 1
        and then Init'Length (2) = Data'Length (2)
        and then Params.K = Init'Length (1)
-       and then Params.K <= Max_K
        and then Params.Tol >= 0.0,
           Global => null;
    --  Standard Lloyd / naïve k-means from given Init centers:
@@ -305,7 +302,6 @@ is
        and then Data'Length (2) >= 1
        and then Data'Length (2) <= Max_Dims
        and then Params.K >= 1
-       and then Params.K <= Max_K
        and then Params.K <= Data'Length (1)
        and then Params.Tol >= 0.0,
           Global => null;
