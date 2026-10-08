@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO;
 with Integer_Factorization; use Integer_Factorization;
+with Own_Checks;
 
 procedure Tests is
 
@@ -184,6 +185,7 @@ procedure Tests is
    L : Factor_List (1 .. 0);
 
 begin
+   Own_Checks;
    Ada.Text_IO.Put_Line
      ("Integer_Factorization — Ada 2023 educational test suite");
 

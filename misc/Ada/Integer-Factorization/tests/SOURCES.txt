@@ -1,0 +1,20 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Primes and least prime factors: a sieve of Eratosthenes up to 3000 (not
+  trial division); complete factorizations by peeling sieve factors.
+* Floor / ceiling square roots: linear search for N <= 3000; for random
+  64-bit N the defining inequality S*S <= N < (S+1)*(S+1).
+* Gcd: binary (Stein) gcd on random 64-bit operands; divisor scan for the
+  small congruence cases.
+* Mul_Mod: double-and-add with every partial sum kept below M (no 128-bit
+  product), on 20,000 seeded random operands.
+* Fermat: the largest divisor D of N with D*D <= N (scan), 2 for even N, as
+  the spec in integer_factorization.ads describes; pair (1, 2) for N = 2.
+* Factor: the documented strategy (even -> 2, prime -> N, otherwise the
+  least prime factor from the small trial stage); 1009 * 9901 for the stages
+  above the trial limit; Factorize (10**7) = 2**7 * 5**7.
+* Congruence-of-squares predicates and factor extraction: the definitions
+  evaluated with plain integers for every X, Y mod N, N in 2 .. 40.
+* Step caps: with one Pollard rho step some odd composite must report
+  failure; Fermat on 3 * 997 must fail within one step.
+Nothing is taken from the program's output or from third-party test suites.

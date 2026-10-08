@@ -9,3 +9,5 @@ strings/Ada/String-Metrics: recursive Levenshtein / OSA definitions, bigram
   sets by presence, position counts; Jaro-Winkler by properties.
 misc/Ada/Dice-Coefficient: bigram sets by presence over {a, b, c}, all pairs
   up to length 5, second argument with 'First = 2.
+misc/Ada/Integer-Factorization: sieve of Eratosthenes, divisor scans, binary
+  gcd, double-and-add Mul_Mod, congruence definitions with plain integers.
