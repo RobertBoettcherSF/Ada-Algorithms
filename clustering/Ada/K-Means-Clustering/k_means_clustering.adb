@@ -37,18 +37,20 @@ is
    function Draw_Index
      (State : in out RNG_State; Lo, Hi : Point_Index) return Point_Index
    is
-      Span  : constant RNG_State :=
+      Span   : constant RNG_State :=
         RNG_State (Natural (Hi) - Natural (Lo) + 1);
       --  Largest multiple of Span that fits in the modulus. States at or
-      --  above it are the incomplete class and would crowd the low offsets.
-      Bound : constant RNG_State := (RNG_State'Last / Span) * Span;
-      Off   : RNG_State;
+      --  above it are the incomplete class. The offset comes from the high
+      --  bits: this LCG's low bits alternate when the span is 2.
+      Bound  : constant RNG_State := (RNG_State'Last / Span) * Span;
+      Bucket : constant RNG_State := Bound / Span;
+      Off    : RNG_State;
    begin
       loop
          State := State * LCG_A + LCG_C;
          exit when State < Bound;
       end loop;
-      Off := State mod Span;
+      Off := State / Bucket;
       return Point_Index (Natural (Lo) + Natural (Off));
    end Draw_Index;
 
