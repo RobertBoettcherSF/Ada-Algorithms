@@ -11,12 +11,13 @@ for v in 14 12; do
 done
 if [ "$v" ]; then :; fi
 P14=/usr/bin:/bin:$GPRB; P12=$G12:$GPRB:/usr/bin:/bin
-# Refuse to record a result from the wrong compiler: the first line of `gnatmake --version` (and gcc's
-# version, which gprbuild uses) must name GNAT 14 on P14 and GNAT 12 on P12. The version goes into the record.
-ver14=$(PATH=$P14 gnatmake --version 2>/dev/null | head -1); ver12=$(PATH=$P12 gnatmake --version 2>/dev/null | head -1)
-gcc14=$(PATH=$P14 gcc -dumpfullversion 2>/dev/null); gcc12=$(PATH=$P12 gcc -dumpfullversion 2>/dev/null)
-case "$ver14|$gcc14" in "GNATMAKE 14."*"|14."*) ;; *) echo "{\"id\": \"$id\", \"error\": \"GNAT 14 expected, got $ver14 / gcc $gcc14\"}"; exit 2;; esac
-case "$ver12|$gcc12" in "GNATMAKE 12."*"|12."*) ;; *) echo "{\"id\": \"$id\", \"error\": \"GNAT 12 expected, got $ver12 / gcc $gcc12\"}"; exit 2;; esac
+# compiler_*_version = first line of `gnatls --version` on that toolchain PATH (room 2026-10-08).
+# GNAT 12 = Alire ~/.local/alr/gnat_native_12* → GNATLS 12.2.0. Do not use gcc-12 --version
+# (Debian C 12.4.0, no Ada) or /home/box/deps/gnat12 (also 12.4.0). Package folder
+# gnat_native_12.2.1 is the Alire crate name, not the compiler report.
+ver14=$(PATH=$P14 gnatls --version 2>/dev/null | head -1); ver12=$(PATH=$P12 gnatls --version 2>/dev/null | head -1)
+case "$ver14" in "GNATLS 14."*) ;; *) echo "{\"id\": \"$id\", \"error\": \"GNAT 14 gnatls expected, got $ver14\"}"; exit 2;; esac
+case "$ver12" in "GNATLS 12.2."*) ;; *) echo "{\"id\": \"$id\", \"error\": \"GNAT 12.2 gnatls (Alire) expected, got $ver12\"}"; exit 2;; esac
 MT=${AA_MAKE_TIMEOUT:-900}
 mk=NA; mk12=NA
 if [ -f "$W/m14/Makefile" ]; then

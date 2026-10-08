@@ -125,8 +125,8 @@ for topic, lev, alg, p in folders:
                      build_gnat14=ok('u14'), build_gnat12=ok('u12'),
                      tests_pass_gnat14=tp14, tests_pass_gnat12=tp12,
                      warnings_gnat14=str(b['wall14']) if 'wall14' in b else b.get('w14', ''), warnings_gnat12=str(b['wall12']) if 'wall12' in b else b.get('w12', ''),
-                     compiler_14_version=(b.get('ver14') if str(b.get('ver14', '')).startswith('GNATMAKE 14.') else ('unverified' if b else '')),
-                     compiler_12_version=(b.get('ver12') if str(b.get('ver12', '')).startswith('GNATMAKE 12.') else ('unverified' if b else '')),
+                     compiler_14_version=(b.get('ver14') if str(b.get('ver14', '')).startswith(('GNATLS 14.', 'GNATMAKE 14.')) else ('unverified' if b else '')),
+                     compiler_12_version=(b.get('ver12') if str(b.get('ver12', '')).startswith(('GNATLS 12.2.', 'GNATMAKE 12.')) else ('unverified' if b else '')),
                      silver=(silver(fid, has_spark, ok('u14')) if has_mode or not has_spark else 'skipped (no SPARK_Mode)'),
                      checks='', functional_checks='', trivial='',
                      proof_run=('steps=%s' % S[fid].get('steps') if fid in S else (('steps=%s' % P[fid]['steps']) if P.get(fid, {}).get('steps') else ('level2-timeout' if fid in P else ''))) if has_spark else '',
@@ -203,6 +203,9 @@ unchecked_by = collections.Counter(x['folder'] for x in _csv(os.path.join(a.root
 # tools/vv/silent_fail.csv: make test prints a failure but exits 0, or pragma Assert is the only failure
 # signal and the standard build has no -gnata. make test 'passes' is then meaningless: not training-ready.
 silent_by = {x['folder']: x for x in _csv(os.path.join(a.root, 'tools', 'vv', 'silent_fail.csv')) if x.get('silent_fail') == 'yes'}
+plant_fail = {x['folder']: x for x in _csv(os.path.join(a.root, 'tools', 'vv', 'silent_fail_plant.csv'))}
+answer_plant = {x['folder']: x for x in _csv(os.path.join(a.root, 'tools', 'vv', 'silent_fail_answer_plant.csv'))}
+
 # tools/vv/flaky.csv (tools/vv/flaky.py, docs/VV.md 3j): repeatability (10 runs), seed sweep (AA_SEED=1..30) and
 # one Initialize_Scalars + -gnatVa run; one row per folder and compiler. flaky = yes when any row says yes;
 # no when every row measured says no. Mutation runs on a flaky folder do not count.
@@ -351,6 +354,15 @@ def drop_reasons(r):
     if esc_bare[r['folder']]: out.append('unjustified proof escape')
     if r['masked_by_finish']: out.append('masked by Bubble_Finish')
     if r['silent_fail']: out.append('silent fail')
+    # Fail_Count plant n/a: cannot claim the harness fails until an answer plant shows it
+    pf = plant_fail.get(r['folder'], {})
+    ap = answer_plant.get(r['folder'], {})
+    if pf.get('plant_ok') == 'n/a' and ap.get('answer_plant_ok') != 'yes':
+        out.append('harness cannot fail')
+    elif pf.get('plant_ok') == 'no':
+        out.append('harness cannot fail')
+    elif ap.get('answer_plant_ok') == 'no':
+        out.append('harness cannot fail')
     if r['flaky'] != 'no' and r['flaky'] != 'yes': out.append('flakiness not measured')
     if r['compiler_14_version'] in ('', 'unverified') or r['compiler_12_version'] in ('', 'unverified'):
         out.append('compiler version unverified')

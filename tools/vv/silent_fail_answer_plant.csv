@@ -1,0 +1,21 @@
+folder,file,kind,detail,planted_rc,answer_plant_ok,note
+geometry/Ada/Watershed-Transformation,,,,,n/a,no flip_bool/off_by_one site
+matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix,,,,,n/a,no flip_bool/off_by_one site
+misc/Ada/Luleas-Algorithm,lulea_algorithm.adb,off_by_one_plus,return T;,2,yes,
+misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,accounts_merge_lite.adb,off_by_one_plus,return Result;,2,yes,
+misc/SPARK2/Ada-SPARK-Circular-Deque-Stub,circular_deque_stub.adb,off_by_one_plus,return R;,2,yes,
+misc/SPARK2/Ada-SPARK-Flatten-Nested-List-Stub,,,,,n/a,no flip_bool/off_by_one site
+misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,,,,,n/a,no flip_bool/off_by_one site
+misc/SPARK2/Ada-SPARK-Heap-Push-Pop,,,,,n/a,no flip_bool/off_by_one site
+misc/SPARK2/Ada-SPARK-Is-Subsequence,is_subsequence.adb,flip_bool,return True;,2,yes,
+misc/SPARK2/Ada-SPARK-K-Closest-Points-To-Origin,,,,,n/a,no flip_bool/off_by_one site
+misc/SPARK2/Ada-SPARK-Min-Max-Normalize,,,,,n/a,no flip_bool/off_by_one site
+misc/SPARK2/Ada-SPARK-Monotonic-Stack,monotonic_stack.adb,off_by_one_plus,return No_Greater;,0,no,
+misc/SPARK2/Ada-SPARK-Neighboring-Bitwise-XOR,,,,,n/a,no flip_bool/off_by_one site
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,paint_house_stub.adb,off_by_one_plus,return Answer;,2,yes,
+misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,split_array_largest_sum.adb,off_by_one_plus,return Candidate;,2,yes,
+misc/SPARK2/Ada-SPARK-Valid-Anagram,valid_anagram.adb,off_by_one_plus,return Total;,0,no,
+misc/SPARK2/Ada-SPARK-XOR-Of-Numbers-Range,,,,,n/a,no flip_bool/off_by_one site
+searching/SPARK2/Ada-SPARK-Trigram-Search,trigram_search.adb,flip_bool,return True;,2,yes,
+sorting/SPARK2/Ada-SPARK-Intro-Sort,intro_sort.adb,off_by_one_plus,return Work;,2,yes,
+sorting/SPARK2/Ada-SPARK-Two-Sum-II-Input-Array-Is-Sorted,two_sum_ii_input_array_is_sorted.adb,flip_bool,return True;,2,yes,
