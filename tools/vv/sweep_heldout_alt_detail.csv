@@ -2105,3 +2105,185 @@ second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_
 second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
 second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,+ -> -,hidden,hidden,killed
 second round held half split 20261031 (std),clustering/Ada/K-Means-Clustering,k_means_clustering.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,98,< -> <=,if P not in Data'Range (1) or else D < 1 then,if P not in Data'Range (1) or else D <= 1 then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,139,< -> <=,if C'Length (1) < 1 or else D < 1 or else Query'Length /= D then,if C'Length (1) <= 1 or else D < 1 or else Query'Length /= D then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,326,- 1 -> - 0,COff : constant Integer := C'First (2) - 1;,COff : constant Integer := C'First (2) - 0;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,72,- -> +,Diff := A (I) - B (I);,Diff := A (I) + B (I);,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,68,/= -> =,if A'Length = 0 or else A'First /= B'First or else A'Last /= B'Last then,if A'Length = 0 or else A'First = B'First or else A'Last /= B'Last then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,68,or else -> and then,if A'Length = 0 or else A'First /= B'First or else A'Last /= B'Last then,if A'Length = 0 and then A'First /= B'First or else A'Last /= B'Last then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,208,+ -> -,Total := Total + W (I);,Total := Total - W (I);,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,252,or else -> and then,or else Empty'Length /= K_Count,and then Empty'Length /= K_Count,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,296,< -> <=,or else C'Length (1) < 1,or else C'Length (1) <= 1,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,139,or else -> and then,if C'Length (1) < 1 or else D < 1 or else Query'Length /= D then,if C'Length (1) < 1 or else D < 1 and then Query'Length /= D then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,148,or else -> and then,if First_Site or else Cand_Sq < Best_Sq then,if First_Site and then Cand_Sq < Best_Sq then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,407,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D <= 1 or else K < 1 then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,522,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D < 1 and then K < 1 then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,437,+ 1 -> + 0,Chosen := Chosen + 1;,Chosen := Chosen + 0;,timeout
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,670,< -> <=,if Disp < Params.Tol then,if Disp <= Params.Tol then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,143,+ -> -,Q (J) := Query (Dim_Index (J + Off_Q));,Q (J) := Query (Dim_Index (J - Off_Q));,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,24,* -> +,State := RNG_State (Seed) * LCG_A + LCG_C;,State := RNG_State (Seed) + LCG_A + LCG_C;,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,302,or else -> and then,or else Lab (P) > Natural (C'Last (1)),and then Lab (P) > Natural (C'Last (1)),survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,40,- -> +,Span : constant Natural := Natural (Hi) - Natural (Lo) + 1;,Span : constant Natural := Natural (Hi) + Natural (Lo) + 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,577,< -> <=,if Data'Length (1) < 1 or else D < 1 or else K < 1 then,if Data'Length (1) < 1 or else D <= 1 or else K < 1 then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,326,- -> +,COff : constant Integer := C'First (2) - 1;,COff : constant Integer := C'First (2) + 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,135,- 1 -> - 0,Off_Q      : constant Integer := Query'First - 1;,Off_Q      : constant Integer := Query'First - 0;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,460,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D <= 1 or else K < 1 then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,537,< -> <=,while Chosen < Natural (K) loop,while Chosen <= Natural (K) loop,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,173,+ -> -,Q (J) := Query (Dim_Index (J + Off_Q));,Q (J) := Query (Dim_Index (J - Off_Q));,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,498,+ -> -,Chosen := Chosen + 1;,Chosen := Chosen - 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,279,+ -> -,"C (K, Dim_Index (J + Site_Off)) :=","C (K, Dim_Index (J - Site_Off)) :=",survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,168,< -> <=,if C'Length (1) < 1 or else D < 1 or else Query'Length /= D then,if C'Length (1) < 1 or else D <= 1 or else Query'Length /= D then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,407,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 and then D < 1 or else K < 1 then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,359,+ -> -,Cumulative := Cumulative + W (I);,Cumulative := Cumulative - W (I);,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,139,< -> <=,if C'Length (1) < 1 or else D < 1 or else Query'Length /= D then,if C'Length (1) < 1 or else D <= 1 or else Query'Length /= D then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,557,+ 1 -> + 0,Chosen := Chosen + 1;,Chosen := Chosen + 0;,timeout
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,164,- 1 -> - 0,Off_Q      : constant Integer := Query'First - 1;,Off_Q      : constant Integer := Query'First - 0;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,168,< -> <=,if C'Length (1) < 1 or else D < 1 or else Query'Length /= D then,if C'Length (1) <= 1 or else D < 1 or else Query'Length /= D then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,498,+ 1 -> + 0,Chosen := Chosen + 1;,Chosen := Chosen + 0;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,33,* -> +,State := State * LCG_A + LCG_C;,State := State + LCG_A + LCG_C;,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,96,- 1 -> - 0,Off    : constant Integer := Data'First (2) - 1;,Off    : constant Integer := Data'First (2) - 0;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,325,- 1 -> - 0,Off : constant Integer := Data'First (2) - 1;,Off : constant Integer := Data'First (2) - 0;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,423,< -> <=,while Chosen < Natural (K) loop,while Chosen <= Natural (K) loop,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,192,or else -> and then,if Data'Length (1) < 1 or else C'Length (1) < 1,if Data'Length (1) < 1 and then C'Length (1) < 1,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,379,or else -> and then,if Data'Length (1) < 1 or else D < 1 then,if Data'Length (1) < 1 and then D < 1 then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,437,+ -> -,Chosen := Chosen + 1;,Chosen := Chosen - 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,640,/= -> =,if Init'Length (1) /= K or else Init'Length (2) /= D then,if Init'Length (1) /= K or else Init'Length (2) = D then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,223,< -> <=,if Data'Length (1) < 1 or else C'Length (1) < 1,if Data'Length (1) <= 1 or else C'Length (1) < 1,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,407,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D < 1 and then K < 1 then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,248,- -> +,Site_Off : constant Integer := C'First (2) - 1;,Site_Off : constant Integer := C'First (2) + 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,522,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 and then D < 1 or else K < 1 then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,261,or else -> and then,or else Lab (P) > Natural (C'Last (1)),and then Lab (P) > Natural (C'Last (1)),survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,634,- -> +,S_Off2 : constant Integer := Init'First (2) - 1;,S_Off2 : constant Integer := Init'First (2) + 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,636,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D <= 1 or else K < 1 then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,266,+ -> -,Counts (Lab_K) := Counts (Lab_K) + 1;,Counts (Lab_K) := Counts (Lab_K) - 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,350,* -> +,Threshold := Real (U) * Total;,Threshold := Real (U) + Total;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,325,- -> +,Off : constant Integer := Data'First (2) - 1;,Off : constant Integer := Data'First (2) + 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,224,/= -> =,or else C'Length (2) /= Data'Length (2),or else C'Length (2) = Data'Length (2),killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,590,< -> <=,if Natural (Slot) < Natural (K) then,if Natural (Slot) <= Natural (K) then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,634,- 1 -> - 0,S_Off2 : constant Integer := Init'First (2) - 1;,S_Off2 : constant Integer := Init'First (2) - 0;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,582,< -> <=,if Idx (I) < Natural (Data'First (1)),if Idx (I) <= Natural (Data'First (1)),killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,636,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 and then D < 1 or else K < 1 then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,98,or else -> and then,if P not in Data'Range (1) or else D < 1 then,if P not in Data'Range (1) and then D < 1 then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,193,/= -> =,or else C'Length (2) /= Data'Length (2),or else C'Length (2) = Data'Length (2),killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,57,<= -> <,return abs (A - B) <= Tol;,return abs (A - B) < Tol;,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,254,or else -> and then,or else D /= Data'Length (2),and then D /= Data'Length (2),stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,557,+ -> -,Chosen := Chosen + 1;,Chosen := Chosen - 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,192,< -> <=,if Data'Length (1) < 1 or else C'Length (1) < 1,if Data'Length (1) <= 1 or else C'Length (1) < 1,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,309,+ -> -,"Total := Total + Squared_Distance (Pt, Mu);","Total := Total - Squared_Distance (Pt, Mu);",killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,178,or else -> and then,if First_Site or else Cand_Sq < Best_Sq then,if First_Site and then Cand_Sq < Best_Sq then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,591,+ -> -,Slot := Site_Index (Natural (Slot) + 1);,Slot := Site_Index (Natural (Slot) - 1);,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,360,>= -> >,if Cumulative > Threshold or else Cumulative >= Total then,if Cumulative > Threshold or else Cumulative > Total then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,460,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D < 1 and then K < 1 then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,522,< -> <=,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D <= 1 or else K < 1 then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,295,/= -> =,or else C'Length (2) /= Data'Length (2),or else C'Length (2) = Data'Length (2),killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,301,< -> <=,if Lab (P) < Natural (C'First (1)),if Lab (P) <= Natural (C'First (1)),killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,168,or else -> and then,if C'Length (1) < 1 or else D < 1 or else Query'Length /= D then,if C'Length (1) < 1 or else D < 1 and then Query'Length /= D then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,460,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 and then D < 1 or else K < 1 then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,330,+ -> -,"Data (P, Dim_Index (J + Off));","Data (P, Dim_Index (J - Off));",survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,640,/= -> =,if Init'Length (1) /= K or else Init'Length (2) /= D then,if Init'Length (1) = K or else Init'Length (2) /= D then,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,483,< -> <=,while Chosen < Natural (K) loop,while Chosen <= Natural (K) loop,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,40,+ -> -,Span : constant Natural := Natural (Hi) - Natural (Lo) + 1;,Span : constant Natural := Natural (Hi) - Natural (Lo) - 1;,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,664,- -> +,Out_R.Lab (Point_Index (Integer (P) - P_Off)) := Lab_Tmp (P);,Out_R.Lab (Point_Index (Integer (P) + P_Off)) := Lab_Tmp (P);,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,73,+ -> -,Sum := Sum + Diff * Diff;,Sum := Sum - Diff * Diff;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,247,- -> +,Dim_Off  : constant Integer := Data'First (2) - 1;,Dim_Off  : constant Integer := Data'First (2) + 1;,killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,251,or else -> and then,or else Lab'First /= Data'First (1),and then Lab'First /= Data'First (1),stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,636,or else -> and then,if N < 1 or else D < 1 or else K < 1 then,if N < 1 or else D < 1 and then K < 1 then,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,223,or else -> and then,if Data'Length (1) < 1 or else C'Length (1) < 1,if Data'Length (1) < 1 and then C'Length (1) < 1,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,260,< -> <=,if Lab (P) < Natural (C'First (1)),if Lab (P) <= Natural (C'First (1)),killed
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,610,> -> >=,if Dist > Max_D then,if Dist >= Max_D then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,296,or else -> and then,or else C'Length (1) < 1,and then C'Length (1) < 1,stillborn
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,352,>= -> >,if Threshold >= Total then,if Threshold > Total then,survived
+tune half after D2 grid split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,81,= -> /=,if Sq = 0.0 then,if Sq /= 0.0 then,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,<= -> <,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,>= -> >,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,> -> >=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,= -> /=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- 1 -> - 0,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,> -> >=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,= -> /=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,= -> /=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,>= -> >,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,* -> +,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,> -> >=,hidden,hidden,survived
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+held half split 20261101 (std),clustering/Ada/K-Means-Plus-Plus,k_means_plus_plus.adb,hidden,- 1 -> - 0,hidden,hidden,killed

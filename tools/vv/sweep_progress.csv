@@ -49,3 +49,4 @@ numerical/Ada/Newells-Algorithm,"tolerance pad, box gap of exactly epsilon, view
 clustering/Ada/K-Means-Clustering,none yet,split only,prior round,second round split seed 20261031 before new tests: std 81 tune / 73 held
 clustering/Ada/K-Means-Clustering,"K=N distinct, chi-square over 4000 seeds, unbiased remainder oracle, column origin, monotone SSE","rejection sampling of the Numerical Recipes LCG, chi-square against a flat rate, one Lloyd step at a time",prior round,split 20261031; tuned 56/71; held-out 50/65 (76.9%)
 clustering/Ada/K-Means-Plus-Plus,none yet,split only,not yet,second round split seed 20261101 before new tests: std 89 tune / 93 held
+clustering/Ada/K-Means-Plus-Plus,"fixed D^2 grid, 1000 second draws, hand weights 0, 1, 9","squared distances 0, 1, 9 on the line 0, 1, 3; chi-square df 1",not run,split 20261101; tuned 44/72; held-out 45/84 (53.6%)
