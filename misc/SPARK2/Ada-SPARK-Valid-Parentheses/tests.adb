@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Valid_Parentheses; use Valid_Parentheses;
+with Own_Checks;
 procedure Tests is
    Good : constant Text_Array := "({[]})";
    Bad : constant Text_Array := "([)]{}";
@@ -8,4 +9,5 @@ begin
    Assert (Is_Valid (Good));
    Assert (not Is_Valid (Bad));
    Assert (Is_Valid (Emptyish));
+   Own_Checks;
 end Tests;

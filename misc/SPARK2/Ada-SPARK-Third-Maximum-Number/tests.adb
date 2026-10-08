@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Third_Maximum_Number; use Third_Maximum_Number;
+with Own_Checks;
 procedure Tests is
    A : Int_Array := [others => 0];
    B : Int_Array := [others => 0];
@@ -8,4 +9,5 @@ begin
    Assert (Third_Maximum (A) = 3);
    B (1 .. 3) := [2, 2, 1];
    Assert (Third_Maximum (B) = 0);
+   Own_Checks;
 end Tests;

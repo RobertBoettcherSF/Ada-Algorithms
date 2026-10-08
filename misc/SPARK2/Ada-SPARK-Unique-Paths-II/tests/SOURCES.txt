@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: a path from cell (R, C) is blocked if the cell is; at the
+  target it counts 1; otherwise it is the sum of the paths going down and
+  going right (recursion in the test). A blocked start or target gives 0.
+* Inputs: 3,000 random grids of 1 .. 8 rows and columns with 0 %, 10 % or
+  25 % blocked cells; cells outside Rows x Cols are random too, so the result
+  must not depend on them.

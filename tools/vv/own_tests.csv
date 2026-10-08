@@ -113,3 +113,12 @@ misc/SPARK2/Ada-SPARK-Min-Cost-Climbing-Stairs,own path enumeration (end convent
 misc/SPARK2/Ada-SPARK-Coin-Change-II,own multiset enumeration; all distinct denomination prefixes and amounts 1..4 (exhaustive)
 misc/SPARK2/Ada-SPARK-Decode-Ways,own recursive decoding; 4000 random + all-ones up to length 29 (30-32 can exceed Result)
 misc/SPARK2/Ada-SPARK-Knapsack-01,own subset enumeration; 5000 random item sets x all limits 0..10
+misc/SPARK2/Ada-SPARK-Maximum-Product-Subarray,own all-runs product (empty-run convention fixed by one input); all arrays over -3..3 up to length 4 + 5000 random
+misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence,own all-subsequences check; all strings over {a;b} up to length 9 + 1500 random
+misc/SPARK2/Ada-SPARK-Unique-Paths-II,own path recursion avoiding blocked cells; 3000 random grids
+misc/SPARK2/Ada-SPARK-Minimum-Path-Sum,own path recursion; 6000 random grids
+misc/SPARK2/Ada-SPARK-Maximal-Square,own all-squares check; all 65536 matrices (exhaustive)
+misc/SPARK2/Ada-SPARK-Range-Sum-Query-Immutable,own direct sums; 500 random arrays x all 528 ranges
+misc/SPARK2/Ada-SPARK-Third-Maximum-Number,own distinct-value scan (arrays with >= 3 distinct values); 6000 random
+misc/SPARK2/Ada-SPARK-Valid-Parentheses,own stack check; all 46656 strings over ()[]{} (exhaustive)
+misc/SPARK2/Ada-SPARK-Roman-To-Int,own encoder round trip; every value 1..3999 with a numeral of at most 7 letters

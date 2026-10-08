@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: the maximum over all contiguous runs I .. J of A (1 .. N) of
+  their product, multiplied out in the test. Whether the empty run (product
+  1) is allowed is not stated in the README; a single element -5 fixes the
+  convention (-5 or 1) and every other input must agree. N = 0 not checked.
+* Inputs: every array of length 1 .. 4 over -3 .. 3 (exhaustive) and 5,000
+  random arrays over -10 .. 10.

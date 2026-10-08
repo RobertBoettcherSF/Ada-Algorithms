@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (own_checks.adb)
+==========================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Own reference: every subsequence (every subset of positions, kept in
+  order) is tested for being a palindrome; the longest one's length is the
+  answer (0 for the empty input), by enumeration in the test.
+* Inputs: every string over {a, b} of length 0 .. 9 (exhaustive) and 1,500
+  random strings of length 0 .. 13 over {a, b, c, d}; positions beyond N hold
+  random letters, so the result must not depend on them.
