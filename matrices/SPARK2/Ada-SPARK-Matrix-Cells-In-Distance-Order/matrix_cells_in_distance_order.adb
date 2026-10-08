@@ -9,17 +9,25 @@ package body Matrix_Cells_In_Distance_Order with SPARK_Mode => On is
       return DR + DC;
    end Manhattan;
    procedure Order_From (Origin : in Cell; Cells : out Cell_Array) is
+      Key : Distance;
+      Item : Cell;
+      J : Positive;
    begin
-      if Origin = (Row => 1, Column => 1) then
-         Cells := ((1, 1), (1, 2), (2, 1), (1, 3),
-                   (2, 2), (3, 1), (1, 4), (2, 3),
-                   (3, 2), (4, 1), (2, 4), (3, 3),
-                   (4, 2), (3, 4), (4, 3), (4, 4));
-      else
-         Cells := ((1, 1), (1, 2), (2, 1), (1, 3),
-                   (2, 2), (3, 1), (1, 4), (2, 3),
-                   (3, 2), (4, 1), (2, 4), (3, 3),
-                   (4, 2), (3, 4), (4, 3), (4, 4));
-      end if;
+      --  every cell once, in row-major order
+      for I in Cells'Range loop
+         Cells (I) := (Row => (I - 1) / Side + 1, Column => (I - 1) mod Side + 1);
+      end loop;
+      --  stable insertion sort by distance from Origin (ties keep row-major order)
+      for I in Cells'First + 1 .. Cells'Last loop
+         Item := Cells (I);
+         Key := Manhattan (Item, Origin);
+         J := I;
+         while J > Cells'First and then Manhattan (Cells (J - 1), Origin) > Key loop
+            pragma Loop_Invariant (J <= I);
+            Cells (J) := Cells (J - 1);
+            J := J - 1;
+         end loop;
+         Cells (J) := Item;
+      end loop;
    end Order_From;
 end Matrix_Cells_In_Distance_Order;
