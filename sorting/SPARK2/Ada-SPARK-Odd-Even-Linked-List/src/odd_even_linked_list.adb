@@ -18,7 +18,7 @@ package body Odd_Even_Linked_List is
       Write : Count := 0;
    begin
       for I in Position loop
-         if I <= L.Length and then Original (I) mod 2 /= 0 then
+         if I <= L.Length and then I mod 2 = 1 then
             if Write < Capacity then
                Write := Write + 1;
                L.Data (Write) := Original (I);
@@ -26,7 +26,7 @@ package body Odd_Even_Linked_List is
          end if;
       end loop;
       for I in Position loop
-         if I <= L.Length and then Original (I) mod 2 = 0 then
+         if I <= L.Length and then I mod 2 = 0 then
             if Write < Capacity then
                Write := Write + 1;
                L.Data (Write) := Original (I);

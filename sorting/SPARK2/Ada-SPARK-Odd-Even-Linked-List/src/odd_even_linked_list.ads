@@ -13,5 +13,7 @@ package Odd_Even_Linked_List is
      with Pre => L.Length < Capacity;
    function Get (L : List; P : Position) return Integer
      with Pre => P <= L.Length;
+   --  nodes at odd positions (1st, 3rd, ...) first, then those at even positions, each group
+   --  in its original order
    procedure Solve (L : in out List);
 end Odd_Even_Linked_List;
