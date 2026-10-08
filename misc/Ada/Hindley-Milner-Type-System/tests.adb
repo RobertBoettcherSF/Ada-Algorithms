@@ -1,3 +1,5 @@
+with Ada.Command_Line;
+with Own_Checks;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Hindley_Milner; use Hindley_Milner;
@@ -21,6 +23,7 @@ procedure Tests is
    Bool_Type : constant Type_Ref := Make_Const_Type ("Bool");
    Empty_Env : Environment;
 begin
+   Own_Checks;
    --  TEST 1 — Constructors & Basic Types
    Put_Line ("TEST 1 — Constructors & Basic Types");
    declare
@@ -240,4 +243,8 @@ begin
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
    pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count > 0 then   --  the Assert above is ignored without -gnata
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
+
 end Tests;

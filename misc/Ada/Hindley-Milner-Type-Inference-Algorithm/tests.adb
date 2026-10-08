@@ -1,3 +1,5 @@
+with Ada.Command_Line;
+with Own_Checks;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings;
 with Ada.Strings.Fixed;
@@ -28,6 +30,7 @@ procedure Tests is
    T_Var_B : constant Type_Access := Make_Type_Var ("b");
 
 begin
+   Own_Checks;
    --  TEST 1: Type Constructors
    Put_Line ("TEST 1 — Type Constructors");
    declare
@@ -323,5 +326,8 @@ begin
    Put_Line ("=== " & Ada.Strings.Fixed.Trim (Natural'Image (Pass_Count), Ada.Strings.Left) & " passed, "
              & Ada.Strings.Fixed.Trim (Natural'Image (Fail_Count), Ada.Strings.Left) & " failed ===");
    pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count > 0 then   --  the Assert above is ignored without -gnata
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 
 end Tests;

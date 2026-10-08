@@ -1,0 +1,18 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* 17 small closed lambda terms (identity, K, K*, application, composition,
+  S, twice, flip, let-polymorphic identity / K / composition, let with a
+  monomorphic lambda-bound variable, ...) with principal types derived by
+  hand from the Hindley-Milner typing rules. Inferred types are compared
+  up to renaming of type variables: variables are renamed t0, t1, ... in
+  order of first occurrence and arrows are printed fully parenthesised.
+* 7 ill-typed terms must be rejected: self-application \x.x x, Omega,
+  three occurs-check failures, \f.f f, an unbound variable.
+* Unify: on six type pairs the answer is applied to both types and the
+  results compared syntactically under one renaming; cyclic and clashing
+  pairs must raise Unification_Error.
+* Algorithm_M (top-down) against a fresh expected variable must give the
+  same principal type, must reject each typable term at type Int and must
+  reject every ill-typed term.
+* tests.adb: exit status is now nonzero when a check fails.
+Nothing is taken from the program's output.

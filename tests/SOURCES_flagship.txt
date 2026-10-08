@@ -15,3 +15,5 @@ misc/Ada/First-Order-Logic: bit-mask enumeration of CNF encodings against the
 logic/Ada/Verified-Unification-Engine: syntactic check of the applied unifier,
   idempotence, ground brute force for completeness and most-generality,
   clash/cycle certificates for failures.
+misc/Ada/Hindley-Milner-* (both): hand-derived principal types compared up to
+  alpha-renaming, ill-typed terms rejected, unifier applied and compared.
