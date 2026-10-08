@@ -97,8 +97,13 @@ package body CDCL is
 
    function Propagate (S : in out CDCL_State) return Natural is
       Changed : Boolean := True;
+      Passes  : Natural := 0;
    begin
       while Changed loop
+         Passes := Passes + 1;
+         if Passes > Natural (S.Num_Vars) + 1 then
+            raise Termination_Bound_Exceeded with "T1: Propagate made more than N + 1 passes";
+         end if;
          Changed := False;
          for I in 1 .. Natural (S.Clauses.Length) loop
             declare
@@ -146,6 +151,7 @@ package body CDCL is
       C                  : Clause := S.Clauses (Conflict_Id);
       Current_Level_Lits : Natural;
       Idx                : Natural;
+      Steps              : Natural := 0;
    begin
       if S.Current_Level = 0 then
          Backjump_Level := 0;
@@ -155,6 +161,10 @@ package body CDCL is
 
       Idx := Natural (S.Trail.Length);
       loop
+         Steps := Steps + 1;
+         if Steps > Natural (S.Trail.Length) + 1 then
+            raise Termination_Bound_Exceeded with "T2: more resolution steps than trail positions";
+         end if;
          Current_Level_Lits := 0;
          for L of C loop
             if S.Assignments (Var_Of (L)).Level = S.Current_Level then
@@ -241,6 +251,45 @@ package body CDCL is
       end loop;
    end Decide;
 
+   --  T4 / T5 / T6 of cdcl.ads, in exact Long_Long_Integer arithmetic;
+   --  Known = False when no bound applies or it does not fit.
+   procedure Conflict_Bound (N : Positive; Use_Restarts : Boolean; Interval : Positive; Use_Deletion : Boolean;
+                             Bound : out Long_Long_Integer; Known : out Boolean) is
+      V  : Long_Long_Integer := 1;   --  C (2N + 1, K) after step K
+      P3 : Long_Long_Integer := 1;
+   begin
+      Known := False;
+      Bound := 0;
+      if N > Max_Bounded_Vars then
+         return;
+      end if;
+      for K in 1 .. N loop   --  exact: C (m, k - 1) * (m - k + 1) / k, m = 2N + 1
+         V := V * Long_Long_Integer (2 * N + 2 - K) / Long_Long_Integer (K);
+      end loop;
+      for K in 1 .. N loop
+         P3 := P3 * 3;
+      end loop;
+      if not Use_Restarts then
+         Bound := V;
+         Known := True;
+      elsif Interval >= 2 then
+         declare
+            T : Long_Long_Integer := Long_Long_Integer (Interval);
+         begin
+            Bound := V;
+            while T < V loop
+               Bound := Bound + T;
+               T := T + T / 2;
+            end loop;
+            Known := True;
+         end;
+      end if;
+      if not Use_Deletion and then (not Known or else P3 < Bound) then
+         Bound := P3;
+         Known := True;
+      end if;
+   end Conflict_Bound;
+
    -- Core Solver Logic incorporating Variants
    procedure Solve_Internal (F : Formula; Assignments : out Assignment_Array; Use_Restarts : Boolean; Restart_Interval : Positive; Use_Deletion : Boolean; Max_Learned : Positive;
                              Status : out Solve_Status; Stats : out Solve_Statistics; Trace : out Solve_Trace) is
@@ -249,8 +298,11 @@ package body CDCL is
       Learn_Order : Natural_Vectors.Vector;
       Conflicts_Since_Restart   : Natural := 0;
       Current_Restart_Threshold : Natural := Restart_Interval;
+      Since_Conflict            : Natural := 0;
    begin
-      Stats := (others => 0);
+      Stats := (others => <>);
+      Conflict_Bound (F.Variables_Count, Use_Restarts, Restart_Interval, Use_Deletion,
+                      Stats.Conflict_Bound, Stats.Bound_Checked);
       Trace.Restarts := 0;
       Trace.Deletions := 0;
       Trace.Truncated := False;
@@ -280,6 +332,10 @@ package body CDCL is
             if Conflict_Id /= 0 then
                S.Conflicts := S.Conflicts + 1;
                Stats.Conflicts := S.Conflicts;
+               Since_Conflict := 0;
+               if Stats.Bound_Checked and then Long_Long_Integer (S.Conflicts) > Stats.Conflict_Bound then
+                  raise Termination_Bound_Exceeded with "T4 / T5 / T6: conflict bound" & Stats.Conflict_Bound'Image & " exceeded";
+               end if;
                if S.Current_Level = 0 then
                   Status := Unsatisfiable;
                   return;
@@ -370,7 +426,12 @@ package body CDCL is
                   Status := Satisfiable;
                   return;
                else
+                  Since_Conflict := Since_Conflict + 1;
+                  if Since_Conflict > F.Variables_Count then
+                     raise Termination_Bound_Exceeded with "T3: more than N decisions without a conflict";
+                  end if;
                   Decide (S);
+                  Stats.Decisions := Stats.Decisions + 1;
                end if;
             end if;
          end;

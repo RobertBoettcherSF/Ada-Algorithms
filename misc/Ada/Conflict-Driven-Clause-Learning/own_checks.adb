@@ -324,7 +324,7 @@ procedure Own_Checks is
    --  trace of one run against the stated schedule and deletion rule, with
    --  this file's own bookkeeping of which learned clauses are held, and
    --  checks that the plain variants return exactly the traced result.
-   Trace_Runs, Trace_Restarts, Trace_Deleted, Trace_Locked : Natural := 0;
+   Trace_Runs, Trace_Restarts, Trace_Deleted, Trace_Locked, Trace_Bounded : Natural := 0;
 
    procedure Check_Policy (G : CNF; Label : String; Rst : Boolean; Interval : Positive;
                            Del : Boolean; Max : Positive) is
@@ -350,6 +350,56 @@ procedure Own_Checks is
       if St.Learned /= Learning then
          Fail (Tag & "learned" & St.Learned'Image & " clauses in" & Learning'Image & " learning conflicts");
       end if;
+
+      --  termination bounds (cdcl.ads T3 .. T6), recomputed here: V (N) by
+      --  Pascal's triangle, 3 ** N by repeated multiplication
+      declare
+         Small  : constant Natural := Natural'Min (G.N, Max_Bounded_Vars);
+         Pascal : array (0 .. 2 * Small + 1, 0 .. Small) of Long_Long_Integer := [others => [others => 0]];
+         V, P3, Want : Long_Long_Integer := 0;
+         Known : Boolean := False;
+      begin
+         for R in Pascal'Range (1) loop
+            Pascal (R, 0) := 1;
+            for K in 1 .. Integer'Min (R, Small) loop
+               Pascal (R, K) := Pascal (R - 1, K - 1) + (if K <= R - 1 then Pascal (R - 1, K) else 0);
+            end loop;
+         end loop;
+         V := Pascal (2 * Small + 1, Small);
+         P3 := 3 ** Small;
+         if G.N > Max_Bounded_Vars then
+            null;   --  cdcl.ads: no bound checked above Max_Bounded_Vars
+         elsif not Rst then
+            Want := V; Known := True;
+         elsif Interval >= 2 then
+            declare
+               T : Long_Long_Integer := Long_Long_Integer (Interval);
+            begin
+               Want := V;
+               while T < V loop
+                  Want := Want + T;
+                  T := T + T / 2;
+               end loop;
+               Known := True;
+            end;
+         end if;
+         if G.N <= Max_Bounded_Vars and then not Del and then (not Known or else P3 < Want) then
+            Want := P3; Known := True;
+         end if;
+         if St.Bound_Checked /= Known or else (Known and then St.Conflict_Bound /= Want) then
+            Fail (Tag & "conflict bound" & St.Conflict_Bound'Image & " checked=" & St.Bound_Checked'Image
+                  & ", cdcl.ads T4 .. T6 give" & Want'Image & " known=" & Known'Image);
+         end if;
+         if Known and then Long_Long_Integer (St.Conflicts) > Want then
+            Fail (Tag & "conflicts" & St.Conflicts'Image & " above the termination bound" & Want'Image);
+         end if;
+         if St.Decisions > (St.Conflicts + 1) * G.N then
+            Fail (Tag & "decisions" & St.Decisions'Image & " above (conflicts + 1) * N (T3)");
+         end if;
+         if Known then
+            Trace_Bounded := Trace_Bounded + 1;
+         end if;
+      end;
 
       --  restarts: gaps t_1 = Interval, t_(k+1) = t_k + t_k / 2
       if not Rst and then T.Restarts /= 0 then
@@ -550,9 +600,10 @@ begin
    end;
    Put_Line ("own checks: policy replay over" & Trace_Runs'Image & " runs:" & Trace_Restarts'Image
              & " restarts on schedule," & Trace_Deleted'Image & " deletions of the oldest non-reason,"
-             & Trace_Locked'Image & " older clauses kept as reasons");
-   if Trace_Restarts = 0 or else Trace_Deleted = 0 or else Trace_Locked = 0 then
-      Fail ("policy replay never saw a restart, a deletion or a clause kept as a reason");
+             & Trace_Locked'Image & " older clauses kept as reasons," & Trace_Bounded'Image
+             & " runs within a conflict bound (cdcl.ads T4 .. T6)");
+   if Trace_Restarts = 0 or else Trace_Deleted = 0 or else Trace_Locked = 0 or else Trace_Bounded < 80 then
+      Fail ("policy replay never saw a restart, a deletion or a clause kept as a reason, or fewer than 80 bounded runs");
    end if;
 
    for V in Variant loop

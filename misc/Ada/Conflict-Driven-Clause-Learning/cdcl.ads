@@ -54,6 +54,9 @@ package CDCL is
       Deleted      : Natural := 0;  -- learned clauses deleted
       Restarts     : Natural := 0;
       Peak_Learned : Natural := 0;  -- most learned clauses held at once (after deletion)
+      Decisions     : Natural := 0;
+      Conflict_Bound : Long_Long_Integer := 0;  -- T4 / T5 / T6 bound used (0 if none)
+      Bound_Checked : Boolean := False;  -- a conflict bound applied to this run
    end record;
 
    procedure Solve_Instrumented
@@ -99,6 +102,41 @@ package CDCL is
    --  oldest held learned clause that is not the reason of a current
    --  assignment (at most one per conflict). The clause just learned is
    --  never deleted; if every older held clause is a reason, none is.
+   --  Termination (checked at run time by every variant; a violation
+   --  raises Termination_Bound_Exceeded, which a correct solver never does).
+   --  N = number of variables. The bounds use only N and the options:
+   --  (T1) Propagate: every pass that changes something assigns at least
+   --       one variable, so a call makes at most N + 1 passes.
+   --  (T2) Conflict analysis: every resolution step resolves on a distinct
+   --       trail position (scanned downwards; the pivot leaves the clause
+   --       and the reason's other literals lie earlier on the trail), so
+   --       it takes at most Trail'Length steps.
+   --  (T3) Between two conflicts (and before the first) there are at most
+   --       N decisions: each assigns a fresh variable and nothing is
+   --       unassigned without a conflict. So Decisions <= (Conflicts + 1) * N.
+   --  (T4) Trail profile: (l_0, .., l_N), l_i = assignments at level i, sum
+   --       <= N; there are V (N) = C (2N + 1, N) such tuples. A decision
+   --       opens a level (new nonzero entry), a conflict backjumps to b and
+   --       asserts the learned literal at b (entry b grows, later ones
+   --       clear): both strictly increase the profile lexicographically.
+   --       Without restarts: Conflicts <= V (N).
+   --  (T5) Restarts with interval I >= 2: a period that ends in a restart
+   --       has t_k conflicts, all strict profile increases, so t_k < V (N);
+   --       hence Restarts <= R = #{k : t_k < V (N)} and Conflicts <=
+   --       t_1 + .. + t_R + V (N). (Deletion does not affect T4 / T5.)
+   --  (T6) No deletion: a learned clause is never already held (it would
+   --       have been unit before the decision of the conflict level, and
+   --       Propagate runs to a fixpoint before each decision), and held
+   --       clauses are distinct non-tautological clauses: Conflicts <= 3**N.
+   --  With interval 1 and deletion (t_k = 1 forever, clauses may be
+   --  relearned) the policies give NO termination bound; only T1 .. T3 are
+   --  checked then. T4 .. T6 are checked for N <= Max_Bounded_Vars, where
+   --  every bound fits Long_Long_Integer (V (30) < 2.4E17, the T5 sum
+   --  < 4 * V (30), 3**30 < 2.1E14); above that they are not checked
+   --  (Stats.Bound_Checked = False), never capped.
+   Termination_Bound_Exceeded : exception;
+   Max_Bounded_Vars : constant := 30;
+
    Max_Trace_Events : constant := 4_096;
    type Event_Count is range 0 .. Max_Trace_Events;
    subtype Event_Index is Event_Count range 1 .. Event_Count'Last;
