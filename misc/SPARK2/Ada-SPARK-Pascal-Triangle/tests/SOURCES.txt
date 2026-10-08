@@ -8,7 +8,6 @@ standard generator (seed 20261008).
 
 * Own reference: the rows of Pascal's triangle built by the addition rule
   (each entry is the sum of the two above it), summed in the test.
-* Inputs: rows 0 .. 30. Rows 31 and 32 are allowed by Row_Index, but their
-  totals (2**31 and 2**32) do not fit Result (at most 2**31 - 1); the
-  function saturates there, which the README does not mention. Not checked;
-  reported in docs/VV.md 3e.
+* Inputs: every row allowed by Row_Index. The exact total must come out for
+  each of them; a row whose total does not fit Result must not be allowed by
+  the input type (rows 31 and 32 were allowed before and saturated silently).

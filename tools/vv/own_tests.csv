@@ -23,7 +23,7 @@ sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays,own concatenate + insertion-sort re
 sorting/SPARK2/Ada-SPARK-Sort-Colors,own insertion-sort reference on Data(1..Length); tail unchanged; every Length + 3000 random
 sorting/SPARK2/Ada-SPARK-Sort-List-Lite,own insertion-sort reference; every length 0..16; 4800 random
 sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,bounds kept + own insertion-sort reference; lengths 0..40; extreme values; high bounds
-sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,parity at every position + permutation; 3000 random 4-even/4-odd inputs
+sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II,parity at every position + permutation; 3000 random 4-even/4-odd inputs; unbalanced inputs rejected (2003 cases)
 sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub,own insertion-sort reference; 3000 random three-run inputs
 sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists,own concatenate + insertion-sort reference; every split NA+NB<=16
 sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array-II,own keep-at-most-two reference; every Length; 6400 random sorted

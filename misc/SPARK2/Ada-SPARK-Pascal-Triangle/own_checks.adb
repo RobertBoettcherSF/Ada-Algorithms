@@ -52,7 +52,7 @@ procedure Own_Checks is
    S : Long_Long_Integer;
 begin
    Row (0) := 1;
-   for R in 0 .. 30 loop
+   for R in Row_Index loop   --  every row the input type allows must give the exact total
       if R > 0 then
          Prev := Row;
          for K in 1 .. R loop
