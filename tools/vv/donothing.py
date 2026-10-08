@@ -183,8 +183,15 @@ def check_folder(fid, work_root):
         def name_score(t):
             parts = t[1][0].lower().split('_')
             return sum(1 for w in ftoks if any(p[:4] == w[:4] and len(p) >= 3 for p in parts))
+        # container plumbing (Append, Get, Length, Element, Empty, ...) is never the algorithm; a
+        # subprogram named Solve/Run/Compute is (the array-backed list exercises use Solve)
+        helpers = {'empty', 'append', 'get', 'set', 'length', 'element', 'size', 'clear', 'initialize', 'init',
+                   'create', 'make', 'image', 'to_string', 'put', 'print', 'show', 'first', 'last', 'capacity',
+                   'is_empty', 'is_full', 'value', 'item', 'make_list', 'from_array', 'to_array', 'reset'}
+        def entry(t): return t[1][0].lower() in ('solve', 'run', 'compute', 'execute')
         pool = [t for t in called if not is_pred(t)] or called
-        main_name = max(pool, key=lambda t: (any(m != 'out' for _, _, m in t[1][6]), name_score(t) > 0, uses[t[1][0]]))[1][0]   # subprograms without input (constructors, Initialize) last
+        main_name = max(pool, key=lambda t: (any(m != 'out' for _, _, m in t[1][6]), t[1][0].lower() not in helpers,
+                                             entry(t) or name_score(t) > 0, uses[t[1][0]]))[1][0]   # subprograms without input (constructors, Initialize) last
         row['main'] = main_name
         surv = []
         for adb, (name, kind, hs, bs, es, ee, params, rt) in called:
