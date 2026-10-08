@@ -37,7 +37,7 @@ compression/Ada/Speech-Compression,compression,Ada,Speech-Compression,yes,yes,ye
 compression/Ada/Verlet-Integration,compression,Ada,Verlet-Integration,yes,yes,yes,yes,yes,yes,2,2,no SPARK,,,,,,,,,,,,,,,ok,,,
 compression/Ada/Video-Compression,compression,Ada,Video-Compression,yes,yes,yes,yes,yes,yes,27,27,no SPARK,,,,,,,,,,,,,,,ok,,,
 compression/Ada/Wavelet-Compression,compression,Ada,Wavelet-Compression,yes,yes,yes,yes,yes,yes,31,31,no SPARK,,,,,,,,,,,,,,,ok,,,
-compression/SPARK2/Ada-SPARK-Compress-String,compression,SPARK2,Ada-SPARK-Compress-String,yes,yes,yes,yes,yes,yes,0,0,proven,7,0,,level2-timeout,compress_string.gpr,,,,,,,,,,ok,,,
+compression/SPARK2/Ada-SPARK-Compress-String,compression,SPARK2,Ada-SPARK-Compress-String,yes,yes,yes,yes,yes,yes,0,0,proven,7,0,,steps=1000000,compress_string.gpr,,,,,,,,,,ok,yes,own tests,yes
 compression/SPARK2/Ada-SPARK-Interleaving-String,compression,SPARK2,Ada-SPARK-Interleaving-String,yes,yes,yes,yes,yes,yes,10,10,proven,10,0,,level2-timeout,interleaving_string_project.gpr,,,,,,,,,,ok,yes,own tests,yes
 compression/SPARK2/Ada-SPARK-LZ77,compression,SPARK2,Ada-SPARK-LZ77,yes,yes,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,lz77.gpr,,,,,,,,,,ok,,,
 compression/SPARK2/Ada-SPARK-Move-To-Front,compression,SPARK2,Ada-SPARK-Move-To-Front,yes,yes,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,move_to_front.gpr,,,,,,,,,,ok,,,
@@ -121,7 +121,7 @@ geometry/Ada/Line-Clipping,geometry,Ada,Line-Clipping,yes,yes,yes,yes,yes,yes,0,
 geometry/Ada/Line-Segment-Intersection,geometry,Ada,Line-Segment-Intersection,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 geometry/Ada/Marching-Cubes,geometry,Ada,Marching-Cubes,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 geometry/Ada/Ordered-Dithering,geometry,Ada,Ordered-Dithering,yes,yes,yes,yes,yes,yes,20,20,no SPARK,,,,,,,,,,,,,,,baseline fails,,,
-geometry/Ada/Phong-Shading,geometry,Ada,Phong-Shading,yes,yes,yes,yes,yes,yes,0,0,timeout,,,,level2-timeout,phong_shading.gpr,,,,,,,,,,ok,,,
+geometry/Ada/Phong-Shading,geometry,Ada,Phong-Shading,yes,yes,yes,yes,yes,yes,0,0,timeout,,,,steps=1000000,phong_shading.gpr,,,,,,,,,,ok,,,
 geometry/Ada/Point-In-Polygon,geometry,Ada,Point-In-Polygon,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,geometry/SPARK2/Ada-SPARK-Point-In-Polygon,,,,,,ok,,,
 geometry/Ada/Polygon-Triangulation,geometry,Ada,Polygon-Triangulation,yes,yes,yes,yes,yes,yes,0,3,no SPARK,,,,,,,,,,,,,,,ok,,,
 geometry/Ada/Quasitriangulation,geometry,Ada,Quasitriangulation,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
@@ -142,8 +142,8 @@ geometry/Ada/Warnock-Algorithm,geometry,Ada,Warnock-Algorithm,yes,yes,yes,yes,ye
 geometry/Ada/Watershed-Transformation,geometry,Ada,Watershed-Transformation,yes,yes,no,no,yes,yes,52,52,no SPARK,,,,,,,,,,,,,,,baseline does not build,,,
 geometry/Ada/Weiler-Atherton,geometry,Ada,Weiler-Atherton,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 geometry/Ada/Xiaolin-Wus-Line-Algorithm,geometry,Ada,Xiaolin-Wus-Line-Algorithm,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
-geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,geometry,SPARK2,Ada-SPARK-Convex-Hull-Graham,yes,yes,yes,yes,yes,yes,0,0,proven,11,0,,level2-timeout,convex_hull_graham.gpr,,,,,,,,,,ok,,,
-geometry/SPARK2/Ada-SPARK-Point-In-Polygon,geometry,SPARK2,Ada-SPARK-Point-In-Polygon,yes,yes,yes,yes,yes,yes,0,0,proven,22,0,,level2-timeout,point_in_polygon.gpr,,,,geometry/Ada/Point-In-Polygon,,,,,,ok,,,
+geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,geometry,SPARK2,Ada-SPARK-Convex-Hull-Graham,yes,yes,yes,yes,yes,yes,0,0,proven,11,0,,steps=1000000,convex_hull_graham.gpr,,,,,,,,,,ok,yes,own tests,yes
+geometry/SPARK2/Ada-SPARK-Point-In-Polygon,geometry,SPARK2,Ada-SPARK-Point-In-Polygon,yes,yes,yes,yes,yes,yes,0,0,proven,22,0,,steps=1000000,point_in_polygon.gpr,,,,geometry/Ada/Point-In-Polygon,,,,,,ok,yes,own tests,yes
 geometry/SPARK2/Closest-Pair-Brute,geometry,SPARK2,Closest-Pair-Brute,yes,n/a,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,closest_pair_brute.gpr,,,,,,,,,,ok,,,
 graphs/Ada/A-Star,graphs,Ada,A-Star,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,graphs/SPARK4/A-Star,,,,,,ok,,,
 graphs/Ada/Bellman-Ford-Algorithm,graphs,Ada,Bellman-Ford-Algorithm,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,graphs/SPARK2/Bellman-Ford-Algorithm,,,"agree (vs graphs/SPARK2/Bellman-Ford-Algorithm, 1000 cases)",,,ok,,diff agree,
@@ -180,13 +180,13 @@ graphs/SPARK2/Ada-SPARK-Clone-Graph,graphs,SPARK2,Ada-SPARK-Clone-Graph,yes,n/a,
 graphs/SPARK2/Ada-SPARK-Clone-Graph-Stub,graphs,SPARK2,Ada-SPARK-Clone-Graph-Stub,yes,yes,yes,yes,yes,yes,5,5,proven,1,0,yes,level2-timeout,proof.gpr,,yes,,,,,,,,weak,,,
 graphs/SPARK2/Ada-SPARK-Dijkstra-Lite,graphs,SPARK2,Ada-SPARK-Dijkstra-Lite,yes,yes,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,dijkstra_lite.gpr,,,,,,,,,,ok,,,
 graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,graphs,SPARK2,Ada-SPARK-Find-Center-Of-Star-Graph,yes,n/a,yes,yes,yes,yes,2,2,proven,4,0,,level2-timeout,find_center_of_star_graph.gpr,,,,,,,,,,ok,,,
-graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,graphs,SPARK2,Ada-SPARK-Find-If-Path-Exists-In-Graph,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,find_if_path_exists_in_graph.gpr,,,,,,,,,,ok,,,
+graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,graphs,SPARK2,Ada-SPARK-Find-If-Path-Exists-In-Graph,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,steps=1000000,find_if_path_exists_in_graph.gpr,,,,,,,,,,ok,yes,own tests,yes
 graphs/SPARK2/Ada-SPARK-Floyd-Warshall,graphs,SPARK2,Ada-SPARK-Floyd-Warshall,yes,n/a,yes,yes,yes,yes,2,2,proven,2,0,yes,level2-timeout,floyd_warshall.gpr,,,,graphs/Ada/Floyd-Warshall-Algorithm,,,"agree (vs graphs/Ada/Floyd-Warshall-Algorithm, 1000 cases)",,,ok,,diff agree,
 graphs/SPARK2/Ada-SPARK-Floyd-Warshall-Lite,graphs,SPARK2,Ada-SPARK-Floyd-Warshall-Lite,yes,yes,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,floyd_warshall_lite.gpr,,,,,,,,,,ok,,,
 graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite,graphs,SPARK2,Ada-SPARK-Is-Graph-Bipartite,yes,n/a,yes,yes,yes,yes,3,3,proven,2,0,yes,level2-timeout,is_graph_bipartite.gpr,,,,,,,,5/5,,ok,,,
 graphs/SPARK2/Ada-SPARK-Kruskal-MST-Lite,graphs,SPARK2,Ada-SPARK-Kruskal-MST-Lite,yes,yes,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,kruskal_mst_lite.gpr,,,,,,,,,,ok,,,
 graphs/SPARK2/Ada-SPARK-Kruskals-Algorithm,graphs,SPARK2,Ada-SPARK-Kruskals-Algorithm,yes,n/a,yes,yes,yes,yes,2,2,proven,13,0,,level2-timeout,kruskals_algorithm.gpr,,,,graphs/Ada/Kruskals-Algorithm,,,,,,ok,,,
-graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS,graphs,SPARK2,Ada-SPARK-Number-Of-Islands-DFS,yes,yes,yes,yes,yes,yes,6,6,proven,89,17,,level2-timeout,number_of_islands_dfs.gpr,,,,,,,,,,ok,,,
+graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS,graphs,SPARK2,Ada-SPARK-Number-Of-Islands-DFS,yes,yes,yes,yes,yes,yes,0,0,proven,87,17,,steps=1000000,number_of_islands_dfs.gpr,,,,,,,,,,ok,yes,own tests,yes
 graphs/SPARK2/Ada-SPARK-Prims-Algorithm,graphs,SPARK2,Ada-SPARK-Prims-Algorithm,yes,n/a,yes,yes,yes,yes,5,5,proven,2,0,yes,level2-timeout,prims_algorithm.gpr,,,,graphs/Ada/Prims-Algorithm,,,,,,ok,,,
 graphs/SPARK2/Ada-SPARK-Shortest-Path-In-Binary-Matrix,graphs,SPARK2,Ada-SPARK-Shortest-Path-In-Binary-Matrix,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,shortest_path_in_binary_matrix.gpr,,,,,,,,,,ok,,,
 graphs/SPARK2/Bellman-Ford-Algorithm,graphs,SPARK2,Bellman-Ford-Algorithm,yes,yes,yes,yes,yes,yes,2,2,proven,4,0,,level2-timeout,bellman_ford_algorithm.gpr,,,,graphs/Ada/Bellman-Ford-Algorithm,,,"agree (vs graphs/Ada/Bellman-Ford-Algorithm, 1000 cases)",,,ok,,diff agree,yes
@@ -203,18 +203,18 @@ hashing/Ada/Pearson-Hashing,hashing,Ada,Pearson-Hashing,yes,yes,yes,yes,yes,yes,
 hashing/Ada/SipHash,hashing,Ada,SipHash,yes,yes,yes,yes,yes,yes,0,0,not built,,,,level2-timeout,siphash.gpr,,,,,,,,,,ok,,,
 hashing/Ada/Tiger-Hash,hashing,Ada,Tiger-Hash,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 hashing/Ada/Zobrist-Hashing,hashing,Ada,Zobrist-Hashing,yes,n/a,yes,yes,yes,yes,5,5,no SPARK,,,,,,,,,hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,,,,,,ok,,,
-hashing/SPARK2/Ada-SPARK-Design-HashMap,hashing,SPARK2,Ada-SPARK-Design-HashMap,yes,yes,yes,yes,yes,yes,4,4,proven,7,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+hashing/SPARK2/Ada-SPARK-Design-HashMap,hashing,SPARK2,Ada-SPARK-Design-HashMap,yes,yes,yes,yes,yes,yes,0,0,proven,7,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 hashing/SPARK2/Ada-SPARK-Design-HashMap-Stub,hashing,SPARK2,Ada-SPARK-Design-HashMap-Stub,yes,yes,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,design_hashmap_stub.gpr,,yes,,,,,,,,ok,,,
-hashing/SPARK2/Ada-SPARK-Design-HashSet,hashing,SPARK2,Ada-SPARK-Design-HashSet,yes,yes,yes,yes,yes,yes,2,2,proven,6,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+hashing/SPARK2/Ada-SPARK-Design-HashSet,hashing,SPARK2,Ada-SPARK-Design-HashSet,yes,yes,yes,yes,yes,yes,0,0,proven,6,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 hashing/SPARK2/Ada-SPARK-Design-HashSet-Stub,hashing,SPARK2,Ada-SPARK-Design-HashSet-Stub,yes,yes,yes,yes,yes,yes,1,1,proven,3,0,yes,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
 hashing/SPARK2/Ada-SPARK-FNV-Hash,hashing,SPARK2,Ada-SPARK-FNV-Hash,yes,yes,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,fnv_hash.gpr,,,,,,,,,,ok,,,
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,hashing,SPARK2,Ada-SPARK-Pearson-Hashing,yes,n/a,yes,yes,yes,yes,0,0,proven,3,0,yes,steps=1000000,pearson_hashing.gpr,,,,hashing/Ada/Pearson-Hashing,,,"agree (vs hashing/Ada/Pearson-Hashing, 1000 cases)",,,ok,,diff agree,
-hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,hashing,SPARK2,Ada-SPARK-Zobrist-Hashing,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,zobrist_hashing.gpr,,,,hashing/Ada/Zobrist-Hashing,,,,,,ok,,,
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,hashing,SPARK2,Ada-SPARK-Zobrist-Hashing,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,steps=1000000,zobrist_hashing.gpr,,,,hashing/Ada/Zobrist-Hashing,,,,,,ok,yes,own tests,yes
 hashing/SPARK2/Bloom-Filter,hashing,SPARK2,Bloom-Filter,yes,n/a,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,bloom_filter.gpr,,,,hashing/Ada/Bloom-Filter,,,,,,ok,,,
 logic/Ada/Automated-Theorem-Proving,logic,Ada,Automated-Theorem-Proving,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 logic/Ada/Chaff,logic,Ada,Chaff,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 logic/Ada/Constraint-Satisfaction,logic,Ada,Constraint-Satisfaction,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
-logic/Ada/DPLL,logic,Ada,DPLL,yes,yes,yes,yes,yes,yes,0,0,proven,56,12,,level2-timeout,dpll.gpr,,,,,,,,,,ok,,,
+logic/Ada/DPLL,logic,Ada,DPLL,yes,yes,yes,yes,yes,yes,0,0,proven,56,12,,steps=1000000,dpll.gpr,,,,,,,,,,ok,yes,own tests,yes
 logic/Ada/DPLL-Algorithm,logic,Ada,DPLL-Algorithm,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 logic/Ada/Davis-Putnam,logic,Ada,Davis-Putnam,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 logic/Ada/Verified-Unification-Engine,logic,Ada,Verified-Unification-Engine,yes,n/a,yes,yes,yes,yes,0,0,proven,176,39,,level2-timeout,unification_engine.gpr,,,,,,,,,,ok,,,
@@ -230,13 +230,13 @@ matrices/Ada/Sparse-Matrix,matrices,Ada,Sparse-Matrix,yes,yes,yes,yes,yes,yes,0,
 matrices/Ada/Strassen,matrices,Ada,Strassen,yes,yes,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 matrices/Ada/Symbolic-Cholesky-Decomposition,matrices,Ada,Symbolic-Cholesky-Decomposition,yes,yes,yes,yes,yes,yes,24,24,no SPARK,,,,,,,,,,,,,,,ok,,,
 matrices/SPARK2/Ada-SPARK-Check-If-Matrix-Is-X-Matrix,matrices,SPARK2,Ada-SPARK-Check-If-Matrix-Is-X-Matrix,yes,yes,yes,yes,yes,yes,10,10,proven,1,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
-matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,matrices,SPARK2,Ada-SPARK-Gaussian-Elimination,yes,yes,yes,yes,yes,yes,4,4,proven,5,0,,level2-timeout,gaussian_elimination.gpr,,,,matrices/Ada/Gaussian-Elimination,,,,,,ok,,,
-matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix,matrices,SPARK2,Ada-SPARK-Lucky-Numbers-In-A-Matrix,yes,yes,yes,yes,yes,yes,6,6,proven,4,0,,level2-timeout,lucky_numbers.gpr,,,,,,,,,,ok,,,
-matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,matrices,SPARK2,Ada-SPARK-Matrix-Cells-In-Distance-Order,yes,yes,yes,yes,yes,yes,2,2,proven,6,0,,level2-timeout,matrix_cells_in_distance_order.gpr,,,,,,,,,,ok,,,
+matrices/SPARK2/Ada-SPARK-Gaussian-Elimination,matrices,SPARK2,Ada-SPARK-Gaussian-Elimination,yes,yes,yes,yes,yes,yes,0,0,proven,6,1,,steps=1000000,gaussian_elimination.gpr,,,,matrices/Ada/Gaussian-Elimination,,,,,,ok,yes,own tests,yes
+matrices/SPARK2/Ada-SPARK-Lucky-Numbers-In-A-Matrix,matrices,SPARK2,Ada-SPARK-Lucky-Numbers-In-A-Matrix,yes,yes,yes,yes,yes,yes,0,0,proven,4,0,,steps=1000000,lucky_numbers.gpr,,,,,,,,,,ok,yes,own tests,yes
+matrices/SPARK2/Ada-SPARK-Matrix-Cells-In-Distance-Order,matrices,SPARK2,Ada-SPARK-Matrix-Cells-In-Distance-Order,yes,yes,yes,yes,yes,yes,0,0,proven,18,0,,steps=1000000,matrix_cells_in_distance_order.gpr,,,,,,,,,,ok,yes,own tests,yes
 matrices/SPARK2/Ada-SPARK-Matrix-Chain-Multiplication,matrices,SPARK2,Ada-SPARK-Matrix-Chain-Multiplication,yes,yes,yes,yes,yes,yes,0,0,proven,1,0,yes,level2-timeout,matrix_chain_multiplication.gpr,,,,,,,,,,ok,,,
 matrices/SPARK2/Ada-SPARK-Matrix-Diagonal-Sum,matrices,SPARK2,Ada-SPARK-Matrix-Diagonal-Sum,yes,yes,yes,yes,yes,yes,6,6,proven,3,0,yes,level2-timeout,matrix_diagonal_sum.gpr,,,,,,,,,,ok,,,
 matrices/SPARK2/Ada-SPARK-Matrix-Multiply,matrices,SPARK2,Ada-SPARK-Matrix-Multiply,yes,yes,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,matrix_multiply.gpr,,,,,,,,,,ok,,,
-matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum,matrices,SPARK2,Ada-SPARK-Num-Matrix-Block-Sum,yes,yes,yes,yes,yes,yes,5,5,proven,4,0,,level2-timeout,num_matrix_block_sum.gpr,,,,,,,,,,ok,,,
+matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum,matrices,SPARK2,Ada-SPARK-Num-Matrix-Block-Sum,yes,yes,yes,yes,yes,yes,0,0,proven,4,0,,steps=1000000,num_matrix_block_sum.gpr,,,,,,,,,,ok,yes,own tests,yes
 matrices/SPARK2/Ada-SPARK-Reshape-The-Matrix,matrices,SPARK2,Ada-SPARK-Reshape-The-Matrix,yes,yes,yes,yes,yes,yes,6,6,proven,1,0,yes,level2-timeout,reshape_the_matrix.gpr,,,,,,,,,,ok,,,
 matrices/SPARK2/Ada-SPARK-Set-Matrix-Zeroes,matrices,SPARK2,Ada-SPARK-Set-Matrix-Zeroes,yes,yes,yes,yes,yes,yes,10,10,proven,0,0,yes,level2-timeout,set_matrix_zeroes.gpr,,,,,,,,,,ok,,,
 matrices/SPARK2/Ada-SPARK-Spiral-Matrix,matrices,SPARK2,Ada-SPARK-Spiral-Matrix,yes,yes,yes,yes,yes,yes,6,6,proven,2,0,yes,level2-timeout,spiral_matrix.gpr,,,,,,,,,,ok,,,
@@ -757,22 +757,22 @@ misc/Ada/rate-monotonic,misc,Ada,rate-monotonic,no,n/a,yes,yes,yes,yes,16,16,no 
 misc/Ada/round-robin,misc,Ada,round-robin,n/a,n/a,no,no,no,no,NA,NA,no SPARK,,,,,,,,,,,,,,,no tests,,,
 misc/Ada/scripts,misc,Ada,scripts,n/a,n/a,no,no,no,no,NA,NA,no SPARK,,,,,,,,,,,,,,,no tests,,,
 misc/Ada/srt-simulation,misc,Ada,srt-simulation,n/a,n/a,no,no,no,no,NA,NA,no SPARK,,,,,,,,,,,,,,,no tests,,,
-misc/SPARK2/Ada-SPARK-3Sum-Closest,misc,SPARK2,Ada-SPARK-3Sum-Closest,yes,n/a,yes,yes,yes,yes,2,2,proven,6,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-3Sum-Closest,misc,SPARK2,Ada-SPARK-3Sum-Closest,yes,yes,yes,yes,yes,yes,0,0,proven,6,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-4Sum-II,misc,SPARK2,Ada-SPARK-4Sum-II,yes,n/a,yes,yes,yes,yes,1,1,proven,2,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,misc,SPARK2,Ada-SPARK-Accounts-Merge-Lite,yes,n/a,yes,yes,yes,yes,3,3,proven,4,0,,level2-timeout,accounts_merge_lite.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Accounts-Merge-Stub,misc,SPARK2,Ada-SPARK-Accounts-Merge-Stub,yes,n/a,yes,yes,yes,yes,2,2,proven,4,0,,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Add-Binary,misc,SPARK2,Ada-SPARK-Add-Binary,yes,n/a,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,add_binary.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Add-Binary,misc,SPARK2,Ada-SPARK-Add-Binary,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,steps=1000000,add_binary.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Add-Digits,misc,SPARK2,Ada-SPARK-Add-Digits,yes,n/a,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Add-Two-Numbers,misc,SPARK2,Ada-SPARK-Add-Two-Numbers,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Add-Two-Numbers-II,misc,SPARK2,Ada-SPARK-Add-Two-Numbers-II,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Add-Without-Plus,misc,SPARK2,Ada-SPARK-Add-Without-Plus,yes,n/a,yes,yes,yes,yes,0,0,proven,17,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Add-Without-Plus,misc,SPARK2,Ada-SPARK-Add-Without-Plus,yes,yes,yes,yes,yes,yes,0,0,proven,17,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Adler32,misc,SPARK2,Ada-SPARK-Adler32,yes,yes,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,adler32.gpr,,,,misc/Ada/Adler-32,,,"agree (vs misc/Ada/Adler-32, 1000 cases)",,,ok,,diff agree,yes
 misc/SPARK2/Ada-SPARK-Alert-Using-Same-Key-Card-Stub,misc,SPARK2,Ada-SPARK-Alert-Using-Same-Key-Card-Stub,yes,n/a,yes,yes,yes,yes,4,4,proven,5,0,,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Alien-Dictionary-Lite,misc,SPARK2,Ada-SPARK-Alien-Dictionary-Lite,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,alien_dictionary.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Alien-Dictionary-Stub,misc,SPARK2,Ada-SPARK-Alien-Dictionary-Stub,yes,n/a,yes,yes,yes,yes,1,1,proven,1,0,yes,level2-timeout,proof.gpr,,yes,,,,,,,,weak,,,
 misc/SPARK2/Ada-SPARK-All-Paths-From-Source-To-Target,misc,SPARK2,Ada-SPARK-All-Paths-From-Source-To-Target,yes,n/a,yes,yes,yes,yes,3,3,proven,2,0,yes,level2-timeout,all_paths_from_source_to_target.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Argmax,misc,SPARK2,Ada-SPARK-Argmax,yes,n/a,yes,yes,yes,yes,1,1,proven,1,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Arranging-Coins,misc,SPARK2,Ada-SPARK-Arranging-Coins,yes,n/a,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Arranging-Coins,misc,SPARK2,Ada-SPARK-Arranging-Coins,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Array-Partition-I,misc,SPARK2,Ada-SPARK-Array-Partition-I,yes,n/a,yes,yes,yes,yes,1,1,proven,3,0,yes,level2-timeout,array_partition_i.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-As-Far-From-Land-As-Possible,misc,SPARK2,Ada-SPARK-As-Far-From-Land-As-Possible,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,as_far_from_land_as_possible.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Assign-Cookies,misc,SPARK2,Ada-SPARK-Assign-Cookies,yes,n/a,yes,yes,yes,yes,0,0,proven,2,1,yes,level2-timeout,assign_cookies_project.gpr,,,,,,,,,,weak,,,
@@ -793,7 +793,7 @@ misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-II,misc,SPARK2,Ada-SPARK-B
 misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown,misc,SPARK2,Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown,yes,n/a,yes,yes,yes,yes,0,0,proven,9,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Binary-Number-With-Alternating-Bits,misc,SPARK2,Ada-SPARK-Binary-Number-With-Alternating-Bits,yes,n/a,yes,yes,yes,yes,0,0,proven,3,1,yes,level2-timeout,binary_number_with_alternating_bits.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Binary-To-Integer,misc,SPARK2,Ada-SPARK-Binary-To-Integer,yes,n/a,yes,yes,yes,yes,1,1,proven,2,0,yes,level2-timeout,Binary_To_Integer.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Binary-Watch,misc,SPARK2,Ada-SPARK-Binary-Watch,yes,n/a,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,binary_watch.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Binary-Watch,misc,SPARK2,Ada-SPARK-Binary-Watch,yes,yes,yes,yes,yes,yes,0,0,proven,4,0,,steps=1000000,binary_watch.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Binomial-Coefficient,misc,SPARK2,Ada-SPARK-Binomial-Coefficient,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Bitset,misc,SPARK2,Ada-SPARK-Bitset,yes,n/a,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,bitset.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range,misc,SPARK2,Ada-SPARK-Bitwise-AND-Of-Numbers-Range,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,bitwise_and_of_numbers_range.gpr,,,,,,,,,,ok,,,
@@ -803,10 +803,10 @@ misc/SPARK2/Ada-SPARK-Bitwise-XOR-Of-All-Pairings,misc,SPARK2,Ada-SPARK-Bitwise-
 misc/SPARK2/Ada-SPARK-Boats-To-Save-People,misc,SPARK2,Ada-SPARK-Boats-To-Save-People,yes,n/a,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,boats_to_save_people.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Bounding-Box,misc,SPARK2,Ada-SPARK-Bounding-Box,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,bounding_box.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Bray-Curtis,misc,SPARK2,Ada-SPARK-Bray-Curtis,yes,n/a,yes,yes,yes,yes,0,0,proven,5,0,,level2-timeout,bray_curtis.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Broken-Calculator,misc,SPARK2,Ada-SPARK-Broken-Calculator,yes,n/a,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,broken_calculator.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Broken-Calculator,misc,SPARK2,Ada-SPARK-Broken-Calculator,yes,yes,yes,yes,yes,yes,0,0,proven,19,0,,steps=1000000,broken_calculator.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Browser-History-Stub,misc,SPARK2,Ada-SPARK-Browser-History-Stub,yes,n/a,yes,yes,yes,yes,1,1,proven,2,0,yes,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation,misc,SPARK2,Ada-SPARK-Buddy-Memory-Allocation,yes,n/a,yes,yes,yes,yes,1,1,proven,7,0,,level2-timeout,proof.gpr,,,,misc/Ada/Buddy-Memory-Allocation,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Bulb-Switcher,misc,SPARK2,Ada-SPARK-Bulb-Switcher,yes,n/a,yes,yes,yes,yes,0,0,proven,11,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Bulb-Switcher,misc,SPARK2,Ada-SPARK-Bulb-Switcher,yes,yes,yes,yes,yes,yes,0,0,proven,11,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub,misc,SPARK2,Ada-SPARK-Bulb-Switcher-Stub,yes,n/a,yes,yes,yes,yes,0,0,proven,5,0,,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Bump-Arena,misc,SPARK2,Ada-SPARK-Bump-Arena,yes,n/a,yes,yes,yes,yes,0,0,proven,65,10,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-CRC32,misc,SPARK2,Ada-SPARK-CRC32,yes,n/a,yes,yes,yes,yes,1,1,proven,2,0,yes,level2-timeout,crc32.gpr,,,,,,,,,,ok,,,
@@ -814,12 +814,12 @@ misc/SPARK2/Ada-SPARK-CSR-Row-Sum,misc,SPARK2,Ada-SPARK-CSR-Row-Sum,yes,n/a,yes,
 misc/SPARK2/Ada-SPARK-Can-Place-Flowers,misc,SPARK2,Ada-SPARK-Can-Place-Flowers,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,can_place_flowers.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Canberra-Distance,misc,SPARK2,Ada-SPARK-Canberra-Distance,yes,n/a,yes,yes,yes,yes,0,0,proven,14,0,,level2-timeout,canberra_distance.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Candy,misc,SPARK2,Ada-SPARK-Candy,yes,n/a,yes,yes,yes,yes,0,0,proven,2,1,yes,level2-timeout,candy_project.gpr,,,,,,,,,,weak,,,
-misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,misc,SPARK2,Ada-SPARK-Capacity-To-Ship-Packages,yes,n/a,yes,yes,yes,yes,0,0,proven,5,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Car-Pooling,misc,SPARK2,Ada-SPARK-Car-Pooling,yes,n/a,yes,yes,yes,yes,0,0,proven,5,0,,level2-timeout,car_pooling.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,misc,SPARK2,Ada-SPARK-Capacity-To-Ship-Packages,yes,yes,yes,yes,yes,yes,0,0,proven,5,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
+misc/SPARK2/Ada-SPARK-Car-Pooling,misc,SPARK2,Ada-SPARK-Car-Pooling,yes,yes,yes,yes,yes,yes,0,0,proven,6,0,,steps=1000000,car_pooling.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Cheapest-Flights,misc,SPARK2,Ada-SPARK-Cheapest-Flights,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,cheapest_flights.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Cheapest-Flights-Stub,misc,SPARK2,Ada-SPARK-Cheapest-Flights-Stub,yes,n/a,yes,yes,yes,yes,1,1,proven,1,0,yes,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,misc,SPARK2,Ada-SPARK-Cheapest-Flights-Within-K-Stops,yes,n/a,yes,yes,yes,yes,2,2,proven,4,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,misc,SPARK2,Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,yes,n/a,yes,yes,yes,yes,0,0,proven,7,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,misc,SPARK2,Ada-SPARK-Check-If-Number-Is-A-Sum-Of-Powers-Of-Three,yes,yes,yes,yes,yes,yes,0,0,proven,7,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Check-If-The-Sentence-Is-Pangram,misc,SPARK2,Ada-SPARK-Check-If-The-Sentence-Is-Pangram,yes,n/a,yes,yes,yes,yes,1,1,proven,3,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,misc,SPARK2,Ada-SPARK-Checksum-Ones-Complement,yes,n/a,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,checksum_ones_complement.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Cherry-Pickup-Lite,misc,SPARK2,Ada-SPARK-Cherry-Pickup-Lite,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,cherry_pickup_lite.gpr,,,,,,,,,,ok,,,
@@ -834,7 +834,7 @@ misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,misc,SPARK2,Ada-SPARK-Combinatio
 misc/SPARK2/Ada-SPARK-Combination-Sum,misc,SPARK2,Ada-SPARK-Combination-Sum,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,combination_sum.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Combination-Sum-II,misc,SPARK2,Ada-SPARK-Combination-Sum-II,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,combination_sum_ii.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Combination-Sum-III,misc,SPARK2,Ada-SPARK-Combination-Sum-III,yes,n/a,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Combination-Sum-IV,misc,SPARK2,Ada-SPARK-Combination-Sum-IV,yes,n/a,yes,yes,yes,yes,1,1,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Combination-Sum-IV,misc,SPARK2,Ada-SPARK-Combination-Sum-IV,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Complement-Of-Base-10,misc,SPARK2,Ada-SPARK-Complement-Of-Base-10,yes,n/a,yes,yes,yes,yes,0,0,proven,3,1,yes,level2-timeout,complement_of_base_10.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Complement-Of-Base-10-Integer,misc,SPARK2,Ada-SPARK-Complement-Of-Base-10-Integer,yes,n/a,yes,yes,yes,yes,1,1,proven,2,0,yes,level2-timeout,Complement_Of_Base_10_Integer.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,misc,SPARK2,Ada-SPARK-Connected-Component-Labeling,yes,n/a,yes,yes,yes,yes,0,0,proven,18,3,,level2-timeout,connected_component_labeling.gpr,,,,misc/Ada/Connected-Component-Labeling,,,,,,ok,,,
@@ -852,7 +852,7 @@ misc/SPARK2/Ada-SPARK-Cosine-Distance,misc,SPARK2,Ada-SPARK-Cosine-Distance,yes,
 misc/SPARK2/Ada-SPARK-Cosine-Similarity,misc,SPARK2,Ada-SPARK-Cosine-Similarity,yes,n/a,yes,yes,yes,yes,2,2,proven,4,0,,level2-timeout,cosine_similarity.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Count-And-Say,misc,SPARK2,Ada-SPARK-Count-And-Say,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,count_and_say.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,misc,SPARK2,Ada-SPARK-Count-And-Say-Stub,yes,yes,yes,yes,yes,yes,0,0,proven,42,1,,steps=1000000,count_and_say_stub.gpr,,,yes,,,,,7/8,OEIS A005150 (terms) and A005341 (lengths),ok,,kat,yes
-misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval,misc,SPARK2,Ada-SPARK-Count-Odd-Numbers-In-An-Interval,yes,n/a,yes,yes,yes,yes,1,1,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval,misc,SPARK2,Ada-SPARK-Count-Odd-Numbers-In-An-Interval,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite,misc,SPARK2,Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite,yes,n/a,yes,yes,yes,yes,0,0,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,misc,SPARK2,Ada-SPARK-Count-Operations-To-Obtain-Zero,yes,n/a,yes,yes,yes,yes,0,0,proven,9,1,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,misc,SPARK2,Ada-SPARK-Count-Square-Submatrices-With-All-Ones,yes,n/a,yes,yes,yes,yes,0,0,proven,30,17,,level2-timeout,count_square_submatrices_with_all_ones.gpr,,,,,,,,,,ok,,,
@@ -1222,7 +1222,7 @@ misc/SPARK2/Ada-SPARK-Restore-IP-Addresses,misc,SPARK2,Ada-SPARK-Restore-IP-Addr
 misc/SPARK2/Ada-SPARK-Reverse-Bits,misc,SPARK2,Ada-SPARK-Reverse-Bits,yes,yes,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Reverse-Integer,misc,SPARK2,Ada-SPARK-Reverse-Integer,yes,n/a,yes,yes,yes,yes,0,0,proven,7,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Reverse-Linked-List,misc,SPARK2,Ada-SPARK-Reverse-Linked-List,yes,n/a,yes,yes,yes,yes,2,2,proven,8,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,misc,SPARK2,Ada-SPARK-Reverse-Linked-List-II,yes,yes,yes,yes,yes,yes,0,0,proven,9,0,,steps=1000000,ada_spark_reverse_linked_list_ii.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Reverse-Linked-List-II,misc,SPARK2,Ada-SPARK-Reverse-Linked-List-II,yes,yes,yes,yes,yes,yes,0,0,proven,9,0,,steps=1000000,ada_spark_reverse_linked_list_ii.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Reverse-Only-Letters,misc,SPARK2,Ada-SPARK-Reverse-Only-Letters,yes,n/a,yes,yes,yes,yes,0,0,proven,11,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Reverse-Pairs-Lite,misc,SPARK2,Ada-SPARK-Reverse-Pairs-Lite,yes,n/a,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Reverse-Vowels,misc,SPARK2,Ada-SPARK-Reverse-Vowels,yes,n/a,yes,yes,yes,yes,0,0,proven,17,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
@@ -1233,7 +1233,7 @@ misc/SPARK2/Ada-SPARK-Roman-To-Int,misc,SPARK2,Ada-SPARK-Roman-To-Int,yes,yes,ye
 misc/SPARK2/Ada-SPARK-Roman-To-Integer,misc,SPARK2,Ada-SPARK-Roman-To-Integer,yes,n/a,yes,yes,yes,yes,0,0,proven,3,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Rotate-Array,misc,SPARK2,Ada-SPARK-Rotate-Array,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,rotate_array.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Rotate-Image,misc,SPARK2,Ada-SPARK-Rotate-Image,yes,n/a,yes,yes,yes,yes,8,8,proven,1,0,yes,level2-timeout,rotate_image.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Rotate-List,misc,SPARK2,Ada-SPARK-Rotate-List,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,steps=1000000,ada_spark_rotate_list.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Rotate-List,misc,SPARK2,Ada-SPARK-Rotate-List,yes,yes,yes,yes,yes,yes,0,0,proven,8,0,,steps=1000000,ada_spark_rotate_list.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Rotting-Oranges,misc,SPARK2,Ada-SPARK-Rotting-Oranges,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,rotting_oranges.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Round-Robin-Scheduling,misc,SPARK2,Ada-SPARK-Round-Robin-Scheduling,yes,n/a,yes,yes,yes,yes,0,0,proven,3,1,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Seat-Manager-Stub,misc,SPARK2,Ada-SPARK-Seat-Manager-Stub,yes,n/a,yes,yes,yes,yes,2,2,proven,1,0,yes,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
@@ -1289,7 +1289,7 @@ misc/SPARK2/Ada-SPARK-Super-Ugly-Number,misc,SPARK2,Ada-SPARK-Super-Ugly-Number,
 misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub,misc,SPARK2,Ada-SPARK-Super-Ugly-Number-Stub,yes,n/a,yes,yes,yes,yes,1,1,proven,2,0,yes,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Surface-Area-Of-3D-Shapes,misc,SPARK2,Ada-SPARK-Surface-Area-Of-3D-Shapes,yes,n/a,yes,yes,yes,yes,3,3,proven,6,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Surrounded-Regions,misc,SPARK2,Ada-SPARK-Surrounded-Regions,yes,n/a,yes,yes,yes,yes,0,0,proven,0,0,yes,level2-timeout,surrounded_regions.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,misc,SPARK2,Ada-SPARK-Swap-Nodes-In-Pairs,yes,yes,yes,yes,yes,yes,0,0,proven,6,0,,steps=1000000,ada_spark_swap_nodes_in_pairs.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,misc,SPARK2,Ada-SPARK-Swap-Nodes-In-Pairs,yes,yes,yes,yes,yes,yes,0,0,proven,6,0,,steps=1000000,ada_spark_swap_nodes_in_pairs.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,misc,SPARK2,Ada-SPARK-Swapping-Nodes-In-A-Linked-List,yes,n/a,yes,yes,yes,yes,2,2,proven,6,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water,misc,SPARK2,Ada-SPARK-Swim-In-Rising-Water,yes,n/a,yes,yes,yes,yes,2,2,proven,1,0,yes,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water-Stub,misc,SPARK2,Ada-SPARK-Swim-In-Rising-Water-Stub,yes,n/a,yes,yes,yes,yes,3,3,proven,3,0,yes,level2-timeout,proof.gpr,,yes,,,,,,,,ok,,,
@@ -1425,7 +1425,7 @@ numerical/Ada/Furer,numerical,Ada,Furer,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,
 numerical/Ada/Gauss-Legendre,numerical,Ada,Gauss-Legendre,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 numerical/Ada/Gauss-Newton,numerical,Ada,Gauss-Newton,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 numerical/Ada/General-Number-Field-Sieve,numerical,Ada,General-Number-Field-Sieve,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
-numerical/Ada/Gradient-Descent,numerical,Ada,Gradient-Descent,yes,n/a,yes,yes,yes,yes,0,0,not built,,,,level2-timeout,gradient_descent.gpr,,,,,,,,,,weak,,,
+numerical/Ada/Gradient-Descent,numerical,Ada,Gradient-Descent,yes,n/a,yes,yes,yes,yes,0,0,not built,,,,level2-timeout,gradient_descent.gpr,,,,,,,,,,ok,,,
 numerical/Ada/Hermite-Interpolation,numerical,Ada,Hermite-Interpolation,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 numerical/Ada/Hybrid-Monte-Carlo,numerical,Ada,Hybrid-Monte-Carlo,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,weak,,,
 numerical/Ada/Interior-Point-Method,numerical,Ada,Interior-Point-Method,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
@@ -1473,7 +1473,7 @@ numerical/Ada/Trigonometric-Interpolation,numerical,Ada,Trigonometric-Interpolat
 numerical/Ada/Ziggurat-Algorithm,numerical,Ada,Ziggurat-Algorithm,yes,n/a,yes,yes,yes,yes,0,0,no SPARK,,,,,,,,,,,,,,,ok,,,
 numerical/SPARK2/Ada-SPARK-Bisection-Method,numerical,SPARK2,Ada-SPARK-Bisection-Method,yes,n/a,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,bisection_method.gpr,,,,numerical/Ada/Bisection-Method,,,,,,ok,,,
 numerical/SPARK2/Ada-SPARK-Chebyshev-Distance,numerical,SPARK2,Ada-SPARK-Chebyshev-Distance,yes,n/a,yes,yes,yes,yes,0,0,proven,2,0,yes,level2-timeout,chebyshev_distance.gpr,,,,,,,,,,ok,,,
-numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,numerical,SPARK2,Ada-SPARK-Cooley-Tukey-FFT,yes,n/a,yes,yes,yes,yes,0,0,proven,45,14,,level2-timeout,cooley_tukey_fft.gpr,,,,numerical/Ada/Cooley-Tukey-FFT-Algorithm,,1,,,,ok,,,
+numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,numerical,SPARK2,Ada-SPARK-Cooley-Tukey-FFT,yes,yes,yes,yes,yes,yes,0,0,proven,81,18,,steps=1000000,cooley_tukey_fft.gpr,,,,numerical/Ada/Cooley-Tukey-FFT-Algorithm,,,,,,ok,yes,own tests,yes
 numerical/SPARK2/Ada-SPARK-Count-Primes,numerical,SPARK2,Ada-SPARK-Count-Primes,yes,yes,yes,yes,yes,yes,0,0,proven,4,0,,level2-timeout,count_primes.gpr,,,,,,,,,,ok,yes,own tests,yes
 numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,numerical,SPARK2,Ada-SPARK-Count-Primes-Stub,yes,n/a,yes,yes,yes,yes,0,0,proven,23,0,,level2-timeout,proof.gpr,,yes,,,,,,,,ok,yes,own tests,
 numerical/SPARK2/Ada-SPARK-Extended-Euclidean,numerical,SPARK2,Ada-SPARK-Extended-Euclidean,yes,yes,yes,yes,yes,yes,0,0,proven,10,0,,level2-timeout,proof.gpr,,,,numerical/Ada/Extended-Euclidean-Algorithm,,,"agree (vs numerical/Ada/Extended-Euclidean-Algorithm, 1000 cases)",,,ok,,diff agree,yes
