@@ -18,8 +18,8 @@ zero-filled (pragma Initialize_Scalars + gnatbind -S00).
 Result per subprogram: killed (tests fail, raise, or hang), survived (tests
 still pass), stillborn (no trivial body compiles). The *main* subprogram is
 the public one whose name shares a word with the folder name
-(Sort, Run_Chinese_Whispers; subprograms with parameters first, since a
-zero-filled constructor result is often the right answer), else the one the tests name most often; Boolean
+(Sort, Run_Chinese_Whispers; subprograms that take input first, since a
+zero-filled constructor / Initialize result is often the right answer), else the one the tests name most often; Boolean
 predicates such as Is_Sorted only when nothing else is called; a folder is flagged 'weak' when the
 do-nothing version of its main subprogram survives. Other survivors are listed
 for information.
@@ -46,7 +46,7 @@ def strip(text):
         out.append(s if i < 0 else s[:i] + ' ' * (len(s) - i))
     return '\n'.join(out)
 
-HDR = re.compile(r'^([ \t]*)(?:overriding\s+|not\s+overriding\s+)?(function|procedure)\s+(\w+)\b', re.M | re.I)
+HDR = re.compile(r'(?:^|(?<=;))([ \t]*)(?:overriding\s+|not\s+overriding\s+)?(function|procedure)\s+(\w+)\b', re.M | re.I)   # also several per line
 
 def top_level_is(code, start):
     """Index just after the header's top-level 'is' (body start), or None if the header ends in ';' first,
@@ -184,7 +184,7 @@ def check_folder(fid, work_root):
             parts = t[1][0].lower().split('_')
             return sum(1 for w in ftoks if any(p[:4] == w[:4] and len(p) >= 3 for p in parts))
         pool = [t for t in called if not is_pred(t)] or called
-        main_name = max(pool, key=lambda t: (bool(t[1][6]), name_score(t) > 0, uses[t[1][0]]))[1][0]   # constructors without parameters last
+        main_name = max(pool, key=lambda t: (any(m != 'out' for _, _, m in t[1][6]), name_score(t) > 0, uses[t[1][0]]))[1][0]   # subprograms without input (constructors, Initialize) last
         row['main'] = main_name
         surv = []
         for adb, (name, kind, hs, bs, es, ee, params, rt) in called:
