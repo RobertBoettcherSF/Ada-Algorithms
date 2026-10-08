@@ -1370,3 +1370,86 @@ lift rescore held half split 20261008 (std),compression/Ada/Wavelet-Compression,
 lift rescore held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
 lift rescore held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,+ -> -,hidden,hidden,killed
 lift rescore held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,* -> +,hidden,hidden,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,318,* -> +,L.Spot_Cone_Angle_Deg * (Ada.Numerics.Pi / 180.0);,L.Spot_Cone_Angle_Deg + (Ada.Numerics.Pi / 180.0);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,261,- -> +,To_Light : constant Vector_3D      := L.Position - Position;,To_Light : constant Vector_3D      := L.Position + Position;,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,165,+ -> -,R     : constant Real := (A.R * W.U) + (B.R * W.V) + (C.R * W.W);,R     : constant Real := (A.R * W.U) - (B.R * W.V) + (C.R * W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,167,* -> +,B_Val : constant Real := (A.B * W.U) + (B.B * W.V) + (C.B * W.W);,B_Val : constant Real := (A.B + W.U) + (B.B * W.V) + (C.B * W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,272,> -> >=,if N_Dot_L > 0.0 and then Atten > 0.0 then,if N_Dot_L >= 0.0 and then Atten > 0.0 then,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,165,* -> +,R     : constant Real := (A.R * W.U) + (B.R * W.V) + (C.R * W.W);,R     : constant Real := (A.R * W.U) + (B.R * W.V) + (C.R + W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,155,* -> +,return (W.U * A) + (W.V * B) + (W.W * C);,return (W.U + A) + (W.V * B) + (W.W * C);,stillborn
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,354,* -> +,Clamp_01 (Spec_Factor * Mat.Specular_Coeff));,Clamp_01 (Spec_Factor + Mat.Specular_Coeff));,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,331,> -> >=,if N_Dot_L > 0.0 and then Atten > 0.0 then,if N_Dot_L >= 0.0 and then Atten > 0.0 then,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,155,* -> +,return (W.U * A) + (W.V * B) + (W.W * C);,return (W.U * A) + (W.V * B) + (W.W + C);,stillborn
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,334,* -> +,Clamp_01 (L.Intensity * Atten * Spot_Effect);,Clamp_01 (L.Intensity * Atten + Spot_Effect);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,56,- -> +,return (2.0 * Ndl * N) - Light_Dir;,return (2.0 * Ndl * N) + Light_Dir;,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,178,- -> +,Edge2 : constant Vector_3D := Tri.V2.Position - Tri.V0.Position;,Edge2 : constant Vector_3D := Tri.V2.Position + Tri.V0.Position;,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,124,= -> /=,elsif Dist = 0.0 then,elsif Dist /= 0.0 then,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,272,> -> >=,if N_Dot_L > 0.0 and then Atten > 0.0 then,if N_Dot_L > 0.0 and then Atten >= 0.0 then,survived
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,230,> -> >=,if N_Dot_L > 0.0 then,if N_Dot_L >= 0.0 then,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,56,* -> +,return (2.0 * Ndl * N) - Light_Dir;,return (2.0 * Ndl + N) - Light_Dir;,stillborn
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,275,* -> +,Clamp_01 (L.Intensity * Atten);,Clamp_01 (L.Intensity + Atten);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,122,= -> /=,if Falloff.Power = 0.0 then,if Falloff.Power /= 0.0 then,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,165,* -> +,R     : constant Real := (A.R * W.U) + (B.R * W.V) + (C.R * W.W);,R     : constant Real := (A.R + W.U) + (B.R * W.V) + (C.R * W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,167,* -> +,B_Val : constant Real := (A.B * W.U) + (B.B * W.V) + (C.B * W.W);,B_Val : constant Real := (A.B * W.U) + (B.B * W.V) + (C.B + W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,167,* -> +,B_Val : constant Real := (A.B * W.U) + (B.B * W.V) + (C.B * W.W);,B_Val : constant Real := (A.B * W.U) + (B.B + W.V) + (C.B * W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,294,* -> +,Clamp_01 (Spec_Factor * Mat.Specular_Coeff));,Clamp_01 (Spec_Factor + Mat.Specular_Coeff));,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,56,* -> +,return (2.0 * Ndl * N) - Light_Dir;,return (2.0 + Ndl * N) - Light_Dir;,stillborn
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,155,* -> +,return (W.U * A) + (W.V * B) + (W.W * C);,return (W.U * A) + (W.V + B) + (W.W * C);,stillborn
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,165,+ -> -,R     : constant Real := (A.R * W.U) + (B.R * W.V) + (C.R * W.W);,R     : constant Real := (A.R * W.U) + (B.R * W.V) - (C.R * W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,41,<= -> <,if Mag <= 0.0 then,if Mag < 0.0 then,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,95,* -> +,"G => Clamp_01 (C.G * Factor),","G => Clamp_01 (C.G + Factor),",killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,155,+ -> -,return (W.U * A) + (W.V * B) + (W.W * C);,return (W.U * A) + (W.V * B) - (W.W * C);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,307,- -> +,To_Light : constant Vector_3D      := L.Position - Position;,To_Light : constant Vector_3D      := L.Position + Position;,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,166,* -> +,G     : constant Real := (A.G * W.U) + (B.G * W.V) + (C.G * W.W);,G     : constant Real := (A.G * W.U) + (B.G + W.V) + (C.G * W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,166,+ -> -,G     : constant Real := (A.G * W.U) + (B.G * W.V) + (C.G * W.W);,G     : constant Real := (A.G * W.U) + (B.G * W.V) - (C.G * W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,165,* -> +,R     : constant Real := (A.R * W.U) + (B.R * W.V) + (C.R * W.W);,R     : constant Real := (A.R * W.U) + (B.R + W.V) + (C.R * W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,331,> -> >=,if N_Dot_L > 0.0 and then Atten > 0.0 then,if N_Dot_L > 0.0 and then Atten >= 0.0 then,survived
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,166,+ -> -,G     : constant Real := (A.G * W.U) + (B.G * W.V) + (C.G * W.W);,G     : constant Real := (A.G * W.U) - (B.G * W.V) + (C.G * W.W);,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,28,<= -> <,if Sum_Sq <= 0.0 then,if Sum_Sq < 0.0 then,survived
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,96,* -> +,B => Clamp_01 (C.B * Factor));,B => Clamp_01 (C.B + Factor));,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,250,* -> +,Clamp_01 (Spec_Factor * Mat.Specular_Coeff));,Clamp_01 (Spec_Factor + Mat.Specular_Coeff));,killed
+second round tune half split 20261029 (std),geometry/Ada/Shading,shading.adb,155,+ -> -,return (W.U * A) + (W.V * B) + (W.W * C);,return (W.U * A) - (W.V * B) + (W.W * C);,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,<= -> <,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,stillborn
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,> -> >=,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,or else -> and then,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,<= -> <,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,>= -> >,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,> -> >=,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261029 (std),geometry/Ada/Shading,shading.adb,hidden,* -> +,hidden,hidden,killed
