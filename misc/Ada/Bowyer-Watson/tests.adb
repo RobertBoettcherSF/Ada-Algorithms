@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO;
 with Bowyer_Watson; use Bowyer_Watson;
+with Own_Checks;
 
 procedure Tests is
 
@@ -475,4 +476,5 @@ begin
    end if;
 
    pragma Assert (Fail_Count = 0);
+   Own_Checks;
 end Tests;
