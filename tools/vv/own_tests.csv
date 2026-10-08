@@ -213,3 +213,10 @@ misc/SPARK2/Ada-SPARK-Reverse-Linked-List,own full-list check: Count'Last append
 misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
 misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,own recency-list model; 1000 random runs x 60 operations; keys 0..24; capacity 16
 misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,own frequency+recency model (ties: least recent); 1000 random runs x 60 operations; keys 0..24; capacity 16
+graphs/SPARK2/Ada-SPARK-Prims-Algorithm,own brute-force minimum spanning tree over every parent array; 5000 random connected 4-node graphs
+misc/SPARK2/Ada-SPARK-Maximum-Points-You-Can-Obtain-From-Cards,own brute force over the left/right split; 20000 random inputs
+misc/SPARK2/Ada-SPARK-Dutch-National-Flag,order and colour counts; all 243 arrays
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,own running-minimum reference; 5000 random arrays
+misc/SPARK2/Ada-SPARK-Sqrt-X,floor-root definition; every N in 0 .. 100
+misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown,own brute force over every buy/sell/rest sequence; 3000 random inputs
+misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream,own counting-order median (even count: Ada division); 20000 random inputs

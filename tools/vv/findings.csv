@@ -58,3 +58,4 @@ misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,Put on a full cache with a new key dropped 
 misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,Put on a full cache with a new key dropped it instead of evicting the least frequently used entry (own model test),fixed,37b0ea4a,0c40049c
 searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,Add_Word on a full dictionary dropped the word silently (own test full_insert_check),fixed,0e12e93d,d08e3081
 trees/SPARK2/Ada-SPARK-Implement-Trie,Insert on a full structure dropped the word silently (own test full_insert_check),fixed,0e12e93d,d08e3081
+graphs/SPARK2/Ada-SPARK-Prims-Algorithm,"Compute took the first reachable unused node instead of the one with the smallest key, giving spanning trees above minimum weight (own brute-force test; suspected in the hidden-stub scan)",fixed,8c1b1b3a,282257e6
