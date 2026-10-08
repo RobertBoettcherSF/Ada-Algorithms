@@ -60,3 +60,7 @@ searching/SPARK2/Ada-SPARK-Design-Add-And-Search-Words,Add_Word on a full dictio
 trees/SPARK2/Ada-SPARK-Implement-Trie,Insert on a full structure dropped the word silently (own test full_insert_check),fixed,0e12e93d,d08e3081
 graphs/SPARK2/Ada-SPARK-Prims-Algorithm,"Compute took the first reachable unused node instead of the one with the smallest key, giving spanning trees above minimum weight (own brute-force test; suspected in the hidden-stub scan)",fixed,8c1b1b3a,282257e6
 misc/SPARK2/Ada-SPARK-Design-Number-Container-System,Add on a full container dropped the value; Remove_Last on an empty one answered 0 (own test; missed by the textual silent no-op scan),fixed,7192018e,844ab0c0
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,"Middle returned the first of the two middle nodes for an even length, and 0 for an empty list (own test; open item from the silent no-op review)",fixed,f5e74eb0,e303379d
+misc/SPARK2/Ada-SPARK-Covariance,"Value centred every component on a fixed 5 instead of the vectors' means, so it was not a covariance (own test)",fixed,dd274886,0f8d1ee8
+misc/Ada/Lempel-Ziv-Ross-Williams,"Compress overflowed (Constraint_Error) for inputs indexed from Stream_Element_Offset'First, e.g. any positional aggregate, as in its own main.adb (all-checks crash run; own round-trip test)",fixed,e80b230e,5aa5b0b0
+misc/Ada/Prediction-By-Partial-Matching,"Package did not compile (Symbol('?') conversion of a character literal), so make test always failed (all-checks crash run; plain-Ada sample)",fixed,(existing tests.adb),b92fb275

@@ -204,7 +204,7 @@ misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,own full-list check: Count'Last app
 misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Linked-Lists,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
 misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
 misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
-misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
+misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan); own middle-node property for every length 1 .. 16 plus empty-list rejection
 misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
 misc/SPARK2/Ada-SPARK-Remove-Linked-List-Elements,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
 misc/SPARK2/Ada-SPARK-Remove-Nth-Node-From-End,own full-list check: Count'Last appends then one more must be rejected (silent no-op scan)
@@ -224,3 +224,5 @@ misc/SPARK2/Ada-SPARK-Design-Number-Container-System,own stack model; 1000 rando
 misc/SPARK2/Ada-SPARK-Group-Anagrams,own letter-count anagram reference (label = first word of the group); 20000 random word sets
 misc/SPARK2/Ada-SPARK-Triangle-Min-Path,own brute force over all 8 paths; 20000 random triangles with junk outside the triangle
 misc/SPARK2/Ada-SPARK-Trapping-Rain-Water-II-Lite,own min(left max; right max) reference; 5000 random arrays with junk past Length
+misc/SPARK2/Ada-SPARK-Covariance,own deviation-from-mean reference; 166375 vector pairs
+misc/Ada/Lempel-Ziv-Ross-Williams,own round-trip property; 2000 random inputs x 3 index ranges (1 .. N; from 'First; up to 'Last)
