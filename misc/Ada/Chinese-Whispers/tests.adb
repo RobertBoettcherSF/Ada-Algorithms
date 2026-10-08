@@ -365,7 +365,7 @@ begin
          Ok : Boolean := True;
       begin
          for I in O1'Range loop
-            if O1 (I) not in 1 .. 5 or else Seen (O1 (I)) then
+            if O1 (I) > 5 or else Seen (O1 (I)) then
                Ok := False;
             else
                Seen (O1 (I)) := True;
@@ -616,6 +616,124 @@ begin
       Check (Default_Parameters.Seed = 1, "default Seed=1");
       Check (not Default_Parameters.Relabel_Clusters,
              "default Relabel_Clusters=False");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("23. Shuffle_Nodes permutations and order counts");
+   --  Registered before the run. Seeds 1 .. 4800: seed 0 is defined to
+   --  be seed 1, so it is not a second draw. n = 4.
+   --  Each position: 4 bins, expected 1200, df = 3, threshold 11.345.
+   --  Full order: 24 permutations, expected 200, df = 23, threshold
+   --  41.638. Both are p = 0.01.
+   ---------------------------------------------------------------------
+   declare
+      function Same_Nodes (A, B : Node_Array) return Boolean is
+         Count : array (Node_Id) of Integer := [others => 0];
+      begin
+         if A'Length /= B'Length or else A'First /= B'First then
+            return False;
+         end if;
+         for V of A loop
+            Count (V) := Count (V) + 1;
+         end loop;
+         for V of B loop
+            Count (V) := Count (V) - 1;
+         end loop;
+         for C of Count loop
+            if C /= 0 then
+               return False;
+            end if;
+         end loop;
+         return True;
+      end Same_Nodes;
+
+      function Order_Index (O : Node_Array) return Natural is
+         Rest : constant array (1 .. 4) of Natural := [1, 2, 3, 4];
+         Used : array (1 .. 4) of Boolean := [others => False];
+         Rank : Natural := 0;
+         Fact : Natural := 6;
+         Pos  : Natural;
+      begin
+         for I in 1 .. 3 loop
+            Pos := 0;
+            for K in 1 .. 4 loop
+               if not Used (K) then
+                  if Rest (K) = Natural (O (I)) then
+                     Used (K) := True;
+                     exit;
+                  end if;
+                  Pos := Pos + 1;
+               end if;
+            end loop;
+            Rank := Rank + Pos * Fact;
+            Fact := Fact / (4 - I);
+         end loop;
+         return Rank;
+      end Order_Index;
+
+      Ident : constant Node_Array (1 .. 4) := [1, 2, 3, 4];
+      Shifted : constant Node_Array (5 .. 8) := [8, 5, 7, 6];
+      Pos_Count : array (1 .. 4, 1 .. 4) of Natural :=
+        [others => [others => 0]];
+      Order_Count : array (0 .. 23) of Natural := [others => 0];
+      Perm_Ok : Boolean := True;
+      Pos_Stat : Long_Float := 0.0;
+      Order_Stat : Long_Float := 0.0;
+      Pos_Ok : Boolean := True;
+   begin
+      declare
+         One : Node_Array (4 .. 4) := [4 => 9];
+         State : RNG_State := Init_RNG (1);
+      begin
+         Shuffle_Nodes (One, State);
+         Check (One (4) = 9, "a single node stays put");
+      end;
+
+      for Seed in 1 .. 4800 loop
+         declare
+            Got : Node_Array (1 .. 4) := Ident;
+            Moved : Node_Array (5 .. 8) := Shifted;
+            State : RNG_State := Init_RNG (Seed);
+            State_2 : RNG_State := Init_RNG (Seed);
+            Slot : Natural;
+         begin
+            Shuffle_Nodes (Got, State);
+            if not Same_Nodes (Ident, Got) then
+               Perm_Ok := False;
+            end if;
+            Shuffle_Nodes (Moved, State_2);
+            if not Same_Nodes (Shifted, Moved) then
+               Perm_Ok := False;
+            end if;
+            for P in 1 .. 4 loop
+               Pos_Count (P, Natural (Got (P))) :=
+                 Pos_Count (P, Natural (Got (P))) + 1;
+            end loop;
+            Slot := Order_Index (Got);
+            Order_Count (Slot) := Order_Count (Slot) + 1;
+         end;
+      end loop;
+      Check (Perm_Ok, "every shuffle is a permutation of its input");
+
+      for P in 1 .. 4 loop
+         Pos_Stat := 0.0;
+         for N in 1 .. 4 loop
+            Pos_Stat := Pos_Stat
+              + (Long_Float (Pos_Count (P, N)) - 1200.0) ** 2 / 1200.0;
+         end loop;
+         if Pos_Stat >= 11.345 then
+            Pos_Ok := False;
+         end if;
+      end loop;
+      Check (Pos_Ok,
+             "seeds 1..4800, each position chi-square < 11.345");
+
+      for C of Order_Count loop
+         Order_Stat := Order_Stat
+           + (Long_Float (C) - 200.0) ** 2 / 200.0;
+      end loop;
+      Check (Order_Stat < 41.638,
+             "seeds 1..4800, 24 orders, chi-square < 41.638");
    end;
 
    New_Line;

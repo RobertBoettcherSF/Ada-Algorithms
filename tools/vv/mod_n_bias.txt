@@ -9,4 +9,4 @@ Named last offset, not a silent clamp:
 
 Negligible, no code change. N is at most 64 and the generator modulus is 2147483647, so the modulo bias is below 64/2147483647:
 - Quantum-Walk-Search Classical_Random_Walk_Search: Next_Random mod Count, Count <= 64 (Vertex_Index is 1 .. 64).
-- Chinese-Whispers Shuffle_Nodes and the tie break: Next_Random mod Span, Span <= Max_Nodes = 64, Park-Miller modulus 2147483647.
+- Chinese-Whispers Shuffle_Nodes and the tie break: Next_Random mod Span, Span <= Max_Nodes = 64, Park-Miller modulus 2147483647. The generator was not changed. Shuffle_Nodes is now checked: seeds 1 .. 4800 (seed 0 is defined to be seed 1), n = 4. Every output is a permutation of the input, including a single node and an index range that does not start at 1. Each position chi-square < 11.345 (df 3, expected 1200, p = 0.01). All 24 orders chi-square < 41.638 (df 23, expected 200, p = 0.01). Both thresholds were written down before the run. Both passed, so the bias reason stands.
