@@ -24,3 +24,4 @@ misc/SPARK2/Ada-SPARK-Basic-Calculator-II,Evaluate clamps results into -1000..10
 misc/SPARK2/Ada-SPARK-Max-Product-Subarray,Clamp caps products at 100_000; six elements of 10 give 10**6 (saturation scan),fixed,d506febe,15f41aa4
 misc/SPARK2/Ada-SPARK-Find-The-Smallest-Divisor,Limit below Length is infeasible but returns Divisor'Last as an answer (saturation scan),fixed,68fa6790,1298296e
 numerical/SPARK2/Ada-SPARK-Cooley-Tukey-FFT,"butterflies clamp into Sample; full-range inputs saturate, result is not the DFT (saturation scan)",open,-,-
+sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List,Solve groups by odd/even value instead of odd/even position (standard statement: positions); README silent,open,-,-
