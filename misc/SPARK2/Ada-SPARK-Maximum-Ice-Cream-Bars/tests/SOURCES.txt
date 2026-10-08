@@ -1,0 +1,11 @@
+Sources of every expected value in this folder's own tests (tests.adb)
+=====================================================================
+
+All checks are own properties written for this repository (MIT); nothing
+is copied from the program's output or from third-party test suites.
+
+* 3 per bar with 10 coins -> 3, 6 with 10 -> 1, 10 with 0 -> 0, by hand;
+  1 per bar with 32,000 coins -> 32 (the shop has 32 bars).
+* Own reference: buy one bar at a time while a bar is left and the
+  remaining money covers its price; every price 1 .. 1000 with every
+  budget 0 .. 3200.
