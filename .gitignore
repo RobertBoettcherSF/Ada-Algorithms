@@ -1,9 +1,14 @@
+# Build outputs (gnatmake / gprbuild / gnatprove) - never commit these
 obj/
 bin/
+gnatprove/
 *.o
 *.ali
 *.bexch
 *.stderr
 *.stdout
 *.tmp
+b__*.ads
+b__*.adb
+*.exe
 *~
