@@ -14,28 +14,23 @@ package body Remove_Duplicates_From_Sorted_List_II is
       return L.Data (P);
    end Get;
    procedure Solve (L : in out List) is
-      Original : constant Values := L.Data;
+      Original : constant List := L;
       Write : Count := 0;
-      Previous : Integer := 0;
-      Seen : Count := 0;
+      From : array (Position) of Position := [others => 1] with Ghost;   --  output P came from input From (P)
    begin
-      for I in Position loop
-         if I <= L.Length then
-            if Seen = 0 or else Original (I) /= Previous then
-               if Write < Capacity then
-                  Write := Write + 1;
-                  L.Data (Write) := Original (I);
-                  Previous := Original (I);
-                  Seen := 1;
-               end if;
-            elsif Seen < 2 then
-               if Write < Capacity then
-                  Write := Write + 1;
-                  L.Data (Write) := Original (I);
-                  Seen := Seen + 1;
-               end if;
-            end if;
+      for I in 1 .. Original.Length loop
+         if Unique_At (Original, I) then
+            Write := Write + 1;
+            L.Data (Write) := Original.Data (I);
+            From (Write) := I;
          end if;
+         pragma Loop_Invariant (Write <= I);
+         pragma Loop_Invariant (for all P in 1 .. Write =>
+                                  From (P) <= I and then Unique_At (Original, From (P))
+                                  and then L.Data (P) = Original.Data (From (P)));
+         pragma Loop_Invariant (for all I2 in 1 .. I =>
+                                  (if Unique_At (Original, I2) then
+                                     (for some P in 1 .. Write => From (P) = I2)));
       end loop;
       L.Length := Write;
    end Solve;
