@@ -3,6 +3,7 @@
 --  odd values at odd positions and even values at even positions.
 pragma Ada_2022;
 with Ada.Text_IO;
+with Ada.Assertions;
 with Sort_Array_By_Parity_II; use Sort_Array_By_Parity_II;
 
 procedure Own_Checks is
@@ -61,10 +62,36 @@ procedure Own_Checks is
       end loop;
       Report (Ok and then C_In = C_Out, Label);
    end Check_One;
+   --  an input without exactly four even values cannot be placed; it must be rejected (by the input
+   --  type's predicate), not turned into an output with lost values
+   procedure Check_Rejected (A : Int_Array; Label : String) is
+      R : Int_Array;
+   begin
+      Sort_By_Parity (A, R);
+      Report (False, Label & " (accepted)");
+   exception
+      when Ada.Assertions.Assertion_Error =>
+         Report (True, Label);
+   end Check_Rejected;
    A : Int_Array;
    T : Value;
    J : Index;
+   Evens : Natural;
 begin
+   Check_Rejected ([1, 3, 5, 7, 9, 1, 3, 2], "7 odd + 1 even");
+   Check_Rejected ([others => 0], "8 even");
+   Check_Rejected ([others => 1], "8 odd");
+   for K in 1 .. 2_000 loop
+      loop
+         Evens := 0;
+         for I in Index loop
+            A (I) := Next (0, 9);
+            if A (I) mod 2 = 0 then Evens := Evens + 1; end if;
+         end loop;
+         exit when Evens /= 4;
+      end loop;
+      Check_Rejected (A, "unbalanced random" & K'Image);
+   end loop;
    for K in 1 .. 3_000 loop
       for I in Index loop
          A (I) := (if I <= 4 then 2 * Next (0, 4) else 2 * Next (0, 4) + 1);

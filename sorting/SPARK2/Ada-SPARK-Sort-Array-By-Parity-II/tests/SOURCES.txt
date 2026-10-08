@@ -10,4 +10,8 @@ standard generator (seed 20261008).
   even positions) and Output is a permutation of Input.
 * Inputs: 3,000 random arrays with exactly four even and four odd values,
   randomly shuffled (the only inputs for which the placement is possible).
-  Inputs with an unequal split are outside the exercise and not checked.
+* Rejection: an input without exactly four even values must be refused
+  (Assertion_Error from the input type's predicate under -gnata), never
+  turned into an output with lost values. Hand cases 7 odd + 1 even, all
+  even, all odd, and 2,000 random arrays (values 0 .. 9) whose even count
+  is not 4.
