@@ -643,3 +643,85 @@ held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidde
 held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
 held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
 held half split 20261008 (alt),parsing/Ada/Cyk-Algorithm,cyk_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,>= -> >,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,>= -> >,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,/= -> =,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,timeout
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,>= -> >,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,>= -> >,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,timeout
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
