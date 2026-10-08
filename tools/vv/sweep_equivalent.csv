@@ -47,3 +47,5 @@ geometry/Ada/Liang-Barsky,liang_barsky.adb:27 and :29 (Clamp ties),reason,"at V 
 geometry/Ada/Liang-Barsky,liang_barsky.adb:171 < -> <= (P < 0.0),reason,"P = 0 is taken by the parallel branch (Near (P, 0.0)) before this test"
 geometry/Ada/Liang-Barsky,liang_barsky.adb:173 and :178 (T_Enter / T_Leave ties),reason,"at U = T_Enter (U = T_Leave) the assignment keeps the same value"
 hashing/Ada/Geohash,geohash.adb:30 / :32 / :50 / :52 (clamp ties in Clamp_Lon_Bound and Clamp_Latitude),reason,"at X = -180 / 180 (Lat = -90 / 90) both branches return the same bound"
+misc/Ada/Truncated-Binary-Exponential-Backoff,truncated_binary_exponential_backoff.adb:91 <= -> < (clamp tie),reason,"at C = Ceiling both branches return the same count"
+misc/Ada/Truncated-Binary-Exponential-Backoff,truncated_binary_exponential_backoff.adb:191 and :337 <= -> < (Max_Random <= 0),reason,"Max_Random = 0 only for C = 0; then Random mod 1 = 0 and 0 * Slot / 2 = 0, the same as the early return"

@@ -25,3 +25,5 @@ geometry/Ada/Liang-Barsky: 4,001-point sampling of each segment with plain
   coordinate tests; helper functions against their definitions.
 hashing/Ada/Geohash: integer cell indices with hand bit packing; boxes and
   neighbours from indices; all precisions 1 .. 12.
+misc/Ada/Truncated-Binary-Exponential-Backoff: powers by repeated addition,
+  uniform support / coverage / exact mean, state steps.

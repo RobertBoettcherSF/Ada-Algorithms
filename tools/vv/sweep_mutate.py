@@ -42,7 +42,7 @@ def run_tests(work):
 
 ROOT = mutate.ROOT
 TESTNAME = re.compile(r'^(tests?|own_checks|main|demo)', re.I)
-IGN = shutil.ignore_patterns('obj', 'bin', 'gnatprove', 'tbin')
+IGN = shutil.ignore_patterns('obj', 'bin', 'gnatprove', 'tbin', '*.o', '*.ali', 'b~*', 'b__*')   # build artefacts (some gprs build in the source dir)
 
 def lib_files(src):
     for d, dirs, fs in os.walk(src):

@@ -9,6 +9,7 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Exceptions; use Ada.Exceptions;
 with Truncated_Binary_Exponential_Backoff; use Truncated_Binary_Exponential_Backoff;
+with Own_Checks;
 
 procedure Tests is
    --  Default configuration for tests
@@ -25,6 +26,7 @@ procedure Tests is
    end Print_Result;
 
 begin
+   Own_Checks;
    Put_Line ("=== Truncated Binary Exponential Backoff Test Suite ===");
    New_Line;
 

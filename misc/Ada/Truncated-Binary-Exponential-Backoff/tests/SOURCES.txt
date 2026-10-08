@@ -1,0 +1,14 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Deterministic delays: Base**C * Slot computed by repeated addition, for
+  Base 2 .. 5, Slot 1 .. 7, C 0 .. 8; truncated variants at min (C, Ceiling).
+* Expected delays: the exact mean (2**C - 1) * Slot / 2 of the uniform
+  support {0, Slot, ..., (2**C - 1) * Slot}, truncated toward zero.
+* Randomized delays: support (multiples of Slot up to (2**C - 1) * Slot)
+  and coverage (each of those values drawn at least once in 4,000 draws,
+  C 0 .. 5), for the plain and the truncated variant.
+* State machine: Initialize_State / Reset_State give (0, 0);
+  Increment_Collision counts up and stores the truncated delay.
+* Helpers: Power_Of_Two by repeated addition, Clamp_Collision_Count as
+  min; a slot time of 0 must be rejected (Invalid_Config).
+Nothing is taken from the program's output or from third-party test suites.
