@@ -286,3 +286,29 @@ for r in rows:
              f"{r['warnings_gnat14']} | {r['warnings_gnat12']} | {r['silver']}{' (trivial)' if r['trivial'] else ''} | {r['checks']}{' (%s)' % r['functional_checks'] if r['functional_checks'] else ''} | {r['training_ready']} | {r['pair']} | {r['duplicate_of']} |")
 open(os.path.join(R, 'PROOFS.md'), 'w').write('\n'.join(L) + '\n')
 print(f'{len(rows)} folders, {len(rows)-len(uniq)} duplicates, {npairs} pairs')
+
+# Headline numbers for the root README.md, written only here, between the proof-index markers.
+# No timestamp, so rerunning on the same results leaves README.md byte-identical (idempotent).
+BEGIN, END = '<!-- proof-index:begin -->', '<!-- proof-index:end -->'
+n_open = sum(1 for f in _csv(os.path.join(a.root, 'tools', 'vv', 'findings.csv')) if f['status'] == 'open')
+block = '\n'.join([
+    BEGIN,
+    '| Headline (written by `make proof-index`) | Folders |',
+    '|---|---:|',
+    f'| Algorithm folders (duplicates counted once) | {len(uniq)} |',
+    f"| Silver-proven, non-trivial (not stubs, more than {TRIVIAL_MAX} checks) | {c(lambda r: r['silver']=='proven' and not r['stub'] and not r['trivial'])} |",
+    f"| Training-ready (answers checked; rule in PROOFS.md) | {c(lambda r: r['training_ready']=='yes')} |",
+    f'| Open findings (`tools/vv/findings.csv`) | {n_open} |',
+    END])
+readme = os.path.join(R, 'README.md')
+if os.path.exists(readme):
+    text = open(readme).read()
+    if BEGIN in text and END in text and text.index(BEGIN) < text.index(END):
+        new = text[:text.index(BEGIN)] + block + text[text.index(END) + len(END):]
+        if new != text:
+            open(readme, 'w').write(new)
+            print('README.md: proof-index block updated')
+        else:
+            print('README.md: proof-index block unchanged')
+    else:
+        print('README.md: no proof-index markers; block not written')

@@ -1,60 +1,74 @@
 # Ada-Algorithms
 
-Resource-efficient **monorepo of Ada algorithm packages** (educational sheets).
+Monorepo of small Ada and SPARK algorithm folders (educational sheets). MIT license
+(`LICENSE`). Larger projects such as Logistics, Rule-30 and Blauer Sand /
+`lern_engine` live in their own repositories.
 
-**Not included here:** larger projects such as Logistics, Rule-30, Blauer Sand /
-`lern_engine` — those stay in their own repositories.
+<!-- proof-index:begin -->
+| Headline (written by `make proof-index`) | Folders |
+|---|---:|
+| Algorithm folders (duplicates counted once) | 1837 |
+| Silver-proven, non-trivial (not stubs, more than 3 checks) | 507 |
+| Training-ready (answers checked; rule in PROOFS.md) | 197 |
+| Open findings (`tools/vv/findings.csv`) | 1 |
+<!-- proof-index:end -->
+
+These numbers are written by `make proof-index` from the build and proof records
+(never by hand); per-folder data is in [`PROOFS.md`](PROOFS.md) / `PROOFS.csv`.
 
 ## Layout
 
-Algorithm packages are organized by **topic**, then proof level, with one
-folder per source repository:
+One self-contained folder per algorithm, grouped by topic and level:
 
 ```
-sorting/Ada/Quicksort/…
-sorting/SPARK2/Ada-Quicksort/…
-searching/Ada/Binary-Search/…
-…/SPARK1|SPARK2|SPARK3|SPARK4/<GitHubRepo>/…
+<topic>/Ada/<Folder>/             plain Ada
+<topic>/SPARK1..SPARK4/<Folder>/  SPARK variants
 ```
 
-Files formerly renamed `<GitHubRepo>__<basename>` are stored as
-`<GitHubRepo>/<basename>` (leading-dot names are preserved). Files without a
-clash prefix remain at the topic/level root unless their basename uniquely matches an algorithm folder. Identical files (same sha256) are
-stored once. Package sources are not rewritten.
+e.g. `sorting/Ada/Quicksort`, `sorting/SPARK2/Ada-SPARK-Sort-List-Lite`. Some
+algorithms exist in both an Ada and a SPARK folder (column `pair` in PROOFS.csv).
+A folder holds its sources, a `Makefile`, a `README.md` and its tests (`tests.adb`
+or `tests/`). [`TOPICS.md`](TOPICS.md) has file counts per topic and level.
 
-See [`TOPICS.md`](TOPICS.md) for per-topic / per-level file counts.
-
-## Explore / test (integrated harness)
-
-A small seeded harness (independent of the flat topic dumps) lives under
-`src/` and `tests/`:
+## Build, test, prove a folder
 
 ```bash
-make            # build harness + seed test binaries
-make list       # list seeded algorithms
-make test                # run all seed tests
-make test CAT=sorting    # one category only (sorting, searching, numerical)
-make clean
+cd sorting/SPARK2/Ada-SPARK-Sort-List-Lite
+make                 # default target: build (in many folders it also runs the tests)
+make test            # build and run the folder's tests
+gnatprove -P <gpr> --mode=silver --level=2   # the folder's .gpr, or proof.gpr where present
 ```
 
-```bash
-bin/harness --list
-bin/harness --category sorting
-bin/harness --all
-```
+Many SPARK folders also have `make prove`. GNAT 12 and GNAT 14 are both supported;
+the compiler first on `PATH` is used. The index builds every folder with
+`gnatmake -gnatwa -gnat2022` on both and records failures and warning counts
+(columns B12/B14, W12/W14 in PROOFS.md). `gnatprove` and `gprbuild` come from Alire.
 
-Build flags: `-gnatwa -gnat2022`.
+The root `Makefile` builds a small seeded harness (`src/`, `tests/`): `make test`
+runs it (`make test CAT=sorting` for one category, `make list` to list it).
 
-## Seeded harness algos
+## What a proof does and does not say
 
-| Algorithm          | Category  |
-|--------------------|-----------|
-| quicksort          | sorting   |
-| heapsort           | sorting   |
-| binary_search      | searching |
-| modular_arithmetic | numerical |
+Silver means proven free of run-time errors (no overflow, index or range check can
+fail). It does **not** mean the answers are right: a function that always returns 0
+can be Silver. The folders whose answers are checked are those with
+`training_ready` = yes in [`PROOFS.md`](PROOFS.md). The rule: builds and tests pass
+on GNAT 12 and 14, the folder's own `make test` passes on both, Silver-proven
+non-trivially, not a stub, no open finding, and a known answer (a known-answer
+vector, our own tests, or agreement with its Ada/SPARK twin) whose tests the
+do-nothing check does not flag as weak.
 
-`modular_arithmetic` is built in place from
-[`numerical/SPARK4/Ada-SPARK-Modular-Arithmetic`](numerical/SPARK4/Ada-SPARK-Modular-Arithmetic)
-(proved SPARK library: mod ops, CRT, Montgomery, IBAN/ISBN/EAN/Luhn check
-digits), with `-gnata` added so its contracts are also checked at run time.
+`make vv` reruns the checks behind that column (builds and `make test` on GNAT 14
+and 12, proofs with a step budget, differential tests between twins, sampled
+mutation testing, the do-nothing check) and then refreshes the index and the
+numbers above. Details and current results: [`docs/VV.md`](docs/VV.md).
+
+## Tests and findings
+
+All tests are our own: our own brute-force references or properties, or
+public-domain / BSD standard vectors. Where every expected value comes from is in
+each folder's `tests/SOURCES.txt`. Nothing is taken from GPL or GFDL sources.
+
+Wrong answers and undocumented behaviour found by these checks are recorded in
+`tools/vv/findings.csv` (open / fixed, with the commit that added the failing
+test and the commit that fixed it).

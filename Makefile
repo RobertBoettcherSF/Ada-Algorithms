@@ -55,12 +55,19 @@ endif
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
-# Regenerate PROOFS.md / PROOFS.csv from per-folder results (see tools/audit/README.md).
-#   make proof-index RESULTS=/path/with/build.jsonl+prove.jsonl PROVE_LOGS=/tmp/aa_prove
+# Regenerate PROOFS.md / PROOFS.csv and the headline block in README.md (between the
+# proof-index markers; idempotent) from per-folder results (see tools/audit/README.md).
+#   make proof-index RESULTS=/path/with/build.jsonl+prove.jsonl PROVE_LOGS=/tmp/aa_prove \
+#                    STEPS_LOGS=/tmp/aa2s TOOL_INFO=toolinfo.txt
 RESULTS    ?= /tmp/aa_res
 PROVE_LOGS ?= /tmp/aa_prove
+STEPS_LOGS ?=
+TOOL_INFO  ?=
+STEPS      ?= 1000000
 proof-index:
-	python3 tools/proof_index.py --results $(RESULTS) --logs $(PROVE_LOGS)
+	python3 tools/proof_index.py --results $(RESULTS) --logs $(PROVE_LOGS) \
+	  $(if $(STEPS_LOGS),--steps-logs $(STEPS_LOGS)) $(if $(TOOL_INFO),--tool-info $(TOOL_INFO)) \
+	  --steps-cmd "gnatprove -P <folder gpr> --mode=silver --level=2 --timeout=0 --steps=$(STEPS) --counterexamples=off -j2 --output=oneline -k"
 
 # Verification + validation over all folders (docs/VV.md): build+tests on GNAT 14/12,
 # Silver proofs with a step budget, differential + mutation testing, index refresh.
