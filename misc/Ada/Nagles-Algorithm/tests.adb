@@ -6,8 +6,11 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Containers; use Ada.Containers;
 with Nagle; use Nagle;
+with Ada.Command_Line;
 
 procedure Tests is
+   Failures : Natural := 0;
+
    -- Helper to print PASS/FAIL
    procedure Print_Result (Test_Name : String; Passed : Boolean) is
    begin
@@ -15,6 +18,7 @@ procedure Tests is
          Put_Line("  " & Test_Name & ": PASS");
       else
          Put_Line("  " & Test_Name & ": FAIL");
+         Failures := Failures + 1;
       end if;
    end Print_Result;
 
@@ -276,5 +280,8 @@ begin
    Buffer.Clear;
    New_Line;
 
-   Put_Line("=== Test Suite Complete ===");
+   Put_Line("=== Test Suite Complete ===" & Natural'Image (Failures) & " failed");
+   if Failures > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;
