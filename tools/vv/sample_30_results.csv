@@ -1,0 +1,25 @@
+folder,outcome,note
+misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,bug fixed,Minimum_Cuts gave N - 1 for every non-palindrome (31b9084c / 3223108e)
+misc/SPARK2/Ada-SPARK-Image-Smoother,pass,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,pass,
+misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,pass,tests the Bounded_Buffer unit against an own FIFO model
+misc/SPARK2/Ada-SPARK-Queue-Using-Stacks,bug fixed,full/empty operations silently ignored; now preconditions (f910897c / 59fc17da)
+misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,pass,
+misc/SPARK2/Ada-SPARK-PN-Counter,pass,
+misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences,pass,
+misc/SPARK2/Ada-SPARK-Robot-Return-To-Origin,pass,
+misc/SPARK2/Ada-SPARK-Rectangle-Area,pass,
+misc/SPARK2/Ada-SPARK-Nth-Ugly-Number,pass,
+misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite,pass,
+numerical/SPARK2/Ada-SPARK-Lagrange-Interpolation,pass,
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words,pass,
+misc/SPARK2/Ada-SPARK-Tribonacci,pass,
+misc/SPARK2/Ada-SPARK-Elevator-Algorithm,pass,
+misc/SPARK2/Ada-SPARK-Power-Of-Three,pass,
+misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite,pass,
+misc/SPARK2/Ada-SPARK-To-Lower-Case,pass,
+misc/SPARK2/Ada-SPARK-Longest-Ones,pass,
+trees/SPARK2/Ada-SPARK-Red-Black-Tree,not testable,"no tree: README calls it a deliberately tiny teaching stub (a Color enum and Rotate_Left that increments an index); nothing red-black to test. Index has stub empty and trivial empty, so the population filter let it in: an index classification miss, not a code bug"
+misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List,pass,
+misc/SPARK2/Ada-SPARK-Tanimoto,pass,
+misc/SPARK2/Ada-SPARK-Parity-Bits,pass,

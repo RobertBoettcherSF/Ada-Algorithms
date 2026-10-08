@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: hand values.
+* Own reference (definition): A.B / (|A|^2 + |B|^2 - A.B) scaled to
+  percent with floor, 100 for two zero vectors (README); plus properties
+  symmetry, range 0 .. 100 and Similarity (A, A) = 100.
+* Inputs: every pair of vectors over 0 .. 3 (4096 pairs).

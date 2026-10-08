@@ -1,5 +1,6 @@
 with Ada.Assertions; use Ada.Assertions;
 with Power_Of_Three; use Power_Of_Three;
+with Own_Checks;
 
 procedure Tests is
 begin
@@ -8,4 +9,5 @@ begin
    Assert (Is_Power (729));
    Assert (not Is_Power (12));
    Assert (not Is_Power (728));
+   Own_Checks;
 end Tests;

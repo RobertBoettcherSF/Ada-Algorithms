@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+(Folder from the seeded random sample tools/vv/sample_30.txt.)
+
+* tests.adb: hand values.
+* Own reference: map A .. Z to a .. z by letter position within
+  Input (1 .. Length), copy every other character (ASCII rule, so Latin-1
+  letters are unchanged) and every position after Length.
+* Inputs: 20000 random texts over all 256 characters, Length 0 .. 32.

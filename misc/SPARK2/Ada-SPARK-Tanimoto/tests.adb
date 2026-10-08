@@ -1,4 +1,5 @@
 with Tanimoto; use Tanimoto;
+with Own_Checks;
 procedure Tests is
    A : constant Vector := [1, 2, 3];
    B : constant Vector := [1, 1, 2];
@@ -7,4 +8,5 @@ begin
    pragma Assert (Similarity (A, A) = 100);
    pragma Assert (Similarity (A, B) = 81);
    pragma Assert (Similarity (Empty, Empty) = 100);
+   Own_Checks;
 end Tests;
