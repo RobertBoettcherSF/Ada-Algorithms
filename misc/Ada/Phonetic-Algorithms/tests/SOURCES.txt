@@ -1,0 +1,23 @@
+Sources of the expected values in own_checks.adb / tests/vectors.txt
+=====================================================================
+tests/vectors.txt is written by tools/vv/sweep_phonetic_ref.py (own code,
+MIT; seed 20261008): 51 hand-picked names, random words (letters, lower
+case, blanks, '-', apostrophes) and every 1 .. 3 letter string over
+ACEGHIKNSTWY; 5,884 words in total.
+* Soundex: code every letter, drop H/W as transparent, collapse runs of equal
+  digits, remove vowel separators, pad to 4. Cross-checked against
+  jellyfish 1.1.0 (MIT): identical on all 5,884 words.
+* Match Rating codex: in the order the package spec states (drop vowels
+  except a leading one, collapse doubles, first 3 + last 3). jellyfish
+  collapses doubles before removing vowels; all 167 differences are of that
+  kind (e.g. SAS: spec order S, jellyfish SS).
+* NYSIIS (strict, 6 letters): whole-string prefix / suffix rewrites, then the
+  transcoding rules applied left to right on a character list.
+* Metaphone (original Philips rules, 4 symbols): a transducer over
+  look-behind / look-ahead strings. Note: it was written after reading the
+  package spec and README, so for Metaphone the reference is a second
+  implementation of the same rule list rather than a fully blind one.
+* Boundaries from the spec: empty, letter-free and Max_Len + 1 inputs raise
+  Invalid_Argument; a Max_Len input is accepted.
+Nothing is taken from the program's output, Wikipedia text, Rosetta Code or
+GPL / GFDL test suites.

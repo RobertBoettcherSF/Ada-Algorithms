@@ -5,6 +5,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Phonetic_Algorithms; use Phonetic_Algorithms;
+with Own_Checks;
 
 procedure Tests is
 
@@ -142,6 +143,7 @@ procedure Tests is
    end Slice_Bishop;
 
 begin
+   Own_Checks;   --  sweep: independent references (own_checks.adb, tests/SOURCES.txt)
    Put_Line ("Phonetic_Algorithms survey test suite");
    Put_Line ("Max_Len =" & Max_Len'Image);
    Put_Line ("Encoders: Soundex, NYSIIS, Metaphone, Match_Rating_Encode");
