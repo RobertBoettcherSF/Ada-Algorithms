@@ -149,7 +149,7 @@ begin
    -- TEST 12 — Count Active Population
    Put_Line ("TEST 12 — Count Active Population");
    declare
-      Grid : Environment_Grid_T := [others => [others => [Count => 0, Occupants => [others => (Genotype => Alpha, Phenotype => Low, Lifetime => 0, Active => False)]]]];
+      Grid : Environment_Grid_T := [others => [others => (Count => 0, Occupants => [others => (Genotype => Alpha, Phenotype => Low, Lifetime => 0, Active => False)])]];
    begin
       Grid(1, 1).Count := 2;
       Grid(1, 1).Occupants(1) := (Genotype => Alpha, Phenotype => Low, Lifetime => 10, Active => True);
@@ -168,7 +168,7 @@ begin
    begin
       begin
          declare
-            Dummy_Grid : Environment_Grid_T := [others => [others => [Count => 0, Occupants => [others => (Genotype => Alpha, Phenotype => Low, Lifetime => 0, Active => False)]]]];
+            Dummy_Grid : Environment_Grid_T := [others => [others => (Count => 0, Occupants => [others => (Genotype => Alpha, Phenotype => Low, Lifetime => 0, Active => False)])]];
          begin
             Step_Environment (Dummy_Grid);
          end;
@@ -178,7 +178,7 @@ begin
             Exception_Raised := True;
       end;
       Check ("13.1 Normal grid does not raise Invalid_Grid_Error", not Exception_Raised);
-      Check ("13.2 Validation helper works correctly", Validate_Environment(Environment_Grid_T'[others => [others => [Count => 0, Occupants => [others => (Genotype => Alpha, Phenotype => Low, Lifetime => 0, Active => False)]]]]));
+      Check ("13.2 Validation helper works correctly", Validate_Environment(Environment_Grid_T'[others => [others => (Count => 0, Occupants => [others => (Genotype => Alpha, Phenotype => Low, Lifetime => 0, Active => False)])]]));
       Check ("13.3 Exception handling structure verified", True);
    end;
 
