@@ -112,7 +112,6 @@ is
                pragma Loop_Invariant (In_Bounds (A));
                pragma Loop_Invariant (N = A'Last);
                pragma Loop_Invariant (V in 1 .. Max_Value);
-               pragma Loop_Invariant (J in 1 .. V + 1);
                pragma Loop_Invariant
                  (for all K in Rod_Index => Rods (K) <= Max_N);
                pragma Loop_Invariant
@@ -137,7 +136,6 @@ is
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (N = A'Last);
          pragma Loop_Invariant (Idx in 1 .. N + 1);
-         pragma Loop_Invariant (Idx <= Max_N + 1);
          pragma Loop_Invariant (Idx = N - H + 1);
          pragma Loop_Invariant
            (for all K in Rod_Index => Rods (K) <= N);
