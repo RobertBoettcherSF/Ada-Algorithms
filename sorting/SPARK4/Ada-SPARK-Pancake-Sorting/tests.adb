@@ -1,6 +1,6 @@
 --  Standalone test suite for Pancake_Sorting (SPARK port).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  A'First is always 1; Max_N = 64. Sortedness is proved by SPARK;
+--  Any A'First in 1 .. Max_N (section 14 shifts origins); Max_N = 64. Sortedness is proved by SPARK;
 --  multiset / permutation equality is checked here.
 
 pragma Ada_2022;
@@ -138,6 +138,23 @@ is
       Seed := X;
       return X rem Modulus;
    end Next_Mod;
+
+
+   --  Same contents placed at Origin .. Origin + Len - 1. Sorting the
+   --  shifted copy must give the reference sort of Src, slot for slot.
+   function Shifted_Ok (Src : Element_Array; Origin : Positive)
+     return Boolean
+   is
+      A : Element_Array (Origin .. Origin + Src'Length - 1);
+      R : Element_Array := Copy_Of (Src);
+   begin
+      for K in 0 .. Src'Length - 1 loop
+         A (Origin + K) := Src (Src'First + K);
+      end loop;
+      Sort (A);
+      Reference_Sort (R);
+      return Is_Sorted (A) and then Same (A, R);
+   end Shifted_Ok;
 
 begin
    Put_Line ("Pancake_Sorting (SPARK) tests");
@@ -331,6 +348,144 @@ begin
       Check (Count <= 3, "OEIS (1,3,2) within P(3)=3 classic bound");
       Check (Count >= 1, "OEIS (1,3,2) needs at least one flip");
       Check (Is_Permutation (A, [1, 3, 2]), "OEIS permutation");
+   end;
+
+
+   ---------------------------------------------------------------------
+   Section ("14. Shifted origins (A'First > 1, flush to Max_N)");
+   ---------------------------------------------------------------------
+   --  Origins 2, 7, Max_N / 2 + 1 (every length) and Max_N - Len + 1
+   --  (slice ends at Index'Last), for equal / sorted / reverse / organ /
+   --  random inputs.
+   declare
+      type Origin_List is array (Positive range <>) of Positive;
+      Fixed : constant Origin_List := [2, 7, Max_N / 2 + 1];
+      Pattern_Names : constant array (1 .. 5) of String (1 .. 8) :=
+        ["equal   ", "sorted  ", "reverse ", "organ   ", "random  "];
+      Ok    : Boolean;
+      Cases : Natural;
+      Rand  : Natural := 12_345;
+
+      function Make (P : Positive; Len : Natural) return Element_Array is
+         A : Element_Array (1 .. Len);
+      begin
+         for I in A'Range loop
+            case P is
+               when 1 => A (I) := 42;
+               when 2 => A (I) := I;
+               when 3 => A (I) := Len - I + 1;
+               when 4 => A (I) := (if 2 * I <= Len + 1 then I else Len - I + 1);
+               when others =>
+                  Rand := (Rand * 1_103 + 12_345) mod 65_521;
+                  A (I) := Rand mod 41 - 20;
+            end case;
+         end loop;
+         return A;
+      end Make;
+   begin
+      for P in Pattern_Names'Range loop
+         for O of Fixed loop
+            Ok := True;
+            Cases := 0;
+            for Len in 0 .. Max_N - O + 1 loop
+               Cases := Cases + 1;
+               if not Shifted_Ok (Make (P, Len), O) then
+                  Ok := False;
+                  Put_Line ("    mismatch origin" & O'Image & " len"
+                            & Len'Image);
+               end if;
+            end loop;
+            Check (Ok, "origin" & O'Image & " " & Pattern_Names (P)
+                   & " lens 0 .." & Natural'Image (Max_N - O + 1)
+                   & " (" & Cases'Image & " cases)");
+         end loop;
+         Ok := True;
+         for Len in 1 .. Max_N - 1 loop
+            if not Shifted_Ok (Make (P, Len), Max_N - Len + 1) then
+               Ok := False;
+               Put_Line ("    mismatch flush len" & Len'Image);
+            end if;
+         end loop;
+         Check (Ok, "flush to Max_N " & Pattern_Names (P) & " lens 1 .."
+                & Natural'Image (Max_N - 1));
+      end loop;
+   end;
+   declare
+      Tail : Element_Array (Max_N - 5 .. Max_N) := [9, -3, 9, 0, -3, 7];
+   begin
+      Check (In_Bounds (Tail), "Tail(Max_N-5 .. Max_N) In_Bounds");
+      Sort (Tail);
+      Check (Same (Tail, Element_Array'([-3, -3, 0, 7, 9, 9])),
+             "Tail(Max_N-5 .. Max_N) sorted in place");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("15. Shifted Flip and recorded flips (lengths from A'First)");
+   ---------------------------------------------------------------------
+   --  Flip K reverses A (A'First .. A'First + K - 1) at any origin, and
+   --  Sort (A, Flips, Count) on a shifted copy records the same prefix
+   --  lengths as on the 1-based copy; replaying them sorts the copy.
+   declare
+      S : Element_Array (7 .. 11) := [10, 20, 30, 40, 50];
+   begin
+      Flip (S, 3);
+      Check (S (7) = 30 and then S (8) = 20 and then S (9) = 10
+             and then S (10) = 40 and then S (11) = 50,
+             "Flip 3 at origin 7 reverses 7 .. 9 only");
+      Flip (S, 5);
+      Check (S (7) = 50 and then S (8) = 40 and then S (9) = 10
+             and then S (10) = 20 and then S (11) = 30,
+             "Flip 5 at origin 7 reverses the whole slice");
+   end;
+   declare
+      T : Element_Array (Max_N - 2 .. Max_N) := [1, 2, 3];
+   begin
+      Flip (T, 2);
+      Check (T (Max_N - 2) = 2 and then T (Max_N - 1) = 1
+             and then T (Max_N) = 3, "Flip 2 on slice flush to Max_N");
+   end;
+   declare
+      type Origin_List is array (Positive range <>) of Positive;
+      Origins : constant Origin_List := [2, 7, Max_N / 2 + 1];
+      Ok      : Boolean := True;
+      Rand    : Natural := 4_242;
+   begin
+      for O of Origins loop
+         for Len in 0 .. Max_N - O + 1 loop
+            declare
+               B      : Element_Array (1 .. Len);
+               C      : Element_Array (O .. O + Len - 1);
+               F_B    : Flip_Sequence;
+               F_C    : Flip_Sequence;
+               N_B    : Natural;
+               N_C    : Natural;
+            begin
+               for I in B'Range loop
+                  Rand := (Rand * 1_103 + 12_345) mod 65_521;
+                  B (I) := Rand mod 31 - 15;
+                  C (O + I - 1) := B (I);
+               end loop;
+               declare
+                  Replay : Element_Array := C;
+               begin
+                  Sort (B, F_B, N_B);
+                  Sort (C, F_C, N_C);
+                  Apply_Flips (Replay, F_C, N_C);
+                  if N_B /= N_C
+                    or else F_B (1 .. N_B) /= F_C (1 .. N_C)
+                    or else not Is_Sorted (C)
+                    or else Replay /= C
+                    or else (for some I in B'Range => C (O + I - 1) /= B (I))
+                  then
+                     Ok := False;
+                     Put_Line ("    mismatch origin" & O'Image & " len"
+                               & Len'Image);
+                  end if;
+               end;
+            end;
+         end loop;
+      end loop;
+      Check (Ok, "recorded flips at origins 2, 7, Max_N/2+1 match 1-based run; replay sorts");
    end;
 
    New_Line;

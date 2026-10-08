@@ -6,9 +6,9 @@
 --
 --  SPARK port of Ada-Pancake-Sorting: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
---  sibling allows arbitrary A'First, Max_Length = 10_000, and raises on
---  oversize / bad K; this port requires A'First = 1 and uses
---  Pre => In_Bounds (A). Full multiset / permutation equality is verified
+--  sibling has Max_Length = 10_000 and raises on oversize / bad K; this
+--  port takes any A'First in 1 .. Max_N (flip arguments stay prefix
+--  lengths counted from A'First) and uses Pre => In_Bounds (A). Full multiset / permutation equality is verified
 --  by tests rather than claimed as a Level-4 postcondition (sortedness is
 --  proved). Flip_Sequence uses fixed static storage (1 .. Max_Flips).
 --
@@ -34,10 +34,15 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Live indices lie in 1 .. Max_N (any A'First); Index includes 0 so
+   --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
 
-   type Element_Array is array (Positive range <>) of Integer;
+   --  Live slots; the index subtype carries the 1 .. Max_N origin range,
+   --  In_Bounds adds the length.
+   subtype Live_Index is Positive range 1 .. Max_N;
+
+   type Element_Array is array (Live_Index range <>) of Integer;
 
    --  Fixed flip buffer: only Flips (1 .. Count) is meaningful.
    type Flip_Sequence is array (1 .. Max_Flips) of Natural;
@@ -47,13 +52,16 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (A'Length <= 1
+      or else (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
@@ -73,14 +81,15 @@ is
    -- Algorithm sketch (classic pancake sort / Wikipedia)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Grow a sorted suffix from right to left.
-   --  For each Size from A'Last down to 2:
-   --    1. Find Max_At := rightmost argmax of A (1 .. Size).
-   --    2. If Max_At = Size, the maximum is already placed — skip.
-   --    3. Otherwise, if Max_At ≠ 1, Flip the prefix of length Max_At
-   --       so the maximum moves to the front.
-   --    4. Flip the prefix of length Size so the maximum lands at Size.
-   --  After the step for Size, A (Size .. A'Last) is sorted and every
-   --  element of A (1 .. Size − 1) is ≤ every element of that suffix.
+   --  For each Hi from A'Last down to A'First + 1:
+   --    1. Find Max_At := rightmost argmax of A (A'First .. Hi).
+   --    2. If Max_At = Hi, the maximum is already placed — skip.
+   --    3. Otherwise, if Max_At ≠ A'First, Flip the prefix of length
+   --       Max_At − A'First + 1 so the maximum moves to the front.
+   --    4. Flip the prefix of length Hi − A'First + 1 so the maximum
+   --       lands at Hi.
+   --  After the step for Hi, A (Hi .. A'Last) is sorted and every
+   --  element of A (A'First .. Hi − 1) is ≤ every element of that suffix.
    --  Empty / singleton are no-ops. At most 2n − 3 flips for n ≥ 2.
    --  Do not `with` sibling Ada-* packages.
 
@@ -91,13 +100,17 @@ is
    procedure Flip (A : in out Element_Array; K : Natural)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then K <= A'Last,
+       Pre    => In_Bounds (A) and then K <= A'Length,
        Post   =>
          In_Bounds (A)
-         and then (for all I in 1 .. K => A (I) = A'Old (K - I + 1))
-         and then (for all I in K + 1 .. A'Last => A (I) = A'Old (I));
-   --  Reverse the prefix A (1 .. K). K = 0 or 1 is a no-op.
-   --  Requires K ≤ A'Last (contract replaces Invalid_Argument).
+         and then
+           (for all I in A'First .. A'First + K - 1 =>
+              A (I) = A'Old (2 * A'First + K - 1 - I))
+         and then
+           (for all I in A'First + K .. A'Last => A (I) = A'Old (I));
+   --  Reverse the length-K prefix A (A'First .. A'First + K − 1).
+   --  K = 0 or 1 is a no-op. Requires K ≤ A'Length (contract replaces
+   --  Invalid_Argument).
 
    procedure Apply_Flips
      (A     : in out Element_Array;
@@ -108,7 +121,7 @@ is
        Pre    =>
          In_Bounds (A)
          and then Count <= Max_Flips
-         and then (for all I in 1 .. Count => Flips (I) <= A'Last),
+         and then (for all I in 1 .. Count => Flips (I) <= A'Length),
        Post   => In_Bounds (A);
    --  Apply Flips (1 .. Count) in order. Count = 0 is a no-op.
 
@@ -138,7 +151,7 @@ is
          and then Is_Sorted (A)
          and then Count <= Classic_Flip_Bound (A'Length)
          and then Count <= Max_Flips
-         and then (for all I in 1 .. Count => Flips (I) in 2 .. A'Last);
+         and then (for all I in 1 .. Count => Flips (I) in 2 .. A'Length);
    --  Same as Sort, recording prefix lengths into Flips (1 .. Count).
    --  Remaining Flips slots are set to 0. Count ≤ Classic_Flip_Bound (N).
 
