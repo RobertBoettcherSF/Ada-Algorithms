@@ -1725,3 +1725,229 @@ detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavele
 detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
 detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,= -> /=,hidden,hidden,killed
 detail held half split 20261008 (std),compression/Ada/Wavelet-Compression,wavelet_compression.adb,hidden,- -> +,hidden,hidden,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,426,> -> >=,if D > Epsilon then,if D >= Epsilon then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,131,+ 1 -> + 0,for I in Vertices'First + 1 .. Vertices'Last loop,for I in Vertices'First + 0 .. Vertices'Last loop,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,439,+ -> -,J  : constant Positive := (if I = N then 1 else I + 1);,J  : constant Positive := (if I = N then 1 else I - 1);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,165,<= -> <,if Len <= Epsilon then,if Len < Epsilon then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,233,>= -> >,Viewer_Sign : constant Real := (if Viewer_Dist >= 0.0 then 1.0 else -1.0);,Viewer_Sign : constant Real := (if Viewer_Dist > 0.0 then 1.0 else -1.0);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,40,- -> +,return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);,return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X + O.X);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,477,- -> +,and then abs (Neg_V (NN).Y - Neg_V (1).Y) <= Epsilon,and then abs (Neg_V (NN).Y + Neg_V (1).Y) <= Epsilon,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,487,* -> +,"Result.Append (Make_Polygon (Poly.Id * 10 + 2, Neg_V (1 .. NN)));","Result.Append (Make_Polygon (Poly.Id + 10 + 2, Neg_V (1 .. NN)));",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,413,- -> +,and then abs (Buf (Count).Y - Pt.Y) <= Epsilon,and then abs (Buf (Count).Y + Pt.Y) <= Epsilon,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,448,<= -> <,if DA <= Epsilon then,if DA < Epsilon then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,155,+ -> -,Norm_Y := Norm_Y + (Curr.Z - Next.Z) * (Curr.X + Next.X);,Norm_Y := Norm_Y - (Curr.Z - Next.Z) * (Curr.X + Next.X);,timeout
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,452,or else -> and then,or else (DA < -Epsilon and then DB > Epsilon),and then (DA < -Epsilon and then DB > Epsilon),killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,156,+ -> -,Norm_Z := Norm_Z + (Curr.X - Next.X) * (Curr.Y + Next.Y);,Norm_Z := Norm_Z - (Curr.X - Next.X) * (Curr.Y + Next.Y);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,68,<= -> <,"if abs (D1) <= Epsilon and then On_Segment_2D (B1, B2, A1) then","if abs (D1) < Epsilon and then On_Segment_2D (B1, B2, A1) then",survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,180,* -> +,D => -(Norm_X * Cent_X + Norm_Y * Cent_Y + Norm_Z * Cent_Z));,D => -(Norm_X * Cent_X + Norm_Y + Cent_Y + Norm_Z * Cent_Z));,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,156,- -> +,Norm_Z := Norm_Z + (Curr.X - Next.X) * (Curr.Y + Next.Y);,Norm_Z := Norm_Z + (Curr.X + Next.X) * (Curr.Y + Next.Y);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,522,or else -> and then,"or else Test_4_Q_In_Front_Plane_Of_P (P_Elem, Q_Elem)","and then Test_4_Q_In_Front_Plane_Of_P (P_Elem, Q_Elem)",stillborn
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,97,> -> >=,if ((V_I.Y > Pt.Y) /= (V_J.Y > Pt.Y)),if ((V_I.Y > Pt.Y) /= (V_J.Y >= Pt.Y)),killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,457,* -> +,"(X => A.X + T * (B.X - A.X),","(X => A.X + T + (B.X - A.X),",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,515,+ -> -,for J in I + 1 .. N loop,for J in I - 1 .. N loop,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,98,- -> +,and then (Pt.X < (V_J.X - V_I.X) * (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),and then (Pt.X < (V_J.X + V_I.X) * (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,61,> -> >=,if (((D1 > Epsilon and then D2 < -Epsilon) or else (D1 < -Epsilon and then D2 > Epsilon)),if (((D1 > Epsilon and then D2 < -Epsilon) or else (D1 < -Epsilon and then D2 >= Epsilon)),survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,40,- -> +,return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);,return (A.X - O.X) * (B.Y - O.Y) - (A.Y + O.Y) * (B.X - O.X);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,478,- -> +,and then abs (Neg_V (NN).Z - Neg_V (1).Z) <= Epsilon,and then abs (Neg_V (NN).Z + Neg_V (1).Z) <= Epsilon,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,470,- -> +,and then abs (Pos_V (NP).Y - Pos_V (1).Y) <= Epsilon,and then abs (Pos_V (NP).Y + Pos_V (1).Y) <= Epsilon,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,185,* -> +,return Plane.A * Pt.X + Plane.B * Pt.Y + Plane.C * Pt.Z + Plane.D;,return Plane.A + Pt.X + Plane.B * Pt.Y + Plane.C * Pt.Z + Plane.D;,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,301,or else -> and then,"or else Test_4_Q_In_Front_Plane_Of_P (P, Q)","and then Test_4_Q_In_Front_Plane_Of_P (P, Q)",stillborn
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,543,+ 1 -> + 0,"Polygons.Insert (Before => I + 1, New_Item => Pieces (2));","Polygons.Insert (Before => I + 0, New_Item => Pieces (2));",survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,250,>= -> >,Viewer_Sign : constant Real := (if Viewer_Dist >= 0.0 then 1.0 else -1.0);,Viewer_Sign : constant Real := (if Viewer_Dist > 0.0 then 1.0 else -1.0);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,164,* -> +,Len := Sqrt (Norm_X * Norm_X + Norm_Y * Norm_Y + Norm_Z * Norm_Z);,Len := Sqrt (Norm_X * Norm_X + Norm_Y + Norm_Y + Norm_Z * Norm_Z);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,61,and then -> or else,if (((D1 > Epsilon and then D2 < -Epsilon) or else (D1 < -Epsilon and then D2 > Epsilon)),if (((D1 > Epsilon or else D2 < -Epsilon) or else (D1 < -Epsilon and then D2 > Epsilon)),killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,47,- -> +,"and then Pt.X >= Min_Real (A.X, B.X) - Epsilon","and then Pt.X >= Min_Real (A.X, B.X) + Epsilon",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,342,< -> <=,while I < N loop,while I <= N loop,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,478,<= -> <,and then abs (Neg_V (NN).Z - Neg_V (1).Z) <= Epsilon,and then abs (Neg_V (NN).Z - Neg_V (1).Z) < Epsilon,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,222,or else -> and then,P.XY_Bounds.Max_Y < Q.XY_Bounds.Min_Y - Epsilon or else,P.XY_Bounds.Max_Y < Q.XY_Bounds.Min_Y - Epsilon and then,stillborn
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,347,+ 1 -> + 0,for J in I + 1 .. N loop,for J in I + 0 .. N loop,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,98,and then -> or else,and then (Pt.X < (V_J.X - V_I.X) * (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),or else (Pt.X < (V_J.X - V_I.X) * (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,152,+ 1 -> + 0,Next : constant Point_3D := Vertices (First + ((I + 1) mod N));,Next : constant Point_3D := Vertices (First + ((I + 0) mod N));,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,159,+ -> -,Cent_Y := Cent_Y + Curr.Y;,Cent_Y := Cent_Y - Curr.Y;,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,221,+ -> -,P.XY_Bounds.Min_X > Q.XY_Bounds.Max_X + Epsilon or else,P.XY_Bounds.Min_X > Q.XY_Bounds.Max_X - Epsilon or else,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,97,/= -> =,if ((V_I.Y > Pt.Y) /= (V_J.Y > Pt.Y)),if ((V_I.Y > Pt.Y) = (V_J.Y > Pt.Y)),killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,445,>= -> >,if DA >= -Epsilon then,if DA > -Epsilon then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,30,< -> <=,if A < B then,if A <= B then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,313,+ 1 -> + 0,for J in I + 1 .. N loop,for J in I + 0 .. N loop,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,61,< -> <=,if (((D1 > Epsilon and then D2 < -Epsilon) or else (D1 < -Epsilon and then D2 > Epsilon)),if (((D1 > Epsilon and then D2 <= -Epsilon) or else (D1 < -Epsilon and then D2 > Epsilon)),survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,457,- -> +,"(X => A.X + T * (B.X - A.X),","(X => A.X + T * (B.X + A.X),",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,486,+ 1 -> + 0,"Result.Append (Make_Polygon (Poly.Id * 10 + 1, Pos_V (1 .. NP)));","Result.Append (Make_Polygon (Poly.Id * 10 + 0, Pos_V (1 .. NP)));",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,451,and then -> or else,if (DA > Epsilon and then DB < -Epsilon),if (DA > Epsilon or else DB < -Epsilon),killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,459,* -> +,Z => A.Z + T * (B.Z - A.Z));,Z => A.Z + T + (B.Z - A.Z));,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,477,<= -> <,and then abs (Neg_V (NN).Y - Neg_V (1).Y) <= Epsilon,and then abs (Neg_V (NN).Y - Neg_V (1).Y) < Epsilon,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,63,> -> >=,((D3 > Epsilon and then D4 < -Epsilon) or else (D3 < -Epsilon and then D4 > Epsilon))),((D3 >= Epsilon and then D4 < -Epsilon) or else (D3 < -Epsilon and then D4 > Epsilon))),survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,199,- 1 -> - 0,Result.Vertices (I) := Vertices (Vertices'First + (I - 1));,Result.Vertices (I) := Vertices (Vertices'First + (I - 0));,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,47,>= -> >,"and then Pt.X >= Min_Real (A.X, B.X) - Epsilon","and then Pt.X > Min_Real (A.X, B.X) - Epsilon",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,347,+ -> -,for J in I + 1 .. N loop,for J in I - 1 .. N loop,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,199,+ -> -,Result.Vertices (I) := Vertices (Vertices'First + (I - 1));,Result.Vertices (I) := Vertices (Vertices'First - (I - 1));,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,40,* -> +,return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);,return (A.X - O.X) + (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,40,* -> +,return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);,return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) + (B.X - O.X);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,509,< -> <=,while I < Natural (Polygons.Length) loop,while I <= Natural (Polygons.Length) loop,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,439,+ 1 -> + 0,J  : constant Positive := (if I = N then 1 else I + 1);,J  : constant Positive := (if I = N then 1 else I + 0);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,478,and then -> or else,and then abs (Neg_V (NN).Z - Neg_V (1).Z) <= Epsilon,or else abs (Neg_V (NN).Z - Neg_V (1).Z) <= Epsilon,stillborn
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,515,+ 1 -> + 0,for J in I + 1 .. N loop,for J in I + 0 .. N loop,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,154,+ -> -,Norm_X := Norm_X + (Curr.Y - Next.Y) * (Curr.Z + Next.Z);,Norm_X := Norm_X - (Curr.Y - Next.Y) * (Curr.Z + Next.Z);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,118,+ -> -,for I in Vertices'First + 1 .. Vertices'Last loop,for I in Vertices'First - 1 .. Vertices'Last loop,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,221,or else -> and then,P.XY_Bounds.Min_X > Q.XY_Bounds.Max_X + Epsilon or else,P.XY_Bounds.Min_X > Q.XY_Bounds.Max_X + Epsilon and then,stillborn
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,158,+ -> -,Cent_X := Cent_X + Curr.X;,Cent_X := Cent_X - Curr.X;,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,468,> -> >=,if NP > 1,if NP >= 1,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,503,<= -> <,if Polygons.Length <= 1 then,if Polygons.Length < 1 then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,223,+ -> -,P.XY_Bounds.Min_Y > Q.XY_Bounds.Max_Y + Epsilon,P.XY_Bounds.Min_Y > Q.XY_Bounds.Max_Y - Epsilon,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,270,+ 1 -> + 0,P_I2 : constant Point_3D := P.Vertices (if I = P.Num_Vertices then 1 else I + 1);,P_I2 : constant Point_3D := P.Vertices (if I = P.Num_Vertices then 1 else I + 0);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,531,< -> <=,if Splits < Max_Splits then,if Splits <= Max_Splits then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,118,+ 1 -> + 0,for I in Vertices'First + 1 .. Vertices'Last loop,for I in Vertices'First + 0 .. Vertices'Last loop,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,411,> -> >=,if Count > 0,if Count >= 0,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,451,< -> <=,if (DA > Epsilon and then DB < -Epsilon),if (DA > Epsilon and then DB <= -Epsilon),survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,270,+ -> -,P_I2 : constant Point_3D := P.Vertices (if I = P.Num_Vertices then 1 else I + 1);,P_I2 : constant Point_3D := P.Vertices (if I = P.Num_Vertices then 1 else I - 1);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,63,> -> >=,((D3 > Epsilon and then D4 < -Epsilon) or else (D3 < -Epsilon and then D4 > Epsilon))),((D3 > Epsilon and then D4 < -Epsilon) or else (D3 < -Epsilon and then D4 >= Epsilon))),survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,131,+ -> -,for I in Vertices'First + 1 .. Vertices'Last loop,for I in Vertices'First - 1 .. Vertices'Last loop,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,77,<= -> <,"if abs (D4) <= Epsilon and then On_Segment_2D (A1, A2, B2) then","if abs (D4) < Epsilon and then On_Segment_2D (A1, A2, B2) then",survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,63,and then -> or else,((D3 > Epsilon and then D4 < -Epsilon) or else (D3 < -Epsilon and then D4 > Epsilon))),((D3 > Epsilon or else D4 < -Epsilon) or else (D3 < -Epsilon and then D4 > Epsilon))),killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,469,and then -> or else,and then abs (Pos_V (NP).X - Pos_V (1).X) <= Epsilon,or else abs (Pos_V (NP).X - Pos_V (1).X) <= Epsilon,stillborn
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,314,< -> <=,if List (J).Z_Bounds.Min_Z < List (I).Z_Bounds.Min_Z then,if List (J).Z_Bounds.Min_Z <= List (I).Z_Bounds.Min_Z then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,156,+ -> -,Norm_Z := Norm_Z + (Curr.X - Next.X) * (Curr.Y + Next.Y);,Norm_Z := Norm_Z + (Curr.X - Next.X) * (Curr.Y - Next.Y);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,413,<= -> <,and then abs (Buf (Count).Y - Pt.Y) <= Epsilon,and then abs (Buf (Count).Y - Pt.Y) < Epsilon,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,459,+ -> -,Z => A.Z + T * (B.Z - A.Z));,Z => A.Z - T * (B.Z - A.Z));,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,151,+ -> -,Curr : constant Point_3D := Vertices (First + I);,Curr : constant Point_3D := Vertices (First - I);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,164,+ -> -,Len := Sqrt (Norm_X * Norm_X + Norm_Y * Norm_Y + Norm_Z * Norm_Z);,Len := Sqrt (Norm_X * Norm_X - Norm_Y * Norm_Y + Norm_Z * Norm_Z);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,74,and then -> or else,"if abs (D3) <= Epsilon and then On_Segment_2D (A1, A2, B1) then","if abs (D3) <= Epsilon or else On_Segment_2D (A1, A2, B1) then",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,455,- -> +,T   : constant Real := DA / (DA - DB);,T   : constant Real := DA / (DA + DB);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,220,< -> <=,if P.XY_Bounds.Max_X < Q.XY_Bounds.Min_X - Epsilon or else,if P.XY_Bounds.Max_X <= Q.XY_Bounds.Min_X - Epsilon or else,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,540,+ 1 -> + 0,Splits := Splits + 1;,Splits := Splits + 0;,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,482,< -> <=,if NP < 3 or else NN < 3 then,if NP <= 3 or else NN < 3 then,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,40,- -> +,return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);,return (A.X + O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,98,* -> +,and then (Pt.X < (V_J.X - V_I.X) * (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),and then (Pt.X < (V_J.X - V_I.X) + (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,452,> -> >=,or else (DA < -Epsilon and then DB > Epsilon),or else (DA < -Epsilon and then DB >= Epsilon),survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,439,= -> /=,J  : constant Positive := (if I = N then 1 else I + 1);,J  : constant Positive := (if I /= N then 1 else I + 1);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,40,- -> +,return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);,return (A.X - O.X) * (B.Y + O.Y) - (A.Y - O.Y) * (B.X - O.X);,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,154,+ -> -,Norm_X := Norm_X + (Curr.Y - Next.Y) * (Curr.Z + Next.Z);,Norm_X := Norm_X + (Curr.Y - Next.Y) * (Curr.Z - Next.Z);,timeout
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,543,+ -> -,"Polygons.Insert (Before => I + 1, New_Item => Pieces (2));","Polygons.Insert (Before => I - 1, New_Item => Pieces (2));",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,354,or else -> and then,"or else Test_4_Q_In_Front_Plane_Of_P (P_Elem, Q_Elem)","and then Test_4_Q_In_Front_Plane_Of_P (P_Elem, Q_Elem)",stillborn
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,458,* -> +,"Y => A.Y + T * (B.Y - A.Y),","Y => A.Y + T + (B.Y - A.Y),",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,486,* -> +,"Result.Append (Make_Polygon (Poly.Id * 10 + 1, Pos_V (1 .. NP)));","Result.Append (Make_Polygon (Poly.Id + 10 + 1, Pos_V (1 .. NP)));",killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,452,< -> <=,or else (DA < -Epsilon and then DB > Epsilon),or else (DA <= -Epsilon and then DB > Epsilon),survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,469,<= -> <,and then abs (Pos_V (NP).X - Pos_V (1).X) <= Epsilon,and then abs (Pos_V (NP).X - Pos_V (1).X) < Epsilon,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,98,< -> <=,and then (Pt.X < (V_J.X - V_I.X) * (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),and then (Pt.X <= (V_J.X - V_I.X) * (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,313,+ -> -,for J in I + 1 .. N loop,for J in I - 1 .. N loop,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,160,+ -> -,Cent_Z := Cent_Z + Curr.Z;,Cent_Z := Cent_Z - Curr.Z;,timeout
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,418,+ -> -,Count := Count + 1;,Count := Count - 1;,killed
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,336,<= -> <,if N <= 1 then,if N < 1 then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,470,<= -> <,and then abs (Pos_V (NP).Y - Pos_V (1).Y) <= Epsilon,and then abs (Pos_V (NP).Y - Pos_V (1).Y) < Epsilon,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,451,> -> >=,if (DA > Epsilon and then DB < -Epsilon),if (DA >= Epsilon and then DB < -Epsilon),survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,433,or else -> and then,if not Has_Pos or else not Has_Neg then,if not Has_Pos and then not Has_Neg then,survived
+second round tune half after boundary checks split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,98,- -> +,and then (Pt.X < (V_J.X - V_I.X) * (Pt.Y - V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),and then (Pt.X < (V_J.X - V_I.X) * (Pt.Y + V_I.Y) / (V_J.Y - V_I.Y) + V_I.X),killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- 1 -> - 0,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,timeout
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,timeout
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,timeout
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,timeout
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0,hidden,hidden,timeout
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,= -> /=,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,timeout
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,>= -> >,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- 1 -> - 0,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- 1 -> - 0,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,timeout
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,/= -> =,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,= -> /=,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,timeout
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >=,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- 1 -> - 0,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> <,hidden,hidden,survived
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else,hidden,hidden,stillborn
+second round held half split 20261030 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
