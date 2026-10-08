@@ -1,7 +1,7 @@
 folder,sorts_without_finish,note
 sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,yes,network output sorted on all existing tests without the finish; network sortedness not proved (needs the 0-1 principle or a per-stage invariant)
 sorting/SPARK4/Ada-SPARK-Bogosort,yes,sorted on all existing tests without the finish; a bounded number of shuffles cannot be proved to sort; the finish is what guarantees the result
-sorting/SPARK4/Ada-SPARK-Burstsort,yes,sorted on all existing tests without the finish (String_Array API); burst/trie phase not proved
+sorting/SPARK4/Ada-SPARK-Burstsort,no,"FIXED 80d9f89c: the burst phase is proved to sort on its own (every slice shares its first Depth characters; ended strings sort first; equal-character runs share Depth + 1 characters so the recursion applies; a smaller character at Depth + 1 means a smaller string; insertion sorts keep every shared prefix; 531 checks, silver level 2 and level 4); Bubble_Finish removed"
 sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,yes,FIXED 2e041c17: shaker passes proved to sort (window invariant); Bubble_Finish removed; silver L2 240 checks; mutation 37/66 -> 56/77 raw (56/56 justified)
 sorting/SPARK4/Ada-SPARK-Comb-Sort,no,"FIXED d5acd521: one comb loop with the gap-1 passes inside it (part of comb sort); no iteration cap, no gap clamp, no separate Bubble_Finish; held-out records 48051343"
 sorting/SPARK4/Ada-SPARK-Cycle-Sort,no,"FIXED 28d78749: safety net + write-count clamp removed; proved closed cycles (ghost Lo/Hi block counts, loop variant on settled slots); 498 checks Level 4"
