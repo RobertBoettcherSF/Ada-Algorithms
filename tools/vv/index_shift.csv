@@ -3028,10 +3028,6 @@ sorting/SPARK4/Ada-SPARK-Comb-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 
 sorting/SPARK4/Ada-SPARK-Counting-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Counting-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Counting-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Cycle-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-sorting/SPARK4/Ada-SPARK-Cycle-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort_Counting_Writes,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Flashsort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Flashsort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Flashsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
@@ -3269,7 +3265,6 @@ sorting/SPARK4/Ada-SPARK-Burstsort,,first_pinned,fail,rewrite_first_relative,,RE
 sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Comb-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Counting-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-sorting/SPARK4/Ada-SPARK-Cycle-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Flashsort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Gnome-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Insertion-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3479,3 +3474,9 @@ searching/SPARK4/Ada-SPARK-Interpolation-Search,Is_Sorted,catalog,catalog,,1,fun
 searching/SPARK4/Ada-SPARK-Interpolation-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Interpolation-Search,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 searching/SPARK4/Ada-SPARK-Interpolation-Search,Find,ok,ok,,,origins 2/None high None (index) ok,
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort_Counting_Writes,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,Sort,shift_mismatch,fail,,, | raised ADA.ASSERTIONS.ASSERTION_ERROR : failed precondition from cycle_sort.ads:84 | ,

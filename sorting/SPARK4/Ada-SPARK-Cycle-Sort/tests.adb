@@ -1,6 +1,6 @@
 --  Standalone test suite for Cycle_Sort (SPARK port).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  A'First is always 1; Max_N = 64. Sortedness is proved by SPARK;
+--  Any A'First in 1 .. Max_N (section 12 shifts origins); Max_N = 64. Sortedness is proved by SPARK;
 --  multiset / permutation equality and write counts are checked here.
 
 pragma Ada_2022;
@@ -165,6 +165,28 @@ is
       end loop;
       return A;
    end Random_Array;
+
+
+   --  Same contents placed at Origin .. Origin + Len - 1. Both entry
+   --  points must give the reference sort slot for slot, and the write
+   --  count must equal the misplaced positions (origin-independent).
+   function Shifted_Ok (Src : Element_Array; Origin : Positive)
+     return Boolean
+   is
+      A, B : Element_Array (Origin .. Origin + Src'Length - 1);
+      R    : Element_Array := Copy_Of (Src);
+      W    : Natural;
+   begin
+      for K in 0 .. Src'Length - 1 loop
+         A (Origin + K) := Src (Src'First + K);
+      end loop;
+      B := A;
+      Sort (A);
+      Sort_Counting_Writes (B, W);
+      Reference_Sort (R);
+      return Is_Sorted (A) and then Same (A, R) and then Same (B, R)
+        and then W = Misplaced (Src, R);
+   end Shifted_Ok;
 
 begin
    Put_Line ("Cycle_Sort (SPARK) tests");
@@ -514,6 +536,79 @@ begin
    end;
    Expect_Sorted ([0], "zero singleton via Expect");
    Expect_Sorted ([-42], "neg singleton via Expect");
+
+
+   ---------------------------------------------------------------------
+   Section ("12. Shifted origins (A'First > 1, flush to Max_N)");
+   ---------------------------------------------------------------------
+   --  Origins 2, 7, 33 and Max_N - Len + 1 (slice ends at Index'Last):
+   --  cycle starts, Dest_Index and the skip-equal walk are First-relative;
+   --  write counts must not depend on the origin. Lengths are a fixed
+   --  boundary set (each executed write re-checks the O(n^2) ghost
+   --  Update_Ok under -gnata, so every length at every origin would make
+   --  the suite ~15x slower).
+   declare
+      type Origin_List is array (Positive range <>) of Positive;
+      Fixed : constant Origin_List := [2, 7, 33];
+      Pattern_Names : constant array (1 .. 5) of String (1 .. 8) :=
+        ["equal   ", "sorted  ", "reverse ", "dups 0-2", "random  "];
+      Lens  : constant array (1 .. 16) of Natural :=
+        [0, 1, 2, 3, 4, 5, 7, 8, 15, 16, 17, 31, 32, 33, 58, 63];
+      Ok    : Boolean;
+      Cases : Natural;
+
+      function Make (P : Positive; Len : Natural) return Element_Array is
+         A : Element_Array (1 .. Len);
+      begin
+         case P is
+            when 1 => A := [others => 42];
+            when 2 => for I in A'Range loop A (I) := I; end loop;
+            when 3 => for I in A'Range loop A (I) := Len - I + 1; end loop;
+            when 4 => A := Random_Array (Len, 0, 2);
+            when others => A := Random_Array (Len, -1000, 1000);
+         end case;
+         return A;
+      end Make;
+   begin
+      for P in Pattern_Names'Range loop
+         for O of Fixed loop
+            Ok := True;
+            Cases := 0;
+            for Len of Lens loop
+               exit when Len > Max_N - O + 1;
+               Cases := Cases + 1;
+               if not Shifted_Ok (Make (P, Len), O) then
+                  Ok := False;
+                  Put_Line ("    mismatch origin" & O'Image & " len"
+                            & Len'Image);
+               end if;
+            end loop;
+            Check (Ok, "origin" & O'Image & " " & Pattern_Names (P)
+                   & " (" & Cases'Image & " lengths up to"
+                   & Natural'Image (Max_N - O + 1) & ")");
+         end loop;
+         Ok := True;
+         for Len of Lens loop
+            if Len >= 1 and then
+              not Shifted_Ok (Make (P, Len), Max_N - Len + 1)
+            then
+               Ok := False;
+               Put_Line ("    mismatch flush len" & Len'Image);
+            end if;
+         end loop;
+         Check (Ok, "flush to Max_N " & Pattern_Names (P) & " lens 1 .. 63 (set)");
+      end loop;
+   end;
+   declare
+      Tail : Element_Array (Max_N - 5 .. Max_N) := [9, -3, 9, 0, -3, 7];
+      W    : Natural;
+   begin
+      Check (Boo (In_Bounds (Tail)), "Tail(Max_N-5 .. Max_N) In_Bounds");
+      Sort_Counting_Writes (Tail, W);
+      Check (Same (Tail, Element_Array'([-3, -3, 0, 7, 9, 9])),
+             "Tail(Max_N-5 .. Max_N) sorted in place");
+      Check (W = 5, "Tail(Max_N-5 .. Max_N) writes = 5 (only Tail(Max_N-4) = -3 already placed)");
+   end;
 
    New_Line;
    Put_Line

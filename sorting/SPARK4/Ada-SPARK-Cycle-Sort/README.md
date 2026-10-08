@@ -7,7 +7,7 @@ $$
 \text{comparisons } \Theta(n^2),\quad \text{writes } \le n,\quad \text{extra space } O(1)
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Cycle-Sort](https://github.com/RobertBoettcherSF/Ada-Cycle-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), arbitrary `A'First`, and a function `Sort_Counting_Writes`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort), [Ada-SPARK-Bubble-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bubble-Sort), and [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort).
+This is the SPARK Level 4 port of the companion package [Ada-Cycle-Sort](https://github.com/RobertBoettcherSF/Ada-Cycle-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), and a function `Sort_Counting_Writes`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort), [Ada-SPARK-Bubble-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bubble-Sort), and [Ada-SPARK-Heapsort](https://github.com/RobertBoettcherSF/Ada-SPARK-Heapsort).
 
 ## Features
 * **`Sort (A)`**: Classic in-place ascending cycle sort (write-optimal).
@@ -20,7 +20,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Cycle-Sort](https:/
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $10\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (at most `Max_N` elements): cycle starts run `A'First .. A'Last - 1`, destinations are `CS + #{smaller keys after CS}`; tests sort shifted copies at origins 2, 7, 33 and slices flush to `Max_N`, with write counts checked at every origin.
 * `Sort_Counting_Writes` is a procedure with `Writes : out Natural` (SPARK functions cannot have `in out` arrays) and light contracts on the tally.
 * Nested `Cycle_Step` plus `Dest_Index` / `Advance_Past_Equals` so Level 4 can prove `Is_Sorted` without claiming full cycle-placement postconditions.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality and exact write counts are **checked by tests**, not claimed as Level-4 postconditions. Zero `pragma Annotate (GNATprove, Intentional, …)`.
@@ -74,7 +74,7 @@ When you run `make test`, you will see all 397 assertions pass. Running `make pr
 | ------ | ---- |
 | `Element_Array` | `array (Positive range <>) of Integer` |
 | `Max_N` | Classroom capacity bound (`64`) |
-| `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
+| `In_Bounds` | `A'Length <= Max_N`, `A'First in 1 .. Max_N`, `A'Last in 0 .. Max_N` |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
 | `Sort` | Ascending in-place cycle sort (`Post => Is_Sorted`) |
 | `Sort_Counting_Writes` | Same sort; `Writes` counts array stores |

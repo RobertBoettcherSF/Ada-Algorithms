@@ -21,7 +21,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    function Prefix_Leq_Suffix
@@ -38,9 +38,9 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then Lo_P >= 1
+       and then Lo_P >= A'First
        and then Hi_P <= A'Last
-       and then Lo_S >= 1
+       and then Lo_S >= A'First
        and then Hi_S <= A'Last;
 
    ---------------------------------------------------------------------------
@@ -61,7 +61,7 @@ is
    with
      Ghost              => True,
      Global             => null,
-     Pre                => In_Bounds (A) and then I <= A'Last,
+     Pre                => In_Bounds (A) and then CS >= A'First and then I <= A'Last,
      Post               => Lt'Result <= (if I <= CS then 0 else I - CS),
      Subprogram_Variant => (Decreases => I);
 
@@ -72,21 +72,22 @@ is
    with
      Ghost              => True,
      Global             => null,
-     Pre                => In_Bounds (A) and then I <= A'Last,
+     Pre                => In_Bounds (A) and then CS >= A'First and then I <= A'Last,
      Post               => Eq'Result <= (if I <= CS then 0 else I - CS),
      Subprogram_Variant => (Decreases => I);
 
    function D (A : Element_Array; CS : Index; Item, V : Integer) return Natural is
      (CS + Lt (A, CS, A'Last, V) + (if Item < V then 1 else 0))
-   with Ghost => True, Global => null, Pre => In_Bounds (A);
+   with Ghost => True, Global => null, Pre => In_Bounds (A) and then CS >= A'First;
 
    function C (A : Element_Array; CS : Index; Item, V : Integer) return Natural is
      (Eq (A, CS, A'Last, V) + (if Item = V then 1 else 0))
-   with Ghost => True, Global => null, Pre => In_Bounds (A);
+   with Ghost => True, Global => null, Pre => In_Bounds (A) and then CS >= A'First;
 
    function Settled (A : Element_Array; CS : Index; Item : Integer; P : Index) return Boolean is
      (D (A, CS, Item, A (P)) <= P and then P < D (A, CS, Item, A (P)) + C (A, CS, Item, A (P)))
-   with Ghost => True, Global => null, Pre => In_Bounds (A) and then P in 1 .. A'Last;
+   with Ghost => True, Global => null,
+        Pre => In_Bounds (A) and then CS >= A'First and then P in A'Range;
 
    --  Cycle_Step caches each position's block in ghost arrays: Lo (P) is
    --  where the block of A (P) starts and Hi (P) one past its end. Counting
@@ -98,8 +99,8 @@ is
    with
      Ghost  => True,
      Global => null,
-     Pre    => Lo'First = 1 and then Hi'First = 1 and then Lo'Last = Hi'Last
-               and then P in 1 .. Lo'Last;
+     Pre    => Hi'First = Lo'First and then Lo'Last = Hi'Last
+               and then P in Lo'Range;
 
    --  Settled positions in CS + 1 .. I, read from the cache.
    function NSX (Lo, Hi : Nat_Array; CS, I : Index) return Natural is
@@ -108,8 +109,8 @@ is
    with
      Ghost              => True,
      Global             => null,
-     Pre                => Lo'First = 1 and then Hi'First = 1 and then Lo'Last = Hi'Last
-                           and then I <= Lo'Last,
+     Pre                => Hi'First = Lo'First and then Lo'Last = Hi'Last
+                           and then CS >= Lo'First and then I <= Lo'Last,
      Post               => NSX'Result <= (if I <= CS then 0 else I - CS),
      Subprogram_Variant => (Decreases => I);
 
@@ -126,8 +127,9 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (Old) and then In_Bounds (A) and then A'Last = Old'Last
-       and then I <= A'Last and then Pos in 1 .. A'Last;
+       In_Bounds (Old) and then In_Bounds (A)
+       and then A'First = Old'First and then A'Last = Old'Last
+       and then CS >= A'First and then I <= A'Last and then Pos in A'Range;
 
    --  Induction lemmas, all proved by GNATprove at Level 4 and all checked
    --  at run time under -gnata, except the postcondition of Lemma_Update
@@ -138,7 +140,8 @@ is
       procedure Lemma_Total (A : Element_Array; CS, I : Index; V : Integer)
       with
         Global             => null,
-        Pre                => In_Bounds (A) and then I <= A'Last and then CS <= I,
+        Pre                =>
+          In_Bounds (A) and then CS >= A'First and then I <= A'Last and then CS <= I,
         Post               => Lt (A, CS, I, V) + Eq (A, CS, I, V) <= I - CS,
         Subprogram_Variant => (Decreases => I);
 
@@ -146,7 +149,8 @@ is
       procedure Lemma_Order (A : Element_Array; CS, I : Index; V1, V2 : Integer)
       with
         Global             => null,
-        Pre                => In_Bounds (A) and then I <= A'Last and then V1 < V2,
+        Pre                =>
+          In_Bounds (A) and then CS >= A'First and then I <= A'Last and then V1 < V2,
         Post               => Lt (A, CS, I, V1) + Eq (A, CS, I, V1) <= Lt (A, CS, I, V2),
         Subprogram_Variant => (Decreases => I);
 
@@ -155,7 +159,7 @@ is
       with
         Global             => null,
         Pre                =>
-          In_Bounds (A) and then CS < Start and then Start - 1 <= I
+          In_Bounds (A) and then CS >= A'First and then CS < Start and then Start - 1 <= I
           and then I <= A'Last
           and then (for all K in Start .. I => A (K) = V),
         Post               => Eq (A, CS, I, V) >= Eq (A, CS, Start - 1, V) + (I - Start + 1),
@@ -165,7 +169,8 @@ is
       procedure Lemma_Eq_Mono (A : Element_Array; CS, I, J : Index; V : Integer)
       with
         Global             => null,
-        Pre                => In_Bounds (A) and then I <= J and then J <= A'Last,
+        Pre                =>
+          In_Bounds (A) and then CS >= A'First and then I <= J and then J <= A'Last,
         Post               => Eq (A, CS, I, V) <= Eq (A, CS, J, V),
         Subprogram_Variant => (Decreases => J);
 
@@ -175,11 +180,12 @@ is
       with
         Global             => null,
         Pre                =>
-          Lo0'First = 1 and then Hi0'First = 1 and then Lo'First = 1
-          and then Hi'First = 1 and then Lo0'Last = Lo'Last
+          Lo0'First = Lo'First and then Hi0'First = Lo'First
+          and then Hi'First = Lo'First and then Lo0'Last = Lo'Last
           and then Hi0'Last = Lo'Last and then Hi'Last = Lo'Last
+          and then CS >= Lo'First
           and then I <= Lo'Last and then Pos in CS + 1 .. Lo'Last
-          and then (for all P in 1 .. Lo'Last =>
+          and then (for all P in Lo'Range =>
                       (if P /= Pos then Lo (P) = Lo0 (P) and then Hi (P) = Hi0 (P)))
           and then not SX (Lo0, Hi0, Pos)
           and then SX (Lo, Hi, Pos),
@@ -192,7 +198,8 @@ is
       with
         Global             => null,
         Pre                =>
-          Lo'First = 1 and then Hi'First = 1 and then Lo'Last = Hi'Last
+          Hi'First = Lo'First and then Lo'Last = Hi'Last
+          and then CS >= Lo'First
           and then I <= Lo'Last and then P in CS + 1 .. I
           and then not SX (Lo, Hi, P),
         Post               => NSX (Lo, Hi, CS, I) + 1 <= I - CS,
@@ -210,9 +217,11 @@ is
       with
         Global             => null,
         Pre                =>
-          In_Bounds (Old) and then In_Bounds (A) and then A'Last = Old'Last
+          In_Bounds (Old) and then In_Bounds (A)
+          and then A'First = Old'First and then A'Last = Old'Last
+          and then CS >= A'First
           and then I <= A'Last and then Pos in CS + 1 .. A'Last
-          and then (for all K in 1 .. A'Last => (if K /= Pos then A (K) = Old (K))),
+          and then (for all K in A'Range => (if K /= Pos then A (K) = Old (K))),
         Post               =>
           Update_Ok (Old, A, CS, Pos, I),
         Subprogram_Variant => (Decreases => I);
@@ -284,8 +293,8 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then A'Last >= 1
-       and then CS in 1 .. A'Last,
+       and then A'Length >= 1
+       and then CS in A'Range,
      Post   =>
        Dest_Index'Result in CS .. A'Last
        and then Dest_Index'Result = CS + Lt (A, CS, A'Last, Item)
@@ -319,8 +328,8 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then A'Last >= 1
-       and then Pos in 1 .. A'Last,
+       and then A'Length >= 1
+       and then Pos in A'Range,
      Post   =>
        Pos in Pos'Old .. A'Last
        and then (for all K in Pos'Old .. Pos - 1 => A (K) = Item)
@@ -345,7 +354,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then CS in 1 .. A'Last - 1
+       and then CS in A'First .. A'Last - 1
        and then CS + Lt (A, CS, A'Last, Item) > CS
        and then Pos in CS + Lt (A, CS, A'Last, Item) .. A'Last
        and then (for all K in CS + Lt (A, CS, A'Last, Item) .. Pos - 1 => A (K) = Item)
@@ -387,7 +396,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then Pos in 1 .. A'Last
+       and then Pos in A'Range
        and then Count < Max_N,
      Post   =>
        In_Bounds (A)
@@ -396,7 +405,7 @@ is
        and then Count = Count'Old + 1
        and then Count <= Max_N
        and then
-         (for all K in 1 .. A'Last =>
+         (for all K in A'Range =>
             (if K /= Pos then A (K) = A'Old (K)))
    is
       Tmp : constant Integer := A (Pos);
@@ -416,7 +425,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then Pos in 1 .. A'Last
+       and then Pos in A'Range
        and then Count < Max_N,
      Post   =>
        In_Bounds (A)
@@ -424,7 +433,7 @@ is
        and then Count = Count'Old + 1
        and then Count <= Max_N
        and then
-         (for all K in 1 .. A'Last =>
+         (for all K in A'Range =>
             (if K /= Pos then A (K) = A'Old (K)))
    is
    begin
@@ -440,34 +449,34 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then A'Last >= 2
-       and then CS in 1 .. A'Last - 1
-       and then Sorted_Slice (A, 1, CS - 1)
-       and then Prefix_Leq_Suffix (A, 1, CS - 1, CS, A'Last),
+       and then A'Length >= 2
+       and then CS in A'First .. A'Last - 1
+       and then Sorted_Slice (A, A'First, CS - 1)
+       and then Prefix_Leq_Suffix (A, A'First, CS - 1, CS, A'Last),
      Post   =>
        In_Bounds (A)
-       and then Sorted_Slice (A, 1, CS)
-       and then Prefix_Leq_Suffix (A, 1, CS, CS + 1, A'Last)
+       and then Sorted_Slice (A, A'First, CS)
+       and then Prefix_Leq_Suffix (A, A'First, CS, CS + 1, A'Last)
        and then Writes <= Max_N
        and then
-         (for all K in 1 .. CS - 1 => A (K) = A'Old (K))
+         (for all K in A'First .. CS - 1 => A (K) = A'Old (K))
    is
       Item     : Integer := A (CS);
       Pos      : Index;
       Count    : Natural := 0;
-      Old      : Element_Array (1 .. A'Last) with Ghost;
+      Old      : Element_Array (A'Range) with Ghost;
       Old_Item : Integer with Ghost;
-      Lo, Hi   : Nat_Array (1 .. A'Last) := [others => 0] with Ghost;
-      Lo0, Hi0 : Nat_Array (1 .. A'Last) with Ghost;
+      Lo, Hi   : Nat_Array (A'Range) := [others => 0] with Ghost;
+      Lo0, Hi0 : Nat_Array (A'Range) with Ghost;
    begin
       Writes := 0;
       Pos := Dest_Index (A, CS, Item);
 
       if Pos = CS then
          pragma Assert (for all K in CS + 1 .. A'Last => A (K) >= Item);
-         pragma Assert (CS = 1 or else A (CS - 1) <= Item);
-         pragma Assert (Sorted_Slice (A, 1, CS));
-         pragma Assert (Prefix_Leq_Suffix (A, 1, CS, CS + 1, A'Last));
+         pragma Assert (CS = A'First or else A (CS - 1) <= Item);
+         pragma Assert (Sorted_Slice (A, A'First, CS));
+         pragma Assert (Prefix_Leq_Suffix (A, A'First, CS, CS + 1, A'Last));
          return;
       end if;
 
@@ -497,14 +506,14 @@ is
               Lo (P) = D (A, CS, Item, A (P))
               and then Hi (P) = Lo (P) + C (A, CS, Item, A (P)));
          pragma Loop_Invariant (Count <= NSX (Lo, Hi, CS, A'Last));
-         pragma Loop_Invariant (Sorted_Slice (A, 1, CS - 1));
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, CS - 1));
          pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, CS - 1, CS, A'Last));
+           (Prefix_Leq_Suffix (A, A'First, CS - 1, CS, A'Last));
          pragma Loop_Invariant
-           (for all K in 1 .. CS - 1 => A (K) = A'Loop_Entry (K));
+           (for all K in A'First .. CS - 1 => A (K) = A'Loop_Entry (K));
          pragma Loop_Invariant
-           (CS = 1
-            or else (for all K in 1 .. CS - 1 => A (K) <= Item));
+           (CS = A'First
+            or else (for all K in A'First .. CS - 1 => A (K) <= Item));
          pragma Loop_Variant (Increases => NSX (Lo, Hi, CS, A'Last));
 
          Lemmas.Lemma_NSX_Gap (Lo, Hi, CS, Pos, A'Last);
@@ -538,9 +547,9 @@ is
       pragma Assert (for all K in CS + 1 .. A'Last => A (K) >= Item);
       Write_At (A, CS, Item, Count);
       Writes := Count;
-      pragma Assert (CS = 1 or else A (CS - 1) <= A (CS));
-      pragma Assert (Sorted_Slice (A, 1, CS));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, CS, CS + 1, A'Last));
+      pragma Assert (CS = A'First or else A (CS - 1) <= A (CS));
+      pragma Assert (Sorted_Slice (A, A'First, CS));
+      pragma Assert (Prefix_Leq_Suffix (A, A'First, CS, CS + 1, A'Last));
    end Cycle_Step;
 
    procedure Sort (A : in out Element_Array) is
@@ -551,24 +560,25 @@ is
          return;
       end if;
 
-      pragma Assert (Sorted_Slice (A, 1, 0));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 0, 1, A'Last));
+      pragma Assert (Sorted_Slice (A, A'First, A'First - 1));
+      pragma Assert
+        (Prefix_Leq_Suffix (A, A'First, A'First - 1, A'First, A'Last));
 
-      for CS in 1 .. A'Last - 1 loop
+      for CS in A'First .. A'Last - 1 loop
          Cycle_Step (A, CS, W);
          Total := Total + W;
 
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, 1, CS));
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, CS));
          pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, CS, CS + 1, A'Last));
-         pragma Loop_Invariant (Is_Sorted (A (1 .. CS)));
-         pragma Loop_Invariant (Total <= CS * Max_N);
+           (Prefix_Leq_Suffix (A, A'First, CS, CS + 1, A'Last));
+         pragma Loop_Invariant (Is_Sorted (A (A'First .. CS)));
+         pragma Loop_Invariant (Total <= (CS - A'First + 1) * Max_N);
       end loop;
 
-      pragma Assert (Sorted_Slice (A, 1, A'Last - 1));
+      pragma Assert (Sorted_Slice (A, A'First, A'Last - 1));
       pragma Assert
-        (Prefix_Leq_Suffix (A, 1, A'Last - 1, A'Last, A'Last));
+        (Prefix_Leq_Suffix (A, A'First, A'Last - 1, A'Last, A'Last));
       pragma Assert (Is_Sorted (A));
    end Sort;
 
@@ -584,26 +594,27 @@ is
          return;
       end if;
 
-      pragma Assert (Sorted_Slice (A, 1, 0));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 0, 1, A'Last));
+      pragma Assert (Sorted_Slice (A, A'First, A'First - 1));
+      pragma Assert
+        (Prefix_Leq_Suffix (A, A'First, A'First - 1, A'First, A'Last));
 
-      for CS in 1 .. A'Last - 1 loop
+      for CS in A'First .. A'Last - 1 loop
          Cycle_Step (A, CS, W);
          pragma Assert (W <= Max_N);
-         pragma Assert (Writes <= (CS - 1) * Max_N);
+         pragma Assert (Writes <= (CS - A'First) * Max_N);
          Writes := Writes + W;
 
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, 1, CS));
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, CS));
          pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, CS, CS + 1, A'Last));
-         pragma Loop_Invariant (Is_Sorted (A (1 .. CS)));
-         pragma Loop_Invariant (Writes <= CS * Max_N);
+           (Prefix_Leq_Suffix (A, A'First, CS, CS + 1, A'Last));
+         pragma Loop_Invariant (Is_Sorted (A (A'First .. CS)));
+         pragma Loop_Invariant (Writes <= (CS - A'First + 1) * Max_N);
       end loop;
 
-      pragma Assert (Sorted_Slice (A, 1, A'Last - 1));
+      pragma Assert (Sorted_Slice (A, A'First, A'Last - 1));
       pragma Assert
-        (Prefix_Leq_Suffix (A, 1, A'Last - 1, A'Last, A'Last));
+        (Prefix_Leq_Suffix (A, A'First, A'Last - 1, A'Last, A'Last));
       pragma Assert (Is_Sorted (A));
    end Sort_Counting_Writes;
 
