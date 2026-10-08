@@ -11,9 +11,11 @@
 with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
+with Ada.Command_Line;
 with Exponential_Backoff; use Exponential_Backoff;
 
 procedure Tests is
+   Fail_Count : Natural := 0;
    --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
    function AA_Seed (Default : Integer) return Integer is
       V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
@@ -32,6 +34,7 @@ procedure Tests is
       if Passed then
          Put_Line("     PASS");
       else
+         Fail_Count := Fail_Count + 1;
          Put_Line("     FAIL");
       end if;
    end Print_Result;
@@ -599,4 +602,9 @@ begin
    Put_Line("=== Test Suite Complete ===");
    Put_Line("All tests assume the code is broken. PASS = assumption disproven (code works).");
 
+   New_Line;
+   Put_Line ("Results:" & Fail_Count'Image & " FAIL");
+   if Fail_Count > 0 then
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;

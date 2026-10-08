@@ -29,7 +29,7 @@ all: $(EXECUTABLES)
 # Compile tests
 $(BIN_DIR)/tests: tests.adb exponential_backoff.ads exponential_backoff.adb
 	mkdir -p $(OBJ_DIR) $(BIN_DIR)
-	$(GNAT) -o $(BIN_DIR)/tests tests.adb
+	$(GNAT) -gnatwa -gnat2022 -gnata -o $(BIN_DIR)/tests tests.adb
 
 # Run tests
 test: $(BIN_DIR)/tests

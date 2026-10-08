@@ -205,6 +205,10 @@ unchecked_by = collections.Counter(x['folder'] for x in _csv(os.path.join(a.root
 silent_by = {x['folder']: x for x in _csv(os.path.join(a.root, 'tools', 'vv', 'silent_fail.csv')) if x.get('silent_fail') == 'yes'}
 plant_fail = {x['folder']: x for x in _csv(os.path.join(a.root, 'tools', 'vv', 'silent_fail_plant.csv'))}
 answer_plant = {x['folder']: x for x in _csv(os.path.join(a.root, 'tools', 'vv', 'silent_fail_answer_plant.csv'))}
+index_shift_rows = _csv(os.path.join(a.root, 'tools', 'vv', 'index_shift.csv'))
+index_shift_fail = {x['folder'] for x in index_shift_rows if x.get('status') == 'fail'}
+index_shift_ok = {x['folder'] for x in index_shift_rows if x.get('status') == 'ok' or x.get('kind') == 'ok'}
+index_shift_seen = {x['folder'] for x in index_shift_rows}
 
 # tools/vv/flaky.csv (tools/vv/flaky.py, docs/VV.md 3j): repeatability (10 runs), seed sweep (AA_SEED=1..30) and
 # one Initialize_Scalars + -gnatVa run; one row per folder and compiler. flaky = yes when any row says yes;
@@ -286,6 +290,9 @@ for r in rows:
     r['fallback'] = '; '.join(fallback_by.get(r['folder'], []))
     r['unchecked_subprograms'] = str(unchecked_by[r['folder']]) if unchecked_by[r['folder']] else ''
     r['silent_fail'] = 'yes' if r['folder'] in silent_by else ''
+    r['index_independent'] = ('no' if r['folder'] in index_shift_fail else
+                              'yes' if r['folder'] in index_shift_ok else
+                              ('pending' if r['folder'] in index_shift_seen else ''))
     r['flaky'] = flaky_by.get(r['folder'], '')
     hv = halves_by.get(r['folder'], {})
     for h, col in (('tuning', 'mutation_tuned'), ('heldout', 'mutation_heldout')):
@@ -357,12 +364,21 @@ def drop_reasons(r):
     # Fail_Count plant n/a: cannot claim the harness fails until an answer plant shows it
     pf = plant_fail.get(r['folder'], {})
     ap = answer_plant.get(r['folder'], {})
-    if pf.get('plant_ok') == 'n/a' and ap.get('answer_plant_ok') != 'yes':
-        out.append('harness cannot fail')
+    # answer_plant_ok: only yes clears the gate; no / pending / missing = cannot fail
+    if pf.get('plant_ok') == 'n/a':
+        apk = ap.get('answer_plant_ok', '')
+        if apk == 'no':
+            out.append('harness cannot fail')
+        elif apk != 'yes':
+            out.append('harness cannot fail (answer-plant pending)')
     elif pf.get('plant_ok') == 'no':
         out.append('harness cannot fail')
     elif ap.get('answer_plant_ok') == 'no':
         out.append('harness cannot fail')
+    if r.get('index_independent') == 'no':
+        out.append('index not independent')
+    elif r.get('index_independent') == 'pending':
+        out.append('index independence not measured')
     if r['flaky'] != 'no' and r['flaky'] != 'yes': out.append('flakiness not measured')
     if r['compiler_14_version'] in ('', 'unverified') or r['compiler_12_version'] in ('', 'unverified'):
         out.append('compiler version unverified')

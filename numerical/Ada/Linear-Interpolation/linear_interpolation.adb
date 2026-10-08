@@ -141,7 +141,8 @@ is
          return 0;
       end if;
       while Hi - Lo > 1 loop
-         Mid := (Lo + Hi) / 2;
+         --  Overflow-safe midpoint (never (Lo + Hi) / 2).
+         Mid := Lo + (Hi - Lo) / 2;
          if T.X (Mid) <= X then
             Lo := Mid;
          else
