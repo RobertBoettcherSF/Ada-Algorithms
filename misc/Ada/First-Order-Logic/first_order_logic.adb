@@ -13,7 +13,7 @@ package body First_Order_Logic is
       return new Term'(Kind => Is_Constant, Name => Name);
    end Make_Constant;
 
-   function Make_Function (Name : Character; Arg1 : Term_Access; Arg2 : Term_Access := null) return Term_Access is
+   function Make_Function (Name : Character; Arg1 : not null Term_Access; Arg2 : Term_Access := null) return Term_Access is
    begin
       return new Term'(Kind => Is_Function, Name => Name, Arg1 => Arg1, Arg2 => Arg2);
    end Make_Function;
@@ -21,47 +21,47 @@ package body First_Order_Logic is
    -----------------------------------------------------------------------------
    --  Formula Constructors
    -----------------------------------------------------------------------------
-   function Make_Predicate (Name : Character; Term1 : Term_Access; Term2 : Term_Access := null) return Formula_Access is
+   function Make_Predicate (Name : Character; Term1 : not null Term_Access; Term2 : Term_Access := null) return Formula_Access is
    begin
       return new Formula'(Kind => Is_Predicate, Pred_Name => Name, Term1 => Term1, Term2 => Term2);
    end Make_Predicate;
 
-   function Make_Equality (Term1, Term2 : Term_Access) return Formula_Access is
+   function Make_Equality (Term1, Term2 : not null Term_Access) return Formula_Access is
    begin
       return new Formula'(Kind => Is_Equality, Eq_Term1 => Term1, Eq_Term2 => Term2);
    end Make_Equality;
 
-   function Make_Not (F : Formula_Access) return Formula_Access is
+   function Make_Not (F : not null Formula_Access) return Formula_Access is
    begin
       return new Formula'(Kind => Is_Not, Sub_Formula => F);
    end Make_Not;
 
-   function Make_And (Left, Right : Formula_Access) return Formula_Access is
+   function Make_And (Left, Right : not null Formula_Access) return Formula_Access is
    begin
       return new Formula'(Kind => Is_And, Left => Left, Right => Right);
    end Make_And;
 
-   function Make_Or (Left, Right : Formula_Access) return Formula_Access is
+   function Make_Or (Left, Right : not null Formula_Access) return Formula_Access is
    begin
       return new Formula'(Kind => Is_Or, Left => Left, Right => Right);
    end Make_Or;
 
-   function Make_Implies (Left, Right : Formula_Access) return Formula_Access is
+   function Make_Implies (Left, Right : not null Formula_Access) return Formula_Access is
    begin
       return new Formula'(Kind => Is_Implies, Left => Left, Right => Right);
    end Make_Implies;
 
-   function Make_Iff (Left, Right : Formula_Access) return Formula_Access is
+   function Make_Iff (Left, Right : not null Formula_Access) return Formula_Access is
    begin
       return new Formula'(Kind => Is_Iff, Left => Left, Right => Right);
    end Make_Iff;
 
-   function Make_Forall (Var : Variable_Name; Body_Formula : Formula_Access) return Formula_Access is
+   function Make_Forall (Var : Variable_Name; Body_Formula : not null Formula_Access) return Formula_Access is
    begin
       return new Formula'(Kind => Is_Forall, Var_Name => Var, Body_Formula => Body_Formula);
    end Make_Forall;
 
-   function Make_Exists (Var : Variable_Name; Body_Formula : Formula_Access) return Formula_Access is
+   function Make_Exists (Var : Variable_Name; Body_Formula : not null Formula_Access) return Formula_Access is
    begin
       return new Formula'(Kind => Is_Exists, Var_Name => Var, Body_Formula => Body_Formula);
    end Make_Exists;

@@ -53,8 +53,7 @@ package First_Order_Logic is
    --  Constructors for Terms
    function Make_Variable (Name : Variable_Name) return Term_Access;
    function Make_Constant (Name : Character) return Term_Access;
-   function Make_Function (Name : Character; Arg1 : Term_Access; Arg2 : Term_Access := null) return Term_Access
-     with Pre => Arg1 /= null;
+   function Make_Function (Name : Character; Arg1 : not null Term_Access; Arg2 : Term_Access := null) return Term_Access;
 
    -----------------------------------------------------------------------------
    --  Formulas (Predicates, Equality, Connectives, Quantifiers)
@@ -85,24 +84,15 @@ package First_Order_Logic is
    end record;
 
    --  Constructors for Formulas
-   function Make_Predicate (Name : Character; Term1 : Term_Access; Term2 : Term_Access := null) return Formula_Access
-     with Pre => Term1 /= null;
-   function Make_Equality (Term1, Term2 : Term_Access) return Formula_Access
-     with Pre => Term1 /= null and Term2 /= null;
-   function Make_Not (F : Formula_Access) return Formula_Access
-     with Pre => F /= null;
-   function Make_And (Left, Right : Formula_Access) return Formula_Access
-     with Pre => Left /= null and Right /= null;
-   function Make_Or (Left, Right : Formula_Access) return Formula_Access
-     with Pre => Left /= null and Right /= null;
-   function Make_Implies (Left, Right : Formula_Access) return Formula_Access
-     with Pre => Left /= null and Right /= null;
-   function Make_Iff (Left, Right : Formula_Access) return Formula_Access
-     with Pre => Left /= null and Right /= null;
-   function Make_Forall (Var : Variable_Name; Body_Formula : Formula_Access) return Formula_Access
-     with Pre => Body_Formula /= null;
-   function Make_Exists (Var : Variable_Name; Body_Formula : Formula_Access) return Formula_Access
-     with Pre => Body_Formula /= null;
+   function Make_Predicate (Name : Character; Term1 : not null Term_Access; Term2 : Term_Access := null) return Formula_Access;
+   function Make_Equality (Term1, Term2 : not null Term_Access) return Formula_Access;
+   function Make_Not (F : not null Formula_Access) return Formula_Access;
+   function Make_And (Left, Right : not null Formula_Access) return Formula_Access;
+   function Make_Or (Left, Right : not null Formula_Access) return Formula_Access;
+   function Make_Implies (Left, Right : not null Formula_Access) return Formula_Access;
+   function Make_Iff (Left, Right : not null Formula_Access) return Formula_Access;
+   function Make_Forall (Var : Variable_Name; Body_Formula : not null Formula_Access) return Formula_Access;
+   function Make_Exists (Var : Variable_Name; Body_Formula : not null Formula_Access) return Formula_Access;
 
    -----------------------------------------------------------------------------
    --  Core First-Order Logic Algorithms

@@ -54,6 +54,19 @@ procedure Tests is
                 when others => False);
    end Eval_Predicate;
 
+   --  Null values the compiler cannot see through, for the null-exclusion
+   --  tests in TEST 13 (a literal null is rejected at compile time)
+   function No_Formula return Formula_Access;
+   function No_Term return Term_Access;
+   function No_Formula return Formula_Access is
+   begin
+      return null;
+   end No_Formula;
+   function No_Term return Term_Access is
+   begin
+      return null;
+   end No_Term;
+
    Interp : Test_Interp;
    Env    : Assignment := [others => 1]; -- Default environment (all vars = 1)
 
@@ -215,26 +228,26 @@ begin
    
    begin
       declare
-         Bad : constant Formula_Access := Make_Not (null);
+         Bad : constant Formula_Access := Make_Not (No_Formula);
          pragma Unreferenced (Bad);
       begin
-         Check ("13.1 Precondition catches null in Make_Not", False);
+         Check ("13.1 Null exclusion catches null in Make_Not", False);
       end;
    exception
-      when others => 
-         Check ("13.1 Precondition catches null in Make_Not", True);
+      when Constraint_Error =>
+         Check ("13.1 Null exclusion catches null in Make_Not", True);
    end;
    
    begin
       declare
-         Bad : constant Term_Access := Make_Function ('f', null);
+         Bad : constant Term_Access := Make_Function ('f', No_Term);
          pragma Unreferenced (Bad);
       begin
-         Check ("13.2 Precondition catches null in Make_Function", False);
+         Check ("13.2 Null exclusion catches null in Make_Function", False);
       end;
    exception
-      when others => 
-         Check ("13.2 Precondition catches null in Make_Function", True);
+      when Constraint_Error =>
+         Check ("13.2 Null exclusion catches null in Make_Function", True);
    end;
 
    Check ("13.3 Has_Quantifier on null", not Has_Quantifier (null));
