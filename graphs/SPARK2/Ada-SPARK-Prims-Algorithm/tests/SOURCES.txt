@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's tests (tests.adb, own_checks.adb)
+=================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: one hand case (a path 1 - 2 - 3).
+* own_checks.adb: the result must be a spanning tree rooted at node 1 (each
+  other node joined to its parent by an existing edge and reaching node 1)
+  whose total weight equals the minimum over all parent arrays, found by
+  own brute force (4^3 arrays). Inputs: 5000 random connected symmetric
+  graphs on 4 nodes, weights 1 .. 20, each edge absent with probability 0.3.
