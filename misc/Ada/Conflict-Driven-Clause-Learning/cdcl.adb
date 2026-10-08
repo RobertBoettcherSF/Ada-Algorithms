@@ -245,7 +245,22 @@ package body CDCL is
       Conflicts_Since_Restart   : Natural := 0;
       Current_Restart_Threshold : Natural := Restart_Interval;
    begin
-      S.Clauses := F.Clauses;
+      --  Each clause enters the solver with duplicate literals removed:
+      --  Evaluate counts unassigned occurrences and Analyze_Conflict counts
+      --  current-level occurrences, so (x or x) was never unit and a
+      --  conflict on it never reached the single-literal stop.
+      for C of F.Clauses loop
+         declare
+            D : Clause;
+         begin
+            for L of C loop
+               if not Contains (D, L) then
+                  D.Append (L);
+               end if;
+            end loop;
+            S.Clauses.Append (D);
+         end;
+      end loop;
       S.Original_Count := Natural (F.Clauses.Length);
 
       loop
