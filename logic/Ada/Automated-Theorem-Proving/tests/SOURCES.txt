@@ -1,0 +1,21 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* SAT / UNSAT: brute force over all 2**N assignments (bit masks), written
+  for this repository; shares no code with the package. 120 random 3-SAT
+  formulas (6 .. 9 variables, three distinct variables per clause,
+  M = 4.26 N or 5.2 N) with SAT and UNSAT agreement reported separately;
+  300 easy formulas (1 .. 6 variables, 0 .. 8 clauses of width 0 .. 4);
+  pigeonhole PHP(3,2) and PHP(4,3) (UNSAT, folklore encoding).
+* Helpers against their semantic definitions, evaluated on every
+  assignment: Simplify_Unit_Propagation and Simplify_Pure_Literal keep the
+  formula's truth value whenever the literal is true, unit propagation
+  removes the variable, pure-literal elimination removes exactly the
+  clauses containing the literal; Resolve_Clauses yields exactly the
+  literals of both clauses except the pivot's; Remove_Duplicates keeps the
+  set without repeats; Is_Tautology = some literal with its negation;
+  Contains_Empty_Clause.
+* No certificate for UNSAT: the package returns Booleans only, so there is
+  no proof object to replay. The folder name overclaims: it is a
+  propositional SAT decision package, not a theorem prover with proofs.
+* tests.adb: exit status is now nonzero when a check fails.
+Park-Miller PRNG, seed 20261008. Nothing is taken from the program's output.

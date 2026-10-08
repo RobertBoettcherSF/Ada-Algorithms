@@ -8,3 +8,5 @@ details are in <folder>/tests/SOURCES.txt.
 misc/Ada/Conflict-Driven-Clause-Learning: truth-table brute force, model
   certificates, planted-solution formulas, pigeonhole PHP(3,2)/PHP(4,3)
   (the pigeonhole principle encoding is folklore / public domain).
+logic/Ada/Automated-Theorem-Proving: truth-table brute force, semantic
+  definitions of the helpers, pigeonhole PHP(3,2)/PHP(4,3).

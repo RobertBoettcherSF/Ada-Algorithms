@@ -1,3 +1,5 @@
+with Ada.Command_Line;
+with Own_Checks;
 with Ada.Text_IO; use Ada.Text_IO;
 with Automated_Theorem_Proving; use Automated_Theorem_Proving;
 
@@ -52,6 +54,7 @@ procedure Tests is
    F       : CNF_Formula;
    F2      : CNF_Formula;
 begin
+   Own_Checks;
    -------------------------------------------------------------------------
    Put_Line ("TEST 1 — DPLL Base Cases");
    Check ("1.1 DPLL resolves Empty Formula as True", 
@@ -303,5 +306,8 @@ begin
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
    pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Fail_Count > 0 then   --  the Assert above is ignored without -gnata
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 
 end Tests;
