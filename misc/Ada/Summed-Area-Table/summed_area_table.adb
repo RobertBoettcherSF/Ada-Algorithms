@@ -33,9 +33,9 @@ package body Summed_Area_Table is
    -- Compute Standard 2D SAT
    ----------------------------------------------------------------------------
    procedure Compute_2D_SAT (Input : in Grid_2D; Output : out Grid_2D) is
-      pragma Warnings (Off, Output);
    begin
       Validate_Bounds_2D (Input, Output);
+      Output := (others => (others => 0));
       for X in Input'Range(1) loop
          for Y in Input'Range(2) loop
             Output(X, Y) := Input(X, Y) 
@@ -50,11 +50,11 @@ package body Summed_Area_Table is
    -- Compute 2D SAT (Fast Cascaded method: Row prefix, then Col prefix)
    ----------------------------------------------------------------------------
    procedure Compute_2D_SAT_Fast (Input : in Grid_2D; Output : out Grid_2D) is
-      pragma Warnings (Off, Output);
       Row_Sum : Value_Type;
       Col_Sum : Value_Type;
    begin
       Validate_Bounds_2D (Input, Output);
+      Output := (others => (others => 0));
       -- Step 1: Prefix sum along rows
       for Y in Input'Range(2) loop
          Row_Sum := 0;
@@ -78,10 +78,10 @@ package body Summed_Area_Table is
    -- Compute Higher-Order (Squared) 2D SAT
    ----------------------------------------------------------------------------
    procedure Compute_2D_Squared_SAT (Input : in Grid_2D; Output : out Grid_2D) is
-      pragma Warnings (Off, Output);
       Val : Value_Type;
    begin
       Validate_Bounds_2D (Input, Output);
+      Output := (others => (others => 0));
       for X in Input'Range(1) loop
          for Y in Input'Range(2) loop
             Val := Input(X, Y) * Input(X, Y);
@@ -118,7 +118,6 @@ package body Summed_Area_Table is
    -- Compute 3D SAT
    ----------------------------------------------------------------------------
    procedure Compute_3D_SAT (Input : in Grid_3D; Output : out Grid_3D) is
-      pragma Warnings (Off, Output);
    begin
       -- Verify bounds
       if Input'First(1) /= Output'First(1) or else Input'Last(1) /= Output'Last(1) or else

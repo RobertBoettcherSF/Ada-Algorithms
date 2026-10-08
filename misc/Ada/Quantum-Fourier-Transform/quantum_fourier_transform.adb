@@ -14,11 +14,6 @@ package body Quantum_Fourier_Transform is
    function "+" (Left, Right : Complex_Value) return Complex_Value is
    (Re => Left.Re + Right.Re, Im => Left.Im + Right.Im);
 
-   pragma Warnings (Off, "function ""-"" is not referenced");
-   function "-" (Left, Right : Complex_Value) return Complex_Value is
-   (Re => Left.Re - Right.Re, Im => Left.Im - Right.Im);
-   pragma Warnings (On, "function ""-"" is not referenced");
-
    function "*" (Left, Right : Complex_Value) return Complex_Value is
    (Re => Left.Re * Right.Re - Left.Im * Right.Im,
     Im => Left.Re * Right.Im + Left.Im * Right.Re);

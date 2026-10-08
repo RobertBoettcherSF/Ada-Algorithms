@@ -121,7 +121,8 @@ is
       Row   : Positive;
       State : in out RNG_State) return Column_Index
      with Pre =>
-       Row in B'Range
+       B'Length >= 1
+       and then Row in B'Range
        and then (for all R in B'Range => B (R) in 1 .. B'Length),
        Global => null;
    --  Column in 1 .. N that minimizes Variable_Conflicts for Row
@@ -130,7 +131,8 @@ is
    function Pick_Conflicted_Variable
      (B     : Board;
       State : in out RNG_State) return Natural
-     with Pre => (for all R in B'Range => B (R) in 1 .. B'Length),
+     with Pre => B'Length >= 1
+                 and then (for all R in B'Range => B (R) in 1 .. B'Length),
           Global => null;
    --  Uniform random row among those with Variable_Conflicts > 0.
    --  Returns 0 if none (already solved).
@@ -139,7 +141,7 @@ is
      (B     : in out Board;
       State : in out RNG_State;
       Moved : out Boolean)
-     with Pre => (for all R in B'Range => B (R) in 1 .. B'Length),
+     with Pre => B'Length >= 1 and then (for all R in B'Range => B (R) in 1 .. B'Length),
           Global => null;
    --  One min-conflicts repair: pick a conflicted variable and reassign
    --  it to a min-conflict value. Moved is False if already solved.

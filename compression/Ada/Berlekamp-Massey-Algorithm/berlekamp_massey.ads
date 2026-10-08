@@ -29,7 +29,9 @@ package Berlekamp_Massey is
      (Sequence    : in Bit_Array;
       Polynomial  : in Bit_Array;
       LFSR_Length : in Natural) return Boolean
-     with Global => null;
+     with Global => null,
+          Pre    => LFSR_Length = 0
+                    or else Polynomial'Length > LFSR_Length;
 
    -- Computes the shortest LFSR for a real-valued sequence (arbitrary field variant).
    -- Polynomial must have space for at least Sequence'Length + 1 elements.
@@ -45,6 +47,8 @@ package Berlekamp_Massey is
      (Sequence    : in Real_Array;
       Polynomial  : in Real_Array;
       LFSR_Length : in Natural) return Boolean
-     with Global => null;
+     with Global => null,
+          Pre    => LFSR_Length = 0
+                    or else Polynomial'Length > LFSR_Length;
 
 end Berlekamp_Massey;

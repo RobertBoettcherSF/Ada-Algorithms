@@ -198,6 +198,9 @@ is
          end if;
       end;
 
+      if Count = 0 then
+         return Column_Index (Current);  -- unreachable under Pre; keeps checks quiet
+      end if;
       Pick := Next_Natural (State, 1, Count);
       return Candidates (Pick);
    end Min_Conflict_Value;

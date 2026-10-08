@@ -15,27 +15,32 @@ package Universal_Codes is
    -- Unary Coding
    -- Encodes N as N-1 ones followed by a zero
    function Encode_Unary (N : Positive) return Bit_Array;
-   function Decode_Unary (Bits : Bit_Array) return Positive;
+   function Decode_Unary (Bits : Bit_Array) return Positive
+     with Pre => Bits'Length > 0;
 
    -- Elias Gamma Coding
    -- Asymptotically optimal for integers whose probability decreases as a power of 2
    function Encode_Elias_Gamma (N : Positive) return Bit_Array;
-   function Decode_Elias_Gamma (Bits : Bit_Array) return Positive;
+   function Decode_Elias_Gamma (Bits : Bit_Array) return Positive
+     with Pre => Bits'Length > 0;
 
    -- Elias Delta Coding
    -- Better than Gamma for large integers
    function Encode_Elias_Delta (N : Positive) return Bit_Array;
-   function Decode_Elias_Delta (Bits : Bit_Array) return Positive;
+   function Decode_Elias_Delta (Bits : Bit_Array) return Positive
+     with Pre => Bits'Length > 0;
 
    -- Elias Omega Coding
    -- Recursive encoding structure
    function Encode_Elias_Omega (N : Positive) return Bit_Array;
-   function Decode_Elias_Omega (Bits : Bit_Array) return Positive;
+   function Decode_Elias_Omega (Bits : Bit_Array) return Positive
+     with Pre => Bits'Length > 0;
 
    -- Fibonacci Coding
    -- Based on Zeckendorf's theorem, inherently resilient due to absence of consecutive 1s in payload
    function Encode_Fibonacci (N : Positive) return Bit_Array;
-   function Decode_Fibonacci (Bits : Bit_Array) return Positive;
+   function Decode_Fibonacci (Bits : Bit_Array) return Positive
+     with Pre => Bits'Length > 0;
 
    -- Utility Function: Convert string of '0' and '1' to Bit_Array for easier testing
    function To_Bits (S : String) return Bit_Array;

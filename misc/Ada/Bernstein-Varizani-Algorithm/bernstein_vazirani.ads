@@ -19,7 +19,8 @@ package Bernstein_Vazirani is
    -- Concrete Oracle containing a secret string
    type Secret_Oracle (N : Positive) is new Oracle_Interface with private;
    
-   function Make_Oracle (Secret : Bit_String) return Secret_Oracle;
+   function Make_Oracle (Secret : Bit_String) return Secret_Oracle
+     with Pre => Secret'Length > 0;
    
    overriding function Query (O : Secret_Oracle; X : Bit_String) return Bit;
 
