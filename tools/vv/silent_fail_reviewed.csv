@@ -1,0 +1,18 @@
+folder,line,verdict,reason
+logic/Ada/Davis-Putnam,=== 17. Status enumeration / Failed distinct ===,label,section header naming the Failed status value
+misc/Ada/Bully-Algorithm,TEST 6 - All Nodes Fail,label,test titles: node failure scenarios
+misc/Ada/Bully-Algorithm,TEST 11 - Fail Current Coordinator,label,test titles: node failure scenarios
+misc/Ada/Cheneys-Algorithm,1.1 [Assertion: Assume subsequent GCs fail to toggle Active spaces],label,"""Assume ... fail"" hypothesis line; the verdict follows on a PASS line"
+misc/Ada/Crank-Nicolson,=== 10. Large-r stability (CN damps; FTCS would fail) ===,label,section header (FTCS would fail)
+misc/Ada/Darwin-Godel-Machine,TEST 5 — Strict Verification (Fail via Complexity),label,test titles (Fail via Complexity/Fitness); summary says 0 failed
+misc/Ada/Darwin-Godel-Machine,TEST 6 — Strict Verification (Fail via Fitness),label,test titles (Fail via Complexity/Fitness); summary says 0 failed
+misc/Ada/Fletchers-Checksum,3.3 Assume bit shifts fail on single value. Assert evaluates to 65537.,label,"""Assume ... fail"" hypothesis lines; verdicts follow on PASS lines"
+misc/Ada/Fletchers-Checksum,4.3 Assume bit shifts fail on 64-bit architecture. Assert evaluates to 4294967297.,label,"""Assume ... fail"" hypothesis lines; verdicts follow on PASS lines"
+misc/Ada/Fortunes-Algorithm,Assumption: Code is heavily broken and will fail bounds/edge cases.,label,assumption banner
+misc/Ada/Incremental-Encoding,7.1 Assume identical strings fail to yield empty suffix,label,"""Assume ... fail"" hypothesis line"
+misc/Ada/Maekawas-Algorithm,TEST 12 - Deadlock Avoidance: FAIL Generation,label,test title: FAIL is the protocol message name
+misc/Ada/Nesting-Algorithm,=== 3. Nest_1D fail / partial ===,label,section headers
+misc/Ada/Nesting-Algorithm,=== 8. Nest_2D_Shelf fail / rotation ===,label,section headers
+ml/Ada/Winnow-Algorithm,13.1 Assume logic thresholds fail. Train model to learn an AND gate.,label,"""Assume ... fail"" hypothesis line"
+numerical/Ada/Fermat-Primality-Test,=== 3. Composites fail base 2 ===,label,section header (composites fail base 2)
+numerical/Ada/Pareto-Interpolation,=== 12. Failed Parameters forwarding ===,label,section header (Failed Parameters forwarding)
