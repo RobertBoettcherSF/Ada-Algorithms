@@ -17,5 +17,5 @@ echo "gnat14=$r14 warnings=$w14  gnat12=$r12 warnings=$w12"
 python3 tools/vv/donothing.py --folders "$F" --out "$W/dn.csv" --work "$W/dn" -j 2 >/dev/null 2>&1; python3 -c "import csv,sys; [print('donothing main=%s main_result=%s verdict=%s' % (r['main'], r['main_result'], r['verdict'])) for r in csv.DictReader(open(sys.argv[1]))]" "$W/dn.csv"
 python3 tools/vv/sweep_mutate.py "$F" --max 400 -j 4 --out "$W/mut.csv" --work "$W/mut" >/dev/null 2>&1
 tail -n +2 "$W/mut.csv"
-grep ",survived$" "$W/mut_detail.csv" | cut -c1-240
+grep ",survived" "$W/mut_detail.csv" | cut -c1-240
 rm -rf "$W"
