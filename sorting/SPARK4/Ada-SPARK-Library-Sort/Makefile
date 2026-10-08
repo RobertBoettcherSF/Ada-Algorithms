@@ -19,6 +19,7 @@ prove: *.ads *.adb *.gpr
 test: all
 	@echo "Running tests..."
 	@$(BIN_DIR)/tests
+	@sh tests/phase_alone.sh
 
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)

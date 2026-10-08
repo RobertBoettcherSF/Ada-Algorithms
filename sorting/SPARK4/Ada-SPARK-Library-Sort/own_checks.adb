@@ -128,6 +128,28 @@ begin
          Check (A, "random" & K'Image);
       end;
    end loop;
+   --  4. Clustered inputs: an ascending first part, then many values in one
+   --     narrow band (above the first part, just below its top, or inside
+   --     it).  Gapped insertion sorts pack such a band densely, so these
+   --     reach the shift-left and full-region paths that spread-out random
+   --     values do not.
+   for K in 1 .. 600 loop
+      declare
+         N    : constant Positive := Next (2, Long_Long_Integer (Max_N));
+         Half : constant Natural := Next (0, Long_Long_Integer (N));
+         Band : constant Integer := 10 * Next (0, Long_Long_Integer (Half) + 2);
+         A    : Element_Array (1 .. N);
+      begin
+         for I in A'Range loop
+            if I <= Half then
+               A (I) := 10 * I;
+            else
+               A (I) := Band - Next (0, 25);
+            end if;
+         end loop;
+         Check (A, "clustered" & K'Image);
+      end;
+   end loop;
    declare
       A : Element_Array (1 .. Max_N);
    begin
