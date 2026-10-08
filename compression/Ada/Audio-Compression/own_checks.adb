@@ -58,9 +58,11 @@ begin
          X   : Buffer_16 (5 .. 4 + Len);
       begin
          for I in X'Range loop
-            X (I) := PCM_16 (case Rand (0, 3) is
-                               when 0 => -32768, when 1 => 32767,
-                               when others => Rand (-32768, 32767));
+            case Rand (0, 3) is
+               when 0 => X (I) := PCM_16'First;
+               when 1 => X (I) := PCM_16'Last;
+               when others => X (I) := PCM_16 (Rand (-32768, 32767));
+            end case;
          end loop;
          declare
             E : constant Buffer_16 := Encode_DPCM (X);

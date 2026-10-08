@@ -1,2 +1,3 @@
 folder,description,status,test_commit,fix_commit
 misc/Ada/Unicode-Collation-Algorithm,"Compare_Ignore_Punctuation (and Compare_Standard with any fully ignorable character) answered Less for "" vs "-": an empty-string shortcut ran before the weights, although punctuation is documented as ignorable at all levels (own sort-key test; silent shortcut, pattern 2)",fixed,fab322a8,4241a734
+compression/Ada/Audio-Compression,"Encode_DPCM/Decode_DPCM clamped differences and reconstructions to 16 bits, so Decode (Encode ([32767, -32768])) = [32767, -1] although the spec calls DPCM the foundation of lossless codecs; tests.adb Test 10 asserted the clamped delta (own exact round-trip test; clamp, pattern 1). Fixed with modulo 2**16 wraparound",fixed,dfb041e7,462d77ff

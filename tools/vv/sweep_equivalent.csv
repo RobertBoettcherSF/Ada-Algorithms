@@ -49,3 +49,7 @@ geometry/Ada/Liang-Barsky,liang_barsky.adb:173 and :178 (T_Enter / T_Leave ties)
 hashing/Ada/Geohash,geohash.adb:30 / :32 / :50 / :52 (clamp ties in Clamp_Lon_Bound and Clamp_Latitude),reason,"at X = -180 / 180 (Lat = -90 / 90) both branches return the same bound"
 misc/Ada/Truncated-Binary-Exponential-Backoff,truncated_binary_exponential_backoff.adb:91 <= -> < (clamp tie),reason,"at C = Ceiling both branches return the same count"
 misc/Ada/Truncated-Binary-Exponential-Backoff,truncated_binary_exponential_backoff.adb:191 and :337 <= -> < (Max_Random <= 0),reason,"Max_Random = 0 only for C = 0; then Random mod 1 = 0 and 0 * Slot / 2 = 0, the same as the early return"
+compression/Ada/Audio-Compression,audio_compression.adb:16/18/28/30 > -> >= and < -> <= (Clamp_To_PCM_16 / Clamp_To_PCM_8),reason,"at the exact bound both branches return the same value (32767 / -32768 / 127 / -128)"
+compression/Ada/Audio-Compression,audio_compression.adb:40/41 Sgn > -> >= and < -> <=,reason,"Sgn(0) becomes +-1, but every use multiplies a factor that is 0 at 0 (A*0, Log(1+0), Abs_Y*k, Exp branch not reached at 0)"
+compression/Ada/Audio-Compression,audio_compression.adb:88/104 < -> <= (A-law breakpoints),reason,"the A-law curve and its inverse are continuous at the breakpoint 1/A (resp. 1/(1+ln A)); equality in Float is not reached by k/32768 or k/128 and would give the same value either way"
+compression/Ada/Audio-Compression,audio_compression.adb:120 + -> - in Wrap_16,reason,"(V - 32768) mod 65536 = (V + 32768) mod 65536 since 65536 = 0 mod 65536"
