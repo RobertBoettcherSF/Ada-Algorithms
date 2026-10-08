@@ -1,0 +1,12 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* tests.adb: 00001011 + 00000101 = 00010000, 0 + 0, 11111111 + 00000001 =
+  00000000 (carry out discarded), by hand.
+* Own reference: the integer value of each buffer (most significant bit
+  first), added modulo 2**8 and written back as eight characters.
+* Inputs: every pair of 8-bit values (65,536).
