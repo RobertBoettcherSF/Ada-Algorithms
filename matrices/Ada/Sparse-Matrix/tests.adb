@@ -389,6 +389,33 @@ begin
              "unsorted SpMV");
    end;
 
+   ---------------------------------------------------------------------
+   Section ("12. Random_COO index fairness, seeds 0 .. 3999");
+   --  One entry on a 2x2 matrix. A fair draw hits each cell about
+   --  1000 times. df = 3, threshold 11.345 is p = 0.01.
+   --  State mod 2 alternates, so the diagonal stays empty.
+   ---------------------------------------------------------------------
+   declare
+      Cells : array (1 .. 2, 1 .. 2) of Natural := [others => [others => 0]];
+      Stat  : Long_Float := 0.0;
+   begin
+      for Seed in 0 .. 3999 loop
+         declare
+            M : constant COO := Random_COO (2, 2, 1, Seed => Seed);
+         begin
+            Cells (Integer (M.Entries (1).Row), Integer (M.Entries (1).Col)) :=
+              Cells (Integer (M.Entries (1).Row), Integer (M.Entries (1).Col)) + 1;
+         end;
+      end loop;
+      for R in 1 .. 2 loop
+         for C in 1 .. 2 loop
+            Stat := Stat + (Long_Float (Cells (R, C)) - 1000.0) ** 2 / 1000.0;
+         end loop;
+      end loop;
+      Check (Stat < 11.345,
+             "seeds 0..3999, 2x2, chi-square < 11.345 (p >= 0.01)");
+   end;
+
    Ada.Text_IO.New_Line;
    Ada.Text_IO.Put_Line
      ("Result: Pass_Count =" & Pass_Count'Image

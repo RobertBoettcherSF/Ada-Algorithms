@@ -41,10 +41,19 @@ package body Sparse_Matrix is
 
    function Lcg_Index (State : in out U32; Lo, Hi : Positive) return Positive
    is
-      Span : constant Natural := Hi - Lo + 1;
+      Span   : constant U32 := U32 (Hi - Lo + 1);
+      --  Largest multiple of Span that fits in the generator. The low bits
+      --  of this LCG alternate, so State mod Span is not a draw.
+      Bound  : constant U32 := (U32'Last / Span) * Span;
+      Bucket : constant U32 := Bound / Span;
+      Off    : U32;
    begin
-      Lcg_Next (State);
-      return Lo + Natural (State mod U32 (Span));
+      loop
+         Lcg_Next (State);
+         exit when State < Bound;
+      end loop;
+      Off := State / Bucket;
+      return Lo + Natural (Off);
    end Lcg_Index;
 
    --  Sort triplets by (Row, Col) ascending — insertion sort (nnz ≤ 512).
