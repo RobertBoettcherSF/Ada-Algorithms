@@ -224,6 +224,9 @@ package body Hindley_Milner is
    -----------------------------------------------------------------------------
    --  Algorithm W (Core Step)
    -----------------------------------------------------------------------------
+   Trace_On  : Boolean := False;
+   Trace_Log : Trace_Vectors.Vector;
+
    function Algorithm_W_Step
      (Env   : Environment;
       Expr  : Expr_Access;
@@ -252,9 +255,12 @@ package body Hindley_Milner is
                Tv     : constant Type_Access := Fresh_Var (State);
                T1_Sub : constant Type_Access := Apply_Subst_Type (Res2.Sub, Res1.T);
                S3     : constant Substitution := Unify (T1_Sub, Make_Type_Arrow (Res2.T, Tv));
+               App_T  : constant Type_Access := Apply_Subst_Type (S3, Tv);
             begin
-               return (Compose_Subst (S3, Compose_Subst (Res2.Sub, Res1.Sub)),
-                       Apply_Subst_Type (S3, Tv));
+               if Trace_On then
+                  Trace_Log.Append (Trace_Event'(Trace_App, String_Sets.Empty_Set, App_T));
+               end if;
+               return (Compose_Subst (S3, Compose_Subst (Res2.Sub, Res1.Sub)), App_T);
             end;
             
          when Kind_Abs =>
@@ -284,6 +290,9 @@ package body Hindley_Milner is
                   Sch := Scheme'(String_Sets.Empty_Set, Res1.T);
                end if;
                
+               if Trace_On then
+                  Trace_Log.Append (Trace_Event'(Trace_Let, Sch.Bound_Vars, Sch.T));
+               end if;
                New_Env.Include (S (Expr.Bound_Var), Sch);
                declare
                   Res2 : constant Infer_Result := Algorithm_W_Step (New_Env, Expr.Let_Body, State, Poly);
@@ -306,6 +315,26 @@ package body Hindley_Milner is
    begin
       return Apply_Subst_Type (Res.Sub, Res.T);
    end Infer_Type;
+
+   procedure Infer_Type_Traced
+     (Env    : Environment;
+      Expr   : Expr_Access;
+      State  : in out Infer_State;
+      Result : out Infer_Result;
+      Trace  : out Trace_Vectors.Vector) is
+   begin
+      Trace_Log.Clear;
+      Trace_On := True;
+      Result := Algorithm_W_Step (Env, Expr, State, True);
+      Trace_On := False;
+      Trace := Trace_Log;
+      Trace_Log.Clear;
+   exception
+      when others =>
+         Trace_On := False;
+         Trace_Log.Clear;
+         raise;
+   end Infer_Type_Traced;
 
    function Infer_Type_Monomorphic
      (Env   : Environment;

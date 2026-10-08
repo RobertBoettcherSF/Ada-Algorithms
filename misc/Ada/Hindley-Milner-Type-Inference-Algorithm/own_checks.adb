@@ -136,7 +136,7 @@ procedure Own_Checks is
    end Parse;
 
    --  canonical form up to renaming of type variables
-   Keys  : array (1 .. 64) of Unbounded_String;
+   Keys  : array (1 .. 4096) of Unbounded_String;   --  joint renaming of whole traces
    NKeys : Natural := 0;
 
    function Num (N : Natural) return String is
@@ -212,6 +212,15 @@ procedure Own_Checks is
    Mono_Ill : constant array (Positive range <>) of Unbounded_String :=
      [+"let id = \x.x in id id",
       +"let k = \x.\y.x in k k"];
+
+   --  terms of the fixed let cases, replayed in the trace comparison below
+   Hand_Terms : array (1 .. 64) of Unbounded_String;
+   N_Hand : Natural := 0;
+   procedure Keep_Hand (Term : Unbounded_String) is
+   begin
+      N_Hand := N_Hand + 1;
+      Hand_Terms (N_Hand) := Term;
+   end Keep_Hand;
 
    St : Infer_State;
    Empty_Env : Environment;
@@ -342,6 +351,7 @@ begin
             declare
                Got : constant String := Canonical (Infer_Env (To_String (C.Term)));
             begin
+               Keep_Hand (C.Term);
                if Got /= To_String (C.Want) then
                   Fail ("(a) " & To_String (C.Term) & ": inferred " & Got & ", expected " & To_String (C.Want));
                else
@@ -391,6 +401,7 @@ begin
                         declare
                            Got : constant String := Canonical (Infer_Env (To_String (C.Term)));
                         begin
+                           Keep_Hand (C.Term);
                            if Got /= To_String (C.Want) then
                               Fail ("let order " & To_String (C.Term) & ": inferred " & Got & ", expected " & To_String (C.Want));
                            else
@@ -489,6 +500,11 @@ begin
       Tree : constant Tree_Ptr := new Tree_Arr (1 .. 200_000);
       N_Tree : Natural := 0;
       Too_Big : exception;
+      --  Copy (I): node I is a let value root reached again through the
+      --  let's substitution (a copy); the trace records the original only
+      type Flag_Arr is array (Positive range <>) of Boolean;
+      type Flag_Ptr is access Flag_Arr;
+      Copy : constant Flag_Ptr := new Flag_Arr'(1 .. 200_000 => False);
       function Node (K : R_Kind; Name : String; A, B : Natural) return Positive is
       begin
          if N_Tree = Tree'Last then
@@ -496,6 +512,7 @@ begin
          end if;
          N_Tree := N_Tree + 1;
          Tree (N_Tree) := (K, To_Unbounded_String (Name), A, B);
+         Copy (N_Tree) := False;
          return N_Tree;
       end Node;
       function To_Engine (N : Positive) return Expr_Access is
@@ -667,7 +684,54 @@ begin
       R_Names : array (1 .. 200) of Unbounded_String;
       R_Types : array (1 .. 200) of Positive;
       N_R : Natural := 0;
+      --  reference trace, in the engine's documented order: per let the
+      --  value's type and the lambda-variable types in scope (the scheme's
+      --  bound variables are worked out after inference has finished), per
+      --  application its result type; copies made by let expansion skipped
+      Max_Ev : constant := 4_000;
+      Ev_Let : array (1 .. Max_Ev) of Boolean;
+      Ev_T, Ev_Env_First, Ev_Env_Len : array (1 .. Max_Ev) of Natural;
+      N_Ev : Natural := 0;
+      type Pos_Arr is array (Positive range <>) of Positive;
+      type Pos_Ptr is access Pos_Arr;
+      Env_Store : constant Pos_Ptr := new Pos_Arr (1 .. 100_000);
+      N_Env_Store : Natural := 0;
+      Copy_Depth : Natural := 0;
+      procedure Record_Event (Is_Let : Boolean; T : Positive) is
+      begin
+         if Copy_Depth > 0 then
+            return;
+         end if;
+         if N_Ev = Max_Ev or else N_Env_Store + N_R > Env_Store'Last then
+            raise Too_Big;
+         end if;
+         N_Ev := N_Ev + 1;
+         Ev_Let (N_Ev) := Is_Let;
+         Ev_T (N_Ev) := T;
+         Ev_Env_First (N_Ev) := N_Env_Store + 1;
+         Ev_Env_Len (N_Ev) := (if Is_Let then N_R else 0);
+         if Is_Let then
+            for I in 1 .. N_R loop
+               N_Env_Store := N_Env_Store + 1;
+               Env_Store (N_Env_Store) := R_Types (I);
+            end loop;
+         end if;
+      end Record_Event;
+      function Q_Infer_Node (N : Positive) return Positive;
       function Q_Infer (N : Positive) return Positive is
+      begin
+         if not Copy (N) then
+            return Q_Infer_Node (N);
+         end if;
+         Copy_Depth := Copy_Depth + 1;
+         declare
+            T : constant Positive := Q_Infer_Node (N);
+         begin
+            Copy_Depth := Copy_Depth - 1;
+            return T;
+         end;
+      end Q_Infer;
+      function Q_Infer_Node (N : Positive) return Positive is
       begin
          case Tree (N).Kind is
             when R_Var =>
@@ -703,17 +767,19 @@ begin
                   Res : constant Positive := Q_New ((Kind => Q_Var, others => <>));
                begin
                   Q_Unify (F, Q_New ((Kind => Q_Arrow, L => A, R => Res, others => <>)));
+                  Record_Event (False, Res);
                   return Res;
                end;
             when R_Let =>
                declare
-                  Discard : constant Positive := Q_Infer (Tree (N).A);   --  the value must be typable
-                  pragma Unreferenced (Discard);
+                  Value_T : constant Positive := Q_Infer (Tree (N).A);   --  the value must be typable
                begin
+                  Record_Event (True, Value_T);
+                  Copy (Tree (N).A) := True;
                   return Q_Infer (Subst (Tree (N).B, To_String (Tree (N).Name), Tree (N).A));
                end;
          end case;
-      end Q_Infer;
+      end Q_Infer_Node;
       function Q_To_Engine (T : Positive) return Type_Access is
          F : constant Positive := Find (T);
       begin
@@ -728,6 +794,9 @@ begin
       function Reference (N : Positive) return Verdict is
       begin
          N_R := 0;
+         N_Ev := 0;
+         N_Env_Store := 0;
+         Copy_Depth := 0;
          Ref_Type := Q_To_Engine (Q_Infer (N));
          return Typed;
       exception
@@ -781,11 +850,177 @@ begin
                pragma Unreferenced (E);
          end;
       end Check_Ill;
+
+      --  Trace comparison. Both traces are printed with one joint renaming
+      --  of type variables across all events (so a variable shared between
+      --  two events must be shared in both), "!" marking a let scheme's
+      --  bound variables, followed by "=" and the final type.
+      function Ev_Str (T : Type_Access; Bound : String_Sets.Set) return String is
+        (case T.Kind is
+           when Kind_Var => (if Bound.Contains (To_String (T.Var_Name)) then "!" else "") & Canon (T),
+           when Kind_Base => To_String (T.Base_Name),
+           when Kind_Arrow => "(" & Ev_Str (T.Left, Bound) & " -> " & Ev_Str (T.Right, Bound) & ")");
+      procedure Own_Vars (T : Type_Access; Into : in out String_Sets.Set) is
+      begin
+         case T.Kind is
+            when Kind_Var => Into.Include (To_String (T.Var_Name));
+            when Kind_Base => null;
+            when Kind_Arrow =>
+               Own_Vars (T.Left, Into);
+               Own_Vars (T.Right, Into);
+         end case;
+      end Own_Vars;
+      Ref_Lets, Ref_Apps : Natural := 0;
+      function Ref_Trace return String is
+         R : Unbounded_String;
+      begin
+         NKeys := 0;
+         Ref_Lets := 0;
+         Ref_Apps := 0;
+         for I in 1 .. N_Ev loop
+            declare
+               T : constant Type_Access := Q_To_Engine (Ev_T (I));
+               In_Env, Bound : String_Sets.Set;
+            begin
+               if Ev_Let (I) then
+                  Ref_Lets := Ref_Lets + 1;
+                  for J in Ev_Env_First (I) .. Ev_Env_First (I) + Ev_Env_Len (I) - 1 loop
+                     Own_Vars (Q_To_Engine (Env_Store (J)), In_Env);
+                  end loop;
+                  Own_Vars (T, Bound);
+                  Bound.Difference (In_Env);
+                  Append (R, "L:" & Ev_Str (T, Bound) & "; ");
+               else
+                  Ref_Apps := Ref_Apps + 1;
+                  Append (R, "A:" & Ev_Str (T, String_Sets.Empty_Set) & "; ");
+               end if;
+            end;
+         end loop;
+         return To_String (R) & "= " & Ev_Str (Ref_Type, String_Sets.Empty_Set);
+      end Ref_Trace;
+      function Engine_Trace (Res : Infer_Result; Tr : Trace_Vectors.Vector) return String is
+         R : Unbounded_String;
+      begin
+         NKeys := 0;
+         for Ev of Tr loop
+            declare
+               Sub : Substitution := Res.Sub;   --  bound variables are not substituted
+            begin
+               for B of Ev.Bound loop
+                  if Sub.Contains (B) then
+                     Sub.Delete (B);
+                  end if;
+               end loop;
+               Append (R, (if Ev.Kind = Trace_Let then "L:" else "A:")
+                       & Ev_Str (Apply_Subst_Type (Sub, Ev.T), Ev.Bound) & "; ");
+            end;
+         end loop;
+         return To_String (R) & "= " & Ev_Str (Apply_Subst_Type (Res.Sub, Res.T), String_Sets.Empty_Set);
+      end Engine_Trace;
+      Trace_Same, Trace_Lets, Trace_Apps, Hand_Traced, Invariant_Ok : Natural := 0;
+      procedure Compare_Trace (E : Positive; Label : String) is
+         V : constant Verdict := Reference (E);
+      begin
+         if V /= Typed then
+            Fail ("trace " & Label & ": reference rejects (" & V'Image & ")");
+            return;
+         end if;
+         declare
+            Ref_S : constant String := Ref_Trace;
+            Res : Infer_Result;
+            Tr : Trace_Vectors.Vector;
+         begin
+            Infer_Type_Traced (Env, To_Engine (E), St, Res, Tr);
+            declare
+               Eng_S : constant String := Engine_Trace (Res, Tr);
+            begin
+               --  W's invariant: the returned type already has the final
+               --  substitution applied, and the substitution is idempotent,
+               --  so Infer_Type's last application changes nothing here
+               if not Same (Apply_Subst_Type (Res.Sub, Res.T), Res.T) then
+                  Fail ("trace " & Label & ": W's result type is not closed under its substitution");
+               else
+                  Invariant_Ok := Invariant_Ok + 1;
+               end if;
+               for Img of Res.Sub loop
+                  if not Same (Apply_Subst_Type (Res.Sub, Img), Img) then
+                     Fail ("trace " & Label & ": final substitution is not idempotent");
+                     exit;
+                  end if;
+               end loop;
+               if Eng_S = Ref_S then
+                  Trace_Same := Trace_Same + 1;
+                  Trace_Lets := Trace_Lets + Ref_Lets;
+                  Trace_Apps := Trace_Apps + Ref_Apps;
+               else
+                  Fail ("trace " & Label & ": engine " & Eng_S & " | reference " & Ref_S);
+               end if;
+            end;
+         exception
+            when Unification_Error | Unbound_Variable_Error =>
+               Fail ("trace " & Label & ": engine rejects a typable term");
+         end;
+      end Compare_Trace;
+      --  hand terms into the own tree, binders renamed apart (h1, h2, ...)
+      Ren_From, Ren_To : array (1 .. 200) of Unbounded_String;
+      N_Ren, Fresh_H : Natural := 0;
+      function From_Engine (E : Expr_Access) return Positive is
+      begin
+         case E.Kind is
+            when Kind_Var =>
+               for I in reverse 1 .. N_Ren loop
+                  if Ren_From (I) = E.Name then
+                     return Node (R_Var, To_String (Ren_To (I)), 0, 0);
+                  end if;
+               end loop;
+               return Node (R_Var, To_String (E.Name), 0, 0);
+            when Kind_App =>
+               declare
+                  F : constant Positive := From_Engine (E.Func);
+                  A : constant Positive := From_Engine (E.Arg);
+               begin
+                  return Node (R_App, "", F, A);
+               end;
+            when Kind_Abs | Kind_Let =>
+               declare
+                  Value : constant Natural := (if E.Kind = Kind_Let then From_Engine (E.Value_Expr) else 0);
+               begin
+                  Fresh_H := Fresh_H + 1;
+                  N_Ren := N_Ren + 1;
+                  Ren_From (N_Ren) := (if E.Kind = Kind_Let then E.Bound_Var else E.Param);
+                  Ren_To (N_Ren) := +("h" & Num (Fresh_H));
+                  declare
+                     Body_N : constant Positive :=
+                       From_Engine (if E.Kind = Kind_Let then E.Let_Body else E.Body_Expr);
+                     Name : constant String := To_String (Ren_To (N_Ren));
+                  begin
+                     N_Ren := N_Ren - 1;
+                     return (if E.Kind = Kind_Let then Node (R_Let, Name, Value, Body_N)
+                             else Node (R_Abs, Name, Body_N, 0));
+                  end;
+               end;
+         end case;
+      end From_Engine;
       K_Term : Positive;
    begin
       Env.Insert ("one", (Bound_Vars => String_Sets.Empty_Set, T => Int_B));
       Env.Insert ("tt", (Bound_Vars => String_Sets.Empty_Set, T => Bool_B));
-      for Round in 1 .. 1500 loop
+      for H in 1 .. N_Hand loop
+         N_Tree := 0;
+         N_Q := 0;
+         N_Ren := 0;
+         Compare_Trace (From_Engine (Parse (To_String (Hand_Terms (H)))), To_String (Hand_Terms (H)));
+         Hand_Traced := Hand_Traced + 1;
+      end loop;
+      Put_Line ("own checks: traces of the" & Hand_Traced'Image & " fixed let terms compared, equal" & Trace_Same'Image
+                & " (lets" & Trace_Lets'Image & ", applications" & Trace_Apps'Image & ")");
+      if N_Hand /= 47 or else Trace_Same /= 47 then
+         Fail ("fixed let terms: expected 47 equal traces");
+      end if;
+      Trace_Same := 0;
+      Trace_Lets := 0;
+      Trace_Apps := 0;
+      for Round in 1 .. 3000 loop
          declare
             T : constant Type_Access := Make_Type_Arrow (Rand_Type (2), Rand_Type (2));
             Lets_Before : constant Natural := Lets_Poly + Lets_Mono;
@@ -801,6 +1036,7 @@ begin
                if Lets_Poly + Lets_Mono > Lets_Before then
                   With_Let := With_Let + 1;
                end if;
+               Compare_Trace (E, "random term");
                V := Reference (E);
                if V /= Typed then
                   Fail ("reference checker rejects a generated term (" & V'Image & ")");
@@ -847,6 +1083,13 @@ begin
                 & " with let; lets: polymorphic" & Lets_Poly'Image & ", monomorphic" & Lets_Mono'Image
                 & "): at least as general as the generating type" & Sound'Image
                 & ", equal to the let-expanding reference" & Same_As_Ref'Image);
+      Put_Line ("own checks: random-term traces equal to the reference" & Trace_Same'Image
+                & " (let schemes" & Trace_Lets'Image & ", application types" & Trace_Apps'Image & ")");
+      Put_Line ("own checks: result type closed under its idempotent final substitution" & Invariant_Ok'Image
+                & " (fixed and random terms)");
+      if Trace_Same < Generated - Generated / 10 or else Trace_Lets < 200 or else Trace_Apps < 200 then
+         Fail ("too few random traces compared");
+      end if;
       Put_Line ("own checks: ill-typed variants" & Ill_Total'Image & " rejected by reason (reference): mismatch"
                 & Rej (Mismatch)'Image & ", occurs check" & Rej (Occurs_Fail)'Image );
       if Generated < 100 or else With_Let < 50 or else Lets_Poly < 50 then

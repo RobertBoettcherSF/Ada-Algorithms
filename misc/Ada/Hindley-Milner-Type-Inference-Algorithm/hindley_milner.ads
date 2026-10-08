@@ -1,6 +1,7 @@
 with Ada.Strings.Unbounded;
 with Ada.Containers.Indefinite_Ordered_Maps;
 with Ada.Containers.Indefinite_Ordered_Sets;
+with Ada.Containers.Vectors;
 
 --  Hindley-Milner Type Inference (Algorithm W)
 --  Implements polymorphic type inference including both standard (poly) 
@@ -111,6 +112,28 @@ package Hindley_Milner is
      (Env   : Environment;
       Expr  : Expr_Access;
       State : in out Infer_State) return Type_Access
+     with Pre => Expr /= null;
+
+   --  Test-only, read-only trace of Algorithm W (not reentrant). One event
+   --  per let: the scheme it binds (Bound, T); one per application: its type
+   --  with the substitution accumulated so far applied. Post-order: a let's
+   --  value, then the let event, then its body; an application's function
+   --  and argument, then the application. Result is W's final (Sub, T);
+   --  Infer_Type applies Sub to T once more, the standard last step of W.
+   type Trace_Kind is (Trace_Let, Trace_App);
+   type Trace_Event is record
+      Kind  : Trace_Kind := Trace_App;
+      Bound : String_Sets.Set;
+      T     : Type_Access;
+   end record;
+   package Trace_Vectors is new Ada.Containers.Vectors (Positive, Trace_Event);
+
+   procedure Infer_Type_Traced
+     (Env    : Environment;
+      Expr   : Expr_Access;
+      State  : in out Infer_State;
+      Result : out Infer_Result;
+      Trace  : out Trace_Vectors.Vector)
      with Pre => Expr /= null;
 
    --  Helper functions exposed for deep testing and validation
