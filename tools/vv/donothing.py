@@ -26,7 +26,10 @@ zero-filled constructor / Initialize result is often the right answer; container
 plumbing such as Append / Set_Node / Add_Word last), else the one the tests name
 most often; Boolean predicates such as Is_Sorted only when nothing else is
 called, or when the predicate is the folder's own algorithm (Is_Balanced in
-Balanced-Binary-Tree); a folder is flagged 'weak' when the
+Balanced-Binary-Tree, where everything else is plumbing; Is_Fermat_Probable_Prime;
+not Is_BST next to Build or Is_Valid_Red_Black_Tree next to Insert). The pick
+is a heuristic: in some plain Ada folders it lands on a helper. A folder is
+flagged 'weak' when the
 do-nothing version of its main subprogram survives. Other survivors are listed
 for information.
 
@@ -202,9 +205,16 @@ def check_folder(fid, work_root):
                    'is_empty', 'is_full', 'value', 'item', 'make_list', 'from_array', 'to_array', 'reset'}
         def entry(t): return t[1][0].lower() in ('solve', 'run', 'compute', 'execute')
         # a predicate is the algorithm itself when its name matches the folder (Is_Valid_BST in
-        # Validate-Binary-Search-Tree) and no non-predicate does
-        preds_named = [t for t in called if is_pred(t) and name_score(t) > 0]
+        # Validate-Binary-Search-Tree) and no non-predicate does, and either everything else is
+        # container plumbing (Empty, Set_Node) or the name matches strongly and is not a checker
+        # (Is_Fermat_Probable_Prime yes; Is_BST next to Build, Is_Valid_Red_Black_Tree next to Insert no)
+        def plumbing(t):
+            n = t[1][0].lower()
+            return n in helpers or n.startswith(('set_', 'add_edge', 'remove_last'))
         others = [t for t in called if not is_pred(t)]
+        preds_named = [t for t in called if is_pred(t) and name_score(t) > 0
+                       and (all(plumbing(o) for o in others)
+                            or (name_score(t) >= 2 and 'valid' not in t[1][0].lower()))]
         if preds_named and not any(name_score(t) > 0 or entry(t) for t in others):
             others += preds_named
         pool = others or called
