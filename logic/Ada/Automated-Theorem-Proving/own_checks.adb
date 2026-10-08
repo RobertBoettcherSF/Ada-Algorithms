@@ -238,6 +238,45 @@ begin
          Check_Clause_Helpers (N);
       end;
    end loop;
+   --  structured (counted with the easy formulas): for every set S of 1 .. 3
+   --  of the variables 1 .. 4, the 2**|S| clauses with all sign patterns
+   --  over S (UNSAT: each assignment falsifies the clause of opposite
+   --  signs), and the same set minus one clause (SAT). Covers refutations
+   --  that need the first or the last variable to be eliminated.
+   for Bits in 1 .. 15 loop
+      declare
+         Vars : array (1 .. 4) of Variable_ID;
+         K : Natural := 0;
+      begin
+         for V in 1 .. 4 loop
+            if (Bits / 2 ** (V - 1)) mod 2 = 1 then
+               K := K + 1;
+               Vars (K) := Variable_ID (V);
+            end if;
+         end loop;
+         if K <= 3 then
+            for Drop in -1 .. 2 ** K - 1 loop
+               declare
+                  F : CNF_Formula;
+               begin
+                  for Signs in 0 .. 2 ** K - 1 loop
+                     if Signs /= Drop then
+                        declare
+                           C : Clause (1 .. K);
+                        begin
+                           for I in 1 .. K loop
+                              C (I) := (if (Signs / 2 ** (I - 1)) mod 2 = 1 then Pos (Vars (I)) else Neg (Vars (I)));
+                           end loop;
+                           F.Append (C);
+                        end;
+                     end if;
+                  end loop;
+                  Compare (F, 4, "all-signs set" & Bits'Image & " minus" & Drop'Image, Easy => True);
+               end;
+            end loop;
+         end if;
+      end;
+   end loop;
    Compare (Pigeonhole (3, 2), 6, "PHP(3,2)", Easy => False);
    Compare (Pigeonhole (4, 3), 12, "PHP(4,3)", Easy => False);
 

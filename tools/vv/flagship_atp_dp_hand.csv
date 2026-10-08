@@ -1,0 +1,11 @@
+folder,subprogram,hand_mutant,result,note
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,drop every resolvent,killed,
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,never put clauses with not V in S_Neg,killed,
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,keep S_Neg instead of the resolvent set,killed,
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,skip eliminating variable 1,killed,
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,keep tautological resolvents,killed,
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,swap the resolved clauses,survived,"equivalent: Resolve_Clauses drops the pivot from both clauses and concatenates, so swapping only reorders literals; every use (Is_Tautology, Same_Literals, Contains_Literal, Contains_Empty_Clause) treats the clause as a set"
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,empty clause reported satisfiable,killed,
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,only the first resolvent per positive clause,killed,
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,eliminate only up to Max_V - 1,killed,
+logic/Ada/Automated-Theorem-Proving,Is_Satisfiable_DP_Resolution,drop input tautology filter inverted,killed,
