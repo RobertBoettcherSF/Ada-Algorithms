@@ -1,7 +1,7 @@
 folder,description,status,test_commit,fix_commit
 sorting/Ada/Library-Sort,Library_Sort.Sort left 6/1000 differential inputs unsorted (Try_Insert put X behind an element >= X when no gap was left),fixed,8231499,1f9c932
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,Run_Count started at 1: empty input gave 1 run (Ada twin: 0),fixed,6ff32e4,6ff32e4
-strings/SPARK2/Ada-SPARK-Repeated-String-Match,Repeat_Count only compares B with the start of the repeated A (prefix-only); A = ab / B = ba gives 0 instead of 2,open,,
+strings/SPARK2/Ada-SPARK-Repeated-String-Match,Repeat_Count only compares B with the start of the repeated A (prefix-only); A = ab / B = ba gives 0 instead of 2,fixed,75a662a,1aa3739
 numerical/SPARK2/Ada-SPARK-Newton-Raphson,Sqrt (k**2 - 1) returns k instead of k - 1 (52 inputs in the tested range),fixed,c618183,d88e7c1
 trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,Is_Balanced checks a leaf-depth rule instead of height balance,open,,
 trees/SPARK2/Ada-SPARK-Range-Sum-BST,range sum skips the left subtree of in-range nodes,open,,
