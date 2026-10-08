@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-08 09:35 CEST.
+Generated 2026-10-08 10:24 CEST.
 
 ## Proof setup
 
@@ -15,26 +15,73 @@ z3: Z3 version 4.15.4 - 64 bit
 
 * Batch (all SPARK folders): `gnatprove -P <folder gpr> --mode=silver --level=2 -j1 --output=oneline -k` - level 2 = provers cvc5,z3,altergo, `--timeout=5` s per check (wall clock), `--steps=0`, `--memlimit=1000`, per_check, counterexamples off.
 * Rerun with a deterministic step budget (rows with `proof_run` = `steps=N`; replaces the batch result): `gnatprove -P <folder gpr> --mode=silver --level=2 --timeout=0 --steps=1000000 --counterexamples=off -j2 --output=oneline -k` - no wall-clock timeout, so the result does not depend on machine load.
-* Rows rerun with steps (5): `misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm`, `strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings`, `strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt`, `strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence`, `strings/SPARK2/Ada-SPARK-Rabin-Karp`
+* Rows rerun with steps (14): `misc/SPARK2/Ada-SPARK-Count-And-Say-Stub`, `misc/SPARK2/Ada-SPARK-Distinct-Subsequences`, `misc/SPARK2/Ada-SPARK-Minimum-ASCII-Delete-Sum`, `misc/SPARK2/Ada-SPARK-Nth-Digit-Stub`, `misc/SPARK2/Ada-SPARK-Palindrome-Partitioning-II`, `misc/SPARK2/Ada-SPARK-Pow-X-N-Stub`, `misc/SPARK2/Ada-SPARK-Regular-Expression-Matching-Lite`, `misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm`, `sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub`, `strings/SPARK2/Ada-SPARK-Delete-Operation-For-Two-Strings`, `strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt`, `strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence`, `strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub`, `strings/SPARK2/Ada-SPARK-Rabin-Karp`
 
 One row per algorithm folder (full data in [`PROOFS.csv`](PROOFS.csv)). Regenerate with
 `python3 tools/proof_index.py --results <dir> --logs <prove-workdir>` (see `tools/audit/`).
 Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder's own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build's test binary exits 0 with no FAIL lines.
 Silver: `gnatprove --mode=silver --level=2` on the folder's own .gpr (generated where none exists).
 
-Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets (name ends in -Stub, column `stub`): 92.
+Folders: 1840; duplicates (counted once): 3; Ada<->SPARK pairs: 110; stub sheets (name ends in -Stub, column `stub`): 87.
 
-**Silver headline (duplicates counted once):** 497 real SPARK folders proven non-trivially, 336 proven but trivial (<= 3 checks), 89 stubs proven (separate), 3 with unproved checks, 7 gnatprove tool crash/timeout, 11 not built for gnatprove, 10 not run; 132 proven real folders also prove functional contracts
+**Silver headline (duplicates counted once):** 506 real SPARK folders proven non-trivially, 338 proven but trivial (<= 3 checks), 85 stubs proven (separate), 5 with unproved checks, 9 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 139 proven real folders also prove functional contracts
 
-`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged; the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. `trivial` = proven with at most 3 checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.
+`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged; the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most 3 checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.
 
 | Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven (real) | Proven (stub) | Trivial | Unproved | Tool crash | Not built | Not run |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Ada | 908 | 870 | 878 | 881 | 883 | 864 | 688 | 668 | 12 | 0 | 2 | 1 | 0 | 11 | 3 |
-| SPARK2 | 857 | 849 | 855 | 855 | 855 | 855 | 482 | 481 | 755 | 89 | 373 | 2 | 7 | 0 | 4 |
-| SPARK3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
-| SPARK4 | 69 | 66 | 67 | 67 | 67 | 67 | 67 | 36 | 65 | 0 | 0 | 0 | 0 | 0 | 2 |
-| All | 1836 | 1787 | 1802 | 1805 | 1807 | 1788 | 1239 | 1187 | 833 | 89 | 375 | 3 | 7 | 11 | 10 |
+| Ada | 908 | 870 | 878 | 881 | 883 | 864 | 688 | 668 | 12 | 0 | 2 | 3 | 1 | 11 | 0 |
+| SPARK2 | 858 | 850 | 856 | 856 | 856 | 856 | 483 | 482 | 765 | 85 | 371 | 0 | 8 | 0 | 0 |
+| SPARK3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 0 | 0 | 1 | 0 | 0 | 0 |
+| SPARK4 | 69 | 66 | 67 | 67 | 67 | 67 | 67 | 36 | 66 | 0 | 0 | 1 | 0 | 0 | 0 |
+| All | 1837 | 1788 | 1803 | 1806 | 1808 | 1789 | 1240 | 1188 | 844 | 85 | 373 | 5 | 9 | 11 | 0 |
+
+## V&V (validation) results
+
+Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 10; mutants killed/survived: 104/32 (score 76%); folders with registered known-answer vectors: 4. Columns `diff_test`, `mutation`, `kat` in PROOFS.csv.
+
+| Folder | Differential test | Mutation (killed/total) | Known-answer source |
+|---|---|---|---|
+| geometry/Ada/Bresenhams-Line-Algorithm |  | 5/8 |  |
+| graphs/SPARK2/Ada-SPARK-Is-Graph-Bipartite |  | 5/5 |  |
+| hashing/Ada/Pearson-Hashing | DISAGREE (known) 1992/2000 (vs hashing/SPARK2/Ada-SPARK-Pearson-Hashing, 2000 cases) |  |  |
+| hashing/SPARK2/Ada-SPARK-Pearson-Hashing | DISAGREE (known) 1992/2000 (vs hashing/Ada/Pearson-Hashing, 2000 cases) |  |  |
+| misc/Ada/Adler-32 | agree (vs misc/SPARK2/Ada-SPARK-Adler32, 2000 cases) |  |  |
+| misc/Ada/Chinese-Whispers |  | baseline killed |  |
+| misc/Ada/Delta-Encoding | agree (vs misc/SPARK2/Ada-SPARK-Delta-Encoding, 3000 cases) |  |  |
+| misc/Ada/Golomb-Coding |  | 7/8 |  |
+| misc/Ada/Gray-Code | agree (vs misc/SPARK2/Ada-SPARK-Gray-Code, 5000 cases) |  |  |
+| misc/Ada/Hamming-Weight | agree (vs misc/SPARK2/Ada-SPARK-Hamming-Weight, 5000 cases) |  |  |
+| misc/Ada/Kadanes-Algorithm | agree (vs misc/SPARK2/Ada-SPARK-Kadanes-Algorithm, 5000 cases) |  |  |
+| misc/Ada/Knuth-Bendix-Completion |  | 5/8 |  |
+| misc/Ada/Longest-Increasing-Subsequence | agree (vs misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence, 5000 cases) |  |  |
+| misc/Ada/Median-Filtering | agree (vs misc/SPARK2/Ada-SPARK-Median-Filtering, 1000 cases) |  |  |
+| misc/Ada/Nonlinear-Optimization |  | 7/8 |  |
+| misc/Ada/Polynomial-Long-Division |  | 7/8 |  |
+| misc/Ada/Replicator-Equation |  | 6/8 |  |
+| misc/SPARK2/Ada-SPARK-Adler32 | agree (vs misc/Ada/Adler-32, 2000 cases) |  |  |
+| misc/SPARK2/Ada-SPARK-Count-And-Say-Stub |  | 7/8 | OEIS A005150 (terms) and A005341 (lengths) |
+| misc/SPARK2/Ada-SPARK-Delta-Encoding | agree (vs misc/Ada/Delta-Encoding, 3000 cases) |  |  |
+| misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title |  | 8/8 |  |
+| misc/SPARK2/Ada-SPARK-Gray-Code | agree (vs misc/Ada/Gray-Code, 5000 cases) |  |  |
+| misc/SPARK2/Ada-SPARK-Hamming-Weight | agree (vs misc/Ada/Hamming-Weight, 5000 cases) |  |  |
+| misc/SPARK2/Ada-SPARK-Kadanes-Algorithm | agree (vs misc/Ada/Kadanes-Algorithm, 5000 cases) |  |  |
+| misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence | agree (vs misc/Ada/Longest-Increasing-Subsequence, 5000 cases) |  |  |
+| misc/SPARK2/Ada-SPARK-Median-Filtering | agree (vs misc/Ada/Median-Filtering, 1000 cases) |  |  |
+| misc/SPARK2/Ada-SPARK-Nth-Digit-Stub |  | 8/8 | LeetCode 400 examples; OEIS A033307 (n=10^9 -> 1) |
+| misc/SPARK2/Ada-SPARK-Pow-X-N-Stub |  | 5/5 | exact powers incl. (-2)**31 = Integer'First |
+| misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm |  | 2/7 |  |
+| numerical/Ada/Binary-GCD | agree (vs numerical/SPARK4/Binary-Gcd, 3000 cases) |  |  |
+| numerical/Ada/Cantor-Zassenhaus |  | 3/8 |  |
+| numerical/Ada/Euclidean-Algorithm | agree (vs numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm, 3000 cases) |  |  |
+| numerical/SPARK2/Ada-SPARK-Valid-Perfect-Square |  | no sites |  |
+| numerical/SPARK4/Ada-SPARK-Euclidean-Algorithm | agree (vs numerical/Ada/Euclidean-Algorithm, 3000 cases) |  |  |
+| numerical/SPARK4/Binary-Gcd | agree (vs numerical/Ada/Binary-GCD, 3000 cases) |  |  |
+| sorting/SPARK2/Ada-SPARK-Exchange-Sort |  | 6/8 |  |
+| sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub |  | 5/8 |  |
+| strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt |  | 6/8 |  |
+| strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub |  | 7/7 | LeetCode 43 examples (2*3=6; 123*456=56088) |
+| strings/SPARK2/Ada-SPARK-Rabin-Karp |  | 5/8 |  |
 
 | Folder | Make | B14 | B12 | T14 | T12 | W14 | W12 | Silver | Checks (func) | Pair | Duplicate of |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -160,7 +207,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | geometry/Ada/Line-Segment-Intersection | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | geometry/Ada/Marching-Cubes | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | geometry/Ada/Ordered-Dithering | yes | yes | yes | yes | yes | 20 | 20 | no SPARK |  |  |  |
-| geometry/Ada/Phong-Shading | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |  |
+| geometry/Ada/Phong-Shading | yes | yes | yes | yes | yes | 0 | 0 | timeout |  |  |  |
 | geometry/Ada/Point-In-Polygon | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  | geometry/SPARK2/Ada-SPARK-Point-In-Polygon |  |
 | geometry/Ada/Polygon-Triangulation | yes | yes | yes | yes | yes | 0 | 3 | no SPARK |  |  |  |
 | geometry/Ada/Quasitriangulation | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
@@ -399,7 +446,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/Ada/De-Casteljau | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | misc/Ada/Delayed-Column-Generation | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | misc/Ada/Delivery-Mission-FSM | no | no | no | no | no | NA | NA | proven | 9 (1) |  |  |
-| misc/Ada/Delivery-Safety-Supervisor | no | no | no | no | no | NA | NA | not run |  |  |  |
+| misc/Ada/Delivery-Safety-Supervisor | no | no | no | no | no | NA | NA | 8 unproved |  |  |  |
 | misc/Ada/Delta-Encoding | no | yes | yes | yes | yes | 21 | 21 | no SPARK |  | misc/SPARK2/Ada-SPARK-Delta-Encoding |  |
 | misc/Ada/Demon-Method | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | misc/Ada/Description-Logic | yes | yes | yes | yes | yes | 16 | 16 | no SPARK |  |  |  |
@@ -631,7 +678,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/Ada/Odlyzko-Schonhage | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | misc/Ada/One-Attribute-Rule | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | misc/Ada/Operations-Research | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
-| misc/Ada/Orbital-Mechanics | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |  |
+| misc/Ada/Orbital-Mechanics | yes | yes | yes | yes | yes | 0 | 0 | 58 unproved |  |  |  |
 | misc/Ada/Ordered-Subset-EM | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | misc/Ada/PBKDF2 | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | misc/Ada/PCIe-Transfer-Model | yes | yes | yes | yes | yes | 0 | 0 | proven | 60 (4) |  |  |
@@ -890,7 +937,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/SPARK2/Ada-SPARK-Cosine-Distance | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 |  |  |
 | misc/SPARK2/Ada-SPARK-Cosine-Similarity | yes | yes | yes | yes | yes | 2 | 2 | proven | 4 |  |  |
 | misc/SPARK2/Ada-SPARK-Count-And-Say | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
-| misc/SPARK2/Ada-SPARK-Count-And-Say-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
+| misc/SPARK2/Ada-SPARK-Count-And-Say-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven | 42 (1) |  |  |
 | misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval | yes | yes | yes | yes | yes | 1 | 1 | proven | 8 |  |  |
 | misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 |  |  |
 | misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 (1) |  |  |
@@ -1161,7 +1208,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/SPARK2/Ada-SPARK-Non-Decreasing-Array | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
 | misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 (1) |  |  |
 | misc/SPARK2/Ada-SPARK-Nth-Digit | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |
-| misc/SPARK2/Ada-SPARK-Nth-Digit-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
+| misc/SPARK2/Ada-SPARK-Nth-Digit-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven | 26 (1) |  |  |
 | misc/SPARK2/Ada-SPARK-Nth-Ugly-Number | yes | yes | yes | yes | yes | 0 | 0 | proven | 14 |  |  |
 | misc/SPARK2/Ada-SPARK-Number-Complement | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 (1) |  |  |
 | misc/SPARK2/Ada-SPARK-Number-Of-1-Bits | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |
@@ -1211,7 +1258,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/SPARK2/Ada-SPARK-Plus-One | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |
 | misc/SPARK2/Ada-SPARK-Population-Count | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 (1) |  |  |
 | misc/SPARK2/Ada-SPARK-Pow-X-N | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
-| misc/SPARK2/Ada-SPARK-Pow-X-N-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
+| misc/SPARK2/Ada-SPARK-Pow-X-N-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven | 15 (1) |  |  |
 | misc/SPARK2/Ada-SPARK-Power-Of-Four | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |
 | misc/SPARK2/Ada-SPARK-Power-Of-Three | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |
 | misc/SPARK2/Ada-SPARK-Power-Of-Two | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |
@@ -1384,7 +1431,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | misc/SPARK2/Ada-SPARK-Vector-Dot-Cross | yes | yes | yes | yes | yes | 0 | 0 | proven | 4 |  |  |
 | misc/SPARK2/Ada-SPARK-Water-Bottles | yes | yes | yes | yes | yes | 0 | 0 | proven | 4 |  |  |
 | misc/SPARK2/Ada-SPARK-Wiggle-Subsequence | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
-| misc/SPARK2/Ada-SPARK-Wildcard-Matching-Lite | yes | yes | yes | yes | yes | 2 | 2 | not run |  |  |  |
+| misc/SPARK2/Ada-SPARK-Wildcard-Matching-Lite | yes | yes | yes | yes | yes | 2 | 2 | tool crash |  |  |  |
 | misc/SPARK2/Ada-SPARK-Word-Break | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
 | misc/SPARK2/Ada-SPARK-Word-Break-II | yes | yes | yes | yes | yes | 5 | 5 | proven | 7 |  |  |
 | misc/SPARK2/Ada-SPARK-Word-Break-Stub (stub) | yes | yes | yes | yes | yes | 3 | 3 | proven (trivial) | 2 |  |  |
@@ -1538,7 +1585,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm | yes | yes | yes | yes | yes | 0 | 0 | proven | 85 (9) | numerical/Ada/Extended-Euclidean-Algorithm |  |
 | numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator | yes | yes | yes | yes | yes | 0 | 0 | proven | 192 (63) | numerical/Ada/Linear-Congruential-Generator |  |
 | numerical/SPARK4/Ada-SPARK-Mersenne-Twister | yes | yes | yes | yes | yes | 0 | 0 | proven | 102 (25) | numerical/Ada/Mersenne-Twister |  |
-| numerical/SPARK4/Ada-SPARK-Modular-Arithmetic | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |  |
+| numerical/SPARK4/Ada-SPARK-Modular-Arithmetic | yes | yes | yes | yes | yes | 0 | 0 | 1 unproved |  |  |  |
 | numerical/SPARK4/Binary-Gcd | yes | yes | yes | yes | yes | 0 | 0 | proven | 77 (7) | numerical/Ada/Binary-GCD |  |
 | parsing/Ada/Canonical-LR-Parser | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | parsing/Ada/Cyk-Algorithm | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
@@ -1707,12 +1754,12 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST | yes | yes | yes | yes | yes | 9 | 9 | proven | 31 |  |  |
 | sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  |  |
 | sorting/SPARK2/Ada-SPARK-Tim-Sort | yes | yes | yes | yes | yes | 1 | 1 | proven | 7 (1) | sorting/Ada/Timsort |  |
-| sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 3 |  | sorting/SPARK2/Ada-SPARK-Tim-Sort (near-identical) |
+| sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven | 39 (6) |  |  |
 | sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |
 | sorting/SPARK2/Ada-SPARK-Tournament-Sort | yes | yes | yes | yes | yes | 1 | 1 | proven | 6 |  |  |
 | sorting/SPARK2/Ada-SPARK-Two-Sum-II-Input-Array-Is-Sorted | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |
 | sorting/SPARK2/Ada-SPARK-Wiggle-Sort | yes | yes | yes | yes | yes | 1 | 1 | proven | 11 |  |  |
-| sorting/SPARK2/Binary-Insertion-Sort | yes | yes | yes | yes | yes | 1 | 1 | not run |  |  |  |
+| sorting/SPARK2/Binary-Insertion-Sort | yes | yes | yes | yes | yes | 1 | 1 | proven | 6 |  |  |
 | sorting/SPARK4/Ada-SPARK-Bitonic-Sorter | yes | yes | yes | yes | yes | 0 | 6 | proven | 294 (53) | sorting/Ada/Bitonic-Sorter |  |
 | sorting/SPARK4/Ada-SPARK-Bogosort | yes | yes | yes | yes | yes | 0 | 0 | proven | 231 (47) | sorting/Ada/Bogosort |  |
 | sorting/SPARK4/Ada-SPARK-Bubble-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 156 (34) | sorting/Ada/Bubble-Sort |  |
@@ -1750,7 +1797,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | sorting/SPARK4/Ada-SPARK-Timsort | yes | yes | yes | yes | yes | 0 | 6 | proven | 636 (119) | sorting/Ada/Timsort |  |
 | sorting/SPARK4/Ada-SPARK-Topological-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 91 (14) | sorting/Ada/Topological-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Tree-Sort | yes | yes | yes | yes | yes | 0 | 3 | proven | 294 (77) | sorting/Ada/Tree-Sort |  |
-| sorting/SPARK4/Bead-Sort | yes | yes | yes | yes | yes | 0 | 2 | not run |  | sorting/Ada/Bead-Sort |  |
+| sorting/SPARK4/Bead-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 249 (41) | sorting/Ada/Bead-Sort |  |
 | strings/Ada/Aho-Corasick | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | strings/Ada/Boyer-Moore | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  | strings/SPARK2/Ada-SPARK-Boyer-Moore |  |
 | strings/Ada/Boyer-Moore-Horspool | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
@@ -1786,16 +1833,16 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | strings/SPARK2/Ada-SPARK-First-Unique-Character-In-A-String | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
 | strings/SPARK2/Ada-SPARK-Hamming-Distance | yes | yes | yes | yes | yes | 0 | 0 | proven | 4 | strings/Ada/Hamming-Distance |  |
 | strings/SPARK2/Ada-SPARK-Isomorphic-Strings | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |
-| strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt | yes | yes | yes | yes | yes | 0 | 0 | 1 unproved |  | strings/Ada/Knuth-Morris-Pratt |  |
+| strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt | yes | yes | yes | yes | yes | 0 | 0 | proven | 21 | strings/Ada/Knuth-Morris-Pratt |  |
 | strings/SPARK2/Ada-SPARK-Longest-Common-Prefix | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
 | strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence | yes | yes | yes | yes | yes | 0 | 0 | tool crash |  | strings/Ada/Longest-Common-Subsequence |  |
 | strings/SPARK2/Ada-SPARK-Make-The-String-Great | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 |  |  |
 | strings/SPARK2/Ada-SPARK-Multiply-Strings-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
-| strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
+| strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven | 62 (1) |  |  |
 | strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String | yes | yes | yes | yes | yes | 2 | 2 | proven | 8 |  |  |
 | strings/SPARK2/Ada-SPARK-One-Edit-Distance | yes | yes | yes | yes | yes | 0 | 0 | proven | 15 |  |  |
 | strings/SPARK2/Ada-SPARK-Permutation-In-String | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |
-| strings/SPARK2/Ada-SPARK-Rabin-Karp | yes | yes | yes | yes | yes | 0 | 0 | 1 unproved |  | strings/Ada/Rabin-Karp |  |
+| strings/SPARK2/Ada-SPARK-Rabin-Karp | yes | yes | yes | yes | yes | 0 | 0 | proven | 22 (2) | strings/Ada/Rabin-Karp |  |
 | strings/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-In-String | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |
 | strings/SPARK2/Ada-SPARK-Reorganize-String | yes | yes | yes | yes | yes | 2 | 2 | proven (trivial) | 2 |  |  |
 | strings/SPARK2/Ada-SPARK-Reorganize-String-Stub (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven | 5 |  |  |
@@ -1811,8 +1858,8 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert | yes | yes | yes | yes | yes | 4 | 4 | proven | 13 |  |  |
 | strings/SPARK2/Ada-SPARK-Total-Hamming-Distance | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |
 | strings/SPARK2/Ada-SPARK-Z-Algorithm | yes | yes | yes | yes | yes | 2 | 2 | proven | 9 |  |  |
-| strings/SPARK2/Add-Strings | yes | yes | yes | yes | yes | 0 | 0 | not run |  |  |  |
-| strings/SPARK3/Levenshtein-Distance | yes | yes | yes | yes | yes | 0 | 0 | not run |  | strings/Ada/Levenshtein-Distance |  |
+| strings/SPARK2/Add-Strings | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |
+| strings/SPARK3/Levenshtein-Distance | yes | yes | yes | yes | yes | 0 | 0 | 3 unproved |  | strings/Ada/Levenshtein-Distance |  |
 | trees/Ada/Abstract-Interpretation | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | trees/Ada/Abstract-Syntax-Tree | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |
 | trees/Ada/Context-Tree-Weighting | yes | yes | yes | yes | yes | 5 | 5 | no SPARK |  |  |  |
@@ -1862,7 +1909,7 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | trees/SPARK2/Ada-SPARK-Minimum-Window-Substring | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 |  |  |
 | trees/SPARK2/Ada-SPARK-N-Ary-Tree-Level-Order-Traversal | yes | yes | yes | yes | yes | 11 | 11 | proven | 11 |  |  |
 | trees/SPARK2/Ada-SPARK-N-Ary-Tree-Postorder-Traversal | yes | yes | yes | yes | yes | 12 | 12 | proven | 13 |  |  |
-| trees/SPARK2/Ada-SPARK-N-Ary-Tree-Preorder-Traversal | yes | yes | yes | yes | yes | 11 | 11 | proven |  |  |  |
+| trees/SPARK2/Ada-SPARK-N-Ary-Tree-Preorder-Traversal | yes | yes | yes | yes | yes | 11 | 11 | proven | 11 |  |  |
 | trees/SPARK2/Ada-SPARK-Number-Of-Substrings-Containing-All-Three-Characters | yes | yes | yes | yes | yes | 2 | 2 | proven | 4 |  |  |
 | trees/SPARK2/Ada-SPARK-Range-Sum-BST | yes | yes | yes | yes | yes | 5 | 5 | proven | 10 |  |  |
 | trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST | yes | yes | yes | yes | yes | 10 | 10 | proven | 14 |  |  |
@@ -1877,4 +1924,4 @@ Folders: 1840; duplicates (counted once): 4; Ada<->SPARK pairs: 110; stub sheets
 | trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles | yes | yes | yes | yes | yes | 2 | 2 | proven | 12 |  |  |
 | trees/SPARK2/Ada-SPARK-Univalued-Binary-Tree | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |
 | trees/SPARK2/Ada-SPARK-Validate-BST-Stub (stub) | yes | yes | yes | yes | yes | 7 | 7 | proven | 19 |  |  |
-| trees/SPARK2/Average-Of-Levels-In-Binary-Tree | yes | yes | yes | yes | yes | 4 | 4 | not run |  |  |  |
+| trees/SPARK2/Average-Of-Levels-In-Binary-Tree | yes | yes | yes | yes | yes | 4 | 4 | proven (trivial) | 3 |  |  |
