@@ -382,6 +382,50 @@ begin
       end;
       Expect_Full ("token of 9 facts (right activation)", Got);
    end;
+   --  Initialize_Network "clears network and memories" (rete.ads): after a
+   --  network with facts in alpha / beta memories 1 .. 3 is reinitialized,
+   --  every match count is 0 (also for nodes not yet re-created), and a
+   --  rebuilt network counts only the new facts. The root token is empty:
+   --  a root join with a condition on token index 1 never matches, even a
+   --  fact whose fields are empty symbols.
+   declare
+      A1, A2 : Alpha_Node_ID;
+      B1, B2 : Beta_Node_ID;
+      Cond1 : constant Join_Condition := (1, Select_Entity, Select_Entity);
+      Cross : constant Join_Condition := (0, Select_Entity, Select_Entity);
+   begin
+      Initialize_Network;
+      A1 := Add_Alpha_Node (To_Symbol ("a"), To_Symbol ("v"));
+      A2 := Add_Alpha_Node (To_Symbol ("b"), To_Symbol ("v"));
+      B1 := Add_Beta_Node (0, A1, Cross);
+      B2 := Add_Beta_Node (B1, A2, Cross);
+      Add_Rule (1, To_Symbol ("r"), B2);
+      for I in 1 .. 4 loop
+         Insert_WME ((WME_ID (I), To_Symbol ("e"), To_Symbol ((if I mod 2 = 0 then "a" else "b")), To_Symbol ("v")));
+      end loop;
+      if Get_Beta_Match_Count (B2) /= 4 then
+         Fail ("init: 2 x 2 cross join is not 4 tokens");
+      end if;
+      Initialize_Network;
+      for N in 1 .. 3 loop
+         if Get_Alpha_Match_Count (Alpha_Node_ID (N)) /= 0 or else Get_Beta_Match_Count (Beta_Node_ID (N)) /= 0 then
+            Fail ("init: memory of node" & N'Image & " not cleared by Initialize_Network");
+         end if;
+      end loop;
+      if Get_Global_WM_Count /= 0 or else Get_Rule_Match_Count (1) /= 0 then
+         Fail ("init: working memory or rule count not cleared");
+      end if;
+      A1 := Add_Alpha_Node (To_Symbol ("a"), To_Symbol ("v"));
+      B1 := Add_Beta_Node (0, A1, Cond1);
+      Insert_WME ((10, Empty_Symbol, To_Symbol ("a"), To_Symbol ("v")));
+      Insert_WME ((11, To_Symbol ("e"), To_Symbol ("a"), To_Symbol ("v")));
+      if Get_Alpha_Match_Count (A1) /= 2 then
+         Fail ("init: rebuilt alpha memory does not hold exactly the 2 new facts");
+      end if;
+      if Get_Beta_Match_Count (B1) /= 0 then
+         Fail ("init: root join on token index 1 matched (the root token is empty)");
+      end if;
+   end;
    Put_Line ("own checks: beta memories compared with naive matching" & Compared'Image
              & " times, networks skipped as full" & Full_Skips'Image);
    if Failures > 0 then
