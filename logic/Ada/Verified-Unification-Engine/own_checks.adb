@@ -16,6 +16,7 @@
 --  * occurs check: x against f (x, k) and similar must fail.
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Exceptions;
 with Unification_Engine; use Unification_Engine;
 
 procedure Own_Checks is
@@ -362,6 +363,134 @@ begin
       if OK then
          Fail ("apply with cycle x -> f(k, x) succeeded");
       end if;
+   end;
+   --  Missing arguments on both sides: an absent argument equals an absent
+   --  argument, so f(_, x) = f(_, k), f(x, _) = f(k, _) and f(_, _) = f(_, _)
+   --  unify, and applying the answer gives f(_, k) / f(k, _).
+   declare
+      Env : Substitution;
+      OK, OK2 : Boolean;
+      Xv, Kc, A, B, R : Term_Id;
+      procedure Check_Shape (T : Term_Id; Left_Null : Boolean; Label : String) is
+      begin
+         if T = Null_Term or else not Is_Allocated (T) or else Kind_Of (T) /= Is_Function
+           or else Name_Of (T) /= 'f'
+         then
+            Fail (Label & ": result is not an f-term");
+            return;
+         end if;
+         declare
+            Present : constant Term_Id := (if Left_Null then Right_Of (T) else Left_Of (T));
+            Absent  : constant Term_Id := (if Left_Null then Left_Of (T) else Right_Of (T));
+         begin
+            if Absent /= Null_Term or else Present = Null_Term
+              or else Kind_Of (Present) /= Is_Constant or else Name_Of (Present) /= 'k'
+            then
+               Fail (Label & ": wrong arguments after applying the unifier");
+            end if;
+         end;
+      end Check_Shape;
+   begin
+      for Left_Null in Boolean loop
+         Reset_Pool;
+         Clear (Env);
+         Make_Variable ('x', Xv);
+         Make_Constant ('k', Kc);
+         if Left_Null then
+            Make_Function ('f', Null_Term, Xv, A);
+            Make_Function ('f', Null_Term, Kc, B);
+         else
+            Make_Function ('f', Xv, Null_Term, A);
+            Make_Function ('f', Kc, Null_Term, B);
+         end if;
+         Unify (A, B, Env, OK);
+         if not OK then
+            Fail ("f with a missing argument on both sides did not unify");
+         else
+            Apply_Substitution (A, Env, R, OK2);
+            if OK2 then
+               Check_Shape (R, Left_Null, "missing argument, left side");
+            else
+               Fail ("apply on f with a missing argument failed");
+            end if;
+            Apply_Substitution (B, Env, R, OK2);
+            if OK2 then
+               Check_Shape (R, Left_Null, "missing argument, right side");
+            else
+               Fail ("apply on f with a missing argument failed");
+            end if;
+         end if;
+      end loop;
+      Reset_Pool;
+      Clear (Env);
+      Make_Function ('f', Null_Term, Null_Term, A);
+      Make_Function ('f', Null_Term, Null_Term, B);
+      Unify (A, B, Env, OK);
+      if not OK then
+         Fail ("f(_, _) did not unify with f(_, _)");
+      end if;
+   end;
+
+   --  Robustness on environments Unify itself never builds (Substitution is
+   --  a public record): every call must terminate without an exception
+   --  (with -gnata the internal contracts are checked too). Any Success
+   --  value is accepted here.
+   declare
+      Env : Substitution;
+      OK  : Boolean;
+      Xv, Yv, Kc, F1, F2, F3, R : Term_Id;
+   begin
+      --  stale bindings: an Env kept across Reset_Pool points past Term_Count
+      Reset_Pool;
+      for I in 1 .. 20 loop
+         Make_Constant ('k', Kc);
+      end loop;
+      Clear (Env);
+      Env.Bindings ('x') := 20;
+      Env.Bindings ('y') := 15;
+      Reset_Pool;
+      Make_Variable ('x', Xv);
+      Make_Variable ('y', Yv);
+      Make_Constant ('k', Kc);
+      begin
+         Unify (Xv, Kc, Env, OK);
+         Unify (Kc, Yv, Env, OK);
+         Env.Bindings ('x') := 20;
+         Env.Bindings ('y') := 15;
+         Apply_Substitution (Xv, Env, R, OK);
+      exception
+         when E : others =>
+            Fail ("stale bindings raised " & Ada.Exceptions.Exception_Name (E));
+      end;
+      --  cycles: x -> f(x, k); x -> y -> x; x -> f(k, f(k, f(k, x)))
+      Reset_Pool;
+      Make_Variable ('x', Xv);
+      Make_Variable ('y', Yv);
+      Make_Constant ('k', Kc);
+      Make_Function ('f', Xv, Kc, F1);
+      begin
+         Clear (Env);
+         Env.Bindings ('x') := F1;
+         Apply_Substitution (Xv, Env, R, OK);
+         if OK then
+            Fail ("apply with cycle x -> f(x, k) succeeded");
+         end if;
+         Clear (Env);
+         Env.Bindings ('x') := Yv;
+         Env.Bindings ('y') := Xv;
+         Unify (Xv, Kc, Env, OK);
+         Unify (Kc, Xv, Env, OK);
+         Make_Function ('f', Kc, Xv, F1);
+         Make_Function ('f', Kc, F1, F2);
+         Make_Function ('f', Kc, F2, F3);
+         Clear (Env);
+         Env.Bindings ('x') := F3;
+         Unify (Xv, Xv, Env, OK);
+         Unify (F3, Xv, Env, OK);
+      exception
+         when E : others =>
+            Fail ("cyclic environment raised " & Ada.Exceptions.Exception_Name (E));
+      end;
    end;
    Put_Line ("own checks: unifiable pairs (ground unifier exists)" & Unifiable_Agree'Image & " /" & Unifiable_Total'Image
      & ", Unify failures" & Fail_Answers'Image & " (no clash or cycle certificate:" & Fail_Unconfirmed'Image
