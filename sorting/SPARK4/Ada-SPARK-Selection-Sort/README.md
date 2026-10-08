@@ -7,7 +7,7 @@ $$
 \text{comparisons } \Theta(n^2),\quad \text{swaps } \le n-1,\quad \text{extra space } O(1)
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Selection-Sort](https://github.com/RobertBoettcherSF/Ada-Selection-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_Length`, exceptions (`Invalid_Argument`), and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Selection-Sort](https://github.com/RobertBoettcherSF/Ada-Selection-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_Length`, exceptions (`Invalid_Argument`); this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
 
 ## Features
 * **`Sort (A)`**: Classic in-place ascending selection sort (min of suffix → prefix).
@@ -19,7 +19,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Selection-Sort](htt
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $10\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Nested `Select_Min_Step` / `Select_Max_Step` plus `pragma Loop_Invariant` so the scan loop, swap, and outer prefix growth are discharged at Level 4.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)` / `Is_Sorted_Descending (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition (a simple ghost permutation lemma is not required here).
 

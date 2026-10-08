@@ -18,7 +18,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Adjacent nonincreasing on A (L .. R). Vacuous when L >= R.
@@ -32,7 +32,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Every element of A (Lo_P .. Hi_P) is <= every element of A (Lo_S .. Hi_S).
@@ -50,9 +50,9 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then Lo_P >= 1
+       and then Lo_P >= A'First
        and then Hi_P <= A'Last
-       and then Lo_S >= 1
+       and then Lo_S >= A'First
        and then Hi_S <= A'Last;
 
    --  Every element of A (Lo_P .. Hi_P) is >= every element of A (Lo_S .. Hi_S).
@@ -70,9 +70,9 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then Lo_P >= 1
+       and then Lo_P >= A'First
        and then Hi_P <= A'Last
-       and then Lo_S >= 1
+       and then Lo_S >= A'First
        and then Hi_S <= A'Last;
 
    procedure Swap (A : in out Element_Array; X, Y : Index)
@@ -80,14 +80,14 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
+         and then X in A'Range
+         and then Y in A'Range,
        Post   =>
          In_Bounds (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
-           (for all K in 1 .. A'Last =>
+           (for all K in A'Range =>
               (if K /= X and then K /= Y then A (K) = A'Old (K)))
    is
       T : Integer;
@@ -106,14 +106,14 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Last >= 2
-         and then I in 1 .. A'Last - 1
-         and then Sorted_Slice (A, 1, I - 1)
-         and then Prefix_Leq_Suffix (A, 1, I - 1, I, A'Last),
+         and then A'Length >= 2
+         and then I in A'First .. A'Last - 1
+         and then Sorted_Slice (A, A'First, I - 1)
+         and then Prefix_Leq_Suffix (A, A'First, I - 1, I, A'Last),
        Post   =>
          In_Bounds (A)
-         and then Sorted_Slice (A, 1, I)
-         and then Prefix_Leq_Suffix (A, 1, I, I + 1, A'Last)
+         and then Sorted_Slice (A, A'First, I)
+         and then Prefix_Leq_Suffix (A, A'First, I, I + 1, A'Last)
    is
       Min_Index : Index := I;
    begin
@@ -121,11 +121,11 @@ is
          pragma Loop_Invariant (Min_Index in I .. J - 1);
          pragma Loop_Invariant
            (for all K in I .. J - 1 => A (Min_Index) <= A (K));
-         pragma Loop_Invariant (Sorted_Slice (A, 1, I - 1));
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, I - 1));
          pragma Loop_Invariant
-           (Prefix_Leq_Suffix (A, 1, I - 1, I, A'Last));
+           (Prefix_Leq_Suffix (A, A'First, I - 1, I, A'Last));
          pragma Loop_Invariant
-           (for all K in 1 .. A'Last => A (K) = A'Loop_Entry (K));
+           (for all K in A'Range => A (K) = A'Loop_Entry (K));
 
          if A (J) < A (Min_Index) then
             Min_Index := J;
@@ -134,17 +134,17 @@ is
 
       pragma Assert (Min_Index in I .. A'Last);
       pragma Assert (for all K in I .. A'Last => A (Min_Index) <= A (K));
-      pragma Assert (Sorted_Slice (A, 1, I - 1));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, I - 1, I, A'Last));
-      --  Partition + min ⇒ A(I-1) <= A(Min_Index) when I > 1.
-      pragma Assert (I = 1 or else A (I - 1) <= A (Min_Index));
+      pragma Assert (Sorted_Slice (A, A'First, I - 1));
+      pragma Assert (Prefix_Leq_Suffix (A, A'First, I - 1, I, A'Last));
+      --  Partition + min ⇒ A(I-1) <= A(Min_Index) when I > A'First.
+      pragma Assert (I = A'First or else A (I - 1) <= A (Min_Index));
 
       Swap (A, I, Min_Index);
 
       pragma Assert (for all K in I .. A'Last => A (I) <= A (K));
-      pragma Assert (I = 1 or else A (I - 1) <= A (I));
-      pragma Assert (Sorted_Slice (A, 1, I));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, I, I + 1, A'Last));
+      pragma Assert (I = A'First or else A (I - 1) <= A (I));
+      pragma Assert (Sorted_Slice (A, A'First, I));
+      pragma Assert (Prefix_Leq_Suffix (A, A'First, I, I + 1, A'Last));
    end Select_Min_Step;
 
    --  Place the maximum of A (I .. A'Last) at index I by swap.
@@ -153,14 +153,14 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Last >= 2
-         and then I in 1 .. A'Last - 1
-         and then Sorted_Desc_Slice (A, 1, I - 1)
-         and then Prefix_Geq_Suffix (A, 1, I - 1, I, A'Last),
+         and then A'Length >= 2
+         and then I in A'First .. A'Last - 1
+         and then Sorted_Desc_Slice (A, A'First, I - 1)
+         and then Prefix_Geq_Suffix (A, A'First, I - 1, I, A'Last),
        Post   =>
          In_Bounds (A)
-         and then Sorted_Desc_Slice (A, 1, I)
-         and then Prefix_Geq_Suffix (A, 1, I, I + 1, A'Last)
+         and then Sorted_Desc_Slice (A, A'First, I)
+         and then Prefix_Geq_Suffix (A, A'First, I, I + 1, A'Last)
    is
       Max_Index : Index := I;
    begin
@@ -168,11 +168,11 @@ is
          pragma Loop_Invariant (Max_Index in I .. J - 1);
          pragma Loop_Invariant
            (for all K in I .. J - 1 => A (Max_Index) >= A (K));
-         pragma Loop_Invariant (Sorted_Desc_Slice (A, 1, I - 1));
+         pragma Loop_Invariant (Sorted_Desc_Slice (A, A'First, I - 1));
          pragma Loop_Invariant
-           (Prefix_Geq_Suffix (A, 1, I - 1, I, A'Last));
+           (Prefix_Geq_Suffix (A, A'First, I - 1, I, A'Last));
          pragma Loop_Invariant
-           (for all K in 1 .. A'Last => A (K) = A'Loop_Entry (K));
+           (for all K in A'Range => A (K) = A'Loop_Entry (K));
 
          if A (J) > A (Max_Index) then
             Max_Index := J;
@@ -181,16 +181,16 @@ is
 
       pragma Assert (Max_Index in I .. A'Last);
       pragma Assert (for all K in I .. A'Last => A (Max_Index) >= A (K));
-      pragma Assert (Sorted_Desc_Slice (A, 1, I - 1));
-      pragma Assert (Prefix_Geq_Suffix (A, 1, I - 1, I, A'Last));
-      pragma Assert (I = 1 or else A (I - 1) >= A (Max_Index));
+      pragma Assert (Sorted_Desc_Slice (A, A'First, I - 1));
+      pragma Assert (Prefix_Geq_Suffix (A, A'First, I - 1, I, A'Last));
+      pragma Assert (I = A'First or else A (I - 1) >= A (Max_Index));
 
       Swap (A, I, Max_Index);
 
       pragma Assert (for all K in I .. A'Last => A (I) >= A (K));
-      pragma Assert (I = 1 or else A (I - 1) >= A (I));
-      pragma Assert (Sorted_Desc_Slice (A, 1, I));
-      pragma Assert (Prefix_Geq_Suffix (A, 1, I, I + 1, A'Last));
+      pragma Assert (I = A'First or else A (I - 1) >= A (I));
+      pragma Assert (Sorted_Desc_Slice (A, A'First, I));
+      pragma Assert (Prefix_Geq_Suffix (A, A'First, I, I + 1, A'Last));
    end Select_Max_Step;
 
    procedure Sort (A : in out Element_Array) is
@@ -199,20 +199,20 @@ is
          return;
       end if;
 
-      pragma Assert (Sorted_Slice (A, 1, 0));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, 0, 1, A'Last));
+      pragma Assert (Sorted_Slice (A, A'First, A'First - 1));
+      pragma Assert (Prefix_Leq_Suffix (A, A'First, A'First - 1, A'First, A'Last));
 
-      for I in 1 .. A'Last - 1 loop
+      for I in A'First .. A'Last - 1 loop
          Select_Min_Step (A, I);
 
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Slice (A, 1, I));
-         pragma Loop_Invariant (Prefix_Leq_Suffix (A, 1, I, I + 1, A'Last));
-         pragma Loop_Invariant (Is_Sorted (A (1 .. I)));
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, I));
+         pragma Loop_Invariant (Prefix_Leq_Suffix (A, A'First, I, I + 1, A'Last));
+         pragma Loop_Invariant (Is_Sorted (A (A'First .. I)));
       end loop;
 
-      pragma Assert (Sorted_Slice (A, 1, A'Last - 1));
-      pragma Assert (Prefix_Leq_Suffix (A, 1, A'Last - 1, A'Last, A'Last));
+      pragma Assert (Sorted_Slice (A, A'First, A'Last - 1));
+      pragma Assert (Prefix_Leq_Suffix (A, A'First, A'Last - 1, A'Last, A'Last));
       pragma Assert (Is_Sorted (A));
    end Sort;
 
@@ -222,20 +222,20 @@ is
          return;
       end if;
 
-      pragma Assert (Sorted_Desc_Slice (A, 1, 0));
-      pragma Assert (Prefix_Geq_Suffix (A, 1, 0, 1, A'Last));
+      pragma Assert (Sorted_Desc_Slice (A, A'First, A'First - 1));
+      pragma Assert (Prefix_Geq_Suffix (A, A'First, A'First - 1, A'First, A'Last));
 
-      for I in 1 .. A'Last - 1 loop
+      for I in A'First .. A'Last - 1 loop
          Select_Max_Step (A, I);
 
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Sorted_Desc_Slice (A, 1, I));
-         pragma Loop_Invariant (Prefix_Geq_Suffix (A, 1, I, I + 1, A'Last));
-         pragma Loop_Invariant (Is_Sorted_Descending (A (1 .. I)));
+         pragma Loop_Invariant (Sorted_Desc_Slice (A, A'First, I));
+         pragma Loop_Invariant (Prefix_Geq_Suffix (A, A'First, I, I + 1, A'Last));
+         pragma Loop_Invariant (Is_Sorted_Descending (A (A'First .. I)));
       end loop;
 
-      pragma Assert (Sorted_Desc_Slice (A, 1, A'Last - 1));
-      pragma Assert (Prefix_Geq_Suffix (A, 1, A'Last - 1, A'Last, A'Last));
+      pragma Assert (Sorted_Desc_Slice (A, A'First, A'Last - 1));
+      pragma Assert (Prefix_Geq_Suffix (A, A'First, A'Last - 1, A'Last, A'Last));
       pragma Assert (Is_Sorted_Descending (A));
    end Sort_Descending;
 

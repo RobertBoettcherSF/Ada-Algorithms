@@ -5,8 +5,8 @@
 --
 --  SPARK port of Ada-Selection-Sort: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
---  sibling allows arbitrary A'First and raises on oversized n; this port
---  requires A'First = 1 and uses Pre => In_Bounds (A). Full multiset /
+--  sibling raises on oversized n; this port takes any A'First in
+--  1 .. Max_N and uses Pre => In_Bounds (A). Full multiset /
 --  permutation equality is verified by tests rather than claimed as a
 --  Level-4 postcondition (sortedness is proved).
 --
@@ -28,23 +28,31 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Live indices lie in 1 .. Max_N (any A'First); Index includes 0 so
+   --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
 
-   type Element_Array is array (Positive range <>) of Integer;
+   --  Live slots; the index subtype carries the 1 .. Max_N origin range,
+   --  In_Bounds adds the length.
+   subtype Live_Index is Positive range 1 .. Max_N;
+
+   type Element_Array is array (Live_Index range <>) of Integer;
 
    ---------------------------------------------------------------------------
    -- Shape / sortedness guards (expression functions — usable in contracts)
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (A'Length <= 1
+      or else (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
@@ -52,7 +60,8 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    function Is_Sorted_Descending (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) >= A (I + 1))
+     (A'Length <= 1
+      or else (for all I in A'First .. A'Last - 1 => A (I) >= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
@@ -62,10 +71,10 @@ is
    -- Algorithm sketch (classic array selection sort / Wikipedia)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Grow a sorted prefix from left to right.
-   --  For each index I from 1 through A'Last - 1:
+   --  For each index I from A'First through A'Last - 1:
    --    1. Find Min_Index := argmin of A (I .. A'Last).
    --    2. Swap A (I) with A (Min_Index).
-   --  After the outer step for I, A (1 .. I) holds the I smallest
+   --  After the outer step for I, A (A'First .. I) holds the smallest
    --  elements in order, and every element of the prefix is ≤ every
    --  element of the remaining suffix. Empty / singleton are no-ops.
    --  Do not `with` sibling Ada-* packages.
