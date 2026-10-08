@@ -6,6 +6,7 @@ pragma Ada_2022;
 with Ada.Command_Line;
 with Ada.Text_IO;
 with Binary_GCD; use Binary_GCD;
+with Own_Checks;
 
 procedure Tests
   with SPARK_Mode => Off
@@ -302,4 +303,5 @@ begin
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 
+   Own_Checks;
 end Tests;

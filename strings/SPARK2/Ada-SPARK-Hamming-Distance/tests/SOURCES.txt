@@ -1,0 +1,9 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites.
+
+* Exhaustive: all 64 pairs of 3-bit vectors; the distance must equal an
+  own count of the positions where they differ.

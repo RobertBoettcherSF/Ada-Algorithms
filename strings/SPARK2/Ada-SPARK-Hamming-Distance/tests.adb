@@ -1,4 +1,5 @@
 with Hamming_Distance; use Hamming_Distance;
+with Own_Checks;
 procedure Tests is
    A : constant Vector := [0, 1, 0];
    B : constant Vector := [1, 1, 0];
@@ -8,4 +9,5 @@ begin
    pragma Assert (Distance (A, B) = 1);
    pragma Assert (Distance (A, [1, 0, 1]) = 3);
    pragma Assert (Distance (A, C) = 0);
+   Own_Checks;
 end Tests;

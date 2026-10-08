@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* Standard check value: Adler-32 of the ASCII string "Wikipedia" is
+  16#11E60398#; the empty input gives 1.
+* Own reference from the definition: A = 1 + sum of the bytes and B = sum
+  of the successive A values, both mod 65521, result B * 65536 + A,
+  computed in Long_Long_Integer. 5000 random inputs up to Max_Length
+  bytes (every third one all 0xFF).
