@@ -194,7 +194,7 @@ misc/SPARK2/Ada-SPARK-Maximum-Subarray,survived,Best_Sum,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Maximum-Subarray-Circular,survived,Max_Subarray,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,survived,Maximum_Twin_Sum,killed,ok,3,Empty,2,0,yes
 misc/SPARK2/Ada-SPARK-Maximum-XOR-Of-Two-Numbers,survived,Maximum_Xor,killed,ok,2,,2,0,yes
-misc/SPARK2/Ada-SPARK-Mean-Variance,survived,Mean,survived,weak,2,Mean,1,0,yes
+misc/SPARK2/Ada-SPARK-Mean-Variance,survived,Mean,killed,ok,2,,2,0,yes
 misc/SPARK2/Ada-SPARK-Median-Filtering,survived,Filter_3x3,killed,ok,1,,1,0,yes
 misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,survived,Merge_In_Between,killed,ok,4,Empty,3,0,yes
 misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,survived,Middle,killed,ok,3,Empty,2,0,yes

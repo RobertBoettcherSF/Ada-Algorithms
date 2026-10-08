@@ -475,7 +475,7 @@ misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,maximum_twin_sum_of_a_li
 misc/SPARK2/Ada-SPARK-Maximum-Twin-Sum-Of-A-Linked-List,maximum_twin_sum_of_a_linked_list.adb,Maximum_Twin_Sum,function,2,default,killed
 misc/SPARK2/Ada-SPARK-Maximum-XOR-Of-Two-Numbers,maximum_xor_of_two_numbers.adb,Maximum_Xor,function,4,default,killed
 misc/SPARK2/Ada-SPARK-Maximum-XOR-Of-Two-Numbers,maximum_xor_of_two_numbers.adb,Maximum_Xor,function,4,default,killed
-misc/SPARK2/Ada-SPARK-Mean-Variance,mean_variance.adb,Mean,function,2,default,survived
+misc/SPARK2/Ada-SPARK-Mean-Variance,mean_variance.adb,Mean,function,2,default,killed
 misc/SPARK2/Ada-SPARK-Mean-Variance,mean_variance.adb,Variance,function,2,default,killed
 misc/SPARK2/Ada-SPARK-Median-Filtering,median_filtering.adb,Filter_3x3,function,8,default,killed
 misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,merge_in_between_linked_lists.adb,Empty,function,2,default,survived
