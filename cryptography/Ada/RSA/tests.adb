@@ -6,6 +6,8 @@ with RSA; use RSA;
 with Own_Checks;
 
 procedure Tests is
+   --  results of calls that must raise; read at the end so the assignments are not dead
+   Sink : RSA_Integer := Zero;
    Pass_Count : Natural := 0;
    Fail_Count : Natural := 0;
 
@@ -62,11 +64,7 @@ begin
       Failed : Boolean := False;
    begin
       begin
-         pragma Warnings (Off, "if statement has no effect");
-         if Modular_Inverse (To_RSA(2), To_RSA(4)) = Zero then
-            null;
-         end if;
-         pragma Warnings (On, "if statement has no effect");
+         Sink := Modular_Inverse (To_RSA(2), To_RSA(4));   --  the call must raise before the assignment
       exception
          when RSA.Math_Error | Ada.Assertions.Assertion_Error => Failed := True;
       end;
@@ -93,9 +91,7 @@ begin
       begin
          -- P=5, Q=7 => Lambda=LCM(4,6)=12. E=6 is not coprime to 12.
          Keys := Generate_Key_Pair (To_RSA(5), To_RSA(7), To_RSA(6));
-         pragma Warnings (Off, "if statement has no effect");
-         if Keys.Pub.N = Zero then null; end if;
-         pragma Warnings (On, "if statement has no effect");
+         Sink := Keys.Pub.N;   --  the call must raise before the assignment
       exception
          when RSA.Invalid_Key_Error | Ada.Assertions.Assertion_Error => Failed := True;
       end;
@@ -140,27 +136,21 @@ begin
       Failed_Enc, Failed_Dec, Failed_Sign : Boolean := False;
    begin
       begin
-         pragma Warnings (Off, "if statement has no effect");
-         if Encrypt (To_RSA(35), Keys.Pub) = Zero then null; end if;
-         pragma Warnings (On, "if statement has no effect");
+         Sink := Encrypt (To_RSA(35), Keys.Pub);   --  the call must raise before the assignment
       exception
          when RSA.Message_Too_Large_Error | Ada.Assertions.Assertion_Error => Failed_Enc := True;
       end;
       Check ("10.1 Encrypt >= N strictly fails", Failed_Enc);
 
       begin
-         pragma Warnings (Off, "if statement has no effect");
-         if Decrypt (To_RSA(40), Keys.Priv) = Zero then null; end if;
-         pragma Warnings (On, "if statement has no effect");
+         Sink := Decrypt (To_RSA(40), Keys.Priv);   --  the call must raise before the assignment
       exception
          when RSA.Message_Too_Large_Error | Ada.Assertions.Assertion_Error => Failed_Dec := True;
       end;
       Check ("10.2 Decrypt >= N strictly fails", Failed_Dec);
 
       begin
-         pragma Warnings (Off, "if statement has no effect");
-         if Sign (To_RSA(35), Keys.Priv) = Zero then null; end if;
-         pragma Warnings (On, "if statement has no effect");
+         Sink := Sign (To_RSA(35), Keys.Priv);   --  the call must raise before the assignment
       exception
          when RSA.Message_Too_Large_Error | Ada.Assertions.Assertion_Error => Failed_Sign := True;
       end;
@@ -219,6 +209,9 @@ begin
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
    --  pragma Assert is ignored without -gnata, so make test needs the exit status
+   if Sink /= Zero then
+      Put_Line ("  (a call that should have raised returned a value)");
+   end if;
    if Fail_Count > 0 then
       raise Program_Error with "Some tests failed";
    end if;
