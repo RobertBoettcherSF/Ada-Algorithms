@@ -237,6 +237,20 @@ First alt-family round (seed 20261108; equivalent survivors left out of n, timeo
 - RSA: 47/50 (94.0%; 50/50 with timeouts as kills), all 54 alt mutants; 4 survivors equivalent (gcd argument order; two pairs of already-justified defensive-bound mutants); 3 timeouts (deleted loop steps).
 - Matrix-Multiplication: its first-order held-out score (seed 20261108, 358/364 = 98.4%) is kept as recorded, with the N = 32 Integer-product gap visible; the max-size test added afterwards counts only from the alt round with seed 20261109 (`tools/vv/sweep_heldout_alt.csv`).
 
+Agent B (2026-10-08, later): Ada-SPARK-Library-Sort was the same pattern and
+a finding (tools/vv/findings_sweep.csv, failing test deb3a020, fix
+8ebba7ff): its library phase left 48,020 of 200,000 generated clustered
+arrays unsorted (its left shift wrote the new value one slot too far right,
+and even with that patched 23,580 stayed unsorted), and the output was
+correct only because a final bubble sort ran after it. The existing tests
+never packed a band of values, so they passed. The rewritten library phase
+(gap-skipping binary search, shift right to the nearest free slot, spread to
+the odd slots after 1, 2, 4, .. insertions) is proved to sort on its own
+(275 checks, silver level 2 and level 4) and Bubble_Finish is gone. The
+sweep's removal check (sweep_fallback.py) had marked the phase as sorting
+alone, which was wrong: the tests it ran never produced a failing input.
+
+
 ## 3j. Silent-fail scan, compiler-version guard and timeouts (2026-10-08, night)
 
 **Silent fail.** `tools/vv/silent_fail.py` asks whether a failed check would fail `make test`. It reads the logs of the version-checked build run (`--from-logs`; `tools/audit/build_folder.sh` keeps `mk14.log`, `mk12.log`, `r14.log`, `r12.log`) or runs `make test` itself on GNAT 14. It flags three things:

@@ -5,7 +5,7 @@ sorting/SPARK4/Ada-SPARK-Burstsort,yes,sorted on all existing tests without the 
 sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,yes,FIXED 2e041c17: shaker passes proved to sort (window invariant); Bubble_Finish removed; silver L2 240 checks; mutation 37/66 -> 56/77 raw (56/56 justified)
 sorting/SPARK4/Ada-SPARK-Comb-Sort,no,"fails a postcondition on small inputs without the finish: the shrinking-gap loop stops before gap 1, and gap-1 passes until no swap are part of comb sort; keep them, inside the comb sort loop, and only drop a redundant extra pass"
 sorting/SPARK4/Ada-SPARK-Flashsort,yes,sorted on all existing tests without the finish; classification + permutation cycle phase not proved
-sorting/SPARK4/Ada-SPARK-Library-Sort,yes,sorted on existing tests and own checks without the finish; Library_Phase (gapped insertion + rebalance) not proved; phase mutants survive (own-check mutation 82/154)
+sorting/SPARK4/Ada-SPARK-Library-Sort,no,"FIXED 8ebba7ff (finding, failing test deb3a020): the old Library_Phase did NOT sort alone (48,020/200,000 clustered inputs unsorted; masked by Bubble_Finish); rewritten library phase proved to sort (silver L2 and level 4: 275 checks), Bubble_Finish removed; held-out mutation 68/80 raw -> 68/68 justified"
 sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,yes,sorted on all existing tests without the finish; odd-even transposition passes not proved
 sorting/SPARK4/Ada-SPARK-Patience-Sorting,yes,sorted on all existing tests without the finish; pile + k-way merge phase not proved
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,yes,sorted on all existing tests without the finish; hole distribution phase not proved
