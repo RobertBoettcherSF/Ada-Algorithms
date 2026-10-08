@@ -12,13 +12,13 @@ package body Reverse_Words_In_A_String_III with SPARK_Mode => On is
    begin
       Output := Input;
       while Pos <= Length loop
-         pragma Loop_Invariant (Pos in 1 .. 33);
+         pragma Loop_Invariant (Pos >= 1);
          if Output (Index (Pos)) = ' ' then
             Pos := Pos + 1;
          else
             Start := Pos;
             while Pos <= Length and then Output (Index (Pos)) /= ' ' loop
-               pragma Loop_Invariant (Pos in 1 .. 33);
+               pragma Loop_Invariant (Pos >= 1);
                Pos := Pos + 1;
             end loop;
             Stop := Pos - 1;

@@ -10,7 +10,7 @@ package body Minimum_Limit_Of_Balls_In_A_Bag with SPARK_Mode => On is
          begin
             for I in Index loop
                Needed := Needed +
-                 (Integer (Bags (I)) - 1) / Integer (Candidate);
+                 (Integer (Bags (I)) - 1) / Candidate;
             end loop;
             if Needed <= Integer (Allowed) then
                return Candidate;

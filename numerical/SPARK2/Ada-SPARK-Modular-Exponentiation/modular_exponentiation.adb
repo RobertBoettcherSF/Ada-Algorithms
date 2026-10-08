@@ -7,9 +7,9 @@ package body Modular_Exponentiation is
       Remaining   : Natural := Exp;
    begin
       while Remaining > 0 loop
-         pragma Loop_Invariant (Accumulator in 0 .. 100);
-         pragma Loop_Invariant (Factor in 0 .. 100);
-         pragma Loop_Invariant (Remaining in 0 .. 16);
+         pragma Loop_Invariant (Accumulator <= 100);
+         pragma Loop_Invariant (Factor <= 100);
+         pragma Loop_Invariant (Remaining <= 16);
          pragma Loop_Variant (Decreases => Remaining);
          if Remaining mod 2 = 1 then
             Accumulator := (Accumulator * Factor) mod Modulo;

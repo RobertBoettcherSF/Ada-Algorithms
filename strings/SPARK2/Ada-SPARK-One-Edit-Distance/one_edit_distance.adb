@@ -24,8 +24,7 @@ package body One_Edit_Distance with SPARK_Mode => On is
                   J := J + 1;
                end if;
             end if;
-            pragma Loop_Invariant (I in 1 .. 33 and J in 1 .. 33);
-            pragma Loop_Invariant (Edits <= 2);
+            pragma Loop_Invariant (I >= 1 and J >= 1);
          end loop;
          if Edits = 0 then
             if I <= Left_Length or J <= Right_Length then

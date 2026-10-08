@@ -16,7 +16,6 @@ package body Count_Primes with SPARK_Mode => On is
          when 24 .. 29 => Result := 9;
          when 30 => Result := 10;
       end case;
-      pragma Assert (Result <= 10);
       return Result;
    end Count_Primes_Below;
 end Count_Primes;

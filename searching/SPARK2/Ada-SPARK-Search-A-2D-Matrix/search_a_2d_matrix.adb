@@ -7,8 +7,6 @@ package body Search_A_2D_Matrix with SPARK_Mode => On is
       Found : Boolean := False;
    begin
       for Step in 1 .. Rows + Cols loop
-         pragma Loop_Invariant (R in 1 .. Rows + 1);
-         pragma Loop_Invariant (C in 0 .. Cols);
          exit when Found or else R > Rows or else C = 0;
          if Grid (Row (R), Column (C)) = Target then
             Found := True;

@@ -6,7 +6,7 @@ package body Greatest_Common_Divisor is
       Y : Natural := B;
    begin
       while Y /= 0 loop
-         pragma Loop_Invariant (X in 1 .. 1_000 and Y in 0 .. 1_000);
+         pragma Loop_Invariant (X in 1 .. 1_000 and Y <= 1_000);
          pragma Loop_Variant (Decreases => Y);
          declare
             Remainder : constant Natural := X mod Y;

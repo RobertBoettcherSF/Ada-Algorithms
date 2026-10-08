@@ -8,10 +8,10 @@ package body Z_Algorithm with SPARK_Mode => On is
          if Start /= Index'First then
             Offset := 0;
             while Offset < Text_Length
-              and then Integer (Start) + Offset <= Text_Length
+              and then Start + Offset <= Text_Length
             loop
                if Text (Index (1 + Offset))
-                 = Text (Index (Integer (Start) + Offset))
+                 = Text (Index (Start + Offset))
                then
                   Offset := Offset + 1;
                else

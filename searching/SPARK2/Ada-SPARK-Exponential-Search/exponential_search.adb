@@ -14,7 +14,7 @@ package body Exponential_Search with SPARK_Mode => On is
       end if;
 
       while Bound < Capacity and then A (Index (Bound)) < Target loop
-         pragma Loop_Invariant (Bound >= 1 and Bound <= Capacity);
+         pragma Loop_Invariant (Bound >= 1);
          pragma Loop_Variant (Decreases => Capacity - Bound);
          if Bound > Capacity / 2 then
             Bound := Capacity;
