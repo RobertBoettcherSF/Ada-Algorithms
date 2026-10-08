@@ -82,6 +82,7 @@ package body Nagle is
                -- Copy only the remaining needed bytes
                Merged_Data(Current_Index .. Current_Index + Remaining - 1) := 
                   Pkg.Data(1 .. Remaining);
+               Remaining := 0;
                exit;  -- Buffer is full
             end if;
          end if;
@@ -138,6 +139,7 @@ package body Nagle is
                New_Packet.Size := New_Data'Length;
                Buffer.Append(New_Packet);
                Send_Now := False;
+               Packet_To_Send := (Data => null, Size => 0);
             else
                -- No unacked data: send immediately
                Send_Now := True;
@@ -220,6 +222,7 @@ package body Nagle is
             New_Packet.Size := New_Data'Length;
             Buffer.Append(New_Packet);
             Send_Now := False;
+            Packet_To_Send := (Data => null, Size => 0);
          else
             Send_Now := True;
             Packet_To_Send.Data := new Buffer_Type(New_Data'Range);
