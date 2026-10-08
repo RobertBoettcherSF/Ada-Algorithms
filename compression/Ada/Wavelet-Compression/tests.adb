@@ -65,7 +65,8 @@ begin
    Put_Line("TEST 3 - Lossless 1D Forward (Integer Lifting)");
    Put_Line("  3.1 Assert Integer lifting isolates details safely");
    S2_Trans := Forward_Haar_1D_Lossless(S2);
-   Assert(S2_Trans(1) = 3 and S2_Trans(3) = -2, "Lossless 1D Forward Failed");
+   Assert(S2_Trans(1) = 3 and S2_Trans(2) = 7
+         and S2_Trans(3) = 2 and S2_Trans(4) = 2, "Lossless 1D Forward Failed");
    Put_Line("     PASS");
 
    -- TEST 4

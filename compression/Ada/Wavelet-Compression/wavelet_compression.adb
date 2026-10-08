@@ -146,11 +146,21 @@ package body Wavelet_Compression is
    -------------------------------------------------
    -- Lossless Compression (Integer Lifting Scheme) 1D
    -------------------------------------------------
+   --  Floor division by 2 (toward -infinity). Ada "/" truncates toward zero,
+   --  which is not the S-transform on a negative sum or detail.
+   function Floor_Div_2 (N : Integer) return Integer is
+   begin
+      if N >= 0 then
+         return N / 2;
+      else
+         return (N - 1) / 2;
+      end if;
+   end Floor_Div_2;
+
    function Forward_Haar_1D_Lossless (Input : Signal_1D_Int) return Signal_1D_Int is
       Result  : Signal_1D_Int (Input'Range);
       Half    : constant Natural := Input'Length / 2;
       Out_Idx : constant Positive := Result'First;
-      Diff    : Integer;
    begin
       if Input'Length = 1 then return Input; end if;
       if Input'Length mod 2 /= 0 then
@@ -158,11 +168,14 @@ package body Wavelet_Compression is
       end if;
 
       for I in 0 .. Half - 1 loop
-         Diff := Input (Input'First + 2*I) - Input (Input'First + 2*I + 1);
-         -- Store Difference (High-pass) in second half
-         Result (Out_Idx + Half + I) := Diff;
-         -- Store Average (Low-pass) in first half
-         Result (Out_Idx + I) := Input (Input'First + 2*I) - (Diff / 2);
+         declare
+            X : constant Integer := Input (Input'First + 2 * I);
+            Y : constant Integer := Input (Input'First + 2 * I + 1);
+         begin
+            --  S-transform: s = floor((x+y)/2), d = y-x.
+            Result (Out_Idx + I) := Floor_Div_2 (X + Y);
+            Result (Out_Idx + Half + I) := Y - X;
+         end;
       end loop;
 
       return Result;
@@ -182,9 +195,10 @@ package body Wavelet_Compression is
       for I in 0 .. Half - 1 loop
          Avg  := Input (Input'First + I);
          Diff := Input (Input'First + Half + I);
-         
-         Result (Out_Idx + 2*I)     := Avg + (Diff / 2);
-         Result (Out_Idx + 2*I + 1) := Result (Out_Idx + 2*I) - Diff;
+
+         --  x = s - floor(d/2), y = x + d.
+         Result (Out_Idx + 2 * I) := Avg - Floor_Div_2 (Diff);
+         Result (Out_Idx + 2 * I + 1) := Result (Out_Idx + 2 * I) + Diff;
       end loop;
 
       return Result;
