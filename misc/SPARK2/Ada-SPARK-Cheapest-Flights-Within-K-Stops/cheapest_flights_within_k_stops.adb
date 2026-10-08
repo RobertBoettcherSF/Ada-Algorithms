@@ -3,7 +3,7 @@ package body Cheapest_Flights_Within_K_Stops with SPARK_Mode => On is
    procedure Compute (Edges : in Edge_Array; Source, Destination : in Node;
                        K : in Stop_Count; Result : out Cost) is
       type Cost_Array is array (Node) of Cost;
-      Best : Cost_Array := (others => Infinity);
+      Best : Cost_Array := [others => Infinity];
       Next_Best : Cost_Array;
       Candidate : Cost;
    begin

@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's own tests (tests.adb, own_checks.adb)
+=====================================================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Random inputs come from the Park-Miller minimal
+standard generator (seed 20261008).
+
+* tests.adb: fill to capacity, dequeue 1, wrap around with 9, dequeue 2,
+  by hand.
+* Own model: a first-in first-out list in the test; after every operation
+  Length, Is_Empty, Is_Full and Peek are compared with it, and every
+  dequeued value must be the model's oldest value.
+* Inputs: 500 random runs of 100 operations (values -1000 .. 1000), so the
+  queue wraps around and fills up many times.

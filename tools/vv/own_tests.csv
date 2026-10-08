@@ -163,3 +163,5 @@ misc/SPARK2/Ada-SPARK-Combination-Sum-IV,own recursive enumeration of ordered se
 misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,own enumeration of all 2^7 cut sets (min heaviest day); 3000 random weight lists x every day count
 misc/SPARK2/Ada-SPARK-Car-Pooling,own per-stop count (Pickup <= stop < Dropoff); 20000 random trip sets x limits 0..12; back-to-back case
 misc/SPARK2/Ada-SPARK-3Sum-Closest,own enumeration of all triples (result is a triple sum at minimal distance); 4000 random arrays; lengths 0..2 rejected
+misc/SPARK2/Ada-SPARK-Cheapest-Flights-Within-K-Stops,own depth-first enumeration of routes with at most K+1 flights; 1500 random flight sets x every pair x K 0..3 (216000 queries)
+misc/SPARK2/Ada-SPARK-Circular-Queue,model-based: 500 random runs of 100 operations vs own FIFO model (wrap-around and full queue)
