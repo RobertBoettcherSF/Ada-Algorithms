@@ -4,9 +4,9 @@
 This project provides a robust, strongly typed Ada 2023 implementation of algorithms and verification utilities for the Abelian Hidden Subgroup Problem (HSP), encompassing Simon's problem, period/order finding, and general abelian subgroup recovery.
 
 ## Features
-- **Simon's Problem Solver**: Recovers the hidden non-zero bit string $s \in \mathbb{Z}_2^n$ using equation collection and Gaussian elimination over $\text{GF}(2)$.
-- **Period / Order Finding**: Determines the minimal positive period $r$ of functions over cyclic groups $\mathbb{Z}_N$.
-- **General Abelian HSP**: Reconstructs generating sets of hidden subgroups $H \le \mathbb{Z}_N$.
+- **Simon's Problem Solver**: Recovers the hidden non-zero bit string $s \in \mathbb{Z}_2^n$. For now this works by brute force: it searches for $i$ with $f(i) = f(0)$. The equation collection and Gaussian elimination over $\text{GF}(2)$ are in the code but are never reached for a valid oracle. Making the GF(2) step the real solver is in progress (open finding in `tools/vv/findings_sweep.csv`).
+- **Period / Order Finding**: Determines the minimal positive period $r$ of functions over cyclic groups $\mathbb{Z}_N$. A one-to-one oracle has period $r = N$ ($H = \{0\}$), since 76ea12db.
+- **General Abelian HSP**: Returns the period $r$, the generator of the hidden subgroup $H = r\mathbb{Z}_N \le \mathbb{Z}_N$. Before 97881897 it returned $N / r$, a generator of the annihilator of $H$, not of $H$.
 - **Subgroup & Character Verification**: Verifies coset constancy properties and dual group character orthogonality ($\chi_g(h) = 1$).
 - **Strong Typing & Contracts**: Leverages custom domain types (`Group_Element`, `Bit_Mask`, `Period_Type`) and Ada pre/post conditions.
 
