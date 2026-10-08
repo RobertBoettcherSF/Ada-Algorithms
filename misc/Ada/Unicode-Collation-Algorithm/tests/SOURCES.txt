@@ -1,0 +1,16 @@
+Sources of the expected values in own_checks.adb (own code, MIT)
+================================================================
+* Reference comparison: UCA-style sort keys built by us (nonzero primary
+  weights, 0, nonzero secondary weights, 0, nonzero tertiary weights) and
+  compared lexicographically; this is a different method from the body's
+  level-by-level comparison and gives the same order whenever the
+  level-by-level rule is applied consistently (a 0 weight is ignorable).
+* Tables: the package's own default table (the data under test is the
+  comparison, not the mock weights), the same table with space, '-' and ','
+  set to 0 at all levels as the spec of Compare_Ignore_Punctuation states,
+  and a table tailored with Apply_Tailoring (entry 'b' moved before the
+  digits; every other entry must be unchanged).
+* Inputs: all 67,081 pairs of strings over {a, A, b, 1, -, space} of
+  length 0 .. 3.
+Nothing is taken from the program's output, from the Unicode DUCET data or
+from third-party test suites.

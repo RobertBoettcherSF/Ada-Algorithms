@@ -3,6 +3,8 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Unicode_Collation; use Unicode_Collation;
+with Ada.Command_Line;
+with Own_Checks;
 
 procedure Tests is
    Table : Character_Table := Get_Default_Table;
@@ -22,6 +24,7 @@ procedure Tests is
    end Run_Assert;
 
 begin
+   Own_Checks;
    Put_Line("===============================================");
    Put_Line(" UCA V&V TEST SUITE (Assumes broken codebase)");
    Put_Line("===============================================");
@@ -83,5 +86,6 @@ begin
       Put_Line("CONCLUSION: Codebase assumed broken, but ALL ASSUMPTIONS DISPROVED.");
    else
       Put_Line("CONCLUSION: Codebase contains faults.");
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 end Tests;
