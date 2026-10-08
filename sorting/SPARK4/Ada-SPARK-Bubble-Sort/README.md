@@ -30,7 +30,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Bubble-Sort](https:
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 261 assertions pass. Running `make prove` reports `Success: all checks proved (156 checks).`
+When you run `make test`, you will see all 283 assertions pass. Running `make prove` reports `Success: all checks proved (184 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia example, turtle cases, signed domain, power-of-two and odd lengths.
@@ -51,5 +51,5 @@ When you run `make test`, you will see all 261 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Inner adjacent-swap loop uses `pragma Loop_Invariant`; outer loop shrinks the unsorted suffix via `Bubble_Pass` with partition predicates and early exit on a clean pass.
-* **GNATprove Level 4:** `Success: all checks proved (156 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (184 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

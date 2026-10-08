@@ -37,7 +37,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 140 assertions pass. Running `make prove` reports `Success: all checks proved (340 checks).`
+When you run `make test`, you will see all 143 assertions pass. Running `make prove` reports `Success: all checks proved (433 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, classic numeric example, signed domain including `Integer'First` / `Integer'Last`, power-of-two and odd lengths up to `Max_N`.
@@ -58,7 +58,7 @@ When you run `make test`, you will see all 140 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Ghost `Is_Heap` / `Heap_From` (parent-form), `Heap_Leq_Suffix`, and `Lemma_Root_Is_Max` support the extract-max sorted-suffix argument.
-* **GNATprove Silver (level 2):** `Success: all checks proved (340 checks).`
+* **GNATprove Silver (level 2):** `Success: all checks proved (433 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

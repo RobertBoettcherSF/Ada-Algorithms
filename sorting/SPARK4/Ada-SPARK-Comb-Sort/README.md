@@ -37,7 +37,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 228 assertions pass. Running `make prove` reports `Success: all checks proved (161 checks).` (gnatprove 16.1)
+When you run `make test`, you will see all 250 assertions pass. Running `make prove` reports `Success: all checks proved (187 checks).` (gnatprove 16.1)
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia 10-element example, turtle cases, signed domain, power-of-two and odd lengths up to `Max_N`.
@@ -58,7 +58,7 @@ When you run `make test`, you will see all 228 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Inner comb / bubble loops use `pragma Loop_Invariant`; gap-$1$ passes shrink the unsorted suffix via `Bubble_Pass` with partition predicates; the single comb loop has loop variant (gap, bound).
-* **GNATprove Level 4:** `Success: all checks proved (161 checks)` (gnatprove 16.1).
+* **GNATprove Level 4:** `Success: all checks proved (187 checks)` (gnatprove 16.1).
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

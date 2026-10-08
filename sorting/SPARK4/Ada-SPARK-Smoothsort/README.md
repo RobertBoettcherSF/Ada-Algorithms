@@ -38,7 +38,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 173 assertions pass. Running `make prove` reports `Success: all checks proved (205 checks).`
+When you run `make test`, you will see all 196 assertions pass. Running `make prove` reports `Success: all checks proved (235 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted, Leonardo-sized lengths ($L(2)..L(7)$), classic numeric example, signed domain including `Integer'First` / `Integer'Last`, lengths up to `Max_N`.
@@ -59,7 +59,7 @@ When you run `make test`, you will see all 173 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Ghost `Sorted_Slice` / `Heap_Leq_Suffix` plus `Index_Of_Max` support the extract-max sorted-suffix argument after the educational Leonardo heapify.
-* **GNATprove Level 4:** `Success: all checks proved (205 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (235 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

@@ -40,7 +40,7 @@ A turtle (small key near the end) such as $(2,3,4,5,1)$ is placed in one cocktai
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 281 assertions pass. Running `make prove` reports `Success: all checks proved (204 checks).`
+When you run `make test`, you will see all 303 assertions pass. Running `make prove` reports `Success: all checks proved (269 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia turtle $(2,3,4,5,1)$ and mixed cocktail demo, signed domain, power-of-two and odd lengths up to `Max_N`.
@@ -61,7 +61,7 @@ When you run `make test`, you will see all 281 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Cocktail forward/backward loops use `pragma Loop_Invariant` / `Loop_Variant`; the outer `while Lo < Hi` loop has variant `Hi - Lo` (no iteration cap).
-* **GNATprove Level 4:** `Success: all checks proved (204 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (269 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

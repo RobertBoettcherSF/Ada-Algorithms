@@ -40,7 +40,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 242 assertions pass. Running `make prove` reports `Success: all checks proved (101 checks).`
+When you run `make test`, you will see all 264 assertions pass. Running `make prove` reports `Success: all checks proved (114 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, readme walk-through, gnome wiki-style tiny, organ-pipe, signed domain, power-of-two and odd lengths up to `Max_N`.
@@ -61,7 +61,7 @@ When you run `make test`, you will see all 242 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Inner adjacent-swap loop uses `pragma Loop_Invariant` and `Loop_Variant`; outer loop grows a sorted prefix via `Gnome_Step`.
-* **GNATprove Level 4:** `Success: all checks proved (101 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (114 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

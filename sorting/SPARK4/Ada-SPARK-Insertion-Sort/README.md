@@ -29,7 +29,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Insertion-Sort](htt
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 208 assertions pass. Running `make prove` reports `Success: all checks proved (91 checks).`
+When you run `make test`, you will see all 230 assertions pass. Running `make prove` reports `Success: all checks proved (104 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia example, signed domain, power-of-two and odd lengths.
@@ -50,5 +50,5 @@ When you run `make test`, you will see all 208 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Inner shift loop uses `pragma Loop_Invariant` and `Loop_Variant`; outer loop grows a sorted prefix via `Insert_Step`.
-* **GNATprove Level 4:** `Success: all checks proved (91 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (104 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

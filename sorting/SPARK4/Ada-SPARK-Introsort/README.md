@@ -72,7 +72,7 @@ Unstable: equal keys may change relative order.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 297 assertions pass. Running `make prove` reports `Success: all checks proved (860 checks).`
+When you run `make test`, you will see all 324 assertions pass. Running `make prove` reports `Success: all checks proved (838 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, classic numeric example, signed domain including `Integer'First` / `Integer'Last`, power-of-two and odd lengths up to `Max_N`.
@@ -94,7 +94,7 @@ When you run `make test`, you will see all 297 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Lomuto scan uses `pragma Loop_Invariant`; recursive `Intro_Sort_Rec` uses `Subprogram_Variant` and a ghost glue lemma to join the sorted sides at the pivot. Insertion and heapsort helpers prove `Sorted_Slice` on $\mathrm{Lo} .. \mathrm{Hi}$.
-* **GNATprove Level 4:** `Success: all checks proved (860 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (838 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

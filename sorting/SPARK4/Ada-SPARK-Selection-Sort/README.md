@@ -29,7 +29,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Selection-Sort](htt
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 146 assertions pass. Running `make prove` reports `Success: all checks proved (241 checks).`
+When you run `make test`, you will see all 169 assertions pass. Running `make prove` reports `Success: all checks proved (290 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia example, signed domain, power-of-two and odd lengths.
@@ -49,5 +49,5 @@ When you run `make test`, you will see all 146 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Inner scan loops use `pragma Loop_Invariant`; outer loops grow a sorted (or reverse-sorted) prefix via `Select_Min_Step` / `Select_Max_Step` with partition predicates.
-* **GNATprove Level 4:** `Success: all checks proved (241 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (290 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

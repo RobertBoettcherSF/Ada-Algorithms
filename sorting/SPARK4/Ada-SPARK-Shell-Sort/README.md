@@ -37,7 +37,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 228 assertions pass. Running `make prove` reports `Success: all checks proved (131 checks).`
+When you run `make test`, you will see all 250 assertions pass. Running `make prove` reports `Success: all checks proved (140 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia 12-element example, signed domain, lengths that engage each Ciura gap, power-of-two and odd lengths up to `Max_N`.
@@ -58,7 +58,7 @@ When you run `make test`, you will see all 228 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Gap-$1$ `Insert_Step` uses `pragma Loop_Invariant` and `Loop_Variant`; outer `Insertion_Pass` grows a sorted prefix; `Gap_Pass` discharges RTE for $h > 1$.
-* **GNATprove Level 4:** `Success: all checks proved (131 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (140 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
