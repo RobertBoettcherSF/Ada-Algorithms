@@ -1,11 +1,12 @@
 # Schensted algorithm (Ada 2022 / GNAT)
 GPR  := schensted.gpr
-GNAT := gnatmake -gnatwa -gnat2022 -P$(GPR)
+GNAT := gnatmake
+FLAGS := -gnatwa -gnat2022 -P$(GPR)
 
 .PHONY: all test clean
 
 all:
-	$(GNAT)
+	$(GNAT) $(FLAGS)
 
 test: all
 	./bin/tests
