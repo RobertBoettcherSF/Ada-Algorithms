@@ -1,4 +1,5 @@
-# Folders whose README describes them as a stub (bounded kernel or placeholder,
+# Folders marked stub = yes by make proof-index although the name does not end in -Stub:
+# first those whose README calls them a stub (bounded kernel or placeholder,
 # not the named algorithm) although the name does not end in -Stub.
 # make proof-index marks them stub = yes. One folder per line, then a tab and the README wording.
 concurrency/SPARK2/Ada-SPARK-Course-Schedule-II	Ada-SPARK-Course-Schedule-II  Bounded course-order stub for up to 16 courses
@@ -40,3 +41,21 @@ sorting/SPARK2/Ada-SPARK-Smooth-Sort	Ada-SPARK-Smooth-Sort  A small bounded Ada/
 sorting/SPARK2/Ada-SPARK-Tim-Sort	Ada-SPARK-Tim-Sort  A small bounded Ada/SPARK sorting stub
 strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings	Ada-SPARK-Count-The-Number-Of-Consistent-Strings  A bounded SPARK stub for counting symbols within an allowed range
 trees/SPARK2/Ada-SPARK-Red-Black-Tree	Ada/SPARK Red-Black Tree  A deliberately tiny bounded teaching stub: the color enum and a checked rotation index are the first verified building blocks for a re
+# Hidden stubs confirmed by hand (tools/vv/hidden_stub.csv): the code lacks the core step of the named algorithm.
+graphs/SPARK2/Ada-SPARK-Kruskal-MST-Lite	hidden stub: sums every edge cost; no edge selection or union-find, so no spanning tree
+misc/SPARK2/Ada-SPARK-Heap-Push-Pop	hidden stub: unsorted array with linear minimum search and a full re-sort; no heap property or sift
+searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound	hidden stub: unrolled linear scan of six fixed positions; no halving
+searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees	hidden stub: returns a constant table of Catalan numbers; nothing computed
+searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite	hidden stub: Root_Choices (N) returns N; no trees generated
+sorting/SPARK2/Ada-SPARK-Block-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
+sorting/SPARK2/Ada-SPARK-Heap-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
+sorting/SPARK2/Ada-SPARK-Intro-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
+sorting/SPARK2/Ada-SPARK-Pancake-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
+sorting/SPARK2/Ada-SPARK-Quick-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
+sorting/SPARK2/Ada-SPARK-Shaker-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
+sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite	hidden stub: only validates a given order; does not compute one (README says validator)
+sorting/SPARK2/Ada-SPARK-Tournament-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
+sorting/SPARK2/Binary-Insertion-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
+trees/SPARK2/Ada-SPARK-Implement-Trie	hidden stub: flat word list with linear lookup; no trie nodes or child links
+trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View	hidden stub: returns fixed positions 1, 3, 7, 15 of a complete tree; no traversal (absent nodes not handled)
+trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite	hidden stub: a hard-coded index permutation for one complete-tree shape; no traversal
