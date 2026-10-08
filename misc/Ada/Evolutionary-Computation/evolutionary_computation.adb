@@ -85,19 +85,26 @@ is
    function Next_Natural
      (State : in out RNG_State; Lo, Hi : Natural) return Natural
    is
-      Span : constant Natural := Hi - Lo;
-      U    : Unit_Interval;
-      K    : Natural;
+      Count  : constant Natural := Hi - Lo + 1;
+      Span   : RNG_State;
+      Bound  : RNG_State;
+      Bucket : RNG_State;
+      Off    : RNG_State;
    begin
-      if Span = 0 then
+      --  One legal value. Drawing would throw a uniform away.
+      if Count = 1 then
          return Lo;
       end if;
-      U := Next_Unit (State);
-      K := Natural (Real (U) * Real (Span + 1));
-      if K > Span then
-         K := Span;
-      end if;
-      return Lo + K;
+      --  High bits of the LCG. Count values, 0 .. Count-1, then add Lo.
+      Span := RNG_State (Count);
+      Bound := (RNG_State'Last / Span) * Span;
+      Bucket := Bound / Span;
+      loop
+         State := State * Multiplier + Increment;
+         exit when State < Bound;
+      end loop;
+      Off := State / Bucket;
+      return Lo + Natural (Off);
    end Next_Natural;
 
    function Sample_Normal (State : in out RNG_State) return Real is
