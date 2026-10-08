@@ -1,8 +1,20 @@
+with Ada.Environment_Variables;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Deutsch_Jozsa; use Deutsch_Jozsa;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    Pass_Count : Natural := 0;
    Fail_Count : Natural := 0;
 
@@ -38,6 +50,7 @@ procedure Tests is
    end F_N2_Balanced;
 
 begin
+   Deutsch_Jozsa.Set_Seed (AA_Seed (20261008));
    -- TEST 1 — Deutsch's Algorithm: Constant Zero Function
    Put_Line ("TEST 1 — Deutsch Constant Zero");
    Check ("1.1 Result is Constant_Zero", Solve_Deutsch (F_Const_0'Access) = Constant_Zero);

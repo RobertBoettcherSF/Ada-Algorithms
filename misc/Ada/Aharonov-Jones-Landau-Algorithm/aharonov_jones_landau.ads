@@ -59,4 +59,8 @@ package Aharonov_Jones_Landau is
    function "/" (Left : Complex; Right : Real) return Complex with Global => null;
    function "*" (Left, Right : Matrix_2x2) return Matrix_2x2 with Global => null;
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end Aharonov_Jones_Landau;

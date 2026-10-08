@@ -92,6 +92,10 @@ package Artificial_Neural_Networks is
    function Apply_Derivative (Z : Real; Act : Activation_Function) return Real
      with Global => null;
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 private
    type Layer (Inputs, Outputs : Positive) is record
       Weights    : Matrix (1 .. Inputs, 1 .. Outputs) := [others => [others => 0.0]];

@@ -76,6 +76,10 @@ package Fair_Share_Scheduler is
    -- Required for Traditional FSS: Called periodically (e.g., 1x per second) to decay usage memory
    procedure Decay_Usage (Self : in out Scheduler);
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 private
 
    -- Internal helpers

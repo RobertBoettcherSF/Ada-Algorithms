@@ -72,4 +72,8 @@ package Swap_Test is
                                     Count  : Positive) return Overlap_Matrix
      with Pre  => Count > 0;
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end Swap_Test;

@@ -1,8 +1,16 @@
 package body Fair_Share_Scheduler is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+
 
    procedure Initialize (Self : in out Scheduler) is
    begin
-      Ada.Numerics.Float_Random.Reset (Self.RNG);
+      if Use_Fixed_Seed then
+         Ada.Numerics.Float_Random.Reset (Self.RNG, Fixed_Seed);
+      else
+         Ada.Numerics.Float_Random.Reset (Self.RNG);
+      end if;
       for I in Self.Processes'Range loop
          Self.Processes(I).Is_Active := False;
       end loop;
@@ -249,5 +257,11 @@ package body Fair_Share_Scheduler is
          end loop;
       end if;
    end Decay_Usage;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+   end Set_Seed;
 
 end Fair_Share_Scheduler;

@@ -2,6 +2,20 @@ with Ada.Numerics.Long_Elementary_Functions;
 with Ada.Numerics.Float_Random;
 
 package body Amplitude_Amplification is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
 
    -- Tolerance for floating-point comparisons when checking vector normalization
    Tolerance : constant Amplitude := 1.0e-4;
@@ -88,7 +102,11 @@ package body Amplitude_Amplification is
       Found        : State_Index;
       Current_Step : Natural := 1;
    begin
-      Ada.Numerics.Float_Random.Reset (Gen);
+      if Use_Fixed_Seed then
+         Ada.Numerics.Float_Random.Reset (Gen, Next_Fixed_Seed);
+      else
+         Ada.Numerics.Float_Random.Reset (Gen);
+      end if;
       
       while Current_Step <= Max_Steps loop
          Limit := Natural (Long_Float'Floor (M));
@@ -153,5 +171,12 @@ package body Amplitude_Amplification is
       end loop;
       return Best_Idx;
    end Measure_Most_Likely;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+   end Set_Seed;
 
 end Amplitude_Amplification;

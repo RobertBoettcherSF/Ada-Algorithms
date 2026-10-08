@@ -10,10 +10,22 @@
 --  Language: Ada
 --
 
+with Ada.Environment_Variables;
 with Page_Replacement;
 with Ada.Text_IO;
 
 procedure Test_Page_Replacement is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    use Page_Replacement;
 
    --  The reference string to simulate
@@ -28,6 +40,7 @@ procedure Test_Page_Replacement is
    Num_Frames : Frame_Number := 3;
 
 begin
+   Page_Replacement.Set_Seed (AA_Seed (20261008));
    --  Print header information
    Ada.Text_IO.New_Line;
    Ada.Text_IO.Put_Line("=================================================");

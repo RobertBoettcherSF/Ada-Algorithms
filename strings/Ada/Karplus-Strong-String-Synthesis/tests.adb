@@ -2,10 +2,22 @@
 -- Test suite verifying correctness, edge cases, and robustness of the KS algorithms.
 -- Tests assume code is broken; a PASS disproves this by executing correctly.
 
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Karplus_Strong; use Karplus_Strong;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    Fs : constant Sample_Type := 44100.0;
    Buffer : Sample_Array (1 .. 100);
    Empty_Buffer : Sample_Array (1 .. 0);
@@ -20,6 +32,7 @@ procedure Tests is
    end Assert;
 
 begin
+   Karplus_Strong.Set_Seed (AA_Seed (20261008));
    Put_Line ("Starting Karplus-Strong Validation Suite...");
    Put_Line ("===========================================");
 

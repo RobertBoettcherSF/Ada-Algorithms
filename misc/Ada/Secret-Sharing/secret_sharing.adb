@@ -1,6 +1,8 @@
 with Ada.Numerics.Discrete_Random;
 
 package body Secret_Sharing is
+   --  Seeding (tests): Set_Seed re-seeds the package-level generators.
+
 
    --  Instantiate random number generators for both field types.
    --  Note: Discrete_Random is used for demonstration of the algorithm variants.
@@ -157,6 +159,12 @@ package body Secret_Sharing is
       end loop;
       return Secret;
    end Reconstruct_XOR;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      GF_Random.Reset (GF_Gen, Seed);
+      Word_Random.Reset (Word_Gen, Seed);
+   end Set_Seed;
 
 begin
    --  Elaboration code to seed the random number generators.

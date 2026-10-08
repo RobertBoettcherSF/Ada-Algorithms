@@ -49,6 +49,10 @@ package VQE is
       Tolerance     : Float_Type := 1.0e-5;
       Max_Iter      : Positive   := 1000) return Vector;
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 private
    
    -- Helper functions for optimization

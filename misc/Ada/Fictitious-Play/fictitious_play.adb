@@ -5,6 +5,20 @@ with Ada.Numerics.Elementary_Functions;
 with Ada.Numerics.Float_Random;
 
 package body Fictitious_Play is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
 
    use Ada.Numerics.Elementary_Functions;
    
@@ -220,7 +234,11 @@ package body Fictitious_Play is
       Next_P2    : Action_Index;
    begin
       Validate_Inputs(P1_Payoffs, P2_Payoffs, Iterations, P1_History, P2_History);
-      Ada.Numerics.Float_Random.Reset(RNG);
+      if Use_Fixed_Seed then
+         Ada.Numerics.Float_Random.Reset (RNG, Next_Fixed_Seed);
+      else
+         Ada.Numerics.Float_Random.Reset (RNG);
+      end if;
 
       P1_History(1) := P1_Initial_Action;
       P2_History(1) := P2_Initial_Action;
@@ -256,7 +274,11 @@ package body Fictitious_Play is
       Best_P2    : Action_Index;
    begin
       Validate_Inputs(P1_Payoffs, P2_Payoffs, Iterations, P1_History, P2_History);
-      Ada.Numerics.Float_Random.Reset(RNG);
+      if Use_Fixed_Seed then
+         Ada.Numerics.Float_Random.Reset (RNG, Next_Fixed_Seed);
+      else
+         Ada.Numerics.Float_Random.Reset (RNG);
+      end if;
 
       P1_History(1) := P1_Initial_Action;
       P2_History(1) := P2_Initial_Action;
@@ -284,5 +306,13 @@ package body Fictitious_Play is
          P2_Beliefs(P2_History(T)) := P2_Beliefs(P2_History(T)) + 1;
       end loop;
    end Inertial_Play;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+      Ada.Numerics.Float_Random.Reset (RNG, Seed);
+   end Set_Seed;
 
 end Fictitious_Play;

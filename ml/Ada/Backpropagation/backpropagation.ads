@@ -40,6 +40,12 @@ is
    -- Exception raised when vectors/matrices do not match network dimensions
    Dimension_Error : exception;
 
+   -- Seeding (tests): re-seeds the weight-initialization generator so that
+   -- Create_Network is reproducible. Without a call, the generator is
+   -- seeded from the clock at elaboration.
+   procedure Set_Seed (Seed : Integer)
+     with SPARK_Mode => Off;
+
    -- Initializes the network with small random weights (Xavier-like initialization)
    function Create_Network
      (Inputs, Hiddens, Outputs : Dimension;

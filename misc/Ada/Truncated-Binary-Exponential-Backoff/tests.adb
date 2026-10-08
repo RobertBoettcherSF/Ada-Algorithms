@@ -5,6 +5,7 @@
 --  Author: Vibe Code (Mistral AI)
 --  Date: 2025
 
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Exceptions; use Ada.Exceptions;
@@ -12,6 +13,17 @@ with Truncated_Binary_Exponential_Backoff; use Truncated_Binary_Exponential_Back
 with Own_Checks;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    --  Default configuration for tests
    Default_Config : Backoff_Config := (Base => 2, Ceiling => 10, Slot_Time => 512);
 
@@ -26,6 +38,7 @@ procedure Tests is
    end Print_Result;
 
 begin
+   Truncated_Binary_Exponential_Backoff.Set_Seed (AA_Seed (20261008));
    Own_Checks;
    Put_Line ("=== Truncated Binary Exponential Backoff Test Suite ===");
    New_Line;

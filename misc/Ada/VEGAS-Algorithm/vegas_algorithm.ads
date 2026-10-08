@@ -34,4 +34,8 @@ package Vegas_Algorithm is
       Adaptive             : Boolean := True;   --  Dynamic grid vs static MC
       Smooth_Grid          : Boolean := True);  --  Smooths rapid grid changes
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end Vegas_Algorithm;

@@ -28,4 +28,8 @@ package Zobrist is
                          Row          : Row_Index; 
                          Col          : Col_Index) return Hash_Value;
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end Zobrist;

@@ -4,6 +4,20 @@ with Ada.Numerics.Discrete_Random;
 with Ada.Numerics.Elementary_Functions;
 
 package body BHT_Algorithm is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
 
    use type Ada.Containers.Count_Type;
 
@@ -66,7 +80,11 @@ package body BHT_Algorithm is
       Found := False;
       Result := (X1 => 1, X2 => 1); -- Default initialization
 
-      Random_Domain.Reset (Gen);
+      if Use_Fixed_Seed then
+         Random_Domain.Reset (Gen, Next_Fixed_Seed);
+      else
+         Random_Domain.Reset (Gen);
+      end if;
 
       -- Phase 1: Classical preparation (Birthday Paradox mechanics)
       -- Select K unique random elements, evaluate them, store mapping.
@@ -150,5 +168,12 @@ package body BHT_Algorithm is
       K := Compute_K (Domain_Size, R);
       Core_Algorithm (Domain_Size, K, Oracle, Result, Found);
    end Simulate_BHT_R_To_1;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+   end Set_Seed;
 
 end BHT_Algorithm;

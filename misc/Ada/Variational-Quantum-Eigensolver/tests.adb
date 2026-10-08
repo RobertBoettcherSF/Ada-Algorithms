@@ -1,14 +1,27 @@
 -- tests.adb
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with VQE; use VQE;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    H_Mock : constant Hamiltonian := (Base_Energy => -10.0, Complexity => 1);
    Empty_Vector : constant Vector(1 .. 0) := (others => 0.0);
    Simple_Vector : constant Vector(1 .. 2) := (0.0, 0.0);
    Result : Vector(1 .. 2);
 begin
+   VQE.Set_Seed (AA_Seed (20261008));
    Put_Line("=================================================");
    Put_Line(" VARIATIONAL QUANTUM EIGENSOLVER (VQE) TEST SUITE ");
    Put_Line("=================================================");

@@ -4,6 +4,20 @@ with Ada.Exceptions;
 with Ada.Numerics.Generic_Elementary_Functions;
 
 package body VQE is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
 
    -- Instantiate elementary functions for our custom Float_Type 
    package Math is new Ada.Numerics.Generic_Elementary_Functions (Float_Type);
@@ -95,7 +109,11 @@ package body VQE is
       P_Bwd        : Vector(Params'Range);
       E_Fwd, E_Bwd : Float_Type;
    begin
-      Ada.Numerics.Float_Random.Reset(Gen);
+      if Use_Fixed_Seed then
+         Ada.Numerics.Float_Random.Reset (Gen, Next_Fixed_Seed);
+      else
+         Ada.Numerics.Float_Random.Reset (Gen);
+      end if;
       
       -- Generate random Bernoulli distribution perturbations (-1 or 1)
       for I in Params'Range loop
@@ -174,5 +192,12 @@ package body VQE is
       -- If loop completes without hitting tolerance, we return best effort
       return Current_Params;
    end Optimize;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+   end Set_Seed;
 
 end VQE;

@@ -2,11 +2,23 @@
 --  Verification & Validation Test Suite for the VEGAS Algorithm
 --  Executes 13+ terminal tests ensuring edge cases, errors, and functional inputs pass.
 
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Exceptions; use Ada.Exceptions;
 with Vegas_Algorithm; use Vegas_Algorithm;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
 
    -- Helper: Assertion check
    procedure Assert (Condition : Boolean; Message : String) is
@@ -39,6 +51,7 @@ procedure Tests is
    Bounds_Empty : Domain_Array(1..0);
 
 begin
+   Vegas_Algorithm.Set_Seed (AA_Seed (20261008));
    Put_Line ("Initiating VEGAS Test Suite...");
 
    -- TEST 1

@@ -1,7 +1,19 @@
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Artificial_Neural_Networks; use Artificial_Neural_Networks;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    Pass_Count : Natural := 0;
    Fail_Count : Natural := 0;
 
@@ -17,6 +29,7 @@ procedure Tests is
    end Check;
 
 begin
+   Artificial_Neural_Networks.Set_Seed (AA_Seed (20261008));
    Put_Line ("=== Neural Network Unit Tests ===");
    
    -- TEST 1 - Sigmoid Activation & Derivative

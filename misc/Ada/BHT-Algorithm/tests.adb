@@ -1,8 +1,20 @@
+with Ada.Environment_Variables;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with BHT_Algorithm; use BHT_Algorithm;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    Pass_Count : Natural := 0;
    Fail_Count : Natural := 0;
 
@@ -48,6 +60,7 @@ procedure Tests is
    Found  : Boolean;
 
 begin
+   BHT_Algorithm.Set_Seed (AA_Seed (20261008));
    Put_Line ("TEST 1 -- BHT 2-to-1 Normal (N=10)");
    Simulate_BHT_2_To_1 (10, Oracle_2_To_1'Unrestricted_Access, Result, Found);
    Check ("1.1 Collision found", Found);

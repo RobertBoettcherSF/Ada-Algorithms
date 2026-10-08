@@ -2,15 +2,28 @@
 --  V&V Test Suite for the Dithering algorithms.
 --  Tests functionality, robustness, and boundary conditions.
 
+with Ada.Environment_Variables;
 with Ada.Text_IO;    use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Dithering;      use Dithering;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    Img_1x1   : Image (1 .. 1, 1 .. 1);
    Img_2x2   : Image (1 .. 2, 1 .. 2);
    Img_Empty : Image (1 .. 0, 1 .. 0); --  Legal empty array
 begin
+   Dithering.Set_Seed (AA_Seed (20261008));
    Put_Line ("=============================================");
    Put_Line ("       DITHERING ALGORITHM TEST SUITE        ");
    Put_Line ("=============================================");

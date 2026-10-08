@@ -1,6 +1,8 @@
 with Ada.Numerics.Discrete_Random;
 
 package body Shamirs_Secret_Sharing is
+   --  Seeding (tests): Set_Seed re-seeds the package-level generators.
+
 
    package Random_Field is new Ada.Numerics.Discrete_Random (Field_Element);
    Gen : Random_Field.Generator;
@@ -192,6 +194,11 @@ package body Shamirs_Secret_Sharing is
       
       return Integer (Long_Float'Rounding (Sum));
    end Reconstruct_Secret_Integer;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Random_Field.Reset (Gen, Seed);
+   end Set_Seed;
 
 begin
    --  Initialize random generator state at package load

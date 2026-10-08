@@ -1,4 +1,5 @@
 with Ada.Command_Line;
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Backpropagation; use Backpropagation;
 with Own_Checks;
@@ -20,12 +21,25 @@ is
       end if;
    end Check;
    
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
+
    function Near (A, B : Real; Tolerance : Real := 0.0001) return Boolean is
    begin
       return abs (A - B) < Tolerance;
    end Near;
 
 begin
+   Set_Seed (AA_Seed (20261008));
    -- TEST 1 - Network Creation
    Put_Line ("TEST 1 -- Network Creation");
    declare

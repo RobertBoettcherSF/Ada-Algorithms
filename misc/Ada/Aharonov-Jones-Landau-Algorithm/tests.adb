@@ -1,8 +1,20 @@
+with Ada.Environment_Variables;
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Aharonov_Jones_Landau; use Aharonov_Jones_Landau;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    Pass_Count : Natural := 0;
    Fail_Count : Natural := 0;
 
@@ -39,6 +51,7 @@ procedure Tests is
    U_Id, U_1, U_2 : Matrix_2x2;
    Tr_Exact, Tr_Sim : Complex;
 begin
+   Aharonov_Jones_Landau.Set_Seed (AA_Seed (20261008));
    Put_Line ("TEST 1 — Complex Math Fundamentals");
    C3 := C1 + C2;
    Check ("1.1 Addition Re", Is_Close (C3.Re, 4.0));

@@ -35,4 +35,8 @@ package BHT_Algorithm is
        Pre  => Domain_Size >= Domain_Value (R) and R >= 2,
        Post => (if Found then Result.X1 /= Result.X2 and Oracle (Result.X1) = Oracle (Result.X2));
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end BHT_Algorithm;

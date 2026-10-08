@@ -65,4 +65,8 @@ package Amplitude_Amplification is
      with Global => null,
           Pre    => State'Length > 0;
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end Amplitude_Amplification;

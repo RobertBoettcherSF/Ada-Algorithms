@@ -88,4 +88,8 @@ package Fictitious_Play is
       P1_Beliefs : Belief_Counts
    ) return Action_Index;
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end Fictitious_Play;

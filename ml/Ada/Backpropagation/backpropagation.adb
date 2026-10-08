@@ -306,6 +306,12 @@ is
       end loop;
    end Update_Weights_Momentum;
 
+   procedure Set_Seed (Seed : Integer)
+   with SPARK_Mode => Off is
+   begin
+      Ada.Numerics.Float_Random.Reset (Gen, Seed);
+   end Set_Seed;
+
 begin
    Ada.Numerics.Float_Random.Reset (Gen);
 end Backpropagation;

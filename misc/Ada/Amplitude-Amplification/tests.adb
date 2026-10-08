@@ -1,7 +1,19 @@
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Amplitude_Amplification; use Amplitude_Amplification;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    Pass_Count : Natural := 0;
    Fail_Count : Natural := 0;
 
@@ -41,6 +53,7 @@ procedure Tests is
    S_Mixed : constant State_Vector (0 .. 2) := [0.1, -0.8, 0.3];
 
 begin
+   Amplitude_Amplification.Set_Seed (AA_Seed (20261008));
    -- TEST 1: Uniform Superposition Creation
    Put_Line ("TEST 1 — Uniform Superposition");
    Check ("1.1 Vector is correct length", S1'Length = 4);

@@ -4,6 +4,8 @@
 with Ada.Numerics.Float_Random;
 
 package body Dithering is
+   --  Seeding (tests): Set_Seed re-seeds the package-level generators.
+
 
    use Ada.Numerics.Float_Random;
 
@@ -307,6 +309,11 @@ package body Dithering is
          end loop;
       end loop;
    end Stucki_Dither;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Reset (Rand_Gen, Seed);
+   end Set_Seed;
 
 begin
    Reset (Rand_Gen);

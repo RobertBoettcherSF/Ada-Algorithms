@@ -8,11 +8,23 @@
 --  Author: Vibe Code (Mistral AI)
 --  Date: 2025
 
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Exponential_Backoff; use Exponential_Backoff;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
 
    --  Helper procedure to print test results
    procedure Print_Result (Test_Name : String; Passed : Boolean) is
@@ -29,6 +41,7 @@ procedure Tests is
      (Base => 2, Max_Retries => 10, Initial_Delay => 1, Slot_Time => 512);
 
 begin
+   Exponential_Backoff.Set_Seed (AA_Seed (20261008));
    Put_Line("=== Exponential Backoff Test Suite ===");
    Put_Line("Assumption: The code is broken. Tests PASS when they disprove this.");
    New_Line;

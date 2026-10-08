@@ -24,6 +24,8 @@
 with Ada.Numerics.Discrete_Random;
 
 package body Truncated_Binary_Exponential_Backoff is
+   --  Seeding (tests): Set_Seed re-seeds the package-level generators.
+
 
    --  ========================================================================
    --  Random Number Generator for Randomized Delays
@@ -362,6 +364,11 @@ package body Truncated_Binary_Exponential_Backoff is
       Validate_Ceiling (Config.Ceiling);
       return Expected_Delay (Config, Clamped_C);
    end Truncated_Expected_Delay;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Random_Int.Reset (Gen, Seed);
+   end Set_Seed;
 
 begin
    --  Initialize the random number generator.

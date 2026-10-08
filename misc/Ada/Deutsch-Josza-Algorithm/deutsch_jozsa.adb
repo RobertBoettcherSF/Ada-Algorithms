@@ -1,6 +1,20 @@
 with Ada.Numerics.Discrete_Random;
 
 package body Deutsch_Jozsa is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
 
    -------------------
    -- Solve_Deutsch --
@@ -120,7 +134,11 @@ package body Deutsch_Jozsa is
          raise Invalid_Dimension_Error;
       end if;
 
-      Rand_Idx.Reset (Gen);
+      if Use_Fixed_Seed then
+         Rand_Idx.Reset (Gen, Next_Fixed_Seed);
+      else
+         Rand_Idx.Reset (Gen);
+      end if;
       First_Val := Truth_Table (Rand_Idx.Random (Gen));
 
       for I in 1 .. Trials loop
@@ -144,5 +162,12 @@ package body Deutsch_Jozsa is
          end if;
       end if;
    end Solve_Classical_Randomized;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+   end Set_Seed;
 
 end Deutsch_Jozsa;

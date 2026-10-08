@@ -51,4 +51,8 @@ package Dithering is
    --  7. Stucki Error Diffusion Dithering (Faster, less artifacting than JJN)
    procedure Stucki_Dither (Img : in out Image);
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end Dithering;

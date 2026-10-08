@@ -1,11 +1,23 @@
 -- tests.adb
 -- Validation and Verification suite for Fictitious Play
 
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Fictitious_Play; use Fictitious_Play;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    
    -- Mock 2x2 Prisoner's Dilemma
    -- Action 1 = Cooperate, Action 2 = Defect
@@ -19,6 +31,7 @@ procedure Tests is
    Bad_H1 : Action_Array(1..4);
 
 begin
+   Fictitious_Play.Set_Seed (AA_Seed (20261008));
    Put_Line("==================================================");
    Put_Line("STARTING FICTITIOUS PLAY TEST SUITE (13+ Tests)");
    Put_Line("Assumption: Code is broken. PASS proves code works.");

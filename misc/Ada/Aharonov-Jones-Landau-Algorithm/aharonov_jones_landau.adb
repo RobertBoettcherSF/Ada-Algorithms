@@ -2,6 +2,20 @@ with Ada.Numerics.Long_Elementary_Functions;
 with Ada.Numerics.Float_Random;
 
 package body Aharonov_Jones_Landau is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
 
    --  Math Operations
    function "+" (Left, Right : Complex) return Complex is
@@ -86,7 +100,11 @@ package body Aharonov_Jones_Landau is
       Rand_Val : Float;
       Sample_Result : Real;
    begin
-      Reset (Gen);
+      if Use_Fixed_Seed then
+         Reset (Gen, Next_Fixed_Seed);
+      else
+         Reset (Gen);
+      end if;
       
       --  Estimate Real Part of the Trace
       for I in 1 .. Samples loop
@@ -133,5 +151,12 @@ package body Aharonov_Jones_Landau is
             return Hadamard_Test_Trace (U, Samples);
       end case;
    end Evaluate_Jones_Polynomial;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+   end Set_Seed;
 
 end Aharonov_Jones_Landau;

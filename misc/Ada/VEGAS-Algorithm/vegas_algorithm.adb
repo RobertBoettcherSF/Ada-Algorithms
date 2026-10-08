@@ -5,6 +5,20 @@ with Ada.Numerics.Float_Random;
 with Ada.Exceptions;
 
 package body Vegas_Algorithm is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
 
    use Ada.Numerics.Float_Random;
 
@@ -118,7 +132,11 @@ package body Vegas_Algorithm is
          end if;
       end loop;
 
-      Reset(Gen);
+      if Use_Fixed_Seed then
+         Reset (Gen, Next_Fixed_Seed);
+      else
+         Reset (Gen);
+      end if;
       Initialize_Grid;
 
       for Iter in 1 .. Iterations loop
@@ -178,5 +196,12 @@ package body Vegas_Algorithm is
       Variance := 1.0 / Sum_Weights;
 
    end Integrate;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+   end Set_Seed;
 
 end Vegas_Algorithm;

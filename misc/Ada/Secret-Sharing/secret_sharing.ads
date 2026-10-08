@@ -62,4 +62,8 @@ package Secret_Sharing is
      (Shares : XOR_Share_Array) return Data_Word
      with Pre => Shares'Length > 0;
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end Secret_Sharing;

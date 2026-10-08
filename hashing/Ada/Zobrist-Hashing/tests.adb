@@ -1,14 +1,27 @@
 -- tests.adb
+with Ada.Environment_Variables;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Assertions; use Ada.Assertions;
 with Zobrist; use Zobrist;
 with Interfaces; use Interfaces;
 
 procedure Tests is
+   --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function AA_Seed (Default : Integer) return Integer is
+      V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
+      S : Integer := Default;
+   begin
+      if V /= "" then
+         S := Integer (1 + abs (Long_Long_Integer'Value (V)) mod 2_147_483_646);
+      end if;
+      Ada.Text_IO.Put_Line ("AA_SEED =" & Integer'Image (S) & (if V = "" then " (default)" else " (from AA_SEED)"));
+      return S;
+   end AA_Seed;
    Table : Zobrist.Table_Type;
    Hash1 : Hash_Value := 0;
    Hash2 : Hash_Value := 0;
 begin
+   Zobrist.Set_Seed (AA_Seed (20261008));
    Zobrist.Initialize_Table(Table);
 
    Put_Line("--- Zobrist Hashing Test Suite ---");

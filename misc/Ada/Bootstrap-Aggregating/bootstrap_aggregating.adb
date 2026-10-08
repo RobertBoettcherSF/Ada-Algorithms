@@ -2,6 +2,8 @@ with Ada.Numerics.Float_Random;
 with Ada.Unchecked_Deallocation;
 
 package body Bootstrap_Aggregating is
+   --  Seeding (tests): Set_Seed re-seeds the package-level generators.
+
 
    -- Internal random number generator state for bootstrap sampling
    Gen : Ada.Numerics.Float_Random.Generator;
@@ -189,6 +191,11 @@ package body Bootstrap_Aggregating is
          end if;
       end loop;
    end Free_Regressor_Ensemble;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Ada.Numerics.Float_Random.Reset (Gen, Seed);
+   end Set_Seed;
 
 -- Package Initialization: Seed the random number generator
 begin

@@ -2,6 +2,20 @@ with Ada.Numerics.Generic_Elementary_Functions;
 with Ada.Numerics.Float_Random;
 
 package body Swap_Test is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
 
    package Element_Funs is new Ada.Numerics.Generic_Elementary_Functions (Real);
    use Element_Funs;
@@ -117,7 +131,11 @@ package body Swap_Test is
       Zero_Count : Natural := 0;
       Est_Overlap : Real;
    begin
-      Ada.Numerics.Float_Random.Reset (Gen);
+      if Use_Fixed_Seed then
+         Ada.Numerics.Float_Random.Reset (Gen, Next_Fixed_Seed);
+      else
+         Ada.Numerics.Float_Random.Reset (Gen);
+      end if;
 
       for I in 1 .. Shots loop
          if Real (Ada.Numerics.Float_Random.Random (Gen)) < Real (P0) then
@@ -164,5 +182,12 @@ package body Swap_Test is
       end loop;
       return Result;
    end Compute_Overlap_Matrix;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+   end Set_Seed;
 
 end Swap_Test;

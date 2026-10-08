@@ -10,6 +10,8 @@
 with Ada.Numerics.Discrete_Random;
 
 package body Exponential_Backoff is
+   --  Seeding (tests): Set_Seed re-seeds the package-level generators.
+
 
    --  === Random Number Generator ===
    --  Used for randomized backoff
@@ -197,6 +199,11 @@ package body Exponential_Backoff is
          return Current_Count;
       end if;
    end Reset_Backoff;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Random_Delay_Pkg.Reset (Gen, Seed);
+   end Set_Seed;
 
 begin
    --  Initialize the random number generator

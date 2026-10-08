@@ -3,6 +3,20 @@ with Ada.Numerics.Float_Random;
 with Ada.Unchecked_Deallocation;
 
 package body Artificial_Neural_Networks is
+   --  Seeding (tests): Set_Seed fixes the seed of every generator below.
+   Fixed_Seed     : Integer := 0;
+   Use_Fixed_Seed : Boolean := False;
+   Seed_Calls     : Natural := 0;
+
+   --  Each re-seeding inside a subprogram takes the next seed in sequence, so a
+   --  fixed seed still gives fresh (but reproducible) numbers on every call.
+   function Next_Fixed_Seed return Integer is
+   begin
+      Seed_Calls := (if Seed_Calls = Natural'Last then 0 else Seed_Calls + 1);
+      return Integer ((Long_Long_Integer (Fixed_Seed) + Long_Long_Integer (Seed_Calls))
+                      mod 2_147_483_646 + 1);
+   end Next_Fixed_Seed;
+
 
    package Real_Math is new Ada.Numerics.Generic_Elementary_Functions (Real);
    use Real_Math;
@@ -156,7 +170,11 @@ package body Artificial_Neural_Networks is
    procedure Initialize_Random (Net : in out Network) is
       Gen : Ada.Numerics.Float_Random.Generator;
    begin
-      Ada.Numerics.Float_Random.Reset (Gen);
+      if Use_Fixed_Seed then
+         Ada.Numerics.Float_Random.Reset (Gen, Next_Fixed_Seed);
+      else
+         Ada.Numerics.Float_Random.Reset (Gen);
+      end if;
       
       for I in 1 .. Natural (Net.Layers.Length) loop
          declare
@@ -337,5 +355,12 @@ package body Artificial_Neural_Networks is
          Free (Deltas (I));
       end loop;
    end Train_Single;
+
+   procedure Set_Seed (Seed : Integer) is
+   begin
+      Fixed_Seed := Seed;
+      Use_Fixed_Seed := True;
+      Seed_Calls := 0;
+   end Set_Seed;
 
 end Artificial_Neural_Networks;

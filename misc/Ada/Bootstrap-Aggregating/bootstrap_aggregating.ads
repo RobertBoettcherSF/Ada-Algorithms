@@ -122,4 +122,8 @@ package Bootstrap_Aggregating is
    -- Frees the memory allocated for the models in the ensemble.
    procedure Free_Regressor_Ensemble (Ensemble : in out Regression_Ensemble);
 
+   --  Fixes the seed of the package's random generators, so runs are reproducible
+   --  (tests). Without it the generators are seeded from the clock.
+   procedure Set_Seed (Seed : Integer);
+
 end Bootstrap_Aggregating;
