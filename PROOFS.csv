@@ -1085,7 +1085,7 @@ misc/SPARK2/Ada-SPARK-Min-Cost-Connect-Cities-Stub,misc,SPARK2,Ada-SPARK-Min-Cos
 misc/SPARK2/Ada-SPARK-Min-Cost-To-Connect-All-Points,misc,SPARK2,Ada-SPARK-Min-Cost-To-Connect-All-Points,yes,n/a,yes,yes,yes,yes,4,4,proven,9,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Min-Heap,misc,SPARK2,Ada-SPARK-Min-Heap,yes,n/a,yes,yes,yes,yes,1,1,proven,23,0,,level2-timeout,min_heap.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Min-Max-Normalize,misc,SPARK2,Ada-SPARK-Min-Max-Normalize,yes,n/a,yes,yes,yes,yes,1,1,proven,23,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
-misc/SPARK2/Ada-SPARK-Min-Stack,misc,SPARK2,Ada-SPARK-Min-Stack,yes,n/a,yes,yes,yes,yes,1,1,proven,6,0,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,
+misc/SPARK2/Ada-SPARK-Min-Stack,misc,SPARK2,Ada-SPARK-Min-Stack,yes,yes,yes,yes,yes,yes,0,0,proven,6,0,,steps=1000000,proof.gpr,,,,,,,,,,ok,yes,own tests,yes
 misc/SPARK2/Ada-SPARK-Minimum-ASCII-Delete-Sum,misc,SPARK2,Ada-SPARK-Minimum-ASCII-Delete-Sum,yes,n/a,yes,yes,yes,yes,2,2,tool crash,,,,steps=1000000,minimum_ascii_delete_sum.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Minimum-Bit-Flips-To-Convert-Number,misc,SPARK2,Ada-SPARK-Minimum-Bit-Flips-To-Convert-Number,yes,n/a,yes,yes,yes,yes,0,0,proven,6,0,,level2-timeout,minimum_bit_flips_to_convert.gpr,,,,,,,,,,ok,,,
 misc/SPARK2/Ada-SPARK-Minimum-Cost-To-Move-Chips,misc,SPARK2,Ada-SPARK-Minimum-Cost-To-Move-Chips,yes,n/a,yes,yes,yes,yes,0,0,proven,5,1,,level2-timeout,proof.gpr,,,,,,,,,,ok,,,

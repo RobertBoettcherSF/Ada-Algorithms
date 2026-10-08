@@ -196,3 +196,4 @@ misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,own count of elements equal 
 ml/SPARK2/Linear-Regression,own normal-equation least squares truncated once; 40000 random sets (sample_30)
 misc/SPARK2/Pattern-132,own prefix-minimum reference; 20000 random arrays (sample_30)
 ml/Ada/Backpropagation,own Long_Float forward pass and central finite differences of every weight/bias; 400 random networks (sample_30)
+misc/SPARK2/Ada-SPARK-Min-Stack,own array model with minimum on 2000 random runs plus full/empty rejection checks (silent no-op scan)

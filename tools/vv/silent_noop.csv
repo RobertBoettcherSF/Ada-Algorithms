@@ -54,13 +54,13 @@ misc/SPARK2/Ada-SPARK-Merge-In-Between-Linked-Lists,Append,merge_in_between_link
 misc/SPARK2/Ada-SPARK-Middle-Of-The-Linked-List,Append,middle_of_the_linked_list.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
 misc/SPARK2/Ada-SPARK-Min-Heap,Pop,min_heap.adb,legitimate,reports through an out status/Success parameter,
 misc/SPARK2/Ada-SPARK-Min-Heap,Push,min_heap.adb,legitimate,reports through an out status/Success parameter,
-misc/SPARK2/Ada-SPARK-Min-Stack,Min_Value,min_stack.adb,silent-failure (candidate),returns 0 for an empty stack (case S.Size when 0 => return 0); no Pre (reviewed by hand),
-misc/SPARK2/Ada-SPARK-Min-Stack,Pop,min_stack.adb,silent-failure (candidate),"body guard ""case S.Size is
-         when 0 => null;"" with no Pre, no status flag and no raise",
-misc/SPARK2/Ada-SPARK-Min-Stack,Push,min_stack.adb,silent-failure (candidate),"body guard ""case S.Size is
+misc/SPARK2/Ada-SPARK-Min-Stack,Min_Value,min_stack.adb,silent-failure (fixed),returns 0 for an empty stack (case S.Size when 0 => return 0); no Pre (reviewed by hand),"Pre (state condition: full/empty), test 208fbe05, fix f63f7977"
+misc/SPARK2/Ada-SPARK-Min-Stack,Pop,min_stack.adb,silent-failure (fixed),"body guard ""case S.Size is
+         when 0 => null;"" with no Pre, no status flag and no raise","Pre (state condition: full/empty), test 208fbe05, fix f63f7977"
+misc/SPARK2/Ada-SPARK-Min-Stack,Push,min_stack.adb,silent-failure (fixed),"body guard ""case S.Size is
          when 0 => R.V1 := V; R.Size := 1;
-         whe"" with no Pre, no status flag and no raise; a full container drops the value silently",
-misc/SPARK2/Ada-SPARK-Min-Stack,Top_Value,min_stack.adb,silent-failure (candidate),returns 0 for an empty stack (case S.Size when 0 => return 0); no Pre (reviewed by hand),
+         whe"" with no Pre, no status flag and no raise; a full container drops the value silently","Pre (state condition: full/empty), test 208fbe05, fix f63f7977"
+misc/SPARK2/Ada-SPARK-Min-Stack,Top_Value,min_stack.adb,silent-failure (fixed),returns 0 for an empty stack (case S.Size when 0 => return 0); no Pre (reviewed by hand),"Pre (state condition: full/empty), test 208fbe05, fix f63f7977"
 misc/SPARK2/Ada-SPARK-N-th-Tribonacci,Compute,n_th_tribonacci.adb,legitimate,base case: empty input has a defined answer (returned value),
 misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,Append,palindrome_linked_list.adb,silent-failure (candidate),"body guard ""if L.Size < Count'Last then"" with no Pre, no status flag and no raise; a full container drops the value silently",
 misc/SPARK2/Ada-SPARK-Palindrome-Pairs-Lite,Reverse_Of,palindrome_pairs_lite.adb,legitimate,base case: empty input has a defined answer (returned value),
