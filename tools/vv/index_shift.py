@@ -312,9 +312,16 @@ end Idx_Shift_Driver;
                 (sub['ret'] or '').split('.')[-1].lower() not in ('index', 'ext_index')
             # Second argument is itself an index into the array (Pre says
             # "<Param> in <Arr>'Range"): pass the 3rd slot, not the literal 3.
-            spec = re.search(r'function\s+' + re.escape(name) + r'\b.*?\breturn\s+[\w.]+(.*?);',
+            spec = re.search(r'function\s+' + re.escape(name) + r'\b(.*?)\breturn\s+[\w.]+(.*?);',
                              ads_all, re.S | re.I)
-            index_arg = bool(spec and re.search(r"\b\w+\s+in\s+\w+'Range", spec.group(1)))
+            #  Only a formal parameter counts (not "Find'Result in A'Range" in a Post).
+            formals = set()
+            if spec:
+                for grp in re.findall(r'([\w\s,]+):\s*(?:in\s+|out\s+|in\s+out\s+)?[\w.]+', spec.group(1)):
+                    formals.update(n.strip().lower() for n in grp.replace('(', ' ').split(',') if n.strip())
+            index_arg = bool(spec and any(
+                m.group(1).lower() in formals
+                for m in re.finditer(r"(?<!')\b(\w+)\s+in\s+\w+'Range", spec.group(2))))
             if index_arg and (sub['ret'] or '').split('.')[-1].lower() in ('natural', 'boolean', 'integer'):
                 value_api = True  # a count / flag about that slot, not an index
             rel = '' if value_api else ' - {A}\'First'
