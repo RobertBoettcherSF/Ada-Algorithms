@@ -725,3 +725,200 @@ held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm
 held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> -,hidden,hidden,killed
 held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <=,hidden,hidden,survived
 held half split 20261008 (std),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + < -> <=,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 3 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + + 1 -> + 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + - -> +,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + * -> +,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + < -> <=,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + + 1 -> + 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 3 -> 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + * -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + and then -> or else,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + and then -> or else,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >= + + 1 -> + 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> < + * -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + and then -> or else,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> < + * -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 2 -> 1,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + - -> +,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + - -> +,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 10 -> 9,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 2 -> 1,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + <= -> <,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + * -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + + 1 -> + 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + - -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else + * -> +,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + + 1 -> + 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + and then -> or else,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + < -> <=,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >= + - -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + + -> -,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 2 -> 3,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- 1 -> - 0 + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + <= -> <,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else + and then -> or else,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + <= -> <,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + or else -> and then,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >= + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + + 1 -> + 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + < -> <=,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 3 -> 4,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + * -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else + * -> +,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + <= -> <,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + and then -> or else,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >= + < -> <=,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + + 1 -> + 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + and then -> or else,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> < + + 1 -> + 0,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 10 -> 9,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + - -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + + 1 -> + 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,swap arguments,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 2 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + > -> >=,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + - -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + <= -> <,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + - 1 -> - 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >= + <= -> <,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + or else -> and then,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + + 1 -> + 0,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + + -> -,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + or else -> and then,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + <= -> <,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + or else -> and then,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else + < -> <=,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + - -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 10 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 3 -> 4,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + - -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + + 1 -> + 0,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + > -> >=,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + <= -> <,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else + + 1 -> + 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + or else -> and then,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 2 -> 3,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,delete statement,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + - -> +,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + and then -> or else,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + + -> -,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + and then -> or else,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + > -> >=,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,= -> /= + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + + 1 -> + 0,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >= + - 1 -> - 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ -> - + * -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + and then -> or else,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + < -> <=,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,= -> /= + <= -> <,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 2 -> 1,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + < -> <=,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else + + 1 -> + 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else + <= -> <,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,- -> + + and then -> or else,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,< -> <= + >= -> >,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,or else -> and then + - -> +,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> < + + -> -,hidden,hidden,timeout
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,<= -> < + + -> -,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + - 1 -> - 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + * -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,and then -> or else + and then -> or else,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >= + - -> +,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + <= -> <,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 10 -> 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + and then -> or else,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 1 -> 2,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,> -> >= + < -> <=,hidden,hidden,survived
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + + 1 -> + 0,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,* -> + + >= -> >,hidden,hidden,killed
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,constant 10 -> 0,hidden,hidden,stillborn
+alt half split 20261009 (held),numerical/Ada/Newells-Algorithm,newells_algorithm.adb,hidden,+ 1 -> + 0 + < -> <=,hidden,hidden,killed
