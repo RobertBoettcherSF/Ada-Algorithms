@@ -1,0 +1,6 @@
+{
+ "ada": "misc/Ada/Package-Merge-Algorithm",
+ "spark": "misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm",
+ "gen": "array:3:33:1:1000",
+ "cases": 1000
+}

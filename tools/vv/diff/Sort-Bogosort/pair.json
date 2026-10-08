@@ -1,0 +1,6 @@
+{
+ "ada": "sorting/Ada/Bogosort",
+ "spark": "sorting/SPARK4/Ada-SPARK-Bogosort",
+ "gen": "array:0:8:-1000:1000",
+ "cases": 1000
+}

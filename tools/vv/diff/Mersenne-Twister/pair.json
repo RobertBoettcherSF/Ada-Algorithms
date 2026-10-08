@@ -1,0 +1,6 @@
+{
+ "ada": "numerical/Ada/Mersenne-Twister",
+ "spark": "numerical/SPARK4/Ada-SPARK-Mersenne-Twister",
+ "gen": "array:1:1:0:4294967295",
+ "cases": 1000
+}

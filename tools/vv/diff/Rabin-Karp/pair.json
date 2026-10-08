@@ -1,0 +1,6 @@
+{
+ "ada": "strings/Ada/Rabin-Karp",
+ "spark": "strings/SPARK2/Ada-SPARK-Rabin-Karp",
+ "gen": "array:5:33:0:1",
+ "cases": 1000
+}

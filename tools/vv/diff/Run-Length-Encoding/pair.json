@@ -1,0 +1,6 @@
+{
+ "ada": "compression/Ada/Run-Length-Encoding",
+ "spark": "compression/SPARK2/Ada-SPARK-Run-Length-Encoding",
+ "gen": "array:0:32:0:1",
+ "cases": 1000
+}

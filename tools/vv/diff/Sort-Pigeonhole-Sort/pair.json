@@ -1,0 +1,6 @@
+{
+ "ada": "sorting/Ada/Pigeonhole-Sort",
+ "spark": "sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort",
+ "gen": "array:0:64:0:60",
+ "cases": 1000
+}

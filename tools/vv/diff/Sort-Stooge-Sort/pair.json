@@ -1,0 +1,6 @@
+{
+ "ada": "sorting/Ada/Stooge-Sort",
+ "spark": "sorting/SPARK4/Ada-SPARK-Stooge-Sort",
+ "gen": "array:0:24:-1000:1000",
+ "cases": 1000
+}

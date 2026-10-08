@@ -1,0 +1,6 @@
+{
+ "ada": "sorting/Ada/Cocktail-Shaker-Sort",
+ "spark": "sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort",
+ "gen": "array:0:64:-1000:1000",
+ "cases": 1000
+}

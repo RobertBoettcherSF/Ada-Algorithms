@@ -1,0 +1,6 @@
+{
+ "ada": "misc/Ada/Selection-Algorithm",
+ "spark": "misc/SPARK4/Ada-SPARK-Selection-Algorithm",
+ "gen": "array:1:65:-1000:1000",
+ "cases": 1000
+}

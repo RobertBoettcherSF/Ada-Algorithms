@@ -1,0 +1,6 @@
+{
+ "ada": "searching/Ada/Linear-Search",
+ "spark": "searching/SPARK4/Ada-SPARK-Linear-Search",
+ "gen": "array:1:65:-40:40",
+ "cases": 1000
+}

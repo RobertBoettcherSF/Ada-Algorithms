@@ -1,0 +1,6 @@
+{
+ "ada": "strings/Ada/Knuth-Morris-Pratt",
+ "spark": "strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt",
+ "gen": "array:1:16:0:2",
+ "cases": 1000
+}

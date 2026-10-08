@@ -1,0 +1,6 @@
+{
+ "ada": "strings/Ada/Longest-Common-Subsequence",
+ "spark": "strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence",
+ "gen": "array:0:24:0:2",
+ "cases": 1000
+}

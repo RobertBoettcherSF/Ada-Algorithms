@@ -1,0 +1,6 @@
+{
+ "ada": "strings/Ada/Levenshtein-Distance",
+ "spark": "strings/SPARK3/Levenshtein-Distance",
+ "gen": "array:0:16:0:2",
+ "cases": 1000
+}

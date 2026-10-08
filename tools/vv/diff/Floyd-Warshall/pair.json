@@ -1,0 +1,6 @@
+{
+ "ada": "graphs/Ada/Floyd-Warshall-Algorithm",
+ "spark": "graphs/SPARK2/Ada-SPARK-Floyd-Warshall",
+ "gen": "array:16:16:0:79",
+ "cases": 1000
+}

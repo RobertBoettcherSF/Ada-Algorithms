@@ -1,0 +1,6 @@
+{
+ "ada": "sorting/Ada/Counting-Sort",
+ "spark": "sorting/SPARK4/Ada-SPARK-Counting-Sort",
+ "gen": "array:0:64:0:60",
+ "cases": 1000
+}

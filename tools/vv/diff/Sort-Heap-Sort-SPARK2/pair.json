@@ -1,0 +1,6 @@
+{
+ "ada": "sorting/Ada/Heapsort",
+ "spark": "sorting/SPARK2/Ada-SPARK-Heap-Sort",
+ "gen": "array:8:8:0:31",
+ "cases": 1000
+}

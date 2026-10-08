@@ -1,0 +1,7 @@
+{
+ "ada": "numerical/Ada/Extended-Euclidean-Algorithm",
+ "spark": "numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm",
+ "gen": "array:2:2:0:1000",
+ "cases": 1000,
+ "zero_edge": true
+}

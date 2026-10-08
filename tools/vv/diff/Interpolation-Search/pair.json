@@ -1,0 +1,6 @@
+{
+ "ada": "searching/Ada/Interpolation-Search",
+ "spark": "searching/SPARK4/Ada-SPARK-Interpolation-Search",
+ "gen": "array:1:65:-40:40",
+ "cases": 1000
+}

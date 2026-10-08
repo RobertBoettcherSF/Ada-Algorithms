@@ -1,0 +1,6 @@
+{
+ "ada": "strings/Ada/Damerau-Levenshtein-Distance",
+ "spark": "strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance",
+ "gen": "array:0:8:0:2",
+ "cases": 1000
+}

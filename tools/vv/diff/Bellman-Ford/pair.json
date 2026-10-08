@@ -1,0 +1,6 @@
+{
+ "ada": "graphs/Ada/Bellman-Ford-Algorithm",
+ "spark": "graphs/SPARK2/Bellman-Ford-Algorithm",
+ "gen": "array:49:49:0:99",
+ "cases": 1000
+}

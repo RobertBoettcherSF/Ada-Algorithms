@@ -1,0 +1,6 @@
+{
+ "ada": "strings/Ada/Boyer-Moore",
+ "spark": "strings/SPARK2/Ada-SPARK-Boyer-Moore",
+ "gen": "array:20:20:0:1",
+ "cases": 1000
+}

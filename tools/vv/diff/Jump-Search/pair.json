@@ -1,0 +1,6 @@
+{
+ "ada": "searching/Ada/Jump-Search",
+ "spark": "searching/SPARK4/Ada-SPARK-Jump-Search",
+ "gen": "array:1:65:-40:40",
+ "cases": 1000
+}

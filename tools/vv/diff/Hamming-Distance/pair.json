@@ -1,0 +1,6 @@
+{
+ "ada": "strings/Ada/Hamming-Distance",
+ "spark": "strings/SPARK2/Ada-SPARK-Hamming-Distance",
+ "gen": "array:6:6:0:1",
+ "cases": 1000
+}
