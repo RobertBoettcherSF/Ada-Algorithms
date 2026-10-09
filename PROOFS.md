@@ -2347,7 +2347,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Strand-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 314 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Strand-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Timsort | yes | yes | yes | yes | yes | 0 | 0 | proven | 632 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Timsort |  |
 | sorting/SPARK4/Ada-SPARK-Topological-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 68 (withdrawn: Post proves trivial body not_found, see contract_scan.csv) |  | sorting/Ada/Topological-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Tree-Sort | yes | yes | yes | yes | yes | 0 | 3 | proven | 294 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Tree-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Tree-Sort | yes | yes | yes | yes | yes | 0 | 3 | proven | 413 (restored) |  | sorting/Ada/Tree-Sort |  |
 | sorting/SPARK4/Bead-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 249 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bead-Sort |  |
 | strings/Ada/Aho-Corasick | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |  |
 | strings/Ada/Boyer-Moore | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  | strings/SPARK2/Ada-SPARK-Boyer-Moore |  |
