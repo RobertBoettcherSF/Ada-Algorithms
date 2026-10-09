@@ -243,11 +243,10 @@ package body Different_Ways_Parentheses with SPARK_Mode => On is
    end Lemma_Facts;
 
    --  The Facts needed for one length L, without the whole table in context.
-   procedure Lemma_Ways_Step (L : Positive)
+   procedure Lemma_Ways_Step (L : Operand_Count)
    with
      Ghost,
      Global => null,
-     Pre    => L <= Max_Operands,
      Post   => Ways (L) >= 1 and then Ways (L) <= To_Big_Integer (1_767_263_190)
                and then (if L >= 2 then Ways (L) = Partial (L, L - 1))
                and then (if L = 1 then Ways (L) = 1)
@@ -255,7 +254,7 @@ package body Different_Ways_Parentheses with SPARK_Mode => On is
 
    --  Only the chain for L itself, so that a call costs O (L ** 2) Big_Integer
    --  operations when assertions are enabled (Lemma_Facts would cost every chain).
-   procedure Lemma_Ways_Step (L : Positive) is
+   procedure Lemma_Ways_Step (L : Operand_Count) is
    begin
       case L is
          when 1 =>
@@ -469,8 +468,6 @@ package body Different_Ways_Parentheses with SPARK_Mode => On is
             pragma Assert (Partial (20, 17) = To_Big_Integer (1_159_979_700));
             pragma Assert (Partial (20, 18) = To_Big_Integer (1_289_624_490));
             pragma Assert (Partial (20, 19) = To_Big_Integer (1_767_263_190));
-         when others =>
-            null;
       end case;
    end Lemma_Ways_Step;
 

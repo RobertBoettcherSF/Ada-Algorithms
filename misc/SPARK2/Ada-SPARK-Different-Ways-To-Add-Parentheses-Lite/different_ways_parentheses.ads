@@ -38,6 +38,7 @@ package Different_Ways_Parentheses with SPARK_Mode => On is
 
    Max_Expression : constant := 9;
    Max_Results    : constant := 1_430;   --  W (9)
+   subtype Expression_Length is Positive range 1 .. Max_Expression;
 
    function Facts return Boolean is
      (Ways (1) = 1
@@ -63,8 +64,7 @@ package Different_Ways_Parentheses with SPARK_Mode => On is
    type Value_List is array (Positive range <>) of Long_Long_Integer;
 
    --  99 ** L.
-   function Bound (L : Positive) return Long_Long_Integer
-   with Pre => L <= Max_Expression;
+   function Bound (L : Expression_Length) return Long_Long_Integer;
 
    --  Every value of every parenthesization, ordered by the position of the
    --  last operator applied (left to right), then by the left part's
@@ -109,7 +109,7 @@ private
    function Partial (N : Positive; S : Natural) return Big_Integer is
      (if S = 0 then To_Big_Integer (0) else Partial (N, S - 1) + Ways (S) * Ways (N - S));
 
-   function Bound (L : Positive) return Long_Long_Integer is
+   function Bound (L : Expression_Length) return Long_Long_Integer is
      (case L is
         when 1 => 99,
         when 2 => 9_801,
@@ -119,6 +119,5 @@ private
         when 6 => 941_480_149_401,
         when 7 => 93_206_534_790_699,
         when 8 => 9_227_446_944_279_201,
-        when 9 => 913_517_247_483_640_899,
-        when others => 0);
+        when 9 => 913_517_247_483_640_899);
 end Different_Ways_Parentheses;
