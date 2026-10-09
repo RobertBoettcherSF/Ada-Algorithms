@@ -1,0 +1,33 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+Definition used (written from the description of the Banker's algorithm,
+not from any code): a state is safe when the processes can finish one after
+another, each first receiving its whole remaining need (Maximum -
+Allocation) from the free resources and then returning everything it holds.
+
+tests.adb: the classic state and the request (2, 1, 1) are the original
+cases. Hand-worked: Ordered (1 free unit; process 1 needs 1, holds 1;
+process 2 needs 2) is safe through the order 1, 2. Deadlock (nothing free,
+two processes each needing 1 more) is unsafe. Mixed (free 0 1 0; process 1
+needs 0 1 0 and holds 0 0 1, process 2 needs 0 1 1 and holds 1 0 0, process
+3 needs 1 1 1) is safe through 1, 2, 3. Chain is safe only through 4, 3, 2,
+1 (each frees exactly what the next one needs); raising process 1's maximum
+by one unit makes it unsafe. Requests: on Ordered, giving process 2 one unit
+leaves nobody able to finish (refused, nothing changes) while giving process
+1 its last unit is safe (granted: Available 0, Allocation 2, nothing else
+changes); on the classic state 3 units of resource 3 exceed Available (2),
+2 units of resource 1 for process 2 exceed its need (1), a zero request is
+granted and changes nothing; a zero request on Deadlock is refused.
+
+own_checks.adb: independent reference that tries all 24 orders of the 4
+processes (no repeated-pass search). Every one-resource state on 3
+processes with values 0 .. 2 (3 ** 7 states) and 20,000 seeded random
+states (values 0 .. 3 or 0 .. 20, every tenth with some Allocation above
+Maximum, where Need is 0 as its Post states) are compared on Is_Safe, every
+Need, and one random Request (granted exactly when N fits in Available and
+Need and the resulting state is safe; a grant moves N, a refusal changes
+nothing). Seed = FNV-1a of the folder name, AA_SEED overrides it.
