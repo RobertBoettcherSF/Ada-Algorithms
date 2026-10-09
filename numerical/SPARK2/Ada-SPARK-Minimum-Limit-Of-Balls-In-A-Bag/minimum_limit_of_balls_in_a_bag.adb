@@ -4,7 +4,9 @@ package body Minimum_Limit_Of_Balls_In_A_Bag with SPARK_Mode => On is
    function Minimum_Limit
      (Bags : Bag_Array; Allowed : Operations) return Limit is
    begin
-      for Candidate in Limit loop
+      --  Limit'Last needs no operation at all (no bag holds more), so it is
+      --  the answer when no smaller candidate fits.
+      for Candidate in Limit'First .. Limit'Last - 1 loop
          declare
             Needed : Integer := 0;
          begin
