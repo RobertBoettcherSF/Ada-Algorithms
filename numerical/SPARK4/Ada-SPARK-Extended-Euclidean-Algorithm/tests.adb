@@ -89,6 +89,15 @@ begin
       Check (R.Gcd = 42, "xgcd(0,42).Gcd");
       Check (Verify_Bezout (E (0), E (42), R), "Bezout 0,42");
 
+      --  Exact coefficients for a zero operand, worked by hand from the
+      --  Wikipedia iteration (old_s, s, old_t, t) := (1, 0, 0, 1):
+      --  (42, 0): r = 0, the loop runs zero times -> (42, old_s = 1, old_t = 0);
+      --  (0, 42): one step with q = 0 swaps the rows -> (42, 0, 1).
+      R := Extended_Gcd (E (42), E (0));
+      Check (R.X = 1 and then R.Y = 0, "xgcd(42,0) coefficients = (1, 0)");
+      R := Extended_Gcd (E (0), E (42));
+      Check (R.X = 0 and then R.Y = 1, "xgcd(0,42) coefficients = (0, 1)");
+
       R := Extended_Gcd (E (1), E (1));
       Check (R.Gcd = 1, "xgcd(1,1).Gcd");
       Check (Verify_Bezout (E (1), E (1), R), "Bezout 1,1");
