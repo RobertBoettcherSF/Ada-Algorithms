@@ -191,3 +191,5 @@ misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,GNAT 14,GNATLS 14.2.0,0,0,P
 misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,GNAT 12,GNATLS 12.2.0,0,0,PASS Get_Maximum_In_Generated_Array,291457f1
 misc/Ada/Warnsdorffs-Rule,GNAT 14,GNATLS 14.2.0,0,0,ALL TESTS PASSED SUCCESSFULLY.,e9a0c188
 misc/Ada/Warnsdorffs-Rule,GNAT 12,GNATLS 12.2.0,0,0,ALL TESTS PASSED SUCCESSFULLY.,e9a0c188
+numerical/Ada/Metropolis-Light-Transport,GNAT 14,GNATLS 14.2.0,0,0,=== 43 passed 0 failed ===,108759ce
+numerical/Ada/Metropolis-Light-Transport,GNAT 12,GNATLS 12.2.0,0,0,=== 43 passed 0 failed ===,108759ce
