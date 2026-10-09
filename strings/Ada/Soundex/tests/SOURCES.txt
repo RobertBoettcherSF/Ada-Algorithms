@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Nothing is copied from the program's output or from third-party test suites.
+
+tests.adb sections 1 .. 15: the original checks; expected codes follow
+from the American Soundex rules stated in soundex.ads (letter-to-digit
+map, H/W and vowel separation, '0' padding).
+
+tests.adb Is_Valid_Code and section 16 (agent A3, 2026-10-09, checker scan
+of the Is_Valid_* judges): from the Code_String definition in soundex.ads
+(an uppercase letter, then digits; letters coded 0 are dropped, so every
+produced digit is 1 .. 6, and '0' appears only as right padding). All
+18,278 words of 1 .. 3 letters must give such a code; five hand-made
+codes check the judge itself.

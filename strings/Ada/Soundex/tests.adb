@@ -80,16 +80,19 @@ procedure Tests is
       return R;
    end Make_Alpha;
 
+   --  A well-formed code (spec, Code_String): an uppercase letter, then
+   --  the produced digits, each in '1' .. '6' (a 0-coded letter is never
+   --  appended), then '0' padding on the right only.
    function Is_Valid_Code (C : Code_String) return Boolean is
+      Padding : Boolean := False;
    begin
-      if C'Length /= 4 then
-         return False;
-      end if;
       if C (1) not in 'A' .. 'Z' then
          return False;
       end if;
       for I in 2 .. 4 loop
-         if C (I) not in '0' .. '6' then
+         if C (I) = '0' then
+            Padding := True;
+         elsif C (I) not in '1' .. '6' or else Padding then
             return False;
          end if;
       end loop;
@@ -452,6 +455,37 @@ begin
    Check (Enc ("Hofmann") = "H155", "Hofmann");
    Check (Enc ("Hoffman") = "H155", "Hoffman");
    Check (Match ("Hofmann", "Hoffman"), "Hofmann matches Hoffman");
+
+   ------------------------------------------------------------------
+   Section ("16. Every word of 1 .. 3 letters gives a well-formed code");
+   --  Agent A3 checker scan: the old Is_Valid_Code accepted any digit
+   --  '0' .. '6' anywhere (e.g. "A060"). All 18,278 words of 1 .. 3
+   --  letters must give a code the stricter judge accepts.
+   declare
+      W : String (1 .. 3);
+      Words, Bad : Natural := 0;
+   begin
+      for L in 1 .. 3 loop
+         for Code in 0 .. 26**L - 1 loop
+            for I in 1 .. L loop
+               W (I) := Character'Val (Character'Pos ('A')
+                                       + (Code / 26**(I - 1)) mod 26);
+            end loop;
+            Words := Words + 1;
+            if not Is_Valid_Code (Enc (W (1 .. L))) then
+               Bad := Bad + 1;
+            end if;
+         end loop;
+      end loop;
+      Put_Line ("  " & Words'Image & " words," & Bad'Image
+                & " ill-formed codes");
+      Check (Bad = 0, "all 1 .. 3-letter words give well-formed codes");
+   end;
+   Check (not Is_Valid_Code ("A060"), "judge rejects a digit after padding");
+   Check (not Is_Valid_Code ("A170"), "judge rejects digit 7");
+   Check (not Is_Valid_Code ("a123"), "judge rejects a lower-case letter");
+   Check (Is_Valid_Code ("A600"), "judge accepts right padding");
+   Check (Is_Valid_Code ("A000"), "judge accepts all padding");
 
    ------------------------------------------------------------------
    -- Summary
