@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with Permutations_II; use Permutations_II;
+with Own_Checks;
 
 procedure Tests is
    function Img (A : Value_Array) return String is
@@ -57,5 +58,6 @@ begin
    Step (M, [-5, -5, 0], False);
    Step (M, [-5, 0, -5], True);
 
+   Own_Checks;
    Ada.Text_IO.Put_Line ("permutations II tests passed");
 end Tests;
