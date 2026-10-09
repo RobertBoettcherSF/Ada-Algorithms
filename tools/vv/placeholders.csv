@@ -110,7 +110,7 @@ misc/SPARK2/Ada-SPARK-Valid-IP-Address-Stub,PROOFS.csv stub,"bounded stub (the f
 misc/SPARK2/Ada-SPARK-Valid-Number-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Valid-Number implementation",open
 misc/SPARK2/Ada-SPARK-Valid-Sudoku-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Valid-Sudoku implementation",open
 misc/SPARK2/Ada-SPARK-Vector-2D-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Vector-2D implementation",open
-misc/SPARK2/Ada-SPARK-Word-Break-II,H122,has no word list; only counts splits of a 4-symbol word into single symbols,open
+misc/SPARK2/Ada-SPARK-Word-Break-II,H122,has no word list; only counts splits of a 4-symbol word into single symbols,closed (agent-CF: real Word Break II)
 misc/SPARK2/Ada-SPARK-Word-Break-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Word-Break implementation",open
 misc/SPARK2/Ada-SPARK-Word-Ladder-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Word-Ladder implementation",open
 misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub,H115,"answers come from a case table, not a zigzag iterator","closed (agent-CF: real zigzag iterator, functional Posts proved)"

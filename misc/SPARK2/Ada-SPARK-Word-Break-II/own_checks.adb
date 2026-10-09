@@ -131,7 +131,7 @@ begin
    end loop;
    --  all-'a' text of length 12 with every word a .. aaaaaaaaaaaa: 2 ** 11 sentences
    for L in 1 .. 12 loop
-      D (L) := Word_Of ((1 .. L => 'a'));
+      D (L) := Word_Of ([1 .. L => 'a']);
    end loop;
    S := [others => 'a'];
    Run (S, 12, D, 12, " all a, 12 words");
