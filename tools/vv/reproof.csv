@@ -1,5 +1,5 @@
 folder,result,rc,secs,jobs,gpr,checks_total,max_steps_used,failing_vcs,note,run_id,commit,toolchain
-clustering/SPARK2/K-Means-Step,holds,0,1,1,k_means_step.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+clustering/SPARK2/K-Means-Step,holds,0,2,2,k_means_step.gpr,10,82,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 compression/SPARK2/Ada-SPARK-Compress-String,holds,0,5,1,compress_string.gpr,7,2057,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 compression/SPARK2/Ada-SPARK-Interleaving-String,holds,0,25,1,interleaving_string_project.gpr,10,705,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 compression/SPARK2/Ada-SPARK-LZ77,holds,0,1,1,lz77.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -15,19 +15,19 @@ concurrency/SPARK2/Ada-SPARK-Lamports-Bakery-Algorithm,holds,0,1,1,proof.gpr,3,1
 concurrency/SPARK2/Ada-SPARK-Petersons-Algorithm,holds,0,1,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 concurrency/SPARK2/Ada-SPARK-Task-Scheduler,holds,0,1,1,task_scheduler.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub,holds,0,2,1,proof.gpr,5,208,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-concurrency/SPARK2/Course-Schedule,holds,0,5,1,proof.gpr,68,323,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+concurrency/SPARK2/Course-Schedule,holds,0,9,2,proof.gpr,58,113,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 cryptography/SPARK2/Ada-SPARK-Level-Order-Traversal-Stub,holds,0,2,1,proof.gpr,21,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 cryptography/SPARK2/Ada-SPARK-MD5,holds,0,0,1,md5.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 cryptography/SPARK2/Ada-SPARK-SHA-1,holds,0,1,1,sha_1.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 cryptography/SPARK2/Bit-Reversal,holds,0,1,1,bit_reversal.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham,holds,0,16,1,convex_hull_graham.gpr,11,2215,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 geometry/SPARK2/Ada-SPARK-Point-In-Polygon,holds,0,44,1,point_in_polygon.gpr,22,14476,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-geometry/SPARK2/Closest-Pair-Brute,holds,0,2,1,closest_pair_brute.gpr,8,1816,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+geometry/SPARK2/Closest-Pair-Brute,not decided (tool crash),1,84,2,closest_pair_brute.gpr,,1,,"gnatwhy3 out of memory under the project --proof-warnings=on (4 GB cap, GNAT BUG box); no unproved VC reported; rerun with --proof-warnings=off pending (handover)",reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 graphs/SPARK2/Ada-SPARK-Bellman-Ford-Lite,holds,0,0,1,bellman_ford_lite.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 graphs/SPARK2/Ada-SPARK-Clone-Graph,holds,0,25,1,clone_graph.gpr,158,2156,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 graphs/SPARK2/Ada-SPARK-Clone-Graph-Stub,holds,0,0,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 graphs/SPARK2/Ada-SPARK-Dijkstra-Lite,holds,0,1,1,dijkstra_lite.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,holds,0,4,1,find_center_of_star_graph.gpr,4,528,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,holds,0,1,2,find_center_of_star_graph.gpr,6,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph,holds,0,5,1,find_if_path_exists_in_graph.gpr,8,397,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 graphs/SPARK2/Ada-SPARK-Floyd-Warshall,holds,0,36,1,floyd_warshall.gpr,2,3533,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 graphs/SPARK2/Ada-SPARK-Floyd-Warshall-Lite,holds,0,0,1,floyd_warshall_lite.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -38,9 +38,9 @@ graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS,holds,0,16,1,number_of_islands_dfs
 graphs/SPARK2/Ada-SPARK-Prims-Algorithm,holds,0,1,1,prims_algorithm.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 graphs/SPARK2/Ada-SPARK-Shortest-Path-In-Binary-Matrix,holds,0,1,1,shortest_path_in_binary_matrix.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 graphs/SPARK2/Bellman-Ford-Algorithm,holds,0,137,1,bellman_ford_algorithm.gpr,4,3369,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-graphs/SPARK4/A-Star,holds,0,38,1,a_star.gpr,234,1278,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,holds,0,42,1,dijkstras_algorithm.gpr,224,1188,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,holds,0,24,1,floyds_cycle_finding_algorithm.gpr,183,2,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+graphs/SPARK4/A-Star,holds,0,112,2,a_star.gpr,280,7127,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,holds,0,101,2,dijkstras_algorithm.gpr,271,8806,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,holds,0,85,2,floyds_cycle_finding_algorithm.gpr,235,47,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 hashing/SPARK2/Ada-SPARK-Design-HashMap,holds,0,1,1,proof.gpr,7,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 hashing/SPARK2/Ada-SPARK-Design-HashMap-Stub,holds,0,1,1,design_hashmap_stub.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 hashing/SPARK2/Ada-SPARK-Design-HashSet,holds,0,1,1,proof.gpr,6,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -48,7 +48,7 @@ hashing/SPARK2/Ada-SPARK-Design-HashSet-Stub,holds,0,1,1,proof.gpr,3,0,,,reproof
 hashing/SPARK2/Ada-SPARK-FNV-Hash,holds,0,1,1,fnv_hash.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,holds,0,2,1,pearson_hashing.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,holds,0,3,1,zobrist_hashing.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-hashing/SPARK2/Bloom-Filter,holds,0,2,1,bloom_filter.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+hashing/SPARK2/Bloom-Filter,holds,0,2,2,bloom_filter.gpr,10,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 logic/Ada/DPLL,holds,0,11,1,dpll.gpr,56,1746,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 logic/Ada/Verified-Unification-Engine,holds,0,19,1,unification_engine.gpr,178,148,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 matrices/SPARK2/Ada-SPARK-Check-If-Matrix-Is-X-Matrix,holds,0,1,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -77,7 +77,7 @@ misc/Ada/Memory-Channel-Model,holds,0,6,1,proof.gpr,32,1,,,reproof-20261009-1,e8
 misc/Ada/PCIe-Transfer-Model,holds,0,7,1,proof.gpr,60,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-3Sum-Closest,holds,0,1,1,proof.gpr,6,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-4Sum-II,holds,0,2,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,holds,0,2,1,accounts_merge_lite.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,holds,0,1,2,accounts_merge_lite.gpr,4,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Accounts-Merge-Stub,holds,0,2,1,proof.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Add-Binary,holds,0,12,1,add_binary.gpr,8,1877,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Add-Digits,holds,0,2,1,proof.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -97,7 +97,7 @@ misc/SPARK2/Ada-SPARK-Assign-Cookies,holds,0,2,1,assign_cookies_project.gpr,2,1,
 misc/SPARK2/Ada-SPARK-Asteroid-Collision,holds,0,1,1,asteroid_collision.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Authentication-Manager-Stub,holds,0,2,1,proof.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Available-Captures-For-Rook,holds,0,2,1,available_captures_for_rook.gpr,3,774,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Bankers-Algorithm,holds,0,2,1,proof.gpr,8,2,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Bankers-Algorithm,holds,0,3,2,proof.gpr,15,2,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Base64-Decode,holds,0,2,1,base64_decode.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Base64-Encode,holds,0,1,1,base64_encode.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Baseball-Game,holds,0,2,1,proof.gpr,12,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -112,7 +112,7 @@ misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock-With-Cooldownoldown,holds,
 misc/SPARK2/Ada-SPARK-Binary-Number-With-Alternating-Bits,holds,0,1,1,binary_number_with_alternating_bits.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Binary-To-Integer,holds,0,1,1,Binary_To_Integer.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Binary-Watch,holds,0,1,1,binary_watch.gpr,4,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Binomial-Coefficient,holds,0,2,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Binomial-Coefficient,holds,0,7,2,proof.gpr,23,950,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Bitset,holds,0,1,1,bitset.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range,holds,0,1,1,bitwise_and_of_numbers_range.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Bitwise-OR-Of-Numbers-Range,holds,0,2,1,Bitwise_Or_Of_Numbers_Range.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -126,13 +126,13 @@ misc/SPARK2/Ada-SPARK-Browser-History-Stub,holds,0,2,1,proof.gpr,2,1,,,reproof-2
 misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation,holds,0,2,1,proof.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Bulb-Switcher,holds,0,1,1,proof.gpr,11,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub,holds,0,1,1,proof.gpr,5,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Bump-Arena,holds,0,9,1,proof.gpr,65,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Bump-Arena,holds,0,17,2,proof.gpr,108,6,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-CRC32,holds,0,1,1,crc32.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-CSR-Row-Sum,holds,0,1,1,csr_row_sum.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Can-Place-Flowers,holds,0,1,1,can_place_flowers.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Canberra-Distance,holds,0,3,1,canberra_distance.gpr,14,1300,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Candy,holds,0,1,1,candy_project.gpr,2,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,holds,0,16,1,proof.gpr,5,3318,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,holds,0,82,2,proof.gpr,53,3335,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Car-Pooling,holds,0,4,1,car_pooling.gpr,6,74,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Cheapest-Flights,holds,0,1,1,cheapest_flights.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Cheapest-Flights-Stub,holds,0,1,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -144,18 +144,18 @@ misc/SPARK2/Ada-SPARK-Cherry-Pickup-Lite,holds,0,1,1,cherry_pickup_lite.gpr,2,0,
 misc/SPARK2/Ada-SPARK-Circular-Deque-Stub,holds,0,1,1,proof.gpr,7,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Circular-Queue,holds,0,2,1,circular_queue.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Clamp,holds,0,2,1,proof.gpr,2,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Climbing-Stairs,holds,0,1,1,climbing_stairs.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,holds,0,2,1,proof.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Climbing-Stairs,holds,0,27,2,climbing_stairs.gpr,171,382,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,holds,0,2,2,proof.gpr,4,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Coin-Change,holds,0,1,1,coin_change.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Coin-Change-II,holds,0,11,1,coin_change_ii_project.gpr,6,295,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,holds,0,2,1,proof.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Combination-Sum,holds,0,1,1,combination_sum.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Combination-Sum-II,holds,0,1,1,combination_sum_ii.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Combination-Sum,holds,0,55,2,combination_sum.gpr,37,4765,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Combination-Sum-II,holds,0,59,2,combination_sum_ii.gpr,38,2,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Combination-Sum-III,holds,0,2,1,proof.gpr,21,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Combination-Sum-IV,holds,0,10,1,proof.gpr,8,974,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Complement-Of-Base-10,holds,0,2,1,complement_of_base_10.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Complement-Of-Base-10-Integer,holds,0,1,1,Complement_Of_Base_10_Integer.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,holds,0,14,1,connected_component_labeling.gpr,18,205,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,holds,0,25,2,connected_component_labeling.gpr,16,7,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Container-With-Most-Water,holds,0,2,1,proof.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Contains-Duplicate,holds,0,1,1,contains_duplicate.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Contains-Duplicate-II,holds,0,1,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -166,14 +166,14 @@ misc/SPARK2/Ada-SPARK-Convert-A-Number-To-Hexadecimal,holds,0,1,1,Convert_A_Numb
 misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer,holds,0,2,1,proof.gpr,9,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite,holds,0,1,1,proof.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings,holds,0,1,1,corporate_flight_bookings.gpr,5,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Cosine-Distance,holds,0,4,1,cosine_distance.gpr,8,5382,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Cosine-Distance,holds,0,3,2,cosine_distance.gpr,8,135,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Cosine-Similarity,holds,0,2,1,cosine_similarity.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Count-And-Say,holds,0,1,1,count_and_say.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Count-And-Say-Stub,holds,0,5,1,count_and_say_stub.gpr,42,56,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Count-Odd-Numbers-In-An-Interval,holds,0,1,1,proof.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite,holds,0,3,1,proof.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,holds,0,1,1,proof.gpr,9,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,holds,0,2,1,count_square_submatrices_with_all_ones.gpr,30,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,holds,0,2,2,proof.gpr,9,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,holds,0,5,2,count_square_submatrices_with_all_ones.gpr,30,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Count-Sub-Islands,holds,0,1,1,count_sub_islands.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Count-Triplets-That-Can-Form-Two-Arrays-Of-Equal-XOR,holds,0,0,1,count_triplets_equal_xor.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Counting-Bits,holds,0,2,1,proof.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -182,20 +182,20 @@ misc/SPARK2/Ada-SPARK-Crawler-Log-Folder,holds,0,2,1,proof.gpr,10,1,,,reproof-20
 misc/SPARK2/Ada-SPARK-Create-Maximum-Number-Lite,holds,0,1,1,create_maximum_number_lite.gpr,4,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Critical-Connections-In-A-Network-Lite,holds,0,1,1,proof.gpr,2,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Daily-Temperatures,holds,0,1,1,daily_temperatures.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Decode-Ways,holds,0,4,1,proof.gpr,30,450,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Decode-Ways,holds,0,42,2,proof.gpr,30,180,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Decode-Ways-Stub,holds,0,2,1,decode_ways_stub.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Decode-XORed-Array,holds,0,1,1,decode_xored_array.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,holds,0,2,1,proof.gpr,11,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,holds,0,1,1,degree_of_an_array.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Delete-And-Earn,holds,0,1,1,delete_and_earn.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,holds,0,3,2,proof.gpr,13,54,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,holds,0,2,2,degree_of_an_array.gpr,4,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Delete-And-Earn,holds,0,28,2,delete_and_earn.gpr,61,318,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,holds,0,2,1,proof.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Delete-Node-In-A-Linked-List,holds,0,5,1,proof.gpr,7,580,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Delete-The-Middle-Node,holds,0,4,1,proof.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Delta-Encoding,holds,0,2,1,delta_encoding.gpr,5,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Deque-Bounded,holds,0,3,1,deque_bounded.gpr,14,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Deque-Bounded,holds,0,5,2,deque_bounded.gpr,14,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Design-A-Leaderboard,holds,0,1,1,design_a_leaderboard.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment,holds,0,4,1,proof.gpr,18,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,holds,0,3,1,proof.gpr,14,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,holds,0,4,2,proof.gpr,21,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Design-An-Ordered-Stream,holds,0,1,1,proof.gpr,8,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Design-Bitset,holds,0,1,1,design_bitset.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Design-Browser-History,holds,0,2,1,proof.gpr,14,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -217,10 +217,10 @@ misc/SPARK2/Ada-SPARK-Detect-Capital,holds,0,0,1,detect_capital.gpr,2,0,,,reproo
 misc/SPARK2/Ada-SPARK-Diagonal-Traverse,holds,0,1,1,diagonal_traverse.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Dice-Coefficient,holds,0,2,1,dice_coefficient.gpr,5,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Difference-Array,holds,0,1,1,difference_array.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,holds,0,1,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,holds,0,30,2,proof.gpr,1493,,,"batch run killed by an outside SIGTERM; result from the per-change cold run of 7e6e52cb (same canonical Silver command, -j2, /tmp/main2/v), same sources as dfcedaec",reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Disjoint-Set-Forest,holds,0,2,1,disjoint_set_forest.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Divisor-Game,holds,0,1,1,divisor_game.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,holds,0,1,1,domino_and_tromino_tiling_lite.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,holds,0,10,2,domino_and_tromino_tiling_lite.gpr,26,66,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Dot-Product,holds,0,1,1,dot_product.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Dungeon-Game-Lite,holds,0,1,1,dungeon_game_lite.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Duplicate-Zeros,holds,0,4,1,duplicate_zeros.gpr,5,30,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -238,10 +238,10 @@ misc/SPARK2/Ada-SPARK-Excel-Sheet-Column,holds,0,1,1,excel_sheet_column.gpr,3,1,
 misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Number,holds,0,1,1,proof.gpr,9,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Excel-Sheet-Column-Title,holds,0,1,1,proof.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Exclusive-Time-Of-Functions-Lite,holds,0,2,1,proof.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Factorial,holds,0,1,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Factorial,holds,0,4,2,proof.gpr,14,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Factorial-Trailing-Zeroes,holds,0,1,1,factorial_trailing_zeroes.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Fair-Candy-Swap,holds,0,13,1,fair_candy_swap.gpr,9,1979,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Fast-Pow,holds,0,0,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Fast-Pow,holds,0,11,2,proof.gpr,35,909,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Fibonacci-DP,holds,0,1,1,proof.gpr,6,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Fibonacci-Number,holds,0,2,1,proof.gpr,11,369,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Final-Prices-With-A-Special-Discount,holds,0,1,1,proof.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -263,7 +263,7 @@ misc/SPARK2/Ada-SPARK-Find-The-Town-Judge,holds,0,1,1,find_the_town_judge.gpr,2,
 misc/SPARK2/Ada-SPARK-Find-Words-That-Can-Be-Formed,holds,0,2,1,proof.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-First-Bad-Version,holds,0,0,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-First-Unique-Char,holds,0,1,1,first_unique_char.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-First-Unique-Character,holds,0,38,1,first_unique_character.gpr,4,8532,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-First-Unique-Character,holds,0,20,2,first_unique_character.gpr,4,318,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,holds,0,3,1,fisher_yates_shuffle.gpr,30,2,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Fixed-Point-Iteration,holds,0,1,1,fixed_point_iteration.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Fizz-Buzz,holds,0,1,1,proof.gpr,5,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -275,7 +275,7 @@ misc/SPARK2/Ada-SPARK-Fruit-Into-Baskets,holds,0,1,1,fruit_into_baskets.gpr,8,0,
 misc/SPARK2/Ada-SPARK-Game-Of-Life-Step,holds,0,35,1,game_of_life_step.gpr,2,2067,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Gas-Station,holds,0,1,1,gas_station_project.gpr,2,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Generate-Parentheses,holds,0,1,1,generate_parentheses.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,holds,0,0,1,get_maximum_in_generated_array.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,holds,0,232,2,get_maximum_in_generated_array.gpr,61,1754,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Goat-Latin,holds,0,1,1,proof.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Gray-Code,holds,0,1,1,gray_code.gpr,4,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Greatest-Common-Divisor,holds,0,1,1,proof.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -295,7 +295,7 @@ misc/SPARK2/Ada-SPARK-Hit-Counter-Stub,holds,0,2,1,proof.gpr,3,2285,,,reproof-20
 misc/SPARK2/Ada-SPARK-Horner-Scheme,holds,0,2,1,horner_scheme.gpr,4,1467,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-House-Robber,holds,0,1,1,house_robber.gpr,12,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-House-Robber-II,holds,0,2,1,house_robber_ii.gpr,17,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,holds,0,1,1,house_robber_iii_lite.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,holds,0,751,2,house_robber_iii_lite.gpr,178,5625,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,holds,0,1,1,proof.gpr,5,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-How-Many-Numbers-Are-Smaller,holds,0,1,1,how_many_numbers_are_smaller.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-IPO-Lite,holds,0,0,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -306,7 +306,7 @@ misc/SPARK2/Ada-SPARK-Implement-StrStr,holds,0,1,1,implement_strstr.gpr,3,0,,,re
 misc/SPARK2/Ada-SPARK-Insert-Delete-GetRandom-O1,holds,0,2,1,insert_delete_getrandom_o1.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Insert-Interval,holds,0,1,1,insert_interval_project.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Int-To-Roman-Stub,holds,0,0,1,int_to_roman_stub.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Integer-Break,holds,0,1,1,integer_break.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Integer-Break,holds,0,436,2,proof.gpr,831,10657,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Integer-To-English-Stub,holds,0,0,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Integer-To-Roman,holds,0,1,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays,holds,0,1,1,proof.gpr,6,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -335,7 +335,7 @@ misc/SPARK2/Ada-SPARK-L1-Norm,holds,0,1,1,l1_norm.gpr,2,0,,,reproof-20261009-1,e
 misc/SPARK2/Ada-SPARK-L2-Norm-Squared,holds,0,0,1,l2_norm_squared.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,holds,0,4,1,proof.gpr,29,463,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-LFU-Cache-Stub,holds,0,1,1,proof.gpr,9,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,holds,0,3,1,proof.gpr,26,128,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-LRU-Cache-Lite,holds,0,12,2,proof.gpr,25,200,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-LRU-Cache-Stub,holds,0,1,1,proof.gpr,6,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Largest-Number,holds,0,1,1,largest_number.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Largest-Rectangle-In-Histogram,holds,0,1,1,largest_rectangle_in_histogram.gpr,8,137,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -345,7 +345,7 @@ misc/SPARK2/Ada-SPARK-Least-Common-Multiple,holds,0,1,1,proof.gpr,12,1,,,reproof
 misc/SPARK2/Ada-SPARK-Lemonade-Change,holds,0,0,1,lemonade_change.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Length-Of-Last-Word,holds,0,1,1,length_of_last_word.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Letter-Case-Permutation,holds,0,1,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,holds,0,0,1,letter_combinations_of_a_phone_number.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,stale (wall cap 3600s hit),124,3640,2,letter_combinations_of_a_phone_number.gpr,,,,wall cap 3600 s hit at -j2 (alt-ergo grinding one VC); -j4 retry not run (budget stop); stale until a run proves within the cap,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-License-Key-Formatting,holds,0,1,1,license_key_formatting.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Line-Intersection,holds,0,0,1,line_intersection.gpr,4,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Line-Reflection,holds,0,1,1,line_reflection.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -354,13 +354,13 @@ misc/SPARK2/Ada-SPARK-Linked-List-Cycle-II,holds,0,0,1,proof.gpr,3,0,,,reproof-2
 misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Lite,holds,0,1,1,proof.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Stub,holds,0,1,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Longest-Increasing-Subsequence,holds,0,2,1,proof.gpr,9,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,holds,0,1,1,proof.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,holds,0,3,2,proof.gpr,10,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Longest-Ones,holds,0,58,1,proof.gpr,5,25158,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence,holds,0,69,1,longest_palindromic_subsequence.gpr,24,1592,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Longest-Repeating-Character-Replacement,holds,0,1,1,longest_repeating_character_replacement.gpr,8,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,holds,0,1,1,proof.gpr,5,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Magnetic-Force-Between-Two-Balls,holds,0,1,1,proof.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Majority-Element,holds,0,1,1,majority_element.gpr,12,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Majority-Element,holds,0,2,2,majority_element.gpr,6,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Majority-Element-II,holds,0,32,1,proof.gpr,4,8818,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Manacher,holds,0,21,1,manacher.gpr,8,555,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Manhattan-Distance,holds,0,1,1,manhattan_distance.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -370,7 +370,7 @@ misc/SPARK2/Ada-SPARK-Matchsticks-To-Square-Lite,holds,0,7,1,proof.gpr,6,6610,,,
 misc/SPARK2/Ada-SPARK-Max-Area-Of-Island,holds,0,0,1,max_area_of_island.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones,holds,0,2,1,proof.gpr,2,1057,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones-II,holds,0,3,1,proof.gpr,4,2319,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones-III,holds,0,121,1,max_consecutive_ones_iii.gpr,95,20608,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Max-Consecutive-Ones-III,holds,0,3,2,max_consecutive_ones_iii.gpr,7,50,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Max-Heap,holds,0,2,1,max_heap.gpr,23,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Max-Path-Sum-Stub,holds,0,2,1,proof.gpr,19,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Max-Points-On-A-Line-Lite,holds,0,1,1,max_points_on_a_line_lite.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -402,7 +402,7 @@ misc/SPARK2/Ada-SPARK-Min-Cost-Connect-Cities-Stub,holds,0,4,1,proof.gpr,3,926,,
 misc/SPARK2/Ada-SPARK-Min-Cost-To-Connect-All-Points,holds,0,2,1,proof.gpr,9,109,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Min-Heap,holds,0,3,1,min_heap.gpr,23,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Min-Max-Normalize,holds,0,4,1,proof.gpr,23,372,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Min-Stack,holds,0,1,1,proof.gpr,6,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Min-Stack,holds,0,5,2,proof.gpr,9,2,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Minimum-Bit-Flips-To-Convert-Number,holds,0,2,1,minimum_bit_flips_to_convert.gpr,6,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Minimum-Cost-To-Move-Chips,holds,0,1,1,proof.gpr,5,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Minimum-Deletions-To-Make-Character-Frequencies-Unique,holds,0,2,1,minimum_deletions_to_make_character_frequencies_unique.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -461,7 +461,7 @@ misc/SPARK2/Ada-SPARK-Overlap-Coefficient,holds,0,2,1,overlap_coefficient.gpr,8,
 misc/SPARK2/Ada-SPARK-PN-Counter,holds,0,4,1,pn_counter.gpr,23,2,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Flow,holds,0,1,1,pacific_atlantic_water_flow.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Stub,holds,0,1,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Paint-Fence-Lite,holds,0,1,1,paint_fence_lite.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Paint-Fence-Lite,holds,0,1529,2,paint_fence_lite.gpr,130,3235,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Paint-House-Lite,holds,0,1,1,paint_house_lite.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Paint-House-Stub,holds,0,4,1,proof.gpr,10,17,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Palindrome-Linked-List,holds,0,4,1,proof.gpr,9,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -476,17 +476,17 @@ misc/SPARK2/Ada-SPARK-Partition-Labels,holds,0,1,1,partition_labels.gpr,3,1,,,re
 misc/SPARK2/Ada-SPARK-Partition-List,holds,0,23,1,ada_spark_partition_list.gpr,8,1127,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Pascal-Triangle,holds,0,15,1,proof.gpr,6,113637,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Pascal-Triangle-II,holds,0,2,1,proof.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Path-Sum,holds,0,3,1,proof.gpr,20,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Path-Sum,holds,0,103,2,proof.gpr,26,2326,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Path-Sum-III-Lite,holds,0,2,1,path_sum_iii_lite.gpr,5,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Path-With-Minimum-Effort,holds,0,22,1,proof.gpr,8,23380,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Peak-Index-In-Mountain-Array,holds,0,8,1,proof.gpr,59,7955,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Pearson-Correlation,holds,0,3,1,pearson_correlation.gpr,19,641,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub,holds,0,1,1,proof.gpr,10,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Permutations,holds,0,0,1,permutations.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Permutations-II,holds,0,1,1,permutations_ii.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Permutations,holds,0,27,2,permutations.gpr,113,61,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Permutations-II,holds,0,92,2,permutations_ii.gpr,205,2129,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Plus-One,holds,0,1,1,plus_one.gpr,6,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Population-Count,holds,0,1,1,population_count.gpr,6,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Pow-X-N,holds,0,0,1,pow_x_n.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Pow-X-N,holds,0,201,2,pow_x_n.gpr,353,12440,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Pow-X-N-Stub,holds,0,1,1,pow_x_n_stub.gpr,15,2,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Power-Of-Four,holds,0,1,1,power_of_four.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Power-Of-Three,holds,0,1,1,proof.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -500,7 +500,7 @@ misc/SPARK2/Ada-SPARK-Product-Of-Array-Except-Self,holds,0,37,1,proof.gpr,6,2395
 misc/SPARK2/Ada-SPARK-Product-Of-Numbers-Stub,holds,0,4,1,proof.gpr,3,20407,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Projection-Area-Of-3D-Shapes,holds,0,1,1,proof.gpr,4,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Queue-Reconstruction-By-Height,holds,0,0,1,queue_reconstruction_by_height.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Queue-Using-Stacks,holds,0,1,1,proof.gpr,4,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Queue-Using-Stacks,holds,0,4,2,proof.gpr,6,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Random-Pick-With-Weight-Lite,holds,0,1,1,proof.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Randomized-Collection,holds,0,1,1,proof.gpr,12,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Randomized-Set,holds,0,1,1,randomized_set.gpr,9,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -512,7 +512,7 @@ misc/SPARK2/Ada-SPARK-Range-Sum-Query-Immutable,holds,0,1,1,range_sum_query_immu
 misc/SPARK2/Ada-SPARK-Ransom-Note,holds,0,0,1,ransom_note.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Rate-Monotonic-Scheduling,holds,0,1,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Ravenscar-Job-Pool,holds,0,7,1,proof.gpr,85,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Reach-A-Number,holds,0,1,1,proof.gpr,6,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Reach-A-Number,holds,0,3,2,proof.gpr,6,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Recent-Counter,holds,0,1,1,proof.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Rectangle-Area,holds,0,1,1,rectangle_area.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Rectangle-Overlap,holds,0,1,1,rectangle_overlap.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -559,7 +559,7 @@ misc/SPARK2/Ada-SPARK-Shortest-Bridge,holds,0,0,1,shortest_bridge.gpr,2,0,,,repr
 misc/SPARK2/Ada-SPARK-Shortest-Completing-Word,holds,0,2,1,proof.gpr,16,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Shortest-Job-Next,holds,0,1,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Shortest-Remaining-Time,holds,0,1,1,proof.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,holds,0,2,1,proof.gpr,11,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,holds,0,4,2,proof.gpr,11,57,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Sigmoid,holds,0,0,1,sigmoid.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Simplify-Path-Stub,holds,0,2,1,simplify_path_stub.gpr,4,2545,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Single-Number,holds,0,1,1,single_number.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -575,10 +575,10 @@ misc/SPARK2/Ada-SPARK-Soup-Servings-Lite,holds,0,1,1,soup_servings_lite.gpr,2,0,
 misc/SPARK2/Ada-SPARK-Spearman-Rank-Stub,holds,0,2,1,spearman_rank_stub.gpr,7,148,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,holds,0,1,1,proof.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,holds,0,9,1,proof.gpr,82,5924,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Sqrt-Integer,holds,0,0,1,sqrt_integer.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Sqrt-X,holds,0,0,1,sqrt_x.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Sqrt-Integer,holds,0,7,2,sqrt_integer.gpr,31,425,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Sqrt-X,holds,0,12,2,sqrt_x.gpr,69,330,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Sqrtx,holds,0,3,1,proof.gpr,17,7196,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Stack-Bounded,holds,0,2,1,stack_bounded.gpr,11,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Stack-Bounded,holds,0,6,2,stack_bounded.gpr,11,6,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Stack-Using-Queues-Stub,holds,0,1,1,proof.gpr,4,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Standard-Score,holds,0,1,1,standard_score.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Stock-Spanner-Stub,holds,0,1,1,proof.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -587,9 +587,9 @@ misc/SPARK2/Ada-SPARK-Strstr-Naive,holds,0,1,1,strstr_naive.gpr,3,0,,,reproof-20
 misc/SPARK2/Ada-SPARK-Student-Attendance-Record-I,holds,0,0,1,student_attendance_record_i.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Subarray-Sum-Equals-K,holds,0,4,1,subarray_sum_equals_k.gpr,23,1132,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Subarrays-With-K-Different-Integers,holds,0,35,1,proof.gpr,5,2602,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Subsets,holds,0,0,1,subsets.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Subsets,holds,0,2560,2,subsets.gpr,177,2060,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Subsets-Bitmask,holds,0,1,1,subsets_bitmask.gpr,4,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Subsets-II,holds,0,0,1,subsets_ii.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Subsets-II,holds,0,186,2,subsets_ii.gpr,225,467,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Subtract-Product-Sum-Digits,holds,0,2,1,proof.gpr,20,1922,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Subtract-The-Product-And-Sum,holds,0,1,1,proof.gpr,6,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Sudoku-Solver-Lite,holds,0,2,1,proof.gpr,4,23,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -607,7 +607,7 @@ misc/SPARK2/Ada-SPARK-Swapping-Nodes-In-A-Linked-List,holds,0,1,1,proof.gpr,6,1,
 misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water,holds,0,1,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water-Stub,holds,0,0,1,proof.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Tanimoto,holds,0,3,1,tanimoto.gpr,7,4024,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Target-Sum,holds,0,5,1,target_sum_project.gpr,17,201,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Target-Sum,holds,0,32,2,target_sum_project.gpr,17,1,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Target-Sum-Stub,holds,0,1,1,target_sum_stub.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-The-Skyline-Problem-Lite,holds,0,1,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Third-Maximum-Number,holds,0,1,1,third_maximum_number.gpr,7,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -636,7 +636,7 @@ misc/SPARK2/Ada-SPARK-Two-Pointers-Sum,holds,0,1,1,two_pointers_sum.gpr,2,0,,,re
 misc/SPARK2/Ada-SPARK-Two-Sum,holds,0,0,1,two_sum.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-UTF-8-Validation,holds,0,1,1,utf_8_validation.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Ugly-Number,holds,0,1,1,proof.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK2/Ada-SPARK-Ugly-Number-II,holds,0,0,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK2/Ada-SPARK-Ugly-Number-II,holds,0,,2,proof.gpr,477,,,"per-change cold run of the fix commit (canonical Silver command, -j2, /tmp/main2/v); batch pass 2 not run for it (budget stop)",reproof-20261009-2,2794e231,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Uncommon-Words-From-Two-Sentences,holds,0,1,1,uncommon_words_from_two_sentences.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Underground-System-Stub,holds,0,1,1,proof.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Union-Find,holds,0,0,1,union_find.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -669,11 +669,11 @@ misc/SPARK2/Ada-SPARK-XOR-Of-Numbers-Range,holds,0,1,1,Xor_Of_Numbers_Range.gpr,
 misc/SPARK2/Ada-SPARK-XOR-Operation-In-An-Array,holds,0,1,1,xor_operation_in_an_array.gpr,3,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub,holds,0,0,1,proof.gpr,9,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK2/Pattern-132,holds,0,2,1,pattern_132.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK4/Acorn-Generator,holds,0,30,4,acorn_generator.gpr,231,686,,first pass -j1: wall cap hit after 3769s; retry -j4,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK4/Acorn-Generator,holds,0,1395,2,acorn_generator.gpr,231,686,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK4/Ada-SPARK-Accumulator,holds,0,1,1,accumulator.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,holds,0,105,4,blum_blum_shub.gpr,261,5226,,first pass -j1: wall cap hit after 3770s; retry -j4,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK4/Ada-SPARK-Heaps-Algorithm,holds,0,19,1,heaps_algorithm.gpr,235,292,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-misc/SPARK4/Ada-SPARK-K-Way-Merge,holds,0,51,1,k_way_merge.gpr,358,6339,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK4/Ada-SPARK-Heaps-Algorithm,holds,0,45,2,heaps_algorithm.gpr,212,2600,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+misc/SPARK4/Ada-SPARK-K-Way-Merge,holds,0,195,2,k_way_merge.gpr,426,5919,,,reproof-20261009-2,dfcedaec,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator,holds,0,77,4,lagged_fibonacci_generator.gpr,318,1301,,first pass -j1: wall cap hit after 3770s; retry -j4,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK4/Ada-SPARK-Lemke-Howson,holds,0,2179,4,lemke_howson.gpr,79,154327,,first pass -j1: wall cap hit after 3600s; retry -j4,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,holds,0,3337,1,package_merge.gpr,195,1020,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -806,19 +806,19 @@ sorting/SPARK4/Ada-SPARK-Burstsort,holds,0,226,4,burstsort.gpr,531,13859,,first 
 sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,holds,0,65,1,cocktail_shaker_sort.gpr,269,835,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Comb-Sort,holds,0,414,1,comb_sort.gpr,187,48,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Counting-Sort,holds,0,149,1,counting_sort.gpr,280,100651,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-sorting/SPARK4/Ada-SPARK-Cycle-Sort,holds,0,1950,1,cycle_sort.gpr,545,97598,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,holds,0,,2,cycle_sort.gpr,539,,,"per-change cold run of the fix commit (canonical Silver command, -j2, /tmp/main2/v); batch pass 2 not run for it (budget stop)",reproof-20261009-2,7fa14c8c,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Flashsort,holds,0,285,4,flashsort.gpr,655,11528,,first pass -j1: wall cap hit after 3600s; retry -j4,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Gnome-Sort,holds,0,19,1,gnome_sort.gpr,114,1147,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Heapsort,holds,0,1262,1,heapsort.gpr,433,475,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Insertion-Sort,holds,0,22,1,insertion_sort.gpr,104,889,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Introsort,holds,0,449,1,introsort.gpr,853,3453,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Library-Sort,holds,0,36,4,library_sort.gpr,275,952,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-sorting/SPARK4/Ada-SPARK-Merge-Sort,holds,0,207,4,merge_sort.gpr,463,189945,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+sorting/SPARK4/Ada-SPARK-Merge-Sort,holds,0,,2,merge_sort.gpr,463,,,"per-change cold run of the fix commit (canonical Silver command, -j2, /tmp/main2/v); batch pass 2 not run for it (budget stop)",reproof-20261009-2,aa918480,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,holds,0,133,4,odd_even_sort.gpr,303,259703,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Pancake-Sorting,holds,0,105,4,pancake_sorting.gpr,465,121,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Patience-Sorting,holds,0,204,4,patience_sorting.gpr,274,2675,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,holds,0,110,4,pigeonhole_sort.gpr,236,2488,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-sorting/SPARK4/Ada-SPARK-Postman-Sort,holds,0,169,4,postman_sort.gpr,507,15360,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+sorting/SPARK4/Ada-SPARK-Postman-Sort,holds,0,,2,postman_sort.gpr,505,,,"per-change cold run of the fix commit (canonical Silver command, -j2, /tmp/main2/v); batch pass 2 not run for it (budget stop)",reproof-20261009-2,4e084555,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Quantum-Sort,holds,0,108,4,quantum_sort.gpr,477,1114,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Quicksort,holds,0,77,4,quicksort.gpr,332,820,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Radix-Sort,holds,0,71,4,radix_sort.gpr,309,968,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -832,7 +832,7 @@ sorting/SPARK4/Ada-SPARK-Sorted-List,holds,0,47,4,sorted_list.gpr,328,15517,,,re
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,holds,0,24,4,spaghetti_sort.gpr,147,64,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Stooge-Sort,holds,0,82,4,stooge_sort.gpr,425,560,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Strand-Sort,holds,0,84,4,strand_sort.gpr,254,715,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-sorting/SPARK4/Ada-SPARK-Timsort,holds,0,110,4,timsort.gpr,632,235871,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+sorting/SPARK4/Ada-SPARK-Timsort,holds,0,,2,timsort.gpr,632,,,"per-change cold run of the fix commit (canonical Silver command, -j2, /tmp/main2/v); batch pass 2 not run for it (budget stop)",reproof-20261009-2,91b2d937,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Topological-Sort,holds,0,16,4,topological_sorting.gpr,91,123,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Ada-SPARK-Tree-Sort,holds,0,39,4,tree_sort.gpr,306,10413,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 sorting/SPARK4/Bead-Sort,holds,0,34,4,bead_sort.gpr,160,174,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -855,8 +855,8 @@ strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,holds,0,3,1,lcs.gpr,24,1,,,r
 strings/SPARK2/Ada-SPARK-Make-The-String-Great,holds,0,1,1,proof.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 strings/SPARK2/Ada-SPARK-Multiply-Strings-Lite,holds,0,1,1,multiply_strings_lite.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub,holds,0,8,1,proof.gpr,62,1271,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String,holds,0,1,1,proof.gpr,8,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-strings/SPARK2/Ada-SPARK-One-Edit-Distance,holds,0,2,1,proof.gpr,13,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String,holds,0,,2,proof.gpr,8,,,"per-change cold run of the fix commit (canonical Silver command, -j2, /tmp/main2/v); batch pass 2 not run for it (budget stop)",reproof-20261009-2,dd3d4629,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+strings/SPARK2/Ada-SPARK-One-Edit-Distance,holds,0,,2,proof.gpr,13,,,"per-change cold run of the fix commit (canonical Silver command, -j2, /tmp/main2/v); batch pass 2 not run for it (budget stop)",reproof-20261009-2,200567b4,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 strings/SPARK2/Ada-SPARK-Permutation-In-String,holds,0,1,1,permutation_in_string.gpr,3,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 strings/SPARK2/Ada-SPARK-Rabin-Karp,holds,0,3,1,rabin_karp.gpr,22,2,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 strings/SPARK2/Ada-SPARK-Remove-All-Adjacent-Duplicates-In-String,holds,0,9,1,proof.gpr,7,387,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -889,7 +889,7 @@ trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Inorder-And-Postorder-Lite,hol
 trees/SPARK2/Ada-SPARK-Construct-Binary-Tree-From-Preorder-And-Inorder-Lite,holds,0,1,1,proof.gpr,5,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-Convert-BST-To-Greater-Tree,holds,0,4,1,proof.gpr,4,819,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-Count-Binary-Substrings,holds,0,2,1,proof.gpr,12,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes,holds,0,0,1,proof.gpr,2,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+trees/SPARK2/Ada-SPARK-Count-Complete-Tree-Nodes,holds,0,,2,proof.gpr,2,,,"per-change cold run of the fix commit (canonical Silver command, -j2, /tmp/main2/v); batch pass 2 not run for it (budget stop)",reproof-20261009-2,61eaedf2,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub,holds,0,1,1,proof.gpr,11,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-Delete-Node-In-A-BST-Lite,holds,0,1,1,proof.gpr,1,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-Diameter-Of-Binary-Tree,holds,0,3,1,proof.gpr,25,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
@@ -913,7 +913,7 @@ trees/SPARK2/Ada-SPARK-Maximum-Depth-Of-N-Ary-Tree,holds,0,1,1,proof.gpr,3,0,,,r
 trees/SPARK2/Ada-SPARK-Merge-Two-Binary-Trees,holds,0,20,1,proof.gpr,8,1797,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-Minimum-Depth-Of-Binary-Tree,holds,0,2,1,proof.gpr,21,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-Minimum-Height-Trees,holds,0,1,1,minimum_height_trees.gpr,10,1,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
-trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,holds,0,1,1,minimum_window_substring.gpr,10,0,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+trees/SPARK2/Ada-SPARK-Minimum-Window-Substring,holds,0,,2,minimum_window_substring.gpr,8,,,"per-change cold run of the fix commit (canonical Silver command, -j2, /tmp/main2/v); batch pass 2 not run for it (budget stop)",reproof-20261009-2,cbd6d4ce,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-N-Ary-Tree-Level-Order-Traversal,holds,0,201,1,proof.gpr,11,6308,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-N-Ary-Tree-Postorder-Traversal,holds,0,301,1,proof.gpr,13,3579,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
 trees/SPARK2/Ada-SPARK-N-Ary-Tree-Preorder-Traversal,holds,0,188,1,proof.gpr,11,2969,,,reproof-20261009-1,e8c7794f,gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1

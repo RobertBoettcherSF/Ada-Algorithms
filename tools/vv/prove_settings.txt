@@ -64,7 +64,7 @@ jobs_per_folder=1
 proof_warnings=on
 proof_warnings_timeout=10
 proof_warnings_gnatprove=FSF 16.1.0 (Why3 for gnatprove version 1.8.2+git)
-#   Every SPARK folder's project file (all git-tracked */SPARK*/*/*.gpr, 1376 files) has
+#   Every SPARK folder's project file (all git-tracked */SPARK*/*/*.gpr: 1376 files at f1b9d760, 1377 with Lemke-Howson's proof.gpr d91f4fcb; checked 2026-10-09 13:30, none missing) has
 #     package Prove is
 #        for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
 #     end Prove;
@@ -95,3 +95,18 @@ proof_warnings_gnatprove=FSF 16.1.0 (Why3 for gnatprove version 1.8.2+git)
 #   The sweep runs each gnatprove tree under RLIMIT_AS 4 GB (proof_warnings.py --mem-gb) at -P 2;
 #   crashed folders are rc=crash in proof_warnings_runs.csv. Open question for the owner; the
 #   switch has not been taken out of any project file.
+# Sweep pw-20261009 (complete 12:40): snapshot 60417e74 (worktree /tmp/pw_tree), 935 SPARK folders,
+#   --mode=silver --level=0 -j2, project switches (proof warnings on, timeout 10), RLIMIT_AS 4 GB, -P 2.
+#   910 rc=0, 18 rc=crash (gnatwhy3 past the 4 GB cap; no warnings parsed, status unknown), 1 rc=cap
+#   (Sort-Merge-Join, 1800 s), 2 rc=1 (misc/SPARK4 Shortest-Seek-First test_runner.gpr and demo), 4 no gpr
+#   (obj/tests/demo dirs). 85 warnings (all 'unreachable code' / 'unreachable branch') in 35 folders ->
+#   tools/vv/proof_warnings.csv. Sticky key = folder, file, warning, source line, occurrence (the n-th equal
+#   source line), so 14 identical 'return 1;' lines are 14 findings. A row is closed only by status=fixed with
+#   the fix commit, after a re-run on the fix (run pw-20261009-recheck) does not raise it.
+# Re-proof pass reproof-20261009-2: the PROOFS.csv silver=proven folders whose .ads/.adb changed after the
+#   pass-1 snapshot e8c7794f (fixes, rewrites, proof-warning fixes), plus strings/SPARK3/Levenshtein-Distance
+#   (proven but missing from pass 1). Same canonical command and cap, cold, from a worktree at the commit in
+#   reproof.csv; AA_REPROOF_JOBS=2 (the -j value does not change which VCs prove within --steps); each
+#   gnatprove tree under RLIMIT_AS 4 GB. A folder whose gnatprove crashes only because the project's
+#   --proof-warnings=on runs out of memory is re-run with --proof-warnings=off appended on the command line
+#   (the Silver checks are the same; the proof-warnings finding stays rc=crash in proof_warnings_runs.csv).

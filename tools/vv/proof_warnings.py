@@ -7,7 +7,8 @@ with the project's own Proof_Switches (which carry --proof-warnings=on and the t
 pinned ~/.local/alr/gnatprove_16.1.0_* toolchain. gpr = PROOFS.csv proof_gpr, else proof.gpr, else
 the first *.gpr. Every 'warning:' line gnatprove prints is recorded in tools/vv/proof_warnings.csv.
 
-Findings are sticky: rows are keyed by (folder, file, warning text, stripped source line); a row
+Findings are sticky: rows are keyed by (folder, file, warning text, stripped source line, occurrence:
+the n-th warning with that text on an equal source line of the file, so 14 'return 1;' lines are 14 rows); a row
 stays open until someone fixes it in code and sets status=fixed with fix_commit - a later run that
 does not raise it again only updates last_seen, it never closes a row.
 A gnatwhy3 under --proof-warnings can grow past 7 GB on some units (16.1.0; seen as a global OOM
@@ -65,9 +66,9 @@ if a.cmd == 'run':
     os.makedirs(a.work, exist_ok=True)
     with ThreadPoolExecutor(a.P) as ex: list(ex.map(one, folders))
 W = re.compile(r'^(\S+?\.ad[sb]):(\d+):(\d+): warning: (.*)$')
-cols = ['folder', 'file', 'line', 'col', 'warning', 'source_line', 'status', 'first_seen', 'last_seen', 'fix_commit', 'note']
+cols = ['folder', 'file', 'line', 'col', 'warning', 'source_line', 'occurrence', 'status', 'first_seen', 'last_seen', 'fix_commit', 'note']
 old = list(csv.DictReader(open(OUT, newline=''))) if os.path.exists(OUT) else []
-key = lambda r: (r['folder'], r['file'], r['warning'], r['source_line'])
+key = lambda r: (r['folder'], r['file'], r['warning'], r['source_line'], r.get('occurrence', '1'))
 idx = {key(r): r for r in old}
 runs = {}
 for f in folders:
@@ -76,13 +77,17 @@ for f in folders:
     runs[f] = open(res).read().strip()
     log = os.path.join(w, 'pw.log')
     if not os.path.exists(log): continue
+    seen = {}; occ = {}   # identical lines once; the n-th equal source line of a file is occurrence n
     for l in open(log, errors='replace'):
         m = W.match(l.strip())
         if not m: continue
         fn, ln, cn, msg = m.groups(); fn = os.path.basename(fn)
-        try: src = open(os.path.join(ROOT, f, fn), errors='replace').read().split('\n')[int(ln) - 1].strip()
+        if (fn, ln, cn, msg) in seen: continue
+        seen[(fn, ln, cn, msg)] = 1
+        try: src = open(os.path.join(w, fn), errors='replace').read().split('\n')[int(ln) - 1].strip()  # the copy that was proved
         except Exception: src = ''
-        r = dict(folder=f, file=fn, line=ln, col=cn, warning=msg, source_line=src[:160], status='open',
+        b = (fn, msg, src[:160]); occ[b] = occ.get(b, 0) + 1
+        r = dict(folder=f, file=fn, line=ln, col=cn, warning=msg, source_line=src[:160], occurrence=str(occ[b]), status='open',
                  first_seen=a.run_id, last_seen=a.run_id, fix_commit='', note='')
         k = key(r)
         if k in idx: idx[k].update(line=ln, col=cn, last_seen=a.run_id)
