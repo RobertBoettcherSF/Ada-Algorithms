@@ -73,6 +73,17 @@ begin
       end;
       Report (Ok, "random" & Iter'Image);
    end loop;
+   --  Full-length edge cases, worked by hand: 32 alternating letters "abab..." are
+   --  32 runs of 1 (Output = Input, Output_Length = 32, every count 1); 32 equal
+   --  letters are one run of 32.
+   for I in Index loop
+      X (I) := (if I mod 2 = 1 then 'a' else 'b');
+   end loop;
+   Compress (X, 32, O, Cn, OL);
+   Report (OL = 32 and then O = X and then (for all R in Index => Cn (R) = 1), "32 alternating letters");
+   X := [others => 'z'];
+   Compress (X, 32, O, Cn, OL);
+   Report (OL = 1 and then O (1) = 'z' and then Cn (1) = 32, "32 equal letters");
    if Failures > 0 then
       Ada.Text_IO.Put_Line ("FAIL own checks:" & Failures'Image & " of" & Cases'Image);
       raise Program_Error with "own checks failed";
