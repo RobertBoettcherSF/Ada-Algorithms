@@ -10,7 +10,7 @@ is
    function Distance (A, B : Char_Array) return Natural
      with
        Global => null,
-       Pre    => A'First = 1 and then B'First = 1
-                 and then A'Last <= Max_Len and then B'Last <= Max_Len,
+       --  Any origin: character K of A is A (A'First + (K - 1)).
+       Pre    => A'Length <= Max_Len and then B'Length <= Max_Len,
        Post   => Distance'Result <= A'Length + B'Length;
 end Levenshtein_Distance;
