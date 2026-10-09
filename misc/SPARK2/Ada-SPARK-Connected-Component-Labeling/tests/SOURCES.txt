@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the first four cases (empty, diagonal, bar, checkerboard) are
+the original ones. Hand-worked on the 2 x 2 grid with 4-connectivity
+(labels are given in row-major order of each component's first cell, as
+the package scans rows then columns): all four cells -> one component,
+every label 1; an L of (1,1) (2,1) (2,2) -> one component, (1,2) stays 0;
+(1,2) (2,1) (2,2) -> one component, (1,1) stays 0 ((2,1) is reached only
+through (2,2)); the right column -> one component; the anti-diagonal
+(1,2) (2,1) -> two components labelled 1 and 2; a single cell (2,2) ->
+label 1.
+
+own_checks.adb: every grid of the package's size (16 at 2 x 2) against
+an independent union-find over the cells: background exactly 0, same
+label exactly for connected cells, labels exactly 1 .. Count, Count = the
+number of sets, Component_Count = Count.
