@@ -9,8 +9,12 @@ with Topological_Sort_Lite; use Topological_Sort_Lite;
 --  2,000 random graphs on 4 .. 6 vertices, self-loops included) and, for
 --  random graphs up to Capacity, a depth-first cycle search; the order is
 --  checked by our own position table. Is_Valid_Order is compared with the
---  same check (it must reject repeated vertices and self-loops). Seed
---  20261009.
+--  same check (it must reject repeated vertices and self-loops). When not
+--  Ok, Cycle (1 .. Cycle_Len) must be a real cycle: consecutive vertices
+--  joined by edges, an edge from the last back to the first, no repeated
+--  vertex. Also every graph without self-loops on 4 vertices (4,096) and on
+--  5 vertices (2 ** 20), against all permutations (acyclic iff some order
+--  puts every edge forward, as bit masks). Seed 20261009.
 procedure Own_Checks is
    Fails : Natural := 0;
    Cases : Natural := 0;
@@ -106,17 +110,40 @@ procedure Own_Checks is
       return Try (1);
    end Some_Order;
 
+   --  Cycle (1 .. Len) is a cycle of G on 1 .. N.
+   function Real_Cycle (G : Graph; N : Vertex; Cycle : Order_Array; Len : Natural) return Boolean is
+      Seen : array (Vertex) of Boolean := [others => False];
+   begin
+      if Len = 0 or else Len > N then
+         return False;
+      end if;
+      for I in 1 .. Len loop
+         if Cycle (I) > N or else Seen (Cycle (I)) then
+            return False;
+         end if;
+         Seen (Cycle (I)) := True;
+         if not G (Cycle (I), Cycle (if I = Len then 1 else I + 1)) then
+            return False;
+         end if;
+      end loop;
+      return True;
+   end Real_Cycle;
+
    procedure Run (G : Graph; N : Vertex; Small : Boolean; Tag : String) is
       O    : Order_Array;
       Ok   : Boolean;
       Left : Vertex_Set;
+      Cyc  : Order_Array;
+      CL   : Natural;
       Want : constant Boolean := (if Small then Some_Order (G, N) else not Cyclic (G, N));
    begin
-      Topo_Sort (G, N, O, Ok, Left);
+      Topo_Sort (G, N, O, Ok, Left, Cyc, CL);
       Check (Ok = Want, "Ok" & Tag);
       if Ok then
          Check (Good (G, O, N), "order" & Tag);
          Check (Is_Valid_Order (G, O, N), "Is_Valid_Order accepts the result" & Tag);
+      else
+         Check (Real_Cycle (G, N, Cyc, CL), "cycle witness" & Tag);
       end if;
       --  a random order: Is_Valid_Order must agree with Good
       for I in 1 .. N loop
@@ -125,8 +152,95 @@ procedure Own_Checks is
       Check (Is_Valid_Order (G, O, N) = Good (G, O, N), "Is_Valid_Order random order" & Tag);
    end Run;
 
+   --  every graph without self-loops on N = 4, 5 vertices
+   procedure All_Graphs (N : Vertex) is
+      type Mask is mod 2 ** 32;
+      Fwd  : array (1 .. 120) of Mask;
+      NP   : Natural := 0;
+      P    : array (1 .. 5) of Positive := [others => 1];
+      Bit  : array (1 .. 5, 1 .. 5) of Mask := [others => [others => 0]];
+      NB   : Natural := 0;
+      H    : constant access Graph := new Graph'[others => [others => False]];
+      O, Cyc : Order_Array;
+      Ok   : Boolean;
+      Left : Vertex_Set;
+      CL   : Natural;
+      Before : constant Natural := Fails;
+      procedure Perm (K : Positive; Used : Mask) is
+      begin
+         if K > N then
+            declare
+               M   : Mask := 0;
+               Pos : array (1 .. 5) of Natural := [others => 0];
+            begin
+               for I in 1 .. N loop
+                  Pos (P (I)) := I;
+               end loop;
+               for U in 1 .. N loop
+                  for V in 1 .. N loop
+                     if U /= V and then Pos (U) < Pos (V) then
+                        M := M or Bit (U, V);
+                     end if;
+                  end loop;
+               end loop;
+               NP := NP + 1;
+               Fwd (NP) := M;
+            end;
+            return;
+         end if;
+         for V in 1 .. N loop
+            if (Used and 2 ** V) = 0 then
+               P (K) := V;
+               Perm (K + 1, Used or 2 ** V);
+            end if;
+         end loop;
+      end Perm;
+   begin
+      for U in 1 .. N loop
+         for V in 1 .. N loop
+            if U /= V then
+               Bit (U, V) := 2 ** NB;
+               NB := NB + 1;
+            end if;
+         end loop;
+      end loop;
+      Perm (1, 0);
+      for Code in Mask range 0 .. 2 ** NB - 1 loop
+         declare
+            Acyclic : Boolean := False;
+         begin
+            for U in 1 .. N loop
+               for V in 1 .. N loop
+                  H (U, V) := U /= V and then (Code and Bit (U, V)) /= 0;
+               end loop;
+            end loop;
+            for I in 1 .. NP loop
+               if (Code and not Fwd (I)) = 0 then
+                  Acyclic := True;
+                  exit;
+               end if;
+            end loop;
+            Topo_Sort (H.all, N, O, Ok, Left, Cyc, CL);
+            if Ok /= Acyclic
+              or else (Ok and then not Good (H.all, O, N))
+              or else (not Ok and then not Real_Cycle (H.all, N, Cyc, CL))
+            then
+               Fails := Fails + 1;
+               if Fails <= 5 then
+                  Put_Line ("FAIL all graphs N =" & N'Image & " code" & Code'Image);
+               end if;
+            end if;
+            Cases := Cases + 1;
+         end;
+      end loop;
+      Put_Line ("  all" & Natural'(2 ** NB)'Image & " graphs on" & N'Image & " vertices:"
+                & Natural'(Fails - Before)'Image & " failures");
+   end All_Graphs;
+
    G : Graph;
 begin
+   All_Graphs (4);
+   All_Graphs (5);
    for N in 1 .. 3 loop
       for M in 0 .. 2 ** (N * N) - 1 loop
          G := [others => [others => False]];
