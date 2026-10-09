@@ -94,7 +94,7 @@ misc/SPARK2/Ada-SPARK-Snapshot-Array-Stub,PROOFS.csv stub,"bounded stub (the fol
 misc/SPARK2/Ada-SPARK-Spearman-Rank-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Spearman-Rank implementation",open
 misc/SPARK2/Ada-SPARK-Stack-Using-Queues-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Stack-Using-Queues implementation",open
 misc/SPARK2/Ada-SPARK-Stock-Spanner-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Stock-Spanner implementation",open
-misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub,H114,"answers come from a 24-entry constant table, nothing is computed",open
+misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub,H114,"answers come from a 24-entry constant table, nothing is computed",closed (agent-CF: real super-ugly-number merge)
 misc/SPARK2/Ada-SPARK-Surrounded-Regions,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Surrounded-Regions implementation",open
 misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Swim-In-Rising-Water implementation",open
 misc/SPARK2/Ada-SPARK-Target-Sum-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Target-Sum implementation",open

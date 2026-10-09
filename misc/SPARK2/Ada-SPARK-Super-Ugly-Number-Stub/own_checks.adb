@@ -4,8 +4,8 @@ with Ada.Command_Line;
 with Super_Ugly_Number_Stub; use Super_Ugly_Number_Stub;
 --  Own checks (H114): the N-th super ugly number for a given factor list
 --  (the N-th smallest positive integer that is a product of the factors,
---  1 = empty product). Reference 1 (values <= 200,000): test every integer
---  by dividing out the factors. Reference 2 (large N): all products up to a
+--  1 = empty product). Reference 1 (values <= 200,000): decide every integer
+--  by a divisibility table. Reference 2 (large N): all products up to a
 --  limit by depth-first search, then sorted. Seed 20261009, Park-Miller.
 procedure Own_Checks is
    Fails : Natural := 0;
@@ -29,28 +29,21 @@ procedure Own_Checks is
       end if;
    end Check;
 
-   function Product_Of (X : Positive; F : Factor_List) return Boolean is
-      Y : Natural := X;
-      Changed : Boolean := True;
-   begin
-      while Y > 1 and then Changed loop
-         Changed := False;
-         for J in F'Range loop
-            if Y mod F (J) = 0 then
-               Y := Y / F (J);
-               Changed := True;
-            end if;
-         end loop;
-      end loop;
-      return Y = 1;
-   end Product_Of;
-
-   --  Reference 1: N-th product of F by trial (0 when above Limit).
+   --  Reference 1: N-th product of F, by deciding for X = 1, 2, ... whether
+   --  X is 1 or X / F (J) is a product for some F (J) dividing X (a table
+   --  over 1 .. Limit; 0 when the N-th product is above Limit).
    function Ref_Trial (F : Factor_List; N : Positive; Limit : Positive) return Natural is
-      C : Natural := 0;
+      Is_P : array (1 .. Limit) of Boolean := [others => False];
+      C    : Natural := 0;
    begin
       for X in 1 .. Limit loop
-         if Product_Of (X, F) then
+         Is_P (X) := X = 1;
+         for J in F'Range loop
+            if X mod F (J) = 0 and then Is_P (X / F (J)) then
+               Is_P (X) := True;
+            end if;
+         end loop;
+         if Is_P (X) then
             C := C + 1;
             if C = N then
                return X;
