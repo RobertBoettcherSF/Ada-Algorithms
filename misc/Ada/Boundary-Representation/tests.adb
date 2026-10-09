@@ -18,6 +18,94 @@ procedure Tests is
    end Check;
 
    Model : B_Rep_Model;
+
+   --  Mesh builder for the solid checks: N vertices 1 .. N, faces given
+   --  as vertex loops (0 ends a loop early); each consecutive pair gets
+   --  one shared edge, and Make_Face receives the loop's edges in
+   --  traversal order.
+   Max_Mesh_V : constant := 16;
+   type Loop_Spec is array (1 .. 4) of Natural;
+   type Mesh_Spec is array (Positive range <>) of Loop_Spec;
+   type Vertex_Map is array (1 .. Max_Mesh_V) of Vertex_ID;
+
+   procedure Build
+     (M : in out B_Rep_Model; N : Positive; Faces : Mesh_Spec;
+      Vs : out Vertex_Map)
+   is
+      Edge_Of : array (1 .. Max_Mesh_V, 1 .. Max_Mesh_V) of Edge_ID :=
+        [others => [others => Invalid_Edge]];
+      F : Face_ID;
+   begin
+      Initialize (M);
+      Vs := [others => Invalid_Vertex];
+      for I in 1 .. N loop
+         Vs (I) := Make_Vertex (M, (Coordinate (I), 0.0, 0.0));
+      end loop;
+      for L of Faces loop
+         declare
+            Len : Natural := 0;
+         begin
+            while Len < 4 and then L (Len + 1) /= 0 loop
+               Len := Len + 1;
+            end loop;
+            declare
+               Es : Edge_Array (1 .. Len);
+            begin
+               for K in 1 .. Len loop
+                  declare
+                     A : constant Positive := L (K);
+                     B : constant Positive := L (if K = Len then 1 else K + 1);
+                     Lo : constant Positive := Positive'Min (A, B);
+                     Hi : constant Positive := Positive'Max (A, B);
+                  begin
+                     if Edge_Of (Lo, Hi) = Invalid_Edge then
+                        Edge_Of (Lo, Hi) := Make_Edge (M, Vs (A), Vs (B));
+                     end if;
+                     Es (K) := Edge_Of (Lo, Hi);
+                  end;
+               end loop;
+               F := Make_Face (M, Es);
+               pragma Assert (F /= Invalid_Face);
+            end;
+         end;
+      end loop;
+   end Build;
+
+   --  Cube on vertices 1 .. 8 (vertex 1 + x + 2y + 4z), outward loops.
+   Cube : constant Mesh_Spec :=
+     [[1, 3, 4, 2], [5, 6, 8, 7], [1, 2, 6, 5],
+      [3, 7, 8, 4], [1, 5, 7, 3], [2, 4, 8, 6]];
+   --  Tetrahedron on 1 .. 4, outward loops.
+   Tetra : constant Mesh_Spec :=
+     [[1, 3, 2, 0], [1, 2, 4, 0], [1, 4, 3, 0], [2, 3, 4, 0]];
+
+   function Shift (M : Mesh_Spec; By : Natural) return Mesh_Spec is
+      R : Mesh_Spec := M;
+   begin
+      for L of R loop
+         for X of L loop
+            if X /= 0 then
+               X := X + By;
+            end if;
+         end loop;
+      end loop;
+      return R;
+   end Shift;
+
+   --  3 x 3 quad torus: vertex 1 + i + 3j, quad (i, j) .. (i+1, j+1) mod 3.
+   function Torus return Mesh_Spec is
+      R : Mesh_Spec (1 .. 9);
+      function V (I, J : Natural) return Positive is
+        (1 + I mod 3 + 3 * (J mod 3));
+   begin
+      for I in 0 .. 2 loop
+         for J in 0 .. 2 loop
+            R (1 + I + 3 * J) :=
+              [V (I, J), V (I + 1, J), V (I + 1, J + 1), V (I, J + 1)];
+         end loop;
+      end loop;
+      return R;
+   end Torus;
 begin
    -- TEST 1 — Core Initialization
    Put_Line ("TEST 1 — Core Initialization");
@@ -92,7 +180,8 @@ begin
       Check ("5.2 Faces is 1", Active_Faces (Model) = 1);
       Check ("5.3 Edges is 0", Active_Edges (Model) = 0);
       Check ("5.4 Euler is 2", Euler_Poincare_Characteristic (Model) = 2);
-      Check ("5.5 Is_Valid_Manifold", Is_Valid_Manifold (Model));
+      --  A one-vertex skeleton has V - E + F = 2 but is no closed surface.
+      Check ("5.5 MVFS skeleton is not a closed manifold", not Is_Valid_Manifold (Model));
    end;
 
    -- TEST 6 — Make Edge Vertex (MEV)
@@ -227,6 +316,46 @@ begin
       Kill_Edge_Face (Model, E2, F2);
       Check ("13.2 Faces is 1", Active_Faces (Model) = 1);
       Check ("13.3 Euler holds", Euler_Poincare_Characteristic (Model) = 2);
+   end;
+
+   -- TEST 14 — Closed manifold solids (agent A3, checker scan)
+   --  Is_Valid_Manifold must mean a closed orientable 2-manifold: every
+   --  edge on exactly two faces traversed in opposite directions, one
+   --  ring of faces around every vertex; any genus, any number of shells.
+   Put_Line ("TEST 14 — Closed manifold solids");
+   declare
+      Vs : Vertex_Map;
+      Flipped : Mesh_Spec := Cube;
+      E_Extra : Edge_ID;
+      V_Extra : Vertex_ID;
+   begin
+      Build (Model, 8, Cube, Vs);
+      Check ("14.1 Cube is a closed manifold", Is_Valid_Manifold (Model));
+
+      Build (Model, 9, Torus, Vs);
+      Check ("14.2 Torus (V - E + F = 0) is a closed manifold",
+             Euler_Poincare_Characteristic (Model) = 0
+             and then Is_Valid_Manifold (Model));
+
+      Flipped (6) := [2, 6, 8, 4];
+      Build (Model, 8, Flipped, Vs);
+      Check ("14.3 Cube with one flipped face is not (orientation)",
+             Euler_Poincare_Characteristic (Model) = 2
+             and then not Is_Valid_Manifold (Model));
+
+      Build (Model, 16, Cube & Shift (Cube, 8), Vs);
+      Check ("14.4 Two disjoint cubes (V - E + F = 4) are a closed manifold",
+             Euler_Poincare_Characteristic (Model) = 4
+             and then Is_Valid_Manifold (Model));
+
+      Build (Model, 4, Tetra, Vs);
+      Check ("14.5 Tetrahedron is a closed manifold", Is_Valid_Manifold (Model));
+      V_Extra := Make_Vertex (Model, (9.0, 9.0, 9.0));
+      E_Extra := Make_Edge (Model, Vs (1), V_Extra);
+      Check ("14.6 Tetrahedron plus a dangling edge (V - E + F = 2) is not",
+             E_Extra /= Invalid_Edge
+             and then Euler_Poincare_Characteristic (Model) = 2
+             and then not Is_Valid_Manifold (Model));
    end;
 
    Put_Line ("");

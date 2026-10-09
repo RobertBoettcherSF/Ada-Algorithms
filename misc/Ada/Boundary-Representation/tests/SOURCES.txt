@@ -1,0 +1,23 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Nothing is copied from the program's output or from third-party test suites.
+
+tests.adb TEST 1 .. 13: the original checks; expected counts follow from
+the operations applied (each Make_* / Euler operator adds or removes a
+known number of vertices, edges and faces) and from the Euler-Poincare
+formula V - E + F (Euler 1758; Poincare 1895; Mantyla, An Introduction
+to Solid Modeling, 1988, for the Euler operators). 5.5 (changed by agent
+A3, 2026-10-09): a one-vertex MVFS skeleton has V - E + F = 2 but no
+edges, so it is not a closed surface.
+
+tests.adb TEST 14 (agent A3, 2026-10-09, checker scan of the Is_Valid_*
+judges): from the definition of a closed orientable 2-manifold polygon
+mesh (every edge on exactly two faces that traverse it in opposite
+directions; the faces around every vertex form one ring) and
+V - E + F = 2 - 2g per connected shell (Mantyla 1988, ch. 2-3). Meshes
+built by hand: a cube (8 vertices, outward loops), a 3 x 3 quad torus
+(9 vertices, 18 edges, 9 faces, V - E + F = 0, genus 1), the cube with
+one face reversed (orientation clash, still V - E + F = 2), two disjoint
+cubes (two genus-0 shells, V - E + F = 4), a tetrahedron, and the
+tetrahedron with one dangling edge (V - E + F = 2, edge on no face).
