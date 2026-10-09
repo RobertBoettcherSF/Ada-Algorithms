@@ -1,4 +1,8 @@
 project Different_Ways_Parentheses_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("different_ways_parentheses.ads", "different_ways_parentheses.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
 end Different_Ways_Parentheses_Proof;

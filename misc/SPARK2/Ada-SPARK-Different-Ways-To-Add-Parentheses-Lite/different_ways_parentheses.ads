@@ -1,20 +1,123 @@
 pragma Ada_2022;
---  Scaffold for the failing test: the new API, still answering from the
---  old table (1 .. 8 operands); All_Results returns nothing yet.
+with Ada.Numerics.Big_Numbers.Big_Integers;
+use Ada.Numerics.Big_Numbers.Big_Integers;
+
+--  Different ways to put parentheses into an expression of operands and
+--  binary operators.
+--
+--  Number_Of_Ways (N): how many ways there are to fully parenthesize N
+--  operands. The last operator applied splits the operands into a left
+--  part of K and a right part of N - K (K in 1 .. N - 1), so
+--  W (1) = 1 and W (N) = sum over K of W (K) * W (N - K).
+--  Limit: N <= 20. W (20) = 1_767_263_190 fits Natural, W (21) =
+--  6_564_120_420 does not (both proved in Facts).
+--
+--  All_Results (Values, Ops): the value of every parenthesization of an
+--  expression of up to 8 operands in -99 .. 99 with +, - and *. That gives
+--  at most W (8) = 429 results, and every value is at most 99 ** 8 =
+--  9_227_446_944_279_201 < 2 ** 63 in absolute value (each operator at
+--  most multiplies the bounds of its two parts), so Long_Long_Integer
+--  holds every intermediate value.
 package Different_Ways_Parentheses with SPARK_Mode => On is
-   subtype Operand_Count is Positive range 1 .. 20;
-   function Number_Of_Ways (Operands : Operand_Count) return Positive with Global => null;
+   Max_Operands : constant := 20;
+   subtype Operand_Count is Positive range 1 .. Max_Operands;
+
+   --  W (N) for N <= 20, a ghost table of values (an expression function,
+   --  nothing runs at elaboration). Facts states that it satisfies the
+   --  recurrence above, which fixes every entry; Lemma_Facts proves it and
+   --  the tests regenerate the values.
+   function Ways (N : Positive) return Big_Integer
+   with Ghost, Pre => N <= Max_Operands;
+
+   --  Sum over K in 1 .. S of W (K) * W (N - K).
+   function Partial (N : Positive; S : Natural) return Big_Integer
+   with
+     Ghost,
+     Pre                => N in 2 .. Max_Operands + 1 and then S <= N - 1,
+     Subprogram_Variant => (Decreases => S);
 
    Max_Expression : constant := 8;
+   Max_Results    : constant := 429;   --  W (8)
+
+   function Facts return Boolean is
+     (Ways (1) = 1
+      and then (for all N in 2 .. Max_Operands => Ways (N) = Partial (N, N - 1))
+      and then (for all N in 1 .. Max_Operands => Ways (N) >= 1 and then Ways (N) <= Ways (Max_Operands))
+      and then (for all N in 1 .. Max_Expression => Ways (N) <= Max_Results)
+      and then Ways (Max_Operands) = 1_767_263_190
+      --  W (21) would not fit Natural.
+      and then Partial (Max_Operands + 1, Max_Operands) > To_Big_Integer (Natural'Last))
+   with Ghost;
+
+   procedure Lemma_Facts
+   with Ghost, Global => null, Post => Facts;
+
+   --  The split dynamic program (in Big_Integer; the result fits Natural).
+   function Number_Of_Ways (Operands : Operand_Count) return Positive
+   with Global => null, Post => To_Big_Integer (Number_Of_Ways'Result) = Ways (Operands);
+
    subtype Operand is Integer range -99 .. 99;
    type Operator is (Plus, Minus, Times);
    type Operand_List is array (Positive range <>) of Operand;
    type Operator_List is array (Positive range <>) of Operator;
    type Value_List is array (Positive range <>) of Long_Long_Integer;
 
+   --  99 ** L.
+   function Bound (L : Positive) return Long_Long_Integer
+   with Ghost, Pre => L <= Max_Expression;
+
+   --  Every value of every parenthesization, ordered by the position of the
+   --  last operator applied (left to right), then by the left part's
+   --  results, then by the right part's results.
    function All_Results (Values : Operand_List; Ops : Operator_List) return Value_List
    with
      Global => null,
      Pre    => Values'First = 1 and then Values'Length in 1 .. Max_Expression
-               and then Ops'First = 1 and then Ops'Length = Values'Length - 1;
+               and then Ops'First = 1 and then Ops'Length = Values'Length - 1,
+     Post   => All_Results'Result'First = 1
+               and then To_Big_Integer (All_Results'Result'Length) = Ways (Values'Length)
+               and then (for all V of All_Results'Result =>
+                           V in -Bound (Values'Length) .. Bound (Values'Length));
+
+private
+   function Ways_Value (N : Operand_Count) return Positive is
+     (case N is
+        when 1 => 1,
+        when 2 => 1,
+        when 3 => 2,
+        when 4 => 5,
+        when 5 => 14,
+        when 6 => 42,
+        when 7 => 132,
+        when 8 => 429,
+        when 9 => 1_430,
+        when 10 => 4_862,
+        when 11 => 16_796,
+        when 12 => 58_786,
+        when 13 => 208_012,
+        when 14 => 742_900,
+        when 15 => 2_674_440,
+        when 16 => 9_694_845,
+        when 17 => 35_357_670,
+        when 18 => 129_644_790,
+        when 19 => 477_638_700,
+        when 20 => 1_767_263_190)
+   with Ghost;
+
+   function Ways (N : Positive) return Big_Integer is (To_Big_Integer (Ways_Value (N)));
+
+   function Partial (N : Positive; S : Natural) return Big_Integer is
+     (if S = 0 then To_Big_Integer (0) else Partial (N, S - 1) + Ways (S) * Ways (N - S));
+
+   function Bound (L : Positive) return Long_Long_Integer is
+     (case L is
+        when 1 => 99,
+        when 2 => 9_801,
+        when 3 => 970_299,
+        when 4 => 96_059_601,
+        when 5 => 9_509_900_499,
+        when 6 => 941_480_149_401,
+        when 7 => 93_206_534_790_699,
+        when 8 => 9_227_446_944_279_201,
+        when others => 0);
 end Different_Ways_Parentheses;
