@@ -145,3 +145,7 @@ misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,GNAT 14,GNATLS 14.2.0,0,0,own ch
 misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,GNAT 12,GNATLS 12.2.0,0,0,own checks: 29841 checks; 0 failures,72814ed1
 misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,GNAT 14,GNATLS 14.2.0,0,0,own checks: 268569 checks; 0 failures,72814ed1
 misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,GNAT 12,GNATLS 12.2.0,0,0,own checks: 268569 checks; 0 failures,72814ed1
+sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,GNAT 14,GNATLS 14.2.0,0,0,sorted array to BST: PASS,d0272b2c
+sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,GNAT 12,GNATLS 12.2.0,0,0,sorted array to BST: PASS,d0272b2c
+clustering/SPARK2/K-Means-Step,GNAT 14,GNATLS 14.2.0,0,0,k-means step: PASS,9c7b5c14
+clustering/SPARK2/K-Means-Step,GNAT 12,GNATLS 12.2.0,0,0,k-means step: PASS,9c7b5c14

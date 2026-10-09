@@ -266,3 +266,5 @@ misc/SPARK2/Ada-SPARK-Reach-A-Number,exhaustive Value -100 .. 100 against a reac
 misc/SPARK2/Ada-SPARK-Path-Sum,random trees against a recursive root-to-leaf enumeration
 misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,brute force over all slices (mountain shape checked directly)
 misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,all-pairs minimum
+sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,"linear-scan references over every length (sortedness, membership) + root/height formulas"
+clustering/SPARK2/K-Means-Step,exhaustive Nearest and Step against abs comparison and a counting floor mean
