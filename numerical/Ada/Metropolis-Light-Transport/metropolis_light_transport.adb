@@ -96,6 +96,12 @@ is
       if Path.Vertices (Path.Length).Kind /= Light then
          return False;
       end if;
+      --  Between the lens and the light every vertex lies on a surface.
+      for K in 2 .. Path.Length - 1 loop
+         if Path.Vertices (K).Kind in Camera | Light then
+            return False;
+         end if;
+      end loop;
       return True;
    end Is_Valid_Path;
 

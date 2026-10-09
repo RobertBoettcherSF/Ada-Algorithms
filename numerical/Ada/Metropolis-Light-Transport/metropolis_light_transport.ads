@@ -100,6 +100,9 @@ is
      Post => Acceptance_Probability'Result <= 1.0;
 
    function Is_Valid_Path (Path : Light_Path) return Boolean;
+   --  True iff Path has at least 2 vertices, starts at the Camera, ends at
+   --  a Light, and every vertex in between is a surface vertex (Specular,
+   --  Diffuse or Glossy).
 
    function Generate_Bidirectional_Proposal
      (Current_Path : Light_Path;
