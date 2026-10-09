@@ -1,0 +1,8 @@
+project Paint_Fence_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("paint_fence_lite.ads", "paint_fence_lite.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Paint_Fence_Lite_Proof;
