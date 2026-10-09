@@ -50,6 +50,29 @@ begin
    end loop;
    --  All equal.
    Expect ([others => 7], 7, False, "all 7");
+   --  Every comparison of two elements is counted: the three-way
+   --  comparison of Values (Mid) with Values (Hi) is one, and on equal
+   --  ends the check whether Values falls into Hi is a second. Counts
+   --  worked by hand for all equal (each of the N - 1 shrink steps makes
+   --  both: 14) and for the single 0 at each position.
+   declare
+      type Count_Table is array (0 .. Length) of Natural;
+      --  Index 0: all 7; index P: the single 0 at P.
+      Want : constant Count_Table := [14, 13, 10, 6, 3, 8, 6, 4, 3];
+   begin
+      for P in Count_Table'Range loop
+         declare
+            V : constant Value_Array :=
+              (if P = 0 then [others => 7] else [for I in Index => (if I = P then 0 else 1)]);
+            R : constant Search_Result := Find_Minimum (V);
+         begin
+            if R.Probes /= Want (P) then
+               raise Program_Error with "counts, case" & P'Image & ":" & R.Probes'Image
+                 & " comparisons counted, made" & Want (P)'Image;
+            end if;
+         end;
+      end loop;
+   end;
    Put_Line ("Find_Minimum_In_Rotated_Sorted_Array_II: PASS");
    Own_Checks;
 end Tests;
