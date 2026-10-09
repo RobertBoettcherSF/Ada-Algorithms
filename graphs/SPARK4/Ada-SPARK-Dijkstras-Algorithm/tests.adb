@@ -355,6 +355,49 @@ begin
    Check (Dist (2) = 1 and then Dist (3) = 2, "settle mids final");
    Check (Len = 4, "settle path len");
 
+   ------------------------------------------------------------------
+   Section ("19. Arrays at any origin (label V lives at First + V - 1)");
+   ------------------------------------------------------------------
+   --  Diamond 1->2 (1), 1->3 (4), 2->3 (1), 2->4 (5), 3->4 (1).
+   --  The same answer must come back whatever index each caller array
+   --  starts at.
+   Clear (G, 4);
+   Add_Edge (G, 1, 2, 1);
+   Add_Edge (G, 1, 3, 4);
+   Add_Edge (G, 2, 3, 1);
+   Add_Edge (G, 2, 4, 5);
+   Add_Edge (G, 3, 4, 1);
+   declare
+      DS   : Distance_Array (5 .. 8);
+      PS   : Prev_Array (20 .. 23);
+      QS   : Path_Array (200 .. 203);
+      DT   : Distance_Array (29 .. 32);            --  flush to Max_Vertices
+      PT   : Prev_Array (29 .. 32);
+      QT   : Path_Array (Positive'Last - 3 .. Positive'Last);
+      Q1   : Path_Array (1 .. 4);
+      L2   : Natural;
+      F2   : Boolean;
+      R2   : Boolean;
+   begin
+      Search (G, 1, 4, DS, PS, QS, L2, F2);
+      Check (F2 and then L2 = 4, "origin 5/20/200: found, len 4");
+      Check (DS = [0, 1, 2, 3], "origin 5: Dist by label = 0 1 2 3");
+      Check (PS = [0, 1, 2, 3], "origin 20: Prev by label = 0 1 2 3");
+      Check (QS = [1, 2, 3, 4], "origin 200: Path = 1 2 3 4");
+      Search (G, 1, 4, DT, PT, QT, L2, F2);
+      Check (F2 and then L2 = 4 and then DT = [0, 1, 2, 3]
+               and then PT = [0, 1, 2, 3] and then QT = [1, 2, 3, 4],
+             "origin 29 (flush) / Path ending at Positive'Last");
+      Search (G, 2, 1, DS, PS, QS, L2, F2);
+      Check (not F2 and then L2 = 0
+               and then DS (5) = Infinity and then DS (6) = 0,
+             "origin 5: unreachable target keeps label 1 at Infinity");
+      Reconstruct_Path (PT, 1, 4, 4, Q1, L2, R2);
+      Check (R2 and then L2 = 4 and then Q1 = [1, 2, 3, 4],
+             "Reconstruct_Path from Prev at origin 29");
+      Check (Arrays_OK (4, DS, PS, QS), "Arrays_OK at origins 5/20/200");
+   end;
+
    New_Line;
    Put_Line ("Results: " & Natural'Image (Pass_Count) & " PASS,"
              & Natural'Image (Fail_Count) & " FAIL");

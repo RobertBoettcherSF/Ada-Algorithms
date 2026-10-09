@@ -416,7 +416,7 @@ graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,,first_pinned,fail,rewrit
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Arrays_OK,catalog,catalog,,3,function n_arrays=3 ret=Boolean,
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Search,catalog,catalog,,3,procedure n_arrays=3 ret=None,
 graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 hashing/Ada/Bloom-Filter,,skipped,skipped,,,types=['Word_Array'] but no public subprogram taking them,
 hashing/Ada/Geometric-Hashing,Build_Table,catalog,catalog,,1,function n_arrays=1 ret=Hash_Table,
 hashing/Ada/Geometric-Hashing,Recognize,catalog,catalog,,1,function n_arrays=1 ret=Recognition_Result,

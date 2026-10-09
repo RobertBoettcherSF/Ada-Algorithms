@@ -315,8 +315,6 @@ graphs/Ada/Tarjans-Off-Line-Lowest-Common-Ancestors,graphs/Ada/Tarjans-Off-Line-
 graphs/Ada/Tarjans-Off-Line-Lowest-Common-Ancestors,graphs/Ada/Tarjans-Off-Line-Lowest-Common-Ancestors/tests.adb,130,pragma Unreferenced (P) on a local without a written reason
 graphs/Ada/Tarjans-Strongly-Connected-Components,graphs/Ada/Tarjans-Strongly-Connected-Components/tests.adb,61,pragma Unreferenced (Count) on a local without a written reason
 graphs/Ada/Tarjans-Strongly-Connected-Components,graphs/Ada/Tarjans-Strongly-Connected-Components/tests.adb,74,pragma Unreferenced (Unused) on a local without a written reason
-graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm/dijkstras_algorithm.ads,142,"pragma Warnings (Off, ""referenced before it has a value"");"
-graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm/dijkstras_algorithm.ads,191,"pragma Warnings (Off, ""referenced before it has a value"");"
 hashing/Ada/Geohash,hashing/Ada/Geohash/geohash.adb,182,pragma Unreferenced (Unused) on a unknown without a written reason
 hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,348,pragma Unreferenced (D) on a local without a written reason
 hashing/Ada/Geohash,hashing/Ada/Geohash/tests.adb,361,pragma Unreferenced (B) on a local without a written reason

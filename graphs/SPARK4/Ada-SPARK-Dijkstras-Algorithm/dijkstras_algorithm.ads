@@ -84,12 +84,9 @@ is
       Prev : Prev_Array;
       Path : Path_Array) return Boolean is
      (N > 0
-      and then Dist'First = 1
-      and then Dist'Last >= Vertex_Id (N)
-      and then Prev'First = 1
-      and then Prev'Last >= Vertex_Id (N)
-      and then Path'First = 1
-      and then Path'Last >= N)
+      and then Dist'Length >= N
+      and then Prev'Length >= N
+      and then Path'Length >= N)
    with Global => null;
 
    ---------------------------------------------------------------------------
@@ -139,7 +136,6 @@ is
    --      if alt < Dist(w) and w unsettled then Dist(w) ← alt; Prev(w) ← u
    --  Time Θ(V² + E) with array scan (classic educational formulation).
 
-   pragma Warnings (Off, "referenced before it has a value");
    procedure Search
      (G      : Graph;
       Source : Vertex_Id;
@@ -157,23 +153,20 @@ is
          and then Vertex_Count (G) > 0
          and then Natural (Source) <= Vertex_Count (G)
          and then Natural (Target) <= Vertex_Count (G)
-         and then Dist'First = 1
-         and then Dist'Last >= Vertex_Id (Vertex_Count (G))
-         and then Prev'First = 1
-         and then Prev'Last >= Vertex_Id (Vertex_Count (G))
-         and then Path'First = 1
-         and then Path'Last >= Vertex_Count (G),
+         and then Dist'Length >= Vertex_Count (G)
+         and then Prev'Length >= Vertex_Count (G)
+         and then Path'Length >= Vertex_Count (G),
        Post                   =>
          Dist'Initialized
          and then Prev'Initialized
          and then Path'Initialized
          and then
            (if Found then
-              Dist (Target) < Infinity
+              Dist (Dist'First + (Target - 1)) < Infinity
               and then Length in 1 .. Vertex_Count (G)
-              and then Path (1) = Source
-              and then Path (Length) = Target
-              and then Dist (Source) = 0
+              and then Path (Path'First) = Source
+              and then Path (Path'First + (Length - 1)) = Target
+              and then Dist (Dist'First + (Source - 1)) = 0
             else
               Length = 0);
    --  Dense Dijkstra from Source toward Target. On success Found is True,
@@ -186,9 +179,7 @@ is
    --  postcondition. Full optimality of Dist(Target) is checked by tests
    --  on small graphs (not proved at Level 4).
 
-   pragma Warnings (On, "referenced before it has a value");
 
-   pragma Warnings (Off, "referenced before it has a value");
    procedure Reconstruct_Path
      (Prev   : Prev_Array;
       Source : Vertex_Id;
@@ -204,17 +195,15 @@ is
          N > 0
          and then Natural (Source) <= N
          and then Natural (Target) <= N
-         and then Prev'First = 1
-         and then Prev'Last >= Vertex_Id (N)
-         and then Path'First = 1
-         and then Path'Last >= N,
+         and then Prev'Length >= N
+         and then Path'Length >= N,
        Post                   =>
          Path'Initialized
          and then
            (if Ok then
               Length in 1 .. N
-              and then Path (1) = Source
-              and then Path (Length) = Target
+              and then Path (Path'First) = Source
+              and then Path (Path'First + (Length - 1)) = Target
             else
               Length = 0);
    --  Walk Prev from Target back to Source and reverse into Path.
@@ -222,7 +211,6 @@ is
    --  path exists in the tree (including Source = Target with Length = 1
    --  when Prev(Source) = 0). Ok is False and Length = 0 otherwise.
 
-   pragma Warnings (On, "referenced before it has a value");
 
 private
 
