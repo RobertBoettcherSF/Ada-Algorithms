@@ -20,6 +20,7 @@ package body Domino_And_Tromino_Tiling_Lite with SPARK_Mode => On is
          when 14 => return 29_698;
          when 15 => return 65_501;
          when 16 => return 144_467;
+         when others => return 0;   --  scaffold: no entries beyond 16
       end case;
    end Number_Of_Tilings;
 end Domino_And_Tromino_Tiling_Lite;
