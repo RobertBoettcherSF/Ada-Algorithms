@@ -1,16 +1,8 @@
 pragma Ada_2022;
 
 package body Minimum_Window_Substring with SPARK_Mode => On is
-   function Has_ABC_1 (A : Character) return Boolean is
-   begin
-      return (A = 'A') and then (A = 'B') and then (A = 'C');
-   end Has_ABC_1;
-
-   function Has_ABC_2 (A : Character; B : Character) return Boolean is
-   begin
-      return (A = 'A' or else B = 'A') and then (A = 'B' or else B = 'B') and then (A = 'C' or else B = 'C');
-   end Has_ABC_2;
-
+   --  A window needs at least three characters to hold 'A', 'B' and 'C',
+   --  so the search starts at length 3.
    function Has_ABC_3 (A : Character; B : Character; C : Character) return Boolean is
    begin
       return (A = 'A' or else B = 'A' or else C = 'A') and then (A = 'B' or else B = 'B' or else C = 'B') and then (A = 'C' or else B = 'C' or else C = 'C');
@@ -43,51 +35,6 @@ package body Minimum_Window_Substring with SPARK_Mode => On is
 
    function Minimum (Input : Text_Array) return Result is
    begin
-      if Has_ABC_1 (Input (1)) then
-         return 1;
-      end if;
-      if Has_ABC_1 (Input (2)) then
-         return 1;
-      end if;
-      if Has_ABC_1 (Input (3)) then
-         return 1;
-      end if;
-      if Has_ABC_1 (Input (4)) then
-         return 1;
-      end if;
-      if Has_ABC_1 (Input (5)) then
-         return 1;
-      end if;
-      if Has_ABC_1 (Input (6)) then
-         return 1;
-      end if;
-      if Has_ABC_1 (Input (7)) then
-         return 1;
-      end if;
-      if Has_ABC_1 (Input (8)) then
-         return 1;
-      end if;
-      if Has_ABC_2 (Input (1), Input (2)) then
-         return 2;
-      end if;
-      if Has_ABC_2 (Input (2), Input (3)) then
-         return 2;
-      end if;
-      if Has_ABC_2 (Input (3), Input (4)) then
-         return 2;
-      end if;
-      if Has_ABC_2 (Input (4), Input (5)) then
-         return 2;
-      end if;
-      if Has_ABC_2 (Input (5), Input (6)) then
-         return 2;
-      end if;
-      if Has_ABC_2 (Input (6), Input (7)) then
-         return 2;
-      end if;
-      if Has_ABC_2 (Input (7), Input (8)) then
-         return 2;
-      end if;
       if Has_ABC_3 (Input (1), Input (2), Input (3)) then
          return 3;
       end if;
