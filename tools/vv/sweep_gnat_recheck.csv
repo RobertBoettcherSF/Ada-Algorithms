@@ -193,3 +193,5 @@ misc/Ada/Warnsdorffs-Rule,GNAT 14,GNATLS 14.2.0,0,0,ALL TESTS PASSED SUCCESSFULL
 misc/Ada/Warnsdorffs-Rule,GNAT 12,GNATLS 12.2.0,0,0,ALL TESTS PASSED SUCCESSFULLY.,e9a0c188
 numerical/Ada/Metropolis-Light-Transport,GNAT 14,GNATLS 14.2.0,0,0,=== 43 passed 0 failed ===,108759ce
 numerical/Ada/Metropolis-Light-Transport,GNAT 12,GNATLS 12.2.0,0,0,=== 43 passed 0 failed ===,108759ce
+sorting/Ada/Topological-Sort,GNAT 14,GNATLS 14.2.0,0,0,TEST SUITE: PASS,ad10a8f5
+sorting/Ada/Topological-Sort,GNAT 12,GNATLS 12.2.0,0,0,TEST SUITE: PASS,ad10a8f5
