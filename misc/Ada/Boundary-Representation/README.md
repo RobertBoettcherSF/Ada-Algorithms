@@ -22,7 +22,7 @@ Expected Output:
 You will see 16 sequentially numbered tests executing over 65 assertions, ending with a final count of tests passed, e.g.:
   PASS -- 1.1 Vertices is 0
   ...
-===  39 passed,  0 failed ===
+===  65 passed,  0 failed ===
 
 ## Testing
 The embedded test suite (`tests.adb`) achieves verification and validation across several categories:
