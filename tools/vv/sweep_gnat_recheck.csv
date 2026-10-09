@@ -51,3 +51,5 @@ graphs/SPARK2/Ada-SPARK-Clone-Graph,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 1
 graphs/SPARK2/Ada-SPARK-Clone-Graph,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 15311 clones (reachable set by DFS; bijection; labels; slots; BFS order),f6ba9eb7
 misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 5735 cases (720 vectors -> 720 distinct permutations; counts kept; invalid choices rejected),701b3010
 misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 5735 cases (720 vectors -> 720 distinct permutations; counts kept; invalid choices rejected),701b3010
+misc/SPARK2/Ada-SPARK-Guess-Number-Higher-Or-Lower,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 1552 cases (all 528 games: answer; guess bound and worst case; Probe on all pairs),6c21b85d
+misc/SPARK2/Ada-SPARK-Guess-Number-Higher-Or-Lower,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 1552 cases (all 528 games: answer; guess bound and worst case; Probe on all pairs),6c21b85d
