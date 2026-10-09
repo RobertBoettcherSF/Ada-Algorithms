@@ -122,9 +122,9 @@ begin
       Check (R (1 .. 5) = [6, 7, 6, 0, 4], "example 2");
    end;
    A (1 .. 2) := [3, 9];
-   B (1 .. 3) := [8, 9, 0];
+   B (1 .. 2) := [8, 9];
    declare
-      R : constant Result_Array := Max_Number (A, 2, B, 3, 3);
+      R : constant Result_Array := Max_Number (A, 2, B, 2, 3);
    begin
       Check (R (1 .. 3) = [9, 8, 9], "example 3");
    end;

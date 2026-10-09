@@ -1,4 +1,3 @@
---  PLACEHOLDER: only picks a maximum digit / prefix of two fixed arrays, not the full create-maximum-number algorithm; see H121
 pragma Ada_2022;
 
 package Create_Maximum_Number_Lite with SPARK_Mode => On is
@@ -11,4 +10,20 @@ package Create_Maximum_Number_Lite with SPARK_Mode => On is
      with Global => null;
    function Maximum_Prefix (A, B : Digit_Array; Length : Length_Type) return Digit_Array
      with Global => null;
+
+   --  Create Maximum Number: the largest K-digit number (as a digit
+   --  sequence) formed from A (1 .. M) and B (1 .. N), keeping the relative
+   --  order of the digits taken from each. For every split K = I + (K - I),
+   --  take the largest I-digit subsequence of A and (K - I)-digit
+   --  subsequence of B (monotonic stack) and merge them greedily (take from
+   --  the sequence whose rest is lexicographically larger); keep the best.
+   subtype Result_Length is Natural range 0 .. 64;
+   subtype Result_Index is Positive range 1 .. 64;
+   type Result_Array is array (Result_Index) of Digit;
+
+   function Max_Number
+     (A : Digit_Array; M : Length_Type; B : Digit_Array; N : Length_Type; K : Result_Length)
+      return Result_Array
+     with Global => null,
+          Pre    => K <= M + N;
 end Create_Maximum_Number_Lite;
