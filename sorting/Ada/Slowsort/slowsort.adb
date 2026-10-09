@@ -22,7 +22,7 @@ is
          return;
       end if;
 
-      M := (I + J) / 2;
+      M := I + (J - I) / 2;   --  no overflow near Natural'Last
       Slowsort_Range (A, I, M);
       Slowsort_Range (A, M + 1, J);
 
