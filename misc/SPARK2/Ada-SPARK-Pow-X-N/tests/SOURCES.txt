@@ -50,8 +50,17 @@ https://github.com/gcc-mirror/gcc/commit/cdd9f96efc0b (title and
 "PR ada/125695"). The installed GNAT 14.2 s-genbig.adb is the unfixed
 version.
 
-A second, separate error, "mod" with a negative divisor (no upstream
-report found in a web search on 2026-10-09; not reported from here):
+A second, separate error, "mod" with a negative divisor. It is reported
+in PR ada/125695 (comments by Liam Powell, 2026-06-10 07:07 and 07:08 UTC,
+"Big_Mod doesn't match the table ... s/-11 mod 5/11 mod -5", and Eric
+Botcazou, 07:57 UTC, "I'll make a pass over Big_Div, Big_Mod and
+Big_Rem"; from the XML above). The fix is not listed in the five PR
+commits. Still unfixed on master as of 2026-10-09: GCC's own history feed
+https://gcc.gnu.org/git/?p=gcc.git;a=atom;f=gcc/ada/libgnat/s-genbig.adb;h=refs/heads/master
+(fetched 2026-10-09 07:13 CEST) lists the PR's ** fix
+8247ea5bb5b425746d1860e08aa8d823e3cb2500 (2026-06-09T18:51:09Z) as the
+latest commit to s-genbig.adb, the file that holds Big_Mod. Nothing was
+filed from here.
 tests/big_divmod_repro.adb checks Big_Integers "/", "mod" and "rem"
 against Long_Long_Integer, with the operands in variables, for every A in
 -12 .. 12 and nonzero B in -6 .. 6, plus +/-1_999_999_999 with +/-7: 912
