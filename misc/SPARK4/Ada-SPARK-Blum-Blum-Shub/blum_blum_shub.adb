@@ -30,9 +30,7 @@ is
       for Trial in 5 .. Max_Trial loop
          pragma Loop_Invariant (N >= 5 and then N <= Max_Prime);
          P := Value (Trial);
-         if P > N / P then
-            return True;
-         end if;
+         exit when P > N / P;   --  no divisor up to sqrt (N): prime
          if N rem P = 0 then
             return False;
          end if;
