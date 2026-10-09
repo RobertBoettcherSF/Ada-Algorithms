@@ -14,7 +14,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Quicksort](https://
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, a `Subprogram_Variant` on recursive `Sort_Range`, and loop invariants that the Lomuto split and partition bounds reassemble into a sorted slice.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
-* **Unstable**: Equal keys may change relative order (permutation is checked by tests).
+* **Unstable**: Equal keys may change relative order (the result is a proved permutation of the input).
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic / recursion VCs stay within automated SMT reach.
@@ -23,8 +23,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Quicksort](https://
 * **Lomuto partition** (sibling uses Hoare): the pivot is swapped into a final slot $P$, so the recursive sides are $A(\mathrm{Lo} .. P-1)$ and $A(P+1 .. \mathrm{Hi})$ and the glue lemma is adjacent-sortedness plus the two junctions at $P$.
 * Median-of-three is kept (first / middle / last, median parked at `Hi`) so sorted and reverse inputs avoid the common $O(n^2)$ first/last-pivot pathology.
 * Bounded recursive `Sort_Range` with `Subprogram_Variant => (Decreases => Hi - Lo)` rather than an explicit stack; depth is at most $\mathrm{Max\_N}$.
-* Ghost `All_Leq` / `All_Geq` value bounds are threaded through partition and recursion so the partition property survives the recursive permutations (full multiset equality is **not** a Level-4 postcondition).
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition (a simple ghost permutation lemma is not required here).
+* Ghost `All_Leq` / `All_Geq` value bounds are threaded through partition and recursion so the partition property survives the recursive permutations; a ghost count model (`Occ`, `Same_Occ` with swap lemmas) carries the permutation property.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): every value occurs as often after the sort as before. `Is_Perm` compares counts (`Occ`) and is also evaluated at run time in the tests.
 
 ## Usage
 * **Build:** `make`
@@ -32,7 +32,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Quicksort](https://
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 319 assertions pass. Running `make prove` reports `Success: all checks proved (332 checks).`
+When you run `make test`, you will see all 322 assertions pass. Running `make prove` reports `Success: all checks proved (412 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia example, signed domain including `Integer'First` / `Integer'Last`, power-of-two and odd lengths.
@@ -53,5 +53,5 @@ When you run `make test`, you will see all 319 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Lomuto scan uses `pragma Loop_Invariant`; recursive `Sort_Range` uses `Subprogram_Variant` and a ghost glue lemma to join the sorted sides at the pivot.
-* **GNATprove Level 4:** `Success: all checks proved (332 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (412 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
