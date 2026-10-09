@@ -13,22 +13,17 @@ procedure Lines_For
       Lines := 1;
       for I in Index loop
          exit when I > Length;
+         --  Only a letter has a width; any other character changes nothing.
          if Input (I) in 'a' .. 'z' then
             Total := Current + Widths (Input (I));
-         else
-            Total := Current;
-         end if;
-         if Total > 100 then
-            if Lines < 32 then
-               Lines := Lines + 1;
-            end if;
-            if Input (I) in 'a' .. 'z' then
+            if Total > 100 then
+               if Lines < 32 then
+                  Lines := Lines + 1;
+               end if;
                Current := Widths (Input (I));
             else
-               Current := 0;
+               Current := Width_Type (Total);
             end if;
-         else
-            Current := Width_Type (Total);
          end if;
       end loop;
       Last_Width := Current;
