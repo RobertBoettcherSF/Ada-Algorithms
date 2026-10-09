@@ -2206,7 +2206,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 254 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Pigeonhole-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Postman-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 324 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Postman-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Quantum-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 441 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Quantum-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Quicksort | yes | yes | yes | yes | yes | 0 | 1 | proven | 327 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Quicksort |  |
+| sorting/SPARK4/Ada-SPARK-Quicksort | yes | yes | yes | yes | yes | 0 | 1 | proven | 412 (restored) |  | sorting/Ada/Quicksort |  |
 | sorting/SPARK4/Ada-SPARK-Radix-Sort | yes | yes | yes | yes | yes | 0 | 6 | proven | 283 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Radix-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Samplesort | yes | yes | yes | yes | yes | 0 | 0 | proven | 259 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Samplesort |  |
 | sorting/SPARK4/Ada-SPARK-Selection-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 241 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Selection-Sort |  |
