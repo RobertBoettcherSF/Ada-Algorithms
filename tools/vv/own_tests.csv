@@ -270,3 +270,4 @@ sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,"linear-scan references over every 
 clustering/SPARK2/K-Means-Step,exhaustive Nearest and Step against abs comparison and a counting floor mean
 geometry/SPARK2/Closest-Pair-Brute,X-sorted strip sweep (a different algorithm) + reverse/shift invariance
 hashing/SPARK2/Bloom-Filter,bit-set model + no-false-negative property
+numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,check symbols by search + Stein gcd / 128-bit Bezout

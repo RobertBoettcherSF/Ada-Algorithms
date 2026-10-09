@@ -153,3 +153,5 @@ geometry/SPARK2/Closest-Pair-Brute,GNAT 14,GNATLS 14.2.0,0,0,closest pair brute:
 geometry/SPARK2/Closest-Pair-Brute,GNAT 12,GNATLS 12.2.0,0,0,closest pair brute: PASS,0962df50
 hashing/SPARK2/Bloom-Filter,GNAT 14,GNATLS 14.2.0,0,0,All Bloom_Filter SPARK topic tests passed.,4e2023bf
 hashing/SPARK2/Bloom-Filter,GNAT 12,GNATLS 12.2.0,0,0,All Bloom_Filter SPARK topic tests passed.,4e2023bf
+numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,GNAT 14,GNATLS 14.2.0,0,0,Summary: 138 passed; 0 failed,a65ec915
+numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,GNAT 12,GNATLS 12.2.0,0,0,Summary: 138 passed; 0 failed,a65ec915
