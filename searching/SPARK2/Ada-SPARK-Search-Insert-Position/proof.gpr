@@ -1,0 +1,4 @@
+project Search_Insert_Position_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("search_insert_position.ads", "search_insert_position.adb");
+end Search_Insert_Position_Proof;

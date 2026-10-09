@@ -9,7 +9,18 @@ procedure Tests is
    --  Searching N = 32 sorted values: N + 1 = 33 insertion points, so a
    --  halving search needs at most floor (log2 33) + 1 = 6 reads; the
    --  bound asserted here is floor (log2 N) + 2 = 7.
-   Bound : constant := 7;
+   function Floor_Log2 (N : Positive) return Natural is
+      K : Natural := 0;
+      M : Positive := N;
+   begin
+      while M > 1 loop
+         M := M / 2;
+         K := K + 1;
+      end loop;
+      return K;
+   end Floor_Log2;
+
+   Bound : constant Natural := Floor_Log2 (Length) + 2;
 
    procedure Expect (D : Sorted_Array; Target : Value; Where : Insertion_Index; Label : String) is
       R : constant Search_Result := Position (D, Target);
