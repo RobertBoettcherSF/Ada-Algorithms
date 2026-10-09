@@ -487,3 +487,38 @@ Progress (2026-10-08, ~22:00 Europe/Berlin): pass 1 (10 repeats, GNAT 14) finish
 **Answer plant** (room 2026-10-08). Folders with `plant_ok` = n/a have no failure counter to bump. `tools/vv/answer_plant.py` plants a wrong answer in library code (flipped boolean / off-by-one) and requires `make test` to exit non-zero (`tools/vv/silent_fail_answer_plant.csv`). Until `answer_plant_ok` = yes, the index drop reason is `harness cannot fail` (not a pass).
 
 **Planted failure.** `tools/vv/silent_fail.py --plant` increments the test main's own failure counter once, just before its final check, and runs the standard `make test`. `plant_ok` = yes when the exit status is then non-zero. The result is recorded in `tools/vv/silent_fail_plant.csv`, and `--from-logs` counts `plant_ok` = no as a silent failure. Sample of 3 of the 166 former assert-only harnesses (seed 20261008): Deutsch-Josza, Peterson-Gorenstein-Zierler, One-Attribute-Rule. All three exit non-zero today, and all three exited 0 on the same planted failure before the harness fix (c6983f49).
+
+## 3k. Proof levels, unproved specifications and the handover ledger (2026-10-09)
+
+**Levels.** This repository uses AdaCore's five levels as defined in *Implementation Guidance for the Adoption of SPARK* (AdaCore and Thales, Release 1.2; https://www.adacore.com/books/implementation-guidance-spark, PDF https://www.adacore.com/uploads/books/Spark-Guidance-1.2-web.pdf; title and release checked against the AdaCore page on 2026-10-09):
+
+| Level | AdaCore definition | Example here |
+|---|---|---|
+| Stone | valid SPARK | gnatprove accepts the code (`not built` rows have not reached it) |
+| Bronze | initialization and correct data flow | no "might not be initialized" flow message |
+| Silver | absence of run-time errors (AoRTE) | no unproved index, overflow, range, division or pointer check |
+| Gold | proof of key integrity properties | the output stays within bounds; a probe-count bound; "only one empty link changed" |
+| Platinum | full functional proof of requirements | a sort proved **sorted and a permutation of its input**; a search proved "found iff present" |
+
+A proved full sort Post is Platinum, not Gold. A Post that a do-nothing body also proves (contract_scan) establishes neither. The booklet defines Platinum but does not discuss it further.
+
+**What `--mode=silver` does in our gnatprove.** `gnatprove --help` (FSF 16.1.0) lists `--mode=m` with `check, check_all, flow, prove, all*, stone, bronze, silver, gold`. There is no `platinum` mode, and the bundled `share/spark/help.txt` does not say which checks each mode attempts. The local probe on 2026-10-09 settled it: `F (X) return Integer with Post => F'Result = X + 1`, body `(X)`, `-f --level=2`:
+- `--mode=bronze` proved 1 check (termination) and attempted no proof of the Post or the overflow.
+- `--mode=silver` reported `postcondition might fail` **and** `overflow check might fail`.
+- `--mode=gold` gave the same output as silver.
+
+So in gnatprove 16.1.0 `--mode=silver` **does attempt functional contracts** (postconditions). A PROOFS.csv `silver = proven` row therefore means that every check gnatprove generated proved, Posts included, which is more than AdaCore Silver. The reverse also follows: a run with an unproved Post is not `proven`, even when every run-time check proved. To claim AdaCore Silver for such a folder, sort the unproved messages by kind (below), and record that only functional checks remain.
+
+**Check kinds** (column `check_kind` of `tools/vv/handover.csv`, taken from the gnatprove message text):
+- `run-time`: index, overflow, range, division, discriminant, pointer dereference / null, and the precondition of a called subprogram;
+- `functional`: postcondition, contract case, the Post or assertion that a loop invariant or ghost lemma serves, `pragma Assert` of a functional property, type invariant or predicate that states a functional property;
+- `termination`: loop or subprogram variant, `Always_Terminates`. This repository counts termination together with run-time for its Silver claim (a repo rule, not AdaCore's);
+- `other`: flow (Bronze), tool crash, timeout without a result, a mutation score, a toolchain bug.
+
+**Rule: full specifications stay, even when unproved.**
+1. A contract that states the real requirement (for example sorted **and** a permutation) stays in the code even when it does not prove yet. It is never deleted, never weakened until it proves, and never discharged with `pragma Assume`, nor with `Annotate => (GNATprove, False_Positive / Intentional)` on a check that could fail. The two existing `Intentional` overflow annotations, in Lemke-Howson, are listed as ledger rows. `Hide_Info` is a proof hint, not an escape.
+2. Every unproved check is listed in `tools/vv/handover.csv` (see `docs/HANDOVER.md`), with the prover setup, how far it got, one reproduce command and a pass condition.
+3. An unproved **run-time** or **termination** check: the folder is **not Silver** and not training_ready.
+4. An unproved **functional** check: AdaCore Silver **may still hold**, if every run-time check proved, and the PROOFS.csv note must say "Silver (AoRTE) only". The folder is **not Gold / Platinum**, and its functional claim (`functional_checks`) is withdrawn with the reason. It stays out of training_ready, because training_ready keeps requiring a clean `gnatprove` run of the folder's project, and that run fails on the unproved Post.
+5. Proof hints come before compute. First add loop invariants, ghost lemmas, ghost code, tighter subtypes or a split subprogram. Never raise `--steps` above the canonical 1,000,000, and never treat a longer wall cap as a fix. A hint-based proof passes at a low step count on any machine, and step counts do not depend on machine speed (only on the pinned versions, see `docs/TOOLCHAIN.md`).
+6. A check is closed only when its row's pass condition holds under the pinned toolchain. The row then stays in the ledger with `status = closed <commit>`. Proof warnings (`--proof-warnings=on`) are sticky: once raised, a warning stays a row until it is fixed in code, even if a later run misses it.
