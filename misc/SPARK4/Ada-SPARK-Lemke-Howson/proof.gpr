@@ -1,0 +1,8 @@
+project Lemke_Howson_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("lemke_howson.ads", "lemke_howson.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Lemke_Howson_Proof;

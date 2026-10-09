@@ -1,24 +1,18 @@
-GNAT    := gnatmake
-SPARK   := gnatprove
-FLAGS   := -gnatwa -gnat2022 -gnata
-OBJ_DIR := obj
-BIN_DIR := bin
+GPRBUILD := gprbuild
+GNATPROVE := gnatprove
+PROJECT := lemke_howson.gpr
+PROOF_PROJECT := proof.gpr
+.PHONY: all test prove clean
+all: test
 
-.PHONY: all test clean prove
+test:
+	mkdir -p obj bin
+	$(GPRBUILD) -P$(PROJECT)
+	@bin/tests
 
-all: $(BIN_DIR)/tests
-
-$(BIN_DIR)/tests: *.ads *.adb *.gpr
-	mkdir -p $(OBJ_DIR) $(BIN_DIR)
-	$(GNAT) $(FLAGS) -Plemke_howson.gpr
-
-prove: *.ads *.adb *.gpr
-	mkdir -p $(OBJ_DIR)
-	$(SPARK) -Plemke_howson.gpr --level=4
-
-test: all
-	@echo "Running tests..."
-	@$(BIN_DIR)/tests
+prove:
+	mkdir -p obj
+	$(GNATPROVE) -P$(PROOF_PROJECT) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -rf obj bin gnatprove

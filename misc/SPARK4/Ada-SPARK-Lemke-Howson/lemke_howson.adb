@@ -1,4 +1,16 @@
-package body Lemke_Howson with SPARK_Mode => On is
+pragma Ada_2022;
+--  SCAFFOLD for the failing test: the old floating-point algorithm, unchanged,
+--  behind the new exact interface (its probabilities are converted to
+--  fractions over 2 ** 30).  The rewrite replaces this body.
+package body Lemke_Howson with SPARK_Mode => Off is
+   type Real is new Long_Float;
+   type Matrix is array (Strategy_Count range <>, Strategy_Count range <>) of Real;
+   type Vector is array (Strategy_Count range <>) of Real;
+   type Nash_Equilibrium (M, N : Strategy_Count) is record
+      P1_Strategy : Vector (1 .. M);
+      P2_Strategy : Vector (1 .. N);
+   end record;
+
 
    subtype Max_Dim_Type is Positive range 1 .. Max_Strategies;
 
@@ -135,7 +147,7 @@ package body Lemke_Howson with SPARK_Mode => On is
       end;
    end Pivot;
 
-   function Find_Equilibrium
+   function Find_Float
      (A : Matrix;
       B : Matrix;
       M : Strategy_Count;
@@ -285,6 +297,37 @@ package body Lemke_Howson with SPARK_Mode => On is
       end if;
 
       return Result;
-   end Find_Equilibrium;
+   end Find_Float;
 
+
+   function Find_Equilibrium
+     (A, B         : Payoff_Matrix;
+      Initial_Drop : Label_Type := 1) return Exact_Equilibrium
+   is
+      M  : constant Strategy_Count := A'Last (1);
+      N  : constant Strategy_Count := A'Last (2);
+      FA, FB : Matrix (1 .. M, 1 .. N);
+      R  : Exact_Equilibrium (M, N);
+   begin
+      for I in 1 .. M loop
+         for J in 1 .. N loop
+            FA (I, J) := Real (A (I, J));
+            FB (I, J) := Real (B (I, J));
+         end loop;
+      end loop;
+      declare
+         E : constant Nash_Equilibrium := Find_Float (FA, FB, M, N, Initial_Drop);
+      begin
+         for I in 1 .. M loop
+            R.X (I) := To_Big_Integer (Integer (E.P1_Strategy (I) * 2.0 ** 30));
+         end loop;
+         for J in 1 .. N loop
+            R.Y (J) := To_Big_Integer (Integer (E.P2_Strategy (J) * 2.0 ** 30));
+         end loop;
+      end;
+      R.Dx := Sum_To (R.X, M);
+      R.Dy := Sum_To (R.Y, N);
+      R.Found := Is_Nash (A, B, R.X, R.Dx, R.Y, R.Dy);
+      return R;
+   end Find_Equilibrium;
 end Lemke_Howson;

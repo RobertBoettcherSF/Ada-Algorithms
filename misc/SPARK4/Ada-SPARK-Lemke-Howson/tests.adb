@@ -1,144 +1,247 @@
+pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;
+with Ada.Numerics.Big_Numbers.Big_Integers; use Ada.Numerics.Big_Numbers.Big_Integers;
 with Lemke_Howson; use Lemke_Howson;
 
+--  Expected values: see tests/SOURCES.txt.  Every result is checked with
+--  this file's own exact best-response check (Big_Integer, not the
+--  package's Is_Nash), for every starting label; games with known
+--  equilibria also check the result is one of them (worked by hand).
 procedure Tests is
-   Pass_Count : Natural := 0;
-   Fail_Count : Natural := 0;
+   Failures : Natural := 0;
+   Checks   : Natural := 0;
 
-   procedure Check (Label : String; OK : Boolean) is
+   procedure Check (Ok : Boolean; Label : String) is
    begin
-      if OK then
-         Put_Line ("  PASS — " & Label);
-         Pass_Count := Pass_Count + 1;
-      else
-         Put_Line ("  FAIL — " & Label);
-         Fail_Count := Fail_Count + 1;
+      Checks := Checks + 1;
+      if not Ok then
+         Failures := Failures + 1;
+         Put_Line ("FAIL " & Label);
       end if;
    end Check;
 
-   procedure Check_Real (Label : String; Actual, Expected : Real) is
-      Tolerance : constant Real := 1.0e-4;
+   function B (V : Integer) return Big_Integer renames To_Big_Integer;
+
+   --  Own check: X / Dx, Y / Dy are mixed strategies and best responses.
+   function Own_Nash (A, Bm : Payoff_Matrix; E : Exact_Equilibrium) return Boolean is
+      M : constant Positive := A'Last (1);
+      N : constant Positive := A'Last (2);
+      SX, SY : Big_Integer := B (0);
+      PA : array (1 .. M) of Big_Integer := [others => B (0)];
+      PB : array (1 .. N) of Big_Integer := [others => B (0)];
+      Best : Big_Integer;
    begin
-      if abs (Actual - Expected) < Tolerance then
-         Check (Label, True);
-      else
-         Put_Line ("  FAIL — " & Label & " (Exp: " & Expected'Image & ", Got: " & Actual'Image & ")");
-         Fail_Count := Fail_Count + 1;
+      for I in 1 .. M loop
+         if E.X (I) < B (0) then return False; end if;
+         SX := SX + E.X (I);
+      end loop;
+      for J in 1 .. N loop
+         if E.Y (J) < B (0) then return False; end if;
+         SY := SY + E.Y (J);
+      end loop;
+      if SX /= E.Dx or else SY /= E.Dy or else E.Dx <= B (0) or else E.Dy <= B (0) then
+         return False;
       end if;
-   end Check_Real;
+      for I in 1 .. M loop
+         for J in 1 .. N loop
+            PA (I) := PA (I) + B (A (I, J)) * E.Y (J);
+            PB (J) := PB (J) + B (Bm (I, J)) * E.X (I);
+         end loop;
+      end loop;
+      Best := PA (1);
+      for I in 2 .. M loop
+         if PA (I) > Best then Best := PA (I); end if;
+      end loop;
+      for I in 1 .. M loop
+         if E.X (I) > B (0) and then PA (I) /= Best then return False; end if;
+      end loop;
+      Best := PB (1);
+      for J in 2 .. N loop
+         if PB (J) > Best then Best := PB (J); end if;
+      end loop;
+      for J in 1 .. N loop
+         if E.Y (J) > B (0) and then PB (J) /= Best then return False; end if;
+      end loop;
+      return True;
+   end Own_Nash;
 
-   A2, B2 : Matrix (1 .. 2, 1 .. 2);
-   A3, B3 : Matrix (1 .. 3, 1 .. 3);
-   A2x3, B2x3 : Matrix (1 .. 2, 1 .. 3);
-   A1, B1 : Matrix (1 .. 1, 1 .. 1);
-   
-   Eq2 : Nash_Equilibrium (2, 2);
-   Eq3 : Nash_Equilibrium (3, 3);
-   Eq2x3 : Nash_Equilibrium (2, 3);
-   Eq1 : Nash_Equilibrium (1, 1);
+   type Int_Vector is array (Positive range <>) of Natural;
+
+   --  E's strategies equal Num_X / Den_X and Num_Y / Den_Y exactly.
+   function Equals (E : Exact_Equilibrium; Num_X : Int_Vector; Den_X : Positive;
+                Num_Y : Int_Vector; Den_Y : Positive) return Boolean is
+     ((for all I in 1 .. E.M => E.X (I) * B (Den_X) = B (Num_X (I)) * E.Dx)
+      and then (for all J in 1 .. E.N => E.Y (J) * B (Den_Y) = B (Num_Y (J)) * E.Dy));
+
+   procedure All_Drops (Name : String; A, Bm : Payoff_Matrix) is
+   begin
+      for D in 1 .. A'Last (1) + A'Last (2) loop
+         declare
+            E : constant Exact_Equilibrium := Find_Equilibrium (A, Bm, D);
+         begin
+            Check (E.Found and then Own_Nash (A, Bm, E), Name & " drop" & D'Image & ": equilibrium");
+         end;
+      end loop;
+   end All_Drops;
+
+   L  : constant Integer := Integer'Last;
+   F  : constant Integer := Integer'First;
 begin
-   Put_Line ("TEST 1-4 — Battle of the Sexes (Multiple Equilibria & Initial_Drop Variants)");
-   A2 := [[3.0, 0.0], [0.0, 2.0]];
-   B2 := [[2.0, 0.0], [0.0, 3.0]];
-   
-   Eq2 := Find_Equilibrium (A2, B2, 2, 2, Initial_Drop => 1);
-   Check_Real ("1.1 BoS Drop 1 (P1 Strat 1)", Eq2.P1_Strategy (1), 1.0);
-   Check_Real ("1.2 BoS Drop 1 (P1 Strat 2)", Eq2.P1_Strategy (2), 0.0);
-   Check_Real ("1.3 BoS Drop 1 (P2 Strat 1)", Eq2.P2_Strategy (1), 1.0);
-   
-   Eq2 := Find_Equilibrium (A2, B2, 2, 2, Initial_Drop => 2);
-   Check_Real ("2.1 BoS Drop 2 (P1 Strat 1)", Eq2.P1_Strategy (1), 0.0);
-   Check_Real ("2.2 BoS Drop 2 (P2 Strat 1)", Eq2.P2_Strategy (1), 0.0);
-   Check_Real ("2.3 BoS Drop 2 (P2 Strat 2)", Eq2.P2_Strategy (2), 1.0);
+   --  Battle of the sexes: (1,0)/(1,0), (0,1)/(0,1), (3/5,2/5)/(2/5,3/5).
+   declare
+      A  : constant Payoff_Matrix := [[3, 0], [0, 2]];
+      Bm : constant Payoff_Matrix := [[2, 0], [0, 3]];
+   begin
+      All_Drops ("BoS", A, Bm);
+      for D in 1 .. 4 loop
+         declare
+            E : constant Exact_Equilibrium := Find_Equilibrium (A, Bm, D);
+         begin
+            Check (Equals (E, [1, 0], 1, [1, 0], 1) or else Equals (E, [0, 1], 1, [0, 1], 1)
+                   or else Equals (E, [3, 2], 5, [2, 3], 5), "BoS drop" & D'Image & ": one of the three");
+         end;
+      end loop;
+   end;
 
-   Eq2 := Find_Equilibrium (A2, B2, 2, 2, Initial_Drop => 3);
-   Check_Real ("3.1 BoS Drop 3 (P1 Strat 1)", Eq2.P1_Strategy (1), 1.0);
-   Check_Real ("3.2 BoS Drop 3 (P2 Strat 2)", Eq2.P2_Strategy (2), 0.0);
-   Check_Real ("3.3 BoS Drop 3 (P2 Strat 1)", Eq2.P2_Strategy (1), 1.0);
+   --  Matching pennies: only (1/2,1/2)/(1/2,1/2).
+   declare
+      A  : constant Payoff_Matrix := [[1, -1], [-1, 1]];
+      Bm : constant Payoff_Matrix := [[-1, 1], [1, -1]];
+   begin
+      for D in 1 .. 4 loop
+         Check (Equals (Find_Equilibrium (A, Bm, D), [1, 1], 2, [1, 1], 2), "pennies drop" & D'Image);
+      end loop;
+   end;
 
-   Eq2 := Find_Equilibrium (A2, B2, 2, 2, Initial_Drop => 4);
-   Check_Real ("4.1 BoS Drop 4 (P1 Strat 2)", Eq2.P1_Strategy (2), 1.0);
-   Check_Real ("4.2 BoS Drop 4 (P2 Strat 1)", Eq2.P2_Strategy (1), 0.0);
-   Check_Real ("4.3 BoS Drop 4 (P2 Strat 2)", Eq2.P2_Strategy (2), 1.0);
+   --  Prisoner's dilemma: only (0,1)/(0,1).
+   declare
+      A  : constant Payoff_Matrix := [[3, 0], [5, 1]];
+      Bm : constant Payoff_Matrix := [[3, 5], [0, 1]];
+   begin
+      for D in 1 .. 4 loop
+         Check (Equals (Find_Equilibrium (A, Bm, D), [0, 1], 1, [0, 1], 1), "PD drop" & D'Image);
+      end loop;
+   end;
 
-   Put_Line ("TEST 5-6 — Matching Pennies (Mixed Equilibrium)");
-   A2 := [[1.0, -1.0], [-1.0, 1.0]];
-   B2 := [[-1.0, 1.0], [1.0, -1.0]];
-   Eq2 := Find_Equilibrium (A2, B2, 2, 2, Initial_Drop => 1);
-   Check_Real ("5.1 MatchPen Drop 1 (P1 S1)", Eq2.P1_Strategy (1), 0.5);
-   Check_Real ("5.2 MatchPen Drop 1 (P1 S2)", Eq2.P1_Strategy (2), 0.5);
-   Check_Real ("5.3 MatchPen Drop 1 (P2 S1)", Eq2.P2_Strategy (1), 0.5);
+   --  Hawk-dove: (1,0)/(0,1), (0,1)/(1,0), (1/2,1/2)/(1/2,1/2).
+   declare
+      A  : constant Payoff_Matrix := [[0, 3], [1, 2]];
+      Bm : constant Payoff_Matrix := [[0, 1], [3, 2]];
+   begin
+      All_Drops ("hawk-dove", A, Bm);
+      for D in 1 .. 4 loop
+         declare
+            E : constant Exact_Equilibrium := Find_Equilibrium (A, Bm, D);
+         begin
+            Check (Equals (E, [1, 0], 1, [0, 1], 1) or else Equals (E, [0, 1], 1, [1, 0], 1)
+                   or else Equals (E, [1, 1], 2, [1, 1], 2), "hawk-dove drop" & D'Image & ": one of the three");
+         end;
+      end loop;
+   end;
 
-   Eq2 := Find_Equilibrium (A2, B2, 2, 2, Initial_Drop => 2);
-   Check_Real ("6.1 MatchPen Drop 2 (P2 S2)", Eq2.P2_Strategy (2), 0.5);
-   Check_Real ("6.2 MatchPen Drop 2 (P1 S1)", Eq2.P1_Strategy (1), 0.5);
-   Check_Real ("6.3 MatchPen Drop 2 (P2 S1)", Eq2.P2_Strategy (1), 0.5);
+   --  Rock-paper-scissors: only the uniform pair.
+   declare
+      A  : constant Payoff_Matrix := [[0, -1, 1], [1, 0, -1], [-1, 1, 0]];
+      Bm : constant Payoff_Matrix := [[0, 1, -1], [-1, 0, 1], [1, -1, 0]];
+   begin
+      for D in 1 .. 6 loop
+         Check (Equals (Find_Equilibrium (A, Bm, D), [1, 1, 1], 3, [1, 1, 1], 3), "RPS drop" & D'Image);
+      end loop;
+   end;
 
-   Put_Line ("TEST 7 — Prisoner's Dilemma (Dominant Pure Strategy)");
-   A2 := [[3.0, 0.0], [5.0, 1.0]];
-   B2 := [[3.0, 5.0], [0.0, 1.0]];
-   Eq2 := Find_Equilibrium (A2, B2, 2, 2, Initial_Drop => 1);
-   Check_Real ("7.1 PD Drop 1 (P1 S1=Coop)", Eq2.P1_Strategy (1), 0.0);
-   Check_Real ("7.2 PD Drop 1 (P1 S2=Defect)", Eq2.P1_Strategy (2), 1.0);
-   Check_Real ("7.3 PD Drop 1 (P2 S2=Defect)", Eq2.P2_Strategy (2), 1.0);
+   --  1 x 1.
+   Check (Equals (Find_Equilibrium ([[10]], [[5]], 1), [1], 1, [1], 1), "1x1 drop 1");
+   Check (Equals (Find_Equilibrium ([[10]], [[5]], 2), [1], 1, [1], 1), "1x1 drop 2");
 
-   Put_Line ("TEST 8 — Hawk-Dove Game");
-   A2 := [[0.0, 3.0], [1.0, 2.0]];
-   B2 := [[0.0, 1.0], [3.0, 2.0]];
-   Eq2 := Find_Equilibrium (A2, B2, 2, 2, Initial_Drop => 2);
-   Check_Real ("8.1 HD P1 Sum=1", Eq2.P1_Strategy (1) + Eq2.P1_Strategy (2), 1.0);
-   Check_Real ("8.2 HD P2 Sum=1", Eq2.P2_Strategy (1) + Eq2.P2_Strategy (2), 1.0);
-   Check_Real ("8.3 Valid strategy returned", (if Eq2.P1_Strategy (1) >= 0.0 then 1.0 else 0.0), 1.0);
+   --  All payoffs negative: row 1 dominates, then column 2: (1,0)/(0,1).
+   declare
+      A  : constant Payoff_Matrix := [[-10, -20], [-30, -40]];
+      Bm : constant Payoff_Matrix := [[-40, -30], [-20, -10]];
+   begin
+      for D in 1 .. 4 loop
+         Check (Equals (Find_Equilibrium (A, Bm, D), [1, 0], 1, [0, 1], 1), "negative drop" & D'Image);
+      end loop;
+   end;
 
-   Put_Line ("TEST 9 — 1x1 Degenerate / Smallest Game");
-   A1 := [[10.0]];
-   B1 := [[5.0]];
-   Eq1 := Find_Equilibrium (A1, B1, 1, 1, Initial_Drop => 1);
-   Check_Real ("9.1 1x1 P1 Strat 1", Eq1.P1_Strategy (1), 1.0);
-   Check_Real ("9.2 1x1 P2 Strat 1", Eq1.P2_Strategy (1), 1.0);
-   
-   pragma Warnings (Off, "condition can only be False if invalid values present");
-   pragma Warnings (Off, "condition is always True");
-   Check ("9.3 1x1 Dimensions Correct", Eq1.M = 1 and Eq1.N = 1);
-   pragma Warnings (On, "condition is always True");
-   pragma Warnings (On, "condition can only be False if invalid values present");
+   --  Degenerate 2 x 3: column 3 strictly dominates, and against it both
+   --  rows pay 1, so every x with y = (0, 0, 1) is an equilibrium.
+   declare
+      A  : constant Payoff_Matrix := [[2, 0, 1], [0, 3, 1]];
+      Bm : constant Payoff_Matrix := [[1, 0, 2], [0, 1, 2]];
+   begin
+      All_Drops ("2x3 degenerate", A, Bm);
+      for D in 1 .. 5 loop
+         declare
+            E : constant Exact_Equilibrium := Find_Equilibrium (A, Bm, D);
+         begin
+            Check (E.Y (1) = B (0) and then E.Y (2) = B (0), "2x3 degenerate drop" & D'Image & ": y = (0,0,1)");
+         end;
+      end loop;
+   end;
 
-   Put_Line ("TEST 10 — Rock Paper Scissors (3x3 Mixed Equilibrium)");
-   A3 := [[0.0, -1.0, 1.0], [1.0, 0.0, -1.0], [-1.0, 1.0, 0.0]];
-   B3 := [[0.0, 1.0, -1.0], [-1.0, 0.0, 1.0], [1.0, -1.0, 0.0]];
-   Eq3 := Find_Equilibrium (A3, B3, 3, 3, Initial_Drop => 1);
-   Check_Real ("10.1 RPS P1 S1", Eq3.P1_Strategy (1), 1.0 / 3.0);
-   Check_Real ("10.2 RPS P1 S2", Eq3.P1_Strategy (2), 1.0 / 3.0);
-   Check_Real ("10.3 RPS P2 S3", Eq3.P2_Strategy (3), 1.0 / 3.0);
+   --  Degenerate 3 x 3 games (ties), found by a seeded search where the
+   --  old floating-point code returned a non-equilibrium: drop 1 gave
+   --  x = (1,0,0) against y = (2/3,0,1/3), where row 1 pays 1/3 and rows 2
+   --  and 3 pay 4/3; and x = (1/2,1/2,0) against y = (3/5,0,2/5), where
+   --  row 1 pays 2/5, row 2 pays 9/5.
+   All_Drops ("degenerate 1", [[0, 1, 1], [1, 2, 2], [2, 1, 0]], [[0, 0, 0], [0, 0, 2], [1, 0, 2]]);
+   All_Drops ("degenerate 2", [[0, 1, 1], [3, 0, 0], [1, 1, 3]], [[3, 3, 1], [1, 0, 3], [0, 1, 0]]);
+   --  Everything ties.
+   All_Drops ("all equal 3x3", [[1, 1, 1], [1, 1, 1], [1, 1, 1]], [[1, 1, 1], [1, 1, 1], [1, 1, 1]]);
+   All_Drops ("all zero 5x5", [for I in 1 .. 5 => [for J in 1 .. 5 => 0]], [for I in 1 .. 5 => [for J in 1 .. 5 => 0]]);
 
-   Put_Line ("TEST 11 — Fully Negative Payoff Shift Test");
-   A2 := [[-10.0, -20.0], [-30.0, -40.0]];
-   B2 := [[-40.0, -30.0], [-20.0, -10.0]];
-   Eq2 := Find_Equilibrium (A2, B2, 2, 2, Initial_Drop => 1);
-   Check_Real ("11.1 Shift Test Sum=1 P1", Eq2.P1_Strategy (1) + Eq2.P1_Strategy (2), 1.0);
-   Check_Real ("11.2 Shift Test Sum=1 P2", Eq2.P2_Strategy (1) + Eq2.P2_Strategy (2), 1.0);
-   Check_Real ("11.3 Max payoff chosen (P1=1, P2=2)", Eq2.P1_Strategy (1), 1.0);
+   --  Payoffs at the Integer limits: matching pennies times Integer'Last
+   --  (still only the halves), and with Integer'First in it.
+   declare
+      A  : constant Payoff_Matrix := [[L, -L], [-L, L]];
+      Bm : constant Payoff_Matrix := [[-L, L], [L, -L]];
+   begin
+      for D in 1 .. 4 loop
+         Check (Equals (Find_Equilibrium (A, Bm, D), [1, 1], 2, [1, 1], 2), "pennies * Integer'Last drop" & D'Image);
+      end loop;
+      All_Drops ("Integer'First", [[F, L], [L, F]], [[L, F], [F, L]]);
+   end;
 
-   Put_Line ("TEST 12 — Boundary Drop Condition (Drop = M + N)");
-   Eq3 := Find_Equilibrium (A3, B3, 3, 3, Initial_Drop => 6); -- Max possible label for 3x3
-   Check_Real ("12.1 Boundary Drop P1 S1", Eq3.P1_Strategy (1), 1.0 / 3.0);
-   Check_Real ("12.2 Boundary Drop P1 S3", Eq3.P1_Strategy (3), 1.0 / 3.0);
-   Check_Real ("12.3 Boundary Drop P2 S2", Eq3.P2_Strategy (2), 1.0 / 3.0);
+   --  Rock-paper-scissors-lizard-spock times Integer'Last: strategy i beats
+   --  i + 1 and i + 2 (mod 5) and loses to the other two; the uniform pair
+   --  is the only equilibrium.  The pivots multiply 32-bit numbers, so the
+   --  intermediate products need far more than 64 bits.
+   declare
+      function W (I, J : Positive) return Integer is
+        (case (J - I) mod 5 is when 1 | 2 => -L, when 3 | 4 => L, when others => 0);
+      A  : constant Payoff_Matrix := [for I in 1 .. 5 => [for J in 1 .. 5 => W (I, J)]];
+      Bm : constant Payoff_Matrix := [for I in 1 .. 5 => [for J in 1 .. 5 => -W (I, J)]];
+   begin
+      for D in 1 .. 10 loop
+         Check (Equals (Find_Equilibrium (A, Bm, D), [1, 1, 1, 1, 1], 5, [1, 1, 1, 1, 1], 5), "RPSLS * Integer'Last drop" & D'Image);
+      end loop;
+   end;
 
-   Put_Line ("TEST 13 — Asymmetric Dimension Game (2x3)");
-   A2x3 := [[2.0, 0.0, 1.0], [0.0, 3.0, 1.0]];
-   B2x3 := [[1.0, 0.0, 2.0], [0.0, 1.0, 2.0]];
-   Eq2x3 := Find_Equilibrium (A2x3, B2x3, 2, 3, Initial_Drop => 1);
-   Check_Real ("13.1 Asym P1 S1", Eq2x3.P1_Strategy (1) + Eq2x3.P1_Strategy (2), 1.0);
-   Check_Real ("13.2 Asym P2 S1", Eq2x3.P2_Strategy (1) + Eq2x3.P2_Strategy (2) + Eq2x3.P2_Strategy (3), 1.0);
-   
-   pragma Warnings (Off, "condition can only be False if invalid values present");
-   pragma Warnings (Off, "condition is always True");
-   Check ("13.3 Asym dimensions preserved", Eq2x3.M = 2 and Eq2x3.N = 3);
-   pragma Warnings (On, "condition is always True");
-   pragma Warnings (On, "condition can only be False if invalid values present");
+   --  A 5 x 5 game with payoffs spread over all of Integer (Park-Miller
+   --  sequence from seed 20261009, mapped to Integer'First + 1 .. Integer'Last).
+   declare
+      S  : Long_Long_Integer := 20_261_009;
+      function Next return Integer is
+      begin
+         S := (S * 16_807) mod 2_147_483_647;
+         return Integer (2 * S - 2_147_483_647);
+      end Next;
+      A, Bm : Payoff_Matrix (1 .. 5, 1 .. 5);
+   begin
+      for I in 1 .. 5 loop
+         for J in 1 .. 5 loop
+            A (I, J) := Next;
+            Bm (I, J) := Next;
+         end loop;
+      end loop;
+      All_Drops ("5x5 full Integer range", A, Bm);
+   end;
 
-   Put_Line ("");
-   Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, " & Natural'Image (Fail_Count) & " failed ===");
-   pragma Assert (Fail_Count = 0, "Some tests failed");
+   if Failures = 0 then
+      Put_Line ("PASS Lemke_Howson (" & Checks'Image & " checks)");
+   else
+      Put_Line ("FAIL Lemke_Howson:" & Failures'Image & " of" & Checks'Image);
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+   end if;
 end Tests;
