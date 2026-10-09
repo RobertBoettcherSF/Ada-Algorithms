@@ -59,9 +59,6 @@ package body Lulea_Algorithm is
       end Img;
    begin
       --  Match legacy test expectation for 0: " 0. 0. 0. 0"; for 255.255.255.255 no leading spaces.
-      if Address = 0 then
-         return " 0. 0. 0. 0";
-      end if;
       return Img (A) & "." & Img (B) & "." & Img (C) & "." & Img (D);
    end IPv4_To_String;
 
