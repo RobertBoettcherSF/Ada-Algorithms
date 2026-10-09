@@ -1,5 +1,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Assertions;
 with Design_Browser_History; use Design_Browser_History;
+with Own_Checks;
 procedure Tests is
    H : History := Empty;
 begin
@@ -34,5 +36,58 @@ begin
          raise Program_Error with "visit from the first page";
       end if;
    end;
+   --  Hand-worked (agent A3): a full history (4 pages) refuses a fifth
+   --  visit at the last page but accepts one after Back (the last page
+   --  is dropped); Forward at the newest page and Back at the first are
+   --  refused; nothing changes on a refused call.
+   declare
+      F       : History := Empty;
+      Refused : Boolean;
+   begin
+      if Length (F) /= 0 or else Current_Index (F) /= 0 then
+         raise Program_Error with "empty";
+      end if;
+      Visit (F, 1); Visit (F, 2); Visit (F, 3); Visit (F, 4);
+      Refused := False;
+      begin
+         Visit (F, 5);
+      exception
+         when Ada.Assertions.Assertion_Error => Refused := True;
+      end;
+      if not Refused or else Length (F) /= 4 or else Current_Page (F) /= 4 then
+         raise Program_Error with "fifth visit";
+      end if;
+      Refused := False;
+      begin
+         Forward (F);
+      exception
+         when Ada.Assertions.Assertion_Error => Refused := True;
+      end;
+      if not Refused or else Current_Index (F) /= 4 then
+         raise Program_Error with "forward at the newest page";
+      end if;
+      Back (F);
+      Visit (F, 100);
+      if Length (F) /= 4 or else Page_At (F, 3) /= 3
+        or else Current_Page (F) /= 100
+      then
+         raise Program_Error with "visit after back in a full history";
+      end if;
+      Back (F); Back (F); Back (F);
+      Refused := False;
+      begin
+         Back (F);
+      exception
+         when Ada.Assertions.Assertion_Error => Refused := True;
+      end;
+      if not Refused or else Current_Page (F) /= 1 then
+         raise Program_Error with "back at the first page";
+      end if;
+      Forward (F); Forward (F);
+      if Current_Page (F) /= 3 or else Length (F) /= 4 then
+         raise Program_Error with "forward keeps the pages";
+      end if;
+   end;
+   Own_Checks;
    Put_Line ("Design Browser History: PASS");
 end Tests;

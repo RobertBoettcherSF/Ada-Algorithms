@@ -1,0 +1,28 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+Definition used: a browser history keeps a list of pages and the position
+of the shown page. Visiting a page drops every page after the shown one
+and appends the new page, which becomes the shown page; Back and Forward
+move the shown position one page. This package bounds the list at
+Capacity = 4 pages and makes impossible moves preconditions.
+
+tests.adb: the first lines are the original case (10 20 30, back -> 20,
+forward -> 30). Added: visit after back (10 20 30, back, visit 40 ->
+10 20 40 shown 40, back -> 20, back -> 10, visit 50 -> 10 50); a full
+history refuses a fifth visit at its newest page, refuses Forward there
+and Back at the first page, and accepts a visit after Back (1 2 3 4,
+back, visit 100 -> 1 2 3 100). Every expected value is worked by hand
+from the definition.
+
+own_checks.adb: model-based. 2,000 seeded random runs of 40 Visit /
+Back / Forward calls against a two-stack model (pages behind, the shown
+page, pages ahead), which shares no code or layout with the package's
+array. A call must be refused (Assertion_Error from the precondition)
+exactly when the model has no room / no page behind / no page ahead, and
+after every call Length, Current_Index, Current_Page and every Page_At
+must match the model. Seed = FNV-1a of the folder name, AA_SEED
+overrides it.
