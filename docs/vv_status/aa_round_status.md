@@ -47,9 +47,17 @@ BrownBoost — leave those alone.
   undefined). Fixed; flaky init=yes on GNAT 14; section 24 was red on old code.
 - Recursive-Descent-Parser: AA_SEED 1,2,22 overflowed Integer on deep literal
   trees; Eval_Wide + Constraint_Error contract; 30 seeds 0 failed on GNAT 14/12.
-- SPARK Mersenne-Twister: **not** flaky=yes — Initialize_Scalars / `-gnatVa`
-  hits a GNAT compiler crash on `Next`'s Post (`X'Old` in an if-expression);
-  status note on both GNAT 14 and the new GNAT 12 row.
+- SPARK Mersenne-Twister (finding, not flaky): the `-gnata -gnatVa` build hit a
+  GNAT bug box on `Next`'s Post (`X'Old` inside an if-expression branch). Minimal
+  standalone reproducer `tests/gnat_bug_gnatVa_old` (r.ads 11 + r.adb 6 lines,
+  no Initialize_Scalars needed) re-run 2026-10-09: bug box on GNAT 14.2.0
+  (decl.cc:464) and 12.2.0 (decl.cc:472); clean without `-gnatVa`. Post now uses
+  `or else` (f22269ac); init pass yes on GNAT 14 and on a GNAT 12 re-run (the
+  earlier GNAT 12 init=no row predated the fix).
+- Mersenne-Twister known answers (seed 5489, C++ [rand.predef]): Ada twin
+  asserts mt19937 10000th = 4123659995 and mt19937_64 10000th =
+  9981545732273789042 (TEST 14); SPARK port asserts 4123659995 (MT19937-64 not
+  in the SPARK package by design). Pass on GNAT 14.2.0 and 12.2.0.
 - GNAT 12 three-pass (`/tmp/flk/g12_tr.csv`, 271 folders) merged into
   `tools/vv/flaky.csv` (2111 data rows). Counting-Sort finished on GNAT 12
   (10/10, init yes) after long runs; GNAT 14 had previously timed out at 300 s.
