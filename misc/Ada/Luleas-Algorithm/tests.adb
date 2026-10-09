@@ -56,11 +56,11 @@ procedure Tests is
    begin
       Print_Test_Header("IPv4 Address Conversion");
 
-      Print_Assertion("1.1 Assert IPv4_To_String(0) =  0. 0. 0. 0");
+      Print_Assertion("1.1 Assert IPv4_To_String(0) = 0.0.0.0");
       declare
          Result : constant String := IPv4_To_String(0);
       begin
-         Assert (Result = " 0. 0. 0. 0", "IPv4_To_String(0) failed");
+         Assert (Result = "0.0.0.0", "IPv4_To_String(0) failed");
          Print_Result(True, "IPv4_To_String(0) = " & Result);
       end;
 

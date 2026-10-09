@@ -2,7 +2,7 @@ project Lulea_Algorithm is
    for Source_Dirs use (".");
    for Object_Dir use "obj";
    for Exec_Dir use "bin";
-   for Main use ("tests.adb");
+   for Main use ("tests.adb", "tests_reference.adb");
    package Builder is
       for Default_Switches ("Ada") use ("-s");
    end Builder;
