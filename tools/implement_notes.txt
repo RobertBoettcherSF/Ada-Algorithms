@@ -142,3 +142,4 @@ Trim-BST	recursive trimming that keeps the BST property within [low, high]
 Two-Sum-BST	in-order iterator from both ends (or a hash set) over a BST of any size
 Unique-BSTs	Catalan DP: G(n) = sum G(i-1) * G(n-i)
 Validate-BST	recursive bounds check (or in-order strictly increasing) over any tree
+Convert-Sorted-Array-To-BST	take the middle element as the root and build both halves the same way, for any length; prove the in-order walk is the input and the height is minimal
