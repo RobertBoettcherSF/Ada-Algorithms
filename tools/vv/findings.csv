@@ -98,7 +98,7 @@ cryptography/SPARK2/Bit-Reversal,"answer_plant_ok=no: 4 built wrong-answer plant
 geometry/Ada/Dithering,"answer_plant_ok=no: 7 built wrong-answer plants (e.g. op < -> <= in dithering.adb) still leave make test exit 0 — harness cannot report failure",fixed,890e1529,none
 geometry/SPARK2/Closest-Pair-Brute,"answer_plant_ok=no: 9 built wrong-answer plants (e.g. off_by_one_plus in closest_pair_brute.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
 misc/Ada/Exponential-Backoff,"answer_plant_ok=no: 19 built wrong-answer plants (e.g. off_by_one_plus in exponential_backoff.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
-misc/Ada/Luleas-Algorithm,"answer_plant_ok=no: 12 built wrong-answer plants (e.g. flip_bool in lulea_algorithm.adb) still leave make test exit 0 — harness cannot report failure",open,,
+misc/Ada/Luleas-Algorithm,"answer_plant_ok=no: 12 built wrong-answer plants (e.g. flip_bool in lulea_algorithm.adb) still leave make test exit 0 — harness cannot report failure",fixed,fb3e63bf,552f079f
 misc/Ada/Proof-Of-Work-Algorithms,"answer_plant_ok=no: 7 built wrong-answer plants (e.g. flip_bool in proof_of_work.adb) still leave make test exit 0 — harness cannot report failure",fixed,1fb7850b,478b7d21
 misc/Ada/Scale-Invariant-Feature-Transform,"answer_plant_ok=no: 2 built wrong-answer plants (e.g. op = -> /= in sift_algorithm.adb) still leave make test exit 0 — harness cannot report failure",open,,
 misc/Ada/Seam-Carving,"answer_plant_ok=no: 9 built wrong-answer plants (e.g. op + -> - in seam_carving.adb) still leave make test exit 0 — harness cannot report failure",fixed,ac48b937,24d7f98a
