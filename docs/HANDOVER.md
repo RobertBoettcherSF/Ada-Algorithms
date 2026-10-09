@@ -23,7 +23,7 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `status` | open / worked around / pending, and whether the folder changed after the recorded run |
 | `source` | where the data came from |
 
-## Categories (143 rows)
+## Categories (144 rows)
 
 | Category | Rows | What it is |
 |---|---|---|
@@ -38,7 +38,7 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `functional_gap` | 4 | Bitonic-Sorter: the 0-1 principle and the half-cleaner lemma are missing, and sortedness is masked by Bubble_Finish; Lemke-Howson (H096, target Platinum): the functional claim is partial: (Status = Found) = Is_Nash is proved (a Found result is a certified equilibrium; a body that never reports Found also proves it), but not that Status is always Found; termination rests on the Max_Steps loop bound, and the other exits are explicit statuses (Step_Cap_Reached, No_Pivot_Row, Check_Failed). Tested on every starting label, degenerate games and 14,000 seeded random calls up to 4 x 4 (most pivots 19, bound C (M + N, M) ** 2); H142 String-Compression (Compress) and H143 Convex-Hull-Graham (Scan): Post must state whether entries past returned length are unchanged or unspecified (score138 `unspecified output` survivors; no spec change yet) |
 | `toolchain_limit` | 1 | cvc5 under gnatprove's `--prenex-quant=none` returns "incomplete" on quantified frames over 2D arrays |
 | `proof_escape` | 1 | Bump-Arena: the fallback after the Insert loop is not proved unreachable |
-| `placeholder` | 17 | H111-H127: the sweep B placeholder list. These folders are answer tables, fixed layouts or hidden stubs that need a real algorithm (iterator stubs, Super-Ugly-Number-Stub, Unique-BSTs, Count-Primes, Word-Break-II, Restore-IP-Addresses, Convert-Sorted-Array-To-BST, Connected-Component-Labeling, Topological-Sort-Lite, ...) |
+| `placeholder` | 18 | H111-H127: the sweep B placeholder list. These folders are answer tables, fixed layouts or hidden stubs that need a real algorithm (iterator stubs, Super-Ugly-Number-Stub, Unique-BSTs, Count-Primes, Word-Break-II, Restore-IP-Addresses, Convert-Sorted-Array-To-BST, Connected-Component-Labeling, Topological-Sort-Lite, ...); H144: sorting/SPARK4/Ada-SPARK-Radix-Sort is a single counting-sort pass (keys 0..255, Base=256) under a radix name — needs real multi-pass LSD with per-pass stability |
 | `deferred_budget` | 6 | stopped at the 2026-10-09 budget limit (agent A3), H097-H101: content Posts for sorting/SPARK4/Ada-SPARK-Topological-Sort (9 unproved at L2) and sorting/SPARK4/Ada-SPARK-Sort-Merge-Join (19 unproved at L2), the K-th-smallest / permutation Posts for misc/SPARK4/Ada-SPARK-Selection-Algorithm (tests pass, not proved), Pre-rejection rates beyond the first 20 ranked folders (plus five too-narrow Pres to widen), and the held-out sweep from rank 682. The drafts are committed as patches in `tools/vv/handover_evidence/H097/`, `tools/vv/handover_evidence/H098/` and `tools/vv/handover_evidence/H099/` (apply with `git apply` from the repo root; all three still apply cleanly to main as of 2026-10-09 16:05); H128 table regeneration tests (sweep B) |
 
 By check kind: 54 functional (53 Platinum, 1 Gold), 13 run-time (Silver), 28 other (11 Stone, 1 Bronze, 16 non-proof).
@@ -64,7 +64,7 @@ Sweep B stopped starting new folders here. Its open queue is now rows in the led
   - The wip patch sets `Assertion_Policy (... => Ignore)` (Loop_Invariant, Assert, Pre, Post) inside its ghost lemma package. Those contracts are meant to be proved, not executed, but under the repo rules an applied patch only counts toward Silver once `tools/vv/proof_escapes.csv` has a row for that pragma with a written reason, marked `justified=?` until reviewed. The patch is not applied on main.
   - The patch's invariant is the recipe for the other buffer sorts. Count every value across all live buffers. Call `Lemma_Occ_Update` before each write past the live length; this avoids snapshots inside loops, which gnatprove does not support before a loop invariant. Call `Lemma_Occ_Frame` after each copy loop.
 - **Vacuity batch 3 SPARK2 stubs:** H102-H110. The recipe is the one used for Exchange-Sort (a6a2bade, 0e148588): an executable Is_Perm over the 32 values, plus a Swap procedure with Lemma_Swap.
-- **Placeholders:** H111-H127.
+- **Placeholders:** H111-H127; H144 (SPARK4 Radix-Sort single-pass counting under radix name).
 - **Table regeneration tests:** H128.
 - **Slowsort and Stooge-Sort mutation scores:** H129 and H130. These runs scored tests only; the proof-kill step was not run.
 

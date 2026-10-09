@@ -111,6 +111,7 @@ Unique-Binary-Search-Trees-II	recursive construction of all structurally unique 
 Word-Search	DFS with backtracking over the grid, marking visited cells
 Bitonic-Sort	recursive bitonic merge network for power-of-two sizes (with padding for other sizes)
 Block-Sort	block merge sort (WikiSort-style): in-place merges with buffer blocks
+Radix-Sort	multi-pass LSD radix: wider keys (e.g. 16-bit) with smaller Base (16 or 256 over 2 bytes), several counting-sort passes into a buffer; each pass Post proves stability (equal digits keep previous relative order) and permutation
 Circle-Sort	recursive swaps of mirrored pairs until a pass makes no swap
 Exchange-Sort	compare every pair (i, j > i) and swap when out of order, for any length
 Flash-Sort	classify into m classes by linear interpolation, permute in cycles, then insertion sort

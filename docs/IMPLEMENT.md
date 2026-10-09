@@ -2,7 +2,7 @@
 
 Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every folder with `stub` = yes in PROOFS.csv carries `implement_next` = yes: it is a candidate for a full implementation of the named algorithm, which comes before the SPARK Silver (level 2) work on it. Signals: the folder name ends in `-Stub` (and it is not listed in `tools/generalised_stubs.txt`), its README calls it a stub (`tools/readme_stubs.txt`), or the hidden-stub scan found that the code lacks the core step (`tools/vv/hidden_stub.csv`). The core-step notes are in `tools/implement_notes.txt`.
 
-**145 candidate folders** (144 with duplicates counted once, the README count).
+**146 candidate folders** (145 with duplicates counted once, the README count).
 
 ## concurrency (3)
 
@@ -155,7 +155,7 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite | hidden-stub scan: hidden stub: Root_Choices (N) returns N; no trees generated | recursive construction of all structurally unique BSTs over 1 .. n |
 | searching/SPARK2/Ada-SPARK-Word-Search | README wording: "Word Search (bounded SPARK stub)  An 8x8 bounded board search for the first word character" | DFS with backtracking over the grid, marking visited cells |
 
-## sorting (19)
+## sorting (20)
 
 | Folder | Signal | Full algorithm needs (core step) |
 |---|---|---|
@@ -178,6 +178,7 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite | hidden-stub scan: hidden stub: only validates a given order; does not compute one (README says validator) | Kahn's algorithm or DFS order over any DAG, detecting cycles |
 | sorting/SPARK2/Ada-SPARK-Tournament-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | winner tree: repeatedly output the winner and replay its path |
 | sorting/SPARK2/Binary-Insertion-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | binary search for each insertion point, then shift, for any length |
+| sorting/SPARK4/Ada-SPARK-Radix-Sort | hidden-stub scan: hidden stub: Max_Key=255 and Base=256 so Digit=Key; a single counting-sort pass under a radix-sort name (masking pattern); permutation proof is valid for that single pass but the folder is not radix sort | multi-pass LSD radix: wider keys (e.g. 16-bit) with smaller Base (16 or 256 over 2 bytes), several counting-sort passes into a buffer; each pass Post proves stability (equal digits keep previous relative order) and permutation |
 
 ## strings (4)
 
