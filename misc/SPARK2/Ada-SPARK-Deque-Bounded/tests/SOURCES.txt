@@ -1,0 +1,23 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the first line of the main program is the original case. Check_Edges
+(hand-worked from the deque definition, Capacity = 8 from the spec):
+eight Push_Front of 1 .. 8 fill the deque (Is_Full only at 8) and come back
+1 .. 8 from Pop_Back; a ninth push at either end and a pop at either end of
+an empty deque break the preconditions and must raise Assertion_Error
+(tests run with -gnata); eight Push_Back of 10 .. 80 come back in the same
+order from Pop_Front; an interleaved sequence whose contents are traced in
+the comments (2 1 3 -> pop back 3 -> 6 2 1 4 5 -> pops 6, 2, 5, 4, 1)
+crosses the ends of the internal array; a single element is both front and
+back (Integer'First, Integer'Last); Initialize empties a non-empty deque.
+
+own_checks.adb: model-based. 300 seeded random runs of 200 steps apply the
+same operations to the deque and to a plain array kept in front-to-back
+order (shifted on front operations, no ring buffer); Length, Is_Empty and
+Is_Full are compared after every step and every pop must return the
+model's front / back value. Seed = FNV-1a of the folder name, AA_SEED
+overrides it.
