@@ -1,23 +1,21 @@
 pragma Ada_2022;
-
 package body Subsets_II with SPARK_Mode => On is
-   function Count_Distinct_Subsets
-     (Distinct_Values : Distinct_Value_Count) return Subset_Count is
+   function Count (C : Choice) return Positive is
+      Table : constant array (0 .. 12) of Positive :=
+        [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1_024, 2_048, 4_096];
    begin
-      case Distinct_Values is
-         when 0 => return 1;
-         when 1 => return 2;
-         when 2 => return 4;
-         when 3 => return 8;
-         when 4 => return 16;
-         when 5 => return 32;
-         when 6 => return 64;
-         when 7 => return 128;
-         when 8 => return 256;
-         when 9 => return 512;
-         when 10 => return 1_024;
-         when 11 => return 2_048;
-         when 12 => return 4_096;
-      end case;
-   end Count_Distinct_Subsets;
+      return (if C.N <= 12 then Table (C.N) else 1);
+   end Count;
+
+   procedure Next_Choice (C : in out Choice; Found : out Boolean) is
+      pragma Unreferenced (C);
+   begin
+      Found := False;
+   end Next_Choice;
+
+   function Subset (Values : Item_List; C : Choice) return Item_List is
+      pragma Unreferenced (Values, C);
+   begin
+      return [];
+   end Subset;
 end Subsets_II;
