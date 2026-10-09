@@ -9,7 +9,7 @@ logic/Ada/DPLL,dpll.adb:161,assign-last,legitimate,"array bound, not an arithmet
 misc/SPARK2/Ada-SPARK-Basic-Calculator-II,basic_calculator_ii.adb:6,return-last,silent-wrong-answer,"Evaluate clamps Left op Right into -1000..1000; 1000*2 returns 1000; fixed in a16c749f (tighter input subtype, cap removed; location is in the old code)"
 misc/SPARK2/Ada-SPARK-Bitwise-AND-Of-Numbers-Range,bitwise_and_of_numbers_range.adb:4,assign-last,legitimate,all-ones identity of AND
 misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation,buddy_memory_allocation.adb:7,assign-last,legitimate,initial value before search
-misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,capacity_to_ship_packages.adb:34,return-last,legitimate,unreachable fallback: capacity 800 >= 8 * 100 always ships
+misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,capacity_to_ship_packages.adb:34,return-last,legitimate,unreachable fallback: capacity 800 >= 8 * 100 always ships (removed in 88920d0e: binary search has no fallback return)
 misc/SPARK2/Ada-SPARK-Clamp,clamp.adb:3,saturating-name,legitimate,clamping is the algorithm (folder Clamp)
 misc/SPARK2/Ada-SPARK-Clamp,clamp.adb:14,saturating-name,legitimate,clamping is the algorithm (folder Clamp)
 misc/SPARK2/Ada-SPARK-Clamp,clamp.ads:3,saturating-name,legitimate,clamping is the algorithm (folder Clamp)
