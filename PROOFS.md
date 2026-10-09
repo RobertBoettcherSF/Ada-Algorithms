@@ -2194,7 +2194,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Counting-Sort | yes | yes | yes | yes | yes | 0 | 7 | proven | 279 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Counting-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Cycle-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 274 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Cycle-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Flashsort | yes | yes | yes | yes | yes | 0 | 6 | proven | 350 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Flashsort |  |
-| sorting/SPARK4/Ada-SPARK-Gnome-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 101 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Gnome-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Gnome-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 204 (restored) |  | sorting/Ada/Gnome-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Heapsort | yes | yes | yes | yes | yes | 0 | 8 | proven | 529 (restored) |  | sorting/Ada/Heapsort |  |
 | sorting/SPARK4/Ada-SPARK-Insertion-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 91 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Insertion-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Introsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 860 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Introsort |  |
