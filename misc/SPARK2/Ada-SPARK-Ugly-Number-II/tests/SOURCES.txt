@@ -1,0 +1,43 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb:
+* the ugly numbers up to 36 by hand (1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15,
+  16, 18, 20, 24, 25, 27, 30, 32, 36; 7, 11, 13, 14, 17, 19, 21, 22, 23,
+  26, 28, 29, 31, 33, 34, 35 have another prime factor), then 40, 45, 48,
+  50, 54, 60 as the 21st .. 26th (37 .. 60 by hand);
+* the exponents of 1 = (0, 0, 0), 30 = 2 * 3 * 5 = (1, 1, 1) and
+  36 = 2 ** 2 * 3 ** 2 = (2, 2, 0);
+* the limit values, each counted by the own enumeration in own_checks.adb
+  (every 2 ** a * 3 ** b * 5 ** c up to 8_062_156_800, sorted) and
+  factored by hand: the 1_691st is 2_125_764_000 = 2 ** 5 * 3 ** 12 *
+  5 ** 3 (the last that fits a 32-bit Positive), the 1_692nd is 2 ** 31 =
+  2_147_483_648, and the 2_000th is 8_062_156_800 = 2 ** 14 * 3 ** 9 *
+  5 ** 2;
+* own property for First_Ugly (Max_N): increasing, starts at 1, every
+  entry free of other prime factors (own trial division by 2, 3, 5).
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (1489547457), printed; AA_SEED=<n> overrides it):
+* an own enumeration of every 2 ** a * 3 ** b * 5 ** c up to
+  8_062_156_800 (three nested loops), insertion-sorted: at least 2_000
+  values, and the 1_691st, 1_692nd and 2_000th are the values above;
+* First_Ugly (2_000) against it entry by entry, and the exponents of every
+  entry against an own factorization (count the factors 2, 3 and 5; trial
+  division from 7 finds no other factor);
+* First_Ugly (N) for every N <= 60, Nth_Ugly at 40 seeded N <= 600, and
+  the exponents of the last entry at 20 seeded N <= 400;
+* Lemma_Complete run (assertions on, so the ghost code executes) for every
+  exponent triple whose value is at most the 300th ugly number, and the
+  number of such triples is exactly 300 (the K-th ugly number has exactly
+  K ugly numbers up to it).
+Run: gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
+(4,124 checks, about 6 s with assertions on; without -gnata a
+planted "I3 advances only when 2 * L (I2) is not also the minimum" (so 6
+is listed twice) fails 4,101 of them, and a planted "the 3-branch does not
+raise the exponent of 3" fails 1,759).
