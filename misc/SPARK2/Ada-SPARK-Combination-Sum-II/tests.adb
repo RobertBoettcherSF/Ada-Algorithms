@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO;
 with Combination_Sum_II; use Combination_Sum_II;
+with Own_Checks;
 
 procedure Tests with SPARK_Mode => Off is
    --  Candidates 1 .. Max_Part, each usable at most once; order does not
@@ -47,5 +48,6 @@ begin
    Check (4, 0, 0);
    Check (0, 0, 1);
    Check (4, 9, 2);
+   Own_Checks;
    Ada.Text_IO.Put_Line ("PASS Combination_Sum_II");
 end Tests;
