@@ -53,6 +53,16 @@ procedure Own_Checks is
       return Integer'First;
    end Ref;
 begin
+   --  shaped: 30 copies of 20, one 10 and one 5, at every pair of positions, so after sorting the
+   --  third distinct value (5) sits in the last slot; also the same with the order of 10 and 5 swapped
+   for I in Index loop
+      for J in Index loop
+         if I /= J then
+            X := [others => 20]; X (I) := 10; X (J) := 5;
+            Report (Third_Maximum (X) = 5, "third distinct value last after sorting" & I'Image & J'Image);
+         end if;
+      end loop;
+   end loop;
    for Iter in 1 .. 6_000 loop
       declare
          Hi : constant Integer := (if Iter mod 2 = 0 then -30 else 32);

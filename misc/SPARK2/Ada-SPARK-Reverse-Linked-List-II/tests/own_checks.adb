@@ -72,6 +72,16 @@ procedure Own_Checks is
       Compare (L, W, "length" & Integer'Image (A'Length) & " range" & Integer'Image (First) & Integer'Image (Last));
    end Check;
 begin
+   --  Empty is the same value as a default-initialized List (the public record's defaults),
+   --  so the two ways of making an empty list compare equal with the public "="
+   declare
+      D : List;
+   begin
+      Checked := Checked + 1;
+      if Empty /= D then
+         Failures := Failures + 1; Put_Line ("  FAIL Empty = default-initialized List");
+      end if;
+   end;
    --  by hand: 1 2 3 4 5 with 2 .. 4 -> 1 4 3 2 5; 1 .. 5 -> 5 4 3 2 1
    declare L : List := Build ([1, 2, 3, 4, 5]); begin Solve (L, 2, 4); Compare (L, [1, 4, 3, 2, 5], "hand 2..4"); end;
    declare L : List := Build ([1, 2, 3, 4, 5]); begin Solve (L, 1, 5); Compare (L, [5, 4, 3, 2, 1], "hand 1..5"); end;

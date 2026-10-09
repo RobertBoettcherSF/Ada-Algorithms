@@ -12,3 +12,5 @@ standard generator (seed 20261008).
   values, many repeats); arrays with fewer than three distinct values are
   skipped, because what to return then is a convention the README does not
   fix.
+* Shaped cases: 30 copies of 20 plus one 10 and one 5 at every pair of
+  positions (992 cases); the third distinct value, 5, is last after sorting.

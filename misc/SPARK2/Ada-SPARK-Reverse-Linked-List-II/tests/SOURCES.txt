@@ -14,3 +14,5 @@ standard generator (seed 20261008).
   position I in First .. Last gets the element from First + Last - I.
 * Inputs: every length 1 .. 16 with every range First <= Last <= length,
   once with distinct values and once with random values over -3 .. 3.
+* Empty compares equal to a default-initialized List (the record's own
+  defaults).
