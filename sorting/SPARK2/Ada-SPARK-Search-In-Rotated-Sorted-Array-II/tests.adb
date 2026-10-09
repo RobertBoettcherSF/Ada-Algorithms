@@ -53,6 +53,41 @@ begin
    end loop;
    Expect ([others => 7], 7, True, False, "all 7");
    Expect ([others => 7], 6, False, False, "all 7");
+   --  Every comparison with an element is counted: the three-way
+   --  comparison of Data (Mid) with Data (Hi) is one, and on equal ends
+   --  the check whether Data falls into Hi is a second. All 7: 31 shrink
+   --  steps make both (62), then 6 halvings and 1 last comparison: 69
+   --  (worked by hand, for target 7 and 6). Single 0 at P, target 0: a
+   --  step-by-step count of the same rules (done outside the repository;
+   --  P = 1 (68) and P = 32 (8) also checked by hand).
+   declare
+      type Count_Table is array (Index) of Natural;
+      Want : constant Count_Table :=
+        [68, 65, 61, 58, 54, 50, 46, 43, 39, 35, 31, 27, 23, 19, 15, 12,
+         41, 38, 36, 34, 32, 30, 28, 26, 24, 21, 19, 17, 15, 12, 10, 8];
+      All_Seven : constant Count_Table := [others => 69];
+   begin
+      for T in 6 .. 7 loop
+         declare
+            R : constant Search_Result := Contains ([others => 7], T);
+         begin
+            if R.Probes /= All_Seven (T) then
+               raise Program_Error with "all 7, target" & T'Image & ":" & R.Probes'Image
+                 & " comparisons counted, made" & All_Seven (T)'Image;
+            end if;
+         end;
+      end loop;
+      for P in Index loop
+         declare
+            R : constant Search_Result := Contains ([for I in Index => (if I = P then 0 else 1)], 0);
+         begin
+            if R.Probes /= Want (P) then
+               raise Program_Error with "single 0 at" & P'Image & ":" & R.Probes'Image
+                 & " comparisons counted, made" & Want (P)'Image;
+            end if;
+         end;
+      end loop;
+   end;
    Put_Line ("Search_In_Rotated_Sorted_Array_II: PASS");
    Own_Checks;
 end Tests;
