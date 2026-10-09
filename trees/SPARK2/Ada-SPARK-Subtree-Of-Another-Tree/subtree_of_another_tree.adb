@@ -73,11 +73,25 @@ package body Subtree_Of_Another_Tree is
    function Is_Subtree
      (T : Tree; Root : Index; Pattern : Tree; Pattern_Root : Index) return Boolean is
       Found : Boolean := False;
+      --  Nodes under Root: a node at distance D from Root is marked by
+      --  round D, and no node is more than 14 links from Root.
+      Reach : array (Index) of Boolean := [others => False];
    begin
       if Pattern_Root = 0 or else not Pattern.Used (Pattern_Root) then return True; end if;
       if Root = 0 or else not T.Used (Root) then return False; end if;
+      Reach (Root) := True;
+      for Round in Node_Index loop
+         for I in Node_Index loop
+            if Reach (I) and then T.Used (I) then
+               Reach (T.Lefts (I)) := True;
+               Reach (T.Rights (I)) := True;
+            end if;
+         end loop;
+      end loop;
       for Candidate in Node_Index loop
-         if T.Used (Candidate) and then T.Values (Candidate) = Pattern.Values (Pattern_Root) then
+         if Reach (Candidate) and then T.Used (Candidate)
+           and then T.Values (Candidate) = Pattern.Values (Pattern_Root)
+         then
             if Same_At (T, Candidate, Pattern, Pattern_Root) then Found := True; end if;
          end if;
       end loop;
