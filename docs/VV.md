@@ -587,3 +587,16 @@ So in gnatprove 16.1.0 `--mode=silver` **does attempt functional contracts** (po
   - The tune proof kills on Lex_Less `<` -> `<=` (lines 27 and 31) failed at unrelated lines while the box load was about 25. They were judged load timeouts, and the mutants are recorded as equivalent: the comparisons sit inside an `if X /= Y` guard, where `<` and `<=` agree.
   - Handover row H141 lists the 7 held survivors.
 - **Slowsort and Stooge-Sort:** the blind runs scored tests only, and the proof-kill step was not run (H129, H130). Most sampled sites are ghost proof code, which tests cannot see.
+
+### Clamp classification (adopted 2026-10-09, not yet applied; handover H164)
+
+For each clamp_scan hit, in a scratch copy that is never committed:
+(a) assert that the clamp branch is never taken and prove with the canonical settings;
+if it proves, the branch is dead (hold the folder out, handover row). A failed proof is not
+evidence of reachability: a test (marker line or gcov) must actually take the branch,
+otherwise the hit stays `unknown` (held out). (b) If reachable, remove the branch and rerun
+prover and tests; if nothing fails it is a silent fallback (hold out, row). Only a reachable
+branch whose effect is observable in the Post or the tests counts as honest bounded code.
+`tools/vv/clamp_classify.py` is a draft implementation (never run to completion); results
+go to `tools/vv/clamp_review.csv` with a `method` column. The existing rows were reviewed by
+hand (gcov via `tools/vv/clamp_cov.sh`), not with this method.
