@@ -561,6 +561,85 @@ begin
       Peak_At (Max_N - 8);
    end;
 
+   ------------------------------------------------------------------
+   Section ("Exact probe counts per branch (Find_Maximum_Counted)");
+   ------------------------------------------------------------------
+   --  Probes = elements of A read. Each step reads A (M1), A (M2) (2);
+   --  on A (M1) = A (M2) it also reads A (M1 + 1) and A (M2 - 1) (2 more)
+   --  to see which side still rises / falls; the final window [Lo, Hi]
+   --  costs Hi - Lo + 1. Counts below are traced by hand from those
+   --  rules (M1 = Lo + (Hi - Lo) / 3, M2 = Hi - (Hi - Lo) / 3, stop at
+   --  Hi - Lo <= 2), and the same input at a shifted origin (20, or
+   --  flush to Max_N when 20 does not fit) must cost the same.
+   declare
+      procedure Expect
+        (Label : String; V : Element_Array; Peak : Live_Index;
+         Want  : Natural)
+      is
+         O : constant Live_Index :=
+           (if 19 + V'Length <= Max_N then 20 else Max_N - (V'Length - 1));
+         S : Element_Array (O .. O + (V'Length - 1));
+         R1, R2 : Max_Result;
+      begin
+         for K in 0 .. V'Length - 1 loop
+            S (O + K) := V (V'First + K);
+         end loop;
+         R1 := Find_Maximum_Counted (V);
+         R2 := Find_Maximum_Counted (S);
+         Check (V (R1.Index_Of_Max) = V (Peak),
+                Label & ": index of a maximum");
+         Check (R1.Probes = Want,
+                Label & ": probes =" & Want'Image & " (got"
+                & R1.Probes'Image & ")");
+         Check (R2.Probes = Want
+                  and then R2.Index_Of_Max - O = R1.Index_Of_Max - V'First,
+                Label & ": same answer and probes at origin" & O'Image);
+      end Expect;
+
+      Sym33 : Element_Array (1 .. 33);
+      Sym64 : Element_Array (1 .. 64);
+   begin
+      for I in Sym33'Range loop
+         Sym33 (I) := Integer'Min (I - 1, 33 - I);
+      end loop;
+      for I in Sym64'Range loop
+         Sym64 (I) := Integer'Min (I - 1, 64 - I);
+      end loop;
+      --  '<' branch only: (1,8) -> (4,8) -> (6,8); window 3. 2+2+2+3.
+      Expect ("increasing 1 .. 9 (<, <, <)",
+              [1, 2, 3, 4, 5, 6, 7, 8, 9], 9, 8);
+      --  '>' branch only, mirror image.
+      Expect ("decreasing 9 .. 1 (>, >, >)",
+              [9, 8, 7, 6, 5, 4, 3, 2, 1], 1, 8);
+      --  Equal, both sides move: (1,9) M1=3, M2=7 equal 3 = 3; A (4) = 4
+      --  rises, A (6) = 4 falls -> (4,6); window 3. 2+2+3.
+      Expect ("strict symmetric 9 (= both sides)",
+              [1, 2, 3, 4, 5, 4, 3, 2, 1], 5, 7);
+      --  Strict symmetric, 33 and 64 values: two and three equal steps.
+      Expect ("strict symmetric 33 (= both sides twice)", Sym33, 17, 11);
+      Expect ("strict symmetric 64 (= both sides three times)",
+              Sym64, 32, 14);
+      --  Equal, only the left side rises: (1,6) M1=2, M2=5 equal 1 = 1;
+      --  A (3) = 3 rises, A (4) = 1 does not fall -> (3,6); M1=4, M2=5
+      --  equal 1 = 1, neither A (5) nor A (4) moves -> scan 3 .. 6.
+      --  2+2 + 2+2 + 4.
+      Expect ("equal, left side rises only",
+              [0, 1, 3, 1, 1, 1], 3, 12);
+      --  Mirror: (1,6) M1=2, M2=5 equal 2 = 2; A (4) = 3 falls to
+      --  A (5) -> (1,4); M1=2, M2=3 equal, nothing moves -> scan 1 .. 4.
+      Expect ("equal, right side falls only",
+              [0, 2, 2, 3, 2, 1], 4, 12);
+      --  Equal, neither side moves: true plateau, linear fallback over
+      --  the window that is left: (1,8) M1=3, M2=6 equal 0 = 0, A (4)
+      --  and A (5) are 0 too -> scan 1 .. 8. 2+2+8.
+      Expect ("plateau 0 0 0 0 0 0 0 1 (= neither side, scan)",
+              [0, 0, 0, 0, 0, 0, 0, 1], 8, 12);
+      --  (1,6) M1=2, M2=5: 1 < 4 -> (3,6); M1=4, M2=5 equal 4 = 4 and
+      --  nothing moves -> scan 3 .. 6. 2 + 2+2 + 4.
+      Expect ("'<' then plateau (= neither side)",
+              [0, 1, 3, 4, 4, 1], 4, 10);
+   end;
+
    New_Line;
    Put_Line ("Results: "
              & Natural'Image (Pass_Count) & " PASS,"

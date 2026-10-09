@@ -103,7 +103,26 @@ is
    -- Primary API — unimodal maximum
    ---------------------------------------------------------------------------
 
-   function Find_Maximum_Index (A : Element_Array) return Index
+   --  Probes counts the elements of A that the search reads (each read
+   --  site counts once). It is the cost the named algorithm is about:
+   --  tests pin it exactly per branch, so a linear scan cannot pass.
+   type Max_Result is record
+      Index_Of_Max : Index;
+      Probes       : Natural;
+   end record;
+
+   function Find_Maximum_Counted (A : Element_Array) return Max_Result
+     with
+       Global => null,
+       Pre    =>
+         In_Bounds (A)
+         and then A'Length >= 1
+         and then Is_Unimodal (A),
+       Post   =>
+         Find_Maximum_Counted'Result.Index_Of_Max in A'Range;
+
+   function Find_Maximum_Index (A : Element_Array) return Index is
+     (Find_Maximum_Counted (A).Index_Of_Max)
      with
        Global => null,
        Pre    =>

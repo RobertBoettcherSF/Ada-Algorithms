@@ -15,14 +15,17 @@ is
    -- Primary: Find_Maximum_Index
    ---------------------------------------------------------------------------
 
-   function Find_Maximum_Index (A : Element_Array) return Index is
-      Lo, Hi : Ext_Index;
-      M1, M2 : Ext_Index;
-      Best   : Index;
-      Span   : Natural;
+   function Find_Maximum_Counted (A : Element_Array) return Max_Result is
+      Lo, Hi   : Ext_Index;
+      M1, M2   : Ext_Index;
+      V1, V2   : Integer;
+      Best     : Index;
+      Best_Val : Integer;
+      Span     : Natural;
+      Probes   : Natural := 0;
    begin
       if A'Length = 1 then
-         return A'First;
+         return (Index_Of_Max => A'First, Probes => 0);
       end if;
 
       Lo := A'First;
@@ -34,6 +37,7 @@ is
          pragma Loop_Invariant (Hi <= A'Last);
          pragma Loop_Invariant (Lo <= Hi);
          pragma Loop_Invariant (Hi - Lo <= A'Last - A'First);
+         pragma Loop_Invariant (Probes <= 2 * (Guard - 1));
          exit when Hi - Lo <= Threshold;
 
          Span := Hi - Lo;
@@ -43,10 +47,13 @@ is
          pragma Assert (M2 in Lo .. Hi);
          pragma Assert (M1 <= M2);
 
-         if A (M1) < A (M2) then
+         V1 := A (M1);
+         V2 := A (M2);
+         Probes := Probes + 2;
+         if V1 < V2 then
             --  Peak cannot lie at or left of M1 on a unimodal array.
             Lo := M1 + 1;
-         elsif A (M1) > A (M2) then
+         elsif V1 > V2 then
             --  Peak cannot lie at or right of M2.
             Hi := M2 - 1;
          else
@@ -59,15 +66,21 @@ is
       end loop;
 
       Best := Lo;
+      Best_Val := A (Lo);
+      Probes := Probes + 1;
       for I in Lo + 1 .. Hi loop
          pragma Loop_Invariant (Best in Lo .. I - 1);
          pragma Loop_Invariant (Best in A'Range);
-         if A (I) > A (Best) then
+         pragma Loop_Invariant (Best_Val = A (Best));
+         pragma Loop_Invariant (Probes <= 2 * Max_N + 1 + (I - Lo - 1));
+         Probes := Probes + 1;
+         if A (I) > Best_Val then
             Best := I;
+            Best_Val := A (I);
          end if;
       end loop;
-      return Best;
-   end Find_Maximum_Index;
+      return (Index_Of_Max => Best, Probes => Probes);
+   end Find_Maximum_Counted;
 
    ---------------------------------------------------------------------------
    -- Secondary: Find (sorted key search)
