@@ -179,3 +179,114 @@ misc/Ada/Hopcrofts-Algorithm,hopcrofts_algorithm.adb,Is_Valid_Dfa,input check,,n
 misc/Ada/Slot-Machine,slot_machine.adb,Is_Valid_Mapping,input check,,none (not run),not an output judge: matches its comment (no stop beyond Max_Stop),,,
 geometry/Ada/Bresenhams-Line-Algorithm,bresenham.ads,Is_Valid_Octant_0_Line,Pre of Line_Octant_0,,none (not run),not an output judge: precondition (0 <= dy <= dx),,,
 graphs/Ada/Coin-Graph,coin_graph.adb,Is_Valid_Packing,tests,,none (not run),sound by reading,,,"pairwise interiors disjoint with Epsilon tolerance, touching allowed, as README states"
+compression/Ada/Berlekamp-Massey-Algorithm,,Is_Valid_LFSR_GF2,tests,,none (not run),sound by reading (generation only),,,every term from L on is the connection-polynomial sum of the L before it; L = 0 means all zeros; shortest length is not part of the stated check (spec comment)
+compression/Ada/Berlekamp-Massey-Algorithm,,Is_Valid_LFSR_Real,tests,,none (not run),sound by reading (generation only),,,real-field analogue with tolerance; as the spec comment states
+cryptography/Ada/Elliptic-Curve-Diffie-Hellman,,Is_Valid_Domain,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Clipping,,Is_Valid_Frustum,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Clipping,,Is_Valid_Rect,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Cohen-Sutherland,,Is_Valid_Box,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Cohen-Sutherland,,Is_Valid_Window,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Fast-Clipping,,Is_Valid_Window,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Grabcut,,Is_Valid_Box,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Liang-Barsky,,Is_Valid_Window,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Line-Clipping,,Is_Valid_Window,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Radiosity,,Is_Valid_Patch,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Radiosity,,Is_Valid_Scene,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Warnock-Algorithm,,Is_Valid_Area,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+geometry/Ada/Watershed-Transformation,,Is_Valid,internal,,none (not run),not a judge: point-in-image bound test,,,
+graphs/Ada/Elliptic-Curve-Cryptography,,Is_Valid_Curve,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,,Is_Valid_Map,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+graphs/Ada/Post-Quantum-Cryptography,,Is_Valid_Ciphertext,tests,,none (not run),"structural check only, as its test labels say",,,not a decryption judge
+graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,,Is_Valid_Map,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+hashing/Ada/Geohash,,Is_Valid_Hash,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+logic/Ada/DPLL-Algorithm,,Is_Valid_Formula,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+matrices/Ada/Matrix-Multiplication,,Is_Valid_Grid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+matrices/Ada/Sparse-Matrix,,Is_Valid_CSC,tests,,none (not run),sound by reading (structure),,,CSC analogue of Is_Valid_CSR
+matrices/Ada/Sparse-Matrix,,Is_Valid_CSR,tests,,none (not run),sound by reading (structure),,,"pointer monotonicity, first/last pointer, indices in range: the README's 'pointer / bound checks'; column order within a row is not claimed"
+misc/Ada/ACORN-Generator,,Is_Valid_Modulus,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/ACORN-Generator,,Is_Valid_Order,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Automated-Planning-And-Scheduling,,Is_Valid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/BCH-Codes,,Is_Valid_Codeword,tests,,none (not run),sound by reading,,,all syndromes zero: the BCH code is defined by the roots alpha^1 .. alpha^2t of every codeword
+misc/Ada/Backtracking,,Is_Valid_Colouring,tests / own_checks,,none (not run),sound by reading,,,"every colour in 1 .. K and adjacent distinct vertices differ, as the spec comment states"
+misc/Ada/Baum-Welch,,Is_Valid_HMM,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Bayesian-Nash-Equilibrium,,Is_Valid_Prior,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Bayesian-Statistics,,Is_Valid_Probability,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Boundary-Representation,,Is_Valid_Manifold,tests,,none (not run),"WEAKER THAN ITS NAME, not fixed: only V - E + F = 2 (necessary for a genus-0 closed shell, not sufficient; no edge-face incidence check)",,,the spec comment states the Euler-Poincare formula; a real manifold check needs the face-loop incidence the model does not keep consistently (Euler operators); listed for the parent
+misc/Ada/Buddy-Memory-Allocation,,Is_Valid_Initial_Size,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Buechi-Automaton,,Is_Valid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/CHS-Conversion,,Is_Valid_CHS,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/CHS-Conversion,,Is_Valid_Geometry,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Cannons-Algorithm,,Is_Valid_Grid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Christofides-Algorithm,,Is_Valid_Tour,tests,,none (not run),sound by reading,,,"2 .. Max_Vertices cities, a permutation of 1 .. N"
+misc/Ada/Collision-Detection,,Is_Valid_AABB,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Collision-Detection,,Is_Valid_Circle,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Corporate-Wars-Sim,,Is_Valid,search filter / tests,,none (not run),sound by reading (as named),,,allocation within budget
+misc/Ada/Cyrus-Beck,,Is_Valid_Window,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Darwin-Godel-Machine,,Is_Valid_Transition,tests,,none (not run),sound by reading (as defined),,,"fitness not lower, or the same agent: its comment's definition"
+misc/Ada/De-Boor,,Is_Valid_Knots,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Diffie-Hellman-Key-Exchange,,Is_Valid_Base,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Diffie-Hellman-Key-Exchange,,Is_Valid_Modulus,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Diffie-Hellman-Key-Exchange,,Is_Valid_Private_Key,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Diffie-Hellman-Key-Exchange,,Is_Valid_Public_Key,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Fibonacci-Coding,,Is_Valid_Generalized,internal,,none (not run),not a judge: part of the algorithm (candidate filter in the generalized encode / decode enumeration),,,covered by the encode / decode tests
+misc/Ada/Filtered-Back-Projection,,Is_Valid_Image,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Filtered-Back-Projection,,Is_Valid_Sinogram,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Hidden-Linear-Function-Problem,,Is_Valid_Problem,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Hopfield-Net,,Is_Valid_Bipolar,Pre / Post / tests,,none (not run),sound by reading,,,"entries in {-1, 1}"
+misc/Ada/Hopfield-Net,,Is_Valid_Bipolar_Matrix,Pre,,none (not run),sound by reading,,,"entries in {-1, 1}"
+misc/Ada/Inside-Out-Algorithm,,Is_Valid_Grammar,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Lagged-Fibonacci-Generator,,Is_Valid_Lags,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Lagged-Fibonacci-Generator,,Is_Valid_Modulus,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Montgomery-Reduction,,Is_Valid_Context,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Multiplicative-Weight-Update-Method,,Is_Valid_Initial,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Nearest-Neighbor-Algorithm,,Is_Valid_Tour,tests,,none (not run),sound by reading,,,Cities (1 .. N) a permutation of 1 .. N
+misc/Ada/Nicholl-Lee-Nicholl,,Is_Valid_Window,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Pseudorandom-Number-Generator,,Is_Valid_LCG_Parameters,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/Sweep-And-Prune,,Is_Valid_AABB,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/Ada/tests,test_list_scheduling.adb,Is_Valid_Schedule,tests,,none (not run),"LENIENT by reading, not fixed: jobs on machines above 100 are skipped, and completeness / durations are not checked; orphan test folder outside the per-algorithm layout, listed for main",,,
+misc/SPARK2/Ada-SPARK-Alien-Dictionary-Stub,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Authentication-Manager-Stub,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Binary-Watch,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Neighboring-Bitwise-XOR,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Sudoku-Solver-Lite,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Valid-IP-Address-Stub,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Valid-Number-Stub,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Valid-Palindrome-II,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Valid-Parentheses,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Valid-Square,,Is_Valid_Square,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Valid-Sudoku-Stub,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK2/Ada-SPARK-Valid-Word-Abbreviation,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+misc/SPARK4/Acorn-Generator,,Is_Valid_Modulus,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/SPARK4/Acorn-Generator,,Is_Valid_Order,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,,Is_Valid_Blum_Pair,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,,Is_Valid_Modulus,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,,Is_Valid_Seed,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator,,Is_Valid_Lags,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator,,Is_Valid_Modulus,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+ml/Ada/Forward-Backward,,Is_Valid_HMM,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+ml/Ada/Hidden-Markov-Model,,Is_Valid_HMM,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+ml/Ada/Policy-Iteration,,Is_Valid_MDP,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+ml/Ada/Value-Iteration,,Is_Valid_MDP,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+ml/Ada/Viterbi,,Is_Valid_HMM,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Bicubic-Interpolation,,Is_Valid_Grid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Bilinear-Interpolation,,Is_Valid_Grid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Brents-Algorithm,,Is_Valid_Map,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Cubic-Interpolation,,Is_Valid_Grid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Lanczos-Resampling,,Is_Valid_Image,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Lanczos-Resampling,,Is_Valid_Signal,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Linear-Congruential-Generator,,Is_Valid_Parameters,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Multivariate-Interpolation,,Is_Valid_Grid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Multivariate-Interpolation,,Is_Valid_Scattered,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Nearest-Neighbor-Interpolation,,Is_Valid_Grid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Nearest-Neighbor-Interpolation,,Is_Valid_Scattered,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/Ada/Tricubic-Interpolation,,Is_Valid_Grid,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/SPARK4/Ada-SPARK-Brents-Algorithm,,Is_Valid_Map,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator,,Is_Valid_Modulus,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+numerical/SPARK4/Ada-SPARK-Linear-Congruential-Generator,,Is_Valid_Parameters,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+parsing/Ada/Packrat-Parser,,Is_Valid_Grammar,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+parsing/Ada/Recursive-Descent-Parser,,Is_Valid,API / own_checks,,none (not run),not a judge: the recogniser itself (own_checks compare it with evaluation),,,
+parsing/Ada/Simple-Precdence-Parser,,Is_Valid_Simple_Precedence_Grammar,tests (input check),,none (not run),"WEAKER THAN ITS NAME, not fixed: no empty and no duplicate right-hand sides only; precedence-relation conflicts are not checked",,,the body comment states exactly these two conditions; listed for the parent
+searching/Ada/Quantum-Walk-Search,,Is_Valid_Graph,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+searching/Ada/Quantum-Walk-Search,,Is_Valid_Marked,Pre / raise / Make_* Post,,none (not run),not an output judge: input or parameter validity,,,classified from its uses and body; no output is judged with it
+searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,,Is_Valid_BST,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
+trees/SPARK2/Ada-SPARK-Validate-BST-Stub,,Is_Valid,API,,none (not run),not a judge: the algorithm itself (LeetCode-style validator); SPARK2 lite/stub folders belong to sweep B,,,
