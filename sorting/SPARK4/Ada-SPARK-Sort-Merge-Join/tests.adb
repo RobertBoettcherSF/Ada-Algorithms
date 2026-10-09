@@ -271,6 +271,91 @@ begin
    end;
 
    -------------------------------------------------------------------------
+   Section ("Any origin");
+   -------------------------------------------------------------------------
+   --  The same Left / Right / Result at origins 5 / 7 / 3, 200 / 9 / 1000
+   --  and ending at Positive'Last (empty: at Positive'Last) give the
+   --  origin-1 join, pair for pair. Keys 0 .. 4, sorted; Left keys made
+   --  strictly increasing for Unique_Key_Join.
+   declare
+      Seed : Natural := 4242;
+      function Next (M : Positive) return Natural is
+      begin
+         Seed := (Seed * 1103 + 12345) mod 65536;
+         return (Seed / 16) mod M;
+      end Next;
+      function Origin (Which : Positive; Base : Positive; Len : Natural) return Positive is
+        (case Which is
+           when 1 => Base, when 2 => 200 + Base,
+           when others => (if Len = 0 then Positive'Last else Positive'Last - Len + 1));
+   begin
+      for Trial in 1 .. 60 loop
+         declare
+            NL : constant Natural := Next (Max_N + 1);
+            NR : constant Natural := (if NL = 0 then Next (Max_N + 1)
+                                      else Natural'Min (Max_N, Max_Out / NL));
+            L1 : Relation (1 .. NL);
+            R1 : Relation (1 .. Next (NR + 1));
+            K  : Integer := 0;
+            Want : Joined_Relation (1 .. Max_Out);
+            Want_Last : Natural;
+         begin
+            for X of L1 loop
+               K := K + (if Trial mod 2 = 0 then 1 else Next (2));
+               X := R (K, Next (100));
+            end loop;
+            K := 0;
+            for X of R1 loop
+               K := K + Next (2);
+               X := R (K, Next (100));
+            end loop;
+            for Unique in Boolean loop
+               if not Unique or else Keys_Unique (L1) then
+                  if Unique then
+                     Unique_Key_Join (L1, R1, Want, Want_Last);
+                  else
+                     Inner_Join (L1, R1, Want, Want_Last);
+                  end if;
+                  for Which in 1 .. 3 loop
+                     declare
+                        FL : constant Positive := Origin (Which, 5, L1'Length);
+                        FR : constant Positive := Origin (Which, 7, R1'Length);
+                        FO : constant Positive := Origin (Which, 3, Max_Out);
+                        L2 : Relation (FL .. FL + (L1'Length - 1));
+                        R2 : Relation (FR .. FR + (R1'Length - 1));
+                        O2 : Joined_Relation (FO .. FO + (Max_Out - 1));
+                        Got_Last : Natural;
+                        Ok : Boolean;
+                     begin
+                        for T in 0 .. L1'Length - 1 loop
+                           L2 (FL + T) := L1 (1 + T);
+                        end loop;
+                        for T in 0 .. R1'Length - 1 loop
+                           R2 (FR + T) := R1 (1 + T);
+                        end loop;
+                        if Unique then
+                           Unique_Key_Join (L2, R2, O2, Got_Last);
+                        else
+                           Inner_Join (L2, R2, O2, Got_Last);
+                        end if;
+                        Ok := Got_Last = Want_Last;
+                        if Ok then
+                           for T in 0 .. Want_Last - 1 loop
+                              Ok := Ok and then Same_Pair (O2 (FO + T), Want (1 + T));
+                           end loop;
+                        end if;
+                        Check (Ok, (if Unique then "Unique_Key_Join" else "Inner_Join")
+                               & " trial" & Trial'Image & " at origins" & FL'Image
+                               & FR'Image & FO'Image & " = origin 1");
+                     end;
+                  end loop;
+               end if;
+            end loop;
+         end;
+      end loop;
+   end;
+
+   -------------------------------------------------------------------------
    Section ("Summary");
    -------------------------------------------------------------------------
    New_Line;

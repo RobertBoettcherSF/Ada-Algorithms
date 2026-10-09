@@ -61,7 +61,7 @@ Closest SPARK siblings that also merge sorted sequences:
   **checked by tests**, not claimed as a Level-4 postcondition.
 
 ## Algorithm
-1. Preconditions: both relations 1-based, length $\le \mathrm{Max\_N}$,
+1. Preconditions: both relations of any origin, length $\le \mathrm{Max\_N}$,
    sorted by `Key`, output buffer $\ge \mathrm{Max\_Out}$, and
    $|L|\cdot|R| \le \mathrm{Max\_Out}$.
 2. Advance cursors $I$, $J$ over Left / Right:
@@ -96,7 +96,7 @@ $$
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all assertions pass (51 PASS, 0 FAIL).
+When you run `make test`, you will see all assertions pass (327 PASS, 0 FAIL).
 Running `make prove` reports `Success: all checks proved (246 checks)`.
 
 ## Testing

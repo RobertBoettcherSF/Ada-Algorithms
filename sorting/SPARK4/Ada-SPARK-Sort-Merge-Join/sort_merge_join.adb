@@ -2,11 +2,14 @@
 --  with many-to-many Cartesian expansion on equal-key runs, plus
 --  Unique_Key_Join (strictly unique Left keys). Loop invariants keep a
 --  nondecreasing Result prefix on Left.Key; OI < Max_Out is guarded
---  before each write (safe under Product_Fits / Right'Last ≤ Max_Out).
+--  before each write (safe under Product_Fits / Right'Length ≤ Max_Out).
 
 package body Sort_Merge_Join
   with SPARK_Mode => On
 is
+
+   --  Any origin: the internals count rows 1 .. X'Length, and row K of
+   --  X is X (X'First + (K - 1)).
 
    Zero_Row : constant Row := (Key => 0, Payload => 0);
 
@@ -17,13 +20,12 @@ is
      (L >= R
       or else
         (for all T in L .. R - 1 =>
-           Result (T).Left.Key <= Result (T + 1).Left.Key))
+           Result (Result'First + (T - 1)).Left.Key <= Result (Result'First + (T + 1 - 1)).Left.Key))
    with
      Ghost  => True,
      Global => null,
      Pre    =>
-       Result'First = 1
-       and then R <= Result'Last
+       R <= Result'Length
        and then L >= 1;
 
    procedure Emit
@@ -33,19 +35,18 @@ is
    with
      Global => null,
      Pre    =>
-       Result'First = 1
-       and then Result'Last >= Max_Out
+       Result'Length >= Max_Out
        and then OI < Max_Out
-       and then OI <= Result'Last
+       and then OI <= Result'Length
        and then Sorted_Left_Keys (Result, 1, OI)
-       and then (OI = 0 or else Result (OI).Left.Key <= L.Key),
+       and then (OI = 0 or else Result (Result'First + (OI - 1)).Left.Key <= L.Key),
      Post   =>
        OI = OI'Old + 1
        and then OI <= Max_Out
-       and then Result (OI) = (Left => L, Right => R)
+       and then Result (Result'First + (OI - 1)) = (Left => L, Right => R)
        and then Sorted_Left_Keys (Result, 1, OI)
        and then (for all K in Result'Range =>
-                   (if K /= OI then Result (K) = Result'Old (K)));
+                   (if K /= Result'First + (OI - 1) then Result (K) = Result'Old (K)));
    --  Append one joined pair; caller guarantees OI < Max_Out.
 
    procedure Emit
@@ -55,7 +56,7 @@ is
    is
    begin
       OI := OI + 1;
-      Result (OI) := (Left => L, Right => R);
+      Result (Result'First + (OI - 1)) := (Left => L, Right => R);
    end Emit;
 
    -------------------------------------------------------------------------
@@ -67,8 +68,8 @@ is
       Result      : out Joined_Relation;
       Last        : out Natural)
    is
-      LL : constant Natural := Left'Last;
-      RL : constant Natural := Right'Last;
+      LL : constant Natural := Left'Length;
+      RL : constant Natural := Right'Length;
 
       I, J : Natural := 1;
       OI   : Natural := 0;
@@ -87,25 +88,25 @@ is
          pragma Loop_Invariant (I in 1 .. LL + 1);
          pragma Loop_Invariant (J in 1 .. RL + 1);
          pragma Loop_Invariant (OI <= Max_Out);
-         pragma Loop_Invariant (OI <= Result'Last);
+         pragma Loop_Invariant (OI <= Result'Length);
          pragma Loop_Invariant (Sorted_Left_Keys (Result, 1, OI));
          pragma Loop_Invariant
            (OI = 0
             or else I > LL
-            or else Result (OI).Left.Key <= Left (I).Key);
+            or else Result (Result'First + (OI - 1)).Left.Key <= Left (Left'First + (I - 1)).Key);
          pragma Loop_Variant (Decreases => (LL + 1 - I) + (RL + 1 - J));
 
-         if Left (I).Key < Right (J).Key then
+         if Left (Left'First + (I - 1)).Key < Right (Right'First + (J - 1)).Key then
             I := I + 1;
-         elsif Left (I).Key > Right (J).Key then
+         elsif Left (Left'First + (I - 1)).Key > Right (Right'First + (J - 1)).Key then
             J := J + 1;
          else
             I0 := I;
             I1 := I;
-            while I1 < LL and then Left (I1 + 1).Key = Left (I0).Key loop
+            while I1 < LL and then Left (Left'First + (I1 + 1 - 1)).Key = Left (Left'First + (I0 - 1)).Key loop
                pragma Loop_Invariant (I1 in I0 .. LL - 1);
                pragma Loop_Invariant
-                 (for all T in I0 .. I1 => Left (T).Key = Left (I0).Key);
+                 (for all T in I0 .. I1 => Left (Left'First + (T - 1)).Key = Left (Left'First + (I0 - 1)).Key);
                pragma Loop_Invariant (OI <= Max_Out);
                pragma Loop_Invariant (Sorted_Left_Keys (Result, 1, OI));
                pragma Loop_Variant (Decreases => LL - I1);
@@ -114,17 +115,17 @@ is
 
             J0 := J;
             J1 := J;
-            while J1 < RL and then Right (J1 + 1).Key = Right (J0).Key loop
+            while J1 < RL and then Right (Right'First + (J1 + 1 - 1)).Key = Right (Right'First + (J0 - 1)).Key loop
                pragma Loop_Invariant (J1 in J0 .. RL - 1);
                pragma Loop_Invariant
-                 (for all T in J0 .. J1 => Right (T).Key = Right (J0).Key);
+                 (for all T in J0 .. J1 => Right (Right'First + (T - 1)).Key = Right (Right'First + (J0 - 1)).Key);
                pragma Loop_Invariant (OI <= Max_Out);
                pragma Loop_Invariant (Sorted_Left_Keys (Result, 1, OI));
                pragma Loop_Variant (Decreases => RL - J1);
                J1 := J1 + 1;
             end loop;
 
-            pragma Assert (Left (I0).Key = Right (J0).Key);
+            pragma Assert (Left (Left'First + (I0 - 1)).Key = Right (Right'First + (J0 - 1)).Key);
 
             II := I0;
             Emit_Left_Run :
@@ -133,7 +134,7 @@ is
                pragma Loop_Invariant (OI <= Max_Out);
                pragma Loop_Invariant (Sorted_Left_Keys (Result, 1, OI));
                pragma Loop_Invariant
-                 (OI = 0 or else Result (OI).Left.Key <= Left (I0).Key);
+                 (OI = 0 or else Result (Result'First + (OI - 1)).Left.Key <= Left (Left'First + (I0 - 1)).Key);
                pragma Loop_Invariant
                  (I0 <= I1 and then I1 <= LL and then J0 <= J1
                   and then J1 <= RL);
@@ -148,13 +149,13 @@ is
                     (Sorted_Left_Keys (Result, 1, OI));
                   pragma Loop_Invariant
                     (OI = 0
-                     or else Result (OI).Left.Key <= Left (II).Key);
+                     or else Result (Result'First + (OI - 1)).Left.Key <= Left (Left'First + (II - 1)).Key);
                   pragma Loop_Variant (Decreases => J1 + 1 - JJ);
 
                   --  Product_Fits ⇒ total emits ≤ |L|·|R| ≤ Max_Out.
                   --  Guard keeps the Emit Pre dischargeable at L4.
                   if OI < Max_Out then
-                     Emit (Result, OI, Left (II), Right (JJ));
+                     Emit (Result, OI, Left (Left'First + (II - 1)), Right (Right'First + (JJ - 1)));
                   end if;
 
                   JJ := JJ + 1;
@@ -180,8 +181,8 @@ is
       Result      : out Joined_Relation;
       Last        : out Natural)
    is
-      LL : constant Natural := Left'Last;
-      RL : constant Natural := Right'Last;
+      LL : constant Natural := Left'Length;
+      RL : constant Natural := Right'Length;
 
       I, J       : Natural := 1;
       OI         : Natural := 0;
@@ -198,25 +199,25 @@ is
          pragma Loop_Invariant (I in 1 .. LL + 1);
          pragma Loop_Invariant (J in 1 .. RL + 1);
          pragma Loop_Invariant (OI <= Max_Out);
-         pragma Loop_Invariant (OI <= Result'Last);
+         pragma Loop_Invariant (OI <= Result'Length);
          pragma Loop_Invariant (Sorted_Left_Keys (Result, 1, OI));
          pragma Loop_Invariant
            (OI = 0
             or else I > LL
-            or else Result (OI).Left.Key <= Left (I).Key);
+            or else Result (Result'First + (OI - 1)).Left.Key <= Left (Left'First + (I - 1)).Key);
          pragma Loop_Variant (Decreases => (LL + 1 - I) + (RL + 1 - J));
 
-         if Left (I).Key < Right (J).Key then
+         if Left (Left'First + (I - 1)).Key < Right (Right'First + (J - 1)).Key then
             I := I + 1;
-         elsif Left (I).Key > Right (J).Key then
+         elsif Left (Left'First + (I - 1)).Key > Right (Right'First + (J - 1)).Key then
             J := J + 1;
          else
             J0 := J;
             J1 := J;
-            while J1 < RL and then Right (J1 + 1).Key = Right (J0).Key loop
+            while J1 < RL and then Right (Right'First + (J1 + 1 - 1)).Key = Right (Right'First + (J0 - 1)).Key loop
                pragma Loop_Invariant (J1 in J0 .. RL - 1);
                pragma Loop_Invariant
-                 (for all T in J0 .. J1 => Right (T).Key = Right (J0).Key);
+                 (for all T in J0 .. J1 => Right (Right'First + (T - 1)).Key = Right (Right'First + (J0 - 1)).Key);
                pragma Loop_Invariant (OI <= Max_Out);
                pragma Loop_Invariant (Sorted_Left_Keys (Result, 1, OI));
                pragma Loop_Variant (Decreases => RL - J1);
@@ -230,11 +231,11 @@ is
                pragma Loop_Invariant (Sorted_Left_Keys (Result, 1, OI));
                pragma Loop_Invariant
                  (OI = 0
-                  or else Result (OI).Left.Key <= Left (I).Key);
+                  or else Result (Result'First + (OI - 1)).Left.Key <= Left (Left'First + (I - 1)).Key);
                pragma Loop_Variant (Decreases => J1 + 1 - JJ);
 
                if OI < Max_Out then
-                  Emit (Result, OI, Left (I), Right (JJ));
+                  Emit (Result, OI, Left (Left'First + (I - 1)), Right (Right'First + (JJ - 1)));
                end if;
 
                JJ := JJ + 1;
