@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Binomial_Coefficient; use Binomial_Coefficient;
+with Own_Checks;
 
 procedure Tests is
    procedure Check (N, K : Input; Want : Result) is
@@ -25,5 +26,6 @@ begin
    Check (30, 1, 30);
    Check (30, 30, 1);
    Check (12, 13, 0);
+   Own_Checks;
    Put_Line ("binomial checks passed");
 end Tests;
