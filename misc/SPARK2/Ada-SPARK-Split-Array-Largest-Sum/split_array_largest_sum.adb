@@ -2,8 +2,9 @@ pragma Ada_2022;
 
 package body Split_Array_Largest_Sum with SPARK_Mode => On is
    function Largest_Sum
-     (Input : Input_Array; Parts : Part_Count) return Limit is
+     (Input : Input_Array; Parts : Part_Count) return Sum_Result is
       Max_Element : Element := Input (Index'First);
+      Probes      : Probe_Count := 0;
    begin
       for I in Index loop
          if Input (I) > Max_Element then
@@ -12,7 +13,9 @@ package body Split_Array_Largest_Sum with SPARK_Mode => On is
       end loop;
 
       for Candidate in Limit loop
+         pragma Loop_Invariant (Probes < Candidate);
          if Candidate >= Max_Element then
+            Probes := Probes + 1;
             declare
                Used_Parts : Integer := 1;
                Load : Integer := 0;
@@ -26,11 +29,11 @@ package body Split_Array_Largest_Sum with SPARK_Mode => On is
                   end if;
                end loop;
                if Used_Parts <= Integer (Parts) then
-                  return Candidate;
+                  return (Largest => Candidate, Probes => Probes);
                end if;
             end;
          end if;
       end loop;
-      return Limit'Last;
+      return (Largest => Limit'Last, Probes => Probes);
    end Largest_Sum;
 end Split_Array_Largest_Sum;
