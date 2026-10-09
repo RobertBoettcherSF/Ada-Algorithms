@@ -27,20 +27,21 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    function Occ
      (A : Element_Array; Last : Natural; K : Element) return Natural
    is
-     (if Last = 0 then 0
+     (if Last < A'First then 0
       elsif A (Last) = K then Occ (A, Last - 1, K) + 1
       else Occ (A, Last - 1, K))
    with
      Ghost              => True,
      Global             => null,
-     Pre                => In_Bounds (A) and then Last <= A'Last,
-     Post               => Occ'Result <= Last,
+     Pre                =>
+       In_Bounds (A) and then Last >= A'First - 1 and then Last <= A'Last,
+     Post               => Occ'Result <= Last - A'First + 1,
      Subprogram_Variant => (Decreases => Last);
 
    function Sum_Occ
@@ -53,11 +54,13 @@ is
      Global             => null,
      Pre                =>
        In_Bounds (A)
+       and then Last >= A'First - 1
        and then Last <= A'Last
        and then Lo >= 0
        and then Hi <= Max_Key,
      Post               =>
-       Sum_Occ'Result <= Last * (if Hi >= Lo then Hi - Lo + 1 else 0),
+       Sum_Occ'Result
+         <= (Last - A'First + 1) * (if Hi >= Lo then Hi - Lo + 1 else 0),
      Subprogram_Variant =>
        (Decreases => (if Lo > Hi then 0 else Hi - Lo + 1));
 
@@ -88,6 +91,7 @@ is
        Global            => null,
        Pre               =>
          In_Bounds (A)
+         and then Last >= A'First - 1
          and then Last <= A'Last
          and then Lo >= 0
          and then Hi <= Max_Key
@@ -118,7 +122,7 @@ is
        Global            => null,
        Pre               =>
          In_Bounds (A)
-         and then Last in 1 .. A'Last
+         and then Last in A'Range
          and then Lo >= 0
          and then Hi <= Max_Key,
        Post              =>
@@ -158,17 +162,19 @@ is
        Ghost             => True,
        Always_Terminates => True,
        Global            => null,
-       Pre               => In_Bounds (A) and then Last <= A'Last,
-       Post              => Sum_Occ (A, Last, 0, Max_Key) = Last,
+       Pre               =>
+         In_Bounds (A) and then Last >= A'First - 1 and then Last <= A'Last,
+       Post              => Sum_Occ (A, Last, 0, Max_Key) = Last - A'First + 1,
        Subprogram_Variant => (Decreases => Last)
    is
    begin
-      if Last = 0 then
+      if Last < A'First then
          return;
       end if;
       Lemma_Sum_Occ_Is_Length (A, Last - 1);
       Lemma_Sum_Occ_Step (A, Last, 0, Max_Key);
-      pragma Assert (Sum_Occ (A, Last - 1, 0, Max_Key) = Last - 1);
+      pragma Assert
+        (Sum_Occ (A, Last - 1, 0, Max_Key) = Last - A'First);
       pragma Assert
         (Sum_Occ (A, Last, 0, Max_Key)
          = Sum_Occ (A, Last - 1, 0, Max_Key) + 1);
@@ -215,7 +221,7 @@ is
        Pre               =>
          In_Bounds (A)
          and then N = A'Last
-         and then N >= 1
+         and then N >= A'First
          and then Lo >= 0
          and then Hi <= Max_Key
          and then (for all K in Element => Hist (K) = Occ (A, N, K))
@@ -250,10 +256,10 @@ is
        Pre               =>
          In_Bounds (A)
          and then N = A'Last
-         and then N >= 1
+         and then N >= A'First
          and then (for all K in Element => Hist (K) = Occ (A, N, K))
          and then (for all K in Element => Hist (K) <= Max_N),
-       Post              => Sum_Hist (Hist, 0, Max_Key) = N
+       Post              => Sum_Hist (Hist, 0, Max_Key) = A'Length
    is
    begin
       Lemma_Sum_Occ_Is_Length (A, N);
@@ -271,14 +277,14 @@ is
          return;
       end if;
 
-      N := A'Last;
+      N := A'Last;   --  index of the last slot
 
-      for I in 1 .. N loop
+      for I in A'Range loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant
            (for all K in Element => Hist (K) = Occ (A, I - 1, K));
          pragma Loop_Invariant
-           (for all K in Element => Hist (K) <= I - 1);
+           (for all K in Element => Hist (K) <= I - A'First);
          pragma Loop_Invariant
            (for all K in Element => Hist (K) <= Max_N);
 
@@ -286,28 +292,28 @@ is
       end loop;
 
       pragma Assert (for all K in Element => Hist (K) = Occ (A, N, K));
-      pragma Assert (for all K in Element => Hist (K) <= N);
+      pragma Assert (for all K in Element => Hist (K) <= A'Length);
 
       Lemma_Hist_Sum_Is_N (A, N, Hist);
-      pragma Assert (Sum_Hist (Hist, 0, Max_Key) = N);
+      pragma Assert (Sum_Hist (Hist, 0, Max_Key) = A'Length);
 
-      Pos := 1;
-      pragma Assert (Sorted_Slice (A, 1, 0));
+      Pos := A'First;
+      pragma Assert (Sorted_Slice (A, A'First, A'First - 1));
 
       for K in Digit_Index loop
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Pos in 1 .. N + 1);
+         pragma Loop_Invariant (Pos in A'First .. N + 1);
          pragma Loop_Invariant
-           (Pos = 1 + Sum_Hist (Hist, 0, K - 1));
+           (Pos = A'First + Sum_Hist (Hist, 0, K - 1));
          pragma Loop_Invariant
            (Pos + Sum_Hist (Hist, K, Max_Key) = N + 1);
-         pragma Loop_Invariant (Sorted_Slice (A, 1, Pos - 1));
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, Pos - 1));
          pragma Loop_Invariant
-           (for all J in 1 .. Pos - 1 => A (J) <= K);
-         pragma Loop_Invariant (Pos = 1 or else A (Pos - 1) <= K);
+           (for all J in A'First .. Pos - 1 => A (J) <= K);
+         pragma Loop_Invariant (Pos = A'First or else A (Pos - 1) <= K);
          pragma Loop_Invariant
-           (for all KK in Element => Hist (KK) <= N);
-         pragma Loop_Invariant (Sum_Hist (Hist, 0, Max_Key) = N);
+           (for all KK in Element => Hist (KK) <= A'Length);
+         pragma Loop_Invariant (Sum_Hist (Hist, 0, Max_Key) = A'Length);
 
          declare
             C    : Natural := 0;
@@ -323,20 +329,20 @@ is
                pragma Loop_Invariant
                  (Pos0 + Hist (K) + Sum_Hist (Hist, K + 1, Max_Key)
                   = N + 1);
-               pragma Loop_Invariant (Pos in 1 .. N);
+               pragma Loop_Invariant (Pos in A'First .. N);
                pragma Loop_Invariant
                  (Pos + (Hist (K) - C) <= N + 1);
-               pragma Loop_Invariant (Sorted_Slice (A, 1, Pos - 1));
+               pragma Loop_Invariant (Sorted_Slice (A, A'First, Pos - 1));
                pragma Loop_Invariant
-                 (for all J in 1 .. Pos - 1 => A (J) <= K);
+                 (for all J in A'First .. Pos - 1 => A (J) <= K);
                pragma Loop_Invariant
-                 (Pos = 1 or else A (Pos - 1) <= K);
+                 (Pos = A'First or else A (Pos - 1) <= K);
                pragma Loop_Invariant
                  (for all J in Pos0 .. Pos - 1 => A (J) = K);
                pragma Loop_Variant (Decreases => Hist (K) - C);
 
                A (Pos) := K;
-               pragma Assert (Pos = 1 or else A (Pos - 1) <= A (Pos));
+               pragma Assert (Pos = A'First or else A (Pos - 1) <= A (Pos));
                Pos := Pos + 1;
                C   := C + 1;
             end loop;
@@ -348,12 +354,12 @@ is
          pragma Assert
            (Sum_Hist (Hist, 0, K)
             = Sum_Hist (Hist, 0, K - 1) + Hist (K));
-         pragma Assert (Pos = 1 + Sum_Hist (Hist, 0, K));
-         pragma Assert (Sorted_Slice (A, 1, Pos - 1));
+         pragma Assert (Pos = A'First + Sum_Hist (Hist, 0, K));
+         pragma Assert (Sorted_Slice (A, A'First, Pos - 1));
       end loop;
 
       pragma Assert (Pos = N + 1);
-      pragma Assert (Sorted_Slice (A, 1, N));
+      pragma Assert (Sorted_Slice (A, A'First, N));
       pragma Assert (Is_Sorted (A));
    end Sort;
 

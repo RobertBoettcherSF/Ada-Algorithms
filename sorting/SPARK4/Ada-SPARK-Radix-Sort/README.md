@@ -7,7 +7,7 @@ $$
 O(n + k),\quad k = \mathrm{Base} = 256,\quad n \le \mathrm{Max\_N} = 64,\quad \mathrm{Max\_Key} = 255
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Radix-Sort](https://github.com/RobertBoettcherSF/Ada-Radix-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_Length`, exceptions (`Invalid_Argument`), optional `Sort_Base` with radix $2..256$ and multi-pass LSD over unbounded nonnegative `Integer` keys, and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), keys restricted to `0 .. Max_Key` (`Max_Key = 255`), fixed `Base = 256` (one digit pass), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape and key cap: [Ada-SPARK-Counting-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Counting-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Radix-Sort](https://github.com/RobertBoettcherSF/Ada-Radix-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_Length`, exceptions (`Invalid_Argument`), optional `Sort_Base` with radix $2..256$ and multi-pass LSD over unbounded nonnegative `Integer` keys; this port trades those for a hard classroom bound (`Max_N = 64`), keys restricted to `0 .. Max_Key` (`Max_Key = 255`), fixed `Base = 256` (one digit pass), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape and key cap: [Ada-SPARK-Counting-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Counting-Sort).
 
 ## Features
 * **`Sort (A)`**: Ascending LSD radix sort with fixed byte `Base = 256` (one digit pass; digit $=$ key).
@@ -21,7 +21,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Radix-Sort](https:/
 * `Max_Key = 255` (sibling accepts up to `Integer'Last`) so keys fit one byte digit.
 * Fixed `Base = 256` only — no `Sort_Base`, no multi-pass decimal LSD (sibling offers radices $2..256$ with many passes). Choosing $\mathrm{Base} = \mathrm{Max\_Key}+1$ makes the LSD digit equal the key, so one counting-sort digit pass finishes the sort — the proveable classroom form of LSD radix.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`; keys are the `Element` subtype `0 .. Max_Key`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * **Reconstruction emit** instead of reverse-scan place: when digit $=$ key, equal keys are identical so content-level stability is vacuous. The non-SPARK sibling uses right-to-left placement for satellite stability across multiple passes; tests here still check multiset / permutation equality and agreement with a stable insertion-sort reference.
 * Ghost `Occ` / `Sum_Occ` / `Sum_Hist` lemmas (binary-split induction) plus `pragma Loop_Invariant` so histogram cardinality and emit-cursor bounds are discharged at Level 4.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
@@ -32,7 +32,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Radix-Sort](https:/
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 215 assertions pass. Running `make prove` reports `Success: all checks proved (283 checks).`
+When you run `make test`, you will see all 237 assertions pass. Running `make prove` reports `Success: all checks proved (309 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, Wikipedia-style LSD example (capped to $\mathrm{Max\_Key}$), reverse / already-sorted / almost-sorted, multi-digit values within the cap, power-of-two and odd lengths.
@@ -53,5 +53,5 @@ When you run `make test`, you will see all 215 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Histogram loop tracks `Hist (K) = Occ (A, I-1, K)` via digit extraction; ghost lemmas prove $\mathrm{Sum\_Hist} = n$; emit loop grows a sorted prefix keyed by the outer digit cursor.
-* **GNATprove Level 4:** `Success: all checks proved (283 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (309 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
