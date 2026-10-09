@@ -145,13 +145,20 @@ package body Warnsdorff is
          X, Y : Integer;
       end record;
       Positions : array (1 .. Size * Size) of Point;
+      Seen      : array (1 .. Size * Size) of Boolean := (others => False);
    begin
-      -- Map sequence steps to coordinates and ensure all cells are visited
+      -- Map sequence steps to coordinates. Size * Size cells each holding a
+      -- distinct step in 1 .. Size * Size means every step occurs exactly
+      -- once, so every slot of Positions is set before it is read.
       for I in 1 .. Size loop
          for J in 1 .. Size loop
             if Grid (I, J) < 1 or Grid (I, J) > Size * Size then
                return False;
             end if;
+            if Seen (Grid (I, J)) then
+               return False;
+            end if;
+            Seen (Grid (I, J)) := True;
             Positions (Grid (I, J)) := (I, J);
          end loop;
       end loop;

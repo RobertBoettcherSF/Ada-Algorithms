@@ -22,6 +22,6 @@ In critical systems architecture, heuristics cannot be assumed to be absolute. O
 
 ## Usage 
 ### Compilation
-The project forces all artifacts to compile directly in the root directory via the provided GNAT project and Makefile.
+The provided GNAT project and Makefile put objects in `obj/` and the test executable in `bin/` (`make test` builds and runs `bin/tests`).
 ```bash
 make
