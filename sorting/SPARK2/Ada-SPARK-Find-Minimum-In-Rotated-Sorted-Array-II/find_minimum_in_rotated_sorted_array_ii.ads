@@ -21,13 +21,15 @@ package Find_Minimum_In_Rotated_Sorted_Array_II with SPARK_Mode => On is
      with Dynamic_Predicate =>
        (for some P in Index => Rotated_At (Rotated_Array, P));
 
-   --  Proved: at most N - 1 comparisons (the worst case with duplicates,
-   --  e.g. all equal but one). With distinct values the equal-ends step
-   --  never happens and the tests check at most floor (log2 N) + 2.
-   subtype Probe_Count is Natural range 0 .. Length - 1;
+   --  Proved: at most 2 * (N - 1) comparisons of two elements (the worst
+   --  case with duplicates, e.g. all equal: each of the N - 1 shrink steps
+   --  compares Mid with Hi and then Hi - 1 with Hi). With distinct values
+   --  the equal-ends step never happens and the tests check at most
+   --  floor (log2 N) + 2.
+   subtype Probe_Count is Natural range 0 .. 2 * (Length - 1);
    type Search_Result is record
       Position : Index;         --  where a smallest element is
-      Probes   : Probe_Count;   --  comparisons of two elements
+      Probes   : Probe_Count;   --  comparisons of two elements (a three-way one counts once)
    end record;
 
    function Find_Minimum (Values : Rotated_Array) return Search_Result

@@ -2,7 +2,7 @@
 
 Find the minimum in a rotated sorted array with duplicates, in SPARK. `Values` holds 8 values in -1000 .. 1000: a non-decreasing array (duplicates allowed) turned left by some amount. That shape is the subtype predicate of `Rotated_Array`: there is a turn `P` such that the array never falls except into `P`, and if `P > 1` the last element is at most the first.
 
-`Find_Minimum (Values)` returns the position of a smallest element and the number of comparisons (`Probes`); `Minimum` returns the value. It halves the range towards the turn, comparing `Values (Mid)` with `Values (Hi)`:
+`Find_Minimum (Values)` returns the position of a smallest element and the number of comparisons of two elements (`Probes`; a three-way comparison counts once); `Minimum` returns the value. It halves the range towards the turn, comparing `Values (Mid)` with `Values (Hi)`:
 - larger: the turn is right of `Mid`;
 - smaller: the turn is at `Mid` or to its left;
 - equal: the comparison cannot tell the sides apart. Then, if the array falls into `Hi`, `Hi` is the turn; otherwise the turn is below `Hi`, and the range shrinks by one.
@@ -11,7 +11,7 @@ The postcondition is proved: no element is smaller than the one returned. The lo
 - `Lemma_Step`: what one comparison says about the turn;
 - `Lemma_Minimum`: the element at the turn is a smallest one.
 
-Cost: with duplicates the worst case is O(N). For an array that is all equal but one, no comparison-based search can do better than looking at most elements. `Probe_Count` 0 .. N - 1 is proved through the invariant `Probes + (Hi - Lo) <= N - 1`. With distinct values the equal case never happens and the search is O(log N): `tests.adb` and the own checks assert at most floor (log2 N) + 2 comparisons there. On all-equal-but-one arrays (the 0 at every position) they check the answer only.
+Cost: with duplicates the worst case is O(N). For an array that is all equal but one, no comparison-based search can do better than looking at most elements. On equal ends a second comparison (`Values (Hi - 1)` with `Values (Hi)`) is needed, so `Probe_Count` is 0 .. 2 * (N - 1), proved through the invariant `Probes + 2 * (Hi - Lo) <= 2 * (N - 1)`; an all-equal array takes exactly 2 * (N - 1) = 14. With distinct values the equal case never happens and the search is O(log N): `tests.adb` and the own checks assert at most floor (log2 N) + 2 comparisons there. On all-equal-but-one arrays (the 0 at every position) they check the answer and the exact count worked by hand, with no log bound.
 
 ## Checks
 
@@ -21,8 +21,10 @@ make test
 make prove
 ```
 
-`make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (53 checks).
+`make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (54 checks).
 
 `make test` runs `tests.adb` and the folder's own checks: 124,050 checks against a linear minimum (see `tests/SOURCES.txt`).
 
 The first version (8 values, although this README said n <= 32) was a linear minimum scan with no contract and no rotation requirement. The first commit of the 2026-10-09 rewrite added a comparison counter and a test asserting the log bound for distinct values. That test fails on the old scan (8 comparisons).
+
+The rewrite first counted only one comparison per step, although the equal-ends step makes a second one (`Values (Hi - 1) > Values (Hi)`); an all-equal array reported 7 instead of 14. A test with exact counts was committed first, then the count was fixed (see `tools/vv/findings_sweep.csv`).

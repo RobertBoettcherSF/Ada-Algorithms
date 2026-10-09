@@ -96,7 +96,7 @@ package body Find_Minimum_In_Rotated_Sorted_Array_II with SPARK_Mode => On is
    begin
       while Lo < Hi loop
          pragma Loop_Invariant (Pv in Lo .. Hi);
-         pragma Loop_Invariant (Probes + (Hi - Lo) <= Length - 1);
+         pragma Loop_Invariant (Probes + 2 * (Hi - Lo) <= 2 * (Length - 1));
          pragma Loop_Variant (Decreases => Hi - Lo);
          Mid := Lo + (Hi - Lo) / 2;
          Probes := Probes + 1;
@@ -105,13 +105,17 @@ package body Find_Minimum_In_Rotated_Sorted_Array_II with SPARK_Mode => On is
             Lo := Mid + 1;
          elsif Values (Mid) < Values (Hi) then
             Hi := Mid;
-         elsif Values (Hi - 1) > Values (Hi) then
-            --  Equal ends, but Values falls into Hi: Hi is the turn.
-            pragma Assert (Pv = Hi);
-            Lo := Hi;
          else
-            --  Equal ends and no fall into Hi: the turn is below Hi.
-            Hi := Hi - 1;
+            --  Equal ends: a second comparison, Values (Hi - 1) with Values (Hi).
+            Probes := Probes + 1;
+            if Values (Hi - 1) > Values (Hi) then
+               --  Values falls into Hi: Hi is the turn.
+               pragma Assert (Pv = Hi);
+               Lo := Hi;
+            else
+               --  No fall into Hi: the turn is below Hi.
+               Hi := Hi - 1;
+            end if;
          end if;
       end loop;
       Lemma_Minimum (Values, Lo);

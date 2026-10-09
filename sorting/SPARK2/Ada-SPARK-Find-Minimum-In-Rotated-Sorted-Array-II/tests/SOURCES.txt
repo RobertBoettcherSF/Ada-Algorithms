@@ -6,7 +6,12 @@ the two original arrays (4 5 6 7 0 1 2 2; -4 -4 -2 -1 0 1 2 3),
 10 .. 80 turned by every amount (comparisons <= floor (log2 N) + 2,
 committed first; fails on the old linear scan), all equal but one
 (1 1 1 0 1 1 1 1 with the 0 at every position; answer only, no log
-bound) and all equal.
+bound) and all equal; then exact comparison counts for all equal (14)
+and for the single 0 at each position (13 10 6 3 8 6 4 3), worked by
+hand from the algorithm's steps (a three-way comparison of Mid with Hi
+is one, the equal-ends check of Hi - 1 with Hi a second). That count
+test was committed before the counting fix and fails on the old count
+(all equal: 7).
 
 own_checks.adb (called at the end of tests.adb; written for this
 repository by the V&V sweep, agent B, 2026-10-09). Reference: a linear
@@ -16,7 +21,8 @@ minimum; for the predicate, at most one cyclic strict fall.
   from 2 or 3 values) and of 1,000 random strictly increasing arrays:
   minimum (Find_Minimum and Minimum); with distinct values comparisons
   <= floor (log2 N) + 2, worst case exactly 3; with duplicates the
-  worst case seen is printed (7 = N - 1, the proved bound);
+  worst case is asserted to be 14 = 2 * (N - 1), the proved bound,
+  reached on all-equal arrays;
 * Rotated_Array membership on 20,000 random arrays of 0 .. 3.
 * Random inputs use a Park-Miller generator; the default seed 20261008
   is printed, and AA_SEED=<n> overrides it.

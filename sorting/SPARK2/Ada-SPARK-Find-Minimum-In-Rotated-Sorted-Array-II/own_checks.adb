@@ -163,7 +163,9 @@ begin
       end;
    end loop;
    Report (Max_Distinct = 3, "worst case comparisons, distinct" & Max_Distinct'Image & ", expected 3");
-   Report (Max_Any <= Length - 1, "worst case comparisons" & Max_Any'Image);
+   --  With duplicates: 2 * (N - 1) = 14, reached on all-equal arrays
+   --  (each shrink step compares Mid with Hi, then Hi - 1 with Hi).
+   Report (Max_Any = 2 * (Length - 1), "worst case comparisons" & Max_Any'Image & ", expected 14");
    if Failures = 0 then
       Put_Line ("PASS own checks:" & Checked'Image
                 & " checks (all rotations of 4,000 arrays vs a linear minimum; distinct: comparisons <= floor (log2 N) + 2, worst case 3; with duplicates worst case"
