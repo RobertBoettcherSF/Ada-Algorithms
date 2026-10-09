@@ -1,5 +1,5 @@
 --  Own tests for Median_Of_Two_Sorted_Arrays_Lite (see tests/SOURCES.txt).
---  Median of the eight values: between the 4th and 5th smallest (exactly their
+--  Median of the 2 * Length values: between the two middle ones (exactly their
 --  mean when it is an integer).
 pragma Ada_2022;
 with Ada.Environment_Variables;
@@ -60,27 +60,27 @@ procedure Own_Checks is
 
    procedure Check_One (Hi : Value; Label : String) is
       A, B : Input_Array;
-      XA, XB : IArr (1 .. 4);
-      E : IArr (1 .. 8);
+      XA, XB : IArr (1 .. Length);
+      E : IArr (1 .. 2 * Length);
       M : Integer;
    begin
-      for I in 1 .. 4 loop
+      for I in 1 .. Length loop
          XA (I) := Next (0, Hi);
          XB (I) := Next (0, Hi);
       end loop;
       Ins_Sort (XA);
       Ins_Sort (XB);
-      for I in 1 .. 4 loop
+      for I in 1 .. Length loop
          A (I) := XA (I);
          B (I) := XB (I);
       end loop;
       E := XA & XB;
       Ins_Sort (E);
-      M := Median (A, B);
-      if (E (4) + E (5)) mod 2 = 0 then
-         Report (M = (E (4) + E (5)) / 2, Label);
+      M := Median (A, B).Median;
+      if (E (Length) + E (Length + 1)) mod 2 = 0 then
+         Report (M = (E (Length) + E (Length + 1)) / 2, Label);
       else
-         Report (M in E (4) .. E (5), Label);
+         Report (M in E (Length) .. E (Length + 1), Label);
       end if;
    end Check_One;
 begin
