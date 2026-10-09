@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the original tree (leaf sums 5+4+11 = 20, 5+4+2 = 11, 5+8+1 = 14,
+worked by hand; 9 = 5+4 and 13 stop at no leaf; from root 3: 8+1 = 9; from
+the leaf 6: 1); a right-only chain 10, -20, 30 (single leaf sum 20; the
+prefix sums 10 and -10 are not leaf sums); an unused root and root 0 give
+False.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator, default
+seed = FNV-1a (32-bit) of the folder name folded into 1 .. 2**31 - 2,
+printed; AA_SEED=<n> overrides it). The test keeps its own copy of each
+tree and answers by recursion (leaf = no children), against the library's
+explicit stack. 3,000 random binary trees of 1 .. 15 nodes on shuffled node
+numbers, nodes set children-first or parents-first; values mostly -5 .. 5,
+every fourth tree -100 .. 100; every used node as root; targets: each leaf
+sum and its neighbours, plus random targets in -1000 .. 1000.
