@@ -280,3 +280,4 @@ misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,FIFO second-chance queue model (a d
 misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,"union-find over cells (a different algorithm), exhaustive over all 16 grids"
 misc/SPARK2/Ada-SPARK-Cosine-Distance,exhaustive pairs vs the defining floor inequalities + parallel/orthogonal properties
 misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,"sum of Euclid quotients (a different formula), exhaustive"
+misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,"brute-force count from the definition, exhaustive over all 65,536 matrices"

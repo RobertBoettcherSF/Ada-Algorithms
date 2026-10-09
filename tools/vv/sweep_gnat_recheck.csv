@@ -173,3 +173,5 @@ misc/SPARK2/Ada-SPARK-Cosine-Distance,GNAT 14,GNATLS 14.2.0,0,0,PASS Cosine_Dist
 misc/SPARK2/Ada-SPARK-Cosine-Distance,GNAT 12,GNATLS 12.2.0,0,0,PASS Cosine_Distance,f0f93517
 misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,GNAT 14,GNATLS 14.2.0,0,0,PASS Count_Operations_To_Obtain_Zero,c7e6525c
 misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,GNAT 12,GNATLS 12.2.0,0,0,PASS Count_Operations_To_Obtain_Zero,c7e6525c
+misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,GNAT 14,GNATLS 14.2.0,0,0,PASS Count_Square_Submatrices_With_All_Ones,762600fb
+misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,GNAT 12,GNATLS 12.2.0,0,0,PASS Count_Square_Submatrices_With_All_Ones,762600fb
