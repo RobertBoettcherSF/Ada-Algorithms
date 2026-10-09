@@ -117,7 +117,9 @@ for x in rows(os.path.join(VV, 'flaky.csv')):
     flaky[x['folder']].add((x.get('flaky') or '').strip())
 index_status = defaultdict(set)
 for x in rows(os.path.join(VV, 'index_shift.csv')):
-    index_status[x['folder']].add('ok' if (x.get('status') == 'ok' or x.get('kind') == 'ok') else x.get('status'))
+    nothing_to_shift = x.get('status') == 'skipped' and (x.get('detail') == 'no unconstrained array type'
+                                                          or 'but no public subprogram taking them' in (x.get('detail') or ''))
+    index_status[x['folder']].add('ok' if (x.get('status') == 'ok' or x.get('kind') == 'ok') else 'n/a' if nothing_to_shift else x.get('status'))
 weak = folder_set(os.path.join(ROOT, 'vv', 'results', 'donothing.csv'), lambda x: x.get('verdict') == 'weak')
 own = folder_set(os.path.join(VV, 'own_tests.csv')) | folder_set(os.path.join(VV, 'sweep_progress.csv'), lambda x: bool(x.get('tests_added')))
 kat = folder_set(os.path.join(VV, 'kat_registry.csv'))
@@ -189,7 +191,7 @@ def failures(fid):
                            or os.path.exists(os.path.join(ROOT, fid, 'tests', 'SOURCES_sweep.txt'))):
         f.append('independent known answer')
     st = index_status.get(fid)
-    if st and ('fail' in st or 'ok' not in st): f.append('index independence')
+    if st and ('fail' in st or not ('ok' in st or st == {'n/a'})): f.append('index independence')
     fl = flaky.get(fid, set())
     if 'yes' in fl or 'no' not in fl: f.append('flaky')
     recs = list(held.get(fid, {}).values())

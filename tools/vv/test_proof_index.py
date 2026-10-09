@@ -26,6 +26,8 @@ CASES = {
     'Escape':         ('', ['unjustified proof escape']),
     'Flaky':          ('', ['flaky (mutation does not count)']),
     'Topup-Summed':   ('yes', []),
+    'Index-Pinned':   ('', ['index not independent']),
+    'Index-Unread':   ('', ['index independence not measured']),
 }
 
 def w(path, text):
@@ -86,6 +88,13 @@ def build(root):
     wcsv(os.path.join(vv, 'proof_escapes.csv'), ['folder', 'file', 'line', 'kind', 'text', 'justification', 'justified'],
          [[fids['Escape'], 'x.adb', '1', 'Assume', 'pragma Assume (X)', '', 'no'],
           [fids['Good'], 'x.adb', '1', 'Annotate', 'pragma Annotate (GNATprove, ...)', 'written reason', 'yes']])
+    wcsv(os.path.join(vv, 'index_shift.csv'), ['folder', 'subprogram', 'kind', 'status', 'fix_kind', 'n_array_params', 'detail', 'note'],
+         [[fids['Good'], '', 'skipped', 'skipped', '', '', 'no unconstrained array type', ''],
+          [fids['Topup-Summed'], 'F', 'catalog', 'catalog', '', '1', 'function n_arrays=1', ''],
+          [fids['Topup-Summed'], 'F', 'ok', 'ok', '', '1', 'origins 0 and 100 agree', ''],
+          [fids['Index-Pinned'], 'F', 'catalog', 'catalog', '', '1', 'function n_arrays=1', ''],
+          [fids['Index-Pinned'], '', 'first_pinned', 'fail', '', '', "Pre requires A'First = 1", ''],
+          [fids['Index-Unread'], 'F', 'catalog', 'catalog', '', '1', 'function n_arrays=1', '']])
     return res, logs, fids
 
 def main():

@@ -7,7 +7,7 @@ tools/audit/prove_folder.sh (JSON lines) plus the gnatprove logs:
 DIR must contain build.jsonl and prove.jsonl (last line per folder wins).
 Run from the repo root.  Without results the columns show 'not run'.
 """
-import glob, argparse, csv, difflib, hashlib, json, os, re, collections
+import glob, argparse, csv, difflib, hashlib, json, math, os, re, collections
 LEVELS = ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4')
 SKIP = {'bin', 'obj', 'src', 'tests', 'gnatprove'}
 ap = argparse.ArgumentParser()
@@ -235,6 +235,9 @@ index_shift_rows = _csv(os.path.join(a.root, 'tools', 'vv', 'index_shift.csv'))
 index_shift_fail = {x['folder'] for x in index_shift_rows if x.get('status') == 'fail'}
 index_shift_ok = {x['folder'] for x in index_shift_rows if x.get('status') == 'ok' or x.get('kind') == 'ok'}
 index_shift_seen = {x['folder'] for x in index_shift_rows}
+# n/a: the scan found no unconstrained array type, or no public subprogram taking one (nothing to shift)
+_is_na_row = lambda x: x.get('status') == 'skipped' and (x.get('detail', '') == 'no unconstrained array type' or 'but no public subprogram taking them' in x.get('detail', ''))
+index_shift_na = index_shift_seen - {x['folder'] for x in index_shift_rows if not _is_na_row(x)}
 
 # tools/vv/flaky.csv (tools/vv/flaky.py, docs/VV.md 3j): repeatability (10 runs), seed sweep (AA_SEED=1..30) and
 # one Initialize_Scalars + -gnatVa run; one row per folder and compiler. flaky = yes when any row says yes;
@@ -284,55 +287,57 @@ for ff in sorted(glob.glob(os.path.join(a.root, 'tools', 'vv', '*_halves.csv')))
 # 'not blind' (notes say NOT BLIND), 'too small' (n < 20 or labelled too small / enough_20 = no), 'invalid'
 # (notes say the run does not meet the strict rule).
 HO = collections.defaultdict(dict)   # folder -> family -> dict(k, n, labels, src)
-def _ho_put(fam, folder, k, n, note='', small_label=False, src=''):
+def _ho_put(fam, folder, k, n, note='', small_label=False, src='', mix=''):
     if not folder: return
     lab = []
     nl = (note or '').lower()
     if 'not blind' in nl: lab.append('not blind')
     if 'does not meet the strict rule' in nl: lab.append('invalid')
     if small_label or n < 20: lab.append('too small')
-    HO[folder][fam] = dict(k=k, n=n, labels=lab, src=src)
+    HO[folder][fam] = dict(k=k, n=n, labels=lab, src=src, mix=mix)
 _VVT = os.path.join(a.root, 'tools', 'vv')
 for x in _csv(os.path.join(a.root, 'vv', 'results', 'mutation_halves.csv')):
     if x.get('half') == 'heldout':
         _ho_put('mutation_halves', x['folder'], int(x['killed']), int(x['killed']) + int(x['survived']) + int(x['timeout']),
-                src='vv/results/mutation_halves.csv')
+                src='vv/results/mutation_halves.csv', mix='std (mutate.py halves)')
 # flagship chain: phase 2 -> 3 -> 4 -> 5 -> 6, each phase replaces the earlier held-out set
 for x in _csv(os.path.join(_VVT, 'flagship_mutation_phase2.csv')):
     m = re.match(r'^\s*(\d+)/(\d+)', x.get('nonequivalent_score', ''))
     if m and x.get('set', '').strip() in ('held-out', 'heldout'):
-        _ho_put('flagship', x['folder'], int(m.group(1)), int(m.group(2)), x.get('note', ''), src='flagship_mutation_phase2.csv')
+        _ho_put('flagship', x['folder'], int(m.group(1)), int(m.group(2)), x.get('note', ''), src='flagship_mutation_phase2.csv', mix=x.get('operators', ''))
 for x in _csv(os.path.join(_VVT, 'flagship_mutation_phase3.csv')):
     m = re.match(r'^\s*(\d+)/(\d+)', x.get('nonequivalent_killed_over_nonequivalent_plus_timeouts', ''))
     if m and 'held' in x.get('set', ''):
-        _ho_put('flagship', x['folder'], int(m.group(1)), int(m.group(2)), src='flagship_mutation_phase3.csv')
+        _ho_put('flagship', x['folder'], int(m.group(1)), int(m.group(2)), src='flagship_mutation_phase3.csv', mix=x.get('operators', ''))
 for ph in ('flagship_mutation_phase4.csv', 'flagship_mutation_phase5.csv', 'flagship_mutation_phase6.csv'):
-    split = collections.defaultdict(lambda: [0, 0, ''])   # phase 6 split halves: std + alt rows add up
+    split = collections.defaultdict(lambda: [0, 0, '', []])   # phase 6 split halves: std + alt rows add up
     for x in _csv(os.path.join(_VVT, ph)):
         m = re.match(r'^\s*(\d+)/(\d+)', x.get('score_timeouts_as_survivors', ''))
         st = x.get('set', '')
         if not (x.get('folder') and m and 'held' in st and 'superseded' not in st): continue
         if 'split half' in st:
-            s = split[x['folder']]; s[0] += int(m.group(1)); s[1] += int(m.group(2)); s[2] += ' ' + x.get('note', '')
+            s = split[x['folder']]; s[0] += int(m.group(1)); s[1] += int(m.group(2)); s[2] += ' ' + x.get('note', ''); s[3].append(f"{x.get('operators', '')} {m.group(2)}")
         else:
             split.pop(x['folder'], None)
-            _ho_put('flagship', x['folder'], int(m.group(1)), int(m.group(2)), x.get('note', ''), src=ph)
-    for f, (k, n, note) in split.items():
+            _ho_put('flagship', x['folder'], int(m.group(1)), int(m.group(2)), x.get('note', ''), src=ph, mix=x.get('operators', ''))
+    for f, (k, n, note, mixes) in split.items():
         if not any(y.get('folder') == f and 'fresh' in y.get('set', '') for y in _csv(os.path.join(_VVT, ph))):
-            _ho_put('flagship', f, k, n, note, src=ph + ' (split halves summed)')
+            _ho_put('flagship', f, k, n, note, src=ph + ' (split halves summed)', mix=' + '.join(mixes))
 # sweep A2/A3 and sweep B records: last row per folder (later rows supersede, top-ups are folded into the row)
 for fam in ('sweep_heldout_alt.csv', 'sweep_heldout_B.csv'):
     for x in _csv(os.path.join(_VVT, fam)):
         k, n = x.get('mutation_heldout_k', '').strip(), x.get('mutation_heldout_n', '').strip()
         if x.get('folder') and k.isdigit() and n.isdigit():
             _ho_put(fam, x['folder'], int(k), int(n), x.get('notes', ''),
-                    small_label=x.get('heldout_pct', '').strip().lower().startswith('too small'), src=fam)
+                    small_label=x.get('heldout_pct', '').strip().lower().startswith('too small'), src=fam,
+                    mix=f"{x.get('heldout_family', '')}: {x.get('heldout_drawn', '')}")
 # other workers' halves (main_heldout_alt_halves.csv, then its top-up file, which replaces it): raw counts
 for ff in sorted(glob.glob(os.path.join(_VVT, '*_halves.csv'))):
     for x in _csv(ff):
         if x.get('folder') and x.get('half') == 'heldout' and str(x.get('killed', '')).isdigit():
             _ho_put('main_halves', x['folder'], int(x['killed']), int(x['killed']) + int(x['survived']) + int(x['timeout']),
-                    x.get('note', ''), small_label=x.get('enough_20', '').strip().lower() == 'no', src=os.path.basename(ff))
+                    x.get('note', ''), small_label=x.get('enough_20', '').strip().lower() == 'no', src=os.path.basename(ff),
+                    mix=f"{x.get('family', '')}: {x.get('drawn', '')} drawn")
 def heldout_verdict(folder):
     """(reasons, deciding record). Every family's record must be blind, valid, n >= 20 and k/n >= 90%."""
     recs = list(HO.get(folder, {}).values())
@@ -344,6 +349,25 @@ def heldout_verdict(folder):
     if any(r['n'] >= 20 and 10 * r['k'] < 9 * r['n'] for r in recs): out.append('held-out mutation < 90%')
     worst = min(recs, key=lambda r: (not r['labels'], r['k'] / r['n'] if r['n'] else 0))
     return out, worst
+def cp95_lower(k, n):
+    """Exact Clopper-Pearson, two-sided 95%: lower bound = Beta(0.025; k, n - k + 1) (0 when k = 0). Display only."""
+    if n <= 0 or k <= 0: return 0.0
+    def sf(p):   # P(X >= k), X ~ Bin(n, p)
+        lp, lq = math.log(p), math.log1p(-p)
+        return sum(math.exp(math.lgamma(n + 1) - math.lgamma(i + 1) - math.lgamma(n - i + 1) + i * lp + (n - i) * lq) for i in range(k, n + 1))
+    lo, hi = 0.0, 1.0
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if sf(mid) < 0.025 else (lo, mid)
+    return (lo + hi) / 2
+# unseen per-folder top-ups (tools/vv/sweep_topup_B.csv) that are NOT folded into the folder's held-out record:
+# shown next to the held score, not counted (room decision; Robert has not decided otherwise)
+_lastB = {}
+for x in _csv(os.path.join(_VVT, 'sweep_heldout_B.csv')): _lastB[x['folder']] = x
+topup_by = collections.defaultdict(list)
+for x in _csv(os.path.join(_VVT, 'sweep_topup_B.csv')):
+    if x.get('folder') and x.get('seed') and x['seed'] not in _lastB.get(x['folder'], {}).get('heldout_seed', ''):
+        topup_by[x['folder']].append(f"{x['score']} (seed {x['seed']})")
 
 # surviving mutants accepted as equivalent (tools/vv/sweep_equivalent.csv): only with exhaustive evidence
 # or a written reason; key = folder + file basename + line + operator, matched against vv/results/mutation*_detail.csv
@@ -385,6 +409,7 @@ for r in rows:
     r['silent_fail'] = 'yes' if r['folder'] in silent_by else ''
     r['index_independent'] = ('no' if r['folder'] in index_shift_fail else
                               'yes' if r['folder'] in index_shift_ok else
+                              'n/a' if r['folder'] in index_shift_na else
                               ('pending' if r['folder'] in index_shift_seen else ''))
     r['flaky'] = flaky_by.get(r['folder'], '')
     hv = halves_by.get(r['folder'], {})
@@ -396,6 +421,10 @@ for r in rows:
     _hw = heldout_verdict(r['folder'])[1]   # the held-out columns show the deciding (worst) record of all sources
     if _hw:
         r['mutation_heldout_k'], r['mutation_heldout_n'] = str(_hw['k']), str(_hw['n'])
+    _cpk, _cpn = r['mutation_heldout_k'], r['mutation_heldout_n']
+    r['mutation_heldout_cp95_lower'] = f"{cp95_lower(int(_cpk), int(_cpn)):.3f}" if _cpk.isdigit() and _cpn.isdigit() and int(_cpn) else ''
+    r['mutation_heldout_family'] = (_hw['mix'].strip(' :') + f" [{_hw['src']}]") if _hw else ''
+    r['mutation_topup_unseen'] = '; '.join(topup_by.get(r['folder'], []))
     m = re.match(r'^(\d+)/(\d+)$', r['mutation'])
     eq = equiv_by[r['folder']] if m else 0
     den = int(m.group(2)) - eq if m else 0
@@ -614,6 +643,13 @@ L = ['# Proof index', '',
      'flagship_mutation_phase2-6.csv, vv/results/mutation_halves.csv; a record labelled NOT BLIND or too small fails), no withdrawn functional claim '
      '(checker_scan.csv / contract_scan.csv) and no partial one, not a demo, no live fallback. The columns `mutation_heldout_k` / `mutation_heldout_n` show the deciding record. '
      'Drop reasons (duplicates counted once): ' + '; '.join(f'{k} {v}' for k, v in collections.Counter(s for r in uniq for s in r['tr_drop'].split('; ') if s).most_common()) + '.', '',
+     '### Training-ready folders', '',
+     'Held-out k/n = the deciding held-out record (non-equivalent killed / non-equivalent incl. timeouts); CP95 low = exact Clopper-Pearson two-sided 95% lower bound, '
+     'Beta(0.025; k, n - k + 1), display only (the rule stays k/n >= 90%, n >= 20); unseen top-up = per-folder top-up runs not folded into the held-out record '
+     '(tools/vv/sweep_topup_B.csv), shown for information and not counted.', '',
+     '| Folder | Held-out k/n | % | CP95 low | Held-out set (family mix) [source] | Unseen top-up (not counted) |', '|---|---:|---:|---:|---|---|',
+     *[f"| {r['folder']} | {r['mutation_heldout_k']}/{r['mutation_heldout_n']} | {100 * int(r['mutation_heldout_k']) / int(r['mutation_heldout_n']):.1f} | {r['mutation_heldout_cp95_lower']} | "
+        f"{r['mutation_heldout_family'].replace('|', '/')} | {r['mutation_topup_unseen'] or '-'} |" for r in uniq if r['training_ready'] == 'yes'], '',
      f"**Do-nothing check:** {c(lambda r: r['do_nothing'] in ('ok', 'weak') or r['do_nothing'].startswith('unchecked'))} folders checked, {c(lambda r: r['do_nothing']=='weak')} flagged weak (tests still pass when the main subprogram does nothing), {c(lambda r: r['do_nothing'].startswith('unchecked'))} unchecked (no trivial body compiles); {c(lambda r: r['do_nothing']=='weak' and r['silver']=='proven' and not r['trivial'] and not r['stub'])} of the weak ones are Silver-proven non-trivial. Own tests: {c(lambda r: r['own_tests']=='yes')} folders (column `own_tests`).", '',
      '**Silver headline (duplicates counted once):** ' + headline, '',
      '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged, and so is every folder listed in `tools/readme_stubs.txt` (its README calls it a stub); the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',
@@ -666,6 +702,7 @@ print(f'{len(rows)} folders, {len(rows)-len(uniq)} duplicates, {npairs} pairs')
 # Headline numbers for the root README.md, written only here, between the proof-index markers.
 # No timestamp, so rerunning on the same results leaves README.md byte-identical (idempotent).
 BEGIN, END = '<!-- proof-index:begin -->', '<!-- proof-index:end -->'
+INDEX_DATE = os.environ.get('PROOF_INDEX_DATE') or datetime.date.today().isoformat()   # README stays idempotent within a day
 n_open = sum(1 for f in _csv(os.path.join(a.root, 'tools', 'vv', 'findings.csv')) if f['status'] == 'open')
 block = '\n'.join([
     BEGIN,
@@ -673,7 +710,7 @@ block = '\n'.join([
     '|---|---:|',
     f'| Algorithm folders (duplicates counted once) | {len(uniq)} |',
     f"| Silver-proven, non-trivial (not stubs, more than {TRIVIAL_MAX} checks) | {c(lambda r: r['silver']=='proven' and not r['stub'] and not r['trivial'])} |",
-    f"| Training-ready (strict rule, docs/VV.md: blind held-out mutation >= 90% with n >= 20, independent reference, 0 warnings on GNAT 14 and 12 without suppression, no withdrawn or partial functional claim, no unexplained proof escape; reasons in PROOFS.csv `tr_drop`) | {c(lambda r: r['training_ready']=='yes')} |",
+    f"| Training-ready, strict rule (docs/VV.md), count as of {INDEX_DATE}: {c(lambda r: r['training_ready']=='yes')} folders. Blind held-out mutation >= 90% with n >= 20, independent reference, index-independent, 0 warnings on GNAT 14 and 12 without suppression, no withdrawn or partial functional claim, no unexplained proof escape; reasons in PROOFS.csv `tr_drop`. Unseen top-up scores are shown next to each held-out score in PROOFS.md and are not counted | {c(lambda r: r['training_ready']=='yes')} |",
     f"| Training-ready under the previous rule | {c(lambda r: r['training_ready_old']=='yes')} |",
     f'| Open findings (`tools/vv/findings.csv`) | {n_open} |',
     f"| Implementation candidates (stubs, column `implement_next`; docs/IMPLEMENT.md) | {c(lambda r: r['implement_next']=='yes')} |",
