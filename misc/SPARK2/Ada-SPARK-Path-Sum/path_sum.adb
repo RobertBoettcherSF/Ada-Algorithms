@@ -1,13 +1,14 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package body Path_Sum is
    function Empty return Tree is
    begin
       return
-        (Values => (others => 0),
-         Lefts  => (others => 0),
-         Rights => (others => 0),
-         Used   => (others => False));
+        (Values => [others => 0],
+         Lefts  => [others => 0],
+         Rights => [others => 0],
+         Used   => [others => False]);
    end Empty;
 
    procedure Set_Node
@@ -50,8 +51,8 @@ package body Path_Sum is
    end Subtract_Value;
 
    function Has_Path_Sum (T : Tree; Root : Index; Wanted : Target) return Boolean is
-      Nodes : Node_Stack := (others => 0);
-      Sums : Sum_Stack := (others => 0);
+      Nodes : Node_Stack := [others => 0];
+      Sums : Sum_Stack := [others => 0];
       Top : Stack_Position;
    begin
       if Root = 0 or else not T.Used (Root) then
@@ -61,7 +62,6 @@ package body Path_Sum is
       Nodes (Top) := Root;
       Sums (Top) := Accumulator (Wanted);
       for Step in 1 .. 256 loop
-         pragma Loop_Invariant (Top in Stack_Position);
          if Top = 0 then
             null;
          else
