@@ -46,73 +46,76 @@ package body Seam_Carving is
       return Map;
    end Calculate_Backward_Energy;
 
-   --  Core Algorithm: Find vertical seam using Dynamic Programming
+   --  Core Algorithm: Find vertical seam using Dynamic Programming.
+   --  Works on a copy of Img with bounds 1 .. W, 1 .. H, so every pixel
+   --  lookup and the returned seam (values 1 .. W) use the same coordinates
+   --  whatever Img's own bounds are. Each cell records the column it was
+   --  reached from, and the seam is traced through those links, so the
+   --  traced seam is the one whose cost the DP computed (for forward energy
+   --  the step costs differ by direction, so comparing DP values of the row
+   --  above would not retrace it).
    function Find_Vertical_Seam (Img : Image; Energy_Type : Energy_Function_Type) return Seam is
       W : constant Positive := Img'Length (1);
       H : constant Positive := Img'Length (2);
-      Base_Energy : Energy_Map (1 .. W, 1 .. H);
+      Local       : Image (1 .. W, 1 .. H);
       DP_Map      : Energy_Map (1 .. W, 1 .. H);
+      From        : array (1 .. W, 1 .. H) of Positive;
       Result_Seam : Seam (1 .. H);
-      
-      -- Costs for forward energy
+
       Cu, Cl, Cr : Integer;
-      Min_Prev : Integer;
+      Min_Prev   : Integer;
+      Prev_X     : Positive;
    begin
-      if Energy_Type = Backward_Energy then
-         declare
-            BE : constant Energy_Map := Calculate_Backward_Energy (Img);
-         begin
-            for Y in 1 .. H loop
-               for X in 1 .. W loop
-                  Base_Energy (X, Y) := BE (X - 1 + Img'First (1), Y - 1 + Img'First (2));
-               end loop;
-            end loop;
-         end;
-      end if;
-
-      -- First row initialization
       for X in 1 .. W loop
-         DP_Map (X, 1) := (if Energy_Type = Backward_Energy then Base_Energy (X, 1) else 0);
-      end loop;
-
-      -- Populate DP Map
-      for Y in 2 .. H loop
-         for X in 1 .. W loop
-            if Energy_Type = Forward_Energy then
-               -- Calculate step costs based on created edges
-               Cu := Pixel_Diff (Get_Pixel (Img, X + 1, Y), Get_Pixel (Img, X - 1, Y));
-               Cl := Cu + Pixel_Diff (Get_Pixel (Img, X, Y - 1), Get_Pixel (Img, X - 1, Y));
-               Cr := Cu + Pixel_Diff (Get_Pixel (Img, X, Y - 1), Get_Pixel (Img, X + 1, Y));
-               
-               -- Find min path to this pixel
-               Min_Prev := DP_Map (X, Y - 1) + Cu; -- from directly above
-               if X > 1 and then DP_Map (X - 1, Y - 1) + Cl < Min_Prev then
-                  Min_Prev := DP_Map (X - 1, Y - 1) + Cl;
-               end if;
-               if X < W and then DP_Map (X + 1, Y - 1) + Cr < Min_Prev then
-                  Min_Prev := DP_Map (X + 1, Y - 1) + Cr;
-               end if;
-               DP_Map (X, Y) := Min_Prev;
-            else
-               -- Backward energy accumulation
-               Min_Prev := DP_Map (X, Y - 1);
-               if X > 1 and then DP_Map (X - 1, Y - 1) < Min_Prev then
-                  Min_Prev := DP_Map (X - 1, Y - 1);
-               end if;
-               if X < W and then DP_Map (X + 1, Y - 1) < Min_Prev then
-                  Min_Prev := DP_Map (X + 1, Y - 1);
-               end if;
-               DP_Map (X, Y) := Base_Energy (X, Y) + Min_Prev;
-            end if;
+         for Y in 1 .. H loop
+            Local (X, Y) := Img (Img'First (1) + X - 1, Img'First (2) + Y - 1);
          end loop;
       end loop;
 
-      -- Backtrack to find the optimal seam
+      declare
+         Base_Energy : constant Energy_Map := Calculate_Backward_Energy (Local);
+      begin
+         -- First row initialization
+         for X in 1 .. W loop
+            DP_Map (X, 1) := (if Energy_Type = Backward_Energy then Base_Energy (X, 1) else 0);
+            From (X, 1) := X;
+         end loop;
+
+         -- Populate DP Map
+         for Y in 2 .. H loop
+            for X in 1 .. W loop
+               if Energy_Type = Forward_Energy then
+                  -- Step costs from the edges the removal creates
+                  Cu := Pixel_Diff (Get_Pixel (Local, X + 1, Y), Get_Pixel (Local, X - 1, Y));
+                  Cl := Cu + Pixel_Diff (Get_Pixel (Local, X, Y - 1), Get_Pixel (Local, X - 1, Y));
+                  Cr := Cu + Pixel_Diff (Get_Pixel (Local, X, Y - 1), Get_Pixel (Local, X + 1, Y));
+               else
+                  Cu := Base_Energy (X, Y);
+                  Cl := Cu;
+                  Cr := Cu;
+               end if;
+
+               Min_Prev := DP_Map (X, Y - 1) + Cu; -- from directly above
+               Prev_X := X;
+               if X > 1 and then DP_Map (X - 1, Y - 1) + Cl < Min_Prev then
+                  Min_Prev := DP_Map (X - 1, Y - 1) + Cl;
+                  Prev_X := X - 1;
+               end if;
+               if X < W and then DP_Map (X + 1, Y - 1) + Cr < Min_Prev then
+                  Min_Prev := DP_Map (X + 1, Y - 1) + Cr;
+                  Prev_X := X + 1;
+               end if;
+               DP_Map (X, Y) := Min_Prev;
+               From (X, Y) := Prev_X;
+            end loop;
+         end loop;
+      end;
+
+      -- Backtrack from the cheapest bottom cell (leftmost on ties)
       declare
          Min_Val : Integer := Integer'Last;
          Min_X   : Positive := 1;
       begin
-         -- Find min at bottom row
          for X in 1 .. W loop
             if DP_Map (X, H) < Min_Val then
                Min_Val := DP_Map (X, H);
@@ -120,21 +123,8 @@ package body Seam_Carving is
             end if;
          end loop;
          Result_Seam (H) := Min_X;
-
-         -- Trace back up
          for Y in reverse 1 .. H - 1 loop
-            declare
-               X : constant Positive := Result_Seam (Y + 1);
-               Next_X : Positive := X;
-            begin
-               if X > 1 and then DP_Map (X - 1, Y) < DP_Map (Next_X, Y) then
-                  Next_X := X - 1;
-               end if;
-               if X < W and then DP_Map (X + 1, Y) < DP_Map (Next_X, Y) then
-                  Next_X := X + 1;
-               end if;
-               Result_Seam (Y) := Next_X;
-            end;
+            Result_Seam (Y) := From (Result_Seam (Y + 1), Y + 1);
          end loop;
       end;
 
@@ -168,7 +158,7 @@ package body Seam_Carving is
             Target_X := 1;
             for X in Img'Range (1) loop
                -- Skip the seam pixel
-               if X /= S (Y - Img'First (2) + 1) then
+               if X - Img'First (1) + 1 /= S (S'First + Y - Img'First (2)) then
                   Result (Target_X, Y - Img'First (2) + 1) := Img (X, Y);
                   Target_X := Target_X + 1;
                end if;
@@ -196,7 +186,7 @@ package body Seam_Carving is
                Target_X := Target_X + 1;
                
                -- Insert averaged pixel after the seam pixel
-               if X = S (Y - Img'First (2) + 1) then
+               if X - Img'First (1) + 1 = S (S'First + Y - Img'First (2)) then
                   declare
                      P1 : constant Pixel := Img (X, Y);
                      P2 : constant Pixel := Get_Pixel (Img, X + 1, Y);

@@ -12,7 +12,8 @@ package Seam_Carving is
    --  2D array representing an Image. First index is X (Width), second is Y (Height).
    type Image is array (Positive range <>, Positive range <>) of Pixel;
 
-   --  A seam is a list of coordinates. 
+   --  A seam is a list of coordinates, both counted from 1 whatever the
+   --  image's own bounds are (value 1 is the image's first column/row).
    --  For Vertical seams: index is Y, value is X.
    --  For Horizontal seams: index is X, value is Y.
    type Seam is array (Positive range <>) of Positive;
