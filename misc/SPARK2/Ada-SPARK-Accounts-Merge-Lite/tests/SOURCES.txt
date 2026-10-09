@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the first Assert is the original case (owners 1 2 1 3 -> 3
+merged accounts). Hand-worked edge cases, counted by hand as "how many
+different owners occur among the first N accounts": the original array
+gives 1 for N = 1, 2 for N = 3 (1 2 1), 4 for N = 5 (1 2 1 3 4) and 4 for
+N = 32 (only owners 1..4 occur); an array of one owner gives 1 for N = 1
+and N = 32; 32 different owners give 32 for N = 32 and 17 for N = 17;
+5 5 9 1 1 ... gives 1, 2, 3 for N = 2, 3, 4 and 3 for N = 32; 2 3 2 4 3 2
+30 ... gives 3 for N = 6 and 4 for N = 7 (entries after N are ignored).
+
+own_checks.adb: independent definition (first occurrences compared
+pairwise, no Seen table): exhaustive for N = 1 .. 6 over owners 1 .. 4
+with the entries after N set to random owners, plus 20,000 seeded random
+arrays for N = 1 .. 32 over owner ranges 1, 3, N and 32 (seed = FNV-1a of
+the folder name, AA_SEED overrides it).
