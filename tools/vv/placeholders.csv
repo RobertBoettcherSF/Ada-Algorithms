@@ -144,7 +144,7 @@ strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings,tools/readme_stu
 strings/SPARK2/Ada-SPARK-Decode-String-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Decode-String implementation",open
 strings/SPARK2/Ada-SPARK-Reorganize-String-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Reorganize-String implementation",open
 strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full String-To-Integer-Atoi implementation",open
-trees/SPARK2/Ada-SPARK-BST-Iterator-Stub,H117,"answers come from a case table, not a BST iterator",open
+trees/SPARK2/Ada-SPARK-BST-Iterator-Stub,H117,"answers come from a case table, not a BST iterator",closed (agent-CF: real BST iterator)
 trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View,tools/vv/hidden_stub.csv,"returns fixed positions 1, 3, 7, 15 of a complete tree; no traversal",open
 trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Delete-Node-BST implementation",open
 trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite,tools/vv/hidden_stub.csv,a hard-coded index permutation for one complete-tree shape; no traversal,open

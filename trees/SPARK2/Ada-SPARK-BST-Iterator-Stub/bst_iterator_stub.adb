@@ -1,44 +1,85 @@
 pragma SPARK_Mode (On);
+pragma Ada_2022;
 package body BST_Iterator_Stub is
    function Empty return Tree is
-   begin return (Data => (others => 0), Size => 0); end Empty;
-   function Size (T : Tree) return Count is
-   begin return T.Size; end Size;
+     (Nodes => [others => (Val => 0, Left => 0, Right => 0, Parent => 0)], Size => 0);
+
+   function Size (T : Tree) return Count is (T.Size);
+
    procedure Insert (T : in out Tree; V : Value) is
+      New_Node : constant Node := T.Size + 1;
+      Cur      : Node := 1;
    begin
-      case T.Size is
-         when 0 => T.Data (1) := V;
-         when 1 => T.Data (2) := V;
-         when 2 => T.Data (3) := V;
-         when 3 => T.Data (4) := V;
-         when 4 => T.Data (5) := V;
-         when 5 => T.Data (6) := V;
-         when 6 => T.Data (7) := V;
-         when 7 => T.Data (8) := V;
-         when 8 => null;
-      end case;
-      if T.Size < Capacity then T.Size := T.Size + 1; end if;
+      T.Nodes (New_Node) := (Val => V, Left => 0, Right => 0, Parent => 0);
+      if T.Size > 0 then
+         loop
+            pragma Loop_Invariant (Cur <= T.Size);
+            pragma Loop_Invariant (T.Nodes (New_Node) = (Val => V, Left => 0, Right => 0, Parent => 0));
+            pragma Loop_Invariant (T.Nodes'Loop_Entry = T.Nodes);
+            pragma Loop_Variant (Increases => Cur);
+            if V < T.Nodes (Cur).Val then
+               exit when T.Nodes (Cur).Left = 0;
+               Cur := T.Nodes (Cur).Left;
+            else
+               exit when T.Nodes (Cur).Right = 0;
+               Cur := T.Nodes (Cur).Right;
+            end if;
+         end loop;
+         if V < T.Nodes (Cur).Val then
+            T.Nodes (Cur).Left := New_Node;
+         else
+            T.Nodes (Cur).Right := New_Node;
+         end if;
+         T.Nodes (New_Node).Parent := Cur;
+      end if;
+      T.Size := New_Node;
    end Insert;
-   function Advance (P : Cursor_Position) return Cursor_Position is
+
+   --  The leftmost node of the subtree rooted at N.
+   function Leftmost (T : Tree; N : Node) return Node
+     with Pre => Valid (T) and then N <= T.Size, Post => Leftmost'Result in N .. T.Size
+   is
+      Cur : Node := N;
    begin
-      case P is
-         when 0 => return 1;
-         when 1 => return 2;
-         when 2 => return 3;
-         when 3 => return 4;
-         when 4 => return 5;
-         when 5 => return 6;
-         when 6 => return 7;
-         when 7 => return 8;
-         when 8 => return 9;
-         when others => return Cursor_Position'Last;
-      end case;
-   end Advance;
+      while T.Nodes (Cur).Left /= 0 loop
+         pragma Loop_Invariant (Cur in N .. T.Size);
+         pragma Loop_Variant (Increases => Cur);
+         Cur := T.Nodes (Cur).Left;
+      end loop;
+      return Cur;
+   end Leftmost;
+
+   --  The in-order successor of N, 0 when N is the last node.
+   function Successor (T : Tree; N : Node) return Node_Ref
+     with Pre => Valid (T) and then N <= T.Size, Post => Successor'Result <= T.Size
+   is
+      Cur : Node := N;
+      Up  : Node_Ref;
+   begin
+      if T.Nodes (N).Right /= 0 then
+         return Leftmost (T, T.Nodes (N).Right);
+      end if;
+      loop
+         pragma Loop_Invariant (Cur <= N);
+         pragma Loop_Variant (Decreases => Cur);
+         Up := T.Nodes (Cur).Parent;
+         if Up = 0 then
+            return 0;
+         elsif T.Nodes (Up).Left = Cur then
+            return Up;
+         end if;
+         Cur := Up;
+      end loop;
+   end Successor;
 
    function Create (T : Tree) return Iterator is
-   begin return (Data => T.Data, Size => T.Size, Position => 0); end Create;
-   function Has_Next (It : Iterator) return Boolean is
-   begin return It.Position < It.Size; end Has_Next;
+     (T => T, Current => (if T.Size = 0 then 0 else Leftmost (T, 1)));
+
+   function Has_Next (It : Iterator) return Boolean is (It.Current /= 0);
+
    procedure Next (It : in out Iterator; Result : out Value) is
-   begin Result := It.Data (It.Position + 1); It.Position := Advance (It.Position); end Next;
+   begin
+      Result := It.T.Nodes (It.Current).Val;
+      It.Current := Successor (It.T, It.Current);
+   end Next;
 end BST_Iterator_Stub;
