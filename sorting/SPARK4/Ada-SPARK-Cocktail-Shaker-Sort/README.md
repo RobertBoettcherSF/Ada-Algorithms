@@ -21,7 +21,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Cocktail-Shaker-Sor
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Forward and backward passes carry the window invariant (`Sorted_Slice` / `Prefix_Leq_Suffix`: a sorted prefix <= the rest and a sorted suffix >= the rest), so `Sort` proves `Is_Sorted` from the cocktail passes alone; there is no extra bubble sort at the end.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): A holds the values of A'Old, each equally often (counted with `Occ`); every element move is a swap, proved to keep all counts (`Lemma_Swap`). The body's internal contracts and invariants are proved but not executed at run time (they quantify over every Integer value); the Post of `Sort` is checked on every call.
 
 ## Algorithm
 1. If $n \le 1$, return.

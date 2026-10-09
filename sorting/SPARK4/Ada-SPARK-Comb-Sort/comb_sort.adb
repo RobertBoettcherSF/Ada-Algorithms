@@ -7,6 +7,117 @@
 package body Comb_Sort
   with SPARK_Mode => On
 is
+   --  Same_Occ quantifies over every Integer value, so contracts and
+   --  invariants of this body (all proved by gnatprove) are not checked at
+   --  run time; the Post of Sort in the spec (sorted, Is_Perm) still is.
+   pragma Assertion_Policy
+     (Pre => Ignore, Post => Ignore, Loop_Invariant => Ignore, Assert => Ignore);
+
+   function Same_Occ (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (A'Length = 0
+                or else (for all V in Integer =>
+                           Occ (A, V, A'Last) = Occ (B, V, B'Last))))
+   with
+     Ghost,
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+
+   package Perm_Lemmas
+     with Ghost
+   is
+      pragma Assertion_Policy (Pre => Ignore, Post => Ignore);
+
+      --  Counts over A'First .. Last only see A'First .. Last.
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First
+          and then Last <= A'Last and then Last <= B'Last
+          and then (for all K in A'First .. Last => A (K) = B (K)),
+        Post               =>
+          (for all V in Integer => Occ (A, V, Last) = Occ (B, V, Last)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slot K changed.
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Live_Index; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then K in A'Range and then Last in K .. A'Last
+          and then (for all J in A'Range => (if J /= K then A (J) = B (J))),
+        Post               =>
+          (for all V in Integer =>
+             Occ (B, V, Last)
+             = Occ (A, V, Last)
+               - (if A (K) = V then 1 else 0)
+               + (if B (K) = V then 1 else 0)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slots X and Y exchanged.
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Live_Index)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then X in A'Range and then Y in A'Range
+          and then B (X) = A (Y) and then B (Y) = A (X)
+          and then (for all J in A'Range =>
+                      (if J /= X and then J /= Y then A (J) = B (J))),
+        Post   => Same_Occ (A, B);
+
+      procedure Lemma_Same_Perm (A, B : Element_Array)
+      with
+        Global => null,
+        Pre    => In_Bounds (A) and then In_Bounds (B) and then Same_Occ (A, B),
+        Post   => Is_Perm (A, B);
+   end Perm_Lemmas;
+
+   package body Perm_Lemmas is
+
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural) is
+      begin
+         if Last >= A'First then
+            Lemma_Occ_Frame (A, B, Last - 1);
+         end if;
+      end Lemma_Occ_Frame;
+
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Live_Index; Last : Natural) is
+      begin
+         if Last > K then
+            Lemma_Occ_Set (A, B, K, Last - 1);
+         else
+            Lemma_Occ_Frame (A, B, K - 1);
+         end if;
+      end Lemma_Occ_Set;
+
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Live_Index) is
+      begin
+         if X = Y then
+            Lemma_Occ_Frame (A, B, A'Last);
+            return;
+         end if;
+         declare
+            C : constant Element_Array := (A with delta X => A (Y));
+         begin
+            Lemma_Occ_Set (A, C, X, A'Last);
+            Lemma_Occ_Set (C, B, Y, A'Last);
+         end;
+      end Lemma_Swap;
+
+      procedure Lemma_Same_Perm (A, B : Element_Array) is null;
+
+   end Perm_Lemmas;
+   use Perm_Lemmas;
+
 
    --  Shrink factor k ≈ 1.3: floor(gap / 1.3) = floor(gap * 10 / 13).
    Shrink_Num : constant := 10;
@@ -60,15 +171,19 @@ is
          and then
            (for all K in A'Range =>
               (if K /= X and then K /= Y then A (K) = A'Old (K)))
+         and then Same_Occ (A, A'Old)
    is
+      Before : constant Element_Array := A with Ghost;
       T : Integer;
    begin
       if X = Y then
+         Lemma_Swap (Before, A, X, Y);
          return;
       end if;
       T     := A (X);
       A (X) := A (Y);
       A (Y) := T;
+      Lemma_Swap (Before, A, X, Y);
    end Swap;
 
    --  One comb pass for Gap > 1: compare/swap A(I) with A(I+Gap).
@@ -80,12 +195,13 @@ is
          In_Bounds (A)
          and then A'Length >= 2
          and then Gap in 2 .. A'Length - 1,
-       Post   => In_Bounds (A)
+       Post   => In_Bounds (A) and then Same_Occ (A, A'Old)
    is
    begin
       for I in A'First .. A'Last - Gap loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (I + Gap <= A'Last);
+         pragma Loop_Invariant (Same_Occ (A, A'Loop_Entry));
 
          if A (I) > A (I + Gap) then
             Swap (A, I, I + Gap);
@@ -116,12 +232,14 @@ is
          and then Prefix_Leq_Suffix (A, A'First, Bound - 1, Bound, A'Last)
          and then
            (if not Swapped then Sorted_Slice (A, A'First, Bound))
+         and then Same_Occ (A, A'Old)
    is
    begin
       Swapped := False;
 
       for I in A'First .. Bound - 1 loop
          pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (Same_Occ (A, A'Loop_Entry));
          pragma Loop_Invariant
            (for all K in A'First .. I => A (K) <= A (I));
          pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
@@ -154,8 +272,10 @@ is
       Gap     : Index;
       Bound   : Index;
       Swapped : Boolean;
+      Orig    : constant Element_Array := A with Ghost;
    begin
       if A'Length <= 1 then
+         Lemma_Same_Perm (A, Orig);
          return;
       end if;
 
@@ -170,6 +290,7 @@ is
       loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (Gap in 1 .. A'Length);
+         pragma Loop_Invariant (Same_Occ (A, Orig));
          pragma Loop_Invariant (Bound in A'First + 1 .. A'Last);
          pragma Loop_Invariant (if Gap > 1 then Bound = A'Last);
          pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
@@ -195,6 +316,7 @@ is
                   else Sorted_Slice (A, A'First + 1, A'Last)
                        and then Prefix_Leq_Suffix (A, A'First, A'First, A'First + 1, A'Last));
                pragma Assert (Is_Sorted (A));
+               Lemma_Same_Perm (A, Orig);
                exit;
             end if;
 
