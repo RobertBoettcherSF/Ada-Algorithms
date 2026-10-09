@@ -65,3 +65,5 @@ searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound,GNAT 14,GNATLS 14.2.0,0,0,P
 searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 900069 checks (2;234 sorted arrays x 201 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,9eb27715
 searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 900069 checks (2;234 sorted arrays x 201 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,9eb27715
 searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 900069 checks (2;234 sorted arrays x 201 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,9eb27715
+misc/SPARK2/Ada-SPARK-Find-First-And-Last-Position,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 433069 checks (2;134 sorted arrays x 101 targets vs linear scan; reads <= 2 * (floor (log2 N) + 2); wor,d013b332
+misc/SPARK2/Ada-SPARK-Find-First-And-Last-Position,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 433069 checks (2;134 sorted arrays x 101 targets vs linear scan; reads <= 2 * (floor (log2 N) + 2); wor,d013b332
