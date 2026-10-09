@@ -4,6 +4,13 @@ pragma Ada_2022;
 --  as a sum of distinct candidates from 1 .. Max_Part (each used at most
 --  once, order does not matter). With Max_Part = Value this is q (Value),
 --  the number of partitions into distinct parts.
+--
+--  Why 30: the proof bounds every count by Q (N, C) <= 2 ** C (there are
+--  2 ** C subsets of 1 .. C), and Count_Distinct_Combinations uses parts up
+--  to Value, so 2 ** 30 is the largest power of two that fits Natural
+--  (2 ** 31 > Natural'Last). The true counts are far smaller (q (30) = 296).
+--  Going further would need Long_Long_Integer counts and a slower run-time
+--  check of the ghost Q in the tests, for no gain in what is tested.
 package Combination_Sum_II with SPARK_Mode => On is
    subtype Target is Integer range 0 .. 30;
    subtype Combination_Count is Natural range 0 .. 2 ** 30;

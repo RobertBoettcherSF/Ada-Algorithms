@@ -5,6 +5,14 @@ pragma Ada_2022;
 --  one copy of X is taken, the other copies can be taken for free, so the
 --  answer is the best total of Points (X) = X * (copies of X) over a set of
 --  values with no two adjacent. Arrays hold up to 100 numbers in 1 .. 100.
+--
+--  Why 100 numbers in 1 .. 100: overflow allows much more. The proved bound
+--  is Score <= (number of values) * (largest value * length), which fits
+--  Natural for values up to 100 and length up to 214_748. The limit is the
+--  run-time check of the ghost contracts in the tests: the loop invariant
+--  recomputes Weight for every value at every step, O (values * length ** 2)
+--  per call (about 5 * 10 ** 5 operations at 100 x 100), and the tests make
+--  thousands of calls. 100 x 100 keeps make test at a few seconds.
 package Delete_And_Earn with SPARK_Mode => On is
    subtype Number is Positive range 1 .. 100;
    subtype Index is Positive range 1 .. 100;
