@@ -1,6 +1,7 @@
 pragma Ada_2022;
 pragma SPARK_Mode (Off);
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Assertions;
 with Path_Sum; use Path_Sum;
 with Own_Checks;
 procedure Tests is
@@ -37,6 +38,63 @@ begin
    then
       raise Program_Error with "right chain";
    end if;
+   --  Links that would not make a tree are rejected by Set_Node's
+   --  precondition: a self-loop, a two-node cycle, a three-node cycle, a
+   --  child shared by two parents, and the same child on both sides.
+   declare
+      procedure Rejects (Label : String; Setup : access procedure (X : in out Tree)) is
+         X : Tree := Empty;
+      begin
+         Setup (X);
+         Put_Line ("FAIL " & Label & ": Set_Node accepted a link that is not a tree");
+         raise Program_Error with Label;
+      exception
+         when Ada.Assertions.Assertion_Error => null;
+      end Rejects;
+      procedure Self_Loop (X : in out Tree) is
+      begin
+         Set_Node (X, 4, 1, 4, 0);
+      end Self_Loop;
+      procedure Two_Cycle (X : in out Tree) is
+      begin
+         Set_Node (X, 1, 1, 2, 0);
+         Set_Node (X, 2, 1, 0, 1);
+      end Two_Cycle;
+      procedure Three_Cycle (X : in out Tree) is
+      begin
+         Set_Node (X, 5, 1, 9, 0);
+         Set_Node (X, 9, 1, 0, 2);
+         Set_Node (X, 2, 1, 5, 0);
+      end Three_Cycle;
+      procedure Shared (X : in out Tree) is
+      begin
+         Set_Node (X, 1, 1, 3, 0);
+         Set_Node (X, 2, 1, 0, 3);
+      end Shared;
+      procedure Both_Sides (X : in out Tree) is
+      begin
+         Set_Node (X, 1, 1, 3, 3);
+      end Both_Sides;
+      Y : Tree := Empty;
+   begin
+      Rejects ("self-loop", Self_Loop'Access);
+      Rejects ("two-node cycle", Two_Cycle'Access);
+      Rejects ("three-node cycle", Three_Cycle'Access);
+      Rejects ("shared child", Shared'Access);
+      Rejects ("same child twice", Both_Sides'Access);
+      --  Re-setting a node may move its children; children may be set
+      --  before their parent, and node numbers need not follow the shape.
+      Set_Node (Y, 7, 3, 0, 0);
+      Set_Node (Y, 2, 1, 7, 0);
+      Set_Node (Y, 2, 1, 0, 7);
+      Set_Node (Y, 5, 1, 2, 0);
+      if not Has_Path_Sum (Y, 5, 5) or else Left_Child (Y, 2) /= 0
+        or else Right_Child (Y, 2) /= 7
+      then
+         raise Program_Error with "re-set links";
+      end if;
+   end;
+
    Own_Checks;
    Put_Line ("Path Sum: PASS");
 end Tests;
