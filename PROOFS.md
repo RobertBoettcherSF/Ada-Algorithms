@@ -2214,7 +2214,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Slowsort | yes | yes | yes | yes | yes | 0 | 1 | proven | 187 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Slowsort |  |
 | sorting/SPARK4/Ada-SPARK-Smoothsort | yes | yes | yes | yes | yes | 0 | 5 | proven | 205 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Smoothsort |  |
 | sorting/SPARK4/Ada-SPARK-Sort-Merge-Join | yes | yes | yes | yes | yes | 0 | 0 | proven | 310 (withdrawn: Post proves trivial body empty, see contract_scan.csv) |  | sorting/Ada/Sort-Merge-Join |  |
-| sorting/SPARK4/Ada-SPARK-Sorted-List | yes | yes | yes | yes | yes | 0 | 3 | proven | 328 (withdrawn: Post proves trivial body drop_last; Post does not keep the other items, see contract_scan.csv) |  | sorting/Ada/Sorted-List |  |
+| sorting/SPARK4/Ada-SPARK-Sorted-List | yes | yes | yes | yes | yes | 0 | 3 | proven | 405 (restored) |  | sorting/Ada/Sorted-List |  |
 | sorting/SPARK4/Ada-SPARK-Spaghetti-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 219 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Spaghetti-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Stooge-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 189 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Stooge-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Strand-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 314 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Strand-Sort |  |
