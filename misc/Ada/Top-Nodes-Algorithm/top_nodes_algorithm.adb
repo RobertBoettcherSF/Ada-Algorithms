@@ -3,7 +3,7 @@ package body Top_Nodes_Algorithm is
    procedure Initialize (Cal : in out Calendar) is
    begin
       Cal.Current_Start := 0;
-      Cal.Nodes := (others => (Max_Child_Q => 0, Top_Node_Res => 0));
+      Cal.Nodes := (others => (others => (Max_Child_Q => 0, Top_Node_Res => 0)));
       Cal.Active_Head := 0;
       Cal.Last_ID := 1;
       
@@ -21,13 +21,13 @@ package body Top_Nodes_Algorithm is
       Right : constant Positive := 2 * Node_Idx + 1;
       Q_Left, Q_Right : Resource_Amount;
    begin
-      Q_Left  := Cal.Nodes(Left).Max_Child_Q + Cal.Nodes(Left).Top_Node_Res;
-      Q_Right := Cal.Nodes(Right).Max_Child_Q + Cal.Nodes(Right).Top_Node_Res;
+      Q_Left  := Cal.Nodes((Left - 1) / Cal.Capacity, (Left - 1) mod Cal.Capacity + 1).Max_Child_Q + Cal.Nodes((Left - 1) / Cal.Capacity, (Left - 1) mod Cal.Capacity + 1).Top_Node_Res;
+      Q_Right := Cal.Nodes((Right - 1) / Cal.Capacity, (Right - 1) mod Cal.Capacity + 1).Max_Child_Q + Cal.Nodes((Right - 1) / Cal.Capacity, (Right - 1) mod Cal.Capacity + 1).Top_Node_Res;
       
       if Q_Left > Q_Right then
-         Cal.Nodes(Node_Idx).Max_Child_Q := Q_Left;
+         Cal.Nodes((Node_Idx - 1) / Cal.Capacity, (Node_Idx - 1) mod Cal.Capacity + 1).Max_Child_Q := Q_Left;
       else
-         Cal.Nodes(Node_Idx).Max_Child_Q := Q_Right;
+         Cal.Nodes((Node_Idx - 1) / Cal.Capacity, (Node_Idx - 1) mod Cal.Capacity + 1).Max_Child_Q := Q_Right;
       end if;
    end Update_Node;
 
@@ -46,9 +46,9 @@ package body Top_Nodes_Algorithm is
       -- Node entirely covers requested span: it is a "top-node"
       if Req_L <= Node_L and then Node_R <= Req_R then
          if Is_Add then
-            Cal.Nodes(Node_Idx).Top_Node_Res := Cal.Nodes(Node_Idx).Top_Node_Res + Amount;
+            Cal.Nodes((Node_Idx - 1) / Cal.Capacity, (Node_Idx - 1) mod Cal.Capacity + 1).Top_Node_Res := Cal.Nodes((Node_Idx - 1) / Cal.Capacity, (Node_Idx - 1) mod Cal.Capacity + 1).Top_Node_Res + Amount;
          else
-            Cal.Nodes(Node_Idx).Top_Node_Res := Cal.Nodes(Node_Idx).Top_Node_Res - Amount;
+            Cal.Nodes((Node_Idx - 1) / Cal.Capacity, (Node_Idx - 1) mod Cal.Capacity + 1).Top_Node_Res := Cal.Nodes((Node_Idx - 1) / Cal.Capacity, (Node_Idx - 1) mod Cal.Capacity + 1).Top_Node_Res - Amount;
          end if;
          return;
       end if;
@@ -106,7 +106,7 @@ package body Top_Nodes_Algorithm is
       Max_Val, V1, V2 : Resource_Amount := 0;
    begin
       if Req_L <= Node_L and then Node_R <= Req_R then
-         return Cal.Nodes(Node_Idx).Max_Child_Q + Cal.Nodes(Node_Idx).Top_Node_Res;
+         return Cal.Nodes((Node_Idx - 1) / Cal.Capacity, (Node_Idx - 1) mod Cal.Capacity + 1).Max_Child_Q + Cal.Nodes((Node_Idx - 1) / Cal.Capacity, (Node_Idx - 1) mod Cal.Capacity + 1).Top_Node_Res;
       end if;
       
       if Req_L <= Mid then
@@ -120,7 +120,7 @@ package body Top_Nodes_Algorithm is
          end if;
       end if;
       
-      return Max_Val + Cal.Nodes(Node_Idx).Top_Node_Res;
+      return Max_Val + Cal.Nodes((Node_Idx - 1) / Cal.Capacity, (Node_Idx - 1) mod Cal.Capacity + 1).Top_Node_Res;
    end Query_Range;
 
    function Query_Ranges

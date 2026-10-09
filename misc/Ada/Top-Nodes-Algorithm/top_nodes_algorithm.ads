@@ -7,7 +7,12 @@ package Top_Nodes_Algorithm is
    -- A bounded, deterministic Calendar.
    -- Capacity is the number of elementary periods 'n' in the sliding window.
    -- Max_Reservations defines the upper bound of concurrent active reservations.
-   type Calendar (Capacity : Positive; Max_Reservations : Positive) is tagged private;
+   --  Bounds on the discriminants: the node and reservation arrays are
+   --  sized from them (4 * Capacity nodes), so they must stay allocatable.
+   subtype Capacity_Range is Positive range 1 .. 1_000_000;
+   subtype Reservation_Count is Positive range 1 .. 1_000_000;
+
+   type Calendar (Capacity : Capacity_Range; Max_Reservations : Reservation_Count) is tagged private;
 
    -- Initializes or resets the calendar to an empty state.
    procedure Initialize (Cal : in out Calendar);
@@ -62,10 +67,10 @@ private
 
    -- Segment trees bounded natively require max 4 * N nodes to guarantee space.
    -- Use a large enough constant for the node array
-   Max_Capacity_Constant : constant Positive := 1000;
-   Max_Reservations_Constant : constant Positive := 1000;
    
-   type Node_Array is array (1 .. 4 * Max_Capacity_Constant) of Tree_Node;
+   --  Segment tree nodes 1 .. 4 * Capacity, stored as 4 rows of Capacity
+   --  (a discriminant must appear alone in a constraint)
+   type Node_Array is array (Natural range <>, Positive range <>) of Tree_Node;
    type Optional_ID is new Natural; -- 0 represents Null
 
    type Reservation_Record is record
@@ -77,16 +82,16 @@ private
       Next       : Optional_ID := 0;
    end record;
 
-   type Reservation_Array is array (1 .. Max_Reservations_Constant) of Reservation_Record;
+   type Reservation_Array is array (Positive range <>) of Reservation_Record;
 
-   type Calendar (Capacity : Positive; Max_Reservations : Positive) is tagged record
+   type Calendar (Capacity : Capacity_Range; Max_Reservations : Reservation_Count) is tagged record
       Current_Start : Time_Point := 0;
       
       -- Perfect binary tree representation
-      Nodes         : Node_Array := (others => (Max_Child_Q => 0, Top_Node_Res => 0));
+      Nodes         : Node_Array (0 .. 3, 1 .. Capacity) := (others => (others => (Max_Child_Q => 0, Top_Node_Res => 0)));
       
       -- Doubly linked list tracking in contiguous memory for fast boundary iteration
-      Reservations  : Reservation_Array;
+      Reservations  : Reservation_Array (1 .. Max_Reservations);
       Active_Head   : Optional_ID := 0;
       Last_ID       : Reservation_ID := 1;
    end record;
