@@ -1,9 +1,20 @@
-pragma Ada_2022;
+pragma SPARK_Mode (On);
 
-package body Permutations with SPARK_Mode => On is
-   function Count_Permutations (Items : Item_Count) return Permutation_Count is
+--  Scaffold for the failing test: the old N! table, and a Next_Permutation
+--  that always wraps around.
+package body Permutations is
+   function Identity (N : Length) return Perm is
+     ((N => N, Order => [for K in 1 .. N => K], Place => [for K in 1 .. N => K]));
+
+   procedure Next_Permutation (P : in out Perm; Found : out Boolean) is
    begin
-      case Items is
+      P := Identity (P.N);
+      Found := False;
+   end Next_Permutation;
+
+   function Count (N : Count_Range) return Factorial_Value is
+   begin
+      case N is
          when 0 => return 1;
          when 1 => return 1;
          when 2 => return 2;
@@ -18,5 +29,5 @@ package body Permutations with SPARK_Mode => On is
          when 11 => return 39_916_800;
          when 12 => return 479_001_600;
       end case;
-   end Count_Permutations;
+   end Count;
 end Permutations;
