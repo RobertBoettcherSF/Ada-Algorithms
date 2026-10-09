@@ -20,12 +20,12 @@ is
       Output : out Label_Grid;
       Count  : out Label_Id)
      with
-       Global => null,
-       Post   => Count <= Max_Rows * Max_Cols;
+       Global => null;
 
    function Component_Count (Labels : Label_Grid) return Label_Id
      with
-       Global => null,
-       Post   => Component_Count'Result <= Max_Rows * Max_Cols;
+       Global => null;
+   --  (Count <= Max_Rows * Max_Cols holds by the subtype Label_Id; the
+   --  former Posts stating it were vacuous and GNAT 12 warned about them.)
 
 end Connected_Component_Labeling;
