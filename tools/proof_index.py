@@ -489,6 +489,12 @@ for _x in _csv(os.path.join(a.root, 'tools', 'vv', 'handover.csv')):
             _f = _f.strip()
             if '/' in _f and not _f.startswith('('):
                 _handover_gap[_f].append(_x.get('id', ''))
+# clamp / saturation code found by tools/vv/clamp_scan.py (text scan; --proof-warnings cannot see a branch that is
+# dead only from the callers' context): a hit not reviewed reachable = yes (unreviewed or dead) holds the folder out.
+_clamp_open = collections.defaultdict(list)
+for _x in _csv(os.path.join(a.root, 'tools', 'vv', 'clamp_scan.csv')):
+    if (_x.get('reachable') or '').strip().lower() != 'yes':
+        _clamp_open[_x.get('folder', '')].append(_x.get('file_line', ''))
 def drop_reasons(r):
     out = []
     if r['build_gnat14'] != 'yes': out.append('build fails GNAT 14')
@@ -530,6 +536,7 @@ def drop_reasons(r):
     if r['folder'] in _withdrawn_ks: out.append('functional claim withdrawn (contract_scan)')
     if r['folder'] in _partial_ks: out.append('partial functional claim (contract_scan)')
     if _handover_gap.get(r['folder']): out.append('open handover gap')
+    if _clamp_open.get(r['folder']): out.append('clamp unreviewed or dead (clamp_scan)')
     return [x for x in out if x]
 # known_answer_source (room rule 2026-10-08 19:25): where the expected values come from.
 #   own          own tests (tools/vv/own_tests.csv, the sweep's tests): brute force or independent properties

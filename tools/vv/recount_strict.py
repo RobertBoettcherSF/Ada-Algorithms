@@ -97,6 +97,7 @@ withdrawn = folder_set(os.path.join(VV, 'checker_scan.csv'), yes('withdraw_funct
 partial = folder_set(os.path.join(VV, 'contract_scan.csv'),
                      lambda x: (x.get('verdict') or '').strip().lower().startswith('partial') and (x.get('status') or '').strip().lower() not in ('fixed', 'closed'))
 demo = folder_set(os.path.join(VV, 'flagship_status.csv'), yes('demo'))
+clamp_open = folder_set(os.path.join(VV, 'clamp_scan.csv'), lambda x: (x.get('reachable') or '').strip().lower() != 'yes')
 # open handover row about a gap in the folder (categories functional_gap / dead_code / clamp)
 handover_gap = set()
 for x in rows(os.path.join(VV, 'handover.csv')):
@@ -207,6 +208,7 @@ def failures(fid):
         f.append('harness cannot fail')
     if fid in withdrawn or fid in partial: f.append('functional claim withdrawn/partial')
     if fid in handover_gap: f.append('open handover gap')
+    if fid in clamp_open: f.append('clamp unreviewed or dead')
     return f
 
 if A.why:

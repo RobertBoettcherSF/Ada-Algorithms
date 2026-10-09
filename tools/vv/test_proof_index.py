@@ -29,6 +29,7 @@ CASES = {
     'Index-Pinned':   ('', ['index not independent']),
     'Index-Unread':   ('', ['index independence not measured']),
     'Handover-Gap':   ('', ['open handover gap']),
+    'Clamp-Dead':     ('', ['clamp unreviewed or dead (clamp_scan)']),
 }
 
 def w(path, text):
@@ -100,6 +101,9 @@ def build(root):
          [['H1', 'functional_gap', fids['Handover-Gap'] + '; misc/SPARK2/Ada-SPARK-Other', 'open'],
           ['H2', 'dead_code', fids['Good'], 'closed (fixed)'],
           ['H3', 'unproved_check', fids['Good'], 'open']])
+    wcsv(os.path.join(vv, 'clamp_scan.csv'), ['folder', 'file_line', 'kind', 'helper', 'text', 'callers', 'reachable', 'evidence'],
+         [[fids['Clamp-Dead'], 'x.adb:7', 'attr_return', 'Add', "return T'Last;", 'x.adb:20', 'unknown', ''],
+          [fids['Good'], 'x.adb:9', 'attr_return', 'Wrap', "P := I'First;", 'x.adb:30', 'yes', 'wrap-around, reached']])
     return res, logs, fids
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

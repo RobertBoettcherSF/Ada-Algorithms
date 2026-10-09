@@ -23,9 +23,9 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `status` | open / worked around / pending, and whether the folder changed after the recorded run |
 | `source` | where the data came from |
 
-Open rows of category `functional_gap`, `dead_code` or `clamp` hold their folders out of training_ready (`tr_drop` = `open handover gap`, decision 2026-10-09 ~17:36) until the row is closed.
+Open rows of category `functional_gap`, `dead_code` or `clamp` (one named folder per path) hold their folders out of training_ready (`tr_drop` = `open handover gap`, decision 2026-10-09 ~17:36) until the row is closed.
 
-## Categories (146 rows)
+## Categories (151 rows)
 
 | Category | Rows | What it is |
 |---|---|---|
@@ -38,7 +38,8 @@ Open rows of category `functional_gap`, `dead_code` or `clamp` hold their folder
 | `annotated_check` | 2 (closed) | Lemke-Howson: overflow checks were hidden by `pragma Annotate (GNATprove, Intentional, ...)` at lemke_howson.adb:45 and :147; reviewed 2026-10-09 09:57 (Robert) as unjustified (a prover limit, `tools/vv/proof_escapes_review.csv`). Closed the same day by fixing it in code (sweep B): exact Big_Integer fraction-free pivoting, both Annotates removed, all 247 checks proved by make prove, --level=4 and the Silver command |
 | `proof_timeout` | 2 | Phong-Shading, Orbital-Mechanics: the 7200 s cap was hit before any check was reported |
 | `functional_gap` | 5 | Bitonic-Sorter: the 0-1 principle and the half-cleaner lemma are missing, and sortedness is masked by Bubble_Finish; Lemke-Howson (H096, target Platinum): the functional claim is partial: (Status = Found) = Is_Nash is proved (a Found result is a certified equilibrium; a body that never reports Found also proves it), but not that Status is always Found; termination rests on the Max_Steps loop bound, and the other exits are explicit statuses (Step_Cap_Reached, No_Pivot_Row, Check_Failed). Tested on every starting label, degenerate games and 14,000 seeded random calls up to 4 x 4 (most pivots 19, bound C (M + N, M) ** 2); H142 String-Compression (Compress) and H143 Convex-Hull-Graham (Scan): Post must state whether entries past returned length are unchanged or unspecified (score138 `unspecified output` survivors; no spec change yet); H145 LFU-Cache-Lite: stored values are never readable |
-| `dead_code` | 1 | H146 Maximum-Subarray / Maximum-Product-Subarray: dead saturation branches (clamps that can never fire), found by score138 equivalents |
+| `dead_code` | 5 | dead clamps / saturation branches that can never fire: H146 Maximum-Subarray / Maximum-Product-Subarray (being fixed), H148 Coin-Change-II, H149 Fibonacci-DP, H150 Knapsack-01, H151 Longest-Palindromic-Subsequence (found by tools/vv/clamp_scan.py + review) |
+| `clamp` | 1 | H147: 714 unreviewed clamp-scan hits in 277 folders (none training-ready); each folder stays out until reviewed |
 | `toolchain_limit` | 1 | cvc5 under gnatprove's `--prenex-quant=none` returns "incomplete" on quantified frames over 2D arrays |
 | `proof_escape` | 1 | Bump-Arena: the fallback after the Insert loop is not proved unreachable |
 | `placeholder` | 18 | H111-H127: the sweep B placeholder list. These folders are answer tables, fixed layouts or hidden stubs that need a real algorithm (iterator stubs, Super-Ugly-Number-Stub, Unique-BSTs, Count-Primes, Word-Break-II, Restore-IP-Addresses, Convert-Sorted-Array-To-BST, Connected-Component-Labeling, Topological-Sort-Lite, ...); H144: sorting/SPARK4/Ada-SPARK-Radix-Sort is a single counting-sort pass (keys 0..255, Base=256) under a radix name — needs real multi-pass LSD with per-pass stability |
