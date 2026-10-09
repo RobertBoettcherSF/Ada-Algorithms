@@ -1,0 +1,4 @@
+project Binary_Search_Upper_Bound_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("binary_search_upper_bound.ads", "binary_search_upper_bound.adb");
+end Binary_Search_Upper_Bound_Proof;
