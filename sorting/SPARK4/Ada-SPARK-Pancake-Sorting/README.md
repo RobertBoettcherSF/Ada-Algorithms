@@ -24,7 +24,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Pancake-Sorting](ht
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * `Flip_Sequence` is a fixed array `1 .. Max_Flips` with `Max_Flips = 2\cdot Max_N` (sibling uses an unconstrained array).
 * Nested `Place_Max` plus `pragma Loop_Invariant` so the scan, flips, and outer suffix growth are discharged at Level 4.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition (a simple ghost permutation lemma is not required here).
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`, both `Sort` procedures): every value occurs as often after the sort as before. A ghost count model (`Occ`, `Same_Occ`, swap lemmas) carries the property through `Flip`, `Place_Max` and the loops; `Is_Perm` is also evaluated at run time in the tests.
 
 ## Usage
 * **Build:** `make`
@@ -32,7 +32,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Pancake-Sorting](ht
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 209 assertions pass. Running `make prove` reports `Success: all checks proved (465 checks).`
+When you run `make test`, you will see all 212 assertions pass. Running `make prove` reports `Success: all checks proved (577 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, OEIS $(1,3,2)$, signed domain, duplicates.
@@ -53,5 +53,5 @@ When you run `make test`, you will see all 209 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * `Flip` uses two-pointer loop invariants establishing the full prefix reverse; outer loops grow a sorted suffix via `Place_Max` with partition predicates.
-* **GNATprove Level 4:** `Success: all checks proved (465 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (577 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

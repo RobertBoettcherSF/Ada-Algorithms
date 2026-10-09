@@ -8,9 +8,9 @@
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling has Max_Length = 10_000 and raises on oversize / bad K; this
 --  port takes any A'First in 1 .. Max_N (flip arguments stay prefix
---  lengths counted from A'First) and uses Pre => In_Bounds (A). Full multiset / permutation equality is verified
---  by tests rather than claimed as a Level-4 postcondition (sortedness is
---  proved). Flip_Sequence uses fixed static storage (1 .. Max_Flips).
+--  lengths counted from A'First) and uses Pre => In_Bounds (A). Both Sort
+--  procedures prove sortedness and permutation (Is_Perm: every value
+--  occurs equally often before and after). Flip_Sequence uses fixed static storage (1 .. Max_Flips).
 --
 --  Reference: https://en.wikipedia.org/wiki/Pancake_sorting
 
@@ -94,6 +94,36 @@ is
    --  Do not `with` sibling Ada-* packages.
 
    ---------------------------------------------------------------------------
+   -- Permutation (multiset) model, used by the Post of Sort
+   ---------------------------------------------------------------------------
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
+   with
+     Global             => null,
+     Pre                => In_Bounds (A) and then Last <= A'Last,
+     Post               => Occ'Result <= Last,
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (A'First .. Last) equal V.
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often. A value found in neither array counts 0 in both, so comparing
+   --  the counts of the values of A and of B covers every value.
+
+   ---------------------------------------------------------------------------
    -- Prefix reversal
    ---------------------------------------------------------------------------
 
@@ -107,7 +137,8 @@ is
            (for all I in A'First .. A'First + K - 1 =>
               A (I) = A'Old (2 * A'First + K - 1 - I))
          and then
-           (for all I in A'First + K .. A'Last => A (I) = A'Old (I));
+           (for all I in A'First + K .. A'Last => A (I) = A'Old (I))
+         and then Is_Perm (A, A'Old);
    --  Reverse the length-K prefix A (A'First .. A'First + K − 1).
    --  K = 0 or 1 is a no-op. Requires K ≤ A'Length (contract replaces
    --  Invalid_Argument).
@@ -122,7 +153,7 @@ is
          In_Bounds (A)
          and then Count <= Max_Flips
          and then (for all I in 1 .. Count => Flips (I) <= A'Length),
-       Post   => In_Bounds (A);
+       Post   => In_Bounds (A) and then Is_Perm (A, A'Old);
    --  Apply Flips (1 .. Count) in order. Count = 0 is a no-op.
 
    ---------------------------------------------------------------------------
@@ -133,11 +164,10 @@ is
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Ascending classic pancake sort (prefix reversals, ≤ 2n − 3 flips).
    --  Empty and singleton arrays are no-ops.
-   --  Post proves sortedness; multiset / permutation equality is
-   --  checked by the test suite (not claimed here at Level 4).
+   --  Post proves sortedness and permutation (Is_Perm).
 
    procedure Sort
      (A     : in out Element_Array;
@@ -149,6 +179,7 @@ is
        Post   =>
          In_Bounds (A)
          and then Is_Sorted (A)
+         and then Is_Perm (A, A'Old)
          and then Count <= Classic_Flip_Bound (A'Length)
          and then Count <= Max_Flips
          and then (for all I in 1 .. Count => Flips (I) in 2 .. A'Length);

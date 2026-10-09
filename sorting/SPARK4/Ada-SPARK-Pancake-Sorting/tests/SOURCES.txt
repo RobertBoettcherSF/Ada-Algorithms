@@ -1,0 +1,18 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Nothing is copied from the program's output or from third-party test suites.
+
+tests.adb, original sections: expected outputs are the inputs in
+ascending order, computed by the test's own Reference_Sort (an insertion
+sort written in the test) or written by hand for small inputs; flip
+counts are checked against the classic bound 2n - 3. Permutation is
+judged by Is_Permutation (sort both copies with Reference_Sort, compare
+element by element).
+
+Section "Is_Perm (Post) against sorted copies" (agent A3, 2026-10-09,
+permutation Post): every pair of arrays of length 0 .. 4 over -1 .. 1 at
+origins 1 and 7 (14,762 pairs). The Post predicate Is_Perm (counts per
+value) must equal Is_Permutation (sorted copies) on every pair. Two hand
+cases: an all-zeros result and equal value sets with different counts
+must be rejected.
