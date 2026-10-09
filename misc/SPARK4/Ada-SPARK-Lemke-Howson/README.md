@@ -59,9 +59,10 @@ function Find_Equilibrium (A, B : Payoff_Matrix; Initial_Drop : Label_Type := 1)
 
 ## Verification
 * Proof (gnatprove 16.1.0): absence of run-time errors and the
-  postcondition, 258 checks, all proved by `make prove`; also at
-  `--level=4` and in silver mode with the repository's step limits
-  (tools/vv/prove_settings.txt). No `pragma Assume` or `Annotate`.
+  postcondition, 258 checks, all proved by `make prove` (level 2) on the
+  current code. Level 4 and the silver-mode run with the repository's
+  step limits have not been re-run on this version yet. No
+  `pragma Assume` or `Annotate`.
 * Tests (tests.adb): an own exact best-response check for every starting
   label, and the hand-worked equilibria where they are known; degenerate
   games where the old floating-point version returned a non-equilibrium;
