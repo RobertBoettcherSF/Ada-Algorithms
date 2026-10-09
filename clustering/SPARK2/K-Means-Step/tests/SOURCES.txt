@@ -1,0 +1,18 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the first three steps are the original cases. Hand-worked: 10
+(4 from 6, 88 from 98) joins cluster 1, (6 * 2 + 10) / 3 = 7; 60 (53 from
+7, 38 from 98) joins cluster 2, (98 + 60) / 2 = 79; 43 is 36 from both 7
+and 79, a tie, so cluster 1, (7 * 3 + 43) / 4 = 16; Nearest at and around
+ties (50 between 40 and 60; 29, 30, 31 between 40 and 20).
+
+own_checks.adb: exhaustive. Nearest for every P, C1, C2 in 0 .. 100
+against abs (P - C1) <= abs (P - C2). Step for every P, C in 0 .. 100 and
+N in 0 .. 7, with the other centroid at the far end (0 or 100), in both
+cluster positions: the new centroid must be the largest M with
+M * (N + 1) <= C * N + P (found by counting up, no division), the count
+N + 1, and the other cluster unchanged.
