@@ -1,5 +1,7 @@
 pragma Ada_2022;
+with Ada.Text_IO;
 with Bounded_String_Builder;
+with Own_Checks;
 
 --  Two instantiations teach the generics idea: same algorithm, different
 --  Capacity formal objects (Wikibooks Ada Programming/Generics / RM 12).
@@ -89,7 +91,54 @@ procedure Tests is
       pragma Assert (not Ok);
       pragma Assert (Large.Length (B) = 60);
    end Check_Large;
+   --  Hand-worked edge cases (V&V sweep, agent A3).
+   procedure Check_Edges is
+      B    : Small.Builder;
+      Ok   : Boolean;
+      Buf  : String (1 .. 16);
+      Last : Natural;
+   begin
+      --  A string that fills the builder exactly is accepted.
+      Small.Clear (B);
+      Small.Append (B, "abcdef", Ok);
+      Small.Append (B, "ghijklmnop", Ok);  -- 6 + 10 = 16
+      pragma Assert (Ok and then Small.Length (B) = 16);
+      pragma Assert (Small.Equals (B, "abcdefghijklmnop"));
+      Small.Append (B, 'q', Ok);
+      pragma Assert (not Ok and then Small.Length (B) = 16);
+      Small.Append (B, "", Ok);  -- nothing to add still fits
+      pragma Assert (Ok and then Small.Length (B) = 16);
+
+      --  Single digits, ten-digit values and both ends of Integer.
+      Small.Clear (B);
+      Small.Append_Integer (B, 1, Ok);
+      Small.Append_Integer (B, 0, Ok);
+      Small.Append_Integer (B, -1, Ok);
+      pragma Assert (Ok and then Small.Equals (B, "10-1"));
+      Small.Clear (B);
+      Small.Append_Integer (B, 1_000_000_000, Ok);
+      pragma Assert (Ok and then Small.Equals (B, "1000000000"));
+      Small.Clear (B);
+      Small.Append_Integer (B, Integer'Last, Ok);
+      pragma Assert (Ok and then Small.Equals (B, "2147483647"));
+      Small.Clear (B);
+      Small.Append_Integer (B, Integer'First, Ok);
+      pragma Assert (Ok and then Small.Equals (B, "-2147483648"));
+      Small.Append_Integer (B, -99_999, Ok);  -- 11 + 6 = 17 > 16
+      pragma Assert (not Ok and then Small.Length (B) = 11);
+      Small.Append_Integer (B, 99_999, Ok);  -- 11 + 5 = 16
+      pragma Assert (Ok and then Small.Equals (B, "-214748364899999"));
+
+      --  An empty slice gives Last = 0.
+      Small.Slice (B, 4, 3, Buf, Last);
+      pragma Assert (Last = 0);
+      Small.Slice (B, 12, 16, Buf, Last);
+      pragma Assert (Last = 5 and then Buf (1 .. 5) = "99999");
+   end Check_Edges;
 begin
    Check_Small;
    Check_Large;
+   Check_Edges;
+   Own_Checks;
+   Ada.Text_IO.Put_Line ("bounded string builder: PASS");
 end Tests;

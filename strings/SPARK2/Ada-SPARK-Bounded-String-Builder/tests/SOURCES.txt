@@ -1,0 +1,22 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: Check_Small and Check_Large are the original cases (strings
+written by hand). Check_Edges (hand-worked): an append that fills the
+16-character builder exactly is accepted and one more character is not;
+an empty append always fits; decimal text of 1, 0, -1, 1_000_000_000,
+Integer'Last = 2147483647 and Integer'First = -2147483648; 11 + 6 > 16
+characters fails and leaves the length at 11, 11 + 5 = 16 fits; an empty
+slice gives Last = 0.
+
+own_checks.adb: model-based. Seeded random operation sequences (seed =
+FNV-1a of the folder name, AA_SEED overrides it) on capacities 1, 11, 16
+and 64 are applied both to the builder and to a plain String model; after
+each step Length, every Element, Equals (equal, one character changed,
+shorter, longer), To_String and a random Slice are compared with the
+model. Expected Append_Integer text is Integer'Image from the Ada runtime
+(leading space removed for non-negative values); expected Status is
+"the text fits in Capacity - Length".
