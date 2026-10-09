@@ -160,7 +160,8 @@ procedure Own_Checks is
       P    : array (1 .. 5) of Positive := [others => 1];
       Bit  : array (1 .. 5, 1 .. 5) of Mask := [others => [others => 0]];
       NB   : Natural := 0;
-      H    : constant access Graph := new Graph'[others => [others => False]];
+      type Graph_Access is access Graph;
+      H    : constant Graph_Access := new Graph'[others => [others => False]];
       O, Cyc : Order_Array;
       Ok   : Boolean;
       Left : Vertex_Set;

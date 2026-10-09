@@ -31,12 +31,26 @@ package Topological_Sort_Lite with SPARK_Mode => On is
       and then (for all V in 1 .. N =>
                   (if Left (V) then (for some U in 1 .. N => Left (U) and then Edges (U, V)))));
 
+   --  Cycle (1 .. Len) is a cycle: distinct vertices of 1 .. N, each with
+   --  an edge to the next and the last with an edge back to the first.
+   function Is_Cycle (Edges : Graph; N : Vertex; Cycle : Order_Array; Len : Natural) return Boolean is
+     (Len in 1 .. N
+      and then (for all I in 1 .. Len => Cycle (I) <= N)
+      and then (for all J in 1 .. Len => (for all I in 1 .. J - 1 => Cycle (I) /= Cycle (J)))
+      and then (for all I in 1 .. Len - 1 => Edges (Cycle (I), Cycle (I + 1)))
+      and then Edges (Cycle (Len), Cycle (1)));
+
    --  Repeatedly take the smallest remaining vertex with no incoming edge
-   --  from the remaining ones. Ok and a valid Order, or not Ok and Left is
-   --  a cycle certificate.
+   --  from the remaining ones. Ok and a valid Order, or not Ok, Left is a
+   --  cycle certificate and Cycle (1 .. Cycle_Len) a cycle inside it (found
+   --  by walking back along incoming edges inside Left until a vertex
+   --  repeats).
    procedure Topo_Sort
-     (Edges : Graph; N : Vertex; Order : out Order_Array; Ok : out Boolean; Left : out Vertex_Set)
+     (Edges : Graph; N : Vertex; Order : out Order_Array; Ok : out Boolean; Left : out Vertex_Set;
+      Cycle : out Order_Array; Cycle_Len : out Natural)
      with Global => null,
           Post   => (if Ok then Valid_Order (Edges, Order, N)
-                     else Cycle_Certificate (Edges, N, Left));
+                     else Cycle_Certificate (Edges, N, Left)
+                          and then Is_Cycle (Edges, N, Cycle, Cycle_Len)
+                          and then (for all I in 1 .. Cycle_Len => Left (Cycle (I))));
 end Topological_Sort_Lite;
