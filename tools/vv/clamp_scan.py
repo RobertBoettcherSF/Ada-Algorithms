@@ -11,6 +11,9 @@ Patterns (library sources only; tests.adb, own_checks.adb, tests/ and proof-only
                 `:=` of a literal or T'Last / T'First (cap or floor on a range test)
   min_max_clip  T'Min / T'Max / Integer'Min ... with a literal or T'Last / T'First argument (clipping a result)
   saturating    a subprogram whose name says it saturates (Sat_*, *_Sat, Saturat*, Clamp*, Clip*)
+  guarded_increment  inline `if V < bound then` / `if V <= T'Last - E then` followed within 3 lines by
+                `V := V + ...` (a stop-at-the-bound counter or a skip-on-overflow add; added 2026-10-09 ~19:50
+                after batch 6 found dead ones that the other patterns missed: H153, H154)
 Each hit: folder, file:line, helper (enclosing subprogram), callers (other lines in the folder that name the
 helper), reachable (yes / no / unknown), evidence.  Reviews live in tools/vv/clamp_review.csv (folder, file_line,
 reachable, evidence); a hit without a review stays reachable = unknown.  tools/proof_index.py and
@@ -61,6 +64,15 @@ def scan_file(path):
             m2 = re.search(rf"\b(?:if|elsif)\s+[^;]*?(?:>=?|<=?)\s*({VAL})\s*then\s*$", prev, re.I)
             if m2 and re.sub(r'\s', '', m2.group(1)).lower() == v:   # cap / floor: returns the bound it tested
                 hits.append((i, cur, 'const_return', s))
+                continue
+        # guarded_increment: if V < bound then ... V := V + ...
+        m3 = re.match(r"^(?:if|elsif)\s+([A-Za-z]\w*)\s*(<|<=)\s*([^;]+?)\s+then\b", s, re.I)
+        if m3:
+            v = m3.group(1)
+            nxt = ' '.join(x.strip() for x in code[i + 1:i + 4])
+            if re.search(rf"\b{v}\s*:=\s*{v}\s*\+", nxt, re.I) and \
+                    (re.search(r"'Last|'First", m3.group(3)) or re.fullmatch(r"[\w.]+", m3.group(3).strip())):
+                hits.append((i, cur, 'guarded_increment', s + ' ' + nxt[:80]))
                 continue
         # min_max_clip (statement joined up to its ';')
         if re.search(r"'(?:Min|Max)\b", s, re.I):
