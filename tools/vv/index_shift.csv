@@ -437,9 +437,9 @@ hashing/Ada/Tiger-Hash,Tiger_Custom,catalog,catalog,,1,function n_arrays=1 ret=B
 hashing/Ada/SipHash,Hash_64,catalog,catalog,,1,function n_arrays=1 ret=Word64,
 hashing/Ada/SipHash,Hash_128,catalog,catalog,,1,function n_arrays=1 ret=Tag_128,
 hashing/SPARK2/Ada-SPARK-FNV-Hash,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
-hashing/SPARK2/Ada-SPARK-FNV-Hash,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+hashing/SPARK2/Ada-SPARK-FNV-Hash,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
-hashing/SPARK2/Ada-SPARK-Pearson-Hashing,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+hashing/SPARK2/Ada-SPARK-Pearson-Hashing,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 logic/Ada/DPLL-Algorithm,,skipped,skipped,,,"types=['Literal_Array', 'Clause_Array'] but no public subprogram taking them",
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
@@ -2363,13 +2363,13 @@ misc/Ada/rate-monotonic,Is_Harmonic_Task_Set,catalog,catalog,,1,function n_array
 misc/Ada/rate-monotonic,Is_Schedulable_Harmonic_Chains,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/Ada/rate-monotonic,Is_Schedulable_Stochastic,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK2/Ada-SPARK-Adler32,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_32,
-misc/SPARK2/Ada-SPARK-Adler32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+misc/SPARK2/Ada-SPARK-Adler32,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/SPARK2/Ada-SPARK-CRC32,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_32,
-misc/SPARK2/Ada-SPARK-CRC32,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+misc/SPARK2/Ada-SPARK-CRC32,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,Compute,catalog,catalog,,1,function n_arrays=1 ret=Interfaces.Unsigned_16,
-misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/SPARK2/Ada-SPARK-Delta-Encoding,Net_Delta,catalog,catalog,,1,function n_arrays=1 ret=Integer,
-misc/SPARK2/Ada-SPARK-Delta-Encoding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+misc/SPARK2/Ada-SPARK-Delta-Encoding,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,,skipped,skipped,,,types=['Blum_Prime_List'] but no public subprogram taking them,
 misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Differs_By_Single_Swap,catalog,catalog,,1,function n_arrays=1 ret=Boolean,

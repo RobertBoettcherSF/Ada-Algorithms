@@ -1,7 +1,6 @@
 pragma Ada_2022;
 package body CRC32 with SPARK_Mode => On is
    use type Interfaces.Unsigned_32;
-   use type Interfaces.Unsigned_8;
 
    function Compute (Data : Byte_Array) return Interfaces.Unsigned_32 is
       C : Interfaces.Unsigned_32 := 16#FFFF_FFFF#;

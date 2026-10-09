@@ -9,5 +9,5 @@ is
    function Hash (Text : Char_Array) return Hash_Value
      with
        Global => null,
-       Pre => Text'First = 1 and then Text'Last <= Max_Len;
+       Pre => Text'Length <= Max_Len;  --  any Text'First
 end FNV_Hash;

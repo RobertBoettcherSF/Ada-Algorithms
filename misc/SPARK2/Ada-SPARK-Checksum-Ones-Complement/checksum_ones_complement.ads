@@ -7,5 +7,5 @@ package Checksum_Ones_Complement with SPARK_Mode => On is
 
    function Compute (Data : Byte_Array) return Interfaces.Unsigned_16
      with Global => null,
-          Pre => Data'First = 1 and then Data'Last <= Max_Length;
+          Pre => Data'Length <= Max_Length;  --  any Data'First
 end Checksum_Ones_Complement;
