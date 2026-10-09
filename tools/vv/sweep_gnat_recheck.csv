@@ -115,3 +115,5 @@ misc/SPARK2/Ada-SPARK-Fast-Pow,GNAT 14,GNATLS 14.2.0,0,0,fast pow checks passed,
 misc/SPARK2/Ada-SPARK-Fast-Pow,GNAT 12,GNATLS 12.2.0,0,0,fast pow checks passed,9e598a51
 misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,GNAT 14,GNATLS 14.2.0,0,0,letter combinations tests passed,763e10ad
 misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,GNAT 12,GNATLS 12.2.0,0,0,letter combinations tests passed,763e10ad
+misc/SPARK2/Ada-SPARK-Paint-Fence-Lite,GNAT 14,GNATLS 14.2.0,0,0,paint fence tests passed,6cb5816b
+misc/SPARK2/Ada-SPARK-Paint-Fence-Lite,GNAT 12,GNATLS 12.2.0,0,0,paint fence tests passed,6cb5816b

@@ -17,3 +17,4 @@ per-folder,0b4e0523,misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,topup v
 per-folder,9e598a51,misc/SPARK2/Ada-SPARK-Factorial,topup var+higher-order (unseen),20261166,pass,12,12,4,0,0,8,4,4/4,100.0%,GNATMAKE 14.2.0
 per-folder,9e598a51,misc/SPARK2/Ada-SPARK-Fast-Pow,topup var+higher-order (unseen),20261167,pass,200,35,30,0,0,5,30,30/30,100.0%,GNATMAKE 14.2.0
 per-folder,763e10ad,misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,topup var+higher-order (unseen),20261168,pass,900,204,28,2,0,174,30,28/30,93.3%,GNATMAKE 14.2.0
+per-folder,6cb5816b,misc/SPARK2/Ada-SPARK-Paint-Fence-Lite,topup var+higher-order (unseen),20261169,pass,1844,193,28,2,0,163,30,28/30,93.3%,GNATMAKE 14.2.0
