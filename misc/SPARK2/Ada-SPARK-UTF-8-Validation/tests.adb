@@ -77,6 +77,7 @@ procedure Tests is
      [16#00#, 16#41#, 16#7F#, 16#80#, 16#8F#, 16#90#, 16#9F#, 16#A0#, 16#BF#,
       16#C0#, 16#C1#, 16#C2#, 16#DF#, 16#E0#, 16#E1#, 16#EC#, 16#ED#, 16#EE#,
       16#EF#, 16#F0#, 16#F1#, 16#F3#, 16#F4#, 16#F5#, 16#F8#, 16#FE#, 16#FF#];
+   Tail : constant array (1 .. 4) of Byte := [16#7F#, 16#80#, 16#BF#, 16#C0#];
    Count : Natural := 0;
 begin
    Check (Is_Valid ([1 .. 0 => 0]), "empty");
@@ -128,6 +129,22 @@ begin
       end loop;
    end loop;
    Check (Count = 0, " edge-byte 4-byte arrays:" & Count'Image & " differ");
+
+   --  Every 4-byte lead F0 .. FF x every second byte 00 .. FF, with third
+   --  and fourth bytes at the continuation edges and just outside them
+   Count := 0;
+   for B1 in Byte range 16#F0# .. 16#FF# loop
+      for B2 in Byte loop
+         for B3 of Tail loop
+            for B4 of Tail loop
+               if Is_Valid ([B1, B2, B3, B4]) /= Ref ([B1, B2, B3, B4]) then
+                  Count := Count + 1;
+               end if;
+            end loop;
+         end loop;
+      end loop;
+   end loop;
+   Check (Count = 0, " 4-byte leads x all second bytes:" & Count'Image & " differ");
 
    --  Seeded random (seed 20261009): 200,000 arrays of length 0 .. 16, at a
    --  random lower bound; bytes from Edge, from the full range, or built from
