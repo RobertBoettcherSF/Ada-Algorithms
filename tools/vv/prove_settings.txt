@@ -78,3 +78,8 @@ proof_warnings_gnatprove=FSF 16.1.0 (Why3 for gnatprove version 1.8.2+git)
 #   Measured on Selection-Algorithm: the same 2 warnings at --level=0 and --level=2, timeout 1 or
 #   5 s; the bulk warning sweep therefore runs --mode=silver --level=0 -j2 to keep it affordable.
 #   A warning is fixed in code, never suppressed (no pragma Warnings, no --proof-warnings=off).
+#   10:06: the -j1 first pass was stopped with 24 SPARK4 sort folders left (Library-Sort,
+#   Merge-Sort, Odd-Even-Sort had run ~55 min each without finishing; no result recorded for
+#   them). Those 24 folders ran their first and only pass at AA_REPROOF_JOBS=4 (same steps,
+#   provers, level, cap; jobs column = 4, note says so) - the -j value does not change which
+#   VCs prove within --steps, only how long a cvc5-first grind takes. A cap hit at -j4 = stale.
