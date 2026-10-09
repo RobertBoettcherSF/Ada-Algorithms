@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the first three asserts are the original ones. Hand-worked by
+subtracting the smaller number from the larger until one is 0: (7, 0) and
+(0, 0) take 0 steps; (1, 1) takes 1; (5, 3) -> (2, 3) -> (2, 1) -> (1, 1)
+-> (0, 1) takes 4 (either order); (1, 32) and (32, 1) take 32; (32, 32)
+takes 1; (31, 32) -> (31, 1) then 31 more steps = 32; (12, 18) -> (12, 6)
+-> (6, 6) -> (0, 6) = 3; (21, 13) -> (8, 13) -> (8, 5) -> (3, 5) -> (3, 2)
+-> (1, 2) -> (1, 1) -> (0, 1) = 7.
+
+own_checks.adb: every pair in 0 .. 32 against the sum of the quotients of
+Euclid's division algorithm (an independent formula), plus symmetry and
+"equal non-zero numbers take one step".
