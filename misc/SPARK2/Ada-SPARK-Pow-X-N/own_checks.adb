@@ -6,7 +6,8 @@ pragma Ada_2022;
 --    soon as the product leaves Integer (so it never overflows itself);
 --  * naive repeated multiplication in Big_Integer (no overflow at all).
 --  The run-time library's Big_Integers."**" is not used: with GNAT 14.2
---  it gives (-2) ** 2 = -4 and (-3) ** 1 = 3.
+--  and 12.2 a variable V = -2 gives V ** 2 = -4 and V = -3 gives V ** 1 =
+--  3 (not a precedence effect; see tests/big_pow_repro.adb).
 --  Inputs: every X in -300 .. 300 with N in 0 .. 40; seeded random X over
 --  all of Integer with N in 0 .. 40; for every N in 2 .. 31 the largest
 --  R with R ** N <= Integer'Last and the most negative -S with (-S) ** N

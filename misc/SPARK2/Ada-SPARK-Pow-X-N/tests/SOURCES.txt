@@ -21,8 +21,17 @@ default seed is the FNV-1a (32-bit) hash of the folder name folded into
 own references, neither using repeated squaring: naive multiplication
 in Long_Long_Integer that stops as soon as the product leaves Integer,
 and naive multiplication in Big_Integer. The library's
-Big_Integers."**" is NOT used as a reference: with GNAT 14.2 and 12.2
-it returns (-2) ** 2 = -4 and (-296) ** 1 = 296.
+Big_Integers."**" is NOT used as a reference: with GNAT 14.2 and 12.2,
+for a Big_Integer VARIABLE V, V ** 1 drops the sign (V = -296 gives 296)
+and V ** K for V = -2 and even K stays negative (V ** 2 = -4), while
+V * V = 4. This is not Ada precedence (-2 ** 2 = -(2 ** 2)): the base is
+a variable. Reproducer: tests/big_pow_repro.adb (prints FALSE twice on
+both compilers). Cause, in the run-time source System.Generic_Bignums
+(s-genbig.adb, 14.2): the "X ** 1" case returns Normalize (X.D) without
+X.Neg, and the "(+/-)2 ** K" shift case returns Normalize (D, X.Neg)
+whatever the parity of K. Upstream GCC fixed both ("Ada: Fix couple of
+oversights in Big_Integer package", PR ada/125695). Other negative bases
+with K >= 2 take the general path and come out right.
 * every X in -300 .. 300 with N in 0 .. 40;
 * 20,000 seeded random X over all of Integer with N in 0 .. 40, and X
   near Integer'Last and Integer'First with N in 0 .. 2;
