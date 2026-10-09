@@ -1,4 +1,8 @@
 project Binomial_Coefficient_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("binomial_coefficient.ads", "binomial_coefficient.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
 end Binomial_Coefficient_Proof;
