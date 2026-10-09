@@ -25,4 +25,4 @@ make prove
 
 `make test` runs `tests.adb` and the folder's own checks: 20,003 checks, every input against an odd-number count (see `tests/SOURCES.txt`).
 
-The first version did no Babylonian step at all. It squared every candidate 0 .. 100 and kept the last one that fit (101 steps for every input), and it had no contract and no `prove` target. Commit f3a7b100 added a step counter and a test asserting the log bound. That test fails on the old loop.
+The first version did no Babylonian step at all. It squared every candidate 0 .. 100 and kept the last one that fit (101 steps for every input), and it had no contract and no `prove` target. Commit bbebb4d7 added a step counter and a test asserting the log bound. That test fails on the old loop.

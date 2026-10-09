@@ -29,4 +29,4 @@ make prove
 
 `make test` runs `tests.adb` and the folder's own checks: 122,593 checks against all 128 cut sets (see `tests/SOURCES.txt`).
 
-The first version tried every limit from the largest element upward (up to 701 passes), with no contract. Its README said n <= 32, but there are 8 values. Commit 8f62a2fe added a try counter and a test asserting the log bound. That test fails on the old scan (15 tries for 7 2 5 10 8 1 3 4 in two parts).
+The first version tried every limit from the largest element upward (up to 701 passes), with no contract. Its README said n <= 32, but there are 8 values. Commit 78018057 added a try counter and a test asserting the log bound. That test fails on the old scan (15 tries for 7 2 5 10 8 1 3 4 in two parts).

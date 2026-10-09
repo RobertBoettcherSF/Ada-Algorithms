@@ -5,7 +5,7 @@ tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
 the two original cases (7 2 5 10 8 1 3 4 in 2 and 8 parts) plus eight
 hand-worked ones (1, 3, 4 and 5 parts; eight 100s in 1, 3, 5 and 8
 parts), and the bound floor (log2 800) + 2 on limits tried; the bound
-check was committed first (8f62a2fe) and fails on the old scan.
+check was committed first (78018057) and fails on the old scan.
 
 own_checks.adb (called at the end of tests.adb; written for this
 repository by the V&V sweep, agent B, 2026-10-09). Reference: all 128

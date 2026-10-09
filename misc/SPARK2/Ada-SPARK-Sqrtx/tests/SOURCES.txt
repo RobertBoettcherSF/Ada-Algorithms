@@ -5,7 +5,7 @@ tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
 the four original cases (0, 1, 8, 10,000) plus five hand-worked ones
 around perfect squares (3, 4, 2,499, 2,500, 9,999), and the bound
 floor (log2 101) + 2 on candidates squared; the bound check was
-committed first (507140da) and fails on the old scan.
+committed first (638e240a) and fails on the old scan.
 
 own_checks.adb (called at the end of tests.adb; written for this
 repository by the V&V sweep, agent B, 2026-10-09). Reference: the root
