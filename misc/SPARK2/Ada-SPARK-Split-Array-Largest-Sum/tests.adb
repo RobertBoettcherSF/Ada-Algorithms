@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Split_Array_Largest_Sum; use Split_Array_Largest_Sum;
+with Own_Checks;
 
 procedure Tests is
    A    : constant Input_Array := [7, 2, 5, 10, 8, 1, 3, 4];   --  sum 40
@@ -44,4 +45,5 @@ begin
    Expect (Full, 5, 200, "eight 100s, five parts");
    Expect (Full, 8, 100, "eight 100s, eight parts");
    Put_Line ("Split_Array_Largest_Sum: PASS");
+   Own_Checks;
 end Tests;
