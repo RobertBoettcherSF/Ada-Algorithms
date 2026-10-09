@@ -77,3 +77,5 @@ misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,GNAT 14,GNATLS 14.2.0,0,0,PASS own
 misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 122593 checks (162 arrays x 8 part counts vs all 128 cut sets; Greedy_Parts at 120;000 limits; tries <=,393015ed
 misc/SPARK2/Ada-SPARK-Sqrtx,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 20003 checks (every Value 0 .. 10;000 vs an odd-number count; probes <= floor (log2 101) + 2; worst cas,d93d9692
 misc/SPARK2/Ada-SPARK-Sqrtx,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 20003 checks (every Value 0 .. 10;000 vs an odd-number count; probes <= floor (log2 101) + 2; worst cas,d93d9692
+numerical/SPARK2/Babylonian-Sqrt,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 20003 checks (every N 0 .. 10;000 vs an odd-number count; steps <= floor (log2 101) + 2; worst case 8),65b8c7a4
+numerical/SPARK2/Babylonian-Sqrt,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 20003 checks (every N 0 .. 10;000 vs an odd-number count; steps <= floor (log2 101) + 2; worst case 8),65b8c7a4
