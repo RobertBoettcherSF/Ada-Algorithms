@@ -24,7 +24,8 @@ package body Binomial_Coefficient is
          when 9 =>
             case K is when 0 | 9 => return 1; when 1 | 8 => return 9; when 2 | 7 => return 36; when 3 | 6 => return 84; when 4 | 5 => return 126; when others => return 0; end case;
          when 10 =>
-            case K is when 0 | 10 => return 1; when 1 | 9 => return 10; when 2 | 8 => return 45; when 3 | 7 => return 120; when 4 | 6 => return 210; when 5 => return 252; end case;
+            case K is when 0 | 10 => return 1; when 1 | 9 => return 10; when 2 | 8 => return 45; when 3 | 7 => return 120; when 4 | 6 => return 210; when 5 => return 252; when others => return 0; end case;
+         when others => return 0;   --  scaffold: no rows beyond 10
       end case;
    end Choose;
 end Binomial_Coefficient;
