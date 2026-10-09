@@ -1,10 +1,10 @@
 project Convert_Sorted_Array_To_BST is
    for Source_Dirs use (".");
-   for Main use ("tests.adb");
+   for Main use ("tests.adb", "own_checks.adb");
    for Object_Dir use "obj";
    for Exec_Dir use "bin";
    package Compiler is
-      for Default_Switches ("Ada") use ("-gnat2022");
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
    end Compiler;
    package Prove is
       --  Proof warnings on by default (tools/vv/prove_settings.txt)

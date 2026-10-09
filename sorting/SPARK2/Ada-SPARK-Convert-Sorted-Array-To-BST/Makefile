@@ -4,6 +4,7 @@ test:
 	mkdir -p obj bin
 	gprbuild -P convert_sorted_array_to_bst.gpr
 	./bin/tests
+	./bin/own_checks
 
 prove:
 	gnatprove -P proof.gpr --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
