@@ -24,11 +24,12 @@ package body Index_Tree is
    function Contains (T : Tree; K : Key) return Boolean is
       Cur : Node_Id := T.Root;
    begin
-      for Step in 1 .. Capacity loop
-         pragma Loop_Invariant (Cur = Null_Node or else Cur in Valid_Id);
-         if Cur = Null_Node then
-            return False;
-         elsif K = T.Nodes (Cur).Value then
+      --  Links point forward (Type_Invariant), so the walk ends: the loop
+      --  exits only at a null link, when K is not in the tree.
+      while Cur /= Null_Node loop
+         pragma Loop_Invariant (Cur in 1 .. Used (T.Store));
+         pragma Loop_Variant (Increases => Cur);
+         if K = T.Nodes (Cur).Value then
             return True;
          elsif K < T.Nodes (Cur).Value then
             Cur := T.Nodes (Cur).Left;
@@ -57,12 +58,25 @@ package body Index_Tree is
          return;
       end if;
 
+      --  The old nodes 1 .. Id - 1 link only among themselves and the new
+      --  node Id has no children, so the walk over old nodes visits
+      --  strictly increasing ids and must reach a null link: there is no
+      --  exit from this loop other than linking Id in.
+      pragma Assert (Id = Used (T.Store));
+      pragma Assert (T.Root in 1 .. Id - 1);
       Cur := T.Root;
-      for Step in 1 .. Capacity loop
-         pragma Loop_Invariant (Cur in Valid_Id);
-         pragma Loop_Invariant (Id in Valid_Id);
+      loop
+         pragma Loop_Invariant (Cur in 1 .. Id - 1);
+         pragma Loop_Invariant (Id = Used (T.Store));
          pragma Loop_Invariant (Used (T.Store) = Used (T.Store'Loop_Entry));
          pragma Loop_Invariant (Root_Of (T) = Root_Of (T'Loop_Entry));
+         pragma Loop_Invariant (T.Nodes = T.Nodes'Loop_Entry);
+         pragma Loop_Invariant
+           (for all N in 1 .. Id - 1 =>
+              (T.Nodes (N).Left = Null_Node or else T.Nodes (N).Left in N + 1 .. Id - 1)
+              and then
+              (T.Nodes (N).Right = Null_Node or else T.Nodes (N).Right in N + 1 .. Id - 1));
+         pragma Loop_Variant (Increases => Cur);
          if K < T.Nodes (Cur).Value then
             if T.Nodes (Cur).Left = Null_Node then
                T.Nodes (Cur).Left := Id;
@@ -79,9 +93,6 @@ package body Index_Tree is
             Cur := T.Nodes (Cur).Right;
          end if;
       end loop;
-
-      --  Unreachable for trees whose depth is within Capacity; keep flow clean.
-      Ok := True;
    end Insert;
 
 end Index_Tree;

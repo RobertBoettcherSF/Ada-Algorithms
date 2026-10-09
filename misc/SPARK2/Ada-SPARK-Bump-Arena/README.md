@@ -34,6 +34,20 @@ https://forum.ada-lang.io/t/understanding-resource-allocation-de-allocation/4386
 - **`Index_Tree`** — node record with `Left` / `Right : Node_Id`; `Insert` /
   `Contains`; every new node comes from the embedded arena.
 
+### Proof note: the tree walks end (agent A3, 2026-10-09)
+
+Nodes are allocated in id order and a new node is only linked below an
+older one, so every `Left` / `Right` link points to a later live slot.
+`Tree` carries this as a `Type_Invariant` (`Links_Forward`). With it,
+`Contains` and `Insert` walk with `while` / `loop` plus
+`Loop_Variant (Increases => Cur)`, and SPARK proves that `Insert` always
+links the new node. Before, both walks were `for Step in 1 .. Capacity`
+loops and `Insert` ended with an unproved fallback `Ok := True` after the
+loop (it could have reported success without linking the node). That
+path was unreachable, so no test can observe the change; the proof is
+the evidence. gnatprove 16.1.0 level 4 and silver: all checks proved
+(108 checks).
+
 ## Build (no Alire)
 
 Host **GNAT** + **gnatprove**. This repo does **not** use Alire.

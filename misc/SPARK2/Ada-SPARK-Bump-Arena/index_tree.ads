@@ -56,11 +56,27 @@ private
 
    type Node_Array is array (Valid_Id) of Node;
 
+   --  Nodes are allocated in id order and a new node is only ever linked
+   --  below an older one, so every link points to a later live slot. A
+   --  walk from the root therefore visits strictly increasing ids and
+   --  ends within Capacity steps.
+   function Links_Forward (Nodes : Node_Array; Root : Node_Id; Live : Slot_Count)
+     return Boolean
+   is
+     ((Root = Null_Node or else Root in 1 .. Live)
+      and then
+        (for all N in 1 .. Live =>
+           (Nodes (N).Left = Null_Node or else Nodes (N).Left in N + 1 .. Live)
+           and then
+           (Nodes (N).Right = Null_Node or else Nodes (N).Right in N + 1 .. Live)))
+   with Global => null;
+
    type Tree is record
       Root  : Node_Id := Null_Node;
       Nodes : Node_Array := [others => (Value => 0, Left => Null_Node, Right => Null_Node)];
       Store : Arena := Create;
-   end record;
+   end record
+     with Type_Invariant => Links_Forward (Nodes, Root, Used (Store));
 
    function Root_Of (T : Tree) return Node_Id is (T.Root);
 
