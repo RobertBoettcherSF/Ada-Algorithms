@@ -1,0 +1,21 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: Insert 42 / Might_Contain 42 is the original case. Hand-worked
+from H1 (K) = K mod 64 and H2 (K) = (K / 7) mod 64: 42 sets bits 42 and 6;
+the empty filter reports nothing; 6 (bits 6, 0), 106 (42, 15) and 43
+(43, 6) are not reported; 490 = 42 + 7 * 64 (bits 42, 70 mod 64 = 6) is a
+false positive; Natural'Last = 2147483647 sets bits 63 and
+306783378 mod 64 = 18; 146 (18, 20) is not reported; after inserting 0
+(bit 0) key 6 is reported; 63 (63, 9) is not.
+
+own_checks.adb: 4,000 seeded random filters (seed = FNV-1a of the folder
+name, AA_SEED overrides it) of 0 .. 40 keys (small keys, keys below 1000,
+keys near Natural'Last, any Natural). Model: the set of positions
+{K mod 64, (K / 7) mod 64} of the inserted keys, computed with
+Long_Long_Integer and an explicit remainder; every inserted key must be
+reported, and for queries 0 .. 63 plus 136 random keys Might_Contain must
+equal "both positions are in the set".

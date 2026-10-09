@@ -1,0 +1,8 @@
+project Bloom_Filter_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("bloom_filter.ads", "bloom_filter.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022");
+   end Compiler;
+end Bloom_Filter_Proof;
