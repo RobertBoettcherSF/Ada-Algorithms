@@ -1,0 +1,46 @@
+folder,line,verdict,note
+searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound,binary_search_lower_bound.adb:6,placeholder,if-chain over Input (1) .. Input (6): a linear first-match unrolled for the fixed length; no halving
+searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,binary_search_upper_bound.adb:6,placeholder,if-chain over Input (1) .. Input (6): linear first-match unrolled; no halving
+searching/SPARK2/Ada-SPARK-Search-Insert-Position,search_insert_position.adb:7,placeholder,for I in Index: linear scan over the whole sorted array (keeps scanning after the answer)
+misc/SPARK2/Ada-SPARK-Find-First-And-Last-Position,find_first_and_last_position.adb:7,placeholder,for I in Index: linear scan over the whole sorted array instead of two binary searches
+misc/SPARK2/Ada-SPARK-Find-Peak-Element,find_peak_element.adb:7,placeholder,for I: linear arg-max over the whole array instead of the slope binary search
+misc/SPARK2/Ada-SPARK-Peak-Index-In-Mountain-Array,peak_index_in_mountain_array.adb:7,placeholder,for I: linear arg-max over the whole mountain instead of binary search on the slope
+misc/SPARK2/Ada-SPARK-Koko-Eating-Bananas,koko_eating_bananas.adb:7,placeholder,for Candidate in Speed: tries every speed from 1 (linear over the answer range) instead of binary search on the answer
+misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages,capacity_to_ship_packages.adb:8,placeholder,for Candidate in Capacity: tries every capacity (linear over the answer range) instead of binary search on the answer; main ran a held-out alt on it (claims 21:09)
+misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,split_array_largest_sum.adb:8,placeholder,for Candidate in Limit: tries every limit (linear over the answer range) instead of binary search on the answer
+misc/SPARK2/Ada-SPARK-Sqrt-Integer,sqrt_integer.adb:5,placeholder,case table of the answers for N in 0 .. 100; no search at all
+misc/SPARK2/Ada-SPARK-Sqrt-X,sqrt_x.adb:6,placeholder,case table of the answers for N in 0 .. 100; no search at all
+misc/SPARK2/Ada-SPARK-Sqrtx,sqrtx.adb:7,placeholder,for Candidate in reverse Root: linear scan down from the top of the root range
+numerical/SPARK2/Babylonian-Sqrt,babylonian_sqrt.adb:7,placeholder,for Candidate in 0 .. 100: linear scan over all candidates; no Babylonian (Newton) iteration
+sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array,search_in_rotated_sorted_array.adb:7,placeholder,for I in Index: linear membership scan over the whole array; ignores the rotated order
+sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array-II,search_in_rotated_sorted_array_ii.adb:7,placeholder (duplicates),for I in Index: linear scan; with duplicates O(N) is the worst case anyway but the binary search with the shrink-on-equal step is missing
+sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II,find_minimum_in_rotated_sorted_array_ii.adb:7,placeholder (duplicates),for I in Index: linear minimum; with duplicates O(N) is the worst case but the binary search with Hi := Hi - 1 on equal is missing
+searching/SPARK2/Ada-SPARK-Search-2D-Matrix,search_2d_matrix.adb:6,placeholder,nested for R / for C: scans every cell of a row-major sorted matrix instead of one binary search over R * C
+searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix-II,search_a_2d_matrix_ii.adb:7,placeholder,nested for I / for J: scans every cell (and keeps going after a hit) instead of the O(R + C) staircase
+searching/SPARK2/Ada-SPARK-Search-A-2D-Matrix,search_a_2d_matrix.adb:9,suboptimal (not placeholder),staircase walk O(R + C) with a Rows + Cols step bound; correct but a row-major sorted matrix allows O(log (R * C)); check which matrix order the spec assumes
+sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix,kth_smallest_matrix.adb:9,placeholder,flattens the matrix and selection-sorts it (O(N ** 4) for N x N); no use of the sorted rows / columns (binary search on value or heap)
+sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,median_of_two_sorted_arrays_lite.adb:11,placeholder,concatenates and selection-sorts both arrays (quadratic); no partition binary search (O(log (m + n)))
+sorting/SPARK2/Binary-Insertion-Sort,binary_insertion_sort.adb:10,placeholder,fixed-pass bubble sort (compare-exchange of neighbours); no binary search for the insertion point
+numerical/SPARK2/Ada-SPARK-Bisection-Method,bisection_method.adb:8,ok,fixed 9 bisection steps on 0 .. 100 for an integer square root (ceil (log2 101) = 7 suffice); bisection but a fixed step count instead of an exit test
+searching/SPARK2/Ada-SPARK-Exponential-Search,exponential_search.adb:16,ok,doubling phase then binary search; Loop_Variants only (no probe-count assertion)
+misc/SPARK2/Ada-SPARK-Guess-Number-Higher-Or-Lower,guess_number_higher_or_lower.adb:18,ok,binary search; probe count <= floor (log2 N) + 1 in the proved Post (agent B rewrite bc1cd204)
+misc/SPARK2/Ada-SPARK-Minimum-Number-Of-Days-To-Make-M-Bouquets,minimum_number_of_days_to_make_m_bouquets.adb:120,ok,binary search over days with a linear greedy count per probe (O(N log D)) (agent B rewrite 735a9644)
+sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array,find_minimum_in_rotated_sorted_array.adb:99,ok,binary search for the pivot; Probe_Count 0 .. 5 in the result type (proved) and own checks assert probes <= floor (log2 N) + 2; duplicates rejected by Pre (agent B rewrite 6e1c0315)
+searching/SPARK4/Ada-SPARK-Binary-Search,binary_search.adb:26,ok (guard loop),for Guard in 1 .. Max_N + 1 with exit when Lo > Hi: halving search; the N + 1 guard only bounds termination for the prover; no probe-count assertion. Main's First-relative area: listed only
+searching/SPARK4/Ada-SPARK-Fibonacci-Search,fibonacci_search.adb:80,ok (guard loop),Fibonacci steps with a guard of 11; main's twin-only claim: listed only
+searching/SPARK4/Ada-SPARK-Interpolation-Search,interpolation_search.adb:74,ok (O(N) worst by nature),interpolation probes with a Max_N guard; linear worst case is inherent to interpolation search; main's twin-only claim: listed only
+searching/SPARK4/Ada-SPARK-Jump-Search,jump_search.adb:135,ok (by design),linear scan inside one block of size sqrt N after the jumps (O(sqrt N)); main's twin-only claim: listed only
+searching/SPARK4/Ada-SPARK-Ternary-Search,ternary_search.adb:57,cost defect,on A (M1) = A (M2) it exits to a linear scan of the whole window [Lo; Hi]; documented for plateaus but it also hits strictly unimodal symmetric inputs (equal values on both sides of the peak) where the peak is known to be in [M1; M2]: O(N) where O(log N) is possible. Row 9 / main's twin-only claim: reported to main; not edited
+searching/Ada/Ternary-Search,ternary_search.adb:42,WRONG ANSWER,on A (M1) = A (M2) it narrows to [M1; M2]; the spec allows (non-)strict unimodal arrays and plateaus; [0 0 0 0 0 0 0 1] and [1 0 0 0 0 0 0 0] return index 3 (value 0); max is 1. Finding (agent B)
+searching/Ada/Ternary-Search,ternary_search.adb:48,ok,final linear scan only over Hi - Lo <= Threshold = 2
+searching/Ada/Binary-Search,binary_search.adb:41,ok,while Lo <= Hi halving (Find; Find_First / Find_Last with Lo < Hi)
+searching/Ada/Eytzinger-Binary-Search,eytzinger_binary_search.adb:68,ok,while Offset < N: one descent of the Eytzinger layout (O(log N)); line 187 is an O(N) Is_Sorted_Ascending input check
+searching/Ada/Fibonacci-Search,fibonacci_search.adb:47,ok,Fibonacci steps (O(log N))
+searching/Ada/Interpolation-Search,interpolation_search.adb:31,ok (O(N) worst by nature),interpolation probes; linear worst case inherent
+searching/Ada/Jump-Search,jump_search.adb:91,ok (by design),linear scan inside one block after jumps of sqrt N
+searching/Ada/Uniform-Binary-Search,uniform_binary_search.adb:95,ok,delta-table descent (O(log N)); line 210 is an O(N) Is_Sorted_Ascending input check
+searching/Ada/Golden-Section-Search,golden_section_search.adb:56,ok,interval shrink by the golden ratio until the tolerance (iteration count ~ log (width / tol))
+searching/Ada/Line-Search,line_search.adb:219,ok,backtracking / iteration loops capped by Max_Backtracks / Max_Iterations; vector loops are per-dimension
+numerical/Ada/Bisection-Method,bisection_method.adb:151,ok,bisection capped by Max_Iterations
+misc/Ada/Nth-Root,nth_root.adb:331,ok,integer root by bisection (while Lo < Hi) after doubling (line 306); Newton loops capped by Max_Iter
+misc/Ada/Square-Root-Algorithms,square_root_algorithms.adb:190,ok,digit-by-digit (bit) method and Max_Iter-capped Heron / Newton loops
