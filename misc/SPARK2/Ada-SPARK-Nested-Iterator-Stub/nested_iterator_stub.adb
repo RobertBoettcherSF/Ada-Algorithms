@@ -1,38 +1,55 @@
 pragma SPARK_Mode (On);
+pragma Ada_2022;
 package body Nested_Iterator_Stub is
    function Empty return Nested_Data is
-   begin return (Data => (others => 0), Size => 0); end Empty;
-   function Length (N : Nested_Data) return Count is
-   begin return N.Size; end Length;
+     (Entries => [others => (Kind => Int_Entry, Val => 0)], Size => 0, Depth => 0);
+
    procedure Add (N : in out Nested_Data; V : Value) is
    begin
-      case N.Size is
-         when 0 => N.Data (1) := V; when 1 => N.Data (2) := V; when 2 => N.Data (3) := V;
-         when 3 => N.Data (4) := V; when 4 => N.Data (5) := V; when 5 => N.Data (6) := V;
-         when 6 => N.Data (7) := V; when 7 => N.Data (8) := V; when 8 => null;
-      end case;
-      if N.Size < Capacity then N.Size := N.Size + 1; end if;
+      N.Size := N.Size + 1;
+      N.Entries (N.Size) := (Kind => Int_Entry, Val => V);
    end Add;
-   function Advance (P : Cursor_Position) return Cursor_Position is
+
+   procedure Open_List (N : in out Nested_Data) is
    begin
-      case P is
-         when 0 => return 1;
-         when 1 => return 2;
-         when 2 => return 3;
-         when 3 => return 4;
-         when 4 => return 5;
-         when 5 => return 6;
-         when 6 => return 7;
-         when 7 => return 8;
-         when 8 => return 9;
-         when others => return Cursor_Position'Last;
-      end case;
-   end Advance;
+      N.Size := N.Size + 1;
+      N.Entries (N.Size) := (Kind => List_Start, Val => 0);
+      N.Depth := N.Depth + 1;
+   end Open_List;
+
+   procedure Close_List (N : in out Nested_Data) is
+   begin
+      N.Size := N.Size + 1;
+      N.Entries (N.Size) := (Kind => List_End, Val => 0);
+      N.Depth := N.Depth - 1;
+   end Close_List;
+
+   --  The first integer entry at or after From (Size + 1 when none):
+   --  list starts and ends, so also empty lists, are stepped over.
+   function Skip (E : Entry_Array; Size : Count; From : Position) return Position
+     with Pre  => From <= Size + 1,
+          Post => Skip'Result in From .. Size + 1
+                  and then (for all I in From .. Skip'Result - 1 => E (I).Kind /= Int_Entry)
+                  and then (if Skip'Result <= Size then E (Skip'Result).Kind = Int_Entry)
+   is
+   begin
+      for I in From .. Size loop
+         if E (I).Kind = Int_Entry then
+            return I;
+         end if;
+         pragma Loop_Invariant (for all J in From .. I => E (J).Kind /= Int_Entry);
+      end loop;
+      return Size + 1;
+   end Skip;
 
    function Create (N : Nested_Data) return Iterator is
-   begin return (Data => N.Data, Size => N.Size, Position => 0); end Create;
-   function Has_Next (It : Iterator) return Boolean is
-   begin return It.Position < It.Size; end Has_Next;
+     (Entries => N.Entries, Size => N.Size, Pos => Skip (N.Entries, N.Size, 1));
+
+   function Has_Next (It : Iterator) return Boolean is (It.Pos <= It.Size);
+
    procedure Next (It : in out Iterator; Result : out Value) is
-   begin Result := It.Data (It.Position + 1); It.Position := Advance (It.Position); end Next;
+   begin
+      Result := It.Entries (It.Pos).Val;
+      It.Pos := Skip (It.Entries, It.Size, It.Pos + 1);
+   end Next;
 end Nested_Iterator_Stub;

@@ -67,7 +67,7 @@ misc/SPARK2/Ada-SPARK-Missing-Ranges-Stub,PROOFS.csv stub,"bounded stub (the fol
 misc/SPARK2/Ada-SPARK-My-Calendar-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full My-Calendar implementation",open
 misc/SPARK2/Ada-SPARK-My-Linked-List-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full My-Linked-List implementation",open
 misc/SPARK2/Ada-SPARK-N-Repeated-Element-In-Size-2N-Array,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full N-Repeated-Element-In-Size-2N-Array implementation",open
-misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub,H112,"answers come from a case table, not a nested-list iterator",open
+misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub,H112,"answers come from a case table, not a nested-list iterator","closed (agent-CF: real nested-list iterator, functional Posts proved)"
 misc/SPARK2/Ada-SPARK-Network-Delay-Time-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Network-Delay-Time implementation",open
 misc/SPARK2/Ada-SPARK-Next-Permutation-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Next-Permutation implementation",open
 misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Non-Overlapping-Intervals implementation",open
