@@ -732,21 +732,40 @@ procedure Test_ARC_Cache is
          Assert_True (Result, "13.1.3", "Middle item in large cache retrievable");
       end;
 
-      -- 13.2 Test with capacity 0 (edge case)
+      -- 13.2 Capacity 0 is not a cache: the Capacity discriminant has a
+      -- subtype starting at 1, so declaring a zero-capacity cache raises
+      -- Constraint_Error (before: it was accepted and every Put raised the
+      -- misleading Cache_Full_Of_Locked_Pages with no page locked).
+      -- Capacity 1, the smallest valid cache, works.
       declare
-         Cache : String_Cache.Cache (Capacity => 0);
-         Exception_Raised : Boolean := False;
+         function Zero return Ada.Containers.Count_Type is (0);
+         pragma No_Inline (Zero);   -- not a static value: checked at run time
+         Rejected : Boolean := False;
       begin
          begin
-            String_Cache.Put (Cache, To_Bounded ("key"), 1);
+            declare
+               Cache : String_Cache.Cache (Capacity => Zero);
+            begin
+               String_Cache.Put (Cache, To_Bounded ("key"), 1);
+            end;
          exception
+            when Constraint_Error =>
+               Rejected := True;
             when String_Cache.Cache_Full_Of_Locked_Pages =>
-               Exception_Raised := True;
+               Rejected := False;
          end;
-         
-         -- With capacity 0, any Put should fail
-         Assert_True (Exception_Raised, "13.2.1", 
-                    "Put on zero-capacity cache raises Cache_Full_Of_Locked_Pages");
+         Assert_True (Rejected, "13.2.1",
+                    "Declaring a zero-capacity cache raises Constraint_Error");
+      end;
+      declare
+         Cache : String_Cache.Cache (Capacity => 1);
+      begin
+         String_Cache.Put (Cache, To_Bounded ("a"), 1);
+         String_Cache.Put (Cache, To_Bounded ("b"), 2);
+         Result := String_Cache.Get (Cache, To_Bounded ("b"), Value);
+         Assert_True (Result and then Value = 2, "13.2.2", "Capacity-1 cache keeps the latest item");
+         Result := String_Cache.Get (Cache, To_Bounded ("a"), Value);
+         Assert_False (Result, "13.2.3", "Capacity-1 cache evicted the older item");
       end;
 
    end Test_Edge_Cases;
