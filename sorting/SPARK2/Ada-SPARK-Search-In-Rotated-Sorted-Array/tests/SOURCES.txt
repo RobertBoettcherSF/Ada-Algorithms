@@ -16,7 +16,10 @@ membership scan; for the predicate, a count of cyclic non-rises (exactly
 1 for a turned strictly increasing array).
 * all 32 rotations of 4 fixed and 100 random strictly increasing arrays,
   each with every target 0 .. 100: answer, comparisons
-  <= 2 * (floor (log2 N) + 2), measured worst case exactly 12;
+  <= 2 * (floor (log2 N) + 2), measured worst case exactly 12, over all
+  arrays and over turned arrays alone (added after the held-out run:
+  three held mutants that under-count the comparison picking the part
+  passed the upper bound alone);
 * Rotated_Array membership on each rotation with two neighbours swapped
   and with one neighbour copied (always rejected), and on 2,000 random
   arrays.

@@ -22,6 +22,7 @@ procedure Own_Checks is
    Failures   : Natural := 0;
    Checked    : Natural := 0;
    Max_Probes : Natural := 0;
+   Max_Turned : Natural := 0;   --  worst case over turned arrays only
 
    function AA_Seed (Default : Long_Long_Integer) return Long_Long_Integer is
       V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
@@ -111,6 +112,9 @@ procedure Own_Checks is
                      Report (R.Found = Linear_Has (D, T), Tag & " target" & T'Image & " found " & R.Found'Image);
                      Report (R.Probes <= Bound, Tag & " target" & T'Image & R.Probes'Image & " comparisons");
                      Max_Probes := Natural'Max (Max_Probes, R.Probes);
+                     if D (1) > D (Length) then
+                        Max_Turned := Natural'Max (Max_Turned, R.Probes);
+                     end if;
                   end;
                end loop;
             end if;
@@ -161,6 +165,9 @@ begin
    --  Measured worst case: 12 comparisons (5 + 6 + 1 when not turned,
    --  5 + 1 + 5 + 1 otherwise, since a part is then at most 31 long).
    Report (Max_Probes = 12, "worst case comparisons" & Max_Probes'Image & ", expected 12");
+   --  Turned arrays reach 12 too (5 + 1 + 5 + 1): the comparison picking
+   --  the part must be counted.
+   Report (Max_Turned = 12, "worst case comparisons on turned arrays" & Max_Turned'Image & ", expected 12");
    if Failures = 0 then
       Put_Line ("PASS own checks:" & Checked'Image
                 & " checks (all 32 rotations of 104 increasing arrays x 101 targets vs a linear scan; comparisons <= 2 * (floor (log2 N) + 2), worst case 12; predicate)");
