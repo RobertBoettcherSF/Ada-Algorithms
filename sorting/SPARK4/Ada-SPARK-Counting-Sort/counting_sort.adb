@@ -315,7 +315,7 @@ is
                = N + 1);
 
             while C < Hist (K) loop
-               pragma Loop_Invariant (C in 0 .. Hist (K));
+               pragma Loop_Invariant (C <= Hist (K));   --  C >= 0: Natural
                pragma Loop_Invariant (Pos = Pos0 + C);
                pragma Loop_Invariant
                  (Pos0 + Hist (K) + Sum_Hist (Hist, K + 1, Max_Key)
