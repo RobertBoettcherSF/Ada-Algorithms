@@ -47,13 +47,15 @@ BrownBoost — leave those alone.
   undefined). Fixed; flaky init=yes on GNAT 14; section 24 was red on old code.
 - Recursive-Descent-Parser: AA_SEED 1,2,22 overflowed Integer on deep literal
   trees; Eval_Wide + Constraint_Error contract; 30 seeds 0 failed on GNAT 14/12.
-- SPARK Mersenne-Twister (finding, not flaky): the `-gnata -gnatVa` build hit a
-  GNAT bug box on `Next`'s Post (`X'Old` inside an if-expression branch). Minimal
-  standalone reproducer `tests/gnat_bug_gnatVa_old` (r.ads 11 + r.adb 6 lines,
-  no Initialize_Scalars needed) re-run 2026-10-09: bug box on GNAT 14.2.0
-  (decl.cc:464) and 12.2.0 (decl.cc:472); clean without `-gnatVa`. Post now uses
-  `or else` (f22269ac); init pass yes on GNAT 14 and on a GNAT 12 re-run (the
-  earlier GNAT 12 init=no row predated the fix).
+- SPARK Mersenne-Twister: **known compiler bug, closed** — not flaky, not an
+  open finding. GNAT 12.2.0/14.2.0 `-gnata -gnatVa` hit a bug box
+  (`gnat_to_gnu_entity`) on `Next`'s Post when `X'Old` sat inside an
+  if-expression branch. Minimal reproducer kept in-tree at
+  `tests/gnat_bug_gnatVa_old` (re-run 2026-10-09: bug box on 14.2.0
+  decl.cc:464 and 12.2.0 decl.cc:472; clean without `-gnatVa`). Shipping Post
+  rewritten with `or else` (f22269ac, same meaning; written reason next to
+  `Next`); init pass yes on GNAT 14 and 12. Recorded fixed in
+  `tools/vv/findings.csv`. Does not block training_ready on current code.
 - Mersenne-Twister known answers (seed 5489, C++ [rand.predef]): Ada twin
   asserts mt19937 10000th = 4123659995 and mt19937_64 10000th =
   9981545732273789042 (TEST 14); SPARK port asserts 4123659995 (MT19937-64 not

@@ -176,3 +176,4 @@ sorting/SPARK4/Bead-Sort,"index_shift first_pinned: In_Bounds/Pre requires A'Fir
 strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,"index_shift first_pinned: In_Bounds/Pre requires A'First = 1 — make First-relative indexing",open,,
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,"index_shift first_pinned: In_Bounds/Pre requires A'First = 1 — make First-relative indexing",open,,
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,"index_shift first_pinned: In_Bounds/Pre requires A'First = 1 — make First-relative indexing",open,,
+numerical/SPARK4/Ada-SPARK-Mersenne-Twister,"GNAT 12.2.0/14.2.0 -gnata -gnatVa bug box (gnat_to_gnu_entity) on Next's Post when X'Old appeared inside an if-expression branch; known compiler bug with written reason next to Next's Post. Minimal standalone reproducer kept at tests/gnat_bug_gnatVa_old. Post rewritten with or else (same meaning); init pass builds on GNAT 14 and 12; shipping code no longer triggers it",fixed,f22269ac,f22269ac

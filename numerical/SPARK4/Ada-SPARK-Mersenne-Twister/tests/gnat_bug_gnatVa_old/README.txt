@@ -15,3 +15,12 @@ not build Ada-SPARK-Mersenne-Twister (Next's Post had this shape). Next's Post i
 now written with "or else" (same meaning); the init pass builds and runs the real
 code. Not part of the build (make test compiles tests.adb only; these files are
 in a subdirectory outside Source_Dirs).
+
+Known compiler bug (closed for training_ready, 2026-10-09):
+  The shipping Next Post no longer uses X'Old inside an if-expression
+  branch (rewritten with "or else" in f22269ac). This directory stays
+  in-tree as the minimal standalone reproducer of the GNAT bug box so
+  the written reason next to Next's Post can be checked. It is not part
+  of make test (subdirectory outside Source_Dirs). Do not treat the
+  historical init-pass crash as flakiness or as an open finding against
+  the current package.
