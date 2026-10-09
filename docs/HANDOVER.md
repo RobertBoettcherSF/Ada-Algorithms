@@ -23,13 +23,13 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `status` | open / worked around / pending, and whether the folder changed after the recorded run |
 | `source` | where the data came from |
 
-## Categories (130 rows)
+## Categories (141 rows)
 
 | Category | Rows | What it is |
 |---|---|---|
 | `withdrawn_functional` | 61 | contract_scan: a do-nothing body proves the Post (mostly sorts whose Post has no permutation clause). Functional claim withdrawn; target Platinum.. This now includes H102-H110, the vacuity batch 3 SPARK2 stubs (sweep B), whose Post only bounds the elements. H057 Slowsort and H060 Stooge-Sort are closed. |
 | `not_analysed` | 11 | gnatprove could not build the project (PROOFS.csv `not built`); target Stone first. |
-| `mutation_below_bar` | 12 | held-out planted-bug score below 90%: BrownBoost, Shading, Newells, K-Means, K-Means++, Darwin-Godel-Machine, Course-Schedule, Fisher-Yates, Median-Of-Two-Sorted-Arrays-Lite, plus Modular-Arithmetic (proof-kill step not run); H129 Slowsort and H130 Stooge-Sort (tests-only held scores; the proof-kill step was not run) |
+| `mutation_below_bar` | 13 | held-out planted-bug score below 90%: BrownBoost, Shading, Newells, K-Means, K-Means++, Darwin-Godel-Machine, Course-Schedule, Fisher-Yates, Median-Of-Two-Sorted-Arrays-Lite, plus Modular-Arithmetic (proof-kill step not run); H129 Slowsort and H130 Stooge-Sort (tests-only held scores; the proof-kill step was not run); H141 Lemke-Howson (held 60/67 = 89.6%, NOT blind; 7 survivors to search with tools/vv/lh_tiebreak_drive.adb) |
 | `tool_crash` | 7 | gnatwhy3 "value expected (got DOC_END)" bug box in seven SPARK2 DP-table folders |
 | `unproved_check` | 4 | Bresenham (17 run-time, 5 flow, 3 Post) and Delivery-Safety-Supervisor (8 overflow) |
 | `toolchain_bug` | 4 | MT `'Old` bug box (gone on GNAT 16.1.0), Big_Integers `**` sign and `mod` errors (both still present on GNAT 16.1.0), GNAT 14.2 ICE trans.cc:6710 |

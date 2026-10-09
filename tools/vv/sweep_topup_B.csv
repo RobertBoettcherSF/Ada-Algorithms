@@ -31,3 +31,4 @@ per-folder,291457f1,misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,topup v
 per-folder,8080c201,misc/SPARK2/Ada-SPARK-Integer-Break,topup var+higher-order (unseen),20261181,pass,2371,360,16,14,0,330,30,16/30,53.3%,GNATMAKE 14.2.0
 per-folder,080ca91b,misc/SPARK2/Ada-SPARK-Ugly-Number-II,topup var+higher-order (unseen),20261183,pass,3342,234,17,13,0,204,30,17/30,56.7%,GNATMAKE 14.2.0
 per-folder,0ba66666,misc/SPARK2/Ada-SPARK-Sigmoid,topup var+higher-order (unseen),20261184,pass,110,57,30,0,0,27,30,30/30,100.0%,GNATMAKE 14.2.0
+per-folder,4098578b,misc/SPARK4/Ada-SPARK-Lemke-Howson,topup var+higher-order (unseen),20261185,pass,7413,188,27,3,0,158,30,27/30,90.0%,GNATMAKE 14.2.0
