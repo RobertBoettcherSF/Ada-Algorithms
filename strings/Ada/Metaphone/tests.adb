@@ -86,15 +86,27 @@ procedure Tests is
       return R;
    end Make_Alpha;
 
+   --  A well-formed code (spec "Alphabet of code symbols"): length
+   --  1 .. Max_Code_Len; symbols from 0 B F H J K L M N P R S T W X Y,
+   --  and a vowel A E I O U only as the first symbol. A one-symbol code
+   --  may be any letter (step 2: a one-letter word encodes to itself).
    function Is_Valid_Code (C : String) return Boolean is
    begin
       if C'Length < 1 or else C'Length > Max_Code_Len then
          return False;
       end if;
+      if C'Length = 1 then
+         return C (C'First) in 'A' .. 'Z' | '0';
+      end if;
       for I in C'Range loop
          case C (I) is
-            when 'A' .. 'Z' | '0' =>
+            when '0' | 'B' | 'F' | 'H' | 'J' | 'K' | 'L' | 'M' | 'N' | 'P'
+               | 'R' | 'S' | 'T' | 'W' | 'X' | 'Y' =>
                null;
+            when 'A' | 'E' | 'I' | 'O' | 'U' =>
+               if I /= C'First then
+                  return False;
+               end if;
             when others =>
                return False;
          end case;
@@ -367,6 +379,46 @@ begin
    Check (B (Enc ("AXEAXE") = "AKSK"), "AXEAXE via B wrapper");
    Check (Enc (Make_Alpha (200))'Length <= Max_Code_Len,
           "200-letter truncated to Max_Code_Len");
+
+   ------------------------------------------------------------------
+   Section ("17. Every word of 1 .. 3 letters gives a well-formed code");
+   ------------------------------------------------------------------
+   --  Agent A3 checker scan: the old Is_Valid_Code accepted any A .. Z.
+   --  All 18,278 words of 1 .. 3 letters: Encode either raises
+   --  Invalid_Argument (empty code, e.g. WHY) or returns a code the
+   --  stricter Is_Valid_Code accepts; and the judge rejects codes
+   --  outside the alphabet.
+   declare
+      W : String (1 .. 3);
+      Words, Bad, Raised : Natural := 0;
+   begin
+      for L in 1 .. 3 loop
+         for Code in 0 .. 26**L - 1 loop
+            for I in 1 .. L loop
+               W (I) := Character'Val (Character'Pos ('A')
+                                       + (Code / 26**(I - 1)) mod 26);
+            end loop;
+            Words := Words + 1;
+            begin
+               if not Is_Valid_Code (Enc (W (1 .. L))) then
+                  Bad := Bad + 1;
+               end if;
+            exception
+               when Invalid_Argument =>
+                  Raised := Raised + 1;
+            end;
+         end loop;
+      end loop;
+      Put_Line ("  " & Words'Image & " words," & Bad'Image
+                & " ill-formed codes," & Raised'Image & " raised");
+      Check (Bad = 0, "all 1 .. 3-letter words give well-formed codes");
+      Check (Raised < Words, "some words encode");
+   end;
+   Check (not Is_Valid_Code ("KC"), "judge rejects C after the first symbol");
+   Check (not Is_Valid_Code ("TD"), "judge rejects D (spec maps D to T or J)");
+   Check (not Is_Valid_Code ("KA"), "judge rejects a vowel after the first symbol");
+   Check (Is_Valid_Code ("AKS"), "judge accepts a leading vowel");
+   Check (Is_Valid_Code ("Q"), "judge accepts a one-letter code");
 
    ------------------------------------------------------------------
    -- Summary
