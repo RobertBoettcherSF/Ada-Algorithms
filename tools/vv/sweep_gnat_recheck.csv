@@ -93,3 +93,5 @@ sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix,GNAT 14,GNATLS 
 sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 23873 checks (400 random sorted blocks x every K vs an insertion sort; values outside the block random;,ef3cfc3b
 sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 17004 checks (7;000 pairs vs an insertion sort of all 32 values: Lower; Upper; Median; comparisons <= 7,395893b0
 sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 17004 checks (7;000 pairs vs an insertion sort of all 32 values: Lower; Upper; Median; comparisons <= 7,395893b0
+sorting/SPARK2/Binary-Insertion-Sort,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 3265 checks (sorted; permutation; own reference; comparisons <= 17; worst case 17; exact counts),bbd52812
+sorting/SPARK2/Binary-Insertion-Sort,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 3265 checks (sorted; permutation; own reference; comparisons <= 17; worst case 17; exact counts),bbd52812
