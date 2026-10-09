@@ -61,3 +61,7 @@ searching/Ada/Ternary-Search,GNAT 14,GNATLS 14.2.0,0,0,Results:  116 PASS; 0 FAI
 searching/Ada/Ternary-Search,GNAT 12,GNATLS 12.2.0,0,0,Results:  116 PASS; 0 FAIL,ed3e05d5
 searching/SPARK2/Ada-SPARK-Search-Insert-Position,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 433069 checks (2;134 sorted arrays x 101 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,b4789812
 searching/SPARK2/Ada-SPARK-Search-Insert-Position,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 433069 checks (2;134 sorted arrays x 101 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,b4789812
+searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 900069 checks (2;234 sorted arrays x 201 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,9eb27715
+searching/SPARK2/Ada-SPARK-Binary-Search-Lower-Bound,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 900069 checks (2;234 sorted arrays x 201 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,9eb27715
+searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 900069 checks (2;234 sorted arrays x 201 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,9eb27715
+searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 900069 checks (2;234 sorted arrays x 201 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,9eb27715
