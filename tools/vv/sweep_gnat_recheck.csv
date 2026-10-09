@@ -203,3 +203,5 @@ misc/Ada/Boundary-Representation,GNAT 14,GNATLS 14.2.0,0,0,"=== 65 passed, 0 fai
 misc/Ada/Boundary-Representation,GNAT 12,GNATLS 12.2.0,0,0,"=== 65 passed, 0 failed ===",17fc3e9a
 misc/SPARK2/Ada-SPARK-Integer-Break,GNAT 14,GNATLS 14.2.0,0,0,PASS Integer_Break,8080c201
 misc/SPARK2/Ada-SPARK-Integer-Break,GNAT 12,GNATLS 12.2.0,0,0,PASS Integer_Break,8080c201
+misc/SPARK2/Ada-SPARK-Ugly-Number-II,GNAT 14,GNATLS 14.2.0,0,0,PASS Ugly_Number_II,0abef8f4
+misc/SPARK2/Ada-SPARK-Ugly-Number-II,GNAT 12,GNATLS 12.2.0,0,0,PASS Ugly_Number_II,0abef8f4
