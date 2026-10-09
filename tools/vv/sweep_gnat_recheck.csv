@@ -175,3 +175,5 @@ misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,GNAT 14,GNATLS 14.2.0,0,0,
 misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,GNAT 12,GNATLS 12.2.0,0,0,PASS Count_Operations_To_Obtain_Zero,c7e6525c
 misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,GNAT 14,GNATLS 14.2.0,0,0,PASS Count_Square_Submatrices_With_All_Ones,762600fb
 misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,GNAT 12,GNATLS 12.2.0,0,0,PASS Count_Square_Submatrices_With_All_Ones,762600fb
+misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,GNAT 14,GNATLS 14.2.0,0,0,PASS Defanging_IP,b5154c07
+misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,GNAT 12,GNATLS 12.2.0,0,0,PASS Defanging_IP,b5154c07
