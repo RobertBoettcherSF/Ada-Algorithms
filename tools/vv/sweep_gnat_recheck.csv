@@ -211,3 +211,9 @@ misc/SPARK2/Ada-SPARK-Sigmoid,GNAT 14,GNATLS 14.2.0,0,0,PASS Sigmoid ( 31 checks
 misc/SPARK2/Ada-SPARK-Sigmoid,GNAT 12,GNATLS 12.2.0,0,0,PASS Sigmoid ( 31 checks),0ba66666
 misc/SPARK2/Ada-SPARK-Design-Circular-Queue,GNAT 14,GNATLS 14.2.0,0,0,Design Circular Queue: PASS,26d65d9f
 misc/SPARK2/Ada-SPARK-Design-Circular-Queue,GNAT 12,GNATLS 12.2.0,0,0,Design Circular Queue: PASS,26d65d9f
+sorting/SPARK4/Ada-SPARK-Slowsort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 9825 sort calls (nondecreasing + occurrence counts)",a9672a82
+sorting/SPARK4/Ada-SPARK-Slowsort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 9825 sort calls (nondecreasing + occurrence counts)",a9672a82
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 2468 sort calls (nondecreasing + occurrence counts)",a9672a82
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 2468 sort calls (nondecreasing + occurrence counts)",a9672a82
+misc/SPARK4/Ada-SPARK-Lemke-Howson,GNAT 14,GNATLS 14.2.0,0,0,"PASS Lemke_Howson ( 139 checks)",a9672a82
+misc/SPARK4/Ada-SPARK-Lemke-Howson,GNAT 12,GNATLS 12.2.0,0,0,"PASS Lemke_Howson ( 139 checks)",a9672a82
