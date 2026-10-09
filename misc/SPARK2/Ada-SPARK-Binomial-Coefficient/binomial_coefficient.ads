@@ -1,11 +1,20 @@
 pragma Ada_2022;
 pragma SPARK_Mode (On);
 
---  Binomial coefficients C (N, K) for N <= 30 by Pascal's rule, one row
---  at a time. C (N, K) <= 2 ** N <= 2 ** 30, so every value fits Result.
+--  Binomial coefficients C (N, K) for N <= 33 by Pascal's rule, one row
+--  at a time.
+--
+--  Why 33: with a 32-bit Natural, every C (N, K) for N <= 33 fits
+--  (largest C (33, 16) = 1_166_803_110 <= Natural'Last = 2_147_483_647),
+--  while C (34, 17) = 2_333_606_220 does not. The tests check all of row 33
+--  against the multiplicative formula and against Natural'Last.
+--  The proof only has the simple bound C (N, K) <= 2 ** N (from Pascal's
+--  rule, each row at most doubles), and 2 ** 33 > Natural'Last, so Result
+--  is a Long_Long_Integer subtype 0 .. 2 ** 33. A tighter bound would need
+--  the actual size of the middle entries, which no simple induction gives.
 package Binomial_Coefficient is
-   subtype Input is Natural range 0 .. 30;
-   subtype Result is Natural range 0 .. 2 ** 30;
+   subtype Input is Natural range 0 .. 33;
+   subtype Result is Long_Long_Integer range 0 .. 2 ** 33;
 
    --  2 ** N. The tests regenerate every entry by doubling.
    function Pow2 (N : Input) return Result is
@@ -19,7 +28,8 @@ package Binomial_Coefficient is
         when 22 => 4_194_304, when 23 => 8_388_608, when 24 => 16_777_216,
         when 25 => 33_554_432, when 26 => 67_108_864, when 27 => 134_217_728,
         when 28 => 268_435_456, when 29 => 536_870_912,
-        when 30 => 1_073_741_824)
+        when 30 => 1_073_741_824, when 31 => 2_147_483_648,
+        when 32 => 4_294_967_296, when 33 => 8_589_934_592)
    with Ghost;
 
    type Row_Type is array (Input) of Result;
