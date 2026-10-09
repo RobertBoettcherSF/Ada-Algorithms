@@ -26,12 +26,12 @@ package body One_Edit_Distance with SPARK_Mode => On is
             end if;
             pragma Loop_Invariant (I >= 1 and J >= 1);
          end loop;
+         --  The loop stops at the end of one text or after a second edit, so
+         --  with one edit made one text is used up and nothing is left to add.
          if Edits = 0 then
             if I <= Left_Length or J <= Right_Length then
                Edits := 1;
             end if;
-         elsif Edits = 1 and then I <= Left_Length and then J <= Right_Length then
-            Edits := 2;
          end if;
          Result := Edits = 1;
       end if;
