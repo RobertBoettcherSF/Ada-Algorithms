@@ -4,7 +4,8 @@ package body Sqrt_Integer with SPARK_Mode => On is
 
    subtype Small is Wide range 0 .. 2 ** 17;
 
-   --  2 ** I for the 16 trial bits (the test regenerates it by doubling).
+   --  2 ** I for the 16 trial bits (checked by the proof: Bit starts at
+   --  2 ** 15, is halved each step and must equal Pow2 (I)).
    function Pow2 (I : Natural) return Small is
      (case I is
         when 0 => 1, when 1 => 2, when 2 => 4, when 3 => 8, when 4 => 16,
