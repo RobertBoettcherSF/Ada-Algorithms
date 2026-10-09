@@ -87,7 +87,7 @@ misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub,H113,"answers come from a case table
 misc/SPARK2/Ada-SPARK-Product-Of-Numbers-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Product-Of-Numbers implementation",open
 misc/SPARK2/Ada-SPARK-Range-Module-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Range-Module implementation",open
 misc/SPARK2/Ada-SPARK-Remove-K-Digits,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Remove-K-Digits implementation",open
-misc/SPARK2/Ada-SPARK-Restore-IP-Addresses,H123,only counts valid 1 .. 3 digit segments at the first positions; no addresses are restored,open
+misc/SPARK2/Ada-SPARK-Restore-IP-Addresses,H123,only counts valid 1 .. 3 digit segments at the first positions; no addresses are restored,"closed (agent-CF: real Restore IP Addresses, functional Post)"
 misc/SPARK2/Ada-SPARK-Seat-Manager-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Seat-Manager implementation",open
 misc/SPARK2/Ada-SPARK-Simplify-Path-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Simplify-Path implementation",open
 misc/SPARK2/Ada-SPARK-Snapshot-Array-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Snapshot-Array implementation",open
