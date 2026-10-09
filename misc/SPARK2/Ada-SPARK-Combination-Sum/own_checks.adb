@@ -43,11 +43,11 @@ procedure Own_Checks with SPARK_Mode => Off is
 
    --  Partitions of N into exactly K parts: either a part is 1 (remove it)
    --  or all parts are >= 2 (take 1 off each of the K parts).
-   Exact : array (0 .. 30, 0 .. 30) of Count := [others => [others => 0]];
+   Exact : array (Target, Target) of Count := [others => [others => 0]];
 
    --  p (n) by Euler: sum over k >= 1 of (-1) ** (k + 1) times
    --  p (n - k (3k - 1) / 2) + p (n - k (3k + 1) / 2).
-   Euler : array (0 .. 30) of Count := [0 => 1, others => 0];
+   Euler : array (Target) of Count := [0 => 1, others => 0];
 
    function Img (V, M : Natural) return String is ("(" & V'Image & "," & M'Image & ")");
 
@@ -83,13 +83,13 @@ begin
    end loop;
 
    Exact (0, 0) := 1;
-   for N in 1 .. 30 loop
+   for N in 1 .. Target'Last loop
       for K in 1 .. N loop
          Exact (N, K) := Exact (N - 1, K - 1) + (if N - K >= K then Exact (N - K, K) else 0);
       end loop;
    end loop;
 
-   for N in 1 .. 30 loop
+   for N in 1 .. Target'Last loop
       declare
          K    : Positive := 1;
          Sign : Count := 1;
@@ -114,7 +114,7 @@ begin
          Check_Pair (V, M);
       end loop;
    end loop;
-   for V in 21 .. 30 loop
+   for V in 21 .. Target'Last loop
       for M in Target loop
          if M <= 3 or else M = V then
             Check_Pair (V, M);

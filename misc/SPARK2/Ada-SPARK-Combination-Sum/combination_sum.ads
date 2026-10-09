@@ -4,11 +4,19 @@ pragma Ada_2022;
 --  a sum of candidates 1 .. Max_Part, each usable any number of times,
 --  where order does not matter (multisets). With Max_Part = Value this is
 --  the partition number p (Value).
+--
+--  Why 31: the proof bounds every count by P (N, C) <= 2 ** (N + C) (each
+--  step of the recurrence at most doubles), so N + C <= 62 keeps every
+--  count inside Long_Long_Integer (2 ** 62 < 2 ** 63 - 1): Value and
+--  Max_Part <= 31. The true counts are far smaller (p (31) = 6_842; p (n)
+--  fits Natural up to n = 121), but the simple recurrence gives no tighter
+--  bound. The run-time check of the ghost P in the tests also grows fast
+--  with the target (about 8 s for every pair up to 30).
 package Combination_Sum with SPARK_Mode => On is
-   subtype Target is Integer range 0 .. 30;
-   subtype Combination_Count is Long_Long_Integer range 0 .. 2 ** 60;
+   subtype Target is Integer range 0 .. 31;
+   subtype Combination_Count is Long_Long_Integer range 0 .. 2 ** 62;
 
-   subtype Exponent is Natural range 0 .. 60;
+   subtype Exponent is Natural range 0 .. 62;
 
    --  2 ** E, only used in the bound on P. The own checks regenerate every
    --  entry by doubling.
@@ -40,7 +48,9 @@ package Combination_Sum with SPARK_Mode => On is
         when 57 => 144_115_188_075_855_872,
         when 58 => 288_230_376_151_711_744,
         when 59 => 576_460_752_303_423_488,
-        when 60 => 1_152_921_504_606_846_976)
+        when 60 => 1_152_921_504_606_846_976,
+        when 61 => 2_305_843_009_213_693_952,
+        when 62 => 4_611_686_018_427_387_904)
    with Ghost;
 
    --  P (N, C): multisets of parts in 1 .. C that sum to N. Either no part
