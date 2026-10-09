@@ -343,6 +343,71 @@ begin
       end;
    end;
 
+
+   Section ("High index bounds (midpoint must not overflow)");
+   for N in 2 .. 8 loop
+      declare
+         A : Element_Array (Natural'Last - N + 1 .. Natural'Last);
+         R : Element_Array (1 .. N);
+         Ok : Boolean := True;
+      begin
+         for K in A'Range loop
+            A (K) := (Natural'Last - K) mod 3 * 10 - (Natural'Last - K);
+         end loop;
+         for K in R'Range loop
+            R (K) := A (A'First + (K - 1));
+         end loop;
+         Reference_Sort (R);
+         begin
+            Sort (A);
+            for K in R'Range loop
+               Ok := Ok and then A (A'First + (K - 1)) = R (K);
+            end loop;
+         exception
+            when Constraint_Error =>
+               Ok := False;
+         end;
+         Check (Ok, "sorts an array ending at Natural'Last, n =" & N'Image);
+      end;
+   end loop;
+
+   Section ("Exhaustive small inputs vs insertion-sort reference");
+   declare
+      Bad : Natural := 0;
+   begin
+      for N in 0 .. 7 loop
+         declare
+            A    : Element_Array (1 .. N) := [others => 0];
+            Done : Boolean;
+         begin
+            loop
+               declare
+                  S : Element_Array := Copy_Of (A);
+                  R : Element_Array := Copy_Of (A);
+               begin
+                  Sort (S);
+                  Reference_Sort (R);
+                  if not Same (S, R) then
+                     Bad := Bad + 1;
+                  end if;
+               end;
+               Done := True;
+               for P in reverse A'Range loop
+                  if A (P) < 2 then
+                     A (P) := A (P) + 1;
+                     A (P + 1 .. N) := [others => 0];
+                     Done := False;
+                     exit;
+                  end if;
+               end loop;
+               exit when Done;
+            end loop;
+         end;
+      end loop;
+      Check (Bad = 0, "all arrays over {0,1,2} up to length 7 sort like the reference:"
+             & Bad'Image & " differ");
+   end;
+
    New_Line;
    Put_Line
      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image
