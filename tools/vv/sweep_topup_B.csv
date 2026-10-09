@@ -1,0 +1,15 @@
+run,commit,folder,family,seed,baseline,pool,drawn,killed,survived,timeout,stillborn,scored,score,pct,compiler
+1,3dc5600e,misc/SPARK2/Ada-SPARK-Binomial-Coefficient,topup higher-order (unseen),20261070,pass,1,1,1,0,0,0,1,1/1,100.0%,GNATMAKE 14.2.0
+1,3dc5600e,misc/SPARK2/Ada-SPARK-Combination-Sum,topup higher-order (unseen),20261070,pass,1,1,1,0,0,0,1,1/1,100.0%,GNATMAKE 14.2.0
+1,3dc5600e,misc/SPARK2/Ada-SPARK-Combination-Sum-II,topup higher-order (unseen),20261070,pass,1,1,1,0,0,0,1,1/1,100.0%,GNATMAKE 14.2.0
+1,3dc5600e,misc/SPARK2/Ada-SPARK-Delete-And-Earn,topup higher-order (unseen),20261070,pass,95,42,30,0,0,12,30,30/30,100.0%,GNATMAKE 14.2.0
+1,3dc5600e,misc/SPARK2/Ada-SPARK-Fibonacci-Number,topup higher-order (unseen),20261070,pass,2,2,2,0,0,0,2,2/2,100.0%,GNATMAKE 14.2.0
+1,3dc5600e,concurrency/SPARK2/Course-Schedule,topup higher-order (unseen),20261070,pass,95,40,30,0,0,10,30,30/30,100.0%,GNATMAKE 14.2.0
+1,3dc5600e,misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,topup higher-order (unseen),20261070,pass,16,16,10,6,0,0,16,10/16,62.5%,GNATMAKE 14.2.0
+2,0b4e0523,misc/SPARK2/Ada-SPARK-Binomial-Coefficient,topup var+higher-order (unseen),20261071,pass,44,44,16,1,0,27,17,16/17,94.1%,GNATMAKE 14.2.0
+2,0b4e0523,misc/SPARK2/Ada-SPARK-Combination-Sum,topup var+higher-order (unseen),20261071,pass,74,74,23,1,0,50,24,23/24,95.8%,GNATMAKE 14.2.0
+2,0b4e0523,misc/SPARK2/Ada-SPARK-Combination-Sum-II,topup var+higher-order (unseen),20261071,pass,74,74,24,0,0,50,24,24/24,100.0%,GNATMAKE 14.2.0
+2,0b4e0523,misc/SPARK2/Ada-SPARK-Delete-And-Earn,topup var+higher-order (unseen),20261071,pass,420,420,18,2,0,400,20,18/20,90.0%,GNATMAKE 14.2.0
+2,0b4e0523,misc/SPARK2/Ada-SPARK-Fibonacci-Number,topup var+higher-order (unseen),20261071,pass,46,46,25,3,0,18,28,25/28,89.3%,GNATMAKE 14.2.0
+2,0b4e0523,concurrency/SPARK2/Course-Schedule,topup var+higher-order (unseen),20261071,pass,764,691,22,8,0,661,30,22/30,73.3%,GNATMAKE 14.2.0
+2,0b4e0523,misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,topup var+higher-order (unseen),20261071,pass,170,170,17,1,0,152,18,17/18,94.4%,GNATMAKE 14.2.0
