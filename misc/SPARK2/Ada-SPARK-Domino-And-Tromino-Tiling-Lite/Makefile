@@ -1,6 +1,7 @@
 GPRBUILD := gprbuild
 GNATPROVE := gnatprove
 PROJECT := domino_and_tromino_tiling_lite.gpr
+PROOF_PROJECT := proof.gpr
 .PHONY: all test prove clean
 all: test
 
@@ -11,7 +12,7 @@ test:
 
 prove:
 	mkdir -p obj
-	$(GNATPROVE) -P$(PROJECT) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
+	$(GNATPROVE) -P$(PROOF_PROJECT) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
 
 clean:
 	rm -rf obj bin gnatprove
