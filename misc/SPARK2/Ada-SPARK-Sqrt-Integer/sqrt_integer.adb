@@ -39,11 +39,9 @@ package body Sqrt_Integer with SPARK_Mode => On is
          end if;
       end loop;
       --  Now N < (R + 1) ** 2 and R * R <= N <= Natural'Last.
-      if R > Wide (Root'Last) then
-         pragma Assert (R * R >= R * (Wide (Root'Last) + 1));
-         pragma Assert (R * (Wide (Root'Last) + 1) >= (Wide (Root'Last) + 1) * (Wide (Root'Last) + 1));
-         pragma Assert (False);
-      end if;
+      --  R * R <= N <= Natural'Last < 46_341 ** 2, so R <= Root'Last.
+      pragma Assert (R * R < (Wide (Root'Last) + 1) * (Wide (Root'Last) + 1));
+      pragma Assert (R <= Wide (Root'Last));
       return (Root => Natural (R), Steps => Steps);
    end Sqrt;
 end Sqrt_Integer;
