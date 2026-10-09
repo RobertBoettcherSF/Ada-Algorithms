@@ -115,7 +115,7 @@ numerical/SPARK2/Ada-SPARK-Count-Primes,H119,"answers come from an 11-arm case t
 numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Count-Primes implementation",open
 parsing/SPARK2/Ada-SPARK-Sparse-Vector-Dot-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Sparse-Vector-Dot implementation",open
 searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,tools/vv/hidden_stub.csv,unrolled linear scan of six fixed positions; no halving,open
-searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees,H116,"returns a constant table of 17 Catalan numbers, nothing is computed",open
+searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees,H116,"returns a constant table of 17 Catalan numbers, nothing is computed","closed (agent-CF: DP sum, proved; see codefix.csv)"
 searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite,tools/vv/hidden_stub.csv,Root_Choices (N) returns N; no trees are generated,open
 searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,H125,toy-size validator with a 256-step limit and a stack-full guard that can skip nodes,open
 searching/SPARK2/Ada-SPARK-Word-Search,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Word-Search implementation",open
