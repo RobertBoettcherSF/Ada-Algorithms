@@ -1,0 +1,21 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+Definition used: the output is the input with every '.' replaced by "[.]"
+and every other character copied (README).
+
+tests.adb: 1.1.1.1 -> 1[.]1[.]1[.]1 is the original case. Added: an
+18-character input with 8 dots must give 34 characters with every '.'
+inside brackets (it used to be cut at 32 with a bare '.'); an empty input
+gives nothing; 255.255.255.255 -> 255[.]255[.]255[.]255 (21 characters);
+abc is copied; 32 dots give 96 characters, 32 times "[.]"; one dot gives
+"[.]"; with 31 sevens and a '.' at position 32, Length 31 gives the 31
+sevens only and Length 32 gives 34 characters ending in "7[.]".
+
+own_checks.adb: the definition built with Ada.Strings.Unbounded, compared
+on every input of length 0 .. 8 over '1', '.', ':' (padding after Length
+random) and on 20,000 seeded random inputs of length 0 .. 32. Seed =
+FNV-1a of the folder name, AA_SEED overrides it.
