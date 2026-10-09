@@ -1,7 +1,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Peeking_Iterator_Stub; use Peeking_Iterator_Stub;
 procedure Tests is
-   Data : constant Value_Array := (1 => 10, 2 => 20, 3 => 30, others => 0);
+   Data : constant Value_Array := [1 => 10, 2 => 20, 3 => 30, others => 0];
    It : Iterator := Create (Data, 3);
    A, B : Value;
 begin

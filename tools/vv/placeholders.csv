@@ -80,7 +80,7 @@ misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Stub,PROOFS.csv stub,"bounded stub 
 misc/SPARK2/Ada-SPARK-Paint-House-Lite,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Paint-House-Lite implementation",open
 misc/SPARK2/Ada-SPARK-Paint-House-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Paint-House implementation",open
 misc/SPARK2/Ada-SPARK-Parking-System-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Parking-System implementation",open
-misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub,H113,"answers come from a case table, not a peeking iterator",open
+misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub,H113,"answers come from a case table, not a peeking iterator","closed (agent-CF: real peeking iterator, functional Posts proved)"
 misc/SPARK2/Ada-SPARK-Product-Of-Numbers-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Product-Of-Numbers implementation",open
 misc/SPARK2/Ada-SPARK-Range-Module-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Range-Module implementation",open
 misc/SPARK2/Ada-SPARK-Remove-K-Digits,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Remove-K-Digits implementation",open
