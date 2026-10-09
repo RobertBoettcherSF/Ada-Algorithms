@@ -139,3 +139,9 @@ misc/SPARK2/Ada-SPARK-Target-Sum,GNAT 14,GNATLS 14.2.0,0,0,own checks: 103125 ch
 misc/SPARK2/Ada-SPARK-Target-Sum,GNAT 12,GNATLS 12.2.0,0,0,own checks: 103125 checks; 0 failures,9dad2eed
 misc/SPARK2/Ada-SPARK-Reach-A-Number,GNAT 14,GNATLS 14.2.0,0,0,own checks: 201 checks; 0 failures,9dad2eed
 misc/SPARK2/Ada-SPARK-Reach-A-Number,GNAT 12,GNATLS 12.2.0,0,0,own checks: 201 checks; 0 failures,9dad2eed
+misc/SPARK2/Ada-SPARK-Path-Sum,GNAT 14,GNATLS 14.2.0,0,0,Path Sum: PASS,9dad2eed
+misc/SPARK2/Ada-SPARK-Path-Sum,GNAT 12,GNATLS 12.2.0,0,0,Path Sum: PASS,9dad2eed
+misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,GNAT 14,GNATLS 14.2.0,0,0,own checks: 29841 checks; 0 failures,72814ed1
+misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,GNAT 12,GNATLS 12.2.0,0,0,own checks: 29841 checks; 0 failures,72814ed1
+misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,GNAT 14,GNATLS 14.2.0,0,0,own checks: 268569 checks; 0 failures,72814ed1
+misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,GNAT 12,GNATLS 12.2.0,0,0,own checks: 268569 checks; 0 failures,72814ed1
