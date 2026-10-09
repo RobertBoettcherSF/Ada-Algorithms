@@ -1,10 +1,13 @@
 pragma Ada_2022;
 
 package body Find_First_And_Last_Position with SPARK_Mode => On is
+   --  The original whole-array scan, counting the elements it reads.
    function Locate (Data : Sorted_Array; Target : Value) return Match_Range is
-      Answer : Match_Range := (First => 0, Last => 0);
+      Answer : Match_Range := (First => 0, Last => 0, Probes => 0);
    begin
       for I in Index loop
+         pragma Loop_Invariant (Answer.Probes = I - 1);
+         Answer.Probes := Answer.Probes + 1;
          if Data (I) = Target then
             if Answer.First = 0 then
                Answer.First := I;
