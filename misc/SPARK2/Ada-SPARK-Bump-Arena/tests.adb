@@ -3,6 +3,7 @@ pragma SPARK_Mode (Off);
 with Ada.Text_IO; use Ada.Text_IO;
 with Bump_Arena;  use Bump_Arena;
 with Index_Tree;  use Index_Tree;
+with Own_Checks;
 
 procedure Tests is
    Passes : Natural := 0;
@@ -90,6 +91,59 @@ begin
       Check (Used (S) = 2, "scratch after release");
    end;
 
+   --  Hand-worked edge cases (V&V sweep, agent A3; tests/SOURCES.txt).
+   declare
+      E  : Arena := Create;
+      M0 : Mark;
+      Eid : Node_Id;
+      C  : Tree := Empty;
+   begin
+      --  All 16 slots, ids 1 .. 16 in order, then none remaining.
+      M0 := Get_Mark (E);
+      Check (Mark_Level (M0) = 0, "mark on an empty arena");
+      for K in 1 .. Capacity loop
+         Allocate_Node (E, Eid);
+         Check (Eid = K and then Used (E) = K, "id" & K'Image);
+      end loop;
+      Check (Remaining (E) = 0, "arena full");
+      Release (E, M0);
+      Check (Used (E) = 0 and then Remaining (E) = Capacity, "release to 0");
+      Allocate_Node (E, Eid);
+      Check (Eid = 1, "slot 1 reused after release");
+      --  Ascending keys make a chain of depth 16.
+      for K in 1 .. Capacity loop
+         Insert (C, K * 10, Ok);
+         Check (Ok, "chain insert" & K'Image);
+      end loop;
+      Check (Remaining_Slots (C) = 0 and then Used (Arena_Of (C)) = 16,
+             "16 keys use 16 slots");
+      for K in 1 .. Capacity loop
+         Check (Contains (C, K * 10), "chain contains" & K'Image);
+         Check (not Contains (C, K * 10 + 5), "chain gap" & K'Image);
+      end loop;
+      Check (not Contains (C, 0) and then not Contains (C, 1_000)
+             and then not Contains (C, -1_000), "chain outside");
+      Insert (C, 160, Ok);
+      Check (not Ok and then Used (Arena_Of (C)) = 16,
+             "duplicate on a full tree rejected");
+      --  Descending keys at the ends of the key range.
+      Clear (C);
+      for K in 1 .. Capacity loop
+         Insert (C, 1_001 - K, Ok);
+      end loop;
+      Check (Contains (C, 1_000) and then Contains (C, 985)
+             and then not Contains (C, 984) and then not Contains (C, -1_000),
+             "descending chain");
+      Clear (C);
+      Insert (C, -1_000, Ok);
+      Insert (C, 1_000, Ok);
+      Insert (C, 0, Ok);
+      Check (Ok and then Contains (C, -1_000) and then Contains (C, 0)
+             and then Contains (C, 1_000) and then not Contains (C, 1)
+             and then Root_Of (C) = 1,
+             "key range ends");
+   end;
+   Own_Checks;
    Put_Line ("----------------");
    Put_Line ("All tests PASS:" & Passes'Image);
 end Tests;

@@ -1,0 +1,27 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the checks before "Hand-worked edge cases" are the original
+ones. Hand-worked from the package description (ids are handed out as
+Used + 1, Capacity = 16 from the spec; Release goes back to the mark's
+level; a binary search tree stores each key once): a mark taken on an
+empty arena has level 0; 16 allocations return ids 1 .. 16 and leave
+nothing remaining; releasing to the level-0 mark empties the arena and the
+next id is 1 again. Inserting 10, 20, ..., 160 (a chain of depth 16) uses
+16 slots and every key is found while 15, 25, ..., 165, 0, 1000 and -1000
+are not; inserting 160 again is refused without using a slot. Inserting
+1000 down to 985 finds 1000 and 985 but not 984 or -1000. Keys -1000, 1000
+and 0 (both ends of Key) are all found, 1 is not, and the first key sits
+in slot 1.
+
+own_checks.adb: model-based. The arena is compared with a counter model
+over 50,000 seeded random Allocate / Get_Mark / Release (LIFO, sometimes
+skipping up to 3 marks) / Reset steps. The tree is compared with a
+membership table over -1000 .. 1000 in 3,000 runs of 24 inserts
+(ascending, descending, narrow and wide random keys): Insert answers Ok
+exactly for new keys and uses one slot per stored key, and Contains agrees
+with the table on stored keys, their neighbours and random keys. Seed =
+FNV-1a of the folder name, AA_SEED overrides it.
