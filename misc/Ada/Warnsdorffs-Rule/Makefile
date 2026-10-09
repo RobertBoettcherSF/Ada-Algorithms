@@ -2,14 +2,15 @@
 
 GNAT = gnatmake
 
-all: tests
+all: bin/tests
 
-tests: tests.adb warnsdorff.adb warnsdorff.ads
+bin/tests: tests.adb warnsdorff.adb warnsdorff.ads warnsdorff.gpr
+	mkdir -p obj bin
 	$(GNAT) -P warnsdorff.gpr
 
-test: tests
+test: bin/tests
 	@echo "Running verification tests..."
-	@./tests
+	@bin/tests
 
 clean:
-	rm -f *.o *.ali tests tests.exe
+	rm -rf obj bin

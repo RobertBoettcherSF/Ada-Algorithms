@@ -89,6 +89,55 @@ begin
    Assert (Is_Valid_Tour (Grid_1x1, 1) = True, "1x1 tour verification failed");
    Put_Line ("      PASS");
 
+   -- TEST 8 - The validator rejects a board that repeats a step number
+   -- (checker scan: a repeated step left a slot of the step table unset,
+   -- so a stale entry from an earlier call could pass the move check).
+   Put_Line ("TEST 8 - Validator rejects repeated / missing step numbers");
+   Solve_Tour (5, 1, 1, Basic, Grid_5x5, Success);
+   Assert (Success = True, "Failed to complete 5x5 basic tour");
+   declare
+      Rejected : Natural := 0;
+      Tried    : Natural := 0;
+   begin
+      for V in 1 .. 25 loop
+         for W in 1 .. 25 loop
+            if V /= W then
+               declare
+                  Tampered : Board_Grid := Grid_5x5;
+               begin
+                  for I in 1 .. 5 loop
+                     for J in 1 .. 5 loop
+                        if Grid_5x5 (I, J) = V then
+                           Tampered (I, J) := W;   -- V missing, W twice
+                        end if;
+                     end loop;
+                  end loop;
+                  Assert (Is_Valid_Tour (Grid_5x5, 5), "real tour rejected");
+                  Tried := Tried + 1;
+                  if not Is_Valid_Tour (Tampered, 5) then
+                     Rejected := Rejected + 1;
+                  end if;
+               end;
+            end if;
+         end loop;
+      end loop;
+      Put_Line ("  8.1 Assert all" & Natural'Image (Tried)
+                & " boards with one step number repeated are rejected");
+      Assert (Rejected = Tried, "accepted" & Natural'Image (Tried - Rejected)
+              & " boards that repeat a step number");
+      Put_Line ("      PASS");
+   end;
+   Put_Line ("  8.2 Assert a board with an out-of-range step number is rejected");
+   declare
+      Tampered : Board_Grid := Grid_5x5;
+   begin
+      Tampered (1, 1) := 26;
+      Assert (not Is_Valid_Tour (Tampered, 5), "accepted step number 26");
+      Tampered (1, 1) := 0;
+      Assert (not Is_Valid_Tour (Tampered, 5), "accepted step number 0");
+   end;
+   Put_Line ("      PASS");
+
    Put_Line ("------------------------------------------------");
    Put_Line ("ALL TESTS PASSED SUCCESSFULLY.");
 end Tests;

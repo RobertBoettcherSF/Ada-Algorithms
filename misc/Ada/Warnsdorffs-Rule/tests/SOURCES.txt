@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb TEST 1 .. 7: the original checks (Solve_Tour succeeds and its
+board passes Is_Valid_Tour; 3 x 3 and 4 x 4 have no open tour from the
+corner; 1 x 1 is a tour).
+
+tests.adb TEST 8 (checker scan): from the definition in warnsdorff.ads and
+README.md: a knight's tour board holds every step number 1 .. N * N exactly
+once and consecutive steps are a knight move apart. So a board where one
+step number V is replaced by another W (V missing, W twice), for every pair
+V /= W on a 5 x 5 tour (600 boards), and boards holding 26 or 0, are not
+tours and must be rejected. The real tour is judged before each tampered
+board, as a caller checking several boards in turn would.
