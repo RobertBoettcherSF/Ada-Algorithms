@@ -13,3 +13,6 @@ run,commit,folder,family,seed,baseline,pool,drawn,killed,survived,timeout,stillb
 2,0b4e0523,misc/SPARK2/Ada-SPARK-Fibonacci-Number,topup var+higher-order (unseen),20261071,pass,46,46,25,3,0,18,28,25/28,89.3%,GNATMAKE 14.2.0
 2,0b4e0523,concurrency/SPARK2/Course-Schedule,topup var+higher-order (unseen),20261071,pass,764,691,22,8,0,661,30,22/30,73.3%,GNATMAKE 14.2.0
 2,0b4e0523,misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,topup var+higher-order (unseen),20261071,pass,170,170,17,1,0,152,18,17/18,94.4%,GNATMAKE 14.2.0
+per-folder,0b4e0523,misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,topup var+higher-order (unseen),20261165,pass,72,37,30,0,0,7,30,30/30,100.0%,GNATMAKE 14.2.0
+per-folder,9e598a51,misc/SPARK2/Ada-SPARK-Factorial,topup var+higher-order (unseen),20261166,pass,12,12,4,0,0,8,4,4/4,100.0%,GNATMAKE 14.2.0
+per-folder,9e598a51,misc/SPARK2/Ada-SPARK-Fast-Pow,topup var+higher-order (unseen),20261167,pass,200,35,30,0,0,5,30,30/30,100.0%,GNATMAKE 14.2.0

@@ -107,3 +107,9 @@ misc/SPARK2/Ada-SPARK-Combination-Sum-II,GNAT 14,GNATLS 14.2.0,0,0,PASS Combinat
 misc/SPARK2/Ada-SPARK-Combination-Sum-II,GNAT 12,GNATLS 12.2.0,0,0,PASS Combination_Sum_II,74e08435
 misc/SPARK2/Ada-SPARK-Delete-And-Earn,GNAT 14,GNATLS 14.2.0,0,0,PASS Delete_And_Earn,3a492f74
 misc/SPARK2/Ada-SPARK-Delete-And-Earn,GNAT 12,GNATLS 12.2.0,0,0,PASS Delete_And_Earn,3a492f74
+misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,GNAT 14,GNATLS 14.2.0,0,0,PASS Domino_And_Tromino_Tiling_Lite,0b4e0523
+misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,GNAT 12,GNATLS 12.2.0,0,0,PASS Domino_And_Tromino_Tiling_Lite,0b4e0523
+misc/SPARK2/Ada-SPARK-Factorial,GNAT 14,GNATLS 14.2.0,0,0,factorial checks passed,9e598a51
+misc/SPARK2/Ada-SPARK-Factorial,GNAT 12,GNATLS 12.2.0,0,0,factorial checks passed,9e598a51
+misc/SPARK2/Ada-SPARK-Fast-Pow,GNAT 14,GNATLS 14.2.0,0,0,fast pow checks passed,9e598a51
+misc/SPARK2/Ada-SPARK-Fast-Pow,GNAT 12,GNATLS 12.2.0,0,0,fast pow checks passed,9e598a51
