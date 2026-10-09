@@ -207,3 +207,5 @@ misc/SPARK2/Ada-SPARK-Ugly-Number-II,GNAT 14,GNATLS 14.2.0,0,0,PASS Ugly_Number_
 misc/SPARK2/Ada-SPARK-Ugly-Number-II,GNAT 12,GNATLS 12.2.0,0,0,PASS Ugly_Number_II,0abef8f4
 misc/SPARK2/Ada-SPARK-Design-Browser-History,GNAT 14,GNATLS 14.2.0,0,0,Design Browser History: PASS,f46cfb64
 misc/SPARK2/Ada-SPARK-Design-Browser-History,GNAT 12,GNATLS 12.2.0,0,0,Design Browser History: PASS,f46cfb64
+misc/SPARK2/Ada-SPARK-Sigmoid,GNAT 14,GNATLS 14.2.0,0,0,PASS Sigmoid ( 31 checks),0ba66666
+misc/SPARK2/Ada-SPARK-Sigmoid,GNAT 12,GNATLS 12.2.0,0,0,PASS Sigmoid ( 31 checks),0ba66666
