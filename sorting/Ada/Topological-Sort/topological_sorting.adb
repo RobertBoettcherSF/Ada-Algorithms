@@ -20,9 +20,17 @@ package body Topological_Sorting is
          return False; 
       end if;
       
-      -- Map each node to its index in the sorted result
+      -- Map each node to its place (1 .. Num_Nodes) in the sorted result.
+      -- Every node must occur exactly once: Num_Nodes entries, each a node
+      -- of G and none seen before.
       for I in Result'Range loop
-         Position(Natural(Result(I))) := I;
+         if Natural(Result(I)) > G.Num_Nodes then
+            return False;
+         end if;
+         if Position(Natural(Result(I))) /= 0 then
+            return False;
+         end if;
+         Position(Natural(Result(I))) := I - Result'First + 1;
       end loop;
 
       -- For every edge U -> V, U must appear BEFORE V in the result

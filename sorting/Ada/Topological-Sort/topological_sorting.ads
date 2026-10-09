@@ -30,7 +30,9 @@ package Topological_Sorting is
    -- Adds a directed edge from 'From' node to 'To' node.
    procedure Add_Edge (G : in out Graph; From, To : Node_ID);
 
-   -- Validates if a given result array is a valid topological sort of G
+   -- Validates if a given result array is a valid topological sort of G:
+   -- every node 1 .. Num_Nodes exactly once, and U before V for every edge
+   -- U -> V. False (not an exception) for nodes outside 1 .. Num_Nodes.
    function Is_Valid_Sort (G : in Graph; Result : in Node_Array) return Boolean;
 
    -- Variant 1: Kahn's algorithm (Iterative / Indegree based)
