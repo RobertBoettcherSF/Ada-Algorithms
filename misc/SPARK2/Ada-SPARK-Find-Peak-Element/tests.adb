@@ -32,9 +32,6 @@ procedure Tests is
 
    Bound : constant Natural := Floor_Log2 (Length) + 2;
 
-   function Is_Peak (X : Input_Array; P : Index) return Boolean is
-     ((P = 1 or else X (P) > X (P - 1)) and then (P = Length or else X (P) > X (P + 1)));
-
    procedure Expect (X : Input_Array; Label : String; Only : Natural := 0) is
       R : constant Search_Result := Find_Peak (X);
    begin
