@@ -18,6 +18,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (95 checks), on `proof.gpr` (the package only).
 
-`make test` runs `tests.adb` (the original example 1 3 8 10 / 2 4 9 12 padded to 16 values each, one array wholly below the other in both orders, odd / even interleaved, all equal) and the folder's own checks (see `tests/SOURCES.txt`).
+`make test` runs `tests.adb` (the original example 1 3 8 10 / 2 4 9 12 padded to 16 values each, one array wholly below the other in both orders, odd / even interleaved, all equal) and the folder's own checks: 17,004 checks against an insertion sort of all 32 values, exact counts on hand-worked pairs and a measured worst case of 6 comparisons (see `tests/SOURCES.txt`).
 
 The first version copied both 4-element arrays and selection-sorted all 8 values, with no contract and no sortedness requirement; this README said n <= 32. The failing test that came first grew the arrays to 16 values, added a comparison counter and asserted the log bound. It fails on the old code (496 comparisons for 32 values).
