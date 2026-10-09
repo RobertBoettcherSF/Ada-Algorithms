@@ -46,7 +46,7 @@ strings/SPARK2/Ada-SPARK-Find-All-Anagrams-In-A-String,own window count referenc
 strings/SPARK2/Ada-SPARK-Encode-And-Decode-Strings-Lite,round trip both ways + constant non-zero XOR key; all 256 bytes
 strings/SPARK2/Ada-SPARK-Number-Of-Lines-To-Write-String,own width-100 line-filling simulation; 4000 random
 strings/SPARK2/Ada-SPARK-Reverse-Vowels-Of-A-String,swap of positions 2 and 5; rest unchanged; 4000 random
-numerical/SPARK2/Ada-SPARK-Count-Primes,own trial-division count of primes < N; exhaustive 0..1000 + pi(999) = 168
+numerical/SPARK2/Ada-SPARK-Count-Primes,own trial-division count of primes < N; exhaustive 0..1000 + pi(999) = 168, pi(10**6) = 78498, pi(10**7) = 664579
 numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,own trial division for Is_Prime and Below; exhaustive 0..100
 numerical/SPARK2/Ada-SPARK-Minimum-Limit-Of-Balls-In-A-Bag,own linear scan over L with ceiling(B/L)-1 splits; 2000 random
 numerical/SPARK2/Ada-SPARK-Modular-Exponentiation,own repeated multiplication mod M; exhaustive 173417

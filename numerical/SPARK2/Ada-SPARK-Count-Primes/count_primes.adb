@@ -5,7 +5,8 @@ package body Count_Primes with SPARK_Mode => On is
    --  out by a smaller prime is prime, and its multiples I * I, I * I + I,
    --  ... below N are crossed out (smaller multiples already are).
    function Count_Primes_Below (N : Limit) return Prime_Count is
-      Composite : array (0 .. Max_Limit) of Boolean := [others => False];
+      type Sieve is array (0 .. Max_Limit) of Boolean with Pack;   --  1.25 MB
+      Composite : Sieve := [others => False];
       Count     : Prime_Count := 0;
       J         : Natural;
    begin
