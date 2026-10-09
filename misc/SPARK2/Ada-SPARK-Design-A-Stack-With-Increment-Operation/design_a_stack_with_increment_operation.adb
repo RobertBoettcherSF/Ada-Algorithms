@@ -4,11 +4,13 @@ package body Design_A_Stack_With_Increment_Operation with SPARK_Mode => On is
    begin return (Data => [others => 0], Count => 0); end Empty;
    procedure Push (S : in out Stack; V : Value) is
    begin S.Count := S.Count + 1; S.Data (S.Count) := V; end Push;
-   procedure Increment (S : in out Stack; Bottom : Index; By : Amount) is Limit : Index;
+   procedure Increment (S : in out Stack; Bottom : Index; By : Amount) is
+      Limit : constant Index := Integer'Min (Bottom, S.Count);
    begin
-      if Bottom < S.Count then Limit := Bottom; else Limit := S.Count; end if;
       for I in 1 .. Limit loop
-         if S.Data (I) <= Value'Last - By then S.Data (I) := S.Data (I) + By; end if;
+         pragma Loop_Invariant
+           (for all J in I .. Limit => S.Data (J) = S.Data'Loop_Entry (J));
+         S.Data (I) := S.Data (I) + By;
       end loop;
    end Increment;
    procedure Pop (S : in out Stack; V : out Value) is
