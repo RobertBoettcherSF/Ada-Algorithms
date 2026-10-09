@@ -45,7 +45,6 @@ trees/SPARK2/Ada-SPARK-Red-Black-Tree	Ada/SPARK Red-Black Tree  A deliberately t
 graphs/SPARK2/Ada-SPARK-Kruskal-MST-Lite	hidden stub: sums every edge cost; no edge selection or union-find, so no spanning tree
 misc/SPARK2/Ada-SPARK-Heap-Push-Pop	hidden stub: unsorted array with linear minimum search and a full re-sort; no heap property or sift
 searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound	hidden stub: unrolled linear scan of six fixed positions; no halving
-searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees	hidden stub: returns a constant table of Catalan numbers; nothing computed
 searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite	hidden stub: Root_Choices (N) returns N; no trees generated
 sorting/SPARK2/Ada-SPARK-Block-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
 sorting/SPARK2/Ada-SPARK-Heap-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented

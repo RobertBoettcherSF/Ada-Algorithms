@@ -2,15 +2,14 @@
 
 Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every folder with `stub` = yes in PROOFS.csv carries `implement_next` = yes: it is a candidate for a full implementation of the named algorithm, which comes before the SPARK Silver (level 2) work on it. Signals: the folder name ends in `-Stub` (and it is not listed in `tools/generalised_stubs.txt`), its README calls it a stub (`tools/readme_stubs.txt`), or the hidden-stub scan found that the code lacks the core step (`tools/vv/hidden_stub.csv`). The core-step notes are in `tools/implement_notes.txt`.
 
-**146 candidate folders** (145 with duplicates counted once, the README count).
+**138 candidate folders** (137 with duplicates counted once, the README count).
 
-## concurrency (3)
+## concurrency (2)
 
 | Folder | Signal | Full algorithm needs (core step) |
 |---|---|---|
 | concurrency/SPARK2/Ada-SPARK-Course-Schedule-II | README wording: "Ada-SPARK-Course-Schedule-II  Bounded course-order stub for up to 16 courses" | Kahn's in-degree queue (or DFS post-order) over an arbitrary prerequisite graph, reporting cycles |
 | concurrency/SPARK2/Ada-SPARK-Course-Schedule-II-Stub | -Stub name | Kahn's in-degree queue (or DFS post-order) over an arbitrary prerequisite graph, reporting cycles |
-| concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub | -Stub name | count task frequencies and compute idle slots from the most frequent tasks and the cooldown n |
 
 ## cryptography (3)
 
@@ -35,7 +34,7 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | hashing/SPARK2/Ada-SPARK-Design-HashMap-Stub | -Stub name | hashing into buckets with collision chains or probing and resizing, for any key range |
 | hashing/SPARK2/Ada-SPARK-Design-HashSet-Stub | -Stub name | hashing into buckets with collision handling for arbitrary keys |
 
-## misc (94)
+## misc (90)
 
 | Folder | Signal | Full algorithm needs (core step) |
 |---|---|---|
@@ -51,7 +50,6 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | misc/SPARK2/Ada-SPARK-Candy | README wording: "Ada-SPARK-Candy  Small bounded SPARK stub for the Candy problem" | two passes (left-to-right, right-to-left) so higher-rated children get more candy |
 | misc/SPARK2/Ada-SPARK-Cheapest-Flights-Stub | -Stub name | Bellman-Ford limited to K+1 edge relaxations (or BFS by stops) over any flight list |
 | misc/SPARK2/Ada-SPARK-Circular-Deque-Stub | -Stub name | ring buffer with head and tail indices wrapping at capacity, insertion and removal at both ends |
-| misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub | -Stub name | lexicographic next-combination generation over any alphabet and length |
 | misc/SPARK2/Ada-SPARK-Count-Sub-Islands | README wording: "Count Sub Islands (bounded SPARK stub)  An 8x8 bounded overlap count that keeps the proof surface small" | flood fill the islands of grid 2 and check every cell is land in grid 1 |
 | misc/SPARK2/Ada-SPARK-Decode-Ways-Stub | -Stub name | DP over prefixes counting valid one- and two-digit codes, including zeros |
 | misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub | -Stub name | bucket the values, then house-robber DP over adjacent values |
@@ -91,7 +89,6 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | misc/SPARK2/Ada-SPARK-My-Calendar-Stub | -Stub name | ordered set of booked intervals with an overlap check on insert |
 | misc/SPARK2/Ada-SPARK-My-Linked-List-Stub | -Stub name | dynamic singly linked list with index-based get/add/delete for any length |
 | misc/SPARK2/Ada-SPARK-N-Repeated-Element-In-Size-2N-Array | README wording: "Ada-SPARK-N-Repeated-Element-In-Size-2N-Array  A bounded SPARK stub for recognizing a repeated value in a 2N-sized array" | find the element repeated n times (set or a distance-3 window) for any n |
-| misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub | -Stub name | iterator over arbitrarily nested lists using an explicit stack |
 | misc/SPARK2/Ada-SPARK-Network-Delay-Time-Stub | -Stub name | Dijkstra from the source over the weighted edges; maximum distance or -1 |
 | misc/SPARK2/Ada-SPARK-Next-Permutation-Stub | -Stub name | find the rightmost ascent, swap with the next larger element, reverse the suffix |
 | misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals | README wording: "Ada-SPARK-Non-Overlapping-Intervals  Small bounded SPARK stub for the Non Overlapping Intervals problem" | sort by end and greedily keep compatible intervals; count removals |
@@ -104,7 +101,6 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | misc/SPARK2/Ada-SPARK-Paint-House-Lite | README wording: "Ada-SPARK-Paint-House-Lite  One-house, three-color bounded paint-cost stub, with executable tests and level-2 SPARK proof" | DP over houses keeping the minimum cost for each final colour |
 | misc/SPARK2/Ada-SPARK-Paint-House-Stub | -Stub name | DP over houses keeping the minimum cost for each final colour |
 | misc/SPARK2/Ada-SPARK-Parking-System-Stub | -Stub name | counters per car size with capacity checks |
-| misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub | -Stub name | cache the next element so peek does not advance the underlying iterator |
 | misc/SPARK2/Ada-SPARK-Product-Of-Numbers-Stub | -Stub name | prefix products reset at zeros, answering the product of the last k numbers |
 | misc/SPARK2/Ada-SPARK-Range-Module-Stub | -Stub name | ordered disjoint interval set with add, remove and query that split and merge intervals |
 | misc/SPARK2/Ada-SPARK-Remove-K-Digits | README wording: "Ada-SPARK-Remove-K-Digits  A bounded SPARK digit-buffer stub that removes K trailing digits without allocation" | monotonic increasing stack removing k digits, then strip leading zeros |
@@ -132,7 +128,6 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | misc/SPARK2/Ada-SPARK-Vector-2D-Stub | -Stub name | iterator flattening a ragged 2-D vector, skipping empty rows |
 | misc/SPARK2/Ada-SPARK-Word-Break-Stub | -Stub name | DP over prefixes with dictionary lookups for any dictionary |
 | misc/SPARK2/Ada-SPARK-Word-Ladder-Stub | -Stub name | BFS over one-letter transformations using wildcard buckets |
-| misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub | -Stub name | alternate between two (or k) iterators with a queue of non-empty ones |
 
 ## numerical (1)
 
@@ -146,12 +141,11 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 |---|---|---|
 | parsing/SPARK2/Ada-SPARK-Sparse-Vector-Dot-Stub | -Stub name | store the non-zero (index, value) pairs and merge two of them for the dot product |
 
-## searching (4)
+## searching (3)
 
 | Folder | Signal | Full algorithm needs (core step) |
 |---|---|---|
 | searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound | hidden-stub scan: hidden stub: unrolled linear scan of six fixed positions; no halving | binary search for the first index whose element is greater than the key, on any sorted array |
-| searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees | hidden-stub scan: hidden stub: returns a constant table of Catalan numbers; nothing computed | Catalan DP: G(n) = sum G(i-1) * G(n-i) |
 | searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite | hidden-stub scan: hidden stub: Root_Choices (N) returns N; no trees generated | recursive construction of all structurally unique BSTs over 1 .. n |
 | searching/SPARK2/Ada-SPARK-Word-Search | README wording: "Word Search (bounded SPARK stub)  An 8x8 bounded board search for the first word character" | DFS with backtracking over the grid, marking visited cells |
 
@@ -189,11 +183,10 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | strings/SPARK2/Ada-SPARK-Reorganize-String-Stub | -Stub name | max-heap by count, placing the two most frequent letters alternately (or report impossible) |
 | strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi-Stub | -Stub name | skip whitespace, read the sign and digits, clamp to the integer range at the first overflow |
 
-## trees (11)
+## trees (9)
 
 | Folder | Signal | Full algorithm needs (core step) |
 |---|---|---|
-| trees/SPARK2/Ada-SPARK-BST-Iterator-Stub | -Stub name | controlled in-order traversal with an explicit stack |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View | hidden-stub scan: hidden stub: returns fixed positions 1, 3, 7, 15 of a complete tree; no traversal (absent nodes not handled) | level-order traversal taking the last node of each level |
 | trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub | -Stub name | BST deletion with the leaf, one-child and two-children (in-order successor) cases |
 | trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite | hidden-stub scan: hidden stub: a hard-coded index permutation for one complete-tree shape; no traversal | pre-order rewiring of right pointers in place (Morris-style or recursive) |
@@ -202,5 +195,4 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | trees/SPARK2/Ada-SPARK-Red-Black-Tree | README wording: "Ada/SPARK Red-Black Tree  A deliberately tiny bounded teaching stub: the color enum and a checked rotation index are the first verified building blocks for a re" | insertion with recolouring and rotations (and deletion fix-up) keeping the red-black invariants |
 | trees/SPARK2/Ada-SPARK-Trim-BST-Stub | -Stub name | recursive trimming that keeps the BST property within [low, high] |
 | trees/SPARK2/Ada-SPARK-Two-Sum-BST-Stub | -Stub name | in-order iterator from both ends (or a hash set) over a BST of any size |
-| trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub | -Stub name | Catalan DP: G(n) = sum G(i-1) * G(n-i) |
 | trees/SPARK2/Ada-SPARK-Validate-BST-Stub | -Stub name | recursive bounds check (or in-order strictly increasing) over any tree |

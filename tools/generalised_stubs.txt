@@ -5,3 +5,10 @@ misc/SPARK2/Ada-SPARK-Nth-Digit-Stub
 strings/SPARK2/Ada-SPARK-Multiply-Strings-Stub
 misc/SPARK2/Ada-SPARK-Pow-X-N-Stub
 misc/SPARK2/Ada-SPARK-Count-And-Say-Stub
+misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub
+misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub
+misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub
+misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub
+trees/SPARK2/Ada-SPARK-BST-Iterator-Stub
+trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub
+concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub
