@@ -121,7 +121,7 @@ package body Search_In_Rotated_Sorted_Array_II with SPARK_Mode => On is
       Lo        : Index := 1;
       Hi        : Index := Length;
       Mid       : Index;
-      Turn_Cmps : Natural range 0 .. Length - 1 := 0;   --  finding the turn
+      Turn_Cmps : Natural range 0 .. 2 * (Length - 1) := 0;   --  finding the turn
       Pick_Cmps : Natural range 0 .. 1 := 0;            --  picking the part
       Part_Cmps : Natural range 0 .. 6 := 0;            --  halving the part
       Last_Cmps : Natural range 0 .. 1 := 0;            --  the element found
@@ -134,7 +134,7 @@ package body Search_In_Rotated_Sorted_Array_II with SPARK_Mode => On is
       --  Find the turn.
       while Lo < Hi loop
          pragma Loop_Invariant (Pv in Lo .. Hi);
-         pragma Loop_Invariant (Turn_Cmps + (Hi - Lo) <= Length - 1);
+         pragma Loop_Invariant (Turn_Cmps + 2 * (Hi - Lo) <= 2 * (Length - 1));
          pragma Loop_Variant (Decreases => Hi - Lo);
          Mid := Lo + (Hi - Lo) / 2;
          Turn_Cmps := Turn_Cmps + 1;
@@ -143,12 +143,16 @@ package body Search_In_Rotated_Sorted_Array_II with SPARK_Mode => On is
             Lo := Mid + 1;
          elsif Data (Mid) < Data (Hi) then
             Hi := Mid;
-         elsif Data (Hi - 1) > Data (Hi) then
-            --  Equal ends, but Data falls into Hi: Hi is the turn.
-            Lo := Hi;
          else
-            --  Equal ends and no fall into Hi: the turn is below Hi.
-            Hi := Hi - 1;
+            --  Equal ends: a second comparison, Data (Hi - 1) with Data (Hi).
+            Turn_Cmps := Turn_Cmps + 1;
+            if Data (Hi - 1) > Data (Hi) then
+               --  Data falls into Hi: Hi is the turn.
+               Lo := Hi;
+            else
+               --  No fall into Hi: the turn is below Hi.
+               Hi := Hi - 1;
+            end if;
          end if;
       end loop;
       pragma Assert (Lo = Pv);

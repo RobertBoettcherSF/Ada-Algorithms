@@ -171,7 +171,9 @@ begin
    end loop;
    --  Distinct values: 5 + 1 + 5 + 1 or 5 + 6 + 1, so 12 at most.
    Report (Max_Distinct = 12, "worst case comparisons, distinct" & Max_Distinct'Image & ", expected 12");
-   Report (Max_Any <= Length + 7, "worst case comparisons" & Max_Any'Image);
+   --  With duplicates: at most 2 * (N - 1) + 8 = 70, the proved bound
+   --  (each shrink step on equal ends makes two comparisons).
+   Report (Max_Any <= 2 * (Length - 1) + 8, "worst case comparisons" & Max_Any'Image);
    if Failures = 0 then
       Put_Line ("PASS own checks:" & Checked'Image
                 & " checks (all rotations of 90 arrays x 101 targets vs a linear scan; distinct: comparisons <= 2 * (floor (log2 N) + 2), worst case 12; with duplicates worst case"
