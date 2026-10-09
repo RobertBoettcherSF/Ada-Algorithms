@@ -1,0 +1,484 @@
+diff --git a/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/connected_component_labeling.adb b/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/connected_component_labeling.adb
+index 8e9bc357..c34a1829 100644
+--- a/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/connected_component_labeling.adb
++++ b/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/connected_component_labeling.adb
+@@ -2,63 +2,151 @@ pragma Ada_2022;
+ package body Connected_Component_Labeling
+   with SPARK_Mode => On
+ is
+-   procedure Propagate
+-     (Input  : Binary_Grid;
+-      Output : in out Label_Grid;
+-      L      : Label_Id)
+-     with
+-       Global => null,
+-       Pre    => L > 0
++   --  Runtime cost: the loop invariants quantify over the whole grid (all
++   --  proved; not executed). The spec Posts still run.
++   pragma Assertion_Policy (Loop_Invariant => Ignore);
++
++   subtype Prov_Label is Positive range 1 .. Max_Rows * Max_Cols;
++   type Parent_Array is array (Prov_Label) of Label_Id;
++
++   --  Parent (L) <= L for every provisional label 1 .. Next (a root points
++   --  to itself), so following parents always ends.
++   function Forest (Parent : Parent_Array; Next : Label_Id) return Boolean is
++     (for all L in 1 .. Next => Parent (L) in 1 .. L);
++
++   --  Root of L, halving the path on the way (roots do not change).
++   procedure Find (Parent : in out Parent_Array; Next : Label_Id; L : Prov_Label; Root : out Prov_Label)
++     with Pre  => Forest (Parent, Next) and then L <= Next,
++          Post => Forest (Parent, Next) and then Root <= L and then Parent (Root) = Root
+    is
++      Y : Prov_Label := L;
+    begin
+-      --  Bounded multi-pass fill: at most Area passes suffice for any
+-      --  4-connected path on a Max_Rows x Max_Cols grid.
+-      for Pass in 1 .. Max_Rows * Max_Cols loop
+-         for R in Row_Index loop
+-            for C in Col_Index loop
+-               if Input (R, C)
+-                 and then Output (R, C) = 0
+-                 and then
+-                   ((R > Row_Index'First
+-                     and then Output (Row_Index'Pred (R), C) = L)
+-                    or else
+-                    (R < Row_Index'Last
+-                     and then Output (Row_Index'Succ (R), C) = L)
+-                    or else
+-                    (C > Col_Index'First
+-                     and then Output (R, Col_Index'Pred (C)) = L)
+-                    or else
+-                    (C < Col_Index'Last
+-                     and then Output (R, Col_Index'Succ (C)) = L))
+-               then
+-                  Output (R, C) := L;
+-               end if;
+-            end loop;
+-         end loop;
++      while Parent (Y) /= Y loop
++         pragma Loop_Invariant (Forest (Parent, Next) and then Y <= L);
++         pragma Loop_Variant (Decreases => Y);
++         Parent (Y) := Parent (Parent (Y));
++         Y := Parent (Y);
+       end loop;
+-   end Propagate;
++      Root := Y;
++   end Find;
+ 
+-   procedure Label
++   --  Join the trees of A and B: the larger root points to the smaller.
++   procedure Union (Parent : in out Parent_Array; Next : Label_Id; A, B : Prov_Label)
++     with Pre  => Forest (Parent, Next) and then A <= Next and then B <= Next,
++          Post => Forest (Parent, Next)
++   is
++      RA, RB : Prov_Label;
++   begin
++      Find (Parent, Next, A, RA);
++      Find (Parent, Next, B, RB);
++      if RA < RB then
++         Parent (RB) := RA;
++      elsif RB < RA then
++         Parent (RA) := RB;
++      end if;
++   end Union;
++
++   procedure Label_Region
+      (Input  : Binary_Grid;
++      Rows   : Row_Count;
++      Cols   : Col_Count;
+       Output : out Label_Grid;
+       Count  : out Label_Id)
+    is
+-      Next : Label_Id := 0;
++      Prov   : Label_Grid := [others => [others => 0]];
++      Parent : Parent_Array := [others => 0];
++      Map    : Parent_Array := [others => 0];   --  root -> compact id
++      Next   : Label_Id := 0;
++      N, W   : Label_Id;
++      Rt     : Prov_Label;
+    begin
++      --  Pass 1: provisional labels; equal labels of touching N / W
++      --  neighbours are joined.
++      for R in 1 .. Rows loop
++         for C in 1 .. Cols loop
++            pragma Loop_Invariant (Next <= (R - 1) * Cols + (C - 1));
++            pragma Loop_Invariant (Forest (Parent, Next));
++            pragma Loop_Invariant
++              (for all R2 in Row_Index => (for all C2 in Col_Index => Prov (R2, C2) <= Next));
++            pragma Loop_Invariant
++              (for all R2 in 1 .. R - 1 => (for all C2 in 1 .. Cols => (Prov (R2, C2) = 0) = not Input (R2, C2)));
++            pragma Loop_Invariant
++              (for all C2 in 1 .. C - 1 => (Prov (R, C2) = 0) = not Input (R, C2));
++            pragma Loop_Invariant
++              (for all R2 in Row_Index => (for all C2 in Col_Index =>
++                 (if R2 > R or else (R2 = R and then C2 >= C) or else C2 > Cols then Prov (R2, C2) = 0)));
++            if Input (R, C) then
++               N := (if R > 1 then Prov (R - 1, C) else 0);
++               W := (if C > 1 then Prov (R, C - 1) else 0);
++               if N = 0 and then W = 0 then
++                  Next := Next + 1;
++                  Parent (Next) := Next;
++                  Prov (R, C) := Next;
++               elsif N /= 0 and then W /= 0 then
++                  Union (Parent, Next, N, W);
++                  Prov (R, C) := N;
++               else
++                  Prov (R, C) := Label_Id'Max (N, W);
++               end if;
++            end if;
++         end loop;
++         pragma Loop_Invariant (Next <= R * Cols);
++         pragma Loop_Invariant (Forest (Parent, Next));
++         pragma Loop_Invariant
++           (for all R2 in Row_Index => (for all C2 in Col_Index => Prov (R2, C2) <= Next));
++         pragma Loop_Invariant
++           (for all R2 in 1 .. R => (for all C2 in 1 .. Cols => (Prov (R2, C2) = 0) = not Input (R2, C2)));
++         pragma Loop_Invariant
++           (for all R2 in Row_Index => (for all C2 in Col_Index =>
++              (if R2 > R or else C2 > Cols then Prov (R2, C2) = 0)));
++      end loop;
++
++      --  Pass 2: each root gets the next compact id, in scan order.
+       Output := [others => [others => 0]];
+-      for R in Row_Index loop
+-         for C in Col_Index loop
+-            if Input (R, C)
+-              and then Output (R, C) = 0
+-              and then Next < Max_Rows * Max_Cols
+-            then
+-               Next := Next + 1;
+-               Output (R, C) := Next;
+-               Propagate (Input, Output, Next);
++      Count := 0;
++      for R in 1 .. Rows loop
++         for C in 1 .. Cols loop
++            pragma Loop_Invariant (Count <= (R - 1) * Cols + (C - 1));
++            pragma Loop_Invariant (Forest (Parent, Next));
++            pragma Loop_Invariant (for all L in Prov_Label => Map (L) <= Count);
++            pragma Loop_Invariant
++              (for all R2 in Row_Index => (for all C2 in Col_Index => Output (R2, C2) <= Count));
++            pragma Loop_Invariant
++              (for all R2 in 1 .. R - 1 => (for all C2 in 1 .. Cols => (Output (R2, C2) = 0) = (Prov (R2, C2) = 0)));
++            pragma Loop_Invariant
++              (for all C2 in 1 .. C - 1 => (Output (R, C2) = 0) = (Prov (R, C2) = 0));
++            pragma Loop_Invariant
++              (for all R2 in Row_Index => (for all C2 in Col_Index =>
++                 (if R2 > R or else (R2 = R and then C2 >= C) or else C2 > Cols then Output (R2, C2) = 0)));
++            if Prov (R, C) /= 0 then
++               Find (Parent, Next, Prov (R, C), Rt);
++               if Map (Rt) = 0 then
++                  Count := Count + 1;
++                  Map (Rt) := Count;
++               end if;
++               Output (R, C) := Map (Rt);
+             end if;
+          end loop;
++         pragma Loop_Invariant (Count <= R * Cols);
++         pragma Loop_Invariant (Forest (Parent, Next));
++         pragma Loop_Invariant (for all L in Prov_Label => Map (L) <= Count);
++         pragma Loop_Invariant
++           (for all R2 in Row_Index => (for all C2 in Col_Index => Output (R2, C2) <= Count));
++         pragma Loop_Invariant
++           (for all R2 in 1 .. R => (for all C2 in 1 .. Cols => (Output (R2, C2) = 0) = (Prov (R2, C2) = 0)));
++         pragma Loop_Invariant
++           (for all R2 in Row_Index => (for all C2 in Col_Index =>
++              (if R2 > R or else C2 > Cols then Output (R2, C2) = 0)));
+       end loop;
+-      Count := Next;
++   end Label_Region;
++
++   procedure Label
++     (Input  : Binary_Grid;
++      Output : out Label_Grid;
++      Count  : out Label_Id)
++   is
++   begin
++      Label_Region (Input, Max_Rows, Max_Cols, Output, Count);
+    end Label;
+ 
+    function Component_Count (Labels : Label_Grid) return Label_Id is
+diff --git a/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/connected_component_labeling.ads b/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/connected_component_labeling.ads
+index ff8b4668..c3615496 100644
+--- a/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/connected_component_labeling.ads
++++ b/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/connected_component_labeling.ads
+@@ -1,32 +1,54 @@
+---  PLACEHOLDER: labels a fixed 2 x 2 grid only; see H126
+ --  Bounded Ada/SPARK connected-component labeling (4-connectivity).
+ pragma Ada_2022;
+ package Connected_Component_Labeling
+   with SPARK_Mode => On
+ is
+-   Max_Rows : constant := 2;
+-   Max_Cols : constant := 2;
++   --  Grids up to 100 x 100 (a Label_Grid is 40 KB); Label_Region works on
++   --  the top-left Rows x Cols part.
++   Max_Rows : constant := 100;
++   Max_Cols : constant := 100;
+ 
+    subtype Row_Index is Positive range 1 .. Max_Rows;
+    subtype Col_Index is Positive range 1 .. Max_Cols;
++   subtype Row_Count is Positive range 1 .. Max_Rows;
++   subtype Col_Count is Positive range 1 .. Max_Cols;
+    subtype Label_Id is Natural range 0 .. Max_Rows * Max_Cols;
+ 
+    type Binary_Grid is array (Row_Index, Col_Index) of Boolean;
+    type Label_Grid is array (Row_Index, Col_Index) of Label_Id;
+ 
+-   --  Labels every 4-connected foreground blob with a compact id 1 .. Count.
+-   --  Background cells stay 0. Connectivity is von Neumann (N/E/S/W only).
++   --  Labels every 4-connected foreground blob of Input (1 .. Rows,
++   --  1 .. Cols) with a compact id 1 .. Count; background cells and cells
++   --  outside the region are 0. Two-pass union-find (provisional labels
++   --  from the north and west neighbours, then each root gets the next id).
++   procedure Label_Region
++     (Input  : Binary_Grid;
++      Rows   : Row_Count;
++      Cols   : Col_Count;
++      Output : out Label_Grid;
++      Count  : out Label_Id)
++     with
++       Global => null,
++       Post   => (for all R in Row_Index =>
++                    (for all C in Col_Index =>
++                       (if R <= Rows and then C <= Cols then
++                          (Output (R, C) = 0) = not Input (R, C) and then Output (R, C) <= Count
++                        else Output (R, C) = 0)));
++
++   --  Label_Region over the whole grid.
+    procedure Label
+      (Input  : Binary_Grid;
+       Output : out Label_Grid;
+       Count  : out Label_Id)
+      with
+-       Global => null;
++       Global => null,
++       Post   => (for all R in Row_Index =>
++                    (for all C in Col_Index =>
++                       (Output (R, C) = 0) = not Input (R, C) and then Output (R, C) <= Count));
+ 
+    function Component_Count (Labels : Label_Grid) return Label_Id
+      with
+        Global => null;
+-   --  (Count <= Max_Rows * Max_Cols holds by the subtype Label_Id; the
+-   --  former Posts stating it were vacuous and GNAT 12 warned about them.)
++   --  (Count <= Max_Rows * Max_Cols holds by the subtype Label_Id.)
+ 
+ end Connected_Component_Labeling;
+diff --git a/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/own_checks.adb b/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/own_checks.adb
+index 6aae8387..71cb5597 100644
+--- a/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/own_checks.adb
++++ b/misc/SPARK2/Ada-SPARK-Connected-Component-Labeling/own_checks.adb
+@@ -1,17 +1,26 @@
+ pragma Ada_2022;
+---  Own checks (V&V sweep, agent A3). Every Binary_Grid of the package's
+---  size (2 ** (Max_Rows * Max_Cols) grids) is labelled and compared with an
+---  independent union-find over the cells (each foreground cell joined with
+---  its foreground N/E/S/W neighbours). Required: background cells are 0;
+---  two foreground cells have the same label exactly when union-find puts
+---  them in the same set; the labels used are exactly 1 .. Count (compact);
+---  Count is the number of sets; Component_Count (Output) = Count.
++--  Own checks (V&V sweep agent A3; extended for H126 by agent-CF). Grids
++--  are labelled and compared with an independent union-find over the cells
++--  (each foreground cell joined with its foreground N/E/S/W neighbours).
++--  Required: background cells are 0; two foreground cells have the same
++--  label exactly when union-find puts them in the same set; the labels used
++--  are exactly 1 .. Count; Count is the number of sets. Cases: every grid
++--  of every region size up to 4 x 4 (Label_Region), 300 random regions up
++--  to Max_Rows x Max_Cols with densities 10 .. 90 %, and 20 random full
++--  grids through Label and Component_Count (seed 20261009).
+ with Ada.Text_IO;
+ with Connected_Component_Labeling; use Connected_Component_Labeling;
+ 
+ procedure Own_Checks is
+    Failures : Natural := 0;
+    Checked  : Natural := 0;
++   Seed     : Long_Long_Integer := 20261009;
++
++   function Rand (N : Positive) return Natural is
++   begin
++      Seed := (Seed * 16807) mod 2_147_483_647;
++      return Natural (Seed mod Long_Long_Integer (N));
++   end Rand;
+ 
+    procedure Report (Ok : Boolean; Label : String) is
+    begin
+@@ -29,7 +38,12 @@ procedure Own_Checks is
+    function Id (R : Row_Index; C : Col_Index) return Cell is
+      ((R - 1) * Max_Cols + C);
+ 
+-   Parent : array (Cell) of Cell;
++   type Parent_Array is array (Cell) of Cell;
++   type Grid_Access is access Binary_Grid;
++   type Labels_Access is access Label_Grid;
++   type Parents_Access is access Parent_Array;
++   Parent : constant Parents_Access := new Parent_Array;
++
+    function Find (X : Cell) return Cell is
+       Y : Cell := X;
+    begin
+@@ -47,69 +61,124 @@ procedure Own_Checks is
+       end if;
+    end Join;
+ 
+-   G     : Binary_Grid;
+-   Out_G : Label_Grid;
+-   N     : Label_Id;
+-   Sets  : Natural;
+-   Used  : array (0 .. Cells) of Boolean;
+-begin
+-   for Code in 0 .. 2 ** Cells - 1 loop
+-      for R in Row_Index loop
+-         for C in Col_Index loop
+-            G (R, C) := (Code / 2 ** (Id (R, C) - 1)) mod 2 = 1;
++   --  Compare Out_G / N with union-find on G (1 .. Rows, 1 .. Cols).
++   procedure Compare (G : Binary_Grid; Rows : Row_Count; Cols : Col_Count;
++                      Out_G : Label_Grid; N : Label_Id; Tag : String) is
++      Sets  : Natural := 0;
++      Used  : array (0 .. Cells) of Boolean := [others => False];
++      Root_Label : array (Cell) of Natural := [others => 0];
++      Ok    : Boolean := True;
++   begin
++      for R in 1 .. Rows loop
++         for C in 1 .. Cols loop
++            Parent (Id (R, C)) := Id (R, C);
+          end loop;
+       end loop;
+-      for X in Cell loop
+-         Parent (X) := X;
+-      end loop;
+-      for R in Row_Index loop
+-         for C in Col_Index loop
++      for R in 1 .. Rows loop
++         for C in 1 .. Cols loop
+             if G (R, C) then
+-               if R < Max_Rows and then G (R + 1, C) then
++               if R < Rows and then G (R + 1, C) then
+                   Join (Id (R, C), Id (R + 1, C));
+                end if;
+-               if C < Max_Cols and then G (R, C + 1) then
++               if C < Cols and then G (R, C + 1) then
+                   Join (Id (R, C), Id (R, C + 1));
+                end if;
+             end if;
+          end loop;
+       end loop;
+-      Sets := 0;
+-      for R in Row_Index loop
+-         for C in Col_Index loop
++      for R in 1 .. Rows loop
++         for C in 1 .. Cols loop
+             if G (R, C) and then Find (Id (R, C)) = Id (R, C) then
+                Sets := Sets + 1;
+             end if;
+          end loop;
+       end loop;
+-
+-      Label (G, Out_G, N);
+-      Report (N = Sets, "Count = number of components, grid" & Code'Image);
+-      Report (Component_Count (Out_G) = N, "Component_Count, grid" & Code'Image);
+-      Used := [others => False];
+-      for R in Row_Index loop
+-         for C in Col_Index loop
+-            Report ((Out_G (R, C) = 0) = not G (R, C),
+-                    "0 exactly on background, grid" & Code'Image);
+-            Used (Out_G (R, C)) := True;
+-            for R2 in Row_Index loop
+-               for C2 in Col_Index loop
+-                  if G (R, C) and then G (R2, C2) then
+-                     Report ((Out_G (R, C) = Out_G (R2, C2))
+-                             = (Find (Id (R, C)) = Find (Id (R2, C2))),
+-                             "same label iff connected, grid" & Code'Image);
++      Report (N = Sets, "Count = number of components" & Tag);
++      --  same label iff same set: the map root -> label must be a bijection
++      for R in 1 .. Rows loop
++         for C in 1 .. Cols loop
++            if (Out_G (R, C) = 0) /= not G (R, C) or else Out_G (R, C) > N then
++               Ok := False;
++            elsif G (R, C) then
++               Used (Out_G (R, C)) := True;
++               declare
++                  Rt : constant Cell := Find (Id (R, C));
++               begin
++                  if Root_Label (Rt) = 0 then
++                     Root_Label (Rt) := Out_G (R, C);
++                  elsif Root_Label (Rt) /= Out_G (R, C) then
++                     Ok := False;   --  one component, two labels
+                   end if;
++               end;
++            end if;
++         end loop;
++      end loop;
++      Report (Ok, "0 exactly on background, labels <= Count, one label per component" & Tag);
++      --  distinct components get distinct labels: Count labels used, each once
++      declare
++         Distinct : Natural := 0;
++      begin
++         for L in 1 .. N loop
++            if Used (L) then
++               Distinct := Distinct + 1;
++            end if;
++         end loop;
++         Report (Distinct = N and then Distinct = Sets, "labels are 1 .. Count, one per component" & Tag);
++      end;
++   end Compare;
++
++   G     : constant Grid_Access := new Binary_Grid'[others => [others => False]];
++   Out_G : constant Labels_Access := new Label_Grid;
++   N     : Label_Id;
++begin
++   for Rows in 1 .. 4 loop
++      for Cols in 1 .. 4 loop
++         for Code in 0 .. 2 ** (Rows * Cols) - 1 loop
++            G.all := [others => [others => False]];
++            for R in 1 .. Rows loop
++               for C in 1 .. Cols loop
++                  G (R, C) := (Code / 2 ** ((R - 1) * Cols + C - 1)) mod 2 = 1;
+                end loop;
+             end loop;
++            Label_Region (G.all, Rows, Cols, Out_G.all, N);
++            Compare (G.all, Rows, Cols, Out_G.all, N,
++                     ", region" & Rows'Image & " x" & Cols'Image & " grid" & Code'Image);
+          end loop;
+       end loop;
+-      for L in 1 .. Cells loop
+-         Report (Used (L) = (L <= N), "labels are 1 .. Count, grid" & Code'Image);
+-      end loop;
++   end loop;
++   for T in 1 .. 300 loop
++      declare
++         Rows    : constant Row_Count := 1 + Rand (Max_Rows);
++         Cols    : constant Col_Count := 1 + Rand (Max_Cols);
++         Density : constant Natural := 10 + Rand (81);
++      begin
++         G.all := [others => [others => Rand (2) = 0]];   --  outside the region: noise
++         for R in 1 .. Rows loop
++            for C in 1 .. Cols loop
++               G (R, C) := Rand (100) < Density;
++            end loop;
++         end loop;
++         Label_Region (G.all, Rows, Cols, Out_G.all, N);
++         Compare (G.all, Rows, Cols, Out_G.all, N, ", random region" & T'Image);
++      end;
++   end loop;
++   for T in 1 .. 20 loop
++      declare
++         Density : constant Natural := 30 + Rand (41);
++      begin
++         for R in Row_Index loop
++            for C in Col_Index loop
++               G (R, C) := Rand (100) < Density;
++            end loop;
++         end loop;
++         Label (G.all, Out_G.all, N);
++         Compare (G.all, Max_Rows, Max_Cols, Out_G.all, N, ", random full grid" & T'Image);
++         Report (Component_Count (Out_G.all) = N, "Component_Count, random full grid" & T'Image);
++      end;
+    end loop;
+    Ada.Text_IO.Put_Line
+      ("Own checks:" & Checked'Image & " checks," & Failures'Image
+-      & " failures");
++      & " failures (seed 20261009)");
+    if Failures > 0 then
+       raise Program_Error with "own checks failed";
+    end if;
