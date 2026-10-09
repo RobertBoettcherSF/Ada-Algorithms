@@ -3403,20 +3403,20 @@ strings/SPARK2/Ada-SPARK-Z-Algorithm,z_algorithm.adb,14,= -> /=,= Text (Index (I
 strings/SPARK2/Ada-SPARK-Z-Algorithm,z_algorithm.adb,14,+ -> -,= Text (Index (Integer (Start) + Offset)),= Text (Index (Integer (Start) - Offset)),killed
 strings/SPARK2/Ada-SPARK-Z-Algorithm,z_algorithm.adb,16,+ -> -,Offset := Offset + 1;,Offset := Offset - 1;,killed
 strings/SPARK2/Ada-SPARK-Z-Algorithm,z_algorithm.adb,16,+ 1 -> + 0,Offset := Offset + 1;,Offset := Offset + 0;,timeout
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,39,- -> +,Subprogram_Variant => (Decreases => 32 - D),Subprogram_Variant => (Decreases => 32 + D),survived
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,45,/= -> =,if T.Lefts (N) /= 0 then,if T.Lefts (N) = 0 then,killed
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,46,= -> /=,if D = 31 then,if D /= 31 then,killed
 trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,50,+ 1 -> + 0,"Walk (T, T.Lefts (N), D + 1, HL, OkL);","Walk (T, T.Lefts (N), D + 0, HL, OkL);",killed
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,50,+ -> -,"Walk (T, T.Lefts (N), D + 1, HL, OkL);","Walk (T, T.Lefts (N), D - 1, HL, OkL);",killed
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,56,/= -> =,if T.Rights (N) /= 0 then,if T.Rights (N) = 0 then,killed
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,57,= -> /=,if D = 31 then,if D /= 31 then,killed
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,39,- -> +,Subprogram_Variant => (Decreases => 32 - D),Subprogram_Variant => (Decreases => 32 + D),survived
 trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,61,+ -> -,"Walk (T, T.Rights (N), D + 1, HR, OkR);","Walk (T, T.Rights (N), D - 1, HR, OkR);",killed
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,61,+ 1 -> + 0,"Walk (T, T.Rights (N), D + 1, HR, OkR);","Walk (T, T.Rights (N), D + 0, HR, OkR);",survived
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,67,- -> +,Ok := abs (HL - HR) <= 1;,Ok := abs (HL + HR) <= 1;,killed
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,67,<= -> <,Ok := abs (HL - HR) <= 1;,Ok := abs (HL - HR) < 1;,killed
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,68,+ -> -,"H := 1 + Natural'Max (HL, HR);","H := 1 - Natural'Max (HL, HR);",killed
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,50,+ -> -,"Walk (T, T.Lefts (N), D + 1, HL, OkL);","Walk (T, T.Lefts (N), D - 1, HL, OkL);",killed
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,46,= -> /=,if D = 31 then,if D /= 31 then,killed
 trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,75,or else -> and then,if Root = 0 or else not T.Used (Root) then,if Root = 0 and then not T.Used (Root) then,survived
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,45,/= -> =,if T.Lefts (N) /= 0 then,if T.Lefts (N) = 0 then,killed
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,56,/= -> =,if T.Rights (N) /= 0 then,if T.Rights (N) = 0 then,killed
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,68,+ -> -,"H := 1 + Natural'Max (HL, HR);","H := 1 - Natural'Max (HL, HR);",killed
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,67,- -> +,Ok := abs (HL - HR) <= 1;,Ok := abs (HL + HR) <= 1;,killed
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,57,= -> /=,if D = 31 then,if D /= 31 then,killed
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,67,<= -> <,Ok := abs (HL - HR) <= 1;,Ok := abs (HL - HR) < 1;,killed
 trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,75,= -> /=,if Root = 0 or else not T.Used (Root) then,if Root /= 0 or else not T.Used (Root) then,killed
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,balanced_binary_tree.adb,61,+ 1 -> + 0,"Walk (T, T.Rights (N), D + 1, HR, OkR);","Walk (T, T.Rights (N), D + 0, HR, OkR);",killed
 trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,binary_tree_inorder.adb,13,and then -> or else,if Current /= 0 and then T.Used (Current) and then Top < Index'Last then Top := Top + 1; Stack (Top),if Current /= 0 and then T.Used (Current) or else Top < Index'Last then Top := Top + 1; Stack (Top) ,stillborn
 trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,binary_tree_inorder.adb,13,+ -> -,if Current /= 0 and then T.Used (Current) and then Top < Index'Last then Top := Top + 1; Stack (Top),if Current /= 0 and then T.Used (Current) and then Top < Index'Last then Top := Top - 1; Stack (Top),killed
 trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,binary_tree_inorder.adb,13,< -> <=,if Current /= 0 and then T.Used (Current) and then Top < Index'Last then Top := Top + 1; Stack (Top),if Current /= 0 and then T.Used (Current) and then Top <= Index'Last then Top := Top + 1; Stack (Top,survived

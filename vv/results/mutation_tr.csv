@@ -293,7 +293,7 @@ strings/SPARK2/Ada-SPARK-Rotate-String,pass,7,7,7,0,0,0,7/7,7/7
 strings/SPARK2/Ada-SPARK-Sum-Of-Digits-Of-String-After-Convert,pass,3,3,3,0,0,0,3/3,3/3
 strings/SPARK2/Ada-SPARK-Total-Hamming-Distance,pass,3,3,3,0,0,0,3/3,3/3
 strings/SPARK2/Ada-SPARK-Z-Algorithm,pass,10,10,8,1,1,0,8/10,9/10
-trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,pass,14,14,11,3,0,0,11/14,11/14
+trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree,pass,14,14,12,2,0,0,12/14,12/14
 trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder,pass,10,10,6,1,0,3,6/7,6/7
 trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order,pass,17,17,13,4,0,0,13/17,13/17
 trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth,pass,21,20,12,7,0,1,12/19,12/19
