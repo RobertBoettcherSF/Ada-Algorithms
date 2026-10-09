@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Find_Minimum_In_Rotated_Sorted_Array; use Find_Minimum_In_Rotated_Sorted_Array;
+with Own_Checks;
 procedure Tests is
    --  0 2 4 .. 62 turned so that it starts at 40: minimum 0 at position 13.
    Turned : constant Data_Array := [for I in Index => (2 * (I + 19)) mod 64];
@@ -17,4 +18,5 @@ begin
    R := Find_Minimum (By_One);
    pragma Assert (R.Position = 2 and then Minimum (By_One) = 1);
    Put_Line ("Find_Minimum_In_Rotated_Sorted_Array: PASS");
+   Own_Checks;
 end Tests;
