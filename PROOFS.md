@@ -2201,7 +2201,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Library-Sort | yes | yes | yes | yes | yes | 0 | 17 | proven | 360 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Library-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Merge-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 433 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Merge-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Odd-Even-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 209 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Odd-Even-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Pancake-Sorting | yes | yes | yes | yes | yes | 0 | 0 | proven | 391 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Pancake-Sorting |  |
+| sorting/SPARK4/Ada-SPARK-Pancake-Sorting | yes | yes | yes | yes | yes | 0 | 0 | proven | 577 (restored) |  | sorting/Ada/Pancake-Sorting |  |
 | sorting/SPARK4/Ada-SPARK-Patience-Sorting | yes | yes | yes | yes | yes | 0 | 9 | proven | 301 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Patience-Sorting |  |
 | sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 254 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Pigeonhole-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Postman-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 324 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Postman-Sort |  |
