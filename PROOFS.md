@@ -1318,7 +1318,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven | 7 |  | misc/Ada/Buddy-Memory-Allocation |  |
 | misc/SPARK2/Ada-SPARK-Bulb-Switcher | yes | yes | yes | yes | yes | 0 | 0 | proven | 11 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Bump-Arena | yes | yes | yes | yes | yes | 0 | 0 | proven | 65 (10) |  |  |  |
+| misc/SPARK2/Ada-SPARK-Bump-Arena | yes | yes | yes | yes | yes | 0 | 0 | proven | 108 (10) |  |  |  |
 | misc/SPARK2/Ada-SPARK-CRC32 | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-CSR-Row-Sum | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Can-Place-Flowers | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
