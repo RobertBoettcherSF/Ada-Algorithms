@@ -2,8 +2,8 @@ with Ada.Assertions; use Ada.Assertions;
 with Defanging_IP; use Defanging_IP;
 procedure Tests is
    Input : Text := [others => ' '];
-   Output : Text;
-   Length : Length_Type;
+   Output : Out_Text;
+   Length : Out_Length_Type;
 begin
    Input (1 .. 7) := "1.1.1.1";
    Defang (Input, 7, Output, Length);
@@ -21,5 +21,5 @@ begin
                  "raw '.' left in the output at" & I'Image);
       end if;
    end loop;
-   Assert (Natural (Length) = 18 + 2 * 8, "output truncated to" & Length'Image);
+   Assert (Length = 18 + 2 * 8, "output truncated to" & Length'Image);
 end Tests;
