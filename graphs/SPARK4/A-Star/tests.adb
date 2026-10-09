@@ -459,6 +459,47 @@ begin
    Check (Found and then Dist (3) = 0, "all-zero weights Dist=0");
    Check (Len = 3, "all-zero path len");
 
+   ------------------------------------------------------------------
+   Section ("19. Arrays at any origin (label V lives at First + V - 1)");
+   ------------------------------------------------------------------
+   --  Diamond again, admissible H = (3, 2, 1, 0). The same answer must
+   --  come back whatever index each caller array starts at.
+   Clear (G, 4);
+   Add_Edge (G, 1, 2, 1);
+   Add_Edge (G, 1, 3, 4);
+   Add_Edge (G, 2, 3, 1);
+   Add_Edge (G, 2, 4, 5);
+   Add_Edge (G, 3, 4, 1);
+   declare
+      HS   : constant Heuristic_Array (10 .. 13) := [3, 2, 1, 0];
+      DS   : Distance_Array (5 .. 8);
+      PS   : Prev_Array (20 .. 23);
+      QS   : Path_Array (200 .. 203);
+      DT   : Distance_Array (29 .. 32);            --  flush to Max_Vertices
+      PT   : Prev_Array (29 .. 32);
+      QT   : Path_Array (Positive'Last - 3 .. Positive'Last);
+      Q1   : Path_Array (1 .. 4);
+   begin
+      Search (G, 1, 4, HS, DS, PS, QS, Len, Found, Exp);
+      Check (Found and then Len = 4, "origin 5/20/200/10: found, len 4");
+      Check (DS = [0, 1, 2, 3], "origin 5: Dist by label = 0 1 2 3");
+      Check (PS = [0, 1, 2, 3], "origin 20: Prev by label = 0 1 2 3");
+      Check (QS = [1, 2, 3, 4], "origin 200: Path = 1 2 3 4");
+      Search (G, 1, 4, HS, DT, PT, QT, Len, Found, Exp);
+      Check (Found and then Len = 4 and then DT = [0, 1, 2, 3]
+               and then PT = [0, 1, 2, 3] and then QT = [1, 2, 3, 4],
+             "origin 29 (flush) / Path ending at Positive'Last");
+      Search (G, 2, 1, HS, DS, PS, QS, Len, Found, Exp);
+      Check (not Found and then Len = 0
+               and then DS (5) = Infinity and then DS (6) = 0,
+             "origin 5: unreachable goal keeps label 1 at Infinity");
+      Reconstruct_Path (PT, 1, 4, 4, Q1, Len, Ok);
+      Check (Ok and then Len = 4 and then Q1 = [1, 2, 3, 4],
+             "Reconstruct_Path from Prev at origin 29");
+      Check (Arrays_OK (4, DS, PS, QS), "Arrays_OK at origins 5/20/200");
+      Check (Heuristic_OK (4, HS), "Heuristic_OK at origin 10");
+   end;
+
    New_Line;
    Put_Line ("Results: " & Natural'Image (Pass_Count) & " PASS,"
              & Natural'Image (Fail_Count) & " FAIL");

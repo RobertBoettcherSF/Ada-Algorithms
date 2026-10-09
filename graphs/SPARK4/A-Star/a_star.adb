@@ -92,6 +92,10 @@ is
         [others => Vertex_Id'First];
       Stack_Top : Natural := 0;
       U         : Natural;
+      --  Label V is stored at Prev (PX + V); the K-th path vertex at
+      --  Path (QX + K). PX / QX are the offsets of the caller's origins.
+      PX        : constant Natural := Prev'First - 1;
+      QX        : constant Natural := Path'First - 1;
    begin
       for I in Path'Range loop
          Path (I) := Vertex_Id'First;
@@ -104,8 +108,8 @@ is
       Ok := False;
 
       if Source = Target then
-         if Prev (Source) = 0 then
-            Path (1) := Source;
+         if Prev (PX + Source) = 0 then
+            Path (QX + 1) := Source;
             Length := 1;
             Ok := True;
          end if;
@@ -150,16 +154,16 @@ is
                pragma Loop_Invariant (Length = Stack_Top);
                pragma Loop_Invariant (Stack_Top in 1 .. N);
                pragma Loop_Invariant (Stack (Stack_Top) = Source);
-               Path (I) := Stack (Stack_Top - I + 1);
+               Path (QX + I) := Stack (Stack_Top - I + 1);
             end loop;
             --  Ends fixed explicitly so Post does not depend on reverse VCs.
-            Path (1) := Source;
-            Path (Length) := Target;
+            Path (QX + 1) := Source;
+            Path (QX + Length) := Target;
             Ok := True;
             return;
          end if;
 
-         U := Prev (Vertex_Id (U));
+         U := Prev (PX + Vertex_Id (U));
          if U > N then
             Length := 0;
             Ok := False;
@@ -192,6 +196,13 @@ is
       Closed : array (Vertex_Id) of Boolean := [others => False];
 
       Max_Steps : constant Positive := Max_Vertices * Max_Vertices;
+
+      --  Vertex label V is stored at Dist (DX + V), Prev (PX + V) and
+      --  Heuristic (HX + V); the K-th path vertex at Path (QX + K).
+      DX : constant Natural := Dist'First - 1;
+      PX : constant Natural := Prev'First - 1;
+      HX : constant Natural := Heuristic'First - 1;
+      QX : constant Natural := Path'First - 1;
    begin
       for I in Dist'Range loop
          Dist (I) := Infinity;
@@ -221,19 +232,19 @@ is
          pragma Loop_Invariant (Prev'Initialized);
          pragma Loop_Invariant
            (for all K in Vertex_Id range 1 .. V =>
-              (if K < V then Prev (K) = 0));
-         Dist (V) := Infinity;
-         Prev (V) := 0;
+              (if K < V then Prev (PX + K) = 0));
+         Dist (DX + V) := Infinity;
+         Prev (PX + V) := 0;
          Closed (V) := False;
       end loop;
-      Dist (Source) := 0;
+      Dist (DX + Source) := 0;
       pragma Assert
-        (for all V in Vertex_Id range 1 .. Vertex_Id (N) => Prev (V) = 0);
+        (for all V in Vertex_Id range 1 .. Vertex_Id (N) => Prev (PX + V) = 0);
 
       if Source = Goal then
          Found := True;
          Length := 1;
-         Path (1) := Source;
+         Path (QX + 1) := Source;
          Nodes_Expanded := 1;
          return;
       end if;
@@ -244,12 +255,12 @@ is
          pragma Loop_Invariant (Path'Initialized);
          pragma Loop_Invariant (Nodes_Expanded < Step);
          pragma Loop_Invariant (Nodes_Expanded <= Max_Steps);
-         pragma Loop_Invariant (Dist (Source) = 0);
+         pragma Loop_Invariant (Dist (DX + Source) = 0);
          pragma Loop_Invariant (Length = 0);
          pragma Loop_Invariant (not Found);
          pragma Loop_Invariant
            (for all V in Vertex_Id range 1 .. Vertex_Id (N) =>
-              Prev (V) <= N);
+              Prev (PX + V) <= N);
 
          declare
             U          : Vertex_Id := Source;
@@ -264,13 +275,13 @@ is
             for V in Vertex_Id range 1 .. Vertex_Id (N) loop
                pragma Loop_Invariant (Dist'Initialized);
                pragma Loop_Invariant (Prev'Initialized);
-               pragma Loop_Invariant (Dist (Source) = 0);
+               pragma Loop_Invariant (Dist (DX + Source) = 0);
                pragma Loop_Invariant
                  (if Found_Open then Natural (U) <= N
-                    and then Dist (U) < Infinity);
+                    and then Dist (DX + U) < Infinity);
 
-               if not Closed (V) and then Dist (V) < Infinity then
-                  Fv := F_Score (Dist (V), Heuristic (V));
+               if not Closed (V) and then Dist (DX + V) < Infinity then
+                  Fv := F_Score (Dist (DX + V), Heuristic (HX + V));
                   if not Found_Open or else Fv < Best then
                      Best := Fv;
                      U := V;
@@ -286,7 +297,7 @@ is
             end if;
 
             pragma Assert (Natural (U) <= N);
-            pragma Assert (Dist (U) < Infinity);
+            pragma Assert (Dist (DX + U) < Infinity);
 
             Closed (U) := True;
             Nodes_Expanded := Nodes_Expanded + 1;
@@ -307,11 +318,11 @@ is
             for Edge_Guard in 1 .. Max_Edges loop
                pragma Loop_Invariant (Dist'Initialized);
                pragma Loop_Invariant (Prev'Initialized);
-               pragma Loop_Invariant (Dist (Source) = 0);
+               pragma Loop_Invariant (Dist (DX + Source) = 0);
                pragma Loop_Invariant (E_Idx <= G.E);
                pragma Loop_Invariant
                  (for all V in Vertex_Id range 1 .. Vertex_Id (N) =>
-                    Prev (V) <= N);
+                    Prev (PX + V) <= N);
                pragma Loop_Invariant
                  (Nodes_Expanded = Nodes_Expanded'Loop_Entry);
                pragma Loop_Invariant (not Found);
@@ -320,10 +331,10 @@ is
                exit when E_Idx = 0;
 
                W_Vert := G.To (E_Idx);
-               Alt := Safe_Add (Dist (U), G.Weight (E_Idx));
-               if Alt < Dist (W_Vert) then
-                  Dist (W_Vert) := Alt;
-                  Prev (W_Vert) := Natural (U);
+               Alt := Safe_Add (Dist (DX + U), G.Weight (E_Idx));
+               if Alt < Dist (DX + W_Vert) then
+                  Dist (DX + W_Vert) := Alt;
+                  Prev (PX + W_Vert) := Natural (U);
                   Closed (W_Vert) := False;
                end if;
 

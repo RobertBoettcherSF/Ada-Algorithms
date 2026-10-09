@@ -400,7 +400,7 @@ graphs/SPARK4/A-Star,Arrays_OK,catalog,catalog,,3,function n_arrays=3 ret=Boolea
 graphs/SPARK4/A-Star,Heuristic_OK,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/SPARK4/A-Star,Search,catalog,catalog,,4,procedure n_arrays=4 ret=None,
 graphs/SPARK4/A-Star,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-graphs/SPARK4/A-Star,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+graphs/SPARK4/A-Star,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Is_Valid_Map,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Step,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,
 graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,Iterate,catalog,catalog,,1,function n_arrays=1 ret=Node_Index,

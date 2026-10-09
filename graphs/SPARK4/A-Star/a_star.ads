@@ -88,21 +88,20 @@ is
       Prev : Prev_Array;
       Path : Path_Array) return Boolean is
      (N > 0
-      and then Dist'First = 1
-      and then Dist'Last >= Vertex_Id (N)
-      and then Prev'First = 1
-      and then Prev'Last >= Vertex_Id (N)
-      and then Path'First = 1
-      and then Path'Last >= N)
+      and then Dist'Length >= N
+      and then Prev'Length >= N
+      and then Path'Length >= N)
    with Global => null;
 
    function Heuristic_OK
      (N : Vertex_Count_T; Heuristic : Heuristic_Array) return Boolean is
      (N > 0
-      and then Heuristic'First = 1
-      and then Heuristic'Last >= Vertex_Id (N))
+      and then Heuristic'Length >= N)
    with Global => null;
-   --  Coverage of 1 .. N. H(V) ≥ 0 is implied by Heuristic_Value
+   --  Arrays may start at any index: vertex label V (1 .. N) lives at
+   --  A (A'First + (V - 1)), and Path (Path'First + (K - 1)) is the K-th
+   --  vertex of the path. Only the length has to cover N.
+   --  H(V) ≥ 0 is implied by Heuristic_Value
    --  (range 0 .. Max_Weight); documented here for the Level-4 Pre.
 
    ---------------------------------------------------------------------------
@@ -154,7 +153,6 @@ is
    --  When H ≡ 0 everywhere, selection is by Dist alone ⇒ dense Dijkstra.
    --  Time Θ(V² + E) with array scan (classic educational formulation).
 
-   pragma Warnings (Off, "referenced before it has a value");
    procedure Search
      (G              : Graph;
       Source         : Vertex_Id;
@@ -174,14 +172,10 @@ is
          and then Vertex_Count (G) > 0
          and then Natural (Source) <= Vertex_Count (G)
          and then Natural (Goal) <= Vertex_Count (G)
-         and then Dist'First = 1
-         and then Dist'Last >= Vertex_Id (Vertex_Count (G))
-         and then Prev'First = 1
-         and then Prev'Last >= Vertex_Id (Vertex_Count (G))
-         and then Path'First = 1
-         and then Path'Last >= Vertex_Count (G)
-         and then Heuristic'First = 1
-         and then Heuristic'Last >= Vertex_Id (Vertex_Count (G)),
+         and then Dist'Length >= Vertex_Count (G)
+         and then Prev'Length >= Vertex_Count (G)
+         and then Path'Length >= Vertex_Count (G)
+         and then Heuristic'Length >= Vertex_Count (G),
        Post                   =>
          Dist'Initialized
          and then Prev'Initialized
@@ -189,11 +183,11 @@ is
          and then Nodes_Expanded <= Max_Vertices * Max_Vertices
          and then
            (if Found then
-              Dist (Goal) < Infinity
+              Dist (Dist'First + (Goal - 1)) < Infinity
               and then Length in 1 .. Vertex_Count (G)
-              and then Path (1) = Source
-              and then Path (Length) = Goal
-              and then Dist (Source) = 0
+              and then Path (Path'First) = Source
+              and then Path (Path'First + (Length - 1)) = Goal
+              and then Dist (Dist'First + (Source - 1)) = 0
             else
               Length = 0);
    --  A* from Source to Goal guided by Heuristic. On success Found is True,
@@ -205,9 +199,7 @@ is
    --  postcondition. Full optimality of Dist(Goal) is checked by tests on
    --  small graphs (not proved at Level 4).
 
-   pragma Warnings (On, "referenced before it has a value");
 
-   pragma Warnings (Off, "referenced before it has a value");
    procedure Reconstruct_Path
      (Prev   : Prev_Array;
       Source : Vertex_Id;
@@ -223,17 +215,15 @@ is
          N > 0
          and then Natural (Source) <= N
          and then Natural (Target) <= N
-         and then Prev'First = 1
-         and then Prev'Last >= Vertex_Id (N)
-         and then Path'First = 1
-         and then Path'Last >= N,
+         and then Prev'Length >= N
+         and then Path'Length >= N,
        Post                   =>
          Path'Initialized
          and then
            (if Ok then
               Length in 1 .. N
-              and then Path (1) = Source
-              and then Path (Length) = Target
+              and then Path (Path'First) = Source
+              and then Path (Path'First + (Length - 1)) = Target
             else
               Length = 0);
    --  Walk Prev from Target back to Source and reverse into Path.
@@ -241,7 +231,6 @@ is
    --  path exists in the tree (including Source = Target with Length = 1
    --  when Prev(Source) = 0). Ok is False and Length = 0 otherwise.
 
-   pragma Warnings (On, "referenced before it has a value");
 
 private
 
