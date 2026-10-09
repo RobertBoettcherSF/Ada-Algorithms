@@ -23,4 +23,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (86 checks).
 
+`make test` runs `tests.adb` and the folder's own checks: 20,003 checks, every input against an odd-number count (see `tests/SOURCES.txt`).
+
 The first version did no Babylonian step at all. It squared every candidate 0 .. 100 and kept the last one that fit (101 steps for every input), and it had no contract and no `prove` target. Commit f3a7b100 added a step counter and a test asserting the log bound. That test fails on the old loop.

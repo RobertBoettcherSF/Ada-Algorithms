@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Babylonian_Sqrt; use Babylonian_Sqrt;
+with Own_Checks;
 
 procedure Tests is
    --  Roots 0 .. 100. The Babylonian (Newton) iteration from 100 takes at
@@ -42,4 +43,5 @@ begin
    Expect (3, 1);
    Expect (9_999, 99);
    Put_Line ("Babylonian_Sqrt: PASS");
+   Own_Checks;
 end Tests;
