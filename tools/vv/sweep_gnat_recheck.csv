@@ -217,3 +217,5 @@ sorting/SPARK4/Ada-SPARK-Stooge-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks:
 sorting/SPARK4/Ada-SPARK-Stooge-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 2468 sort calls (nondecreasing + occurrence counts)",a9672a82
 misc/SPARK4/Ada-SPARK-Lemke-Howson,GNAT 14,GNATLS 14.2.0,0,0,"PASS Lemke_Howson ( 139 checks)",a9672a82
 misc/SPARK4/Ada-SPARK-Lemke-Howson,GNAT 12,GNATLS 12.2.0,0,0,"PASS Lemke_Howson ( 139 checks)",a9672a82
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 3261 inputs (sorted; permutation; own reference)",0e148588
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 3261 inputs (sorted; permutation; own reference)",0e148588

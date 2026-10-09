@@ -53,7 +53,7 @@ Using $t = \lfloor L/3 \rfloor$ makes the recursive span $L - t = \lceil 2L/3 \r
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 217 assertions pass, followed by the own checks (2,468 sort calls). Running `make prove` reports `Success: all checks proved (512 checks).`
+When you run `make test`, you will see all 217 assertions pass, followed by the own checks (2,468 sort calls). Running `make prove` reports `Success: all checks proved (512 checks).` (the same at `--mode=silver --level=2` with the repository settings)
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, signed domain, tiny lengths only ($n \le 16$).
@@ -74,5 +74,5 @@ When you run `make test`, you will see all 217 assertions pass, followed by the 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Recursive `Stooge_Range` uses `Subprogram_Variant => (Decreases => Hi - Lo)`; its postcondition (sorted slice, frame, same counts, same occurrences) is proved with ghost lemmas (`Lemma_After_Second`, `Lemma_After_Third`, `Lemma_Chain`).
-* **GNATprove Level 4:** `Success: all checks proved (512 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (512 checks).` (also at `--mode=silver --level=2`)
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
