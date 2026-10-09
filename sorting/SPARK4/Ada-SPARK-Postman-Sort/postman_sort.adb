@@ -169,10 +169,6 @@ is
       pragma Assert (QX = QX / Base * Base + QX rem Base);
       pragma Assert (QY = QY / Base * Base + QY rem Base);
       pragma Assert (QX < QY);
-      if X >= Y then
-         Lemma_Div_Mono (Y, X, P);
-         pragma Assert (False);
-      end if;
    end Lemma_Order;
 
    --  Same prefix and digit: the same key / 10 ** P.
