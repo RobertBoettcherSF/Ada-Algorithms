@@ -425,6 +425,13 @@ for r in rows:
     r['mutation_heldout_cp95_lower'] = f"{cp95_lower(int(_cpk), int(_cpn)):.3f}" if _cpk.isdigit() and _cpn.isdigit() and int(_cpn) else ''
     r['mutation_heldout_family'] = (_hw['mix'].strip(' :') + f" [{_hw['src']}]") if _hw else ''
     r['mutation_topup_unseen'] = '; '.join(topup_by.get(r['folder'], []))
+    # score138 records (tools/vv/score138_halves.csv): std first-order mutants in the scored hidden half (the rest are
+    # alt / second-order / B / C), and the held-out score with 'unspecified output' survivors counted as survivors
+    # (the primary k/n leaves them out like equivalents; both shown so either reading can be chosen). Display only.
+    _h138 = hv.get('heldout') or {}
+    r['mutation_heldout_std_n'] = str(_h138.get('held_std_n', '') or '')
+    _us = (_h138.get('score_unspecified_as_survivors') or '').strip()
+    r['mutation_heldout_unspec_as_survivors'] = (f"{_us} (CP95 {_h138.get('cp95_unspecified_as_survivors', '')})" if _us else '')
     m = re.match(r'^(\d+)/(\d+)$', r['mutation'])
     eq = equiv_by[r['folder']] if m else 0
     den = int(m.group(2)) - eq if m else 0
@@ -646,10 +653,12 @@ L = ['# Proof index', '',
      '### Training-ready folders', '',
      'Held-out k/n = the deciding held-out record (non-equivalent killed / non-equivalent incl. timeouts); CP95 low = exact Clopper-Pearson two-sided 95% lower bound, '
      'Beta(0.025; k, n - k + 1), display only (the rule stays k/n >= 90%, n >= 20); unseen top-up = per-folder top-up runs not folded into the held-out record '
-     '(tools/vv/sweep_topup_B.csv), shown for information and not counted.', '',
-     '| Folder | Held-out k/n | % | CP95 low | Held-out set (family mix) [source] | Unseen top-up (not counted) |', '|---|---:|---:|---:|---|---|',
+     '(tools/vv/sweep_topup_B.csv), shown for information and not counted. Std in hidden = std first-order mutants in the scored hidden half (score138 records; '
+     'blank = not recorded by that source). Unspecified as survivors = the score138 held-out k/n when survivors that differ only in output the contract leaves '
+     'undefined (class `unspecified output` in tools/vv/score138_equivalent.csv) count as survivors instead of being left out; display only.', '',
+     '| Folder | Held-out k/n | % | CP95 low | Held-out set (family mix) [source] | Std in hidden | Unspecified as survivors | Unseen top-up (not counted) |', '|---|---:|---:|---:|---|---:|---|---|',
      *[f"| {r['folder']} | {r['mutation_heldout_k']}/{r['mutation_heldout_n']} | {100 * int(r['mutation_heldout_k']) / int(r['mutation_heldout_n']):.1f} | {r['mutation_heldout_cp95_lower']} | "
-        f"{r['mutation_heldout_family'].replace('|', '/')} | {r['mutation_topup_unseen'] or '-'} |" for r in uniq if r['training_ready'] == 'yes'], '',
+        f"{r['mutation_heldout_family'].replace('|', '/')} | {r['mutation_heldout_std_n'] or '-'} | {r['mutation_heldout_unspec_as_survivors'] or '-'} | {r['mutation_topup_unseen'] or '-'} |" for r in uniq if r['training_ready'] == 'yes'], '',
      f"**Do-nothing check:** {c(lambda r: r['do_nothing'] in ('ok', 'weak') or r['do_nothing'].startswith('unchecked'))} folders checked, {c(lambda r: r['do_nothing']=='weak')} flagged weak (tests still pass when the main subprogram does nothing), {c(lambda r: r['do_nothing'].startswith('unchecked'))} unchecked (no trivial body compiles); {c(lambda r: r['do_nothing']=='weak' and r['silver']=='proven' and not r['trivial'] and not r['stub'])} of the weak ones are Silver-proven non-trivial. Own tests: {c(lambda r: r['own_tests']=='yes')} folders (column `own_tests`).", '',
      '**Silver headline (duplicates counted once):** ' + headline, '',
      '`stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged, and so is every folder listed in `tools/readme_stubs.txt` (its README calls it a stub); the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most ' + str(TRIVIAL_MAX) + ' checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.', '',

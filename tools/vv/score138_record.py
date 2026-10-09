@@ -3,8 +3,12 @@
 
 Reads the private run files of tools/vv/score138.py (tune, held, held dummy;
 held already through score138_prove.py) and tools/vv/score138_equivalent.csv
-(survivors judged equivalent, one written reason each; only for mutants whose
-test AND proof results are 'survived').  Appends/replaces the folder's rows in
+(survivors with a written reason, only for mutants whose test AND proof results are
+'survived'; column class = 'equivalent' (no observable difference) or 'unspecified output'
+(differs only in output the contract leaves undefined, e.g. out-array entries beyond the
+returned length).  Both are left out of the primary k/n; the columns
+score_unspecified_as_survivors / cp95_unspecified_as_survivors give the score with the
+'unspecified output' ones counted as survivors, so either reading can be chosen).  Appends/replaces the folder's rows in
   tools/vv/score138_halves.csv   one 'tuning' and one 'heldout' row; killed /
       survived / timeout are NON-EQUIVALENT counts (timeouts are survivors in the
       score); per-family k/n, raw k/n, equivalents, test / proof / uninit kills,
@@ -70,14 +74,18 @@ def main():
     a = ap.parse_args()
     fid = a.folder
     eqs = {'tune': set(), 'held': set()}
+    uns = {'tune': set(), 'held': set()}
     ep = os.path.join(VV, 'score138_equivalent.csv')
     if os.path.exists(ep):
         for r in csv.DictReader(open(ep)):
             if r['folder'] == fid:
                 eqs[r['half']].add(int(r['index']))
+                if (r.get('class') or 'equivalent') == 'unspecified output':
+                    uns[r['half']].add(int(r['index']))
     fields = ['folder', 'half', 'family', 'split_seed', 'sample_seed', 'pool', 'drawn', 'topped_up', 'killed', 'survived',
               'timeout', 'stillborn', 'score', 'pct', 'enough_20', 'compiler', 'note', 'cp95_lower',
-              'per_family', 'raw', 'equivalent', 'kills', 'dummy', 'n_ge_40', 'test_commit', 'proof_commit']
+              'per_family', 'raw', 'equivalent', 'unspecified_output', 'score_unspecified_as_survivors',
+              'cp95_unspecified_as_survivors', 'held_std_n', 'kills', 'dummy', 'n_ge_40', 'test_commit', 'proof_commit']
     hp = os.path.join(VV, 'score138_halves.csv')
     rows = [r for r in csv.DictReader(open(hp))] if os.path.exists(hp) else []
     rows = [r for r in rows if r['folder'] != fid]
@@ -85,8 +93,10 @@ def main():
     for half, rec in (('tuning', tune), ('heldout', held)):
         if not rec:
             continue
-        t = tally(rec, eqs['tune' if half == 'tuning' else 'held'])
+        hk = 'tune' if half == 'tuning' else 'held'
+        t = tally(rec, eqs[hk])
         n = t['k'] + t['s'] + t['to']
+        nu = len(uns[hk]); n2 = n + nu
         dk = sum(m['result'] == 'killed' for m in dummy['mutants']) if (dummy and half == 'heldout') else ''
         dn = sum(m['result'] != 'stillborn' for m in dummy['mutants']) if (dummy and half == 'heldout') else ''
         note = ('blind: split seed recorded (claims file + tools/vv/score138_seeds.csv) before any test change; held run once on '
@@ -100,11 +110,13 @@ def main():
                          enough_20=('yes' if n >= 20 else 'no'), compiler=rec['compiler'], note=note.strip(),
                          cp95_lower=f"{cp95_lower(t['k'], n):.3f}",
                          per_family=' '.join(f"{f} {kn[0]}/{kn[1]}" for f, kn in t['fam'].items()),
-                         raw=t['raw'], equivalent=t['eq'], kills=t['kills'],
+                         raw=t['raw'], equivalent=t['eq'] - nu, unspecified_output=nu,
+                         score_unspecified_as_survivors=f"{t['k']}/{n2}", cp95_unspecified_as_survivors=f"{cp95_lower(t['k'], n2):.3f}",
+                         held_std_n=t['fam']['std'][1], kills=t['kills'],
                          dummy=(f'{dk}/{dn}' if dn != '' else ''), n_ge_40=('yes' if n >= 40 else 'no'),
                          test_commit=a.test_commit, proof_commit=rec.get('proof_commit', '')))
         print(half, rows[-1]['score'], rows[-1]['pct'], 'cp95', rows[-1]['cp95_lower'], rows[-1]['per_family'],
-              'raw', t['raw'], 'eq', t['eq'], t['kills'], 'dummy', rows[-1]['dummy'])
+              'raw', t['raw'], 'eq', t['eq'] - nu, 'unspec', nu, 'unspec-as-surv', f"{t['k']}/{n2}", t['kills'], 'dummy', rows[-1]['dummy'])
     with open(hp, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=fields, lineterminator='\n'); w.writeheader(); w.writerows(rows)
     sp = os.path.join(VV, 'score138_sealed.csv')
@@ -112,7 +124,7 @@ def main():
     srows = [r for r in srows if r['folder'] != fid]
     for i, m in enumerate(held['mutants']):
         srows.append(dict(folder=fid, seed=held['seed'], index=i, family=m['family'], op=m['op'].split(' ->')[0] if m['family'] != 'ho' else 'std pair',
-                          line='hidden', result=('equivalent' if i in eqs['held'] else m['result']), kill_kind=m.get('kill_kind') or '',
+                          line='hidden', result=('unspecified output' if i in uns['held'] else 'equivalent' if i in eqs['held'] else m['result']), kill_kind=m.get('kill_kind') or '',
                           proof=(m.get('prove') or [''])[0]))
     with open(sp, 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=['folder', 'seed', 'index', 'family', 'op', 'line', 'result', 'kill_kind', 'proof'], lineterminator='\n')
