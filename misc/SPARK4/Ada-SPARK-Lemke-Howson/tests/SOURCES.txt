@@ -46,8 +46,25 @@ tests.adb (equilibria worked by hand from the indifference conditions):
   "minimum search skips row 1" survived);
 * every 2 x 2 game with payoffs in -1 .. 1 (6,561 games, mostly
   degenerate), every starting label: Found and the best-response check.
-A check that a result equals given fractions also requires Found and
-Dx, Dy > 0 (before, an all-zero not-found result matched any fraction).
+A check that a result equals given fractions also requires Status =
+Found and Dx, Dy > 0 (before, an all-zero not-found result matched any
+fraction).
+* Exit status (2026-10-09, sweep B, test written before the code): every
+  call must end with Status = Found, never Step_Cap_Reached, No_Pivot_Row
+  or Check_Failed, and with 1 <= Pivots <= C (M + N, M) ** 2, the
+  recorded bound (the lexicographic rule never revisits a pair of bases;
+  each tableau has C (M + N, M) bases). The bound is derived, not taken
+  from program output.
+* Seeded random games (completeness evidence; seeds and counts fixed in
+  tests.adb before the first run and run once): Park-Miller from the
+  FNV-1a (32-bit) hash of the set name folded into 1 .. 2 ** 31 - 2:
+  "Lemke-Howson random 3x3" = 1606069322 (400 games, payoffs -100 .. 100),
+  "Lemke-Howson random 4x4" = 1896437236 (400 games, -100 .. 100),
+  "Lemke-Howson degenerate 3x3" = 323556271 and "Lemke-Howson degenerate
+  4x4" = 694744105 (300 games with payoffs 0 .. 1, and 300 games with
+  payoffs -3 .. 3 where row 2 repeats row 1 and the last column repeats
+  column 1, in A and B). Every starting label; oracle: the own
+  best-response check above. The largest pivot count per set is printed.
 
 own_checks.adb (seeded: Park-Miller minimal standard generator; the
 default seed is the FNV-1a (32-bit) hash of the folder name folded into

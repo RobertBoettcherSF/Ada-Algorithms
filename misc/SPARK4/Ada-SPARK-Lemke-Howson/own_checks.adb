@@ -2,7 +2,7 @@ pragma Ada_2022;
 --  Own checks for Lemke-Howson (see tests/SOURCES.txt).
 --  No expected value comes from the program:
 --  * every result is checked by an own exact best-response check
---    (Big_Integer), for every starting label, and must be Found;
+--    (Big_Integer), for every starting label, and must end with Status = Found;
 --  * for games with payoffs drawn from a wide range (generically
 --    nondegenerate), the result must also be one of the equilibria found
 --    by an own support enumeration (equal-size supports, the indifference
@@ -283,7 +283,7 @@ procedure Own_Checks with SPARK_Mode => Off is
          declare
             E : constant Exact_Equilibrium := Find_Equilibrium (A, B, D);
          begin
-            Report (E.Found and then Best_Responses (A, B, E), Name & " drop" & D'Image & ": best responses");
+            Report (E.Status = Found and then Best_Responses (A, B, E), Name & " drop" & D'Image & ": best responses");
             if Enumerate_Too then
                Report (Member (E, List, Count), Name & " drop" & D'Image & ": in the support enumeration");
             end if;

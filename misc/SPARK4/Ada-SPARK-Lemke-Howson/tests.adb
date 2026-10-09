@@ -68,11 +68,29 @@ procedure Tests is
 
    type Int_Vector is array (Positive range <>) of Natural;
 
+   --  Recorded pivot bound (no cycling): the lexicographic rule never
+   --  revisits a pair of bases, and each tableau has C (M + N, M) bases, so
+   --  a path has at most C (M + N, M) ** 2 pivots (63_504 = Max_Steps for
+   --  5 x 5).
+   function Choose (N, K : Natural) return Natural is
+      R : Natural := 1;
+   begin
+      for I in 1 .. K loop
+         R := R * (N - K + I) / I;
+      end loop;
+      return R;
+   end Choose;
+   function Pair_Bound (M, N : Positive) return Natural is (Choose (M + N, M) ** 2);
+
+   --  Status = Found and pivots within the recorded bound.
+   function Clean_End (E : Exact_Equilibrium) return Boolean is
+     (E.Status = Found and then E.Pivots >= 1 and then E.Pivots <= Pair_Bound (E.M, E.N));
+
    --  E is found and its strategies equal Num_X / Den_X and Num_Y / Den_Y
    --  exactly (Dx, Dy > 0: zero vectors would match any fraction).
    function Equals (E : Exact_Equilibrium; Num_X : Int_Vector; Den_X : Positive;
                 Num_Y : Int_Vector; Den_Y : Positive) return Boolean is
-     (E.Found and then E.Dx > B (0) and then E.Dy > B (0)
+     (E.Status = Found and then E.Dx > B (0) and then E.Dy > B (0)
       and then (for all I in 1 .. E.M => E.X (I) * B (Den_X) = B (Num_X (I)) * E.Dx)
       and then (for all J in 1 .. E.N => E.Y (J) * B (Den_Y) = B (Num_Y (J)) * E.Dy));
 
@@ -82,7 +100,8 @@ procedure Tests is
          declare
             E : constant Exact_Equilibrium := Find_Equilibrium (A, Bm, D);
          begin
-            Check (E.Found and then Own_Nash (A, Bm, E), Name & " drop" & D'Image & ": equilibrium");
+            Check (Clean_End (E) and then Own_Nash (A, Bm, E),
+                   Name & " drop" & D'Image & ": Status = Found, pivots within the bound, equilibrium");
          end;
       end loop;
    end All_Drops;
@@ -275,7 +294,7 @@ begin
                declare
                   E : constant Exact_Equilibrium := Find_Equilibrium (A, Bm, D);
                begin
-                  if not (E.Found and then Own_Nash (A, Bm, E)) then
+                  if not (Clean_End (E) and then Own_Nash (A, Bm, E)) then
                      Bad := Bad + 1;
                   end if;
                end;
@@ -283,6 +302,75 @@ begin
          end;
       end loop;
       Check (Bad = 0, "all 2x2 games with payoffs -1 .. 1, every drop:" & Bad'Image & " not an equilibrium");
+   end;
+
+   --  Seeded random games (completeness evidence, fixed before the first
+   --  run): Park-Miller from the FNV-1a (32-bit) hash of the set name,
+   --  folded into 1 .. 2 ** 31 - 2 (tests/SOURCES.txt).  Every starting
+   --  label must end with Status = Found, an own-checked equilibrium and
+   --  pivots within Pair_Bound; the largest pivot count is printed.
+   --  Kind 1: payoffs in -100 .. 100.  Kind 2 (degenerate by repeated
+   --  payoffs): payoffs in 0 .. 1.  Kind 3 (degenerate by a repeated
+   --  strategy): payoffs in -3 .. 3, then row 2 := row 1 in A and B and
+   --  column Size := column 1 in A and B.
+   declare
+      procedure Random_Set (Name : String; Seed : Long_Long_Integer; Size, Count, Kind : Positive) is
+         S        : Long_Long_Integer := Seed;
+         Bad      : Natural := 0;
+         Calls    : Natural := 0;
+         Most     : Natural := 0;
+         function Next (Lo, Hi : Integer) return Integer is
+         begin
+            S := (S * 16_807) mod 2_147_483_647;
+            return Lo + Integer (S mod Long_Long_Integer (Hi - Lo + 1));
+         end Next;
+      begin
+         for G in 1 .. Count loop
+            declare
+               A, Bm : Payoff_Matrix (1 .. Size, 1 .. Size);
+               Lo    : constant Integer := (case Kind is when 1 => -100, when 2 => 0, when others => -3);
+               Hi    : constant Integer := (case Kind is when 1 => 100, when 2 => 1, when others => 3);
+            begin
+               for I in 1 .. Size loop
+                  for J in 1 .. Size loop
+                     A (I, J) := Next (Lo, Hi);
+                     Bm (I, J) := Next (Lo, Hi);
+                  end loop;
+               end loop;
+               if Kind = 3 then
+                  for J in 1 .. Size loop
+                     A (2, J) := A (1, J);
+                     Bm (2, J) := Bm (1, J);
+                  end loop;
+                  for I in 1 .. Size loop
+                     A (I, Size) := A (I, 1);
+                     Bm (I, Size) := Bm (I, 1);
+                  end loop;
+               end if;
+               for D in 1 .. 2 * Size loop
+                  declare
+                     E : constant Exact_Equilibrium := Find_Equilibrium (A, Bm, D);
+                  begin
+                     Calls := Calls + 1;
+                     Most := Natural'Max (Most, E.Pivots);
+                     if not (Clean_End (E) and then Own_Nash (A, Bm, E)) then
+                        Bad := Bad + 1;
+                     end if;
+                  end;
+               end loop;
+            end;
+         end loop;
+         Put_Line (Name & ":" & Calls'Image & " calls, most pivots" & Most'Image
+                   & " (bound" & Pair_Bound (Size, Size)'Image & ")");
+         Check (Bad = 0, Name & ":" & Bad'Image & " calls without Status = Found and a checked equilibrium");
+      end Random_Set;
+   begin
+      Random_Set ("random 3x3", 1_606_069_322, 3, 400, 1);
+      Random_Set ("random 4x4", 1_896_437_236, 4, 400, 1);
+      Random_Set ("degenerate 3x3 (payoffs 0 .. 1)", 323_556_271, 3, 300, 2);
+      Random_Set ("degenerate 3x3 (repeated strategy)", 323_556_271, 3, 300, 3);
+      Random_Set ("degenerate 4x4 (payoffs 0 .. 1)", 694_744_105, 4, 300, 2);
+      Random_Set ("degenerate 4x4 (repeated strategy)", 694_744_105, 4, 300, 3);
    end;
 
    if Failures = 0 then
