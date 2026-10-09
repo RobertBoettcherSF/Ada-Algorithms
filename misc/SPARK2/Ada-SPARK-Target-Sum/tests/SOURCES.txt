@@ -1,0 +1,15 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the original cases (four 1s: 4 ways to 2, C (4, 2) = 6 ways to
+0, the empty prefix reaches 0 once); hand-worked: four 4s reach +16 and
+-16 once each (the ends of Target) and 0 in C (4, 2) = 6 ways; 1, 2, 3
+reach 0 twice (+1+2-3, -1-2+3), 6 once and 5 never.
+
+own_checks.adb: exhaustive brute force over every array in 0 .. 4 ** 4,
+every N in 0 .. 4 and every Goal in -16 .. 16 (103,125 cases): all 2 ** N
+sign choices are enumerated as bit masks and the matching signed sums
+counted (the library uses a dynamic program over reachable sums).
