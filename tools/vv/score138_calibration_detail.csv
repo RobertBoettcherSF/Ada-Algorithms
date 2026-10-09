@@ -3109,3 +3109,43 @@ misc/SPARK2/Ada-SPARK-Minimum-Path-Sum,20264041,thinned,45,ho,killed,,killed,tes
 misc/SPARK2/Ada-SPARK-Minimum-Path-Sum,20264041,thinned,46,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Minimum-Path-Sum,20264041,thinned,47,ho,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Minimum-Path-Sum,20264041,thinned,48,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,0,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,1,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,3,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,8,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,9,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,10,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,12,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,15,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,16,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,17,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,18,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,19,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,20,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,21,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,24,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,25,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,26,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,27,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,28,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,full,29,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,0,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,1,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,3,C,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,8,B,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,9,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,10,ho,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,12,C,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,15,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,16,ho,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,17,C,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,18,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,19,C,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,20,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,21,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,24,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,25,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,26,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,27,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,28,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,29,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
