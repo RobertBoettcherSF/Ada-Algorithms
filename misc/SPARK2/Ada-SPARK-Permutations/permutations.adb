@@ -40,6 +40,7 @@ package body Permutations is
       while P.Order (I) >= P.Order (I + 1) loop
          pragma Loop_Invariant (I <= N - 1);
          pragma Loop_Invariant (for all K in I .. N - 1 => P.Order (K) >= P.Order (K + 1));
+         pragma Loop_Variant (Decreases => I);
          if I = 1 then
             --  The last permutation: wrap around to the first.
             P := Identity (N);
@@ -53,6 +54,7 @@ package body Permutations is
       J := N;
       while P.Order (J) <= P.Order (I) loop
          pragma Loop_Invariant (J in I + 2 .. N);
+         pragma Loop_Variant (Decreases => J);
          J := J - 1;
       end loop;
 
@@ -69,6 +71,7 @@ package body Permutations is
             pragma Loop_Invariant (P.N = N);
             pragma Loop_Invariant (P.Order (I) > P0.Order (I));
             pragma Loop_Invariant (for all K in 1 .. I - 1 => P.Order (K) = P0.Order (K));
+            pragma Loop_Variant (Decreases => Hi - Lo);
             P := Swapped (P, Lo, Hi);
             Lo := Lo + 1;
             Hi := Hi - 1;

@@ -4,8 +4,9 @@ Permutations in dictionary order, in SPARK. A `Perm` holds an arrangement `Order
 
 **Range widened:** the first version was only a case table of N! for N <= 12, with no permutations at all. `Count` keeps N <= 12 because the arithmetic stops there: 12! = 479_001_600 fits `Natural` and 13! = 6_227_020_800 does not. `Next_Permutation` does no counting, so its length is bounded only by `Positive'Last - 1` (the code reads index K + 1).
 
-The proved contracts (110 checks):
+The proved contracts (113 checks):
 - every step keeps a permutation (the predicate);
+- `Next_Permutation` terminates: each of its three `while` loops has a `Loop_Variant` (I, J, Hi - Lo);
 - `Found` is False exactly when the old arrangement never increases;
 - a step with `Found` goes strictly up in dictionary order (ghost `Lex_Less`), and one without `Found` gives the identity;
 - `Count = Fact (N)`, against a ghost recursion whose values a ghost table checks.
