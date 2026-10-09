@@ -79,8 +79,80 @@ procedure Own_Checks is
       end if;
    end Check_One;
 
+   --  The textbook bitonic network for 8 inputs (Batcher 1968; Wikipedia
+   --  "Bitonic sorter", alternative representation with every comparator
+   --  putting the smaller value at the lower index): for block sizes
+   --  K = 2, 4, 8 first the flip comparators (B + I, B + K - 1 - I), then the
+   --  half-cleaners (I, I xor J) for J = K / 4, .., 1.
+   function Textbook return Network is
+      Net : Network (1 .. Network_Size);
+      N   : Natural := 0;
+      K   : Positive := 2;
+      J   : Natural;
+   begin
+      while K <= 8 loop
+         for B in 0 .. 8 / K - 1 loop
+            for I in 0 .. K / 2 - 1 loop
+               N := N + 1;
+               Net (N) := (B * K + I + 1, B * K + K - I);
+            end loop;
+         end loop;
+         J := K / 4;
+         while J >= 1 loop
+            for I in 0 .. 7 loop
+               if (I / J) mod 2 = 0 then
+                  N := N + 1;
+                  Net (N) := (I + 1, I + J + 1);
+               end if;
+            end loop;
+            J := J / 2;
+         end loop;
+         K := K * 2;
+      end loop;
+      return Net;
+   end Textbook;
+
+   --  Apply a network (own reference for the trace).
+   function Apply (Net : Network; A : Input_Array) return Input_Array is
+      B : Input_Array := A;
+      T : Value;
+   begin
+      for C of Net loop
+         if B (C.Lo) > B (C.Hi) then
+            T := B (C.Lo);
+            B (C.Lo) := B (C.Hi);
+            B (C.Hi) := T;
+         end if;
+      end loop;
+      return B;
+   end Apply;
+
+   procedure Check_Trace (A : Input_Array; Label : String) is
+      R     : Input_Array;
+      Trace : Network (1 .. Network_Size);
+   begin
+      Cases := Cases + 1;
+      Sort_Traced (A, R, Trace);
+      if Trace /= Textbook or else R /= Apply (Textbook, A) or else R /= Sort (A) then
+         Failures := Failures + 1;
+         if Failures <= 5 then
+            Put_Line ("  FAIL own check (" & Label & "): comparators differ from the bitonic network");
+         end if;
+      end if;
+   end Check_Trace;
+
    A : Input_Array;
 begin
+   --  0. The comparators Sort runs are exactly the bitonic network (H102):
+   --     a correct sort under another name (the old bubble sort) fails here.
+   Check_Trace ([1 => 23, 2 => 4, 3 => 17, 4 => 9, 5 => 1, 6 => 31, 7 => 12, 8 => 6], "trace");
+   Check_Trace ([others => 0], "trace all equal");
+   for K in 1 .. 200 loop
+      for I in Index loop
+         A (I) := Next (Value'First, Value'Last);
+      end loop;
+      Check_Trace (A, "trace random" & K'Image);
+   end loop;
    --  1. Every 0/1 input (2**8): for comparator networks this alone proves
    --     the network sorts all inputs (0-1 principle, Knuth TAOCP 5.3.4).
    for Mask in 0 .. 2 ** Index'Last - 1 loop

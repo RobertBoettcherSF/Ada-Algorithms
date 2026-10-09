@@ -14,3 +14,6 @@ third-party test suites.
   (constant, ascending, descending, alternating extremes), 2,000 random
   arrays over the full Value range and 1,000 with many duplicates from the
   Park-Miller minimal standard generator (seed 20261008).
+* Bitonic network for 8 inputs (24 comparators): K. E. Batcher, "Sorting
+  networks and their applications", AFIPS 1968; layout as in Wikipedia
+  "Bitonic sorter" (alternative representation, all comparators ascending).
