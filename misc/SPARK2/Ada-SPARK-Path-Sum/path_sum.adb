@@ -11,6 +11,34 @@ package body Path_Sum is
          Used   => [others => False]);
    end Empty;
 
+   function Has_Other_Parent (T : Tree; Child, Node : Node_Index) return Boolean is
+     (for some I in Node_Index =>
+        I /= Node and then (T.Lefts (I) = Child or else T.Rights (I) = Child));
+
+   function Is_Ancestor_Or_Self (T : Tree; A, Node : Node_Index) return Boolean is
+      X : Node_Index := Node;
+      P : Index;
+   begin
+      --  A forest of 15 nodes has paths of at most 15 nodes.
+      for Step in Node_Index loop
+         if X = A then
+            return True;
+         end if;
+         P := 0;
+         for I in Node_Index loop
+            if T.Lefts (I) = X or else T.Rights (I) = X then
+               P := I;
+            end if;
+         end loop;
+         if P in Node_Index then
+            X := P;
+         else
+            return False;
+         end if;
+      end loop;
+      return False;
+   end Is_Ancestor_Or_Self;
+
    procedure Set_Node
      (T : in out Tree;
       Node : Node_Index;
