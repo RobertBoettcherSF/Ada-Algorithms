@@ -25,7 +25,10 @@ Lower and Upper must be the 16th and 17th, Median their mean rounded down
   when it moves left every time, which ends at I = 0 where no more are
   needed);
 * exact counts worked by hand: Left wholly below Right 4, Right wholly
-  below Left 5, all equal 5;
+  below Left 5, all equal 5; and (added after the held-out mutation run,
+  whose 13 real survivors were counter mutants in the Lower / Upper
+  choice) three paths with one comparison in each choice: Left odd /
+  Right even 6, Left even / Right odd 6, and a J = 1 cut 6;
 * Sorted_Array membership against a neighbour-by-neighbour test on 3,000
   random arrays (half sorted with one entry changed).
 * Random inputs use a Park-Miller generator; the default seed 20261008

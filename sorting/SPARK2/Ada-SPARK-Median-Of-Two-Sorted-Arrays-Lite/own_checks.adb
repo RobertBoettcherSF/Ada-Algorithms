@@ -126,6 +126,26 @@ begin
    Check_Count ([for I in Index => I], [for I in Index => 50 + I], 4, "Left below Right");
    Check_Count ([for I in Index => 50 + I], [for I in Index => I], 5, "Right below Left");
    Check_Count ([others => 9], [others => 9], 5, "all equal");
+   --  Paths with a comparison in the Lower and the Upper choice.
+   --  Left odd 1 .. 31, Right even 2 .. 32: the cut holds from I = 8 on
+   --  (Right (16 - I) = 32 - 2 I <= Left (I + 1) = 2 I + 1); the search
+   --  takes Mid 8 (holds), 4, 6, 7 (fail): 4, ends at I = J = 8. Lower:
+   --  Left (8) = 15 < Right (8) = 16, the Right branch, 1; Upper:
+   --  Left (9) = 17 <= Right (9) = 18, the Left branch, 1: 6.
+   Check_Count ([for I in Index => 2 * I - 1], [for I in Index => 2 * I], 6, "Left odd, Right even");
+   --  Left even, Right odd: the cut holds from I = 8 on (31 - 2 I <=
+   --  2 I + 2); same search, 4; Lower: Left (8) = 16 >= Right (8) = 15,
+   --  the Left branch, 1; Upper: Left (9) = 18 > Right (9) = 17, the
+   --  Right branch, 1: 6.
+   Check_Count ([for I in Index => 2 * I], [for I in Index => 2 * I - 1], 6, "Left even, Right odd");
+   --  J = 1: Left 2, 4 .. 30, 100; Right 1, 52 .. 66. The cut fails up to
+   --  I = 14 (Right (2) = 52 > Left (15) = 30) and holds at I = 15
+   --  (Right (1) = 1 <= Left (16) = 100); the search takes Mid 8, 12, 14
+   --  (fail), 15 (holds): 4. Lower: Left (15) = 30 >= Right (1) = 1, the
+   --  Left branch with I > 0 and J > 0, 1; Upper: Left (16) = 100 >
+   --  Right (2) = 52, the Right branch, 1: 6.
+   Check_Count ([for I in Index => (if I = Length then 100 else 2 * I)],
+                [for I in Index => (if I = 1 then 1 else 50 + I)], 6, "J = 1");
    for K in 1 .. 3_000 loop
       Check_Pair (Random_Sorted (0, 100), Random_Sorted (0, 100), "random" & K'Image);
       Check_Pair (Random_Sorted (0, 3), Random_Sorted (0, 3), "ties" & K'Image);
@@ -155,5 +175,5 @@ begin
       raise Program_Error with "own checks failed";
    end if;
    Ada.Text_IO.Put_Line ("PASS own checks:" & Cases'Image
-     & " checks (7,000 pairs vs an insertion sort of all 32 values: Lower, Upper, Median; comparisons <= 7, worst case 6; exact counts; predicate)");
+     & " checks (7,000 pairs vs an insertion sort of all 32 values: Lower, Upper, Median; comparisons <= 7, worst case 6; exact counts on 6 hand-worked paths; predicate)");
 end Own_Checks;
