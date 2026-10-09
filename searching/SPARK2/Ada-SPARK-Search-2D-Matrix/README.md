@@ -20,6 +20,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (48 checks), on `proof.gpr` (the package only).
 
-`make test` runs `tests.adb` and the folder's own checks: 43,676 checks against a 2D scan of every entry and a row-by-row sortedness test (see `tests/SOURCES.txt`).
+`make test` runs `tests.adb` and the folder's own checks: 44,249 checks against a 2D scan of every entry and a row-by-row sortedness test (see `tests/SOURCES.txt`).
 
 The first version was a 3 x 3 cell-by-cell scan with no contract and no sortedness requirement (this README called it "bounded row-major search"). The failing test that came first grew it to 8 x 8, added a comparison counter and asserted the log bound. That test fails on the old scan, which makes up to 64 comparisons.

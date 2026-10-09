@@ -98,6 +98,33 @@ procedure Own_Checks is
       Report ((M in Sorted_Matrix) = Ref_Sorted (M), "Sorted_Matrix membership " & Label);
    end Check_Predicate;
 
+   --  Exact counts on three paths, worked by hand. Target <= every cell:
+   --  the search always goes left (64 32 16 8 4 2 1 0: 7 halvings) and
+   --  compares cell 1 once more: 8. Target > every cell: always right
+   --  (64 31 15 7 3 1 0: 6 halvings), no cell left to compare: 6. Target
+   --  above cell 63 but not above cell 64: right five times, then left
+   --  (64 31 15 7 3 1 0), and cell 64 is compared: 7.
+   procedure Check_Counts (M : Matrix; Label : String) is
+      procedure Expect_Count (T : Value; Want : Natural; Path : String) is
+         Res : constant Search_Result := Contains (M, T);
+      begin
+         Report (Res.Probes = Want, Label & " target" & T'Image & " (" & Path & "):"
+                 & Res.Probes'Image & " comparisons counted, made" & Want'Image);
+      end Expect_Count;
+   begin
+      Expect_Count (M (1, 1), 8, "smallest");
+      if M (1, 1) > 0 then
+         Expect_Count (M (1, 1) - 1, 8, "below all");
+      end if;
+      if M (Rows, Cols) < Value'Last then
+         Expect_Count (M (Rows, Cols) + 1, 6, "above all");
+      end if;
+      if M (Rows, Cols - 1) < M (Rows, Cols) then
+         Expect_Count (M (Rows, Cols), 7, "last cell");
+         Expect_Count (M (Rows, Cols - 1) + 1, 7, "above cell 63");
+      end if;
+   end Check_Counts;
+
    procedure Check_Matrix (M : Matrix; Label : String) is
    begin
       Report (Ref_Sorted (M) and then M in Sorted_Matrix, "sorted accepted " & Label);
@@ -111,6 +138,7 @@ procedure Own_Checks is
                Max_Probes := Natural'Max (Max_Probes, Res.Probes);
             end;
          end loop;
+         Check_Counts (M, Label);
       end if;
       --  Swap one pair of unequal row-major neighbours: never sorted.
       declare
