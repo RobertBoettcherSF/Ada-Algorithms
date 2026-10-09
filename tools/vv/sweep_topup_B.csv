@@ -22,3 +22,4 @@ per-folder,8c79d651,misc/SPARK2/Ada-SPARK-Permutations,topup var+higher-order (u
 per-folder,cac32b31,misc/SPARK2/Ada-SPARK-Permutations-II,topup var+higher-order (unseen),20261173,pass,1639,363,30,0,0,333,30,30/30,100.0%,GNATMAKE 14.2.0
 per-folder,79ce60cf,misc/SPARK2/Ada-SPARK-Pow-X-N,topup var+higher-order (unseen),20261174,pass,1664,147,22,8,0,117,30,22/30,73.3%,GNATMAKE 14.2.0
 per-folder,37835700,misc/SPARK2/Ada-SPARK-Subsets,topup var+higher-order (unseen),20261175,pass,648,420,25,5,0,390,30,25/30,83.3%,GNATMAKE 14.2.0
+per-folder,e772dea2,misc/SPARK2/Ada-SPARK-Subsets-II,topup var+higher-order (unseen),20261176,pass,1349,818,28,2,0,788,30,28/30,93.3%,GNATMAKE 14.2.0

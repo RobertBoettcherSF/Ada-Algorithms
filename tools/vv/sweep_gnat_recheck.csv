@@ -125,3 +125,5 @@ misc/SPARK2/Ada-SPARK-Pow-X-N,GNAT 14,GNATLS 14.2.0,0,0,pow_x_n tests passed,79c
 misc/SPARK2/Ada-SPARK-Pow-X-N,GNAT 12,GNATLS 12.2.0,0,0,pow_x_n tests passed,79ce60cf
 misc/SPARK2/Ada-SPARK-Subsets,GNAT 14,GNATLS 14.2.0,0,0,subsets tests passed,37835700
 misc/SPARK2/Ada-SPARK-Subsets,GNAT 12,GNATLS 12.2.0,0,0,subsets tests passed,37835700
+misc/SPARK2/Ada-SPARK-Subsets-II,GNAT 14,GNATLS 14.2.0,0,0,subsets II tests passed,e772dea2
+misc/SPARK2/Ada-SPARK-Subsets-II,GNAT 12,GNATLS 12.2.0,0,0,subsets II tests passed,e772dea2
