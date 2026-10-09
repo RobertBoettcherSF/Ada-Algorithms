@@ -183,6 +183,36 @@ begin
       end;
    end;
 
+   -- TEST 15 - Precedence conflicts (agent A3, checker scan)
+   --  A simple precedence grammar (Wirth and Weber 1966) needs at most one
+   --  of the relations =, <, > between any ordered pair of symbols.
+   --  Relations derived by hand from the definitions (see tests/SOURCES.txt).
+   Put_Line ("TEST 15 - Precedence Relation Conflicts");
+   declare
+      function P (L : Symbol; R : String) return Production is
+        (LHS => L, RHS => To_Unbounded_String (R));
+      --  S -> aB, B -> Bc | d : a = B (from aB) and a < B (B in FIRST+(B))
+      Left_Rec  : constant Production_Array :=
+        [P ('S', "aB"), P ('B', "Bc"), P ('B', "d")];
+      --  S -> Ae, A -> cA | d : A = e (from Ae) and A > e (A in LAST+(A))
+      Right_Rec : constant Production_Array :=
+        [P ('S', "Ae"), P ('A', "cA"), P ('A', "d")];
+      --  S -> aAb, A -> d : a = A, A = b, a < d, d > b; no conflict
+      No_Clash  : constant Production_Array :=
+        [P ('S', "aAb"), P ('A', "d")];
+      --  The end marker may not occur in a rule
+      With_End  : constant Production_Array := [P ('S', "a$")];
+   begin
+      Check ("15.1 Left recursion (= and < on a, B) rejected",
+             not Is_Valid_Simple_Precedence_Grammar (Left_Rec));
+      Check ("15.2 Right recursion (= and > on A, e) rejected",
+             not Is_Valid_Simple_Precedence_Grammar (Right_Rec));
+      Check ("15.3 Conflict-free grammar accepted",
+             Is_Valid_Simple_Precedence_Grammar (No_Clash));
+      Check ("15.4 End marker inside a rule rejected",
+             not Is_Valid_Simple_Precedence_Grammar (With_End));
+   end;
+
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
