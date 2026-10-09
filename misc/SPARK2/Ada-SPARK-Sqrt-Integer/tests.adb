@@ -18,5 +18,9 @@ begin
    Check (8, 2);
    Check (99, 9);
    Check (100, 10);
+   --  Beyond the old 0 .. 100 table: 46_340 ** 2 = 2_147_395_600.
+   Check (2_147_395_599, 46_339);
+   Check (2_147_395_600, 46_340);
+   Check (Natural'Last, 46_340);
    Ada.Text_IO.Put_Line ("PASS Sqrt_Integer");
 end Tests;
