@@ -4,8 +4,9 @@ package body Sqrt_X with SPARK_Mode => On is
 
    subtype Small is Wide range 0 .. 2 ** 31;
 
-   --  One Newton step from X with N < (X + 1) ** 2 keeps that bound, and
-   --  lowers X while X * X > N. With Q = N / X and Y = (X + Q) / 2:
+   --  One Newton step from X with N < (X + 1) ** 2 keeps that bound (the
+   --  loop itself stops once a step no longer lowers X). With Q = N / X
+   --  and Y = (X + Q) / 2:
    --    4 (Y + 1) ** 2 >= (X + Q + 1) ** 2      (2 (Y + 1) >= X + Q + 1)
    --                   >= 4 X (Q + 1)          (AM-GM: (X - Q - 1) ** 2 >= 0)
    --                   >  4 N                  (N < (Q + 1) X).
@@ -14,8 +15,6 @@ package body Sqrt_X with SPARK_Mode => On is
      Ghost,
      Pre  => X > 0 and then X <= 46_340 and then N < (X + 1) * (X + 1),
      Post => N < ((X + N / X) / 2 + 1) * ((X + N / X) / 2 + 1)
-             and then (X + N / X) / 2 <= X + 1
-             and then (if X * X > N then (X + N / X) / 2 < X)
    is
       Q : constant Wide := N / X;
       R : constant Wide := N mod X;
@@ -25,9 +24,6 @@ package body Sqrt_X with SPARK_Mode => On is
       B : constant Wide := 2 * (Y + 1);
    begin
       pragma Assert (N = Q * X + R and R < X);
-      pragma Assert (Q * X <= N);
-      pragma Assert (Q * X < (X + 1) * (X + 1));
-      pragma Assert (Q <= X + 2);
       pragma Assert (N < (Q + 1) * X);
       pragma Assert (B >= A);
       pragma Assert (B * B = A * B + (B - A) * B);
@@ -39,10 +35,6 @@ package body Sqrt_X with SPARK_Mode => On is
       pragma Assert (D * D >= 0);
       pragma Assert (A * A >= 4 * X * (Q + 1));
       pragma Assert (4 * (Y + 1) * (Y + 1) > 4 * N);
-      if X * X > N then
-         pragma Assert (Q * X < X * X);
-         pragma Assert (Q < X);
-      end if;
    end Lemma_Step;
 
    function Sqrt (N : Number) return Sqrt_Result is

@@ -6,7 +6,7 @@ The iteration starts from X = 46_340, the floor of the square root of Natural'La
 
 **Range widened:** the first version was a case table of the answers for N in 0 .. 100 (Root 0 .. 10). The input is now all of `Natural` (0 .. 2 ** 31 - 1), and `Root` is 0 .. 46_340 (46_340 ** 2 = 2_147_395_600 <= Natural'Last < 46_341 ** 2).
 
-The proved contract is `R * R <= N < (R + 1) ** 2`, with the squares taken in `Long_Long_Integer` (81 checks). `Lemma_Step` shows, through AM-GM, that a step keeps N < (X + 1) ** 2 and lowers X while X * X > N. For the cost, only `Steps + Root <= 46_340` is proved (X falls on every step but the last). The real worst case is 16 steps, at N = 0. A one-off exhaustive run over all of `Natural` confirmed this (see `tests/SOURCES.txt`). The tests check exact step counts on fixed inputs, and at most 16 steps on every input they try.
+The proved contract is `R * R <= N < (R + 1) ** 2`, with the squares taken in `Long_Long_Integer` (69 checks). `Lemma_Step` shows, through AM-GM, that a step keeps N < (X + 1) ** 2; the loop stops once a step no longer lowers X. For the cost, only `Steps + Root <= 46_340` is proved (X falls on every step but the last). The real worst case is 16 steps, at N = 0. A one-off exhaustive run over all of `Natural` confirmed this (see `tests/SOURCES.txt`). The tests check exact step counts on fixed inputs, and at most 16 steps on every input they try.
 
 ## Checks
 
