@@ -183,3 +183,5 @@ misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,GNAT 14,GNATLS 14.2
 misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,GNAT 12,GNATLS 12.2.0,0,0,PASS Different_Ways_Parentheses,6efb392c
 misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,GNAT 14,GNATLS 14.2.0,0,0,PASS House_Robber_III_Lite,8e588edf
 misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,GNAT 12,GNATLS 12.2.0,0,0,PASS House_Robber_III_Lite,8e588edf
+misc/SPARK2/Ada-SPARK-Deque-Bounded,GNAT 14,GNATLS 14.2.0,0,0,PASS Deque_Bounded,b1a9a46e
+misc/SPARK2/Ada-SPARK-Deque-Bounded,GNAT 12,GNATLS 12.2.0,0,0,PASS Deque_Bounded,b1a9a46e
