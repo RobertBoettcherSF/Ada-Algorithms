@@ -368,11 +368,6 @@ is
       Start : constant Index := CS + Lt (A, CS, A'Last, Item);
    begin
       Lemmas.Lemma_Total (A, CS, A'Last, Item);
-      if A (Pos) = Item then
-         Lemmas.Lemma_Run (A, CS, Start, A'Last, Item);
-         Lemmas.Lemma_Total (A, CS, Start - 1, Item);
-         pragma Assert (False);
-      end if;
       if Pos > Start then
          Lemmas.Lemma_Run (A, CS, Start, Pos - 1, Item);
          Lemmas.Lemma_Eq_Mono (A, CS, Pos - 1, A'Last, Item);
