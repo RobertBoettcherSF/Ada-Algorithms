@@ -279,3 +279,4 @@ misc/SPARK2/Ada-SPARK-Bump-Arena,counter model of the arena + membership table f
 misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,FIFO second-chance queue model (a different formulation) + hand-worked clock trace
 misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,"union-find over cells (a different algorithm), exhaustive over all 16 grids"
 misc/SPARK2/Ada-SPARK-Cosine-Distance,exhaustive pairs vs the defining floor inequalities + parallel/orthogonal properties
+misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,"sum of Euclid quotients (a different formula), exhaustive"
