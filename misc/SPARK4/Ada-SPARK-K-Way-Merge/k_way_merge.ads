@@ -14,8 +14,8 @@
 --  for classroom bounds (8 / 32 / 64), a flattened List_Store, and a
 --  linear min-of-heads scan so Level 4 can discharge sortedness of the
 --  merge result when inputs are sorted (no Bubble_Finish fallback).
---  Full multiset / permutation equality is verified by tests rather
---  than claimed as a Level-4 postcondition (sortedness is proved).
+--  The Posts prove sortedness and that the merged prefix holds the
+--  values of the inputs, each exactly as often (Occ / Row_Occ / Taken).
 --
 --  Reference: https://en.wikipedia.org/wiki/K-way_merge_algorithm
 
@@ -91,6 +91,100 @@ is
      (for all I in 1 .. K => List_Is_Sorted (Store, I, Lens (I)))
    with Global => null;
 
+   ---------------------------------------------------------------------------
+   -- Occurrence counts (used by the Posts of Merge and Merge_K)
+   ---------------------------------------------------------------------------
+
+   function Occ (A : Element_Array; V : Integer; Last : Integer) return Natural
+   with
+     Global             => null,
+     Pre                =>
+       In_Bounds (A) and then (Last < A'First or else Last <= A'Last),
+     Post               =>
+       Occ'Result <= (if Last < A'First then 0 else Last - A'First + 1),
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (A'First .. Last) equal V.
+
+   function Occ (A : Element_Array; V : Integer; Last : Integer) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Row_Occ
+     (Store : List_Store; I : Index_K; V : Integer; J : Len_Value) return Natural
+   with
+     Global             => null,
+     Post               => Row_Occ'Result <= J,
+     Subprogram_Variant => (Decreases => J);
+   --  How many of Store (I, 1 .. J) equal V.
+
+   function Row_Occ
+     (Store : List_Store; I : Index_K; V : Integer; J : Len_Value) return Natural is
+     (if J = 0 then 0
+      else Row_Occ (Store, I, V, J - 1) + (if Store (I, J) = V then 1 else 0));
+
+   subtype List_Count is Natural range 0 .. Max_K;
+
+   function Taken
+     (Store : List_Store; Upto : Len_Array; V : Integer; K : List_Count)
+      return Natural
+   with
+     Global             => null,
+     Post               => Taken'Result <= K * Max_Len,
+     Subprogram_Variant => (Decreases => K);
+   --  How many of the first Upto (I) items of lists I = 1 .. K equal V.
+
+   function Taken
+     (Store : List_Store; Upto : Len_Array; V : Integer; K : List_Count)
+      return Natural is
+     (if K = 0 then 0
+      else Taken (Store, Upto, V, K - 1) + Row_Occ (Store, K, V, Upto (K)));
+
+   function Same_As_Lists
+     (Output : Element_Array;
+      Last   : Natural;
+      Store  : List_Store;
+      Lens   : Len_Array;
+      K      : Index_K) return Boolean
+   is
+     ((for all P in Output'First .. Output'First + (Last - 1) =>
+         Occ (Output, Output (P), Output'First + (Last - 1))
+         = Taken (Store, Lens, Output (P), K))
+      and then
+        (for all I in 1 .. K =>
+           (for all J in 1 .. Lens (I) =>
+              Occ (Output, Store (I, J), Output'First + (Last - 1))
+              = Taken (Store, Lens, Store (I, J), K))))
+   with
+     Global => null,
+     Pre    => In_Bounds (Output) and then Last <= Output'Length;
+   --  Output (first Last slots) holds the items of lists 1 .. K, each
+   --  value exactly as often. A value found in neither counts 0 on both
+   --  sides, so checking the values of both sides covers every value.
+
+   function Same_As_Pair
+     (Output : Element_Array;
+      Last   : Natural;
+      A, B   : Element_Array) return Boolean
+   is
+     ((for all P in Output'First .. Output'First + (Last - 1) =>
+         Occ (Output, Output (P), Output'First + (Last - 1))
+         = Occ (A, Output (P), A'Last) + Occ (B, Output (P), B'Last))
+      and then
+        (for all P in A'Range =>
+           Occ (Output, A (P), Output'First + (Last - 1))
+           = Occ (A, A (P), A'Last) + Occ (B, A (P), B'Last))
+      and then
+        (for all P in B'Range =>
+           Occ (Output, B (P), Output'First + (Last - 1))
+           = Occ (A, B (P), A'Last) + Occ (B, B (P), B'Last)))
+   with
+     Global => null,
+     Pre    =>
+       In_Bounds (Output) and then In_Bounds (A) and then In_Bounds (B)
+       and then Last <= Output'Length;
+   --  Output (first Last slots) holds the items of A and B together, each
+   --  value exactly as often.
+
    --  Sum of Lens (1 .. K). Case expression keeps Pre/Post SMT-friendly.
    function Total_Length (Lens : Len_Array; K : Index_K) return Natural is
      (case K is
@@ -161,13 +255,14 @@ is
        Last = Total_Length (Lens, K)
        and then Last <= Max_Total
        and then In_Bounds (Output (Output'First .. Output'First + (Last - 1)))
-       and then Is_Sorted (Output (Output'First .. Output'First + (Last - 1)));
+       and then Is_Sorted (Output (Output'First .. Output'First + (Last - 1)))
+       and then Same_As_Lists (Output, Last, Store, Lens, K);
    --  K-way merge of Store (1 .. K) with lengths Lens into Output.
    --  Writes the merged sequence into the first Last slots of Output
    --  (Output may start at any index); remaining
    --  Output slots are zeroed. Empty lists (Lens (I) = 0) contribute
-   --  nothing. Post proves sortedness; multiset equality is checked by
-   --  the test suite (not claimed here at Level 4).
+   --  nothing. Post proves sortedness and multiset equality with the
+   --  lists (Same_As_Lists).
 
    procedure Merge
      (A, B   : Element_Array;
@@ -188,7 +283,8 @@ is
        Last = A'Length + B'Length
        and then Last <= Max_Total
        and then In_Bounds (Output (Output'First .. Output'First + (Last - 1)))
-       and then Is_Sorted (Output (Output'First .. Output'First + (Last - 1)));
+       and then Is_Sorted (Output (Output'First .. Output'First + (Last - 1)))
+       and then Same_As_Pair (Output, Last, A, B);
    --  Educational 2-way merge (special case of k = 2 without a k-scan).
    --  Direct two-pointer scan; prefers A when A (IA) ≤ B (IB).
 

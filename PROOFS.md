@@ -2186,7 +2186,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Binary-Insertion-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
 | sorting/SPARK4/Ada-SPARK-Bitonic-Sorter | yes | yes | yes | yes | yes | 0 | 6 | proven | 294 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bitonic-Sorter |  |
 | sorting/SPARK4/Ada-SPARK-Bogosort | yes | yes | yes | yes | yes | 0 | 2 | proven | 294 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bogosort |  |
-| sorting/SPARK4/Ada-SPARK-Bubble-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 156 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bubble-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Bubble-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 291 (restored) |  | sorting/Ada/Bubble-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Bucket-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 177 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bucket-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Burstsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 449 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Burstsort |  |
 | sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 204 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Cocktail-Shaker-Sort |  |

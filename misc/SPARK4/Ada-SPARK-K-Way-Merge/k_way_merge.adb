@@ -12,6 +12,110 @@ is
 
    type Pos_Array is array (1 .. Max_K) of Pos_Cursor;
 
+   --  Loop invariants are proved by gnatprove and not re-evaluated at run
+   --  time: the multiset invariants quantify over every Integer value.
+   pragma Assertion_Policy (Loop_Invariant => Ignore);
+
+   ---------------------------------------------------------------------------
+   -- Multiset proof (ghost lemmas; contracts proved, not evaluated at run
+   -- time because they quantify over every Integer value)
+   ---------------------------------------------------------------------------
+
+   package Count_Lemmas
+     with Ghost
+   is
+      pragma Assertion_Policy (Pre => Ignore, Post => Ignore);
+
+      --  Counts over A'First .. Last only see A'First .. Last.
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Integer)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First
+          and then Last <= A'Last and then Last <= B'Last
+          and then (for all P in A'First .. Last => A (P) = B (P)),
+        Post               =>
+          (for all V in Integer => Occ (A, V, Last) = Occ (B, V, Last)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  Nothing taken yet from lists 1 .. K counts 0.
+      procedure Lemma_Taken_Zero
+        (Store : List_Store; U : Len_Array; K : List_Count)
+      with
+        Global             => null,
+        Pre                => (for all I in 1 .. K => U (I) = 0),
+        Post               =>
+          (for all V in Integer => Taken (Store, U, V, K) = 0),
+        Subprogram_Variant => (Decreases => K);
+
+      --  Taken (.., K) only sees U (1 .. K).
+      procedure Lemma_Taken_Frame
+        (Store : List_Store; U1, U2 : Len_Array; K : List_Count)
+      with
+        Global             => null,
+        Pre                => (for all I in 1 .. K => U1 (I) = U2 (I)),
+        Post               =>
+          (for all V in Integer =>
+             Taken (Store, U1, V, K) = Taken (Store, U2, V, K)),
+        Subprogram_Variant => (Decreases => K);
+
+      --  Taking one more item from list B adds that item.
+      procedure Lemma_Taken_Bump
+        (Store : List_Store; U1, U2 : Len_Array; B : Index_K; K : List_Count)
+      with
+        Global             => null,
+        Pre                =>
+          B <= K
+          and then U1 (B) < Max_Len
+          and then U2 (B) = U1 (B) + 1
+          and then (for all I in 1 .. K => (if I /= B then U1 (I) = U2 (I))),
+        Post               =>
+          (for all V in Integer =>
+             Taken (Store, U2, V, K)
+             = Taken (Store, U1, V, K)
+               + (if Store (B, U2 (B)) = V then 1 else 0)),
+        Subprogram_Variant => (Decreases => K);
+   end Count_Lemmas;
+
+   package body Count_Lemmas is
+
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Integer) is
+      begin
+         if Last >= A'First then
+            Lemma_Occ_Frame (A, B, Last - 1);
+         end if;
+      end Lemma_Occ_Frame;
+
+      procedure Lemma_Taken_Zero
+        (Store : List_Store; U : Len_Array; K : List_Count) is
+      begin
+         if K > 0 then
+            Lemma_Taken_Zero (Store, U, K - 1);
+         end if;
+      end Lemma_Taken_Zero;
+
+      procedure Lemma_Taken_Frame
+        (Store : List_Store; U1, U2 : Len_Array; K : List_Count) is
+      begin
+         if K > 0 then
+            Lemma_Taken_Frame (Store, U1, U2, K - 1);
+         end if;
+      end Lemma_Taken_Frame;
+
+      procedure Lemma_Taken_Bump
+        (Store : List_Store; U1, U2 : Len_Array; B : Index_K; K : List_Count) is
+      begin
+         if K > B then
+            Lemma_Taken_Bump (Store, U1, U2, B, K - 1);
+         else
+            Lemma_Taken_Frame (Store, U1, U2, K - 1);
+         end if;
+      end Lemma_Taken_Bump;
+
+   end Count_Lemmas;
+   use Count_Lemmas;
+
    --  Adjacent nondecreasing on A (L .. R) (storage indices). Vacuous
    --  when L >= R.
    function Sorted_Slice
@@ -101,10 +205,12 @@ is
       Best      : Natural;
       Min_Val   : Integer;
       Old_Pos   : Pos_Cursor;
+      Done      : Len_Array := [others => 0] with Ghost;
    begin
       Output := [others => 0];
 
       pragma Assert (Live_Count (Pos, Lens, K) = Total);
+      Lemma_Taken_Zero (Store, Done, K);
 
       while Remaining > 0 loop
          pragma Loop_Invariant (OI + Remaining = Total);
@@ -125,6 +231,10 @@ is
               (for all I in 1 .. K =>
                  (if Pos (I) <= Lens (I)
                   then Output (OO + OI) <= Store (I, Pos (I)))));
+         pragma Loop_Invariant (for all I in 1 .. K => Done (I) = Pos (I) - 1);
+         pragma Loop_Invariant
+           (for all V in Integer =>
+              Occ (Output, V, OO + OI) = Taken (Store, Done, V, K));
          pragma Loop_Variant (Decreases => Remaining);
 
          Best := 0;
@@ -181,13 +291,21 @@ is
                then Min_Val <= Store (J, Pos (J))));
          pragma Assert (OI = 0 or else Output (OO + OI) <= Min_Val);
 
-         OI := OI + 1;
-         Output (OO + OI) := Min_Val;
-         pragma Assert (Sorted_Slice (Output, OO + 1, OO + OI));
+         declare
+            Out_Before  : constant Element_Array := Output with Ghost;
+            Done_Before : constant Len_Array := Done with Ghost;
+         begin
+            OI := OI + 1;
+            Output (OO + OI) := Min_Val;
+            pragma Assert (Sorted_Slice (Output, OO + 1, OO + OI));
 
-         Old_Pos := Pos (Best);
-         Pos (Best) := Old_Pos + 1;
-         Remaining := Remaining - 1;
+            Old_Pos := Pos (Best);
+            Pos (Best) := Old_Pos + 1;
+            Done (Best) := Old_Pos;
+            Remaining := Remaining - 1;
+            Lemma_Occ_Frame (Out_Before, Output, OO + OI - 1);
+            Lemma_Taken_Bump (Store, Done_Before, Done, Best, K);
+         end;
 
          --  New live heads are all >= Min_Val = Output (OO + OI).
          pragma Assert
@@ -204,6 +322,8 @@ is
 
       Last := OI;
       pragma Assert (Last = Total);
+      pragma Assert (for all I in 1 .. K => Pos (I) = Lens (I) + 1);
+      Lemma_Taken_Frame (Store, Done, Lens, K);
       pragma Assert (Sorted_Slice (Output, OO + 1, OO + Last));
       pragma Assert (In_Bounds (Output (Output'First .. Output'First + (Last - 1))));
       pragma Assert (Is_Sorted (Output (Output'First .. Output'First + (Last - 1))));
@@ -253,16 +373,30 @@ is
            (for all T in IA .. LA - 1 => A (AO + T) <= A (AO + T + 1));
          pragma Loop_Invariant
            (for all T in IB .. LB - 1 => B (BO + T) <= B (BO + T + 1));
+         pragma Loop_Invariant
+           (for all V in Integer =>
+              Occ (Output, V, OO + OI)
+              = Occ (A, V, AO + (IA - 1)) + Occ (B, V, BO + (IB - 1)));
          pragma Loop_Variant (Decreases => (LA - IA + 1) + (LB - IB + 1));
 
          if A (AO + IA) <= B (BO + IB) then
-            OI := OI + 1;
-            Output (OO + OI) := A (AO + IA);
-            IA := IA + 1;
+            declare
+               Before : constant Element_Array := Output with Ghost;
+            begin
+               OI := OI + 1;
+               Output (OO + OI) := A (AO + IA);
+               IA := IA + 1;
+               Lemma_Occ_Frame (Before, Output, OO + OI - 1);
+            end;
          else
-            OI := OI + 1;
-            Output (OO + OI) := B (BO + IB);
-            IB := IB + 1;
+            declare
+               Before : constant Element_Array := Output with Ghost;
+            begin
+               OI := OI + 1;
+               Output (OO + OI) := B (BO + IB);
+               IB := IB + 1;
+               Lemma_Occ_Frame (Before, Output, OO + OI - 1);
+            end;
          end if;
       end loop;
 
@@ -276,11 +410,20 @@ is
            (OI = 0 or else Output (OO + OI) <= A (AO + IA));
          pragma Loop_Invariant
            (for all T in IA .. LA - 1 => A (AO + T) <= A (AO + T + 1));
+         pragma Loop_Invariant
+           (for all V in Integer =>
+              Occ (Output, V, OO + OI)
+              = Occ (A, V, AO + (IA - 1)) + Occ (B, V, BO + (IB - 1)));
          pragma Loop_Variant (Decreases => LA - IA + 1);
 
-         OI := OI + 1;
-         Output (OO + OI) := A (AO + IA);
-         IA := IA + 1;
+         declare
+            Before : constant Element_Array := Output with Ghost;
+         begin
+            OI := OI + 1;
+            Output (OO + OI) := A (AO + IA);
+            IA := IA + 1;
+            Lemma_Occ_Frame (Before, Output, OO + OI - 1);
+         end;
       end loop;
 
       while IB <= LB loop
@@ -293,15 +436,27 @@ is
            (OI = 0 or else Output (OO + OI) <= B (BO + IB));
          pragma Loop_Invariant
            (for all T in IB .. LB - 1 => B (BO + T) <= B (BO + T + 1));
+         pragma Loop_Invariant
+           (for all V in Integer =>
+              Occ (Output, V, OO + OI)
+              = Occ (A, V, AO + (IA - 1)) + Occ (B, V, BO + (IB - 1)));
          pragma Loop_Variant (Decreases => LB - IB + 1);
 
-         OI := OI + 1;
-         Output (OO + OI) := B (BO + IB);
-         IB := IB + 1;
+         declare
+            Before : constant Element_Array := Output with Ghost;
+         begin
+            OI := OI + 1;
+            Output (OO + OI) := B (BO + IB);
+            IB := IB + 1;
+            Lemma_Occ_Frame (Before, Output, OO + OI - 1);
+         end;
       end loop;
 
+      pragma Assert (if LA > 0 then AO + (IA - 1) = A'Last);
+      pragma Assert (if LB > 0 then BO + (IB - 1) = B'Last);
       Last := OI;
       pragma Assert (Last = Need);
+      pragma Assert (OO + Last = Output'First + (Last - 1));
       pragma Assert (Sorted_Slice (Output, OO + 1, OO + Last));
       pragma Assert (Is_Sorted (Output (Output'First .. Output'First + (Last - 1))));
    end Merge;

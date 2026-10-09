@@ -478,6 +478,115 @@ begin
                    & " Positive'Last = origin-1 answer (200 random)");
    end;
 
+   Section ("Same_As_Pair / Same_As_Lists (Posts) against sorted copies, exhaustive small cases");
+   declare
+      Bad   : Natural := 0;
+      Cases : Natural := 0;
+      Out4  : Element_Array (1 .. 4);
+
+      --  Element P (1-based) of the base-3 digits of Code, mapped to -1 .. 1.
+      function Digit (Code, P : Natural) return Integer is
+        ((Code / 3 ** (P - 1)) mod 3 - 1);
+
+      function Make (Len, Code : Natural) return Element_Array is
+         R : Element_Array (1 .. Len);
+      begin
+         for P in R'Range loop
+            R (P) := Digit (Code, P);
+         end loop;
+         return R;
+      end Make;
+   begin
+      --  Two-way: A, B of length 0 .. 2, Output of length 4 with Last 0 .. 4.
+      for LA in 0 .. 2 loop
+         for CA in 0 .. 3 ** LA - 1 loop
+            for LB in 0 .. 2 loop
+               for CB in 0 .. 3 ** LB - 1 loop
+                  for CO in 0 .. 80 loop
+                     for Last in 0 .. 4 loop
+                        declare
+                           A : constant Element_Array := Make (LA, CA);
+                           B : constant Element_Array := Make (LB, CB);
+                        begin
+                           for P in Out4'Range loop
+                              Out4 (P) := Digit (CO, P);
+                           end loop;
+                           Cases := Cases + 1;
+                           if Same_As_Pair (Out4, Last, A, B)
+                             /= Is_Permutation (Out4 (1 .. Last), A & B)
+                           then
+                              Bad := Bad + 1;
+                           end if;
+                        end;
+                     end loop;
+                  end loop;
+               end loop;
+            end loop;
+         end loop;
+      end loop;
+      Check (Bad = 0 and then Cases = 68_445,
+             "Same_As_Pair = sorted-copy comparison on" & Cases'Image & " cases");
+
+      --  K lists: K = 2 with lengths 0 .. 2, K = 3 with lengths 0 .. 1.
+      Bad := 0;
+      Cases := 0;
+      for K in Index_K range 2 .. 3 loop
+         declare
+            Max_L  : constant Natural := (if K = 2 then 2 else 1);
+            Combos : constant Natural := (if K = 2 then 13 else 4);
+            --  Combos = number of (length, contents) choices per list.
+         begin
+            for C1 in 0 .. Combos - 1 loop
+               for C2 in 0 .. Combos - 1 loop
+                  for C3 in 0 .. (if K = 3 then Combos - 1 else 0) loop
+                     declare
+                        Store : List_Store := [others => [others => 7]];
+                        Lens  : Len_Array := [others => 0];
+                        Pick  : constant array (1 .. 3) of Natural := [C1, C2, C3];
+                     begin
+                        for I in 1 .. K loop
+                           declare
+                              R : Natural := Pick (I);
+                              L : Natural := 0;
+                           begin
+                              --  choice R -> (length L, contents code R) in order
+                              --  L = 0 (1 choice), 1 (3), 2 (9)
+                              while L < Max_L and then R >= 3 ** L loop
+                                 R := R - 3 ** L;
+                                 L := L + 1;
+                              end loop;
+                              Lens (I) := L;
+                              for J in 1 .. L loop
+                                 Store (I, J) := Digit (R, J);
+                              end loop;
+                           end;
+                        end loop;
+                        for CO in 0 .. 80 loop
+                           for Last in 0 .. 4 loop
+                              for P in Out4'Range loop
+                                 Out4 (P) := Digit (CO, P);
+                              end loop;
+                              Cases := Cases + 1;
+                              if Same_As_Lists (Out4, Last, Store, Lens, K)
+                                /= Is_Permutation (Out4 (1 .. Last), Concat_Store (Store, Lens, K))
+                              then
+                                 Bad := Bad + 1;
+                              end if;
+                           end loop;
+                        end loop;
+                     end;
+                  end loop;
+               end loop;
+            end loop;
+         end;
+      end loop;
+      Check (Bad = 0 and then Cases = 13 * 13 * 405 + 4 * 4 * 4 * 405,
+             "Same_As_Lists = sorted-copy comparison on" & Cases'Image & " cases");
+      Check (not Same_As_Pair (Element_Array'([0, 0, 0, 0]), 3,
+                               Element_Array'([1, 2]), Element_Array'([3])),
+             "Same_As_Pair rejects an all-zeros result");
+   end;
+
    New_Line;
    Put_Line
      ("Results: "
