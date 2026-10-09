@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Find_First_And_Last_Position; use Find_First_And_Last_Position;
+with Own_Checks;
 
 procedure Tests is
    Data : constant Sorted_Array := [1, 2, 2, 2, 3, others => 100];
@@ -45,4 +46,5 @@ begin
    Expect (Pairs, 15, 31, 32, "pair at the end");
    Expect (Pairs, 16, 0, 0, "absent after everything");
    Put_Line ("Find_First_And_Last_Position: PASS");
+   Own_Checks;
 end Tests;

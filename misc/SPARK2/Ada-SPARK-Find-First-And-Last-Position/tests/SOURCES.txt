@@ -1,0 +1,19 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+nine hand-worked runs (start, middle, end, single, absent before /
+between / after) and the read bound 2 * (floor (log2 N) + 2); the bound
+check was committed first (eccd9108) and fails on the old scan.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). Reference: a linear
+scan recording the first and last element equal to Target.
+* all-equal arrays for every value, a 0 / 100 step at every position
+  and 2,000 random sorted arrays with many duplicates, each with every
+  target 0 .. 100: First / Last, reads <= 2 * (floor (log2 N) + 2),
+  worst case exactly 12 reads;
+* Sorted_Array membership against a neighbour test on 2,000 random
+  arrays.
+* Random inputs use a Park-Miller generator; the default seed 20261008
+  is printed, and AA_SEED=<n> overrides it.
