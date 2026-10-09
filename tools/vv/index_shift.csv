@@ -2957,7 +2957,7 @@ misc/SPARK4/Ada-SPARK-Selection-Algorithm,Is_Kth_Partitioned,catalog,catalog,,1,
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,Select_Kth,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
-misc/SPARK4/Ada-SPARK-Selection-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/SPARK4/Ada-SPARK-Selection-Algorithm,Select_Kth_Copy,shift_mismatch,fail,,,origins 2/100 high 10000 (value) | FAIL exception on shift compare | FAIL exception high-first | IDX_SHIFT_FAIL 2 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
 searching/Ada/Brute-Force-Search,Linear_Search,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 searching/Ada/Brute-Force-Search,Subset_Sum_Exists,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3137,7 +3137,7 @@ searching/SPARK4/Ada-SPARK-Introselect,Is_Kth_Partitioned,catalog,catalog,,1,fun
 searching/SPARK4/Ada-SPARK-Introselect,Select_Kth,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 searching/SPARK4/Ada-SPARK-Introselect,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 searching/SPARK4/Ada-SPARK-Introselect,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
-searching/SPARK4/Ada-SPARK-Introselect,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+searching/SPARK4/Ada-SPARK-Introselect,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 searching/SPARK4/Ada-SPARK-Introselect,Select_Kth_Copy,shift_mismatch,fail,,,origins 2/100 high 10000 (value) | FAIL exception on shift compare | FAIL exception high-first | IDX_SHIFT_FAIL 2 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
 sorting/Ada/Bead-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=Boolean,
 sorting/Ada/Bead-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3152,7 +3152,7 @@ searching/SPARK4/Ada-SPARK-Quickselect,Is_Kth_Partitioned,catalog,catalog,,1,fun
 searching/SPARK4/Ada-SPARK-Quickselect,Select_Kth,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 searching/SPARK4/Ada-SPARK-Quickselect,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 searching/SPARK4/Ada-SPARK-Quickselect,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
-searching/SPARK4/Ada-SPARK-Quickselect,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+searching/SPARK4/Ada-SPARK-Quickselect,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 searching/SPARK4/Ada-SPARK-Quickselect,Select_Kth_Copy,shift_mismatch,fail,,,origins 2/100 high 10000 (value) | FAIL exception on shift compare | FAIL exception high-first | IDX_SHIFT_FAIL 2 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
 sorting/Ada/Burstsort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=Boolean,
 sorting/Ada/Burstsort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3436,7 +3436,7 @@ sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Result_Keys_Nondecreasing,catalog,catal
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Product_Fits,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Inner_Join,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,Unique_Key_Join,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 sorting/SPARK4/Ada-SPARK-Shell-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Shell-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Shell-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
