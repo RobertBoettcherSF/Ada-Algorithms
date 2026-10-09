@@ -1,0 +1,65 @@
+From e2c02d4e070e9ac26384484ffdca4a4a15db672b Mon Sep 17 00:00:00 2001
+From: Robert Boettcher <105643443+RobertBoettcherSF@users.noreply.github.com>
+Date: Fri, 9 Oct 2026 14:30:43 +0200
+Subject: [PATCH] Strand-Sort (SPARK4) failing test: Sort's Post must state
+ permutation (Is_Perm counted with Occ, as Bubble-Sort); Is_Perm checked
+ against sorted-copy comparison on all 7,381 pairs of length 0 .. 4 over -1 ..
+ 1. Fails: Is_Perm / Occ do not exist
+
+---
+ .../SPARK4/Ada-SPARK-Strand-Sort/tests.adb    | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+
+diff --git a/sorting/SPARK4/Ada-SPARK-Strand-Sort/tests.adb b/sorting/SPARK4/Ada-SPARK-Strand-Sort/tests.adb
+index c9d9ae77..70f4bf26 100644
+--- a/sorting/SPARK4/Ada-SPARK-Strand-Sort/tests.adb
++++ b/sorting/SPARK4/Ada-SPARK-Strand-Sort/tests.adb
+@@ -408,6 +408,45 @@ begin
+    Expect_Sorted ([0], "zero singleton via Expect");
+    Expect_Sorted ([-42], "neg singleton via Expect");
+ 
++   Section ("Is_Perm (Post) against sorted copies: every pair of arrays of length 0 .. 4 over -1 .. 1");
++   declare
++      Bad   : Natural := 0;
++      Cases : Natural := 0;
++   begin
++      for Len in 0 .. 4 loop
++         for CA in 0 .. 3 ** Len - 1 loop
++            for CB in 0 .. 3 ** Len - 1 loop
++               declare
++                  A, B : Element_Array (1 .. Len);
++                  X    : Natural := CA;
++                  Y    : Natural := CB;
++               begin
++                  for I in A'Range loop
++                     A (I) := X mod 3 - 1;
++                     B (I) := Y mod 3 - 1;
++                     X := X / 3;
++                     Y := Y / 3;
++                  end loop;
++                  Cases := Cases + 1;
++                  if Is_Perm (A, B) /= Is_Permutation (A, B) then
++                     Bad := Bad + 1;
++                  end if;
++               end;
++            end loop;
++         end loop;
++      end loop;
++      Check (Bad = 0 and then Cases = 7_381,
++             "Is_Perm = sorted-copy comparison on" & Cases'Image & " pairs");
++      Check (not Is_Perm (Element_Array'([3, 1, 2]), Element_Array'([0, 0, 0])),
++             "Is_Perm rejects an all-zeros result");
++      Check (not Is_Perm (Element_Array'([1, 1, 2]), Element_Array'([1, 2, 2])),
++             "Is_Perm compares counts, not just values");
++      Check (Occ (Element_Array'([2, 5, 2, 2]), 2, 4) = 3
++             and then Occ (Element_Array'([2, 5, 2, 2]), 2, 2) = 1
++             and then Occ (Element_Array'([2, 5, 2, 2]), 7, 4) = 0,
++             "Occ counts A (1 .. Last)");
++   end;
++
+    New_Line;
+    Put_Line
+      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image
+-- 
+2.47.3
+

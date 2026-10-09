@@ -1,0 +1,292 @@
+diff --git a/sorting/SPARK4/Ada-SPARK-Strand-Sort/strand_sort.adb b/sorting/SPARK4/Ada-SPARK-Strand-Sort/strand_sort.adb
+index eb12674f..24ab2ba1 100644
+--- a/sorting/SPARK4/Ada-SPARK-Strand-Sort/strand_sort.adb
++++ b/sorting/SPARK4/Ada-SPARK-Strand-Sort/strand_sort.adb
+@@ -8,6 +8,76 @@ package body Strand_Sort
+   with SPARK_Mode => On
+ is
+ 
++   --  Loop invariants and assertions in this body are proof obligations,
++   --  proved by gnatprove and not evaluated at run time: the permutation
++   --  invariants quantify over every Integer value. The Pre / Post of
++   --  Sort and Strand_Phase (In_Bounds, Is_Sorted, Is_Perm) are still
++   --  checked at run time under -gnata.
++   pragma Assertion_Policy (Loop_Invariant => Ignore, Assert => Ignore);
++
++   ---------------------------------------------------------------------------
++   -- Permutation lemmas (ghost). Their contracts quantify over every
++   -- Integer value, so they are proved and not evaluated at run time.
++   ---------------------------------------------------------------------------
++
++   package Perm_Lemmas
++     with Ghost
++   is
++      pragma Assertion_Policy (Pre => Ignore, Post => Ignore);
++
++      --  Counts over 1 .. Last only see 1 .. Last.
++      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural)
++      with
++        Global             => null,
++        Pre                =>
++          A'First = 1 and then B'First = 1
++          and then Last <= A'Last and then Last <= B'Last
++          and then (for all K in 1 .. Last => A (K) = B (K)),
++        Post               =>
++          (for all V in Integer => Occ (A, V, Last) = Occ (B, V, Last)),
++        Subprogram_Variant => (Decreases => Last);
++
++      --  Writing slot K beyond Last does not change the counts of 1 .. Last.
++      procedure Lemma_Occ_Update
++        (A : Element_Array; K : Positive; X : Integer; Last : Natural)
++      with
++        Global => null,
++        Pre    => A'First = 1 and then K in A'Range and then Last < K,
++        Post   =>
++          (for all V in Integer =>
++             Occ ((A with delta K => X), V, Last) = Occ (A, V, Last));
++
++      procedure Lemma_Same_Perm (A, B : Element_Array)
++      with
++        Global => null,
++        Pre    =>
++          In_Bounds (A) and then In_Bounds (B)
++          and then A'Last = B'Last
++          and then (for all V in Integer =>
++                      Occ (A, V, A'Last) = Occ (B, V, B'Last)),
++        Post   => Is_Perm (A, B);
++   end Perm_Lemmas;
++
++   package body Perm_Lemmas is
++
++      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural) is
++      begin
++         if Last > 0 then
++            Lemma_Occ_Frame (A, B, Last - 1);
++         end if;
++      end Lemma_Occ_Frame;
++
++      procedure Lemma_Occ_Update
++        (A : Element_Array; K : Positive; X : Integer; Last : Natural) is
++      begin
++         Lemma_Occ_Frame (A, (A with delta K => X), Last);
++      end Lemma_Occ_Update;
++
++      procedure Lemma_Same_Perm (A, B : Element_Array) is null;
++
++   end Perm_Lemmas;
++   use Perm_Lemmas;
++
+    --  Cursor one past the live range (merge drain sentinels).
+    subtype Cursor is Natural range 0 .. Max_N + 1;
+ 
+@@ -30,9 +100,10 @@ is
+      with
+        Global => null,
+        Pre    => In_Bounds (A) and then A'Length >= 2,
+-       Post   => In_Bounds (A) and then Is_Sorted (A)
++       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)
+    is
+       N : constant Index := A'Last;
++      A_In : constant Element_Array := A with Ghost;
+ 
+       Input     : Element_Array (1 .. Max_N) := [others => 0];
+       Strand    : Element_Array (1 .. Max_N) := [others => 0];
+@@ -54,6 +125,7 @@ is
+ 
+          Input (X) := A (X);
+       end loop;
++      Lemma_Occ_Frame (Input, A_In, N);
+ 
+       --  Cap outer strand iterations at Max_N (each iteration removes ≥1
+       --  element from Input, so Input_Len = 0 within ≤ N ≤ Max_N steps).
+@@ -65,6 +137,10 @@ is
+          pragma Loop_Invariant (N >= 2);
+          pragma Loop_Invariant (Input_Len + Iter - 1 <= N);
+          pragma Loop_Invariant (Sorted_Slice (Output, 1, Output_Len));
++         pragma Loop_Invariant
++           (for all V in Integer =>
++              Occ (Input, V, Input_Len) + Occ (Output, V, Output_Len)
++              = Occ (A_In, V, N));
+ 
+          exit when Input_Len = 0;
+ 
+@@ -86,16 +162,28 @@ is
+             pragma Loop_Invariant (Strand (Strand_Len) = Last_Taken);
+             pragma Loop_Invariant (Sorted_Slice (Strand, 1, Strand_Len));
+             pragma Loop_Invariant (Sorted_Slice (Output, 1, Output_Len));
++            pragma Loop_Invariant
++              (for all V in Integer =>
++                 Occ (Strand, V, Strand_Len) + Occ (Remaining, V, Remaining_Len)
++                 = Occ (Input, V, X - 1));
+ 
+             if Input (X) >= Last_Taken then
++               Lemma_Occ_Update (Strand, Strand_Len + 1, Input (X), Strand_Len);
+                Strand_Len := Strand_Len + 1;
+                Strand (Strand_Len) := Input (X);
+                Last_Taken := Input (X);
+             else
++               Lemma_Occ_Update
++                 (Remaining, Remaining_Len + 1, Input (X), Remaining_Len);
+                Remaining_Len := Remaining_Len + 1;
+                Remaining (Remaining_Len) := Input (X);
+             end if;
+          end loop;
++         pragma Assert
++           (for all V in Integer =>
++              Occ (Strand, V, Strand_Len) + Occ (Remaining, V, Remaining_Len)
++              + Occ (Output, V, Output_Len)
++              = Occ (A_In, V, N));
+ 
+          pragma Assert (Strand_Len + Remaining_Len = Input_Len);
+          pragma Assert (Strand_Len >= 1);
+@@ -112,9 +200,18 @@ is
+             pragma Loop_Invariant (Sorted_Slice (Strand, 1, Strand_Len));
+             pragma Loop_Invariant (Sorted_Slice (Output, 1, Output_Len));
+ 
++            pragma Loop_Invariant
++              (for all T in 1 .. X - 1 => Input (T) = Remaining (T));
++
+             Input (X) := Remaining (X);
+          end loop;
++         Lemma_Occ_Frame (Input, Remaining, Remaining_Len);
+          Input_Len := Remaining_Len;
++         pragma Assert
++           (for all V in Integer =>
++              Occ (Strand, V, Strand_Len) + Occ (Input, V, Input_Len)
++              + Occ (Output, V, Output_Len)
++              = Occ (A_In, V, N));
+ 
+          --  Merge Strand(1 .. Strand_Len) into Output(1 .. Output_Len)
+          --  using Remaining as the merged scratch. Prefer left on ≤.
+@@ -141,13 +238,19 @@ is
+             pragma Loop_Invariant
+               (if K > 1 and then J <= Strand_Len
+                then Remaining (K - 1) <= Strand (J));
++            pragma Loop_Invariant
++              (for all V in Integer =>
++                 Occ (Remaining, V, K - 1)
++                 = Occ (Output, V, I - 1) + Occ (Strand, V, J - 1));
+             pragma Loop_Variant
+               (Decreases => (Output_Len + 1 - I) + (Strand_Len + 1 - J));
+ 
+             if Output (I) <= Strand (J) then
++               Lemma_Occ_Update (Remaining, K, Output (I), K - 1);
+                Remaining (K) := Output (I);
+                I := I + 1;
+             else
++               Lemma_Occ_Update (Remaining, K, Strand (J), K - 1);
+                Remaining (K) := Strand (J);
+                J := J + 1;
+             end if;
+@@ -172,8 +275,13 @@ is
+             pragma Loop_Invariant
+               (if K > 1 and then J <= Strand_Len
+                then Remaining (K - 1) <= Strand (J));
++            pragma Loop_Invariant
++              (for all V in Integer =>
++                 Occ (Remaining, V, K - 1)
++                 = Occ (Output, V, I - 1) + Occ (Strand, V, J - 1));
+             pragma Loop_Variant (Decreases => Output_Len + 1 - I);
+ 
++            Lemma_Occ_Update (Remaining, K, Output (I), K - 1);
+             Remaining (K) := Output (I);
+             I := I + 1;
+             K := K + 1;
+@@ -197,8 +305,13 @@ is
+             pragma Loop_Invariant
+               (if K > 1 and then J <= Strand_Len
+                then Remaining (K - 1) <= Strand (J));
++            pragma Loop_Invariant
++              (for all V in Integer =>
++                 Occ (Remaining, V, K - 1)
++                 = Occ (Output, V, I - 1) + Occ (Strand, V, J - 1));
+             pragma Loop_Variant (Decreases => Strand_Len + 1 - J);
+ 
++            Lemma_Occ_Update (Remaining, K, Strand (J), K - 1);
+             Remaining (K) := Strand (J);
+             J := J + 1;
+             K := K + 1;
+@@ -219,6 +332,7 @@ is
+ 
+             Output (X) := Remaining (X);
+          end loop;
++         Lemma_Occ_Frame (Output, Remaining, Output_Len);
+          pragma Assert (Sorted_Slice (Output, 1, Output_Len));
+       end loop;
+ 
+@@ -234,6 +348,8 @@ is
+          A (X) := Output (X);
+       end loop;
+       pragma Assert (Sorted_Slice (Output, 1, N));
++      Lemma_Occ_Frame (A, Output, N);
++      Lemma_Same_Perm (A, A_In);
+    end Strand_Phase;
+ 
+    procedure Sort (A : in out Element_Array) is
+diff --git a/sorting/SPARK4/Ada-SPARK-Strand-Sort/strand_sort.ads b/sorting/SPARK4/Ada-SPARK-Strand-Sort/strand_sort.ads
+index 491b7391..ad5d0896 100644
+--- a/sorting/SPARK4/Ada-SPARK-Strand-Sort/strand_sort.ads
++++ b/sorting/SPARK4/Ada-SPARK-Strand-Sort/strand_sort.ads
+@@ -10,8 +10,8 @@
+ --  oversized n; this port requires A'First = 1, uses fixed Input / Strand /
+ --  Output / Remaining buffers of size Max_N, and proves that the strand
+ --  phase sorts on its own (sorted strands, sorted merges, all N elements
+---  merged within N outer iterations). Full multiset / permutation equality
+---  is verified by tests rather than claimed as a Level-4 postcondition.
++--  merged within N outer iterations) and that the result is a permutation of
++--  the input (counts of every value carried through every buffer).
+ --
+ --  Reference: https://en.wikipedia.org/wiki/Strand_sort
+ 
+@@ -54,6 +54,36 @@ is
+    --  True iff A is adjacent-nondecreasing on A'Range (empty / singleton
+    --  vacuous). Equivalent to pairwise sortedness on a total order.
+ 
++   ---------------------------------------------------------------------------
++   -- Permutation (multiset) model, used by the Post of Sort
++   ---------------------------------------------------------------------------
++
++   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
++   with
++     Global             => null,
++     Pre                => A'First = 1 and then Last <= A'Last,
++     Post               => Occ'Result <= Last,
++     Subprogram_Variant => (Decreases => Last);
++   --  How many of A (1 .. Last) equal V.
++
++   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
++     (if Last = 0 then 0
++      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
++
++   function Is_Perm (A, B : Element_Array) return Boolean is
++     (A'First = B'First
++      and then A'Last = B'Last
++      and then (for all I in A'Range =>
++                  Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
++      and then (for all I in B'Range =>
++                  Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
++   with
++     Global => null,
++     Pre    => In_Bounds (A) and then In_Bounds (B);
++   --  A and B have the same bounds and hold the same values, each equally
++   --  often. A value found in neither array counts 0 in both, so comparing
++   --  the counts of the values of A and of B covers every value.
++
+    ---------------------------------------------------------------------------
+    -- Algorithm sketch (strand extraction + merge)
+    ---------------------------------------------------------------------------
+@@ -80,11 +110,11 @@ is
+      with
+        Global => null,
+        Pre    => In_Bounds (A),
+-       Post   => In_Bounds (A) and then Is_Sorted (A);
++       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
+    --  Ascending strand sort (static buffers); the strand phase alone
+    --  establishes Is_Sorted.
+    --  Empty and singleton arrays are no-ops.
+-   --  Post proves sortedness; multiset / permutation equality is
+-   --  checked by the test suite (not claimed here at Level 4).
++   --  Post proves sortedness and that A holds the values of A'Old, each
++   --  equally often (Is_Perm).
+ 
+ end Strand_Sort;

@@ -23,13 +23,13 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `status` | open / worked around / pending, and whether the folder changed after the recorded run |
 | `source` | where the data came from |
 
-## Categories (101 rows)
+## Categories (130 rows)
 
 | Category | Rows | What it is |
 |---|---|---|
-| `withdrawn_functional` | 52 | contract_scan: a do-nothing body proves the Post (mostly sorts whose Post has no permutation clause). Functional claim withdrawn; target Platinum. |
+| `withdrawn_functional` | 61 | contract_scan: a do-nothing body proves the Post (mostly sorts whose Post has no permutation clause). Functional claim withdrawn; target Platinum.. This now includes H102-H110, the vacuity batch 3 SPARK2 stubs (sweep B), whose Post only bounds the elements. H057 Slowsort and H060 Stooge-Sort are closed. |
 | `not_analysed` | 11 | gnatprove could not build the project (PROOFS.csv `not built`); target Stone first. |
-| `mutation_below_bar` | 10 | held-out planted-bug score below 90%: BrownBoost, Shading, Newells, K-Means, K-Means++, Darwin-Godel-Machine, Course-Schedule, Fisher-Yates, Median-Of-Two-Sorted-Arrays-Lite, plus Modular-Arithmetic (proof-kill step not run) |
+| `mutation_below_bar` | 12 | held-out planted-bug score below 90%: BrownBoost, Shading, Newells, K-Means, K-Means++, Darwin-Godel-Machine, Course-Schedule, Fisher-Yates, Median-Of-Two-Sorted-Arrays-Lite, plus Modular-Arithmetic (proof-kill step not run); H129 Slowsort and H130 Stooge-Sort (tests-only held scores; the proof-kill step was not run) |
 | `tool_crash` | 7 | gnatwhy3 "value expected (got DOC_END)" bug box in seven SPARK2 DP-table folders |
 | `unproved_check` | 4 | Bresenham (17 run-time, 5 flow, 3 Post) and Delivery-Safety-Supervisor (8 overflow) |
 | `toolchain_bug` | 4 | MT `'Old` bug box (gone on GNAT 16.1.0), Big_Integers `**` sign and `mod` errors (both still present on GNAT 16.1.0), GNAT 14.2 ICE trans.cc:6710 |
@@ -38,7 +38,8 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `functional_gap` | 2 | Bitonic-Sorter: the 0-1 principle and the half-cleaner lemma are missing, and sortedness is masked by Bubble_Finish; Lemke-Howson (H096, target Platinum): the functional claim is partial: (Status = Found) = Is_Nash is proved (a Found result is a certified equilibrium; a body that never reports Found also proves it), but not that Status is always Found; termination rests on the Max_Steps loop bound, and the other exits are explicit statuses (Step_Cap_Reached, No_Pivot_Row, Check_Failed). Tested on every starting label, degenerate games and 14,000 seeded random calls up to 4 x 4 (most pivots 19, bound C (M + N, M) ** 2) |
 | `toolchain_limit` | 1 | cvc5 under gnatprove's `--prenex-quant=none` returns "incomplete" on quantified frames over 2D arrays |
 | `proof_escape` | 1 | Bump-Arena: the fallback after the Insert loop is not proved unreachable |
-| `deferred_budget` | 5 | stopped at the 2026-10-09 budget limit (agent A3), H097-H101: content Posts for sorting/SPARK4/Ada-SPARK-Topological-Sort (9 unproved at L2) and sorting/SPARK4/Ada-SPARK-Sort-Merge-Join (19 unproved at L2), the K-th-smallest / permutation Posts for misc/SPARK4/Ada-SPARK-Selection-Algorithm (tests pass, not proved), Pre-rejection rates beyond the first 20 ranked folders (plus five too-narrow Pres to widen), and the held-out sweep from rank 682. The drafts are patches in `/workspace/inbox/a3_drafts/` (box path outside the repo; apply with `git apply` from the repo root) |
+| `placeholder` | 17 | H111-H127: the sweep B placeholder list. These folders are answer tables, fixed layouts or hidden stubs that need a real algorithm (iterator stubs, Super-Ugly-Number-Stub, Unique-BSTs, Count-Primes, Word-Break-II, Restore-IP-Addresses, Convert-Sorted-Array-To-BST, Connected-Component-Labeling, Topological-Sort-Lite, ...) |
+| `deferred_budget` | 6 | stopped at the 2026-10-09 budget limit (agent A3), H097-H101: content Posts for sorting/SPARK4/Ada-SPARK-Topological-Sort (9 unproved at L2) and sorting/SPARK4/Ada-SPARK-Sort-Merge-Join (19 unproved at L2), the K-th-smallest / permutation Posts for misc/SPARK4/Ada-SPARK-Selection-Algorithm (tests pass, not proved), Pre-rejection rates beyond the first 20 ranked folders (plus five too-narrow Pres to widen), and the held-out sweep from rank 682. The drafts are patches in `/workspace/inbox/a3_drafts/` (box path outside the repo; apply with `git apply` from the repo root); H128 table regeneration tests (sweep B) |
 
 By check kind: 54 functional (53 Platinum, 1 Gold), 13 run-time (Silver), 28 other (11 Stone, 1 Bronze, 16 non-proof).
 
@@ -54,6 +55,19 @@ By check kind: 54 functional (53 Platinum, 1 Gold), 13 run-time (Silver), 28 oth
 - The toolchain-bug rows were rechecked on 2026-10-09 against Alire `gnat_native 16.1.0` (GNATLS 16.1.0), which is not pinned and was only used for this check.
 
 - **Closed withdrawn_functional rows** (2026-10-09, agent A3): 17 rows (H027, H028, H036, H037, H043, H051, H054, H055, H058, H065-H069, H073, H076, H077) are `closed <commit>`: the Post was strengthened (permutation / content) and proved in that commit, and PROOFS.csv `functional_checks` is restored. sorting/SPARK4/Ada-SPARK-Bogosort (H027) was reworked as a bounded random shuffle with an explicit Sorted / Gave_Up outcome (22bdaf31).
+
+## Sweep B stop (2026-10-09 14:4x, budget)
+
+Sweep B stopped starting new folders here. Its open queue is now rows in the ledger:
+- **Buffer/merge sorts:** Strand-Sort (H061), Bucket-Sort (H029), Burstsort (H030), Flashsort (H035), Library-Sort (H040), Patience-Sorting (H044), Postman-Sort (H046) and Bitonic-Sorter (H026). For Bitonic-Sorter's sortedness via the 0-1 principle see H025.
+  - Strand-Sort has a ready patch: tools/vv/handover_patches/strand_sort_failing_test.patch and strand_sort_perm_wip.patch. make test passes with it. make prove was interrupted under load, so the proof result is unknown.
+  - The patch's invariant is the recipe for the other buffer sorts. Count every value across all live buffers. Call `Lemma_Occ_Update` before each write past the live length; this avoids snapshots inside loops, which gnatprove does not support before a loop invariant. Call `Lemma_Occ_Frame` after each copy loop.
+- **Vacuity batch 3 SPARK2 stubs:** H102-H110. The recipe is the one used for Exchange-Sort (a6a2bade, 0e148588): an executable Is_Perm over the 32 values, plus a Swap procedure with Lemma_Swap.
+- **Placeholders:** H111-H127.
+- **Table regeneration tests:** H128.
+- **Slowsort and Stooge-Sort mutation scores:** H129 and H130. These runs scored tests only; the proof-kill step was not run.
+
+Each row has a reproduce command and a pass condition. They follow the sweep rules: failing test first, an independent reference, a held-out split recorded before any test work, and a proof with proof warnings on.
 
 ## How to work a row
 
