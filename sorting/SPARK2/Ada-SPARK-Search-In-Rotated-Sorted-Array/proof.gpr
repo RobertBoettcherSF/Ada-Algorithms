@@ -1,0 +1,4 @@
+project Search_In_Rotated_Sorted_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("search_in_rotated_sorted_array.ads", "search_in_rotated_sorted_array.adb");
+end Search_In_Rotated_Sorted_Array_Proof;
