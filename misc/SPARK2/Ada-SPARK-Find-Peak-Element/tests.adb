@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Find_Peak_Element; use Find_Peak_Element;
+with Own_Checks;
 
 procedure Tests is
    --  -3 1 4 2 9 5 0 -1, then down by 1: peaks at 3 and 5.
@@ -55,4 +56,5 @@ begin
       Expect ([for I in Index => -abs (I - P)], "single peak at" & P'Image, Only => P);
    end loop;
    Put_Line ("Find_Peak_Element: PASS");
+   Own_Checks;
 end Tests;

@@ -24,4 +24,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (22 checks).
 
+`make test` runs `tests.adb` and the folder's own checks: 220,265 checks against the set of all peaks (see `tests/SOURCES.txt`).
+
 The first version (Length 8, although this README said n <= 32) was a linear arg-max over the whole array, with no contract. Its answer, the global maximum, is a peak, but finding it costs N - 1 comparisons. Commit 17a4e1f4 added a comparison counter and a test asserting the log bound. That test fails on the old scan (31 comparisons for N = 32).

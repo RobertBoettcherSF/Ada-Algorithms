@@ -1,0 +1,23 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+a hand-worked array with two peaks (-3 1 4 2 9 5 0 -1 ...), a zigzag
+(every even index a peak), strictly rising and falling arrays, a single
+peak at every position (exact index), any-peak acceptance elsewhere,
+and the bound floor (log2 N) + 2 on comparisons; the bound check was
+committed first (17a4e1f4) and fails on the old linear arg-max.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). Reference: the set
+of all peaks from one linear pass over neighbour pairs, not using
+Is_Peak.
+* a single peak and a skewed single peak at every position, rising and
+  falling arrays, 50,000 random arrays with distinct neighbours (half
+  with values from a range of 2 .. 4 values, so peaks are dense):
+  result is in the peak set, comparisons <= floor (log2 N) + 2, worst
+  case exactly 5;
+* Input_Array membership against a neighbour test on 20,000 random
+  arrays.
+* Random inputs use a Park-Miller generator; the default seed 20261008
+  is printed, and AA_SEED=<n> overrides it.
