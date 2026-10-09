@@ -205,3 +205,5 @@ misc/SPARK2/Ada-SPARK-Integer-Break,GNAT 14,GNATLS 14.2.0,0,0,PASS Integer_Break
 misc/SPARK2/Ada-SPARK-Integer-Break,GNAT 12,GNATLS 12.2.0,0,0,PASS Integer_Break,8080c201
 misc/SPARK2/Ada-SPARK-Ugly-Number-II,GNAT 14,GNATLS 14.2.0,0,0,PASS Ugly_Number_II,0abef8f4
 misc/SPARK2/Ada-SPARK-Ugly-Number-II,GNAT 12,GNATLS 12.2.0,0,0,PASS Ugly_Number_II,0abef8f4
+misc/SPARK2/Ada-SPARK-Design-Browser-History,GNAT 14,GNATLS 14.2.0,0,0,Design Browser History: PASS,f46cfb64
+misc/SPARK2/Ada-SPARK-Design-Browser-History,GNAT 12,GNATLS 12.2.0,0,0,Design Browser History: PASS,f46cfb64
