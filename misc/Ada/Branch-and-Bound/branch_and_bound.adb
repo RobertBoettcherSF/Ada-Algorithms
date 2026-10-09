@@ -10,6 +10,16 @@ is
    -- Utilities
    ---------------------------------------------------------------------------
 
+   function Same_Bounds (W : Weight_Array; V : Value_Array) return Boolean is
+     (W'First = V'First and then W'Last = V'Last);
+
+   function Same_Bounds (W : Weight_Array; S : Selection) return Boolean is
+     (W'First = S'First and then W'Last = S'Last);
+
+   function Same_Bounds (V : Value_Array; S : Selection) return Boolean is
+     (V'First = S'First and then V'Last = S'Last);
+
+
    function Total_Weight
      (Weights : Weight_Array; Chosen : Selection) return Natural
    is
@@ -64,9 +74,10 @@ is
    is
       N   : constant Item_Count := Weights'Length;
       Ord : Index_Array (1 .. N);
+      Base : constant Positive := Weights'First;
    begin
-      for I in 1 .. N loop
-         Ord (I) := I;
+      for K in 0 .. N - 1 loop
+         Ord (1 + K) := Base + K;  -- absolute Weights index
       end loop;
       --  Insertion sort by decreasing density (stable enough for n ≤ 32).
       for I in 2 .. N loop
@@ -91,8 +102,8 @@ is
      (A, B : Selection; N : Item_Count) return Boolean
    is
    begin
-      for I in 1 .. N loop
-         if A (I) /= B (I) then
+      for K in 0 .. N - 1 loop
+         if A (A'First + K) /= B (B'First + K) then
             return False;
          end if;
       end loop;
@@ -174,35 +185,40 @@ is
       R.Success := True;
       R.Nodes   := Max_Mask + 1;
 
-      for Mask in 0 .. Max_Mask loop
-         declare
-            Wsum : Natural := 0;
-            Vsum : Natural := 0;
-            Ok   : Boolean := True;
-         begin
-            for I in 1 .. N loop
-               if (Mask / (2 ** (I - 1))) mod 2 = 1 then
-                  Wsum := Wsum + Weights (I);
-                  if Wsum > Capacity then
-                     Ok := False;
-                     exit;
+      declare
+         Base : constant Positive := Weights'First;
+      begin
+         for Mask in 0 .. Max_Mask loop
+            declare
+               Wsum : Natural := 0;
+               Vsum : Natural := 0;
+               Ok   : Boolean := True;
+               Idx  : Positive;
+            begin
+               for K in 0 .. N - 1 loop
+                  if (Mask / (2 ** K)) mod 2 = 1 then
+                     Idx := Base + K;
+                     Wsum := Wsum + Weights (Idx);
+                     if Wsum > Capacity then
+                        Ok := False;
+                        exit;
+                     end if;
+                     Vsum := Vsum + Values (Idx);
                   end if;
-                  Vsum := Vsum + Values (I);
+               end loop;
+               if Ok and then Vsum > R.Best_Value then
+                  R.Best_Value  := Vsum;
+                  R.Best_Weight := Wsum;
+                  for K in 0 .. N - 1 loop
+                     R.Selected (1 + K) := ((Mask / (2 ** K)) mod 2 = 1);
+                  end loop;
+                  for I in N + 1 .. Max_Items loop
+                     R.Selected (I) := False;
+                  end loop;
                end if;
-            end loop;
-            if Ok and then Vsum > R.Best_Value then
-               R.Best_Value  := Vsum;
-               R.Best_Weight := Wsum;
-               for I in 1 .. N loop
-                  R.Selected (I) :=
-                    ((Mask / (2 ** (I - 1))) mod 2 = 1);
-               end loop;
-               for I in N + 1 .. Max_Items loop
-                  R.Selected (I) := False;
-               end loop;
-            end if;
-         end;
-      end loop;
+            end;
+         end loop;
+      end;
 
       return R;
    end Knapsack_Exhaustive;
@@ -290,14 +306,19 @@ is
          Idx := Order (Pos);
 
          --  Branch 1: include item Idx (if it fits).
+         --  Selected packs logical slot (Idx - Weights'First + 1).
          if Weights (Idx) <= Rem_Cap then
-            Cur_Sel (Idx) := True;
-            Visit
-              (Pos + 1,
-               Cur_Value + Values (Idx),
-               Cur_Weight + Weights (Idx),
-               Rem_Cap - Weights (Idx));
-            Cur_Sel (Idx) := False;
+            declare
+               Slot : constant Positive := Idx - Weights'First + 1;
+            begin
+               Cur_Sel (Slot) := True;
+               Visit
+                 (Pos + 1,
+                  Cur_Value + Values (Idx),
+                  Cur_Weight + Weights (Idx),
+                  Rem_Cap - Weights (Idx));
+               Cur_Sel (Slot) := False;
+            end;
          end if;
 
          --  Branch 2: exclude item Idx.
@@ -323,8 +344,8 @@ is
       if Params.Sort_By_Density then
          Order := Density_Order (Weights, Values);
       else
-         for I in 1 .. N loop
-            Order (I) := I;
+         for K in 0 .. N - 1 loop
+            Order (1 + K) := Weights'First + K;
          end loop;
       end if;
 
@@ -342,7 +363,7 @@ is
                Cap_Left := Cap_Left - Weights (Idx);
                Greedy_V := Greedy_V + Values (Idx);
                Greedy_W := Greedy_W + Weights (Idx);
-               Greedy_S (Idx) := True;
+               Greedy_S (Idx - Weights'First + 1) := True;
             end if;
          end loop;
          R.Best_Value  := Greedy_V;

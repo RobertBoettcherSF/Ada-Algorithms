@@ -466,6 +466,64 @@ begin
       Check (Approx (Density (11, 7), Real (11) / Real (7)), "dens 11/7");
    end;
 
+
+   ---------------------------------------------------------------------
+   Section ("13. Shifted origins (First-relative)");
+   ---------------------------------------------------------------------
+   --  Same knapsack at Weights/Values First = 1, 5, 100. Density_Order
+   --  stores absolute item indices; Result.Selected packs 1 .. N.
+   declare
+      type Origin_List is array (Positive range <>) of Positive;
+      Origins : constant Origin_List := [1, 5, 100];
+      Base_W : constant Weight_Array (1 .. 4) := [2, 3, 4, 5];
+      Base_V : constant Value_Array (1 .. 4) := [3, 4, 5, 6];
+      Cap    : constant Natural := 5;
+      Ref    : constant Result := Solve_Knapsack_BnB (Base_W, Base_V, Cap);
+   begin
+      for Off of Origins loop
+         declare
+            W   : Weight_Array (Off .. Off + 3);
+            V   : Value_Array (Off .. Off + 3);
+            R   : Result;
+            Ord : Index_Array (1 .. 4);
+            Ch  : Selection (Off .. Off + 3) := [others => False];
+            Ex  : Result;
+            Ok_Ids : Boolean := True;
+         begin
+            for K in 0 .. 3 loop
+               W (Off + K) := Base_W (1 + K);
+               V (Off + K) := Base_V (1 + K);
+            end loop;
+            R := Solve_Knapsack_BnB (W, V, Cap);
+            Check (R.Best_Value = Ref.Best_Value
+                   and then R.Best_Weight = Ref.Best_Weight,
+                   "origin" & Off'Image & " BnB value/weight match First=1");
+            Check (Same_Selection (R.Selected, Ref.Selected, 4),
+                   "origin" & Off'Image & " BnB selection packs 1 .. N");
+            Ord := Density_Order (W, V);
+            for P in Ord'Range loop
+               if Ord (P) not in W'Range then
+                  Ok_Ids := False;
+               end if;
+            end loop;
+            Check (Ord'Length = 4 and then Ok_Ids,
+                   "origin" & Off'Image & " Density_Order absolute ids");
+            for I in 1 .. 4 loop
+               Ch (Off + I - 1) := R.Selected (I);
+            end loop;
+            Check (Is_Feasible (W, Ch, Cap),
+                   "origin" & Off'Image & " packed selection feasible");
+            Check (Total_Value (V, Ch) = R.Best_Value,
+                   "origin" & Off'Image & " Total_Value matches");
+            Ex := Knapsack_Exhaustive (W, V, Cap);
+            Check (Ex.Best_Value = Ref.Best_Value,
+                   "origin" & Off'Image & " exhaustive matches");
+            Check (Same_Selection (Ex.Selected, Ref.Selected, 4),
+                   "origin" & Off'Image & " exhaustive selection packs");
+         end;
+      end loop;
+   end;
+
    ---------------------------------------------------------------------
    New_Line;
    Put_Line

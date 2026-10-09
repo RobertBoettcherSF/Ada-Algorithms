@@ -25,6 +25,11 @@ is
    subtype Item_Index     is Positive range 1 .. Max_Items;
    subtype Capacity_Range is Natural range 0 .. Max_Capacity;
 
+   --  Weight/Value/Selection accept any Positive First (parallel arrays
+   --  share bounds via Same_Bounds). Density_Order stores absolute item
+   --  indices in Weights'Range. Result.Selected packs logical 1 .. N_Items
+   --  (slot K ↔ Weights'First + K - 1).
+
    type Weight_Array is array (Positive range <>) of Natural;
    type Value_Array  is array (Positive range <>) of Natural;
    type Selection    is array (Positive range <>) of Boolean;
@@ -58,19 +63,27 @@ is
 
    Invalid_Argument : exception;
 
+   function Same_Bounds (W : Weight_Array; V : Value_Array) return Boolean
+     with Global => null;
+   function Same_Bounds (W : Weight_Array; S : Selection) return Boolean
+     with Global => null;
+   function Same_Bounds (V : Value_Array; S : Selection) return Boolean
+     with Global => null;
+   --  Body-defined ('First/'Last) so ads stays free of First pins.
+
    ---------------------------------------------------------------------------
    -- Utilities
    ---------------------------------------------------------------------------
 
    function Total_Weight
      (Weights : Weight_Array; Chosen : Selection) return Natural
-     with Pre => Weights'Length = Chosen'Length
+     with Pre => Same_Bounds (Weights, Chosen)
                    and then Weights'Length <= Max_Items,
           Global => null;
 
    function Total_Value
      (Values : Value_Array; Chosen : Selection) return Natural
-     with Pre => Values'Length = Chosen'Length
+     with Pre => Same_Bounds (Values, Chosen)
                    and then Values'Length <= Max_Items,
           Global => null;
 
@@ -78,7 +91,7 @@ is
      (Weights  : Weight_Array;
       Chosen   : Selection;
       Capacity : Natural) return Boolean
-     with Pre => Weights'Length = Chosen'Length
+     with Pre => Same_Bounds (Weights, Chosen)
                    and then Weights'Length <= Max_Items,
           Global => null;
 
@@ -90,13 +103,12 @@ is
    function Density_Order
      (Weights : Weight_Array;
       Values  : Value_Array) return Index_Array
-     with Pre => Weights'Length = Values'Length
-                   and then Weights'Length <= Max_Items
-                   and then Weights'First = 1
-                   and then Values'First = 1,
-          Post => Density_Order'Result'Length = Weights'Length
-                    and then Density_Order'Result'First = 1,
+     with Pre => Same_Bounds (Weights, Values)
+                   and then Weights'Length <= Max_Items,
+          Post => Density_Order'Result'Length = Weights'Length,
           Global => null;
+   --  Result is Index_Array (1 .. N) whose entries are absolute indices
+   --  in Weights'Range (not always the integers 1 .. N; they are Weights indices).
 
    ---------------------------------------------------------------------------
    -- Dantzig fractional-knapsack upper bound
@@ -112,25 +124,21 @@ is
       Order     : Index_Array;
       First_Pos : Positive;
       Remaining : Natural) return Real
-     with Pre => Weights'Length = Values'Length
-                   and then Weights'Length = Order'Length
+     with Pre => Same_Bounds (Weights, Values)
+                   and then Order'Length <= Weights'Length
                    and then Weights'Length <= Max_Items
-                   and then Weights'First = 1
-                   and then Values'First = 1
-                   and then Order'First = 1
                    and then First_Pos >= Order'First
                    and then First_Pos <= Order'Last + 1,
           Global => null;
+   --  Order entries are absolute Weights indices; First_Pos indexes Order.
 
    --  Convenience: bound from scratch for the full instance (no decisions).
    function Fractional_Bound
      (Weights  : Weight_Array;
       Values   : Value_Array;
       Capacity : Natural) return Real
-     with Pre => Weights'Length = Values'Length
-                   and then Weights'Length <= Max_Items
-                   and then Weights'First = 1
-                   and then Values'First = 1,
+     with Pre => Same_Bounds (Weights, Values)
+                   and then Weights'Length <= Max_Items,
           Global => null;
 
    ---------------------------------------------------------------------------
@@ -144,10 +152,8 @@ is
       Values   : Value_Array;
       Capacity : Natural;
       Params   : Parameters := Default_Parameters) return Result
-     with Pre => Weights'Length = Values'Length
+     with Pre => Same_Bounds (Weights, Values)
                    and then Weights'Length <= Max_Items
-                   and then Weights'First = 1
-                   and then Values'First = 1
                    and then Capacity <= Max_Capacity;
 
    --  Alias used in some educational texts for the recursive search driver.
@@ -156,10 +162,8 @@ is
       Values   : Value_Array;
       Capacity : Natural;
       Params   : Parameters := Default_Parameters) return Result
-     with Pre => Weights'Length = Values'Length
+     with Pre => Same_Bounds (Weights, Values)
                    and then Weights'Length <= Max_Items
-                   and then Weights'First = 1
-                   and then Values'First = 1
                    and then Capacity <= Max_Capacity;
 
    ---------------------------------------------------------------------------
@@ -170,17 +174,15 @@ is
      (Weights  : Weight_Array;
       Values   : Value_Array;
       Capacity : Natural) return Result
-     with Pre => Weights'Length = Values'Length
+     with Pre => Same_Bounds (Weights, Values)
                    and then Weights'Length <= 20
-                   and then Weights'First = 1
-                   and then Values'First = 1
                    and then Capacity <= Max_Capacity;
 
    function Same_Selection
      (A, B : Selection; N : Item_Count) return Boolean
      with Pre => N <= Max_Items
-                   and then A'First = 1 and then B'First = 1
-                   and then A'Last >= N and then B'Last >= N,
+                   and then A'Length >= N and then B'Length >= N,
           Global => null;
+   --  Compares the first N packed slots from each array's First.
 
 end Branch_And_Bound;

@@ -115,7 +115,7 @@ Named exception: `Invalid_Argument` (capacity above cap).
 
 ```bash
 make        # gnatmake -gnatwa -gnat2022 -Pbranch_and_bound.gpr
-make test   # run bin/tests — expect ALL PASSED, Pass_Count ≥ 80
+make test   # run bin/tests — expect ALL PASSED, Pass_Count = 127
 make clean
 ```
 
@@ -123,6 +123,14 @@ Root layout (exactly seven tracked source/project files; **no** `main.adb`):
 
 `.gitignore`, `Makefile`, `README.md`, `branch_and_bound.ads`,
 `branch_and_bound.adb`, `branch_and_bound.gpr`, `tests.adb`.
+
+## First-relative indexing
+
+`Weight_Array` / `Value_Array` / `Selection` accept any `Positive` First
+(parallel arrays share bounds via `Same_Bounds`). `Density_Order` returns
+absolute item indices in `Weights'Range`. `Result.Selected` packs logical
+slots `1 .. N_Items` (slot K ↔ `Weights'First + K - 1`). Section 13 of
+`tests.adb` checks origins 1, 5, 100.
 
 ## Caveats
 

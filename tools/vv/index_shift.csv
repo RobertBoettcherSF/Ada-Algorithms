@@ -643,6 +643,9 @@ misc/Ada/Bowyer-Watson,Has_Near_Duplicate,catalog,catalog,,1,function n_arrays=1
 misc/Ada/Bowyer-Watson,Triangulate,catalog,catalog,,1,function n_arrays=1 ret=Triangulation,
 misc/Ada/Bowyer-Watson,Is_Delaunay_Edge_Empty,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/Ada/Boundary-Representation,Make_Face,catalog,catalog,,1,function n_arrays=1 ret=Face_ID,
+misc/Ada/Branch-and-Bound,Same_Bounds,catalog,catalog,,2,function n_arrays=2 ret=Boolean,
+misc/Ada/Branch-and-Bound,Same_Bounds,catalog,catalog,,2,function n_arrays=2 ret=Boolean,
+misc/Ada/Branch-and-Bound,Same_Bounds,catalog,catalog,,2,function n_arrays=2 ret=Boolean,
 misc/Ada/Branch-and-Bound,Total_Weight,catalog,catalog,,2,function n_arrays=2 ret=Natural,
 misc/Ada/Branch-and-Bound,Total_Value,catalog,catalog,,2,function n_arrays=2 ret=Natural,
 misc/Ada/Branch-and-Bound,Is_Feasible,catalog,catalog,,2,function n_arrays=2 ret=Boolean,
@@ -653,7 +656,7 @@ misc/Ada/Branch-and-Bound,Solve_Knapsack_BnB,catalog,catalog,,2,function n_array
 misc/Ada/Branch-and-Bound,Branch_Knapsack,catalog,catalog,,2,function n_arrays=2 ret=Result,
 misc/Ada/Branch-and-Bound,Knapsack_Exhaustive,catalog,catalog,,2,function n_arrays=2 ret=Result,
 misc/Ada/Branch-and-Bound,Same_Selection,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/Ada/Branch-and-Bound,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+misc/Ada/Branch-and-Bound,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/Ada/Bully-Algorithm,Start_Election,catalog,catalog,,1,procedure n_arrays=1 ret=Process_ID,
 misc/Ada/Bully-Algorithm,Fail_Process,catalog,catalog,,1,procedure n_arrays=1 ret=Process_ID,
 misc/Ada/Bully-Algorithm,Recover_Process,catalog,catalog,,1,procedure n_arrays=1 ret=Process_ID,
