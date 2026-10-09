@@ -1,0 +1,8 @@
+project Pow_X_N_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("pow_x_n.ads", "pow_x_n.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Pow_X_N_Proof;
