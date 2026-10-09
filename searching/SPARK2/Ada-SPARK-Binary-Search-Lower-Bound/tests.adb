@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Binary_Search_Lower_Bound; use Binary_Search_Lower_Bound;
+with Own_Checks;
 
 procedure Tests is
    --  The original six values, then 100s.
@@ -47,4 +48,5 @@ begin
    Expect (Up, 46, 33, "Up target 46");
    Expect (Up, 43, 32, "Up target 43");
    Put_Line ("Binary_Search_Lower_Bound: PASS");
+   Own_Checks;
 end Tests;
