@@ -2373,7 +2373,7 @@ misc/SPARK2/Ada-SPARK-Delta-Encoding,,first_relative,ok,rewritten_first_relative
 misc/SPARK4/Ada-SPARK-Blum-Blum-Shub,,skipped,skipped,,,types=['Blum_Prime_List'] but no public subprogram taking them,
 misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Is_Permutation,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-Heaps-Algorithm,Differs_By_Single_Swap,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/SPARK4/Ada-SPARK-Heaps-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+misc/SPARK4/Ada-SPARK-Heaps-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/SPARK4/Ada-SPARK-K-Way-Merge,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-K-Way-Merge,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK4/Ada-SPARK-K-Way-Merge,Merge_K,catalog,catalog,,1,procedure n_arrays=1 ret=None,

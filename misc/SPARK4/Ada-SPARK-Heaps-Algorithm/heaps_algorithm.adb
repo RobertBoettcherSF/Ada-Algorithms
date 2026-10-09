@@ -90,8 +90,8 @@ is
         with
           Global => (Proof_In => N, In_Out => Perm),
           Pre    =>
-            I in 1 .. N
-            and then J in 1 .. N
+            I <= N
+            and then J <= N
             and then Is_Permutation (Perm),
           Post   =>
             Is_Permutation (Perm)
@@ -184,7 +184,7 @@ is
           Always_Terminates  => True,
           Subprogram_Variant => (Decreases => K),
           Pre                =>
-            N in 1 .. Max_N
+            N <= Max_N
             and then K in 1 .. N
             and then Factorial (K) <= Max_Count
             and then Count_Before <= Max_Count - Factorial (K)

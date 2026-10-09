@@ -103,30 +103,30 @@ is
    --  Number of permutations generated for size N, equal to N!.
 
    function Is_Permutation (P : Permutation) return Boolean is
-     (P'First = 1
-      and then P'Last in 1 .. Max_N
-      and then (for all I in P'Range => P (I) in 1 .. P'Last)
+     (P'Length in 1 .. Max_N
+      and then (for all I in P'Range => P (I) <= P'Length)
       and then
         (for all I in P'Range =>
            (for all J in P'Range =>
               (if I /= J then P (I) /= P (J)))))
    with Global => null;
-   --  True iff P'First = 1, P'Last in 1 .. Max_N, and P contains each of
-   --  1 .. P'Last exactly once. Empty / malformed shapes return False.
+   --  True iff N = P'Length is in 1 .. Max_N and P contains each of
+   --  1 .. N exactly once, wherever P starts (values, not positions,
+   --  make a permutation). Empty / too long arrays return False.
 
    function Row_Is_Permutation
      (Store : Perm_Store;
       R     : Positive;
       N     : Positive) return Boolean
    is
-     ((for all I in 1 .. N => Store (R, I) in 1 .. N)
+     ((for all I in 1 .. N => Store (R, I) <= N)
       and then
         (for all I in 1 .. N =>
            (for all J in 1 .. N =>
               (if I /= J then Store (R, I) /= Store (R, J)))))
    with
      Global => null,
-     Pre    => R in 1 .. Max_Count and then N in 1 .. Max_N;
+     Pre    => R <= Max_Count and then N <= Max_N;
    --  True iff Store(R, 1 .. N) is a permutation of 1 .. N.
 
    procedure Generate
@@ -135,7 +135,7 @@ is
       Last  : out Natural)
      with
        Global => null,
-       Pre    => N in 1 .. Max_N,
+       Pre    => N <= Max_N,
        Post   =>
          Last = Factorial (N)
          and then Last in 1 .. Max_Count

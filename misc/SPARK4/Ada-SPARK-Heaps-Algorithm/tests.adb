@@ -374,6 +374,30 @@ begin
       end;
    end loop;
 
+   ------------------------------------------------------------------
+   Section ("13. Permutations stored at any origin");
+   ------------------------------------------------------------------
+   --  A permutation of 1 .. N is about its values, not where the array
+   --  starts: the same values at origins 5 and ending at Positive'Last
+   --  must be accepted, and the same defects rejected.
+   declare
+      P5   : constant HA.Permutation (5 .. 7) := [2, 3, 1];
+      PTop : constant HA.Permutation (Positive'Last - 3 .. Positive'Last)
+        := [4, 1, 3, 2];
+      Dup5 : constant HA.Permutation (5 .. 7) := [2, 2, 1];
+      Big5 : constant HA.Permutation (5 .. 7) := [1, 2, 7];
+      Swp5 : constant HA.Permutation (5 .. 7) := [3, 2, 1];
+   begin
+      Check (Boo (HA.Is_Permutation (P5)), "(2 3 1) at origin 5 accepted");
+      Check (Boo (HA.Is_Permutation (PTop)),
+             "(4 1 3 2) ending at Positive'Last accepted");
+      Check (not HA.Is_Permutation (Dup5), "duplicate at origin 5 rejected");
+      Check (not HA.Is_Permutation (Big5),
+             "value 7 > length 3 at origin 5 rejected (not 'value <= Last')");
+      Check (Boo (HA.Differs_By_Single_Swap (P5, Swp5)),
+             "single swap at origin 5");
+   end;
+
    New_Line;
    Put_Line
      ("Results:" & Pass_Count'Image & " PASS," & Fail_Count'Image
