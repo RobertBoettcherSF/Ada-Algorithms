@@ -157,6 +157,84 @@ procedure Tests is
       Pass("DFS Complex DAG Valid");
    end Test_Complex_DAG;
 
+   -- TEST 8 (checker scan of the Is_Valid_* judges): Is_Valid_Sort against
+   -- an own definition. A topological order of G lists every node 1 ..
+   -- Num_Nodes exactly once, and for every edge U -> V, U comes before V.
+   -- Every graph on 3 nodes (6 possible edges besides self-loops, plus a
+   -- self-loop on node 1: 128 graphs) x every array of 3 values in 1 .. 4
+   -- (64), at origins 1 and 5; values outside 1 .. Num_Nodes are not an
+   -- order (the judge must say False, not raise).
+   procedure Test_Judge is
+      Wrong, Seen, Raised : Natural := 0;
+      type Edge is record U, V : Node_ID; end record;
+      Edges : constant array (1 .. 7) of Edge :=
+        ((1, 2), (2, 1), (1, 3), (3, 1), (2, 3), (3, 2), (1, 1));
+      function Own (G : Graph; Mask : Natural; R : Node_Array) return Boolean is
+         Pos  : array (Node_ID range 1 .. 3) of Natural := (others => 0);
+         M    : Natural := Mask;
+      begin
+         if R'Length /= G.Num_Nodes then
+            return False;
+         end if;
+         for I in R'Range loop
+            if R (I) > 3 or else Pos (R (I)) /= 0 then
+               return False;
+            end if;
+            Pos (R (I)) := I - R'First + 1;
+         end loop;
+         for E of Edges loop
+            if M mod 2 = 1 and then Pos (E.U) >= Pos (E.V) then
+               return False;
+            end if;
+            M := M / 2;
+         end loop;
+         return True;
+      end Own;
+   begin
+      Put_Line("TEST 8 - Is_Valid_Sort against an own definition (3 nodes)");
+      for Mask in 0 .. 127 loop
+         declare
+            G : Graph (3);
+            M : Natural := Mask;
+         begin
+            for E of Edges loop
+               if M mod 2 = 1 then
+                  Add_Edge (G, E.U, E.V);
+               end if;
+               M := M / 2;
+            end loop;
+            for Origin in 1 .. 2 loop
+               for A in Node_ID range 1 .. 4 loop
+                  for B in Node_ID range 1 .. 4 loop
+                     for C in Node_ID range 1 .. 4 loop
+                        declare
+                           F : constant Positive := (if Origin = 1 then 1 else 5);
+                           R : constant Node_Array (F .. F + 2) := (A, B, C);
+                           Got : Boolean;
+                        begin
+                           Seen := Seen + 1;
+                           begin
+                              Got := Is_Valid_Sort (G, R);
+                              if Got /= Own (G, Mask, R) then
+                                 Wrong := Wrong + 1;
+                              end if;
+                           exception
+                              when others => Raised := Raised + 1;
+                           end;
+                        end;
+                     end loop;
+                  end loop;
+               end loop;
+            end loop;
+         end;
+      end loop;
+      Put_Line("  8.1 [Assertion: all" & Natural'Image (Seen)
+               & " graph / array pairs judged as defined, none raises]");
+      Assert (Wrong = 0 and Raised = 0,
+              Natural'Image (Wrong) & " misjudged," & Natural'Image (Raised) & " raised");
+      Pass("Is_Valid_Sort matches the definition");
+   end Test_Judge;
+
 begin
    Put_Line("===========================================");
    Put_Line("Starting Topological Sorting Validation Suite");
@@ -169,8 +247,9 @@ begin
    Test_Cycle_Detection;
    Test_Self_Loop;
    Test_Complex_DAG;
+   Test_Judge;
    
    Put_Line("===========================================");
-   Put_Line("ALL 14 ASSUMPTIONS DISPROVEN. CODE IS CORRECT.");
+   Put_Line("ALL 15 ASSUMPTIONS DISPROVEN. CODE IS CORRECT.");
    Put_Line("TEST SUITE: PASS");
 end Tests;

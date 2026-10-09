@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Nothing is copied from the program's output or from third-party test suites.
+
+tests.adb TEST 1 .. 7: the original checks (empty graph, single node,
+chain, disconnected nodes, cycle and self-loop detection, a complex DAG),
+each result judged by Is_Valid_Sort.
+
+tests.adb TEST 8 (agent A3, 2026-10-09, checker scan of the Is_Valid_*
+judges): from the definition of a topological order (Kahn 1962; every
+node exactly once, and for every edge U -> V, U before V), written as an
+own function in the test. All 128 graphs on 3 nodes built from the 6
+non-loop edges and a self-loop on node 1, against all 64 arrays of three
+values in 1 .. 4 at origins 1 and 5 (16,384 pairs). A value outside
+1 .. Num_Nodes is not an order, so the judge must answer False.
