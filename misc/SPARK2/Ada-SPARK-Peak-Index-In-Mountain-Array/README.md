@@ -28,4 +28,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (59 checks).
 
+`make test` runs `tests.adb` and the folder's own checks: 84,592 checks against a linear arg-max and an existential mountain test (see `tests/SOURCES.txt`).
+
 The first version (Length 8, although this README said n <= 32) was a linear arg-max over the whole array, with no contract and no mountain requirement. Commit b1033a8e added a comparison counter to it and a test asserting the log bound. That test fails on the old scan (31 comparisons for N = 32).

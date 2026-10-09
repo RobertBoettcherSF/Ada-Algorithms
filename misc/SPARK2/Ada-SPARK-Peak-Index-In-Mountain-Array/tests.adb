@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Peak_Index_In_Mountain_Array; use Peak_Index_In_Mountain_Array;
+with Own_Checks;
 
 procedure Tests is
    --  1, 3, 7, 12, 10, 6, 2, 0, then down by 1 to -24: peak at 4.
@@ -47,4 +48,5 @@ begin
       Expect (Skewed (P), P, "skewed peak at" & P'Image);
    end loop;
    Put_Line ("Peak_Index_In_Mountain_Array: PASS");
+   Own_Checks;
 end Tests;

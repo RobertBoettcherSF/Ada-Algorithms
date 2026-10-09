@@ -1,0 +1,22 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+a hand-worked mountain (1 3 7 12 10 6 2 0 ...), a skewed mountain
+(up by 1, down by 3) for every peak position 2 .. 31, and the bound
+floor (log2 N) + 2 on comparisons; the bound check was committed first
+(b1033a8e) and fails on the old linear arg-max.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). Reference: the index
+of the largest element (linear arg-max); for membership, a direct
+existential test (some P with a strict rise up to P and a strict fall
+after it), independent of the no-valley form of the predicate.
+* for every peak position, a mountain with steps of 1 and 50 with
+  random steps; 20,000 random mountains: peak, comparisons
+  <= floor (log2 N) + 2, worst case exactly 5;
+* Mountain_Array membership against the existential test on 20,000
+  mountains with one element changed by -6 .. 6 (both outcomes occur
+  more than 1,000 times).
+* Random inputs use a Park-Miller generator; the default seed 20261008
+  is printed, and AA_SEED=<n> overrides it.
