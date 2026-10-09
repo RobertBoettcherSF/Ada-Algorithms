@@ -159,3 +159,5 @@ strings/SPARK2/Ada-SPARK-Bounded-String-Builder,GNAT 14,GNATLS 14.2.0,0,0,bounde
 strings/SPARK2/Ada-SPARK-Bounded-String-Builder,GNAT 12,GNATLS 12.2.0,0,0,bounded string builder: PASS,9c7b5c14
 misc/SPARK2/Ada-SPARK-Stack-Bounded,GNAT 14,GNATLS 14.2.0,0,0,PASS Stack_Bounded,7841f25b
 misc/SPARK2/Ada-SPARK-Stack-Bounded,GNAT 12,GNATLS 12.2.0,0,0,PASS Stack_Bounded,7841f25b
+misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,GNAT 14,GNATLS 14.2.0,0,0,PASS Accounts Merge Lite,bc82acee
+misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,GNAT 12,GNATLS 12.2.0,0,0,PASS Accounts Merge Lite,bc82acee
