@@ -2324,7 +2324,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Gnome-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 204 (restored) |  | sorting/Ada/Gnome-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Heapsort | yes | yes | yes | yes | yes | 0 | 8 | proven | 529 (restored) |  | sorting/Ada/Heapsort |  |
 | sorting/SPARK4/Ada-SPARK-Insertion-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 91 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Insertion-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Introsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 860 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Introsort |  |
+| sorting/SPARK4/Ada-SPARK-Introsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 981 (restored) |  | sorting/Ada/Introsort |  |
 | sorting/SPARK4/Ada-SPARK-Library-Sort | yes | yes | yes | yes | yes | 0 | 17 | proven | 360 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Library-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Merge-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 463 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Merge-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Odd-Even-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 209 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Odd-Even-Sort |  |
