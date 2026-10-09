@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: n = 0 .. 3 worked by hand (listed in the comment); 4 and 16
+are the old table's values; 17, 20, 27, 28 from T (n) = 2 T (n - 1) +
+T (n - 3) (T (17) worked in the comment); T (29) = 4_222_194_104 shows
+that 28 is the last n whose count fits Natural.
+
+own_checks.adb (exhaustive, no random inputs):
+* Brute-force tiling for boards 2 x 0 .. 2 x 18: fill the first empty
+  cell with each of the 6 piece placements that can cover it (vertical
+  and horizontal domino, four L-tromino orientations).
+* The three-term recurrence T (n) = 2 T (n - 1) + T (n - 3) in
+  Long_Long_Integer for every n <= 28, and T (29) > Natural'Last.
+* The ghost proof tables Full_Table and Part_Table regenerated entry by
+  entry from that recurrence (Part (n) = (T (n + 1) - T (n) - T (n - 1)) / 2).

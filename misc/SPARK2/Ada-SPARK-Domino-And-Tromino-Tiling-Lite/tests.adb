@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO;
 with Domino_And_Tromino_Tiling_Lite; use Domino_And_Tromino_Tiling_Lite;
+with Own_Checks;
 
 procedure Tests with SPARK_Mode => Off is
    --  Tilings of a 2 x n board with 2 x 1 dominoes (either way) and
@@ -29,5 +30,6 @@ begin
    --  T (29) = 2 * T (28) + T (26) = 4_222_194_104 would not fit.
    Check (27, 867_954_037);
    Check (28, 1_914_332_891);
+   Own_Checks;
    Ada.Text_IO.Put_Line ("PASS Domino_And_Tromino_Tiling_Lite");
 end Tests;
