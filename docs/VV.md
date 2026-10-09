@@ -320,6 +320,8 @@ Agent B (2026-10-09, proof-kill rerun): I had set aside survivors in ghost code 
 
 For Min-Days-Bouquets, the earlier blind 46/47 used the old classification; the later 47-test result after 21a71262 is not blind. The Clone-Graph line 81 survivor (= -> /= in Lemma_Reachable's Post) is a proof kill. These numbers supersede the held-out scores in my earlier notes for these four folders.
 
+Agent B (2026-10-09, cost scan): tools/vv/cost_scan.csv lists every loop over the whole range, and every linear fallback, in 45 search / bisection / binary / ternary / exponential / interpolation folders (Ada and SPARK). It finds 21 placeholders: whole-range scans, tables or bubble passes that stand in for the named sublinear algorithm. It also finds 1 cost defect in main's SPARK4 Ternary-Search: the equal-probe case falls back to a linear scan even on strictly unimodal input. The scan also found a wrong answer in Ada Ternary-Search. Its equal-probe case narrowed to [M1, M2], which loses the maximum on plateaus, although the spec allows plateaus. Failing tests are in 7c553fb1 and the fix in ed3e05d5 (findings_sweep.csv). The fixed version is O(log N) for strictly unimodal input and O(N) worst case with plateaus, as documented.
+
 ## 3j. Silent-fail scan, compiler-version guard and timeouts (2026-10-08, night)
 
 **Silent fail.** `tools/vv/silent_fail.py` asks whether a failed check would fail `make test`. It reads the logs of the version-checked build run (`--from-logs`; `tools/audit/build_folder.sh` keeps `mk14.log`, `mk12.log`, `r14.log`, `r12.log`) or runs `make test` itself on GNAT 14. It flags three things:
