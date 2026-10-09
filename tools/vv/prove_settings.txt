@@ -1,0 +1,61 @@
+# Canonical proof settings for Ada-Algorithms (Silver claims in PROOFS.csv).
+# key=value lines are read by tools/vv/reproof.sh / reproof.py; '#' lines are notes.
+run_id=reproof-20261009-1
+gnatprove_version=FSF 16.1.0 (Why3 for gnatprove version 1.8.2+git)  [first two lines of gnatprove --version]
+gnatprove_path=~/.local/alr/gnatprove_16.1.0_82528bef/bin/gnatprove (Alire crate gnatprove_16.1.0_82528bef)
+solver_cvc5=This is cvc5 version 1.3.2 [git 86cecd8 on branch HEAD]
+solver_z3=Z3 version 4.15.4 - 64 bit
+solver_altergo=Alt-Ergo version 2.6.1
+solver_colibri=not present in this gnatprove install (libexec/spark/bin has no colibri)
+toolchain=gnatprove FSF 16.1.0 / Why3 1.8.2+git / cvc5 1.3.2 (86cecd8) / z3 4.15.4 / alt-ergo 2.6.1
+mode=silver
+level=2
+provers=cvc5,z3,altergo
+steps=1000000
+timeout=0
+wall_cap_seconds=3600
+jobs_per_folder=1
+#
+# Silver claim (bulk, machine-independent) - exact command per folder:
+#   gnatprove -P <PROOFS.csv proof_gpr> -f --mode=silver --level=2 --prover=cvc5,z3,altergo
+#             --timeout=0 --steps=1000000 --counterexamples=off --report=statistics
+#             --output=oneline -k -j1
+#   wrapped in 'timeout 3600' as a safety cap only. Hitting the cap = stale, never "proved".
+#   The step budget is the only proof limit: --timeout=0 turns the per-VC wall clock off,
+#   so the result does not depend on machine speed or load. Command-line switches come
+#   after the project's Proof_Switches, so --level / --timeout / --steps here override any
+#   per-project setting (Huffman, Modular-Arithmetic, ... have --level=4 in their gpr).
+# Cold start (no reuse of earlier results):
+#   the folder is copied to a fresh work dir; obj/, bin/, gnatprove/ and proof/ session
+#   dirs are deleted before proving; gnatprove runs with -f (force re-analysis); no
+#   --replay, no shared why3 session, no proof cache (no --memcached-server / cache).
+# Why N = 1000000: it is the step budget make vv (tools/vv/run_vv.sh VV_STEPS) and the
+#   185 rows with proof_run=steps=1000000 already passed with; the re-proof run logs the
+#   largest step count any VC used (reproof.csv max_steps_used) so the headroom is
+#   visible per folder. If a folder needs more, the fix is invariants / lemmas /
+#   subtypes, never a larger N or a longer cap.
+#
+# Wall-cap retry (-j4), observed 2026-10-09: at -j1 gnatwhy3 tries the provers one
+#   after another on each VC, so a VC cvc5 cannot prove first burns cvc5's whole budget
+#   (--steps=1000000 is --rlimit=35015000 for cvc5, minutes per VC) before z3 / alt-ergo
+#   get it; at -j>1 the listed provers run side by side on the VC. Example: numerical/SPARK4
+#   Euclidean-Algorithm hit the 3600 s cap at -j1 (cvc5 grinding one VC) and proves in 5 s
+#   at -j6, max 150 steps used; Sort-Merge-Join: cap at -j1, 81 s at -j6, max 6179 steps.
+#   Which VCs prove within --steps does not depend on -j (any listed prover within its step
+#   budget), so rows that hit the cap at -j1 are re-run once with AA_REPROOF_JOBS=4, same
+#   steps / provers / cap, into a separate work dir; reproof.csv shows jobs and keeps the
+#   first-pass cap in its note column. A row is only 'holds' if that run exits 0 within the
+#   cap with no unproved check. Steps and cap are never raised.
+#
+# Per-change check used by the main worker before committing SPARK code (not the bulk claim):
+#   gnatprove -P <gpr> -f --level=4 --checks-as-errors=on --output=oneline -k -j2
+#   (cold copy, obj/ gnatprove/ deleted first), followed by the Silver command above.
+#
+# Run log of reproof-20261009-1 (snapshot: git archive e8c7794f -> /tmp/reproof_src, -P 3):
+#   started 03:31; the driver died at ~06:4x because tools/vv/reproof.sh was edited while
+#   it was running (bash reads scripts incrementally: 'JOBS: unbound variable', no
+#   result.txt). Never edit reproof.sh during a run. Resumed 06:59 with the same command
+#   (folders with a result.txt are skipped; the ones without are re-proved from scratch,
+#   cold). Wall-cap rows are re-run once at AA_REPROOF_JOBS=4 into /tmp/reproof_j4.
+# Toolchain paths are pinned: reproof.sh puts ~/.local/alr/gnatprove_16.1.0_82528bef/bin
+#   and ~/.local/alr/gprbuild_*/bin first on PATH (not Alire's global toolchain selection).
