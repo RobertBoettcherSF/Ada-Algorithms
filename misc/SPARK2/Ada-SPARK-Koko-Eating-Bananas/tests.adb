@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Koko_Eating_Bananas; use Koko_Eating_Bananas;
+with Own_Checks;
 
 procedure Tests is
    P    : constant Pile_Array := [3, 6, 7, 11, 2, 4, 5, 8];   --  46 bananas
@@ -41,4 +42,5 @@ begin
    Expect (Full, 8, 100, "eight piles of 100 in 8 hours");
    Expect (Full, 100, 9, "eight piles of 100 in 100 hours");   --  speed 8 needs 104
    Put_Line ("Koko_Eating_Bananas: PASS");
+   Own_Checks;
 end Tests;

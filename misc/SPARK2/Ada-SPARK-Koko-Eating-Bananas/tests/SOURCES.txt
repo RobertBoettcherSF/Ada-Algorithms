@@ -1,0 +1,19 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+the two original cases (piles 3 6 7 11 2 4 5 8 in 8 and 16 hours) plus
+five hand-worked ones (9, 45 and 46 hours; eight piles of 100 in 8 and
+100 hours), and the bound floor (log2 100) + 2 on speeds tried; the
+bound check was committed first (2e45ca2f) and fails on the old scan.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). Reference: hours
+simulated by eating S bananas at a time (no division), and the slowest
+speed by trying every speed.
+* all-equal piles for every size 1 .. 100 and 1,000 random pile arrays
+  (half from a range of 4 sizes), each with every Hours 8 .. 100:
+  speed, tries <= floor (log2 100) + 2, worst case exactly 7;
+* Hours_Needed against the simulation at every speed on 110 of them.
+* Random inputs use a Park-Miller generator; the default seed 20261008
+  is printed, and AA_SEED=<n> overrides it.

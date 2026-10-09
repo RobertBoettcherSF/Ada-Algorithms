@@ -23,4 +23,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (68 checks).
 
+`make test` runs `tests.adb` and the folder's own checks: 215,601 checks against a no-division simulation (see `tests/SOURCES.txt`).
+
 The first version tried every speed from 1 upward (up to 100 passes over the piles), with no contract. Its README said n <= 32, but there are 8 piles. Commit 2e45ca2f added a try counter and a test asserting the log bound. That test fails on the old scan (11 tries when the answer is 11).
