@@ -1,17 +1,8 @@
 pragma SPARK_Mode (On);
 
 package body Maximum_Subarray is
-   function Add (Left : Score; Right : Value) return Score is
-   begin
-      if Left > 900 then
-         return Score'Last;
-      elsif Left < -900 then
-         return Score'First;
-      else
-         return Left + Right;
-      end if;
-   end Add;
-
+   --  No saturation: with N <= 4 and every value in -100 .. 100, the running sum stays in
+   --  -100 .. 100 * (I - 1) <= 300, far inside Score; the loop invariants carry that bound.
    function Best_Sum (A : Values; N : Length) return Score is
       Current, Best : Score;
    begin
@@ -21,10 +12,12 @@ package body Maximum_Subarray is
       Current := Score (A (1));
       Best := Current;
       for I in 2 .. N loop
+         pragma Loop_Invariant (Current in -100 .. 100 * (I - 1));
+         pragma Loop_Invariant (Best in -100 .. 100 * (I - 1));
          if Current < 0 then
             Current := Score (A (I));
          else
-            Current := Add (Current, A (I));
+            Current := Current + A (I);
          end if;
          if Current > Best then
             Best := Current;
