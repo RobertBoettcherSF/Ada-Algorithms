@@ -1,0 +1,12 @@
+Reverse-Linked-List-II Loop_Variant, proof-first evidence (2026-10-09, agent-S138)
+Hole: Solve had no Loop_Variant; held survivor (score138 seed 20264056) I := I + 0 / J := J - 0
+never terminates, times out in tests, and still proved at Silver.
+1. Mutant + new variant (scratch copy, src lines 27-28 = I := I + 0; J := J - 0;):
+   gnatprove --mode=silver --level=2 --timeout=20 ->
+   reverse_linked_list_ii.adb:23:31: medium: loop variant might fail
+   (the canonical --steps=1000000 --timeout=0 run was stopped after >20 min without finishing,
+   when the work was told to stop)
+2. Real code + variant: canonical Silver (tools/vv/prove_settings.txt) -> 10 checks, 0 unproved;
+   reverse_linked_list_ii.adb:23:31: info: loop variant proved
+3. make test -> PASS own checks: 1635 cases; tools/audit/build_folder.sh -> w14=0 w12=0, r14=0 r12=0
+Re-score (blind, new seed) NOT run: grading stopped by Robert at 20:11; see handover row H162.

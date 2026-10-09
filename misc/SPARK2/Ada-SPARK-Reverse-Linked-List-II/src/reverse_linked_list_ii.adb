@@ -20,6 +20,7 @@ package body Reverse_Linked_List_II is
    begin
       while I < J loop
          pragma Loop_Invariant (I >= First and then J <= Last and then I + J = First + Last);
+         pragma Loop_Variant (Decreases => J - I);   --  termination is proved, not assumed
          Temp := L.Data (I);
          L.Data (I) := L.Data (J);
          L.Data (J) := Temp;
