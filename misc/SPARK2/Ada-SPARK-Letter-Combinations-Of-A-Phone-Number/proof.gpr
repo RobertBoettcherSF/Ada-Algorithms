@@ -1,0 +1,8 @@
+project Letter_Combinations_Of_A_Phone_Number_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("letter_combinations_of_a_phone_number.ads", "letter_combinations_of_a_phone_number.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Letter_Combinations_Of_A_Phone_Number_Proof;
