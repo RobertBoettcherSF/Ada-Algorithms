@@ -95,7 +95,7 @@ searching/SPARK4/Ada-SPARK-Ternary-Search,"Find_Maximum_Index shrank to [M1, M2]
 compression/Ada/Run-Length-Encoding,"answer_plant_ok=no: 8 built wrong-answer plants (e.g. op + -> - in run_length_encoding.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
 concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub,"answer_plant_ok=no: 1 built wrong-answer plants (e.g. op < -> <= in task_scheduler_stub.adb) still leave make test exit 0 — harness cannot report failure",fixed,435139f2,162d05c1
 cryptography/SPARK2/Bit-Reversal,"answer_plant_ok=no: 4 built wrong-answer plants (e.g. off_by_one_plus in bit_reversal.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
-geometry/Ada/Dithering,"answer_plant_ok=no: 7 built wrong-answer plants (e.g. op < -> <= in dithering.adb) still leave make test exit 0 — harness cannot report failure",open,,
+geometry/Ada/Dithering,"answer_plant_ok=no: 7 built wrong-answer plants (e.g. op < -> <= in dithering.adb) still leave make test exit 0 — harness cannot report failure",fixed,890e1529,none
 geometry/SPARK2/Closest-Pair-Brute,"answer_plant_ok=no: 9 built wrong-answer plants (e.g. off_by_one_plus in closest_pair_brute.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
 misc/Ada/Exponential-Backoff,"answer_plant_ok=no: 19 built wrong-answer plants (e.g. off_by_one_plus in exponential_backoff.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
 misc/Ada/Luleas-Algorithm,"answer_plant_ok=no: 12 built wrong-answer plants (e.g. flip_bool in lulea_algorithm.adb) still leave make test exit 0 — harness cannot report failure",open,,
