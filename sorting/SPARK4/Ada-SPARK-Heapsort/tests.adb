@@ -235,6 +235,20 @@ begin
    ---------------------------------------------------------------------
    Section ("6. Heapify / Sift_Down invariants");
    ---------------------------------------------------------------------
+   --  The checker itself, on arrays that do not start at 1 (V&V sweep,
+   --  agent A3): with A'First = 2 the children of slot 2 are 3 and 4.
+   declare
+      Two : Element_Array (2 .. 4) := [1, 2, 0];
+      Five : Element_Array (5 .. 9) := [9, 8, 7, 1, 9];
+   begin
+      Check (not Is_Max_Heap (Two, 4), "Is_Max_Heap rejects child 2 under root 1 (A'First = 2)");
+      Two := [3, 2, 1];
+      Check (Is_Max_Heap (Two, 4), "Is_Max_Heap accepts 3 2 1 (A'First = 2)");
+      --  slot 8 (value 1) is the left child of slot 6 (value 8), slot 9
+      --  (value 9) the right child: 9 > 8 breaks the heap.
+      Check (not Is_Max_Heap (Five, 9), "Is_Max_Heap rejects 9 8 7 1 9 (A'First = 5)");
+      Check (Is_Max_Heap (Five, 8), "Is_Max_Heap accepts 9 8 7 1 (A'First = 5)");
+   end;
    declare
       A : Element_Array := [3, 1, 4, 1, 5, 9, 2, 6, 5];
    begin
