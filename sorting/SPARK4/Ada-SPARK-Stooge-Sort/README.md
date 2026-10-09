@@ -24,7 +24,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Stooge-Sort](https:
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Bounded recursive `Stooge_Range` with `Subprogram_Variant => (Decreases => Hi - Lo)` rather than an explicit stack; depth is at most $\mathrm{Max\_N}$.
 * **Sortedness proof:** `Stooge_Range` proves the inductive “largest third lands in the last third” argument directly. A ghost function `Count_Ge (A, L, H, X)` counts the elements $\ge X$ in a slice; `Stooge_Range`'s postcondition says the slice is sorted and that `Count_Ge` is unchanged for every value present before or after. After the second recursive call the last $t$ places hold values no smaller than anything in the first two thirds (they are the top of a sorted slice that already contained the old last third); after the third call the first two thirds are sorted below them. `Sort` is only this recursion (the earlier gap-$1$ `Bubble_Finish` fallback was removed).
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)` on `Sort`) and count preservation on the internal `Stooge_Range`; permutation equality is also **checked by tests**.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and Is_Perm (A'Old, A)` on `Sort`). `Is_Perm` is the ghost occurrence model `Occ` used in Bubble-Sort; `Stooge_Range` adds `Same_Occ (A, A'Old)` to its postcondition, the swap step uses `Lemma_Swap`, and `Sort` closes with `Lemma_Same_Perm`. Permutation equality is also **checked by tests**. `Same_Occ` quantifies over all `Integer` values and cannot run, so the body sets `pragma Assertion_Policy (Post => Ignore, Assert => Ignore, Ghost => Ignore)`; the spec `Post` of `Sort` stays checked at run time.
 
 ## Algorithm
 Given an array $A$ with index range $[\mathrm{Lo} .. \mathrm{Hi}]$:
@@ -53,7 +53,7 @@ Using $t = \lfloor L/3 \rfloor$ makes the recursive span $L - t = \lceil 2L/3 \r
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 217 assertions pass, followed by the own checks (2,468 sort calls). Running `make prove` reports `Success: all checks proved (425 checks).` (the same at `--mode=silver --level=2`).
+When you run `make test`, you will see all 217 assertions pass, followed by the own checks (2,468 sort calls). Running `make prove` reports `Success: all checks proved (512 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, signed domain, tiny lengths only ($n \le 16$).
@@ -73,6 +73,6 @@ When you run `make test`, you will see all 217 assertions pass, followed by the 
 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
-* Recursive `Stooge_Range` uses `Subprogram_Variant => (Decreases => Hi - Lo)`; its postcondition (sorted slice, frame, same counts) is proved with ghost lemmas (`Lemma_After_Second`, `Lemma_After_Third`, `Lemma_Chain`).
-* **GNATprove Level 4:** `Success: all checks proved (425 checks).` (also at `--mode=silver --level=2`)
+* Recursive `Stooge_Range` uses `Subprogram_Variant => (Decreases => Hi - Lo)`; its postcondition (sorted slice, frame, same counts, same occurrences) is proved with ghost lemmas (`Lemma_After_Second`, `Lemma_After_Third`, `Lemma_Chain`).
+* **GNATprove Level 4:** `Success: all checks proved (512 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

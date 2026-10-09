@@ -18,6 +18,126 @@ package body Stooge_Sort
   with SPARK_Mode => On
 is
 
+   --  Postconditions and assertions inside this body are proof
+   --  obligations, proved by gnatprove and not evaluated at run time:
+   --  Same_Occ quantifies over every Integer value. (The Post of Sort in
+   --  the spec, Is_Sorted and Is_Perm, is still checked at run time under
+   --  -gnata.) The ghost proof code (lemmas, snapshots) is not run
+   --  either; it only serves the proof.
+   pragma Assertion_Policy (Post => Ignore, Assert => Ignore, Ghost => Ignore);
+
+   ---------------------------------------------------------------------------
+   -- Permutation proof (ghost). Same_Occ is the logical multiset equality
+   -- over every Integer value; it only appears in loop invariants and in
+   -- lemma contracts, which are proved and not evaluated at run time (an
+   -- evaluation would range over all Integer values).
+   ---------------------------------------------------------------------------
+
+   function Same_Occ (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (A'Length = 0
+                or else (for all V in Integer =>
+                           Occ (A, V, A'Last) = Occ (B, V, B'Last))))
+   with
+     Ghost,
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+
+   package Perm_Lemmas
+     with Ghost
+   is
+      pragma Assertion_Policy (Pre => Ignore, Post => Ignore);
+
+      --  Counts over A'First .. Last only see A'First .. Last.
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First
+          and then Last <= A'Last and then Last <= B'Last
+          and then (for all K in A'First .. Last => A (K) = B (K)),
+        Post               =>
+          (for all V in Integer => Occ (A, V, Last) = Occ (B, V, Last)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slot K changed.
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Live_Index; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then K in A'Range and then Last in K .. A'Last
+          and then (for all J in A'Range => (if J /= K then A (J) = B (J))),
+        Post               =>
+          (for all V in Integer =>
+             Occ (B, V, Last)
+             = Occ (A, V, Last)
+               - (if A (K) = V then 1 else 0)
+               + (if B (K) = V then 1 else 0)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slots X and Y exchanged.
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Live_Index)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then X in A'Range and then Y in A'Range
+          and then B (X) = A (Y) and then B (Y) = A (X)
+          and then (for all J in A'Range =>
+                      (if J /= X and then J /= Y then A (J) = B (J))),
+        Post   => Same_Occ (A, B);
+
+      procedure Lemma_Same_Perm (A, B : Element_Array)
+      with
+        Global => null,
+        Pre    => In_Bounds (A) and then In_Bounds (B) and then Same_Occ (A, B),
+        Post   => Is_Perm (A, B);
+   end Perm_Lemmas;
+
+   package body Perm_Lemmas is
+
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural) is
+      begin
+         if Last >= A'First then
+            Lemma_Occ_Frame (A, B, Last - 1);
+         end if;
+      end Lemma_Occ_Frame;
+
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Live_Index; Last : Natural) is
+      begin
+         if Last > K then
+            Lemma_Occ_Set (A, B, K, Last - 1);
+         else
+            Lemma_Occ_Frame (A, B, K - 1);
+         end if;
+      end Lemma_Occ_Set;
+
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Live_Index) is
+      begin
+         if X = Y then
+            Lemma_Occ_Frame (A, B, A'Last);
+            return;
+         end if;
+         declare
+            C : constant Element_Array := (A with delta X => A (Y));
+         begin
+            Lemma_Occ_Set (A, C, X, A'Last);
+            Lemma_Occ_Set (C, B, Y, A'Last);
+         end;
+      end Lemma_Swap;
+
+      procedure Lemma_Same_Perm (A, B : Element_Array) is null;
+
+   end Perm_Lemmas;
+   use Perm_Lemmas;
+
    ---------------------------------------------------------------------------
    -- Ghost model
    ---------------------------------------------------------------------------
@@ -495,6 +615,7 @@ is
          and then (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K))
          and then Sorted_Pw (A, Lo, Hi)
          and then Same_Counts (A, A'Old, Lo, Hi)
+         and then Same_Occ (A, A'Old)
    is
       A_In : constant Element_Array := A with Ghost;
       L    : Natural;
@@ -503,7 +624,9 @@ is
       if A (Lo) > A (Hi) then
          Swap (A, Lo, Hi);
          Lemma_Swap_Same (A, A_In, Lo, Hi, Lo, Hi);
+         Lemma_Swap (A_In, A, Lo, Hi);
       end if;
+      pragma Assert (Same_Occ (A, A_In));
       pragma Assert (Same_Counts (A, A_In, Lo, Hi));
 
       L := Hi - Lo + 1;
@@ -522,10 +645,12 @@ is
          declare
             A1 : constant Element_Array := A with Ghost;
          begin
+            pragma Assert (Same_Occ (A1, A_In));
             Stooge_Range (A, Lo + T, Hi);
             declare
                A2 : constant Element_Array := A with Ghost;
             begin
+               pragma Assert (Same_Occ (A2, A_In));
                Lemma_After_Second (A1, A2, Lo, Hi, T);
                pragma Assert
                  (for all P in Lo .. Hi - T => A2 (P) <= A2 (Hi - T + 1));
@@ -540,18 +665,21 @@ is
                pragma Assert (Sorted_Pw (A, Lo, Hi));
 
                Lemma_Chain (A_In, A0, A1, A2, A, Lo, Hi, T);
+               pragma Assert (Same_Occ (A, A_In));
             end;
          end;
       end;
    end Stooge_Range;
 
    procedure Sort (A : in out Element_Array) is
+      A_In : constant Element_Array := A with Ghost;
    begin
       if A'Length <= 1 then
          return;
       end if;
 
       Stooge_Range (A, A'First, A'Last);
+      Lemma_Same_Perm (A, A_In);
    end Sort;
 
 end Stooge_Sort;

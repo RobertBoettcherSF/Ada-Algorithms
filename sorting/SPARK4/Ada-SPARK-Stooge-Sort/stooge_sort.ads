@@ -14,8 +14,8 @@
 --  counts (a ghost counting argument: after the second call the last
 --  third holds the largest values, after the third call the first two
 --  thirds are sorted below them). Sort is only that recursion; there is
---  no fallback pass. Sort's public Post states sortedness; the count
---  preservation is proved inside the body and also checked by tests.
+--  no fallback pass. Sort's public Post states sortedness and
+--  permutation (Is_Perm, counted with Occ).
 --
 --  Reference: https://en.wikipedia.org/wiki/Stooge_sort
 
@@ -67,6 +67,36 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
+   -- Permutation (multiset) model, used by the Post of Sort
+   ---------------------------------------------------------------------------
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
+   with
+     Global             => null,
+     Pre                => In_Bounds (A) and then Last <= A'Last,
+     Post               => Occ'Result <= Last,
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (A'First .. Last) equal V.
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often. A value found in neither array counts 0 in both, so comparing
+   --  the counts of the values of A and of B covers every value.
+
+   ---------------------------------------------------------------------------
    -- Algorithm sketch (The Three Stooges / Wikipedia)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Recurse on Lo .. Hi (initially A'First .. A'Last):
@@ -92,11 +122,11 @@ is
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Ascending Stooge sort (in-place recursive 2/3–2/3–2/3); the
    --  recursion alone discharges Is_Sorted at Level 4.
    --  Empty and singleton arrays are no-ops.
-   --  Post proves sortedness; count preservation is proved on the body's
-   --  Stooge_Range and checked by the test suite.
+   --  Post proves sortedness and that A holds the values of A'Old, each
+   --  equally often (Is_Perm).
 
 end Stooge_Sort;
