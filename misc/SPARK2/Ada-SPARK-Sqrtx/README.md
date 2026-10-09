@@ -18,4 +18,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (17 checks).
 
+`make test` runs `tests.adb` and the folder's own checks: 20,003 checks, every input against an odd-number count (see `tests/SOURCES.txt`).
+
 The first version scanned down from 100 and squared each candidate (101 for `Value` 0), with no contract. Commit 507140da added a counter and a test asserting the log bound. That test fails on the old scan.

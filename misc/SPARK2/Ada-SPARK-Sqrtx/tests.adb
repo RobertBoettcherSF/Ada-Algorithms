@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Sqrtx; use Sqrtx;
+with Own_Checks;
 
 procedure Tests is
    --  Roots 0 .. 100: a halving search squares at most ceil (log2 101) = 7
@@ -40,4 +41,5 @@ begin
    Expect (2_500, 50);
    Expect (2_499, 49);
    Put_Line ("Sqrtx: PASS");
+   Own_Checks;
 end Tests;
