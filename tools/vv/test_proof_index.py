@@ -28,6 +28,7 @@ CASES = {
     'Topup-Summed':   ('yes', []),
     'Index-Pinned':   ('', ['index not independent']),
     'Index-Unread':   ('', ['index independence not measured']),
+    'Handover-Gap':   ('', ['open handover gap']),
 }
 
 def w(path, text):
@@ -95,6 +96,10 @@ def build(root):
           [fids['Index-Pinned'], 'F', 'catalog', 'catalog', '', '1', 'function n_arrays=1', ''],
           [fids['Index-Pinned'], '', 'first_pinned', 'fail', '', '', "Pre requires A'First = 1", ''],
           [fids['Index-Unread'], 'F', 'catalog', 'catalog', '', '1', 'function n_arrays=1', '']])
+    wcsv(os.path.join(vv, 'handover.csv'), ['id', 'category', 'folder', 'status'],
+         [['H1', 'functional_gap', fids['Handover-Gap'] + '; misc/SPARK2/Ada-SPARK-Other', 'open'],
+          ['H2', 'dead_code', fids['Good'], 'closed (fixed)'],
+          ['H3', 'unproved_check', fids['Good'], 'open']])
     return res, logs, fids
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

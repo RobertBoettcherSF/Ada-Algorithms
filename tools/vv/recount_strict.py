@@ -97,6 +97,11 @@ withdrawn = folder_set(os.path.join(VV, 'checker_scan.csv'), yes('withdraw_funct
 partial = folder_set(os.path.join(VV, 'contract_scan.csv'),
                      lambda x: (x.get('verdict') or '').strip().lower().startswith('partial') and (x.get('status') or '').strip().lower() not in ('fixed', 'closed'))
 demo = folder_set(os.path.join(VV, 'flagship_status.csv'), yes('demo'))
+# open handover row about a gap in the folder (categories functional_gap / dead_code / clamp)
+handover_gap = set()
+for x in rows(os.path.join(VV, 'handover.csv')):
+    if (x.get('category') or '').strip() in ('functional_gap', 'dead_code', 'clamp') and (x.get('status') or '').strip().lower().startswith('open'):
+        handover_gap |= {f.strip() for f in (x.get('folder') or '').split(';') if '/' in f and not f.strip().startswith('(')}
 generalised = {l.strip() for l in lines(os.path.join(ROOT, 'tools', 'generalised_stubs.txt')) if l.strip() and not l.startswith('#')}
 stubs = {l.split('\t')[0].strip() for l in lines(os.path.join(ROOT, 'tools', 'readme_stubs.txt')) if l.strip() and not l.startswith('#')}
 stubs |= folder_set(os.path.join(VV, 'hidden_stub.csv'), lambda x: (x.get('stub_marked') or '').strip() == 'yes')
@@ -201,6 +206,7 @@ def failures(fid):
     if fc_plant.get(fid) == 'no' or ans_plant.get(fid) == 'no' or (fc_plant.get(fid) == 'n/a' and ans_plant.get(fid) != 'yes'):
         f.append('harness cannot fail')
     if fid in withdrawn or fid in partial: f.append('functional claim withdrawn/partial')
+    if fid in handover_gap: f.append('open handover gap')
     return f
 
 if A.why:

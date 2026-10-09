@@ -478,6 +478,17 @@ _stub_extra = ({x['folder'] for x in _csv(os.path.join(a.root, 'tools', 'vv', 'f
 def _fallback_live(r):
     """A fallback call still in the file whose verdict is not 'removed' / 'FIXED'."""
     return any(not re.search(r'removed|fixed', v, re.I) for v in r['fallback'].split('; ') if v) if r['fallback'] else False
+# open handover rows that state a gap in the folder itself (tools/vv/handover.csv, categories
+# functional_gap / dead_code / clamp, status open...): the folder is held out of training_ready until
+# the row is closed (decision 2026-10-09 ~17:36). Folder field: one or more paths separated by ';'.
+HANDOVER_GATING = ('functional_gap', 'dead_code', 'clamp')
+_handover_gap = collections.defaultdict(list)
+for _x in _csv(os.path.join(a.root, 'tools', 'vv', 'handover.csv')):
+    if (_x.get('category') or '').strip() in HANDOVER_GATING and (_x.get('status') or '').strip().lower().startswith('open'):
+        for _f in (_x.get('folder') or '').split(';'):
+            _f = _f.strip()
+            if '/' in _f and not _f.startswith('('):
+                _handover_gap[_f].append(_x.get('id', ''))
 def drop_reasons(r):
     out = []
     if r['build_gnat14'] != 'yes': out.append('build fails GNAT 14')
@@ -518,6 +529,7 @@ def drop_reasons(r):
     if r['folder'] in _withdrawn_cs: out.append('functional claim withdrawn (checker_scan)')
     if r['folder'] in _withdrawn_ks: out.append('functional claim withdrawn (contract_scan)')
     if r['folder'] in _partial_ks: out.append('partial functional claim (contract_scan)')
+    if _handover_gap.get(r['folder']): out.append('open handover gap')
     return [x for x in out if x]
 # known_answer_source (room rule 2026-10-08 19:25): where the expected values come from.
 #   own          own tests (tools/vv/own_tests.csv, the sweep's tests): brute force or independent properties

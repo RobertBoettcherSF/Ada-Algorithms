@@ -135,6 +135,7 @@ Robert's strict rule, as `tools/proof_index.py` (`training_ready`, reasons in `t
 9. No silent fail (`silent_fail.csv`), and the harness can fail (`silent_fail_plant.csv` / `silent_fail_answer_plant.csv`).
 10. flaky = no (`flaky.csv`); on a flaky folder no mutation score counts.
 11. No withdrawn functional claim (`checker_scan.csv` / `contract_scan.csv` withdraw_functional = yes) and no open `partial` contract verdict.
+12. No open handover row about a gap in the folder itself (`tools/vv/handover.csv`, category `functional_gap`, `dead_code` or `clamp`, status starting with `open`; the folder column may list several paths separated by `;`). Reason `open handover gap`. Added 2026-10-09 ~17:36: a known spec gap or dead clamp keeps the folder out until the row is closed.
 
 Display only (the rule above is unchanged): every held-out score also gets its exact Clopper-Pearson two-sided 95% lower bound, lower = Beta(0.025; k, n - k + 1) (the 0.025 quantile of the Beta distribution with parameters k and n - k + 1; 0 when k = 0), from the raw k/n of the record, so anyone can recompute it. Column `cp95_lower` in the held-out record files and `mutation_heldout_cp95_lower` in PROOFS.csv; `mutation_heldout_family` gives the deciding set's family mix and source file; `mutation_topup_unseen` lists unseen per-folder top-up scores not folded into the record (shown, not counted).
 
