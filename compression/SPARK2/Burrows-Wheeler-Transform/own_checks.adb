@@ -1,6 +1,6 @@
 --  Own tests for Burrows_Wheeler_Transform (see tests/SOURCES.txt).
 --  Rotation_Character (X, S, O) must be character O of the rotation of X that starts at
---  S, and Rotation_Less must order two different rotations lexicographically.
+--  S, and Rotation_Less must order two rotations lexicographically (strictly: False on equal rotations).
 pragma Ada_2022;
 with Ada.Environment_Variables;
 with Ada.Text_IO;
@@ -66,7 +66,8 @@ begin
       end loop;
       for L in Index loop
          for R in Index loop
-            if Cmp (L, R) /= 0 and then Rotation_Less (X, L, R) /= (Cmp (L, R) < 0) then
+            --  also equal rotations (L = R, or a periodic text): strictly less is False
+            if Rotation_Less (X, L, R) /= (Cmp (L, R) < 0) then
                Ok := False;
             end if;
          end loop;
