@@ -194,6 +194,70 @@ begin
       Agree ("agree wiki from 5", Wikipedia_Example, 5);
    end;
 
+   Section ("Successor map at any origin (label K lives at Next'First + K - 1)");
+   --  Every builder's map is copied to storage starting at 2, at 17 and
+   --  flush to Max_N. Node labels stay 1 .. N, so every query from every
+   --  start must give exactly what the 1-based map gives.
+   declare
+      function Shifted (M : Successor_Map; O : Node_Id) return Successor_Map
+      is
+         R : Successor_Map (O .. O + (M'Length - 1));
+      begin
+         for K in 0 .. M'Length - 1 loop
+            R (O + K) := M (M'First + K);
+         end loop;
+         return R;
+      end Shifted;
+
+      procedure Same_Answers (Label : String; M : Successor_Map) is
+         N  : constant Natural := M'Length;
+         type Origin_List is array (1 .. 3) of Node_Id;
+         Os : constant Origin_List := [2, 17, Max_N - (N - 1)];
+         Ok : Boolean := True;
+      begin
+         for O of Os loop
+            declare
+               S : constant Successor_Map := Shifted (M, O);
+            begin
+               Ok := Ok and then Is_Valid_Map (S);
+               for X in 0 .. N loop
+                  Ok := Ok and then Step (S, X) = Step (M, X);
+               end loop;
+               for St in 1 .. N loop
+                  Ok := Ok
+                    and then Find_Cycle (S, St) = Find_Cycle (M, St)
+                    and then Detect (S, St) = Detect (M, St)
+                    and then Find_Cycle_Naive (S, St)
+                               = Find_Cycle_Naive (M, St)
+                    and then Has_Cycle (S, St) = Has_Cycle (M, St)
+                    and then Cycle_Length (S, St) = Cycle_Length (M, St)
+                    and then Cycle_Start (S, St) = Cycle_Start (M, St)
+                    and then Tail_Length (S, St) = Tail_Length (M, St);
+                  for K in 0 .. N loop
+                     Ok := Ok and then Iterate (S, St, K) = Iterate (M, St, K);
+                  end loop;
+               end loop;
+               for Nd in 0 .. N loop
+                  Ok := Ok
+                    and then Is_On_Cycle (S, Nd, Cycle_Start (M, 1),
+                                          Cycle_Length (M, 1))
+                           = Is_On_Cycle (M, Nd, Cycle_Start (M, 1),
+                                          Cycle_Length (M, 1));
+               end loop;
+            end;
+         end loop;
+         Check (Ok, Label & ": origins 2 / 17 / flush to Max_N = origin 1");
+      end Same_Answers;
+   begin
+      Same_Answers ("pure 7", Pure_Cycle (7));
+      Same_Answers ("rho 3,4", Rho_Graph (3, 4));
+      Same_Answers ("path 5", Path_To_Sink (5));
+      Same_Answers ("self 4", Self_Loop_Chain (4));
+      Same_Answers ("two cycles", Two_Cycles);
+      Same_Answers ("wikipedia", Wikipedia_Example);
+      Same_Answers ("pure 48 (origin 17 ends at Max_N)", Pure_Cycle (Max_N - 16));
+   end;
+
    New_Line;
    Put_Line
      ("=== "

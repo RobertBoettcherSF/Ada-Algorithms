@@ -2892,7 +2892,7 @@ numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Cycle_Start,catalog,catalog,,1,funct
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Tail_Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Is_On_Cycle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 numerical/SPARK4/Ada-SPARK-Brents-Algorithm,Find_Cycle_Naive,catalog,catalog,,1,function n_arrays=1 ret=Cycle_Result,
-numerical/SPARK4/Ada-SPARK-Brents-Algorithm,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+numerical/SPARK4/Ada-SPARK-Brents-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 numerical/Ada/Trigonometric-Interpolation,Calculate_Coefficients,catalog,catalog,,1,function n_arrays=1 ret=Interpolation_Coefficients,
 parsing/Ada/Cyk-Algorithm,Recognize,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 parsing/Ada/Cyk-Algorithm,Parse,catalog,catalog,,1,function n_arrays=1 ret=Parse_Node_Access,

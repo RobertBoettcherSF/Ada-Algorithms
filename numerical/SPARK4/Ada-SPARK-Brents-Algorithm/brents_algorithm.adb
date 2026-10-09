@@ -12,16 +12,13 @@ is
 
    function Is_Valid_Map (Next : Successor_Map) return Boolean is
    begin
-      if Next'Length = 0
-        or else Next'First /= 1
-        or else Next'Last > Max_N
-      then
+      if Next'Length = 0 then
          return False;
       end if;
       for I in Next'Range loop
          pragma Loop_Invariant
-           (for all K in Next'First .. I - 1 => Next (K) <= Next'Last);
-         if Next (I) > Next'Last then
+           (for all K in Next'First .. I - 1 => Next (K) <= Next'Length);
+         if Next (I) > Next'Length then
             return False;
          end if;
       end loop;
@@ -38,8 +35,8 @@ is
    with
      Global => null,
      Pre    => Is_Valid_Map (Next)
-               and then (X = Null_Index or else X <= Next'Last),
-     Post   => Fwd'Result <= Next'Last
+               and then (X = Null_Index or else X <= Next'Length),
+     Post   => Fwd'Result <= Next'Length
                and then (if X = Null_Index then Fwd'Result = Null_Index);
 
    function Fwd
@@ -50,7 +47,7 @@ is
       if X = Null_Index then
          return Null_Index;
       end if;
-      return Next (X);
+      return Next (Next'First + (X - 1));
    end Fwd;
 
    function Step
@@ -69,9 +66,9 @@ is
       X : Node_Index := Start;
    begin
       for S in 1 .. Steps loop
-         pragma Loop_Invariant (X <= Next'Last);
+         pragma Loop_Invariant (X <= Next'Length);
          exit when X = Null_Index;
-         X := Next (X);
+         X := Next (Next'First + (X - 1));
       end loop;
       return X;
    end Iterate;
@@ -87,11 +84,11 @@ is
       Lam_Val : out Natural)
    with
      Global => null,
-     Pre    => Is_Valid_Map (Next) and then Start <= Next'Last,
-     Post   => Meet <= Next'Last
+     Pre    => Is_Valid_Map (Next) and then Start <= Next'Length,
+     Post   => Meet <= Next'Length
                and then
                  (if Meet = Null_Index then Lam_Val = 0
-                  else Lam_Val in 1 .. Next'Last);
+                  else Lam_Val in 1 .. Next'Length);
    --  Meet = live meeting node and Lam_Val = λ, or Meet = 0 / Lam = 0.
 
    procedure Phase_Lambda
@@ -114,8 +111,8 @@ is
       end if;
 
       for Guard in 1 .. Limit loop
-         pragma Loop_Invariant (Tortoise in 1 .. Next'Last);
-         pragma Loop_Invariant (Hare in 1 .. Next'Last);
+         pragma Loop_Invariant (Tortoise in 1 .. Next'Length);
+         pragma Loop_Invariant (Hare in 1 .. Next'Length);
          pragma Loop_Invariant (Power >= 1);
          pragma Loop_Invariant (Lam >= 1 or else Lam = 0);
          pragma Loop_Invariant (Lam <= Limit);
@@ -149,7 +146,7 @@ is
       if Tortoise /= Hare
         or else Tortoise = Null_Index
         or else Lam = 0
-        or else Lam > Next'Last
+        or else Lam > Next'Length
       then
          Meet    := Null_Index;
          Lam_Val := 0;
@@ -202,23 +199,23 @@ is
       Tortoise := Start;
       Hare     := Start;
       for I in 1 .. Lam_Val loop
-         pragma Loop_Invariant (Tortoise in 1 .. Next'Last);
-         pragma Loop_Invariant (Hare in 1 .. Next'Last);
-         pragma Loop_Invariant (Lam_Val in 1 .. Next'Last);
-         Hare := Next (Hare);
+         pragma Loop_Invariant (Tortoise in 1 .. Next'Length);
+         pragma Loop_Invariant (Hare in 1 .. Next'Length);
+         pragma Loop_Invariant (Lam_Val in 1 .. Next'Length);
+         Hare := Next (Next'First + (Hare - 1));
          if Hare = Null_Index then
             return No_Cycle;
          end if;
       end loop;
 
       for Guard in 1 .. Next'Length loop
-         pragma Loop_Invariant (Tortoise in 1 .. Next'Last);
-         pragma Loop_Invariant (Hare in 1 .. Next'Last);
+         pragma Loop_Invariant (Tortoise in 1 .. Next'Length);
+         pragma Loop_Invariant (Hare in 1 .. Next'Length);
          pragma Loop_Invariant (Mu_Val = Guard - 1);
-         pragma Loop_Invariant (Mu_Val <= Next'Last);
+         pragma Loop_Invariant (Mu_Val <= Next'Length);
          exit when Tortoise = Hare;
-         Tortoise := Next (Tortoise);
-         Hare     := Next (Hare);
+         Tortoise := Next (Next'First + (Tortoise - 1));
+         Hare     := Next (Next'First + (Hare - 1));
          if Tortoise = Null_Index or else Hare = Null_Index then
             return No_Cycle;
          end if;
@@ -286,11 +283,11 @@ is
 
       X := Start_Node;
       for Left in 1 .. Lambda loop
-         pragma Loop_Invariant (X in 1 .. Next'Last);
+         pragma Loop_Invariant (X in 1 .. Next'Length);
          if X = Node then
             return True;
          end if;
-         X := Next (X);
+         X := Next (Next'First + (X - 1));
          if X = Null_Index then
             return False;
          end if;
@@ -312,7 +309,7 @@ is
       Step_I     : Natural := 0;
    begin
       for Guard in 1 .. Next'Length + 1 loop
-         pragma Loop_Invariant (X <= Next'Last);
+         pragma Loop_Invariant (X <= Next'Length);
          pragma Loop_Invariant (Step_I = Guard - 1);
          pragma Loop_Invariant (Step_I <= Next'Length);
          pragma Loop_Invariant
@@ -338,7 +335,7 @@ is
          end if;
 
          First_Seen (X) := Integer (Step_I);
-         X := Next (X);
+         X := Next (Next'First + (X - 1));
          Step_I := Step_I + 1;
       end loop;
       return No_Cycle;

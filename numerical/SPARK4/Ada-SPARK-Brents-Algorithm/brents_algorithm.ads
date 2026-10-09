@@ -42,7 +42,8 @@ is
    subtype Node_Id is Positive range 1 .. Max_N;
    subtype Node_Count is Positive range 1 .. Max_N;
 
-   --  Next (I) is the image f(I). Values in 0 .. N (N = Next'Last).
+   --  Node label K (1 .. N, N = Next'Length) is stored at
+   --  Next (Next'First + (K - 1)); its value is the label f(K) in 0 .. N.
    type Successor_Map is array (Node_Id range <>) of Node_Index;
 
    ---------------------------------------------------------------------------
@@ -81,10 +82,11 @@ is
      with
        Global => null,
        Post   => Is_Valid_Map'Result =
-         (Next'First = 1
-          and then Next'Last in Node_Count
-          and then (for all I in Next'Range => Next (I) <= Next'Last));
-   --  True iff Next'First = 1, 1 ≤ N ≤ Max_N, and every Next(I) ∈ 0 .. N.
+         (Next'Length in Node_Count
+          and then (for all I in Next'Range => Next (I) <= Next'Length));
+   --  True iff 1 ≤ N = Next'Length ≤ Max_N and every successor is in
+   --  0 .. N. The array may start at any index: node label K (1 .. N)
+   --  lives at Next (Next'First + (K - 1)).
 
    function Step
      (Next : Successor_Map;
@@ -92,8 +94,8 @@ is
      with
        Global => null,
        Pre    => Is_Valid_Map (Next)
-                 and then (X = Null_Index or else X <= Next'Last),
-       Post   => Step'Result <= Next'Last
+                 and then (X = Null_Index or else X <= Next'Length),
+       Post   => Step'Result <= Next'Length
                  and then (if X = Null_Index then Step'Result = Null_Index);
    --  f(X). Step (Next, 0) = 0.
 
@@ -104,9 +106,9 @@ is
      with
        Global => null,
        Pre    => Is_Valid_Map (Next)
-                 and then Start <= Next'Last
+                 and then Start <= Next'Length
                  and then Steps <= Max_N,
-       Post   => Iterate'Result <= Next'Last;
+       Post   => Iterate'Result <= Next'Length;
    --  f^Steps (Start).
 
    ---------------------------------------------------------------------------
@@ -127,13 +129,13 @@ is
       Start : Node_Id) return Cycle_Result
      with
        Global => null,
-       Pre    => Is_Valid_Map (Next) and then Start <= Next'Last,
+       Pre    => Is_Valid_Map (Next) and then Start <= Next'Length,
        Post   =>
          (if Detect'Result.Has_Cycle then
-            Detect'Result.Meeting_Point in 1 .. Next'Last
+            Detect'Result.Meeting_Point in 1 .. Next'Length
             and then Detect'Result.Start_Node = Null_Index
             and then Detect'Result.Mu = 0
-            and then Detect'Result.Lambda in 1 .. Next'Last
+            and then Detect'Result.Lambda in 1 .. Next'Length
           else
             Detect'Result = No_Cycle);
    --  Phase 1 only. Has_Cycle, Meeting_Point, and Lambda; Mu / Start 0.
@@ -143,13 +145,13 @@ is
       Start : Node_Id) return Cycle_Result
      with
        Global => null,
-       Pre    => Is_Valid_Map (Next) and then Start <= Next'Last,
+       Pre    => Is_Valid_Map (Next) and then Start <= Next'Length,
        Post   =>
          (if Find_Cycle'Result.Has_Cycle then
-            Find_Cycle'Result.Meeting_Point in 1 .. Next'Last
-            and then Find_Cycle'Result.Start_Node in 1 .. Next'Last
-            and then Find_Cycle'Result.Lambda in 1 .. Next'Last
-            and then Find_Cycle'Result.Mu <= Next'Last
+            Find_Cycle'Result.Meeting_Point in 1 .. Next'Length
+            and then Find_Cycle'Result.Start_Node in 1 .. Next'Length
+            and then Find_Cycle'Result.Lambda in 1 .. Next'Length
+            and then Find_Cycle'Result.Mu <= Next'Length
           else
             Find_Cycle'Result = No_Cycle);
    --  Full Brent: Has_Cycle, Meeting_Point, Start_Node, Mu, Lambda.
@@ -159,7 +161,7 @@ is
       Start : Node_Id) return Boolean
      with
        Global => null,
-       Pre    => Is_Valid_Map (Next) and then Start <= Next'Last,
+       Pre    => Is_Valid_Map (Next) and then Start <= Next'Length,
        Post   => Has_Cycle'Result = Detect (Next, Start).Has_Cycle;
 
    function Cycle_Length
@@ -167,27 +169,27 @@ is
       Start : Node_Id) return Natural
      with
        Global => null,
-       Pre    => Is_Valid_Map (Next) and then Start <= Next'Last,
+       Pre    => Is_Valid_Map (Next) and then Start <= Next'Length,
        Post   => Cycle_Length'Result = Find_Cycle (Next, Start).Lambda
-                 and then Cycle_Length'Result <= Next'Last;
+                 and then Cycle_Length'Result <= Next'Length;
 
    function Cycle_Start
      (Next  : Successor_Map;
       Start : Node_Id) return Node_Index
      with
        Global => null,
-       Pre    => Is_Valid_Map (Next) and then Start <= Next'Last,
+       Pre    => Is_Valid_Map (Next) and then Start <= Next'Length,
        Post   => Cycle_Start'Result = Find_Cycle (Next, Start).Start_Node
-                 and then Cycle_Start'Result <= Next'Last;
+                 and then Cycle_Start'Result <= Next'Length;
 
    function Tail_Length
      (Next  : Successor_Map;
       Start : Node_Id) return Natural
      with
        Global => null,
-       Pre    => Is_Valid_Map (Next) and then Start <= Next'Last,
+       Pre    => Is_Valid_Map (Next) and then Start <= Next'Length,
        Post   => Tail_Length'Result = Find_Cycle (Next, Start).Mu
-                 and then Tail_Length'Result <= Next'Last;
+                 and then Tail_Length'Result <= Next'Length;
 
    function Is_On_Cycle
      (Next       : Successor_Map;
@@ -197,10 +199,10 @@ is
      with
        Global => null,
        Pre    => Is_Valid_Map (Next)
-                 and then Lambda <= Next'Last
+                 and then Lambda <= Next'Length
                  and then (Start_Node = Null_Index
-                           or else Start_Node <= Next'Last)
-                 and then (Node = Null_Index or else Node <= Next'Last);
+                           or else Start_Node <= Next'Length)
+                 and then (Node = Null_Index or else Node <= Next'Length);
 
    ---------------------------------------------------------------------------
    -- Naive O(μ+λ)-space reference (tests / teaching contrast)
@@ -211,13 +213,13 @@ is
       Start : Node_Id) return Cycle_Result
      with
        Global => null,
-       Pre    => Is_Valid_Map (Next) and then Start <= Next'Last,
+       Pre    => Is_Valid_Map (Next) and then Start <= Next'Length,
        Post   =>
          (if Find_Cycle_Naive'Result.Has_Cycle then
-            Find_Cycle_Naive'Result.Meeting_Point in 1 .. Next'Last
-            and then Find_Cycle_Naive'Result.Start_Node in 1 .. Next'Last
-            and then Find_Cycle_Naive'Result.Lambda in 1 .. Next'Last
-            and then Find_Cycle_Naive'Result.Mu <= Next'Last
+            Find_Cycle_Naive'Result.Meeting_Point in 1 .. Next'Length
+            and then Find_Cycle_Naive'Result.Start_Node in 1 .. Next'Length
+            and then Find_Cycle_Naive'Result.Lambda in 1 .. Next'Length
+            and then Find_Cycle_Naive'Result.Mu <= Next'Length
           else
             Find_Cycle_Naive'Result = No_Cycle);
 
