@@ -100,6 +100,22 @@ begin
          end;
       end loop;
    end loop;
+   --  Long check (opt-in, AA_LONG=1; about 2**32 Touch calls, 30 s to a few minutes): use counts must
+   --  not stop at Natural'Last. Key 2 gets 2**31 - 1 uses, then key 1 gets 2**31 uses, touched last.
+   --  Key 1 has strictly more uses, so it is the most frequent; a counter that stopped at 2**31 - 1
+   --  would see a tie and answer the least recently used key, 2.
+   if Ada.Environment_Variables.Exists ("AA_LONG") and then Ada.Environment_Variables.Value ("AA_LONG") = "1" then
+      C := Empty;
+      Put (C, 1, 10); Put (C, 2, 20);                     --  one use each
+      for I in 2 .. Long_Long_Integer (Natural'Last) loop  --  key 2: 2**31 - 1 uses
+         Touch (C, 2);
+      end loop;
+      for I in 2 .. Long_Long_Integer (Natural'Last) + 1 loop  --  key 1: 2**31 uses
+         Touch (C, 1);
+      end loop;
+      Report (Most_Frequent_Key (C) = 1, "long: 2**31 uses beat 2**31 - 1 uses");
+      Put_Line ("long check done (AA_LONG=1)");
+   end if;
    if Failures = 0 then
       Put_Line ("PASS own checks:" & Natural'Image (Checked) & " cases");
    else

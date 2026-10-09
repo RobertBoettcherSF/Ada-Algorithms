@@ -1,0 +1,21 @@
+LFU-Cache-Lite use counter: test-first evidence (agent-S138, 2026-10-09 19:22:27 CEST)
+Robert's decision 2026-10-09: wider counter + precondition, no clamp (no aging in this folder).
+New opt-in check in own_checks.adb (AA_LONG=1): key 2 gets 2**31 - 1 uses, key 1 gets 2**31 uses (touched last); Most_Frequent_Key must be 1.
+
+1) old code (subtype Frequency is Natural, saturating at Natural'Last), GNAT 14.2.0, AA_LONG=1 ./bin/tests:
+long check done (AA_LONG=1)
+FAIL own checks: 1 of 60001
+
+raised PROGRAM_ERROR : own_checks.adb:123 explicit raise
+   (the failing check is 'long: 2**31 uses beat 2**31 - 1 uses': the saturated counts tie and the least recently used key 2 is answered)
+
+2) new code (type Use_Count is range 0 .. 2**62, no saturation, Pre => Below_Max_Uses on Put / Touch):
+AA_SEED = 20261008 (default)
+long check done (AA_LONG=1)
+PASS own checks: 60001 cases
+
+real	3m3.123s
+user	3m3.097s
+sys	0m0.009s
+
+Silver 42/42 checks proved (Use_Entry: Uses (P) + 1 needs Uses (P) < Max_Uses, carried from the Pre through Find's Post); 0 warnings GNAT 14.2.0 and 12.2.0; default make test 60000/60000.

@@ -30,7 +30,7 @@ package body LFU_Cache_Lite is
    is
       K : constant Key := C.Keys (P);
       V : constant Value := C.Values (P);
-      U : constant Frequency := C.Uses (P);
+      U : constant Use_Count := C.Uses (P);
    begin
       for I in P .. C.Size - 1 loop
          C.Keys (I) := C.Keys (I + 1);
@@ -43,12 +43,10 @@ package body LFU_Cache_Lite is
    end Move_To_End;
 
    procedure Use_Entry (C : in out Cache; P : Position)
-     with Pre => P <= C.Size, Post => C.Size = C.Size'Old
+     with Pre => P <= C.Size and then C.Uses (P) < Max_Uses, Post => C.Size = C.Size'Old
    is
    begin
-      if C.Uses (P) < Frequency'Last then
-         C.Uses (P) := C.Uses (P) + 1;
-      end if;
+      C.Uses (P) := C.Uses (P) + 1;
       Move_To_End (C, P);
    end Use_Entry;
 

@@ -17,3 +17,7 @@ standard generator (seed 20261008).
   after every operation Length, Contains of every key, Get of every present
   key (model: the value of that key's last Put) and Most_Frequent_Key are
   compared.
+* Long check (opt-in, AA_LONG=1, about 2**32 Touch calls, 2-3 minutes):
+  key 2 gets 2**31 - 1 uses, then key 1 gets 2**31 uses; key 1 must be the
+  most frequent (a counter that stopped at Natural'Last would tie and answer
+  key 2). Use counts are 64-bit with a precondition, not saturated.
