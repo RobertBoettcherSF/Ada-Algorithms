@@ -1,6 +1,6 @@
 --  Standalone test suite for Bogosort (SPARK port).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  A'First is always 1; Max_N = 8. CRITICAL: keep n tiny — bogosort is
+--  Any A'First (section 9); Max_N = 8. CRITICAL: keep n tiny — bogosort is
 --  O(n·n!) / up to n! permutations. Tests use n ≤ 8; reverse cases ≤ 7.
 --  Sortedness is proved by SPARK; multiset / permutation equality is
 --  checked here.
@@ -338,6 +338,46 @@ begin
          Check (Same (A, B), "idempotent after reverse-4");
       end;
    end;
+
+   ---------------------------------------------------------------------
+   Section ("9. Any origin");
+   ---------------------------------------------------------------------
+   --  The same input at origins 5, 200, 9 and ending at Positive'Last
+   --  (empty: at Positive'Last) sorts to the origin-1 result.
+   for Trial in 1 .. 40 loop
+      declare
+         Len  : constant Natural := Trial mod (6 + 1);
+         Src  : constant Element_Array := Random_Array (Len, -5, 5);
+         Want : Element_Array := Copy_Of (Src);
+      begin
+         Sort (Want);
+         for Which in 1 .. 4 loop
+            declare
+               F  : constant Positive :=
+                 (case Which is
+                    when 1 => 5, when 2 => 200, when 3 => 9,
+                    when others =>
+                      (if Len = 0 then Positive'Last
+                       else Positive'Last - Len + 1));
+               S  : Element_Array (F .. F + (Len - 1));
+               Ok : Boolean := True;
+            begin
+               for K in 0 .. Len - 1 loop
+                  S (F + K) := Src (Src'First + K);
+               end loop;
+               Sort (S);
+               for K in 0 .. Len - 1 loop
+                  if S (F + K) /= Want (Want'First + K) then
+                     Ok := False;
+                  end if;
+               end loop;
+               Check (Ok and then Is_Sorted (S),
+                      "origin" & F'Image & " n =" & Len'Image
+                      & " sorts like origin 1");
+            end;
+         end loop;
+      end;
+   end loop;
 
    New_Line;
    Put_Line
