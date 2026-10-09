@@ -99,6 +99,13 @@ is
               Length (L) = Length (L'Old) + 1
               and then Contains (L, X)
               and then not Is_Full (L'Old)
+              and then
+                (for some P in 1 .. Length (L) =>
+                   Element (L, P) = X
+                   and then (for all K in 1 .. P - 1 =>
+                               Element (L, K) = Element (L'Old, K))
+                   and then (for all K in P + 1 .. Length (L) =>
+                               Element (L, K) = Element (L'Old, K - 1)))
             else
               Length (L) = Length (L'Old)
               and then Is_Full (L'Old)
@@ -107,7 +114,9 @@ is
    --  Insert X so the list stays nondecreasing. Inline binary search
    --  (Lower_Bound) then shift the right tail by one. Success is False
    --  when Is_Full (L'Old); the list is unchanged. Duplicates kept
-   --  (multiset).
+   --  (multiset). On Success the new list is the old one with X put in
+   --  at some position P: the items before P stay, the items after P are
+   --  the old items from P on, shifted by one.
 
    procedure Delete (L : in out List; X : Integer; Success : out Boolean)
      with
@@ -118,13 +127,22 @@ is
            (if Success then
               Length (L) = Length (L'Old) - 1
               and then Contains (L'Old, X)
+              and then
+                (for some P in 1 .. Length (L'Old) =>
+                   Element (L'Old, P) = X
+                   and then (for all K in 1 .. P - 1 =>
+                               Element (L, K) = Element (L'Old, K))
+                   and then (for all K in P .. Length (L) =>
+                               Element (L, K) = Element (L'Old, K + 1)))
             else
               Length (L) = Length (L'Old)
               and then not Contains (L'Old, X)
               and then (for all K in 1 .. Length (L) =>
                           Element (L, K) = Element (L'Old, K)));
    --  Remove the first (leftmost) occurrence of X. Success is False when
-   --  X is absent; the list is unchanged.
+   --  X is absent; the list is unchanged. On Success the new list is the
+   --  old one without one item P that equals X: the items before P stay,
+   --  the items after P move down by one.
 
    procedure Delete_First (L : in out List; X : Integer)
      with
@@ -132,7 +150,14 @@ is
        Pre    => Contains (L, X),
        Post   =>
          Is_Sorted (L)
-         and then Length (L) = Length (L'Old) - 1;
+         and then Length (L) = Length (L'Old) - 1
+         and then
+           (for some P in 1 .. Length (L'Old) =>
+              Element (L'Old, P) = X
+              and then (for all K in 1 .. P - 1 =>
+                          Element (L, K) = Element (L'Old, K))
+              and then (for all K in P .. Length (L) =>
+                          Element (L, K) = Element (L'Old, K + 1)));
    --  Same as successful Delete: remove the first occurrence of X.
    --  Pre replaces Invalid_Argument.
 

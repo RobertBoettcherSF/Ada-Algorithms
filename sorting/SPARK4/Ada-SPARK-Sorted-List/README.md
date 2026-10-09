@@ -26,7 +26,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Sorted-List](https:
 * Private `List` with `Type_Invariant => Is_Sorted_Rep` (adjacent nondecreasing on the live prefix).
 * Inline `Lower_Bound` / `Find_First_Equal` (do **not** `with` `Binary_Search`).
 * Ghost lemmas (`Lemma_First_Is_Min`, `Lemma_Last_Is_Max`, `Lemma_Miss_No_Equal`) discharge extremum and miss posts from adjacent sortedness.
-* **SPARK proves** sortedness preserved by `Insert` / `Delete` / `Clear` and the public contracts. Full multiset accounting beyond `Contains` after insert is checked by tests where helpful.
+* **SPARK proves** sortedness preserved by `Insert` / `Delete` / `Delete_First` / `Clear` and the content of the list after each change: on success `Insert` puts X in at some position P (the items before P stay, the items from P on move up by one) and `Delete` / `Delete_First` remove one item P equal to X (the items after P move down by one). Before 2026-10-09 the Posts gave only the length, `Contains` and sortedness, which a body that overwrites or drops the wrong items also proves (tools/vv/contract_scan.csv).
+* Tests: every sequence of up to 6 Insert / Delete operations on -1, 0, 1 against an own count model (the list must hold exactly the modelled count of every value, in nondecreasing order); the Posts are checked by `-gnata` on every call.
 
 ## Algorithm sketch
 

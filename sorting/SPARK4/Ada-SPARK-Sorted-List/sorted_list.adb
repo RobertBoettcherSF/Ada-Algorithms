@@ -55,8 +55,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Len <= Max_N
-         and then Is_Sorted_Rep (Data, Len)
+         Is_Sorted_Rep (Data, Len)
          and then Pos in 1 .. Len + 1
          and then (for all K in 1 .. Pos - 1 => Data (K) < X)
          and then (for all K in Pos .. Len => Data (K) >= X)
@@ -91,7 +90,7 @@ is
    function Lower_Bound (L : List; X : Integer) return Ext_Index
      with
        Global => null,
-       Pre    => L.Len <= Max_N and then Is_Sorted_Rep (L.Data, L.Len),
+       Pre    => Is_Sorted_Rep (L.Data, L.Len),
        Post   =>
          Lower_Bound'Result in 1 .. L.Len + 1
          and then (for all K in 1 .. Lower_Bound'Result - 1 =>
@@ -135,7 +134,7 @@ is
    function Find_First_Equal (L : List; X : Integer) return Index
      with
        Global => null,
-       Pre    => L.Len <= Max_N and then Is_Sorted_Rep (L.Data, L.Len),
+       Pre    => Is_Sorted_Rep (L.Data, L.Len),
        Post   =>
          Find_First_Equal'Result <= L.Len
          and then
@@ -177,7 +176,9 @@ is
    ---------------------------------------------------------------------------
 
    procedure Insert (L : in out List; X : Integer; Success : out Boolean) is
-      Pos : Ext_Index;
+      Pos      : Ext_Index;
+      Old_Data : constant Store := L.Data with Ghost;
+      Old_Len  : constant Index := L.Len with Ghost;
    begin
       if L.Len = Max_N then
          Success := False;
@@ -222,9 +223,20 @@ is
       pragma Assert (Pos = 1 or else L.Data (Pos - 1) < X);
       pragma Assert
         (Pos > L.Len or else L.Data (Pos + 1) >= X);
+      pragma Assert
+        (for all K in 1 .. Pos - 1 => L.Data (K) = Old_Data (K));
+      pragma Assert
+        (for all K in Pos .. L.Len => L.Data (K + 1) = Old_Data (K));
 
       L.Data (Pos) := X;
       L.Len := L.Len + 1;
+
+      pragma Assert (L.Len = Old_Len + 1);
+      pragma Assert (L.Data (Pos) = X);
+      pragma Assert
+        (for all K in 1 .. Pos - 1 => L.Data (K) = Old_Data (K));
+      pragma Assert
+        (for all K in Pos + 1 .. L.Len => L.Data (K) = Old_Data (K - 1));
 
       pragma Assert (Pos = 1 or else L.Data (Pos - 1) <= L.Data (Pos));
       pragma Assert
@@ -235,7 +247,9 @@ is
    end Insert;
 
    procedure Delete (L : in out List; X : Integer; Success : out Boolean) is
-      Pos : Index;
+      Pos      : Index;
+      Old_Data : constant Store := L.Data with Ghost;
+      Old_Len  : constant Index := L.Len with Ghost;
    begin
       Pos := Find_First_Equal (L, X);
       if Pos = 0 then
@@ -271,8 +285,16 @@ is
          L.Data (I - 1) := L.Data (I);
       end loop;
 
+      pragma Assert
+        (for all K in Pos .. L.Len - 1 => L.Data (K) = Old_Data (K + 1));
       L.Len := L.Len - 1;
       pragma Assert (Is_Sorted_Rep (L.Data, L.Len));
+      pragma Assert (L.Len = Old_Len - 1);
+      pragma Assert (Old_Data (Pos) = X);
+      pragma Assert
+        (for all K in 1 .. Pos - 1 => L.Data (K) = Old_Data (K));
+      pragma Assert
+        (for all K in Pos .. L.Len => L.Data (K) = Old_Data (K + 1));
       Success := True;
    end Delete;
 

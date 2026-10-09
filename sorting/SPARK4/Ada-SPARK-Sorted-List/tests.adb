@@ -354,6 +354,80 @@ is
       Check (Boo (Is_Sorted (L)), "after Delete_First Is_Sorted");
    end Test_Is_Sorted;
 
+   --  Every sequence of up to 6 operations (Insert or Delete of -1, 0
+   --  or 1; 6 ** 6 = 46,656 sequences of length 6 plus the shorter ones)
+   --  against an own count model: after each step the list must hold
+   --  exactly the modelled count of every value, in nondecreasing order.
+   --  The Insert / Delete Posts (content kept, one item added / removed)
+   --  are checked by -gnata on every call.
+   procedure Test_Content_Model is
+      type Counts is array (-1 .. 1) of Natural;
+      Bad   : Natural := 0;
+      Steps : Natural := 0;
+
+      function Same (L : List; C : Counts) return Boolean is
+         Seen : Counts := [others => 0];
+         Prev : Integer := Integer'First;
+      begin
+         if Length (L) /= C (-1) + C (0) + C (1) then
+            return False;
+         end if;
+         for K in 1 .. Length (L) loop
+            if Element (L, K) not in -1 .. 1
+              or else Element (L, K) < Prev
+            then
+               return False;
+            end if;
+            Prev := Element (L, K);
+            Seen (Element (L, K)) := Seen (Element (L, K)) + 1;
+         end loop;
+         return Seen = C;
+      end Same;
+
+      procedure Run (L : List; C : Counts; Depth : Natural) is
+      begin
+         if Depth = 0 then
+            return;
+         end if;
+         for Op in 0 .. 5 loop
+            declare
+               L2 : List := L;
+               C2 : Counts := C;
+               V  : constant Integer := Op mod 3 - 1;
+               Ok : Boolean;
+            begin
+               if Op < 3 then
+                  Insert (L2, V, Ok);
+                  if Ok then
+                     C2 (V) := C2 (V) + 1;
+                  end if;
+                  if not Ok then
+                     Bad := Bad + 1;
+                  end if;
+               else
+                  Delete (L2, V, Ok);
+                  if Ok /= (C (V) > 0) then
+                     Bad := Bad + 1;
+                  end if;
+                  if Ok then
+                     C2 (V) := C2 (V) - 1;
+                  end if;
+               end if;
+               Steps := Steps + 1;
+               if not Same (L2, C2) then
+                  Bad := Bad + 1;
+               end if;
+               Run (L2, C2, Depth - 1);
+            end;
+         end loop;
+      end Run;
+   begin
+      Section ("Content model (all Insert / Delete sequences, length <= 6)");
+      Run (Empty, [others => 0], 6);
+      Check (Nat (Steps) = 55_986, "55,986 steps run");
+      Check (Nat (Bad) = 0, "every step keeps the modelled counts, sorted");
+   end Test_Content_Model;
+
 begin
    Put_Line ("Sorted_List (SPARK) ADT tests");
    Put_Line ("Max_N =" & Positive'Image (Max_N));
@@ -368,6 +442,7 @@ begin
    Test_Mixed;
    Test_Many;
    Test_Is_Sorted;
+   Test_Content_Model;
 
    New_Line;
    Put_Line ("Results:" & Natural'Image (Pass_Count) & " PASS,"
