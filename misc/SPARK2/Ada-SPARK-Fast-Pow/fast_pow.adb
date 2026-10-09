@@ -40,4 +40,7 @@ package body Fast_Pow is
             end case;
       end case;
    end Power;
+
+   function Power_Mod (B : Natural; E : Natural; M : Positive) return Pow_Result is
+     ((Value => 0, Steps => 0));   --  scaffold
 end Fast_Pow;
