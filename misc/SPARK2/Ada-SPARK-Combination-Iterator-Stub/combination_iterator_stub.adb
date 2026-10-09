@@ -1,36 +1,49 @@
 pragma SPARK_Mode (On);
+pragma Ada_2022;
 package body Combination_Iterator_Stub is
-   function Advance (P : Cursor) return Cursor is
+   function Create (Items : Value_Array; Item_Count : Count; Choose : Choose_Count) return Iterator is
+      It : Iterator := (Items => Items, Item_Count => Item_Count, Choose => Choose,
+                        Pos => [others => 1], Done => False);
    begin
-      case P is
-         when 1 => return 2; when 2 => return 3; when 3 => return 4; when 4 => return 5;
-         when 5 => return 6; when 6 => return 7; when 7 => return 8; when 8 => return 9;
-         when others => return Cursor'Last;
-      end case;
-   end Advance;
-
-   function Create (Items : Value_Array; Item_Count : Count; Choose : Positive) return Iterator is
-      B : Cursor := 1;
-   begin
-      if Choose = 2 then B := 2; end if;
-      return (Items => Items, Item_Count => Item_Count, Choose => Choose, A_Position => 1, B_Position => B);
+      for J in 1 .. Choose loop
+         It.Pos (J) := J;
+         pragma Loop_Invariant (for all L in 1 .. J => It.Pos (L) = L);
+      end loop;
+      return It;
    end Create;
-   function Has_Next (It : Iterator) return Boolean is
-   begin
-      if It.Choose = 1 then return It.A_Position <= It.Item_Count;
-      else return It.A_Position < It.Item_Count and then It.B_Position <= It.Item_Count; end if;
-   end Has_Next;
+
+   function Has_Next (It : Iterator) return Boolean is (not It.Done);
+
    procedure Next (It : in out Iterator; R : out Combination) is
-      Temp : Combination := (Values => (others => 0), Size => It.Choose);
+      K : constant Choose_Count := It.Choose;
+      N : constant Count := It.Item_Count;
+      J : Natural := K;
    begin
-      Temp.Values (1) := It.Items (It.A_Position);
-      if It.Choose = 1 then
-         It.A_Position := Advance (It.A_Position);
+      R := (Values => [others => 0], Size => K);
+      for L in 1 .. K loop
+         R.Values (L) := It.Items (It.Pos (L));
+         pragma Loop_Invariant
+           (for all M in 1 .. L => R.Values (M) = It.Items (It.Pos (M)));
+      end loop;
+      --  the rightmost position that can still move right
+      while J >= 1 and then It.Pos (J) = N - K + J loop
+         pragma Loop_Invariant (J <= K);
+         pragma Loop_Invariant
+           (for all M in J + 1 .. K => It.Pos (M) = N - K + M);
+         J := J - 1;
+      end loop;
+      if J = 0 then
+         It.Done := True;
       else
-         Temp.Values (2) := It.Items (It.B_Position);
-         if It.B_Position < It.Item_Count then It.B_Position := Advance (It.B_Position);
-         else It.A_Position := Advance (It.A_Position); It.B_Position := Advance (It.A_Position); end if;
+         declare
+            Base : constant Index := It.Pos (J) + 1;
+         begin
+            for M in J .. K loop
+               It.Pos (M) := Base + (M - J);
+               pragma Loop_Invariant
+                 (for all L in J .. M => It.Pos (L) = Base + (L - J));
+            end loop;
+         end;
       end if;
-      R := Temp;
    end Next;
 end Combination_Iterator_Stub;

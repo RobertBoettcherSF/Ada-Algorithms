@@ -24,7 +24,7 @@ misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub,PROOFS.csv stub,"bounded stub (the fold
 misc/SPARK2/Ada-SPARK-Candy,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Candy implementation",open
 misc/SPARK2/Ada-SPARK-Cheapest-Flights-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Cheapest-Flights implementation",open
 misc/SPARK2/Ada-SPARK-Circular-Deque-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Circular-Deque implementation",open
-misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,H111,"answers come from a case table, not a combination iterator",open
+misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,H111,"answers come from a case table, not a combination iterator",closed (agent-CF: real combination iterator)
 misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,H126,labels a fixed 2 x 2 grid only,open
 misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings,H120,only sums all booked seats; no per-flight totals (no range-update / prefix-sum answer),open
 misc/SPARK2/Ada-SPARK-Count-Sub-Islands,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Count-Sub-Islands implementation",open
