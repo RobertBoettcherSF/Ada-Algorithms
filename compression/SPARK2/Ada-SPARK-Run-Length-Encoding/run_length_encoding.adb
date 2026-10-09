@@ -7,11 +7,13 @@ package body Run_Length_Encoding with SPARK_Mode => On is
          return 0;
       end if;
       Count := 1;
-      for I in Input'First + 1 .. Input'Last loop
-         if Input (I) /= Input (I - 1) then
+      --  Compare each cell with its successor. Input'Last - 1 never
+      --  overflows, unlike Input'First + 1 when Input'First = Positive'Last.
+      for I in Input'First .. Input'Last - 1 loop
+         if Input (I + 1) /= Input (I) then
             Count := Count + 1;
          end if;
-         pragma Loop_Invariant (Count in 1 .. I - Input'First + 1);
+         pragma Loop_Invariant (Count in 1 .. I - Input'First + 2);
       end loop;
       return Count;
    end Number_Of_Runs;

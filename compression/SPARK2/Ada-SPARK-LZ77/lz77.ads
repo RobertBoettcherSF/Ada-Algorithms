@@ -10,5 +10,5 @@ is
    function Literal_Length (Input : Char_Array) return Length
      with
        Global => null,
-       Pre => Input'First = 1 and then Input'Last <= Max_Len;
+       Pre => Input'Length <= Max_Len;  --  any Input'First
 end LZ77;

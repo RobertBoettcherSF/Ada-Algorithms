@@ -5,7 +5,7 @@ is
    function Contains (Text : Char_Array; A, B, C : Character) return Boolean is
    begin
       if Text'Length < 3 then return False; end if;
-      for I in 1 .. Text'Length - 2 loop
+      for I in Text'First .. Text'Last - 2 loop
          if Text (I) = A and then Text (I + 1) = B
            and then Text (I + 2) = C
          then

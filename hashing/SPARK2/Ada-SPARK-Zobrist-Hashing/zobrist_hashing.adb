@@ -16,7 +16,7 @@ is
       H : Hash_Value := 0;
    begin
       for I in Text'Range loop
-         H := H xor Key (Pos_Index (I - 1), Text (I));
+         H := H xor Key (Pos_Index (I - Text'First), Text (I));
       end loop;
       return H;
    end Hash;

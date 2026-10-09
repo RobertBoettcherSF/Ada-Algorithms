@@ -8,7 +8,7 @@ package Run_Length_Encoding with SPARK_Mode => On is
    function Number_Of_Runs (Input : Char_Array) return Run_Count
      with
        Global => null,
-       Pre    => Input'First = 1 and then Input'Last <= Max_Length,
+       Pre    => Input'Length <= Max_Length,  --  any Input'First
        Post   =>
          (if Input'Length = 0 then Number_Of_Runs'Result = 0
           else Number_Of_Runs'Result in 1 .. Input'Length);

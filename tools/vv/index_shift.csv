@@ -135,9 +135,9 @@ compression/Ada/Run-Length-Encoding,Encode_Binary,catalog,catalog,,1,function n_
 compression/Ada/Run-Length-Encoding,Decode_Binary,catalog,catalog,,1,function n_arrays=1 ret=Binary_Array,
 compression/Ada/Video-Compression,,skipped,skipped,,,types=['RLE_Array'] but no public subprogram taking them,
 compression/SPARK2/Ada-SPARK-LZ77,Literal_Length,catalog,catalog,,1,function n_arrays=1 ret=Length,
-compression/SPARK2/Ada-SPARK-LZ77,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+compression/SPARK2/Ada-SPARK-LZ77,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,Number_Of_Runs,catalog,catalog,,1,function n_arrays=1 ret=Run_Count,
-compression/SPARK2/Ada-SPARK-Run-Length-Encoding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+compression/SPARK2/Ada-SPARK-Run-Length-Encoding,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 compression/Ada/Wavelet-Compression,Forward_Haar_1D,catalog,catalog,,1,function n_arrays=1 ret=Signal_1D,
 compression/Ada/Wavelet-Compression,Inverse_Haar_1D,catalog,catalog,,1,function n_arrays=1 ret=Signal_1D,
 compression/Ada/Wavelet-Compression,Quantize,catalog,catalog,,1,function n_arrays=1 ret=Signal_1D,
@@ -442,7 +442,7 @@ hashing/SPARK2/Ada-SPARK-Pearson-Hashing,Hash,catalog,catalog,,1,function n_arra
 hashing/SPARK2/Ada-SPARK-Pearson-Hashing,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 logic/Ada/DPLL-Algorithm,,skipped,skipped,,,"types=['Literal_Array', 'Clause_Array'] but no public subprogram taking them",
 hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,Hash,catalog,catalog,,1,function n_arrays=1 ret=Hash_Value,
-hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 logic/Ada/Automated-Theorem-Proving,Contains_Literal,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 logic/Ada/Automated-Theorem-Proving,Resolve_Clauses,catalog,catalog,,1,function n_arrays=1 ret=Clause,
 logic/Ada/Automated-Theorem-Proving,Is_Tautology,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3071,7 +3071,7 @@ searching/Ada/Jump-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Intege
 searching/Ada/Jump-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 searching/Ada/Jump-Search,Find,ok,ok,,,origins 0/100 high 10000 (index) ok,
 searching/SPARK2/Ada-SPARK-Trigram-Search,Contains,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-searching/SPARK2/Ada-SPARK-Trigram-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+searching/SPARK2/Ada-SPARK-Trigram-Search,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 searching/Ada/Linear-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 searching/Ada/Linear-Search,Find_From,catalog,catalog,,1,function n_arrays=1 ret=Integer,
 searching/Ada/Linear-Search,Contains,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3487,7 +3487,7 @@ strings/Ada/Levenshtein-Coding,Decode,catalog,catalog,,1,function n_arrays=1 ret
 strings/Ada/Levenshtein-Coding,To_String,catalog,catalog,,1,function n_arrays=1 ret=String,
 strings/Ada/Rabin-Karp,,skipped,skipped,,,types=['Match_Index_Array'] but no public subprogram taking them,
 strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,Build_Prefix,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
@@ -3504,7 +3504,7 @@ trees/Ada/Embedded-Zerotree-Wavelet,Is_Zerotree_Root,catalog,catalog,,1,function
 trees/Ada/Embedded-Zerotree-Wavelet,Dominant_Pass,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 trees/Ada/Embedded-Zerotree-Wavelet,Subordinate_Pass,catalog,catalog,,2,procedure n_arrays=2 ret=None,
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-trees/SPARK2/Ada-SPARK-Longest-Common-Substring,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+trees/SPARK2/Ada-SPARK-Longest-Common-Substring,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 sorting/SPARK4/Bead-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Bead-Sort,Values_Ok,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Bead-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,

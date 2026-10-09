@@ -15,7 +15,7 @@ is
       for I in 1 .. M loop
          Curr (0) := 0;
          for J in 1 .. N loop
-            if A (I) = B (J) then
+            if A (A'First + (I - 1)) = B (B'First + (J - 1)) then
                Curr (J) := Prev (J - 1) + 1;
                if Curr (J) > Best then Best := Curr (J); end if;
             else

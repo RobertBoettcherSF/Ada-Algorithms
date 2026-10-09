@@ -9,5 +9,7 @@ is
    function Hash (Text : Char_Array) return Hash_Value
      with
        Global => null,
-       Pre => Text'First = 1 and then Text'Last <= Max_Len;
+       Pre => Text'Length <= Max_Len;
+   --  Any Text'First: the key of a character depends on its position
+   --  within Text (I - Text'First), not on the storage index.
 end Zobrist_Hashing;

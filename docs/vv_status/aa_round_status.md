@@ -19,7 +19,7 @@ to rewrite (offset / First-relative forms exist); only Package-Merge and PGZ rem
 | misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | package-merge pairs 2*P-1 / 2*P |
 | compression/Ada/Peterson-Gorenstein-Zierler-Algorithm | coeff index = degree (Derivative Poly(I)*I); subtype Degree_Poly First=0; syndromes First-rel |
 
-### Rewritten First-relative (52) — green make test + CSV `rewritten_first_relative`
+### Rewritten First-relative (58) — green make test + CSV `rewritten_first_relative`
 **Earlier (15):** BCJR, N-Body, Spline (Thomas), Levinson, Memetic (TSP), Thomas,
 Floyds-Cycle, Brents, Barnes-Hut, Gale-Shapley, Min-Conflicts, Hungarian,
 Top-Trading-Cycle, Fast-Multipole, Ant-Colony.
@@ -51,7 +51,18 @@ Delta-Encoding's Net_Delta read Input (1), and now reads Input (Input'First).
 Tests use origins 5 / 200 / ending at Positive'Last and empty at 9 (red on old code:
 failed precondition). CRC32 lost its unused `use type Unsigned_8` (-gnatwu).
 
-### Still stamped `rewrite_first_relative` / `first_pinned` (36)
+**SPARK2 strings / text (6):** Damerau-Levenshtein, Longest-Common-Substring,
+Trigram-Search, Run-Length-Encoding, LZ77, Zobrist-Hashing. DP rows read
+A (A'First + (I - 1)); Trigram loops Text'First .. Text'Last - 2; Zobrist keys on
+the position I - Text'First, so the hash does not depend on the origin.
+RLE: once First was free, L4 found Input'First + 1 overflowing at Positive'Last.
+A red test (CE overflow) was added, and the loop now runs First .. Last - 1.
+L4 proved: 30 / 12 / 8 / 14 / 3 / 8.
+**Held back:** strings/SPARK2 Longest-Common-Subsequence. The rewrite is tested
+(GNAT 14/12 green, red on old code) but L4 never finishes (>600 s), the same as
+HEAD (PROOFS: `tool crash`). Patch parked, not committed.
+
+### Still stamped `rewrite_first_relative` / `first_pinned` (30)
 Remaining SPARK4 classroom sorts (Bogosort, Bitonic, Bucket, Burstsort, Counting,
 Flashsort, Library, Patience, Pigeonhole, Postman, Quantum, Samplesort,
 Sort-Merge-Join, Strand, Timsort, Topological, …), searching SPARK4 (Uniform-Cost,

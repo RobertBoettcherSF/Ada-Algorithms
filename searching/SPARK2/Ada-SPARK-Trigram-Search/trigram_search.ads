@@ -8,5 +8,5 @@ is
    function Contains (Text : Char_Array; A, B, C : Character) return Boolean
      with
        Global => null,
-       Pre => Text'First = 1 and then Text'Last <= Max_Len;
+       Pre => Text'Length <= Max_Len;  --  any Text'First
 end Trigram_Search;

@@ -10,6 +10,7 @@ is
    function Distance (A, B : Char_Array) return Natural
      with
        Global => null,
-       Pre => A'First = 1 and then B'First = 1
-              and then A'Last <= Max_Len and then B'Last <= Max_Len;
+       Pre => A'Length <= Max_Len and then B'Length <= Max_Len;
+   --  A and B may start at any index (First-relative); row I of the DP
+   --  table reads A (A'First + (I - 1)), column J reads B (B'First + (J - 1)).
 end Damerau_Levenshtein_Distance;

@@ -37,13 +37,13 @@ is
       for I in 1 .. M loop
          Curr (0) := I;
          for J in 1 .. N loop
-            if A (I) = B (J) then Cost := 0; else Cost := 1; end if;
+            if A (A'First + (I - 1)) = B (B'First + (J - 1)) then Cost := 0; else Cost := 1; end if;
             Curr (J) := Nat_Min3
               (Inc (Prev (J)), Inc (Curr (J - 1)),
                (if Cost = 0 then Prev (J - 1) else Inc (Prev (J - 1))));
             if I >= 2 and then J >= 2
-              and then A (I) = B (J - 1)
-              and then A (I - 1) = B (J)
+              and then A (A'First + (I - 1)) = B (B'First + (J - 2))
+              and then A (A'First + (I - 2)) = B (B'First + (J - 1))
             then
                Curr (J) := Nat_Min (Curr (J), Inc (Prev2 (J - 2)));
             end if;
