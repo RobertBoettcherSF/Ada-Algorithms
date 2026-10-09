@@ -1,4 +1,8 @@
 project Nth_Ugly_Number_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("nth_ugly_number.ads", "nth_ugly_number.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Nth_Ugly_Number_Proof;

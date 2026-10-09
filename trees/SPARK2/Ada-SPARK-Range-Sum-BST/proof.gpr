@@ -1,4 +1,8 @@
 project Range_Sum_BST_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("range_sum_bst.ads", "range_sum_bst.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Range_Sum_BST_Proof;

@@ -1,4 +1,8 @@
 project Reduce_Array_Size_To_The_Half_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("reduce_array_size_to_the_half.ads", "reduce_array_size_to_the_half.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Reduce_Array_Size_To_The_Half_Proof;

@@ -1,4 +1,8 @@
 project Merge_K_Sorted_Lists_Stub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("merge_k_sorted_lists_stub.ads", "merge_k_sorted_lists_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Merge_K_Sorted_Lists_Stub_Proof;

@@ -1,4 +1,8 @@
 project Combination_Iterator_Stub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("combination_iterator_stub.ads", "combination_iterator_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Combination_Iterator_Stub_Proof;

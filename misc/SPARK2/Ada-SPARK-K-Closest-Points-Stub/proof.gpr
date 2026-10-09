@@ -1,4 +1,8 @@
 project K_Closest_Points_Stub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("k_closest_points_stub.ads", "k_closest_points_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end K_Closest_Points_Stub_Proof;

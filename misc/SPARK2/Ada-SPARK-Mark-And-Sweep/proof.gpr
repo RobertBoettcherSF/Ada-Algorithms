@@ -1,4 +1,8 @@
 project Mark_Sweep_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("mark_and_sweep.ads", "mark_and_sweep.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Mark_Sweep_Proof;

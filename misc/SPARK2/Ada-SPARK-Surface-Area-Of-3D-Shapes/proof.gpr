@@ -1,4 +1,8 @@
 project Surface_Area_Of_3D_Shapes_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("surface_area_of_3d_shapes.ads", "surface_area_of_3d_shapes.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Surface_Area_Of_3D_Shapes_Proof;

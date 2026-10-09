@@ -1,4 +1,8 @@
 project Minimum_Number_Of_Days_To_Make_M_Bouquets_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("minimum_number_of_days_to_make_m_bouquets.ads", "minimum_number_of_days_to_make_m_bouquets.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Minimum_Number_Of_Days_To_Make_M_Bouquets_Proof;

@@ -6,4 +6,8 @@ project Proof is
      ("bounded_buffer.ads", "bounded_buffer.adb",
       "channel.ads", "channel.adb",
       "job_table.ads", "job_table.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Proof;

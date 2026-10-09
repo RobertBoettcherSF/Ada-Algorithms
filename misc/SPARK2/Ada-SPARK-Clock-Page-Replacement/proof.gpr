@@ -1,4 +1,8 @@
 project Clock_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("clock_page_replacement.ads", "clock_page_replacement.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Clock_Proof;

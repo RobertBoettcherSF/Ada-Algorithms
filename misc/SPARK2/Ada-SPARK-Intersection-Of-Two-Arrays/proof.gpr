@@ -1,4 +1,8 @@
 project Intersection_Of_Two_Arrays_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("intersection_of_two_arrays.ads", "intersection_of_two_arrays.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Intersection_Of_Two_Arrays_Proof;

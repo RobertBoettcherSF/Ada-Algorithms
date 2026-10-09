@@ -1,4 +1,8 @@
 project Unique_Paths_II_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("unique_paths_ii.ads", "unique_paths_ii.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Unique_Paths_II_Proof;

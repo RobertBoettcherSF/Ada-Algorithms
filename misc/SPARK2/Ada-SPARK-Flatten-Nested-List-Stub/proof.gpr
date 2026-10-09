@@ -1,4 +1,8 @@
 project Flatten_Nested_List_Stub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("flatten_nested_list_stub.ads", "flatten_nested_list_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Flatten_Nested_List_Stub_Proof;

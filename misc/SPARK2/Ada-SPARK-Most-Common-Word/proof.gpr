@@ -1,4 +1,8 @@
 project Most_Common_Word_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("most_common_word.ads", "most_common_word.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Most_Common_Word_Proof;

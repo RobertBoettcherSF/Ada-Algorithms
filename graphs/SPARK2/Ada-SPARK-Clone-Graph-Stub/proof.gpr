@@ -1,4 +1,8 @@
 project Clone_Graph_Stub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("clone_graph_stub.ads", "clone_graph_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Clone_Graph_Stub_Proof;

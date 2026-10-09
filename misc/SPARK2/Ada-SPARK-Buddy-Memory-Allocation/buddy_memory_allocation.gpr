@@ -2,4 +2,8 @@ project Buddy_Memory_Allocation is
    for Source_Dirs use ("."); for Object_Dir use "obj"; for Exec_Dir use "bin";
    for Main use ("tests.adb");
    package Compiler is for Default_Switches ("Ada") use ("-gnat2022"); end Compiler;
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Buddy_Memory_Allocation;

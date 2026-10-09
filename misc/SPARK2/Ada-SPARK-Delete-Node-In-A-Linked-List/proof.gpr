@@ -1,4 +1,8 @@
 project Delete_Node_In_A_Linked_List_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("delete_node_in_a_linked_list.ads", "delete_node_in_a_linked_list.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Delete_Node_In_A_Linked_List_Proof;

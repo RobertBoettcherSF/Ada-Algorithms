@@ -1,4 +1,8 @@
 project Smallest_Integer_Divisible_By_K_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("smallest_integer_divisible_by_k.ads", "smallest_integer_divisible_by_k.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Smallest_Integer_Divisible_By_K_Proof;

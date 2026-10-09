@@ -1,4 +1,8 @@
 project Palindrome_Number_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("palindrome_number.ads", "palindrome_number.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Palindrome_Number_Proof;

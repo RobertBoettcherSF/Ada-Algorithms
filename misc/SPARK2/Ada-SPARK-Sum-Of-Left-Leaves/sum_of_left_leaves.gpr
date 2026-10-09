@@ -3,4 +3,8 @@ project Sum_Of_Left_Leaves is
    for Main use ("tests.adb");
    for Object_Dir use "obj";
    for Exec_Dir use "bin";
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Sum_Of_Left_Leaves;

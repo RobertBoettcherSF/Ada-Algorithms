@@ -13,6 +13,6 @@ project Modular_Arithmetic is
    end Compiler;
 
    package Prove is
-      for Proof_Switches ("Ada") use ("--level=4");
+      for Proof_Switches ("Ada") use ("--level=4", "--proof-warnings=on", "--proof-warnings-timeout=10");
    end Prove;
 end Modular_Arithmetic;

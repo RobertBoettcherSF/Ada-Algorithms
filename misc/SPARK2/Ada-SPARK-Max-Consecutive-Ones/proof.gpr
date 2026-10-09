@@ -1,4 +1,8 @@
 project Max_Consecutive_Ones_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("max_consecutive_ones.ads", "max_consecutive_ones.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Max_Consecutive_Ones_Proof;

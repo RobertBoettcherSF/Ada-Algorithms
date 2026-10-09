@@ -1,4 +1,8 @@
 project Contains_Duplicate_II_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("contains_duplicate_ii.ads", "contains_duplicate_ii.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Contains_Duplicate_II_Proof;

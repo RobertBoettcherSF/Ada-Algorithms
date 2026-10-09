@@ -1,4 +1,8 @@
 project LFU_Cache_Lite_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("lfu_cache_lite.ads", "lfu_cache_lite.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end LFU_Cache_Lite_Proof;

@@ -1,4 +1,8 @@
 project Basic_Calculator_II_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("basic_calculator_ii.ads", "basic_calculator_ii.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Basic_Calculator_II_Proof;

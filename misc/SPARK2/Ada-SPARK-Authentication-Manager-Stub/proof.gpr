@@ -1,4 +1,8 @@
 project Authentication_Manager_Stub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("authentication_manager_stub.ads", "authentication_manager_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Authentication_Manager_Stub_Proof;

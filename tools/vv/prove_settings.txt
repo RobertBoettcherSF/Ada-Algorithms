@@ -59,3 +59,22 @@ jobs_per_folder=1
 #   cold). Wall-cap rows are re-run once at AA_REPROOF_JOBS=4 into /tmp/reproof_j4.
 # Toolchain paths are pinned: reproof.sh puts ~/.local/alr/gnatprove_16.1.0_82528bef/bin
 #   and ~/.local/alr/gprbuild_*/bin first on PATH (not Alire's global toolchain selection).
+#
+# Proof warnings (on by default since 2026-10-09, Robert):
+proof_warnings=on
+proof_warnings_timeout=10
+proof_warnings_gnatprove=FSF 16.1.0 (Why3 for gnatprove version 1.8.2+git)
+#   Every SPARK folder's project file (all git-tracked */SPARK*/*/*.gpr, 1376 files) has
+#     package Prove is
+#        for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+#     end Prove;
+#   merged into an existing Proof_Switches list where one was present (Huffman-Coding,
+#   Modular-Arithmetic). gnatprove 16.1.0 accepts both switches (gnatprove --help); older
+#   gnatprove releases (before proof warnings existed) may reject them - use 16.1.0 from
+#   ~/.local/alr/gnatprove_16.1.0_82528bef. The 10 s per warning VC is a fixed, generous cap
+#   (the default is 1 s); a warning check that needs longer is simply not reported, so the
+#   warnings are a finding source, not a proof claim, and findings are sticky
+#   (tools/vv/proof_warnings.csv: open until fixed in code, even if a later run misses them).
+#   Measured on Selection-Algorithm: the same 2 warnings at --level=0 and --level=2, timeout 1 or
+#   5 s; the bulk warning sweep therefore runs --mode=silver --level=0 -j2 to keep it affordable.
+#   A warning is fixed in code, never suppressed (no pragma Warnings, no --proof-warnings=off).

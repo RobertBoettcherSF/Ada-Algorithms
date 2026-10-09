@@ -1,4 +1,8 @@
 project Two_City_Scheduling_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("two_city_scheduling.ads", "two_city_scheduling.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Two_City_Scheduling_Proof;

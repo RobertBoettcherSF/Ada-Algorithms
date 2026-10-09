@@ -1,4 +1,8 @@
 project Exclusive_Time_Of_Functions_Lite_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("exclusive_time_of_functions_lite.ads", "exclusive_time_of_functions_lite.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Exclusive_Time_Of_Functions_Lite_Proof;

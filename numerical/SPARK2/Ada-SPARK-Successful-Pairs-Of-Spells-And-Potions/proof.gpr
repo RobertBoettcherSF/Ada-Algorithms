@@ -1,4 +1,8 @@
 project Successful_Pairs_Of_Spells_And_Potions_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("successful_pairs_of_spells_and_potions.ads", "successful_pairs_of_spells_and_potions.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Successful_Pairs_Of_Spells_And_Potions_Proof;

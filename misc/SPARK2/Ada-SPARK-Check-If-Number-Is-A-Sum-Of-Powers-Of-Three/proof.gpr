@@ -1,4 +1,8 @@
 project Sum_Powers_Three_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("sum_powers_three.ads", "sum_powers_three.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Sum_Powers_Three_Proof;

@@ -1,4 +1,8 @@
 project Minimum_Sum_Of_Four_Digit_Number_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("minimum_sum_of_four_digit_number.ads", "minimum_sum_of_four_digit_number.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Minimum_Sum_Of_Four_Digit_Number_Proof;

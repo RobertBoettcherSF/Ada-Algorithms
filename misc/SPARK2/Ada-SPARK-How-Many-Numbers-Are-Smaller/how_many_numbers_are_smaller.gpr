@@ -6,4 +6,8 @@ project How_Many_Numbers_Are_Smaller is
    package Compiler is
       for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
    end Compiler;
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end How_Many_Numbers_Are_Smaller;

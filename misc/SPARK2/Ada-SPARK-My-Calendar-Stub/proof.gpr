@@ -1,4 +1,8 @@
 project MyCalendarStub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("my_calendar_stub.ads", "my_calendar_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end MyCalendarStub_Proof;

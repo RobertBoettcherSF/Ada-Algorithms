@@ -1,4 +1,8 @@
 project Integer_To_English_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("integer_to_english.ads", "integer_to_english.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Integer_To_English_Proof;

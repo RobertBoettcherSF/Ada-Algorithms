@@ -1,4 +1,8 @@
 project Proof is
    for Source_Dirs use (".");
    for Source_Files use ("n_ary_tree_preorder_traversal.ads", "n_ary_tree_preorder_traversal.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Proof;

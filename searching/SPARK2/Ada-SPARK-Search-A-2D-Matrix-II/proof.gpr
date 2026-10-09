@@ -1,4 +1,8 @@
 project Search_A_2D_Matrix_II_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("search_a_2d_matrix_ii.ads", "search_a_2d_matrix_ii.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Search_A_2D_Matrix_II_Proof;

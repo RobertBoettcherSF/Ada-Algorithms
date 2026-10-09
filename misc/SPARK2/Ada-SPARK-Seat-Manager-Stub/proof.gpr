@@ -1,4 +1,8 @@
 project SeatManagerStub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("seat_manager_stub.ads", "seat_manager_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end SeatManagerStub_Proof;

@@ -1,4 +1,8 @@
 project Self_Dividing_Numbers_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("self_dividing_numbers.ads", "self_dividing_numbers.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Self_Dividing_Numbers_Proof;

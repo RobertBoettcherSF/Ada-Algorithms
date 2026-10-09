@@ -1,4 +1,8 @@
 project Peak_Index_In_Mountain_Array_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("peak_index_in_mountain_array.ads", "peak_index_in_mountain_array.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Peak_Index_In_Mountain_Array_Proof;

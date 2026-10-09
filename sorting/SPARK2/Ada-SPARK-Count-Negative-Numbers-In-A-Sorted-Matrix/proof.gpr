@@ -1,4 +1,8 @@
 project Count_Negative_Numbers_In_A_Sorted_Matrix_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("count_negative_numbers_in_a_sorted_matrix.ads", "count_negative_numbers_in_a_sorted_matrix.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Count_Negative_Numbers_In_A_Sorted_Matrix_Proof;

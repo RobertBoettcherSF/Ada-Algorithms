@@ -1,4 +1,8 @@
 project Critical_Connections_In_A_Network_Lite_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("critical_connections_in_a_network_lite.ads", "critical_connections_in_a_network_lite.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Critical_Connections_In_A_Network_Lite_Proof;

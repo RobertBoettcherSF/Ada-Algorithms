@@ -1,4 +1,8 @@
 project Earliest_Deadline_First_Scheduling_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("earliest_deadline_first_scheduling.ads", "earliest_deadline_first_scheduling.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Earliest_Deadline_First_Scheduling_Proof;

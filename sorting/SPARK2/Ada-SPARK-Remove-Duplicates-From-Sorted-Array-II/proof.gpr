@@ -1,4 +1,8 @@
 project Remove_Duplicates_From_Sorted_Array_II_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("remove_duplicates_from_sorted_array_ii.ads", "remove_duplicates_from_sorted_array_ii.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Remove_Duplicates_From_Sorted_Array_II_Proof;

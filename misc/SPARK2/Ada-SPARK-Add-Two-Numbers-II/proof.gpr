@@ -1,4 +1,8 @@
 project Add_Two_Numbers_II_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("add_two_numbers_ii.ads", "add_two_numbers_ii.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Add_Two_Numbers_II_Proof;

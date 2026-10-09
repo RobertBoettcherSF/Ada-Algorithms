@@ -1,4 +1,8 @@
 project Check_If_Matrix_Is_X_Matrix_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("check_if_matrix_is_x_matrix.ads", "check_if_matrix_is_x_matrix.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Check_If_Matrix_Is_X_Matrix_Proof;

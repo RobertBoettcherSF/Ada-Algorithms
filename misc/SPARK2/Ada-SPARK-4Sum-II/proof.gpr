@@ -1,4 +1,8 @@
 project Four_Sum_II_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("four_sum_ii.ads", "four_sum_ii.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Four_Sum_II_Proof;

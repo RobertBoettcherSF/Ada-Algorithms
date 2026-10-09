@@ -1,4 +1,8 @@
 project Alert_Using_Same_Key_Card_Stub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("alert_using_same_key_card_stub.ads", "alert_using_same_key_card_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Alert_Using_Same_Key_Card_Stub_Proof;

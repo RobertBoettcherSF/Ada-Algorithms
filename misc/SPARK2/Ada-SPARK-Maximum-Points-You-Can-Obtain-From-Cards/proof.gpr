@@ -1,4 +1,8 @@
 project Maximum_Points_You_Can_Obtain_From_Cards_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("maximum_points_you_can_obtain_from_cards.ads", "maximum_points_you_can_obtain_from_cards.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Maximum_Points_You_Can_Obtain_From_Cards_Proof;

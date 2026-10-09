@@ -1,4 +1,8 @@
 project Shaker_Sort_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("shaker_sort.ads", "shaker_sort.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Shaker_Sort_Proof;

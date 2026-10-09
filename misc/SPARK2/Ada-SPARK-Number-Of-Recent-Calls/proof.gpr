@@ -1,4 +1,8 @@
 project Number_Of_Recent_Calls_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("number_of_recent_calls.ads", "number_of_recent_calls.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Number_Of_Recent_Calls_Proof;

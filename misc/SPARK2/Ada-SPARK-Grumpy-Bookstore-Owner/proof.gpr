@@ -1,4 +1,8 @@
 project Grumpy_Bookstore_Owner_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("grumpy_bookstore_owner.ads", "grumpy_bookstore_owner.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Grumpy_Bookstore_Owner_Proof;

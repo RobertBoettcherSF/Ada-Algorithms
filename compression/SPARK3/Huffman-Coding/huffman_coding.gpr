@@ -4,7 +4,7 @@ project Huffman_Coding is
    for Exec_Dir use "bin";
    for Main use ("tests.adb");
    package Prove is
-      for Proof_Switches ("Ada") use ("--level=4");
+      for Proof_Switches ("Ada") use ("--level=4", "--proof-warnings=on", "--proof-warnings-timeout=10");
    end Prove;
    package Compiler is
       for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");

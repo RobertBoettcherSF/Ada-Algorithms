@@ -1,4 +1,8 @@
 project Guess_Number_Higher_Or_Lower_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("guess_number_higher_or_lower.ads", "guess_number_higher_or_lower.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Guess_Number_Higher_Or_Lower_Proof;

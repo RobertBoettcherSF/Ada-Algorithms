@@ -1,4 +1,8 @@
 project Get_Equal_Substrings_Within_Budget_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("get_equal_substrings_within_budget.ads", "get_equal_substrings_within_budget.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Get_Equal_Substrings_Within_Budget_Proof;

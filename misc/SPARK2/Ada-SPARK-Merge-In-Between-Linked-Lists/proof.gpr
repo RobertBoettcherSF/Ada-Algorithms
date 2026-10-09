@@ -1,4 +1,8 @@
 project Merge_In_Between_Linked_Lists_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("merge_in_between_linked_lists.ads", "merge_in_between_linked_lists.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Merge_In_Between_Linked_Lists_Proof;

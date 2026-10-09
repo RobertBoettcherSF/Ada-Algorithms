@@ -1,4 +1,8 @@
 project Odd_Even_Merge_Sort_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("odd_even_merge_sort.ads", "odd_even_merge_sort.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Odd_Even_Merge_Sort_Proof;

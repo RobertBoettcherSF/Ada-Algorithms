@@ -1,4 +1,8 @@
 project Reorganize_String_Stub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("reorganize_string_stub.ads", "reorganize_string_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Reorganize_String_Stub_Proof;

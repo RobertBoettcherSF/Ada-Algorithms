@@ -1,4 +1,8 @@
 project Greatest_Common_Divisor_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("greatest_common_divisor.ads", "greatest_common_divisor.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Greatest_Common_Divisor_Proof;

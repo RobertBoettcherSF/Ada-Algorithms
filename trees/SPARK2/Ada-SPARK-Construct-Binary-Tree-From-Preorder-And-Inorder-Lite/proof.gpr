@@ -1,4 +1,8 @@
 project Construct_Binary_Tree_From_Preorder_And_Inorder_Lite_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("construct_preorder_inorder_lite.ads", "construct_preorder_inorder_lite.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Construct_Binary_Tree_From_Preorder_And_Inorder_Lite_Proof;

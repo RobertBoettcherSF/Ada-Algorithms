@@ -1,4 +1,8 @@
 project Lru_Cache_Stub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("lru_cache_stub.ads", "lru_cache_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Lru_Cache_Stub_Proof;

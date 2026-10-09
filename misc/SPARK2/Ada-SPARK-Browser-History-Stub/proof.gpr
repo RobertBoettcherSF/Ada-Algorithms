@@ -1,4 +1,8 @@
 project BrowserHistoryStub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("browser_history_stub.ads", "browser_history_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end BrowserHistoryStub_Proof;

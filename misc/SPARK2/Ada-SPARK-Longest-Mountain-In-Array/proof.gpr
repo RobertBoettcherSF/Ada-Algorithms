@@ -1,4 +1,8 @@
 project Longest_Mountain_In_Array_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("longest_mountain_in_array.ads", "longest_mountain_in_array.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Longest_Mountain_In_Array_Proof;

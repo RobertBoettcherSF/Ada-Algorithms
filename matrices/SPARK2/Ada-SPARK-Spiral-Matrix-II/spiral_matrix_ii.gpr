@@ -6,4 +6,8 @@ project Spiral_Matrix_II is
    package Compiler is
       for Default_Switches ("Ada") use ("-gnat2022", "-gnatwa", "-gnata");
    end Compiler;
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Spiral_Matrix_II;

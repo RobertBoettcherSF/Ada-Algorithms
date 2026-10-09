@@ -1,4 +1,8 @@
 project Median_Of_Three_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("median_of_three.ads", "median_of_three.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Median_Of_Three_Proof;

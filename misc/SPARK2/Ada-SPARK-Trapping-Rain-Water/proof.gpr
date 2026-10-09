@@ -1,4 +1,8 @@
 project Trapping_Rain_Water_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("trapping_rain_water.ads", "trapping_rain_water.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Trapping_Rain_Water_Proof;

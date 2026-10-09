@@ -1,4 +1,8 @@
 project Minimum_Operations_To_Make_Increasing_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("minimum_operations_to_make_increasing.ads", "minimum_operations_to_make_increasing.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Minimum_Operations_To_Make_Increasing_Proof;

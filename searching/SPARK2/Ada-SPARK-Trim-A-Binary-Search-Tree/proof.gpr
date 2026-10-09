@@ -1,4 +1,8 @@
 project Trim_Binary_Search_Tree_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("trim_binary_search_tree.ads", "trim_binary_search_tree.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Trim_Binary_Search_Tree_Proof;

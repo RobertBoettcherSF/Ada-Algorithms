@@ -1,4 +1,8 @@
 project Maximum_Performance_Of_A_Team_Lite_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("maximum_performance_of_a_team_lite.ads", "maximum_performance_of_a_team_lite.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Maximum_Performance_Of_A_Team_Lite_Proof;

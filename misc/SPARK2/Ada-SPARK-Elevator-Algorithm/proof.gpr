@@ -1,4 +1,8 @@
 project Elevator_Algorithm_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("elevator_algorithm.ads", "elevator_algorithm.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Elevator_Algorithm_Proof;

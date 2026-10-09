@@ -1,4 +1,8 @@
 project Make_The_String_Great_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("make_the_string_great.ads", "make_the_string_great.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Make_The_String_Great_Proof;

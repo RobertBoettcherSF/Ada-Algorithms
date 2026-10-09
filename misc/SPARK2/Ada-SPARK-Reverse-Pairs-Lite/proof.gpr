@@ -1,4 +1,8 @@
 project Reverse_Pairs_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("reverse_pairs.ads", "reverse_pairs.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Reverse_Pairs_Proof;

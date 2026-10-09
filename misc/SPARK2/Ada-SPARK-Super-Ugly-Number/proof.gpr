@@ -1,4 +1,8 @@
 project Super_Ugly_Number_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("super_ugly_number.ads", "super_ugly_number.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Super_Ugly_Number_Proof;

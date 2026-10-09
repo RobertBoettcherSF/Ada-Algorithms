@@ -1,4 +1,8 @@
 project Final_Prices_With_A_Special_Discount_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("final_prices_with_a_special_discount.ads", "final_prices_with_a_special_discount.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Final_Prices_With_A_Special_Discount_Proof;

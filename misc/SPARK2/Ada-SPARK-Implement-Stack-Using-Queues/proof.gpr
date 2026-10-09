@@ -1,4 +1,8 @@
 project Implement_Stack_Using_Queues_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("implement_stack_using_queues.ads", "implement_stack_using_queues.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Implement_Stack_Using_Queues_Proof;

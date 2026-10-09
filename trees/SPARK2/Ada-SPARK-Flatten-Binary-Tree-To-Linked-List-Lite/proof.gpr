@@ -1,4 +1,8 @@
 project Flatten_Binary_Tree_To_Linked_List_Lite_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("flatten_binary_tree_to_linked_list_lite.ads", "flatten_binary_tree_to_linked_list_lite.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Flatten_Binary_Tree_To_Linked_List_Lite_Proof;

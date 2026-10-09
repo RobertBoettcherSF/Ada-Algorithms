@@ -1,4 +1,8 @@
 project Shortest_Job_Next_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("shortest_job_next.ads", "shortest_job_next.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Shortest_Job_Next_Proof;

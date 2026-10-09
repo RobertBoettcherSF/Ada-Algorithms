@@ -1,4 +1,8 @@
 project Count_Smaller_After_Self_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("count_smaller_after_self.ads", "count_smaller_after_self.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Count_Smaller_After_Self_Proof;

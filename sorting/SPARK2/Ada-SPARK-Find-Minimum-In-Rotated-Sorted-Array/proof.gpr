@@ -1,4 +1,8 @@
 project Find_Minimum_In_Rotated_Sorted_Array_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("find_minimum_in_rotated_sorted_array.ads", "find_minimum_in_rotated_sorted_array.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Find_Minimum_In_Rotated_Sorted_Array_Proof;

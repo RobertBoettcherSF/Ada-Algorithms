@@ -1,4 +1,8 @@
 project Sliding_Window_Median_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("sliding_window_median.ads", "sliding_window_median.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Sliding_Window_Median_Proof;

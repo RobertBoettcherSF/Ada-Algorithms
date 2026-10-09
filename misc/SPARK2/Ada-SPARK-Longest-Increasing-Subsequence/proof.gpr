@@ -1,4 +1,8 @@
 project Longest_Increasing_Subsequence_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("longest_increasing_subsequence.ads", "longest_increasing_subsequence.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end Longest_Increasing_Subsequence_Proof;

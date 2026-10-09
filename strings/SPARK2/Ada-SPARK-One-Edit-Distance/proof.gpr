@@ -1,4 +1,8 @@
 project One_Edit_Distance_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("one_edit_distance.ads", "one_edit_distance.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end One_Edit_Distance_Proof;

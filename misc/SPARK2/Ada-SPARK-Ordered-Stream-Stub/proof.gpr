@@ -1,4 +1,8 @@
 project OrderedStreamStub_Proof is
    for Source_Dirs use (".");
    for Source_Files use ("ordered_stream_stub.ads", "ordered_stream_stub.adb");
+   package Prove is
+      --  Proof warnings on by default (tools/vv/prove_settings.txt)
+      for Proof_Switches ("Ada") use ("--proof-warnings=on", "--proof-warnings-timeout=10");
+   end Prove;
 end OrderedStreamStub_Proof;
