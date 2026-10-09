@@ -278,3 +278,4 @@ misc/SPARK2/Ada-SPARK-Bankers-Algorithm,all-24-orders safety search (a different
 misc/SPARK2/Ada-SPARK-Bump-Arena,counter model of the arena + membership table for the tree + hand-worked 16-slot / depth-16 cases
 misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,FIFO second-chance queue model (a different formulation) + hand-worked clock trace
 misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,"union-find over cells (a different algorithm), exhaustive over all 16 grids"
+misc/SPARK2/Ada-SPARK-Cosine-Distance,exhaustive pairs vs the defining floor inequalities + parallel/orthogonal properties

@@ -169,3 +169,5 @@ misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,GNAT 14,GNATLS 14.2.0,0,0,Clock: PA
 misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,GNAT 12,GNATLS 12.2.0,0,0,Clock: PASS,7a25ab8e
 misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,GNAT 14,GNATLS 14.2.0,0,0,All Connected_Component_Labeling tests passed.,580084e0
 misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,GNAT 12,GNATLS 12.2.0,0,0,All Connected_Component_Labeling tests passed.,580084e0
+misc/SPARK2/Ada-SPARK-Cosine-Distance,GNAT 14,GNATLS 14.2.0,0,0,PASS Cosine_Distance,f0f93517
+misc/SPARK2/Ada-SPARK-Cosine-Distance,GNAT 12,GNATLS 12.2.0,0,0,PASS Cosine_Distance,f0f93517
