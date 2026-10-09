@@ -101,7 +101,7 @@ misc/Ada/Exponential-Backoff,"answer_plant_ok=no: 19 built wrong-answer plants (
 misc/Ada/Luleas-Algorithm,"answer_plant_ok=no: 12 built wrong-answer plants (e.g. flip_bool in lulea_algorithm.adb) still leave make test exit 0 — harness cannot report failure",open,,
 misc/Ada/Proof-Of-Work-Algorithms,"answer_plant_ok=no: 7 built wrong-answer plants (e.g. flip_bool in proof_of_work.adb) still leave make test exit 0 — harness cannot report failure",open,,
 misc/Ada/Scale-Invariant-Feature-Transform,"answer_plant_ok=no: 2 built wrong-answer plants (e.g. op = -> /= in sift_algorithm.adb) still leave make test exit 0 — harness cannot report failure",open,,
-misc/Ada/Seam-Carving,"answer_plant_ok=no: 9 built wrong-answer plants (e.g. op + -> - in seam_carving.adb) still leave make test exit 0 — harness cannot report failure",open,,
+misc/Ada/Seam-Carving,"answer_plant_ok=no: 9 built wrong-answer plants (e.g. op + -> - in seam_carving.adb) still leave make test exit 0 — harness cannot report failure",fixed,ac48b937,24d7f98a
 misc/Ada/Top-Nodes-Algorithm,"answer_plant_ok=no: 14 built wrong-answer plants (e.g. flip_bool in top_nodes_algorithm.adb) still leave make test exit 0 — harness cannot report failure",open,,
 misc/Ada/arc-cache,"answer_plant_ok=no: 15 built wrong-answer plants (e.g. flip_bool in arc_cache.adb) still leave make test exit 0 — harness cannot report failure",open,,
 misc/SPARK2/Ada-SPARK-Daily-Temperatures,"answer_plant_ok=no: 8 built wrong-answer plants (e.g. op > -> >= in daily_temperatures.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
