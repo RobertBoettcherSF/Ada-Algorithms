@@ -197,3 +197,5 @@ sorting/Ada/Topological-Sort,GNAT 14,GNATLS 14.2.0,0,0,TEST SUITE: PASS,a7cf8561
 sorting/Ada/Topological-Sort,GNAT 12,GNATLS 12.2.0,0,0,TEST SUITE: PASS,a7cf8561
 trees/Ada/Red-Black-Tree,GNAT 14,GNATLS 14.2.0,0,0,"=== 84 passed, 0 failed ===",a8eaa456
 trees/Ada/Red-Black-Tree,GNAT 12,GNATLS 12.2.0,0,0,"=== 84 passed, 0 failed ===",a8eaa456
+parsing/Ada/Simple-Precdence-Parser,GNAT 14,GNATLS 14.2.0,0,0,"=== 47 passed, 0 failed ===",310ef1b0
+parsing/Ada/Simple-Precdence-Parser,GNAT 12,GNATLS 12.2.0,0,0,"=== 47 passed, 0 failed ===",310ef1b0
