@@ -1,0 +1,14 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the original values (0, 2, 3, -4, 100); hand-worked: 1 and -1 in
+one move; 5 in five moves (1+2+3 and 1+..+4 overshoot by an odd amount,
+1+..+5 = 15 overshoots by 10 = 2 * 5: 1+2+3+4-5); 6 = 1+2+3; -100 mirrors
+100.
+
+own_checks.adb: exhaustive over Value -100 .. 100 against a reachable-set
+search (the positions reachable after K moves are built move by move in a
+Boolean table; first K that holds Value), no parity formula.

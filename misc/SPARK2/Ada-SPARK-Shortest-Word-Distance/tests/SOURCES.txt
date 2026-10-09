@@ -1,0 +1,18 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the original "abacaba" (a, b adjacent -> 1; absent letters ->
+32, the package's not-found value); hand-worked: "b......a" -> 7 in both
+argument orders, 32 when Length stops before the a, and a full text with
+x at 1 and y at 32 -> 31.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator, default
+seed = FNV-1a (32-bit) of the folder name folded into 1 .. 2**31 - 2,
+printed; AA_SEED=<n> overrides it). Reference: all pairs of positions of
+First and Second within Length, smallest distance, 32 if none; First and
+Second always differ. Every text over {a, b, c} of Length 0 .. 8 (cells
+after Length filled with random letters) with every letter pair, and
+20,000 random texts of Length 0 .. 32 over a .. d.
