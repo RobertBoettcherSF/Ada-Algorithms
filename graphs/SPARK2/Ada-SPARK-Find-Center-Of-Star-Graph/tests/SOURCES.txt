@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the original star with centre 3; hand-built stars with centre 16
+(as the To end of every edge) and centre 1, and the path 1 - 2 - .. - 16,
+which has no vertex on every edge (answer 0).
+
+own_checks.adb (seeded: Park-Miller minimal standard generator, default
+seed = FNV-1a (32-bit) of the folder name folded into 1 .. 2**31 - 2,
+printed; AA_SEED=<n> overrides it). Reference: the first vertex that is an
+endpoint of every edge, checked edge by edge (no degree count), else 0.
+* 4,800 stars: every centre 1 .. 16, spokes shuffled and randomly
+  oriented, 300 times each;
+* 800 near-stars: one spoke replaced by an edge between two other leaves
+  (reference 0, checked);
+* 5,000 random simple graphs with 15 distinct non-loop edges.
+Edge lists with self-loops are outside the problem (README).
