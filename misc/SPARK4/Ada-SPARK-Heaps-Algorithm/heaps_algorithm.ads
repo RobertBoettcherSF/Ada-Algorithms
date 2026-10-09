@@ -66,7 +66,9 @@ is
    -- Core API
    ---------------------------------------------------------------------------
 
-   function Factorial (N : Natural) return Natural is
+   subtype Factorial_Arg is Natural range 0 .. Max_N;
+
+   function Factorial (N : Factorial_Arg) return Natural is
      (case N is
          when 0 | 1 => 1,
          when 2     => 2,
@@ -74,11 +76,9 @@ is
          when 4     => 24,
          when 5     => 120,
          when 6     => 720,
-         when 7     => Max_Count,
-         when others => 1)
+         when 7     => Max_Count)
    with
      Global => null,
-     Pre    => N <= Max_N,
      Post   =>
        Factorial'Result >= 1
        and then Factorial'Result <= Max_Count
@@ -90,8 +90,7 @@ is
              when 4     => Factorial'Result = 24,
              when 5     => Factorial'Result = 120,
              when 6     => Factorial'Result = 720,
-             when 7     => Factorial'Result = Max_Count,
-             when others => True);
+             when 7     => Factorial'Result = Max_Count);
    --  N! for 0 ≤ N ≤ Max_N (0! = 1). Explicit table keeps Level-4 VCs
    --  inside automated SMT reach (no recursive Post / variant needed).
 

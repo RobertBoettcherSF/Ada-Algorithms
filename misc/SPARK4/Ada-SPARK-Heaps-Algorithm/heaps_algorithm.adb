@@ -33,10 +33,6 @@ is
          return False;
       end if;
 
-      if A'Length = 0 or else B'Length = 0 then
-         return False;
-      end if;
-
       for K in 0 .. N - 1 loop
          pragma Loop_Invariant (Diff_Count <= 2);
          pragma Loop_Invariant (Diff_Count <= K);
