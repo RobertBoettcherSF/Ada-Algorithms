@@ -1,0 +1,4 @@
+project Babylonian_Sqrt_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("babylonian_sqrt.ads", "babylonian_sqrt.adb");
+end Babylonian_Sqrt_Proof;
