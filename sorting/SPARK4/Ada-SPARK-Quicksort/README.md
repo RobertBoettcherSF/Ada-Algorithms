@@ -7,7 +7,7 @@ $$
 \text{average } O(n \log n),\quad \text{worst } O(n^2),\quad \text{extra space } O(\log n)\ \text{average stack}
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Quicksort](https://github.com/RobertBoettcherSF/Ada-Quicksort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), Hoare partition, and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, Lomuto (so the pivot has a known final index), and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort) and [Ada-SPARK-Merge-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Merge-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Quicksort](https://github.com/RobertBoettcherSF/Ada-Quicksort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), Hoare partition; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, Lomuto (so the pivot has a known final index), and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that share the same array shape: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort) and [Ada-SPARK-Merge-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Merge-Sort).
 
 ## Features
 * **`Sort (A)`**: Classic in-place ascending quicksort (median-of-three + Lomuto).
@@ -19,7 +19,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Quicksort](https://
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic / recursion VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * **Lomuto partition** (sibling uses Hoare): the pivot is swapped into a final slot $P$, so the recursive sides are $A(\mathrm{Lo} .. P-1)$ and $A(P+1 .. \mathrm{Hi})$ and the glue lemma is adjacent-sortedness plus the two junctions at $P$.
 * Median-of-three is kept (first / middle / last, median parked at `Hi`) so sorted and reverse inputs avoid the common $O(n^2)$ first/last-pivot pathology.
 * Bounded recursive `Sort_Range` with `Subprogram_Variant => (Decreases => Hi - Lo)` rather than an explicit stack; depth is at most $\mathrm{Max\_N}$.
@@ -32,7 +32,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Quicksort](https://
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 297 assertions pass. Running `make prove` reports `Success: all checks proved (327 checks).`
+When you run `make test`, you will see all 319 assertions pass. Running `make prove` reports `Success: all checks proved (332 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia example, signed domain including `Integer'First` / `Integer'Last`, power-of-two and odd lengths.
@@ -53,5 +53,5 @@ When you run `make test`, you will see all 297 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Lomuto scan uses `pragma Loop_Invariant`; recursive `Sort_Range` uses `Subprogram_Variant` and a ghost glue lemma to join the sorted sides at the pivot.
-* **GNATprove Level 4:** `Success: all checks proved (327 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (332 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

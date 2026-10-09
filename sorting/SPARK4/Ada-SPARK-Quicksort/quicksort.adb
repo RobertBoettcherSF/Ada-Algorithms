@@ -23,7 +23,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Every A (L .. R) is <= V. Vacuous when L > R.
@@ -38,7 +38,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Every A (L .. R) is >= V. Vacuous when L > R.
@@ -53,7 +53,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    procedure Swap (A : in out Element_Array; X, Y : Index)
@@ -61,14 +61,14 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
+         and then X in A'Range
+         and then Y in A'Range,
        Post   =>
          In_Bounds (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
-           (for all K in 1 .. A'Last =>
+           (for all K in A'Range =>
               (if K /= X and then K /= Y then A (K) = A'Old (K)))
    is
       T : Integer;
@@ -91,7 +91,7 @@ is
        Global            => null,
        Pre               =>
          In_Bounds (A)
-         and then Lo in 1 .. A'Last
+         and then Lo in A'Range
          and then Hi in Lo .. A'Last
          and then P in Lo .. Hi
          and then Sorted_Slice (A, Lo, P)
@@ -117,8 +117,8 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Last >= 2
-         and then Lo in 1 .. A'Last
+         and then A'Length >= 2
+         and then Lo in A'Range
          and then Hi in Lo + 1 .. A'Last
          and then All_Geq (A, Lo, Hi, Lower_Bound)
          and then All_Leq (A, Lo, Hi, Upper_Bound),
@@ -127,7 +127,7 @@ is
          and then All_Geq (A, Lo, Hi, Lower_Bound)
          and then All_Leq (A, Lo, Hi, Upper_Bound)
          and then
-           (for all K in 1 .. Lo - 1 => A (K) = A'Old (K))
+           (for all K in A'First .. Lo - 1 => A (K) = A'Old (K))
          and then
            (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K))
    is
@@ -171,8 +171,8 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Last >= 2
-         and then Lo in 1 .. A'Last
+         and then A'Length >= 2
+         and then Lo in A'Range
          and then Hi in Lo + 1 .. A'Last
          and then All_Geq (A, Lo, Hi, Lower_Bound)
          and then All_Leq (A, Lo, Hi, Upper_Bound),
@@ -184,7 +184,7 @@ is
          and then All_Leq (A, Lo, P - 1, A (P))
          and then All_Geq (A, P + 1, Hi, A (P))
          and then
-           (for all K in 1 .. Lo - 1 => A (K) = A'Old (K))
+           (for all K in A'First .. Lo - 1 => A (K) = A'Old (K))
          and then
            (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K))
    is
@@ -210,13 +210,13 @@ is
          pragma Loop_Invariant
            (for all K in I .. J - 1 => A (K) > Pivot);
          pragma Loop_Invariant
-           (for all K in 1 .. Lo - 1 => A (K) = A'Loop_Entry (K));
+           (for all K in A'First .. Lo - 1 => A (K) = A'Loop_Entry (K));
          pragma Loop_Invariant
            (for all K in Hi + 1 .. A'Last => A (K) = A'Loop_Entry (K));
 
          if A (J) <= Pivot then
-            pragma Assert (I in 1 .. A'Last);
-            pragma Assert (J in 1 .. A'Last);
+            pragma Assert (I in A'Range);
+            pragma Assert (J in A'Range);
             Swap (A, Index (I), J);
             I := I + 1;
          end if;
@@ -258,7 +258,7 @@ is
        Subprogram_Variant => (Decreases => Hi - Lo),
        Pre               =>
          In_Bounds (A)
-         and then Lo in 1 .. A'Last
+         and then Lo in A'Range
          and then Hi in Lo .. A'Last
          and then All_Geq (A, Lo, Hi, Lower_Bound)
          and then All_Leq (A, Lo, Hi, Upper_Bound),
@@ -268,7 +268,7 @@ is
          and then All_Geq (A, Lo, Hi, Lower_Bound)
          and then All_Leq (A, Lo, Hi, Upper_Bound)
          and then
-           (for all K in 1 .. Lo - 1 => A (K) = A'Old (K))
+           (for all K in A'First .. Lo - 1 => A (K) = A'Old (K))
          and then
            (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K))
    is
@@ -280,7 +280,7 @@ is
       end if;
 
       pragma Assert (Hi >= Lo + 1);
-      pragma Assert (A'Last >= 2);
+      pragma Assert (A'Length >= 2);
 
       Partition (A, Lo, Hi, Lower_Bound, Upper_Bound, P);
 
@@ -350,14 +350,13 @@ is
          return;
       end if;
 
-      pragma Assert (A'First = 1);
-      pragma Assert (A'Last in 2 .. Max_N);
-      pragma Assert (All_Geq (A, 1, A'Last, Integer'First));
-      pragma Assert (All_Leq (A, 1, A'Last, Integer'Last));
+      pragma Assert (A'Last in A'First + 1 .. Max_N);
+      pragma Assert (All_Geq (A, A'First, A'Last, Integer'First));
+      pragma Assert (All_Leq (A, A'First, A'Last, Integer'Last));
 
-      Sort_Range (A, 1, A'Last, Integer'First, Integer'Last);
+      Sort_Range (A, A'First, A'Last, Integer'First, Integer'Last);
 
-      pragma Assert (Sorted_Slice (A, 1, A'Last));
+      pragma Assert (Sorted_Slice (A, A'First, A'Last));
       pragma Assert (Is_Sorted (A));
    end Sort;
 
