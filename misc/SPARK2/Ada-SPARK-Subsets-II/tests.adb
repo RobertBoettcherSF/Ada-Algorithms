@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO;
 with Subsets_II; use Subsets_II;
+with Own_Checks;
 
 procedure Tests is
    function Img (A : Count_List) return String is
@@ -72,5 +73,6 @@ begin
    Expect (Subset (V, (N => 2, Copies => [2, 1], Take => [0, 0])), [], "Subset 0 0");
    Expect (Subset ([7, -3, 5], (N => 3, Copies => [1, 3, 2], Take => [1, 3, 2])), [7, -3, -3, -3, 5, 5], "Subset all");
 
+   Own_Checks;
    Ada.Text_IO.Put_Line ("subsets II tests passed");
 end Tests;

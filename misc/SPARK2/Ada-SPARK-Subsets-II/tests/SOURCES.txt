@@ -1,0 +1,25 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: the old table read as N distinct values (2 ** N for
+N <= 12) and 30 distinct values (2 ** 30); counts worked by hand:
+(2 + 1) (1 + 1) = 6, (3 + 1) (2 + 1) (1 + 1) = 24, one value with 30
+copies 31, 15 + 15 copies 16 * 16 = 256; the six distinct subsets of
+1 1 2 in counting order and the wrap; 3 2 0 -> 0 0 1 worked in the
+comment; no values; Subset of values 1, 2 for four choices and of
+7, -3, 5 with everything taken.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (1256694695), printed; AA_SEED=<n> overrides it):
+* brute force on 400 random multisets of at most 12 items: every index
+  subset of the written-out list, reduced to its copy counts; stepping
+  from empty must visit exactly the distinct results, each once, then
+  wrap to empty; Count must equal their number;
+* 5,000 random choices on multisets of up to 30 items in all: own
+  mixed-radix rank + 1 (or wrap from the last), Count against an own
+  product in Long_Long_Integer, Subset against an own expansion.
