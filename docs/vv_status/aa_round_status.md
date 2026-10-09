@@ -1,4 +1,4 @@
-# AA round status — fixed_origin room decision (2026-10-08)
+# AA round status — fixed_origin room decision (2026-10-09)
 
 ## Mechanical KEEP test
 KEEP fixed origin ONLY if the algorithm does arithmetic on the index values themselves
@@ -6,30 +6,51 @@ KEEP fixed origin ONLY if the algorithm does arithmetic on the index values them
 package-merge 2*P, polynomial degree index Poly(I)*I). Indexes that only walk or line
 arrays up → First-relative rewrite. No judgment beyond that test.
 
-## Ledger (`tools/vv/fixed_origin_decisions.tsv`)
-- **7 KEEP** (subtypes preferred; one-line arithmetic reason in CSV `note`)
-- **83 REWRITE**
+Room recheck flipped Heapsort / Introsort / Smoothsort / Interpolation-Search / KMP
+to rewrite (offset / First-relative forms exist); only Package-Merge and PGZ remain KEEP.
 
-### KEEP (7)
+## Ledger (`tools/vv/fixed_origin_decisions.tsv`)
+- **2 KEEP** (subtypes preferred; one-line arithmetic reason in CSV `note`)
+- **88 REWRITE**
+
+### KEEP (2)
 | Folder | Reason |
 |--------|--------|
-| sorting/SPARK4/Ada-SPARK-Heapsort | Left:=2*I, A(2*I), A(I/2), 2*R hole/child |
-| sorting/SPARK4/Ada-SPARK-Introsort | Left:=2*I, A(2*I), A(I/2), 2*R |
-| sorting/SPARK4/Ada-SPARK-Smoothsort | Leonardo/smoothsort child roots |
-| searching/SPARK4/Ada-SPARK-Interpolation-Search | probe uses Lo/Hi as numeric positions |
-| strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt | 1-based KMP prefix Pi(i)/Len:=Pi(Len) |
 | misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | package-merge pairs 2*P-1 / 2*P |
 | compression/Ada/Peterson-Gorenstein-Zierler-Algorithm | coeff index = degree (Derivative Poly(I)*I); subtype Degree_Poly First=0; syndromes First-rel |
 
-### Rewritten First-relative (13) — green make test + CSV `rewritten_first_relative`
-BCJR, N-Body, Spline (Thomas), Levinson, Memetic (TSP), Thomas, Floyds-Cycle, Brents,
-Barnes-Hut, Gale-Shapley, Min-Conflicts, Hungarian, Top-Trading-Cycle.
+### Rewritten First-relative (38) — green make test + CSV `rewritten_first_relative`
+**Earlier (15):** BCJR, N-Body, Spline (Thomas), Levinson, Memetic (TSP), Thomas,
+Floyds-Cycle, Brents, Barnes-Hut, Gale-Shapley, Min-Conflicts, Hungarian,
+Top-Trading-Cycle, Fast-Multipole, Ant-Colony.
 
-### Still stamped `rewrite_first_relative` / fail (~70)
-Bulk SPARK4 classroom + remaining Ada (FLAME, ACO, Branch-and-Bound, Combinatorial-Opt,
-Fast-Multipole, …). Pins still First=1; code rewrite not done yet.
+**Room-recheck sorts / search / string (23):** Heapsort (Silver offset heap),
+Introsort (Silver in-place offset heap), Smoothsort (Fits geometry),
+Interpolation-Search, Knuth-Morris-Pratt, Insertion-Sort, Bubble-Sort,
+Selection-Sort, Gnome-Sort, Cycle-Sort, Cocktail-Shaker-Sort, Comb-Sort,
+Shell-Sort, Pancake-Sorting, Slowsort, Stooge-Sort, Odd-Even-Sort, Merge-Sort,
+Quicksort, Spaghetti-Sort, Bead-Sort, Radix-Sort, Tree-Sort.
+
+### Still stamped `rewrite_first_relative` / `first_pinned` (50)
+Remaining SPARK4 classroom sorts (Bogosort, Bitonic, Bucket, Burstsort, Counting,
+Flashsort, Library, Patience, Pigeonhole, Postman, Quantum, Samplesort,
+Sort-Merge-Join, Strand, Timsort, Topological, …), searching SPARK4, hashing /
+compression / misc SPARK2–4, FLAME, Branch-and-Bound, Combinatorial-Optimization,
+and other Ada walk-index folders. Pins still First=1; code rewrite not done yet.
+A2 owns the Float→int list (Clustering, ACO×2, Cross-Entropy, DE, K-Means++,
+Harmony, Local-Search, RRHC, SA, Memetic float, ES, EC, GEP, GA, MLT) plus
+BrownBoost — leave those alone.
 
 ## Other tracks (same tip)
-- `kill_kind=uninit` in mutate/sweep_mutate + VV.md (committed with room decision)
-- p23 flaky still running (~1680/1758); no f14_done yet
+- Johnsons-Algorithm: Initialize_Scalars finding was a real uninit at
+  `johnsons_algorithm.adb:527` (Fill_From_Potentials left Dist/Prev beyond N
+  undefined). Fixed; flaky init=yes on GNAT 14; section 24 was red on old code.
+- Recursive-Descent-Parser: AA_SEED 1,2,22 overflowed Integer on deep literal
+  trees; Eval_Wide + Constraint_Error contract; 30 seeds 0 failed on GNAT 14/12.
+- SPARK Mersenne-Twister: **not** flaky=yes — Initialize_Scalars / `-gnatVa`
+  hits a GNAT compiler crash on `Next`'s Post (`X'Old` in an if-expression);
+  status note on both GNAT 14 and the new GNAT 12 row.
+- GNAT 12 three-pass (`/tmp/flk/g12_tr.csv`, 271 folders) merged into
+  `tools/vv/flaky.csv` (2111 data rows). Counting-Sort finished on GNAT 12
+  (10/10, init yes) after long runs; GNAT 14 had previously timed out at 300 s.
 - Tip: see `git log -1`
