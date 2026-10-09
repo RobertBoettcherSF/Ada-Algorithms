@@ -18,6 +18,10 @@ package body Combination_Sum_II with SPARK_Mode => On is
          when 10 => return 10;
          when 11 => return 12;
          when 12 => return 15;
+         when others => return 0;   --  scaffold: no entries beyond 12
       end case;
    end Count_Distinct_Combinations;
+
+   function Count_Limited (Value, Max_Part : Target) return Combination_Count is
+     (0);   --  scaffold
 end Combination_Sum_II;
