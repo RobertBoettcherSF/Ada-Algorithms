@@ -8,3 +8,10 @@ misc/SPARK2/Ada-SPARK-Pow-X-N/own_checks.adb,"114,152",2 ** 31,Long_Long_Integer
 misc/SPARK2/Ada-SPARK-Paint-Fence-Lite/own_checks.adb,124,"Long_Long_Integer (K) ** N, 2 ** 16",Long_Long_Integer,no (K is a color count >= 1),yes,no,"not Big_Integer (language-defined integer exponentiation, unaffected)"
 misc/SPARK2/Ada-SPARK-Subsets-II/own_checks.adb,134,2 ** Len,Integer,no,yes,no,not Big_Integer
 sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings/own_checks.adb,49,5 ** N,Natural,no,yes,no,not Big_Integer
+misc/SPARK2/Ada-SPARK-Pow-X-N/tests/big_divmod_repro.adb,all,"X / Y, X mod Y, X rem Y on a grid",Big_Integer,yes (on purpose),n/a,n/a,"the div/mod/rem reproducer: 44 of 912 mod results wrong (A > 0, B < 0, B does not divide A); / and rem all right"
+cryptography/Ada/RSA/rsa.adb,"15-25,37,92,138,144","... mod Modulus, Old_R mod R, (X mod M + M) mod M, ... mod Key.N",Big_Integer (RSA_Integer),"dividend yes at line 92 (X from Extended_GCD can be negative); divisor no (Pre Modulus > 0, M > 1, Key.N > 0; GCD has Pre A, B >= 0)",n/a,no,the mod error needs a negative divisor; every divisor here is positive by precondition
+cryptography/Ada/RSA/rsa.adb,"24,54,81","Exp / Two, Old_R / R, A / Divisor",Big_Integer,"Extended_GCD has no Pre, so A and B may be negative",n/a,no,"Big ""/"" agrees with Long_Long_Integer for every sign combination tested"
+cryptography/Ada/Elliptic-Curve-Diffie-Hellman/elliptic_curve_diffie_hellman.adb,8-166,"... mod Modulus / Domain.P, E / Two, Temp_K / Two",Big_Integer,"dividend yes (differences like Q.Y - P.Y); divisor no (prime P, Modulus, Two)",n/a,no,negative dividend with positive divisor is right
+cryptography/Ada/Elliptic-Curve-Diffie-Hellman/tests.adb,84,(D.P - D.G.Y) mod D.P,Big_Integer,divisor no,n/a,no,positive divisor
+misc/Ada/EdDSA/eddsa.adb,6-170,"... mod Modulus / Curve.P / Curve.L, E / Two",Big_Integer,"dividend yes (Y1Y2 - ..., 1 - Denom_Term); divisor no (primes P and L)",n/a,no,positive divisor
+misc/Ada/EdDSA/tests.adb,106,(5 - 10) mod Curve.P,Big_Integer,"dividend negative, divisor positive",n/a,no,right (negative dividend with positive divisor is not affected)

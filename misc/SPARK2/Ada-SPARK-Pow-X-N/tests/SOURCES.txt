@@ -29,9 +29,38 @@ a variable. Reproducer: tests/big_pow_repro.adb (prints FALSE twice on
 both compilers). Cause, in the run-time source System.Generic_Bignums
 (s-genbig.adb, 14.2): the "X ** 1" case returns Normalize (X.D) without
 X.Neg, and the "(+/-)2 ** K" shift case returns Normalize (D, X.Neg)
-whatever the parity of K. Upstream GCC fixed both ("Ada: Fix couple of
-oversights in Big_Integer package", PR ada/125695). Other negative bases
-with K >= 2 take the general path and come out right.
+whatever the parity of K. Other negative bases with K >= 2 take the general path and come out
+right.
+Upstream report: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=125695
+(fetched 2026-10-09 07:09 CEST with curl from the V&V box, ...&ctype=xml;
+the XML is kept outside the repository, at
+/workspace/inbox/aa_refs/gcc_pr125695.xml, sha256 6f375483...ac6a, because
+its comments quote GCC run-time source, which is GPL). From that file:
+title "Big_Exp special case for (+/-)2 ** K is broken for -2 and even K";
+status RESOLVED FIXED; target milestone 13.5; the reporter's text also
+covers the X ** 1 sign drop. Fix commits, "Ada: Fix couple of oversights
+in Big_Integer package":
+  master       r17-1456   8247ea5bb5b425746d1860e08aa8d823e3cb2500
+  gcc-16       r16-9078   d89f56a2ab85d1529a7f3c8a69b9b36fa2e01cf5
+  gcc-15       r15-11269  aa8d539b67218c4ad4bb171c789269c6092110b5
+  gcc-14       r14-12643  cdd9f96efc0b76095b7b844fff391e673c48323d
+  gcc-13       r13-10354  d16e7f14f914f45890cad3c569bffcc27d635616
+The gcc-14 hash was also confirmed on the GitHub mirror page
+https://github.com/gcc-mirror/gcc/commit/cdd9f96efc0b (title and
+"PR ada/125695"). The installed GNAT 14.2 s-genbig.adb is the unfixed
+version.
+
+A second, separate error, "mod" with a negative divisor (no upstream
+report found in a web search on 2026-10-09; not reported from here):
+tests/big_divmod_repro.adb checks Big_Integers "/", "mod" and "rem"
+against Long_Long_Integer, with the operands in variables, for every A in
+-12 .. 12 and nonzero B in -6 .. 6, plus +/-1_999_999_999 with +/-7: 912
+checks. On GNAT 14.2 and 12.2, "/" and "rem" agree everywhere. "mod" is
+wrong in exactly the 44 cases where A > 0, B < 0 and B does not divide A,
+for example 11 mod -5 = -6 (it should be -4). The result is -(|B| + r)
+instead of r - |B|, where r = A rem |B|. In s-genbig.adb, Big_Mod computes
+Y - R and then forces the sign of Y, which is only right for Y > 0.
+This folder does not use Big "mod".
 * every X in -300 .. 300 with N in 0 .. 40;
 * 20,000 seeded random X over all of Integer with N in 0 .. 40, and X
   near Integer'Last and Integer'First with N in 0 .. 2;
