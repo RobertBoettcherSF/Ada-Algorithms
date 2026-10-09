@@ -1,0 +1,25 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: Steps = 16 for the bit-by-bit method (one trial bit per bit
+of a 16-bit root: 2 ** 15 .. 2 ** 0); roots worked by hand: 0 -> 0,
+8 -> 2, 99 -> 9, 100 -> 10, 46_340 ** 2 = 2_147_395_600 -> 46_340,
+2_147_395_599 -> 46_339, Natural'Last -> 46_340.
+
+own_checks.adb:
+* Property (definition of the floor root), tested without overflow:
+  R = 0 or R <= N / R (that is R * R <= N), and N / (R + 1) < R + 1
+  (that is N < (R + 1) ** 2).
+* Count-up reference on 0 .. 100 (the old table's range): the largest R
+  with R * R <= N, found by counting up.
+* k*k - 1, k*k, k*k + 1 for k = 46,000 .. 46,340, Natural'Last and
+  Natural'Last - 1.
+* 100,000 random N over 1 .. 2 ** 31 - 2 from the Park-Miller minimal
+  standard generator; the default seed is the FNV-1a (32-bit) hash of the
+  folder name, folded into 1 .. 2 ** 31 - 2 (286993006), and is printed;
+  AA_SEED=<n> overrides it.
+* Steps = 16 on every call.

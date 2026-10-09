@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO;
 with Sqrt_Integer; use Sqrt_Integer;
+with Own_Checks;
 procedure Tests with SPARK_Mode => Off is
    --  Bit-by-bit (digit-by-digit) square root over 32-bit values: one
    --  trial bit per step, from 2 ** 15 down to 2 ** 0, so exactly 16 steps
@@ -22,5 +23,6 @@ begin
    Check (2_147_395_599, 46_339);
    Check (2_147_395_600, 46_340);
    Check (Natural'Last, 46_340);
+   Own_Checks;
    Ada.Text_IO.Put_Line ("PASS Sqrt_Integer");
 end Tests;
