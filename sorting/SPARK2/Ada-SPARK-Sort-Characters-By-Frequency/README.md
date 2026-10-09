@@ -6,9 +6,11 @@ frequency are ordered by character code, so the result is deterministic. Selecti
 `Rank = (8 - frequency in Input) * 256 + character code`. (An earlier version could leave characters with
 equal frequency interleaved, e.g. a b a b.)
 
-- Postcondition: the output is sorted by `Rank` (decreasing frequency, equal characters grouped); proved at
-  Silver level 2 with the default level-2 provers (42 checks; cvc5 alone gives up on two invariants). That
-  the output is a permutation of the input is checked by the tests, not proved.
+- Postcondition: the output is sorted by `Rank` (decreasing frequency, equal characters grouped) and holds
+  the characters of the input, each as often as in the input (`Frequency (Result, C) = Frequency (Input, C)`
+  for every Character); proved at level 4 and with the Silver command (gnatprove 16.1.0, 44 checks, proof
+  warnings on: none). Before 2026-10-09 the Post had the order only, which a result of eight copies of one
+  character also met (tools/vv/contract_scan.csv).
 
 ```sh
 make test    # own frequency-order, grouping and permutation checks (tests/SOURCES.txt)

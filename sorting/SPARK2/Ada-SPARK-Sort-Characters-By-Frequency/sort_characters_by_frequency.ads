@@ -17,8 +17,11 @@ package Sort_Characters_By_Frequency with SPARK_Mode => On is
      with Pre => Frequency (Input, C) <= 8;
 
    --  The characters of Input by decreasing frequency, equal characters grouped (ties: character order).
+   --  The result holds the characters of Input, each as often as in Input.
    function Sort_By_Frequency (Input : Char_Array) return Char_Array
      with Global => null,
           Post   => (for all I in 1 .. 7 =>
-                       Rank (Input, Sort_By_Frequency'Result (I)) <= Rank (Input, Sort_By_Frequency'Result (I + 1)));
+                       Rank (Input, Sort_By_Frequency'Result (I)) <= Rank (Input, Sort_By_Frequency'Result (I + 1)))
+                    and then (for all C in Character =>
+                                Frequency (Sort_By_Frequency'Result, C) = Frequency (Input, C));
 end Sort_Characters_By_Frequency;

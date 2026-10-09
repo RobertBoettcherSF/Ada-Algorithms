@@ -19,6 +19,7 @@ package body Sort_Characters_By_Frequency with SPARK_Mode => On is
          Temporary := Work (I);
          Work (I) := Work (Best);
          Work (Best) := Temporary;
+         pragma Loop_Invariant (for all C in Character => Frequency (Work, C) = Frequency (Input, C));
          pragma Loop_Invariant (for all K in 1 .. I - 1 => Rank (Input, Work (K)) <= Rank (Input, Work (K + 1)));
          pragma Loop_Invariant (for all K in 1 .. I =>
                                   (for all L in I + 1 .. Index'Last => Rank (Input, Work (K)) <= Rank (Input, Work (L))));
