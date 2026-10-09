@@ -348,6 +348,53 @@ begin
    Check (Path (2) = 2, "diamond tie-break smaller id");
 
    ------------------------------------------------------------------
+   Section ("16. Arrays at any origin (label V lives at First + V - 1)");
+   ------------------------------------------------------------------
+   --  Diamond 1->2, 1->3, 2->3, 2->4, 3->4 with H = (3, 2, 1, 0). The run
+   --  with every array starting at 1 is the reference; the same Prev (by
+   --  label), Path and expansion count must come back at other origins.
+   Clear (G, 4);
+   Add_Edge (G, 1, 2);
+   Add_Edge (G, 1, 3);
+   Add_Edge (G, 2, 3);
+   Add_Edge (G, 2, 4);
+   Add_Edge (G, 3, 4);
+   declare
+      H1   : constant Heuristic_Array (1 .. 4) := [3, 2, 1, 0];
+      HS   : constant Heuristic_Array (10 .. 13) := [3, 2, 1, 0];
+      P1   : Prev_Array (1 .. 4);
+      Q1   : Path_Array (1 .. 4);
+      PS   : Prev_Array (20 .. 23);
+      QS   : Path_Array (200 .. 203);
+      PT   : Prev_Array (29 .. 32);                --  flush to Max_Vertices
+      QT   : Path_Array (Positive'Last - 3 .. Positive'Last);
+      L1, L2 : Natural;
+      F1, F2 : Boolean;
+      E1, E2 : Natural;
+      R2   : Boolean;
+   begin
+      Search (G, 1, 4, H1, P1, Q1, L1, F1, E1);
+      Check (F1 and then Q1 (1) = 1 and then Q1 (L1) = 4,
+             "origin 1 reference run finds 1 .. 4");
+      Search (G, 1, 4, HS, PS, QS, L2, F2, E2);
+      Check (F2 = F1 and then L2 = L1 and then E2 = E1,
+             "origins 10/20/200: same found / length / expansions");
+      Check (PS = P1, "origin 20: Prev by label = origin-1 Prev");
+      Check (QS (200 .. 199 + L2) = Q1 (1 .. L1),
+             "origin 200: same path");
+      Search (G, 1, 4, HS, PT, QT, L2, F2, E2);
+      Check (F2 and then L2 = L1 and then PT = P1
+               and then QT (QT'First .. QT'First + (L2 - 1)) = Q1 (1 .. L1),
+             "origin 29 (flush) / Path ending at Positive'Last");
+      Reconstruct_Path (PT, 1, 4, 4, QS, L2, R2);
+      Check (R2 and then L2 = L1
+               and then QS (200 .. 199 + L2) = Q1 (1 .. L1),
+             "Reconstruct_Path from Prev at origin 29 into Path at 200");
+      Check (Arrays_OK (4, PS, QS), "Arrays_OK at origins 20/200");
+      Check (Heuristic_OK (4, HS), "Heuristic_OK at origin 10");
+   end;
+
+   ------------------------------------------------------------------
    New_Line;
    Put_Line ("========================================");
    Put_Line

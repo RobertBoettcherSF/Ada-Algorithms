@@ -48,6 +48,10 @@ is
         [others => Vertex_Id'First];
       Stack_Top : Natural := 0;
       U         : Natural;
+      --  Label V is stored at Prev (PX + V); the K-th path vertex at
+      --  Path (QX + K). PX / QX are the offsets of the caller's origins.
+      PX        : constant Natural := Prev'First - 1;
+      QX        : constant Natural := Path'First - 1;
    begin
       for I in Path'Range loop
          Path (I) := Vertex_Id'First;
@@ -60,8 +64,8 @@ is
       Ok := False;
 
       if Start = Goal then
-         if Prev (Start) = 0 then
-            Path (1) := Start;
+         if Prev (PX + Start) = 0 then
+            Path (QX + 1) := Start;
             Length := 1;
             Ok := True;
          end if;
@@ -106,16 +110,16 @@ is
                pragma Loop_Invariant (Length = Stack_Top);
                pragma Loop_Invariant (Stack_Top in 1 .. N);
                pragma Loop_Invariant (Stack (Stack_Top) = Start);
-               Path (I) := Stack (Stack_Top - I + 1);
+               Path (QX + I) := Stack (Stack_Top - I + 1);
             end loop;
             --  Ends fixed explicitly so Post does not depend on reverse VCs.
-            Path (1) := Start;
-            Path (Length) := Goal;
+            Path (QX + 1) := Start;
+            Path (QX + Length) := Goal;
             Ok := True;
             return;
          end if;
 
-         U := Prev (Vertex_Id (U));
+         U := Prev (PX + Vertex_Id (U));
          if U > N then
             Length := 0;
             Ok := False;
@@ -148,6 +152,13 @@ is
       Visited : array (Vertex_Id) of Boolean := [others => False];
 
       Max_Steps : constant Positive := Max_Vertices;
+
+      --  Vertex label V is stored at Prev (PX + V) and
+      --  Heuristic (HX + V);
+      --  the K-th path vertex at Path (QX + K).
+      PX : constant Natural := Prev'First - 1;
+      HX : constant Natural := Heuristic'First - 1;
+      QX : constant Natural := Path'First - 1;
    begin
       for I in Prev'Range loop
          Prev (I) := 0;
@@ -170,25 +181,25 @@ is
          pragma Loop_Invariant (Prev'Initialized);
          pragma Loop_Invariant
            (for all K in Vertex_Id range 1 .. V =>
-              (if K < V then Prev (K) = 0));
-         Prev (V) := 0;
+              (if K < V then Prev (PX + K) = 0));
+         Prev (PX + V) := 0;
          Open (V) := False;
          Visited (V) := False;
       end loop;
       pragma Assert
-        (for all V in Vertex_Id range 1 .. Vertex_Id (N) => Prev (V) = 0);
+        (for all V in Vertex_Id range 1 .. Vertex_Id (N) => Prev (PX + V) = 0);
 
       if Start = Goal then
          Found := True;
          Length := 1;
-         Path (1) := Start;
+         Path (QX + 1) := Start;
          Nodes_Expanded := 0;
          return;
       end if;
 
       Visited (Start) := True;
       Open (Start) := True;
-      Prev (Start) := 0;
+      Prev (PX + Start) := 0;
 
       for Step in 1 .. Max_Steps loop
          pragma Loop_Invariant (Prev'Initialized);
@@ -200,7 +211,7 @@ is
          pragma Loop_Invariant (Visited (Start));
          pragma Loop_Invariant
            (for all V in Vertex_Id range 1 .. Vertex_Id (N) =>
-              Prev (V) <= N);
+              Prev (PX + V) <= N);
 
          declare
             U          : Vertex_Id := Start;
@@ -218,7 +229,7 @@ is
                     and then Open (U));
 
                if Open (V) then
-                  Hv := Heuristic (V);
+                  Hv := Heuristic (HX + V);
                   if not Found_Open or else Hv < Best then
                      Best := Hv;
                      U := V;
@@ -257,7 +268,7 @@ is
                pragma Loop_Invariant (E_Idx <= G.E);
                pragma Loop_Invariant
                  (for all V in Vertex_Id range 1 .. Vertex_Id (N) =>
-                    Prev (V) <= N);
+                    Prev (PX + V) <= N);
                pragma Loop_Invariant
                  (Nodes_Expanded = Nodes_Expanded'Loop_Entry);
                pragma Loop_Invariant (not Found);
@@ -269,7 +280,7 @@ is
                W_Vert := G.To (E_Idx);
                if not Visited (W_Vert) then
                   Visited (W_Vert) := True;
-                  Prev (W_Vert) := Natural (U);
+                  Prev (PX + W_Vert) := Natural (U);
                   Open (W_Vert) := True;
                end if;
 

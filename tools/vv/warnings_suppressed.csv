@@ -1814,8 +1814,6 @@ searching/Ada/Trigram-Search,searching/Ada/Trigram-Search/tests.adb,92,pragma Un
 searching/Ada/Trigram-Search,searching/Ada/Trigram-Search/tests.adb,103,pragma Unreferenced (Unused) on a local without a written reason
 searching/Ada/Uniform-Binary-Search,searching/Ada/Uniform-Binary-Search/tests.adb,304,pragma Unreferenced (Dummy) on a local without a written reason
 searching/Ada/Uniform-Binary-Search,searching/Ada/Uniform-Binary-Search/tests.adb,319,pragma Unreferenced (Dummy) on a local without a written reason
-searching/SPARK4/Best-First-Search,searching/SPARK4/Best-First-Search/best_first_search.ads,148,"pragma Warnings (Off, ""referenced before it has a value"");"
-searching/SPARK4/Best-First-Search,searching/SPARK4/Best-First-Search/best_first_search.ads,194,"pragma Warnings (Off, ""referenced before it has a value"");"
 sorting/Ada/Bogosort,sorting/Ada/Bogosort/bogosort.adb,70,pragma Unreferenced (Dummy) on a local without a written reason
 sorting/Ada/Burstsort,sorting/Ada/Burstsort/tests.adb,103,pragma Unreferenced (B) on a local without a written reason
 sorting/Ada/Cycle-Sort,sorting/Ada/Cycle-Sort/cycle_sort.adb,85,pragma Unreferenced (Writes) on a local without a written reason

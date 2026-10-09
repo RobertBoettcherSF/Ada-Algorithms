@@ -3123,7 +3123,7 @@ searching/SPARK4/Best-First-Search,Arrays_OK,catalog,catalog,,2,function n_array
 searching/SPARK4/Best-First-Search,Heuristic_OK,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Best-First-Search,Search,catalog,catalog,,3,procedure n_arrays=3 ret=None,
 searching/SPARK4/Best-First-Search,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
-searching/SPARK4/Best-First-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+searching/SPARK4/Best-First-Search,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 searching/SPARK4/Ada-SPARK-Ternary-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Ternary-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Ternary-Search,Is_Unimodal,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
