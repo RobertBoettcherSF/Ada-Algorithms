@@ -9,6 +9,7 @@ all:
 test: all
 	@echo "Running tests..."
 	@./bin/tests
+	@./bin/tests_reference
 
 clean:
 	rm -rf obj bin
