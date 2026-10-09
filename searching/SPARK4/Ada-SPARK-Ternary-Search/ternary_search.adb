@@ -19,6 +19,8 @@ is
       Lo, Hi   : Ext_Index;
       M1, M2   : Ext_Index;
       V1, V2   : Integer;
+      Rise     : Integer;   --  A (M1 + 1), read only when V1 = V2
+      Fall     : Integer;   --  A (M2 - 1), read only when V1 = V2
       Best     : Index;
       Best_Val : Integer;
       Span     : Natural;
@@ -37,7 +39,7 @@ is
          pragma Loop_Invariant (Hi <= A'Last);
          pragma Loop_Invariant (Lo <= Hi);
          pragma Loop_Invariant (Hi - Lo <= A'Last - A'First);
-         pragma Loop_Invariant (Probes <= 2 * (Guard - 1));
+         pragma Loop_Invariant (Probes <= 4 * (Guard - 1));
          exit when Hi - Lo <= Threshold;
 
          Span := Hi - Lo;
@@ -57,11 +59,29 @@ is
             --  Peak cannot lie at or right of M2.
             Hi := M2 - 1;
          else
-            --  Equal: with plateaus (allowed by Is_Unimodal) the peak may lie
-            --  on either side of [M1, M2] (0 0 0 1 vs 1 0 0 0), so no
-            --  comparison can narrow the window. Fall back to the linear scan
-            --  of [Lo, Hi] below: O(n) worst case on plateau inputs.
-            exit;
+            --  Equal. Look one step inside [M1, M2]: if A still rises after
+            --  M1, a maximum lies right of M1; if A still falls before M2,
+            --  a maximum lies left of M2 (both follow from unimodality).
+            --  On a strictly unimodal array both hold, so the window
+            --  shrinks to (M1, M2) and the search stays O(log n). Only a
+            --  true plateau (neither holds: 0 0 0 0 0 0 0 1 vs 1 0 0 0 0 0
+            --  0 0) leaves no comparison that can narrow the window; then
+            --  the scan of [Lo, Hi] below runs, O(n) on such inputs.
+            --  Span >= 3 gives M1 + 1 <= Hi and M2 - 1 >= Lo; when
+            --  M2 = M1 + 1, Rise is A (M2) = V1, so both cannot fire and
+            --  Lo <= Hi is kept.
+            Rise := A (M1 + 1);
+            Fall := A (M2 - 1);
+            Probes := Probes + 2;
+            if Rise <= V1 and then Fall <= V2 then
+               exit;
+            end if;
+            if Rise > V1 then
+               Lo := M1 + 1;
+            end if;
+            if Fall > V2 then
+               Hi := M2 - 1;
+            end if;
          end if;
       end loop;
 
@@ -72,7 +92,7 @@ is
          pragma Loop_Invariant (Best in Lo .. I - 1);
          pragma Loop_Invariant (Best in A'Range);
          pragma Loop_Invariant (Best_Val = A (Best));
-         pragma Loop_Invariant (Probes <= 2 * Max_N + 1 + (I - Lo - 1));
+         pragma Loop_Invariant (Probes <= 4 * Max_N + 1 + (I - Lo - 1));
          Probes := Probes + 1;
          if A (I) > Best_Val then
             Best := I;

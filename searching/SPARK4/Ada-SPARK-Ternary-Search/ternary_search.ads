@@ -7,7 +7,7 @@
 --      m1 = Lo + ⌊(Hi − Lo) / 3⌋
 --      m2 = Hi − ⌊(Hi − Lo) / 3⌋
 --
---  O(log n) comparisons (base 3/2 shrinkage) on strictly unimodal input plus O(1) for the
+--  O(log n) probes (base 3/2 shrinkage) on strictly unimodal input plus O(1) for the
 --  final window. Sentinel 0 when a sorted key is absent (0 is never a
 --  live index; A may start at any origin in 1 .. Max_N).
 --
@@ -94,8 +94,11 @@ is
    --  then:
    --    if A(m1) < A(m2), raise Lo ← m1 + 1 (peak cannot be ≤ m1);
    --    if A(m1) > A(m2), lower Hi ← m2 − 1 (peak cannot be ≥ m2);
-   --    else (equal) stop: on a plateau the peak may lie on either side,
-   --    so the final linear scan covers the whole [Lo, Hi] window (O(n) worst case).
+   --    else (equal) read A(m1+1) and A(m2-1): if A rises after m1,
+   --    Lo ← m1 + 1; if A falls before m2, Hi ← m2 − 1 (a strictly
+   --    unimodal array does both, so it stays O(log n)); if neither, the
+   --    window is a true plateau and the final linear scan covers the
+   --    whole [Lo, Hi] window (O(n), unavoidable on plateau inputs).
    --  Finish with a linear scan of the tiny window; any plateau index OK.
    --  Sorted Find: trisect a nondecreasing array looking for Key; miss → 0.
 
