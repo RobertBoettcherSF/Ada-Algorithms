@@ -141,6 +141,18 @@ for r in rows:
             r['checks'], r['functional_checks'] = t, f
             r['trivial'] = 'yes' if t <= TRIVIAL_MAX else ''
 
+# Checker scan (tools/vv/checker_scan.csv): a functional claim resting on a lenient checker in a
+# postcondition / contract is withdrawn until the checker is fixed and the proof passes again.
+_cs = os.path.join(a.root, 'tools', 'vv', 'checker_scan.csv')
+if os.path.exists(_cs):
+    _wd = {}
+    for x in csv.DictReader(open(_cs)):
+        if x.get('withdraw_functional') == 'yes':
+            _wd.setdefault(x['folder'], []).append(x['helper'])
+    for r in rows:
+        if r['folder'] in _wd and r['functional_checks'] not in ('', None):
+            r['functional_checks'] = 'withdrawn: lenient %s, see checker_scan.csv' % ' / '.join(_wd[r['folder']])
+
 # V&V columns (docs/VV.md): differential test, mutation score, known-answer vectors
 def _csv(path):
     return list(csv.DictReader(open(path))) if os.path.exists(path) else []
@@ -498,7 +510,7 @@ headline = (f"{c(lambda r: r['silver']=='proven' and not r['stub'] and not r['tr
             f"{c(lambda r: r['silver']=='proven' and bool(r['stub']))} stubs proven (separate), "
             f"{c(lambda r: r['silver'].endswith('unproved'))} with unproved checks, {c(lambda r: r['silver'] in ('tool crash','timeout'))} gnatprove tool crash/timeout, "
             f"{c(lambda r: r['silver']=='not built')} not built for gnatprove, {c(lambda r: r['silver']=='not run')} not run; "
-            f"{c(lambda r: r['silver']=='proven' and not r['stub'] and (r['functional_checks'] or 0) > 0)} proven real folders also prove functional contracts")
+            f"{c(lambda r: r['silver']=='proven' and not r['stub'] and isinstance(r['functional_checks'], int) and r['functional_checks'] > 0)} proven real folders also prove functional contracts")
 L = ['# Proof index', '',
      f'Generated {datetime.datetime.now().astimezone():%Y-%m-%d %H:%M %Z}.', '',
      '## Proof setup', '', '```', tool, '```', '',

@@ -2293,7 +2293,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | trees/Ada/Red-Black-Tree | yes | yes | yes | yes | yes | 3 | 3 | no SPARK |  |  | trees/SPARK2/Ada-SPARK-Red-Black-Tree |  |
 | trees/Ada/Set-Partitioning-In-Hierarchical-Trees | yes | yes | yes | yes | yes | 40 | 40 | no SPARK |  |  |  |  |
 | trees/SPARK2/Ada-SPARK-BST-Iterator-Stub (stub) | yes | yes | yes | yes | yes | 3 | 3 | proven | 13 |  |  |  |
-| trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree | yes | yes | yes | yes | yes | 0 | 0 | proven | 52 (15) |  |  |  |
+| trees/SPARK2/Ada-SPARK-Balanced-Binary-Tree | yes | yes | yes | yes | yes | 0 | 0 | proven | 52 (withdrawn: lenient Spec_Balanced / Is_Balanced, see checker_scan.csv) |  |  |  |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Inorder | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Level-Order | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Binary-Tree-Max-Depth | yes | yes | yes | yes | yes | 1 | 1 | proven | 20 |  |  |  |
