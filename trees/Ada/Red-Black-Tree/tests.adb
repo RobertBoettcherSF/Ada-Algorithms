@@ -1,6 +1,7 @@
 with Ada.Command_Line;
 with Ada.Text_IO; use Ada.Text_IO;
 with Red_Black_Tree; use Red_Black_Tree;
+with Red_Black_Tree.Test_Support;
 
 procedure Tests is
    Pass_Count : Natural := 0;
@@ -160,6 +161,99 @@ begin
       if Successor (T, 300) = 0 then Check ("14.3", False); end if;
    exception
       when Key_Not_Found_Error => Check ("14.3 Successor of max raises error", True);
+   end;
+
+   -- TEST 15 - The judge against its definition
+   --  Every node layout of 1 .. 4 nodes (23 shapes), keys 1 .. 4 and
+   --  both colours at every node (60,040 trees), plus, for each tree the
+   --  definition accepts that has a child, the same tree with a broken
+   --  parent link and with a wrong Count. Is_Valid_Red_Black_Tree must
+   --  agree with Test_Support.Reference_Valid on every one.
+   Put_Line ("TEST 15 - Is_Valid_Red_Black_Tree against its definition");
+   declare
+      package TS renames Red_Black_Tree.Test_Support;
+      Present  : TS.Present_Array;
+      Keys     : TS.Key_Array := [others => 1];
+      Red      : TS.Red_Array := [others => False];
+      Pos      : array (1 .. 4) of TS.Position := [others => 1];
+      Trees, Valid, Misjudged, Raised, Tampered : Natural := 0;
+      U : Tree;
+
+      procedure Judge (Label : String) is
+         Want : constant Boolean := TS.Reference_Valid (U);
+      begin
+         Trees := Trees + 1;
+         if Want then
+            Valid := Valid + 1;
+         end if;
+         begin
+            if Is_Valid_Red_Black_Tree (U) /= Want then
+               Misjudged := Misjudged + 1;
+               if Misjudged <= 3 then
+                  Put_Line ("    misjudged (" & Label & "), definition says "
+                            & Boolean'Image (Want));
+               end if;
+            end if;
+         exception
+            when others =>
+               Raised := Raised + 1;
+         end;
+      end Judge;
+   begin
+      for Mask in 1 .. 2**15 - 1 loop
+         declare
+            N : Natural := 0;
+            Closed : Boolean := True;
+         begin
+            for P in TS.Position loop
+               Present (P) := (Mask / 2**(P - 1)) mod 2 = 1;
+               if Present (P) then
+                  N := N + 1;
+                  if N <= 4 then
+                     Pos (N) := P;
+                  end if;
+                  if P > 1 and then not Present (P / 2) then
+                     Closed := False;
+                  end if;
+               end if;
+            end loop;
+            if Closed and then N <= 4 then
+               for Code in 0 .. 8**N - 1 loop
+                  for I in 1 .. N loop
+                     Keys (Pos (I)) := Node_Key ((Code / 8**(I - 1)) mod 4 + 1);
+                     Red (Pos (I)) := (Code / 8**(I - 1)) / 4 mod 2 = 1;
+                  end loop;
+                  TS.Build (U, Present, Keys, Red);
+                  Judge ("built");
+                  if TS.Reference_Valid (U) and then N >= 2 then
+                     Tampered := Tampered + 2;
+                     TS.Break_Parent_Link (U);
+                     Judge ("parent link");
+                     TS.Build (U, Present, Keys, Red);
+                     TS.Set_Count (U, N + 1);
+                     Judge ("count");
+                     TS.Set_Count (U, N);
+                  end if;
+                  Clear (U);
+               end loop;
+            end if;
+         end;
+      end loop;
+      Put_Line ("    " & Natural'Image (Trees) & " trees ("
+                & Natural'Image (Tampered) & " tampered),"
+                & Natural'Image (Valid) & " valid by definition,"
+                & Natural'Image (Misjudged) & " misjudged,"
+                & Natural'Image (Raised) & " raised");
+      Check ("15.1 judge agrees with the definition on every tree",
+             Misjudged = 0 and then Raised = 0);
+      Check ("15.2 both verdicts occur", Valid > 0 and then Valid < Trees);
+      for K in Node_Key range 1 .. 40 loop
+         Insert (U, (K * 7) mod 41, 0.0);
+         Check ("15.3 definition holds after Insert of"
+                & Node_Key'Image ((K * 7) mod 41),
+                TS.Reference_Valid (U));
+      end loop;
+      Clear (U);
    end;
 
    Put_Line ("");
