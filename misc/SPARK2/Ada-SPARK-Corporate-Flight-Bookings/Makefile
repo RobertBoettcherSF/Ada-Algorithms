@@ -9,6 +9,7 @@ test:
 	mkdir -p obj bin
 	$(GNAT) $(FLAGS) -P corporate_flight_bookings.gpr
 	bin/tests
+	bin/own_checks
 
 prove:
 	mkdir -p obj
