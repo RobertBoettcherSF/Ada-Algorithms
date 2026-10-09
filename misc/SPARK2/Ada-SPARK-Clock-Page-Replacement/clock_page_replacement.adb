@@ -7,7 +7,7 @@ package body Clock_Page_Replacement is
       for I in Frame_Id loop
          if S.Slots (I).Used and then S.Slots (I).Value = P then S.Slots (I).Referenced := True; return; end if;
       end loop;
-      if S.Faults < Fault_Count_Type'Last then S.Faults := S.Faults + 1; end if;
+      S.Faults := S.Faults + 1;
       for I in Frame_Id loop
          if not S.Slots (I).Used then S.Slots (I) := (Value => P, Referenced => True, Used => True); return; end if;
       end loop;
