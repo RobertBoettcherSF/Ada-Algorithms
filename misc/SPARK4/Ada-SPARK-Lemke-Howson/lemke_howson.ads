@@ -17,13 +17,17 @@ use Ada.Numerics.Big_Numbers.Big_Integers;
 --  Degenerate games (several best responses, ties in the ratio test) are
 --  handled by the lexicographic ratio test, which never revisits a basis.
 --
---  The result is certified: Found is the exact check Is_Nash below (both
---  mixed strategies are probability vectors, and every strategy played
---  with positive probability is a best response to the other player's
---  strategy), and the postcondition proves that.  That Found is always
---  True (the path ends at an equilibrium within Max_Steps) is the theorem
---  of Lemke and Howson with lexicographic pivoting; it is tested, not
---  proved (tools/vv/handover.csv).
+--  The result is certified: Status = Found exactly when the exact check
+--  Is_Nash below holds (both mixed strategies are probability vectors,
+--  and every strategy played with positive probability is a best
+--  response to the other player's strategy), and the postcondition
+--  proves that.  This is a PARTIAL functional claim: a body that always
+--  reports a non-Found status would also satisfy it.  That Status is
+--  always Found (the path ends at an equilibrium within Max_Steps) is
+--  the theorem of Lemke and Howson with lexicographic pivoting; it is
+--  tested, not proved (tools/vv/handover.csv H096).  Termination does
+--  not rest on that theorem: the loop runs at most Max_Steps pivots,
+--  and running out is reported as Step_Cap_Reached, never hidden.
 package Lemke_Howson with SPARK_Mode => On is
 
    Max_Strategies : constant := 5;
@@ -38,10 +42,23 @@ package Lemke_Howson with SPARK_Mode => On is
    type Payoff_Matrix is array (Strategy_Count range <>, Strategy_Count range <>) of Integer;
    type Big_Vector is array (Strategy_Count range <>) of Big_Integer;
 
+   --  How the complementary path ended.
+   --  Found            : the dropped label left; the result passed Is_Nash.
+   --  Step_Cap_Reached : Max_Steps pivots without the dropped label
+   --                     leaving (impossible by the theorem; reported).
+   --  No_Pivot_Row     : the entering column had no positive entry
+   --                     (impossible for these bounded polytopes; reported).
+   --  Check_Failed     : the path ended but the extracted pair failed
+   --                     Is_Nash (impossible by the theorem; reported).
+   --  In the last three cases X, Y are not an equilibrium; for the first
+   --  two they are all zero with Dx = Dy = 0.
+   type Path_Status is (Found, Step_Cap_Reached, No_Pivot_Row, Check_Failed);
+
    --  Mixed strategies as exact fractions: x (I) = X (I) / Dx and
-   --  y (J) = Y (J) / Dy.
+   --  y (J) = Y (J) / Dy.  Pivots: pivots performed.
    type Exact_Equilibrium (M, N : Strategy_Count) is record
-      Found : Boolean;
+      Status : Path_Status;
+      Pivots : Natural;
       X     : Big_Vector (1 .. M);
       Dx    : Big_Integer;
       Y     : Big_Vector (1 .. N);
@@ -108,7 +125,8 @@ package Lemke_Howson with SPARK_Mode => On is
      Global => null,
      Pre    => Same_Shape (A, B) and then Initial_Drop <= A'Last (1) + A'Last (2),
      Post   => Find_Equilibrium'Result.M = A'Last (1) and then Find_Equilibrium'Result.N = A'Last (2)
-               and then Find_Equilibrium'Result.Found
+               and then Find_Equilibrium'Result.Pivots <= Max_Steps
+               and then (Find_Equilibrium'Result.Status = Found)
                         = Is_Nash (A, B, Find_Equilibrium'Result.X, Find_Equilibrium'Result.Dx,
                                    Find_Equilibrium'Result.Y, Find_Equilibrium'Result.Dy);
 

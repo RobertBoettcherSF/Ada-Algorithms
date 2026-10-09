@@ -23,18 +23,30 @@ cycle.
 ```ada
 function Find_Equilibrium (A, B : Payoff_Matrix; Initial_Drop : Label_Type := 1)
   return Exact_Equilibrium;
---  Result: X (I) / Dx and Y (J) / Dy, and Found.
+--  Result: X (I) / Dx and Y (J) / Dy, Status (Found, Step_Cap_Reached,
+--  No_Pivot_Row or Check_Failed) and Pivots.
 ```
 
 ## Contract
-* `Post`: `Found = Is_Nash (A, B, X, Dx, Y, Dy)`: Found is exactly the
-  statement that both are probability vectors and every strategy played
-  with positive probability is a best response (exact, in
-  `Big_Integer`). A True Found is a proved certificate.
-* That Found is always True (the path reaches an equilibrium within
-  `Max_Steps` = 252 ** 2 pivots) is the Lemke-Howson theorem with the
-  lexicographic rule; it is tested (every starting label, degenerate
-  games included), not proved: tools/vv/handover.csv.
+* `Post`: `(Status = Found) = Is_Nash (A, B, X, Dx, Y, Dy)` and
+  `Pivots <= Max_Steps`: Status = Found is exactly the statement that
+  both are probability vectors and every strategy played with positive
+  probability is a best response (exact, in `Big_Integer`). A Found
+  result is a proved certificate.
+* This is a partial functional claim ("if Found then an equilibrium"): a
+  body that never reports Found would satisfy it too. That Status is
+  always Found (the path reaches an equilibrium within `Max_Steps` =
+  252 ** 2 pivots) is the Lemke-Howson theorem with the lexicographic
+  rule; it is tested (every starting label, degenerate games included),
+  not proved: tools/vv/handover.csv H096.
+* Termination is by the loop bound, not a proved variant: the loop runs
+  at most `Max_Steps` pivots. Every other way out is reported in
+  `Status`, never folded into a silent "not found": `Step_Cap_Reached`
+  (Max_Steps pivots without reaching the end of the path),
+  `No_Pivot_Row` (the entering column has no positive entry; impossible
+  for these bounded polytopes) and `Check_Failed` (the path ended but the
+  pair failed the exact check). The tests require Status = Found on every
+  call.
 * `Pre`: strategies are numbered from 1 (labels are built from the
   strategy numbers) and `Initial_Drop <= M + N`.
 
@@ -46,13 +58,16 @@ function Find_Equilibrium (A, B : Payoff_Matrix; Initial_Drop : Label_Type := 1)
 
 ## Verification
 * Proof (gnatprove 16.1.0): absence of run-time errors and the
-  postcondition, 247 checks, all proved by `make prove`; also at
+  postcondition, 250 checks, all proved by `make prove`; also at
   `--level=4` and in silver mode with the repository's step limits
   (tools/vv/prove_settings.txt). No `pragma Assume` or `Annotate`.
 * Tests (tests.adb): an own exact best-response check for every starting
   label, and the hand-worked equilibria where they are known; degenerate
   games where the old floating-point version returned a non-equilibrium;
-  payoffs at `Integer'First` / `Integer'Last`.
+  payoffs at `Integer'First` / `Integer'Last`; seeded random 3 x 3 and
+  4 x 4 games and degenerate ones (payoffs 0 .. 1, or a repeated row and
+  column), every starting label, Status = Found and pivots within
+  C (M + N, M) ** 2.
 * Own checks (`own_checks.adb`): against an independent support
   enumeration (Cramer's rule, Laplace determinants) on 300 seeded
   wide-range games, and the best-response check on every 2 x 2 game with

@@ -130,6 +130,7 @@ package body Lemke_Howson with SPARK_Mode => On is
       In_P     : Boolean := Initial_Drop <= M;
       Ok       : Boolean;
       Done     : Boolean := False;
+      Pivots   : Natural;
       R        : Exact_Equilibrium (M, N);
    begin
       for I in 1 .. M loop
@@ -163,10 +164,12 @@ package body Lemke_Howson with SPARK_Mode => On is
          else
             Pivot (Q, Q_Basis, Q_Det, Entering, 1, M, Leaving, Ok);
          end if;
+         Pivots := Step;
          pragma Loop_Invariant (P_Det > 0 and then Q_Det > 0);
          pragma Loop_Invariant (Leaving <= M + N);
          pragma Loop_Invariant (for all J in P_Basis'Range => P_Basis (J) <= M + N);
          pragma Loop_Invariant (for all I in Q_Basis'Range => Q_Basis (I) <= M + N);
+         pragma Loop_Invariant (Pivots = Step);
          exit when not Ok;
          if Leaving = Initial_Drop then
             Done := True;
@@ -176,19 +179,31 @@ package body Lemke_Howson with SPARK_Mode => On is
          In_P := not In_P;
       end loop;
 
+      R.Pivots := Pivots;
       if Done then
          R.X := Extract (P, P_Basis, 1, M);
          R.Y := Extract (Q, Q_Basis, M + 1, N);
+         R.Dx := Sum_To (R.X, M);
+         R.Dy := Sum_To (R.Y, N);
+         --  The result is certified: Found only when the exact check holds.
+         if Is_Nash (A, B, R.X, R.Dx, R.Y, R.Dy) then
+            R.Status := Found;
+         else
+            R.Status := Check_Failed;
+         end if;
       else
-         --  No path end within Max_Steps (or no pivot row): no result, and
-         --  Dx = 0 below makes Found False.
+         --  No path end: say which exit was taken; no strategies (Dx = 0
+         --  is not a mixed strategy, so Is_Nash is False).
          R.X := [others => To_Big_Integer (0)];
          R.Y := [others => To_Big_Integer (0)];
+         R.Dx := To_Big_Integer (0);
+         R.Dy := To_Big_Integer (0);
+         if Ok then
+            R.Status := Step_Cap_Reached;
+         else
+            R.Status := No_Pivot_Row;
+         end if;
       end if;
-      R.Dx := Sum_To (R.X, M);
-      R.Dy := Sum_To (R.Y, N);
-      --  The result is certified: Found is the exact check itself.
-      R.Found := Is_Nash (A, B, R.X, R.Dx, R.Y, R.Dy);
       return R;
    end Find_Equilibrium;
 
