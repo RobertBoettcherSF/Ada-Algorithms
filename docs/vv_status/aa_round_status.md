@@ -61,4 +61,4 @@ BrownBoost — leave those alone.
 - GNAT 12 three-pass (`/tmp/flk/g12_tr.csv`, 271 folders) merged into
   `tools/vv/flaky.csv` (2111 data rows). Counting-Sort finished on GNAT 12
   (10/10, init yes) after long runs; GNAT 14 had previously timed out at 300 s.
-- Tip: `3f80e34a Ada Introsort: Sort_Traced heap counter, Musser median-of-3 killer, Max_Depth 0 off origin 1; Has_Left + Long_Integer for Natural'Last` (pending FLAME commit)
+- Tip: `a24e4397 FLAME-Clustering: First-relative Dataset / Result bounds; section 20 shift tests`
