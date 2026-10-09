@@ -14,7 +14,6 @@ package body Count_Complete_Tree_Nodes is
    function Node_Count (T : Tree) return Natural is
    begin
       if T.Used (16) then return 16;
-      elsif T.Used (16) then return 16;
       elsif T.Used (15) then return 15;
       elsif T.Used (14) then return 14;
       elsif T.Used (13) then return 13;
