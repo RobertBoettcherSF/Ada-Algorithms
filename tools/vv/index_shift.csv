@@ -3493,7 +3493,7 @@ strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,,first_relative,ok,rewritten_first_r
 strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 strings/SPARK3/Levenshtein-Distance,Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-strings/SPARK3/Levenshtein-Distance,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+strings/SPARK3/Levenshtein-Distance,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 trees/Ada/Context-Tree-Weighting,Update,catalog,catalog,,1,procedure n_arrays=1 ret=Long_Float,
 trees/Ada/Decision-Trees,Train,catalog,catalog,,1,function n_arrays=1 ret=Tree_Node_Access,
 trees/Ada/Decision-Trees,Predict,catalog,catalog,,1,function n_arrays=1 ret=Class_Label,
