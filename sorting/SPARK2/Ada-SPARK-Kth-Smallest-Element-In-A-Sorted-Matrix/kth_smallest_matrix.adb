@@ -1,10 +1,11 @@
 pragma Ada_2022;
 package body Kth_Smallest_Matrix with SPARK_Mode => On is
    type Values is array (Rank) of Integer;
-   function Kth (M : Matrix; N : Dimension; K : Rank) return Integer is
-      V : Values := (others => 0);
+   function Kth (M : Matrix; N : Dimension; K : Rank) return Kth_Result is
+      V : Values := [others => 0];
       Min_Index : Rank;
       Temp : Integer;
+      Probes : Natural := 0;
    begin
       for I in Dimension loop
          for J in Dimension loop
@@ -18,12 +19,15 @@ package body Kth_Smallest_Matrix with SPARK_Mode => On is
          Min_Index := I;
          for J in Rank loop
             exit when J > N * N;
-            if J > I and then V (J) < V (Min_Index) then
-               Min_Index := J;
+            if J > I then
+               Probes := Probes + 1;
+               if V (J) < V (Min_Index) then
+                  Min_Index := J;
+               end if;
             end if;
          end loop;
          Temp := V (I); V (I) := V (Min_Index); V (Min_Index) := Temp;
       end loop;
-      return V (K);
+      return (Kth => V (K), Probes => Probes);
    end Kth;
 end Kth_Smallest_Matrix;
