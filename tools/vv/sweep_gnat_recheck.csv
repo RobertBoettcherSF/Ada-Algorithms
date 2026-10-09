@@ -53,3 +53,5 @@ misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,GNAT 14,GNATLS 14.2.0,0,0,PASS own ch
 misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 5735 cases (720 vectors -> 720 distinct permutations; counts kept; invalid choices rejected),701b3010
 misc/SPARK2/Ada-SPARK-Guess-Number-Higher-Or-Lower,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 1552 cases (all 528 games: answer; guess bound and worst case; Probe on all pairs),6c21b85d
 misc/SPARK2/Ada-SPARK-Guess-Number-Higher-Or-Lower,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 1552 cases (all 528 games: answer; guess bound and worst case; Probe on all pairs),6c21b85d
+sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 80124 checks (all 32 rotations of 304 increasing arrays: position, value, probes, Minimum; predicate on rotations, broken copies and random arrays),609b3ea5
+sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 80124 checks (all 32 rotations of 304 increasing arrays: position, value, probes, Minimum; predicate on rotations, broken copies and random arrays),609b3ea5
