@@ -459,6 +459,24 @@ is
       pragma Assert (OO + Last = Output'First + (Last - 1));
       pragma Assert (Sorted_Slice (Output, OO + 1, OO + Last));
       pragma Assert (Is_Sorted (Output (Output'First .. Output'First + (Last - 1))));
+      --  Every input item has been taken: the counts of the merged prefix
+      --  are the counts of the whole of A and B, for every value. Proof
+      --  only (the facts range over every Integer); the Post itself is
+      --  still checked at run time.
+      declare
+         pragma Assertion_Policy (Assert => Ignore);
+      begin
+         pragma Assert
+           (for all V in Integer =>
+              Occ (A, V, AO + (IA - 1)) = Occ (A, V, A'Last));
+         pragma Assert
+           (for all V in Integer =>
+              Occ (B, V, BO + (IB - 1)) = Occ (B, V, B'Last));
+         pragma Assert
+           (for all V in Integer =>
+              Occ (Output, V, Output'First + (Last - 1))
+              = Occ (A, V, A'Last) + Occ (B, V, B'Last));
+      end;
    end Merge;
 
 end K_Way_Merge;
