@@ -3381,3 +3381,77 @@ misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,13,alt,killed,,killed,test_ch
 misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,19,alt,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
 misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,20,alt,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
 misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,22,alt,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,0,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,1,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,2,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,3,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,4,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,5,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,7,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,8,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,9,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,11,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,12,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,13,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,15,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,16,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,17,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,18,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,19,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,20,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,25,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,26,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,29,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,30,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,31,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,32,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,36,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,37,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,39,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,42,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,43,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,45,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,46,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,48,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,49,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,52,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,55,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,56,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,full,57,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,0,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,1,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,2,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,3,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,4,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,5,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,7,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,8,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,9,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,11,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,12,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,13,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,15,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,16,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,17,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,18,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,19,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,20,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,25,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,26,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,29,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,30,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,31,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,32,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,36,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,37,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,39,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,42,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,43,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,45,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,46,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,48,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,49,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,52,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,55,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,56,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Partition-Around-Pivot,20264048,thinned,57,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
