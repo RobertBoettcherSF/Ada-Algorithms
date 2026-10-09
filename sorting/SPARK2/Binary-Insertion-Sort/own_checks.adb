@@ -50,7 +50,7 @@ procedure Own_Checks is
    end Reference;
 
    procedure Check_One (A : Input_Array; Label : String) is
-      R      : constant Input_Array := Sort (A);
+      R      : constant Input_Array := Sort (A).Sorted;
       type Counts is array (Value) of Natural;
       C_In   : Counts := [others => 0];
       C_Out  : Counts := [others => 0];
