@@ -7,7 +7,6 @@ pragma Ada_2012;
 with Ada.Text_IO;
 with Ada.Command_Line;
 with Ada.Containers;
-with Ada.Exceptions;
 with ARC_Cache;
 
 procedure Test_ARC_Cache is
@@ -111,15 +110,6 @@ procedure Test_ARC_Cache is
    end Assert_Equal;
 
    -- Assert_Equal for strings
-   procedure Assert_Equal (Actual, Expected : String; Test_Name : String; Message : String := "") is
-   begin
-      if Actual = Expected then
-         Print_Result (Test_Name, PASSED, Message);
-      else
-         Print_Result (Test_Name, FAILED, 
-                      Message & " (Expected: """ & Expected & """, Actual: """ & Actual & """)");
-      end if;
-   end Assert_Equal;
 
    -- Assert_True for boolean
    procedure Assert_True (Value : Boolean; Test_Name : String; Message : String := "") is
@@ -133,14 +123,6 @@ procedure Test_ARC_Cache is
       Assert (not Value, Test_Name, Message);
    end Assert_False;
 
-   -- Exception handler for tests
-   procedure Safe_Execute (Test_Name : String; Action : access procedure) is
-   begin
-      Action.all;
-   exception
-      when E : others =>
-         Print_Result (Test_Name, ERROR, "Exception: " & Ada.Exceptions.Exception_Message (E));
-   end Safe_Execute;
 
    -- Print test header
    procedure Print_Header (Title : String) is
@@ -181,7 +163,6 @@ procedure Test_ARC_Cache is
    procedure Test_Basic_Functionality is
       Value : Integer;
       Result : Boolean;
-      Exception_Raised : Boolean;
    begin
       Print_Header ("Basic Functionality Tests");
 
@@ -316,7 +297,6 @@ procedure Test_ARC_Cache is
    procedure Test_Locked_Pages is
       Value : Integer;
       Result : Boolean;
-      Exception_Raised : Boolean;
    begin
       Print_Header ("Locked Page Functionality Tests");
 
@@ -471,7 +451,6 @@ procedure Test_ARC_Cache is
    procedure Test_ARC_Algorithm is
       Value : Integer;
       Result : Boolean;
-      Count : Integer;
    begin
       Print_Header ("ARC Algorithm Properties Tests");
 
@@ -524,7 +503,7 @@ procedure Test_ARC_Cache is
          end loop;
          
          -- Some original items should still be in cache (in T2)
-         Result := String_Cache.Get (Cache, To_Bounded ("key_5"), Value);
+         Result := String_Cache.Get (Cache, To_Bounded ("key_ 5"), Value);
          Assert_True (Result, "7.2.1", "Most recently accessed original item still in cache");
       end;
 
@@ -615,7 +594,6 @@ procedure Test_ARC_Cache is
    procedure Test_Edge_Cases is
       Value : Integer;
       Result : Boolean;
-      Exception_Raised : Boolean;
    begin
       Print_Header ("Edge Cases and Error Conditions Tests");
 
@@ -744,13 +722,13 @@ procedure Test_ARC_Cache is
          end loop;
          
          -- Check a few items
-         Result := String_Cache.Get (Cache, To_Bounded ("large_1"), Value);
+         Result := String_Cache.Get (Cache, To_Bounded ("large_ 1"), Value);
          Assert_True (Result, "13.1.1", "First item in large cache retrievable");
          
-         Result := String_Cache.Get (Cache, To_Bounded ("large_500"), Value);
+         Result := String_Cache.Get (Cache, To_Bounded ("large_ 500"), Value);
          Assert_True (Result, "13.1.2", "Last item in large cache retrievable");
          
-         Result := String_Cache.Get (Cache, To_Bounded ("large_250"), Value);
+         Result := String_Cache.Get (Cache, To_Bounded ("large_ 250"), Value);
          Assert_True (Result, "13.1.3", "Middle item in large cache retrievable");
       end;
 
@@ -869,7 +847,6 @@ procedure Test_ARC_Cache is
    procedure Test_Assumption_Violations is
       Value : Integer;
       Result : Boolean;
-      Exception_Raised : Boolean;
       Count : Integer;
    begin
       Print_Header ("Assumption Violation Tests");
@@ -898,7 +875,7 @@ procedure Test_ARC_Cache is
          
          Result := String_Cache.Get (Cache, To_Bounded ("b"), Value);
          declare
-            B_Present : Boolean := Result;
+            B_Present : constant Boolean := Result;
          begin
             Result := String_Cache.Get (Cache, To_Bounded ("c"), Value);
             -- One of b or c should be evicted, but we don't know which

@@ -31,6 +31,7 @@ test: $(OBJ_DIR) $(BIN_DIR)
 	@echo "Running ARC Cache tests..."
 	@echo "========================================"
 	./$(BIN_DIR)/test_arc_cache
+	./$(BIN_DIR)/test_reference
 	@echo "========================================"
 
 run: test
