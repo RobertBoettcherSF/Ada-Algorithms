@@ -59,13 +59,13 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_Total)
+     (A'Length <= Max_Total)
    with Global => null;
-   --  Shape guard for 1-based arrays up to Max_Total (inputs ≤ Max_Len
-   --  and the Output buffer of length Max_Total).
+   --  Shape guard: at most Max_Total elements, starting at any index
+   --  (inputs ≤ Max_Len and the Output buffer of length Max_Total).
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (for all I in A'Range => (if I < A'Last then A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
@@ -154,17 +154,17 @@ is
    with
      Global => null,
      Pre    =>
-       Output'First = 1
-       and then Output'Last = Max_Total
+       Output'Length = Max_Total
        and then All_Lists_Sorted (Store, Lens, K)
        and then Total_Length (Lens, K) <= Max_Total,
      Post   =>
        Last = Total_Length (Lens, K)
        and then Last <= Max_Total
-       and then In_Bounds (Output (1 .. Last))
-       and then Is_Sorted (Output (1 .. Last));
+       and then In_Bounds (Output (Output'First .. Output'First + (Last - 1)))
+       and then Is_Sorted (Output (Output'First .. Output'First + (Last - 1)));
    --  K-way merge of Store (1 .. K) with lengths Lens into Output.
-   --  Writes the merged sequence into Output (1 .. Last); remaining
+   --  Writes the merged sequence into the first Last slots of Output
+   --  (Output may start at any index); remaining
    --  Output slots are zeroed. Empty lists (Lens (I) = 0) contribute
    --  nothing. Post proves sortedness; multiset equality is checked by
    --  the test suite (not claimed here at Level 4).
@@ -178,18 +178,17 @@ is
      Pre    =>
        In_Bounds (A)
        and then In_Bounds (B)
-       and then A'Last <= Max_Len
-       and then B'Last <= Max_Len
+       and then A'Length <= Max_Len
+       and then B'Length <= Max_Len
        and then Is_Sorted (A)
        and then Is_Sorted (B)
-       and then Natural (A'Last) + Natural (B'Last) <= Max_Total
-       and then Output'First = 1
-       and then Output'Last = Max_Total,
+       and then A'Length + B'Length <= Max_Total
+       and then Output'Length = Max_Total,
      Post   =>
-       Last = Natural (A'Last) + Natural (B'Last)
+       Last = A'Length + B'Length
        and then Last <= Max_Total
-       and then In_Bounds (Output (1 .. Last))
-       and then Is_Sorted (Output (1 .. Last));
+       and then In_Bounds (Output (Output'First .. Output'First + (Last - 1)))
+       and then Is_Sorted (Output (Output'First .. Output'First + (Last - 1)));
    --  Educational 2-way merge (special case of k = 2 without a k-scan).
    --  Direct two-pointer scan; prefers A when A (IA) ≤ B (IB).
 

@@ -12,7 +12,8 @@ is
 
    type Pos_Array is array (1 .. Max_K) of Pos_Cursor;
 
-   --  Adjacent nondecreasing on A (L .. R). Vacuous when L >= R.
+   --  Adjacent nondecreasing on A (L .. R) (storage indices). Vacuous
+   --  when L >= R.
    function Sorted_Slice
      (A : Element_Array; L, R : Natural) return Boolean
    is
@@ -21,10 +22,7 @@ is
    with
      Ghost  => True,
      Global => null,
-     Pre    =>
-       A'First = 1
-       and then R <= A'Last
-       and then L >= 1;
+     Pre    => (if L < R then L >= A'First and then R <= A'Last);
 
    --  Remaining elements across Pos (1 .. K).
    function Live_Count
@@ -98,6 +96,8 @@ is
       Total     : constant Natural := Total_Length (Lens, K);
       Remaining : Natural := Total;
       OI        : Natural := 0;
+      --  The OI-th merged value is stored at Output (OO + OI).
+      OO        : constant Natural := Output'First - 1;
       Best      : Natural;
       Min_Val   : Integer;
       Old_Pos   : Pos_Cursor;
@@ -118,13 +118,13 @@ is
                or else
                  (for all J in Pos (I) .. Lens (I) - 1 =>
                     Store (I, J) <= Store (I, J + 1))));
-         pragma Loop_Invariant (Sorted_Slice (Output, 1, OI));
+         pragma Loop_Invariant (Sorted_Slice (Output, OO + 1, OO + OI));
          pragma Loop_Invariant
            (OI = 0
             or else
               (for all I in 1 .. K =>
                  (if Pos (I) <= Lens (I)
-                  then Output (OI) <= Store (I, Pos (I)))));
+                  then Output (OO + OI) <= Store (I, Pos (I)))));
          pragma Loop_Variant (Decreases => Remaining);
 
          Best := 0;
@@ -145,7 +145,7 @@ is
                     and then Min_Val <= Store (J, Pos (J))));
             pragma Loop_Invariant
               (for all T in 1 .. K => Pos (T) in 1 .. Lens (T) + 1);
-            pragma Loop_Invariant (Sorted_Slice (Output, 1, OI));
+            pragma Loop_Invariant (Sorted_Slice (Output, OO + 1, OO + OI));
             pragma Loop_Invariant (OI + Remaining = Total);
             pragma Loop_Invariant
               (Remaining = Live_Count (Pos, Lens, K));
@@ -154,7 +154,7 @@ is
                or else
                  (for all T in 1 .. K =>
                     (if Pos (T) <= Lens (T)
-                     then Output (OI) <= Store (T, Pos (T)))));
+                     then Output (OO + OI) <= Store (T, Pos (T)))));
             pragma Loop_Invariant
               (for all T in 1 .. K =>
                  (Pos (T) >= Lens (T)
@@ -179,34 +179,34 @@ is
            (for all J in 1 .. K =>
               (if Pos (J) <= Lens (J)
                then Min_Val <= Store (J, Pos (J))));
-         pragma Assert (OI = 0 or else Output (OI) <= Min_Val);
+         pragma Assert (OI = 0 or else Output (OO + OI) <= Min_Val);
 
          OI := OI + 1;
-         Output (OI) := Min_Val;
-         pragma Assert (Sorted_Slice (Output, 1, OI));
+         Output (OO + OI) := Min_Val;
+         pragma Assert (Sorted_Slice (Output, OO + 1, OO + OI));
 
          Old_Pos := Pos (Best);
          Pos (Best) := Old_Pos + 1;
          Remaining := Remaining - 1;
 
-         --  New live heads are all >= Min_Val = Output (OI).
+         --  New live heads are all >= Min_Val = Output (OO + OI).
          pragma Assert
            (for all I in 1 .. K =>
               (if I /= Best and then Pos (I) <= Lens (I)
-               then Output (OI) <= Store (I, Pos (I))));
+               then Output (OO + OI) <= Store (I, Pos (I))));
          pragma Assert
            (if Pos (Best) <= Lens (Best)
             then Store (Best, Old_Pos) <= Store (Best, Pos (Best)));
          pragma Assert
            (if Pos (Best) <= Lens (Best)
-            then Output (OI) <= Store (Best, Pos (Best)));
+            then Output (OO + OI) <= Store (Best, Pos (Best)));
       end loop;
 
       Last := OI;
       pragma Assert (Last = Total);
-      pragma Assert (Sorted_Slice (Output, 1, Last));
-      pragma Assert (In_Bounds (Output (1 .. Last)));
-      pragma Assert (Is_Sorted (Output (1 .. Last)));
+      pragma Assert (Sorted_Slice (Output, OO + 1, OO + Last));
+      pragma Assert (In_Bounds (Output (Output'First .. Output'First + (Last - 1))));
+      pragma Assert (Is_Sorted (Output (Output'First .. Output'First + (Last - 1))));
    end Merge_K;
 
    -------------------------------------------------------------------------
@@ -221,15 +221,21 @@ is
       IA   : Natural := 1;
       IB   : Natural := 1;
       OI   : Natural := 0;
-      Need : constant Natural := Natural (A'Last) + Natural (B'Last);
-      LA   : constant Natural := A'Last;
-      LB   : constant Natural := B'Last;
+      Need : constant Natural := A'Length + B'Length;
+      LA   : constant Natural := A'Length;
+      LB   : constant Natural := B'Length;
+      --  The I-th element of A is A (AO + I), of B is B (BO + I), and the
+      --  OI-th merged value goes to Output (OO + OI): any origins. AO / BO
+      --  are Integer because an empty A may have A'First = 0.
+      AO   : constant Integer := A'First - 1;
+      BO   : constant Integer := B'First - 1;
+      OO   : constant Natural := Output'First - 1;
    begin
       Output := [others => 0];
 
       if Need = 0 then
          Last := 0;
-         pragma Assert (Is_Sorted (Output (1 .. Last)));
+         pragma Assert (Is_Sorted (Output (Output'First .. Output'First + (Last - 1))));
          return;
       end if;
 
@@ -238,24 +244,24 @@ is
          pragma Loop_Invariant (IB in 1 .. LB + 1);
          pragma Loop_Invariant (OI = (IA - 1) + (IB - 1));
          pragma Loop_Invariant (OI <= Need);
-         pragma Loop_Invariant (Sorted_Slice (Output, 1, OI));
+         pragma Loop_Invariant (Sorted_Slice (Output, OO + 1, OO + OI));
          pragma Loop_Invariant
-           (OI = 0 or else (IA <= LA and then Output (OI) <= A (IA)));
+           (OI = 0 or else (IA <= LA and then Output (OO + OI) <= A (AO + IA)));
          pragma Loop_Invariant
-           (OI = 0 or else (IB <= LB and then Output (OI) <= B (IB)));
+           (OI = 0 or else (IB <= LB and then Output (OO + OI) <= B (BO + IB)));
          pragma Loop_Invariant
-           (for all T in IA .. LA - 1 => A (T) <= A (T + 1));
+           (for all T in IA .. LA - 1 => A (AO + T) <= A (AO + T + 1));
          pragma Loop_Invariant
-           (for all T in IB .. LB - 1 => B (T) <= B (T + 1));
+           (for all T in IB .. LB - 1 => B (BO + T) <= B (BO + T + 1));
          pragma Loop_Variant (Decreases => (LA - IA + 1) + (LB - IB + 1));
 
-         if A (IA) <= B (IB) then
+         if A (AO + IA) <= B (BO + IB) then
             OI := OI + 1;
-            Output (OI) := A (IA);
+            Output (OO + OI) := A (AO + IA);
             IA := IA + 1;
          else
             OI := OI + 1;
-            Output (OI) := B (IB);
+            Output (OO + OI) := B (BO + IB);
             IB := IB + 1;
          end if;
       end loop;
@@ -265,15 +271,15 @@ is
          pragma Loop_Invariant (IB = LB + 1);
          pragma Loop_Invariant (OI = (IA - 1) + (IB - 1));
          pragma Loop_Invariant (OI < Need);
-         pragma Loop_Invariant (Sorted_Slice (Output, 1, OI));
+         pragma Loop_Invariant (Sorted_Slice (Output, OO + 1, OO + OI));
          pragma Loop_Invariant
-           (OI = 0 or else Output (OI) <= A (IA));
+           (OI = 0 or else Output (OO + OI) <= A (AO + IA));
          pragma Loop_Invariant
-           (for all T in IA .. LA - 1 => A (T) <= A (T + 1));
+           (for all T in IA .. LA - 1 => A (AO + T) <= A (AO + T + 1));
          pragma Loop_Variant (Decreases => LA - IA + 1);
 
          OI := OI + 1;
-         Output (OI) := A (IA);
+         Output (OO + OI) := A (AO + IA);
          IA := IA + 1;
       end loop;
 
@@ -282,22 +288,22 @@ is
          pragma Loop_Invariant (IA = LA + 1);
          pragma Loop_Invariant (OI = (IA - 1) + (IB - 1));
          pragma Loop_Invariant (OI < Need);
-         pragma Loop_Invariant (Sorted_Slice (Output, 1, OI));
+         pragma Loop_Invariant (Sorted_Slice (Output, OO + 1, OO + OI));
          pragma Loop_Invariant
-           (OI = 0 or else Output (OI) <= B (IB));
+           (OI = 0 or else Output (OO + OI) <= B (BO + IB));
          pragma Loop_Invariant
-           (for all T in IB .. LB - 1 => B (T) <= B (T + 1));
+           (for all T in IB .. LB - 1 => B (BO + T) <= B (BO + T + 1));
          pragma Loop_Variant (Decreases => LB - IB + 1);
 
          OI := OI + 1;
-         Output (OI) := B (IB);
+         Output (OO + OI) := B (BO + IB);
          IB := IB + 1;
       end loop;
 
       Last := OI;
       pragma Assert (Last = Need);
-      pragma Assert (Sorted_Slice (Output, 1, Last));
-      pragma Assert (Is_Sorted (Output (1 .. Last)));
+      pragma Assert (Sorted_Slice (Output, OO + 1, OO + Last));
+      pragma Assert (Is_Sorted (Output (Output'First .. Output'First + (Last - 1))));
    end Merge;
 
 end K_Way_Merge;

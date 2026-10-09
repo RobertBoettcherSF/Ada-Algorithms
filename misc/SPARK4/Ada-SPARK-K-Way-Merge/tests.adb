@@ -416,6 +416,68 @@ begin
       Expect_Merge_K (Store, Lens, 2, "perfect shuffle");
    end;
 
+   Section ("Arrays at any origin (inputs and Output)");
+   --  The merge only lines arrays up, so the answer may not depend on
+   --  where A, B or Output start. Reference: the same call with every
+   --  array starting at 1.
+   declare
+      function At_Origin (X : Element_Array; O : Positive)
+        return Element_Array
+      is
+         R : Element_Array (O .. O + (X'Length - 1));
+      begin
+         for K in 0 .. X'Length - 1 loop
+            R (O + K) := X (X'First + K);
+         end loop;
+         return R;
+      end At_Origin;
+
+      Top : constant Positive := Positive'Last - (Max_Total - 1);
+      type Origin_List is array (1 .. 4) of Positive;
+      Origins : constant Origin_List := [1, 7, 1_000, Top];
+      Ok_2, Ok_K : Boolean := True;
+   begin
+      for Iter in 1 .. 200 loop
+         declare
+            A  : constant Element_Array :=
+              Sorted_Random (Next_Mod (Max_Len + 1), -20, 20);
+            B  : constant Element_Array :=
+              Sorted_Random (Next_Mod (Max_Len + 1), -20, 20);
+            OA : constant Positive := Origins (1 + Next_Mod (4));
+            OB : constant Positive := Origins (1 + Next_Mod (4));
+            OO : constant Positive := Origins (1 + Next_Mod (4));
+            R1, RS : Element_Array (1 .. Max_Total);
+            RO : Element_Array (OO .. OO + (Max_Total - 1));
+            L1, LS : Natural;
+            Store : List_Store := [others => [others => 0]];
+            Lens  : Len_Array := [others => 0];
+         begin
+            Merge (A, B, R1, L1);
+            Merge (At_Origin (A, OA), At_Origin (B, OB), RO, LS);
+            Ok_2 := Ok_2 and then LS = L1
+              and then RO (OO .. OO + (LS - 1)) = R1 (1 .. L1)
+              and then Is_Sorted (At_Origin (A, OA))
+              and then In_Bounds (RO);
+            for J in A'Range loop
+               Store (1, J) := A (J);
+            end loop;
+            for J in B'Range loop
+               Store (2, J) := B (J);
+            end loop;
+            Lens (1) := A'Length;
+            Lens (2) := B'Length;
+            Merge_K (Store, Lens, 2, RS, LS);
+            Merge_K (Store, Lens, 2, RO, L1);
+            Ok_K := Ok_K and then LS = L1
+              and then RO (OO .. OO + (L1 - 1)) = RS (1 .. LS);
+         end;
+      end loop;
+      Check (Ok_2, "Merge: A / B / Output at origins 1, 7, 1000, ending at"
+                   & " Positive'Last = origin-1 answer (200 random)");
+      Check (Ok_K, "Merge_K: Output at origins 1, 7, 1000, ending at"
+                   & " Positive'Last = origin-1 answer (200 random)");
+   end;
+
    New_Line;
    Put_Line
      ("Results: "
