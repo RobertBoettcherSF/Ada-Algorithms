@@ -35,6 +35,11 @@ begin
    Check (13, 101);
    Check (20, 627);
    Check (30, 5_604);
+   --  The top of the range (see the package comment): p (31) = 6_842 by the
+   --  same recurrence; 31 from {1, 2}: floor (31 / 2) + 1 = 16.
+   Check (31, 6_842);
+   Check (31, 31, 6_842);
+   Check (31, 2, 16);
    --  Fewer candidates. 5 from {1, 2}: 2+2+1, 2+1+1+1, 1+1+1+1+1 -> 3.
    --  Parts <= 2: floor (n / 2) + 1, so 30 -> 16. Parts <= 3: the nearest
    --  integer to (n + 3) ** 2 / 12, so 10 -> 169 / 12 -> 14 and 6 -> 7.
