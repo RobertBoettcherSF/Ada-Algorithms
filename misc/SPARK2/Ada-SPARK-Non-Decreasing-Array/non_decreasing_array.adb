@@ -3,7 +3,7 @@ pragma SPARK_Mode (On);
 package body Non_Decreasing_Array is
    function Can_Be_Non_Decreasing (First, Second, Third : Value) return Boolean is
    begin
-      return (First <= Second and then Second <= Third)
-        or else First <= Third or else Second <= Third;
+      --  Impossible only with two descents in a row: First > Second > Third.
+      return not (First > Second and then Second > Third);
    end Can_Be_Non_Decreasing;
 end Non_Decreasing_Array;
