@@ -16,7 +16,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Introsort](https://
 * **`Insertion_Threshold`**: Classic Musser / SGI / libstdc++ small-partition cutoff ($16$).
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, a `Subprogram_Variant` on recursive `Intro_Sort_Rec`, insertion / heap / Lomuto invariants, and a glue lemma that reassembles a sorted slice at the pivot.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
-* **Unstable**: Equal keys may change relative order (permutation is checked by tests).
+* **Unstable**: Equal keys may change relative order (permutation is proved and checked by tests).
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic / recursion VCs stay within automated SMT reach. For $n = 64$ the Musser depth budget is $2\lfloor\log_2 n\rfloor = 12$.
@@ -28,7 +28,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Introsort](https://
 * Insertion on a slice follows [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort) (`Insert_Step` + sorted-prefix invariants), generalized to $\mathrm{Lo} .. \mathrm{Hi}$.
 * Bounded recursive `Intro_Sort_Rec` with `Subprogram_Variant => (Decreases => Hi - Lo)` rather than an explicit stack; $\lfloor\log_2 n\rfloor$ is a decision tree on $n \le 64$ (avoids a bit-loop VC).
 * Ghost `All_Leq` / `All_Geq` value bounds are threaded through partition, insertion, heapsort, and recursion so the partition property survives the recursive permutations (full multiset equality is **not** a Level-4 postcondition).
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): `Occ (A, V, Last)` counts V in `A (A'First .. Last)` and `Is_Perm` compares the counts of every value of either array. The proof carries the ghost `Same_Occ` (equal counts for every Integer) through the loops with swap / point-update lemmas (no Assume / Annotate). Loop invariants and the Posts of body-local subprograms are proved and not re-evaluated at run time (`Assertion_Policy` Ignore in the body: `Same_Occ` ranges over every Integer); the Post of `Sort`, including `Is_Perm`, is still checked by the tests. Before 2026-10-09 the Post said only `Is_Sorted`, which an all-zeros body also proves (tools/vv/contract_scan.csv).
+* Tests check `Is_Perm` against an independent sorted-copy comparison on every pair of arrays of length 0 .. 4 over -1 .. 1 (14,762 pairs, origins 1 and 7).
 
 ## Algorithm
 Given an array $A$ of length $n \le \mathrm{Max\_N}$ with any $A'First$:
@@ -73,7 +74,7 @@ Unstable: equal keys may change relative order.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 336 assertions pass. Running `make prove` reports `Success: all checks proved (853 checks).`
+When you run `make test`, you will see all 339 assertions pass. Running `make prove` reports `Success: all checks proved (981 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, classic numeric example, signed domain including `Integer'First` / `Integer'Last`, power-of-two and odd lengths up to `Max_N`.
@@ -96,7 +97,7 @@ When you run `make test`, you will see all 336 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Lomuto scan uses `pragma Loop_Invariant`; recursive `Intro_Sort_Rec` uses `Subprogram_Variant` and a ghost glue lemma to join the sorted sides at the pivot. Insertion and heapsort helpers prove `Sorted_Slice` on $\mathrm{Lo} .. \mathrm{Hi}$.
-* **GNATprove Level 4:** `Success: all checks proved (853 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (981 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

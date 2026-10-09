@@ -13,9 +13,9 @@
 --  Floyd sift in place on Lo..Hi (Has_Left before Left =
 --  Lo+2*(I-Lo)+1 — no scratch copy, any A'First), and bounds
 --  recursive Intro_Sort_Rec with a Subprogram_Variant so proofs
---  discharge. Full multiset /
---  permutation equality is verified by tests rather than claimed as a
---  Level-4 postcondition (sortedness is proved).
+--  discharge. The Post proves
+--  sortedness and that the result holds the input's values, each
+--  equally often (Is_Perm, counted with Occ).
 --
 --  Reference: https://en.wikipedia.org/wiki/Introsort
 
@@ -90,6 +90,36 @@ is
    --  Do not `with` sibling Ada-* packages (helpers are inlined).
 
    ---------------------------------------------------------------------------
+   -- Permutation (multiset) model, used by the Post of Sort
+   ---------------------------------------------------------------------------
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
+   with
+     Global             => null,
+     Pre                => In_Bounds (A) and then Last <= A'Last,
+     Post               => Occ'Result <= Last,
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (A'First .. Last) equal V.
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often. A value found in neither array counts 0 in both, so comparing
+   --  the counts of the values of A and of B covers every value.
+
+   ---------------------------------------------------------------------------
    -- Sorting
    ---------------------------------------------------------------------------
 
@@ -97,12 +127,12 @@ is
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Ascending Musser introsort (median-of-three Lomuto + heapsort
    --  depth cutoff + insertion for small partitions).
    --  Empty and singleton arrays are no-ops.
-   --  Post proves sortedness; multiset / permutation equality is
-   --  checked by the test suite (not claimed here at Level 4).
+   --  Post proves sortedness and that A holds the values of A'Old, each
+   --  equally often (Is_Perm).
 
    --  Musser depth budget: 2 * floor(log2 N); at most 12 for N <= Max_N.
    subtype Depth_Limit is Natural range 0 .. 12;
@@ -123,6 +153,7 @@ is
        Post   =>
          In_Bounds (A)
          and then Is_Sorted (A)
+         and then Is_Perm (A, A'Old)
          and then Heap_Fallbacks <= A'Length;
    --  Same introsort as Sort, but with an explicit depth budget and a
    --  count of slices finished by the depth-0 heapsort fallback.
