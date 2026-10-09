@@ -13,6 +13,13 @@ procedure Tests with SPARK_Mode => Off is
    --    N = 15:  ... 22 11 6 4 3, then (3 + 5) / 2 = 4 >= 3: 16
    --    N = 99:  ... 45 23 13 10 9, then (9 + 11) / 2 = 10 >= 9: 15
    --    N = 100: ... 45 23 13 10, then (10 + 10) / 2 = 10: 14
+   --    N = 1_000_000: 46340 23180 11611 5848 3009 1670 1134 1007 1000,
+   --             then (1000 + 1000) / 2 = 1000: 9
+   --    N = 2_147_395_599 (46_340 ** 2 - 1): N / 46340 = 46339, so
+   --             X = 46339; N / 46339 = 46341 (46339 * 46341 = N), and
+   --             (46339 + 46341) / 2 = 46340 >= 46339: 2, root 46339
+   --    N = 2_147_395_600 (46_340 ** 2): (46340 + 46340) / 2: 1
+   --    N = Natural'Last: N / 46340 = 46341, (46340 + 46341) / 2 = 46340: 1
    --  ("..." is the N = 0 prefix 46340 .. 90: N / X = 0 or 1 there, so
    --  the halvings agree up to 90 -> 45; from 45 on N / X matters.)
    procedure Check (N : Number; Want, Steps : Natural) is
@@ -29,6 +36,10 @@ begin
    Check (15, 3, 16);
    Check (99, 9, 15);
    Check (100, 10, 14);
+   Check (1_000_000, 1_000, 9);
+   Check (2_147_395_599, 46_339, 2);
+   Check (2_147_395_600, 46_340, 1);
+   Check (Natural'Last, 46_340, 1);
    Own_Checks;
    Ada.Text_IO.Put_Line ("PASS Sqrt_X");
 end Tests;

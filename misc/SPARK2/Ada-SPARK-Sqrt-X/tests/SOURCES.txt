@@ -3,8 +3,29 @@ Sources of every expected value in this folder's own tests (tests.adb, own_check
 
 All checks are own properties or own reference code written for this
 repository (MIT); nothing is copied from the program's output or from
-third-party test suites.
+third-party test suites. Rewritten by the V&V sweep (agent B,
+2026-10-09) together with the Newton rewrite (the earlier own checks
+looped over the old 0 .. 100 range only).
 
-* Own property (definition of the floor square root): R * R <= N and
-  N < (R + 1) * (R + 1).
-* Inputs: every N in 0 .. 100.
+tests.adb: exact Newton step counts from the start 46340, with the X
+sequence worked step by step in the comments (N = 0: 16, 4: 15, 15: 16,
+99: 15, 100: 14, 1,000,000: 9, 46_340 ** 2 - 1: 2, 46_340 ** 2: 1,
+Natural'Last: 1), and the roots worked by hand. The sequences were first
+produced by a short Python model of the same step and then checked by
+hand, step by step.
+
+own_checks.adb:
+* Property (definition of the floor root), tested without overflow:
+  R = 0 or R <= N / R (that is R * R <= N), and N / (R + 1) < R + 1
+  (that is N < (R + 1) ** 2).
+* Count-up reference on 0 .. 100 (the old table's range).
+* k*k - 1, k*k, k*k + 1 for k = 46,000 .. 46,340, Natural'Last and
+  Natural'Last - 1.
+* 100,000 random N over 1 .. 2 ** 31 - 2 from the Park-Miller minimal
+  standard generator; the default seed is the FNV-1a (32-bit) hash of the
+  folder name, folded into 1 .. 2 ** 31 - 2 (1792659532), and is printed;
+  AA_SEED=<n> overrides it.
+* At most 16 steps per call. 16 is the worst case over all of Natural:
+  a one-off C run of the same iteration over every N in 0 .. 2 ** 31 - 1
+  (2026-10-09, about 30 s) found every root correct and a maximum of 16
+  steps, at N = 0. The run is not part of make test.
