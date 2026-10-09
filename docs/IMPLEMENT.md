@@ -2,7 +2,7 @@
 
 Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every folder with `stub` = yes in PROOFS.csv carries `implement_next` = yes: it is a candidate for a full implementation of the named algorithm, which comes before the SPARK Silver (level 2) work on it. Signals: the folder name ends in `-Stub` (and it is not listed in `tools/generalised_stubs.txt`), its README calls it a stub (`tools/readme_stubs.txt`), or the hidden-stub scan found that the code lacks the core step (`tools/vv/hidden_stub.csv`). The core-step notes are in `tools/implement_notes.txt`.
 
-**144 candidate folders** (143 with duplicates counted once, the README count).
+**145 candidate folders** (144 with duplicates counted once, the README count).
 
 ## concurrency (3)
 
@@ -155,13 +155,14 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite | hidden-stub scan: hidden stub: Root_Choices (N) returns N; no trees generated | recursive construction of all structurally unique BSTs over 1 .. n |
 | searching/SPARK2/Ada-SPARK-Word-Search | README wording: "Word Search (bounded SPARK stub)  An 8x8 bounded board search for the first word character" | DFS with backtracking over the grid, marking visited cells |
 
-## sorting (18)
+## sorting (19)
 
 | Folder | Signal | Full algorithm needs (core step) |
 |---|---|---|
 | sorting/SPARK2/Ada-SPARK-Bitonic-Sort | README wording: "Ada-SPARK-Bitonic-Sort  A small bounded Ada/SPARK sorting stub" | recursive bitonic merge network for power-of-two sizes (with padding for other sizes) |
 | sorting/SPARK2/Ada-SPARK-Block-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | block merge sort (WikiSort-style): in-place merges with buffer blocks |
 | sorting/SPARK2/Ada-SPARK-Circle-Sort | README wording: "Ada-SPARK-Circle-Sort  A small bounded Ada/SPARK sorting stub" | recursive swaps of mirrored pairs until a pass makes no swap |
+| sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST | hidden-stub scan: hidden stub: Build always fills the same 7 fixed slots from A (4) / A (2) / A (6) / ... (Sorted_Array is exactly 7 elements); no midpoint recursion, so no general balanced BST from a sorted array | take the middle element as the root and build both halves the same way, for any length; prove the in-order walk is the input and the height is minimal |
 | sorting/SPARK2/Ada-SPARK-Exchange-Sort | README wording: "Ada-SPARK-Exchange-Sort  A small bounded Ada/SPARK sorting stub" | compare every pair (i, j > i) and swap when out of order, for any length |
 | sorting/SPARK2/Ada-SPARK-Flash-Sort | README wording: "Ada-SPARK-Flash-Sort  A small bounded Ada/SPARK sorting stub" | classify into m classes by linear interpolation, permute in cycles, then insertion sort |
 | sorting/SPARK2/Ada-SPARK-Heap-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | build a max-heap in place, then repeatedly swap the root to the end and sift down |
