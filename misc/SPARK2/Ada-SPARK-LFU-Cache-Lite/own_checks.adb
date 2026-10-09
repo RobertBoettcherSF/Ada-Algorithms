@@ -86,6 +86,10 @@ begin
             Ok := Length (C) = N;
             for Q in Key range 0 .. 24 loop
                Ok := Ok and then Contains (C, Q) = (Find (Q) > 0);
+               --  the value stored under every present key (model: last Put value of that key)
+               if Find (Q) > 0 then
+                  Ok := Ok and then Get (C, Q) = MV (Find (Q));
+               end if;
             end loop;
             Best := 1;
             for I in 2 .. N loop

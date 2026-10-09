@@ -81,6 +81,17 @@ package body LFU_Cache_Lite is
       end if;
    end Touch;
 
+   function Get (C : Cache; K : Key) return Value is
+   begin
+      for I in Position loop
+         if I <= C.Size and then C.Keys (I) = K then
+            return C.Values (I);
+         end if;
+         pragma Loop_Invariant (for all J in 1 .. I => not (J <= C.Size and then C.Keys (J) = K));
+      end loop;
+      raise Program_Error;   --  unreachable: Pre => Contains (C, K)
+   end Get;
+
    function Most_Frequent_Key (C : Cache) return Key is
       Best : Position := 1;
    begin

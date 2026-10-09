@@ -41,7 +41,14 @@ def main():
     ap.add_argument('--note', action='append', default=[], help='FOLDER=text, added to the folder_total row')
     a = ap.parse_args()
     sample = set(s for s in a.sample.split(',') if s)
-    rows = [r for r in csv.DictReader(open(a.detail)) if r['index']]
+    # current split seed per folder = the last heldout row in the halves file (a re-score after a code change
+    # appends new rows and keeps the superseded ones); detail rows of older seeds stay in the file, unused
+    cur = {r['folder']: r['split_seed'] for r in csv.DictReader(open(HALVES)) if r['half'] == 'heldout'}
+    first = {}
+    for r in csv.DictReader(open(os.path.join(HERE, 'score138_seeds.csv'))):
+        first.setdefault(r['folder'], r['split_seed'])
+    rows = [r for r in csv.DictReader(open(a.detail)) if r['index']
+            and (r.get('seed') or first.get(r['folder'], '')) == cur.get(r['folder'], first.get(r['folder'], ''))]
     by = collections.defaultdict(dict)   # (folder, index) -> {variant: row}
     for r in rows:
         by[(r['folder'], r['index'])][r['variant']] = r
@@ -103,7 +110,10 @@ def main():
     if 'calib' not in cols:
         cols.append('calib')
     for r in hr:
-        r['calib'] = calib.get(r['folder'], 'pending') if r['half'] == 'heldout' else ''
+        if r['half'] != 'heldout':
+            r['calib'] = ''
+        elif r['split_seed'] == cur.get(r['folder']):   # superseded rows keep the calib they had
+            r['calib'] = calib.get(r['folder'], 'pending')
     with open(HALVES, 'w', newline='') as fh:
         w = csv.DictWriter(fh, cols); w.writeheader(); w.writerows(hr)
     # kill mode of every held mutant into score138_sealed.csv (raw data for a later recount)
@@ -117,7 +127,7 @@ def main():
                                (full['mode'] or 'test_check') if full['tests_result'] == 'killed' else 'nondeterministic')
     sr = list(csv.DictReader(open(sp)))
     for r in sr:
-        if (r.get('half') or 'held') == 'held' and (r['folder'], r['index']) in mode:
+        if (r.get('half') or 'held') == 'held' and (r['folder'], r['index']) in mode and r['seed'] == cur.get(r['folder']):
             r['kill_mode'] = mode[(r['folder'], r['index'])]
     with open(sp, 'w', newline='') as fh:
         w = csv.DictWriter(fh, list(sr[0].keys()), lineterminator='\n'); w.writeheader(); w.writerows(sr)

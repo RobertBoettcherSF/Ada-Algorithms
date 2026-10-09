@@ -1,0 +1,25 @@
+H145 test-first evidence (agent-S138, 2026-10-09 17:41:55 CEST)
+New check in misc/SPARK2/Ada-SPARK-LFU-Cache-Lite/own_checks.adb: after every operation, Get (C, Q) = model value of Q for every present key Q.
+Planted wrong-value body (never committed):
+   function Get (C : Cache; K : Key) return Value is
+      P : constant Count := Find (C, K);
+   begin
+      return C.Values (P mod C.Size + 1);   --  the neighbour's value
+   end Get;
+
+1) make test as shipped (-gnata), GNAT 14.2.0:
+LFU cache lite: OK
+AA_SEED = 20261008 (default)
+
+raised ADA.ASSERTIONS.ASSERTION_ERROR : failed postcondition from lfu_cache_lite.ads:26
+make: *** [Makefile:6: test] Error 1
+
+2) same planted body, contracts off (-gnata removed in a scratch copy), so the test check itself must catch it:
+  FAIL own check: run 1 op 10
+  FAIL own check: run 1 op 11
+FAIL own checks: 58950 of 60000
+
+raised PROGRAM_ERROR : own_checks.adb:107 explicit raise
+make: *** [Makefile:6: test] Error 1
+
+3) real body (loop over entries, returns Values (I) of the matching key): PASS own checks: 60000 cases; Silver 39/39 checks proved (Get Post and raise-unreachable included); 0 warnings GNAT 14.2.0 and 12.2.0.

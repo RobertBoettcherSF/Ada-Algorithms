@@ -74,14 +74,17 @@ def tally(rec, eq):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('folder'); ap.add_argument('--test-commit', required=True); ap.add_argument('--note', default='')
+    ap.add_argument('--superseded-why', default='re-score')
     a = ap.parse_args()
     fid = a.folder
+    held = load(fid, 'held'); tune = load(fid, 'tune'); dummy = load(fid, 'held', True)
+    SEED = (held or tune)['seed']
     eqs = {'tune': set(), 'held': set()}
     uns = {'tune': set(), 'held': set()}
     ep = os.path.join(VV, 'score138_equivalent.csv')
     if os.path.exists(ep):
         for r in csv.DictReader(open(ep)):
-            if r['folder'] == fid:
+            if r['folder'] == fid and str(r.get('seed') or '') in ('', str(SEED)):   # this split seed only (re-scores keep old rows)
                 eqs[r['half']].add(int(r['index']))
                 if (r.get('class') or 'equivalent') == 'unspecified output':
                     uns[r['half']].add(int(r['index']))
@@ -92,10 +95,14 @@ def main():
               'calib', 'pool_by_family', 'flaky']
     hp = os.path.join(VV, 'score138_halves.csv')
     rows = [r for r in csv.DictReader(open(hp))] if os.path.exists(hp) else []
-    old_calib = {r['half']: r.get('calib', '') for r in rows if r['folder'] == fid}
-    old_note = {r['half']: r.get('note', '') for r in rows if r['folder'] == fid}
-    rows = [r for r in rows if r['folder'] != fid]
-    held = load(fid, 'held'); tune = load(fid, 'tune'); dummy = load(fid, 'held', True)
+    old_calib = {r['half']: r.get('calib', '') for r in rows if r['folder'] == fid and r['split_seed'] == str(SEED)}
+    old_note = {r['half']: r.get('note', '') for r in rows if r['folder'] == fid and r['split_seed'] == str(SEED)}
+    # a re-score (new split seed after a code change) keeps the earlier rows, marked superseded; the newest rows come
+    # last, and proof_index / recount_strict let a later row of the same source replace an earlier one
+    for r in rows:
+        if r['folder'] == fid and r['split_seed'] != str(SEED) and 'SUPERSEDED' not in r.get('note', ''):
+            r['note'] = (f'SUPERSEDED by the re-score with split seed {SEED} (code changed; {a.superseded_why}). ' + r.get('note', '')).strip()
+    rows = [r for r in rows if not (r['folder'] == fid and r['split_seed'] == str(SEED))]
     for half, rec in (('tuning', tune), ('heldout', held)):
         if not rec:
             continue
@@ -131,8 +138,8 @@ def main():
         w = csv.DictWriter(f, fieldnames=fields, lineterminator='\n', restval=''); w.writeheader(); w.writerows(rows)
     sp = os.path.join(VV, 'score138_sealed.csv')
     srows = [r for r in csv.DictReader(open(sp))] if os.path.exists(sp) else []
-    modes = {(r.get('half') or 'held', r['index']): r.get('kill_mode', '') for r in srows if r['folder'] == fid}
-    srows = [r for r in srows if r['folder'] != fid]
+    modes = {(r.get('half') or 'held', r['index']): r.get('kill_mode', '') for r in srows if r['folder'] == fid and r['seed'] == str(SEED)}
+    srows = [r for r in srows if not (r['folder'] == fid and r['seed'] == str(SEED))]   # other seeds of this folder stay
     for hk, rec in (('tune', tune), ('held', held)):
         if not rec:
             continue

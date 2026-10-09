@@ -15,4 +15,6 @@ Least-frequently-used cache of 16 entries. `Put` and `Touch` count as a
 use and make the key most recently used; a new key on a full cache first
 evicts the entry with the fewest uses, the least recently used among ties.
 `Touch` requires the key to be present (precondition). Use counts stop at
-`Natural'Last`.
+`Natural'Last`. `Get` returns the value stored under a present key
+(precondition) without counting a use; its postcondition ties the result to
+the stored entry (`Key_At` / `Value_At`).

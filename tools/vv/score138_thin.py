@@ -267,6 +267,14 @@ def one(args):
     return res, (kk or (mode_of(out) if res == 'killed' else ''))
 
 
+def old_seed(fid):
+    """split seed of a detail row written before the seed column existed: the folder's first score138 seed."""
+    for r in csv.DictReader(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'score138_seeds.csv'))):
+        if r['folder'] == fid:
+            return r['split_seed']
+    return ''
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('folders', nargs='+'); ap.add_argument('--thin', action='store_true')
@@ -276,7 +284,7 @@ def main():
     eq = {}
     for r in csv.DictReader(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'score138_equivalent.csv'))):
         if r['half'] == 'held':
-            eq.setdefault(r['folder'], set()).add(int(r['index']))
+            eq.setdefault((r['folder'], str(r.get('seed') or '')), set()).add(int(r['index']))
     rows = []
     for fid in a.folders:
         held = rec.load(fid, 'held')
@@ -286,30 +294,31 @@ def main():
             tsrc, stats = thinned_copy(fid)
             variants.append(('thinned', tsrc, stats))
             print(fid, 'thinning (kept, dropped, narrowed):', stats, flush=True)
-        ms = [(i, m) for i, m in enumerate(held['mutants']) if m['result'] != 'stillborn' and i not in eq.get(fid, set())]
+        ms = [(i, m) for i, m in enumerate(held['mutants']) if m['result'] != 'stillborn' and i not in eq.get((fid, str(held['seed'])), set())]
         for name, src, stats in variants:
             wk = tempfile.mkdtemp(prefix='s138_cal_')
             shutil.copytree(src, wk + '/base', ignore=sm.IGN)
             base, _ = run_capture(wk + '/base')
             if base != 'survived':
                 print(f'{fid} {name}: baseline {base}; variant skipped', flush=True)
-                rows.append(dict(folder=fid, variant=name, index='', family='', recorded='', recorded_kill_kind='',
+                rows.append(dict(folder=fid, seed=held['seed'], variant=name, index='', family='', recorded='', recorded_kill_kind='',
                                  tests_result='baseline ' + base, mode='', thin_stats=json.dumps(stats)))
                 continue
             with ThreadPoolExecutor(a.j) as ex:
                 res = list(ex.map(one, [(src, f'{wk}/m{i}', m) for i, m in ms]))
             shutil.rmtree(wk, ignore_errors=True)
             for (i, m), (r, mode) in zip(ms, res):
-                rows.append(dict(folder=fid, variant=name, index=i, family=m['family'], recorded=m['result'],
+                rows.append(dict(folder=fid, seed=held['seed'], variant=name, index=i, family=m['family'], recorded=m['result'],
                                  recorded_kill_kind=m.get('kill_kind') or '', tests_result=r, mode=mode,
                                  thin_stats=json.dumps(stats) if name == 'thinned' else ''))
             k = sum(r == 'killed' for r, _ in res)
             print(f'{fid} {name}: tests-only {k}/{len(ms)}', flush=True)
     keep = []
-    if os.path.exists(a.out):   # merge: replace these folders' rows, keep the rest
-        keep = [r for r in csv.DictReader(open(a.out)) if r['folder'] not in set(a.folders)]
+    done = {(r['folder'], str(r['seed'])) for r in rows}
+    if os.path.exists(a.out):   # merge: replace these folders' rows of this split seed, keep the rest (older seeds too)
+        keep = [r for r in csv.DictReader(open(a.out)) if (r['folder'], r.get('seed') or old_seed(r['folder'])) not in done]
     with open(a.out, 'w', newline='') as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator='\n'); w.writeheader(); w.writerows(keep + rows)
+        w = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator='\n', restval=''); w.writeheader(); w.writerows(keep + rows)
 
 
 if __name__ == '__main__':

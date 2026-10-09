@@ -14,5 +14,6 @@ standard generator (seed 20261008).
   counts a use; Most_Frequent_Key is the entry with the most uses, the least
   recently used among ties.
 * Inputs: 1000 random runs of 60 Put/Touch operations over keys 0 .. 24;
-  after every operation Length, Contains of every key and Most_Frequent_Key
-  are compared.
+  after every operation Length, Contains of every key, Get of every present
+  key (model: the value of that key's last Put) and Most_Frequent_Key are
+  compared.
