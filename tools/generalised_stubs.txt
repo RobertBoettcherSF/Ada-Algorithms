@@ -13,3 +13,4 @@ trees/SPARK2/Ada-SPARK-BST-Iterator-Stub
 trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub
 concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub
 misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub
+sorting/SPARK2/Ada-SPARK-Bitonic-Sort

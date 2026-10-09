@@ -122,7 +122,7 @@ searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees,H116,"returns a constant t
 searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite,tools/vv/hidden_stub.csv,Root_Choices (N) returns N; no trees are generated,open
 searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,H125,toy-size validator with a 256-step limit and a stack-full guard that can skip nodes,open
 searching/SPARK2/Ada-SPARK-Word-Search,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Word-Search implementation",open
-sorting/SPARK2/Ada-SPARK-Bitonic-Sort,H102,fixed 8-element bubble sort under a bitonic-sort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Bitonic-Sort,H102,fixed 8-element bubble sort under a bitonic-sort name; the Post only bounds the elements,closed (agent-CF: real bitonic network)
 sorting/SPARK2/Ada-SPARK-Block-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a block-sort name,open
 sorting/SPARK2/Ada-SPARK-Circle-Sort,H103,fixed 8-element bubble sort under a circle-sort name; the Post only bounds the elements,open
 sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST,H124,always fills the same 7 fixed slots; no general array-to-BST construction,closed (agent-CF: real Convert Sorted Array to BST)
