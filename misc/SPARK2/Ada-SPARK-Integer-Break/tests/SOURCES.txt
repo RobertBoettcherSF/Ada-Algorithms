@@ -1,0 +1,50 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb (every value worked out by hand):
+* the old table for N in 2 .. 10: 1, 2, 4, 6, 9, 12, 18, 27, 36;
+* 11 = 3 + 3 + 3 + 2: 54; 12 = four threes: 81; 57 = 19 threes:
+  3 ** 19 = 1_162_261_467; 58 = 18 threes and a 4: 4 * 3 ** 18 =
+  1_549_681_956, the limit (59 would give 2 * 3 ** 19 = 2_324_522_934,
+  more than Natural'Last);
+* Best_Split takes the smallest best first part, then keeps the rest
+  whole when that is at least as good as splitting it: 2 gives 1 + 1;
+  3 gives 1 + 2 (1 * 2 = 2 * 1); 4 gives 2 + 2; 10 gives 2 * 18 first
+  (1 * 27 is less), then 8 gives 2 * 9, then 6 gives 3 * 3 (1 * 6 and
+  2 * 4 are less), then 3 is kept whole: 2 + 2 + 3 + 3;
+* for every N in 2 .. 58, Best_Split has at least two parts, sums to N
+  and its product is Maximum (N).
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (700534619), printed; AA_SEED=<n> overrides it):
+* an own exhaustive enumeration of every partition of N into at least
+  two parts (parts in non-increasing order; 4,841,060 partitions for
+  N = 2 .. 58) gives the largest product for each N; Maximum (N) must
+  equal it;
+* an own closed form (as many threes as possible, a 4 for remainder 1,
+  a 2 for remainder 2; N <= 4 by hand) must equal the enumeration for
+  every N <= 58; the closed form for 59 exceeds Natural'Last;
+* the ghost tables are regenerated with assertions on: Best (N) equals
+  the enumeration, Arg (N) is the smallest K with
+  K * max (N - K, enumerated (N - K)) = enumerated (N), Row (N) holds,
+  and Best (1) = 0;
+* Best_Split (N) equals the split built by its stated rule from the
+  enumerated values (own Arg, rest kept whole when the enumerated best
+  for it is not larger);
+* 3,000 seeded random splits (at least two parts) have products at most
+  the enumerated best, and Lemma_Optimal runs on each with its
+  contracts checked.
+Run: gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
+(3,231 checks plus 172 ghost-table assertions, about 2 s; without -gnata
+a planted Rest = M - K (never splitting the rest) fails 154 of them).
+Note: changing Best_Split's "exit when M >= B (M)" to "M > B (M)" is not
+caught and cannot be: the two differ only for a rest of 4 (B (4) = 4),
+and no rest of 4 occurs: M - Arg (M) is never 4 for any M that gets
+split (N itself, or a rest M >= 5), since Arg (M) is 2 or 3 and
+Arg (6) = 3, Arg (7) = 2 (checked for every N <= 58 by a throwaway
+script that follows the rule from every N).
