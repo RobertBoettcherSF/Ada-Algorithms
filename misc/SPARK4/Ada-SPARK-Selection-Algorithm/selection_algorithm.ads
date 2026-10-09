@@ -25,7 +25,7 @@ is
 
    --  Hard bound on array length. Smaller than the non-SPARK sibling
    --  (Max_N = 100_000) so Level 4 can discharge array / arithmetic VCs.
-   --  The outer Select_Kth loop is bounded by Max_N iterations.
+   --  The outer Select_Kth loop runs at most Max_N - 1 times (Hi - Lo shrinks).
    Max_N : constant Positive := 64;
 
    ---------------------------------------------------------------------------

@@ -2,8 +2,9 @@
 --  selection (k-th order statistic).
 --  Median-of-three parks a middle-ish pivot at Hi; Lomuto partition lands
 --  it in a final slot P. The outer loop shrinks Lo .. Hi toward Target and
---  is bounded by Max_N. Ghost Prefix_Leq_Window / Suffix_Geq_Window plus
---  the Lomuto split reassemble into Is_Kth_Partitioned.
+--  terminates by Loop_Variant (Hi - Lo decreases). Ghost Prefix_Leq_Window
+--  / Suffix_Geq_Window plus the Lomuto split reassemble into
+--  Is_Kth_Partitioned.
 
 package body Selection_Algorithm
   with SPARK_Mode => On
@@ -130,7 +131,7 @@ is
       Mid : constant Index := Lo + (Hi - Lo) / 2;
    begin
       pragma Assert (Mid in Lo .. Hi);
-      pragma Assert (Mid /= Lo or else Mid /= Hi);
+      pragma Assert (Mid in Lo + 1 .. Hi - 1);
       pragma Assert (Mid >= Lo and then Mid <= Hi);
 
       if A (A'First + (Mid - 1)) < A (A'First + (Lo - 1)) then
@@ -444,7 +445,7 @@ is
       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
       pragma Assert (Target in Lo .. Hi);
 
-      for Step in 1 .. Max_N loop
+      while Lo /= Hi loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (A'Length >= 2);
          pragma Loop_Invariant (Lo in 1 .. A'Length);
@@ -452,13 +453,7 @@ is
          pragma Loop_Invariant (Target in Lo .. Hi);
          pragma Loop_Invariant (Prefix_Leq_Window (A, Lo, Hi));
          pragma Loop_Invariant (Suffix_Geq_Window (A, Lo, Hi));
-         pragma Loop_Invariant (Hi - Lo <= Max_N - Step);
-
-         if Lo = Hi then
-            Lemma_Kth_Singleton (A, Lo, Hi, Target);
-            pragma Assert (Is_Kth_Partitioned (A, K));
-            return;
-         end if;
+         pragma Loop_Variant (Decreases => Hi - Lo);
 
          pragma Assert (Hi >= Lo + 1);
          pragma Assert (A'Length >= 2);
@@ -486,7 +481,6 @@ is
             pragma Assert (Target in Lo .. Hi);
             pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
             pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
-            pragma Assert (Hi - Lo < Max_N - Step + 1);
          else
             pragma Assert (P < Target);
             pragma Assert (P <= Hi - 1);
@@ -498,13 +492,10 @@ is
             pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
             pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
          end if;
-
-         pragma Assert (Hi - Lo <= Max_N - Step - 1);
       end loop;
 
-      --  Measure Hi - Lo <= Max_N - Step forces Lo = Hi by Step = Max_N;
-      --  the loop body would have returned. Help the postcondition.
-      pragma Assert (Lo = Hi);
+      --  Each iteration shrinks Hi - Lo (Loop_Variant); on exit the window
+      --  is the single position Target.
       Lemma_Kth_Singleton (A, Lo, Hi, Target);
       pragma Assert (Is_Kth_Partitioned (A, K));
    end Select_Kth;
