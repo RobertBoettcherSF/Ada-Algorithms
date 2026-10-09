@@ -10,16 +10,23 @@ the first *.gpr. Every 'warning:' line gnatprove prints is recorded in tools/vv/
 Findings are sticky: rows are keyed by (folder, file, warning text, stripped source line); a row
 stays open until someone fixes it in code and sets status=fixed with fix_commit - a later run that
 does not raise it again only updates last_seen, it never closes a row.
-usage: proof_warnings.py run [-P 3] [--work /tmp/pw_sweep] [--only FILE]
+A gnatwhy3 under --proof-warnings can grow past 7 GB on some units (16.1.0; seen as a global OOM
+kill on the 15 GB box), so each gnatprove tree runs under RLIMIT_AS --mem-gb (default 4); a run that
+dies with a GNAT bug box is recorded as rc=crash in proof_warnings_runs.csv (no warnings parsed).
+usage: proof_warnings.py run [-P 3] [--mem-gb 4] [--work /tmp/pw_sweep] [--only FILE]
        proof_warnings.py collect [--work /tmp/pw_sweep] [--run-id ID]"""
-import argparse, csv, glob, os, re, shutil, subprocess, time
+import argparse, csv, glob, os, re, resource, shutil, subprocess, time
 from concurrent.futures import ThreadPoolExecutor
 ROOT = subprocess.check_output(['git', 'rev-parse', '--show-toplevel'], text=True).strip()
 OUT = os.path.join(ROOT, 'tools/vv/proof_warnings.csv')
 ap = argparse.ArgumentParser(); ap.add_argument('cmd', choices=['run', 'collect'])
 ap.add_argument('-P', type=int, default=3); ap.add_argument('--work', default='/tmp/pw_sweep')
 ap.add_argument('--only'); ap.add_argument('--run-id', default='pw-' + time.strftime('%Y%m%d'))
-ap.add_argument('--cap', type=int, default=1800); a = ap.parse_args()
+ap.add_argument('--cap', type=int, default=1800)
+ap.add_argument('--mem-gb', type=float, default=4.0)  # RLIMIT_AS per gnatprove tree (box OOM guard)
+a = ap.parse_args()
+def _limit():
+    m = int(a.mem_gb * 2**30); resource.setrlimit(resource.RLIMIT_AS, (m, m))
 HOME = os.path.expanduser('~')
 PATH = ':'.join([glob.glob(HOME + '/.local/alr/gnatprove_16.1.0_*/bin')[0],
                  glob.glob(HOME + '/.local/alr/gprbuild_*/bin')[0], '/usr/bin', '/bin'])
@@ -43,13 +50,15 @@ def one(f):
     g = gpr_of(f); s = time.time()
     if not g: rc = 'no gpr'
     else:
+        p = subprocess.Popen(['gnatprove', '-P', g, '-f', '--mode=silver', '--level=0', '-k', '-j2', '--output=oneline'],
+                             cwd=w, env=dict(os.environ, PATH=PATH), stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                             text=True, errors='replace', preexec_fn=_limit, start_new_session=True)
         try:
-            p = subprocess.run(['gnatprove', '-P', g, '-f', '--mode=silver', '--level=0', '-k', '-j2', '--output=oneline'],
-                               cwd=w, env=dict(os.environ, PATH=PATH), capture_output=True, text=True,
-                               errors='replace', timeout=a.cap)
-            rc = p.returncode; open(os.path.join(w, 'pw.log'), 'w').write(p.stdout + p.stderr)
+            out = p.communicate(timeout=a.cap)[0]; rc = p.returncode
+            if 'GNAT BUG DETECTED' in out: rc = 'crash'  # gnatwhy3 died (e.g. hit --mem-gb)
         except subprocess.TimeoutExpired:
-            rc = 'cap'
+            os.killpg(p.pid, 9); out = p.communicate()[0]; rc = 'cap'  # whole tree, no orphan gnatwhy3
+        open(os.path.join(w, 'pw.log'), 'w').write(out)
     open(os.path.join(w, 'result.txt'), 'w').write('rc=%s secs=%d gpr=%s\n' % (rc, time.time() - s, g))
     print(f, rc, flush=True)
 if a.cmd == 'run':

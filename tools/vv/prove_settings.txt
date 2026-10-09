@@ -83,3 +83,15 @@ proof_warnings_gnatprove=FSF 16.1.0 (Why3 for gnatprove version 1.8.2+git)
 #   them). Those 24 folders ran their first and only pass at AA_REPROOF_JOBS=4 (same steps,
 #   provers, level, cap; jobs column = 4, note says so) - the -j value does not change which
 #   VCs prove within --steps, only how long a cvc5-first grind takes. A cap hit at -j4 = stale.
+# proof-warnings memory (2026-10-09, sweep pw-20261009):
+#   With --proof-warnings=on, gnatprove 16.1.0's gnatwhy3 grows past 7 GB on some units
+#   (deterministic; same folder runs fine with --proof-warnings=off). On this 15 GB box with no
+#   swap that triggered a global OOM kill. gnatprove then prints a GNAT BUG box
+#   "value expected (got DOC_END)" and exits 1. First seen: misc/SPARK2/Ada-SPARK-4Sum-II,
+#   Ada-SPARK-Distinct-Subsequences, Ada-SPARK-Find-The-City, geometry/SPARK2/Closest-Pair-Brute,
+#   graphs/SPARK2/Ada-SPARK-Bellman-Ford-Lite, Ada-SPARK-Is-Graph-Bipartite, Bellman-Ford-Algorithm.
+#   Because the Prove package now turns the switch on by default, a plain gnatprove run on such a
+#   folder (including a future re-proof with the canonical command above) fails the same way.
+#   The sweep runs each gnatprove tree under RLIMIT_AS 4 GB (proof_warnings.py --mem-gb) at -P 2;
+#   crashed folders are rc=crash in proof_warnings_runs.csv. Open question for the owner; the
+#   switch has not been taken out of any project file.
