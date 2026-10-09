@@ -53,7 +53,8 @@ DUMMY = False
 
 def lib_files(src):
     for d, dirs, fs in os.walk(src):
-        dirs[:] = [x for x in dirs if x not in ('obj', 'bin', 'gnatprove', 'tests')]
+        # tools/: a folder's own developer programs (Modular-Arithmetic's tools/mutate.adb), not library code
+        dirs[:] = [x for x in dirs if x not in ('obj', 'bin', 'gnatprove', 'tests', 'tools')]
         for f in sorted(fs):
             if f.endswith('.adb') and not TESTNAME.match(f):
                 yield os.path.relpath(os.path.join(d, f), src)
