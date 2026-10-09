@@ -1,0 +1,8 @@
+project Count_Sorted_Vowel_Strings_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("count_sorted_vowel_strings.ads", "count_sorted_vowel_strings.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Count_Sorted_Vowel_Strings_Proof;
