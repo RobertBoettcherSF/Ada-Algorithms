@@ -1,0 +1,556 @@
+diff --git a/misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.adb b/misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.adb
+index cbabc61b..fd0593b6 100644
+--- a/misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.adb
++++ b/misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.adb
+@@ -4,7 +4,9 @@
+ --  it in a final slot P. The outer loop shrinks Lo .. Hi toward Target and
+ --  terminates by Loop_Variant (Hi - Lo decreases). Ghost Prefix_Leq_Window
+ --  / Suffix_Geq_Window plus the Lomuto split reassemble into
+---  Is_Kth_Partitioned.
++--  Is_Kth_Partitioned. Every exchange goes through Swap, which proves the
++--  counts unchanged (ghost Cnt, Lemma_Swap); Select_Kth_Copy turns the
++--  partition at K into the count characterisation Is_Kth_Smallest.
+ 
+ package body Selection_Algorithm
+   with SPARK_Mode => On
+@@ -16,6 +18,196 @@ is
+    --  One past the live range (Lomuto write cursor after a full left fill).
+    subtype Cursor is Natural range 0 .. Max_N + 1;
+ 
++   --  Loop invariants and the Posts of the subprograms below are proved by
++   --  gnatprove and not re-evaluated at run time: the count clauses
++   --  (Same_Cnt) quantify over every Integer value. The Posts in the spec
++   --  (Is_Perm, Is_Kth_Smallest) are still checked at run time.
++   pragma Assertion_Policy (Loop_Invariant => Ignore, Post => Ignore);
++
++   --  Same counts for every value and every mode.
++   function Same_Cnt (A, B : Element_Array) return Boolean is
++     (A'First = B'First
++      and then A'Last = B'Last
++      and then (A'Length = 0
++                or else (for all M in Count_Mode =>
++                           (for all V in Integer =>
++                              Cnt (A, V, A'Last, M) = Cnt (B, V, B'Last, M)))))
++   with
++     Ghost,
++     Global => null,
++     Pre    => In_Bounds (A) and then In_Bounds (B);
++
++   package Cnt_Lemmas
++     with Ghost
++   is
++      pragma Assertion_Policy (Pre => Ignore);
++
++      --  Counts over A'First .. Last only see A'First .. Last.
++      procedure Lemma_Frame (A, B : Element_Array; Last : Natural)
++      with
++        Global             => null,
++        Pre                =>
++          In_Bounds (A) and then In_Bounds (B)
++          and then A'First = B'First
++          and then Last <= A'Last and then Last <= B'Last
++          and then (for all K in A'First .. Last => A (K) = B (K)),
++        Post               =>
++          (for all M in Count_Mode =>
++             (for all V in Integer => Cnt (A, V, Last, M) = Cnt (B, V, Last, M))),
++        Subprogram_Variant => (Decreases => Last);
++
++      --  B is A with slot K changed.
++      procedure Lemma_Set (A, B : Element_Array; K : Positive; Last : Natural)
++      with
++        Global             => null,
++        Pre                =>
++          In_Bounds (A) and then In_Bounds (B)
++          and then A'First = B'First and then A'Last = B'Last
++          and then K in A'Range and then Last in K .. A'Last
++          and then (for all J in A'Range => (if J /= K then A (J) = B (J))),
++        Post               =>
++          (for all M in Count_Mode =>
++             (for all V in Integer =>
++                Cnt (B, V, Last, M)
++                = Cnt (A, V, Last, M)
++                  - (if Hit (A (K), V, M) then 1 else 0)
++                  + (if Hit (B (K), V, M) then 1 else 0))),
++        Subprogram_Variant => (Decreases => Last);
++
++      --  B is A with slots X and Y exchanged.
++      procedure Lemma_Swap (A, B : Element_Array; X, Y : Positive)
++      with
++        Global => null,
++        Pre    =>
++          In_Bounds (A) and then In_Bounds (B)
++          and then A'First = B'First and then A'Last = B'Last
++          and then X in A'Range and then Y in A'Range
++          and then B (X) = A (Y) and then B (Y) = A (X)
++          and then (for all J in A'Range =>
++                      (if J /= X and then J /= Y then A (J) = B (J))),
++        Post   => Same_Cnt (A, B);
++
++      procedure Lemma_Trans (A, B, C : Element_Array)
++      with
++        Global => null,
++        Pre    =>
++          In_Bounds (A) and then In_Bounds (B) and then In_Bounds (C)
++          and then Same_Cnt (A, B) and then Same_Cnt (B, C),
++        Post   => Same_Cnt (A, C);
++
++      --  The logical Same_Cnt gives the executable Is_Perm.
++      procedure Lemma_Same_Perm (A, B : Element_Array)
++      with
++        Global => null,
++        Pre    => In_Bounds (A) and then In_Bounds (B) and then Same_Cnt (B, A),
++        Post   => Is_Perm (A, B);
++
++      --  At most one hit per position.
++      procedure Lemma_Cnt_Len (A : Element_Array; V : Integer; Last : Natural; M : Count_Mode)
++      with
++        Global             => null,
++        Pre                =>
++          In_Bounds (A) and then Last <= A'Last and then Last + 1 >= A'First,
++        Post               => Cnt (A, V, Last, M) <= Last - A'First + 1,
++        Subprogram_Variant => (Decreases => Last);
++
++      --  No element of A (P .. Last) is smaller than V.
++      procedure Lemma_Lt_Tail (A : Element_Array; V : Integer; P : Positive; Last : Natural)
++      with
++        Global             => null,
++        Pre                =>
++          In_Bounds (A) and then P in A'Range and then Last in P - 1 .. A'Last
++          and then (for all I in P .. Last => A (I) >= V),
++        Post               => Cnt (A, V, Last, Lt) = Cnt (A, V, P - 1, Lt),
++        Subprogram_Variant => (Decreases => Last);
++
++      --  Every element of A (A'First .. Last) is at most V.
++      procedure Lemma_Le_Prefix (A : Element_Array; V : Integer; Last : Natural)
++      with
++        Global             => null,
++        Pre                =>
++          In_Bounds (A) and then Last <= A'Last and then Last + 1 >= A'First
++          and then (for all I in A'First .. Last => A (I) <= V),
++        Post               => Cnt (A, V, Last, Le) = Last - A'First + 1,
++        Subprogram_Variant => (Decreases => Last);
++
++      procedure Lemma_Mono
++        (A : Element_Array; V : Integer; L1, L2 : Natural; M : Count_Mode)
++      with
++        Global             => null,
++        Pre                => In_Bounds (A) and then L1 <= L2 and then L2 <= A'Last,
++        Post               => Cnt (A, V, L1, M) <= Cnt (A, V, L2, M),
++        Subprogram_Variant => (Decreases => L2);
++   end Cnt_Lemmas;
++
++   package body Cnt_Lemmas is
++
++      procedure Lemma_Frame (A, B : Element_Array; Last : Natural) is
++      begin
++         if Last >= A'First then
++            Lemma_Frame (A, B, Last - 1);
++         end if;
++      end Lemma_Frame;
++
++      procedure Lemma_Set (A, B : Element_Array; K : Positive; Last : Natural) is
++      begin
++         if Last > K then
++            Lemma_Set (A, B, K, Last - 1);
++         else
++            Lemma_Frame (A, B, K - 1);
++         end if;
++      end Lemma_Set;
++
++      procedure Lemma_Swap (A, B : Element_Array; X, Y : Positive) is
++      begin
++         if X = Y then
++            Lemma_Frame (A, B, A'Last);
++            return;
++         end if;
++         declare
++            C : constant Element_Array := (A with delta X => A (Y));
++         begin
++            Lemma_Set (A, C, X, A'Last);
++            Lemma_Set (C, B, Y, A'Last);
++         end;
++      end Lemma_Swap;
++
++      procedure Lemma_Trans (A, B, C : Element_Array) is null;
++
++      procedure Lemma_Same_Perm (A, B : Element_Array) is null;
++
++      procedure Lemma_Cnt_Len (A : Element_Array; V : Integer; Last : Natural; M : Count_Mode) is
++      begin
++         if Last >= A'First then
++            Lemma_Cnt_Len (A, V, Last - 1, M);
++         end if;
++      end Lemma_Cnt_Len;
++
++      procedure Lemma_Lt_Tail (A : Element_Array; V : Integer; P : Positive; Last : Natural) is
++      begin
++         if Last >= P then
++            Lemma_Lt_Tail (A, V, P, Last - 1);
++         end if;
++      end Lemma_Lt_Tail;
++
++      procedure Lemma_Le_Prefix (A : Element_Array; V : Integer; Last : Natural) is
++      begin
++         if Last >= A'First then
++            Lemma_Le_Prefix (A, V, Last - 1);
++         end if;
++      end Lemma_Le_Prefix;
++
++      procedure Lemma_Mono
++        (A : Element_Array; V : Integer; L1, L2 : Natural; M : Count_Mode) is
++      begin
++         if L2 > L1 then
++            Lemma_Mono (A, V, L1, L2 - 1, M);
++         end if;
++      end Lemma_Mono;
++
++   end Cnt_Lemmas;
++   use Cnt_Lemmas;
++
+    --  Every A (L .. R) is <= V. Vacuous when L > R.
+    function All_Leq
+      (A    : Element_Array;
+@@ -94,15 +286,19 @@ is
+          and then
+            (for all K in 1 .. A'Length =>
+               (if K /= X and then K /= Y then A (A'First + (K - 1)) = A'Old (A'First + (K - 1))))
++         and then Same_Cnt (A'Old, A)
+    is
+-      T : Integer;
++      T   : Integer;
++      Old : constant Element_Array := A with Ghost;
+    begin
+       if X = Y then
++         Lemma_Frame (Old, A, A'Last);
+          return;
+       end if;
+       T     := A (A'First + (X - 1));
+       A (A'First + (X - 1)) := A (A'First + (Y - 1));
+       A (A'First + (Y - 1)) := T;
++      Lemma_Swap (Old, A, A'First + (X - 1), A'First + (Y - 1));
+    end Swap;
+ 
+    --  Order A(Lo), A(Mid), A(Hi) and move the median to Hi (Lomuto pivot).
+@@ -127,33 +323,45 @@ is
+            (for all K in 1 .. Lo - 1 => A (A'First + (K - 1)) = A'Old (A'First + (K - 1)))
+          and then
+            (for all K in Hi + 1 .. A'Length => A (A'First + (K - 1)) = A'Old (A'First + (K - 1)))
++         and then Same_Cnt (A'Old, A)
+    is
+-      Mid : constant Index := Lo + (Hi - Lo) / 2;
++      Mid  : constant Index := Lo + (Hi - Lo) / 2;
++      Orig : constant Element_Array := A with Ghost;
++      Prev : Element_Array (A'Range) := A with Ghost;
+    begin
++      Lemma_Frame (Orig, A, A'Last);
+       pragma Assert (Mid in Lo .. Hi);
+       pragma Assert (Mid in Lo + 1 .. Hi - 1);
+       pragma Assert (Mid >= Lo and then Mid <= Hi);
+ 
+       if A (A'First + (Mid - 1)) < A (A'First + (Lo - 1)) then
++         Prev := A;
+          Swap (A, Lo, Mid);
++         Lemma_Trans (Orig, Prev, A);
+       end if;
+       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
+       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
+ 
+       if A (A'First + (Hi - 1)) < A (A'First + (Lo - 1)) then
++         Prev := A;
+          Swap (A, Lo, Hi);
++         Lemma_Trans (Orig, Prev, A);
+       end if;
+       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
+       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
+ 
+       if A (A'First + (Hi - 1)) < A (A'First + (Mid - 1)) then
++         Prev := A;
+          Swap (A, Mid, Hi);
++         Lemma_Trans (Orig, Prev, A);
+       end if;
+       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
+       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
+ 
+       --  A(Lo) <= A(Mid) <= A(Hi); median sits at Mid. Park it at Hi.
++      Prev := A;
+       Swap (A, Mid, Hi);
++      Lemma_Trans (Orig, Prev, A);
+       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
+       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
+    end Median_Of_Three;
+@@ -185,12 +393,17 @@ is
+            (for all K in 1 .. Lo - 1 => A (A'First + (K - 1)) = A'Old (A'First + (K - 1)))
+          and then
+            (for all K in Hi + 1 .. A'Length => A (A'First + (K - 1)) = A'Old (A'First + (K - 1)))
++         and then Same_Cnt (A'Old, A)
+    is
+       Pivot : Integer;
+       I     : Cursor;
++      Orig  : constant Element_Array := A with Ghost;
++      Prev  : Element_Array (A'Range) := A with Ghost;
+    begin
++      Lemma_Frame (Orig, A, A'Last);
+       if Hi - Lo >= 2 then
+          Median_Of_Three (A, Lo, Hi);
++         Lemma_Trans (Orig, Prev, A);
+       end if;
+ 
+       Pivot := A (A'First + (Hi - 1));
+@@ -213,11 +426,14 @@ is
+            (for all K in 1 .. Lo - 1 => A (A'First + (K - 1)) = A'Loop_Entry (A'First + (K - 1)));
+          pragma Loop_Invariant
+            (for all K in Hi + 1 .. A'Length => A (A'First + (K - 1)) = A'Loop_Entry (A'First + (K - 1)));
++         pragma Loop_Invariant (Same_Cnt (Orig, A));
+ 
+          if A (A'First + (J - 1)) <= Pivot then
+             pragma Assert (I in 1 .. A'Length);
+             pragma Assert (J in 1 .. A'Length);
++            Prev := A;
+             Swap (A, Index (I), J);
++            Lemma_Trans (Orig, Prev, A);
+             I := I + 1;
+          end if;
+ 
+@@ -235,7 +451,9 @@ is
+       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
+       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
+ 
++      Prev := A;
+       Swap (A, Index (I), Hi);
++      Lemma_Trans (Orig, Prev, A);
+ 
+       P := Index (I);
+ 
+@@ -254,7 +472,6 @@ is
+       Lo, P, Hi, K   : Index)
+      with
+        Ghost             => True,
+-       Always_Terminates => True,
+        Global            => null,
+        Pre               =>
+          In_Bounds (A)
+@@ -304,7 +521,6 @@ is
+       Lo, Hi, K : Index)
+      with
+        Ghost             => True,
+-       Always_Terminates => True,
+        Global            => null,
+        Pre               =>
+          In_Bounds (A)
+@@ -341,7 +557,6 @@ is
+       Lo, P, Hi, Target  : Index)
+      with
+        Ghost             => True,
+-       Always_Terminates => True,
+        Global            => null,
+        Pre               =>
+          In_Bounds (A)
+@@ -386,7 +601,6 @@ is
+       Lo, P, Hi, Target  : Index)
+      with
+        Ghost             => True,
+-       Always_Terminates => True,
+        Global            => null,
+        Pre               =>
+          In_Bounds (A)
+@@ -424,12 +638,26 @@ is
+       pragma Assert (Prefix_Leq_Window (A, P + 1, Hi));
+    end Lemma_Shrink_Right;
+ 
+-   procedure Select_Kth (A : in out Element_Array; K : Positive) is
++   procedure Select_Impl (A : in out Element_Array; K : Positive)
++     with
++       Global => null,
++       Pre    =>
++         In_Bounds (A)
++         and then A'Length >= 1
++         and then K <= A'Length,
++       Post   =>
++         In_Bounds (A)
++         and then Is_Kth_Partitioned (A, K)
++         and then Same_Cnt (A'Old, A)
++   is
+       Target : constant Index := K;
+       Lo     : Index;
+       Hi     : Index;
+       P      : Index;
++      Orig   : constant Element_Array := A with Ghost;
++      Prev   : Element_Array (A'Range) := A with Ghost;
+    begin
++      Lemma_Frame (Orig, A, A'Last);
+       pragma Assert (Target <= A'Length);
+ 
+       if A'Length = 1 then
+@@ -453,12 +681,15 @@ is
+          pragma Loop_Invariant (Target in Lo .. Hi);
+          pragma Loop_Invariant (Prefix_Leq_Window (A, Lo, Hi));
+          pragma Loop_Invariant (Suffix_Geq_Window (A, Lo, Hi));
++         pragma Loop_Invariant (Same_Cnt (Orig, A));
+          pragma Loop_Variant (Decreases => Hi - Lo);
+ 
+          pragma Assert (Hi >= Lo + 1);
+          pragma Assert (A'Length >= 2);
+ 
++         Prev := A;
+          Partition (A, Lo, Hi, P);
++         Lemma_Trans (Orig, Prev, A);
+ 
+          pragma Assert (P in Lo .. Hi);
+          pragma Assert (All_Leq (A, Lo, P - 1, A (A'First + (P - 1))));
+@@ -498,12 +729,41 @@ is
+       --  is the single position Target.
+       Lemma_Kth_Singleton (A, Lo, Hi, Target);
+       pragma Assert (Is_Kth_Partitioned (A, K));
++   end Select_Impl;
++
++   procedure Select_Kth (A : in out Element_Array; K : Positive) is
++      Orig : constant Element_Array := A with Ghost;
++   begin
++      Select_Impl (A, K);
++      Lemma_Same_Perm (A, Orig);
+    end Select_Kth;
+ 
++   --  A partitioned at K holds the K-th smallest there (by count).
++   procedure Lemma_Kth_Counts (A : Element_Array; K : Positive)
++     with
++       Ghost,
++       Global => null,
++       Pre    =>
++         In_Bounds (A)
++         and then A'Length >= 1
++         and then K <= A'Length
++         and then Is_Kth_Partitioned (A, K),
++       Post   => Is_Kth_Smallest (A, K, A (A'First + (K - 1)))
++   is
++      P : constant Positive := A'First + (K - 1);
++      V : constant Integer := A (P);
++   begin
++      Lemma_Lt_Tail (A, V, P, A'Last);
++      Lemma_Cnt_Len (A, V, P - 1, Lt);
++      Lemma_Le_Prefix (A, V, P);
++      Lemma_Mono (A, V, P, A'Last, Le);
++   end Lemma_Kth_Counts;
++
+    function Select_Kth_Copy (A : Element_Array; K : Positive) return Integer is
+       Copy : Element_Array := A;
+    begin
+-      Select_Kth (Copy, K);
++      Select_Impl (Copy, K);
++      Lemma_Kth_Counts (Copy, K);
+       return Copy (Copy'First + (K - 1));
+    end Select_Kth_Copy;
+ 
+diff --git a/misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.ads b/misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.ads
+index de10406e..496fe265 100644
+--- a/misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.ads
++++ b/misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.ads
+@@ -9,9 +9,10 @@
+ --  Non-SPARK sibling allows arbitrary A'First, Max_N = 100_000, and raises
+ --  on oversized / empty / bad K; this port takes any A'First (A'Length <= Max_N), nonempty A
+ --  for Select_Kth, and uses Pre => In_Bounds (A) and then K <= A'Length.
+---  Full multiset / permutation equality is verified by tests rather than
+---  claimed as a Level-4 postcondition (the partition / order-statistic
+---  property is proved).
++--  Proved: Select_Kth leaves a permutation of its input (Is_Perm) that is
++--  partitioned at position K; Select_Kth_Copy and Median return a value
++--  that is the K-th smallest by count (Is_Kth_Smallest: fewer than K
++--  elements are smaller, at least K are smaller or equal).
+ --
+ --  Reference: https://en.wikipedia.org/wiki/Selection_algorithm
+ 
+@@ -67,6 +68,59 @@ is
+        and then A'Length >= 1
+        and then K <= A'Length;
+ 
++   --  Counting: Cnt (A, V, Last, M) is the number of elements of
++   --  A (A'First .. Last) equal to (Eq), smaller than (Lt) or at most (Le) V.
++   type Count_Mode is (Eq, Lt, Le);
++
++   function Hit (X, V : Integer; M : Count_Mode) return Boolean is
++     (case M is
++         when Eq => X = V,
++         when Lt => X < V,
++         when Le => X <= V)
++   with Global => null;
++
++   function Cnt
++     (A : Element_Array; V : Integer; Last : Natural; M : Count_Mode) return Natural
++   with
++     Global             => null,
++     Pre                => In_Bounds (A) and then Last <= A'Last,
++     Post               => Cnt'Result <= Last,
++     Subprogram_Variant => (Decreases => Last);
++
++   function Cnt
++     (A : Element_Array; V : Integer; Last : Natural; M : Count_Mode) return Natural
++   is
++     (if Last < A'First then 0
++      else Cnt (A, V, Last - 1, M) + (if Hit (A (Last), V, M) then 1 else 0));
++
++   --  A and B hold the same values with the same counts.
++   function Is_Perm (A, B : Element_Array) return Boolean is
++     (A'First = B'First
++      and then A'Last = B'Last
++      and then (for all I in A'Range =>
++                  Cnt (A, A (I), A'Last, Eq) = Cnt (B, A (I), B'Last, Eq))
++      and then (for all I in B'Range =>
++                  Cnt (A, B (I), A'Last, Eq) = Cnt (B, B (I), B'Last, Eq)))
++   with
++     Global => null,
++     Pre    => In_Bounds (A) and then In_Bounds (B);
++
++   --  Elements of A smaller than V / at most V.
++   function Count_Below (A : Element_Array; V : Integer) return Natural is
++     (if A'Length = 0 then 0 else Cnt (A, V, A'Last, Lt))
++   with Global => null, Pre => In_Bounds (A);
++
++   function Count_Upto (A : Element_Array; V : Integer) return Natural is
++     (if A'Length = 0 then 0 else Cnt (A, V, A'Last, Le))
++   with Global => null, Pre => In_Bounds (A);
++
++   --  V is the K-th smallest element of A (1-based, with multiplicity):
++   --  fewer than K elements are smaller and at least K are smaller or equal.
++   --  This fixes V uniquely, and V occurs in A.
++   function Is_Kth_Smallest (A : Element_Array; K : Positive; V : Integer) return Boolean is
++     (Count_Below (A, V) < K and then K <= Count_Upto (A, V))
++   with Global => null, Pre => In_Bounds (A);
++
+    ---------------------------------------------------------------------------
+    -- Algorithm sketch (selection / Wikipedia Quickselect-style)
+    ---------------------------------------------------------------------------
+@@ -96,11 +150,11 @@ is
+          and then K <= A'Length,
+        Post   =>
+          In_Bounds (A)
+-         and then Is_Kth_Partitioned (A, K);
+-   --  In-place Quickselect-style select: rearranges A so A(A'First + K - 1) holds the
+-   --  K-th smallest element (1-based order statistic) and the partition
+-   --  property Is_Kth_Partitioned holds. Multiset / permutation equality
+-   --  is checked by the test suite (not claimed here at Level 4).
++         and then Is_Kth_Partitioned (A, K)
++         and then Is_Perm (A, A'Old);
++   --  In-place Quickselect-style select: rearranges A (a permutation of the
++   --  input) so A(A'First + K - 1) holds the K-th smallest element (1-based
++   --  order statistic) and the partition property Is_Kth_Partitioned holds.
+ 
+    function Select_Kth_Copy (A : Element_Array; K : Positive) return Integer
+      with
+@@ -108,14 +162,16 @@ is
+        Pre    =>
+          In_Bounds (A)
+          and then A'Length >= 1
+-         and then K <= A'Length;
++         and then K <= A'Length,
++       Post   => Is_Kth_Smallest (A, K, Select_Kth_Copy'Result);
+    --  Non-mutating wrapper: copies A, runs Select_Kth on the copy, and
+    --  returns the K-th smallest. Original A is unchanged. O(n) temporary.
+ 
+    function Median (A : Element_Array) return Integer
+      with
+        Global => null,
+-       Pre    => In_Bounds (A) and then A'Length >= 1;
++       Pre    => In_Bounds (A) and then A'Length >= 1,
++       Post   => Is_Kth_Smallest (A, (A'Length + 1) / 2, Median'Result);
+    --  Non-mutating median via Select_Kth_Copy. Odd n: rank (n+1)/2.
+    --  Even n: lower middle rank n/2. Original A is unchanged.
+ 

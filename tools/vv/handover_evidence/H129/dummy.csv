@@ -1,0 +1,2 @@
+folder,family,split_seed,half,seed,baseline,sites,mutants,killed,survived,timeout,stillborn,score,score_with_timeouts,compiler
+sorting/SPARK4/Ada-SPARK-Slowsort,std,,,20261008,pass,122,40,0,27,0,13,0/27,0/27,GNATMAKE 14.2.0

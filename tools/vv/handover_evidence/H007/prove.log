@@ -1,0 +1,34 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
++===========================GNAT BUG DETECTED==============================+
+| 1.0 (spark) 1:0: value expected (got DOC_END)                            |
+| No source file position information available                            |
+| Compiling /tmp/aa2s/misc_SPARK2_Ada-SPARK-Palindrome-Partitioning-II/palindrome_partitioning_ii.adb|
+| Please submit a bug report at the SPARK issue tracker:                   |
+| https://github.com/AdaCore/spark2014 .                                   |
+| Use a subject line meaningful to you and us to track the bug.            |
+| Include the entire contents of this bug box in the report.               |
+| Include the exact command that you entered.                              |
+| Also include sources listed below.                                       |
++==========================================================================+
+
+Please include these source files with error report
+Note that list may not be accurate in some cases,
+so please double check that the problem can still
+be reproduced with the set of files listed.
+Consider also -gnatd.n switch (see debug.adb).
+
+/tmp/aa2s/misc_SPARK2_Ada-SPARK-Palindrome-Partitioning-II/palindrome_partitioning_ii.adb
+/tmp/aa2s/misc_SPARK2_Ada-SPARK-Palindrome-Partitioning-II/palindrome_partitioning_ii.ads
+
+palindrome_partitioning_ii.adb:7:13: info: local subprogram "Increment" only analyzed in the context of calls [info-unrolling-inlining]
+palindrome_partitioning_ii.adb:7:13: info: add a contract to analyze it separately from calling contexts
+palindrome_partitioning_ii.adb:22:31: info: unrolling loop [info-unrolling-inlining]
+palindrome_partitioning_ii.adb:23:26: info: unrolling loop [info-unrolling-inlining]
+palindrome_partitioning_ii.adb:33:23: info: unrolling loop [info-unrolling-inlining]
+palindrome_partitioning_ii.adb:34:26: info: cannot unroll loop (dynamic loop bounds) [info-unrolling-inlining]
+palindrome_partitioning_ii.adb:36:29: info: analyzing call to "Increment" in context
+compilation abandoned
+Summary logged in /tmp/aa2s/misc_SPARK2_Ada-SPARK-Palindrome-Partitioning-II/obj/gnatprove/gnatprove.out
+gnatprove: error during flow analysis and proof

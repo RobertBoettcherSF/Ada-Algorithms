@@ -1,0 +1,2 @@
+folder,family,split_seed,half,seed,baseline,sites,mutants,killed,survived,timeout,stillborn,score,score_with_timeouts,compiler
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,std,20261087,tune,20261008,pass,232,40,0,24,0,16,0/24,0/24,GNATMAKE 14.2.0

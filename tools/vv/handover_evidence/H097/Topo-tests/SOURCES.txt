@@ -1,0 +1,22 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Nothing is copied from the program's output or from third-party test suites.
+
+tests.adb sections 1 .. 15: the original checks. Expected orders and
+Success values follow from the edges each test adds: an order is valid
+iff every edge goes forward, and a graph with a directed cycle has no
+order. The 8-node and 6-node figures are graphs written in the test;
+only their edges are used.
+
+tests.adb section 16 (agent A3, 2026-10-09, content Post for
+Kahn_Sort): every graph on 1 .. 4 nodes (2^(N*N) edge sets, 66,066
+graphs). The reference is written for this test from the definitions:
+a depth-first walk with white / grey / black colours reports a cycle
+iff it meets a grey node (a node still on the current path); a
+permutation is valid iff every edge goes to a later position (an own
+position array). Expected: Success = no cycle; Success gives
+Is_Valid_Sort; Is_Blocked for some K iff a cycle; Is_Valid_Sort equals
+the reference on all N! permutations. The DAG total (1 + 3 + 25 + 543 =
+572) matches the known count of labelled DAGs on 1 .. 4 nodes (Robinson
+1973), an independent cross-check of the reference.

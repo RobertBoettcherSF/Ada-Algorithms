@@ -1,0 +1,37 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
++===========================GNAT BUG DETECTED==============================+
+| 1.0 (spark) 1:0: value expected (got DOC_END)                            |
+| No source file position information available                            |
+| Compiling /tmp/aa2s/misc_SPARK2_Ada-SPARK-Minimum-ASCII-Delete-Sum/minimum_ascii_delete_sum.adb|
+| Please submit a bug report at the SPARK issue tracker:                   |
+| https://github.com/AdaCore/spark2014 .                                   |
+| Use a subject line meaningful to you and us to track the bug.            |
+| Include the entire contents of this bug box in the report.               |
+| Include the exact command that you entered.                              |
+| Also include sources listed below.                                       |
++==========================================================================+
+
+Please include these source files with error report
+Note that list may not be accurate in some cases,
+so please double check that the problem can still
+be reproduced with the set of files listed.
+Consider also -gnatd.n switch (see debug.adb).
+
+/tmp/aa2s/misc_SPARK2_Ada-SPARK-Minimum-ASCII-Delete-Sum/minimum_ascii_delete_sum.adb
+/tmp/aa2s/misc_SPARK2_Ada-SPARK-Minimum-ASCII-Delete-Sum/minimum_ascii_delete_sum.ads
+
+minimum_ascii_delete_sum.adb:6:13: info: local subprogram "Add" only analyzed in the context of calls [info-unrolling-inlining]
+minimum_ascii_delete_sum.adb:6:13: info: add a contract to analyze it separately from calling contexts
+minimum_ascii_delete_sum.adb:21:24: info: unrolling loop [info-unrolling-inlining]
+minimum_ascii_delete_sum.adb:22:22: info: analyzing call to "Add" in context
+minimum_ascii_delete_sum.adb:24:24: info: unrolling loop [info-unrolling-inlining]
+minimum_ascii_delete_sum.adb:25:22: info: analyzing call to "Add" in context
+minimum_ascii_delete_sum.adb:27:24: info: unrolling loop [info-unrolling-inlining]
+minimum_ascii_delete_sum.adb:28:27: info: unrolling loop [info-unrolling-inlining]
+minimum_ascii_delete_sum.adb:32:22: info: analyzing call to "Add" in context
+minimum_ascii_delete_sum.adb:33:22: info: analyzing call to "Add" in context
+compilation abandoned
+Summary logged in /tmp/aa2s/misc_SPARK2_Ada-SPARK-Minimum-ASCII-Delete-Sum/obj/gnatprove/gnatprove.out
+gnatprove: error during flow analysis and proof

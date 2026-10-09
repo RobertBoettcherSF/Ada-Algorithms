@@ -1,0 +1,12 @@
+== diag L2
+rc=0
+Phase 3 of 3: flow analysis and proof ...
+topological_sorting.adb:222:33: medium: loop invariant might not be preserved by an arbitrary iteration [provers reached time limit before completing the proof]
+topological_sorting.adb:238:33: medium: assertion might fail, cannot prove In_Degree (W) = Pend (G, Done, W, N) [provers reached time limit before completing the proof]
+topological_sorting.adb:284:18: medium: assertion might fail, cannot prove In_Degree (W) = Pend (G, Done, W, N) + (if G.Adj (U, W) then 1 else 0) [provers reached time limit before completing the proof]
+topological_sorting.adb:302:37: medium: assertion might fail [provers reached time limit before completing the proof]
+topological_sorting.adb:359:24: medium: assertion might fail, cannot prove Result (I) <= N [provers reached time limit before completing the proof]
+topological_sorting.adb:377:56: medium: assertion might fail, cannot prove not Offered (V) [provers reached time limit before completing the proof]
+topological_sorting.adb:385:52: medium: assertion might fail, cannot prove Done (V) [provers reached time limit before completing the proof]
+topological_sorting.adb:386:25: medium: assertion might fail, cannot prove Result (Result'First + (I - 1)) <= G.Num_Nodes [provers reached time limit before completing the proof]
+topological_sorting.adb:386:25: medium: in inlined expression function body at topological_sorting.ads:152

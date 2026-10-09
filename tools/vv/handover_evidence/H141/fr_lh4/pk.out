@@ -1,0 +1,17 @@
+tune std lemke_howson.adb:27 < -> <= | proof_fail | medium: array index check might fail at lemke_howson.adb:145:51; medium: precondition might fail, cannot prove Basis (R) <= T'Last (2) at lemke_howson.adb:163:1
+tune std lemke_howson.adb:31 < -> <= | proof_fail | medium: array index check might fail at lemke_howson.adb:138:45; medium: array index check might fail at lemke_howson.adb:144:47
+tune std lemke_howson.adb:79 * -> + | proved | all checks proved (258 checks)
+tune std lemke_howson.adb:163 + -> - | proved | all checks proved (258 checks)
+tune alt lemke_howson.adb:165 constant 1 -> 0 | proved | all checks proved (258 checks)
+tune alt lemke_howson.adb:161 swap arguments | proved | all checks proved (258 checks)
+held std lemke_howson.adb:31 * -> + | proved | all checks proved (258 checks)
+held std lemke_howson.adb:53 > -> >= | proof_fail | medium: postcondition might fail, cannot prove Det > 0 at lemke_howson.adb:55:16; medium: divide by zero might fail at lemke_howson.adb:79:68
+held std lemke_howson.adb:30 * -> + | proved | all checks proved (258 checks)
+held std lemke_howson.adb:163 + 1 -> + 0 | proved | all checks proved (258 checks)
+held alt lemke_howson.adb:133 constant 0 -> 1 | proved | all checks proved (258 checks)
+held alt lemke_howson.adb:154 constant 1 -> 2 | proved | all checks proved (258 checks)
+held alt lemke_howson.adb:165 constant 1 -> 2 | proved | all checks proved (258 checks)
+held alt lemke_howson.adb:197 constant 0 -> 1 | proved | all checks proved (258 checks)
+held alt lemke_howson.adb:144 constant 1 -> 2 | proved | all checks proved (258 checks)
+held alt lemke_howson.adb:71 delete statement | proof_fail | medium: "Ok" might not be initialized in "Pivot" at lemke_howson.adb:48:07
+held alt lemke_howson.adb:63 delete statement | proof_fail | medium: "Leaving" might not be initialized in "Pivot" at lemke_howson.adb:47:07; medium: "Leaving" might not be initialized at lemke_howson.adb:55:33

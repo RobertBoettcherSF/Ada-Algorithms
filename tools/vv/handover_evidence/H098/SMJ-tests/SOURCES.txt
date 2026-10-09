@@ -1,0 +1,23 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Nothing is copied from the program's output or from third-party test suites.
+
+tests.adb sections "Helpers" .. "Any origin": the original checks.
+Expected results follow from the inner-join definition: every pair
+(left row, right row) with equal keys appears once, left rows in input
+order, and for one left row its matches in right input order. Counts in
+the Cartesian-multiplicity tests are products of run lengths.
+
+"Every small sorted input vs own nested-loop join" (agent A3,
+2026-10-09, content Post Is_Join): the reference is an own nested loop
+over left rows, then right rows, emitting each pair with equal keys.
+Inputs: all nondecreasing key lists of length 0 .. 4 over keys 1 .. 3
+(35 lists, a stars-and-bars count) on both sides; payloads are the
+positions, so rows are told apart. Both procedures (Unique_Key_Join only
+where the left keys are unique) must match the reference row by row.
+
+"Is_Join rejects wrong results" (agent A3): a correct four-pair result
+for keys (1, 2, 2) x (2, 2, 3), changed by hand (two rows swapped, last
+row dropped, a payload changed, a duplicate row added); each changed
+result must fail the Post predicate Is_Join, so the Post is not vacuous.

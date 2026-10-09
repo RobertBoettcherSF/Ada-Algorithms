@@ -18,7 +18,7 @@ TEST_BINS := \
 
 HARNESS := $(BIN_DIR)/harness
 
-.PHONY: all list test clean proof-index vv vv-validate
+.PHONY: all list test clean proof-index vv vv-validate check-paths
 
 all: $(HARNESS) $(TEST_BINS)
 
@@ -68,6 +68,11 @@ proof-index:
 	python3 tools/proof_index.py --results $(RESULTS) --logs $(PROVE_LOGS) \
 	  $(if $(STEPS_LOGS),--steps-logs $(STEPS_LOGS)) $(if $(TOOL_INFO),--tool-info $(TOOL_INFO)) \
 	  --steps-cmd "gnatprove -P <folder gpr> --mode=silver --level=2 --timeout=0 --steps=$(STEPS) --counterexamples=off -j2 --output=oneline -k"
+
+# Tracked files must not name absolute box paths (scratch dirs, other worktrees, home);
+# allowlist with written reasons in tools/vv/check_paths_allow.csv.
+check-paths:
+	python3 tools/vv/check_paths.py --handover-only
 
 # Verification + validation over all folders (docs/VV.md): build+tests on GNAT 14/12,
 # Silver proofs with a step budget, differential + mutation testing, index refresh.

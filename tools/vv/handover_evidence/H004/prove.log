@@ -1,0 +1,14 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+safety_supervisor.adb:20:24: medium: overflow check might fail, cannot prove upper bound for DX * DX, in call inlined at safety_supervisor.adb:83 [reason for check: result of multiplication must fit in a 32-bits machine integer] [provers reached step limit before completing the proof]
+safety_supervisor.adb:20:24: medium: overflow check might fail, cannot prove upper bound for DX * DX [reason for check: result of multiplication must fit in a 32-bits machine integer] [provers reached step limit before completing the proof]
+safety_supervisor.adb:20:29: medium: overflow check might fail, cannot prove upper bound for (DX * DX + DY * DY), in call inlined at safety_supervisor.adb:83 [reason for check: result of addition must fit in a 32-bits machine integer] [provers reached step limit before completing the proof]
+safety_supervisor.adb:20:29: medium: overflow check might fail, cannot prove upper bound for (DX * DX + DY * DY) [reason for check: result of addition must fit in a 32-bits machine integer] [provers reached step limit before completing the proof]
+safety_supervisor.adb:20:34: medium: overflow check might fail, cannot prove upper bound for DY * DY, in call inlined at safety_supervisor.adb:83 [reason for check: result of multiplication must fit in a 32-bits machine integer] [provers reached step limit before completing the proof]
+safety_supervisor.adb:20:34: medium: overflow check might fail, cannot prove upper bound for DY * DY [reason for check: result of multiplication must fit in a 32-bits machine integer] [provers reached step limit before completing the proof]
+safety_supervisor.adb:20:66: medium: overflow check might fail, cannot prove upper bound for Integer (S.Fence.R_Cm) * Integer (S.Fence.R_Cm), in call inlined at safety_supervisor.adb:83 [reason for check: result of multiplication must fit in a 32-bits machine integer] [provers reached step and memory limit before completing the proof]
+safety_supervisor.adb:20:66: medium: overflow check might fail, cannot prove upper bound for Integer (S.Fence.R_Cm) * Integer (S.Fence.R_Cm) [reason for check: result of multiplication must fit in a 32-bits machine integer] [possible fix: add precondition (Integer (S.Fence.R_Cm) * Integer (S.Fence.R_Cm) <= Integer'Last) to subprogram at line 6] [provers reached step and memory limit before completing the proof]
+safety_supervisor.adb:73:32: info: no contextual analysis of "Inside_Fence" (in potentially unevaluated context)
+safety_supervisor.adb:83:14: info: analyzing call to "Inside_Fence" in context
+Summary logged in /tmp/aa2s/misc_Ada_Delivery-Safety-Supervisor/obj/gnatprove/gnatprove.out

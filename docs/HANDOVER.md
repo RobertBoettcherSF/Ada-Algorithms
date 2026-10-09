@@ -39,7 +39,7 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `toolchain_limit` | 1 | cvc5 under gnatprove's `--prenex-quant=none` returns "incomplete" on quantified frames over 2D arrays |
 | `proof_escape` | 1 | Bump-Arena: the fallback after the Insert loop is not proved unreachable |
 | `placeholder` | 17 | H111-H127: the sweep B placeholder list. These folders are answer tables, fixed layouts or hidden stubs that need a real algorithm (iterator stubs, Super-Ugly-Number-Stub, Unique-BSTs, Count-Primes, Word-Break-II, Restore-IP-Addresses, Convert-Sorted-Array-To-BST, Connected-Component-Labeling, Topological-Sort-Lite, ...) |
-| `deferred_budget` | 6 | stopped at the 2026-10-09 budget limit (agent A3), H097-H101: content Posts for sorting/SPARK4/Ada-SPARK-Topological-Sort (9 unproved at L2) and sorting/SPARK4/Ada-SPARK-Sort-Merge-Join (19 unproved at L2), the K-th-smallest / permutation Posts for misc/SPARK4/Ada-SPARK-Selection-Algorithm (tests pass, not proved), Pre-rejection rates beyond the first 20 ranked folders (plus five too-narrow Pres to widen), and the held-out sweep from rank 682. The drafts are patches in `/workspace/inbox/a3_drafts/` (box path outside the repo; apply with `git apply` from the repo root); H128 table regeneration tests (sweep B) |
+| `deferred_budget` | 6 | stopped at the 2026-10-09 budget limit (agent A3), H097-H101: content Posts for sorting/SPARK4/Ada-SPARK-Topological-Sort (9 unproved at L2) and sorting/SPARK4/Ada-SPARK-Sort-Merge-Join (19 unproved at L2), the K-th-smallest / permutation Posts for misc/SPARK4/Ada-SPARK-Selection-Algorithm (tests pass, not proved), Pre-rejection rates beyond the first 20 ranked folders (plus five too-narrow Pres to widen), and the held-out sweep from rank 682. The drafts are committed as patches in `tools/vv/handover_evidence/H097/`, `tools/vv/handover_evidence/H098/` and `tools/vv/handover_evidence/H099/` (apply with `git apply` from the repo root; all three still apply cleanly to main as of 2026-10-09 16:05); H128 table regeneration tests (sweep B) |
 
 By check kind: 54 functional (53 Platinum, 1 Gold), 13 run-time (Silver), 28 other (11 Stone, 1 Bronze, 16 non-proof).
 
@@ -47,11 +47,11 @@ By check kind: 54 functional (53 Platinum, 1 Gold), 13 run-time (Silver), 28 oth
 
 - **Longest-Common-Subsequence** (SPARK2) used to be a proof timeout: level 4 ran past 600 s, and the batch run showed the same DOC_END crash as the `tool_crash` rows. Commits 8d256f51 (loop invariants, `Len` subtype, expression-function `Nat_Max`) and 4012f0fc fixed it, and it now proves 24 checks. It is not a row, but its fix is the first thing to try on the seven `tool_crash` folders.
 - **checker_scan**: no withdrawn claim is still open. Balanced-Binary-Tree's claim was restored after 9e5b0925. The Heapsort and Subtree-Of-Another-Tree checkers were lenient only in tests, not in contracts.
-- **contract_scan** rows come from agent A3's `tools/vv/contract_scan.csv` in `/workspace/aa-sweepA3`, read at 09:24. That file was not yet on main. When it lands, compare the two, and close or add rows by id.
+- **contract_scan** rows come from agent A3's `tools/vv/contract_scan.csv`, read at 09:24. The file is now on main; on 2026-10-09 16:05 it was byte-identical to A3's worktree copy (63 lines), so no rows had to be merged or added.
 - **proof_warnings**: `tools/vv/proof_warnings.csv` does not exist yet. The `--proof-warnings=on` sweep is claimed to run after the re-proof. Each warning it raises becomes a sticky row here (category `proof_warning`), and it stays open until fixed in code, even if a later or faster run no longer reports it.
 - **Re-proof** (`reproof.csv`, run reproof-20261009-1): 96 folders so far, all `holds`, so no rows yet. A folder that hits the cap or leaves a check unproved becomes a row.
 - **Open findings** (68 in `tools/vv/findings.csv`: First-relative indexing, midpoint overflow, harnesses that cannot fail) are ordinary work, not compute-bound, and stay in the findings registry.
-- The `unproved_check`, `tool_crash` and `proof_timeout` results come from the 2026-10-08 steps run (`/workspace/aa/v2/prove_steps.jsonl`, logs `/tmp/aa2s/<folder>/prove.log`; box paths outside the repo). That run used `-j2` and a 7200 s cap. The current canonical settings are in `prove_settings.txt` (`-j1`, 3600 s cap, `-j4` retry). The step budget, 1,000,000, is the same.
+- The `unproved_check`, `tool_crash` and `proof_timeout` results come from the 2026-10-08 steps run (`tools/vv/handover_evidence/H001/prove_steps_20261008.jsonl`; the per-folder logs of the rows are in `tools/vv/handover_evidence/<row-id>/prove.log`, copied from the box scratch run dir on 2026-10-09). That run used `-j2` and a 7200 s cap. The current canonical settings are in `prove_settings.txt` (`-j1`, 3600 s cap, `-j4` retry). The step budget, 1,000,000, is the same.
 - The toolchain-bug rows were rechecked on 2026-10-09 against Alire `gnat_native 16.1.0` (GNATLS 16.1.0), which is not pinned and was only used for this check.
 
 - **Closed withdrawn_functional rows** (2026-10-09, agent A3): 17 rows (H027, H028, H036, H037, H043, H051, H054, H055, H058, H065-H069, H073, H076, H077) are `closed <commit>`: the Post was strengthened (permutation / content) and proved in that commit, and PROOFS.csv `functional_checks` is restored. sorting/SPARK4/Ada-SPARK-Bogosort (H027) was reworked as a bounded random shuffle with an explicit Sorted / Gave_Up outcome (22bdaf31).
@@ -61,6 +61,7 @@ By check kind: 54 functional (53 Platinum, 1 Gold), 13 run-time (Silver), 28 oth
 Sweep B stopped starting new folders here. Its open queue is now rows in the ledger:
 - **Buffer/merge sorts:** Strand-Sort (H061), Bucket-Sort (H029), Burstsort (H030), Flashsort (H035), Library-Sort (H040), Patience-Sorting (H044), Postman-Sort (H046) and Bitonic-Sorter (H026). For Bitonic-Sorter's sortedness via the 0-1 principle see H025.
   - Strand-Sort has a ready patch: tools/vv/handover_patches/strand_sort_failing_test.patch and strand_sort_perm_wip.patch. make test passes with it. make prove was interrupted under load, so the proof result is unknown.
+  - The wip patch sets `Assertion_Policy (... => Ignore)` (Loop_Invariant, Assert, Pre, Post) inside its ghost lemma package. Those contracts are meant to be proved, not executed, but under the repo rules an applied patch only counts toward Silver once `tools/vv/proof_escapes.csv` has a row for that pragma with a written reason, marked `justified=?` until reviewed. The patch is not applied on main.
   - The patch's invariant is the recipe for the other buffer sorts. Count every value across all live buffers. Call `Lemma_Occ_Update` before each write past the live length; this avoids snapshots inside loops, which gnatprove does not support before a loop invariant. Call `Lemma_Occ_Frame` after each copy loop.
 - **Vacuity batch 3 SPARK2 stubs:** H102-H110. The recipe is the one used for Exchange-Sort (a6a2bade, 0e148588): an executable Is_Perm over the 32 values, plus a Swap procedure with Lemma_Swap.
 - **Placeholders:** H111-H127.
@@ -69,10 +70,14 @@ Sweep B stopped starting new folders here. Its open queue is now rows in the led
 
 Each row has a reproduce command and a pass condition. They follow the sweep rules: failing test first, an independent reference, a held-out split recorded before any test work, and a proof with proof warnings on.
 
+## Evidence paths
+
+Every path in `tools/vv/handover.csv` and this file is repo-relative. Evidence that used to live only in box scratch dirs outside the repo was committed on 2026-10-09 under `tools/vv/handover_evidence/<row-id>/` (scripts under `tools/vv/`: `proofkill.py`, `always_terminates_check.sh`). Large per-mutant work trees were not kept; the row's `reproduce` command rebuilds them in a `mktemp -d` scratch dir. `tools/vv/check_paths.py` fails if a tracked file names an absolute box path.
+
 ## How to work a row
 
 1. Restore the toolchain (`docs/TOOLCHAIN.md`) and run the row's `reproduce` command on a cold copy (delete `obj/`, `gnatprove/`).
-   Some projects use shared sources from the level directory. The bulk run copied them in (`/workspace/aa/inv_by_id.json`). If gnatprove cannot find a unit, use the folder's `make prove`.
+   Some projects use shared sources from the level directory. The bulk run copied them in (inventory: `tools/vv/handover_evidence/run_20261008/inv_by_id.json`). If gnatprove cannot find a unit, use the folder's `make prove`.
 2. Prefer proof hints to compute: loop invariants, ghost lemmas, tighter subtypes, splitting a subprogram. Steps are never raised above 1,000,000 to close a row, and a wall cap is a safety stop, never a result.
 3. When the pass condition holds, close the row: set `status` to `closed <commit>`, keep the row, and update PROOFS.csv through the normal re-proof.
 
@@ -81,7 +86,7 @@ Each row has a reproduce command and a pass condition. They follow the sweep rul
 The main line stopped starting long runs here. Its open items are rows H131-H140 in `tools/vv/handover.csv`. Each row has a reproduce command and a pass condition.
 
 - **Proof index:** 2e8ee194 regenerated PROOFS.csv, PROOFS.md, the README headline and docs/IMPLEMENT.md with `tools/proof_index.py`.
-  - The per-folder results in `/tmp/aa_res` are from Oct 8, so they were not used. The build and prove inputs were synthesised from the committed PROOFS.csv columns, with the cold re-proof pass 2 check counts in place of the old ones.
+  - The per-folder build/prove results of the Oct 8 bulk run (box scratch, not committed) were stale, so they were not used. The build and prove inputs were synthesised from the committed PROOFS.csv columns, with the cold re-proof pass 2 check counts in place of the old ones.
   - The next real build and prove sweep should feed `make proof-index` directly.
 - **Proof warnings** (`tools/vv/proof_warnings.csv`): 85 found in 35 folders, 82 fixed in code (each row names its fix commit) and 3 open.
   - H131: Modular-Arithmetic has 3 open warnings. Agent A3 holds the claim.

@@ -1,0 +1,31 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
++===========================GNAT BUG DETECTED==============================+
+| 1.0 (spark) 1:0: value expected (got DOC_END)                            |
+| No source file position information available                            |
+| Compiling /tmp/aa2s/misc_SPARK2_Ada-SPARK-Regular-Expression-Matching-Lite/regular_expression_matching_lite.adb|
+| Please submit a bug report at the SPARK issue tracker:                   |
+| https://github.com/AdaCore/spark2014 .                                   |
+| Use a subject line meaningful to you and us to track the bug.            |
+| Include the entire contents of this bug box in the report.               |
+| Include the exact command that you entered.                              |
+| Also include sources listed below.                                       |
++==========================================================================+
+
+Please include these source files with error report
+Note that list may not be accurate in some cases,
+so please double check that the problem can still
+be reproduced with the set of files listed.
+Consider also -gnatd.n switch (see debug.adb).
+
+/tmp/aa2s/misc_SPARK2_Ada-SPARK-Regular-Expression-Matching-Lite/regular_expression_matching_lite.adb
+/tmp/aa2s/misc_SPARK2_Ada-SPARK-Regular-Expression-Matching-Lite/regular_expression_matching_lite.ads
+
+regular_expression_matching_lite.adb:26:32: info: unrolling loop [info-unrolling-inlining]
+regular_expression_matching_lite.adb:30:35: info: unrolling loop [info-unrolling-inlining]
+regular_expression_matching_lite.adb:33:27: info: no contextual analysis of "Same" (in potentially unevaluated context)
+regular_expression_matching_lite.adb:34:19: info: no contextual analysis of "Same" (in while loop condition)
+compilation abandoned
+Summary logged in /tmp/aa2s/misc_SPARK2_Ada-SPARK-Regular-Expression-Matching-Lite/obj/gnatprove/gnatprove.out
+gnatprove: error during flow analysis and proof

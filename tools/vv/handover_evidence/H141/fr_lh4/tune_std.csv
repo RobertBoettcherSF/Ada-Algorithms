@@ -1,0 +1,2 @@
+folder,family,split_seed,half,seed,baseline,sites,mutants,killed,survived,timeout,stillborn,score,score_with_timeouts,compiler
+misc/SPARK4/Ada-SPARK-Lemke-Howson,std,20261085,tune,20261008,pass,27,27,16,3,1,7,16/20,17/20,GNATMAKE 14.2.0

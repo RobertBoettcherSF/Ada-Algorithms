@@ -1,0 +1,988 @@
+diff --git a/sorting/SPARK4/Ada-SPARK-Topological-Sort/README.md b/sorting/SPARK4/Ada-SPARK-Topological-Sort/README.md
+index 04a4ed92..9c5e7763 100644
+--- a/sorting/SPARK4/Ada-SPARK-Topological-Sort/README.md
++++ b/sorting/SPARK4/Ada-SPARK-Topological-Sort/README.md
+@@ -18,11 +18,12 @@ Kahn's drain succeeds iff the graph is a DAG: every node is dequeued exactly onc
+ This is the SPARK Level 4 port of the companion package [Ada-Topological-Sort](https://github.com/RobertBoettcherSF/Ada-Topological-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses `Ada.Containers.Vectors` adjacency lists, raises `Invalid_Graph`, and offers a recursive DFS variant; this port trades those for a hard classroom bound (`Max_Nodes = 32`), a static $N \times N$ Boolean matrix, a bounded Head/Tail queue, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK siblings that share bounded node / array shape: [Ada-SPARK-Floyds-Cycle-Finding-Algorithm](https://github.com/RobertBoettcherSF/Ada-SPARK-Floyds-Cycle-Finding-Algorithm), [Ada-SPARK-Cycle-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Cycle-Sort), and [Ada-SPARK-Strand-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Strand-Sort).
+ 
+ ## Features
+-* **`Kahn_Sort (G, Result, Success)`**: Iterative indegree / queue topological sort. `Success` is True iff `Result` is a valid order of $1..N$.
+-* **`Is_Valid_Sort`**: Permutation of $1..N$ plus every live edge $u \to v$ is strictly forward. Vacuous for $N = 0$.
++* **`Kahn_Sort (G, Result, Success)`**: Iterative indegree / queue topological sort. `Success` is True iff `G` is a DAG; then `Result` is a valid order of $1..N$. On failure `Result` starts with the drained prefix, and `Is_Blocked` holds for its length (a cycle certificate).
++* **`Is_Valid_Sort`**: $N$ distinct live nodes (so a permutation of $1..N$) and every live edge $u \to v$ is strictly forward. Vacuous for $N = 0$.
++* **`Is_Blocked (G, Result, K)` / `In_Prefix`**: The first $K < N$ entries are distinct live nodes and every live node outside them has a predecessor outside them. That set is not empty, so following predecessors inside it closes a directed cycle.
+ * **`Add_Edge` / `Clear` / `Has_Edge`**: Static-matrix mutators and a query. Edges are idempotent (Boolean).
+ * **`In_Bounds` / `Result_Shape`**: Expression-function guards for 1-based order buffers.
+-* **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors; `Success` implies `Is_Valid_Sort`.
++* **Formal Verification**: GNATprove Level 4 — absence of index / overflow errors and the full functional Post: `Success` implies `Is_Valid_Sort`, failure implies `Is_Blocked` for some $K$. Together: `Success` iff `G` is a DAG.
+ * **Contract Discipline**: Preconditions replace exceptions; nodes outside $1..N$ are `Pre` violations rather than `Invalid_Graph`.
+ 
+ ## Deliberate simplifications vs non-SPARK sibling
+@@ -32,8 +33,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Topological-Sort](h
+ * Nodes fixed at $1..N$ (sibling uses a distinct `Node_ID` over all `Positive`).
+ * **Kahn only.** The sibling's recursive DFS (temporary / permanent marks) is omitted — recursion and path marks do not prove as cleanly at Level 4. Kahn alone is the package.
+ * Multi-edges collapse (Boolean cell). Self-loops are allowed and make the graph cyclic.
+-* `Clear` is `out` (rewrites the whole matrix). `Result` uses `Relaxed_Initialization` so SPARK can accept an unconstrained `out` buffer.
+-* **SPARK proves** `Post => (if Success then Is_Valid_Sort (G, Result))` by evaluating the predicate after a full drain (`Count = N`). That is the Success-semantics contract. Tests check the converse: every DAG actually returns `Success` (Kahn works) and every cyclic case returns Failure. Zero `pragma Annotate (GNATprove, Intentional, …)`.
++* `Clear` is `out` (rewrites the whole matrix). `Result` is first filled with `Node_Id'First`, then the drained prefix is written.
++* **SPARK proves** the whole Post with a ghost model (changed by agent A3, 2026-10-09; before, `Success` was computed by evaluating `Is_Valid_Sort` at run time, so the Post said nothing about the algorithm). Ghost `Pend (G, Done, V, K)` counts the predecessors of `V` that are not dequeued yet; the loop keeps `In_Degree (V) = Pend (G, Done, V, N)`. Ghost queue slots `QPos` show that a node is offered exactly when all its predecessors are done, so every predecessor has an earlier slot. A ghost count of offered nodes bounds `Tail` by $N$. On failure every node that was never offered has a pending predecessor, which is `Is_Blocked`. Zero `pragma Annotate (GNATprove, Intentional, …)`.
+ 
+ ## Algorithm
+ Kahn's algorithm ([Wikipedia](https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm)):
+@@ -41,7 +42,7 @@ Kahn's algorithm ([Wikipedia](https://en.wikipedia.org/wiki/Topological_sorting#
+ 1. $\mathrm{InDegree}(v) \leftarrow |\{u : \mathrm{Adj}(u,v)\}|$.
+ 2. Enqueue every $v$ with $\mathrm{InDegree}(v) = 0$.
+ 3. While the queue is not empty: dequeue $u$, append $u$ to $\mathrm{Result}$, and for each edge $u \to v$ decrement $\mathrm{InDegree}(v)$; if it hits $0$, enqueue $v$. Each node is offered to the queue at most once (static array + `Head` / `Tail`).
+-4. $\mathrm{Success}$ iff $|\mathrm{Result}| = N$ **and** `Is_Valid_Sort` holds. Otherwise a directed cycle remains.
++4. $\mathrm{Success}$ iff $|\mathrm{Result}| = N$. Otherwise a directed cycle remains (proved: `Is_Blocked`).
+ 
+ Empty graphs ($N = 0$) succeed with a vacuous order. The matrix scan is $\Theta(N^2)$; the queue holds at most $N$ nodes.
+ 
+@@ -51,12 +52,13 @@ Empty graphs ($N = 0$) succeed with a vacuous order. The matrix scan is $\Theta(
+ * **Verify proofs:** `make prove`
+ 
+ **Expected output:**
+-When you run `make test`, you will see all 101 assertions pass. Running `make prove` reports `Success: all checks proved (91 checks).`
++When you run `make test`, you will see all 286 checks pass. Running `make prove` reports `Success: all checks proved (91 checks).`
+ 
+ ## Testing
+ * **Functional correctness**: Empty / singleton, linear chains, diamonds, disconnected components, the sibling's 6-node DAG, a remapped Wikipedia 8-node figure, a length-32 chain and a transitive tournament.
+ * **Cycle detection**: Triangle, two-cycle, tail cycle, self-loops, cycle-plus-source, cycle at `Max_Nodes`.
+ * **`Is_Valid_Sort`**: Accepts both diamond orders; rejects reverse, duplicates, missing nodes, and an early sink.
++* **Every graph on 1..4 nodes** (66,066 graphs, section 16): `Success` equals "no cycle" from an own depth-first reference, `Success` gives `Is_Valid_Sort`, `Is_Blocked` holds for some $K$ exactly on cyclic graphs, and `Is_Valid_Sort` agrees with an own position check on every permutation (572 DAGs, 1,589 valid orders).
+ * **Contract helpers**: `In_Bounds` / `Result_Shape` / `Has_Edge` / `Clear` idempotence.
+ * **Contract discipline**: Only valid call paths are exercised (no exception handlers). Tests stay at $N \le 32$.
+ 
+@@ -71,7 +73,7 @@ When you run `make test`, you will see all 101 assertions pass. Running `make pr
+ 
+ ## Proof Status
+ * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
+-* In-degree, enqueue, seed, and relax helpers keep index / overflow VCs modular; the Kahn drain is a `for` loop capped at $N$ with `Head` / `Tail` / `Result'Initialized` invariants.
++* `Compute_In_Degrees` proves `In_Degree (V) = Pend (G, No_Done, V, N)`. Seeding and relaxing are inline in `Kahn_Sort`; the drain is a `while Head <= Tail` loop with a `Loop_Variant`, and its invariants tie `Q`, `QPos`, `Done`, `Offered`, `In_Degree` and the written prefix of `Result` together. Recursive ghost lemmas (`Lemma_Pend_Zero`, `Lemma_Pend_Pos`, `Lemma_Pend_Mark`, `Lemma_Num_Mark`) carry the counting steps.
+ * **GNATprove Level 4:** `Success: all checks proved (91 checks).`
+ * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
+ 
+@@ -84,7 +86,8 @@ When you run `make test`, you will see all 101 assertions pass. Running `make pr
+ | `Has_Edge` / `Add_Edge` / `Clear` | Query, insert, wipe |
+ | `In_Bounds` / `Result_Shape` | 1-based order-buffer guards |
+ | `Is_Valid_Sort` | Permutation + forward-edge predicate |
+-| `Kahn_Sort` | Indegree / queue sort (`Success` ⇒ valid order) |
++| `In_Prefix` / `Is_Blocked` | Cycle certificate for a failed drain |
++| `Kahn_Sort` | Indegree / queue sort (`Success` ⇒ valid order, failure ⇒ `Is_Blocked`) |
+ 
+ ## License
+ MIT License — Copyright (c) 2026 Sternenfisch.
+diff --git a/sorting/SPARK4/Ada-SPARK-Topological-Sort/tests.adb b/sorting/SPARK4/Ada-SPARK-Topological-Sort/tests.adb
+index 59f9176a..589fa713 100644
+--- a/sorting/SPARK4/Ada-SPARK-Topological-Sort/tests.adb
++++ b/sorting/SPARK4/Ada-SPARK-Topological-Sort/tests.adb
+@@ -1,8 +1,10 @@
+ --  Standalone test suite for Topological_Sorting (SPARK port).
+ --  Preconditions replace exceptions; only valid call paths are exercised.
+ --  Nodes are 1 .. N with N <= Max_Nodes. SPARK proves Success ⇒
+---  Is_Valid_Sort; this suite checks that DAGs actually succeed, that
+---  cycles fail, and that Is_Valid_Sort rejects bad permutations.
++--  Is_Valid_Sort and failure ⇒ Is_Blocked (a cycle certificate);
++--  this suite checks DAGs, cycles, Is_Valid_Sort and Is_Blocked,
++--  and section 16 compares every graph on up to 4 nodes with an own
++--  depth-first cycle reference.
+ 
+ pragma Ada_2022;
+ 
+@@ -495,6 +497,144 @@ begin
+       end loop;
+    end;
+ 
++   -------------------------------------------------------------------------
++   Section ("16. Every graph on up to 4 nodes vs own reference (agent A3)");
++   -------------------------------------------------------------------------
++   --  Reference written for this test: a graph has a directed cycle
++   --  iff a depth-first walk meets a node that is still on its path
++   --  (white / grey / black colours). A permutation is a valid order
++   --  iff every edge goes to a later position. For every graph with
++   --  N = 1 .. 4 (all 2^(N*N) edge sets): Success must equal "no
++   --  cycle", Success gives Is_Valid_Sort, failure gives Is_Blocked
++   --  for some K, Is_Blocked never holds on a DAG, and Is_Valid_Sort
++   --  must agree with the reference on all N! permutations.
++   declare
++      type Colour is (White, Grey, Black);
++      type Colour_Array is array (Node_Id) of Colour;
++
++      function Has_Cycle (G : Graph) return Boolean is
++         C     : Colour_Array := [others => White];
++         Found : Boolean := False;
++
++         procedure Visit (U : Node_Id) is
++         begin
++            C (U) := Grey;
++            for V in 1 .. G.Num_Nodes loop
++               if G.Adj (U, V) then
++                  if C (V) = Grey then
++                     Found := True;
++                  elsif C (V) = White then
++                     Visit (V);
++                  end if;
++               end if;
++            end loop;
++            C (U) := Black;
++         end Visit;
++      begin
++         for U in 1 .. G.Num_Nodes loop
++            if C (U) = White then
++               Visit (U);
++            end if;
++         end loop;
++         return Found;
++      end Has_Cycle;
++
++      function Ref_Valid (G : Graph; P : Node_Array) return Boolean is
++         Pos : array (Node_Id) of Natural := [others => 0];
++      begin
++         for I in P'Range loop
++            Pos (P (I)) := I;
++         end loop;
++         for U in 1 .. G.Num_Nodes loop
++            for V in 1 .. G.Num_Nodes loop
++               if G.Adj (U, V) and then Pos (U) >= Pos (V) then
++                  return False;
++               end if;
++            end loop;
++         end loop;
++         return True;
++      end Ref_Valid;
++
++      Graphs, DAGs, Bad_Succ, Bad_Valid, Bad_Block, Bad_Judge : Natural := 0;
++      Perm_Valid : Natural := 0;
++   begin
++      for N in 1 .. 4 loop
++         declare
++            Cells : constant Natural := N * N;
++            G     : Graph (N);
++            R     : Node_Array (1 .. N);
++            S     : Boolean;
++            P     : Node_Array (1 .. N);
++            Used  : array (1 .. N) of Boolean;
++
++            procedure Perms (I : Positive; Cycle : Boolean) is
++            begin
++               if I > N then
++                  if Is_Valid_Sort (G, P) /= Ref_Valid (G, P) then
++                     Bad_Judge := Bad_Judge + 1;
++                  end if;
++                  if Is_Valid_Sort (G, P) then
++                     Perm_Valid := Perm_Valid + 1;
++                     if Cycle then
++                        Bad_Judge := Bad_Judge + 1;
++                     end if;
++                  end if;
++                  return;
++               end if;
++               for V in 1 .. N loop
++                  if not Used (V) then
++                     Used (V) := True;
++                     P (I) := V;
++                     Perms (I + 1, Cycle);
++                     Used (V) := False;
++                  end if;
++               end loop;
++            end Perms;
++         begin
++            for Mask in 0 .. 2 ** Cells - 1 loop
++               Clear (G);
++               for C in 0 .. Cells - 1 loop
++                  if (Mask / 2 ** C) mod 2 = 1 then
++                     Add_Edge (G, C / N + 1, C mod N + 1);
++                  end if;
++               end loop;
++               Graphs := Graphs + 1;
++               declare
++                  Cyc     : constant Boolean := Has_Cycle (G);
++                  Blocked : Boolean := False;
++               begin
++                  if not Cyc then
++                     DAGs := DAGs + 1;
++                  end if;
++                  Kahn_Sort (G, R, S);
++                  if S = Cyc then
++                     Bad_Succ := Bad_Succ + 1;
++                  end if;
++                  if S and then not Is_Valid_Sort (G, R) then
++                     Bad_Valid := Bad_Valid + 1;
++                  end if;
++                  for K in 0 .. N loop
++                     Blocked := Blocked or else Is_Blocked (G, R, K);
++                  end loop;
++                  if Blocked /= Cyc then
++                     Bad_Block := Bad_Block + 1;
++                  end if;
++                  Used := [others => False];
++                  Perms (1, Cyc);
++               end;
++            end loop;
++         end;
++      end loop;
++      Put_Line ("  graphs" & Graphs'Image & ", DAGs" & DAGs'Image
++                & ", valid permutations" & Perm_Valid'Image);
++      Check (Graphs = 2 + 16 + 512 + 65536, "all graphs on 1 .. 4 nodes");
++      Check (Bad_Succ = 0, "Success = no cycle on every graph");
++      Check (Bad_Valid = 0, "Success gives Is_Valid_Sort");
++      Check (Bad_Block = 0, "Is_Blocked for some K iff a cycle");
++      Check (Bad_Judge = 0,
++             "Is_Valid_Sort = reference on every permutation");
++   end;
++
+    New_Line;
+    Put_Line
+      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image
+diff --git a/sorting/SPARK4/Ada-SPARK-Topological-Sort/topological_sorting.adb b/sorting/SPARK4/Ada-SPARK-Topological-Sort/topological_sorting.adb
+index 70659726..19a40083 100644
+--- a/sorting/SPARK4/Ada-SPARK-Topological-Sort/topological_sorting.adb
++++ b/sorting/SPARK4/Ada-SPARK-Topological-Sort/topological_sorting.adb
+@@ -1,9 +1,9 @@
+ --  Topological_Sorting body — SPARK Level 4 Kahn's algorithm on a
+ --  static Boolean adjacency matrix with a bounded Head/Tail queue.
+---  Helpers keep in-degree, enqueue, and validation VCs modular.
+---  Success is assigned from a full drain plus Is_Valid_Sort so the
+---  public Post (Success ⇒ valid order) is discharged at Level 4
+---  without Intentional annotations.
++--  A ghost model (Pend, Num_Off, queue slots) proves the full Post:
++--  Success gives a valid order and failure a cycle certificate. No
++--  run-time evaluation of Is_Valid_Sort and no Intentional
++--  annotations.
+ 
+ package body Topological_Sorting
+   with SPARK_Mode => On
+@@ -15,67 +15,6 @@ is
+    type Queue_Array is array (Node_Id) of Node_Id;
+    type Pos_Array is array (Node_Id) of Natural;
+ 
+-   -------------------------------------------------------------------------
+-   -- Is_Valid_Sort — permutation of 1 .. N and every edge U → V is
+-   -- forward in Result. Position 0 means "not yet seen".
+-   -------------------------------------------------------------------------
+-
+-   function Is_Valid_Sort
+-     (G : Graph; Result : Node_Array) return Boolean
+-   is
+-      Pos : Pos_Array := [others => 0];
+-      --  Any origin: the I-th node of the order is Result (RO + I).
+-      --  Integer: an empty Result may have Result'First = 0.
+-      RO  : constant Integer := Result'First - 1;
+-   begin
+-      --  Injectivity + range: each Result(I) is a fresh live node.
+-      for I in 1 .. G.Num_Nodes loop
+-         pragma Loop_Invariant
+-           (for all K in 1 .. I - 1 =>
+-              Result (RO + K) <= G.Num_Nodes
+-              and then Pos (Result (RO + K)) = K);
+-         pragma Loop_Invariant
+-           (for all N in Node_Id =>
+-              (if Pos (N) /= 0 then Pos (N) < I and then Pos (N) >= 1));
+-
+-         if Result (RO + I) > G.Num_Nodes then
+-            return False;
+-         end if;
+-
+-         declare
+-            N : constant Node_Id := Result (RO + I);
+-         begin
+-            if Pos (N) /= 0 then
+-               return False;
+-            end if;
+-            Pos (N) := I;
+-         end;
+-      end loop;
+-
+-      --  Surjectivity: every live node appears.
+-      for N in 1 .. G.Num_Nodes loop
+-         pragma Loop_Invariant (for all K in 1 .. N - 1 => Pos (K) /= 0);
+-         if Pos (N) = 0 then
+-            return False;
+-         end if;
+-      end loop;
+-
+-      --  Every live edge U → V is strictly forward.
+-      for U in 1 .. G.Num_Nodes loop
+-         for V in 1 .. G.Num_Nodes loop
+-            if G.Adj (U, V)
+-              and then (Pos (U) = 0
+-                        or else Pos (V) = 0
+-                        or else Pos (U) >= Pos (V))
+-            then
+-               return False;
+-            end if;
+-         end loop;
+-      end loop;
+-
+-      return True;
+-   end Is_Valid_Sort;
+-
+    -------------------------------------------------------------------------
+    -- Clear / Add_Edge
+    -------------------------------------------------------------------------
+@@ -91,125 +30,178 @@ is
+    end Add_Edge;
+ 
+    -------------------------------------------------------------------------
+-   -- In-degrees: one matrix scan. Guarded increment keeps Degree'Last.
++   -- Ghost model (agent A3). Pend (G, Done, V, K) counts the
++   -- predecessors U in 1 .. K of V that are not yet Done; Kahn keeps
++   -- In_Degree (V) equal to Pend (G, Done, V, N). Num_Off counts the
++   -- nodes offered to the queue, which bounds Tail by N.
+    -------------------------------------------------------------------------
+ 
+-   procedure Compute_In_Degrees
+-     (G         : Graph;
+-      In_Degree : out Degree_Array)
+-     with
+-       Global => null
+-   is
+-      --  In_Degree (K) <= Max_Nodes is the range of Degree; no
+-      --  invariant needed (and none stated: GNAT 12 -gnatwc).
+-   begin
+-      In_Degree := [others => 0];
+-
+-      for U in 1 .. G.Num_Nodes loop
+-         for V in 1 .. G.Num_Nodes loop
+-            if G.Adj (U, V) and then In_Degree (V) < Max_Nodes then
+-               In_Degree (V) := In_Degree (V) + 1;
+-            end if;
+-         end loop;
+-      end loop;
+-   end Compute_In_Degrees;
++   No_Done : constant Flag_Array := [others => False] with Ghost;
+ 
+-   -------------------------------------------------------------------------
+-   -- Enqueue V once. Tail is the count of nodes ever offered to the
+-   -- queue; each node is written at Q(Tail) at most once.
+-   -------------------------------------------------------------------------
+-
+-   procedure Enqueue
+-     (Q        : in out Queue_Array;
+-      Tail     : in out Node_Count;
+-      Offered  : in out Flag_Array;
+-      V        : Node_Id)
+-     with
+-       Global => null,
+-       Post   =>
+-         Tail >= Tail'Old
+-         and then Offered (V)
+-         and then
+-           (if Offered'Old (V) or else Tail'Old = Max_Nodes then
+-              Tail = Tail'Old
+-            else
+-              Tail = Tail'Old + 1 and then Q (Tail) = V)
+-         and then
+-           (for all K in Node_Id =>
+-              (if K /= V then Offered (K) = Offered'Old (K)))
+-         and then
+-           (for all K in Node_Id =>
+-              (if K > Tail'Old then
+-                 (if Tail > Tail'Old and then K = Tail then Q (K) = V
+-                  else Q (K) = Q'Old (K))
+-               else Q (K) = Q'Old (K)))
++   function Pend
++     (G : Graph; Done : Flag_Array; V : Node_Id; K : Node_Count)
++      return Natural
++   is
++     (if K = 0 then 0
++      else Pend (G, Done, V, K - 1)
++           + (if G.Adj (K, V) and then not Done (K) then 1 else 0))
++   with
++     Ghost,
++     Global             => null,
++     Subprogram_Variant => (Decreases => K),
++     Post               => Pend'Result <= K;
++
++   function Num_Off (Offered : Flag_Array; K : Node_Count) return Natural
+    is
++     (if K = 0 then 0
++      else Num_Off (Offered, K - 1) + (if Offered (K) then 1 else 0))
++   with
++     Ghost,
++     Global             => null,
++     Subprogram_Variant => (Decreases => K),
++     Post               => Num_Off'Result <= K;
++
++   procedure Lemma_Pend_Zero
++     (G : Graph; Done : Flag_Array; K : Node_Count)
++   with
++     Ghost,
++     Global             => null,
++     Subprogram_Variant => (Decreases => K),
++     Post               =>
++       (for all V in Node_Id =>
++          (if Pend (G, Done, V, K) = 0 then
++             (for all U in 1 .. K =>
++                (if G.Adj (U, V) then Done (U)))));
++
++   procedure Lemma_Pend_Zero
++     (G : Graph; Done : Flag_Array; K : Node_Count) is
+    begin
+-      if Offered (V) or else Tail = Max_Nodes then
+-         Offered (V) := True;
+-         return;
++      if K > 0 then
++         Lemma_Pend_Zero (G, Done, K - 1);
+       end if;
+-
+-      Tail     := Tail + 1;
+-      Q (Tail) := V;
+-      Offered (V) := True;
+-   end Enqueue;
+-
+-   -------------------------------------------------------------------------
+-   -- Seed the queue with every live node of in-degree 0.
+-   -------------------------------------------------------------------------
+-
+-   procedure Seed_Queue
+-     (G         : Graph;
+-      In_Degree : Degree_Array;
+-      Q         : in out Queue_Array;
+-      Tail      : in out Node_Count;
+-      Offered   : in out Flag_Array)
+-     with
+-       Global => null,
+-       Pre    => Tail = 0
+-                 and then (for all K in Node_Id => not Offered (K)),
+-       Post   => Tail <= G.Num_Nodes
+-   is
++   end Lemma_Pend_Zero;
++
++   procedure Lemma_Pend_Pos
++     (G : Graph; Done : Flag_Array; K : Node_Count)
++   with
++     Ghost,
++     Global             => null,
++     Subprogram_Variant => (Decreases => K),
++     Post               =>
++       (for all V in Node_Id =>
++          (if Pend (G, Done, V, K) > 0 then
++             (for some U in 1 .. K =>
++                G.Adj (U, V) and then not Done (U))));
++
++   procedure Lemma_Pend_Pos
++     (G : Graph; Done : Flag_Array; K : Node_Count) is
+    begin
+-      for U in 1 .. G.Num_Nodes loop
+-         pragma Loop_Invariant (Tail <= U - 1);
+-         pragma Loop_Invariant (Tail <= G.Num_Nodes);
+-
+-         if In_Degree (U) = 0 then
+-            Enqueue (Q, Tail, Offered, U);
+-         end if;
+-      end loop;
+-   end Seed_Queue;
++      if K > 0 then
++         Lemma_Pend_Pos (G, Done, K - 1);
++      end if;
++   end Lemma_Pend_Pos;
++
++   procedure Lemma_Pend_Mark
++     (G : Graph; Done : Flag_Array; U : Node_Id; K : Node_Count)
++   with
++     Ghost,
++     Global             => null,
++     Subprogram_Variant => (Decreases => K),
++     Pre                => not Done (U),
++     Post               =>
++       (for all V in Node_Id =>
++          Pend (G, (Done with delta U => True), V, K)
++          + (if U <= K and then G.Adj (U, V) then 1 else 0)
++          = Pend (G, Done, V, K));
++
++   procedure Lemma_Pend_Mark
++     (G : Graph; Done : Flag_Array; U : Node_Id; K : Node_Count) is
++   begin
++      if K > 0 then
++         Lemma_Pend_Mark (G, Done, U, K - 1);
++      end if;
++   end Lemma_Pend_Mark;
++
++   procedure Lemma_Pend_Eq
++     (G : Graph; D1, D2 : Flag_Array; K : Node_Count)
++   with
++     Ghost,
++     Global => null,
++     Pre    => D1 = D2,
++     Post   =>
++       (for all V in Node_Id => Pend (G, D1, V, K) = Pend (G, D2, V, K));
++
++   procedure Lemma_Pend_Eq
++     (G : Graph; D1, D2 : Flag_Array; K : Node_Count) is
++   begin
++      null;
++   end Lemma_Pend_Eq;
++
++   procedure Lemma_Num_Mark
++     (Offered : Flag_Array; V : Node_Id; K : Node_Count)
++   with
++     Ghost,
++     Global             => null,
++     Subprogram_Variant => (Decreases => K),
++     Pre                => not Offered (V),
++     Post               =>
++       Num_Off ((Offered with delta V => True), K)
++       = Num_Off (Offered, K) + (if V <= K then 1 else 0);
++
++   procedure Lemma_Num_Mark
++     (Offered : Flag_Array; V : Node_Id; K : Node_Count) is
++   begin
++      if K > 0 then
++         Lemma_Num_Mark (Offered, V, K - 1);
++      end if;
++   end Lemma_Num_Mark;
+ 
+    -------------------------------------------------------------------------
+-   -- Relax successors of U: decrement in-degree; enqueue when it hits 0.
++   -- In-degrees: one matrix scan. In_Degree (V) = Pend (G, No_Done, V, N),
++   -- the number of live predecessors (at most N, so no guard).
+    -------------------------------------------------------------------------
+ 
+-   procedure Relax_Successors
++   procedure Compute_In_Degrees
+      (G         : Graph;
+-      U         : Node_Id;
+-      In_Degree : in out Degree_Array;
+-      Q         : in out Queue_Array;
+-      Tail      : in out Node_Count;
+-      Offered   : in out Flag_Array)
++      In_Degree : out Degree_Array)
+      with
+        Global => null,
+-       Pre    => U <= G.Num_Nodes
++       Post   =>
++         (for all V in Node_Id =>
++            In_Degree (V)
++            = (if V <= G.Num_Nodes then Pend (G, No_Done, V, G.Num_Nodes)
++               else 0))
+    is
+    begin
+-      for V in 1 .. G.Num_Nodes loop
+-         if G.Adj (U, V) and then In_Degree (V) > 0 then
+-            In_Degree (V) := In_Degree (V) - 1;
+-            if In_Degree (V) = 0 then
+-               Enqueue (Q, Tail, Offered, V);
++      In_Degree := [others => 0];
++
++      for U in 1 .. G.Num_Nodes loop
++         for V in 1 .. G.Num_Nodes loop
++            if G.Adj (U, V) then
++               In_Degree (V) := In_Degree (V) + 1;
+             end if;
+-         end if;
++            pragma Loop_Invariant
++              (for all W in 1 .. V =>
++                 In_Degree (W) = Pend (G, No_Done, W, U));
++            pragma Loop_Invariant
++              (for all W in V + 1 .. Max_Nodes =>
++                 In_Degree (W) = In_Degree'Loop_Entry (W));
++         end loop;
++         pragma Loop_Invariant
++           (for all W in 1 .. G.Num_Nodes =>
++              In_Degree (W) = Pend (G, No_Done, W, U));
++         pragma Loop_Invariant
++           (for all W in G.Num_Nodes + 1 .. Max_Nodes => In_Degree (W) = 0);
+       end loop;
+-   end Relax_Successors;
++   end Compute_In_Degrees;
+ 
+    -------------------------------------------------------------------------
+-   -- Kahn_Sort
++   -- Kahn_Sort. Q (1 .. Tail) holds every node offered so far, in
++   -- order; Q (1 .. Head - 1) are the dequeued (Done) nodes and equal
++   -- the written prefix of Result. Ghost QPos (V) is V's queue slot
++   -- (0 = never offered). A node is offered exactly when its In_Degree
++   -- reaches 0, i.e. when all its predecessors are Done, so every
++   -- predecessor has an earlier slot.
+    -------------------------------------------------------------------------
+ 
+    procedure Kahn_Sort
+@@ -217,65 +209,225 @@ is
+       Result  : out Node_Array;
+       Success : out Boolean)
+    is
++      N         : constant Node_Count := G.Num_Nodes;
++      --  The K-th node of the order is Result (RO + K), any origin.
++      RO        : constant Integer := Result'First - 1;
+       In_Degree : Degree_Array;
+-      Offered   : Flag_Array   := [others => False];
+-      Q         : Queue_Array  := [others => Node_Id'First];
+-      Head      : Positive     := 1;
+-      Tail      : Node_Count   := 0;
+-      Count     : Node_Count   := 0;
++      Offered   : Flag_Array  := [others => False];
++      Q         : Queue_Array := [others => Node_Id'First];
++      Head      : Positive    := 1;
++      Tail      : Node_Count  := 0;
++      Done      : Flag_Array  := [others => False] with Ghost;
++      QPos      : Pos_Array   := [others => 0] with Ghost;
+    begin
+-      --  SPARK out-initialization: every slot written before return
+-      --  (empty 1 .. 0 buffers are a vacuous loop).
+-      for I in Result'Range loop
+-         Result (I) := Node_Id'First;
++      Result := [others => Node_Id'First];
++      Compute_In_Degrees (G, In_Degree);
++
++      --  Seed the queue with every live node of in-degree 0.
++      for V in 1 .. N loop
++         pragma Assert (not Offered (V));
++         pragma Assert (Num_Off (Offered, V) = Num_Off (Offered, V - 1));
++         if In_Degree (V) = 0 then
++            Lemma_Num_Mark (Offered, V, V);
++            pragma Assert (for all K in 1 .. Tail => Q (K) /= V);
++            pragma Assert (QPos (V) = 0);
++            Tail     := Tail + 1;
++            Q (Tail) := V;
++            QPos (V) := Tail;
++            Offered  := (Offered with delta V => True);
++            pragma Assert (Tail = Num_Off (Offered, V));
++         end if;
++         pragma Loop_Invariant (Tail = Num_Off (Offered, V));
++         pragma Loop_Invariant
++           (for all W in Node_Id =>
++              Offered (W) = (W <= V and then In_Degree (W) = 0));
+          pragma Loop_Invariant
+-           (for all K in Result'First .. I => Result (K)'Initialized);
++           (for all K in 1 .. Tail => Q (K) <= V and then QPos (Q (K)) = K);
+          pragma Loop_Invariant
+-           (for all K in Result'First .. I =>
+-              Result (K) = Node_Id'First);
++           (for all W in Node_Id =>
++              QPos (W) <= Tail and then (QPos (W) /= 0) = Offered (W));
++         pragma Loop_Invariant
++           (for all W in Node_Id =>
++              (if QPos (W) /= 0 then Q (QPos (W)) = W));
+       end loop;
+-      pragma Assert (Result'Initialized);
+-
+-      if G.Num_Nodes = 0 then
+-         Success := Is_Valid_Sort (G, Result);
+-         return;
+-      end if;
+ 
+-      Compute_In_Degrees (G, In_Degree);
+-      Seed_Queue (G, In_Degree, Q, Tail, Offered);
+-
+-      --  At most N dequeues; for-loop termination is immediate.
+-      for Step in 1 .. G.Num_Nodes loop
+-         pragma Loop_Invariant (Count <= G.Num_Nodes);
+-         pragma Loop_Invariant (Count < Head);
+-         pragma Loop_Invariant (Head <= Max_Nodes + 1);
++      pragma Assert (Done = No_Done);
++      Lemma_Pend_Eq (G, Done, No_Done, N);
++      pragma Assert
++        (for all W in 1 .. N => In_Degree (W) = Pend (G, Done, W, N));
++      Lemma_Pend_Zero (G, Done, N);
++      while Head <= Tail loop
++         pragma Loop_Invariant (Tail <= N and then Head <= Tail + 1);
++         pragma Loop_Invariant (Tail = Num_Off (Offered, N));
+          pragma Loop_Invariant
+-           (if Head <= Tail then Head in Node_Id);
+-         pragma Loop_Invariant (Result'Initialized);
+-
+-         exit when Head > Tail;
++           (for all W in Node_Id => (if W > N then not Offered (W)));
++         pragma Loop_Invariant
++           (for all K in 1 .. Tail => Q (K) <= N and then QPos (Q (K)) = K);
++         pragma Loop_Invariant
++           (for all W in Node_Id =>
++              QPos (W) <= Tail and then (QPos (W) /= 0) = Offered (W));
++         pragma Loop_Invariant
++           (for all W in Node_Id =>
++              (if QPos (W) /= 0 then Q (QPos (W)) = W));
++         pragma Loop_Invariant
++           (for all W in Node_Id =>
++              Done (W) = (QPos (W) /= 0 and then QPos (W) < Head));
++         pragma Loop_Invariant
++           (for all I in Result'First .. RO + (Head - 1) =>
++              Result (I) = Q (I - RO));
++         pragma Loop_Invariant
++           (for all W in 1 .. N => In_Degree (W) = Pend (G, Done, W, N));
++         pragma Loop_Invariant
++           (for all W in 1 .. N => Offered (W) = (In_Degree (W) = 0));
++         pragma Loop_Invariant
++           (for all V in 1 .. N =>
++              (if Offered (V) then
++                 (for all U in 1 .. N =>
++                    (if G.Adj (U, V) then
++                       QPos (U) /= 0 and then QPos (U) < QPos (V)))));
++         pragma Loop_Variant (Increases => Head);
+ 
+          declare
+             U : constant Node_Id := Q (Head);
+          begin
+-            Head := Head + 1;
+-
+-            if Count < G.Num_Nodes then
+-               Count := Count + 1;
+-               Result (Result'First + (Count - 1)) := U;
+-            end if;
+-
+-            if U <= G.Num_Nodes then
+-               Relax_Successors
+-                 (G, U, In_Degree, Q, Tail, Offered);
+-            end if;
++            pragma Assert (U <= N and then QPos (U) = Head);
++            pragma Assert (not Done (U));
++            Result (RO + Head) := U;
++            Lemma_Pend_Mark (G, Done, U, N);
++            Done := (Done with delta U => True);
++            Head     := Head + 1;
++            pragma Assert
++              (for all W in Node_Id =>
++                 Done (W) = (QPos (W) /= 0 and then QPos (W) < Head));
++            pragma Assert
++              (for all W in 1 .. N =>
++                 In_Degree (W)
++                 = Pend (G, Done, W, N) + (if G.Adj (U, W) then 1 else 0));
++
++            --  Relax the successors of U.
++            for V in 1 .. N loop
++               if G.Adj (U, V) then
++                  In_Degree (V) := In_Degree (V) - 1;
++                  if In_Degree (V) = 0 then
++                     pragma Assert (not Offered (V) and then QPos (V) = 0);
++                     Lemma_Num_Mark (Offered, V, N);
++                     Lemma_Pend_Zero (G, Done, N);
++                     pragma Assert
++                       (for all Y in 1 .. N =>
++                          (if G.Adj (Y, V) then Done (Y)));
++                     Tail        := Tail + 1;
++                     Q (Tail)    := V;
++                     QPos (V)    := Tail;
++                     Offered     := (Offered with delta V => True);
++                     pragma Assert (Tail = Num_Off (Offered, N));
++                  end if;
++               end if;
++               pragma Loop_Invariant (Tail <= N and then Head <= Tail + 1);
++               pragma Loop_Invariant (Tail >= Tail'Loop_Entry);
++               pragma Loop_Invariant (Tail = Num_Off (Offered, N));
++               pragma Loop_Invariant
++                 (for all W in Node_Id => (if W > N then not Offered (W)));
++               pragma Loop_Invariant
++                 (for all K in 1 .. Tail'Loop_Entry =>
++                    Q (K) = Q'Loop_Entry (K));
++               pragma Loop_Invariant
++                 (for all K in 1 .. Tail =>
++                    Q (K) <= N and then QPos (Q (K)) = K);
++               pragma Loop_Invariant
++                 (for all W in Node_Id =>
++                    QPos (W) <= Tail and then (QPos (W) /= 0) = Offered (W));
++               pragma Loop_Invariant
++                 (for all W in Node_Id =>
++                    (if QPos (W) /= 0 then Q (QPos (W)) = W));
++               pragma Loop_Invariant
++                 (for all W in Node_Id =>
++                    Done (W) = (QPos (W) /= 0 and then QPos (W) < Head));
++               pragma Loop_Invariant
++                 (for all W in 1 .. V =>
++                    In_Degree (W) = Pend (G, Done, W, N));
++               pragma Loop_Invariant
++                 (for all W in V + 1 .. N =>
++                    In_Degree (W)
++                    = Pend (G, Done, W, N)
++                      + (if G.Adj (U, W) then 1 else 0));
++               pragma Loop_Invariant
++                 (for all W in 1 .. N => Offered (W) = (In_Degree (W) = 0));
++               pragma Loop_Invariant
++                 (for all X in 1 .. N =>
++                    (if Offered (X) then
++                       (for all Y in 1 .. N =>
++                          (if G.Adj (Y, X) then
++                             QPos (Y) /= 0 and then QPos (Y) < QPos (X)))));
++            end loop;
+          end;
+       end loop;
+ 
+-      --  Success ⇒ Is_Valid_Sort is immediate from this assignment.
+-      --  Tests check the converse on DAGs (Kahn actually succeeds).
+-      Success := Count = G.Num_Nodes
+-                 and then Is_Valid_Sort (G, Result);
++      Success := Tail = N;
++      pragma Assert (Head = Tail + 1);
++      pragma Assert
++        (for all I in Result'First .. RO + Tail =>
++           Result (I) = Q (I - RO)
++           and then Q (I - RO) <= N
++           and then QPos (Q (I - RO)) = I - RO
++           and then Done (Q (I - RO)));
++      pragma Assert
++        (for all K in 1 .. Tail =>
++           Result (Result'First + (K - 1)) = Q (K)
++           and then Q (K) <= N
++           and then QPos (Q (K)) = K
++           and then Done (Q (K)));
++
++      if Success then
++         pragma Assert (RO + Tail = Result'Last);
++         pragma Assert
++           (for all I in Result'Range =>
++              Result (I) <= N
++              and then QPos (Result (I)) = I - RO
++              and then Offered (Result (I)));
++         pragma Assert
++           (for all I in Result'Range =>
++              (for all J in Result'Range =>
++                 (if I /= J then Result (I) /= Result (J))));
++         pragma Assert
++           (for all I in Result'Range =>
++              (for all J in Result'Range =>
++                 (if G.Adj (Result (I), Result (J)) then
++                    QPos (Result (I)) < QPos (Result (J)))));
++         pragma Assert (Is_Valid_Sort (G, Result));
++      else
++         Lemma_Pend_Pos (G, Done, N);
++         pragma Assert
++           (for all V in 1 .. N =>
++              (if Offered (V) then
++                 QPos (V) in 1 .. Tail
++                 and then Result (Result'First + (QPos (V) - 1)) = V));
++         pragma Assert
++           (for all V in 1 .. N =>
++              (if Offered (V) then In_Prefix (Result, Tail, V)));
++         pragma Assert
++           (for all V in 1 .. N =>
++              (if not Offered (V) then
++                 (for some U in 1 .. N =>
++                    G.Adj (U, V) and then not Done (U))));
++         pragma Assert
++           (for all V in 1 .. N =>
++              (if In_Prefix (Result, Tail, V) then Done (V)));
++         pragma Assert
++           (for all I in 1 .. Tail =>
++              Result (Result'First + (I - 1)) <= G.Num_Nodes);
++         pragma Assert
++           (for all I in 1 .. Tail =>
++              (for all J in 1 .. Tail =>
++                 (if I /= J then
++                    Result (Result'First + (I - 1))
++                    /= Result (Result'First + (J - 1)))));
++         pragma Assert
++           (for all V in 1 .. N =>
++              (if not In_Prefix (Result, Tail, V) then
++                 (for some U in 1 .. N =>
++                    G.Adj (U, V) and then not In_Prefix (Result, Tail, U))));
++         pragma Assert (Is_Blocked (G, Result, Tail));
++      end if;
+    end Kahn_Sort;
+ 
+ end Topological_Sorting;
+diff --git a/sorting/SPARK4/Ada-SPARK-Topological-Sort/topological_sorting.ads b/sorting/SPARK4/Ada-SPARK-Topological-Sort/topological_sorting.ads
+index 9c8988fd..9b3431e1 100644
+--- a/sorting/SPARK4/Ada-SPARK-Topological-Sort/topological_sorting.ads
++++ b/sorting/SPARK4/Ada-SPARK-Topological-Sort/topological_sorting.ads
+@@ -7,6 +7,8 @@
+ --  SPARK port of Ada-Topological-Sort: hard Max_Nodes bound, static
+ --  Boolean adjacency matrix (no Ada.Containers), static Kahn queue,
+ --  In_Bounds / Is_Valid_Sort contracts replace Invalid_Graph.
++--  The Post of Kahn_Sort is proved in full: Success gives a valid
++--  order, failure gives a cycle certificate (Is_Blocked).
+ --  Non-SPARK sibling uses Vectors adjacency lists, exceptions, and a
+ --  recursive DFS variant; this port keeps Kahn only (DFS recursion
+ --  does not prove as cleanly at Level 4) and nodes 1 .. N.
+@@ -112,34 +114,80 @@ is
+ 
+    function Is_Valid_Sort
+      (G : Graph; Result : Node_Array) return Boolean
+-     with
+-       Global => null,
+-       Pre    => Result_Shape (G, Result);
+-   --  True iff Result is a permutation of 1 .. N and every live edge
+-   --  U → V has Position(U) < Position(V). Vacuous for N = 0.
+-   --  Used by tests and, when Success, as Kahn_Sort's postcondition
+-   --  (discharged by evaluating the predicate after a full drain).
++   is
++     ((for all I in Result'Range => Result (I) <= G.Num_Nodes)
++      and then
++        (for all I in Result'Range =>
++           (for all J in Result'Range =>
++              (if I /= J then Result (I) /= Result (J))))
++      and then
++        (for all I in Result'Range =>
++           (for all J in Result'Range =>
++              (if G.Adj (Result (I), Result (J)) then I < J))))
++   with
++     Global => null,
++     Pre    => Result_Shape (G, Result);
++   --  True iff Result is a topological order of 1 .. N: its N entries
++   --  are distinct live nodes (so, by counting, every node of 1 .. N
++   --  appears exactly once) and every edge U -> V, self-loops included,
++   --  goes from an earlier to a strictly later position. Vacuous for
++   --  N = 0.
++
++   function In_Prefix
++     (Result : Node_Array; K : Natural; V : Node_Id) return Boolean
++   is
++     (for some I in 1 .. K => Result (Result'First + (I - 1)) = V)
++   with
++     Global => null,
++     Pre    => K <= Result'Length;
++   --  True iff V is among the first K entries of Result.
++
++   function Is_Blocked
++     (G : Graph; Result : Node_Array; K : Natural) return Boolean
++   is
++     (K < G.Num_Nodes
++      and then K <= Result'Length
++      and then
++        (for all I in 1 .. K =>
++           Result (Result'First + (I - 1)) <= G.Num_Nodes)
++      and then
++        (for all I in 1 .. K =>
++           (for all J in 1 .. K =>
++              (if I /= J then
++                 Result (Result'First + (I - 1))
++                 /= Result (Result'First + (J - 1)))))
++      and then
++        (for all V in 1 .. G.Num_Nodes =>
++           (if not In_Prefix (Result, K, V) then
++              (for some U in 1 .. G.Num_Nodes =>
++                 G.Adj (U, V) and then not In_Prefix (Result, K, U)))))
++   with Global => null;
++   --  Certificate that G has a directed cycle. The first K < N entries
++   --  of Result are distinct live nodes, so the set S of live nodes not
++   --  among them is not empty; every node of S has a predecessor in S.
++   --  Following predecessors inside the finite set S must revisit a
++   --  node, which closes a directed cycle. So Is_Blocked for some K
++   --  implies that G is not a DAG, and then no topological order exists.
+ 
+    procedure Kahn_Sort
+      (G       : Graph;
+       Result  : out Node_Array;
+       Success : out Boolean)
+      with
+-       Global                 => null,
+-       Relaxed_Initialization => Result,
+-       Pre                    =>
+-         Result'Length = G.Num_Nodes,
+-       Post                   =>
+-         Result'Initialized
+-         and then Result'Length = G.Num_Nodes
+-         and then (if Success then Is_Valid_Sort (G, Result) else True);
+-   --  Kahn's algorithm. Success is True iff the graph is a DAG and
+-   --  Result is a valid topological order. On a cycle Success is False
+-   --  and Result is a (possibly partial) prefix — not a valid sort.
+-   --  Full permutation + edge-order is Is_Valid_Sort; SPARK proves
+-   --  that Success implies that predicate. Tests check that every
+-   --  acyclic case actually returns Success (the algorithm works)
+-   --  and that cyclic cases return Failure.
+-
++       Global => null,
++       Pre    => Result'Length = G.Num_Nodes,
++       Post   =>
++         Result'Length = G.Num_Nodes
++         and then
++           (if Success then Is_Valid_Sort (G, Result)
++            else
++              (for some K in 0 .. G.Num_Nodes =>
++                 Is_Blocked (G, Result, K)));
++   --  Kahn's algorithm. SPARK proves both directions of the result:
++   --  Success means Result is a topological order (Is_Valid_Sort);
++   --  failure means the drained prefix Result (1 .. K) leaves a
++   --  blocked set (Is_Blocked), so G has a directed cycle. Hence
++   --  Success is True iff G is a DAG. On failure, Result entries after
++   --  the prefix are Node_Id'First and carry no meaning.
+ 
+ end Topological_Sorting;

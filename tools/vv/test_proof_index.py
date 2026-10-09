@@ -97,6 +97,9 @@ def build(root):
           [fids['Index-Unread'], 'F', 'catalog', 'catalog', '', '1', 'function n_arrays=1', '']])
     return res, logs, fids
 
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PATH_SCOPE = ['--handover-only']   # tracked files must not name absolute box paths (tools/vv/check_paths.py)
+
 def main():
     root = tempfile.mkdtemp(prefix='tpi_')
     try:
@@ -123,7 +126,11 @@ def main():
         bad += not same
         print(('ok  ' if same else 'FAIL') + f' recount_strict.py lists the same {len(rec)} passing folder(s)'
               + ('' if same else f': only index {sorted(idx - rec)}, only recount {sorted(rec - idx)}'))
-        print(f"{len(CASES) + 1 - bad}/{len(CASES) + 1} control checks pass")
+        r3 = subprocess.run([sys.executable, os.path.join(REPO, 'tools/vv/check_paths.py')] + PATH_SCOPE,
+                            capture_output=True, text=True)
+        print(r3.stdout.rstrip().splitlines()[-1] if r3.stdout.strip() else r3.stderr)
+        bad += r3.returncode != 0
+        print(f"{len(CASES) + 2 - bad}/{len(CASES) + 2} control checks pass")
         return 1 if bad else 0
     finally:
         shutil.rmtree(root, ignore_errors=True)

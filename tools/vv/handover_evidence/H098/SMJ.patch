@@ -1,0 +1,882 @@
+diff --git a/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/README.md b/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/README.md
+index e2473450..f59e70c0 100644
+--- a/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/README.md
++++ b/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/README.md
+@@ -37,9 +37,9 @@ Closest SPARK siblings that also merge sorted sequences:
+   unique (`Keys_Unique`) — one-to-many / one-to-one without left-run nesting.
+ * **`Is_Sorted_By_Key` / `Keys_Unique` / `Product_Fits` /
+   `Result_Keys_Nondecreasing`**: Expression-function guards.
+-* **Formal Verification**: Designed for GNATprove Level 4 — absence of
+-  index / overflow errors; `Post => Last <= Max_Out` and nondecreasing
+-  `Left.Key` on `Result (1 .. Last)`.
++* **Formal Verification**: GNATprove Level 4 — absence of index /
++  overflow errors, `Last <= Max_Out`, nondecreasing `Left.Key` on
++  `Result (1 .. Last)`, and the full content: `Is_Join` (below).
+ * **Contract Discipline**: Preconditions replace exceptions; unsorted /
+   oversized / non-unique inputs are `Pre` violations.
+ * **Static buffers only**: Fixed capacity `Max_Out` output array — no heap.
+@@ -56,9 +56,17 @@ Closest SPARK siblings that also merge sorted sequences:
+ * **`Product_Fits`**: callers guarantee $|L| \cdot |R| \le \mathrm{Max\_Out}$
+   (safe upper bound on join size, including a full Cartesian on one key).
+   Tests use small data within the cap.
+-* **SPARK proves** $\mathrm{Last} \le \mathrm{Max\_Out}$ and nondecreasing
+-  `Result` keys on `Left.Key`. Full matching / multiset correctness is
+-  **checked by tests**, not claimed as a Level-4 postcondition.
++* **SPARK proves** $\mathrm{Last} \le \mathrm{Max\_Out}$, nondecreasing
++  `Result` keys on `Left.Key`, and `Is_Join (Left, Right, Result, Last)`
++  (added by agent A3, 2026-10-09): `Last` is the number of matching
++  pairs (`Join_Size`), and the pair (left row `I`, right row `J`) with
++  equal keys sits at position `Pair_Pos (I, J)` = (matches of left rows
++  before `I`) + (matches of `I` among right rows `1 .. J`). So `Result`
++  is exactly the nested-loop join, left-major. The ghost model is
++  `Key_At`, `Row_At`, `Row_Matches`, `Matches_Up_To`, `Join_Size`,
++  `Pair_Pos`. Before this change the body skipped rows silently when
++  the output was full (`if OI < Max_Out`); the guard is gone and the
++  bound comes from `Product_Fits` (Inner) or `OI <= J - 1` (Unique).
+ 
+ ## Algorithm
+ 1. Preconditions: both relations of any origin, length $\le \mathrm{Max\_N}$,
+@@ -96,7 +104,7 @@ $$
+ * **Verify proofs:** `make prove`
+ 
+ **Expected output:**
+-When you run `make test`, you will see all assertions pass (327 PASS, 0 FAIL).
++When you run `make test`, you will see all assertions pass (335 PASS, 0 FAIL).
+ Running `make prove` reports `Success: all checks proved (246 checks)`.
+ 
+ ## Testing
+@@ -123,7 +131,10 @@ Put `gnatprove` on PATH if needed (e.g. via Alire: `alr get gnatprove`).
+ * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` /
+   `Global => null`.
+ * Join loops use `pragma Loop_Invariant` / `Loop_Variant` tracking
+-  `Sorted_Left_Keys` and `OI <= Max_Out`.
++  `Sorted_Left_Keys`, `OI = Matches_Up_To (I - 1)` and the rows written
++  so far (ghost `Rows_Done` / `Row_Part_Done`); recursive ghost lemmas
++  (`Lemma_Row_None`, `Lemma_Row_Count`) count the matches of one left
++  row inside the current right run.
+ * **GNATprove Level 4:** `Success: all checks proved (246 checks)`.
+ * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)`
+   suppressions.
+diff --git a/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/sort_merge_join.adb b/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/sort_merge_join.adb
+index a2014b7f..28968090 100644
+--- a/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/sort_merge_join.adb
++++ b/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/sort_merge_join.adb
+@@ -1,8 +1,10 @@
+ --  Sort_Merge_Join body — SPARK Level 4 classic inner sort-merge join
+ --  with many-to-many Cartesian expansion on equal-key runs, plus
+ --  Unique_Key_Join (strictly unique Left keys). Loop invariants keep a
+---  nondecreasing Result prefix on Left.Key; OI < Max_Out is guarded
+---  before each write (safe under Product_Fits / Right'Length ≤ Max_Out).
++--  nondecreasing Result prefix on Left.Key and the content model of the
++--  spec (OI = Matches_Up_To (rows done), every pair of a finished row at
++--  its Pair_Pos). Emit needs OI < Max_Out, which follows from the count
++--  model: Product_Fits for Inner_Join, OI < J for Unique_Key_Join.
+ 
+ package body Sort_Merge_Join
+   with SPARK_Mode => On
+@@ -59,6 +61,249 @@ is
+       Result (Result'First + (OI - 1)) := (Left => L, Right => R);
+    end Emit;
+ 
++   -------------------------------------------------------------------------
++   -- Ghost lemmas of the content model
++   -------------------------------------------------------------------------
++
++   --  Adjacent order gives order between any two rows.
++   procedure Lemma_Sorted_All (R : Relation)
++   with
++     Ghost,
++     Global => null,
++     Pre    => In_Bounds_Rel (R) and then Is_Sorted_By_Key (R),
++     Post   =>
++       (for all A in 1 .. R'Length =>
++          (for all B in A .. R'Length => Key_At (R, A) <= Key_At (R, B)));
++
++   procedure Lemma_Sorted_All (R : Relation) is
++   begin
++      for B in 1 .. R'Length loop
++         if B > 1 then
++            pragma Assert (R (R'First + (B - 2)).Key <= R (R'First + (B - 1)).Key);
++            pragma Assert (Key_At (R, B - 1) <= Key_At (R, B));
++         end if;
++         pragma Loop_Invariant
++           (for all A in 1 .. B =>
++              (for all C in A .. B => Key_At (R, A) <= Key_At (R, C)));
++      end loop;
++   end Lemma_Sorted_All;
++
++   --  Row I of Left matches no Right row in 1 .. J.
++   procedure Lemma_Row_None
++     (Left, Right : Relation;
++      I           : Positive;
++      J           : Natural)
++   with
++     Ghost,
++     Global             => null,
++     Pre                =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then I <= Left'Length and then J <= Right'Length
++       and then (for all T in 1 .. J => Key_At (Right, T) /= Key_At (Left, I)),
++     Post               => Row_Matches (Left, Right, I, J) = 0,
++     Subprogram_Variant => (Decreases => J);
++
++   procedure Lemma_Row_None
++     (Left, Right : Relation;
++      I           : Positive;
++      J           : Natural)
++   is
++   begin
++      if J > 0 then
++         Lemma_Row_None (Left, Right, I, J - 1);
++      end if;
++   end Lemma_Row_None;
++
++   --  Row I of Left matches exactly the Right rows J0 .. J1.
++   procedure Lemma_Row_Count
++     (Left, Right : Relation;
++      I           : Positive;
++      J           : Natural;
++      J0, J1      : Positive)
++   with
++     Ghost,
++     Global             => null,
++     Pre                =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then I <= Left'Length and then J <= Right'Length
++       and then J0 <= J1 and then J1 <= Right'Length
++       and then (for all T in 1 .. J =>
++                   (Key_At (Right, T) = Key_At (Left, I)) = (T in J0 .. J1)),
++     Post               =>
++       Row_Matches (Left, Right, I, J)
++       = (if J < J0 then 0 elsif J <= J1 then J - J0 + 1 else J1 - J0 + 1),
++     Subprogram_Variant => (Decreases => J);
++
++   procedure Lemma_Row_Count
++     (Left, Right : Relation;
++      I           : Positive;
++      J           : Natural;
++      J0, J1      : Positive)
++   is
++   begin
++      if J > 0 then
++         Lemma_Row_Count (Left, Right, I, J - 1, J0, J1);
++      end if;
++   end Lemma_Row_Count;
++
++   --  Every matching pair of Left rows 1 .. Upto is at its place in
++   --  Result (1 .. OI).
++   function Rows_Done
++     (Left, Right : Relation;
++      Result      : Joined_Relation;
++      OI, Upto    : Natural) return Boolean
++   is
++     (for all I in 1 .. Upto =>
++        (for all J in 1 .. Right'Length =>
++           (if Key_At (Left, I) = Key_At (Right, J) then
++              Pair_Pos (Left, Right, I, J) in 1 .. OI
++              and then Result (Result'First + (Pair_Pos (Left, Right, I, J) - 1))
++                       = (Left => Row_At (Left, I), Right => Row_At (Right, J)))))
++   with
++     Ghost,
++     Global => null,
++     Pre    =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then Upto <= Left'Length and then OI <= Result'Length;
++
++   --  The same for Left row I and Right rows 1 .. JUpto.
++   function Row_Part_Done
++     (Left, Right : Relation;
++      Result      : Joined_Relation;
++      OI          : Natural;
++      I           : Positive;
++      JUpto       : Natural) return Boolean
++   is
++     (for all J in 1 .. JUpto =>
++        (if Key_At (Left, I) = Key_At (Right, J) then
++           Pair_Pos (Left, Right, I, J) in 1 .. OI
++           and then Result (Result'First + (Pair_Pos (Left, Right, I, J) - 1))
++                    = (Left => Row_At (Left, I), Right => Row_At (Right, J))))
++   with
++     Ghost,
++     Global => null,
++     Pre    =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then I <= Left'Length and then JUpto <= Right'Length
++       and then OI <= Result'Length;
++
++
++   --  Frame: rows already placed in Result (1 .. OI) stay placed when the
++   --  first OI rows are unchanged.
++   procedure Lemma_Rows_Frame
++     (Left, Right  : Relation;
++      Old_R, New_R : Joined_Relation;
++      OI, OI2      : Natural;
++      Upto         : Natural)
++   with
++     Ghost,
++     Global => null,
++     Pre    =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then Upto <= Left'Length
++       and then New_R'First = Old_R'First and then New_R'Last = Old_R'Last
++       and then OI <= OI2 and then OI2 <= New_R'Length
++       and then (for all K in 1 .. OI =>
++                   New_R (New_R'First + (K - 1)) = Old_R (Old_R'First + (K - 1)))
++       and then Rows_Done (Left, Right, Old_R, OI, Upto),
++     Post   => Rows_Done (Left, Right, New_R, OI2, Upto);
++
++   procedure Lemma_Rows_Frame
++     (Left, Right  : Relation;
++      Old_R, New_R : Joined_Relation;
++      OI, OI2      : Natural;
++      Upto         : Natural)
++   is
++   begin
++      null;
++   end Lemma_Rows_Frame;
++
++   procedure Lemma_Part_Frame
++     (Left, Right  : Relation;
++      Old_R, New_R : Joined_Relation;
++      OI, OI2      : Natural;
++      I            : Positive;
++      JUpto        : Natural)
++   with
++     Ghost,
++     Global => null,
++     Pre    =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then I <= Left'Length and then JUpto <= Right'Length
++       and then New_R'First = Old_R'First and then New_R'Last = Old_R'Last
++       and then OI <= OI2 and then OI2 <= New_R'Length
++       and then (for all K in 1 .. OI =>
++                   New_R (New_R'First + (K - 1)) = Old_R (Old_R'First + (K - 1)))
++       and then Row_Part_Done (Left, Right, Old_R, OI, I, JUpto),
++     Post   => Row_Part_Done (Left, Right, New_R, OI2, I, JUpto);
++
++   procedure Lemma_Part_Frame
++     (Left, Right  : Relation;
++      Old_R, New_R : Joined_Relation;
++      OI, OI2      : Natural;
++      I            : Positive;
++      JUpto        : Natural)
++   is
++   begin
++      null;
++   end Lemma_Part_Frame;
++
++   --  A finished row extends Rows_Done by one row.
++   procedure Lemma_Rows_Extend
++     (Left, Right : Relation;
++      Result      : Joined_Relation;
++      OI          : Natural;
++      Upto        : Natural)
++   with
++     Ghost,
++     Global => null,
++     Pre    =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then Upto < Left'Length and then OI <= Result'Length
++       and then Rows_Done (Left, Right, Result, OI, Upto)
++       and then Row_Part_Done (Left, Right, Result, OI, Upto + 1, Right'Length),
++     Post   => Rows_Done (Left, Right, Result, OI, Upto + 1);
++
++   procedure Lemma_Rows_Extend
++     (Left, Right : Relation;
++      Result      : Joined_Relation;
++      OI          : Natural;
++      Upto        : Natural)
++   is
++   begin
++      null;
++   end Lemma_Rows_Extend;
++
++   --  Right rows that do not match row I extend Row_Part_Done for free.
++   procedure Lemma_Part_Skip
++     (Left, Right : Relation;
++      Result      : Joined_Relation;
++      OI          : Natural;
++      I           : Positive;
++      J1, JU      : Natural)
++   with
++     Ghost,
++     Global => null,
++     Pre    =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then I <= Left'Length and then J1 <= JU
++       and then JU <= Right'Length and then OI <= Result'Length
++       and then Row_Part_Done (Left, Right, Result, OI, I, J1)
++       and then (for all T in J1 + 1 .. JU =>
++                   Key_At (Right, T) /= Key_At (Left, I)),
++     Post   => Row_Part_Done (Left, Right, Result, OI, I, JU);
++
++   procedure Lemma_Part_Skip
++     (Left, Right : Relation;
++      Result      : Joined_Relation;
++      OI          : Natural;
++      I           : Positive;
++      J1, JU      : Natural)
++   is
++   begin
++      null;
++   end Lemma_Part_Skip;
++
+    -------------------------------------------------------------------------
+    -- Inner_Join — many-to-many sort-merge
+    -------------------------------------------------------------------------
+@@ -80,10 +325,14 @@ is
+       Result := [others => (Left => Zero_Row, Right => Zero_Row)];
+ 
+       if LL = 0 or else RL = 0 then
++         pragma Assert (Join_Size (Left, Right) <= LL * RL);
+          Last := 0;
+          return;
+       end if;
+ 
++      Lemma_Sorted_All (Left);
++      Lemma_Sorted_All (Right);
++
+       while I <= LL and then J <= RL loop
+          pragma Loop_Invariant (I in 1 .. LL + 1);
+          pragma Loop_Invariant (J in 1 .. RL + 1);
+@@ -94,9 +343,21 @@ is
+            (OI = 0
+             or else I > LL
+             or else Result (Result'First + (OI - 1)).Left.Key <= Left (Left'First + (I - 1)).Key);
++         pragma Loop_Invariant (OI = Matches_Up_To (Left, Right, I - 1));
++         pragma Loop_Invariant
++           (if I <= LL and then J >= 2 then Key_At (Right, J - 1) < Key_At (Left, I));
++         pragma Loop_Invariant (Rows_Done (Left, Right, Result, OI, I - 1));
+          pragma Loop_Variant (Decreases => (LL + 1 - I) + (RL + 1 - J));
+ 
+          if Left (Left'First + (I - 1)).Key < Right (Right'First + (J - 1)).Key then
++            --  Left row I matches nothing: earlier Right rows are smaller,
++            --  later ones at least Right row J.
++            pragma Assert
++              (for all T in 1 .. RL => Key_At (Right, T) /= Key_At (Left, I));
++            Lemma_Row_None (Left, Right, I, RL);
++            Lemma_Part_Skip (Left, Right, Result, OI, I, 0, RL);
++            Lemma_Rows_Extend (Left, Right, Result, OI, I - 1);
++            pragma Assert (OI = Matches_Up_To (Left, Right, I));
+             I := I + 1;
+          elsif Left (Left'First + (I - 1)).Key > Right (Right'First + (J - 1)).Key then
+             J := J + 1;
+@@ -126,6 +387,10 @@ is
+             end loop;
+ 
+             pragma Assert (Left (Left'First + (I0 - 1)).Key = Right (Right'First + (J0 - 1)).Key);
++            --  The Right rows matching key K are exactly J0 .. J1.
++            pragma Assert
++              (for all T in 1 .. RL =>
++                 (Key_At (Right, T) = Key_At (Left, I0)) = (T in J0 .. J1));
+ 
+             II := I0;
+             Emit_Left_Run :
+@@ -138,8 +403,19 @@ is
+                pragma Loop_Invariant
+                  (I0 <= I1 and then I1 <= LL and then J0 <= J1
+                   and then J1 <= RL);
++               pragma Loop_Invariant (OI = Matches_Up_To (Left, Right, II - 1));
++               pragma Loop_Invariant (Rows_Done (Left, Right, Result, OI, II - 1));
+                pragma Loop_Variant (Decreases => I1 + 1 - II);
+ 
++               pragma Assert (Key_At (Left, II) = Key_At (Left, I0));
++               Lemma_Row_Count (Left, Right, II, RL, J0, J1);
++               pragma Assert
++                 (Matches_Up_To (Left, Right, II)
++                  = Matches_Up_To (Left, Right, II - 1) + (J1 - J0 + 1));
++               pragma Assert (Matches_Up_To (Left, Right, II) <= II * RL);
++               pragma Assert (II * RL <= LL * RL);
++
++               Lemma_Part_Skip (Left, Right, Result, OI, II, 0, J0 - 1);
+                JJ := J0;
+                while JJ <= J1 loop
+                   pragma Loop_Invariant (JJ in J0 .. J1 + 1);
+@@ -150,25 +426,64 @@ is
+                   pragma Loop_Invariant
+                     (OI = 0
+                      or else Result (Result'First + (OI - 1)).Left.Key <= Left (Left'First + (II - 1)).Key);
++                  pragma Loop_Invariant
++                    (OI = Matches_Up_To (Left, Right, II - 1) + (JJ - J0));
++                  pragma Loop_Invariant (Rows_Done (Left, Right, Result, OI, II - 1));
++                  pragma Loop_Invariant
++                    (Row_Part_Done (Left, Right, Result, OI, II, JJ - 1));
+                   pragma Loop_Variant (Decreases => J1 + 1 - JJ);
+ 
+-                  --  Product_Fits ⇒ total emits ≤ |L|·|R| ≤ Max_Out.
+-                  --  Guard keeps the Emit Pre dischargeable at L4.
+-                  if OI < Max_Out then
++                  Lemma_Row_Count (Left, Right, II, JJ, J0, J1);
++                  pragma Assert (Pair_Pos (Left, Right, II, JJ) = OI + 1);
++                  --  Product_Fits: OI + 1 <= Matches_Up_To (II) <= LL * RL.
++                  pragma Assert (OI < Max_Out);
++                  declare
++                     Prev : constant Joined_Relation := Result with Ghost;
++                  begin
+                      Emit (Result, OI, Left (Left'First + (II - 1)), Right (Right'First + (JJ - 1)));
+-                  end if;
++                     pragma Assert
++                       (for all K in 1 .. OI - 1 =>
++                          Result (Result'First + (K - 1)) = Prev (Prev'First + (K - 1)));
++                     Lemma_Rows_Frame (Left, Right, Prev, Result, OI - 1, OI, II - 1);
++                     Lemma_Part_Frame (Left, Right, Prev, Result, OI - 1, OI, II, JJ - 1);
++                     pragma Assert (Pair_Pos (Left, Right, II, JJ) = OI);
++                     pragma Assert
++                       (Result (Result'First + (OI - 1))
++                        = (Left => Row_At (Left, II), Right => Row_At (Right, JJ)));
++                  end;
+ 
+                   JJ := JJ + 1;
+                end loop;
+ 
++               Lemma_Part_Skip (Left, Right, Result, OI, II, J1, RL);
++               Lemma_Rows_Extend (Left, Right, Result, OI, II - 1);
+                II := II + 1;
+             end loop Emit_Left_Run;
+ 
++            pragma Assert
++              (if I1 < LL then Key_At (Left, I1 + 1) > Key_At (Left, I0));
+             I := I1 + 1;
+             J := J1 + 1;
+          end if;
+       end loop;
+ 
++      --  Left rows I .. LL match nothing: every Right row is smaller.
++      pragma Assert
++        (if I <= LL then
++           (for all T in 1 .. RL => Key_At (Right, T) < Key_At (Left, I)));
++      for K in I .. LL loop
++         pragma Loop_Invariant (OI = Matches_Up_To (Left, Right, K - 1));
++         pragma Loop_Invariant (Rows_Done (Left, Right, Result, OI, K - 1));
++         pragma Loop_Invariant
++           (for all T in 1 .. RL => Key_At (Right, T) < Key_At (Left, K));
++         Lemma_Row_None (Left, Right, K, RL);
++         Lemma_Part_Skip (Left, Right, Result, OI, K, 0, RL);
++         Lemma_Rows_Extend (Left, Right, Result, OI, K - 1);
++      end loop;
++      pragma Assert (OI = Matches_Up_To (Left, Right, LL));
++      pragma Assert (Sorted_Left_Keys (Result, 1, OI));
++      pragma Assert (Result_Keys_Nondecreasing (Result, OI));
++
+       Last := OI;
+    end Inner_Join;
+ 
+@@ -191,13 +506,18 @@ is
+       Result := [others => (Left => Zero_Row, Right => Zero_Row)];
+ 
+       if LL = 0 or else RL = 0 then
++         pragma Assert (Join_Size (Left, Right) <= LL * RL);
+          Last := 0;
+          return;
+       end if;
+ 
++      Lemma_Sorted_All (Left);
++      Lemma_Sorted_All (Right);
++
+       while I <= LL and then J <= RL loop
+          pragma Loop_Invariant (I in 1 .. LL + 1);
+          pragma Loop_Invariant (J in 1 .. RL + 1);
++         pragma Loop_Invariant (OI <= J - 1);
+          pragma Loop_Invariant (OI <= Max_Out);
+          pragma Loop_Invariant (OI <= Result'Length);
+          pragma Loop_Invariant (Sorted_Left_Keys (Result, 1, OI));
+@@ -205,9 +525,19 @@ is
+            (OI = 0
+             or else I > LL
+             or else Result (Result'First + (OI - 1)).Left.Key <= Left (Left'First + (I - 1)).Key);
++         pragma Loop_Invariant (OI = Matches_Up_To (Left, Right, I - 1));
++         pragma Loop_Invariant
++           (if I <= LL and then J >= 2 then Key_At (Right, J - 1) < Key_At (Left, I));
++         pragma Loop_Invariant (Rows_Done (Left, Right, Result, OI, I - 1));
+          pragma Loop_Variant (Decreases => (LL + 1 - I) + (RL + 1 - J));
+ 
+          if Left (Left'First + (I - 1)).Key < Right (Right'First + (J - 1)).Key then
++            pragma Assert
++              (for all T in 1 .. RL => Key_At (Right, T) /= Key_At (Left, I));
++            Lemma_Row_None (Left, Right, I, RL);
++            Lemma_Part_Skip (Left, Right, Result, OI, I, 0, RL);
++            Lemma_Rows_Extend (Left, Right, Result, OI, I - 1);
++            pragma Assert (OI = Matches_Up_To (Left, Right, I));
+             I := I + 1;
+          elsif Left (Left'First + (I - 1)).Key > Right (Right'First + (J - 1)).Key then
+             J := J + 1;
+@@ -224,6 +554,12 @@ is
+                J1 := J1 + 1;
+             end loop;
+ 
++            pragma Assert
++              (for all T in 1 .. RL =>
++                 (Key_At (Right, T) = Key_At (Left, I)) = (T in J0 .. J1));
++            Lemma_Row_Count (Left, Right, I, RL, J0, J1);
++            Lemma_Part_Skip (Left, Right, Result, OI, I, 0, J0 - 1);
++
+             JJ := J0;
+             while JJ <= J1 loop
+                pragma Loop_Invariant (JJ in J0 .. J1 + 1);
+@@ -232,20 +568,61 @@ is
+                pragma Loop_Invariant
+                  (OI = 0
+                   or else Result (Result'First + (OI - 1)).Left.Key <= Left (Left'First + (I - 1)).Key);
++               pragma Loop_Invariant
++                 (OI = Matches_Up_To (Left, Right, I - 1) + (JJ - J0));
++               pragma Loop_Invariant (OI <= JJ - 1);
++               pragma Loop_Invariant (Rows_Done (Left, Right, Result, OI, I - 1));
++               pragma Loop_Invariant
++                 (Row_Part_Done (Left, Right, Result, OI, I, JJ - 1));
+                pragma Loop_Variant (Decreases => J1 + 1 - JJ);
+ 
+-               if OI < Max_Out then
++               Lemma_Row_Count (Left, Right, I, JJ, J0, J1);
++               pragma Assert (Pair_Pos (Left, Right, I, JJ) = OI + 1);
++               --  Each Right row is emitted at most once: OI < JJ <= RL.
++               pragma Assert (OI < Max_Out);
++               declare
++                  Prev : constant Joined_Relation := Result with Ghost;
++               begin
+                   Emit (Result, OI, Left (Left'First + (I - 1)), Right (Right'First + (JJ - 1)));
+-               end if;
++                  pragma Assert
++                    (for all K in 1 .. OI - 1 =>
++                       Result (Result'First + (K - 1)) = Prev (Prev'First + (K - 1)));
++                  Lemma_Rows_Frame (Left, Right, Prev, Result, OI - 1, OI, I - 1);
++                  Lemma_Part_Frame (Left, Right, Prev, Result, OI - 1, OI, I, JJ - 1);
++                  pragma Assert (Pair_Pos (Left, Right, I, JJ) = OI);
++                  pragma Assert
++                    (Result (Result'First + (OI - 1))
++                     = (Left => Row_At (Left, I), Right => Row_At (Right, JJ)));
++               end;
+ 
+                JJ := JJ + 1;
+             end loop;
+ 
++            Lemma_Part_Skip (Left, Right, Result, OI, I, J1, RL);
++            Lemma_Rows_Extend (Left, Right, Result, OI, I - 1);
++            pragma Assert
++              (if I < LL then Key_At (Left, I + 1) > Key_At (Left, I));
+             J := J1 + 1;
+             I := I + 1;
+          end if;
+       end loop;
+ 
++      pragma Assert
++        (if I <= LL then
++           (for all T in 1 .. RL => Key_At (Right, T) < Key_At (Left, I)));
++      for K in I .. LL loop
++         pragma Loop_Invariant (OI = Matches_Up_To (Left, Right, K - 1));
++         pragma Loop_Invariant (Rows_Done (Left, Right, Result, OI, K - 1));
++         pragma Loop_Invariant
++           (for all T in 1 .. RL => Key_At (Right, T) < Key_At (Left, K));
++         Lemma_Row_None (Left, Right, K, RL);
++         Lemma_Part_Skip (Left, Right, Result, OI, K, 0, RL);
++         Lemma_Rows_Extend (Left, Right, Result, OI, K - 1);
++      end loop;
++      pragma Assert (OI = Matches_Up_To (Left, Right, LL));
++      pragma Assert (Sorted_Left_Keys (Result, 1, OI));
++      pragma Assert (Result_Keys_Nondecreasing (Result, OI));
++
+       Last := OI;
+    end Unique_Key_Join;
+ 
+diff --git a/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/sort_merge_join.ads b/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/sort_merge_join.ads
+index 3797b7b3..016d6e83 100644
+--- a/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/sort_merge_join.ads
++++ b/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/sort_merge_join.ads
+@@ -11,9 +11,9 @@
+ --  Unsorted_Relation_Error / Non_Unique_Key_Error. This port requires
+ --  pre-sorted inputs of any origin (Is_Sorted_By_Key), a static Joined_Relation
+ --  buffer of capacity Max_Out, and a product-capacity Pre so Level 4 can
+---  discharge Last ≤ Max_Out without a Success flag. Full matching /
+---  multiset correctness is verified by tests rather than claimed as a
+---  Level-4 postcondition (nondecreasing Result Left.Key is proved).
++--  discharge Last ≤ Max_Out without a Success flag. The Post states the
++--  full result (Is_Join): exactly the matching pairs, ordered by Left row
++--  and then Right row, plus nondecreasing Result Left.Key.
+ --
+ --  Reference: https://en.wikipedia.org/wiki/Sort-merge_join
+ 
+@@ -107,6 +107,115 @@ is
+    --  Safe capacity guard: |L|·|R| upper-bounds any inner-join size
+    --  (including full Cartesian on a single shared key).
+ 
++   ---------------------------------------------------------------------------
++   -- Content model of the join (ghost)
++   ---------------------------------------------------------------------------
++   --  Rows are counted 1 .. R'Length. The join is the sequence of all
++   --  pairs (Left row I, Right row J) with equal keys, ordered by I and
++   --  then J. Row_Matches (I, J) counts the Right rows 1 .. J matching
++   --  Left row I; Matches_Up_To (I) counts the pairs whose Left row is in
++   --  1 .. I; a matching pair (I, J) is therefore the Pair_Pos (I, J)-th
++   --  row of the join, and Join_Size is the number of pairs.
++
++   function Key_At (R : Relation; K : Positive) return Integer is
++     (R (R'First + (K - 1)).Key)
++   with
++     Ghost,
++     Global => null,
++     Pre    => K <= R'Length;
++
++   function Row_At (R : Relation; K : Positive) return Row is
++     (R (R'First + (K - 1)))
++   with
++     Ghost,
++     Global => null,
++     Pre    => K <= R'Length;
++
++   function Row_Matches
++     (Left, Right : Relation;
++      I           : Positive;
++      J           : Natural) return Natural
++   with
++     Ghost,
++     Global             => null,
++     Pre                =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then I <= Left'Length and then J <= Right'Length,
++     Post               => Row_Matches'Result <= J,
++     Subprogram_Variant => (Decreases => J);
++
++   function Row_Matches
++     (Left, Right : Relation;
++      I           : Positive;
++      J           : Natural) return Natural
++   is
++     (if J = 0 then 0
++      else Row_Matches (Left, Right, I, J - 1)
++           + (if Key_At (Right, J) = Key_At (Left, I) then 1 else 0));
++
++   function Matches_Up_To
++     (Left, Right : Relation;
++      I           : Natural) return Natural
++   with
++     Ghost,
++     Global             => null,
++     Pre                =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then I <= Left'Length,
++     Post               => Matches_Up_To'Result <= I * Right'Length,
++     Subprogram_Variant => (Decreases => I);
++
++   function Matches_Up_To
++     (Left, Right : Relation;
++      I           : Natural) return Natural
++   is
++     (if I = 0 then 0
++      else Matches_Up_To (Left, Right, I - 1)
++           + Row_Matches (Left, Right, I, Right'Length));
++
++   function Join_Size (Left, Right : Relation) return Natural is
++     (Matches_Up_To (Left, Right, Left'Length))
++   with
++     Ghost,
++     Global => null,
++     Pre    => In_Bounds_Rel (Left) and then In_Bounds_Rel (Right);
++
++   function Pair_Pos
++     (Left, Right : Relation;
++      I, J        : Positive) return Natural
++   is
++     (Matches_Up_To (Left, Right, I - 1) + Row_Matches (Left, Right, I, J))
++   with
++     Ghost,
++     Global => null,
++     Pre    =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then I <= Left'Length and then J <= Right'Length;
++
++   function Is_Join
++     (Left, Right : Relation;
++      Result      : Joined_Relation;
++      Last        : Natural) return Boolean
++   is
++     (Last = Join_Size (Left, Right)
++      and then
++        (for all I in 1 .. Left'Length =>
++           (for all J in 1 .. Right'Length =>
++              (if Key_At (Left, I) = Key_At (Right, J) then
++                 Pair_Pos (Left, Right, I, J) in 1 .. Last
++                 and then Result (Result'First + (Pair_Pos (Left, Right, I, J) - 1))
++                          = (Left => Row_At (Left, I), Right => Row_At (Right, J))))))
++   with
++     Ghost,
++     Global => null,
++     Pre    =>
++       In_Bounds_Rel (Left) and then In_Bounds_Rel (Right)
++       and then Last <= Result'Length;
++   --  Result (1 .. Last) is exactly the join: Last is the number of
++   --  matching pairs, and each matching pair (I, J) is at its place
++   --  Pair_Pos (I, J). Distinct pairs have distinct places, so the Last
++   --  places are all filled and nothing else is in Result (1 .. Last).
++
+    ---------------------------------------------------------------------------
+    -- Algorithm sketch (classic sort-merge join / Wikipedia)
+    ---------------------------------------------------------------------------
+@@ -145,11 +254,12 @@ is
+      Post   =>
+        Last <= Max_Out
+        and then Last <= Result'Length
+-       and then Result_Keys_Nondecreasing (Result, Last);
++       and then Result_Keys_Nondecreasing (Result, Last)
++       and then Is_Join (Left, Right, Result, Last);
+    --  Classic many-to-many inner sort-merge join. Writes matching pairs
+    --  into the first Last rows of Result. Remaining Result slots are zeroed.
+-   --  Post proves Last ≤ Max_Out and nondecreasing Left.Key order;
+-   --  matching correctness is checked by the test suite.
++   --  Post proves Last ≤ Max_Out, nondecreasing Left.Key order, and
++   --  Is_Join: Result (1 .. Last) is exactly the join.
+ 
+    procedure Unique_Key_Join
+      (Left, Right : Relation;
+@@ -167,9 +277,12 @@ is
+      Post   =>
+        Last <= Max_Out
+        and then Last <= Result'Length
+-       and then Result_Keys_Nondecreasing (Result, Last);
++       and then Result_Keys_Nondecreasing (Result, Last)
++       and then Is_Join (Left, Right, Result, Last);
+    --  Optimized one-to-many / one-to-one variant: Left keys must be
+    --  strictly unique (Keys_Unique). No left-run Cartesian nesting.
+    --  Output size ≤ |Right| (each Right row matches at most one Left).
++   --  Post: as for Inner_Join, Is_Join (the same join, since unique Left
++   --  keys only make every Left run one row long).
+ 
+ end Sort_Merge_Join;
+diff --git a/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/tests.adb b/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/tests.adb
+index eb090220..244de4a1 100644
+--- a/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/tests.adb
++++ b/sorting/SPARK4/Ada-SPARK-Sort-Merge-Join/tests.adb
+@@ -1,7 +1,7 @@
+ --  Standalone test suite for Sort_Merge_Join (SPARK port).
+ --  Preconditions replace exceptions; only valid call paths are exercised.
+---  Nondecreasing Left.Key on Result is proved by SPARK; matching /
+---  Cartesian correctness is checked here.
++--  Nondecreasing Left.Key and the full result (Is_Join) are proved by
++--  SPARK and also checked here at run time (-gnata).
+ 
+ pragma Ada_2022;
+ 
+@@ -355,6 +355,125 @@ begin
+       end loop;
+    end;
+ 
++   -------------------------------------------------------------------------
++   Section ("Every small sorted input vs own nested-loop join (agent A3)");
++   -------------------------------------------------------------------------
++   --  Reference written for this test: for each left row in order, for
++   --  each right row in order, emit the pair when the keys are equal.
++   --  All nondecreasing key lists of length 0 .. 4 over keys 1 .. 3 on
++   --  both sides (35 x 35 pairs of inputs); payloads are the positions.
++   declare
++      type Keys is array (1 .. 4) of Integer;
++      Lists : array (1 .. 35) of Keys;
++      Lens  : array (1 .. 35) of Natural;
++      Count : Natural := 0;
++      Bad   : Natural := 0;
++      Runs  : Natural := 0;
++
++      procedure Gen (Len, Pos, From : Natural; Acc : Keys) is
++         A : Keys := Acc;
++      begin
++         if Pos > Len then
++            Count := Count + 1;
++            Lists (Count) := Acc;
++            Lens (Count) := Len;
++            return;
++         end if;
++         for K in From .. 3 loop
++            A (Pos) := K;
++            Gen (Len, Pos + 1, K, A);
++         end loop;
++      end Gen;
++   begin
++      for Len in 0 .. 4 loop
++         Gen (Len, 1, 1, [others => 0]);
++      end loop;
++      for A in 1 .. Count loop
++         for B in 1 .. Count loop
++            declare
++               L : Relation (1 .. Lens (A));
++               RR : Relation (1 .. Lens (B));
++               Want : Joined_Relation (1 .. 16);
++               W : Natural := 0;
++            begin
++               for I in L'Range loop
++                  L (I) := R (Lists (A) (I), 100 + I);
++               end loop;
++               for J in RR'Range loop
++                  RR (J) := R (Lists (B) (J), 200 + J);
++               end loop;
++               for I in L'Range loop
++                  for J in RR'Range loop
++                     if L (I).Key = RR (J).Key then
++                        W := W + 1;
++                        Want (W) := (Left => L (I), Right => RR (J));
++                     end if;
++                  end loop;
++               end loop;
++               for Unique in Boolean loop
++                  if not Unique or else Keys_Unique (L) then
++                     Runs := Runs + 1;
++                     if Unique then
++                        Unique_Key_Join (L, RR, Buf, Last);
++                     else
++                        Inner_Join (L, RR, Buf, Last);
++                     end if;
++                     if Last /= W then
++                        Bad := Bad + 1;
++                     else
++                        for K in 1 .. W loop
++                           if not Same_Pair (Buf (K), Want (K)) then
++                              Bad := Bad + 1;
++                              exit;
++                           end if;
++                        end loop;
++                     end if;
++                  end if;
++               end loop;
++            end;
++         end loop;
++      end loop;
++      Put_Line ("  key lists" & Count'Image & ", join runs" & Runs'Image);
++      Check (Count = 35, "35 sorted key lists of length 0 .. 4");
++      Check (Bad = 0, "every join equals the nested-loop reference");
++   end;
++
++   -------------------------------------------------------------------------
++   Section ("Is_Join rejects wrong results (agent A3)");
++   -------------------------------------------------------------------------
++   --  The Post Is_Join is evaluated on every call above (-gnata). Here it
++   --  must reject a correct result after small changes, so it is not
++   --  vacuous. Join of keys (1, 2, 2) with (2, 2, 3): four pairs.
++   declare
++      L3 : constant Relation := [R (1, 10), R (2, 20), R (2, 21)];
++      R3 : constant Relation := [R (2, 30), R (2, 31), R (3, 40)];
++      W  : Joined_Relation (1 .. Max_Out);
++      N  : Natural;
++   begin
++      Inner_Join (L3, R3, Buf, Last);
++      pragma Assert (Is_Join (L3, R3, Buf, Last));
++      Check (Last = 4, "four pairs");
++      W := Buf;
++      W (1) := Buf (2);
++      W (2) := Buf (1);
++      pragma Assert (not Is_Join (L3, R3, W, Last));
++      Check (True, "swapped rows rejected");
++      pragma Assert (not Is_Join (L3, R3, Buf, Last - 1));
++      Check (True, "a dropped last row rejected");
++      W := Buf;
++      W (3).Right.Payload := 99;
++      pragma Assert (not Is_Join (L3, R3, W, Last));
++      Check (True, "a changed payload rejected");
++      W := Buf;
++      W (5) := Buf (4);
++      N := Last + 1;
++      pragma Assert (not Is_Join (L3, R3, W, N));
++      Check (True, "an extra duplicate row rejected");
++      Unique_Key_Join ([R (2, 20)], R3, Buf, Last);
++      pragma Assert (Is_Join ([R (2, 20)], R3, Buf, Last));
++      Check (Last = 2, "unique-key join: two pairs");
++   end;
++
+    -------------------------------------------------------------------------
+    Section ("Summary");
+    -------------------------------------------------------------------------
