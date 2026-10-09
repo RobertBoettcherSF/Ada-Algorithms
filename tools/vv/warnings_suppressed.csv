@@ -1844,7 +1844,6 @@ sorting/Ada/Tournament-Selection,sorting/Ada/Tournament-Selection/tests.adb,684,
 sorting/Ada/Tournament-Selection,sorting/Ada/Tournament-Selection/tests.adb,698,pragma Unreferenced (Unused) on a local without a written reason
 sorting/Ada/Tournament-Selection,sorting/Ada/Tournament-Selection/tests.adb,712,pragma Unreferenced (Unused) on a local without a written reason
 sorting/Ada/Tournament-Selection,sorting/Ada/Tournament-Selection/tests.adb,749,pragma Unreferenced (T) on a unknown without a written reason
-sorting/SPARK4/Ada-SPARK-Topological-Sort,sorting/SPARK4/Ada-SPARK-Topological-Sort/topological_sorting.ads,122,"pragma Warnings (Off, ""referenced before it has a value"");"
 strings/Ada/Aho-Corasick,strings/Ada/Aho-Corasick/tests.adb,76,pragma Unreferenced (Unused) on a local without a written reason
 strings/Ada/Aho-Corasick,strings/Ada/Aho-Corasick/tests.adb,89,pragma Unreferenced (Unused) on a local without a written reason
 strings/Ada/Aho-Corasick,strings/Ada/Aho-Corasick/tests.adb,105,pragma Unreferenced (Unused) on a local without a written reason

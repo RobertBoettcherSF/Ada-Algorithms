@@ -3462,7 +3462,7 @@ sorting/SPARK4/Ada-SPARK-Topological-Sort,In_Bounds,catalog,catalog,,1,function 
 sorting/SPARK4/Ada-SPARK-Topological-Sort,Result_Shape,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Topological-Sort,Is_Valid_Sort,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Topological-Sort,Kahn_Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Topological-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+sorting/SPARK4/Ada-SPARK-Topological-Sort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 sorting/SPARK4/Ada-SPARK-Strand-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Strand-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Strand-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
