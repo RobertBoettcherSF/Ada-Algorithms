@@ -261,3 +261,5 @@ numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm,brute-force gcd; Bezout 
 searching/SPARK4/Ada-SPARK-Linear-Search,backward own scan for Find/Find_From/Contains; 8000 random arrays (twin-only)
 graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,"stars with every centre, shuffled and reoriented; near-stars (answer 0); random simple graphs; reference = vertex on every edge; seeded (FNV-1a of folder name, AA_SEED)"
 misc/SPARK2/Ada-SPARK-First-Unique-Character,"exhaustive texts over 3 and 4 letters, random texts over 256 and 3 characters, histogram reference; seeded (FNV-1a of folder name, AA_SEED)"
+misc/SPARK2/Ada-SPARK-Target-Sum,"exhaustive brute force over all arrays, lengths and goals (sign masks)"
+misc/SPARK2/Ada-SPARK-Reach-A-Number,exhaustive Value -100 .. 100 against a reachable-position search

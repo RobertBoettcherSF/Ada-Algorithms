@@ -135,3 +135,7 @@ graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,GNAT 14,GNATLS 14.2.0,0,0,own 
 graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,GNAT 12,GNATLS 12.2.0,0,0,own checks: 16200 checks; 0 failures,a65ec915
 misc/SPARK2/Ada-SPARK-First-Unique-Character,GNAT 14,GNATLS 14.2.0,0,0,own checks: 92097 checks; 0 failures,a65ec915
 misc/SPARK2/Ada-SPARK-First-Unique-Character,GNAT 12,GNATLS 12.2.0,0,0,own checks: 92097 checks; 0 failures,a65ec915
+misc/SPARK2/Ada-SPARK-Target-Sum,GNAT 14,GNATLS 14.2.0,0,0,own checks: 103125 checks; 0 failures,9dad2eed
+misc/SPARK2/Ada-SPARK-Target-Sum,GNAT 12,GNATLS 12.2.0,0,0,own checks: 103125 checks; 0 failures,9dad2eed
+misc/SPARK2/Ada-SPARK-Reach-A-Number,GNAT 14,GNATLS 14.2.0,0,0,own checks: 201 checks; 0 failures,9dad2eed
+misc/SPARK2/Ada-SPARK-Reach-A-Number,GNAT 12,GNATLS 12.2.0,0,0,own checks: 201 checks; 0 failures,9dad2eed
