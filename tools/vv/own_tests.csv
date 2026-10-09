@@ -286,3 +286,4 @@ misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,one-pass histogram (a different algorit
 misc/SPARK2/Ada-SPARK-Deque-Bounded,shifted-array model (no ring buffer) + hand-worked wrap-around cases
 misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,bottom-first array model + hand-worked increment / overflow-precondition cases
 misc/SPARK2/Ada-SPARK-Design-Browser-History,two-stack model of the history (independent of the array layout) + hand-worked full-history / refusal / visit-after-Back cases
+misc/SPARK2/Ada-SPARK-Design-Circular-Queue,shift model of the queue (independent of the ring layout) + hand-worked fill / refusal / slot-reuse / drain / ring-turn cases

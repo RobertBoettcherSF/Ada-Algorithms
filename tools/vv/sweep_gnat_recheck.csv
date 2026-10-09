@@ -209,3 +209,5 @@ misc/SPARK2/Ada-SPARK-Design-Browser-History,GNAT 14,GNATLS 14.2.0,0,0,Design Br
 misc/SPARK2/Ada-SPARK-Design-Browser-History,GNAT 12,GNATLS 12.2.0,0,0,Design Browser History: PASS,f46cfb64
 misc/SPARK2/Ada-SPARK-Sigmoid,GNAT 14,GNATLS 14.2.0,0,0,PASS Sigmoid ( 31 checks),0ba66666
 misc/SPARK2/Ada-SPARK-Sigmoid,GNAT 12,GNATLS 12.2.0,0,0,PASS Sigmoid ( 31 checks),0ba66666
+misc/SPARK2/Ada-SPARK-Design-Circular-Queue,GNAT 14,GNATLS 14.2.0,0,0,Design Circular Queue: PASS,26d65d9f
+misc/SPARK2/Ada-SPARK-Design-Circular-Queue,GNAT 12,GNATLS 12.2.0,0,0,Design Circular Queue: PASS,26d65d9f
