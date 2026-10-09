@@ -51,20 +51,18 @@ package body LRU_Cache_Lite is
       end if;
    end Put;
 
+   --  Pre => Contains (C, K) means Find returns a position, so P is a
+   --  Position (range check proved) and no "absent" branch is needed.
    procedure Get (C : in out Cache; K : Key; V : out Value) is
-      P : constant Count := Find (C, K);
+      P : constant Position := Find (C, K);
    begin
-      if P in 1 .. C.Size then
-         V := C.Values (P);
-         Move_To_End (C, P);
-      else
-         V := 0;   --  excluded by Pre => Contains (C, K)
-      end if;
+      V := C.Values (P);
+      Move_To_End (C, P);
    end Get;
 
    function Lookup (C : Cache; K : Key) return Value is
-      P : constant Count := Find (C, K);
+      P : constant Position := Find (C, K);
    begin
-      return (if P in 1 .. C.Size then C.Values (P) else 0);   --  else excluded by Pre
+      return C.Values (P);
    end Lookup;
 end LRU_Cache_Lite;
