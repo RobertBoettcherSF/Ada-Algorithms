@@ -44,15 +44,105 @@ package body Simple_Precedence_Parser is
    function Is_Valid_Simple_Precedence_Grammar
      (Prods : Production_Array) return Boolean
    is
+      type Symbol_Set is array (Symbol, Symbol) of Boolean
+        with Pack;
+      type Symbol_Flags is array (Symbol) of Boolean;
+
+      Nonterminal : Symbol_Flags := [others => False];
+      --  First (A, X): X starts a string derived from A in one or more
+      --  steps (FIRST+); Last likewise for the end (LAST+).
+      First, Last : Symbol_Set := [others => [others => False]];
+      --  The three Wirth-Weber relations.
+      Eq, Lt, Gt  : Symbol_Set := [others => [others => False]];
    begin
-      -- A valid Simple Precedence grammar cannot have empty productions
-      -- and cannot have multiple rules with identical right-hand sides.
+      --  No empty rule, no repeated right-hand side, no end marker.
       for I in Prods'Range loop
-         if Length (Prods (I).RHS) = 0 then
+         if Length (Prods (I).RHS) = 0
+           or else Prods (I).LHS = End_Marker
+           or else Index (Prods (I).RHS, [1 => End_Marker]) /= 0
+         then
             return False;
          end if;
          for J in I + 1 .. Prods'Last loop
             if Prods (I).RHS = Prods (J).RHS then
+               return False;
+            end if;
+         end loop;
+         Nonterminal (Prods (I).LHS) := True;
+      end loop;
+
+      --  FIRST+ and LAST+: direct first / last symbols, then the
+      --  transitive closure through nonterminals (Warshall).
+      for Pr of Prods loop
+         declare
+            R : constant String := To_String (Pr.RHS);
+         begin
+            First (Pr.LHS, R (R'First)) := True;
+            Last (Pr.LHS, R (R'Last)) := True;
+         end;
+      end loop;
+      for K in Symbol loop
+         if Nonterminal (K) then
+            for A in Symbol loop
+               if Nonterminal (A) then
+                  if First (A, K) then
+                     for X in Symbol loop
+                        if First (K, X) then
+                           First (A, X) := True;
+                        end if;
+                     end loop;
+                  end if;
+                  if Last (A, K) then
+                     for X in Symbol loop
+                        if Last (K, X) then
+                           Last (A, X) := True;
+                        end if;
+                     end loop;
+                  end if;
+               end if;
+            end loop;
+         end if;
+      end loop;
+
+      --  Relations from every adjacent pair X Y in a right-hand side:
+      --  X = Y; X < Z for Z in FIRST+(Y); Z > W for Z in LAST+(X) and
+      --  W = Y or W in FIRST+(Y).
+      for Pr of Prods loop
+         declare
+            R : constant String := To_String (Pr.RHS);
+         begin
+            for I in R'First .. R'Last - 1 loop
+               declare
+                  X : constant Symbol := R (I);
+                  Y : constant Symbol := R (I + 1);
+               begin
+                  Eq (X, Y) := True;
+                  for Z in Symbol loop
+                     if First (Y, Z) then
+                        Lt (X, Z) := True;
+                     end if;
+                     if Last (X, Z) then
+                        Gt (Z, Y) := True;
+                        for W in Symbol loop
+                           if First (Y, W) then
+                              Gt (Z, W) := True;
+                           end if;
+                        end loop;
+                     end if;
+                  end loop;
+               end;
+            end loop;
+         end;
+      end loop;
+
+      --  At most one relation per ordered pair. The end-marker relations
+      --  ($ < FIRST+(S), LAST+(S) > $) cannot clash: '$' is in no rule.
+      for X in Symbol loop
+         for Y in Symbol loop
+            if (Eq (X, Y) and then Lt (X, Y))
+              or else (Eq (X, Y) and then Gt (X, Y))
+              or else (Lt (X, Y) and then Gt (X, Y))
+            then
                return False;
             end if;
          end loop;

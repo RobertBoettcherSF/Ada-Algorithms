@@ -39,8 +39,15 @@ package Simple_Precedence_Parser is
      with Pre => Start_Symbol /= End_Marker,
           Global => null;
 
-   -- Validates if a grammar meets the uniqueness property of Simple Precedence
-   -- (No two rules can share the exact same RHS)
+   -- True iff Prods is a simple precedence grammar (Wirth-Weber): no
+   -- empty right-hand side, no two rules with the same right-hand side,
+   -- the end marker '$' in no rule, and at most one of the relations
+   -- X = Y, X < Y, X > Y for every ordered pair of symbols, where
+   --   X = Y  iff X Y are adjacent in some right-hand side;
+   --   X < Y  iff X B are adjacent and Y is in FIRST+(B);
+   --   X > Y  iff A W are adjacent, X is in LAST+(A), and Y = W or Y is
+   --          in FIRST+(W).
+   -- Nonterminals are the symbols that occur as a left-hand side.
    function Is_Valid_Simple_Precedence_Grammar
      (Prods : Production_Array) return Boolean
      with Global => null;
