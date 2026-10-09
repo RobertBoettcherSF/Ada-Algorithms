@@ -10,12 +10,16 @@ package body LFU_Cache_Lite is
    function Length (C : Cache) return Count is (C.Size);
 
    --  Position of K, 0 if absent.
-   function Find (C : Cache; K : Key) return Count is
+   function Find (C : Cache; K : Key) return Count
+     with Post => (if Contains (C, K) then Find'Result in 1 .. C.Size and then C.Keys (Find'Result) = K
+                   else Find'Result = 0)
+   is
    begin
       for I in Position loop
          if I <= C.Size and then C.Keys (I) = K then
             return I;
          end if;
+         pragma Loop_Invariant (for all J in 1 .. I => not (J <= C.Size and then C.Keys (J) = K));
       end loop;
       return 0;
    end Find;
@@ -74,23 +78,12 @@ package body LFU_Cache_Lite is
    end Put;
 
    procedure Touch (C : in out Cache; K : Key) is
-      P : constant Count := Find (C, K);
    begin
-      if P in 1 .. C.Size then   --  always, by Pre => Contains (C, K)
-         Use_Entry (C, P);
-      end if;
+      Use_Entry (C, Find (C, K));   --  in 1 .. Size by Pre => Contains (C, K) and the Post of Find
    end Touch;
 
    function Get (C : Cache; K : Key) return Value is
-   begin
-      for I in Position loop
-         if I <= C.Size and then C.Keys (I) = K then
-            return C.Values (I);
-         end if;
-         pragma Loop_Invariant (for all J in 1 .. I => not (J <= C.Size and then C.Keys (J) = K));
-      end loop;
-      raise Program_Error;   --  unreachable: Pre => Contains (C, K)
-   end Get;
+     (C.Values (Find (C, K)));   --  in 1 .. Size by Pre => Contains (C, K) and the Post of Find
 
    function Most_Frequent_Key (C : Cache) return Key is
       Best : Position := 1;
