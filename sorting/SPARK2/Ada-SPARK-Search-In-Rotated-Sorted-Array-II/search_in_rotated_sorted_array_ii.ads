@@ -6,6 +6,12 @@ package Search_In_Rotated_Sorted_Array_II with SPARK_Mode => On is
    subtype Value is Integer range 0 .. 100;
    type Data_Array is array (Index) of Value;
 
-   function Contains (Data : Data_Array; Target : Value) return Boolean
+   subtype Probe_Count is Natural range 0 .. Length;
+   type Search_Result is record
+      Found  : Boolean;       --  some element equals Target
+      Probes : Probe_Count;   --  comparisons with elements
+   end record;
+
+   function Contains (Data : Data_Array; Target : Value) return Search_Result
      with Global => null;
 end Search_In_Rotated_Sorted_Array_II;
