@@ -121,3 +121,5 @@ misc/SPARK2/Ada-SPARK-Permutations,GNAT 14,GNATLS 14.2.0,0,0,permutations tests 
 misc/SPARK2/Ada-SPARK-Permutations,GNAT 12,GNATLS 12.2.0,0,0,permutations tests passed,8c79d651
 misc/SPARK2/Ada-SPARK-Permutations-II,GNAT 14,GNATLS 14.2.0,0,0,permutations II tests passed,cac32b31
 misc/SPARK2/Ada-SPARK-Permutations-II,GNAT 12,GNATLS 12.2.0,0,0,permutations II tests passed,cac32b31
+misc/SPARK2/Ada-SPARK-Pow-X-N,GNAT 14,GNATLS 14.2.0,0,0,pow_x_n tests passed,79ce60cf
+misc/SPARK2/Ada-SPARK-Pow-X-N,GNAT 12,GNATLS 12.2.0,0,0,pow_x_n tests passed,79ce60cf
