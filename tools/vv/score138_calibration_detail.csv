@@ -4049,3 +4049,87 @@ misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,thinned,0,alt,killed,,killed,contra
 misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,thinned,4,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,thinned,8,B,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,thinned,14,B,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,0,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,1,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,3,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,7,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,8,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,9,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,11,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,12,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,13,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,16,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,17,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,18,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,19,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,21,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,22,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,23,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,24,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,26,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,27,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,28,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,29,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,31,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,33,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,34,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,35,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,37,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,38,B,killed,proof,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,40,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,41,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,44,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,45,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,46,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,47,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,50,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,51,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,53,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,54,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,56,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,57,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,58,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,61,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,full,63,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,0,alt,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,1,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,3,C,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,7,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,8,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,9,ho,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,11,C,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,12,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,13,alt,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,16,C,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,17,B,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,18,alt,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,19,ho,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,21,C,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,22,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,23,alt,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,24,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,26,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,27,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,28,alt,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,29,ho,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,31,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,33,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,34,alt,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,35,ho,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,37,C,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,38,B,killed,proof,survived,,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,40,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,41,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,44,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,45,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,46,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,47,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,50,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,51,ho,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,53,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,54,ho,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,56,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,57,ho,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,58,B,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,61,B,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Trapping-Rain-Water,20264063,thinned,63,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
