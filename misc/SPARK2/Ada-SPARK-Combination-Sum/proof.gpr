@@ -1,0 +1,8 @@
+project Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("combination_sum.ads", "combination_sum.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Proof;
