@@ -60,6 +60,10 @@ begin
       Report (Count_Of (V) = Below_Ref (V), "N =" & V'Image);
    end loop;
    Report (Count_Of (1000) = 168, "pi (999) = 168 (known value)");
+   --  Published values of pi (x) at the bounds (10**6 and 10**7 are not
+   --  prime, so "below" and "up to" agree).
+   Report (Count_Of (10**6) = 78_498, "pi (10**6) = 78,498 (known value)");
+   Report (Count_Of (10**7) = 664_579, "pi (10**7) = 664,579 (known value)");
    if Failures > 0 then
       Ada.Text_IO.Put_Line ("FAIL own checks:" & Failures'Image & " of" & Cases'Image);
       raise Program_Error with "own checks failed";

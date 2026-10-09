@@ -10,3 +10,5 @@ standard generator (seed 20261008).
   division (no divisor in 2 .. X - 1, X >= 2).
 * Inputs: every N in 0 .. 30 (exhaustive).
 * Known value: 168 primes below 1000 (standard table of pi (x)).
+* Known values: pi (10**6) = 78,498 and pi (10**7) = 664,579 (standard
+  published table of the prime-counting function, e.g. OEIS A006880).
