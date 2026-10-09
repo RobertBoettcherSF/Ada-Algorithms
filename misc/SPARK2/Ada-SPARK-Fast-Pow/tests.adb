@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Fast_Pow; use Fast_Pow;
+with Own_Checks;
 
 procedure Tests is
    --  Left-to-right square-and-multiply over the 31 bits of a Natural
@@ -35,5 +36,6 @@ begin
    Check (Natural'Last, Natural'Last, 1, 0);
    --  The base is reduced first: 1_000_000_008 = 1 mod p.
    Check (1_000_000_008, Natural'Last, P, 1);
+   Own_Checks;
    Put_Line ("fast pow checks passed");
 end Tests;

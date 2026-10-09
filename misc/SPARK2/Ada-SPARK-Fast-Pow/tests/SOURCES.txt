@@ -1,0 +1,23 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: the old table's answers 2 ** 10, 5 ** 12, 0 ** 4, 0 ** 0
+(exact, below the modulus 2 ** 31 - 1); 2 ** 10 mod 1000 and
+10 ** 10 mod 1_000_000_007 worked by hand in the comments; Fermat's little
+theorem for the primes 2 ** 31 - 1 and 1_000_000_007; (p - 1) ** odd =
+p - 1; modulus 1 gives 0; base reduction 1_000_000_008 = 1 mod p.
+Steps = 31 on every call (one squaring per bit of a 31-bit exponent).
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (1234218560), printed; AA_SEED=<n> overrides it):
+* 60 random (B, M) pairs, every E in 0 .. 300, against repeated
+  multiplication mod M (M small for two thirds of the pairs).
+* 2,000 random cases of the exponent laws B ** (E1 + E2) = B ** E1 * B ** E2
+  and B ** (F1 * F2) = (B ** F1) ** F2, mod M, over the whole range.
+* Fermat's little theorem on 500 random bases for both primes.
+* Steps = 31 on every call.
