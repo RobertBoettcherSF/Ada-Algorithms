@@ -13,11 +13,11 @@ use Ada.Numerics.Big_Numbers.Big_Integers;
 --  6_564_120_420 does not (both proved in Facts).
 --
 --  All_Results (Values, Ops): the value of every parenthesization of an
---  expression of up to 8 operands in -99 .. 99 with +, - and *. That gives
---  at most W (8) = 429 results, and every value is at most 99 ** 8 =
---  9_227_446_944_279_201 < 2 ** 63 in absolute value (each operator at
+--  expression of up to 9 operands in -99 .. 99 with +, - and *. That gives
+--  at most W (9) = 1_430 results, and every value is at most 99 ** 9 =
+--  913_517_247_483_640_899 < 2 ** 63 in absolute value (each operator at
 --  most multiplies the bounds of its two parts), so Long_Long_Integer
---  holds every intermediate value.
+--  holds every intermediate value; 99 ** 10 would not fit (the limit).
 package Different_Ways_Parentheses with SPARK_Mode => On is
    Max_Operands : constant := 20;
    subtype Operand_Count is Positive range 1 .. Max_Operands;
@@ -36,8 +36,8 @@ package Different_Ways_Parentheses with SPARK_Mode => On is
      Pre                => N in 2 .. Max_Operands + 1 and then S <= N - 1,
      Subprogram_Variant => (Decreases => S);
 
-   Max_Expression : constant := 8;
-   Max_Results    : constant := 429;   --  W (8)
+   Max_Expression : constant := 9;
+   Max_Results    : constant := 1_430;   --  W (9)
 
    function Facts return Boolean is
      (Ways (1) = 1
@@ -64,7 +64,7 @@ package Different_Ways_Parentheses with SPARK_Mode => On is
 
    --  99 ** L.
    function Bound (L : Positive) return Long_Long_Integer
-   with Ghost, Pre => L <= Max_Expression;
+   with Pre => L <= Max_Expression;
 
    --  Every value of every parenthesization, ordered by the position of the
    --  last operator applied (left to right), then by the left part's
@@ -119,5 +119,6 @@ private
         when 6 => 941_480_149_401,
         when 7 => 93_206_534_790_699,
         when 8 => 9_227_446_944_279_201,
+        when 9 => 913_517_247_483_640_899,
         when others => 0);
 end Different_Ways_Parentheses;

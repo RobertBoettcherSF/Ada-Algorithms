@@ -4,7 +4,8 @@ pragma Ada_2022;
 --  * Number_Of_Ways (N) and the ghost table Ways (N) against the closed
 --    Catalan count C (2 (N - 1), N - 1) / N (exact, Big_Integer) for
 --    N <= 20, and the limit: the count for N = 21 exceeds Natural'Last;
---    the ghost Bound (L) against 99 multiplied L times;
+--    Bound (L) against 99 multiplied L times, and the limit:
+--    99 ** 9 fits Long_Long_Integer, 99 ** 10 does not;
 --  * an own shift-reduce enumerator: every sequence of N shifts and
 --    N - 1 reductions (a reduction combines the top two parts of the
 --    stack with the operator between them) is one parenthesization, so
@@ -12,7 +13,7 @@ pragma Ada_2022;
 --    All_Results;
 --  * an own ordered reference (recursion over the last operator, values
 --    in Big_Integer) for the order the spec states;
---  * seeded random expressions of 1 .. 8 operands (extremes -99 and 99
+--  * seeded random expressions of 1 .. 9 operands (extremes -99 and 99
 --    over-weighted) and the all -99 / all 99 products.
 with Ada.Text_IO;
 with Ada.Environment_Variables;
@@ -88,7 +89,7 @@ procedure Own_Checks with SPARK_Mode => Off is
       Value : Big_Integer;
       Last  : Natural;
    end record;
-   type Part_Stack is array (1 .. 8) of Part;
+   type Part_Stack is array (1 .. Max_Expression) of Part;
 
    procedure Shift_Reduce (Values : Operand_List; Ops : Operator_List;
                            Stack : Part_Stack; Depth, Shifted : Natural; Out_V : in out Vector) is
@@ -176,17 +177,17 @@ begin
       Checked := Checked + 1;
    end loop;
    Report (Catalan_Count (Max_Operands + 1) > To_Big_Integer (Natural'Last), "limit: count for 21 overflows");
-   Report (Catalan_Count (Max_Expression) = To_Big_Integer (Max_Results), "Max_Results is the count for 8");
+   Report (Catalan_Count (Max_Expression) = To_Big_Integer (Max_Results), "Max_Results is the count for Max_Expression");
    for L in 1 .. Max_Expression loop
       Pow := Pow * To_Big_Integer (99);
-      pragma Assert (B (Bound (L)) = Pow, "ghost Bound" & L'Image);
-      Checked := Checked + 1;
+      Report (B (Bound (L)) = Pow, "Bound" & L'Image);
    end loop;
-   Report (Pow < B (Long_Long_Integer'Last), "99 ** 8 fits Long_Long_Integer");
+   Report (Pow < B (Long_Long_Integer'Last), "99 ** Max_Expression fits Long_Long_Integer");
+   Report (Pow * To_Big_Integer (99) > B (Long_Long_Integer'Last), "limit: 99 ** (Max_Expression + 1) does not fit");
 
-   Check ([1 .. 8 => -99], [1 .. 7 => Times], "all -99 times");
-   Check ([1 .. 8 => 99], [1 .. 7 => Times], "all 99 times");
-   Check ([1 .. 8 => 99], [1 .. 7 => Minus], "all 99 minus");
+   Check ([1 .. Max_Expression => -99], [1 .. Max_Expression - 1 => Times], "all -99 times");
+   Check ([1 .. Max_Expression => 99], [1 .. Max_Expression - 1 => Times], "all 99 times");
+   Check ([1 .. Max_Expression => 99], [1 .. Max_Expression - 1 => Minus], "all 99 minus");
    Check ([7], [1 .. 0 => Plus], "single operand");
 
    for T in 1 .. 1_500 loop

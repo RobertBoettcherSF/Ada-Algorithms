@@ -11,17 +11,19 @@ out by hand; W (20) = 1_767_263_190, the limit (W (21) = 6_564_120_420
 > Natural'Last), continuing the same sums; All_Results for
 3 - 2 * 4 + 1 (five ways evaluated by hand in the stated order:
 -7, -6, 5, -4, 5), 5 * -3 - 7 (-50, -22), one operand (-99), two
-operands (4 - 9 = -5) and eight factors -99 (429 ways, each
-(-99) ** 8 = 9_227_446_944_279_201, the largest value allowed).
+operands (4 - 9 = -5), eight factors -99 (429 ways, each
+(-99) ** 8 = 9_227_446_944_279_201) and nine factors -99, the limit
+(1_430 ways, each (-99) ** 9 = -913_517_247_483_640_899; 99 ** 9 fits
+Long_Long_Integer, 99 ** 10 does not).
 
 own_checks.adb (seeded: Park-Miller minimal standard generator; the
 default seed is the FNV-1a (32-bit) hash of the folder name folded into
 1 .. 2 ** 31 - 2 (825943755), printed; AA_SEED=<n> overrides it):
 * the closed Catalan count C (2 (N - 1), N - 1) / N (exact binomials in
   Big_Integer) must equal Number_Of_Ways (N) and the ghost table
-  Ways (N) for N <= 20, exceed Natural'Last for N = 21 and be 429 for
-  N = 8; the ghost Bound (L) must be 99 multiplied L times, and
-  99 ** 8 must fit Long_Long_Integer;
+  Ways (N) for N <= 20, exceed Natural'Last for N = 21 and be 1_430
+  for N = 9; Bound (L) must be 99 multiplied L times; 99 ** 9 must fit
+  Long_Long_Integer and 99 ** 10 must not;
 * an own shift-reduce enumerator: every sequence of N shifts and N - 1
   reductions (a reduction combines the top two parts of the stack with
   the operator between them, values in Big_Integer) is one
@@ -30,13 +32,13 @@ default seed is the FNV-1a (32-bit) hash of the folder name folded into
 * an own ordered reference (recursion over the last operator, values in
   Big_Integer) must give All_Results element by element (the stated
   order);
-* the all -99 and all 99 products, 99 - ... - 99, one operand, and 1,500
-  seeded random expressions of 1 .. 8 operands (-99 and 99 each drawn
+* the all -99 and all 99 products of 9 operands, 99 - ... - 99, one operand, and 1,500
+  seeded random expressions of 1 .. 9 operands (-99 and 99 each drawn
   with probability 1/5, otherwise uniform in -99 .. 99; uniform
   operators).
 Run: gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
-(7,571 checks, about 15 s with assertions on; without -gnata a planted
-swap of the operands of "-" fails 1,924 of them).
+(7,573 checks, about 47 s with assertions on, 5 s without; without
+-gnata a planted swap of the operands of "-" fails 1,998 of them).
 
 Note: GNAT 14.2.0 hits an internal error (GNAT BUG DETECTED, trans.cc
 6710) on indexing a constant Ada.Containers.Vectors of Big_Integer as

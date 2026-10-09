@@ -542,7 +542,7 @@ package body Different_Ways_Parentheses with SPARK_Mode => On is
      Pre    => L <= Max_Expression and then P < L,
      Post   => Big (Bound (L)) = Big (Bound (P)) * Big (Bound (L - P))
                and then Bound (P) >= 99 and then Bound (L - P) >= 99
-               and then Bound (L) <= 9_227_446_944_279_201;
+               and then Bound (L) <= 913_517_247_483_640_899;
 
    procedure Lemma_Bound_Mul (P, L : Positive) is null;
 
@@ -575,7 +575,7 @@ package body Different_Ways_Parentheses with SPARK_Mode => On is
 
    --  Ways (L) for the lengths All_Results handles, as plain counts.
    type Count_Table is array (1 .. Max_Expression) of Positive;
-   Count : constant Count_Table := [1, 1, 2, 5, 14, 42, 132, 429];
+   Count : constant Count_Table := [1, 1, 2, 5, 14, 42, 132, 429, 1_430];
 
    procedure Lemma_Count (L : Positive)
    with
@@ -600,19 +600,23 @@ package body Different_Ways_Parentheses with SPARK_Mode => On is
      Subprogram_Variant => (Decreases => L);
 
    function Sub (Values : Operand_List; Ops : Operator_List; I, L : Positive) return Slot is
-      Cur : Slot := [others => 0];
+      --  The element subtype carries the bound, so no loop invariant has to
+      --  restate it for all Max_Results entries (which would also be checked
+      --  at every iteration with assertions enabled).
+      subtype Value_L is Long_Long_Integer range -Bound (L) .. Bound (L);
+      type Slot_L is array (1 .. Max_Results) of Value_L;
+      Cur : Slot_L := [others => 0];
       P   : Natural := 0;
    begin
       if L = 1 then
          Cur (1) := Long_Long_Integer (Values (I));
-         return Cur;
+         return [for M in 1 .. Max_Results => Cur (M)];
       end if;
       Lemma_Ways_Step (L);
       Lemma_Count (L);
       --  The last operator applied is Ops (I + S - 1): S operands on its left.
       for S in 1 .. L - 1 loop
          pragma Loop_Invariant (To_Big_Integer (P) = Partial (L, S - 1));
-         pragma Loop_Invariant (for all M in 1 .. Max_Results => Cur (M) in -Bound (L) .. Bound (L));
          Lemma_Partial_Le (L, S);
          Lemma_Count (S);
          Lemma_Count (L - S);
@@ -628,21 +632,19 @@ package body Different_Ways_Parentheses with SPARK_Mode => On is
             for A in 1 .. LL loop
                pragma Loop_Invariant
                  (To_Big_Integer (P) = Partial (L, S - 1) + To_Big_Integer (A - 1) * To_Big_Integer (LR));
-               pragma Loop_Invariant (for all M in 1 .. Max_Results => Cur (M) in -Bound (L) .. Bound (L));
                Lemma_Mul_Mono (To_Big_Integer (A), To_Big_Integer (LL),
                                To_Big_Integer (LR), To_Big_Integer (LR));
                for B in 1 .. LR loop
                   pragma Loop_Invariant
                     (To_Big_Integer (P) = Partial (L, S - 1)
                        + To_Big_Integer (A - 1) * To_Big_Integer (LR) + To_Big_Integer (B - 1));
-                  pragma Loop_Invariant (for all M in 1 .. Max_Results => Cur (M) in -Bound (L) .. Bound (L));
                   P := P + 1;
                   Cur (P) := Apply (Ops (I + S - 1), Left (A), Right (B), S, L);
                end loop;
             end loop;
          end;
       end loop;
-      return Cur;
+      return [for M in 1 .. Max_Results => Cur (M)];
    end Sub;
 
    function All_Results (Values : Operand_List; Ops : Operator_List) return Value_List is
