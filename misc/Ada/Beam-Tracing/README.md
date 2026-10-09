@@ -51,7 +51,7 @@ carry `Pre` / `Post` / `Global` contract aspects where meaningful.
 ## Usage
 
 ```bash
-cd /workspace/ada-beam-tracing
+cd misc/Ada/Beam-Tracing
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

@@ -109,7 +109,7 @@ Tests assert this merge order, heights, and first / size-weighted updates.
 ## Build and test
 
 ```bash
-cd /workspace/ada-average-linkage-clustering
+cd clustering/Ada
 make clean && make
 make test
 ```

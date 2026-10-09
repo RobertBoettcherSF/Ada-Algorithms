@@ -99,7 +99,7 @@ end;
 ## Building / testing
 
 ```bash
-cd /workspace/ada-partial-least-squares
+cd numerical/Ada/Partial-Least-Squares
 make clean && make          # zero errors / warnings
 make test                   # Fail_Count = 0
 ```

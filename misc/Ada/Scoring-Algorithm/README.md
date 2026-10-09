@@ -100,7 +100,7 @@ R    : constant Scoring_Result :=
 ```
 
 ```bash
-cd /workspace/ada-scoring-algorithm
+cd misc/Ada/Scoring-Algorithm
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

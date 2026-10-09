@@ -88,7 +88,7 @@ PROSAC, or R-RANSAC.
 ## Usage
 
 ```bash
-cd /workspace/ada-ransac
+cd misc/Ada/RANSAC
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/
@@ -131,7 +131,7 @@ Requires GNAT with Ada 2022 support. Flags: `-gnatwa -gnat2022` via
 
 ## Related Ada packages
 
-Sibling educational Ada 2023 algorithm packages under `/workspace/ada-*`
+Sibling educational Ada 2023 algorithm packages elsewhere in this repository
 (scoring algorithm, Yamartino method, clipping, etc.) share the same layout
 conventions (`*.ads`/`*.adb` at repo root, `tests.adb` as main, `-gnatwa
 -gnat2022`).

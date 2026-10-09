@@ -95,7 +95,7 @@ Common default: $m=2$. Metric in this package: Euclidean ($L_2$).
 ## Build and test
 
 ```bash
-cd /workspace/ada-fuzzy-c-means
+cd misc/Ada/Fuzzy-C-Means
 make clean && make          # gnatmake -gnatwa -gnat2022 -Pfuzzy_c_means.gpr
 make test                   # runs bin/tests; Fail_Count must be 0
 ```

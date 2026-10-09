@@ -71,7 +71,7 @@ carry `Pre` / `Global` where meaningful (`SPARK_Mode => Off`).
 ## Build and test
 
 ```bash
-cd /workspace/ada-subclu   # or your clone path
+cd misc/Ada/SUBCLU   # from the repository root
 make clean && make         # gnatmake -gnatwa -gnat2022 -Psubclu.gpr
 make test                  # runs bin/tests
 ```

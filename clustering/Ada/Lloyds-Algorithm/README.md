@@ -107,7 +107,7 @@ centroids are true means of nonempty clusters.
 ## Build and test
 
 ```bash
-cd /workspace/ada-lloyds-algorithm
+cd clustering/Ada/Lloyds-Algorithm
 make clean && make        # gnatmake -gnatwa -gnat2022 -Plloyds_algorithm.gpr
 make test                 # runs bin/tests; Fail_Count must be 0
 ```

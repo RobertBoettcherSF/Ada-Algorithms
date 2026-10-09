@@ -108,7 +108,7 @@ $\sum_i \|x_i - y_{\ell_i}\|^2$.
 ## Build and test
 
 ```bash
-cd /workspace/ada-linde-buzo-gray
+cd misc/Ada/Linde-Buzo-Gray
 make clean && make          # gnatmake -gnatwa -gnat2022 -Plinde_buzo_gray.gpr
 make test                  # runs bin/tests; Fail_Count must be 0
 ```

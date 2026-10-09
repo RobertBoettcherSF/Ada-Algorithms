@@ -186,7 +186,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-division-algorithms
+cd misc/Ada/Division-Algorithms
 make clean && make
 ```
 

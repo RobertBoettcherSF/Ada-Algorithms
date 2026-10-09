@@ -10,7 +10,7 @@ seeded inputs; any line that differs (or a crash on one side) is a disagreement.
 
 usage: difftest.py [--seed S] [--cases N] [--out results.csv] [--only NAME ...] [-j JOBS]
 """
-import argparse, csv, json, os, random, re, shutil, subprocess, sys, glob
+import argparse, csv, json, os, random, re, shutil, subprocess, sys, glob, tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 HERE = os.path.join(ROOT, 'tools', 'vv', 'diff')
@@ -116,7 +116,7 @@ def main():
     ap.add_argument('--seed', type=int, default=20261008)
     ap.add_argument('--cases', type=int, default=0, help='override cases per pair')
     ap.add_argument('--out', default=os.path.join(ROOT, 'vv', 'results', 'diff.csv'))
-    ap.add_argument('--work', default='/tmp/vv_diff')
+    ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'vv_diff'))
     ap.add_argument('--only', nargs='*')
     ap.add_argument('-j', '--jobs', type=int, default=1, help='pairs run in parallel')
     a = ap.parse_args()

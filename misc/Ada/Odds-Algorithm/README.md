@@ -117,7 +117,7 @@ R : constant Odds_Result := Compute_Threshold (P);
 ## Building
 
 ```bash
-cd /workspace/ada-odds-algorithm
+cd misc/Ada/Odds-Algorithm
 make clean && make
 ```
 

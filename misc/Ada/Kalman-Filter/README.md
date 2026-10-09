@@ -129,7 +129,7 @@ end;
 ## Building
 
 ```bash
-cd /workspace/ada-kalman-filter
+cd misc/Ada/Kalman-Filter
 make clean && make
 ```
 

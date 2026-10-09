@@ -4,20 +4,20 @@ settings of tools/vv/prove_settings.txt (tools/vv/reproof.sh per folder).
 Writes tools/vv/reproof.csv: one row per folder, holds / stale, failing VCs.
 A row is 'holds' only if gnatprove exits 0 within the wall cap and reports no
 unproved check (low/medium/high/error line).  usage:
-  reproof.py run  [-P 2] [--work /tmp/reproof] [--only FILE]
-  reproof.py collect [--work /tmp/reproof] [--retry-work /tmp/reproof_j4]
+  reproof.py run  [-P 2] [--work $TMPDIR/reproof] [--only FILE]
+  reproof.py collect [--work $TMPDIR/reproof] [--retry-work $TMPDIR/reproof_j4]
 Wall-cap retry: rows that hit the cap at jobs_per_folder are re-run (same steps,
 same provers, same cap) with AA_REPROOF_JOBS=4 into --retry-work; collect then
 reports the retry result and keeps the first-pass outcome in the note column.
 Snapshot run (what the 2026-10-09 run used):
-  git archive <commit> | tar -x -C /tmp/reproof_src
-  AA_REPROOF_SRC=/tmp/reproof_src AA_REPROOF_COMMIT=<commit> reproof.py run -P 2"""
-import argparse, csv, os, re, subprocess, sys
+  git archive <commit> | tar -x -C $TMPDIR/reproof_src
+  AA_REPROOF_SRC=$TMPDIR/reproof_src AA_REPROOF_COMMIT=<commit> reproof.py run -P 2"""
+import argparse, csv, os, re, subprocess, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 ROOT = subprocess.check_output(['git', 'rev-parse', '--show-toplevel'], text=True).strip()
 SET = os.path.join(ROOT, 'tools/vv/prove_settings.txt')
 ap = argparse.ArgumentParser(); ap.add_argument('cmd', choices=['run', 'collect'])
-ap.add_argument('-P', type=int, default=2); ap.add_argument('--work', default='/tmp/reproof')
+ap.add_argument('-P', type=int, default=2); ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'reproof'))
 ap.add_argument('--only'); ap.add_argument('--retry-work'); a = ap.parse_args()
 settings = dict(l.rstrip('\n').split('=', 1) for l in open(SET) if '=' in l and not l.startswith('#'))
 SRC = os.environ.get('AA_REPROOF_SRC', ROOT)   # snapshot: PROOFS.csv and sources of one commit

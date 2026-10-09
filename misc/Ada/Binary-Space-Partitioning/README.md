@@ -61,7 +61,7 @@ dynamic object insertion. Solid-leaf flags are a teaching aid for
 ## Usage
 
 ```bash
-cd /workspace/ada-binary-space-partitioning
+cd misc/Ada/Binary-Space-Partitioning
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

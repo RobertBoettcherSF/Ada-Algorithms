@@ -18,8 +18,9 @@ directory, so the repo tree is never written to.
 * Optional `AA_DEPS=deps.json` maps folder -> shared loose files (at `topic/LEVEL/`) copied in first.
 
 ```sh
-ls -d */{Ada,SPARK2,SPARK4}/*/ | sed 's#/$##' > /tmp/ids.txt
-xargs -P4 -n1 tools/audit/build_folder.sh < /tmp/ids.txt > /tmp/res/build.jsonl
-xargs -P4 -n1 tools/audit/prove_folder.sh < /tmp/ids.txt > /tmp/res/prove.jsonl
-python3 tools/proof_index.py --results /tmp/res --logs /tmp/aa_prove    # or: make proof-index RESULTS=/tmp/res
+W=$(mktemp -d); mkdir -p "$W/res"; export AA_PROVE_WORK="$W/aa_prove"
+ls -d */{Ada,SPARK2,SPARK4}/*/ | sed 's#/$##' > "$W/ids.txt"
+xargs -P4 -n1 tools/audit/build_folder.sh < "$W/ids.txt" > "$W/res/build.jsonl"
+xargs -P4 -n1 tools/audit/prove_folder.sh < "$W/ids.txt" > "$W/res/prove.jsonl"
+python3 tools/proof_index.py --results "$W/res" --logs "$W/aa_prove"    # or: make proof-index RESULTS="$W/res" PROVE_LOGS="$W/aa_prove"
 ```

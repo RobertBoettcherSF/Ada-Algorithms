@@ -62,7 +62,7 @@ Named exceptions: `Invalid_Argument`, `Degenerate_Geometry`.
 ## Usage
 
 ```bash
-cd /workspace/ada-fast-clipping
+cd geometry/Ada/Fast-Clipping
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

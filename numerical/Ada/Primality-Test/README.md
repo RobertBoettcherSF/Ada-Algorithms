@@ -136,7 +136,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-primality-test
+cd numerical/Ada/Primality-Test
 make clean && make
 ```
 

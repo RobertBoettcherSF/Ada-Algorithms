@@ -5,7 +5,7 @@
 #   3. validation: differential tests of Ada/SPARK pairs, sampled mutation testing, do-nothing check
 #   4. PROOFS.md / PROOFS.csv refresh                 tools/proof_index.py
 # Knobs (environment):
-#   VV_OUT=/tmp/vv          results + logs
+#   VV_OUT=$TMPDIR/vv      results + logs (default: the system temp dir)
 #   VV_JOBS=4               parallel build jobs (proofs use VV_JOBS/2, each gnatprove -j2)
 #   VV_IDS=file             folder ids to run (default: every topic/LEVEL/Folder)
 #   VV_STEPS=1000000        gnatprove --steps budget
@@ -14,7 +14,7 @@
 #   VV_MUT_SAMPLE=20 VV_MUT_PER=8 VV_SEED=20261008
 set -u
 R=$(git rev-parse --show-toplevel); cd "$R"
-OUT=${VV_OUT:-/tmp/vv}; J=${VV_JOBS:-4}; PJ=$(( J / 2 > 0 ? J / 2 : 1 ))
+OUT=${VV_OUT:-$(dirname "$(mktemp -u)")/vv}; J=${VV_JOBS:-4}; PJ=$(( J / 2 > 0 ? J / 2 : 1 ))
 STEPS=${VV_STEPS:-1000000}; SKIP=" ${VV_SKIP:-} "; SEED=${VV_SEED:-20261008}
 mkdir -p "$OUT"
 if [ -n "${VV_IDS:-}" ]; then cp "$VV_IDS" "$OUT/ids.txt"; else ls -d */{Ada,SPARK*}/*/ 2>/dev/null | sed 's#/$##' > "$OUT/ids.txt"; fi

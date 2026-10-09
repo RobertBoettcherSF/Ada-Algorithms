@@ -48,7 +48,7 @@ Grids are bounded by `Max_Grid_Dim` (32) and meshes by `Max_Triangles`
 ## Usage
 
 ```bash
-cd /workspace/ada-marching-cubes
+cd geometry/Ada/Marching-Cubes
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

@@ -92,7 +92,7 @@ BrownBoost — leave those alone.
   asserts mt19937 10000th = 4123659995 and mt19937_64 10000th =
   9981545732273789042 (TEST 14); SPARK port asserts 4123659995 (MT19937-64 not
   in the SPARK package by design). Pass on GNAT 14.2.0 and 12.2.0.
-- GNAT 12 three-pass (`/tmp/flk/g12_tr.csv`, 271 folders) merged into
+- GNAT 12 three-pass (`tools/vv/evidence/flaky/g12_tr.csv`, 271 folders) merged into
   `tools/vv/flaky.csv` (2111 data rows). Counting-Sort finished on GNAT 12
   (10/10, init yes) after long runs; GNAT 14 had previously timed out at 300 s.
 - Tip: `a24e4397 FLAME-Clustering: First-relative Dataset / Result bounds; section 20 shift tests`

@@ -183,7 +183,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-eigenvalue-algorithms
+cd matrices/Ada/Eigenvalue-Algorithms
 make clean && make
 ```
 

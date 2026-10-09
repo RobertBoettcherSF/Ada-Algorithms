@@ -51,12 +51,12 @@ jobs_per_folder=1
 #   gnatprove -P <gpr> -f --level=4 --checks-as-errors=on --output=oneline -k -j2
 #   (cold copy, obj/ gnatprove/ deleted first), followed by the Silver command above.
 #
-# Run log of reproof-20261009-1 (snapshot: git archive e8c7794f -> /tmp/reproof_src, -P 3):
+# Run log of reproof-20261009-1 (snapshot: git archive e8c7794f -> $TMPDIR/reproof_src, -P 3):
 #   started 03:31; the driver died at ~06:4x because tools/vv/reproof.sh was edited while
 #   it was running (bash reads scripts incrementally: 'JOBS: unbound variable', no
 #   result.txt). Never edit reproof.sh during a run. Resumed 06:59 with the same command
 #   (folders with a result.txt are skipped; the ones without are re-proved from scratch,
-#   cold). Wall-cap rows are re-run once at AA_REPROOF_JOBS=4 into /tmp/reproof_j4.
+#   cold). Wall-cap rows are re-run once at AA_REPROOF_JOBS=4 into $TMPDIR/reproof_j4.
 # Toolchain paths are pinned: reproof.sh puts ~/.local/alr/gnatprove_16.1.0_82528bef/bin
 #   and ~/.local/alr/gprbuild_*/bin first on PATH (not Alire's global toolchain selection).
 #
@@ -95,7 +95,7 @@ proof_warnings_gnatprove=FSF 16.1.0 (Why3 for gnatprove version 1.8.2+git)
 #   The sweep runs each gnatprove tree under RLIMIT_AS 4 GB (proof_warnings.py --mem-gb) at -P 2;
 #   crashed folders are rc=crash in proof_warnings_runs.csv. Open question for the owner; the
 #   switch has not been taken out of any project file.
-# Sweep pw-20261009 (complete 12:40): snapshot 60417e74 (worktree /tmp/pw_tree), 935 SPARK folders,
+# Sweep pw-20261009 (complete 12:40): snapshot 60417e74 (scratch worktree pw_tree), 935 SPARK folders,
 #   --mode=silver --level=0 -j2, project switches (proof warnings on, timeout 10), RLIMIT_AS 4 GB, -P 2.
 #   910 rc=0, 18 rc=crash (gnatwhy3 past the 4 GB cap; no warnings parsed, status unknown), 1 rc=cap
 #   (Sort-Merge-Join, 1800 s), 2 rc=1 (misc/SPARK4 Shortest-Seek-First test_runner.gpr and demo), 4 no gpr

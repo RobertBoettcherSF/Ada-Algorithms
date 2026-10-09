@@ -149,7 +149,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-linear-programming
+cd misc/Ada/Linear-Programming
 make clean && make
 ```
 

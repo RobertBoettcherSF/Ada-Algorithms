@@ -25,7 +25,7 @@ usage: sweep_topup_C.py FOLDER... --seed S [--target 30] [-j 2] --out X.csv
 Run the copy inside a clean `git archive` of the commit under test (the
 repo root is taken from the script's location, as in sweep_topup_B.py).
 """
-import argparse, csv, os, random, re, shutil, sys
+import argparse, csv, os, random, re, shutil, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sweep_mutate as sm
@@ -189,7 +189,7 @@ def main():
     ap.add_argument('--split-rng-seed', type=int, default=20261008)
     ap.add_argument('-j', type=int, default=2)
     ap.add_argument('--out', required=True)
-    ap.add_argument('--work', default='/tmp/topupC_work')
+    ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'topupC_work'))
     ap.add_argument('--list', action='store_true', help='print the pool size per folder and exit (no tests run)')
     a = ap.parse_args()
     if a.list:

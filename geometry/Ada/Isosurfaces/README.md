@@ -46,7 +46,7 @@ and bands by `Max_Band_Points` (4096).
 ## Usage
 
 ```bash
-cd /workspace/ada-isosurfaces
+cd geometry/Ada/Isosurfaces
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

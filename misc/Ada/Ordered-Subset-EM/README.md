@@ -139,7 +139,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-ordered-subset-em
+cd misc/Ada/Ordered-Subset-EM
 make clean && make
 ```
 

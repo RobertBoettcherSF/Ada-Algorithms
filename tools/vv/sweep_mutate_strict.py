@@ -14,7 +14,7 @@ a test that still exits 0 does not count.
 
 usage: sweep_mutate_strict.py FOLDER... [--max N] [-j N] [--out X.csv] [--control]
 """
-import csv, os, re, subprocess, sys
+import csv, os, re, subprocess, sys, tempfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sweep_mutate as sm
 
@@ -46,7 +46,7 @@ def run_tests(work):
 sm.run_tests = run_tests
 
 if __name__ == '__main__':
-    out = next((sys.argv[i + 1] for i, x in enumerate(sys.argv) if x == '--out'), '/tmp/sweep_mut.csv')
+    out = next((sys.argv[i + 1] for i, x in enumerate(sys.argv) if x == '--out'), os.path.join(tempfile.gettempdir(), 'sweep_mut.csv'))
     sm.main()
     det = out.replace('.csv', '_detail.csv')
     killed = 0

@@ -107,7 +107,7 @@ still $a{+}b@17$, then chaining via min updates.)
 ## Build and test
 
 ```bash
-cd /workspace/ada-complete-linkage-clustering
+cd clustering/Ada/Complete-Linkage-Clustering
 make clean && make
 make test
 ```

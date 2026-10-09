@@ -43,7 +43,7 @@ CLOCK = re.compile(r'\b(time|elapsed|seconds?|secs?|ms|millisec\w*|duration|cloc
 BUILD = re.compile(r'^(\S*/)?(\S+-)?(gprbuild|gnatmake|gnatbind|gnatlink|gcc|gnatprove|mkdir|make|rm|Compile|Bind|Link|Phase|Summary logged|\s*\[)', re.I)
 
 def toolchain(v):
-    alr = os.path.expanduser('~/.local/alr')
+    alr = os.environ.get('AA_ALR_DIR', os.path.expanduser('~/.local/alr'))   # docs/TOOLCHAIN.md
     gpr = [os.path.join(alr, d, 'bin') for d in sorted(os.listdir(alr)) if d.startswith('gprbuild')] if os.path.isdir(alr) else []
     if v == '14':
         path = ['/usr/bin', '/bin'] + gpr; gm = '/usr/bin/gnatmake'

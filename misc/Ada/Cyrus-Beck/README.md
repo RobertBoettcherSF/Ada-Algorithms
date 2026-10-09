@@ -59,7 +59,7 @@ Named exceptions: `Invalid_Argument`, `Degenerate_Geometry`.
 ## Usage
 
 ```bash
-cd /workspace/ada-cyrus-beck
+cd misc/Ada/Cyrus-Beck
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

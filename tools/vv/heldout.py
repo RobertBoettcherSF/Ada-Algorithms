@@ -21,7 +21,7 @@ lists it as "file:line op ...". The held-out half needs at least 20 non-equivale
 scored mutants. If it has fewer, the row says so (short=yes) and must be topped up
 from the alternative operator family (sweep_mutate.py --family alt).
 """
-import argparse, csv, hashlib, os, random, re, shutil, sys
+import argparse, csv, hashlib, os, random, re, shutil, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mutate, sweep_mutate as sm
@@ -69,7 +69,7 @@ def main():
     ap.add_argument('--split-seed', type=int, default=SPLIT_SEED)
     ap.add_argument('--seed', type=int, default=20261109, help='sample seed inside the half')
     ap.add_argument('--max', type=int, default=40); ap.add_argument('-j', type=int, default=6)
-    ap.add_argument('--work', default='/tmp/heldout_work')
+    ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'heldout_work'))
     ap.add_argument('--out', default=os.path.join(RES, 'mutation_halves.csv'))
     a = ap.parse_args()
     seen, eq = published(), equivalents()

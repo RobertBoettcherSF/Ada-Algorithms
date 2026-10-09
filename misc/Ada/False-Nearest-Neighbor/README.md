@@ -87,7 +87,7 @@ Root-only sources (no `src/`, no separate `main.adb`):
 ## Building
 
 ```bash
-cd /workspace/ada-false-nearest-neighbor
+cd misc/Ada/False-Nearest-Neighbor
 make clean && make
 ```
 

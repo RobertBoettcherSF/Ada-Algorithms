@@ -30,7 +30,7 @@ Kill = non-zero exit or FAIL line (sweep_mutate.run_tests); timeout = survivor
 in the score; stillborn not scored.  Assignment-deletion survivors are
 re-checked under Initialize_Scalars + -gnatVa (kill_kind=uninit).
 """
-import argparse, csv, glob, hashlib, json, os, random, shutil, sys
+import argparse, csv, glob, hashlib, json, os, random, shutil, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mutate, sweep_mutate as sm, sweep_topup_B as tb, sweep_topup_C as tc
@@ -133,7 +133,7 @@ def run(fid, seed, half, target, j, outdir, dummy=False):
     ver = mutate.require_version(14)
     src = os.path.join(ROOT, fid)
     P, nseen = pools(fid, seed)
-    wk = os.path.join('/tmp/s138_work', fid.replace('/', '_') + '_' + half + ('_dummy' if dummy else ''))
+    wk = os.path.join(tempfile.gettempdir(), 's138_work', fid.replace('/', '_') + '_' + half + ('_dummy' if dummy else ''))
     shutil.rmtree(wk, ignore_errors=True); shutil.copytree(src, wk + '/base', ignore=sm.IGN)
     sm.DUMMY = dummy
     if dummy:
@@ -192,7 +192,7 @@ def main():
     ap.add_argument('--half', choices=('tune', 'held'))
     ap.add_argument('--target', type=int, default=48)
     ap.add_argument('-j', type=int, default=2)
-    ap.add_argument('--out', default='/workspace/s138_private')
+    ap.add_argument('--out', default=os.environ.get('AA_S138_PRIVATE', os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), 's138_private')))   # outside the checkout: held results stay out of git
     ap.add_argument('--dummy', action='store_true')
     a = ap.parse_args()
     if a.cmd == 'list':

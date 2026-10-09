@@ -174,7 +174,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-system-of-linear-equations
+cd misc/Ada/System-of-Linear-Equations
 make clean && make
 ```
 

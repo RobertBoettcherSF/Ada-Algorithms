@@ -176,7 +176,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-nonlinear-optimization
+cd misc/Ada/Nonlinear-Optimization
 make clean && make
 ```
 

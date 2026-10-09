@@ -86,7 +86,7 @@ carry `Pre` / `Global` where meaningful (`SPARK_Mode => Off`).
 ## Build and test
 
 ```bash
-cd /workspace/ada-optics   # or your clone path
+cd clustering/Ada/OPTICS   # from the repository root
 make clean && make         # gnatmake -gnatwa -gnat2022 -Poptics.gpr
 make test                  # runs bin/tests
 ```

@@ -272,7 +272,7 @@ def main():
     ap.add_argument('--from-file')
     ap.add_argument('-j', '--jobs', type=int, default=4)
     ap.add_argument('--out', default=os.path.join(ROOT, 'vv', 'results', 'donothing.csv'))
-    ap.add_argument('--work', default='/tmp/vv_dn')
+    ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'vv_dn'))
     a = ap.parse_args()
     ids = list(a.folders or [])
     if a.from_file:

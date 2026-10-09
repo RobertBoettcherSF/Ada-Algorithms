@@ -143,7 +143,7 @@ end;
 ## Building
 
 ```bash
-cd /workspace/ada-forward-backward
+cd ml/Ada/Forward-Backward
 make clean && make          # gnatmake -gnatwa -gnat2022 -Pforward_backward.gpr
 make test                   # run bin/tests; expects Fail_Count = 0
 ```

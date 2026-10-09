@@ -7,13 +7,13 @@
 #
 # compiler_*_version = first line of `gnatls --version` on that toolchain PATH.
 # GNAT 12 = Alire ~/.local/alr/gnat_native_12* → GNATLS 12.2.0. Never gcc-12
-# (Debian C 12.4.0) or /home/box/deps/gnat12 (also 12.4.0).
+# (Debian C 12.4.0) or the hand-built ~/deps/gnat12 (also 12.4.0).
 # usage: sweep_gnat_recheck.sh OUT.csv FOLDER...
 set -u
 OUT=$1; shift
 ROOT=$(cd "$(dirname "$0")/../.." && pwd); cd "$ROOT"
 P14=$(echo "$PATH" | tr ':' '\n' | grep -v -e gnat_native -e gprbuild_ | paste -sd:)
-P12="$(ls -d ~/.local/alr/gnat_native_12*/bin | head -1):$(ls -d ~/.local/alr/gprbuild_*/bin | head -1):$P14"
+P12="$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gnat_native_12*/bin | head -1):$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gprbuild_*/bin | head -1):$P14"
 REV=$(git rev-parse --short HEAD)
 echo "folder,expected,gnatls_version,make_test_exit,warnings,last_line,commit" > "$OUT"
 for F in "$@"; do

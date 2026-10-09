@@ -114,7 +114,7 @@ M/M/1/K is always defined for $\lambda,\mu>0$ (including $\rho\ge 1$).
 ## Building
 
 ```bash
-cd /workspace/ada-queuing-theory
+cd misc/Ada/Queuing-Theory
 make clean && make
 ```
 

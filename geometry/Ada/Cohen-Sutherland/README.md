@@ -57,7 +57,7 @@ Named exceptions: `Invalid_Argument`, `Degenerate_Geometry`.
 ## Usage
 
 ```bash
-cd /workspace/ada-cohen-sutherland
+cd geometry/Ada/Cohen-Sutherland
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

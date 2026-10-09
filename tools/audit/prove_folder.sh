@@ -1,7 +1,7 @@
 #!/bin/bash
 id="$1"; R=${AA_ROOT:-$(git rev-parse --show-toplevel)}; safe=$(echo "$id" | tr '/' '_')
-export PATH=${GNATPROVE_BIN:-$(ls -d $HOME/.local/alr/gnatprove_* | head -1)/bin}:${GPRBUILD_BIN:-$(ls -d $HOME/.local/alr/gprbuild_* | head -1)/bin}:/usr/bin:/bin
-W=${AA_PROVE_WORK:-/tmp/aa_prove}/$safe; rm -rf "$W"; mkdir -p "$W"; lev=$(dirname "$R/$id")
+export PATH=${GNATPROVE_BIN:-$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gnatprove_* | head -1)/bin}:${GPRBUILD_BIN:-$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gprbuild_* | head -1)/bin}:/usr/bin:/bin
+W=${AA_PROVE_WORK:-$(dirname "$(mktemp -u)")/aa_prove}/$safe; rm -rf "$W"; mkdir -p "$W"; lev=$(dirname "$R/$id")
 deps=$( [ -f "${AA_DEPS:-}" ] && python3 -c "import json,sys;print(' '.join(json.load(open(sys.argv[2])).get(sys.argv[1],[])))" "$id" "$AA_DEPS" )
 cp -r "$R/$id"/. "$W/"; rm -rf "$W/obj" "$W/bin" "$W/gnatprove"
 for f in $deps; do cp "$lev/$f" "$W/"; done

@@ -52,7 +52,7 @@ variants are exercised on small fixtures.
 ## Usage
 
 ```bash
-cd /workspace/ada-flood-fill
+cd misc/Ada/Flood-Fill
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

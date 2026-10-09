@@ -98,7 +98,7 @@ def build(root):
     return res, logs, fids
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PATH_SCOPE = ['--handover-only']   # tracked files must not name absolute box paths (tools/vv/check_paths.py)
+PATH_SCOPE = []   # whole repo (git ls-files): tracked files must not name absolute box paths (tools/vv/check_paths.py)
 
 def main():
     root = tempfile.mkdtemp(prefix='tpi_')

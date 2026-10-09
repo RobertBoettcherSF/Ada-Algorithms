@@ -53,7 +53,7 @@ are a fixed Fibonacci spiral (deterministic, no PRNG).
 ## Usage
 
 ```bash
-cd /workspace/ada-ambient-occlusion
+cd geometry/Ada/Ambient-Occlusion
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

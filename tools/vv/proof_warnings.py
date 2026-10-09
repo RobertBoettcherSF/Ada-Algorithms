@@ -4,7 +4,7 @@
 For every SPARK folder (*/SPARK*/<folder>/): cold copy (obj/ bin/ gnatprove/ proof/ deleted),
   gnatprove -P <gpr> -f --mode=silver --level=0 -k -j2 --output=oneline
 with the project's own Proof_Switches (which carry --proof-warnings=on and the timeout), using the
-pinned ~/.local/alr/gnatprove_16.1.0_* toolchain. gpr = PROOFS.csv proof_gpr, else proof.gpr, else
+pinned $AA_ALR_DIR/gnatprove_16.1.0_* toolchain (AA_ALR_DIR default ~/.local/alr, docs/TOOLCHAIN.md). gpr = PROOFS.csv proof_gpr, else proof.gpr, else
 the first *.gpr. Every 'warning:' line gnatprove prints is recorded in tools/vv/proof_warnings.csv.
 
 Findings are sticky: rows are keyed by (folder, file, warning text, stripped source line, occurrence:
@@ -14,14 +14,14 @@ does not raise it again only updates last_seen, it never closes a row.
 A gnatwhy3 under --proof-warnings can grow past 7 GB on some units (16.1.0; seen as a global OOM
 kill on the 15 GB box), so each gnatprove tree runs under RLIMIT_AS --mem-gb (default 4); a run that
 dies with a GNAT bug box is recorded as rc=crash in proof_warnings_runs.csv (no warnings parsed).
-usage: proof_warnings.py run [-P 3] [--mem-gb 4] [--work /tmp/pw_sweep] [--only FILE]
-       proof_warnings.py collect [--work /tmp/pw_sweep] [--run-id ID]"""
-import argparse, csv, glob, os, re, resource, shutil, subprocess, time
+usage: proof_warnings.py run [-P 3] [--mem-gb 4] [--work $TMPDIR/pw_sweep] [--only FILE]
+       proof_warnings.py collect [--work $TMPDIR/pw_sweep] [--run-id ID]"""
+import argparse, csv, glob, os, re, resource, shutil, subprocess, time, tempfile
 from concurrent.futures import ThreadPoolExecutor
 ROOT = subprocess.check_output(['git', 'rev-parse', '--show-toplevel'], text=True).strip()
 OUT = os.path.join(ROOT, 'tools/vv/proof_warnings.csv')
 ap = argparse.ArgumentParser(); ap.add_argument('cmd', choices=['run', 'collect'])
-ap.add_argument('-P', type=int, default=3); ap.add_argument('--work', default='/tmp/pw_sweep')
+ap.add_argument('-P', type=int, default=3); ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'pw_sweep'))
 ap.add_argument('--only'); ap.add_argument('--run-id', default='pw-' + time.strftime('%Y%m%d'))
 ap.add_argument('--cap', type=int, default=1800)
 ap.add_argument('--mem-gb', type=float, default=4.0)  # RLIMIT_AS per gnatprove tree (box OOM guard)
@@ -29,8 +29,9 @@ a = ap.parse_args()
 def _limit():
     m = int(a.mem_gb * 2**30); resource.setrlimit(resource.RLIMIT_AS, (m, m))
 HOME = os.path.expanduser('~')
-PATH = ':'.join([glob.glob(HOME + '/.local/alr/gnatprove_16.1.0_*/bin')[0],
-                 glob.glob(HOME + '/.local/alr/gprbuild_*/bin')[0], '/usr/bin', '/bin'])
+ALR = os.environ.get('AA_ALR_DIR', os.path.join(HOME, '.local', 'alr'))   # docs/TOOLCHAIN.md
+PATH = ':'.join([glob.glob(ALR + '/gnatprove_16.1.0_*/bin')[0],
+                 glob.glob(ALR + '/gprbuild_*/bin')[0], '/usr/bin', '/bin'])
 pg = {r['folder']: r['proof_gpr'] for r in csv.DictReader(open(os.path.join(ROOT, 'PROOFS.csv'), newline=''))}
 folders = sorted(d.rstrip('/') for d in glob.glob('*/SPARK[0-9]/*/', root_dir=ROOT))
 if a.only:

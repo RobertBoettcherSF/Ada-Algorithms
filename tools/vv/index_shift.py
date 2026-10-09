@@ -601,7 +601,7 @@ def main():
     ap.add_argument('-j', type=int, default=4)
     ap.add_argument('--timeout', type=int, default=90)
     ap.add_argument('--out', default=os.path.join(ROOT, 'tools/vv/index_shift.csv'))
-    ap.add_argument('--work', default='/tmp/flk/index_shift')
+    ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'flk', 'index_shift'))
     args = ap.parse_args()
     os.makedirs(args.work, exist_ok=True)
     all_f = folders()

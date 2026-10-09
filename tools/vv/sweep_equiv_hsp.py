@@ -11,7 +11,7 @@ original body and for each surviving mutant:
 Exceptions are printed as their name. Outputs are compared by hash.
 usage: sweep_equiv_hsp.py DETAIL.csv   (rows folder,file,line,op,before,after,result; 'survived' rows only)
 """
-import csv, hashlib, os, shutil, subprocess, sys
+import csv, hashlib, os, shutil, subprocess, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 DRIVE = r'''pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
@@ -101,7 +101,7 @@ end Drive;
 '''
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 F = os.path.join(ROOT, 'misc/Ada/Hidden-Subgroup-Problem')
-W = '/tmp/hspx'; shutil.rmtree(W, ignore_errors=True); os.makedirs(W)
+W = os.path.join(tempfile.gettempdir(), 'hspx'); shutil.rmtree(W, ignore_errors=True); os.makedirs(W)
 for x in ('hidden_subgroup_problem.ads', 'hidden_subgroup_problem.adb'):
     shutil.copy(os.path.join(F, x), W)
 open(os.path.join(W, 'drive.adb'), 'w').write(DRIVE)

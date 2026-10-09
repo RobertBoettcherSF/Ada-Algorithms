@@ -128,7 +128,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-estimation-theory
+cd misc/Ada/Estimation-Theory
 make clean && make
 ```
 

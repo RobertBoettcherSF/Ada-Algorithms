@@ -60,7 +60,7 @@ I/O; samples and paths are fixed (deterministic, no PRNG).
 ## Usage
 
 ```bash
-cd /workspace/ada-global-illumination
+cd misc/Ada/Global-Illumination
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

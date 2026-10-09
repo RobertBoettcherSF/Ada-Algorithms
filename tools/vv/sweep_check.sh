@@ -5,18 +5,18 @@
 # testing over every operator site.  usage: sweep_check.sh FOLDER
 set -u
 F=$1; ROOT=$(cd "$(dirname "$0")/../.." && pwd); cd "$ROOT"
-G12=$(ls -d ~/.local/alr/gnat_native_12*/bin | head -1); GPR=$(ls -d ~/.local/alr/gprbuild_*/bin | head -1)
+G12=$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gnat_native_12*/bin | head -1); GPR=$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gprbuild_*/bin | head -1)
 # GNAT 14 is the system compiler: drop any Alire toolchain from PATH for it.
 P14=$(echo "$PATH" | tr ':' '\n' | grep -v -e gnat_native -e gprbuild_ | paste -sd:)
 # compiler_*_version: first line of gnatls --version on that toolchain PATH.
 # GNAT 12 must be the Alire Ada compiler (~/.local/alr/gnat_native_12*), which
 # reports GNATLS 12.2.0 — never gcc-12 (Debian C, 12.4.0, no Ada runtime) and
-# never /home/box/deps/gnat12 (also 12.4.0). Package folder gnat_native_12.2.1
+# never the hand-built ~/deps/gnat12 (also 12.4.0). Package folder gnat_native_12.2.1
 # is the Alire crate name, not the compiler report.
 V14=$(PATH="$P14" gnatls --version | head -1); V12=$(PATH="$G12:$GPR:$PATH" gnatls --version | head -1)
 case "$V14" in "GNATLS 14."*) ;; *) echo "GNAT 14 expected on the system PATH, got: $V14"; exit 2;; esac
 case "$V12" in "GNATLS 12.2."*) ;; *) echo "GNAT 12.2.x expected from Alire $G12 (gnatls), got: $V12"; exit 2;; esac
-W=$(mktemp -d /tmp/sweepchk.XXXX)
+W=$(mktemp -d -t sweepchk.XXXX)
 mkdir -p "$W/14" "$W/12"
 cp -r "$F/." "$W/14/"; cp -r "$F/." "$W/12/"; rm -rf "$W"/1?/obj "$W"/1?/bin
 r14=$( (cd "$W/14" && PATH="$P14" make -s test >log 2>&1) && echo pass || echo FAIL)

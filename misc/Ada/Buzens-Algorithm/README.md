@@ -118,7 +118,7 @@ and $G(N)>0$ before forming probabilities.
 ## Building
 
 ```bash
-cd /workspace/ada-buzens-algorithm
+cd misc/Ada/Buzens-Algorithm
 make clean && make
 ```
 

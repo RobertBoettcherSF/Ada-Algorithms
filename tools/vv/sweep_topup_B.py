@@ -23,7 +23,7 @@ The sealed detail file stores operator and result only (line and text hidden).
 usage: sweep_topup_B.py FOLDER... --seed S [--target 30] [-j 4] --out X.csv
 Run it from a clean `git archive` of the commit under test.
 """
-import argparse, csv, os, random, shutil, sys
+import argparse, csv, os, random, shutil, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sweep_mutate as sm
@@ -158,7 +158,7 @@ def main():
     ap.add_argument('--split-rng-seed', type=int, default=20261008, help='the --seed of the split rounds (sweep_mutate.py default)')
     ap.add_argument('-j', type=int, default=4)
     ap.add_argument('--out', required=True)
-    ap.add_argument('--work', default='/tmp/topupB_work')
+    ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'topupB_work'))
     a = ap.parse_args()
     ver = mutate.require_version(14)
     fields = ['folder', 'family', 'seed', 'baseline', 'pool', 'drawn', 'killed', 'survived', 'timeout',

@@ -84,7 +84,7 @@ end;
 ## Build and test
 
 ```bash
-cd /workspace/Ada-Algorithms/clustering/Ada/FLAME-Clustering
+cd clustering/Ada/FLAME-Clustering
 make clean && make          # gnatmake -gnatwa -gnat2022 -Pflame_clustering.gpr
 make test                   # runs bin/tests; expect Passed: 156  Failed: 0
 ```

@@ -55,7 +55,7 @@ Bounds: `Max_Vertices = 64`, `Max_Polygons = 8`, `Max_Intersections = 64`,
 ## Usage
 
 ```bash
-cd /workspace/ada-weiler-atherton
+cd geometry/Ada/Weiler-Atherton
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

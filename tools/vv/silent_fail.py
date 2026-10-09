@@ -61,7 +61,7 @@ TOOL = re.compile(r'^(gprbuild|gnatmake|gnatbind|gnatlink|make)\b|^\S+\.ad[sb]:\
 
 def env14():
     e = dict(os.environ)
-    alr = os.path.expanduser('~/.local/alr')
+    alr = os.environ.get('AA_ALR_DIR', os.path.expanduser('~/.local/alr'))   # docs/TOOLCHAIN.md
     extra = [os.path.join(alr, d, 'bin') for d in sorted(os.listdir(alr)) if d.startswith('gprbuild')] if os.path.isdir(alr) else []
     e['PATH'] = ':'.join(['/usr/bin', '/bin'] + extra)
     return e

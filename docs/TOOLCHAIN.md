@@ -48,6 +48,19 @@ The "GNAT 14" builds so far used the **system** compiler: Debian package `gnat-1
 - A second directory holding only `alire.toml` and the lockfile restored the same versions with `alr exec`, and the lockfile was left unchanged.
 - `tools/toolchain/gnat14`: gnat_native 14.2.1 restored; `gnatls --version` reports `GNATLS 14.2.0`.
 
+## Environment variables used by the scripts
+
+The scripts under `tools/` find the repository from their own location and never hard-code a box path (`make check-paths` fails on any absolute box path in a tracked file).
+
+| Variable | Default | Used by |
+|---|---|---|
+| `AA_ALR_DIR` | `~/.local/alr` (Alire's crate cache on the box: `gnat_native_12.2.1_*`, `gnatprove_16.1.0_*`, `gprbuild_*`) | `tools/audit/build_folder.sh`, `prove_folder.sh`, `tools/vv/sweep_check.sh`, `sweep_gnat_recheck.sh`, `reproof.sh`, `always_terminates_check.sh`, `proof_warnings.py`, `score138_prove.py`, `flaky.py`, `silent_fail.py` |
+| `GNAT12_BIN`, `GPRBUILD_BIN`, `GNATPROVE_BIN` | the matching `bin` dir under `AA_ALR_DIR` | `tools/audit/*.sh` (override one tool) |
+| `TMPDIR` | `/tmp` (Python `tempfile.gettempdir()`, shell `mktemp`) | every `--work` / scratch default (`sweep_mutate.py`, `reproof.py`, `run_vv.sh` `VV_OUT`, `make proof-index` `RESULTS`/`PROVE_LOGS`, ...) |
+| `AA_S138_PRIVATE` | `<parent of the checkout>/s138_private` (outside git, so held-out results never land in a commit) | `tools/vv/score138.py --out`, `score138_record.py` |
+
+With `eval "$(cd tools/toolchain && alr -n printenv)"` the tools are already on PATH; `AA_ALR_DIR` only matters for the scripts that pin a crate by folder name.
+
 ## Changing the toolchain
 
 A new gnatprove or solver version is a new proof setup: re-run the whole cold re-proof, update this file and `prove_settings.txt`, and leave every result proved under the old setup labelled with that setup. Never mix the two in one claim.

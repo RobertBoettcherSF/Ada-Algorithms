@@ -70,7 +70,7 @@ full homogeneous / duality algorithm for arbitrary convex polygons.
 ## Usage
 
 ```bash
-cd /workspace/ada-line-clipping
+cd geometry/Ada/Line-Clipping
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

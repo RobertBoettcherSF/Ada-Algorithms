@@ -79,7 +79,7 @@ pipeline (see GPU / OpenGL clipping literature for that).
 ## Usage
 
 ```bash
-cd /workspace/ada-clipping
+cd geometry/Ada/Clipping
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

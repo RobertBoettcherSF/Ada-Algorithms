@@ -5,13 +5,13 @@
 # (tools/vv/always_terminates_gnat12.csv): an aspect GNAT 12 rejects may only be dropped if the noat run
 # raises no termination check.
 # Needs gnatprove 16.1.0 on PATH (Alire: tools/toolchain/alire). FOLDER is repo-relative.
-# Committed from the box scratch script /tmp/main2/at.sh on 2026-10-09 with the hard-coded
+# Committed from the box scratch script at.sh on 2026-10-09 with the hard-coded
 # repo and work paths replaced; prover switches unchanged.
 set -u
 R=$(cd "$(dirname "$0")/../.." && pwd); F=$1; N=$(echo "$F" | tr / _)
 W=${2:-$(mktemp -d)}; B=$W/$N; rm -rf "$B"; mkdir -p "$B"
 if ! command -v gnatprove >/dev/null; then
-  GP=$(ls -d "$HOME"/.local/alr/gnatprove_16.1.0_*/bin 2>/dev/null | head -1); GB=$(ls -d "$HOME"/.local/alr/gprbuild_*/bin 2>/dev/null | head -1)
+  GP=$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gnatprove_16.1.0_*/bin 2>/dev/null | head -1); GB=$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gprbuild_*/bin 2>/dev/null | head -1)
   export PATH=$GP:$GB:$PATH
 fi
 ulimit -v 4194304

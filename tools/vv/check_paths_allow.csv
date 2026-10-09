@@ -1,0 +1,2 @@
+path,pattern,reason
+docs/TOOLCHAIN.md,"^\| `TMPDIR` \| `/tmp` ","documents the operating-system default of TMPDIR (what tempfile.gettempdir() and mktemp fall back to); it names no box scratch file and is not used as a path by any script"

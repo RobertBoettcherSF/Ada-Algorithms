@@ -33,8 +33,8 @@ whatever the parity of K. Other negative bases with K >= 2 take the general path
 right.
 Upstream report: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=125695
 (fetched 2026-10-09 07:09 CEST with curl from the V&V box, ...&ctype=xml;
-the XML is kept outside the repository, at
-/workspace/inbox/aa_refs/gcc_pr125695.xml, sha256 6f375483...ac6a, because
+the XML is kept outside the repository (on the V&V box, file
+gcc_pr125695.xml; refetch from the URL above), sha256 6f375483...ac6a, because
 its comments quote GCC run-time source, which is GPL). From that file:
 title "Big_Exp special case for (+/-)2 ** K is broken for -2 and even K";
 status RESOLVED FIXED; target milestone 13.5; the reporter's text also

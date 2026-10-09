@@ -99,7 +99,7 @@ Named exceptions: `Invalid_Argument`, `Capacity_Exceeded`.
 ## Build & test
 
 ```bash
-cd /workspace/ada-k-means-clustering
+cd clustering/Ada/K-Means-Clustering
 make clean && make
 make test
 ```

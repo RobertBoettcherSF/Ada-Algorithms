@@ -15,7 +15,7 @@ kill_kind=uninit: a survivor of the normal run that dies under Initialize_Scalar
 the bar on --half held (survivor lines are hidden in the detail file); top the
 held half up to >= 20 non-equivalent mutants with --family alt.
 """
-import argparse, csv, os, random, re, shutil, sys
+import argparse, csv, os, random, re, shutil, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mutate, subprocess, hashlib
@@ -154,7 +154,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('folders', nargs='+'); ap.add_argument('--max', type=int, default=40)
     ap.add_argument('-j', type=int, default=6); ap.add_argument('--seed', type=int, default=20261008)
-    ap.add_argument('--out', default='/tmp/sweep_mut.csv'); ap.add_argument('--work', default='/tmp/sweep_mut')
+    ap.add_argument('--out', default=os.path.join(tempfile.gettempdir(), 'sweep_mut.csv')); ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'sweep_mut'))
     ap.add_argument('--dummy', action='store_true', help='control (a): always-passing test that checks nothing; must score 0')
     ap.add_argument('--family', choices=('std', 'alt'), default='std',
                     help='std: mutate.py operators; alt: statement deletion, constant replacement, argument swap, second-order')

@@ -52,7 +52,7 @@ and contour maps by `Max_Levels` (16).
 ## Usage
 
 ```bash
-cd /workspace/ada-contour-lines
+cd misc/Ada/Contour-Lines
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

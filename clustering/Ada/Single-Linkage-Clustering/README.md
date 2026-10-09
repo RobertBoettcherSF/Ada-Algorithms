@@ -88,7 +88,7 @@ tie-break), then $d$ at 28. Tests assert this sequence.
 ## Build and test
 
 ```bash
-cd /workspace/ada-single-linkage-clustering
+cd clustering/Ada/Single-Linkage-Clustering
 make clean && make
 make test
 ```

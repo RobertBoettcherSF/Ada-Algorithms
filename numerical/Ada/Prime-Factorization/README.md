@@ -136,7 +136,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-prime-factorization
+cd numerical/Ada/Prime-Factorization
 make clean && make
 ```
 

@@ -57,10 +57,11 @@ clean:
 
 # Regenerate PROOFS.md / PROOFS.csv and the headline block in README.md (between the
 # proof-index markers; idempotent) from per-folder results (see tools/audit/README.md).
-#   make proof-index RESULTS=/path/with/build.jsonl+prove.jsonl PROVE_LOGS=/tmp/aa_prove \
-#                    STEPS_LOGS=/tmp/aa2s TOOL_INFO=toolinfo.txt
-RESULTS    ?= /tmp/aa_res
-PROVE_LOGS ?= /tmp/aa_prove
+#   make proof-index RESULTS=/path/with/build.jsonl+prove.jsonl PROVE_LOGS=$TMPDIR/aa_prove \
+#                    STEPS_LOGS=$TMPDIR/aa2s TOOL_INFO=toolinfo.txt
+VV_TMP     := $(shell dirname "$$(mktemp -u)")
+RESULTS    ?= $(VV_TMP)/aa_res
+PROVE_LOGS ?= $(VV_TMP)/aa_prove
 STEPS_LOGS ?=
 TOOL_INFO  ?=
 STEPS      ?= 1000000
@@ -72,7 +73,7 @@ proof-index:
 # Tracked files must not name absolute box paths (scratch dirs, other worktrees, home);
 # allowlist with written reasons in tools/vv/check_paths_allow.csv.
 check-paths:
-	python3 tools/vv/check_paths.py --handover-only
+	python3 tools/vv/check_paths.py
 
 # Verification + validation over all folders (docs/VV.md): build+tests on GNAT 14/12,
 # Silver proofs with a step budget, differential + mutation testing, index refresh.

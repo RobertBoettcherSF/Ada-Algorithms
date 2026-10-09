@@ -14,7 +14,7 @@ operator and result only, with line and text hidden, so nobody tunes on held-out
 
 usage: sweep_heldout_alt.py FOLDER... [--target 30] [--min 20] [--seed 20261010] [-j 4] [--out X.csv]
 """
-import argparse, csv, os, random, shutil, sys
+import argparse, csv, os, random, shutil, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sweep_mutate_strict as sms
@@ -97,8 +97,8 @@ def main():
     ap.add_argument('folders', nargs='*'); ap.add_argument('--from-file')
     ap.add_argument('--target', type=int, default=30); ap.add_argument('--min', type=int, default=20)
     ap.add_argument('--seed', type=int, default=20261010); ap.add_argument('-j', type=int, default=4)
-    ap.add_argument('--out', default='/tmp/heldout_alt.csv'); ap.add_argument('--sealed', default=None)
-    ap.add_argument('--work', default='/tmp/heldout_alt_work')
+    ap.add_argument('--out', default=os.path.join(tempfile.gettempdir(), 'heldout_alt.csv')); ap.add_argument('--sealed', default=None)
+    ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'heldout_alt_work'))
     a = ap.parse_args()
     ids = a.folders + ([l.strip() for l in open(a.from_file) if l.strip()] if a.from_file else [])
     ver = mutate.require_version(14)

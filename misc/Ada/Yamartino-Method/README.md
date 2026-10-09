@@ -66,7 +66,7 @@ Constant direction $\implies \varepsilon = 0 \implies \sigma_\theta = 0$. Oscill
 ## Usage
 
 ```bash
-cd /workspace/ada-yamartino-method
+cd misc/Ada/Yamartino-Method
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

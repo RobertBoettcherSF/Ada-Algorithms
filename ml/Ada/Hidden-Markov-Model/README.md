@@ -89,7 +89,7 @@ Observations `[normal, cold, dizzy]` → Viterbi path
 ## Usage
 
 ```bash
-cd /workspace/ada-hidden-markov-model
+cd ml/Ada/Hidden-Markov-Model
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

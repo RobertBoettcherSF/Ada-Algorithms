@@ -6,7 +6,7 @@
 # gnatprove runs with -f (no reuse of earlier results; no --replay).
 set -u
 F=$1; GPR=$2; WR=$3; R=$(git rev-parse --show-toplevel)
-export PATH=$(ls -d $HOME/.local/alr/gnatprove_* | head -1)/bin:$(ls -d $HOME/.local/alr/gprbuild_* | head -1)/bin:/usr/bin:/bin
+export PATH=$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gnatprove_* | head -1)/bin:$(ls -d "${AA_ALR_DIR:-$HOME/.local/alr}"/gprbuild_* | head -1)/bin:/usr/bin:/bin
 STEPS=$(sed -n 's/^steps=//p' "$R/tools/vv/prove_settings.txt")
 CAP=$(sed -n 's/^wall_cap_seconds=//p' "$R/tools/vv/prove_settings.txt")
 PROVERS=$(sed -n 's/^provers=//p' "$R/tools/vv/prove_settings.txt")

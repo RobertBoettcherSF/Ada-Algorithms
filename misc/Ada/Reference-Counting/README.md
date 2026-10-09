@@ -102,25 +102,25 @@ To compile the project, use either `gnatmake` or `make`:
 #### Using `gnatmake`:
 ```bash
 # Compile the package
-cd /workspace/RobertBoettcherSF__Ada-Reference-Counting
+cd misc/Ada/Reference-Counting
 gnatmake -o bin/reference_counting reference_counting.gpr
 
 # Compile the tests
-cd /workspace/RobertBoettcherSF__Ada-Reference-Counting
+cd misc/Ada/Reference-Counting
 gnatmake -o bin/tests tests.adb
 ```
 
 #### Using `make`:
 ```bash
 # Compile and run tests
-cd /workspace/RobertBoettcherSF__Ada-Reference-Counting
+cd misc/Ada/Reference-Counting
 make test
 ```
 
 ### Execution
 To run the tests:
 ```bash
-cd /workspace/RobertBoettcherSF__Ada-Reference-Counting
+cd misc/Ada/Reference-Counting
 ./bin/tests
 ```
 

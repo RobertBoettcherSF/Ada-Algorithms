@@ -17,7 +17,7 @@ Score = killed / (killed + survived).
 
 usage: mutate.py [--seed S] [--per-folder K] [--sample N | --folders F ...] [--out results.csv]
 """
-import argparse, csv, glob, os, random, re, shutil, subprocess, sys
+import argparse, csv, glob, os, random, re, shutil, subprocess, sys, tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 GNATMAKE = os.environ.get('VV_GNATMAKE', '/usr/bin/gnatmake')   # GNAT 14, pinned by path, checked below
@@ -171,7 +171,7 @@ def main():
     ap.add_argument('--sample', type=int, default=8)
     ap.add_argument('--folders', nargs='*')
     ap.add_argument('--out', default=os.path.join(ROOT, 'vv', 'results', 'mutation.csv'))
-    ap.add_argument('--work', default='/tmp/vv_mut')
+    ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'vv_mut'))
     ap.add_argument('--dummy', action='store_true', help='control (a): always-passing test that checks nothing; must score 0')
     a = ap.parse_args()
     VER = require_version(14)   # GNAT 14 only; the version goes into every row

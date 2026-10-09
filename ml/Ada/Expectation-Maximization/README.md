@@ -159,7 +159,7 @@ end;
 ## Building
 
 ```bash
-cd /workspace/ada-expectation-maximization
+cd ml/Ada/Expectation-Maximization
 make clean && make
 ```
 

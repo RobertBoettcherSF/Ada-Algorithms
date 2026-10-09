@@ -17,7 +17,7 @@ usage: score138_record.py FOLDER --test-commit C [--note TEXT]
 """
 import argparse, csv, json, math, os
 VV = os.path.dirname(os.path.abspath(__file__))
-PRIV = '/workspace/s138_private'
+PRIV = os.environ.get('AA_S138_PRIVATE', os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), 's138_private'))   # same default as score138.py --out
 FAMS = ('std', 'alt', 'ho', 'B', 'C')
 
 

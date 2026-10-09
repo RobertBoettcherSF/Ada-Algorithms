@@ -153,7 +153,7 @@ end Demo;
 ## Building
 
 ```bash
-cd /workspace/ada-integer-linear-programming
+cd misc/Ada/Integer-Linear-Programming
 make clean && make
 ```
 

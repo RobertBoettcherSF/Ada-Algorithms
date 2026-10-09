@@ -84,7 +84,7 @@ end;
 ## Build & test
 
 ```bash
-cd /workspace/ada-canopy-clustering
+cd clustering/Ada/Canopy-Clustering
 make clean && make
 make test
 ```

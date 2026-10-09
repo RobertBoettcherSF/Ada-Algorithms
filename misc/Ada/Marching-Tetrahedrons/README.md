@@ -50,7 +50,7 @@ Grids are bounded by `Max_Grid_Dim` (32) and meshes by `Max_Triangles`
 ## Usage
 
 ```bash
-cd /workspace/ada-marching-tetrahedrons
+cd misc/Ada/Marching-Tetrahedrons
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

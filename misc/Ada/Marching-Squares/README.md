@@ -47,7 +47,7 @@ and band lists by `Max_Bands` (8192) so educational demos stay safe.
 ## Usage
 
 ```bash
-cd /workspace/ada-marching-squares
+cd misc/Ada/Marching-Squares
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

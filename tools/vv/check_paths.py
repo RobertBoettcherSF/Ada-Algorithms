@@ -5,15 +5,19 @@ Handover evidence and docs must be reproducible from a fresh clone, so no tracke
 may name an absolute path under the box roots tmp, workspace or home (scratch dirs, other
 worktrees, the box home directory).
 Scope: every file from `git ls-files` (text files only).
-Allowlist: tools/vv/check_paths_allow.csv (path,pattern,reason); every entry needs a written reason.
+Skipped: the verbatim evidence dirs in EVIDENCE below.
+Allowlist: tools/vv/check_paths_allow.csv (path,pattern,reason); every entry needs a written reason
+(one entry as of 2026-10-09: the TMPDIR default in docs/TOOLCHAIN.md).
 Usage: python3 tools/vv/check_paths.py [--handover-only] [--list]
 """
 import csv, os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-RX = re.compile(r'(?<![\w.~$-])/(?:tmp|workspace|home)(?=[/\s"\'`),;:]|$)')
+RX = re.compile(r'(?<![\w.~])/(?:tmp|workspace|home)(?![\w-])')
 HANDOVER = ['tools/vv/handover.csv', 'docs/HANDOVER.md']
 ALLOW = 'tools/vv/check_paths_allow.csv'
+# Verbatim copies of box-scratch files, kept byte-for-byte as recorded (each dir has a README saying so).
+EVIDENCE = ('tools/vv/handover_evidence/', 'tools/vv/evidence/')
 
 def allow():
     p = os.path.join(ROOT, ALLOW)
@@ -32,8 +36,8 @@ def main():
     al = allow()
     bad = []
     for f in files:
-        if not f or f.startswith('tools/vv/handover_evidence/'):
-            continue  # verbatim evidence copies (logs, patches, claim snapshots) are kept as recorded
+        if not f or f == ALLOW or f.startswith(EVIDENCE):   # the allowlist quotes the patterns it allows
+            continue  # verbatim evidence copies (logs, patches, scripts, claim snapshots) are kept as recorded
         p = os.path.join(ROOT, f)
         if not os.path.isfile(p):
             continue

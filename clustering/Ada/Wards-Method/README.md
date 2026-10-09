@@ -101,7 +101,7 @@ selects the lowest left index, then the lowest right index.
 ## Building
 
 ```bash
-cd /workspace/ada-wards-method
+cd clustering/Ada/Wards-Method
 make clean && make
 ```
 

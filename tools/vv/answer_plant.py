@@ -214,7 +214,7 @@ def main():
     ap.add_argument('--folders', nargs='*')
     ap.add_argument('-j', type=int, default=4)
     ap.add_argument('--timeout', type=int, default=120)
-    ap.add_argument('--work', default='/tmp/flk/answer_plant')
+    ap.add_argument('--work', default=os.path.join(tempfile.gettempdir(), 'flk', 'answer_plant'))
     args = ap.parse_args()
     os.makedirs(args.work, exist_ok=True)
     folders = args.folders or [r['folder'] for r in csv.DictReader(open(args.plant_csv)) if r.get('plant_ok') == 'n/a']

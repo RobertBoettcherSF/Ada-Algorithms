@@ -18,7 +18,7 @@ usage: score138_prove.py HELD_JSON --commit C [--cap 3600]
 """
 import argparse, csv, json, os, re, resource, shutil, subprocess, sys, tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-ALR = os.path.expanduser('~/.local/alr')
+ALR = os.environ.get('AA_ALR_DIR', os.path.expanduser('~/.local/alr'))   # docs/TOOLCHAIN.md
 GP = os.path.join(ALR, 'gnatprove_16.1.0_82528bef', 'bin')
 GB = next(os.path.join(ALR, d, 'bin') for d in sorted(os.listdir(ALR)) if d.startswith('gprbuild_'))
 UNPROVED = re.compile(r':\d+:\d+: (low|medium|high|error)\b|^gnatprove: error', re.M)

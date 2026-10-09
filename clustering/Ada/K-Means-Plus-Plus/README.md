@@ -80,7 +80,7 @@ Named exceptions: `Invalid_Argument`, `Capacity_Exceeded`.
 ## Build & test
 
 ```bash
-cd /workspace/ada-k-means-plus-plus
+cd clustering/Ada/K-Means-Plus-Plus
 make clean && make
 make test
 ```

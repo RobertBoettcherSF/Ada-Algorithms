@@ -50,7 +50,7 @@ Strong typing uses domain subtypes (`Half_Angle`, `Non_Negative`, `Roughness`,
 ## Usage
 
 ```bash
-cd /workspace/ada-cone-tracing
+cd misc/Ada/Cone-Tracing
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

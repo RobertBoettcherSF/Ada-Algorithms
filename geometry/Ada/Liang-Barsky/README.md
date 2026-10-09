@@ -60,7 +60,7 @@ Named exceptions: `Invalid_Argument`, `Degenerate_Geometry`.
 ## Usage
 
 ```bash
-cd /workspace/ada-liang-barsky
+cd geometry/Ada/Liang-Barsky
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

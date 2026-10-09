@@ -17,7 +17,7 @@ Usage:
 Each detail CSV must be the *_detail.csv written by the matching sweep_mutate.py run
 (the candidate draw is replayed and checked row by row against it).
 
-Committed from the box scratch copy /tmp/proofkill.py on 2026-10-09 (handover H129/H130/H141);
+Committed from the box scratch copy (proofkill.py) on 2026-10-09 (handover H129/H130/H141);
 logic unchanged.
 """
 import sys, os, random, csv, shutil, subprocess, re

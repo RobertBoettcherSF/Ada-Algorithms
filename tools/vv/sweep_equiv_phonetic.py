@@ -5,7 +5,7 @@ length 1..4 over A..Z and 1..5 over AEICGHKNSTWD (769,326 words), runs it on the
 original body and on each surviving mutant, and compares the outputs.
 usage: sweep_equiv_phonetic.py MUT_DETAIL_OR_GATE_OUTPUT   (rows: folder,file,line,op,before,after,survived)
 """
-import os, shutil, subprocess, sys, hashlib
+import os, shutil, subprocess, sys, hashlib, tempfile
 DRIVE = r'''pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Phonetic_Algorithms; use Phonetic_Algorithms;
@@ -43,7 +43,7 @@ begin
 end Drive;
 '''
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-W = '/tmp/phx'
+W = os.path.join(tempfile.gettempdir(), 'phx')
 os.makedirs(W, exist_ok=True)
 F = os.path.join(ROOT, 'misc/Ada/Phonetic-Algorithms')
 for x in ('phonetic_algorithms.ads', 'phonetic_algorithms.adb'):
@@ -62,7 +62,7 @@ def run(i_r):
     i, r = i_r
     _, f, ln, op, before, after, _ = r
     ln = int(ln) - 1
-    w = f'/tmp/phx/m{i}'; shutil.rmtree(w, ignore_errors=True); os.makedirs(w)
+    w = os.path.join(W, f'm{i}'); shutil.rmtree(w, ignore_errors=True); os.makedirs(w)
     for x in ('phonetic_algorithms.ads', 'drive.adb'): shutil.copy(x, w)
     L = list(src)
     if before not in L[ln]: return (r, 'nomatch')

@@ -96,7 +96,7 @@ Fit := Baum_Welch_Fit_Multi (Init, Data, Lengths, Max_Iter => 40);
 ## Building
 
 ```bash
-cd /workspace/ada-baum-welch
+cd misc/Ada/Baum-Welch
 make clean && make
 ```
 

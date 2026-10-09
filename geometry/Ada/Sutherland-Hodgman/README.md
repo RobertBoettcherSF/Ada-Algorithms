@@ -51,7 +51,7 @@ Bounds: `Max_Vertices = 64`.
 ## Usage
 
 ```bash
-cd /workspace/ada-sutherland-hodgman
+cd geometry/Ada/Sutherland-Hodgman
 make        # build bin/tests
 make test   # build (if needed) and run the suite
 make clean  # remove obj/ and bin/

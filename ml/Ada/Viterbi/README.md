@@ -128,7 +128,7 @@ end;
 ## Building
 
 ```bash
-cd /workspace/ada-viterbi
+cd ml/Ada/Viterbi
 make clean && make          # gnatmake -gnatwa -gnat2022 -Pviterbi.gpr
 make test                   # run bin/tests; expects Fail_Count = 0
 ```
