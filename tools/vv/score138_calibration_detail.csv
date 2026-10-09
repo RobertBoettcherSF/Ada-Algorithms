@@ -3799,3 +3799,55 @@ misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,20264058,thinned,68,C,killed
 misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,20264058,thinned,69,C,killed,,killed,test_check,"{""tests.adb"": [0, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,20264058,thinned,70,C,killed,,killed,test_check,"{""tests.adb"": [0, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Special-Array-With-X-Elements,20264058,thinned,73,C,killed,,killed,test_check,"{""tests.adb"": [0, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,0,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,1,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,2,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,3,alt,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,4,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,5,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,7,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,8,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,10,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,11,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,12,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,13,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,14,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,16,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,20,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,21,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,23,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,28,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,30,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,33,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,34,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,35,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,36,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,37,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,38,B,survived,,survived,,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,full,39,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,0,alt,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,1,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,2,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,3,alt,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,4,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,5,C,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,7,C,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,8,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,10,C,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,11,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,12,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,13,C,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,14,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,16,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,20,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,21,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,23,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,28,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,30,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,33,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,34,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,35,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,36,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,37,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,38,B,survived,,survived,,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Sum-Of-Subarray-Minimums,20264065,thinned,39,B,killed,,killed,contract,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
