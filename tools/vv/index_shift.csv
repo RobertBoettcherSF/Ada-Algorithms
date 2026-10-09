@@ -3304,7 +3304,7 @@ sorting/SPARK4/Ada-SPARK-Bogosort,Sort,shift_mismatch,fail,,, | raised ADA.ASSER
 sorting/SPARK4/Ada-SPARK-Counting-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Counting-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Counting-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Counting-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+sorting/SPARK4/Ada-SPARK-Counting-Sort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 sorting/SPARK4/Ada-SPARK-Bubble-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bubble-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Bubble-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
