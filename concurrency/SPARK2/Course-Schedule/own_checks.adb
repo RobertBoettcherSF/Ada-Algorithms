@@ -67,6 +67,12 @@ procedure Own_Checks is
                return False;
             end if;
          end loop;
+         --  No stuck set comes with an order.
+         for C in Course loop
+            if R.Stuck (C) then
+               return False;
+            end if;
+         end loop;
          return True;
       else
          declare

@@ -49,11 +49,14 @@ package Course_Schedule is
       Stuck : Course_Set;
    end record;
 
-   --  Kahn's algorithm: Ok with an order of the courses (Rank), or not Ok
-   --  with a stuck set of courses (Stuck) as the witness.
+   --  Kahn's algorithm: Ok with an order of the courses (Rank) and an
+   --  empty Stuck, or not Ok with a stuck set of courses (Stuck) as the
+   --  witness.
    function Schedule (P : Prerequisite_Array) return Schedule_Result
    with
-     Post => (if Schedule'Result.Ok then Is_Order (P, Schedule'Result.Rank)
+     Post => (if Schedule'Result.Ok
+              then Is_Order (P, Schedule'Result.Rank)
+                   and then (for all C in Course => not Schedule'Result.Stuck (C))
               else Is_Stuck (P, Schedule'Result.Stuck));
 
    function Can_Finish (Prerequisites : Prerequisite_Array) return Boolean

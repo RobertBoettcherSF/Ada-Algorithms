@@ -4,7 +4,7 @@ Bounded SPARK version of the course schedule question: 4 courses and 4 prerequis
 
 `Schedule` runs Kahn's algorithm. Each step takes a course whose prerequisites have all been taken and gives it the next rank. The result comes with a witness that the proof checks:
 
-* `Ok`: `Rank` orders the courses so that every prerequisite has a smaller rank than the course that needs it (`Is_Order`).
+* `Ok`: `Rank` orders the courses so that every prerequisite has a smaller rank than the course that needs it (`Is_Order`), and `Stuck` is empty.
 * not `Ok`: `Stuck` is a nonempty set of courses where each course needs another course of the set (`Is_Stuck`), so no course of the set can be taken first.
 
 `Lemma_Exclusive` proves that both witnesses cannot exist for the same prerequisites. So `Ok`, and with it `Can_Finish`, is fixed by the input. A ghost count of the courses taken shows that 4 steps take every course.

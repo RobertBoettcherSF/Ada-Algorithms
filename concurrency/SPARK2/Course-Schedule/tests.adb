@@ -33,6 +33,10 @@ begin
    if not Can_Finish (Prerequisites) then
       raise Program_Error with "acyclic sample reported as a cycle";
    end if;
+   --  An order comes with an empty stuck set.
+   if Schedule (Prerequisites).Stuck /= [Course => False] then
+      raise Program_Error with "acyclic sample has a nonempty stuck set";
+   end if;
    if Can_Finish (Two_Cycle) then
       raise Program_Error with "2-cycle 1 -> 2 -> 1 reported as finishable";
    end if;
