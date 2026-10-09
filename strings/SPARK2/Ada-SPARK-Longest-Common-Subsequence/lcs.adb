@@ -32,7 +32,7 @@ is
             --  hold row I - 1 (<= I - 1 <= I). Both stay below the column.
             pragma Loop_Invariant
               (for all K in Row'Range => Curr (K) <= I and then Curr (K) <= K);
-            if A (I) = B (J) then
+            if A (A'First + (I - 1)) = B (B'First + (J - 1)) then
                Curr (J) := Prev (J - 1) + 1;
             else
                Curr (J) := Nat_Max (Prev (J), Curr (J - 1));
