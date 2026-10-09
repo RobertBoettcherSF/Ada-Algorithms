@@ -133,7 +133,8 @@ package body Proof_Of_Work is
    is
       Hash : constant String := GNAT.SHA256.Digest (Seed & Trimmed_Image_Nat (Index));
    begin
-      return Hash (Hash'Last) = Target_Char;
+      --  Solutions are indices 1 .. Size (see Solve_Memory_Puzzle); 0 never is
+      return Index >= 1 and then Hash (Hash'Last) = Target_Char;
    end Verify_Memory_Puzzle;
 
 end Proof_Of_Work;
