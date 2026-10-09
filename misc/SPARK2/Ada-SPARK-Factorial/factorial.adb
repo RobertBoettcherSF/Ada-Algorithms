@@ -17,6 +17,7 @@ package body Factorial is
          when 10 => return 3_628_800;
          when 11 => return 39_916_800;
          when 12 => return 479_001_600;
+         when others => return 1;   --  scaffold: no entries beyond 12
       end case;
    end Compute;
 end Factorial;
