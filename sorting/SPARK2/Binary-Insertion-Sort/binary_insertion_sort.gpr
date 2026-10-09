@@ -4,6 +4,6 @@ project Binary_Insertion_Sort is
    for Exec_Dir use "bin";
    for Main use ("tests.adb");
    package Compiler is
-      for Default_Switches ("Ada") use ("-gnat2022");
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
    end Compiler;
 end Binary_Insertion_Sort;

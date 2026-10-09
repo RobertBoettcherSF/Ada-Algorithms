@@ -1,11 +1,18 @@
-GNAT    := gnatmake
-FLAGS   := -gnatwa -gnat2022
-.PHONY: all test clean
-all: bin/tests
-bin/tests: *.ads *.adb
+GPRBUILD := gprbuild
+GNATPROVE := gnatprove
+PROJECT := binary_insertion_sort.gpr
+PROOF_PROJECT := proof.gpr
+.PHONY: all test prove clean
+all: test
+
+test:
 	mkdir -p obj bin
-	$(GNAT) $(FLAGS) -D obj -o bin/tests tests.adb
-test: all
+	$(GPRBUILD) -P$(PROJECT)
 	@bin/tests
+
+prove:
+	mkdir -p obj
+	$(GNATPROVE) -P$(PROOF_PROJECT) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
+
 clean:
-	rm -rf obj bin
+	rm -rf obj bin gnatprove
