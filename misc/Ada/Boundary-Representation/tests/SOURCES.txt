@@ -21,3 +21,19 @@ built by hand: a cube (8 vertices, outward loops), a 3 x 3 quad torus
 one face reversed (orientation clash, still V - E + F = 2), two disjoint
 cubes (two genus-0 shells, V - E + F = 4), a tetrahedron, and the
 tetrahedron with one dangling edge (V - E + F = 2, edge on no face).
+
+tests.adb TEST 15 (agent A3): the same hand-built meshes with the
+expected Check_Solid failure kind, shell count and genus (torus genus 1;
+cube + torus genus 0 then 1); two tetrahedra glued at one vertex (every
+edge fine, two rings at the shared vertex); an extra isolated vertex; a
+tetrahedron missing a face; the empty model; the tetrahedron again via
+Make_Polygon_Face (6 shared edges) and a repeated-vertex loop.
+
+tests.adb TEST 16 (agent A3): an own reference written in the test from
+the same definition but on vertex indices, not edge records: directed
+edge counts (each edge unused or used once each way), every vertex used,
+the link of each vertex one directed cycle, shells as vertex components
+through triangles, genus from V - E + F per shell. Compared with
+Check_Solid on all 59,049 meshes of 5 vertices (each of the 10 triangles
+absent or in one of two orientations); 20 are closed manifolds (the 10
+triangular bipyramids, each in both orientations).

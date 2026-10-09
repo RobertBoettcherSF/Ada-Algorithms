@@ -21,6 +21,9 @@ package Boundary_Representation is
    -- Array of edges representing the boundary loop of a face
    type Edge_Array is array (Positive range <>) of Edge_ID;
 
+   -- Cyclic vertex sequence of a face, in traversal order
+   type Vertex_Array is array (Positive range <>) of Vertex_ID;
+
    -- Named exceptions for specific B-rep errors
    Topology_Error   : exception;
    Capacity_Error   : exception;
@@ -61,13 +64,68 @@ package Boundary_Representation is
      with Global => null,
           Pre    => Active_Faces (Model) < 1000,
           Post   => Active_Faces (Model) = Active_Faces (Model'Old) + 1;
+   -- Edges are taken in traversal order. When they form one closed loop
+   -- through distinct vertices (each edge sharing a vertex with the next,
+   -- the last with the first; at least 3 edges), the face records that
+   -- oriented vertex loop, starting at the vertex of Edges (First) not on
+   -- the next edge. Otherwise the face has no loop (skeletal faces of the
+   -- Euler operators, open chains), and Is_Valid_Manifold is False.
+
+   function Make_Polygon_Face (Model : in out B_Rep_Model; Cycle : Vertex_Array) return Face_ID
+     with Global => null,
+          Pre    => Active_Faces (Model) < 1000
+                    and then Cycle'Length in 3 .. 32,
+          Post   => Active_Faces (Model) = Active_Faces (Model'Old) + 1;
+   -- Face bounded by the oriented loop Cycle (First) -> ... -> Cycle (Last)
+   -- -> Cycle (First). Each consecutive pair reuses an active edge between
+   -- the two vertices (the lowest id) or gets a new one. Raises
+   -- Invalid_ID_Error for an inactive vertex and Topology_Error for a
+   -- repeated vertex.
 
    -- Variants & Validation (Euler-Poincaré Formula: V - E + F = 2 for single closed shell)
    function Euler_Poincare_Characteristic (Model : B_Rep_Model) return Integer
      with Global => null;
 
+   -- Closed-solid check
+   Max_Shells : constant := 1000;
+   type Genus_Array is array (1 .. Max_Shells) of Natural;
+
+   type Solid_Failure is
+     (None,                 -- a closed orientable 2-manifold
+      No_Faces,             -- the model has no face
+      Face_Without_Loop,    -- a face has no closed vertex loop
+      Dead_Reference,       -- a face uses an inactive edge or vertex
+      Edge_Not_Two_Faces,   -- an active edge is not on exactly two faces
+      Opposite_Orientation, -- two faces traverse an edge the same way
+      Vertex_Not_One_Ring,  -- the faces at a vertex are not one ring
+      Isolated_Vertex,      -- an active vertex is on no face
+      Odd_Characteristic);  -- a shell has V - E + F odd or above 2
+
+   type Solid_Report is record
+      Failure : Solid_Failure := No_Faces;
+      Shells  : Natural := 0;            -- edge-connected face sets
+      Genus   : Genus_Array := [others => 0];
+      -- Genus (S) for S in 1 .. Shells, shells ordered by lowest face
+      -- id: V - E + F = 2 - 2 * Genus over that shell's elements.
+   end record;
+
+   function Check_Solid (Model : B_Rep_Model) return Solid_Report
+     with Global => null;
+   -- Classifies the model as a closed orientable 2-manifold surface:
+   -- (1) every face has a closed loop of active vertices and edges;
+   -- (2) every active edge lies on exactly two face loops, (3) which
+   -- traverse it in opposite directions; (4) the faces around every
+   -- active vertex form one closed ring (no isolated vertex). The first
+   -- violated condition is reported. Then the shells (faces connected
+   -- through shared edges) are counted and V - E + F = 2 - 2g gives each
+   -- shell's genus g (failure Odd_Characteristic if no such g exists).
+
    function Is_Valid_Manifold (Model : B_Rep_Model) return Boolean
      with Global => null;
+   -- True iff Check_Solid (Model).Failure = None: the model is a closed
+   -- orientable 2-manifold surface of any genus and any number of
+   -- shells. V - E + F = 2 alone is neither necessary (torus, several
+   -- shells) nor sufficient (dangling edge, reversed face).
 
    -- Euler Operators (Maintain topological consistency)
    
@@ -141,8 +199,10 @@ private
    end record;
 
    type Face_Rec is record
-      State : Element_State := Free;
-      Edges : Bounded_Edge_Array;
+      State    : Element_State := Free;
+      Edges    : Bounded_Edge_Array;
+      Cycle    : Vertex_Array (1 .. Max_Face_Edges) := [others => Invalid_Vertex];
+      Cycle_Len : Natural := 0;  -- 0: no closed vertex loop
    end record;
 
    type Vertex_Storage is array (Vertex_ID range 1 .. Max_Items) of Vertex_Rec;
@@ -156,6 +216,7 @@ private
       Num_Vertices : Natural := 0;
       Num_Edges    : Natural := 0;
       Num_Faces    : Natural := 0;
+      Edge_High    : Edge_ID := 0;  -- highest edge id ever allocated
    end record;
 
 end Boundary_Representation;
