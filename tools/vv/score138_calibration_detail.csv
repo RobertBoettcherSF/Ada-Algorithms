@@ -3363,3 +3363,21 @@ misc/SPARK2/Ada-SPARK-PN-Counter,20264046,thinned,92,C,killed,,killed,contract,"
 misc/SPARK2/Ada-SPARK-PN-Counter,20264046,thinned,93,C,killed,,killed,contract,"{""tests.adb"": [5, 5, 0], ""own_checks.adb"": [2, 5, 2]}"
 misc/SPARK2/Ada-SPARK-PN-Counter,20264046,thinned,94,C,killed,,killed,contract,"{""tests.adb"": [5, 5, 0], ""own_checks.adb"": [2, 5, 2]}"
 misc/SPARK2/Ada-SPARK-PN-Counter,20264046,thinned,95,C,killed,,killed,test_check,"{""tests.adb"": [5, 5, 0], ""own_checks.adb"": [2, 5, 2]}"
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,full,4,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,full,8,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,full,9,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,full,11,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,full,12,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,full,13,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,full,19,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,full,20,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,full,22,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,4,C,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,8,B,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,9,alt,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,11,C,killed,,survived,,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,12,B,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,13,alt,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,19,alt,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,20,alt,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
+misc/SPARK2/Ada-SPARK-Parity-Bits,20264047,thinned,22,alt,killed,,killed,test_check,"{""tests.adb"": [1, 3, 0], ""own_checks.adb"": [4, 0, 1]}"
