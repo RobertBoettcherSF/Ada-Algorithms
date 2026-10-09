@@ -83,3 +83,7 @@ sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array,GNAT 14,GNATLS 14.2.0,0,
 sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 687569 checks (all 32 rotations of 104 increasing arrays x 101 targets vs a linear scan; comparisons <=,97679417
 sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 124050 checks (all rotations of 4;000 arrays vs a linear minimum; distinct: comparisons <= floor (log2 ,9560bd18
 sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 124050 checks (all rotations of 4;000 arrays vs a linear minimum; distinct: comparisons <= floor (log2 ,9560bd18
+sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array-II,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 410978 checks (all rotations of 90 arrays x 101 targets vs a linear scan; distinct: comparisons <= 2 * ,e9910b62
+sorting/SPARK2/Ada-SPARK-Search-In-Rotated-Sorted-Array-II,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 410978 checks (all rotations of 90 arrays x 101 targets vs a linear scan; distinct: comparisons <= 2 * ,e9910b62
+searching/SPARK2/Ada-SPARK-Search-2D-Matrix,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 43676 checks (205 sorted 8 x 8 matrices x 100 targets vs a 2D scan; comparisons <= floor (log2 64) + 2;,71100540
+searching/SPARK2/Ada-SPARK-Search-2D-Matrix,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 43676 checks (205 sorted 8 x 8 matrices x 100 targets vs a 2D scan; comparisons <= floor (log2 64) + 2;,71100540
