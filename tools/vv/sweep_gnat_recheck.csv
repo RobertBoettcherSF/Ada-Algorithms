@@ -95,3 +95,7 @@ sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,GNAT 14,GNATLS 14.2.0,
 sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 17004 checks (7;000 pairs vs an insertion sort of all 32 values: Lower; Upper; Median; comparisons <= 7,395893b0
 sorting/SPARK2/Binary-Insertion-Sort,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 3265 checks (sorted; permutation; own reference; comparisons <= 17; worst case 17; exact counts),bbd52812
 sorting/SPARK2/Binary-Insertion-Sort,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 3265 checks (sorted; permutation; own reference; comparisons <= 17; worst case 17; exact counts),bbd52812
+misc/SPARK2/Ada-SPARK-Sqrt-Integer,GNAT 14,GNATLS 14.2.0,0,0,PASS Sqrt_Integer,eefbf6b2
+misc/SPARK2/Ada-SPARK-Sqrt-Integer,GNAT 12,GNATLS 12.2.0,0,0,PASS Sqrt_Integer,eefbf6b2
+misc/SPARK2/Ada-SPARK-Sqrt-X,GNAT 14,GNATLS 14.2.0,0,0,PASS Sqrt_X,ed8d235c
+misc/SPARK2/Ada-SPARK-Sqrt-X,GNAT 12,GNATLS 12.2.0,0,0,PASS Sqrt_X,ed8d235c
