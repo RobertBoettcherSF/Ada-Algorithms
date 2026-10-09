@@ -1,0 +1,27 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+Definition used: a FIFO queue returns items in the order they were added;
+a bounded queue of capacity C refuses an addition when it holds C items and
+refuses removal / inspection when empty. This package uses C = 4 and makes
+the refusals preconditions.
+
+tests.adb: the first lines are the original case (7 8, front 7, dequeue,
+front 8). Added: fill 1 2 3 4, a fifth Enqueue is refused and changes
+nothing, two dequeues (front 3), enqueue 5 and 6 into the freed ring slots
+(queue 3 4 5 6), drain in that order, then Dequeue and Front on the empty
+queue are refused; Value'First / Value'Last pushed and popped 25 times
+(the ring turns many times). Every expected value is worked by hand from
+the definition.
+
+own_checks.adb: model-based. 2,000 seeded random runs of 40 Enqueue /
+Dequeue / Front calls against a shift model (an array with the front item
+first; Dequeue moves every item up one place), which shares no code or
+layout with the package's ring buffer. A call must be refused
+(Assertion_Error from the precondition) exactly when the model is full
+(Enqueue) or empty (Dequeue, Front), and after every call Length, every
+Element and Front must match the model. Seed = FNV-1a of the folder name,
+AA_SEED overrides it.
