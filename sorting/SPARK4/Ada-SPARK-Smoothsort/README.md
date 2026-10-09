@@ -15,7 +15,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Smoothsort](https:/
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition of `Sort`.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors and a selection-style extract-max proof of sortedness.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
-* **Unstable**: Equal keys may change relative order (permutation is checked by tests).
+* **Unstable**: Equal keys may change relative order (permutation is proved and checked by tests).
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $\mathrm{Max\_Length}=100\,000$) so array / arithmetic VCs stay within automated SMT reach.
@@ -24,7 +24,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Smoothsort](https:/
 * Precomputed Leonardo table for orders $0..8$ only (`Max_Leonardo_Order = 8`; sibling table goes to $40$).
 * **Classroom extract**: after one Leonardo-forest heapify of $1..n$, Sort proves `Is_Sorted` via a linear prefix-max scan and sorted-suffix invariants (same shape as selection / heapsort extract proofs). Full Dijkstra bit-string $P$, Trinkle / Semitrinkle, and Level-4 `Is_Leo_Heap` / forest-root-max lemmas were attempted and found intractable in reasonable time — documented honestly here rather than suppressed with `Intentional` annotations.
 * Greedy largest-$L(k)$ stretch partition (educational cover of $n$) instead of the live bit-string grow loop.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): `Occ (A, V, Last)` counts V in `A (A'First .. Last)` and `Is_Perm` compares the counts of every value of either array. The proof carries the ghost `Same_Occ` (equal counts for every Integer) through the loops with swap / point-update lemmas (no Assume / Annotate). Loop invariants and the Posts of body-local subprograms are proved and not re-evaluated at run time (`Assertion_Policy` Ignore in the body: `Same_Occ` ranges over every Integer); the Post of `Sort`, including `Is_Perm`, is still checked by the tests. Before 2026-10-09 the Post said only `Is_Sorted`, which an all-zeros body also proves (tools/vv/contract_scan.csv).
+* Tests check `Is_Perm` against an independent sorted-copy comparison on every pair of arrays of length 0 .. 4 over -1 .. 1 (14,762 pairs, origins 1 and 7).
 
 ## Algorithm
 1. **Heapify (Leonardo forest).** Partition $1..n$ into greedy Leonardo stretches; for each stretch, recursively heapify the Keith/Dijkstra children ($\mathrm{Lt}_{k-1}$ then $\mathrm{Lt}_{k-2}$) and sift the root ($[\,\mathrm{Lt}_{k-1}\,][\,\mathrm{Lt}_{k-2}\,][\mathrm{root}\,]$).

@@ -10,6 +10,121 @@ package body Smoothsort
   with SPARK_Mode => On
 is
 
+   --  Loop invariants and the Posts of the subprograms below are proved by
+   --  gnatprove and not re-evaluated at run time: the permutation clauses
+   --  (Same_Occ) quantify over every Integer value. The Post of the public
+   --  Sort (spec) is still checked at run time, including Is_Perm.
+   pragma Assertion_Policy (Loop_Invariant => Ignore, Post => Ignore);
+
+   ---------------------------------------------------------------------------
+   -- Permutation proof (ghost). Same_Occ: equal counts for every Integer.
+   ---------------------------------------------------------------------------
+
+   function Same_Occ (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (A'Length = 0
+                or else (for all V in Integer =>
+                           Occ (A, V, A'Last) = Occ (B, V, B'Last))))
+   with
+     Ghost,
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+
+   package Perm_Lemmas
+     with Ghost
+   is
+      pragma Assertion_Policy (Pre => Ignore);
+
+      --  Counts over A'First .. Last only see A'First .. Last.
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First
+          and then Last <= A'Last and then Last <= B'Last
+          and then (for all K in A'First .. Last => A (K) = B (K)),
+        Post               =>
+          (for all V in Integer => Occ (A, V, Last) = Occ (B, V, Last)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slot K changed.
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Positive; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then K in A'Range and then Last in K .. A'Last
+          and then (for all J in A'Range => (if J /= K then A (J) = B (J))),
+        Post               =>
+          (for all V in Integer =>
+             Occ (B, V, Last)
+             = Occ (A, V, Last)
+               - (if A (K) = V then 1 else 0)
+               + (if B (K) = V then 1 else 0)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slots X and Y exchanged.
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Positive)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then X in A'Range and then Y in A'Range
+          and then B (X) = A (Y) and then B (Y) = A (X)
+          and then (for all J in A'Range =>
+                      (if J /= X and then J /= Y then A (J) = B (J))),
+        Post   => Same_Occ (A, B);
+      --  The logical Same_Occ gives the executable Is_Perm.
+      procedure Lemma_Same_Perm (A, B : Element_Array)
+      with
+        Global => null,
+        Pre    => In_Bounds (A) and then In_Bounds (B) and then Same_Occ (A, B),
+        Post   => Is_Perm (A, B);
+   end Perm_Lemmas;
+
+   package body Perm_Lemmas is
+
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural) is
+      begin
+         if Last >= A'First then
+            Lemma_Occ_Frame (A, B, Last - 1);
+         end if;
+      end Lemma_Occ_Frame;
+
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Positive; Last : Natural) is
+      begin
+         if Last > K then
+            Lemma_Occ_Set (A, B, K, Last - 1);
+         else
+            Lemma_Occ_Frame (A, B, K - 1);
+         end if;
+      end Lemma_Occ_Set;
+
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Positive) is
+      begin
+         if X = Y then
+            Lemma_Occ_Frame (A, B, A'Last);
+            return;
+         end if;
+         declare
+            C : constant Element_Array := (A with delta X => A (Y));
+         begin
+            Lemma_Occ_Set (A, C, X, A'Last);
+            Lemma_Occ_Set (C, B, Y, A'Last);
+         end;
+      end Lemma_Swap;
+
+      procedure Lemma_Same_Perm (A, B : Element_Array) is null;
+
+   end Perm_Lemmas;
+   use Perm_Lemmas;
+
    Leonardo_Table : constant array (Leonardo_Order) of Positive :=
      [0 => 1,
       1 => 1,
@@ -172,15 +287,18 @@ is
        and then
          (for all K in A'Range =>
             (if K /= X and then K /= Y then A (K) = A'Old (K)))
+         and then Same_Occ (A, A'Old)
    is
       T : Integer;
+      Before : constant Element_Array := A with Ghost;
    begin
       if X = Y then
          return;
       end if;
-      T     := A (X);
+      T := A (X);
       A (X) := A (Y);
       A (Y) := T;
+      Lemma_Swap (Before, A, X, Y);
    end Swap;
 
    procedure Heapify_Stretch
@@ -195,7 +313,7 @@ is
        and then Last in A'Range
        and then Root in A'First .. Last
        and then Fits (A'First, Root, Order),
-     Post               => In_Bounds (A),
+     Post               => In_Bounds (A) and then Same_Occ (A, A'Old),
      Subprogram_Variant => (Decreases => Order)
    is
       R         : Index;
@@ -219,6 +337,7 @@ is
       Ord := Order;
       while Ord >= 2 loop
          pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (Same_Occ (A, A'Loop_Entry));
          pragma Loop_Invariant (R in A'First .. Last);
          pragma Loop_Invariant (Fits (A'First, R, Ord));
          pragma Loop_Invariant (Ord <= Order);
@@ -239,9 +358,14 @@ is
 
          exit when A (R) >= A (Child);
 
-         Tmp       := A (R);
-         A (R)     := A (Child);
-         A (Child) := Tmp;
+         declare
+            Before : constant Element_Array := A with Ghost;
+         begin
+            Tmp := A (R);
+            A (R) := A (Child);
+            A (Child) := Tmp;
+            Lemma_Swap (Before, A, R, Child);
+         end;
          R         := Child;
          Ord       := Child_Ord;
       end loop;
@@ -252,6 +376,7 @@ is
      Global => null,
      Pre    => In_Bounds (A) and then Last in A'Range,
      Post   => In_Bounds (A)
+         and then Same_Occ (A, A'Old)
    is
       Count : Stretch_Count;
       S     : Stretch_Array;
@@ -261,6 +386,7 @@ is
       I := 1;
       loop
          pragma Loop_Invariant (I in 1 .. Count);
+         pragma Loop_Invariant (Same_Occ (A, A'Loop_Entry));
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant
            (for all J in 1 .. Count =>
@@ -302,8 +428,11 @@ is
       N    : Index;
       Last : Index;
       M    : Index;
+      Orig : constant Element_Array := A with Ghost;
    begin
       if A'Length <= 1 then
+         Lemma_Occ_Frame (A, Orig, A'Last);
+         Lemma_Same_Perm (A, Orig);
          return;
       end if;
 
@@ -319,6 +448,7 @@ is
 
       while Last > A'First loop
          pragma Loop_Invariant (Last in A'First + 1 .. N);
+         pragma Loop_Invariant (Same_Occ (A, Orig));
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (Sorted_Slice (A, Last + 1, N));
          pragma Loop_Invariant (Heap_Leq_Suffix (A, Last, N));
@@ -351,6 +481,7 @@ is
       pragma Assert (Heap_Leq_Suffix (A, A'First, N));
       pragma Assert (A (A'First) <= A (A'First + 1));
       pragma Assert (Is_Sorted (A));
+      Lemma_Same_Perm (A, Orig);
    end Sort;
 
 end Smoothsort;
