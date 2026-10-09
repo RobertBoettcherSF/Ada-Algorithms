@@ -2,6 +2,7 @@ pragma Ada_2022;
 with Ada.Assertions; use Ada.Assertions;
 with Ada.Text_IO; use Ada.Text_IO;
 with Guess_Number_Higher_Or_Lower; use Guess_Number_Higher_Or_Lower;
+with Own_Checks;
 
 procedure Tests is
    R : Result;
@@ -22,4 +23,5 @@ begin
    R := Guess_Number (10, 1);
    Assert (R.Answer = 1 and then R.Probes = 3);
    Put_Line ("PASS Guess_Number_Higher_Or_Lower");
+   Own_Checks;
 end Tests;

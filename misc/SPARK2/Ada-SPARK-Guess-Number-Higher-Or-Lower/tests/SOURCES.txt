@@ -1,0 +1,15 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+five games with their guess sequences worked out in the comments.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). There is no second
+search to compare with; the checks are properties over every game:
+* all 528 games (N in 1 .. 32, Secret in 1 .. N): the answer is Secret;
+  the guess count is between 1 and M (N), the smallest M with
+  2 ** M - 1 >= N (computed by doubling); some secret needs exactly M (N)
+  guesses; at most 2 ** (K - 1) secrets need exactly K guesses;
+* Probe against the integer order for all 32 x 32 pairs.
+* No randomness, so no seed.
