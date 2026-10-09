@@ -99,3 +99,11 @@ misc/SPARK2/Ada-SPARK-Sqrt-Integer,GNAT 14,GNATLS 14.2.0,0,0,PASS Sqrt_Integer,e
 misc/SPARK2/Ada-SPARK-Sqrt-Integer,GNAT 12,GNATLS 12.2.0,0,0,PASS Sqrt_Integer,eefbf6b2
 misc/SPARK2/Ada-SPARK-Sqrt-X,GNAT 14,GNATLS 14.2.0,0,0,PASS Sqrt_X,ed8d235c
 misc/SPARK2/Ada-SPARK-Sqrt-X,GNAT 12,GNATLS 12.2.0,0,0,PASS Sqrt_X,ed8d235c
+misc/SPARK2/Ada-SPARK-Binomial-Coefficient,GNAT 14,GNATLS 14.2.0,0,0,binomial checks passed,758d57fa
+misc/SPARK2/Ada-SPARK-Binomial-Coefficient,GNAT 12,GNATLS 12.2.0,0,0,binomial checks passed,758d57fa
+misc/SPARK2/Ada-SPARK-Combination-Sum,GNAT 14,GNATLS 14.2.0,0,0,PASS Combination_Sum,327c47f3
+misc/SPARK2/Ada-SPARK-Combination-Sum,GNAT 12,GNATLS 12.2.0,0,0,PASS Combination_Sum,327c47f3
+misc/SPARK2/Ada-SPARK-Combination-Sum-II,GNAT 14,GNATLS 14.2.0,0,0,PASS Combination_Sum_II,74e08435
+misc/SPARK2/Ada-SPARK-Combination-Sum-II,GNAT 12,GNATLS 12.2.0,0,0,PASS Combination_Sum_II,74e08435
+misc/SPARK2/Ada-SPARK-Delete-And-Earn,GNAT 14,GNATLS 14.2.0,0,0,PASS Delete_And_Earn,3a492f74
+misc/SPARK2/Ada-SPARK-Delete-And-Earn,GNAT 12,GNATLS 12.2.0,0,0,PASS Delete_And_Earn,3a492f74
