@@ -21,10 +21,10 @@ procedure Tests is
          raise Program_Error with Label & ": capacity" & R.Minimum'Image
            & ", expected" & Want'Image;
       end if;
-      if R.Probes > Max_Probes then
-         raise Program_Error with Label & ":" & R.Probes'Image
-           & " capacities tried, more than ceil (log2 800) =" & Max_Probes'Image;
-      end if;
+      --  R.Probes <= Max_Probes is now the range of Probe_Count (a
+      --  constraint check under -gnata); the old scan's Natural count
+      --  failed it here (14 tries for weights 1 .. 8 in 2 days).
+      pragma Assert (Probe_Count'Last = Max_Probes);
       if R.Probes /= Probes then
          raise Program_Error with Label & ":" & R.Probes'Image
            & " capacities tried, expected exactly" & Probes'Image;

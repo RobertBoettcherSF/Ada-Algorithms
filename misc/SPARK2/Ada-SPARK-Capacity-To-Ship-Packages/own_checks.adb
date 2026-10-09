@@ -61,6 +61,7 @@ begin
       end loop;
       for D in Day_Count loop
          Report (Minimum_Capacity (W, D) = Brute (W, D), "weights trial" & Integer'Image (Trial) & " days" & Integer'Image (D));
+         Report (Minimum_Capacity_Counted (W, D).Probes <= 10, "capacities tried <= ceil (log2 800), trial" & Integer'Image (Trial) & " days" & Integer'Image (D));
       end loop;
    end loop;
    if Failures = 0 then

@@ -12,3 +12,6 @@ standard generator (seed 20261008).
   consecutive days (all 2**7 cut sets), keeping the smallest heaviest day.
 * Inputs: 3,000 random weight lists (every third over 1 .. 5, so ties are
   common, the rest over 1 .. 100), every number of days 1 .. 8.
+* tests.adb, capacities tried: exact counts traced by hand for a halving
+  search on heaviest package .. 800 (Mid = Lo + (Hi - Lo) / 2; fits ->
+  Hi := Mid, else Lo := Mid + 1); never more than ceil (log2 800) = 10.

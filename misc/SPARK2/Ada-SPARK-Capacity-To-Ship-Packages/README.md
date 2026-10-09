@@ -1,6 +1,6 @@
 # Ada-SPARK-Capacity-To-Ship-Packages
 
-Find a minimum bounded shipping capacity with a greedy feasibility check. The implementation uses fixed-size bounded inputs (n <= 32) and is written in SPARK.
+Find the minimum shipping capacity that ships 8 packages (weights 1 .. 100), in order, within a given number of days: a binary search on the answer over heaviest package .. 800, with a greedy feasibility pass per capacity tried (at most 10). Written in SPARK; the Post states the result fits and no smaller capacity does.
 
 ## Checks
 
