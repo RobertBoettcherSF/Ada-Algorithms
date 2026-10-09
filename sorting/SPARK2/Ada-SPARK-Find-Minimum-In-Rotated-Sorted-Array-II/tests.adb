@@ -52,9 +52,10 @@ begin
    Expect ([others => 7], 7, False, "all 7");
    --  Every comparison of two elements is counted: the three-way
    --  comparison of Values (Mid) with Values (Hi) is one, and on equal
-   --  ends the check whether Values falls into Hi is a second. Counts
-   --  worked by hand for all equal (each of the N - 1 shrink steps makes
-   --  both: 14) and for the single 0 at each position.
+   --  ends the check whether Values falls into Hi is a second. All equal:
+   --  each of the N - 1 shrink steps makes both (14, worked by hand).
+   --  Single 0 at P: a step-by-step count of the same rules (done outside
+   --  the repository; P = 1 (13) and P = 4 (3) also checked by hand).
    declare
       type Count_Table is array (0 .. Length) of Natural;
       --  Index 0: all 7; index P: the single 0 at P.

@@ -7,9 +7,10 @@ the two original arrays (4 5 6 7 0 1 2 2; -4 -4 -2 -1 0 1 2 3),
 committed first; fails on the old linear scan), all equal but one
 (1 1 1 0 1 1 1 1 with the 0 at every position; answer only, no log
 bound) and all equal; then exact comparison counts for all equal (14)
-and for the single 0 at each position (13 10 6 3 8 6 4 3), worked by
-hand from the algorithm's steps (a three-way comparison of Mid with Hi
-is one, the equal-ends check of Hi - 1 with Hi a second). That count
+and for the single 0 at each position (13 10 6 3 8 6 4 3), counted
+step by step from the algorithm's rules (a three-way comparison of Mid
+with Hi is one, the equal-ends check of Hi - 1 with Hi a second; done
+outside the repository; all equal, P = 1 and P = 4 checked by hand). That count
 test was committed before the counting fix and fails on the old count
 (all equal: 7).
 
