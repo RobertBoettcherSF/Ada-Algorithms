@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-09 20:43 CEST.
+Generated 2026-10-09 22:41 CEST.
 
 ## Proof setup
 
@@ -21,7 +21,7 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 **Training-ready under rule v1 (held-out n >= 20, >= 90%, proof pass): 84 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. The column `known_answer_source` says where the expected values come from (own / standard / old_derived / old_unverified); hard-coded answers in old tests count only when they were derived independently (`tools/vv/old_derived.csv`), never when they may have been copied from program output (old_unverified). A sort whose proof rests on a final Bubble_Finish pass that masks the named algorithm (`tools/vv/sweep_masking.csv`, column `masked_by_finish`) is not training-ready either; a surviving mutant counts as equivalent only when `tools/vv/sweep_equivalent.csv` lists it with exhaustive evidence or a written reason. Flaky tests (docs/VV.md 3j, `tools/vv/flaky.py` -> `tools/vv/flaky.csv`, column `flaky`): a folder is training-ready only with flaky=no - the same result in 10 repeated runs on the default seed, no failing AA_SEED in 1..30 for tests that use randomness, and no new failure in a build with `pragma Initialize_Scalars` and `-gnatVa`; on a flaky folder no mutation score counts until it is fixed. Under the old rule: 273 folders.
 
-**Rule v1, the strict rule as enforced (2026-10-09, docs/VV.md "Rule v1: strict training-ready rule as enforced"):** `training_ready` = yes only when `tr_drop` is empty; every failing condition adds one reason, for every folder. On top of the conditions above: a blind held-out mutation score k/n >= 90% with n >= 20 non-equivalent mutants (timeouts count as survivors) from every held-out record (tools/vv sweep_heldout_alt.csv, sweep_heldout_B.csv, *_halves.csv, flagship_mutation_phase2-6.csv, vv/results/mutation_halves.csv; a record labelled NOT BLIND or too small fails), no withdrawn functional claim (checker_scan.csv / contract_scan.csv) and no partial one, not a demo, no live fallback. The columns `mutation_heldout_k` / `mutation_heldout_n` show the deciding record. Drop reasons (duplicates counted once): no held-out mutation score 1591; no known answer 1364; not Silver-proven 907; warnings GNAT 12 523; index independence not measured 477; warnings GNAT 14 462; warnings suppressed 454; clamp unreviewed or dead (clamp_scan) 380; Silver trivial 352; stub 148; twin only 101; open finding 57; held-out mutation < 90% 51; do-nothing weak 34; functional claim withdrawn (contract_scan) 31; build fails GNAT 14 26; build fails GNAT 12 26; harness cannot fail (answer-plant pending) 26; index not independent 24; tests fail GNAT 14 21; tests fail GNAT 12 21; held-out too small (n < 20) 17; open handover gap 11; held-out not blind 10; fallback 3; demo 1; held-out run does not meet the strict rule 1; partial functional claim (contract_scan) 1; flaky (mutation does not count) 1; masked by Bubble_Finish 1; functional claim withdrawn (checker_scan) 1.
+**Rule v1, the strict rule as enforced (2026-10-09, docs/VV.md "Rule v1: strict training-ready rule as enforced"):** `training_ready` = yes only when `tr_drop` is empty; every failing condition adds one reason, for every folder. On top of the conditions above: a blind held-out mutation score k/n >= 90% with n >= 20 non-equivalent mutants (timeouts count as survivors) from every held-out record (tools/vv sweep_heldout_alt.csv, sweep_heldout_B.csv, *_halves.csv, flagship_mutation_phase2-6.csv, vv/results/mutation_halves.csv; a record labelled NOT BLIND or too small fails), no withdrawn functional claim (checker_scan.csv / contract_scan.csv) and no partial one, not a demo, no live fallback. The columns `mutation_heldout_k` / `mutation_heldout_n` show the deciding record. Drop reasons (duplicates counted once): no held-out mutation score 1591; no known answer 1364; not Silver-proven 907; warnings GNAT 12 522; index independence not measured 477; warnings GNAT 14 461; warnings suppressed 454; clamp unreviewed or dead (clamp_scan) 380; Silver trivial 349; stub 148; twin only 101; open finding 54; held-out mutation < 90% 51; do-nothing weak 34; functional claim withdrawn (contract_scan) 27; build fails GNAT 14 26; build fails GNAT 12 26; harness cannot fail (answer-plant pending) 26; index not independent 24; tests fail GNAT 14 21; tests fail GNAT 12 21; held-out too small (n < 20) 17; open handover gap 11; held-out not blind 10; fallback 3; demo 1; held-out run does not meet the strict rule 1; partial functional claim (contract_scan) 1; flaky (mutation does not count) 1; masked by Bubble_Finish 1; functional claim withdrawn (checker_scan) 1.
 
 ### Training-ready folders
 
@@ -116,17 +116,17 @@ Held-out k/n = the deciding held-out record (non-equivalent killed / non-equival
 
 **Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 1 of the weak ones are Silver-proven non-trivial. Own tests: 380 folders (column `own_tests`).
 
-**Silver headline (duplicates counted once):** 503 real SPARK folders proven non-trivially, 283 proven but trivial (<= 3 checks), 145 stubs proven (separate), 2 with unproved checks, 11 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 104 proven real folders also prove functional contracts
+**Silver headline (duplicates counted once):** 505 real SPARK folders proven non-trivially, 281 proven but trivial (<= 3 checks), 145 stubs proven (separate), 2 with unproved checks, 11 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 104 proven real folders also prove functional contracts
 
 `stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged, and so is every folder listed in `tools/readme_stubs.txt` (its README calls it a stub); the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most 3 checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.
 
 | Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven (real) | Proven (stub) | Trivial | Unproved | Tool crash | Not built | Not run |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Ada | 908 | 889 | 884 | 884 | 891 | 891 | 693 | 669 | 12 | 0 | 2 | 2 | 2 | 11 | 0 |
-| SPARK2 | 859 | 859 | 859 | 859 | 859 | 859 | 595 | 590 | 706 | 144 | 350 | 0 | 9 | 0 | 0 |
+| SPARK2 | 859 | 859 | 859 | 859 | 859 | 859 | 596 | 591 | 706 | 144 | 347 | 0 | 9 | 0 | 0 |
 | SPARK3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 0 |
 | SPARK4 | 69 | 67 | 67 | 67 | 67 | 67 | 67 | 35 | 66 | 1 | 0 | 0 | 0 | 0 | 0 |
-| All | 1838 | 1817 | 1812 | 1812 | 1819 | 1819 | 1357 | 1296 | 786 | 145 | 352 | 2 | 11 | 11 | 0 |
+| All | 1838 | 1817 | 1812 | 1812 | 1819 | 1819 | 1358 | 1297 | 786 | 145 | 349 | 2 | 11 | 11 | 0 |
 
 ## Flagship folders: what each one really does
 
@@ -738,7 +738,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | concurrency/SPARK2/Ada-SPARK-Lamports-Bakery-Algorithm | yes | yes | yes | yes | yes | 2 | 2 | proven (trivial) | 3 |  |  |  |
 | concurrency/SPARK2/Ada-SPARK-Petersons-Algorithm | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
 | concurrency/SPARK2/Ada-SPARK-Task-Scheduler | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
-| concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub (stub) | yes | yes | yes | yes | yes | 3 | 3 | proven | 5 |  |  |  |
+| concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 79 |  |  |  |
 | concurrency/SPARK2/Course-Schedule | yes | yes | yes | yes | yes | 1 | 1 | proven | 58 |  |  |  |
 | cryptography/Ada/Aes | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |  |
 | cryptography/Ada/Argon2 | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |  |
@@ -1718,7 +1718,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array | yes | yes | yes | yes | yes | 1 | 1 | proven | 10 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Longest-Ones | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Longest-Palindromic-Subsequence | yes | yes | yes | yes | yes | 0 | 0 | proven | 24 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Longest-Repeating-Character-Replacement | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Longest-Repeating-Character-Replacement | yes | yes | yes | yes | yes | 0 | 0 | proven | 195 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Magnetic-Force-Between-Two-Balls | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Majority-Element | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 | yes |  |  |
@@ -1797,7 +1797,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Next-Greater-Node-In-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Next-Permutation-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Nim-Game | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Non-Decreasing-Array | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Non-Decreasing-Array | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 (1) |  |  |  |
 | misc/SPARK2/Ada-SPARK-Nth-Digit | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Nth-Digit-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven | 26 (1) | yes |  |  |
@@ -1999,7 +1999,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Two-City-Scheduling | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 (1) |  |  |  |
 | misc/SPARK2/Ada-SPARK-Two-Pointers-Sum | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Two-Sum | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
-| misc/SPARK2/Ada-SPARK-UTF-8-Validation | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 (1) |  |  |  |
+| misc/SPARK2/Ada-SPARK-UTF-8-Validation | yes | yes | yes | yes | yes | 0 | 0 | proven | 71 (1) |  |  |  |
 | misc/SPARK2/Ada-SPARK-Ugly-Number | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Ugly-Number-II | yes | yes | yes | yes | yes | 0 | 0 | proven | 477 (21) |  |  |  |
 | misc/SPARK2/Ada-SPARK-Uncommon-Words-From-Two-Sentences (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
@@ -2344,7 +2344,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Sort-Integers-By-The-Number-Of-1-Bits | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Sort-List-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST | yes | yes | yes | yes | yes | 9 | 9 | proven | 31 |  |  |  |
-| sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array | yes | yes | yes | yes | yes | 0 | 0 | proven | 31 (withdrawn: Post states sortedness only; trivial body "all zeros" proves (no link to A), see contract_scan.csv) |  |  |  |
+| sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array | yes | yes | yes | yes | yes | 0 | 0 | proven | 102 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Tim-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  | sorting/Ada/Timsort |  |
 | sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven | 39 (withdrawn: Post states sortedness only; trivial body "every element = Input(First)" proves (no permutation), see contract_scan.csv) |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
@@ -2357,8 +2357,8 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Bubble-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 291 (restored) |  | sorting/Ada/Bubble-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Bucket-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 177 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bucket-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Burstsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 449 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Burstsort |  |
-| sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 204 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Cocktail-Shaker-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Comb-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 194 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Comb-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 365 |  | sorting/Ada/Cocktail-Shaker-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Comb-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 281 |  | sorting/Ada/Comb-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Counting-Sort | yes | yes | yes | yes | yes | 0 | 6 | proven | 411 (restored) |  | sorting/Ada/Counting-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Cycle-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 539 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Cycle-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Flashsort | yes | yes | yes | yes | yes | 0 | 6 | proven | 350 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Flashsort |  |
@@ -2368,7 +2368,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Introsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 981 (restored) |  | sorting/Ada/Introsort |  |
 | sorting/SPARK4/Ada-SPARK-Library-Sort | yes | yes | yes | yes | yes | 0 | 17 | proven | 360 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Library-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Merge-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 463 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Merge-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Odd-Even-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 209 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Odd-Even-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Odd-Even-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 392 |  | sorting/Ada/Odd-Even-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Pancake-Sorting | yes | yes | yes | yes | yes | 0 | 0 | proven | 577 (restored) |  | sorting/Ada/Pancake-Sorting |  |
 | sorting/SPARK4/Ada-SPARK-Patience-Sorting | yes | yes | yes | yes | yes | 0 | 9 | proven | 301 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Patience-Sorting |  |
 | sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 254 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Pigeonhole-Sort |  |
@@ -2506,13 +2506,13 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | trees/SPARK2/Ada-SPARK-Range-Sum-BST | yes | yes | yes | yes | yes | 0 | 0 | proven | 11 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Range-Sum-Of-BST | yes | yes | yes | yes | yes | 1 | 1 | proven | 14 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Red-Black-Tree (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 4 |  | trees/Ada/Red-Black-Tree |  |
-| trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
+| trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern | yes | yes | yes | yes | yes | 0 | 0 | proven | 36 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Same-Tree | yes | yes | yes | yes | yes | 0 | 0 | proven | 17 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Subtree-Of-Another-Tree | yes | yes | yes | yes | yes | 0 | 0 | proven | 21 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Symmetric-Tree | yes | yes | yes | yes | yes | 1 | 1 | proven | 18 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Trim-BST-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 11 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Two-Sum-BST-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
-| trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
+| trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 43 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Unique-Paths-With-Obstacles | yes | yes | yes | yes | yes | 0 | 0 | proven | 12 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Univalued-Binary-Tree | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
 | trees/SPARK2/Ada-SPARK-Validate-BST-Stub (stub) | yes | yes | yes | yes | yes | 7 | 7 | proven | 19 |  |  |  |
