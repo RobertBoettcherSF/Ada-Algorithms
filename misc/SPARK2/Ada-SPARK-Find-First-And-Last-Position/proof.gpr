@@ -1,0 +1,4 @@
+project Find_First_And_Last_Position_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("find_first_and_last_position.ads", "find_first_and_last_position.adb");
+end Find_First_And_Last_Position_Proof;
