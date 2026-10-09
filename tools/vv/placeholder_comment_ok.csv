@@ -1,0 +1,3 @@
+folder,file,reason
+misc/Ada/Min-Conflicts,min_conflicts.adb,"'Placeholder fill' is the algorithm's initial complete assignment (every row set to 1 before rows are placed), not missing code"
+misc/Ada/Sinkhorn-Knopp-Algorithm,tests.adb,"test harness comment: a placeholder check whose raise sites are checked inline below; not algorithm code"

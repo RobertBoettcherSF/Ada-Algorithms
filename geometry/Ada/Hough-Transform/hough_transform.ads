@@ -1,3 +1,4 @@
+--  PLACEHOLDER: partial: the generalized Hough transform (R-table voting) is an interface only and raises Not_Implemented; see H171
 -- hough_transform.ads
 -- Specification for the Hough Transform algorithm and its variants.
 package Hough_Transform is

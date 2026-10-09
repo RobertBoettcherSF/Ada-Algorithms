@@ -1,5 +1,7 @@
 # Hough Transform in Ada
 
+PLACEHOLDER: partial: the generalized Hough transform (R-table voting) is an interface only and raises Not_Implemented; see H171
+
 ## Project Overview
 This codebase implements the mathematical **Hough Transform** algorithm in Ada, optimized for high-reliability environments. The Hough Transform is a feature extraction technique used in digital image processing to identify shapes (lines, circles) by mapping edge-detected image coordinates into parameter space. 
 

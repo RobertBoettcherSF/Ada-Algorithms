@@ -1,3 +1,4 @@
+--  PLACEHOLDER: Encode_3D is a placeholder (finds the top bit plane, then appends one marker bit; no 3D sorting / refinement passes); see H169
 with Ada.Containers.Vectors;
 with Ada.Containers.Doubly_Linked_Lists;
 

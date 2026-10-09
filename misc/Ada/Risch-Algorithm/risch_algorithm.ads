@@ -1,3 +1,4 @@
+--  PLACEHOLDER: partial Risch framework: Hermite reduction is one heuristic branch (no polynomial GCD / squarefree decomposition) and Simplify only folds two cases; see H168
 -- risch_algorithm.ads
 -- Specification for the Risch Algorithm Framework in Ada
 -- Implements symbolic representation and differential algebraic structures.

@@ -6,7 +6,9 @@ misplaced_algorithm or H102-H109, a 'hidden stub' verdict in tools/vv/hidden_stu
 PROOFS.csv) must have a row in tools/vv/placeholders.csv. For an open row the README (first 5 lines) and
 every spec (.ads, or the main .adb when there is none; first 5 lines) carry the line
     PLACEHOLDER: <what>; see <ref>
-(as an Ada comment `--  PLACEHOLDER: ...` in the spec). A closed row, or a folder without a row, must not
+(as an Ada comment `--  PLACEHOLDER: ...` in the spec). Any other placeholder comment in code
+(`-- placeholder` anywhere in a .ads / .adb line, any case, also indented) needs the folder to be an open
+row, or the file to be listed with a reason in tools/vv/placeholder_comment_ok.csv. A closed row, or a folder without a row, must not
 carry the line anywhere in README / .ads / .adb, and a row may only be closed when its handover row
 (if any) is closed. Removing the line is part of the commit that fixes the folder.
   python3 tools/vv/check_placeholders.py [--root REPO]     (exit 0 = consistent)
@@ -17,6 +19,7 @@ ap.add_argument('--root', default=os.path.dirname(os.path.dirname(os.path.dirnam
 a = ap.parse_args()
 R = a.root
 PREFIX = 'PLACEHOLDER: '
+CODE_MARK = re.compile(r'--\s*placeholder\b', re.I)   # a placeholder comment anywhere in code
 MARK = re.compile(r'^(--  )?' + PREFIX, re.M)   # the warning line itself (start of line)
 TESTISH = re.compile(r'^(tests?|own_checks?|test_\w+|tests_\w+|main|demo\w*)\.ad[sb]$', re.I)
 
@@ -56,6 +59,7 @@ for p in rows('PROOFS.csv'):
     if p.get('stub') == 'yes':
         flag.setdefault(p['folder'], []).append('PROOFS stub')
 
+comment_ok = {(r['folder'], r['file']) for r in rows('tools/vv/placeholder_comment_ok.csv')}
 listed = {r['folder']: r for r in rows('tools/vv/placeholders.csv')}
 bad = []
 for f, why in sorted(flag.items()):
@@ -89,6 +93,13 @@ for dirpath, dirs, files in os.walk(R):
                 txt = open(os.path.join(dirpath, fn), errors='replace').read()
             except OSError:
                 continue
+            r = listed.get(rel)
+            if fn.endswith(('.ads', '.adb')) and (r is None or r['status'] != 'open') \
+                    and (rel, fn) not in comment_ok:
+                for k, l in enumerate(txt.split('\n'), 1):
+                    if CODE_MARK.search(l) and not MARK.search(l):
+                        bad.append(f'{rel}/{fn}:{k}: placeholder comment in code, but the folder is not an open row in '
+                                   f'tools/vv/placeholders.csv (nor listed in tools/vv/placeholder_comment_ok.csv)')
             if MARK.search(txt):
                 r = listed.get(rel)
                 if r is None or r['status'] != 'open':

@@ -1,5 +1,7 @@
 # SPIHT Image Compression Algorithm in Ada
 
+PLACEHOLDER: Encode_3D is a placeholder (finds the top bit plane, then appends one marker bit; no 3D sorting / refinement passes); see H169
+
 ## Project Overview
 This project implements the **Set Partitioning in Hierarchical Trees (SPIHT)** algorithm in Ada. Originally developed for encoding wavelet coefficients in image compression, SPIHT organizes wavelet trees into lists to efficiently output the most significant bits of the image first. This implementation covers the core coding loop using List of Insignificant Pixels (LIP), List of Significant Pixels (LSP), and List of Insignificant Sets (LIS).
 

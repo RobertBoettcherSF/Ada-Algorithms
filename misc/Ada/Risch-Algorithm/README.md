@@ -1,5 +1,7 @@
 # Risch Algorithm Integration Framework (Ada)
 
+PLACEHOLDER: partial Risch framework: Hermite reduction is one heuristic branch (no polynomial GCD / squarefree decomposition) and Simplify only folds two cases; see H168
+
 ## Project Overview
 This project implements the structural algorithms of the **Risch Algorithm** (a method of indefinite integration) in Ada. The Risch algorithm transforms the problem of integration into a problem in differential algebra. Due to the massive scope of Differential Galois Theory required for full algebraic integration, this project successfully implements the fundamental mathematical structure: building Abstract Syntax Trees for symbolic calculus, identifying integration branches, and explicitly proving non-elementary integrals (like the Gaussian integral).
 

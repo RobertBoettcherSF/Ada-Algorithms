@@ -113,7 +113,8 @@ PATH_SCOPE = []   # whole repo (git ls-files): tracked files must not name absol
 def placeholder_case(kind):
     """A throw-away repo with one flagged folder X (open handover placeholder row H901).
     good: open row + lines; missing: open row, README lacks the line; stale: row closed (handover closed)
-    but the line is still there; unlisted: flagged folder without a placeholders.csv row."""
+    but the line is still there; unlisted: flagged folder without a placeholders.csv row; code: good plus
+    an indented placeholder comment in an unlisted folder Y; code_ok: the same with Y's file allowlisted."""
     root = tempfile.mkdtemp(prefix='tph_')
     hstat = 'closed abc1234' if kind == 'stale' else 'open'
     wcsv(os.path.join(root, 'tools/vv/handover.csv'), ['id', 'category', 'folder', 'problem', 'status'],
@@ -126,11 +127,16 @@ def placeholder_case(kind):
              [['misc/SPARK2/X', 'H901', 'table of answers', 'closed abc1234' if kind == 'stale' else 'open']])
     w(os.path.join(root, 'misc/SPARK2/X/README.md'), '# X\n' if kind == 'missing' else f'# X\n\n{line}\n')
     w(os.path.join(root, 'misc/SPARK2/X/x.ads'), f'--  {line}\npackage X is\nend X;\n')
+    if kind in ('code', 'code_ok'):   # an indented placeholder comment in another folder
+        w(os.path.join(root, 'misc/Ada/Y/y.adb'), 'procedure Y is\nbegin\n   null; -- PLACEHOLDER: not done\nend Y;\n')
+        if kind == 'code_ok':
+            wcsv(os.path.join(root, 'tools/vv/placeholder_comment_ok.csv'), ['folder', 'file', 'reason'],
+                 [['misc/Ada/Y', 'y.adb', 'benign wording']])
     r = subprocess.run([sys.executable, os.path.join(REPO, 'tools/vv/check_placeholders.py'), '--root', root],
                        capture_output=True, text=True)
     shutil.rmtree(root, ignore_errors=True)
     return r.returncode
-PH_CASES = [('good', 0), ('missing', 1), ('stale', 1), ('unlisted', 1)]
+PH_CASES = [('good', 0), ('missing', 1), ('stale', 1), ('unlisted', 1), ('code', 1), ('code_ok', 0)]
 
 def main():
     root = tempfile.mkdtemp(prefix='tpi_')

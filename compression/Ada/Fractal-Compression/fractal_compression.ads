@@ -1,3 +1,4 @@
+--  PLACEHOLDER: partial: only the square and quadtree partitions are implemented; Rectangular / Hexagonal / Triangular raise Unsupported_Variant; see H170
 -- fractal_compression.ads
 -- Specification for Fractal Compression algorithm and its variants.
 with Ada.Containers.Vectors;

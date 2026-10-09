@@ -1,16 +1,19 @@
 folder,ref,what,status
+compression/Ada/Fractal-Compression,H170,partial: only the square and quadtree partitions are implemented; Rectangular / Hexagonal / Triangular raise Unsupported_Variant,open
 concurrency/SPARK2/Ada-SPARK-Course-Schedule-II,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Course-Schedule-II implementation",open
 concurrency/SPARK2/Ada-SPARK-Course-Schedule-II-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Course-Schedule-II implementation",open
 concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub,PROOFS.csv stub,,"closed 162d05c1 (stable shortest-job-first, proved)"
 cryptography/SPARK2/Ada-SPARK-Level-Order-Traversal-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Level-Order-Traversal implementation",open
 cryptography/SPARK2/Ada-SPARK-MD5,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full MD5 implementation",open
 cryptography/SPARK2/Ada-SPARK-SHA-1,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full SHA-1 implementation",open
+geometry/Ada/Hough-Transform,H171,partial: the generalized Hough transform (R-table voting) is an interface only and raises Not_Implemented,open
 graphs/SPARK2/Ada-SPARK-Clone-Graph-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Clone-Graph implementation",open
 graphs/SPARK2/Ada-SPARK-Kruskal-MST-Lite,tools/vv/hidden_stub.csv,"sums every edge cost; no edge selection or union-find, so no spanning tree",open
 graphs/SPARK2/Ada-SPARK-Shortest-Path-In-Binary-Matrix,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Shortest-Path-In-Binary-Matrix implementation",open
 hashing/SPARK2/Ada-SPARK-Design-HashMap-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Design-HashMap implementation",open
 hashing/SPARK2/Ada-SPARK-Design-HashSet-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Design-HashSet implementation",open
 misc/Ada/Luleas-Algorithm,H165,"Lookup is a linear longest-prefix-match scan over the route list, not a Lulea compressed trie",open
+misc/Ada/Risch-Algorithm,H168,partial Risch framework: Hermite reduction is one heuristic branch (no polynomial GCD / squarefree decomposition) and Simplify only folds two cases,open
 misc/Ada/Scale-Invariant-Feature-Transform,H166,"every SIFT stage is a placeholder (scale space only checks sizes, no extrema, zero descriptors)",open
 misc/SPARK2/Ada-SPARK-Accounts-Merge-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Accounts-Merge implementation",open
 misc/SPARK2/Ada-SPARK-Alert-Using-Same-Key-Card-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Alert-Using-Same-Key-Card implementation",open
@@ -144,6 +147,7 @@ strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings,tools/readme_stu
 strings/SPARK2/Ada-SPARK-Decode-String-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Decode-String implementation",open
 strings/SPARK2/Ada-SPARK-Reorganize-String-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Reorganize-String implementation",open
 strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full String-To-Integer-Atoi implementation",open
+trees/Ada/Set-Partitioning-In-Hierarchical-Trees,H169,"Encode_3D is a placeholder (finds the top bit plane, then appends one marker bit; no 3D sorting / refinement passes)",open
 trees/SPARK2/Ada-SPARK-BST-Iterator-Stub,H117,"answers come from a case table, not a BST iterator",closed (agent-CF: real BST iterator)
 trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View,tools/vv/hidden_stub.csv,"returns fixed positions 1, 3, 7, 15 of a complete tree; no traversal",open
 trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Delete-Node-BST implementation",open

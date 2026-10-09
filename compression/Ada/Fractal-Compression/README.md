@@ -1,5 +1,7 @@
 # Fractal Compression (Ada Implementation)
 
+PLACEHOLDER: partial: only the square and quadtree partitions are implemented; Rectangular / Hexagonal / Triangular raise Unsupported_Variant; see H170
+
 ## Project Overview
 This repository provides a strongly-typed Ada implementation of the **Fractal Compression** algorithm (based on Iterated Function Systems). The algorithm encodes images by finding self-similarities between larger "domain blocks" and smaller "range blocks", storing mathematical transformations (affine transforms, rotations, and color adjustments) rather than raw pixels. This allows for resolution-independent decompression.
 
