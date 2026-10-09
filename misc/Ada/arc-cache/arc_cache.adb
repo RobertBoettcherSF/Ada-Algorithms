@@ -55,7 +55,6 @@ package body ARC_Cache is
 
    procedure Put_Internal (C : in out Cache; Key : Key_Type; Value : Value_Type; Lock_It : Boolean) is
       use Key_Lists;
-      use Ada.Containers;
       Ent   : Cache_Entry;
       C_Cap : constant Count_Type := C.Capacity;
    begin
