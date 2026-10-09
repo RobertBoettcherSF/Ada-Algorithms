@@ -34,7 +34,7 @@ package body Balanced_Binary_Tree is
 
    --  Post-order walk: H = height of the tree at N (N at depth D), Ok = it is balanced.
    procedure Walk (T : Tree; N : Node_Index; D : Positive; H : out Natural; Ok : out Boolean)
-     with Pre => D <= 31,
+     with Pre => D <= 31 and then No_Shared_Child (T.Lefts, T.Rights),
           Post => Ok = Spec_Balanced (T, N, D) and then (if Ok then H = Spec_Height (T, N, D)),
           Subprogram_Variant => (Decreases => 32 - D)
    is

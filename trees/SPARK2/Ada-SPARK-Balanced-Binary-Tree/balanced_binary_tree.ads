@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 
 package Balanced_Binary_Tree is
@@ -6,11 +7,21 @@ package Balanced_Binary_Tree is
    subtype Value is Integer range -1000 .. 1000;
    subtype Sum is Integer range -31000 .. 31000;
 
+   --  A Tree can only hold a forest: every node has at most one link into it (no node is the child of
+   --  two nodes, or the left and right child of one node). Set_Node refuses a link that would break
+   --  this, so a shared child cannot be built (type invariant in the private part). A cycle can still
+   --  be linked; Is_Balanced rejects it by depth.
    type Tree is private;
 
    function Empty return Tree;
+
+   --  Node may get these children: Left and Right differ (unless 0) and no other node links to them.
+   --  Node's own old links do not count, so a node can be set again.
+   function Can_Link (T : Tree; Node : Node_Index; Left, Right : Index) return Boolean;
+
    procedure Set_Node
-     (T : in out Tree; Node : Node_Index; V : Value; Left, Right : Index);
+     (T : in out Tree; Node : Node_Index; V : Value; Left, Right : Index)
+     with Pre => Can_Link (T, Node, Left, Right);
    function Node_Value (T : Tree; Node : Node_Index) return Value;
    function Left_Child (T : Tree; Node : Node_Index) return Index;
    function Right_Child (T : Tree; Node : Node_Index) return Index;
@@ -31,12 +42,32 @@ private
    type Child_Array is array (Index) of Index;
    type Value_Array is array (Index) of Value;
    type Used_Array is array (Index) of Boolean;
+   --  No node has two links into it: for every node P, its left and right children differ (unless 0),
+   --  and no other node Q has P's left or right child as a child.
+   function No_Shared_Child (L, R : Child_Array) return Boolean is
+     (for all P in Node_Index =>
+        (L (P) = 0 or else L (P) /= R (P))
+        and then
+        (for all Q in Node_Index =>
+           (if Q /= P then
+              (L (P) = 0 or else (L (P) /= L (Q) and then L (P) /= R (Q)))
+              and then (R (P) = 0 or else (R (P) /= L (Q) and then R (P) /= R (Q))))));
+
    type Tree is record
-      Values : Value_Array;
-      Lefts  : Child_Array;
-      Rights : Child_Array;
-      Used   : Used_Array;
-   end record;
+      Values : Value_Array := [others => 0];
+      Lefts  : Child_Array := [others => 0];
+      Rights : Child_Array := [others => 0];
+      Used   : Used_Array  := [others => False];
+   end record
+     with Type_Invariant => No_Shared_Child (Tree.Lefts, Tree.Rights);
+
+   function Can_Link (T : Tree; Node : Node_Index; Left, Right : Index) return Boolean is
+     ((Left = 0 or else Left /= Right)
+      and then
+      (for all Q in Node_Index =>
+         (if Q /= Node then
+            (Left = 0 or else (T.Lefts (Q) /= Left and then T.Rights (Q) /= Left))
+            and then (Right = 0 or else (T.Lefts (Q) /= Right and then T.Rights (Q) /= Right)))));
 
    function Used (T : Tree; Node : Node_Index) return Boolean is (T.Used (Node));
    function Spec_Height (T : Tree; N : Index; D : Positive) return Natural is
