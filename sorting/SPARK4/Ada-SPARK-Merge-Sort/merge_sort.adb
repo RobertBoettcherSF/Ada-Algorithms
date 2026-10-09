@@ -21,29 +21,33 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Every adjacent pair inside the same Width-aligned run is ordered.
-   --  Vacuous for Width = 1. When Width >= A'Last, equivalent to Is_Sorted.
+   --  Runs are aligned at A'First: K lies in run (K - A'First) / Width.
+   --  Vacuous for Width = 1. When Width >= A'Length, equivalent to
+   --  Is_Sorted.
    function Sorted_Runs
      (A : Element_Array; Width : Positive) return Boolean
    is
-     (for all K in 1 .. A'Last - 1 =>
-        (if (K - 1) / Width = K / Width then A (K) <= A (K + 1)))
+     (for all K in A'First .. A'Last - 1 =>
+        (if (K - A'First) / Width = (K - A'First + 1) / Width
+         then A (K) <= A (K + 1)))
    with
      Ghost  => True,
      Global => null,
      Pre    => In_Bounds (A) and then Width <= Max_N;
 
-   --  Sorted_Runs restricted to indices overlapping 1 .. Bound (Bound may
-   --  be 0 meaning nothing). Used as the "processed prefix" ghost state.
+   --  Sorted_Runs restricted to indices overlapping A'First .. Bound
+   --  (Bound may be A'First - 1 meaning nothing). Used as the "processed
+   --  prefix" ghost state.
    function Sorted_Runs_Prefix
      (A : Element_Array; Width : Positive; Bound : Natural) return Boolean
    is
-     (for all K in 1 .. A'Last - 1 =>
+     (for all K in A'First .. A'Last - 1 =>
         (if K < Bound
-           and then (K - 1) / Width = K / Width
+           and then (K - A'First) / Width = (K - A'First + 1) / Width
          then A (K) <= A (K + 1)))
    with
      Ghost  => True,
@@ -51,15 +55,16 @@ is
      Pre    =>
        In_Bounds (A)
        and then Width <= Max_N
+       and then Bound >= A'First - 1
        and then Bound <= A'Last;
 
    --  Sorted_Runs restricted to indices >= Lo (unprocessed suffix).
    function Sorted_Runs_Suffix
      (A : Element_Array; Width : Positive; Lo : Natural) return Boolean
    is
-     (for all K in 1 .. A'Last - 1 =>
+     (for all K in A'First .. A'Last - 1 =>
         (if K >= Lo
-           and then (K - 1) / Width = K / Width
+           and then (K - A'First) / Width = (K - A'First + 1) / Width
          then A (K) <= A (K + 1)))
    with
      Ghost  => True,
@@ -67,7 +72,7 @@ is
      Pre    =>
        In_Bounds (A)
        and then Width <= Max_N
-       and then Lo >= 1
+       and then Lo >= A'First
        and then Lo <= A'Last + 1;
 
    procedure Lemma_Slice_To_Prefix
@@ -78,9 +83,9 @@ is
        Pre               =>
          In_Bounds (A)
          and then Width <= Max_N
-         and then Lo in 1 .. A'Last
+         and then Lo in A'Range
          and then Hi in Lo .. A'Last
-         and then (Lo - 1) rem Width = 0
+         and then (Lo - A'First) rem Width = 0
          and then Hi = Natural'Min (Lo + Width - 1, A'Last)
          and then Sorted_Slice (A, Lo, Hi)
          and then Sorted_Runs_Prefix (A, Width, Lo - 1),
@@ -98,8 +103,8 @@ is
        Pre               =>
          In_Bounds (A)
          and then Width <= Max_N
-         and then Lo in 1 .. A'Last
-         and then (Lo - 1) rem Width = 0
+         and then Lo in A'Range
+         and then (Lo - A'First) rem Width = 0
          and then Sorted_Runs_Suffix (A, Width, Lo),
        Post              =>
          Sorted_Slice (A, Lo, Natural'Min (Lo + Width - 1, A'Last))
@@ -108,7 +113,7 @@ is
    begin
       pragma Assert
         (for all K in Lo .. Hi - 1 =>
-           (K - 1) / Width = K / Width);
+           (K - A'First) / Width = (K - A'First + 1) / Width);
       pragma Assert (Sorted_Slice (A, Lo, Hi));
    end Lemma_Runs_To_Slice;
 
@@ -122,10 +127,10 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Last >= 2
+         and then A'Length >= 2
          and then Temp'First = 1
          and then Temp'Last = Max_N
-         and then Lo in 1 .. A'Last
+         and then Lo in A'Range
          and then Hi in Lo + 1 .. A'Last
          and then Mid in Lo .. Hi - 1
          and then Sorted_Slice (A, Lo, Mid)
@@ -134,7 +139,7 @@ is
          In_Bounds (A)
          and then Sorted_Slice (A, Lo, Hi)
          and then
-           (for all K in 1 .. Lo - 1 => A (K) = A'Old (K))
+           (for all K in A'First .. Lo - 1 => A (K) = A'Old (K))
          and then
            (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K))
    is
@@ -153,7 +158,7 @@ is
          pragma Loop_Invariant
            (for all T in Mid + 1 .. Hi => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant
-           (for all T in 1 .. Lo - 1 => A (T) = A'Loop_Entry (T));
+           (for all T in A'First .. Lo - 1 => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant
            (for all T in Hi + 1 .. A'Last => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant
@@ -189,7 +194,7 @@ is
          pragma Loop_Invariant
            (for all T in Mid + 1 .. Hi => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant
-           (for all T in 1 .. Lo - 1 => A (T) = A'Loop_Entry (T));
+           (for all T in A'First .. Lo - 1 => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant
            (for all T in Hi + 1 .. A'Last => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant (K > Lo);
@@ -215,7 +220,7 @@ is
          pragma Loop_Invariant
            (for all T in Mid + 1 .. Hi => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant
-           (for all T in 1 .. Lo - 1 => A (T) = A'Loop_Entry (T));
+           (for all T in A'First .. Lo - 1 => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant
            (for all T in Hi + 1 .. A'Last => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant (K > Lo);
@@ -239,7 +244,7 @@ is
          pragma Loop_Invariant
            (for all T in X .. Hi => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant
-           (for all T in 1 .. Lo - 1 => A (T) = A'Loop_Entry (T));
+           (for all T in A'First .. Lo - 1 => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant
            (for all T in Hi + 1 .. A'Last => A (T) = A'Loop_Entry (T));
          pragma Loop_Invariant (Sorted_Slice (Temp, Lo, Hi));
@@ -264,10 +269,10 @@ is
        Pre               =>
          In_Bounds (A)
          and then Width <= Max_N / 2
-         and then Lo in 1 .. A'Last
+         and then Lo in A'Range
          and then A'Last < Lo + Width
-         and then (Lo - 1) rem Width = 0
-         and then (Lo - 1) rem (2 * Width) = 0
+         and then (Lo - A'First) rem Width = 0
+         and then (Lo - A'First) rem (2 * Width) = 0
          and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)
          and then Sorted_Runs_Suffix (A, Width, Lo),
        Post              => Sorted_Runs (A, 2 * Width)
@@ -285,17 +290,19 @@ is
       pragma Assert (Natural'Min (Lo + Width - 1, N) = N);
       pragma Assert (Sorted_Slice (A, Lo, N));
 
-      pragma Assert ((Lo - 1) rem Twice = 0);
+      pragma Assert ((Lo - A'First) rem Twice = 0);
       pragma Assert
-        (for all K in 1 .. Lo - 2 =>
-           (if (K - 1) / Twice = K / Twice then A (K) <= A (K + 1)));
+        (for all K in A'First .. Lo - 2 =>
+           (if (K - A'First) / Twice = (K - A'First + 1) / Twice
+            then A (K) <= A (K + 1)));
       pragma Assert
         (for all K in Lo .. N - 1 => A (K) <= A (K + 1));
 
       pragma Assert
-        (for all K in 1 .. N - 1 =>
+        (for all K in A'First .. N - 1 =>
            (if K + 1 < Lo then
-              (if (K - 1) / Twice = K / Twice then A (K) <= A (K + 1))
+              (if (K - A'First) / Twice = (K - A'First + 1) / Twice
+               then A (K) <= A (K + 1))
             elsif K + 1 = Lo then
               True
             else
@@ -304,7 +311,7 @@ is
    end Lemma_Short_Tail;
 
    --  Merge adjacent Width-runs starting at Lo; recurse for the rest.
-   --  Prefixed 1 .. Lo-1 is already Sorted_Runs at Twice (= 2*Width).
+   --  Prefix A'First .. Lo-1 is already Sorted_Runs at Twice (= 2*Width).
    procedure Merge_From
      (A     : in out Element_Array;
       Temp  : in out Element_Array;
@@ -315,14 +322,14 @@ is
        Subprogram_Variant => (Decreases => A'Last + 1 - Lo),
        Pre                =>
          In_Bounds (A)
-         and then A'Last >= 2
+         and then A'Length >= 2
          and then Temp'First = 1
          and then Temp'Last = Max_N
-         and then Width <= A'Last - 1
+         and then Width <= A'Length - 1
          and then Width <= Max_N / 2
-         and then Lo in 1 .. A'Last + 1
-         and then (Lo = A'Last + 1 or else (Lo - 1) rem Width = 0)
-         and then (Lo = A'Last + 1 or else (Lo - 1) rem (2 * Width) = 0)
+         and then Lo in A'First .. A'Last + 1
+         and then (Lo = A'Last + 1 or else (Lo - A'First) rem Width = 0)
+         and then (Lo = A'Last + 1 or else (Lo - A'First) rem (2 * Width) = 0)
          and then Sorted_Runs_Prefix (A, 2 * Width, Lo - 1)
          and then
            (if Lo <= A'Last then Sorted_Runs_Suffix (A, Width, Lo)),
@@ -352,7 +359,7 @@ is
          pragma Assert (Sorted_Slice (A, Lo, Mid));
 
          --  Right run Mid+1 .. Hi is Width-aligned when Mid+1 <= N.
-         pragma Assert ((Mid) rem Width = 0);
+         pragma Assert ((Mid + 1 - A'First) rem Width = 0);
          pragma Assert (Sorted_Runs_Suffix (A, Width, Mid + 1));
          Lemma_Runs_To_Slice (A, Width, Mid + 1);
          pragma Assert
@@ -388,10 +395,10 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Last >= 2
+         and then A'Length >= 2
          and then Temp'First = 1
          and then Temp'Last = Max_N
-         and then Width <= A'Last - 1
+         and then Width <= A'Length - 1
          and then Sorted_Runs (A, Width),
        Post   =>
          In_Bounds (A)
@@ -405,35 +412,35 @@ is
    begin
       if Width > Max_N / 2 then
          --  Single merge covers the whole array.
-         Mid := Width;  -- Mid = 1 + Width - 1
+         Mid := A'First + Width - 1;
          pragma Assert (Sorted_Runs (A, Width));
-         Lemma_Runs_To_Slice (A, Width, 1);
-         pragma Assert (Sorted_Slice (A, 1, Width));
-         pragma Assert (Sorted_Runs_Suffix (A, Width, Width + 1));
-         Lemma_Runs_To_Slice (A, Width, Width + 1);
-         pragma Assert (Sorted_Slice (A, Width + 1, N));
-         Merge (A, Temp, 1, Mid, N);
-         pragma Assert (Sorted_Slice (A, 1, N));
+         Lemma_Runs_To_Slice (A, Width, A'First);
+         pragma Assert (Sorted_Slice (A, A'First, Mid));
+         pragma Assert (Sorted_Runs_Suffix (A, Width, Mid + 1));
+         Lemma_Runs_To_Slice (A, Width, Mid + 1);
+         pragma Assert (Sorted_Slice (A, Mid + 1, N));
+         Merge (A, Temp, A'First, Mid, N);
+         pragma Assert (Sorted_Slice (A, A'First, N));
          pragma Assert (Is_Sorted (A));
          return;
       end if;
 
-      pragma Assert (Sorted_Runs_Prefix (A, 2 * Width, 0));
-      pragma Assert (Sorted_Runs_Suffix (A, Width, 1));
-      Merge_From (A, Temp, Width, 1);
+      pragma Assert (Sorted_Runs_Prefix (A, 2 * Width, A'First - 1));
+      pragma Assert (Sorted_Runs_Suffix (A, Width, A'First));
+      Merge_From (A, Temp, Width, A'First);
       pragma Assert (Sorted_Runs (A, 2 * Width));
    end Merge_Pass;
 
    procedure Sort (A : in out Element_Array) is
       Temp  : Element_Array (1 .. Max_N) := [others => 0];
       Width : Positive;
-      N     : Index;
+      N     : Index;   --  length (runs are counted from A'First)
    begin
       if A'Length <= 1 then
          return;
       end if;
 
-      N := A'Last;
+      N := A'Length;
       pragma Assert (N >= 2);
       pragma Assert (Sorted_Runs (A, 1));
 

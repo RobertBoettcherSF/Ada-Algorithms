@@ -7,7 +7,7 @@ $$
 \Theta(n \log n),\quad \text{extra space } \Theta(n),\quad n \le \mathrm{Max\_N} = 64
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Merge-Sort](https://github.com/RobertBoettcherSF/Ada-Merge-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses top-down recursion, a larger `Max_N`, exceptions (`Invalid_Argument`), and arbitrary `A'First`; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, a static `Temp (1 .. Max_N)`, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape: [Ada-SPARK-Bubble-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bubble-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Merge-Sort](https://github.com/RobertBoettcherSF/Ada-Merge-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses top-down recursion, a larger `Max_N`, exceptions (`Invalid_Argument`); this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, a static `Temp (1 .. Max_N)`, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape: [Ada-SPARK-Bubble-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bubble-Sort).
 
 ## Features
 * **`Sort (A)`**: Classic stable ascending bottom-up merge sort via a fixed temp buffer.
@@ -19,8 +19,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Merge-Sort](https:/
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
-* **Iterative bottom-up** instead of top-down recursion (sibling): fixed `Temp (1 .. Max_N)`, `Merge_Pass` / recursive `Merge_From` over Width-aligned pairs, and ghost `Sorted_Runs` lemmas so Level 4 discharges sortedness without deep recursive split contracts.
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
+* **Iterative bottom-up** instead of top-down recursion (sibling): fixed `Temp (1 .. Max_N)`, `Merge_Pass` / recursive `Merge_From` over Width-aligned pairs (runs aligned at `A'First`; `Temp` covers every possible `A'Range`), and ghost `Sorted_Runs` lemmas so Level 4 discharges sortedness without deep recursive split contracts.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
 
 ## Usage
@@ -29,7 +29,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Merge-Sort](https:/
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 208 assertions pass. Running `make prove` reports `Success: all checks proved (433 checks).`
+When you run `make test`, you will see all 230 assertions pass. Running `make prove` reports `Success: all checks proved (463 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia-style example, signed domain, power-of-two and odd lengths.
@@ -50,5 +50,5 @@ When you run `make test`, you will see all 208 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Stable `Merge` uses `pragma Loop_Invariant` / `Loop_Variant`; bottom-up `Merge_From` / `Merge_Pass` plus ghost `Sorted_Runs` / `Lemma_Short_Tail` discharge Width doubling at Level 4.
-* **GNATprove Level 4:** `Success: all checks proved (433 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (463 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
