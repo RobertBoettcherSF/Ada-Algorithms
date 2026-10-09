@@ -1,0 +1,36 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: the old table (X in -2 .. 2, N in 0 .. 5) worked by hand;
+bases 0, 1, -1 with N = 0, 7, Natural'Last (odd) and Natural'Last - 1;
+values at the top of Integer worked by hand: 2 ** 30 = 1_073_741_824
+fits and 2 ** 31 does not; (-2) ** 31 = Integer'First fits and
+(-2) ** 32 does not; 46_340 ** 2 = 2_147_395_600 fits and
+46_341 ** 2 = 2_147_488_281 does not; 1_290 ** 3 = 2_146_689_000 fits
+and 1_291 ** 3 = 2_151_685_171 does not; 3 ** 19 = 1_162_261_467 fits
+and 3 ** 20 does not; 7 ** 11 = 1_977_326_743 fits and 7 ** 12 does not;
+Integer'First and Integer'Last with N = 0, 1, 2 and Natural'Last.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (870796349), printed; AA_SEED=<n> overrides it). Two
+own references, neither using repeated squaring: naive multiplication
+in Long_Long_Integer that stops as soon as the product leaves Integer,
+and naive multiplication in Big_Integer. The library's
+Big_Integers."**" is NOT used as a reference: with GNAT 14.2 and 12.2
+it returns (-2) ** 2 = -4 and (-296) ** 1 = 296.
+* every X in -300 .. 300 with N in 0 .. 40;
+* 20,000 seeded random X over all of Integer with N in 0 .. 40, and X
+  near Integer'Last and Integer'First with N in 0 .. 2;
+* for every N in 2 .. 31, the largest R with R ** N <= Integer'Last and
+  the largest S with (-S) ** N >= Integer'First (own binary search),
+  checked at R - 1, R, R + 1 and -S + 1, -S, -S - 1;
+* bases -1, 0, 1 with random N <= 5_000 against both references, and
+  with N within 1_000 of Natural'Last against the naive power at
+  1_000 + N mod 1_000 (the same parity, both positive);
+* abs X >= 2 with random N in 32 .. Natural'Last must give Ok = False
+  and Result = 0, and with N in 32 .. 40 against both references.

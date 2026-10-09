@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO;
 with Pow_X_N; use Pow_X_N;
+with Own_Checks;
 
 procedure Tests is
    procedure Gives (X : Integer; N : Natural; Want : Integer) is
@@ -81,5 +82,6 @@ begin
    Overflows (Integer'Last, 2);
    Overflows (Integer'Last, Natural'Last);
 
+   Own_Checks;
    Ada.Text_IO.Put_Line ("pow_x_n tests passed");
 end Tests;
