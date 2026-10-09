@@ -22,7 +22,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Tree-Sort](https://
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * **Write-back:** successive **minimum extraction** from the live node pool (same multiset / order as BST in-order). Full recursive in-order BST invariants fight automated Level 4; this lighter helper keeps the insert educational and still proves `Is_Sorted`.
 * Ghost `Live_Count` / `All_Live_GE` / `Struct_OK` so Level 4 can prove sortedness without `Intentional` annotations.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): `Occ (A, V, Last)` counts V in `A (A'First .. Last)` and `Is_Perm` compares the counts of every value of either array. The proof counts per value through the node pool (ghost Pool_Occ, with lemmas linking the pool's live nodes to the input and to each extracted minimum; no Assume / Annotate). Loop invariants and the Posts of body-local subprograms are proved and not re-evaluated at run time (`Assertion_Policy` Ignore in the body: the count facts range over every value); the Post of `Sort`, including `Is_Perm`, is still checked by the tests. Before 2026-10-09 the Post said only `Is_Sorted`, which an all-zeros body also proves (tools/vv/contract_scan.csv).
+* Tests check `Is_Perm` against an independent sorted-copy comparison on every pair of arrays of length 0 .. 4 over -1 .. 1 (14,762 pairs, origins 1 and 7).
 
 ## Algorithm
 1. If $n \le 1$, return — already sorted.
@@ -38,7 +39,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 250 assertions pass. Running `make prove` reports `Success: all checks proved (306 checks).`
+When you run `make test`, you will see all 253 assertions pass. Running `make prove` reports `Success: all checks proved (413 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, worked BST example, signed domain, degenerate spines up to `Max_N`.
@@ -59,5 +60,5 @@ When you run `make test`, you will see all 250 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Ghost `Live_Count` / `All_Live_GE` / `Struct_OK` and extract-min loop invariants support the sortedness argument.
-* **GNATprove Level 4:** `Success: all checks proved (306 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (413 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
