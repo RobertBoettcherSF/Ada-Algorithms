@@ -16,10 +16,12 @@ Range: `N in 0 .. 45`. The limit comes from overflow: Ways (45) =
 intermediate value is at most the result. (The old version was a case
 table for N <= 10.)
 
-Proof (`make prove`, level 2, cvc5, 318 checks): the specification is the
-ghost function `Ways`, read from a ghost table the body builds once by the
-recurrence; its postcondition gives the recurrence, Ways (0) = Ways (1) = 1,
-the two limit values and monotonicity. `Count (N) = Ways (N)`; the result
+Proof (`make prove`, level 2, cvc5, 171 checks): the specification is the
+ghost function `Ways`, a ghost table of values (an expression function,
+so nothing runs at elaboration) that `Lemma_Facts` proves satisfies the
+recurrence with Ways (0) = Ways (1) = 1, which fixes every entry, plus the
+two limit values and monotonicity. The own checks regenerate the table;
+the executable code never reads it. `Count (N) = Ways (N)`; the result
 of `Climb` has steps 1 or 2 summing to N and dictionary rank K, where the
 rank adds Ways (R - 1) for each double step taken with R stairs left. That
 the rank lists every climb exactly once in dictionary order is the

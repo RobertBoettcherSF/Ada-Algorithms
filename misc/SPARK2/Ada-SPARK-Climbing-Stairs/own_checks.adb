@@ -7,13 +7,15 @@ pragma Ada_2022;
 --  * an own closed count: a climb with D double steps has N - D steps in
 --    all, so there are C (N - D, D) of them; the sum over D (binomials in
 --    Long_Long_Integer, multiplicative) must equal Count (N) for every
---    N <= 45, and for N = 46 it must exceed Natural'Last (the limit);
+--    N <= 45 and regenerate the ghost table Ways, and for N = 46 it must
+--    exceed Natural'Last (the limit);
 --  * seeded random N in 16 .. 45 and K (plus K = 0 and K = Count - 1):
 --    the climb has steps 1 or 2 summing to N, its own rank (from the own
 --    closed count) is K, and climb K comes before climb K + 1.
 with Ada.Text_IO;
 with Ada.Environment_Variables;
 with Interfaces; use Interfaces;
+with Ada.Numerics.Big_Numbers.Big_Integers; use Ada.Numerics.Big_Numbers.Big_Integers;
 with Climbing_Stairs; use Climbing_Stairs;
 
 procedure Own_Checks with SPARK_Mode => Off is
@@ -149,6 +151,10 @@ begin
       Report (Long_Long_Integer (Count (N)) = Own_Ways (N), "Count vs closed count" & N'Image);
    end loop;
    Report (Own_Ways (Max_Stairs + 1) > Long_Long_Integer (Natural'Last), "limit 46 overflows");
+   --  The ghost table regenerated entry by entry from the own closed count.
+   for N in Steps loop
+      pragma Assert (Ways (N) = To_Big_Integer (Integer (Own_Ways (N))));
+   end loop;
    Report (Own_Ways (Max_Stairs) <= Long_Long_Integer (Natural'Last), "limit 45 fits");
 
    for T in 1 .. 1_000 loop

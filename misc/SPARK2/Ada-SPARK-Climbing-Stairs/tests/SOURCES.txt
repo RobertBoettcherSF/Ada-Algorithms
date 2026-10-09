@@ -23,7 +23,8 @@ default seed is the FNV-1a (32-bit) hash of the folder name folded into
 * an own closed count: a climb with D double steps has N - D steps, so
   there are C (N - D, D) of them; the sum over D (exact multiplicative
   binomials in Long_Long_Integer) must equal Count (N) for N <= 45 and
-  exceed Natural'Last for N = 46;
+  exceed Natural'Last for N = 46; the ghost table Ways is regenerated
+  from it entry by entry;
 * 1,000 seeded random N in 16 .. 45 with K = 0, K = Count - 1 or random:
   steps sum to N, the own rank (from the own closed count) is K, and
   climb K comes before climb K + 1 in dictionary order.

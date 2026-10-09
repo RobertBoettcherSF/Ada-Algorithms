@@ -18,12 +18,25 @@ package Climbing_Stairs with SPARK_Mode => On is
    subtype Step is Positive range 1 .. 2;
    type Step_List is array (Positive range <>) of Step;
 
-   --  The recurrence above. It is read from a ghost table that the package
-   --  body builds once by the recurrence (Compute, whose postcondition
-   --  states the recurrence, the limit values and the monotonicity), so
-   --  that a ghost check costs one lookup.
+   --  Ways (N) for N <= 45, read from a ghost table of values (no code
+   --  runs at elaboration). Facts states that the table satisfies the
+   --  recurrence above, which fixes every entry; Lemma_Facts proves it and
+   --  the tests regenerate the values. The executable code does not read
+   --  the table.
    function Ways (N : Natural) return Big_Integer
-   with Ghost, Pre => N <= Max_Stairs + 1;
+   with Ghost, Pre => N <= Max_Stairs;
+
+   function Facts return Boolean is
+     (Ways (0) = 1 and then Ways (1) = 1
+      and then (for all J in 2 .. Max_Stairs => Ways (J) = Ways (J - 1) + Ways (J - 2))
+      and then (for all J in Steps => Ways (J) >= 1 and then Ways (J) <= Ways (Max_Stairs))
+      and then Ways (Max_Stairs) = 1_836_311_903
+      --  Ways (46) = Ways (45) + Ways (44) would not fit Natural.
+      and then Ways (Max_Stairs) + Ways (Max_Stairs - 1) > To_Big_Integer (Natural'Last))
+   with Ghost;
+
+   procedure Lemma_Facts
+   with Ghost, Global => null, Post => Facts;
 
    --  Number of climbs, by the dynamic program.
    function Count (N : Steps) return Positive
@@ -58,6 +71,58 @@ package Climbing_Stairs with SPARK_Mode => On is
                and then Rank_Upto (Climb'Result, N, Climb'Result'Last) = To_Big_Integer (K);
 
 private
+   function Ways_Value (N : Steps) return Positive is
+     (case N is
+        when 0 => 1,
+        when 1 => 1,
+        when 2 => 2,
+        when 3 => 3,
+        when 4 => 5,
+        when 5 => 8,
+        when 6 => 13,
+        when 7 => 21,
+        when 8 => 34,
+        when 9 => 55,
+        when 10 => 89,
+        when 11 => 144,
+        when 12 => 233,
+        when 13 => 377,
+        when 14 => 610,
+        when 15 => 987,
+        when 16 => 1_597,
+        when 17 => 2_584,
+        when 18 => 4_181,
+        when 19 => 6_765,
+        when 20 => 10_946,
+        when 21 => 17_711,
+        when 22 => 28_657,
+        when 23 => 46_368,
+        when 24 => 75_025,
+        when 25 => 121_393,
+        when 26 => 196_418,
+        when 27 => 317_811,
+        when 28 => 514_229,
+        when 29 => 832_040,
+        when 30 => 1_346_269,
+        when 31 => 2_178_309,
+        when 32 => 3_524_578,
+        when 33 => 5_702_887,
+        when 34 => 9_227_465,
+        when 35 => 14_930_352,
+        when 36 => 24_157_817,
+        when 37 => 39_088_169,
+        when 38 => 63_245_986,
+        when 39 => 102_334_155,
+        when 40 => 165_580_141,
+        when 41 => 267_914_296,
+        when 42 => 433_494_437,
+        when 43 => 701_408_733,
+        when 44 => 1_134_903_170,
+        when 45 => 1_836_311_903)
+   with Ghost;
+
+   function Ways (N : Natural) return Big_Integer is (To_Big_Integer (Ways_Value (N)));
+
    function Prefix_Sum (A : Step_List; J : Natural) return Natural is
      (if J = 0 then 0 else Prefix_Sum (A, J - 1) + A (J));
 
