@@ -19,3 +19,4 @@ per-folder,9e598a51,misc/SPARK2/Ada-SPARK-Fast-Pow,topup var+higher-order (unsee
 per-folder,763e10ad,misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,topup var+higher-order (unseen),20261168,pass,900,204,28,2,0,174,30,28/30,93.3%,GNATMAKE 14.2.0
 per-folder,6cb5816b,misc/SPARK2/Ada-SPARK-Paint-Fence-Lite,topup var+higher-order (unseen),20261169,pass,1844,193,28,2,0,163,30,28/30,93.3%,GNATMAKE 14.2.0
 per-folder,8c79d651,misc/SPARK2/Ada-SPARK-Permutations,topup var+higher-order (unseen),20261172,pass,883,253,29,0,1,223,30,29/30,96.7%,GNATMAKE 14.2.0
+per-folder,cac32b31,misc/SPARK2/Ada-SPARK-Permutations-II,topup var+higher-order (unseen),20261173,pass,1639,363,30,0,0,333,30,30/30,100.0%,GNATMAKE 14.2.0
