@@ -290,7 +290,11 @@ is
       end loop;
    end Bogo_Phase;
 
-   procedure Sort (A : in out Element_Array) is
+   procedure Old_Sort (A : in out Element_Array)
+     with Global => null, Pre => In_Bounds (A),
+          Post => In_Bounds (A) and then Is_Sorted (A);
+
+   procedure Old_Sort (A : in out Element_Array) is
    begin
       if A'Length <= 1 then
          return;
@@ -302,6 +306,20 @@ is
       --  Patience / Stooge). If Bogo_Phase already left A sorted, the
       --  first Bubble_Pass reports Swapped = False and returns at once.
       Bubble_Finish (A);
+   end Old_Sort;
+
+   procedure Sort
+     (A        : in out Element_Array;
+      Seed     : in out Seed_Type;
+      Result   : out Outcome;
+      Shuffles : out Natural;
+      Budget   : Shuffle_Count := Max_Shuffles)
+   is
+      pragma Unreferenced (Seed, Budget);
+   begin
+      Old_Sort (A);
+      Result   := Sorted;
+      Shuffles := 0;
    end Sort;
 
 end Bogosort;

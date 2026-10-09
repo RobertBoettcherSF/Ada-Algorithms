@@ -80,11 +80,23 @@ is
    -- Sorting
    ---------------------------------------------------------------------------
 
-   procedure Sort (A : in out Element_Array)
+   Max_Shuffles : constant := 835_563;
+   subtype Shuffle_Count is Natural range 0 .. Max_Shuffles;
+   type Seed_Type is mod 2 ** 32;
+   type Outcome is (Sorted, Gave_Up);
+
+   procedure Sort
+     (A        : in out Element_Array;
+      Seed     : in out Seed_Type;
+      Result   : out Outcome;
+      Shuffles : out Natural;
+      Budget   : Shuffle_Count := Max_Shuffles)
      with
        Global => null,
        Pre    => In_Bounds (A),
        Post   => In_Bounds (A) and then Is_Sorted (A);
+   --  INTERFACE ONLY (failing-test commit): still the old deterministic
+   --  next-permutation walk + Bubble_Finish underneath.
    --  Ascending deterministic bogosort (next-permutation) + gap-1 bubble
    --  finish. Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is

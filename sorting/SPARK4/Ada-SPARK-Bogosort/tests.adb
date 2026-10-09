@@ -1,9 +1,11 @@
---  Standalone test suite for Bogosort (SPARK port).
+--  Standalone test suite for Bogosort (SPARK port): bounded random
+--  shuffle with an explicit outcome (Sorted / Gave_Up).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  Any A'First (section 9); Max_N = 8. CRITICAL: keep n tiny — bogosort is
---  O(n·n!) / up to n! permutations. Tests use n ≤ 8; reverse cases ≤ 7.
---  Sortedness is proved by SPARK; multiset / permutation equality is
---  checked here.
+--  Any A'First (section 9); Max_N = 8. Every Sort call outside section 11
+--  must end Sorted (P (Gave_Up) <= 1e-9 per call for an ideal shuffle).
+--  Sections 10 and 11 pin the exact shuffle counts, final arrays and final
+--  seeds for fixed seeds; the expected values come from the independent
+--  model tests/shuffle_counts.py (written from the spec comment).
 
 pragma Ada_2022;
 
@@ -91,12 +93,24 @@ is
       return Element_Array'(A);
    end Copy_Of;
 
+   --  Generator state for all Sort calls outside sections 10 and 11.
+   Sort_Seed : Seed_Type := 2026;
+
+   procedure Run (A : in out Element_Array) is
+      R : Outcome;
+      N : Natural;
+   begin
+      Sort (A, Sort_Seed, R, N);
+      Check (R = Sorted and then N <= Max_Shuffles,
+             "outcome Sorted after" & N'Image & " shuffles");
+   end Run;
+
    procedure Expect_Sorted (Src : Element_Array; Label : String) is
       A : Element_Array := Copy_Of (Src);
       R : Element_Array := Copy_Of (Src);
       O : constant Element_Array := Copy_Of (Src);
    begin
-      Sort (A);
+      Run (A);
       Reference_Sort (R);
       Check (Boo (Is_Sorted (A)), Label & " Is_Sorted");
       Check (Same (A, R), Label & " matches reference");
@@ -154,14 +168,14 @@ begin
    begin
       Check (In_Bounds (Empty), "empty In_Bounds");
       Check (Boo (Is_Sorted (Empty)), "empty Is_Sorted");
-      Sort (Empty);
+      Run (Empty);
       Check (Boo (Is_Sorted (Empty)), "empty after Sort");
       Check (In_Bounds (One), "singleton In_Bounds");
       Check (Boo (Is_Sorted (One)), "singleton Is_Sorted");
-      Sort (One);
+      Run (One);
       Check (Int (One (One'First)) = 42, "singleton value preserved");
       Check (Boo (Is_Sorted (One)), "singleton after Sort");
-      Sort (Neg);
+      Run (Neg);
       Check (Int (Neg (Neg'First)) = -7, "negative singleton preserved");
       Check (Boo (Is_Sorted (Neg)), "negative singleton Is_Sorted");
    end;
@@ -227,7 +241,7 @@ begin
    declare
       Ok : Element_Array (1 .. Max_N) := [others => 1];
    begin
-      Sort (Ok);
+      Run (Ok);
       Check (Boo (Is_Sorted (Ok)), "n = Max_N all equal sorts");
       Check (In_Bounds (Ok), "n = Max_N still In_Bounds");
    end;
@@ -237,7 +251,7 @@ begin
       for I in At_Cap_Sorted'Range loop
          At_Cap_Sorted (I) := I;
       end loop;
-      Sort (At_Cap_Sorted);
+      Run (At_Cap_Sorted);
       Check (Boo (Is_Sorted (At_Cap_Sorted)),
              "n = Max_N already-sorted stays sorted");
       Check (In_Bounds (At_Cap_Sorted), "n = Max_N sorted In_Bounds");
@@ -307,11 +321,11 @@ begin
    declare
       A : Element_Array := [9, 3, 7, 1, 5, 0, 4];
    begin
-      Sort (A);
+      Run (A);
       declare
          B : constant Element_Array := Copy_Of (A);
       begin
-         Sort (A);
+         Run (A);
          Check (Same (A, B), "second Sort is no-op on sorted");
          Check (Boo (Is_Sorted (A)), "idempotent still sorted");
       end;
@@ -319,22 +333,22 @@ begin
    declare
       A : Element_Array := [1, 2, 3, 4, 5, 6];
    begin
-      Sort (A);
+      Run (A);
       declare
          B : constant Element_Array := Copy_Of (A);
       begin
-         Sort (A);
+         Run (A);
          Check (Same (A, B), "idempotent on already-sorted input");
       end;
    end;
    declare
       A : Element_Array := [4, 3, 2, 1];
    begin
-      Sort (A);
+      Run (A);
       declare
          B : constant Element_Array := Copy_Of (A);
       begin
-         Sort (A);
+         Run (A);
          Check (Same (A, B), "idempotent after reverse-4");
       end;
    end;
@@ -350,7 +364,7 @@ begin
          Src  : constant Element_Array := Random_Array (Len, -5, 5);
          Want : Element_Array := Copy_Of (Src);
       begin
-         Sort (Want);
+         Run (Want);
          for Which in 1 .. 4 loop
             declare
                F  : constant Positive :=
@@ -365,7 +379,7 @@ begin
                for K in 0 .. Len - 1 loop
                   S (F + K) := Src (Src'First + K);
                end loop;
-               Sort (S);
+               Run (S);
                for K in 0 .. Len - 1 loop
                   if S (F + K) /= Want (Want'First + K) then
                      Ok := False;
@@ -378,6 +392,88 @@ begin
          end loop;
       end;
    end loop;
+
+   ---------------------------------------------------------------------
+   Section ("10. Fixed seeds: exact shuffle counts (tests/shuffle_counts.py)");
+   ---------------------------------------------------------------------
+   declare
+      procedure Exact
+        (Src : Element_Array; Seed0 : Seed_Type; Want_N : Natural;
+         Want_Seed : Seed_Type; Label : String)
+      is
+         A : Element_Array := Copy_Of (Src);
+         W : Element_Array := Copy_Of (Src);
+         S : Seed_Type := Seed0;
+         R : Outcome;
+         N : Natural;
+      begin
+         Sort (A, S, R, N);
+         Reference_Sort (W);
+         Check (R = Sorted, Label & " outcome Sorted");
+         Check (Nat (N) = Want_N, Label & " exactly" & Want_N'Image
+                & " shuffles (got" & N'Image & ")");
+         Check (S = Want_Seed, Label & " final seed");
+         Check (Same (A, W), Label & " matches reference");
+      end Exact;
+   begin
+      Exact ([3, 1, 2], 1, 13, 3_037_600_243, "[3,1,2] seed 1");
+      Exact ([5, 4, 3, 2, 1], 2024, 210, 3_423_104_208, "reverse 5 seed 2024");
+      Exact ([2, 1, 2, 1, 2, 1], 7, 34, 1_301_041_465, "alternating seed 7");
+      Exact ([7, 6, 5, 4, 3, 2, 1], 99, 1844, 1_744_471_195,
+             "reverse 7 seed 99");
+      Exact ([8, 1, 2, 3, 4, 5, 6, 7], 42, 96_536, 1_965_978_674,
+             "rotated 8 seed 42");
+   end;
+   declare
+      A : Element_Array := [1, 2, 3, 4];
+      S : Seed_Type := 77;
+      R : Outcome;
+      N : Natural;
+   begin
+      Sort (A, S, R, N);
+      Check (R = Sorted and then Nat (N) = 0 and then S = 77,
+             "sorted input: 0 shuffles, seed untouched");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("11. Gave_Up: budget spent, permutation kept");
+   ---------------------------------------------------------------------
+   declare
+      procedure Give_Up
+        (Src : Element_Array; Seed0 : Seed_Type; Budget : Shuffle_Count;
+         Want : Element_Array; Want_Seed : Seed_Type; Label : String)
+      is
+         A : Element_Array := Copy_Of (Src);
+         S : Seed_Type := Seed0;
+         R : Outcome;
+         N : Natural;
+      begin
+         Sort (A, S, R, N, Budget);
+         Check (R = Gave_Up, Label & " outcome Gave_Up");
+         Check (Nat (N) = Natural (Budget), Label & " all" & Budget'Image
+                & " shuffles used");
+         Check (not Is_Sorted (A), Label & " not sorted");
+         Check (Is_Permutation (A, Src), Label & " permutation kept");
+         Check (Same (A, Want), Label & " exact final array");
+         Check (S = Want_Seed, Label & " final seed");
+      end Give_Up;
+   begin
+      Give_Up ([2, 1], 5, 0, [2, 1], 5, "[2,1] budget 0");
+      Give_Up ([7, 6, 5, 4, 3, 2, 1], 99, 10, [4, 2, 7, 5, 6, 1, 3],
+               1_528_660_223, "reverse 7 budget 10");
+      Give_Up ([4, 3, 2, 1], 3, 2, [4, 2, 3, 1], 3_714_889_393,
+               "reverse 4 budget 2");
+   end;
+   declare
+      A : Element_Array := [1, 2, 3];
+      S : Seed_Type := 9;
+      R : Outcome;
+      N : Natural;
+   begin
+      Sort (A, S, R, N, 0);
+      Check (R = Sorted and then Nat (N) = 0,
+             "budget 0 on sorted input: Sorted, 0 shuffles");
+   end;
 
    New_Line;
    Put_Line
