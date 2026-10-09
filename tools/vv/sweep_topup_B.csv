@@ -24,3 +24,4 @@ per-folder,79ce60cf,misc/SPARK2/Ada-SPARK-Pow-X-N,topup var+higher-order (unseen
 per-folder,37835700,misc/SPARK2/Ada-SPARK-Subsets,topup var+higher-order (unseen),20261175,pass,648,420,25,5,0,390,30,25/30,83.3%,GNATMAKE 14.2.0
 per-folder,e772dea2,misc/SPARK2/Ada-SPARK-Subsets-II,topup var+higher-order (unseen),20261176,pass,1349,818,28,2,0,788,30,28/30,93.3%,GNATMAKE 14.2.0
 per-folder,a9c716f1,sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings,topup var+higher-order (unseen),20261177,pass,883,298,6,24,0,268,30,6/30,20.0%,GNATMAKE 14.2.0
+per-folder,ee6cb532,misc/SPARK2/Ada-SPARK-Climbing-Stairs,topup var+higher-order (unseen),20261378,pass,707,108,24,6,0,78,30,24/30,80.0%,GNATMAKE 14.2.0
