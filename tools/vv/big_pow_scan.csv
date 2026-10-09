@@ -1,0 +1,10 @@
+file,line,expression,operand_type,base_can_be_negative,exponent_can_be_1,affected,note
+misc/Ada/EdDSA/eddsa.adb,32,To_Big_Integer (2) ** 255,Big_Integer (Ada.Numerics.Big_Numbers.Big_Integers),no (constant 2),no (constant 255),no,"constant positive base; 255 >= 32 takes the general path, not the 2 ** K shift case"
+misc/Ada/EdDSA/eddsa.adb,42,To_Big_Integer (2) ** 252,Big_Integer,no (constant 2),no (constant 252),no,as above
+misc/Ada/EdDSA/tests.adb,104,To_Big_Integer (12345) ** 1,Big_Integer,no (constant 12345),yes (constant 1),no,"X ** 1 drops only a negative sign; the base is positive, so the result is right. The test checks the library, not EdDSA"
+misc/Ada/EdDSA/tests.adb,108,To_Big_Integer (0) ** 5,Big_Integer,no (constant 0),no,no,zero base
+misc/SPARK2/Ada-SPARK-Pow-X-N/tests/big_pow_repro.adb,14-16,"Minus_Two ** 2, Minus_Three ** 1",Big_Integer,yes (on purpose),yes (on purpose),n/a,the reproducer itself; not part of the build
+misc/SPARK2/Ada-SPARK-Pow-X-N/own_checks.adb,"114,152",2 ** 31,Long_Long_Integer (static),no,no,no,not Big_Integer; folder uses Big_Integers elsewhere but builds its own naive references
+misc/SPARK2/Ada-SPARK-Paint-Fence-Lite/own_checks.adb,124,"Long_Long_Integer (K) ** N, 2 ** 16",Long_Long_Integer,no (K is a color count >= 1),yes,no,"not Big_Integer (language-defined integer exponentiation, unaffected)"
+misc/SPARK2/Ada-SPARK-Subsets-II/own_checks.adb,134,2 ** Len,Integer,no,yes,no,not Big_Integer
+sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings/own_checks.adb,49,5 ** N,Natural,no,yes,no,not Big_Integer
