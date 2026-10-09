@@ -389,6 +389,46 @@ begin
    Expect_Sorted ([0, Max_Key], "exact Max_Key span pair");
    Expect_Sorted ([Max_Key, 0, Max_Key, 0], "Max_Key ping-pong");
 
+   ---------------------------------------------------------------------
+   Section ("11. Any origin");
+   ---------------------------------------------------------------------
+   --  The same input at origins 5, 200, 9 and ending at Positive'Last
+   --  (empty: at Positive'Last) sorts to the origin-1 result.
+   for Trial in 1 .. 40 loop
+      declare
+         Len  : constant Natural := Trial mod (12 + 1);
+         Src  : constant Element_Array := Random_Array (Len, 0, 9);
+         Want : Element_Array := Copy_Of (Src);
+      begin
+         Sort (Want);
+         for Which in 1 .. 4 loop
+            declare
+               F  : constant Positive :=
+                 (case Which is
+                    when 1 => 5, when 2 => 200, when 3 => 9,
+                    when others =>
+                      (if Len = 0 then Positive'Last
+                       else Positive'Last - Len + 1));
+               S  : Element_Array (F .. F + (Len - 1));
+               Ok : Boolean := True;
+            begin
+               for K in 0 .. Len - 1 loop
+                  S (F + K) := Src (Src'First + K);
+               end loop;
+               Sort (S);
+               for K in 0 .. Len - 1 loop
+                  if S (F + K) /= Want (Want'First + K) then
+                     Ok := False;
+                  end if;
+               end loop;
+               Check (Ok and then Is_Sorted (S),
+                      "origin" & F'Image & " n =" & Len'Image
+                      & " sorts like origin 1");
+            end;
+         end loop;
+      end;
+   end loop;
+
    New_Line;
    Put_Line
      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image

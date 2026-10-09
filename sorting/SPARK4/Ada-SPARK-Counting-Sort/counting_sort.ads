@@ -6,7 +6,7 @@
 --  over 0 .. Max_Key (no dynamic min/max span), no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling allows arbitrary Integer keys, Max_Range = 100_000, and
---  arbitrary A'First; this port requires A'First = 1, Element in
+--  arbitrary A'First; this port takes any A'First (A'Length <= Max_N), Element in
 --  0 .. Max_Key, and uses Pre => In_Bounds (A). Full multiset /
 --  permutation equality is verified by tests rather than claimed as a
 --  Level-4 postcondition (sortedness is proved).
@@ -34,7 +34,8 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Positions 1 .. N (N = A'Length <= Max_N) at any origin: position
+   --  K is A (A'First + (K - 1)).
    subtype Index is Natural range 0 .. Max_N;
 
    --  Educational keys: fixed span so the count table is a static array.
@@ -50,14 +51,13 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: a length bound, any origin.
    --  Element subtype already enforces keys in 0 .. Max_Key.
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (for all I in A'Range => (if I < A'Last then A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
