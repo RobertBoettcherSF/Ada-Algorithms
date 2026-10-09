@@ -3149,3 +3149,23 @@ misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,26,alt,killed,,killed,test
 misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,27,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,28,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Missing-Number,20264042,thinned,29,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,1,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,3,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,4,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,5,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,6,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,8,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,11,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,12,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,13,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,full,15,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,1,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,3,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,4,alt,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,5,B,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,6,ho,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,8,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,11,B,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,12,B,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,13,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,15,C,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
