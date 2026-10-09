@@ -38,7 +38,7 @@ package body Red_Black_Tree is
    -- 
 
    procedure Left_Rotate (T : in out Tree; X : Node_Access) is
-      Y : Node_Access := X.Right;
+      Y : constant Node_Access := X.Right;
    begin
       X.Right := Y.Left;
       if Y.Left /= null then
@@ -57,7 +57,7 @@ package body Red_Black_Tree is
    end Left_Rotate;
 
    procedure Right_Rotate (T : in out Tree; X : Node_Access) is
-      Y : Node_Access := X.Left;
+      Y : constant Node_Access := X.Left;
    begin
       X.Left := Y.Right;
       if Y.Right /= null then
@@ -311,7 +311,7 @@ package body Red_Black_Tree is
    end Delete;
 
    function Search (T : Tree; Key : Node_Key) return Node_Value is
-      N : Node_Access := Find_Node (T, Key);
+      N : constant Node_Access := Find_Node (T, Key);
    begin
       if N = null then
          raise Key_Not_Found_Error;
