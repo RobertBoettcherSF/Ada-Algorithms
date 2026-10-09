@@ -7,6 +7,7 @@ test:
 	mkdir -p obj bin
 	$(GPRBUILD) -P$(PROJECT)
 	@bin/tests
+	@bin/own_checks
 prove:
 	mkdir -p obj
 	$(GNATPROVE) -P$(PROJECT) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
