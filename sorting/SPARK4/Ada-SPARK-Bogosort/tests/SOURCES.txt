@@ -1,0 +1,16 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output.
+
+Sorted cases (sections 1-9): the expected array is computed by an
+independent insertion sort in tests.adb (Reference_Sort) and checked as a
+multiset (Is_Permutation); the outcome must be Sorted.
+
+Sections 10 and 11 (exact shuffle counts, final arrays, final seeds): from
+tests/shuffle_counts.py, a Python model written from the generator /
+shuffle description in bogosort.ads (LCG Seed * 1_664_525 + 1_013_904_223
+mod 2**32, draw (Seed / 2**16) mod Bound, Fisher-Yates from the right,
+loop while not sorted and Shuffles < Budget). Run it to reproduce:
+  python3 tests/shuffle_counts.py

@@ -1,17 +1,34 @@
---  Bogosort — Ada/SPARK Level 4 educational package for the generate-and-test
---  "stupid sort" / permutation sort. Deterministic next-permutation
---  enumeration (not random shuffle). Extremely inefficient; Max_N is tiny
---  by design (factorial growth).
+--  Bogosort — Ada/SPARK Level 4 educational package for bogosort
+--  ("stupid sort"): shuffle the array at random until it is sorted.
+--  The shuffle is a uniform Fisher-Yates shuffle driven by a small
+--  linear congruential generator whose state the caller owns (Seed), so
+--  every run is reproducible. Extremely inefficient by design.
 --
---  SPARK port of Ada-Bogosort: hard Max_N bound, no exceptions,
---  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
---  sibling uses Max_N = 10 and raises on oversized n; this port takes
---  any A'First (A'Length <= Max_N), uses Max_N = 8, bounds
---  the next-permutation loop by Max_N! + 1, and proves sortedness via a
---  final gap-1 bubble finish (same proof role as Comb_Sort / Odd_Even /
---  Shell / Strand / Patience / Stooge). Full multiset / permutation
---  equality is verified by tests rather than claimed as a Level-4
---  postcondition (sortedness is proved).
+--  Bounded, with an explicit outcome. Plain bogosort has no upper bound
+--  on its running time, so this port stops after at most Budget
+--  shuffles and says which way it ended: Sorted, or Gave_Up with the
+--  array still a permutation of the input. There is no deterministic
+--  fallback: a Gave_Up result is returned as such.
+--
+--  The give-up cap (Max_Shuffles). For n distinct values exactly one of
+--  the n! orders is sorted, so one ideal uniform shuffle sorts with
+--  probability 1/n!, and K shuffles all miss with probability
+--  (1 - 1/n!) ** K <= exp (-K / n!). Asking for P (Gave_Up) <= 1e-9 gives
+--  K >= n! * ln (1e9) ~ 20.723 * n!. With duplicates more orders are
+--  sorted, so the bound only gets better; smaller n likewise. For the
+--  largest accepted n = Max_N = 8: K >= 40_320 * 20.7232658 = 835_562.08,
+--  so Max_Shuffles = 835_563. Run-time budget: a full Gave_Up run at n = 8
+--  is about 6.7 million swaps (tens of milliseconds). Max_N = 9 would need
+--  K = 7_520_094 (about 68 million swaps), which is why Max_N stays 8.
+--  The bound is for an ideal uniform shuffle; the generator below is a
+--  32-bit LCG (high 16 bits, reduced mod the range), so it is an
+--  approximation, not a guarantee.
+--
+--  Generator: Seed := Seed * 1_664_525 + 1_013_904_223 (mod 2 ** 32); a
+--  draw in 0 .. Bound - 1 is (Seed / 2 ** 16) mod Bound. Shuffle: for
+--  I from A'Last down to A'First + 1, swap A (I) with
+--  A (A'First + Draw (I - A'First + 1)). Sort: while A is not sorted and
+--  Shuffles < Budget, shuffle once.
 --
 --  Reference: https://en.wikipedia.org/wiki/Bogosort
 
@@ -19,33 +36,21 @@ package Bogosort
   with SPARK_Mode => On
 is
 
-   ---------------------------------------------------------------------------
-   -- Capacity bound (classroom; factorial work — keep Max_N tiny)
-   ---------------------------------------------------------------------------
-
-   --  Hard bound on array length. Smaller than the non-SPARK sibling
-   --  (Max_N = 10) so n! stays feasible in tests and Level-4 VCs.
-   --  8! = 40_320; tests should keep reverse cases ≤ 7.
+   --  Hard bound on array length (see the cap derivation above).
    Max_N : constant Positive := 8;
 
-   --  Upper bound on next-permutation steps: Max_N! + 1.
-   --  Any multiset has ≤ n! distinct permutations; +1 allows the
-   --  Is_Sorted exit after a full wrap.
-   Max_Perm_Steps : constant Positive := 40_321;
+   --  Give-up cap: ceil (Max_N! * ln (1e9)) = ceil (835_562.08).
+   Max_Shuffles : constant := 835_563;
 
-   ---------------------------------------------------------------------------
-   -- Domain
-   ---------------------------------------------------------------------------
+   subtype Shuffle_Count is Natural range 0 .. Max_Shuffles;
 
-   --  Positions 1 .. N (N = A'Length <= Max_N) at any origin: position
-   --  K is A (A'First + (K - 1)).
    subtype Index is Natural range 0 .. Max_N;
 
    type Element_Array is array (Positive range <>) of Integer;
 
-   ---------------------------------------------------------------------------
-   -- Shape / sortedness guards (expression functions — usable in contracts)
-   ---------------------------------------------------------------------------
+   type Seed_Type is mod 2 ** 32;
+
+   type Outcome is (Sorted, Gave_Up);
 
    function In_Bounds (A : Element_Array) return Boolean is
      (A'Length <= Max_N)
@@ -57,33 +62,31 @@ is
    with
      Global => null,
      Pre    => In_Bounds (A);
-   --  True iff A is adjacent-nondecreasing on A'Range (empty / singleton
-   --  vacuous). Equivalent to pairwise sortedness on a total order.
+   --  True iff A is adjacent-nondecreasing (empty / singleton vacuous).
 
-   ---------------------------------------------------------------------------
-   -- Algorithm sketch (next-permutation generate-and-test + bubble finish)
-   ---------------------------------------------------------------------------
-   --  Assume In_Bounds (A).
-   --  While not Is_Sorted (A), advance A to the next lexicographic
-   --  multiset permutation (wrap last → first). Bound the loop by
-   --  Max_Perm_Steps (= Max_N! + 1) so termination proves under Level 4.
-   --  Prefer exit when already Is_Sorted (no wasted next step).
-   --  After the bogo phase, a final gap-1 bubble finish (shrinking unsorted
-   --  suffix + early exit) establishes Is_Sorted — same proof role as
-   --  Comb_Sort's Bubble_Finish / Strand / Patience / Stooge. Next-
-   --  permutation posts that would fight Level 4 are intentionally limited
-   --  to In_Bounds / RTE; sortedness is discharged by Bubble_Finish.
-   --  Empty and singleton arrays are no-ops.
-   --  Do not `with` sibling Ada-* packages.
+   --  Occurrences of V in A (A'First .. Last).
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
+   with
+     Global             => null,
+     Pre                => In_Bounds (A) and then Last <= A'Last,
+     Post               => Occ'Result <= Last,
+     Subprogram_Variant => (Decreases => Last);
 
-   ---------------------------------------------------------------------------
-   -- Sorting
-   ---------------------------------------------------------------------------
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
 
-   Max_Shuffles : constant := 835_563;
-   subtype Shuffle_Count is Natural range 0 .. Max_Shuffles;
-   type Seed_Type is mod 2 ** 32;
-   type Outcome is (Sorted, Gave_Up);
+   --  A and B hold the same values with the same counts.
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
 
    procedure Sort
      (A        : in out Element_Array;
@@ -94,12 +97,17 @@ is
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
-   --  INTERFACE ONLY (failing-test commit): still the old deterministic
-   --  next-permutation walk + Bubble_Finish underneath.
-   --  Ascending deterministic bogosort (next-permutation) + gap-1 bubble
-   --  finish. Empty and singleton arrays are no-ops.
-   --  Post proves sortedness; multiset / permutation equality is
-   --  checked by the test suite (not claimed here at Level 4).
+       Post   =>
+         In_Bounds (A)
+         and then Is_Perm (A, A'Old)
+         and then Shuffles <= Budget
+         and then (case Result is
+                     when Sorted  => Is_Sorted (A),
+                     when Gave_Up => Shuffles = Budget
+                                     and then not Is_Sorted (A));
+   --  Shuffle A until it is sorted or Budget shuffles are spent.
+   --  Sorted: A is sorted. Gave_Up: all Budget shuffles were used and A is
+   --  not sorted. Both outcomes keep A a permutation of the input. An
+   --  already sorted A takes 0 shuffles and leaves Seed unchanged.
 
 end Bogosort;
