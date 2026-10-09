@@ -1,0 +1,24 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+three valid rotated arrays (0 .. 62 even turned so 0 is at 13; 51 .. 82
+not turned; 100, 1 .. 31 turned by one), present and absent targets at
+the ends, around the turn and between the last and first element, every
+target 0 .. 100 on the first array, and the bound
+2 * (floor (log2 N) + 2) on comparisons; the bound check was committed
+first and fails on the old linear scan. The original test array
+(4 5 6 7 0 1 2, 100 x 25) was not a rotated sorted array and is gone.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). Reference: a linear
+membership scan; for the predicate, a count of cyclic non-rises (exactly
+1 for a turned strictly increasing array).
+* all 32 rotations of 4 fixed and 100 random strictly increasing arrays,
+  each with every target 0 .. 100: answer, comparisons
+  <= 2 * (floor (log2 N) + 2), measured worst case exactly 12;
+* Rotated_Array membership on each rotation with two neighbours swapped
+  and with one neighbour copied (always rejected), and on 2,000 random
+  arrays.
+* Random inputs use a Park-Miller generator; the default seed 20261008
+  is printed, and AA_SEED=<n> overrides it.

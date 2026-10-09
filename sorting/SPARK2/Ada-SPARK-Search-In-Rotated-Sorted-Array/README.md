@@ -23,4 +23,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (80 checks), on `proof.gpr` (the package only).
 
+`make test` runs `tests.adb` and the folder's own checks: 687,569 checks against a linear scan (see `tests/SOURCES.txt`). The measured worst case is 12 comparisons: the pick comparison happens only when the array is turned, and then each part is at most 31 long.
+
 The first version was a linear membership scan with no contract and no rotation requirement. Its test array (4 5 6 7 0 1 2, then 100 x 25) was not a rotated sorted array. The first commit of the 2026-10-09 rewrite added a comparison counter and valid rotated test arrays. Its test, which asserts the log bound, fails on the old scan (32 comparisons).

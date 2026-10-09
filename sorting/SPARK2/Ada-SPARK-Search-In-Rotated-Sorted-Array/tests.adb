@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Search_In_Rotated_Sorted_Array; use Search_In_Rotated_Sorted_Array;
+with Own_Checks;
 
 procedure Tests is
    --  40, 42, .., 62, 0, 2, .., 38: 0 .. 62 even, turned so 0 is at 13.
@@ -58,4 +59,5 @@ begin
       Expect (Turned, T, T mod 2 = 0 and then T <= 62, "turned, every target");
    end loop;
    Put_Line ("Search_In_Rotated_Sorted_Array: PASS");
+   Own_Checks;
 end Tests;
