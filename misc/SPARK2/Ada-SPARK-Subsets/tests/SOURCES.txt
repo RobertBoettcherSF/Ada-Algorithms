@@ -1,0 +1,29 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: the old table (2 ** N for N <= 12) and 2 ** 13 = 8_192,
+2 ** 30 = 1_073_741_824; the eight subsets of three items in counting
+order with item 1 as the lowest bit, written out by hand, and the wrap;
+T T F T F (1 + 2 + 8 = 11) -> F F T T F (12) worked in the comment;
+the empty selection; Subset of 10 20 30 (bounds 5 .. 7) for T F T,
+F T F, all and none.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (679856080), printed; AA_SEED=<n> overrides it):
+* an own recursive generator (leave item K out, then take it) of every
+  subset of N <= 10 items; stepping from empty must visit each exactly
+  once, with Found False exactly at the last step and the empty
+  selection again after it;
+* an own rank (sum of 2 ** (K - 1) over the selected K): 5,000 seeded
+  random selections of 0 .. 30 items (sparse, dense, top-heavy and
+  all-True mixes) must step to rank + 1, or from 2 ** N - 1 wrap to 0;
+* Subset on 3,000 seeded random lists of 0 .. 40 items with random first
+  index 1 .. 100: against an own recursive extraction, and Subset (S)
+  together with Subset (not S) is a rearrangement of the list;
+* Count against own repeated doubling for N in 0 .. 30; the ghost Pow2
+  table regenerated.

@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO;
 with Subsets; use Subsets;
+with Own_Checks;
 
 procedure Tests is
    function Img (S : Selection) return String is
@@ -63,5 +64,6 @@ begin
    Expect (Subset (Items, [5 .. 7 => True]), [10, 20, 30], "Subset all");
    Expect (Subset (Items, [5 .. 7 => False]), [], "Subset none");
 
+   Own_Checks;
    Ada.Text_IO.Put_Line ("subsets tests passed");
 end Tests;
