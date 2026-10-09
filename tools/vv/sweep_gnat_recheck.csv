@@ -113,3 +113,5 @@ misc/SPARK2/Ada-SPARK-Factorial,GNAT 14,GNATLS 14.2.0,0,0,factorial checks passe
 misc/SPARK2/Ada-SPARK-Factorial,GNAT 12,GNATLS 12.2.0,0,0,factorial checks passed,9e598a51
 misc/SPARK2/Ada-SPARK-Fast-Pow,GNAT 14,GNATLS 14.2.0,0,0,fast pow checks passed,9e598a51
 misc/SPARK2/Ada-SPARK-Fast-Pow,GNAT 12,GNATLS 12.2.0,0,0,fast pow checks passed,9e598a51
+misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,GNAT 14,GNATLS 14.2.0,0,0,letter combinations tests passed,763e10ad
+misc/SPARK2/Ada-SPARK-Letter-Combinations-Of-A-Phone-Number,GNAT 12,GNATLS 12.2.0,0,0,letter combinations tests passed,763e10ad
