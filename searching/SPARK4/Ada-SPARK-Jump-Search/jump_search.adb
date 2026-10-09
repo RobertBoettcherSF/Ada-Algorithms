@@ -91,9 +91,9 @@ is
 
       --  Jump phase: at most Max_N + 1 advances.
       for Guard in 1 .. Max_N + 1 loop
-         pragma Loop_Invariant (Prev <= Max_N + 1);
+         --  Prev, Curr <= Max_N + 1 is the range of Ext_Index itself, so
+         --  it is not restated here (GNAT 12 -gnatwc: always True).
          pragma Loop_Invariant (Curr >= 1);
-         pragma Loop_Invariant (Curr <= Max_N + 1);
          pragma Loop_Invariant (Prev <= Curr);
          pragma Loop_Invariant (N >= 1);
          pragma Loop_Invariant (N = A'Length);

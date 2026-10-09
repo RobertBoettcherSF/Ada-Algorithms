@@ -15,9 +15,17 @@ is
    subtype Fib_Ix is Natural range 0 .. 11;
    type Fib_Table is array (Fib_Ix) of Fib_Nat;
 
+   Fib_Top : constant := 89;  --  F (11)
+
    Fibs : constant Fib_Table :=
      [0 => 0, 1 => 1, 2 => 1, 3 => 2, 4 => 3, 5 => 5,
-      6 => 8, 7 => 13, 8 => 21, 9 => 34, 10 => 55, 11 => 89];
+      6 => 8, 7 => 13, 8 => 21, 9 => 34, 10 => 55, 11 => Fib_Top];
+
+   --  Fibs (11) must reach Max_N so the M search below always stops. Both
+   --  sides are static, so this is checked when the unit is compiled
+   --  rather than by a run-time assertion that can never fail.
+   pragma Compile_Time_Error
+     (Fib_Top < Max_N, "Fibs (11) must be >= Max_N: extend Fibs");
 
    ---------------------------------------------------------------------------
    -- Safe min for 1-based probe index
@@ -69,7 +77,6 @@ is
 
       pragma Assert (M >= 2);
       pragma Assert (Fibs (M) >= N);
-      pragma Assert (Fibs (11) >= Max_N);
 
       --  Eliminated-front offset in 1-based logical positions (0 = nothing
       --  eliminated). Logical position P lives at A (A'First + (P - 1)),
