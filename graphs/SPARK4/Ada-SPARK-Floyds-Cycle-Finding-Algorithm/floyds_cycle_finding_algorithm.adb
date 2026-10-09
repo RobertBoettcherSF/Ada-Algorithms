@@ -12,16 +12,13 @@ is
 
    function Is_Valid_Map (Next : Successor_Map) return Boolean is
    begin
-      if Next'Length = 0
-        or else Next'First /= 1
-        or else Next'Last > Max_N
-      then
+      if Next'Length = 0 then
          return False;
       end if;
       for I in Next'Range loop
          pragma Loop_Invariant
-           (for all K in Next'First .. I - 1 => Next (K) <= Next'Last);
-         if Next (I) > Next'Last then
+           (for all K in Next'First .. I - 1 => Next (K) <= Next'Length);
+         if Next (I) > Next'Length then
             return False;
          end if;
       end loop;
@@ -39,8 +36,8 @@ is
    with
      Global => null,
      Pre    => Is_Valid_Map (Next)
-               and then (X = Null_Index or else X <= Next'Last),
-     Post   => Fwd'Result <= Next'Last
+               and then (X = Null_Index or else X <= Next'Length),
+     Post   => Fwd'Result <= Next'Length
                and then (if X = Null_Index then Fwd'Result = Null_Index);
 
    function Fwd
@@ -51,7 +48,7 @@ is
       if X = Null_Index then
          return Null_Index;
       end if;
-      return Next (X);
+      return Next (Next'First + (X - 1));
    end Fwd;
 
    function Step
@@ -70,9 +67,9 @@ is
       X : Node_Index := Start;
    begin
       for S in 1 .. Steps loop
-         pragma Loop_Invariant (X <= Next'Last);
+         pragma Loop_Invariant (X <= Next'Length);
          exit when X = Null_Index;
-         X := Next (X);
+         X := Next (Next'First + (X - 1));
       end loop;
       return X;
    end Iterate;
@@ -86,8 +83,8 @@ is
       Start : Node_Id) return Node_Index
    with
      Global => null,
-     Pre    => Is_Valid_Map (Next) and then Start <= Next'Last,
-     Post   => Phase_Meet'Result <= Next'Last;
+     Pre    => Is_Valid_Map (Next) and then Start <= Next'Length,
+     Post   => Phase_Meet'Result <= Next'Length;
    --  Returns the live meeting node, or Null_Index if no cycle.
 
    function Phase_Meet
@@ -101,8 +98,8 @@ is
       Limit    : constant Positive := 2 * Next'Length + 2;
    begin
       for Guard in 1 .. Limit loop
-         pragma Loop_Invariant (Tortoise <= Next'Last);
-         pragma Loop_Invariant (Hare <= Next'Last);
+         pragma Loop_Invariant (Tortoise <= Next'Length);
+         pragma Loop_Invariant (Hare <= Next'Length);
          exit when Tortoise = Null_Index
            or else Hare = Null_Index
            or else Tortoise = Hare;
@@ -158,13 +155,13 @@ is
       Tortoise := Start;
       Hare     := Meet;
       for Guard in 1 .. Next'Length loop
-         pragma Loop_Invariant (Tortoise in 1 .. Next'Last);
-         pragma Loop_Invariant (Hare in 1 .. Next'Last);
+         pragma Loop_Invariant (Tortoise in 1 .. Next'Length);
+         pragma Loop_Invariant (Hare in 1 .. Next'Length);
          pragma Loop_Invariant (Mu_Val = Guard - 1);
-         pragma Loop_Invariant (Mu_Val <= Next'Last);
+         pragma Loop_Invariant (Mu_Val <= Next'Length);
          exit when Tortoise = Hare;
-         Tortoise := Next (Tortoise);
-         Hare     := Next (Hare);
+         Tortoise := Next (Next'First + (Tortoise - 1));
+         Hare     := Next (Next'First + (Hare - 1));
          --  On a valid map with a known cycle, successors stay live.
          if Tortoise = Null_Index or else Hare = Null_Index then
             return No_Cycle;
@@ -177,19 +174,19 @@ is
       end if;
 
       --  Phase 3: λ. Freeze tortoise at x_μ; walk hare.
-      Hare    := Next (Tortoise);
+      Hare    := Next (Next'First + (Tortoise - 1));
       Lam_Val := 1;
       if Hare = Null_Index then
          return No_Cycle;
       end if;
 
       for Guard in 2 .. Next'Length loop
-         pragma Loop_Invariant (Tortoise in 1 .. Next'Last);
-         pragma Loop_Invariant (Hare in 1 .. Next'Last);
+         pragma Loop_Invariant (Tortoise in 1 .. Next'Length);
+         pragma Loop_Invariant (Hare in 1 .. Next'Length);
          pragma Loop_Invariant (Lam_Val = Guard - 1);
-         pragma Loop_Invariant (Lam_Val in 1 .. Next'Last);
+         pragma Loop_Invariant (Lam_Val in 1 .. Next'Length);
          exit when Tortoise = Hare;
-         Hare := Next (Hare);
+         Hare := Next (Next'First + (Hare - 1));
          if Hare = Null_Index then
             return No_Cycle;
          end if;
@@ -257,11 +254,11 @@ is
 
       X := Start_Node;
       for Left in 1 .. Lambda loop
-         pragma Loop_Invariant (X in 1 .. Next'Last);
+         pragma Loop_Invariant (X in 1 .. Next'Length);
          if X = Node then
             return True;
          end if;
-         X := Next (X);
+         X := Next (Next'First + (X - 1));
          if X = Null_Index then
             return False;
          end if;
@@ -284,7 +281,7 @@ is
       Step_I     : Natural := 0;
    begin
       for Guard in 1 .. Next'Length + 1 loop
-         pragma Loop_Invariant (X <= Next'Last);
+         pragma Loop_Invariant (X <= Next'Length);
          pragma Loop_Invariant (Step_I = Guard - 1);
          pragma Loop_Invariant (Step_I <= Next'Length);
          pragma Loop_Invariant
@@ -301,7 +298,7 @@ is
                Lam  : constant Natural := Step_I - Prev;
             begin
                --  Prev was recorded on an earlier visit ⇒ Lam ≥ 1,
-               --  and Step_I ≤ N ⇒ Lam ≤ N = Next'Last.
+               --  and Step_I ≤ N ⇒ Lam ≤ N = Next'Length.
                return
                  (Has_Cycle     => True,
                   Meeting_Point => X,
@@ -312,7 +309,7 @@ is
          end if;
 
          First_Seen (X) := Integer (Step_I);
-         X := Next (X);
+         X := Next (Next'First + (X - 1));
          Step_I := Step_I + 1;
       end loop;
       return No_Cycle;
