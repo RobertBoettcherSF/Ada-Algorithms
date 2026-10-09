@@ -25,7 +25,10 @@ implementation of classic Musser introsort for `Integer` arrays: median-of-
 three quicksort partitioning, depth limit $2\lfloor\log_2 n\rfloor$, heapsort
 on exhausted depth, and insertion sort for partitions of size
 $\le 16$. All helpers are **inlined** — the package does not `with` sibling
-`Heapsort` or `Insertion_Sort` projects.
+`Heapsort` or `Insertion_Sort` projects. The offset heap checks
+`Has_Left` before computing `Left = Lo + 2*(I-Lo)+1`, and Hoare /
+heap index arithmetic uses `Long_Integer` so `A'Last` may be
+`Natural'Last`.
 
 Primary source: [Wikipedia — Introsort](https://en.wikipedia.org/wiki/Introsort).
 
@@ -127,7 +130,7 @@ Running tests...
 Results:  NN PASS, 0 FAIL
 ```
 
-(Exact `NN` is the current suite size; it is at least 80.)
+(Exact count: **153 PASS** (GNAT 14.2.0 / 12.2.0).)
 
 ## Testing
 
@@ -143,6 +146,7 @@ The suite in `tests.adb` covers:
 - Oversize arrays raising `Invalid_Argument`
 - Idempotence of `Sort`
 - Large reverse / random arrays ($n = 1024$, $2048$) exercising depth limits
+- **Heapsort fallback is exercised (section 15)**: Musser's median-of-3 killer $K_{1024}$ with `Sort_Traced` proving `Heap_Fallbacks >= 1` (observed 5) at origins 0, 1, 5000, and `Natural'Last-1023`; `Max_Depth => 0` heapsorts whole slices at origins 0, 7, 1000, `Natural'Last-99` (exactly one fallback); random $n=200$ ending at `Natural'Last`
 
 ## Building
 
@@ -159,6 +163,8 @@ The suite in `tests.adb` covers:
 | `Insertion_Threshold` | Small-partition cutoff (`16`) |
 | `Invalid_Argument` | Raised on oversize length |
 | `Sort` | Ascending in-place introsort |
+| `Depth_Budget` | $2\lfloor\log_2 N\rfloor$ (the budget `Sort` uses) |
+| `Sort_Traced` | `Sort` with explicit `Max_Depth` and `Heap_Fallbacks` count |
 | `Is_Sorted` | Nondecreasing predicate |
 
 ## License

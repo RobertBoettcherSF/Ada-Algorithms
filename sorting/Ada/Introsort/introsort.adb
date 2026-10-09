@@ -66,10 +66,24 @@ is
    ---------------------------------------------------------------------------
 
    function Left_Child_Of (Lo, I : Natural) return Natural is
+      --  Logical 0-based relative to Lo: Left = Lo + 2*(I - Lo) + 1.
+      --  Long_Integer so Lo near Natural'Last does not overflow.
+      Off : constant Long_Integer :=
+        2 * (Long_Integer (I) - Long_Integer (Lo)) + 1;
    begin
-      --  Logical 0-based relative to Lo: Left = Lo + 2*(I - Lo) + 1
-      return Lo + 2 * (I - Lo) + 1;
+      return Natural (Long_Integer (Lo) + Off);
    end Left_Child_Of;
+
+   function Has_Left (Lo, Heap_Last, I : Natural) return Boolean is
+      --  I has a left child inside Lo .. Heap_Last iff
+      --  I - Lo <= (Heap_Last - Lo - 1) / 2. Checked before Left_Child.
+   begin
+      if Heap_Last <= Lo then
+         return False;
+      end if;
+      return Long_Integer (I) - Long_Integer (Lo)
+        <= (Long_Integer (Heap_Last) - Long_Integer (Lo) - 1) / 2;
+   end Has_Left;
 
    procedure Sift_Down_Range
      (A         : in out Element_Array;
@@ -81,8 +95,8 @@ is
       Child : Natural;
    begin
       loop
+         exit when not Has_Left (Lo, Heap_Last, R);
          Child := Left_Child_Of (Lo, R);
-         exit when Child > Heap_Last;
 
          if Child < Heap_Last and then A (Child) < A (Child + 1) then
             Child := Child + 1;
@@ -114,7 +128,8 @@ is
       end if;
 
       --  Floyd bottom-up heapify on Lo .. Hi.
-      Start := Lo + (Len - 2) / 2;
+      Start := Natural (Long_Integer (Lo)
+                        + (Long_Integer (Len) - 2) / 2);
       loop
          Sift_Down_Range (A, Lo, Start, Hi);
          exit when Start = Lo;
@@ -138,7 +153,9 @@ is
    procedure Median_Of_Three
      (A : in out Element_Array; Lo, Hi : Natural)
    is
-      Mid : constant Natural := Lo + (Hi - Lo) / 2;
+      Mid : constant Natural :=
+        Natural (Long_Integer (Lo)
+                 + (Long_Integer (Hi) - Long_Integer (Lo)) / 2);
    begin
       --  Order A(Lo), A(Mid), A(Hi) so A(Mid) is the median; then swap
       --  median to Lo for a stable pivot value during Hoare scans.
@@ -159,27 +176,29 @@ is
      (A : in out Element_Array; Lo, Hi : Natural) return Natural
    is
       Pivot : Integer;
-      I     : Integer;
-      J     : Integer;
    begin
       Median_Of_Three (A, Lo, Hi);
       Pivot := A (Lo);
-      I := Integer (Lo) - 1;
-      J := Integer (Hi) + 1;
-
-      loop
+      --  Sentinels just outside the slice; Long_Integer so Lo = 0 and
+      --  Hi = Natural'Last are legal (Natural'Last + 1 would overflow).
+      declare
+         LI : Long_Integer := Long_Integer (Lo) - 1;
+         LJ : Long_Integer := Long_Integer (Hi) + 1;
+      begin
          loop
-            I := I + 1;
-            exit when A (I) >= Pivot;
+            loop
+               LI := LI + 1;
+               exit when A (Natural (LI)) >= Pivot;
+            end loop;
+            loop
+               LJ := LJ - 1;
+               exit when A (Natural (LJ)) <= Pivot;
+            end loop;
+            exit when LI >= LJ;
+            Swap (A, Natural (LI), Natural (LJ));
          end loop;
-         loop
-            J := J - 1;
-            exit when A (J) <= Pivot;
-         end loop;
-         exit when I >= J;
-         Swap (A, Natural (I), Natural (J));
-      end loop;
-      return Natural (J);
+         return Natural (LJ);
+      end;
    end Partition_Hoare;
 
    ---------------------------------------------------------------------------
@@ -187,7 +206,10 @@ is
    ---------------------------------------------------------------------------
 
    procedure Intro_Sort_Rec
-     (A : in out Element_Array; Lo, Hi : Natural; Depth : Natural)
+     (A     : in out Element_Array;
+      Lo, Hi : Natural;
+      Depth : Natural;
+      Heaps : in out Natural)
    is
       N : Natural;
       P : Natural;
@@ -196,7 +218,7 @@ is
          return;
       end if;
 
-      N := Hi - Lo + 1;
+      N := Natural (Long_Integer (Hi) - Long_Integer (Lo) + 1);
       if N <= 1 then
          return;
       end if;
@@ -205,14 +227,15 @@ is
          Insertion_Sort_Range (A, Lo, Hi);
       elsif Depth = 0 then
          Heapsort_Range (A, Lo, Hi);
+         Heaps := Heaps + 1;
       else
          P := Partition_Hoare (A, Lo, Hi);
          --  Hoare: recurse on Lo .. P and P+1 .. Hi (both nonempty when N>1).
          if P > Lo then
-            Intro_Sort_Rec (A, Lo, P, Depth - 1);
+            Intro_Sort_Rec (A, Lo, P, Depth - 1, Heaps);
          end if;
          if P < Hi then
-            Intro_Sort_Rec (A, P + 1, Hi, Depth - 1);
+            Intro_Sort_Rec (A, P + 1, Hi, Depth - 1, Heaps);
          end if;
       end if;
    end Intro_Sort_Rec;
@@ -221,17 +244,32 @@ is
    -- Public API
    ---------------------------------------------------------------------------
 
-   procedure Sort (A : in out Element_Array) is
-      Depth : Natural;
+   function Depth_Budget (N : Natural) return Natural is
+   begin
+      if N = 0 then
+         return 0;
+      end if;
+      return 2 * Floor_Log2 (N);
+   end Depth_Budget;
+
+   procedure Sort_Traced
+     (A              : in out Element_Array;
+      Max_Depth      : Natural;
+      Heap_Fallbacks : out Natural)
+   is
    begin
       Check_Bounds (A);
+      Heap_Fallbacks := 0;
       if A'Length <= 1 then
          return;
       end if;
+      Intro_Sort_Rec (A, A'First, A'Last, Max_Depth, Heap_Fallbacks);
+   end Sort_Traced;
 
-      --  maxdepth ← 2 × ⌊log₂ n⌋  (Musser / Wikipedia / libstdc++)
-      Depth := 2 * Floor_Log2 (A'Length);
-      Intro_Sort_Rec (A, A'First, A'Last, Depth);
+   procedure Sort (A : in out Element_Array) is
+      Heap_Fallbacks : Natural;
+   begin
+      Sort_Traced (A, Depth_Budget (A'Length), Heap_Fallbacks);
    end Sort;
 
    function Is_Sorted (A : Element_Array) return Boolean is

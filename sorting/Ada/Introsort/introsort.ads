@@ -63,6 +63,21 @@ is
    --  Ascending in-place introsort (unstable).
    --  Empty and singleton arrays are no-ops.
    --  Raises Invalid_Argument when A'Length > Max_N.
+   --  Any A'First / A'Last in Natural; the offset heap and Hoare
+   --  scans use Long_Integer intermediates so A'Last may be Natural'Last.
+
+   function Depth_Budget (N : Natural) return Natural;
+   --  2 * floor(log2 N) for N >= 1 (the budget Sort uses); 0 for N = 0.
+
+   procedure Sort_Traced
+     (A              : in out Element_Array;
+      Max_Depth      : Natural;
+      Heap_Fallbacks : out Natural);
+   --  Same introsort as Sort, but with an explicit depth budget and a
+   --  count of slices finished by the depth-0 heapsort fallback.
+   --  Sort (A) = Sort_Traced (A, Depth_Budget (A'Length), _).
+   --  Max_Depth = 0 heapsorts the whole array when A'Length > 16.
+   --  Raises Invalid_Argument when A'Length > Max_N.
 
    function Is_Sorted (A : Element_Array) return Boolean;
    --  True iff A is nondecreasing (ascending) in index order.

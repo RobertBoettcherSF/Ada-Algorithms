@@ -22,6 +22,8 @@ procedure Tests is
       end if;
    end Check;
 
+   type Natural_List is array (Positive range <>) of Natural;
+
    procedure Section (Title : String) is
    begin
       New_Line;
@@ -429,6 +431,137 @@ begin
          Check (Is_Sorted (A), "random n=2048 Is_Sorted");
          Check (Same (A, R), "random n=2048 matches reference");
       end;
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("15. Heapsort fallback is exercised (counter)");
+   ---------------------------------------------------------------------
+   --  Random inputs almost never exhaust 2*floor(log2 n). Sort_Traced
+   --  reports how many slices the depth-0 heapsort handled.
+   --  (a) Musser's median-of-3 killer K_n (Introspective Sorting and
+   --      Selection Algorithms, 1997): for i in 1 .. n/2, odd i:
+   --      K(i) = i, K(i+1) = n/2 + i; and K(n/2 + i) = 2i. With
+   --      first/middle/last median-of-3 + Hoare every partition peels
+   --      off 2 elements, so the depth budget runs out.
+   declare
+      function Musser_K (N : Positive; Origin : Natural) return Element_Array
+      is
+         K : constant Positive := N / 2;
+         A : Element_Array (Origin .. Origin + (N - 1));
+      begin
+         for I in 1 .. K loop
+            if I mod 2 = 1 then
+               A (Origin + I - 1) := I;
+               A (Origin + I) := K + I;
+            end if;
+            A (Origin + (K + I - 1)) := 2 * I;
+         end loop;
+         return A;
+      end Musser_K;
+      H : Natural;
+   begin
+      declare
+         K20 : constant Element_Array := Musser_K (20, 1);
+      begin
+         Check (Same (K20, Element_Array'([1, 11, 3, 13, 5, 15, 7, 17, 9, 19,
+                                           2, 4, 6, 8, 10, 12, 14, 16, 18, 20])),
+                "Musser K_20 matches the published sequence");
+      end;
+      Check (Depth_Budget (1024) = 20, "Depth_Budget (1024) = 2*floor(log2 1024) = 20");
+      for Origin of Natural_List'([1, 0, 5_000, Natural'Last - 1023]) loop
+         declare
+            A : Element_Array := Musser_K (1024, Origin);
+            R : Element_Array := Copy_Of (A);
+         begin
+            Sort_Traced (A, Depth_Budget (A'Length), H);
+            Reference_Sort (R);
+            Check (H >= 1, "Musser K_1024 at" & Origin'Image
+                   & ": heap fallback ran (count" & H'Image & ")");
+            Check (Same (A, R) and then Is_Sorted (A),
+                   "Musser K_1024 at" & Origin'Image & " = reference");
+         end;
+      end loop;
+      declare
+         A : Element_Array := Musser_K (1024, 1);
+         R : Element_Array := Copy_Of (A);
+      begin
+         Sort (A);
+         Reference_Sort (R);
+         Check (Same (A, R), "Musser K_1024 via Sort = reference");
+      end;
+   end;
+   --  (b) Depth limit forced to 0: the whole array is one heapsort, on
+   --      arrays that do not start at 1, up to A'Last = Natural'Last
+   --      (offset heap; Has_Left checked before Left is computed).
+   declare
+      H        : Natural;
+      Ok       : Boolean := True;
+      Count_Ok : Boolean := True;
+   begin
+      for Origin of Natural_List'([0, 7, 1_000, Natural'Last - 99]) loop
+         for Len in 17 .. 100 loop
+            for P in 1 .. 2 loop
+               declare
+                  Src : Element_Array (1 .. Len);
+                  A   : Element_Array (Origin .. Origin + (Len - 1));
+               begin
+                  if P = 1 then
+                     for I in Src'Range loop
+                        Src (I) := Len - I + 1;
+                     end loop;
+                  else
+                     Src := Random_Array (Len, -20, 20);
+                  end if;
+                  for K in 0 .. Len - 1 loop
+                     A (Origin + K) := Src (1 + K);
+                  end loop;
+                  Reference_Sort (Src);
+                  begin
+                     Sort_Traced (A, 0, H);
+                     if H /= 1 then
+                        Count_Ok := False;
+                        Put_Line ("    heap count" & H'Image & " origin"
+                                  & Origin'Image & " len" & Len'Image);
+                     end if;
+                     if not Same (A, Src) then
+                        Ok := False;
+                        Put_Line ("    mismatch origin" & Origin'Image
+                                  & " len" & Len'Image);
+                     end if;
+                  exception
+                     when Constraint_Error =>
+                        Ok := False;
+                        Put_Line ("    Constraint_Error origin" & Origin'Image
+                                  & " len" & Len'Image);
+                  end;
+               end;
+            end loop;
+         end loop;
+      end loop;
+      Check (Count_Ok, "Max_Depth 0, len 17 .. 100: exactly one heapsort");
+      Check (Ok, "Max_Depth 0 at origins 0, 7, 1000, Natural'Last-99 = reference");
+   end;
+   --  (c) Default budget with A'Last = Natural'Last (Hoare scan bounds).
+   declare
+      A : Element_Array (Natural'Last - 199 .. Natural'Last);
+      R : Element_Array (1 .. 200);
+      Raised : Boolean := False;
+   begin
+      for I in A'Range loop
+         A (I) := Integer (Next_Mod (1_000)) - 500;
+      end loop;
+      for K in 0 .. 199 loop
+         R (1 + K) := A (A'First + K);
+      end loop;
+      Reference_Sort (R);
+      begin
+         Sort (A);
+      exception
+         when Constraint_Error =>
+            Raised := True;
+      end;
+      Check (not Raised and then Same (A, R),
+             "random n=200 ending at Natural'Last = reference");
    end;
 
    New_Line;
