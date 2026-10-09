@@ -14,7 +14,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Shell-Sort](https:/
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors; gap-$1$ `Insert_Step` / `Sorted_Slice` invariants prove sortedness.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
-* **Unstable**: Equal keys may change relative order (permutation is checked by tests).
+* **Unstable**: Equal keys may change relative order (permutation is proved and checked by tests).
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic VCs stay within automated SMT reach.
@@ -22,7 +22,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Shell-Sort](https:/
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Fixed gap table `57, 23, 10, 4, 1` (Ciura prefix for $n \le 64$); no $\lfloor 2.25\,h\rfloor$ extension (unnecessary under `Max_N`).
 * Larger gaps prove only `In_Bounds` / RTE; the final gap-$1$ `Insertion_Pass` reuses the insertion-sort Level-4 argument for `Is_Sorted`.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): `Occ (A, V, Last)` counts V in `A (A'First .. Last)` and `Is_Perm` compares the counts of every value of either array. The proof carries the ghost `Same_Occ` (equal counts for every Integer) through the loops with swap / point-update lemmas (no Assume / Annotate). Loop invariants and the Posts of body-local subprograms are proved and not re-evaluated at run time (`Assertion_Policy` Ignore in the body: `Same_Occ` ranges over every Integer); the Post of `Sort`, including `Is_Perm`, is still checked by the tests. Before 2026-10-09 the Post said only `Is_Sorted`, which an all-zeros body also proves (tools/vv/contract_scan.csv).
+* Tests check `Is_Perm` against an independent sorted-copy comparison on every pair of arrays of length 0 .. 4 over -1 .. 1 (14,762 pairs, origins 1 and 7).
 
 ## Algorithm
 1. If $n \le 1$, return.
@@ -37,7 +38,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 250 assertions pass. Running `make prove` reports `Success: all checks proved (140 checks).`
+When you run `make test`, you will see all 253 assertions pass. Running `make prove` reports `Success: all checks proved (285 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia 12-element example, signed domain, lengths that engage each Ciura gap, power-of-two and odd lengths up to `Max_N`.
@@ -58,7 +59,7 @@ When you run `make test`, you will see all 250 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Gap-$1$ `Insert_Step` uses `pragma Loop_Invariant` and `Loop_Variant`; outer `Insertion_Pass` grows a sorted prefix; `Gap_Pass` discharges RTE for $h > 1$.
-* **GNATprove Level 4:** `Success: all checks proved (140 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (285 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
