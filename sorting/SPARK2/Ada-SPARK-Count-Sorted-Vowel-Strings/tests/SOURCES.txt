@@ -1,0 +1,22 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: the old table C (n + 4, 4) for n <= 16; C (104, 4) =
+104 * 103 * 102 * 101 / 24 = 4_598_126 worked by hand; the limit
+C (477, 4) = 2_130_031_575 (n = 473); strings from a later vowel worked
+by hand: over i o u length 2 (ii io iu oo ou uu = 6), over e i o u
+length 2 (10), over u alone (1 for every n), over o u (n + 1).
+
+own_checks.adb (no random draws, so no seed):
+* brute force for n <= 8: all 5 ** n strings, tested for being sorted,
+  counted for each first allowed vowel;
+* an own Pascal triangle (additions only, Long_Long_Integer): C (n + k, k),
+  k = 4 - position of the first vowel, for n <= 120, every 11th n and
+  n = 473 over all five vowels, and n <= 40, every 37th n and 473 for
+  the other first vowels (each call also runs the contract checks,
+  which cost O (n) Big_Integer operations);
+* the limit: C (477, 4) fits Natural and C (478, 4) does not.

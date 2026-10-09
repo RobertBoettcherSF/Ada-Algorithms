@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO;
 with Count_Sorted_Vowel_Strings; use Count_Sorted_Vowel_Strings;
+with Own_Checks;
 
 procedure Tests is
    procedure Expect (N : Length; From : Vowel; Want : Natural) is
@@ -38,5 +39,6 @@ begin
    --  Over e, i, o, u: C (n + 3, 3); n = 2 gives 10 (ee ei eo eu ii io iu oo ou uu).
    Expect (2, E, 10);
 
+   Own_Checks;
    Ada.Text_IO.Put_Line ("count sorted vowel strings tests passed");
 end Tests;
