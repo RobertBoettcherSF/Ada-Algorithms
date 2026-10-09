@@ -139,14 +139,17 @@ package body Ugly_Number_II with SPARK_Mode => On is
      Post   => Find'Result in L'Range and then L (Find'Result).Value = V;
 
    function Find (L : Ugly_List; V : Big_Integer) return Positive is
+      K : Positive := L'First;   --  L is not empty: Has (L, V)
    begin
-      for K in L'Range loop
-         if L (K).Value = V then
-            return K;
-         end if;
-         pragma Loop_Invariant (for all J in L'First .. K => L (J).Value /= V);
+      --  Has (L, V) and no match in L'First .. K, so K < L'Last: the scan
+      --  stops at a match inside L without a fallback return.
+      while L (K).Value /= V loop
+         pragma Loop_Invariant
+           (K in L'Range and then (for all J in L'First .. K => L (J).Value /= V));
+         pragma Loop_Variant (Increases => K);
+         K := K + 1;
       end loop;
-      return L'First;
+      return K;
    end Find;
 
    procedure Lemma_Complete (L : Ugly_List; A, B, C : Natural) is
