@@ -115,11 +115,8 @@ is
 
          exit when U = 0;
 
-         if Stack_Top >= Max_Vertices then
-            Length := 0;
-            Ok := False;
-            return;
-         end if;
+         --  Stack_Top < Guard <= N <= Max_Vertices: the push below always fits.
+         pragma Assert (Stack_Top < Max_Vertices);
 
          pragma Assert
            (if Stack_Top = 0 then U = Natural (Target));
