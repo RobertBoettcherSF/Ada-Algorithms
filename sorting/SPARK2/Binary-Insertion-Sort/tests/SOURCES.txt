@@ -1,16 +1,30 @@
-Sources of every expected value in this folder's own tests (own_checks.adb)
-==========================================================================
+Sources of every expected value in this folder's tests
+======================================================
 
 All checks are own properties or own reference code written for this
 repository (MIT); nothing is copied from the program's output or from
 third-party test suites.
 
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+the original example (23 4 17 9 1 31 12 6) and ascending, descending,
+repeated and all-equal arrays, each against its sorted order written by
+hand, and the comparison bound (sum of floor (log2 I) + 1 over
+I = 1 .. 7 = 17). The bound check was committed first and fails on the
+old bubble passes (56 comparisons).
+
+own_checks.adb (first written by the earlier own-tests batch; extended
+by the V&V sweep, agent B, 2026-10-09):
 * Property: the result of Sort is nondecreasing.
 * Property: the result is a permutation of the input (value counts equal).
 * Own brute-force reference: straight insertion sort (Reference in
   own_checks.adb), compared element by element.
-* Inputs: all 2**8 zero/one arrays (0-1 principle for comparator networks,
-  Knuth, The Art of Computer Programming Vol. 3, 5.3.4), edge shapes
-  (constant, ascending, descending, alternating extremes), 2,000 random
-  arrays over the full Value range and 1,000 with many duplicates from the
-  Park-Miller minimal standard generator (seed 20261008).
+* Inputs: all 2**8 zero/one arrays (many ties; the 0-1 principle that
+  the earlier version cited applies to fixed comparator networks such as
+  the old bubble passes, not to binary insertion sort, so it is no longer
+  claimed), edge shapes (constant, ascending, descending, alternating
+  extremes), 2,000 random arrays over the full Value range and 1,000 with
+  many duplicates from the Park-Miller minimal standard generator
+  (default seed 20261008, printed; AA_SEED=<n> overrides it).
+* Cost (added 2026-10-09): measured worst case exactly 17 comparisons,
+  and exact counts worked by hand: ascending 13, all equal 13, strictly
+  descending 17.
