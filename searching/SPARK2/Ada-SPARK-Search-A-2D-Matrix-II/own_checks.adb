@@ -7,7 +7,8 @@
 --  not use Cell); for the predicate, every entry <= its right neighbour
 --  and <= the entry below, checked on (R, C) directly.
 --  Inputs: 5 fixed and 300 random sorted matrices, each with every
---  target 0 .. 100; each with one entry lowered below its left or upper
+--  target 0 .. 100, and exact counts below / above every entry and for
+--  every target of 1 .. 64; each with one entry lowered below its left or upper
 --  neighbour (predicate, always rejected); 2,000 random matrices, half of
 --  them sorted with one entry changed (predicate).
 --  Random inputs: fixed default seed, printed at start; AA_SEED=<n>
@@ -100,6 +101,14 @@ procedure Own_Checks is
                Max_Probes := Natural'Max (Max_Probes, Res.Probes);
             end;
          end loop;
+         --  Exact counts: below every entry the walk goes left along row 1
+         --  (8 comparisons); above every entry it goes down column 8 (8).
+         if M (1, 1) > 0 then
+            Report (Contains (M, M (1, 1) - 1).Probes = Cols, Label & " below all: count");
+         end if;
+         if M (Rows, Cols) < Value'Last then
+            Report (Contains (M, M (Rows, Cols) + 1).Probes = Rows, Label & " above all: count");
+         end if;
       end if;
       --  Lower one entry that has a left or upper neighbour below that
       --  neighbour: never sorted.
@@ -148,6 +157,16 @@ begin
       end loop;
    end;
    Check_Matrix ([for R in Row => [for C in Column => (R - 1) * Cols + C]], "1 .. 64");
+   --  Distinct values 1 .. 64: the walk reaches the cell (R, C) of the
+   --  target by R - 1 steps down and Cols - C steps left, one comparison
+   --  each, plus the comparison that finds it.
+   for R in Row loop
+      for C in Column loop
+         Report (Contains ([for I in Row => [for J in Column => (I - 1) * Cols + J]], (R - 1) * Cols + C).Probes
+                   = (R - 1) + (Cols - C) + 1,
+                 "1 .. 64 count at" & R'Image & C'Image);
+      end loop;
+   end loop;
    Check_Matrix ([for R in Row => [for C in Column => 4 * R + 3 * C]], "4 R + 3 C");
    Check_Matrix ([for R in Row => [for C in Column => R + C]], "R + C");
    Check_Matrix ([for R in Row => [for C in Column => 10 * C + R]], "10 C + R");

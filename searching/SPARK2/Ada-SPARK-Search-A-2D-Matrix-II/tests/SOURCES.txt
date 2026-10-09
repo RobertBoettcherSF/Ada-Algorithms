@@ -21,7 +21,10 @@ below, checked on (R, C) directly.
   matrices (each entry = the larger of its upper and left neighbours
   plus 0 .. k, k = 1 .. 6), each with every target 0 .. 100: answer, at
   least one comparison, exactly one when Target is the top-right entry,
-  measured worst case exactly 15;
+  measured worst case exactly 15; exact counts below every entry (8,
+  along row 1) and above every entry (8, down column 8);
+* exact counts on 1 .. 64 for every target: (R - 1) + (Cols - C) + 1
+  for the cell (R, C) that holds it;
 * Staircase_Matrix membership on each with one entry lowered below its
   left or upper neighbour (always rejected), and on 2,000 random
   matrices (half of them sorted with one entry changed).

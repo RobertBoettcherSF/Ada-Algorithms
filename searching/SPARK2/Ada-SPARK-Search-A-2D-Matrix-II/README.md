@@ -20,6 +20,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (73 checks), on `proof.gpr` (the package only).
 
-`make test` runs `tests.adb` (three row- and column-sorted matrices: 1 .. 64 row by row; 4 R + 3 C, whose rows overlap; R + C, with equal values along anti-diagonals; every target 0 .. 100 against a scan of every entry) and the folder's own checks: 95,383 checks against a 2D scan and an entry-by-entry sortedness test (see `tests/SOURCES.txt`).
+`make test` runs `tests.adb` (three row- and column-sorted matrices: 1 .. 64 row by row; 4 R + 3 C, whose rows overlap; R + C, with equal values along anti-diagonals; every target 0 .. 100 against a scan of every entry) and the folder's own checks: 95,970 checks against a 2D scan and an entry-by-entry sortedness test (see `tests/SOURCES.txt`).
 
 The first version scanned every cell and kept going after a hit (64 comparisons always), with no contract and no sortedness requirement; its test used `pragma Assert`. The failing test that came first added a comparison counter and asserted the bound Rows + Cols - 1. That test fails on the old scan.
