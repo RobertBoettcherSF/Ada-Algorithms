@@ -17,6 +17,7 @@ with Modular_Arithmetic.Montgomery;   use Modular_Arithmetic.Montgomery;
 with Modular_Arithmetic.Check_Digits; use Modular_Arithmetic.Check_Digits;
 with Modular_Arithmetic.Ring;
 with Modular_Arithmetic.Big_Ring;
+with Own_Checks;
 
 procedure Tests
   with SPARK_Mode => Off
@@ -823,6 +824,11 @@ begin
              and then not Isbn13_Valid (E977),
              "REQ-021 ISBN-13: 979 accepted, 977 (not Bookland) rejected");
    end;
+
+   ------------------------------------------------------------------
+   Section ("11. Own checks (own_checks.adb, tests/SOURCES.txt)");
+   ------------------------------------------------------------------
+   Own_Checks;
 
    Ada.Text_IO.New_Line;
    Ada.Text_IO.Put_Line

@@ -1,0 +1,40 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Reviewed and extended by the V&V sweep (agent A3, 2026-10-09). Nothing is
+copied from the program's output or from third-party test suites.
+
+tests.adb (pre-existing, reviewed): every reference is computed in the test
+by a different method than the library:
+* sections 1, 3, 4, 5: exhaustive small moduli (N <= 40 / 30 / 70 / 60)
+  against plain Long_Long_Integer arithmetic, repeated multiplication for
+  powers, Euclid's remainder loop for gcd, the Bezout identity, a "seen"
+  table for orbit lengths and multiply-until-1 for the order;
+* sections 2, 3, 4, 6, 7: large moduli (2**63-25, 2**63-1, 2**61-1,
+  2**62-57, 2**62, 2**32+15, 10**9+7, 2**40) against
+  Interfaces.Unsigned_128 products (the library uses its own signed
+  128-bit type Wide and SPARK lemmas), splitmix-style random operands with
+  a fixed state; CRT results checked residue by residue and by uniqueness
+  over all coprime moduli <= 25;
+* sections 9, 10 (check digits): example codes in the style of widely
+  circulated sample numbers (e.g. ISBN 0-306-40615-2, Luhn 79927398713,
+  IBAN DE89 3704 0044 0532 0130 00). They are NOT counted as known-answer
+  vectors: each is checked by test-side definitional references
+  (Ref_Iban_Rem, Ref_Ean, the ISBN weighted sum), and the substitution and
+  transposition properties are generated from them by the test.
+
+own_checks.adb (new, called from tests.adb section 11; seeded: Park-Miller
+minimal standard generator, default seed = FNV-1a (32-bit) of the folder
+name folded into 1 .. 2**31 - 2, printed; AA_SEED=<n> overrides it):
+* Luhn, ISBN-10, EAN-13 / ISBN-13 and IBAN check symbols of 7,000 random
+  inputs, each found by trying every candidate symbol against the scheme's
+  defining weighted sum (Luhn: doubled digits split into their two decimal
+  digits; ISBN-10: weights 10 .. 1, X = 10, mod 11; EAN-13: weights 1, 3,
+  mod 10; IBAN: ISO 13616 rearrangement, letters A .. Z = 10 .. 35, the
+  decimal string reduced 4 digits at a time mod 97, check pair searched in
+  02 .. 98). The generator must return that symbol, exactly one symbol may
+  fit, and the validator must accept exactly the completed string among
+  all final symbols (IBAN: all 100 check pairs);
+* Extended_Gcd on 3,000 random 63-bit pairs (half with a common factor,
+  some zeros): G against Stein's binary gcd (shifts and subtractions only)
+  and A * X + B * Y = G in the test's own 128-bit integer type.
