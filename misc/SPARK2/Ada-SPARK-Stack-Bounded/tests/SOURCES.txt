@@ -1,0 +1,23 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the first line of the main program is the original case (push
+10 and 20, pop 20 then 10). Check_Edges (hand-worked from the stack
+definition: last in, first out, Capacity = 8 from the spec): pushing
+10, 20, ..., 80 gives depth K and top K * 10 after the K-th push and Is_Full
+only at depth 8; Top does not change the depth; a ninth push, and Pop / Top
+on an empty stack, break the preconditions and must raise Assertion_Error
+(tests run with -gnata); popping returns 80, 70, ..., 10; a slot freed by
+Pop is reused (push 1, 2, pop 2, push 3, pop 3, pop 1); Integer'First,
+Integer'Last and 0 come back unchanged in reverse order; Initialize empties
+a non-empty stack.
+
+own_checks.adb: model-based. Seeded random operation sequences (seed =
+FNV-1a of the folder name, AA_SEED overrides it; 200 runs of 200 steps) are
+applied both to the stack and to a plain array model; after every step
+Depth, Is_Empty, Is_Full and Top are compared with the model, and every Pop
+must return the model's last value. Operations are only issued when their
+precondition holds.
