@@ -435,6 +435,14 @@ Agent B (2026-10-09, 07:2x, Big_Integers scan, tools/vv/big_pow_scan.csv):
 
 Agent B (2026-10-09, 07:1x, correction to the scan note above): the Big mod error IS already reported upstream, in PR ada/125695 (comments by Liam Powell and Eric Botcazou, 2026-06-10, from the saved bugzilla XML). The earlier "a web search found no upstream report" was wrong and is withdrawn. The fix is not among the five PR commits. GCC's own history feed for gcc/ada/libgnat/s-genbig.adb on master (fetched 2026-10-09) shows 8247ea5bb5b4 (2026-06-09T18:51:09Z, the ** fix) as the latest commit to that file, so Big_Mod is still unfixed on master. Lesson: read the whole report, comments included, before saying a problem is unreported.
 
+Agent B (2026-10-09, 08:2x, Different-Ways-To-Add-Parentheses-Lite and House-Robber-III-Lite rewrites):
+- cvc5 as gnatprove 16.1 calls it (with --prenex-quant=none) gives up ("incomplete") on quantified frame invariants over arrays of arrays or 2D arrays, even trivial ones; plain cvc5 without that option and z3 prove the same goal. Different-Ways therefore avoids tables of result lists: All_Results is a recursive divide and conquer, and each part's bound is carried by the element subtype (Value_L) rather than restated by a loop invariant.
+- cvc5 also missed congruence through nonlinear terms (W (K) * W (M - K) with W (K) = Ways (K)) and through index arithmetic written differently (I2 - I2 + 1 against 1). Naming the term in a constant and indexing by (start, length) so terms match syntactically fixed both.
+- The first Different-Ways limit (8 operands) was not the overflow limit; a failing test (87cd67bf, nine factors -99) came first, then the limit 9 (99 ** 9 fits Long_Long_Integer, 99 ** 10 does not). The first failing test a2a081e7 reached main on its own before its rewrite.
+- GNAT 14.2 had an internal compiler error (trans.cc:6710) on indexing a constant Vector of Big_Integer with Ord (M); Element (Ord, M) avoids it. Not reported upstream.
+- House-Robber-III: with -gnata, recursive postconditions that call the function itself grew the run time about N ** 4.6; declare expressions that compute each child once brought it to about N ** 2.2. The N <= 100 limit is a runtime limit (written in the README).
+- Held: Different-Ways 54/54 (52 test + 2 proof, 8 equivalent with written reason), House-Robber-III 49/49 (35 test + 14 proof; the proof kills are ghost Lemma_Opt_Node and subprogram-variant mutants that make test does not execute). Unseen top-ups stay as recorded: 26/30 and 21/30.
+
 ## 3j. Silent-fail scan, compiler-version guard and timeouts (2026-10-08, night)
 
 **Silent fail.** `tools/vv/silent_fail.py` asks whether a failed check would fail `make test`. It reads the logs of the version-checked build run (`--from-logs`; `tools/audit/build_folder.sh` keeps `mk14.log`, `mk12.log`, `r14.log`, `r12.log`) or runs `make test` itself on GNAT 14. It flags three things:
