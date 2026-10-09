@@ -11,7 +11,7 @@ Monorepo of small Ada and SPARK algorithm folders (educational sheets). MIT lice
 | Silver-proven, non-trivial (not stubs, more than 3 checks) | 503 |
 | Training-ready under rule v1 (held-out n >= 20, >= 90%, proof pass; docs/VV.md "Rule v1"), count as of 2026-10-09: 84 folders. Blind held-out mutation >= 90% with n >= 20, independent reference, index-independent, 0 warnings on GNAT 14 and 12 without suppression, no withdrawn or partial functional claim, no unexplained proof escape; reasons in PROOFS.csv `tr_drop`. Unseen top-up scores are shown next to each held-out score in PROOFS.md and are not counted | 84 |
 | Training-ready under the previous rule | 273 |
-| Open findings (`tools/vv/findings.csv`) | 68 |
+| Open findings (`tools/vv/findings.csv`) | 58 |
 | Implementation candidates (stubs, column `implement_next`; docs/IMPLEMENT.md) | 145 |
 <!-- proof-index:end -->
 
