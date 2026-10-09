@@ -1,0 +1,8 @@
+project House_Robber_III_Lite_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("house_robber_iii_lite.ads", "house_robber_iii_lite.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end House_Robber_III_Lite_Proof;

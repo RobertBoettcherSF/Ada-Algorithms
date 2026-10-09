@@ -1,0 +1,42 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb (every value worked out by hand; the comments show the
+bottom-up (take, skip) pairs):
+* the old table: a path of K houses worth 1 gives ceil (K / 2), K <= 16;
+* empty tree 0; one house worth 7 gives 7;
+* root 4, left child 5 (children 1 and 3), right child 2 (right child
+  9): (17, 14) at the root, robbing 4, 1, 3, 9 = 17;
+* left path 2, 7, 9, 3, 1: 2 + 9 + 1 = 12; right path 10, 1, 10: 20;
+* a tie (root 5, child 5): 5, the root is robbed (Take >= Skip);
+* root 0 with children 6 and 6: 12, both children robbed;
+* the limits: a path of 100 houses worth 10_000 gives every other house
+  from the root, 50 * 10_000 = 500_000;
+* a tree not in preorder (root's right child numbered before its left
+  child's subtree ends) is rejected by the Good_Tree predicate.
+(The small cases were also confirmed by an own brute force before the
+test was written.)
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (378292827), printed; AA_SEED=<n> overrides it):
+* 600 seeded random trees (400 of 0 .. 14 houses, 200 of 0 .. 100;
+  random left-subtree sizes; values 0, 10_000 or uniform): an own walk
+  from the root confirms the preorder shape and Well_Formed agrees;
+  Max_Loot equals an own iterative program (houses in decreasing number,
+  children first) and, for N <= 14, an own brute force over all 2 ** N
+  choices (flat rule: no robbed house with a robbed child; flat sums);
+  Best_Choice is flat-independent with flat sum Max_Loot; a random
+  independent choice is not better, and Lemma_Optimal runs on it with
+  its contracts checked;
+* each random tree with one link changed at random: Well_Formed must
+  agree with the own shape check (and the tree is checked as above if
+  it is still valid);
+* left and right paths of 100 houses worth 10_000: 500_000.
+Run: gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
+(4,976 checks, about 3 s with assertions on; without -gnata a planted
+Skip = Take (left) + Take (right) fails 884 of them).
