@@ -124,7 +124,7 @@ numerical/Ada/Cubic-Interpolation,"index_shift midpoint_overflow: numerical/Ada/
 numerical/Ada/Hermite-Interpolation,"index_shift midpoint_overflow: numerical/Ada/Hermite-Interpolation/hermite_interpolation.adb:95: Mid := (Lo + Hi) / 2; — rewrite as Lo + (Hi - Lo) / 2; SPARK: prove no overflow",fixed,,
 numerical/Ada/Monotone-Cubic-Interpolation,"index_shift midpoint_overflow: numerical/Ada/Monotone-Cubic-Interpolation/monotone_cubic_interpolation.adb:127: Mid := (Lo + Hi) / 2; — rewrite as Lo + (Hi - Lo) / 2; SPARK: prove no overflow",fixed,,
 numerical/Ada/Spline-Interpolation,"index_shift midpoint_overflow: numerical/Ada/Spline-Interpolation/spline_interpolation.adb:75: Mid := (Lo + Hi) / 2; — rewrite as Lo + (Hi - Lo) / 2; SPARK: prove no overflow",fixed,,
-sorting/Ada/Slowsort,"index_shift midpoint_overflow: sorting/Ada/Slowsort/slowsort.adb:25: M := (I + J) / 2; — rewrite as Lo + (Hi - Lo) / 2; SPARK: prove no overflow",open,,
+sorting/Ada/Slowsort,"index_shift midpoint_overflow: sorting/Ada/Slowsort/slowsort.adb:25: M := (I + J) / 2; — rewrite as Lo + (Hi - Lo) / 2; SPARK: prove no overflow",fixed,c13de1fe,859ef643
 sorting/SPARK4/Ada-SPARK-Library-Sort,"index_shift midpoint_overflow: sorting/SPARK4/Ada-SPARK-Library-Sort/library_sort.adb:69: else Occ_In (W, L, (L + R) / 2) + Occ_In (W, (L + R) / 2 + 1, R)) — rewrite as Lo + (Hi - Lo) / 2; SPARK: prove no overflow",open,,
 compression/SPARK2/Ada-SPARK-Run-Length-Encoding,"index_shift first_pinned: In_Bounds/Pre requires A'First = 1 — make First-relative indexing",open,,
 compression/SPARK3/Huffman-Coding,"index_shift first_pinned: In_Bounds/Pre requires A'First = 1 — make First-relative indexing",open,,
