@@ -104,4 +104,29 @@ is
    --  Post proves sortedness; multiset / permutation equality is
    --  checked by the test suite (not claimed here at Level 4).
 
+   --  Musser depth budget: 2 * floor(log2 N); at most 12 for N <= Max_N.
+   subtype Depth_Limit is Natural range 0 .. 12;
+
+   function Depth_Budget (N : Natural) return Depth_Limit
+     with
+       Global => null,
+       Pre    => N <= Max_N;
+   --  2 * floor(log2 N) for N >= 1 (the budget Sort uses); 0 for N = 0.
+
+   procedure Sort_Traced
+     (A              : in out Element_Array;
+      Max_Depth      : Depth_Limit;
+      Heap_Fallbacks : out Natural)
+     with
+       Global => null,
+       Pre    => In_Bounds (A),
+       Post   =>
+         In_Bounds (A)
+         and then Is_Sorted (A)
+         and then Heap_Fallbacks <= A'Length;
+   --  Same introsort as Sort, but with an explicit depth budget and a
+   --  count of slices finished by the depth-0 heapsort fallback.
+   --  Sort (A) = Sort_Traced (A, Depth_Budget (A'Length), _).
+   --  Max_Depth = 0 heapsorts the whole array when A'Length > 16.
+
 end Introsort;

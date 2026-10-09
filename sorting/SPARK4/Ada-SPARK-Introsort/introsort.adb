@@ -17,7 +17,7 @@ is
    subtype Cursor is Natural range 0 .. Max_N + 1;
 
    --  2 * floor(log2(Max_N)) = 12; Musser depth budget never exceeds this.
-   subtype Depth_Count is Natural range 0 .. 12;
+   subtype Depth_Count is Depth_Limit;
 
    --  Adjacent nondecreasing on A (L .. R). Vacuous when L >= R.
    function Sorted_Slice
@@ -802,7 +802,8 @@ is
      (A                        : in out Element_Array;
       Lo, Hi                   : Index;
       Depth                    : Depth_Count;
-      Lower_Bound, Upper_Bound : Integer)
+      Lower_Bound, Upper_Bound : Integer;
+      Heaps                    : in out Natural)
      with
        Global             => null,
        Subprogram_Variant => (Decreases => Hi - Lo),
@@ -810,10 +811,12 @@ is
          In_Bounds (A)
          and then Lo in A'First .. A'Last
          and then Hi in Lo .. A'Last
+         and then Heaps <= Max_N - (Hi - Lo + 1)
          and then All_Geq (A, Lo, Hi, Lower_Bound)
          and then All_Leq (A, Lo, Hi, Upper_Bound),
        Post               =>
          In_Bounds (A)
+         and then Heaps <= Heaps'Old + (Hi - Lo + 1)
          and then Sorted_Slice (A, Lo, Hi)
          and then All_Geq (A, Lo, Hi, Lower_Bound)
          and then All_Leq (A, Lo, Hi, Upper_Bound)
@@ -843,6 +846,7 @@ is
 
       if Depth = 0 then
          Heapsort_Range (A, Lo, Hi, Lower_Bound, Upper_Bound);
+         Heaps := Heaps + 1;
          pragma Assert (Sorted_Slice (A, Lo, Hi));
          return;
       end if;
@@ -863,7 +867,7 @@ is
          pragma Assert (All_Geq (A, Lo, P - 1, Lower_Bound));
          pragma Assert (All_Leq (A, Lo, P - 1, A (P)));
          Intro_Sort_Rec
-           (A, Lo, P - 1, Depth - 1, Lower_Bound, A (P));
+           (A, Lo, P - 1, Depth - 1, Lower_Bound, A (P), Heaps);
          pragma Assert (Sorted_Slice (A, Lo, P - 1));
          pragma Assert (All_Leq (A, Lo, P - 1, A (P)));
          pragma Assert (All_Geq (A, Lo, P - 1, Lower_Bound));
@@ -879,8 +883,9 @@ is
          pragma Assert (Hi - (P + 1) < Hi - Lo);
          pragma Assert (All_Geq (A, P + 1, Hi, A (P)));
          pragma Assert (All_Leq (A, P + 1, Hi, Upper_Bound));
+         pragma Assert (Heaps <= Max_N - (Hi - P));
          Intro_Sort_Rec
-           (A, P + 1, Hi, Depth - 1, A (P), Upper_Bound);
+           (A, P + 1, Hi, Depth - 1, A (P), Upper_Bound, Heaps);
          pragma Assert (Sorted_Slice (A, P + 1, Hi));
          pragma Assert (All_Geq (A, P + 1, Hi, A (P)));
          pragma Assert (All_Leq (A, P + 1, Hi, Upper_Bound));
@@ -907,11 +912,23 @@ is
       pragma Assert (All_Geq (A, Lo, Hi, Lower_Bound));
    end Intro_Sort_Rec;
 
-   procedure Sort (A : in out Element_Array) is
-      Depth : Depth_Count;
-      Lo    : Index;
-      Hi    : Index;
+   function Depth_Budget (N : Natural) return Depth_Limit is
    begin
+      if N = 0 then
+         return 0;
+      end if;
+      return 2 * Floor_Log2 (N);
+   end Depth_Budget;
+
+   procedure Sort_Traced
+     (A              : in out Element_Array;
+      Max_Depth      : Depth_Limit;
+      Heap_Fallbacks : out Natural)
+   is
+      Lo : Index;
+      Hi : Index;
+   begin
+      Heap_Fallbacks := 0;
       if A'Length <= 1 then
          return;
       end if;
@@ -922,13 +939,18 @@ is
       pragma Assert (All_Geq (A, Lo, Hi, Integer'First));
       pragma Assert (All_Leq (A, Lo, Hi, Integer'Last));
 
-      Depth := 2 * Floor_Log2 (A'Length);
-
       Intro_Sort_Rec
-        (A, Lo, Hi, Depth, Integer'First, Integer'Last);
+        (A, Lo, Hi, Max_Depth, Integer'First, Integer'Last, Heap_Fallbacks);
 
       pragma Assert (Sorted_Slice (A, Lo, Hi));
       pragma Assert (Is_Sorted (A));
+   end Sort_Traced;
+
+   procedure Sort (A : in out Element_Array) is
+      Heap_Fallbacks : Natural;
+   begin
+      Sort_Traced (A, Depth_Budget (A'Length), Heap_Fallbacks);
+      pragma Assert (Heap_Fallbacks <= A'Length);
    end Sort;
 
 end Introsort;

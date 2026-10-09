@@ -598,6 +598,148 @@ begin
              "Wide(2 .. Max_N) near-equal heap path");
    end;
 
+   ---------------------------------------------------------------------
+   Section ("15. Heapsort fallback is exercised (counter)");
+   ---------------------------------------------------------------------
+   --  Random inputs almost never exhaust 2*floor(log2 n). Sort_Traced
+   --  reports how many slices the depth-0 heapsort handled.
+   --  (a) Median-of-3 killer: Musser's K_n (Introspective Sorting and
+   --      Selection Algorithms, 1997) peels 2 elements per partition for
+   --      a Hoare scheme with the median parked at Lo; this port parks
+   --      the median at Hi and uses Lomuto, so K_64 is not a killer here.
+   --      Killer_64 is the same peel-by-2 shape for THIS Median_Of_Three
+   --      + Lomuto, built with McIlroy's adversary ("A Killer Adversary
+   --      for Quicksort", 1999): every pivot is the 2nd smallest, so 12
+   --      levels shrink 64 only to 40 > Insertion_Threshold.
+   declare
+      Killer_64 : constant Element_Array (1 .. 64) :=
+        [
+         1, 4, 3, 6, 5, 8, 7, 10, 9, 12, 11, 14,
+         13, 16, 15, 18, 17, 20, 19, 22, 21, 24, 23, 64,
+         25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+         37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
+         49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+         61, 62, 63, 2];
+      Musser_K64 : constant Element_Array (1 .. 64) :=
+        [
+         1, 33, 3, 35, 5, 37, 7, 39, 9, 41, 11, 43,
+         13, 45, 15, 47, 17, 49, 19, 51, 21, 53, 23, 55,
+         25, 57, 27, 59, 29, 61, 31, 63, 2, 4, 6, 8,
+         10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32,
+         34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56,
+         58, 60, 62, 64];
+      A, R : Element_Array (1 .. 64);
+      H    : Natural;
+   begin
+      A := Killer_64;
+      R := Killer_64;
+      Sort_Traced (A, Depth_Budget (A'Length), H);
+      Reference_Sort (R);
+      Check (Nat (Depth_Budget (64)) = 12, "Depth_Budget (64) = 2*floor(log2 64) = 12");
+      Check (H >= 1, "killer n=64: heap fallback ran (count" & H'Image & ")");
+      Check (Same (A, R) and then Boo (Is_Sorted (A)),
+             "killer n=64 sorted = reference");
+      A := Killer_64;
+      Sort (A);
+      Check (Same (A, R), "killer n=64 via Sort = reference");
+      --  Shifted killer: the n=48 adversary at A (17 .. 64) (ends at
+      --  Max_N). Pivot choice depends only on Hi - Lo, so the shape is
+      --  origin-independent; budget 2*floor(log2 48) = 10.
+      declare
+         K48 : Element_Array (17 .. 64) :=
+           [
+              1, 4, 3, 6, 5, 8, 7, 10, 9, 12, 11, 14,
+              13, 16, 15, 18, 17, 20, 19, 48, 21, 22, 23, 24,
+              25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+              37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 2];
+         R48 : Element_Array := Copy_Of (K48);
+      begin
+         Sort_Traced (K48, Depth_Budget (K48'Length), H);
+         Reference_Sort (R48);
+         Check (H >= 1, "killer n=48 at A (17 .. 64): heap fallback ran (count"
+                & H'Image & ")");
+         Check (Same (K48, R48), "killer n=48 at A (17 .. 64) = reference");
+      end;
+      A := Musser_K64;
+      R := Musser_K64;
+      Sort_Traced (A, Depth_Budget (A'Length), H);
+      Reference_Sort (R);
+      Check (Same (A, R), "Musser K_64 sorted = reference (heap count"
+             & H'Image & ", not a killer for Lomuto)");
+      declare
+         Rnd : Element_Array := Random_Array (64, -999, 999);
+         Rr  : Element_Array := Copy_Of (Rnd);
+      begin
+         Sort_Traced (Rnd, Depth_Budget (Rnd'Length), H);
+         Reference_Sort (Rr);
+         Check (Same (Rnd, Rr), "random n=64 traced sorted (heap count"
+                & H'Image & ")");
+      end;
+   end;
+   --  (b) Depth limit forced to 0: the whole array is one heapsort,
+   --      on slices that do not start at 1 (offset heap, Has_Left).
+   declare
+      type Origin_List is array (Positive range <>) of Positive;
+      Origins : constant Origin_List := [2, 7, 17, 33, 47];
+      H       : Natural;
+      Ok      : Boolean := True;
+      Count_Ok : Boolean := True;
+   begin
+      for O of Origins loop
+         for Len in 17 .. Max_N - O + 1 loop
+            for P in 1 .. 3 loop
+               declare
+                  Src : Element_Array (1 .. Len);
+                  A   : Element_Array (O .. O + Len - 1);
+                  R   : Element_Array (1 .. Len);
+               begin
+                  case P is
+                     when 1 => for I in Src'Range loop Src (I) := Len - I + 1; end loop;
+                     when 2 => Src := Organ_Pipe (Len);
+                     when others => Src := Random_Array (Len, -20, 20);
+                  end case;
+                  for K in 0 .. Len - 1 loop
+                     A (O + K) := Src (1 + K);
+                  end loop;
+                  R := Src;
+                  Sort_Traced (A, 0, H);
+                  Reference_Sort (R);
+                  if H /= 1 then
+                     Count_Ok := False;
+                     Put_Line ("    heap count" & H'Image & " origin" & O'Image
+                               & " len" & Len'Image);
+                  end if;
+                  if not Same (A, R) then
+                     Ok := False;
+                     Put_Line ("    mismatch origin" & O'Image & " len" & Len'Image);
+                  end if;
+               end;
+            end loop;
+         end loop;
+      end loop;
+      Check (Count_Ok, "Max_Depth 0, len > 16: exactly one heapsort (whole slice)");
+      Check (Ok, "Max_Depth 0 at origins 2,7,17,33,47 (flush to Max_N) = reference");
+      declare
+         Small : Element_Array (40 .. 55) := [others => 3];
+      begin
+         Small (40) := 9;
+         Sort_Traced (Small, 0, H);
+         Check (H = 0 and then Small (55) = 9 and then Boo (Is_Sorted (Small)),
+                "Max_Depth 0, len 16: insertion (no heap)");
+      end;
+      declare
+         Tail : Element_Array (Max_N - 16 .. Max_N);
+      begin
+         for I in Tail'Range loop
+            Tail (I) := Max_N - I;
+         end loop;
+         Sort_Traced (Tail, 0, H);
+         Check (H = 1 and then Tail (Tail'First) = 0 and then Tail (Max_N) = 16
+                and then Boo (Is_Sorted (Tail)),
+                "Max_Depth 0, A (Max_N-16 .. Max_N): heap at the top end");
+      end;
+   end;
+
    New_Line;
    Put_Line
      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image

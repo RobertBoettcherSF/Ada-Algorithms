@@ -11,6 +11,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Introsort](https://
 
 ## Features
 * **`Sort (A)`**: Ascending Musser introsort — median-of-three Lomuto + heapsort depth cutoff + insertion for small partitions.
+* **`Sort_Traced (A, Max_Depth, Heap_Fallbacks)`** / **`Depth_Budget (N)`**: the same sort with an explicit depth budget and a count of slices finished by the depth-0 heapsort fallback (`Sort (A)` uses `Depth_Budget (A'Length)` = $2\lfloor\log_2 n\rfloor$). Lets tests prove the fallback actually ran.
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
 * **`Insertion_Threshold`**: Classic Musser / SGI / libstdc++ small-partition cutoff ($16$).
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, a `Subprogram_Variant` on recursive `Intro_Sort_Rec`, insertion / heap / Lomuto invariants, and a glue lemma that reassembles a sorted slice at the pivot.
@@ -72,12 +73,13 @@ Unstable: equal keys may change relative order.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 324 assertions pass. Running `make prove` reports `Success: all checks proved (838 checks).`
+When you run `make test`, you will see all 336 assertions pass. Running `make prove` reports `Success: all checks proved (853 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, classic numeric example, signed domain including `Integer'First` / `Integer'Last`, power-of-two and odd lengths up to `Max_N`.
 * **Agreement**: `Sort` vs an independent insertion-sort reference; multiset / permutation equality on every case.
 * **Hybrid paths**: sizes on both sides of `Insertion_Threshold` ($15$, $16$, $17$); all-equal $n=64$ (Lomuto returns $P=\mathrm{Hi}$ repeatedly so the depth budget hits $0$ and heapsort runs).
+* **Heapsort fallback is exercised (section 15)**: random inputs almost never exhaust the depth budget, so the tests use a median-of-3 killer and check `Heap_Fallbacks >= 1`. Musser's $K_{64}$ peels two elements per partition for a Hoare scheme with the median parked at `Lo`; this port parks the median at `Hi` and uses Lomuto, so $K_{64}$ is not a killer here (heap count 0, still checked sorted). `Killer_64` (and the $n=48$ shape at `A (17 .. 64)`) is the same peel-by-2 shape for this exact median-of-three + Lomuto, generated with McIlroy's adversary ("A Killer Adversary for Quicksort", 1999). `Max_Depth => 0` heapsorts the whole slice at origins 2, 7, 17, 33, 47 (flush to `Max_N`) with exactly one fallback.
 * **Pivot / depth stress**: Sorted, reverse, all-equal, sawtooth, organ-pipe, and random arrays up to `Max_N`.
 * **Contract helpers**: `Is_Sorted` true/false; `In_Bounds` at `Max_N` and empty.
 * **Contract discipline**: Only valid call paths are exercised (no exception handlers). Tests stay at $n \le 64$ (no combinatorial explosion).
@@ -94,7 +96,7 @@ When you run `make test`, you will see all 324 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Lomuto scan uses `pragma Loop_Invariant`; recursive `Intro_Sort_Rec` uses `Subprogram_Variant` and a ghost glue lemma to join the sorted sides at the pivot. Insertion and heapsort helpers prove `Sorted_Slice` on $\mathrm{Lo} .. \mathrm{Hi}$.
-* **GNATprove Level 4:** `Success: all checks proved (838 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (853 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
@@ -106,6 +108,8 @@ When you run `make test`, you will see all 324 assertions pass. Running `make pr
 | `In_Bounds` | `A'Length <= Max_N`, `A'First in 1 .. Max_N`, `A'Last in 0 .. Max_N` |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
 | `Sort` | Ascending Musser introsort (`Post => Is_Sorted`) |
+| `Depth_Limit` / `Depth_Budget` | Depth budget subtype (`0 .. 12`) / $2\lfloor\log_2 N\rfloor$ |
+| `Sort_Traced` | `Sort` with explicit `Max_Depth` and `Heap_Fallbacks` count (`Post => Is_Sorted`, count $\le$ `A'Length`) |
 
 ## License
 MIT License — Copyright (c) 2026 Sternenfisch.
