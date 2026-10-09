@@ -90,7 +90,8 @@ is
       return Element_Array'(A);
    end Copy_Of;
 
-   --  True iff A (1 .. Heap_Last) is a max-heap under 1-based children.
+   --  True iff A (A'First .. Heap_Last) is a max-heap; the children of
+   --  slot I are A'First + 2 * (I - A'First) + 1 and the next slot.
    function Is_Max_Heap
      (A : Element_Array; Heap_Last : Natural) return Boolean
    is
@@ -100,7 +101,7 @@ is
          return True;
       end if;
       for I in A'First .. Heap_Last loop
-         Left := 2 * I;
+         Left := A'First + 2 * (I - A'First) + 1;
          if Left <= Heap_Last then
             if A (I) < A (Left) then
                return False;
@@ -239,7 +240,7 @@ begin
    --  agent A3): with A'First = 2 the children of slot 2 are 3 and 4.
    declare
       Two : Element_Array (2 .. 4) := [1, 2, 0];
-      Five : Element_Array (5 .. 9) := [9, 8, 7, 1, 9];
+      Five : constant Element_Array (5 .. 9) := [9, 8, 7, 1, 9];
    begin
       Check (not Is_Max_Heap (Two, 4), "Is_Max_Heap rejects child 2 under root 1 (A'First = 2)");
       Two := [3, 2, 1];
