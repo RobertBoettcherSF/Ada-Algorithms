@@ -365,8 +365,7 @@ is
          pragma Assert
            (Sorted_Slice
               (A, Mid + 1, Natural'Min (Mid + Width, N)));
-         pragma Assert (Hi <= Natural'Min (Mid + Width, N)
-                        or else Hi = N);
+         pragma Assert (Hi <= Natural'Min (Mid + Width, N));
          pragma Assert (Sorted_Slice (A, Mid + 1, Hi));
 
          Merge (A, Temp, Lo, Mid, Hi);
