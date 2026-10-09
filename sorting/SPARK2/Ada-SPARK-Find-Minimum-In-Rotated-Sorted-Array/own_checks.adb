@@ -77,6 +77,17 @@ procedure Own_Checks is
       return M;
    end Linear_Min;
 
+   function Floor_Log2 (N : Positive) return Natural is
+      K : Natural := 0;
+      M : Positive := N;
+   begin
+      while M > 1 loop
+         M := M / 2;
+         K := K + 1;
+      end loop;
+      return K;
+   end Floor_Log2;
+
    function Turn (Base : Data_Array; S : Natural) return Data_Array is
      [for I in Index => Base (((I - 1 + S) mod Length) + 1)];
 
@@ -100,7 +111,10 @@ procedure Own_Checks is
                Report (R.Position = Where, "position " & Tag & " got" & R.Position'Image);
                Report (D (R.Position) = Linear_Min (D) and then D (R.Position) = Base (1),
                        "value at position " & Tag);
-               --  32 = 2 ** 5 candidates, halved per probe.
+               --  Cost bound for distinct values: floor (log2 N) + 2 probes
+               --  (Floor_Log2 computed here by halving); with 32 = 2 ** 5
+               --  candidates halved per probe it is exactly 5.
+               Report (R.Probes <= Floor_Log2 (Length) + 2, "probe bound " & Tag & " got" & R.Probes'Image);
                Report (R.Probes = 5, "probes " & Tag & " got" & R.Probes'Image);
                Report (Minimum (D) = Linear_Min (D), "Minimum " & Tag);
             end if;
@@ -161,7 +175,7 @@ begin
    end loop;
    if Failures = 0 then
       Put_Line ("PASS own checks:" & Checked'Image
-                & " checks (all 32 rotations of 304 increasing arrays: position, value, probes, Minimum; predicate on rotations, broken copies and random arrays)");
+                & " checks (all 32 rotations of 304 increasing arrays: position, value, probes <= floor (log2 N) + 2 and = 5, Minimum; predicate on rotations, broken copies and random arrays)");
    else
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
    end if;

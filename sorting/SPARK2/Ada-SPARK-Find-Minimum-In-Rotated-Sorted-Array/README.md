@@ -6,7 +6,9 @@ Find the minimum of a rotated sorted array, in SPARK. `Data` holds 32 values in 
 - If the middle value is larger, the descent lies after the middle.
 - Otherwise the range from the middle to the end increases, so the pivot is not after the middle.
 
-It returns the position of the minimum and the number of probes (at most 5 = log2 32). `Minimum (Data)` returns the value there.
+It returns the position of the minimum and the number of probes. The probe count is part of the result type (`Probe_Count` is 0 .. 5 = log2 32, so the bound is proved), and the own checks also assert at most floor (log2 N) + 2 probes on every input. `Minimum (Data)` returns the value there.
+
+Cost: O(log N). Duplicates are not accepted: the precondition requires a strictly increasing array before the turn, so every neighbour pair differs (the own checks confirm that an array with a repeated value is rejected). With duplicates no comparison-based search can stay logarithmic (all equal but one needs a look at every position), which is the separate Find-Minimum-In-Rotated-Sorted-Array-II problem.
 
 The postconditions are proved:
 - `Find_Minimum`: the value at `Position` is at most every `Data (I)`.
@@ -31,6 +33,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (50 checks).
 
-`make test` runs `tests.adb` and the folder's own checks: 80,124 checks over all rotations of 304 increasing arrays (see `tests/SOURCES.txt`).
+`make test` runs `tests.adb` and the folder's own checks: 89,852 checks over all rotations of 304 increasing arrays (see `tests/SOURCES.txt`).
 
 The first version had no search and no precondition: it scanned all 32 values linearly, so it never used the rotated order.

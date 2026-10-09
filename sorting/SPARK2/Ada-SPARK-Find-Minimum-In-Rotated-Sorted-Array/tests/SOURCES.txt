@@ -12,7 +12,8 @@ known increasing Base turned by S places, so Base (1) must be at
 position ((32 - S) mod 32) + 1).
 * all 32 rotations of 4 fixed increasing arrays and of 300 random
   increasing arrays (32 distinct values out of 0 .. 100): position,
-  value at the position, 5 probes, Minimum;
+  value at the position, probes <= floor (log2 N) + 2 (Floor_Log2 by
+  halving) and exactly 5, Minimum;
 * Is_Rotated_Sorted against a second rule (exactly one cyclic
   non-increasing step) on the rotations, on rotations with two
   neighbours swapped or one value copied onto its neighbour, and on
