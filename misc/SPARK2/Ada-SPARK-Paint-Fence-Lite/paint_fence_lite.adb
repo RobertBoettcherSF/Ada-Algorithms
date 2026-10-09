@@ -22,11 +22,6 @@ package body Paint_Fence_Lite is
    begin
       pragma Assert (Big (W) = Q * MM + Big (Md (W, M)));
       pragma Assert (D * MM = Big (Md (W, M)) - Big (R));
-      if D >= 1 then
-         pragma Assert (D * MM >= MM);
-      elsif D <= -1 then
-         pragma Assert (D * MM <= -MM);
-      end if;
       pragma Assert (D = 0);
    end Lemma_Mod_Unique;
 
