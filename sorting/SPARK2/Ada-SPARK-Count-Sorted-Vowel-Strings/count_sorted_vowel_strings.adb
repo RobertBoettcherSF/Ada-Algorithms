@@ -18,16 +18,17 @@ package body Count_Sorted_Vowel_Strings with SPARK_Mode => On is
       pragma Assert (XX * Y <= XX * YY);
    end Lemma_Mul_Mono;
 
+   subtype Below_U is Vowel range A .. O;   --  the vowels with a successor
+
    --  One step of the program in closed form:
    --  Mult (V) * Rising (K, V + 1) + Rising (K - 1, V) = Rising (K, V).
-   procedure Lemma_Step (K : Positive; V : Vowel)
+   procedure Lemma_Step (K : Positive; V : Below_U)
    with
      Ghost,
      Global => null,
-     Pre    => V /= U,
      Post   => Mult (V) * Rising (K, Vowel'Succ (V)) + Rising (K - 1, V) = Rising (K, V)
                and then Weight (V) = Mult (V) * Weight (Vowel'Succ (V));
-   procedure Lemma_Step (K : Positive; V : Vowel) is
+   procedure Lemma_Step (K : Positive; V : Below_U) is
       M : constant Big_Integer := Big (K);
    begin
       pragma Assert (Big (K - 1) + 1 = M);
@@ -47,8 +48,6 @@ package body Count_Sorted_Vowel_Strings with SPARK_Mode => On is
             pragma Assert (2 * (M + 1) + M * (M + 1) = (M + 1) * (M + 2));
          when O =>
             pragma Assert (Rising (K - 1, O) = M);
-         when U =>
-            null;
       end case;
    end Lemma_Step;
 
