@@ -12,9 +12,8 @@
 --      Parent (I)    =    Lo + (I - Lo - 1) / 2   (I > Lo)
 --
 --  Guarding Has_Left before computing Left avoids overflow near
---  Index'Last. Full multiset / permutation equality is verified by
---  tests rather than claimed as a postcondition (sortedness is proved
---  at Silver).
+--  Index'Last. The Post of Sort proves sortedness and permutation
+--  (Is_Perm: every value occurs equally often before and after).
 --
 --  Reference: https://en.wikipedia.org/wiki/Heapsort
 
@@ -72,10 +71,40 @@ is
      Pre    => In_Bounds (A),
      Post   => In_Bounds (A);
 
+   ---------------------------------------------------------------------------
+   -- Permutation (multiset) model, used by the Post of Sort
+   ---------------------------------------------------------------------------
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
+   with
+     Global             => null,
+     Pre                => In_Bounds (A) and then Last <= A'Last,
+     Post               => Occ'Result <= Last,
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (A'First .. Last) equal V.
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often. A value found in neither array counts 0 in both, so comparing
+   --  the counts of the values of A and of B covers every value.
+
    procedure Sort (A : in out Element_Array)
    with
      Global => null,
      Pre    => In_Bounds (A),
-     Post   => In_Bounds (A) and then Is_Sorted (A);
+     Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
 
 end Heapsort;

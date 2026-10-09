@@ -15,7 +15,7 @@ This is the SPARK port of the companion package [Ada-Heapsort](https://github.co
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition of `Sort`.
 * **Formal Verification**: Designed for GNATprove Silver (level 2) — absence of index errors, ghost parent-form heap predicates, and extract-max invariants that reassemble a sorted array.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
-* **Unstable**: Equal keys may change relative order (permutation is checked by tests).
+* **Unstable**: Equal keys may change relative order (the result is a proved permutation of the input).
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $\mathrm{Max\_Length}=100\,000$) so array / arithmetic / heap VCs stay within automated SMT reach.
@@ -23,7 +23,7 @@ This is the SPARK port of the companion package [Ada-Heapsort](https://github.co
 * Any `A'First` (offset heap; Has_Left before Left) (sibling allows arbitrary `A'First` with First-relative 0-based child math).
 * Offset heap on positions: $\mathrm{Left}=Lo+2(I-Lo)+1$ guarded by `Has_Left`; shifted-origin tests (origins 2, 7, 33 and flush to `Max_N`) check the result equals the 1-based sort.
 * Public `Sift_Down` / `Heapify` keep lighter Posts (frame + bounds); Sort uses an internal `Sift_Down_Restore` with ghost `Heap_From` / `Heap_Leq_Suffix` so GNATprove can prove `Is_Sorted` without `Intentional` annotations.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): every value occurs as often after the sort as before. A ghost count model (`Occ`, `Same_Occ`, swap lemmas) carries the property through sift-down and the extraction loop; `Is_Perm` is also evaluated at run time in the tests.
 
 ## Algorithm
 1. **Build-heap (`Heapify`).** Sift down every non-leaf from $\lfloor n/2 \rfloor$ down to $1$ (Floyd). Cost $O(n)$.
@@ -37,7 +37,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 143 assertions pass. Running `make prove` reports `Success: all checks proved (433 checks).`
+When you run `make test`, you will see all 150 assertions pass. Running `make prove` reports `Success: all checks proved (529 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, classic numeric example, signed domain including `Integer'First` / `Integer'Last`, power-of-two and odd lengths up to `Max_N`.
@@ -52,13 +52,13 @@ When you run `make test`, you will see all 143 assertions pass. Running `make pr
 **Commands:**
 * `make` — Builds the test binary.
 * `make test` — Compiles and executes the test suite.
-* `make prove` — Runs GNATprove Silver (level 2): 433 checks, all proved.
+* `make prove` — Runs GNATprove Silver (level 2): 529 checks, all proved.
 * `make clean` — Removes `obj/` and `bin/`.
 
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Ghost `Is_Heap` / `Heap_From` (parent-form), `Heap_Leq_Suffix`, and `Lemma_Root_Is_Max` support the extract-max sorted-suffix argument.
-* **GNATprove Silver (level 2):** `Success: all checks proved (433 checks).`
+* **GNATprove Silver (level 2):** `Success: all checks proved (529 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
