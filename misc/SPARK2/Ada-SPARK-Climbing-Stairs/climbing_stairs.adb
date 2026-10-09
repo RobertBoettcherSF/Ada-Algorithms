@@ -1,18 +1,14 @@
 pragma Ada_2022;
 package body Climbing_Stairs with SPARK_Mode => On is
-   function Count (N : Steps) return Ways is
+   function Count (N : Steps) return Positive is
+      Table : constant array (0 .. 10) of Positive := [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
    begin
-      case N is
-         when 0 | 1 => return 1;
-         when 2 => return 2;
-         when 3 => return 3;
-         when 4 => return 5;
-         when 5 => return 8;
-         when 6 => return 13;
-         when 7 => return 21;
-         when 8 => return 34;
-         when 9 => return 55;
-         when 10 => return 89;
-      end case;
+      return (if N <= 10 then Table (N) else 1);
    end Count;
+
+   function Climb (N : Steps; K : Natural) return Step_List is
+      pragma Unreferenced (N, K);
+   begin
+      return [];
+   end Climb;
 end Climbing_Stairs;
