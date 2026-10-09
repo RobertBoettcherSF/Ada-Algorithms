@@ -1,0 +1,24 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+Definition used: a bounded stack (Capacity 8, values 0 .. 1000) whose
+Increment (Bottom, By) adds By to the bottom min (Bottom, Size) elements.
+
+tests.adb: the first line is the original case (1 2 3, increment bottom 2
+by 5 -> pops 3, 7, 6). Added: an increment that would take 995 above 1000
+must raise Assertion_Error and leave 5 and 995 unchanged (it used to add
+10 to 5 and skip 995). Hand-worked: Increment on an empty stack changes
+nothing; with 1 .. 8 stored, Bottom 0 changes nothing, all-by-1 then
+bottom-3-by-10 then By 0 give 12 13 14 5 6 7 8 9 (popped 9 .. 5, then 14,
+13, 12); 990 under 1000 incremented at the bottom by 10 gives 1000 (fits
+exactly); 0 under 1000 with Bottom 1 gives 10 and leaves 1000.
+
+own_checks.adb: model-based. 400 seeded random runs of 100 Push / Pop /
+Increment steps with values near 0 and near 1000, against a plain array
+model; Increment must be refused exactly when some affected value would
+exceed 1000, Size is compared after every step, every Pop and a final
+drain return the model's values. Seed = FNV-1a of the folder name,
+AA_SEED overrides it.
