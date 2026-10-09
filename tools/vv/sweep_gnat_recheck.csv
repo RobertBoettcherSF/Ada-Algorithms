@@ -47,7 +47,7 @@ searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree,GNAT 14,GNATLS 14.2.
 searching/SPARK2/Ada-SPARK-Insert-Into-A-Binary-Search-Tree,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 5818 insertion runs (reference BST shape + in-order + Well_Formed),d07daef7
 concurrency/SPARK2/Course-Schedule,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 65536 prerequisite arrays ( 10788 finishable) vs brute force over all orders; witnesses checked,046da79b
 concurrency/SPARK2/Course-Schedule,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 65536 prerequisite arrays ( 10788 finishable) vs brute force over all orders; witnesses checked,046da79b
-graphs/SPARK2/Ada-SPARK-Clone-Graph,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 15311 clones (reachable set by DFS; bijection; labels; slots; BFS order),ebe67d46
-graphs/SPARK2/Ada-SPARK-Clone-Graph,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 15311 clones (reachable set by DFS; bijection; labels; slots; BFS order),ebe67d46
-misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 5735 cases (720 vectors -> 720 distinct permutations; counts kept; invalid choices rejected),fe72b297
-misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 5735 cases (720 vectors -> 720 distinct permutations; counts kept; invalid choices rejected),fe72b297
+graphs/SPARK2/Ada-SPARK-Clone-Graph,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 15311 clones (reachable set by DFS; bijection; labels; slots; BFS order),f6ba9eb7
+graphs/SPARK2/Ada-SPARK-Clone-Graph,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 15311 clones (reachable set by DFS; bijection; labels; slots; BFS order),f6ba9eb7
+misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 5735 cases (720 vectors -> 720 distinct permutations; counts kept; invalid choices rejected),701b3010
+misc/SPARK2/Ada-SPARK-Fisher-Yates-Shuffle,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 5735 cases (720 vectors -> 720 distinct permutations; counts kept; invalid choices rejected),701b3010
