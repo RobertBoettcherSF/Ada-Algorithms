@@ -1,0 +1,22 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+Definition used: D = 1000 - floor (1000 * Dot^2 / (|A|^2 * |B|^2)), the
+squared cosine distance scaled by 1000 with integer division (README);
+0 when a vector is zero (the package's convention).
+
+tests.adb: the first four asserts are the original ones. Hand-worked:
+orthogonal pairs (1 0 0 / 0 1 0, 3 0 0 / 0 0 2) give 1000; 1 1 0 / 1 0 0
+gives 1000 - 1000 * 1 / 2 = 500 (either order); 1 1 1 / 1 0 0 gives
+1000 - floor (1000 / 3) = 667; 1 1 1 / 1 1 0 gives 1000 - floor (4000 / 6)
+= 334; parallel pairs (1 1 0 / 3 3 0, 3 3 3 / 1 1 1) give 0; 3 3 3 /
+3 3 2 gives 1000 - floor (576000 / 594) = 31; 1 2 0 / 2 1 0 gives
+1000 - 16000 / 25 = 360; a zero vector on either side gives 0.
+
+own_checks.adb: every pair of vectors over 0 .. 3 (4,096 pairs) checked
+against the defining inequalities of floor in exact integers, symmetry,
+range 0 .. 1000, 0 for parallel vectors, exactly 1000 for orthogonal ones
+and 0 for a zero vector.
