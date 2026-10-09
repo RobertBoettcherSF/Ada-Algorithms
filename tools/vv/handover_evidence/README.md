@@ -19,3 +19,5 @@ Per-mutant work trees (hundreds of MB) were not kept: the row's `reproduce` comm
 with `tools/vv/sweep_mutate.py` and `tools/vv/proofkill.py` in a `mktemp -d` scratch dir.
 Files here are kept as recorded, so they may still mention the box paths they were produced in;
 `tools/vv/check_paths.py` skips this directory for that reason.
+
+**Box paths inside these files are historical records of where they were produced; they do not need to exist, and nothing should be run from them.** `tools/vv/check_paths.py` skips this folder, so its pass means "no box paths outside the verbatim evidence folders".
