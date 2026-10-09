@@ -44,6 +44,10 @@ begin
    Expect ([4, 9], [Minus], [-5]);
    --  Eight factors -99: all 429 orders give (-99) ** 8 = 9_227_446_944_279_201.
    Expect ([1 .. 8 => -99], [1 .. 7 => Times], [1 .. 429 => 9_227_446_944_279_201]);
+   --  Nine factors -99 (the limit: 99 ** 9 = 913_517_247_483_640_899 fits
+   --  Long_Long_Integer, 99 ** 10 would not): W (9) = 1_430 orders, each
+   --  (-99) ** 9.
+   Expect ([1 .. 9 => -99], [1 .. 8 => Times], [1 .. 1_430 => -913_517_247_483_640_899]);
 
    Put_Line ("PASS Different_Ways_Parentheses");
 end Tests;
