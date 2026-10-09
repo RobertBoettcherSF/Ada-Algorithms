@@ -7,7 +7,7 @@ $$
 \text{average } O(n \log n),\quad \text{worst } O(n^2),\quad \text{extra space } \Theta(\mathrm{Max\_N})
 $$
 
-This is the SPARK Level 4 port of the companion package [Ada-Tree-Sort](https://github.com/RobertBoettcherSF/Ada-Tree-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N` ($4096$), exceptions (`Invalid_Argument`), arbitrary `A'First`, and an explicit-stack in-order walk; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and `A'First = 1`. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape and contract style: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Tree-Sort](https://github.com/RobertBoettcherSF/Ada-Tree-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N` ($4096$), exceptions (`Invalid_Argument`), and an explicit-stack in-order walk; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and `A'First = 1`. README links only — do not `with` sibling packages here. Closest SPARK sort sibling that shares the same array shape and contract style: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort).
 
 ## Features
 * **`Sort (A)`**: Ascending unbalanced tree sort (BST insert + sorted write-back).
@@ -19,7 +19,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Tree-Sort](https://
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $4096$) so array / pool VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * **Write-back:** successive **minimum extraction** from the live node pool (same multiset / order as BST in-order). Full recursive in-order BST invariants fight automated Level 4; this lighter helper keeps the insert educational and still proves `Is_Sorted`.
 * Ghost `Live_Count` / `All_Live_GE` / `Struct_OK` so Level 4 can prove sortedness without `Intentional` annotations.
 * **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
@@ -38,7 +38,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 228 assertions pass. Running `make prove` reports `Success: all checks proved (294 checks).`
+When you run `make test`, you will see all 250 assertions pass. Running `make prove` reports `Success: all checks proved (306 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, worked BST example, signed domain, degenerate spines up to `Max_N`.
@@ -59,5 +59,5 @@ When you run `make test`, you will see all 228 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Ghost `Live_Count` / `All_Live_GE` / `Struct_OK` and extract-min loop invariants support the sortedness argument.
-* **GNATprove Level 4:** `Success: all checks proved (294 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (306 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

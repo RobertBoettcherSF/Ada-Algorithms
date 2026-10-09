@@ -32,7 +32,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    function Live_Count (Pool : Node_Pool; Used : Natural) return Natural
@@ -331,7 +331,7 @@ is
    end Extract_Min;
 
    procedure Sort (A : in out Element_Array) is
-      N : constant Index := A'Last;
+      N : constant Index := A'Length;   --  nodes; the pool stays 1 .. Max_N
    begin
       if A'Length <= 1 then
          return;
@@ -342,8 +342,8 @@ is
          Used : Natural := 0;
          Root : Node_Index := None;
       begin
-         for I in 1 .. N loop
-            pragma Loop_Invariant (Used = Natural (I) - 1);
+         for I in A'Range loop
+            pragma Loop_Invariant (Used = I - A'First);
             pragma Loop_Invariant (Used < Max_N);
             pragma Loop_Invariant
               (Root = None or else Root in 1 .. Used);
@@ -358,21 +358,22 @@ is
          pragma Assert (Used = Natural (N));
          pragma Assert (Live_Count (Pool, Used) = Used);
 
-         for Out_I in 1 .. N loop
+         for Out_I in A'Range loop
             pragma Loop_Invariant (In_Bounds (A));
             pragma Loop_Invariant (Used = Natural (N));
             pragma Loop_Invariant (Struct_OK (Pool, Used));
             pragma Loop_Invariant
               (Live_Count (Pool, Used) =
-                 Natural (N) - Natural (Out_I) + 1);
-            pragma Loop_Invariant (Sorted_Slice (A, 1, Out_I - 1));
+                 Natural (N) - (Out_I - A'First));
+            pragma Loop_Invariant (Sorted_Slice (A, A'First, Out_I - 1));
             pragma Loop_Invariant
-              (if Out_I > 1 then All_Live_GE (Pool, Used, A (Out_I - 1)));
+              (if Out_I > A'First
+               then All_Live_GE (Pool, Used, A (Out_I - 1)));
 
             declare
                V : Integer;
             begin
-               if Out_I = 1 then
+               if Out_I = A'First then
                   Extract_Min (Pool, Used, 0, False, V);
                else
                   Extract_Min (Pool, Used, A (Out_I - 1), True, V);
@@ -381,11 +382,11 @@ is
                A (Out_I) := V;
             end;
 
-            pragma Assert (Sorted_Slice (A, 1, Out_I));
+            pragma Assert (Sorted_Slice (A, A'First, Out_I));
             pragma Assert (All_Live_GE (Pool, Used, A (Out_I)));
          end loop;
 
-         pragma Assert (Sorted_Slice (A, 1, N));
+         pragma Assert (Sorted_Slice (A, A'First, A'Last));
          pragma Assert (Is_Sorted (A));
       end;
    end Sort;
