@@ -10,7 +10,9 @@
 --  Inputs: all 6,561 arrays with bloom days in 1 .. 3, for every
 --  Bouquets and Size in 1 .. 8; 3,000 random arrays with bloom days in
 --  1 .. 1000 and random Bouquets and Size. Count is also compared with
---  Best on every bloom day and the day before it.
+--  Best on every bloom day and the day before it, and Lemma_Monotone
+--  (ghost; its Pre, Post and the checks in its body run under -gnata) on
+--  random day pairs, on equal days and from each bloom day onwards.
 --  Random inputs: fixed default seed, printed at start; AA_SEED=<n>
 --  overrides it.
 pragma Ada_2022;
@@ -148,6 +150,10 @@ begin
             if B (I) > 1 then
                Check_Count (B, B (I) - 1, Size);
             end if;
+            --  The lemma on equal days and from a bloom day onwards:
+            --  flower I opens exactly on the first of the two days.
+            Lemma_Monotone (B, B (I), B (I), Size);
+            Lemma_Monotone (B, B (I), Day'Last, Size);
          end loop;
          Lemma_Monotone (B, D1, D2, Size);   --  ghost; its Post runs under -gnata
          Report (Count (B, D1, Size) <= Count (B, D2, Size), "monotone Count" & Image (B));
