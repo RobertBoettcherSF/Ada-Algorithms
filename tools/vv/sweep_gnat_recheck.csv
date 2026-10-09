@@ -161,3 +161,5 @@ misc/SPARK2/Ada-SPARK-Stack-Bounded,GNAT 14,GNATLS 14.2.0,0,0,PASS Stack_Bounded
 misc/SPARK2/Ada-SPARK-Stack-Bounded,GNAT 12,GNATLS 12.2.0,0,0,PASS Stack_Bounded,7841f25b
 misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,GNAT 14,GNATLS 14.2.0,0,0,PASS Accounts Merge Lite,bc82acee
 misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,GNAT 12,GNATLS 12.2.0,0,0,PASS Accounts Merge Lite,bc82acee
+misc/SPARK2/Ada-SPARK-Bankers-Algorithm,GNAT 14,GNATLS 14.2.0,0,0,Bankers: PASS,693d2e55
+misc/SPARK2/Ada-SPARK-Bankers-Algorithm,GNAT 12,GNATLS 12.2.0,0,0,Bankers: PASS,693d2e55
