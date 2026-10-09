@@ -75,3 +75,25 @@ Each row has a reproduce command and a pass condition. They follow the sweep rul
    Some projects use shared sources from the level directory. The bulk run copied them in (`/workspace/aa/inv_by_id.json`). If gnatprove cannot find a unit, use the folder's `make prove`.
 2. Prefer proof hints to compute: loop invariants, ghost lemmas, tighter subtypes, splitting a subprogram. Steps are never raised above 1,000,000 to close a row, and a wall cap is a safety stop, never a result.
 3. When the pass condition holds, close the row: set `status` to `closed <commit>`, keep the row, and update PROOFS.csv through the normal re-proof.
+
+## Main line stop (2026-10-09, budget)
+
+The main line stopped starting long runs here. Its open items are rows H131-H140 in `tools/vv/handover.csv`. Each row has a reproduce command and a pass condition.
+
+- **Proof index:** 2e8ee194 regenerated PROOFS.csv, PROOFS.md, the README headline and docs/IMPLEMENT.md with `tools/proof_index.py`.
+  - The per-folder results in `/tmp/aa_res` are from Oct 8, so they were not used. The build and prove inputs were synthesised from the committed PROOFS.csv columns, with the cold re-proof pass 2 check counts in place of the old ones.
+  - The next real build and prove sweep should feed `make proof-index` directly.
+- **Proof warnings** (`tools/vv/proof_warnings.csv`): 85 found in 35 folders, 82 fixed in code (each row names its fix commit) and 3 open.
+  - H131: Modular-Arithmetic has 3 open warnings. Agent A3 holds the claim.
+  - No verdict yet for these folders:
+    - H132: 18 folders where gnatwhy3 runs out of memory.
+    - H133: Sort-Merge-Join hit the cap.
+    - H134: Shortest-Seek-First and demo, where the sweep picked the wrong gpr.
+- **Cold re-proof pass 2** (`tools/vv/reproof.csv`, run reproof-20261009-2): 66 hold. Two are open:
+  - H135: Letter-Combinations-Of-A-Phone-Number is stale. It hit the wall cap and is now silver = timeout.
+  - H136: Closest-Pair-Brute is not decided because of a memory crash under proof warnings.
+  - H137: 36 folders were not run. The list is in `tools/vv/reproof_pass2_pending.txt`.
+- **Always_Terminates on GNAT 12:**
+  - H138: all 16 aspects stay (`tools/vv/always_terminates_gnat12.csv`). Without the aspect the fresh proof shows no termination check for any of these procedures, so dropping it would hide the check. The code-level answer is to turn the ghost lemmas into ghost functions.
+  - H139: the experiment was not run for 5 A3-claimed sorts.
+- **First-relative indexing** (H140): 53 open `first_pinned` findings, including the 11 large SPARK4 sorts. Not started.
