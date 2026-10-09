@@ -47,7 +47,7 @@ Given nonempty $A$ with $A'\mathit{First}=1$ and rank $k\in[1,n]$:
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 1020 assertions pass. Running `make prove` reports `Success: all checks proved (608 checks)`.
+When you run `make test`, you will see all 1020 assertions pass. Running `make prove` reports `Success: all checks proved (601 checks)`.
 
 ## Testing
 * **Functional correctness**: Singleton / tiny, reverse / already-sorted / nearly sorted, Wikipedia-style example, signed domain including `Integer'First` / `Integer'Last`, all permutations of $\{1,2,3\}$ and $\{0,1,2,3\}$, random arrays up to `Max_N`.
@@ -68,5 +68,5 @@ When you run `make test`, you will see all 1020 assertions pass. Running `make p
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Lomuto scan uses `pragma Loop_Invariant`; outer `Select_Kth` loop is bounded by `Max_N` with window / measure invariants; ghost glue lemmas reassemble `Is_Kth_Partitioned`.
-* **GNATprove Level 4:** `Success: all checks proved (608 checks)`.
+* **GNATprove Level 4:** `Success: all checks proved (601 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

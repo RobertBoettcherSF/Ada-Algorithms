@@ -71,7 +71,7 @@ $$
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all assertions pass with `0 FAIL`. Running `make prove` reports `Success: all checks proved (814 checks)`.
+When you run `make test`, you will see all assertions pass with `0 FAIL`. Running `make prove` reports `Success: all checks proved (807 checks)`.
 
 ## Testing
 * **Functional correctness**: Singleton / tiny, reverse / already-sorted / nearly sorted, Wikipedia-style example, signed domain including `Integer'First` / `Integer'Last`, all permutations of $\{1,2,3\}$ and $\{0,1,2,3\}$, random arrays up to `Max_N`, depth-budget / MoM-capable sizes ($n=31,63,64$).
@@ -92,5 +92,5 @@ When you run `make test`, you will see all assertions pass with `0 FAIL`. Runnin
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Lomuto scan uses `pragma Loop_Invariant`; outer `Select_Kth` loop is bounded by `Max_N` with window / measure invariants; MoM uses `Subprogram_Variant => (Decreases => Hi - Lo)`; ghost glue lemmas reassemble `Is_Kth_Partitioned`.
-* **GNATprove Level 4:** `Success: all checks proved (814 checks)`.
+* **GNATprove Level 4:** `Success: all checks proved (807 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
