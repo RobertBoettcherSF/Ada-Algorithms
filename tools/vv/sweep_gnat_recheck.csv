@@ -201,3 +201,5 @@ parsing/Ada/Simple-Precdence-Parser,GNAT 14,GNATLS 14.2.0,0,0,"=== 47 passed, 0 
 parsing/Ada/Simple-Precdence-Parser,GNAT 12,GNATLS 12.2.0,0,0,"=== 47 passed, 0 failed ===",310ef1b0
 misc/Ada/Boundary-Representation,GNAT 14,GNATLS 14.2.0,0,0,"=== 65 passed, 0 failed ===",17fc3e9a
 misc/Ada/Boundary-Representation,GNAT 12,GNATLS 12.2.0,0,0,"=== 65 passed, 0 failed ===",17fc3e9a
+misc/SPARK2/Ada-SPARK-Integer-Break,GNAT 14,GNATLS 14.2.0,0,0,PASS Integer_Break,8080c201
+misc/SPARK2/Ada-SPARK-Integer-Break,GNAT 12,GNATLS 12.2.0,0,0,PASS Integer_Break,8080c201
