@@ -11,7 +11,8 @@ is
    function Count_Frequencies (Data : Symbol_Array) return Freq_Map
      with
        Global => null,
-       Pre    => Data'First = 1 and then Data'Last <= Max_Len,
+       Pre    => Data'Length <= Max_Len,
+       --  any Data'First: the loop only walks Data'Range
        Post   => (for all S in Symbol =>
                     Count_Frequencies'Result (S) <= Data'Length);
 
@@ -23,6 +24,7 @@ is
    function Most_Frequent (F : Freq_Map) return Symbol
      with
        Global => null,
-       Pre    => Distinct_Count (F) >= 1;
+       Pre    => Distinct_Count (F) >= 1,
+       Post   => (for all S in Symbol => F (S) <= F (Most_Frequent'Result));
 
 end Huffman_Coding;

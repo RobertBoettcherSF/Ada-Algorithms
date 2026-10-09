@@ -148,7 +148,7 @@ compression/Ada/Wavelet-Compression,Inverse_Haar_Levels,catalog,catalog,,1,funct
 compression/Ada/Wavelet-Compression,Forward_Haar_Samples,catalog,catalog,,1,function n_arrays=1 ret=Signal_1D_Int,
 compression/Ada/Wavelet-Compression,Inverse_Haar_Samples,catalog,catalog,,1,function n_arrays=1 ret=Sample_1D,
 compression/SPARK3/Huffman-Coding,Count_Frequencies,catalog,catalog,,1,function n_arrays=1 ret=Freq_Map,
-compression/SPARK3/Huffman-Coding,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+compression/SPARK3/Huffman-Coding,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 concurrency/Ada/Paxos-Algorithm,Multi_Paxos_Accept,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 concurrency/Ada/lds-scheduler,,skipped,skipped,,,types=['Task_Array'] but no public subprogram taking them,
 cryptography/Ada/Aes,Encrypt_ECB_128,catalog,catalog,,2,procedure n_arrays=2 ret=None,

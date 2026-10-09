@@ -17,9 +17,12 @@ is
       subtype Count is Natural range 0 .. 26;
       N : Count := 0;
    begin
+      --  N counts symbols seen so far, so it never passes the number of
+      --  symbols before S; no cap is needed to stay inside Count.
       for S in Symbol loop
-         pragma Loop_Invariant (N <= 26);
-         if F (S) > 0 and then N < 26 then
+         pragma Loop_Invariant
+           (N <= Character'Pos (S) - Character'Pos (Symbol'First));
+         if F (S) > 0 then
             N := N + 1;
          end if;
       end loop;
@@ -30,6 +33,9 @@ is
       Best : Symbol := 'a';
    begin
       for S in Symbol loop
+         pragma Loop_Invariant
+           (for all T in Symbol range Symbol'First .. S =>
+              (if T < S then F (T) <= F (Best)));
          if F (S) > F (Best) then
             Best := S;
          end if;
