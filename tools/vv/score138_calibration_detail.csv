@@ -3169,3 +3169,99 @@ misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,11,B,killed,,killed,test_chec
 misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,12,B,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,13,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Move-Zeroes,20264043,thinned,15,C,killed,,killed,test_check,"{""tests.adb"": [1, 1, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,0,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,1,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,2,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,3,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,4,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,5,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,6,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,7,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,8,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,9,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,11,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,13,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,14,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,15,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,16,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,17,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,18,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,19,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,21,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,23,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,24,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,25,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,27,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,43,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,44,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,45,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,47,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,48,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,49,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,50,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,51,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,52,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,54,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,56,C,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,57,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,60,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,61,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,62,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,67,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,68,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,69,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,86,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,87,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,88,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,89,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,90,alt,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,91,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,full,92,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,0,alt,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,1,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,2,B,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,3,C,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,4,alt,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,5,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,6,B,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,7,C,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,8,alt,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,9,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,11,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,13,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,14,alt,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,15,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,16,B,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,17,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,18,alt,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,19,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,21,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,23,B,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,24,alt,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,25,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,27,C,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,43,B,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,44,alt,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,45,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,47,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,48,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,49,alt,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,50,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,51,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,52,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,54,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,56,C,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,57,alt,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,60,B,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,61,alt,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,62,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,67,B,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,68,alt,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,69,ho,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,86,B,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,87,alt,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,88,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,89,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,90,alt,killed,,killed,runtime_error,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,91,ho,killed,,killed,contract,"{""tests.adb"": [1, 9, 0]}"
+misc/SPARK2/Ada-SPARK-Nth-Digit-Stub,20264044,thinned,92,B,killed,,killed,test_check,"{""tests.adb"": [1, 9, 0]}"
