@@ -1,0 +1,17 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the two original texts; hand-worked: "abababaz" -> 8 (only z
+occurs once), "xaabbccd" -> 1 (x and d occur once, x first), "abababab" -> 0,
+"aaaaaaab" -> 8.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator, default
+seed = FNV-1a (32-bit) of the folder name folded into 1 .. 2**31 - 2,
+printed; AA_SEED=<n> overrides it). Reference: a 256-entry histogram of
+the characters, then the first position whose character occurs once, else
+0 (the code counts pairwise instead).
+* every 8-character text over 'a' .. 'c' (6,561) and 'a' .. 'd' (65,536);
+* 20,000 random texts, half over all 256 characters, half over 'x' .. 'z'.
