@@ -309,6 +309,17 @@ Agent B (2026-10-09, Find-Minimum-In-Rotated-Sorted-Array, calibrated SPARK row)
 
 Agent B (2026-10-09, Minimum-Number-Of-Days-To-Make-M-Bouquets, calibrated SPARK row): rewrite, not a finding. The old Minimum_Day had no Bouquets parameter. It returned the first day with a single run of Size bloomed flowers by trying all 1000 days, it had no contract, and its README said n <= 32 for an 8-flower array. Count is now specified as the greedy left-to-right cut, a recursive expression function Scan built from Step. Lemma_Monotone (later days never give fewer bouquets) is proved by keeping the later day's scan "ahead" at every flower. Minimum_Day binary-searches the days. Its Post is proved (735a9644, 73 checks): Possible = (Bouquets * Size <= Length), and when possible the first day works and the day before it does not. Minimality over all earlier days follows from Lemma_Monotone. That minimality is kept out of the Post because checking it would make the -gnata run of the ghost code quadratic in the number of days. Own checks compare against a dynamic program over window placements on all 6,561 arrays with days 1 .. 3 and on 3,000 random arrays; they also check that the greedy Count equals the optimum (1,486,154 checks). Split seed 20261040: the blind held score was 46/47 (97.9%) after 13 ghost/contract-only equivalents. The one survivor (a wrong Bloomed flag passed to the ghost Lemma_Step, which matters only when D1 = D2 = a bloom day) is killed by 21a71262, and the rerun gives 47/47. Tune 46/46; dummy 0/36.
 
+Agent B (2026-10-09, proof-kill rerun): I had set aside survivors in ghost code and contracts as "equivalent" in Guess-Number, Find-Minimum-In-Rotated-Sorted-Array, Minimum-Number-Of-Days-To-Make-M-Bouquets and Clone-Graph without running the prover, so I reran them. Each such survivor, and each test survivor of these folders, was rebuilt and run through the folder's make prove (gnatprove level 2, cvc5, warnings and checks as errors). A failed proof counts as a kill with kill_kind=proof (tools/vv/sweep_kill_kind_B.csv). Only mutants that still prove AND have a written reason stay in sweep_equivalent.csv. Per-mutant results are in tools/vv/sweep_proofkill_B.csv.
+
+| Folder | Proof kills / survivors proved | Held, tests + proof (equivalents) | Held, tests only |
+|---|---|---|---|
+| Guess-Number | 5 / 8 | 23/23 (2) | 20/23 |
+| Find-Minimum-Rotated | 6 / 10 | 36/36 (3) | 33/36 |
+| Min-Days-Bouquets | 16 / 25 | 54/54 (6) | blind 46/54 |
+| Clone-Graph | 12 / 16 | 46/46 (3) | 41/46 |
+
+For Min-Days-Bouquets, the earlier blind 46/47 used the old classification; the later 47-test result after 21a71262 is not blind. The Clone-Graph line 81 survivor (= -> /= in Lemma_Reachable's Post) is a proof kill. These numbers supersede the held-out scores in my earlier notes for these four folders.
+
 ## 3j. Silent-fail scan, compiler-version guard and timeouts (2026-10-08, night)
 
 **Silent fail.** `tools/vv/silent_fail.py` asks whether a failed check would fail `make test`. It reads the logs of the version-checked build run (`--from-logs`; `tools/audit/build_folder.sh` keeps `mk14.log`, `mk12.log`, `r14.log`, `r12.log`) or runs `make test` itself on GNAT 14. It flags three things:
