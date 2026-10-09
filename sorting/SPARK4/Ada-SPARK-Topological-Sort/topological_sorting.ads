@@ -48,15 +48,16 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (Result : Node_Array) return Boolean is
-     (Result'First = 1 and then Result'Last in Node_Count)
+     (Result'Length <= Max_Nodes)
    with Global => null;
-   --  Shape guard for a 1-based order buffer of length 0 .. Max_Nodes.
+   --  Shape guard for an order buffer of length 0 .. Max_Nodes, any origin.
 
    function Result_Shape
      (G : Graph; Result : Node_Array) return Boolean is
-     (Result'First = 1 and then Result'Last = G.Num_Nodes)
+     (Result'Length = G.Num_Nodes)
    with Global => null;
-   --  Kahn writes a dense 1-based order of length N (empty: Last = 0).
+   --  Kahn writes a dense order of length N; its K-th node is
+   --  Result (Result'First + (K - 1)), any origin.
 
    function Has_Edge
      (G : Graph; From, To : Node_Id) return Boolean is
@@ -119,7 +120,6 @@ is
    --  Used by tests and, when Success, as Kahn_Sort's postcondition
    --  (discharged by evaluating the predicate after a full drain).
 
-   pragma Warnings (Off, "referenced before it has a value");
    procedure Kahn_Sort
      (G       : Graph;
       Result  : out Node_Array;
@@ -128,11 +128,10 @@ is
        Global                 => null,
        Relaxed_Initialization => Result,
        Pre                    =>
-         Result'First = 1 and then Result'Last = G.Num_Nodes,
+         Result'Length = G.Num_Nodes,
        Post                   =>
          Result'Initialized
-         and then Result'First = 1
-         and then Result'Last = G.Num_Nodes
+         and then Result'Length = G.Num_Nodes
          and then (if Success then Is_Valid_Sort (G, Result) else True);
    --  Kahn's algorithm. Success is True iff the graph is a DAG and
    --  Result is a valid topological order. On a cycle Success is False
@@ -142,6 +141,5 @@ is
    --  acyclic case actually returns Success (the algorithm works)
    --  and that cyclic cases return Failure.
 
-   pragma Warnings (On, "referenced before it has a value");
 
 end Topological_Sorting;

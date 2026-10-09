@@ -436,6 +436,65 @@ begin
       Check (Nat (Max_Nodes) = 32, "Max_Nodes is 32");
    end;
 
+   ---------------------------------------------------------------------
+   Section ("15. Any origin");
+   ---------------------------------------------------------------------
+   --  The same graph sorted into a Result buffer at origins 5, 200 and
+   --  ending at Positive'Last (empty: at Positive'Last) gives the origin-1
+   --  order and Success; Is_Valid_Sort agrees at every origin. Random
+   --  forward edges (a DAG), every third graph with one back edge.
+   declare
+      Seed : Natural := 777;
+      function Next (M : Positive) return Natural is
+      begin
+         Seed := (Seed * 1103 + 12345) mod 65536;
+         return (Seed / 16) mod M;
+      end Next;
+   begin
+      for Trial in 1 .. 60 loop
+         declare
+            N  : constant Node_Count := Next (Max_Nodes + 1);
+            G  : Graph (N);
+            R1 : Node_Array (1 .. N);
+            S1 : Boolean;
+         begin
+            Clear (G);
+            for U in 1 .. N loop
+               for V in U + 1 .. N loop
+                  if Next (4) = 0 then
+                     Add_Edge (G, U, V);
+                  end if;
+               end loop;
+            end loop;
+            if Trial mod 3 = 0 and then N >= 2 then
+               Add_Edge (G, N, 1);
+            end if;
+            Kahn_Sort (G, R1, S1);
+            for Which in 1 .. 3 loop
+               declare
+                  F  : constant Positive :=
+                    (case Which is
+                       when 1 => 5, when 2 => 200,
+                       when others =>
+                         (if N = 0 then Positive'Last else Positive'Last - N + 1));
+                  R2 : Node_Array (F .. F + (N - 1));
+                  S2 : Boolean;
+                  Ok : Boolean;
+               begin
+                  Kahn_Sort (G, R2, S2);
+                  Ok := S2 = S1;
+                  for K in 0 .. N - 1 loop
+                     Ok := Ok and then R2 (F + K) = R1 (1 + K);
+                  end loop;
+                  Ok := Ok and then Is_Valid_Sort (G, R2) = Is_Valid_Sort (G, R1);
+                  Check (Ok, "trial" & Trial'Image & " n =" & N'Image
+                         & " at origin" & F'Image & " = origin 1");
+               end;
+            end loop;
+         end;
+      end loop;
+   end;
+
    New_Line;
    Put_Line
      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image

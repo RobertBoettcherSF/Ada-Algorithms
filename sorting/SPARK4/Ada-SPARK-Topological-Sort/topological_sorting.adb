@@ -24,23 +24,26 @@ is
      (G : Graph; Result : Node_Array) return Boolean
    is
       Pos : Pos_Array := [others => 0];
+      --  Any origin: the I-th node of the order is Result (RO + I).
+      --  Integer: an empty Result may have Result'First = 0.
+      RO  : constant Integer := Result'First - 1;
    begin
       --  Injectivity + range: each Result(I) is a fresh live node.
       for I in 1 .. G.Num_Nodes loop
          pragma Loop_Invariant
            (for all K in 1 .. I - 1 =>
-              Result (K) <= G.Num_Nodes
-              and then Pos (Result (K)) = K);
+              Result (RO + K) <= G.Num_Nodes
+              and then Pos (Result (RO + K)) = K);
          pragma Loop_Invariant
            (for all N in Node_Id =>
               (if Pos (N) /= 0 then Pos (N) < I and then Pos (N) >= 1));
 
-         if Result (I) > G.Num_Nodes then
+         if Result (RO + I) > G.Num_Nodes then
             return False;
          end if;
 
          declare
-            N : constant Node_Id := Result (I);
+            N : constant Node_Id := Result (RO + I);
          begin
             if Pos (N) /= 0 then
                return False;
@@ -95,20 +98,15 @@ is
      (G         : Graph;
       In_Degree : out Degree_Array)
      with
-       Global => null,
-       Post   => (for all K in Node_Id => In_Degree (K) <= Max_Nodes)
+       Global => null
    is
+      --  In_Degree (K) <= Max_Nodes is the range of Degree; no
+      --  invariant needed (and none stated: GNAT 12 -gnatwc).
    begin
       In_Degree := [others => 0];
 
       for U in 1 .. G.Num_Nodes loop
-         pragma Loop_Invariant
-           (for all K in Node_Id => In_Degree (K) <= Max_Nodes);
-
          for V in 1 .. G.Num_Nodes loop
-            pragma Loop_Invariant
-              (for all K in Node_Id => In_Degree (K) <= Max_Nodes);
-
             if G.Adj (U, V) and then In_Degree (V) < Max_Nodes then
                In_Degree (V) := In_Degree (V) + 1;
             end if;
@@ -128,10 +126,8 @@ is
       V        : Node_Id)
      with
        Global => null,
-       Pre    => Tail <= Max_Nodes,
        Post   =>
-         Tail <= Max_Nodes
-         and then Tail >= Tail'Old
+         Tail >= Tail'Old
          and then Offered (V)
          and then
            (if Offered'Old (V) or else Tail'Old = Max_Nodes then
@@ -199,13 +195,10 @@ is
       Offered   : in out Flag_Array)
      with
        Global => null,
-       Pre    => U <= G.Num_Nodes and then Tail <= Max_Nodes,
-       Post   => Tail <= Max_Nodes
+       Pre    => U <= G.Num_Nodes
    is
    begin
       for V in 1 .. G.Num_Nodes loop
-         pragma Loop_Invariant (Tail <= Max_Nodes);
-
          if G.Adj (U, V) and then In_Degree (V) > 0 then
             In_Degree (V) := In_Degree (V) - 1;
             if In_Degree (V) = 0 then
@@ -253,8 +246,6 @@ is
 
       --  At most N dequeues; for-loop termination is immediate.
       for Step in 1 .. G.Num_Nodes loop
-         pragma Loop_Invariant (Head >= 1);
-         pragma Loop_Invariant (Tail <= Max_Nodes);
          pragma Loop_Invariant (Count <= G.Num_Nodes);
          pragma Loop_Invariant (Count < Head);
          pragma Loop_Invariant (Head <= Max_Nodes + 1);
@@ -271,7 +262,7 @@ is
 
             if Count < G.Num_Nodes then
                Count := Count + 1;
-               Result (Count) := U;
+               Result (Result'First + (Count - 1)) := U;
             end if;
 
             if U <= G.Num_Nodes then
