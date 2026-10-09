@@ -7,8 +7,8 @@
 --  SPARK port of Ada-Selection-Algorithm: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Kth_Partitioned contracts replace Invalid_Argument.
 --  Non-SPARK sibling allows arbitrary A'First, Max_N = 100_000, and raises
---  on oversized / empty / bad K; this port requires A'First = 1, nonempty A
---  for Select_Kth, and uses Pre => In_Bounds (A) and then K in 1 .. A'Length.
+--  on oversized / empty / bad K; this port takes any A'First (A'Length <= Max_N), nonempty A
+--  for Select_Kth, and uses Pre => In_Bounds (A) and then K <= A'Length.
 --  Full multiset / permutation equality is verified by tests rather than
 --  claimed as a Level-4 postcondition (the partition / order-statistic
 --  property is proved).
@@ -43,10 +43,9 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: a length bound, any origin.
 
    --  Partition / order-statistic property after Select_Kth: with
    --  Target = A'First + K - 1 and T = A(Target), every element left of
@@ -56,23 +55,24 @@ is
    --  loop maintains the window partition invariant.
    function Is_Kth_Partitioned (A : Element_Array; K : Positive) return Boolean
    is
-     ((for all I in A'First .. A'First + K - 2 =>
-         A (I) <= A (A'First + K - 1))
+     ((for all I in A'Range =>
+         (if I < A'First + (K - 1) then A (I) <= A (A'First + (K - 1))))
       and then
-      (for all I in A'First + K .. A'Last =>
-         A (I) >= A (A'First + K - 1)))
+      (for all I in A'Range =>
+         (if I > A'First + (K - 1) then A (I) >= A (A'First + (K - 1)))))
    with
      Global => null,
      Pre    =>
        In_Bounds (A)
        and then A'Length >= 1
-       and then K in 1 .. A'Length;
+       and then K <= A'Length;
 
    ---------------------------------------------------------------------------
    -- Algorithm sketch (selection / Wikipedia Quickselect-style)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A), A'Length >= 1, K in 1 .. A'Length.
-   --  Target := A'First + K - 1 (= K since First = 1). Lo := 1; Hi := A'Last.
+   --  Positions are 1 .. A'Length; position P is A (A'First + (P - 1)).
+   --  Target := K (a position). Lo := 1; Hi := A'Length.
    --  While Lo < Hi (at most Max_N outer steps):
    --    1. If Hi - Lo >= 2: median-of-three on A(Lo), A(Mid), A(Hi);
    --       park the median at Hi (Lomuto pivot).
@@ -93,7 +93,7 @@ is
        Pre    =>
          In_Bounds (A)
          and then A'Length >= 1
-         and then K in 1 .. A'Length,
+         and then K <= A'Length,
        Post   =>
          In_Bounds (A)
          and then Is_Kth_Partitioned (A, K);
@@ -108,7 +108,7 @@ is
        Pre    =>
          In_Bounds (A)
          and then A'Length >= 1
-         and then K in 1 .. A'Length;
+         and then K <= A'Length;
    --  Non-mutating wrapper: copies A, runs Select_Kth on the copy, and
    --  returns the K-th smallest. Original A is unchanged. O(n) temporary.
 

@@ -21,7 +21,7 @@ Closest selection siblings (separate repos; same educational family): [Ada-SPARK
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic / loop VCs stay within automated SMT reach.
 * No exceptions: length / shape / $K$ are `Pre => In_Bounds (A) and then A'Length >= 1 and then K in 1 .. A'Length`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` (only `A'Length <= Max_N` is required); internally position K is `A (A'First + (K - 1))`.
 * **Lomuto partition** with median-of-three parked at `Hi` (same pivot placement as Ada-SPARK-Quicksort): after the three-way order of $A(\mathrm{Lo})$, $A(\mathrm{Mid})$, $A(\mathrm{Hi})$, the median is swapped to `Hi` so Lomuto's return index is the pivot's final rank.
 * Iterative one-sided shrink (no recursion); outer loop bounded by `Max_N` iterations with measure $\mathrm{Hi}-\mathrm{Lo}$.
 * Ghost `Prefix_Leq_Window` / `Suffix_Geq_Window` plus Lomuto `All_Leq` / `All_Geq` glue lemmas discharge `Is_Kth_Partitioned`.
@@ -47,7 +47,7 @@ Given nonempty $A$ with $A'\mathit{First}=1$ and rank $k\in[1,n]$:
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 690 assertions pass. Running `make prove` reports `Success: all checks proved (419 checks)`.
+When you run `make test`, you will see all 1020 assertions pass. Running `make prove` reports `Success: all checks proved (608 checks)`.
 
 ## Testing
 * **Functional correctness**: Singleton / tiny, reverse / already-sorted / nearly sorted, Wikipedia-style example, signed domain including `Integer'First` / `Integer'Last`, all permutations of $\{1,2,3\}$ and $\{0,1,2,3\}$, random arrays up to `Max_N`.
@@ -68,5 +68,5 @@ When you run `make test`, you will see all 690 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Lomuto scan uses `pragma Loop_Invariant`; outer `Select_Kth` loop is bounded by `Max_N` with window / measure invariants; ghost glue lemmas reassemble `Is_Kth_Partitioned`.
-* **GNATprove Level 4:** `Success: all checks proved (419 checks)`.
+* **GNATprove Level 4:** `Success: all checks proved (608 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

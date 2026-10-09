@@ -9,6 +9,9 @@ package body Selection_Algorithm
   with SPARK_Mode => On
 is
 
+   --  Any origin: the internals count positions 1 .. A'Length, and
+   --  position K is A (A'First + (K - 1)).
+
    --  One past the live range (Lomuto write cursor after a full left fill).
    subtype Cursor is Natural range 0 .. Max_N + 1;
 
@@ -18,14 +21,14 @@ is
       L, R : Natural;
       V    : Integer) return Boolean
    is
-     (L > R or else (for all K in L .. R => A (K) <= V))
+     (L > R or else (for all K in L .. R => A (A'First + (K - 1)) <= V))
    with
      Ghost  => True,
      Global => null,
      Pre    =>
        In_Bounds (A)
        and then L >= 1
-       and then R <= A'Last;
+       and then R <= A'Length;
 
    --  Every A (L .. R) is >= V. Vacuous when L > R.
    function All_Geq
@@ -33,14 +36,14 @@ is
       L, R : Natural;
       V    : Integer) return Boolean
    is
-     (L > R or else (for all K in L .. R => A (K) >= V))
+     (L > R or else (for all K in L .. R => A (A'First + (K - 1)) >= V))
    with
      Ghost  => True,
      Global => null,
      Pre    =>
        In_Bounds (A)
        and then L >= 1
-       and then R <= A'Last;
+       and then R <= A'Length;
 
    --  Every element left of the window is <= every element in the window.
    function Prefix_Leq_Window
@@ -49,56 +52,56 @@ is
      (Lo <= 1
       or else
         (for all I in 1 .. Lo - 1 =>
-           (for all J in Lo .. Hi => A (I) <= A (J))))
+           (for all J in Lo .. Hi => A (A'First + (I - 1)) <= A (A'First + (J - 1)))))
    with
      Ghost  => True,
      Global => null,
      Pre    =>
        In_Bounds (A)
        and then Lo >= 1
-       and then Hi in Lo - 1 .. A'Last
-       and then Hi <= A'Last;
+       and then Hi in Lo - 1 .. A'Length
+       and then Hi <= A'Length;
 
    --  Every element right of the window is >= every element in the window.
    function Suffix_Geq_Window
      (A : Element_Array; Lo, Hi : Natural) return Boolean
    is
-     (Hi >= A'Last
+     (Hi >= A'Length
       or else
-        (for all I in Hi + 1 .. A'Last =>
-           (for all J in Lo .. Hi => A (I) >= A (J))))
+        (for all I in Hi + 1 .. A'Length =>
+           (for all J in Lo .. Hi => A (A'First + (I - 1)) >= A (A'First + (J - 1)))))
    with
      Ghost  => True,
      Global => null,
      Pre    =>
        In_Bounds (A)
        and then Lo >= 1
-       and then Hi in Lo - 1 .. A'Last
-       and then Hi <= A'Last;
+       and then Hi in Lo - 1 .. A'Length
+       and then Hi <= A'Length;
 
    procedure Swap (A : in out Element_Array; X, Y : Index)
      with
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then X in 1 .. A'Last
-         and then Y in 1 .. A'Last,
+         and then X in 1 .. A'Length
+         and then Y in 1 .. A'Length,
        Post   =>
          In_Bounds (A)
-         and then A (X) = A'Old (Y)
-         and then A (Y) = A'Old (X)
+         and then A (A'First + (X - 1)) = A'Old (A'First + (Y - 1))
+         and then A (A'First + (Y - 1)) = A'Old (A'First + (X - 1))
          and then
-           (for all K in 1 .. A'Last =>
-              (if K /= X and then K /= Y then A (K) = A'Old (K)))
+           (for all K in 1 .. A'Length =>
+              (if K /= X and then K /= Y then A (A'First + (K - 1)) = A'Old (A'First + (K - 1))))
    is
       T : Integer;
    begin
       if X = Y then
          return;
       end if;
-      T     := A (X);
-      A (X) := A (Y);
-      A (Y) := T;
+      T     := A (A'First + (X - 1));
+      A (A'First + (X - 1)) := A (A'First + (Y - 1));
+      A (A'First + (Y - 1)) := T;
    end Swap;
 
    --  Order A(Lo), A(Mid), A(Hi) and move the median to Hi (Lomuto pivot).
@@ -110,9 +113,9 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Last >= 2
-         and then Lo in 1 .. A'Last
-         and then Hi in Lo + 2 .. A'Last
+         and then A'Length >= 2
+         and then Lo in 1 .. A'Length
+         and then Hi in Lo + 2 .. A'Length
          and then Prefix_Leq_Window (A, Lo, Hi)
          and then Suffix_Geq_Window (A, Lo, Hi),
        Post   =>
@@ -120,9 +123,9 @@ is
          and then Prefix_Leq_Window (A, Lo, Hi)
          and then Suffix_Geq_Window (A, Lo, Hi)
          and then
-           (for all K in 1 .. Lo - 1 => A (K) = A'Old (K))
+           (for all K in 1 .. Lo - 1 => A (A'First + (K - 1)) = A'Old (A'First + (K - 1)))
          and then
-           (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K))
+           (for all K in Hi + 1 .. A'Length => A (A'First + (K - 1)) = A'Old (A'First + (K - 1)))
    is
       Mid : constant Index := Lo + (Hi - Lo) / 2;
    begin
@@ -130,19 +133,19 @@ is
       pragma Assert (Mid /= Lo or else Mid /= Hi);
       pragma Assert (Mid >= Lo and then Mid <= Hi);
 
-      if A (Mid) < A (Lo) then
+      if A (A'First + (Mid - 1)) < A (A'First + (Lo - 1)) then
          Swap (A, Lo, Mid);
       end if;
       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
 
-      if A (Hi) < A (Lo) then
+      if A (A'First + (Hi - 1)) < A (A'First + (Lo - 1)) then
          Swap (A, Lo, Hi);
       end if;
       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
 
-      if A (Hi) < A (Mid) then
+      if A (A'First + (Hi - 1)) < A (A'First + (Mid - 1)) then
          Swap (A, Mid, Hi);
       end if;
       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
@@ -165,22 +168,22 @@ is
        Global => null,
        Pre    =>
          In_Bounds (A)
-         and then A'Last >= 2
-         and then Lo in 1 .. A'Last
-         and then Hi in Lo + 1 .. A'Last
+         and then A'Length >= 2
+         and then Lo in 1 .. A'Length
+         and then Hi in Lo + 1 .. A'Length
          and then Prefix_Leq_Window (A, Lo, Hi)
          and then Suffix_Geq_Window (A, Lo, Hi),
        Post   =>
          In_Bounds (A)
          and then P in Lo .. Hi
-         and then All_Leq (A, Lo, P - 1, A (P))
-         and then All_Geq (A, P + 1, Hi, A (P))
+         and then All_Leq (A, Lo, P - 1, A (A'First + (P - 1)))
+         and then All_Geq (A, P + 1, Hi, A (A'First + (P - 1)))
          and then Prefix_Leq_Window (A, Lo, Hi)
          and then Suffix_Geq_Window (A, Lo, Hi)
          and then
-           (for all K in 1 .. Lo - 1 => A (K) = A'Old (K))
+           (for all K in 1 .. Lo - 1 => A (A'First + (K - 1)) = A'Old (A'First + (K - 1)))
          and then
-           (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K))
+           (for all K in Hi + 1 .. A'Length => A (A'First + (K - 1)) = A'Old (A'First + (K - 1)))
    is
       Pivot : Integer;
       I     : Cursor;
@@ -189,7 +192,7 @@ is
          Median_Of_Three (A, Lo, Hi);
       end if;
 
-      Pivot := A (Hi);
+      Pivot := A (A'First + (Hi - 1));
       I     := Cursor (Lo);
 
       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
@@ -199,35 +202,35 @@ is
       for J in Lo .. Hi - 1 loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (I in Lo .. J);
-         pragma Loop_Invariant (A (Hi) = Pivot);
+         pragma Loop_Invariant (A (A'First + (Hi - 1)) = Pivot);
          pragma Loop_Invariant (All_Leq (A, Lo, I - 1, Pivot));
          pragma Loop_Invariant
-           (for all K in I .. J - 1 => A (K) > Pivot);
+           (for all K in I .. J - 1 => A (A'First + (K - 1)) > Pivot);
          pragma Loop_Invariant (Prefix_Leq_Window (A, Lo, Hi));
          pragma Loop_Invariant (Suffix_Geq_Window (A, Lo, Hi));
          pragma Loop_Invariant
-           (for all K in 1 .. Lo - 1 => A (K) = A'Loop_Entry (K));
+           (for all K in 1 .. Lo - 1 => A (A'First + (K - 1)) = A'Loop_Entry (A'First + (K - 1)));
          pragma Loop_Invariant
-           (for all K in Hi + 1 .. A'Last => A (K) = A'Loop_Entry (K));
+           (for all K in Hi + 1 .. A'Length => A (A'First + (K - 1)) = A'Loop_Entry (A'First + (K - 1)));
 
-         if A (J) <= Pivot then
-            pragma Assert (I in 1 .. A'Last);
-            pragma Assert (J in 1 .. A'Last);
+         if A (A'First + (J - 1)) <= Pivot then
+            pragma Assert (I in 1 .. A'Length);
+            pragma Assert (J in 1 .. A'Length);
             Swap (A, Index (I), J);
             I := I + 1;
          end if;
 
          pragma Assert (I in Lo .. J + 1);
          pragma Assert (All_Leq (A, Lo, I - 1, Pivot));
-         pragma Assert (for all K in I .. J => A (K) > Pivot);
+         pragma Assert (for all K in I .. J => A (A'First + (K - 1)) > Pivot);
          pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
          pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
       end loop;
 
       pragma Assert (I in Lo .. Hi);
-      pragma Assert (A (Hi) = Pivot);
+      pragma Assert (A (A'First + (Hi - 1)) = Pivot);
       pragma Assert (All_Leq (A, Lo, I - 1, Pivot));
-      pragma Assert (for all K in I .. Hi - 1 => A (K) > Pivot);
+      pragma Assert (for all K in I .. Hi - 1 => A (A'First + (K - 1)) > Pivot);
       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
 
@@ -236,10 +239,10 @@ is
       P := Index (I);
 
       pragma Assert (P in Lo .. Hi);
-      pragma Assert (A (P) = Pivot);
-      pragma Assert (All_Leq (A, Lo, P - 1, A (P)));
-      pragma Assert (for all K in P + 1 .. Hi => A (K) > Pivot);
-      pragma Assert (All_Geq (A, P + 1, Hi, A (P)));
+      pragma Assert (A (A'First + (P - 1)) = Pivot);
+      pragma Assert (All_Leq (A, Lo, P - 1, A (A'First + (P - 1))));
+      pragma Assert (for all K in P + 1 .. Hi => A (A'First + (K - 1)) > Pivot);
+      pragma Assert (All_Geq (A, P + 1, Hi, A (A'First + (P - 1))));
       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
    end Partition;
@@ -256,33 +259,41 @@ is
          In_Bounds (A)
          and then A'Length >= 1
          and then K in 1 .. A'Length
-         and then Lo in 1 .. A'Last
-         and then Hi in Lo .. A'Last
+         and then Lo in 1 .. A'Length
+         and then Hi in Lo .. A'Length
          and then P = K
          and then P in Lo .. Hi
          and then Prefix_Leq_Window (A, Lo, Hi)
          and then Suffix_Geq_Window (A, Lo, Hi)
-         and then All_Leq (A, Lo, P - 1, A (P))
-         and then All_Geq (A, P + 1, Hi, A (P)),
+         and then All_Leq (A, Lo, P - 1, A (A'First + (P - 1)))
+         and then All_Geq (A, P + 1, Hi, A (A'First + (P - 1))),
        Post              => Is_Kth_Partitioned (A, K)
    is
    begin
-      pragma Assert (A'First = 1);
       pragma Assert (P = K);
       --  Left of Target: 1 .. Lo-1 via Prefix, Lo .. P-1 via Lomuto.
       pragma Assert
-        (for all I in 1 .. Lo - 1 => A (I) <= A (P));
+        (for all I in 1 .. Lo - 1 => A (A'First + (I - 1)) <= A (A'First + (P - 1)));
       pragma Assert
-        (for all I in Lo .. P - 1 => A (I) <= A (P));
+        (for all I in Lo .. P - 1 => A (A'First + (I - 1)) <= A (A'First + (P - 1)));
       pragma Assert
-        (for all I in 1 .. P - 1 => A (I) <= A (P));
+        (for all I in 1 .. P - 1 => A (A'First + (I - 1)) <= A (A'First + (P - 1)));
       --  Right of Target: P+1 .. Hi via Lomuto, Hi+1 .. Last via Suffix.
       pragma Assert
-        (for all I in P + 1 .. Hi => A (I) >= A (P));
+        (for all I in P + 1 .. Hi => A (A'First + (I - 1)) >= A (A'First + (P - 1)));
       pragma Assert
-        (for all I in Hi + 1 .. A'Last => A (I) >= A (P));
+        (for all I in Hi + 1 .. A'Length => A (A'First + (I - 1)) >= A (A'First + (P - 1)));
       pragma Assert
-        (for all I in P + 1 .. A'Last => A (I) >= A (P));
+        (for all I in P + 1 .. A'Length => A (A'First + (I - 1)) >= A (A'First + (P - 1)));
+      --  Same facts at absolute indexes: I is position I - A'First + 1.
+      pragma Assert
+        (for all I in A'Range =>
+           (if I < A'First + (P - 1)
+            then A (A'First + ((I - A'First + 1) - 1)) <= A (A'First + (P - 1))));
+      pragma Assert
+        (for all I in A'Range =>
+           (if I > A'First + (P - 1)
+            then A (A'First + ((I - A'First + 1) - 1)) >= A (A'First + (P - 1))));
       pragma Assert (Is_Kth_Partitioned (A, K));
    end Lemma_Kth_At_Pivot;
 
@@ -300,18 +311,26 @@ is
          and then K in 1 .. A'Length
          and then Lo = Hi
          and then Lo = K
-         and then Lo in 1 .. A'Last
+         and then Lo in 1 .. A'Length
          and then Prefix_Leq_Window (A, Lo, Hi)
          and then Suffix_Geq_Window (A, Lo, Hi),
        Post              => Is_Kth_Partitioned (A, K)
    is
    begin
-      pragma Assert (A'First = 1);
       pragma Assert (Lo = K and then Hi = K);
       pragma Assert
-        (for all I in 1 .. Lo - 1 => A (I) <= A (Lo));
+        (for all I in 1 .. Lo - 1 => A (A'First + (I - 1)) <= A (A'First + (Lo - 1)));
       pragma Assert
-        (for all I in Hi + 1 .. A'Last => A (I) >= A (Hi));
+        (for all I in Hi + 1 .. A'Length => A (A'First + (I - 1)) >= A (A'First + (Hi - 1)));
+      --  Same facts at absolute indexes: I is position I - A'First + 1.
+      pragma Assert
+        (for all I in A'Range =>
+           (if I < A'First + (Lo - 1)
+            then A (A'First + ((I - A'First + 1) - 1)) <= A (A'First + (Lo - 1))));
+      pragma Assert
+        (for all I in A'Range =>
+           (if I > A'First + (Lo - 1)
+            then A (A'First + ((I - A'First + 1) - 1)) >= A (A'First + (Lo - 1))));
       pragma Assert (Is_Kth_Partitioned (A, K));
    end Lemma_Kth_Singleton;
 
@@ -325,14 +344,14 @@ is
        Global            => null,
        Pre               =>
          In_Bounds (A)
-         and then Lo in 1 .. A'Last
-         and then Hi in Lo .. A'Last
+         and then Lo in 1 .. A'Length
+         and then Hi in Lo .. A'Length
          and then P in Lo + 1 .. Hi
          and then Target in Lo .. P - 1
          and then Prefix_Leq_Window (A, Lo, Hi)
          and then Suffix_Geq_Window (A, Lo, Hi)
-         and then All_Leq (A, Lo, P - 1, A (P))
-         and then All_Geq (A, P + 1, Hi, A (P)),
+         and then All_Leq (A, Lo, P - 1, A (A'First + (P - 1)))
+         and then All_Geq (A, P + 1, Hi, A (A'First + (P - 1))),
        Post              =>
          Prefix_Leq_Window (A, Lo, P - 1)
          and then Suffix_Geq_Window (A, Lo, P - 1)
@@ -345,18 +364,18 @@ is
       --  Suffix: P .. Last must be >= every element of Lo .. P-1.
       --  A(P) >= all of Lo..P-1 (from All_Leq); P+1..Hi >= A(P); Hi+1..Last
       --  >= all of old window (hence >= Lo..P-1).
-      pragma Assert (All_Leq (A, Lo, P - 1, A (P)));
+      pragma Assert (All_Leq (A, Lo, P - 1, A (A'First + (P - 1))));
       pragma Assert
-        (for all J in Lo .. P - 1 => A (P) >= A (J));
+        (for all J in Lo .. P - 1 => A (A'First + (P - 1)) >= A (A'First + (J - 1)));
       pragma Assert
         (for all I in P + 1 .. Hi =>
-           (for all J in Lo .. P - 1 => A (I) >= A (J)));
+           (for all J in Lo .. P - 1 => A (A'First + (I - 1)) >= A (A'First + (J - 1))));
       pragma Assert
-        (for all I in Hi + 1 .. A'Last =>
-           (for all J in Lo .. P - 1 => A (I) >= A (J)));
+        (for all I in Hi + 1 .. A'Length =>
+           (for all J in Lo .. P - 1 => A (A'First + (I - 1)) >= A (A'First + (J - 1))));
       pragma Assert
-        (for all I in P .. A'Last =>
-           (for all J in Lo .. P - 1 => A (I) >= A (J)));
+        (for all I in P .. A'Length =>
+           (for all J in Lo .. P - 1 => A (A'First + (I - 1)) >= A (A'First + (J - 1))));
       pragma Assert (Suffix_Geq_Window (A, Lo, P - 1));
    end Lemma_Shrink_Left;
 
@@ -370,14 +389,14 @@ is
        Global            => null,
        Pre               =>
          In_Bounds (A)
-         and then Lo in 1 .. A'Last
-         and then Hi in Lo .. A'Last
+         and then Lo in 1 .. A'Length
+         and then Hi in Lo .. A'Length
          and then P in Lo .. Hi - 1
          and then Target in P + 1 .. Hi
          and then Prefix_Leq_Window (A, Lo, Hi)
          and then Suffix_Geq_Window (A, Lo, Hi)
-         and then All_Leq (A, Lo, P - 1, A (P))
-         and then All_Geq (A, P + 1, Hi, A (P)),
+         and then All_Leq (A, Lo, P - 1, A (A'First + (P - 1)))
+         and then All_Geq (A, P + 1, Hi, A (A'First + (P - 1))),
        Post              =>
          Prefix_Leq_Window (A, P + 1, Hi)
          and then Suffix_Geq_Window (A, P + 1, Hi)
@@ -389,18 +408,18 @@ is
       --  Prefix: 1 .. P must be <= every element of P+1 .. Hi.
       --  Lo..P-1 <= A(P) (All_Leq); A(P) <= all of P+1..Hi (All_Geq);
       --  1..Lo-1 <= all of old window (hence <= P+1..Hi).
-      pragma Assert (All_Geq (A, P + 1, Hi, A (P)));
+      pragma Assert (All_Geq (A, P + 1, Hi, A (A'First + (P - 1))));
       pragma Assert
-        (for all J in P + 1 .. Hi => A (P) <= A (J));
+        (for all J in P + 1 .. Hi => A (A'First + (P - 1)) <= A (A'First + (J - 1)));
       pragma Assert
         (for all I in Lo .. P - 1 =>
-           (for all J in P + 1 .. Hi => A (I) <= A (J)));
+           (for all J in P + 1 .. Hi => A (A'First + (I - 1)) <= A (A'First + (J - 1))));
       pragma Assert
         (for all I in 1 .. Lo - 1 =>
-           (for all J in P + 1 .. Hi => A (I) <= A (J)));
+           (for all J in P + 1 .. Hi => A (A'First + (I - 1)) <= A (A'First + (J - 1))));
       pragma Assert
         (for all I in 1 .. P =>
-           (for all J in P + 1 .. Hi => A (I) <= A (J)));
+           (for all J in P + 1 .. Hi => A (A'First + (I - 1)) <= A (A'First + (J - 1))));
       pragma Assert (Prefix_Leq_Window (A, P + 1, Hi));
    end Lemma_Shrink_Right;
 
@@ -410,28 +429,26 @@ is
       Hi     : Index;
       P      : Index;
    begin
-      pragma Assert (A'First = 1);
-      pragma Assert (Target in 1 .. A'Last);
+      pragma Assert (Target <= A'Length);
 
       if A'Length = 1 then
-         pragma Assert (Target = 1 and then A'Last = 1);
+         pragma Assert (Target = 1 and then A'Length = 1);
          pragma Assert (Is_Kth_Partitioned (A, K));
          return;
       end if;
 
       Lo := 1;
-      Hi := A'Last;
+      Hi := A'Length;
 
       pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
       pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
       pragma Assert (Target in Lo .. Hi);
-      pragma Assert (Hi - Lo <= Max_N - 1);
 
       for Step in 1 .. Max_N loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (A'Length >= 2);
-         pragma Loop_Invariant (Lo in 1 .. A'Last);
-         pragma Loop_Invariant (Hi in Lo .. A'Last);
+         pragma Loop_Invariant (Lo in 1 .. A'Length);
+         pragma Loop_Invariant (Hi in Lo .. A'Length);
          pragma Loop_Invariant (Target in Lo .. Hi);
          pragma Loop_Invariant (Prefix_Leq_Window (A, Lo, Hi));
          pragma Loop_Invariant (Suffix_Geq_Window (A, Lo, Hi));
@@ -444,13 +461,13 @@ is
          end if;
 
          pragma Assert (Hi >= Lo + 1);
-         pragma Assert (A'Last >= 2);
+         pragma Assert (A'Length >= 2);
 
          Partition (A, Lo, Hi, P);
 
          pragma Assert (P in Lo .. Hi);
-         pragma Assert (All_Leq (A, Lo, P - 1, A (P)));
-         pragma Assert (All_Geq (A, P + 1, Hi, A (P)));
+         pragma Assert (All_Leq (A, Lo, P - 1, A (A'First + (P - 1))));
+         pragma Assert (All_Geq (A, P + 1, Hi, A (A'First + (P - 1))));
          pragma Assert (Prefix_Leq_Window (A, Lo, Hi));
          pragma Assert (Suffix_Geq_Window (A, Lo, Hi));
          pragma Assert (Target in Lo .. Hi);
@@ -496,7 +513,7 @@ is
       Copy : Element_Array := A;
    begin
       Select_Kth (Copy, K);
-      return Copy (K);
+      return Copy (Copy'First + (K - 1));
    end Select_Kth_Copy;
 
    function Median (A : Element_Array) return Integer is
