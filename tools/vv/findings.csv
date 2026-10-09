@@ -112,7 +112,7 @@ misc/SPARK2/Ada-SPARK-UTF-8-Validation,"answer_plant_ok=no: 3 built wrong-answer
 numerical/SPARK2/Babylonian-Sqrt,"answer_plant_ok=no: 6 built wrong-answer plants (e.g. off_by_one_plus in babylonian_sqrt.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
 parsing/SPARK2/Sparse-Dot,"answer_plant_ok=no: 6 built wrong-answer plants (e.g. op * -> + in sparse_dot.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
 trees/SPARK2/Ada-SPARK-Repeated-Substring-Pattern,"answer_plant_ok=no: 2 built wrong-answer plants (e.g. op = -> /= in repeated_substring_pattern.adb) still leave make test exit 0 — harness cannot report failure",fixed,df9a31f9,20eabe23
-trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub,"answer_plant_ok=no: 1 built wrong-answer plants (e.g. main_expected_literal in tests.adb) still leave make test exit 0 — harness cannot report failure",open,,
+trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub,"answer_plant_ok=no: 1 built wrong-answer plants (e.g. main_expected_literal in tests.adb) still leave make test exit 0 — harness cannot report failure",fixed,c64d2116,51918854
 numerical/Ada/Linear-Interpolation,"Find_Interval used Mid := (Lo + Hi) / 2; rewrite as Lo + (Hi - Lo) / 2 (index_shift static_midpoint / midpoint_overflow)",fixed,,
 searching/SPARK4/Ada-SPARK-Binary-Search,"In_Bounds pins A'First = 1; index_shift first_pinned — needs First-relative indexing",open,,
 sorting/SPARK4/Ada-SPARK-Counting-Sort,"In_Bounds pins A'First = 1; index_shift first_pinned — needs First-relative indexing",open,,
