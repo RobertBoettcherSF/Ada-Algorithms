@@ -550,6 +550,44 @@ begin
              "Tail(Max_N-5 .. Max_N) sorted in place");
    end;
 
+   Section ("Is_Perm (Post) against sorted copies: every pair of arrays of length 0 .. 4 over -1 .. 1, origins 1 and 7");
+   declare
+      Bad   : Natural := 0;
+      Cases : Natural := 0;
+   begin
+      for Len in 0 .. 4 loop
+         for Origin in 1 .. 2 loop
+            for CA in 0 .. 3 ** Len - 1 loop
+               for CB in 0 .. 3 ** Len - 1 loop
+                  declare
+                     First : constant Positive := (if Origin = 1 then 1 else 7);
+                     A, B  : Element_Array (First .. First + Len - 1);
+                     X     : Natural := CA;
+                     Y     : Natural := CB;
+                  begin
+                     for I in A'Range loop
+                        A (I) := X mod 3 - 1;
+                        B (I) := Y mod 3 - 1;
+                        X := X / 3;
+                        Y := Y / 3;
+                     end loop;
+                     Cases := Cases + 1;
+                     if Is_Perm (A, B) /= Is_Permutation (A, B) then
+                        Bad := Bad + 1;
+                     end if;
+                  end;
+               end loop;
+            end loop;
+         end loop;
+      end loop;
+      Check (Bad = 0 and then Cases = 14_762,
+             "Is_Perm = sorted-copy comparison on" & Cases'Image & " pairs");
+      Check (not Is_Perm (Element_Array'([3, 1, 2]), Element_Array'([0, 0, 0])),
+             "Is_Perm rejects an all-zeros result");
+      Check (not Is_Perm (Element_Array'([1, 1, 2]), Element_Array'([1, 2, 2])),
+             "Is_Perm compares counts, not just values");
+   end;
+
    New_Line;
    Put_Line
      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image

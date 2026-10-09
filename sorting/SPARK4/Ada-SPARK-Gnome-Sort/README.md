@@ -22,7 +22,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Gnome-Sort](https:/
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Nested `Gnome_Step` (adjacent-swap bubble of $A(I)$ into the sorted prefix) plus `pragma Loop_Invariant` / `Loop_Variant` so the swap loop and outer prefix growth are discharged at Level 4 — same proof shape as insertion sort, but with swaps instead of a shift hole.
 * Single-`Pos` while-loop of the sibling is expressed as a **bounded outer** `for I in 2 .. A'Last` plus an inner decreasing-`Pos` swap loop (equivalent insertion-via-swaps form of gnome sort).
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition (a simple ghost permutation lemma is not required here).
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): `Occ (A, V, Last)` counts V in `A (A'First .. Last)` and `Is_Perm` compares the counts of every value of either array. The proof carries the ghost `Same_Occ` (equal counts for every Integer) through the loops with swap / point-update lemmas (no Assume / Annotate). Loop invariants and the Posts of body-local subprograms are proved and not re-evaluated at run time (`Assertion_Policy` Ignore in the body: `Same_Occ` ranges over every Integer); the Post of `Sort`, including `Is_Perm`, is still checked by the tests. Before 2026-10-09 the Post said only `Is_Sorted`, which an all-zeros body also proves (tools/vv/contract_scan.csv).
+* Tests check `Is_Perm` against an independent sorted-copy comparison on every pair of arrays of length 0 .. 4 over -1 .. 1 (14,762 pairs, origins 1 and 7).
 
 ## Algorithm
 1. If $n \le 1$, return — already sorted.
