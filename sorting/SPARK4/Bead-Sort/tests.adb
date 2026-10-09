@@ -139,6 +139,23 @@ is
       return A;
    end Random_Array;
 
+
+   --  Same contents placed at Origin .. Origin + Len - 1. Sorting the
+   --  shifted copy must give the reference sort of Src, slot for slot.
+   function Shifted_Ok (Src : Element_Array; Origin : Positive)
+     return Boolean
+   is
+      A : Element_Array (Origin .. Origin + Src'Length - 1);
+      R : Element_Array := Copy_Of (Src);
+   begin
+      for K in 0 .. Src'Length - 1 loop
+         A (Origin + K) := Src (Src'First + K);
+      end loop;
+      Sort (A);
+      Reference_Sort (R);
+      return Is_Sorted (A) and then Same (A, R);
+   end Shifted_Ok;
+
 begin
    Put_Line ("Bead_Sort (SPARK) tests");
    Put_Line ("=======================");
@@ -319,6 +336,75 @@ begin
          Check (Boo (Is_Sorted (A)), "idempotent still sorted");
          Check (Is_Permutation (A, B), "idempotent permutation");
       end;
+   end;
+
+
+   ---------------------------------------------------------------------
+   Section ("9. Shifted origins (A'First > 1, flush to Max_N)");
+   ---------------------------------------------------------------------
+   --  Origins 2, 7, Max_N / 2 + 1 (every length) and Max_N - Len + 1
+   --  (slice ends at Index'Last), for equal / sorted / reverse / organ /
+   --  random inputs.
+   declare
+      type Origin_List is array (Positive range <>) of Positive;
+      Fixed : constant Origin_List := [2, 7, Max_N / 2 + 1];
+      Pattern_Names : constant array (1 .. 5) of String (1 .. 8) :=
+        ["equal   ", "sorted  ", "reverse ", "organ   ", "random  "];
+      Ok    : Boolean;
+      Cases : Natural;
+      Rand  : Natural := 12_345;
+
+      function Make (P : Positive; Len : Natural) return Element_Array is
+         A : Element_Array (1 .. Len);
+      begin
+         for I in A'Range loop
+            case P is
+               when 1 => A (I) := 42;
+               when 2 => A (I) := I;
+               when 3 => A (I) := Len - I + 1;
+               when 4 => A (I) := (if 2 * I <= Len + 1 then I else Len - I + 1);
+               when others =>
+                  Rand := (Rand * 1_103 + 12_345) mod 65_521;
+                  A (I) := Rand mod 41;   --  values stay in 0 .. Max_Value
+            end case;
+         end loop;
+         return A;
+      end Make;
+   begin
+      for P in Pattern_Names'Range loop
+         for O of Fixed loop
+            Ok := True;
+            Cases := 0;
+            for Len in 0 .. Max_N - O + 1 loop
+               Cases := Cases + 1;
+               if not Shifted_Ok (Make (P, Len), O) then
+                  Ok := False;
+                  Put_Line ("    mismatch origin" & O'Image & " len"
+                            & Len'Image);
+               end if;
+            end loop;
+            Check (Ok, "origin" & O'Image & " " & Pattern_Names (P)
+                   & " lens 0 .." & Natural'Image (Max_N - O + 1)
+                   & " (" & Cases'Image & " cases)");
+         end loop;
+         Ok := True;
+         for Len in 1 .. Max_N - 1 loop
+            if not Shifted_Ok (Make (P, Len), Max_N - Len + 1) then
+               Ok := False;
+               Put_Line ("    mismatch flush len" & Len'Image);
+            end if;
+         end loop;
+         Check (Ok, "flush to Max_N " & Pattern_Names (P) & " lens 1 .."
+                & Natural'Image (Max_N - 1));
+      end loop;
+   end;
+   declare
+      Tail : Element_Array (Max_N - 5 .. Max_N) := [9, 3, 9, 0, 3, 7];
+   begin
+      Check (In_Bounds (Tail), "Tail(Max_N-5 .. Max_N) In_Bounds");
+      Sort (Tail);
+      Check (Same (Tail, Element_Array'([0, 3, 3, 7, 9, 9])),
+             "Tail(Max_N-5 .. Max_N) sorted in place");
    end;
 
    New_Line;

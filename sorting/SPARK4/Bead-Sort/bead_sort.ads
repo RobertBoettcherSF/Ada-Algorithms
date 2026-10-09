@@ -5,8 +5,9 @@
 --  SPARK port of Ada-Bead-Sort: hard Max_N / Max_Value bounds, static
 --  rod counters, no exceptions, In_Bounds / Values_Ok / Is_Sorted
 --  contracts replace Invalid_Argument. Non-SPARK sibling uses
---  Max_N = Max_Value = 1_024, allows arbitrary A'First, and raises on
---  oversized n / values; this port requires A'First = 1, Pre =>
+--  Max_N = Max_Value = 1_024 and raises on oversized n / values; this
+--  port takes any A'First in 1 .. Max_N (rows are written from
+--  A'First), Pre =>
 --  In_Bounds (A) and then Values_Ok (A), and proves sortedness of the
 --  bead phase itself (no finishing pass): row H is read as the number
 --  of rods holding at least H beads, and a higher row never holds more
@@ -36,13 +37,18 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Live indices lie in 1 .. Max_N (any A'First); Index includes 0 so
+   --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
+
+   --  Live slots; the index subtype carries the 1 .. Max_N origin range,
+   --  In_Bounds adds the length.
+   subtype Live_Index is Positive range 1 .. Max_N;
 
    --  Nonnegative integers (including 0 = zero beads). Wikipedia's
    --  original presentation targets positive integers; allowing 0 is
    --  natural for a rod model and matches common software simulations.
-   type Element_Array is array (Positive range <>) of Natural;
+   type Element_Array is array (Live_Index range <>) of Natural;
 
    subtype Rod_Index is Positive range 1 .. Max_Value;
    type Rod_Array is array (Rod_Index) of Natural;
@@ -52,10 +58,12 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Values_Ok (A : Element_Array) return Boolean is
      (for all I in A'Range => A (I) <= Max_Value)
@@ -65,7 +73,8 @@ is
    --  True iff every live element is ≤ Max_Value (fits the static rods).
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (A'Length <= 1
+      or else (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);

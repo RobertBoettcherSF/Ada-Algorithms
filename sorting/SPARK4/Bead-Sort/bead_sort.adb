@@ -17,7 +17,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Number of rods among 1 .. U carrying at least H beads (the bead
@@ -64,7 +64,7 @@ is
    is
       subtype Cursor is Natural range 0 .. Max_N + 1;
 
-      N       : constant Index := A'Last;
+      N       : constant Index := A'Length;   --  beads per rod at most
       Max_Val : Natural := 0;
       Rods    : Rod_Array := [others => 0];
       Idx     : Cursor;
@@ -72,14 +72,14 @@ is
       V       : Natural;
    begin
       --  Find M = max(A). Values_Ok ⇒ Max_Val ≤ Max_Value.
-      for I in 1 .. N loop
+      for I in A'Range loop
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (N = A'Last);
+         pragma Loop_Invariant (N = A'Length);
          pragma Loop_Invariant (Max_Val <= Max_Value);
          pragma Loop_Invariant
-           (for all K in 1 .. I - 1 => A (K) <= Max_Value);
+           (for all K in A'First .. I - 1 => A (K) <= Max_Value);
          pragma Loop_Invariant
-           (for all K in 1 .. I - 1 => A (K) <= Max_Val);
+           (for all K in A'First .. I - 1 => A (K) <= Max_Val);
 
          if A (I) > Max_Val then
             Max_Val := A (I);
@@ -90,18 +90,19 @@ is
 
       --  All zeros: already sorted; nothing to drop.
       if Max_Val = 0 then
-         pragma Assert (for all K in 1 .. N => A (K) = 0);
+         pragma Assert (for all K in A'Range => A (K) = 0);
          return;
       end if;
 
       --  Drop a_i beads onto rods 1 .. a_i (column counts = gravity).
-      --  Each rod height is at most N (one bead per input element).
-      for I in 1 .. N loop
+      --  Each rod height is at most N = A'Length (one bead per input
+      --  element; I - A'First elements dropped so far).
+      for I in A'Range loop
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (N = A'Last);
+         pragma Loop_Invariant (N = A'Length);
          pragma Loop_Invariant (Max_Val in 1 .. Max_Value);
          pragma Loop_Invariant
-           (for all K in Rod_Index => Rods (K) <= I - 1);
+           (for all K in Rod_Index => Rods (K) <= I - A'First);
          pragma Loop_Invariant
            (for all K in Rod_Index => Rods (K) <= Max_N);
 
@@ -110,14 +111,14 @@ is
             pragma Assert (V <= Max_Value);
             for J in 1 .. V loop
                pragma Loop_Invariant (In_Bounds (A));
-               pragma Loop_Invariant (N = A'Last);
+               pragma Loop_Invariant (N = A'Length);
                pragma Loop_Invariant (V in 1 .. Max_Value);
                pragma Loop_Invariant
                  (for all K in Rod_Index => Rods (K) <= Max_N);
                pragma Loop_Invariant
                  (for all K in Rod_Index =>
-                    (if K < J then Rods (K) <= I
-                     else Rods (K) <= I - 1));
+                    (if K < J then Rods (K) <= I - A'First + 1
+                     else Rods (K) <= I - A'First));
 
                Rods (J) := Rods (J) + 1;
             end loop;
@@ -128,36 +129,38 @@ is
       pragma Assert (for all K in Rod_Index => Rods (K) <= Max_N);
 
       --  Read rows from top (H = N) to bottom (H = 1): few beads →
-      --  small values first (ascending). Row H has a bead on rod J
-      --  iff Rods (J) >= H; the row's value is that bead count
-      --  (at most Max_Value rods can contribute).
-      Idx := 1;
+      --  small values first (ascending), written from A'First on. Row H
+      --  has a bead on rod J iff Rods (J) >= H; the row's value is that
+      --  bead count (at most Max_Value rods can contribute).
+      Idx := A'First;
       for H in reverse 1 .. N loop
          pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (N = A'Last);
-         pragma Loop_Invariant (Idx in 1 .. N + 1);
-         pragma Loop_Invariant (Idx = N - H + 1);
+         pragma Loop_Invariant (N = A'Length);
+         pragma Loop_Invariant (Idx in A'First .. A'Last + 1);
+         pragma Loop_Invariant (Idx = A'First + N - H);
          pragma Loop_Invariant
            (for all K in Rod_Index => Rods (K) <= N);
          pragma Loop_Invariant
            (for all K in Rod_Index => Rods (K) <= Max_N);
-         pragma Loop_Invariant (Sorted_Slice (A, 1, Idx - 1));
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, Idx - 1));
          pragma Loop_Invariant
-           (if Idx > 1 then A (Idx - 1) = Row_Count (Rods, H + 1, Max_Value));
+           (if Idx > A'First
+            then A (Idx - 1) = Row_Count (Rods, H + 1, Max_Value));
 
          Count := 0;
          for J in Rod_Index loop
             pragma Loop_Invariant (In_Bounds (A));
-            pragma Loop_Invariant (N = A'Last);
-            pragma Loop_Invariant (Idx in 1 .. N);
+            pragma Loop_Invariant (N = A'Length);
+            pragma Loop_Invariant (Idx in A'Range);
             pragma Loop_Invariant (Count <= J - 1);
             pragma Loop_Invariant (Count <= Max_Value);
             pragma Loop_Invariant
               (for all K in Rod_Index => Rods (K) <= N);
             pragma Loop_Invariant (Count = Row_Count (Rods, H, J - 1));
-            pragma Loop_Invariant (Sorted_Slice (A, 1, Idx - 1));
+            pragma Loop_Invariant (Sorted_Slice (A, A'First, Idx - 1));
             pragma Loop_Invariant
-              (if Idx > 1 then A (Idx - 1) = Row_Count (Rods, H + 1, Max_Value));
+              (if Idx > A'First
+               then A (Idx - 1) = Row_Count (Rods, H + 1, Max_Value));
 
             if Rods (J) >= H then
                Count := Count + 1;
@@ -165,16 +168,16 @@ is
          end loop;
 
          pragma Assert (Count <= Max_Value);
-         pragma Assert (Idx in 1 .. N);
+         pragma Assert (Idx in A'Range);
          pragma Assert (Count = Row_Count (Rods, H, Max_Value));
          Lemma_Row_Mono (Rods, H, Max_Value);
-         pragma Assert (if Idx > 1 then A (Idx - 1) <= Count);
+         pragma Assert (if Idx > A'First then A (Idx - 1) <= Count);
          A (Idx) := Count;
          Idx := Idx + 1;
       end loop;
 
-      pragma Assert (Idx = N + 1);
-      pragma Assert (Sorted_Slice (A, 1, N));
+      pragma Assert (Idx = A'Last + 1);
+      pragma Assert (Sorted_Slice (A, A'First, A'Last));
    end Bead_Phase;
 
    procedure Sort (A : in out Element_Array) is

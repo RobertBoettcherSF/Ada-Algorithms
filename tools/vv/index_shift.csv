@@ -3064,10 +3064,6 @@ sorting/SPARK4/Ada-SPARK-Timsort,Sort,catalog,catalog,,1,procedure n_arrays=1 re
 sorting/SPARK4/Ada-SPARK-Tree-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Tree-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Tree-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Bead-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-sorting/SPARK4/Bead-Sort,Values_Ok,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-sorting/SPARK4/Bead-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-sorting/SPARK4/Bead-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,Length,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 strings/SPARK3/Levenshtein-Distance,Distance,catalog,catalog,,1,function n_arrays=1 ret=Natural,
@@ -3227,7 +3223,6 @@ sorting/SPARK4/Ada-SPARK-Strand-Sort,,first_pinned,fail,rewrite_first_relative,,
 sorting/SPARK4/Ada-SPARK-Timsort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Topological-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 sorting/SPARK4/Ada-SPARK-Tree-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
-sorting/SPARK4/Bead-Sort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
 strings/SPARK3/Levenshtein-Distance,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk or line arrays up
@@ -3494,3 +3489,9 @@ sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Is_Sorted,catalog,catalog,,1,function n_
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,Sort,ok,ok,,,sort shift ok,
+sorting/SPARK4/Bead-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Bead-Sort,Values_Ok,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Bead-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Bead-Sort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+sorting/SPARK4/Bead-Sort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+sorting/SPARK4/Bead-Sort,Sort,ok,ok,,,sort shift ok,
