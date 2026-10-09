@@ -128,9 +128,9 @@ package body Lemke_Howson with SPARK_Mode => On is
       Entering : Label_Type := Initial_Drop;
       Leaving  : Label_Type;
       In_P     : Boolean := Initial_Drop <= M;
-      Ok       : Boolean;
+      Ok       : Boolean := True;
       Done     : Boolean := False;
-      Pivots   : Natural;
+      Pivots   : Natural := 0;
       R        : Exact_Equilibrium (M, N);
    begin
       for I in 1 .. M loop
@@ -158,7 +158,7 @@ package body Lemke_Howson with SPARK_Mode => On is
       --  a label whose other variable then enters the other tableau, until
       --  the dropped label leaves.  P's slacks are labels M + 1 .. M + N,
       --  Q's 1 .. M.
-      for Step in 1 .. Max_Steps loop
+      for Step in 1 .. Path_Cap (M, N) loop
          if In_P then
             Pivot (P, P_Basis, P_Det, Entering, M + 1, M + N, Leaving, Ok);
          else
@@ -192,7 +192,7 @@ package body Lemke_Howson with SPARK_Mode => On is
             R.Status := Check_Failed;
          end if;
       else
-         --  No path end: say which exit was taken; no strategies (Dx = 0
+         --  No path end within Path_Cap (M, N): say which exit was taken; no strategies (Dx = 0
          --  is not a mixed strategy, so Is_Nash is False).
          R.X := [others => To_Big_Integer (0)];
          R.Y := [others => To_Big_Integer (0)];

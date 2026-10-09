@@ -29,20 +29,21 @@ function Find_Equilibrium (A, B : Payoff_Matrix; Initial_Drop : Label_Type := 1)
 
 ## Contract
 * `Post`: `(Status = Found) = Is_Nash (A, B, X, Dx, Y, Dy)` and
-  `Pivots <= Max_Steps`: Status = Found is exactly the statement that
+  `Pivots <= Path_Cap (M, N)` (= C (M + N, M) ** 2, the no-cycling bound): Status = Found is exactly the statement that
   both are probability vectors and every strategy played with positive
   probability is a best response (exact, in `Big_Integer`). A Found
   result is a proved certificate.
 * This is a partial functional claim ("if Found then an equilibrium"): a
   body that never reports Found would satisfy it too. That Status is
-  always Found (the path reaches an equilibrium within `Max_Steps` =
-  252 ** 2 pivots) is the Lemke-Howson theorem with the lexicographic
+  always Found (the path reaches an equilibrium within `Path_Cap (M, N)`
+  pivots, at most 252 ** 2) is the Lemke-Howson theorem with the lexicographic
   rule; it is tested (every starting label, degenerate games included),
   not proved: tools/vv/handover.csv H096.
 * Termination is by the loop bound, not a proved variant: the loop runs
-  at most `Max_Steps` pivots. Every other way out is reported in
+  at most `Path_Cap (M, N)` = C (M + N, M) ** 2 pivots (each tableau has
+  C (M + N, M) bases and the lexicographic rule never revisits a pair). Every other way out is reported in
   `Status`, never folded into a silent "not found": `Step_Cap_Reached`
-  (Max_Steps pivots without reaching the end of the path),
+  (Path_Cap pivots without reaching the end of the path),
   `No_Pivot_Row` (the entering column has no positive entry; impossible
   for these bounded polytopes) and `Check_Failed` (the path ended but the
   pair failed the exact check). The tests require Status = Found on every
@@ -58,7 +59,7 @@ function Find_Equilibrium (A, B : Payoff_Matrix; Initial_Drop : Label_Type := 1)
 
 ## Verification
 * Proof (gnatprove 16.1.0): absence of run-time errors and the
-  postcondition, 250 checks, all proved by `make prove`; also at
+  postcondition, 258 checks, all proved by `make prove`; also at
   `--level=4` and in silver mode with the repository's step limits
   (tools/vv/prove_settings.txt). No `pragma Assume` or `Annotate`.
 * Tests (tests.adb): an own exact best-response check for every starting

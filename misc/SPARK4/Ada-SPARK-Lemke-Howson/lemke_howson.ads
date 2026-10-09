@@ -23,28 +23,42 @@ use Ada.Numerics.Big_Numbers.Big_Integers;
 --  response to the other player's strategy), and the postcondition
 --  proves that.  This is a PARTIAL functional claim: a body that always
 --  reports a non-Found status would also satisfy it.  That Status is
---  always Found (the path ends at an equilibrium within Max_Steps) is
+--  always Found (the path ends at an equilibrium within Path_Cap) is
 --  the theorem of Lemke and Howson with lexicographic pivoting; it is
 --  tested, not proved (tools/vv/handover.csv H096).  Termination does
---  not rest on that theorem: the loop runs at most Max_Steps pivots,
---  and running out is reported as Step_Cap_Reached, never hidden.
+--  not rest on that theorem: the loop runs at most Path_Cap (M, N)
+--  pivots, and running out is reported as Step_Cap_Reached, never hidden.
 package Lemke_Howson with SPARK_Mode => On is
 
    Max_Strategies : constant := 5;
    subtype Strategy_Count is Positive range 1 .. Max_Strategies;
    subtype Label_Type is Positive range 1 .. 2 * Max_Strategies;
 
-   --  Pivots allowed before giving up (Found = False).  The lexicographic
-   --  rule never revisits a pair of bases, and each tableau has at most
-   --  C (10, 5) = 252 bases, so 252 ** 2 bounds any path.
+   --  Pivots allowed before giving up (Step_Cap_Reached).  The
+   --  lexicographic rule never revisits a pair of bases, and each tableau
+   --  of an M x N game has C (M + N, M) bases, so Path_Cap (M, N) =
+   --  C (M + N, M) ** 2 bounds any path; Max_Steps = 252 ** 2 is the
+   --  largest (5 x 5).
    Max_Steps : constant := 63_504;
+
+   type Count_Table is array (Strategy_Count, Strategy_Count) of Positive;
+   --  Bases (M, N) = C (M + N, M).
+   Bases : constant Count_Table :=
+     [[2,  3,  4,   5,   6],
+      [3,  6, 10,  15,  21],
+      [4, 10, 20,  35,  56],
+      [5, 15, 35,  70, 126],
+      [6, 21, 56, 126, 252]];
+
+   function Path_Cap (M, N : Strategy_Count) return Positive is (Bases (M, N) * Bases (M, N))
+   with Post => Path_Cap'Result <= Max_Steps;
 
    type Payoff_Matrix is array (Strategy_Count range <>, Strategy_Count range <>) of Integer;
    type Big_Vector is array (Strategy_Count range <>) of Big_Integer;
 
    --  How the complementary path ended.
    --  Found            : the dropped label left; the result passed Is_Nash.
-   --  Step_Cap_Reached : Max_Steps pivots without the dropped label
+   --  Step_Cap_Reached : Path_Cap pivots without the dropped label
    --                     leaving (impossible by the theorem; reported).
    --  No_Pivot_Row     : the entering column had no positive entry
    --                     (impossible for these bounded polytopes; reported).
@@ -125,7 +139,7 @@ package Lemke_Howson with SPARK_Mode => On is
      Global => null,
      Pre    => Same_Shape (A, B) and then Initial_Drop <= A'Last (1) + A'Last (2),
      Post   => Find_Equilibrium'Result.M = A'Last (1) and then Find_Equilibrium'Result.N = A'Last (2)
-               and then Find_Equilibrium'Result.Pivots <= Max_Steps
+               and then Find_Equilibrium'Result.Pivots <= Path_Cap (A'Last (1), A'Last (2))
                and then (Find_Equilibrium'Result.Status = Found)
                         = Is_Nash (A, B, Find_Equilibrium'Result.X, Find_Equilibrium'Result.Dx,
                                    Find_Equilibrium'Result.Y, Find_Equilibrium'Result.Dy);
