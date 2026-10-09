@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Search_2D_Matrix; use Search_2D_Matrix;
+with Own_Checks;
 
 procedure Tests is
    --  1, 3, 5, .., 127 would leave Value; use (K - 1) * 3 / 2 + 1 for the
@@ -50,4 +51,5 @@ begin
       Expect (Flat, T, T mod 10 = 0 and then T in 10 .. 80, "rows of equal values");
    end loop;
    Put_Line ("Search_2D_Matrix: PASS");
+   Own_Checks;
 end Tests;
