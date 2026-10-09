@@ -10,13 +10,15 @@ package Exchange_Sort with SPARK_Mode => On is
    type Input_Array is array (Index) of Value;
 
    --  How many of A (1 .. Last) equal V.
-   function Occ (A : Input_Array; V : Value; Last : Natural) return Natural is
-     (if Last = 0 then 0
-      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0))
+   function Occ (A : Input_Array; V : Value; Last : Natural) return Natural
    with Global             => null,
         Pre                => Last <= Index'Last,
         Post               => Occ'Result <= Last,
         Subprogram_Variant => (Decreases => Last);
+
+   function Occ (A : Input_Array; V : Value; Last : Natural) return Natural is
+     (if Last = 0 then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
 
    --  A and B hold the same values, each equally often. Value has 32
    --  elements, so this is also cheap to check at run time.
