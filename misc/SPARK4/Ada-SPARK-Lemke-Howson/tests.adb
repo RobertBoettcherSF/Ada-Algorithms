@@ -304,6 +304,13 @@ begin
       Check (Bad = 0, "all 2x2 games with payoffs -1 .. 1, every drop:" & Bad'Image & " not an equilibrium");
    end;
 
+   --  The package's per-size step cap is the recorded bound.
+   for M in 1 .. Max_Strategies loop
+      for N in 1 .. Max_Strategies loop
+         Check (Path_Cap (M, N) = Pair_Bound (M, N), "Path_Cap" & M'Image & N'Image);
+      end loop;
+   end loop;
+
    --  Seeded random games (completeness evidence, fixed before the first
    --  run): Park-Miller from the FNV-1a (32-bit) hash of the set name,
    --  folded into 1 .. 2 ** 31 - 2 (tests/SOURCES.txt).  Every starting
