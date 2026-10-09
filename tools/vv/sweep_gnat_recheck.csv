@@ -149,3 +149,7 @@ sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,GNAT 14,GNATLS 14.2.0,0,0,sorted ar
 sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,GNAT 12,GNATLS 12.2.0,0,0,sorted array to BST: PASS,d0272b2c
 clustering/SPARK2/K-Means-Step,GNAT 14,GNATLS 14.2.0,0,0,k-means step: PASS,9c7b5c14
 clustering/SPARK2/K-Means-Step,GNAT 12,GNATLS 12.2.0,0,0,k-means step: PASS,9c7b5c14
+geometry/SPARK2/Closest-Pair-Brute,GNAT 14,GNATLS 14.2.0,0,0,closest pair brute: PASS,0962df50
+geometry/SPARK2/Closest-Pair-Brute,GNAT 12,GNATLS 12.2.0,0,0,closest pair brute: PASS,0962df50
+hashing/SPARK2/Bloom-Filter,GNAT 14,GNATLS 14.2.0,0,0,All Bloom_Filter SPARK topic tests passed.,4e2023bf
+hashing/SPARK2/Bloom-Filter,GNAT 12,GNATLS 12.2.0,0,0,All Bloom_Filter SPARK topic tests passed.,4e2023bf

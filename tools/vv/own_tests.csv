@@ -268,3 +268,5 @@ misc/SPARK2/Ada-SPARK-Longest-Mountain-In-Array,brute force over all slices (mou
 misc/SPARK2/Ada-SPARK-Shortest-Word-Distance,all-pairs minimum
 sorting/SPARK2/Ada-SPARK-Sorted-Array-To-BST,"linear-scan references over every length (sortedness, membership) + root/height formulas"
 clustering/SPARK2/K-Means-Step,exhaustive Nearest and Step against abs comparison and a counting floor mean
+geometry/SPARK2/Closest-Pair-Brute,X-sorted strip sweep (a different algorithm) + reverse/shift invariance
+hashing/SPARK2/Bloom-Filter,bit-set model + no-false-negative property
