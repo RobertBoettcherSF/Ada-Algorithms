@@ -10,7 +10,10 @@ standard generator (seed 20261008).
 
 * tests.adb: enqueue 10, 20, 30; front 10; dequeue; front 20, by hand.
 * Own model: a first-in first-out list in the test, compared after every
-  operation (size and front).
+  operation (size, front, and every slot in use, V1 .. V<Size>, oldest
+  first, since the record is public).
+* Empty compares equal to a default-initialized Queue (the record's own
+  defaults).
 * Front or Dequeue on an empty queue and Enqueue on a full one have no
   answer and must be rejected (a precondition failure), not answered with a
   stale value or silently dropped.

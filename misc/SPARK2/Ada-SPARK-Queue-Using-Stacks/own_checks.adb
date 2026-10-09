@@ -46,6 +46,11 @@ begin
          begin
             Report (Q.Size = Size, "size");
             if Size > 0 then Report (Front (Q) = Model (Front_I), "front"); end if;
+            --  the record is public: every slot in use holds the queued values, oldest first
+            Report ((Size < 1 or else Q.V1 = Model (Front_I))
+                    and then (Size < 2 or else Q.V2 = Model (Front_I + 1))
+                    and then (Size < 3 or else Q.V3 = Model (Front_I + 2))
+                    and then (Size < 4 or else Q.V4 = Model (Front_I + 3)), "slots");
             if Size < Capacity and then (Size = 0 or else Next (0, 1) = 0) then
                declare
                   V : constant Value := Next (-100, 100);
@@ -58,6 +63,13 @@ begin
          end;
       end loop;
    end loop;
+   --  Empty is the same value as a default-initialized Queue (the public record's defaults),
+   --  so the two ways of making an empty queue compare equal with the public "="
+   declare
+      D : Queue;
+   begin
+      Report (Empty = D, "Empty = default-initialized Queue");
+   end;
    --  no answer: must be rejected
    Q := Empty;
    begin
