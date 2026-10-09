@@ -1,0 +1,4 @@
+project Kth_Smallest_Matrix_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("kth_smallest_matrix.ads", "kth_smallest_matrix.adb");
+end Kth_Smallest_Matrix_Proof;

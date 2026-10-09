@@ -54,7 +54,7 @@ procedure Tests is
    begin
       for K in 1 .. N * N loop
          declare
-            R : constant Kth_Result := Kth (M, N, K);
+            R : constant Kth_Result := Kth (Square'(N => N, M => M), K);
          begin
             if R.Kth /= S (K) then
                raise Program_Error with Label & " K" & K'Image & ":" & R.Kth'Image & ", expected" & S (K)'Image;
