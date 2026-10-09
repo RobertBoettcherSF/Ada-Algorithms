@@ -21,7 +21,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Introselect](https:
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic / loop VCs stay within automated SMT reach.
 * No exceptions: length / shape / $K$ are `Pre => In_Bounds (A) and then A'Length >= 1 and then K in 1 .. A'Length`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` (only `A'Length <= Max_N` is required); internally position K is `A (A'First + (K - 1))`.
 * **Lomuto partition** with median-of-three or MoM parked at `Hi` (same pivot placement as Ada-SPARK-Quickselect).
 * Iterative one-sided shrink (no Quickselect recursion); outer loop bounded by `Max_N` with measure $\mathrm{Hi}-\mathrm{Lo}$.
 * Depth budget $2\lfloor\log_2 n\rfloor$ restored after each MoM fallback on the remaining subproblem.
@@ -71,7 +71,7 @@ $$
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all assertions pass with `0 FAIL`. Running `make prove` reports `Success: all checks proved (584 checks)`.
+When you run `make test`, you will see all assertions pass with `0 FAIL`. Running `make prove` reports `Success: all checks proved (814 checks)`.
 
 ## Testing
 * **Functional correctness**: Singleton / tiny, reverse / already-sorted / nearly sorted, Wikipedia-style example, signed domain including `Integer'First` / `Integer'Last`, all permutations of $\{1,2,3\}$ and $\{0,1,2,3\}$, random arrays up to `Max_N`, depth-budget / MoM-capable sizes ($n=31,63,64$).
@@ -92,5 +92,5 @@ When you run `make test`, you will see all assertions pass with `0 FAIL`. Runnin
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Lomuto scan uses `pragma Loop_Invariant`; outer `Select_Kth` loop is bounded by `Max_N` with window / measure invariants; MoM uses `Subprogram_Variant => (Decreases => Hi - Lo)`; ghost glue lemmas reassemble `Is_Kth_Partitioned`.
-* **GNATprove Level 4:** `Success: all checks proved (584 checks)`.
+* **GNATprove Level 4:** `Success: all checks proved (814 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
