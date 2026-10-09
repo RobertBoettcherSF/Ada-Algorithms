@@ -112,6 +112,23 @@ Polynomial exact matching is **Forthcoming** → Ada-Hungarian-Method.
 
 Named exceptions: `Invalid_Argument`, `Capacity_Exceeded`.
 
+### Index convention (First-relative)
+
+No array parameter has to start at 1.
+
+- Knapsack: `Weights`, `Values` and `Sel` may each start anywhere (equal
+  lengths). Item *k* is `Weights (Weights'First + k - 1)`. In
+  `Knapsack_Result.Selected`, slot *k* is item *k*.
+- MST / assignment / TSP: vertex, job and city **labels** are always
+  `1 .. N`. The pair (*i*, *j*) is stored at
+  `Costs (Costs'First (1) + i - 1, Costs'First (2) + j - 1)`, and the two
+  matrix dimensions may have different origins. Position *k* of a `Tour`
+  or `Permutation` is `T (T'First + k - 1)`. Result tours, mappings and
+  MST edges hold labels in slots `1 .. N`.
+- Section 9 of `tests.adb` runs the same instances at origin 1 and at
+  shifted origins, including storage that ends at `Positive'Last`, and
+  requires identical answers.
+
 ## Method / problem taxonomy
 
 | `Problem_Kind` | Status | Family |
@@ -145,7 +162,7 @@ $O(n^{2})$ edges. 2-opt local search has no optimality guarantee.
 
 ```bash
 make        # gnatmake -gnatwa -gnat2022 -Pcombinatorial_optimization.gpr
-make test   # run bin/tests — expect ALL PASSED, Fail_Count=0, Pass_Count 80+
+make test   # run bin/tests — expect ALL PASSED, Fail_Count=0, Pass_Count 80+ (185 today)
 make clean
 ```
 

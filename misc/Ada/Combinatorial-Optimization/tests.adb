@@ -461,6 +461,171 @@ begin
       Check (R.Success and R.Total_Weight = 7, "MST two nodes weight 7");
    end;
 
+   ---------------------------------------------------------------------
+   Section ("9. First-relative: shifted Selection / Cost_Matrix / Tour / Perm");
+   ---------------------------------------------------------------------
+   --  Each case runs the same data at origin 1 and at shifted origins and
+   --  requires identical answers. Vertex / city / job labels stay 1 .. N;
+   --  only the storage indices move.
+   declare
+      W1 : constant Weight_Array (1 .. 3) := [3, 4, 5];
+      S1 : constant Selection (1 .. 3) := [True, False, True];
+      W7 : constant Weight_Array (7 .. 9) := [3, 4, 5];
+      V7 : constant Value_Array (7 .. 9) := [4, 5, 6];
+      S20 : constant Selection (20 .. 22) := [True, False, True];
+      S2  : constant Selection (2 .. 4) := [True, False, True];
+   begin
+      Check (Total_Weight (W7, S20) = Total_Weight (W1, S1),
+             "Total_Weight W(7..9) Sel(20..22) = origin-1 value 8");
+      Check (Total_Weight (W7, S2) = 8, "Total_Weight W(7..9) Sel(2..4) = 8");
+      Check (Total_Value (V7, S20) = 10, "Total_Value V(7..9) Sel(20..22) = 10");
+      Check (Is_Feasible (W7, S20, 8) and then not Is_Feasible (W7, S20, 7),
+             "Is_Feasible shifted Sel boundary 8/7");
+   end;
+
+   declare
+      W5 : constant Weight_Array (5 .. 8) := [2, 3, 4, 5];
+      V5 : constant Value_Array (5 .. 8)  := [3, 4, 5, 6];
+      W1 : constant Weight_Array (1 .. 4) := [2, 3, 4, 5];
+      V1 : constant Value_Array (1 .. 4)  := [3, 4, 5, 6];
+      WV : constant Weight_Array (100 .. 103) := [2, 3, 4, 5];
+      VW : constant Value_Array (40 .. 43)   := [3, 4, 5, 6];
+      R1, R5, RX : Knapsack_Result;
+   begin
+      R1 := Knapsack_DP (W1, V1, 5);
+      R5 := Knapsack_DP (W5, V5, 5);
+      Check (R5.Best_Value = R1.Best_Value and then R5.Selected = R1.Selected,
+             "Knapsack_DP origin 5 = origin 1 (value + packed Selected)");
+      RX := Knapsack_DP (WV, VW, 5);
+      Check (RX.Best_Value = 7 and then RX.Selected = R1.Selected,
+             "Knapsack_DP Weights 100.. Values 40.. (different origins)");
+      Check (Total_Weight (WV, RX.Selected (1 .. 4)) = RX.Best_Weight,
+             "packed Selected (1..4) reads back against Weights (100..103)");
+      RX := Knapsack_Exhaustive (WV, VW, 5);
+      Check (RX.Best_Value = 7 and then RX.Selected = R1.Selected,
+             "Knapsack_Exhaustive different origins value 7");
+      R1 := Knapsack_Greedy_Density (W1, V1, 5);
+      RX := Knapsack_Greedy_Density (WV, VW, 5);
+      Check (RX.Best_Value = R1.Best_Value and then RX.Selected = R1.Selected,
+             "Knapsack_Greedy different origins = origin 1");
+   end;
+
+   declare
+      --  K4 from section 4 (MST weight 6) stored at (5 .. 8, 10 .. 13)
+      --  and at (1 .. 4, 1 .. 4).
+      C1 : Cost_Matrix (1 .. 4, 1 .. 4) := [others => [others => No_Edge]];
+      CS : Cost_Matrix (5 .. 8, 10 .. 13) := [others => [others => No_Edge]];
+      R1, RS : MST_Result;
+      procedure Set (I, J : Positive; W : Cost) is
+      begin
+         C1 (I, J) := W; C1 (J, I) := W;
+         CS (4 + I, 9 + J) := W; CS (4 + J, 9 + I) := W;
+      end Set;
+   begin
+      Set (1, 2, 1); Set (1, 3, 4); Set (1, 4, 3);
+      Set (2, 3, 2); Set (2, 4, 5); Set (3, 4, 6);
+      R1 := MST_Kruskal (C1, 4);
+      RS := MST_Kruskal (CS, 4);
+      Check (RS.Success and then RS.Total_Weight = 6,
+             "MST K4 at (5..8,10..13) weight 6");
+      Check (RS.Edge_Count = R1.Edge_Count
+             and then RS.Edges (1 .. RS.Edge_Count)
+                      = R1.Edges (1 .. R1.Edge_Count),
+             "MST shifted edges (labels 1..N) = origin-1 edges");
+      --  Larger matrix than N: only the leading 3x3 block is the graph
+      RS := MST_Kruskal (CS, 3);
+      Check (RS.Success and then RS.Total_Weight = 3,
+             "MST N=3 on shifted 4x4 uses leading block, weight 3");
+   end;
+
+   declare
+      C1 : constant Cost_Matrix (1 .. 3, 1 .. 3) :=
+        [[9, 2, 7], [6, 4, 3], [5, 8, 1]];
+      CS : constant Cost_Matrix (3 .. 5, 8 .. 10) :=
+        [[9, 2, 7], [6, 4, 3], [5, 8, 1]];
+      P1 : constant Permutation (1 .. 3) := [2, 1, 3];
+      PS : constant Permutation (6 .. 8) := [2, 1, 3];
+      R1, RS : Assignment_Result;
+   begin
+      Check (Is_Permutation (PS, 3), "Is_Permutation Perm (6..8)");
+      Check (not Is_Permutation (Permutation'(11 => 1, 12 => 1, 13 => 2), 3),
+             "Is_Permutation Perm (11..13) duplicate rejected");
+      Check (Assignment_Cost (CS, PS, 3) = Assignment_Cost (C1, P1, 3)
+             and then Assignment_Cost (CS, PS, 3) = 9,
+             "Assignment_Cost shifted matrix + Perm (6..8) = 9");
+      Check (Assignment_Cost (CS, Permutation'(20 => 3, 21 => 1, 22 => 2), 3)
+             = 7 + 6 + 8,
+             "Assignment_Cost shifted [3,1,2] = 21");
+      R1 := Assignment_Brute_Force (C1, 3);
+      RS := Assignment_Brute_Force (CS, 3);
+      Check (RS.Total = 9 and then RS.Mapping = R1.Mapping,
+             "Assignment_Brute_Force shifted = origin 1 (total 9)");
+   end;
+
+   declare
+      D1 : constant Cost_Matrix (1 .. 4, 1 .. 4) :=
+        [[0, 1, 2, 1], [1, 0, 1, 2], [2, 1, 0, 1], [1, 2, 1, 0]];
+      DS : constant Cost_Matrix (11 .. 14, 2 .. 5) :=
+        [[0, 1, 2, 1], [1, 0, 1, 2], [2, 1, 0, 1], [1, 2, 1, 0]];
+      --  Asymmetric 3-city instance: direction matters, so a transposed
+      --  or mis-offset read gives a different length.
+      A1 : constant Cost_Matrix (1 .. 3, 1 .. 3) :=
+        [[0, 1, 10], [10, 0, 1], [1, 10, 0]];
+      AS : constant Cost_Matrix (21 .. 23, 31 .. 33) :=
+        [[0, 1, 10], [10, 0, 1], [1, 10, 0]];
+      TS : constant Tour (4 .. 7) := [1, 3, 2, 4];
+      R1, RS : TSP_Result;
+      T9 : Tour (9 .. 12) := [1, 3, 2, 4];
+      Imp : Boolean;
+   begin
+      Check (Tour_Length (DS, TS, 4) = 6, "Tour_Length shifted D + T (4..7) = 6");
+      Check (Tour_Length (AS, Tour'(5 => 1, 6 => 2, 7 => 3), 3) = 3,
+             "Tour_Length asymmetric shifted 1-2-3 = 3");
+      Check (Tour_Length (AS, Tour'(5 => 1, 6 => 3, 7 => 2), 3) = 30,
+             "Tour_Length asymmetric shifted 1-3-2 = 30");
+      R1 := TSP_Brute_Force (D1, 4);
+      RS := TSP_Brute_Force (DS, 4);
+      Check (RS.Best_Length = 4 and then RS.Best_Tour = R1.Best_Tour,
+             "TSP_Brute_Force shifted = origin 1 (len 4)");
+      RS := TSP_Brute_Force (AS, 3);
+      R1 := TSP_Brute_Force (A1, 3);
+      Check (RS.Best_Length = 3 and then RS.Best_Tour = R1.Best_Tour,
+             "TSP_Brute_Force asymmetric shifted len 3");
+      Imp := Two_Opt_Improve (DS, T9, 4);
+      Check (Imp and then Tour_Length (DS, T9, 4) = 4,
+             "Two_Opt_Improve on T (9..12) improves 6 -> 4");
+      RS := TSP_Two_Opt (DS, TS, 4);
+      R1 := TSP_Two_Opt (D1, Tour'[1, 3, 2, 4], 4);
+      Check (RS.Best_Length = 4 and then RS.Best_Tour = R1.Best_Tour,
+             "TSP_Two_Opt Start (4..7) shifted = origin 1");
+   end;
+
+   declare
+      --  Storage ending at Positive'Last: index arithmetic must not
+      --  overflow (First + (K - 1), never First + K - 1 past Last).
+      Hi : constant Positive := Positive'Last - 3;
+      DH : constant Cost_Matrix (Hi .. Positive'Last, Hi .. Positive'Last) :=
+        [[0, 1, 2, 1], [1, 0, 1, 2], [2, 1, 0, 1], [1, 2, 1, 0]];
+      TH : Tour (Hi .. Positive'Last) := [1, 3, 2, 4];
+      PH : constant Permutation (Hi .. Positive'Last) := [2, 1, 4, 3];
+      RS : TSP_Result;
+      MR : MST_Result;
+   begin
+      Check (Tour_Length (DH, TH, 4) = 6, "Tour_Length at Positive'Last = 6");
+      Check (Two_Opt_Improve (DH, TH, 4) and then Tour_Length (DH, TH, 4) = 4,
+             "Two_Opt_Improve at Positive'Last 6 -> 4");
+      RS := TSP_Two_Opt (DH, Tour'[1, 3, 2, 4], 4);
+      Check (RS.Best_Length = 4, "TSP_Two_Opt matrix at Positive'Last");
+      RS := TSP_Brute_Force (DH, 4);
+      Check (RS.Best_Length = 4, "TSP_Brute_Force matrix at Positive'Last");
+      Check (Is_Permutation (PH, 4)
+             and then Assignment_Cost (DH, PH, 4) = 1 + 1 + 1 + 1,
+             "Assignment_Cost Perm/matrix at Positive'Last = 4");
+      MR := MST_Kruskal (DH, 4);
+      Check (MR.Success and then MR.Total_Weight = 3,
+             "MST_Kruskal matrix at Positive'Last weight 3");
+   end;
+
    New_Line;
    Put_Line
      ("Result: Pass_Count="

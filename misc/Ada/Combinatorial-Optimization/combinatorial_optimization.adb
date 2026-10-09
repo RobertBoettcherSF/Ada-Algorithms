@@ -156,7 +156,7 @@ is
       S : Natural := 0;
    begin
       for I in Weights'Range loop
-         if Sel (I) then
+         if Sel (Sel'First + (I - Weights'First)) then
             S := S + Weights (I);
          end if;
       end loop;
@@ -169,7 +169,7 @@ is
       S : Natural := 0;
    begin
       for I in Values'Range loop
-         if Sel (I) then
+         if Sel (Sel'First + (I - Values'First)) then
             S := S + Values (I);
          end if;
       end loop;
@@ -371,6 +371,14 @@ is
    end Knapsack_Greedy_Density;
 
    ---------------------------------------------------------------------------
+   -- First-relative access: labels 1 .. N map onto any storage origin
+   ---------------------------------------------------------------------------
+
+   function At_Label (M : Cost_Matrix; I, J : Positive) return Cost is
+     (M (M'First (1) + (I - 1), M'First (2) + (J - 1)))
+   with Inline;
+
+   ---------------------------------------------------------------------------
    -- MST Kruskal + Union-Find
    ---------------------------------------------------------------------------
 
@@ -425,13 +433,15 @@ is
 
       for I in 1 .. N loop
          for J in I + 1 .. N loop
-            if Costs (I, J) /= No_Edge then
+            if At_Label (Costs, I, J) /= No_Edge then
                E_Count := E_Count + 1;
-               Edges (E_Count) := (U => I, V => J, W => Costs (I, J));
-            elsif Costs (J, I) /= No_Edge then
+               Edges (E_Count) :=
+                 (U => I, V => J, W => At_Label (Costs, I, J));
+            elsif At_Label (Costs, J, I) /= No_Edge then
                --  Accept either triangle orientation
                E_Count := E_Count + 1;
-               Edges (E_Count) := (U => I, V => J, W => Costs (J, I));
+               Edges (E_Count) :=
+                 (U => I, V => J, W => At_Label (Costs, J, I));
             end if;
          end loop;
       end loop;
@@ -481,14 +491,18 @@ is
    is
       Seen : array (1 .. Max_Assign) of Boolean := [others => False];
    begin
-      for I in 1 .. N loop
-         if Perm (I) > N then
-            return False;
-         end if;
-         if Seen (Perm (I)) then
-            return False;
-         end if;
-         Seen (Perm (I)) := True;
+      for K in 1 .. N loop
+         declare
+            P : constant Positive := Perm (Perm'First + (K - 1));
+         begin
+            if P > N then
+               return False;
+            end if;
+            if Seen (P) then
+               return False;
+            end if;
+            Seen (P) := True;
+         end;
       end loop;
       return True;
    end Is_Permutation;
@@ -503,8 +517,8 @@ is
       if not Is_Permutation (Perm, N) then
          raise Invalid_Argument;
       end if;
-      for I in 1 .. N loop
-         S := S + Costs (I, Perm (I));
+      for K in 1 .. N loop
+         S := S + At_Label (Costs, K, Perm (Perm'First + (K - 1)));
       end loop;
       return S;
    end Assignment_Cost;
@@ -577,10 +591,10 @@ is
    is
       S : Cost := 0;
    begin
-      for I in 1 .. N - 1 loop
-         S := S + Dist (T (I), T (I + 1));
+      for K in 1 .. N - 1 loop
+         S := S + At_Label (Dist, T (T'First + (K - 1)), T (T'First + K));
       end loop;
-      S := S + Dist (T (N), T (1));
+      S := S + At_Label (Dist, T (T'First + (N - 1)), T (T'First));
       return S;
    end Tour_Length;
 
@@ -674,14 +688,14 @@ is
                null;  -- would remove both edges of city 1 wrap — skip
             else
                declare
-                  A : constant Positive := T (I);
-                  B : constant Positive := T (I + 1);
-                  C : constant Positive := T (J);
+                  A : constant Positive := T (T'First + (I - 1));
+                  B : constant Positive := T (T'First + I);
+                  C : constant Positive := T (T'First + (J - 1));
                   D : constant Positive :=
-                    (if J = N then T (1) else T (J + 1));
+                    (if J = N then T (T'First) else T (T'First + J));
                   Diff : constant Cost :=
-                    Dist (A, C) + Dist (B, D)
-                    - Dist (A, B) - Dist (C, D);
+                    At_Label (Dist, A, C) + At_Label (Dist, B, D)
+                    - At_Label (Dist, A, B) - At_Label (Dist, C, D);
                begin
                   if Diff < Best_Diff then
                      Best_Diff := Diff;
@@ -695,10 +709,10 @@ is
       end loop;
 
       if Improved then
-         --  Reverse T (Best_I+1 .. Best_J)
+         --  Reverse positions Best_I+1 .. Best_J (1-based) of T
          declare
-            L : Natural := Best_I + 1;
-            R : Natural := Best_J;
+            L : Natural := T'First + Best_I;
+            R : Natural := T'First + (Best_J - 1);
          begin
             while L < R loop
                declare
@@ -724,8 +738,8 @@ is
       R : TSP_Result;
       Guard : Natural := 0;
    begin
-      for I in 1 .. N loop
-         T (I) := Start (I);
+      for K in 1 .. N loop
+         T (K) := Start (Start'First + (K - 1));
       end loop;
       while Two_Opt_Improve (Dist, T, N) and then Guard < 10_000 loop
          Guard := Guard + 1;

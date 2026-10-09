@@ -168,21 +168,29 @@ is
    ---------------------------------------------------------------------------
    -- Knapsack utilities
    ---------------------------------------------------------------------------
+   --  Index convention (First-relative): Weights, Values and Sel may each
+   --  start at any index; item K (1-based) is Weights (Weights'First+K-1),
+   --  Values (Values'First+K-1), Sel (Sel'First+K-1). Knapsack_Result.
+   --  Selected is packed: slot K is item K, i.e. Weights'First + K - 1.
+   --
+   --  Graph / assignment / TSP: vertex, job and city labels are always
+   --  1 .. N. Label pair (I, J) is stored at
+   --  Costs (Costs'First (1) + I - 1, Costs'First (2) + J - 1); position K
+   --  of a Tour or Permutation is T (T'First + K - 1). Result tours,
+   --  mappings and MST edges hold labels 1 .. N in slots 1 .. N.
 
    function Total_Weight
      (Weights : Weight_Array; Sel : Selection) return Natural
      with Pre =>
        Weights'Length = Sel'Length
-       and then Weights'Length <= Max_Items
-       and then Weights'First = Sel'First,
+       and then Weights'Length <= Max_Items,
           Global => null;
 
    function Total_Value
      (Values : Value_Array; Sel : Selection) return Natural
      with Pre =>
        Values'Length = Sel'Length
-       and then Values'Length <= Max_Items
-       and then Values'First = Sel'First,
+       and then Values'Length <= Max_Items,
           Global => null;
 
    function Is_Feasible
@@ -191,8 +199,7 @@ is
       Capacity : Natural) return Boolean
      with Pre =>
        Weights'Length = Sel'Length
-       and then Weights'Length <= Max_Items
-       and then Weights'First = Sel'First,
+       and then Weights'Length <= Max_Items,
           Global => null;
 
    function Density (Value, Weight : Natural) return Long_Float
@@ -209,8 +216,7 @@ is
      with Pre =>
        Weights'Length = Values'Length
        and then Weights'Length <= Max_Items
-       and then Weights'Length >= 1
-       and then Weights'First = Values'First,
+       and then Weights'Length >= 1,
           Global => null;
 
    --  Exhaustive 2^n subset search for tiny n (n <= 16 recommended).
@@ -221,8 +227,7 @@ is
      with Pre =>
        Weights'Length = Values'Length
        and then Weights'Length <= Max_Items
-       and then Weights'Length >= 1
-       and then Weights'First = Values'First,
+       and then Weights'Length >= 1,
           Global => null;
 
    --  Greedy-by-density approximation: sort items by Value/Weight desc,
@@ -234,8 +239,7 @@ is
      with Pre =>
        Weights'Length = Values'Length
        and then Weights'Length <= Max_Items
-       and then Weights'Length >= 1
-       and then Weights'First = Values'First,
+       and then Weights'Length >= 1,
           Global => null;
 
    ---------------------------------------------------------------------------
@@ -243,24 +247,22 @@ is
    ---------------------------------------------------------------------------
 
    --  Undirected MST via Kruskal + Union-Find. Cost must be square,
-   --  vertices 1 .. N; use No_Edge for absent edges. Success is False
+   --  vertex labels 1 .. N (any matrix origin); use No_Edge for absent edges. Success is False
    --  if the undirected graph is disconnected (forest returned).
    function MST_Kruskal
      (Costs : Cost_Matrix; N : Vertex_Count) return MST_Result
      with Pre =>
        N >= 1
        and then N <= Max_Vertices
-       and then Costs'First (1) = 1
-       and then Costs'First (2) = 1
-       and then Costs'Last (1) >= N
-       and then Costs'Last (2) >= N,
+       and then Costs'Length (1) >= N
+       and then Costs'Length (2) >= N,
           Global => null;
 
    ---------------------------------------------------------------------------
    -- Assignment (cost of permutation + tiny brute-force)
    ---------------------------------------------------------------------------
 
-   --  Sum_i Cost (i, Perm (i)). Perm must be a permutation of 1 .. N.
+   --  Sum_k Cost (k, Perm (Perm'First + k - 1)) over labels k = 1 .. N. Perm must be a permutation of 1 .. N.
    function Assignment_Cost
      (Costs : Cost_Matrix;
       Perm : Permutation;
@@ -268,12 +270,9 @@ is
      with Pre =>
        N >= 1
        and then N <= Max_Assign
-       and then Costs'First (1) = 1
-       and then Costs'First (2) = 1
-       and then Costs'Last (1) >= N
-       and then Costs'Last (2) >= N
-       and then Perm'First = 1
-       and then Perm'Last >= N,
+       and then Costs'Length (1) >= N
+       and then Costs'Length (2) >= N
+       and then Perm'Length >= N,
           Global => null;
 
    function Is_Permutation
@@ -281,8 +280,7 @@ is
      with Pre =>
        N >= 1
        and then N <= Max_Assign
-       and then Perm'First = 1
-       and then Perm'Last >= N,
+       and then Perm'Length >= N,
           Global => null;
 
    --  Brute-force best assignment for n <= Max_Assign (n! enumerations).
@@ -292,10 +290,8 @@ is
      with Pre =>
        N >= 1
        and then N <= Max_Assign
-       and then Costs'First (1) = 1
-       and then Costs'First (2) = 1
-       and then Costs'Last (1) >= N
-       and then Costs'Last (2) >= N,
+       and then Costs'Length (1) >= N
+       and then Costs'Length (2) >= N,
           Global => null;
 
    ---------------------------------------------------------------------------
@@ -307,12 +303,9 @@ is
      with Pre =>
        N >= 2
        and then N <= Max_Cities
-       and then Dist'First (1) = 1
-       and then Dist'First (2) = 1
-       and then Dist'Last (1) >= N
-       and then Dist'Last (2) >= N
-       and then T'First = 1
-       and then T'Last >= N,
+       and then Dist'Length (1) >= N
+       and then Dist'Length (2) >= N
+       and then T'Length >= N,
           Global => null;
 
    --  Exact TSP: fix city 1 first, permute cities 2 .. N (n-1)!.
@@ -321,10 +314,8 @@ is
      with Pre =>
        N >= 2
        and then N <= Max_Cities
-       and then Dist'First (1) = 1
-       and then Dist'First (2) = 1
-       and then Dist'Last (1) >= N
-       and then Dist'Last (2) >= N,
+       and then Dist'Length (1) >= N
+       and then Dist'Length (2) >= N,
           Global => null;
 
    --  Apply one improving 2-opt move if any (steepest descent step).
@@ -336,12 +327,9 @@ is
      with Pre =>
        N >= 4
        and then N <= Max_Cities
-       and then Dist'First (1) = 1
-       and then Dist'First (2) = 1
-       and then Dist'Last (1) >= N
-       and then Dist'Last (2) >= N
-       and then T'First = 1
-       and then T'Last >= N,
+       and then Dist'Length (1) >= N
+       and then Dist'Length (2) >= N
+       and then T'Length >= N,
           Global => null;
 
    --  Repeated steepest 2-opt until local minimum. Exact = False.
@@ -352,12 +340,9 @@ is
      with Pre =>
        N >= 4
        and then N <= Max_Cities
-       and then Dist'First (1) = 1
-       and then Dist'First (2) = 1
-       and then Dist'Last (1) >= N
-       and then Dist'Last (2) >= N
-       and then Start'First = 1
-       and then Start'Last >= N,
+       and then Dist'Length (1) >= N
+       and then Dist'Length (2) >= N
+       and then Start'Length >= N,
           Global => null;
 
 end Combinatorial_Optimization;

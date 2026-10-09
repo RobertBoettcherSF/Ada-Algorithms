@@ -19,7 +19,7 @@ to rewrite (offset / First-relative forms exist); only Package-Merge and PGZ rem
 | misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | package-merge pairs 2*P-1 / 2*P |
 | compression/Ada/Peterson-Gorenstein-Zierler-Algorithm | coeff index = degree (Derivative Poly(I)*I); subtype Degree_Poly First=0; syndromes First-rel |
 
-### Rewritten First-relative (39) — green make test + CSV `rewritten_first_relative`
+### Rewritten First-relative (41) — green make test + CSV `rewritten_first_relative`
 **Earlier (15):** BCJR, N-Body, Spline (Thomas), Levinson, Memetic (TSP), Thomas,
 Floyds-Cycle, Brents, Barnes-Hut, Gale-Shapley, Min-Conflicts, Hungarian,
 Top-Trading-Cycle, Fast-Multipole, Ant-Colony.
@@ -31,11 +31,17 @@ Selection-Sort, Gnome-Sort, Cycle-Sort, Cocktail-Shaker-Sort, Comb-Sort,
 Shell-Sort, Pancake-Sorting, Slowsort, Stooge-Sort, Odd-Even-Sort, Merge-Sort,
 Quicksort, Spaghetti-Sort, Bead-Sort, Radix-Sort, Tree-Sort.
 
-### Still stamped `rewrite_first_relative` / `first_pinned` (49)
+**Ledger misc (2):** Branch-and-Bound (Same_Bounds overloads; Density_Order holds
+absolute indices; packed Selected; section 13 origins 1/5/100),
+Combinatorial-Optimization (pins dropped for Length; labels 1..N stored at any
+Cost_Matrix / Tour / Permutation origin via At_Label; section 9 incl. storage
+ending at Positive'Last; red on old code: CE at Total_Weight Sel (I)).
+
+### Still stamped `rewrite_first_relative` / `first_pinned` (47)
 Remaining SPARK4 classroom sorts (Bogosort, Bitonic, Bucket, Burstsort, Counting,
 Flashsort, Library, Patience, Pigeonhole, Postman, Quantum, Samplesort,
 Sort-Merge-Join, Strand, Timsort, Topological, …), searching SPARK4, hashing /
-compression / misc SPARK2–4, Branch-and-Bound, Combinatorial-Optimization,
+compression / misc SPARK2–4,
 and other Ada walk-index folders. Pins still First=1; code rewrite not done yet.
 A2 owns the Float→int list (Clustering, ACO×2, Cross-Entropy, DE, K-Means++,
 Harmony, Local-Search, RRHC, SA, Memetic float, ES, EC, GEP, GA, MLT) plus

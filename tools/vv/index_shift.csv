@@ -743,7 +743,7 @@ misc/Ada/Combinatorial-Optimization,Is_Permutation,catalog,catalog,,1,function n
 misc/Ada/Combinatorial-Optimization,Tour_Length,catalog,catalog,,1,function n_arrays=1 ret=Cost,
 misc/Ada/Combinatorial-Optimization,Two_Opt_Improve,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/Ada/Combinatorial-Optimization,TSP_Two_Opt,catalog,catalog,,1,function n_arrays=1 ret=TSP_Result,
-misc/Ada/Combinatorial-Optimization,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+misc/Ada/Combinatorial-Optimization,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/Ada/Cone-Algorithm,Is_Surface_Particle,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/Ada/Cone-Algorithm,Surface_Mask,catalog,catalog,,1,function n_arrays=1 ret=Boolean_Array,
 misc/Ada/Cone-Algorithm,Count_Surface,catalog,catalog,,1,function n_arrays=1 ret=Point_Count,
