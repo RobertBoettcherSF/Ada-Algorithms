@@ -155,3 +155,5 @@ hashing/SPARK2/Bloom-Filter,GNAT 14,GNATLS 14.2.0,0,0,All Bloom_Filter SPARK top
 hashing/SPARK2/Bloom-Filter,GNAT 12,GNATLS 12.2.0,0,0,All Bloom_Filter SPARK topic tests passed.,4e2023bf
 numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,GNAT 14,GNATLS 14.2.0,0,0,Summary: 138 passed; 0 failed,a65ec915
 numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,GNAT 12,GNATLS 12.2.0,0,0,Summary: 138 passed; 0 failed,a65ec915
+strings/SPARK2/Ada-SPARK-Bounded-String-Builder,GNAT 14,GNATLS 14.2.0,0,0,bounded string builder: PASS,9c7b5c14
+strings/SPARK2/Ada-SPARK-Bounded-String-Builder,GNAT 12,GNATLS 12.2.0,0,0,bounded string builder: PASS,9c7b5c14
