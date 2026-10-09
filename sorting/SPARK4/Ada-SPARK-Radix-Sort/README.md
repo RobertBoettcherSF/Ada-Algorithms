@@ -24,7 +24,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Radix-Sort](https:/
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * **Reconstruction emit** instead of reverse-scan place: when digit $=$ key, equal keys are identical so content-level stability is vacuous. The non-SPARK sibling uses right-to-left placement for satellite stability across multiple passes; tests here still check multiset / permutation equality and agreement with a stable insertion-sort reference.
 * Ghost `Occ` / `Sum_Occ` / `Sum_Hist` lemmas (binary-split induction) plus `pragma Loop_Invariant` so histogram cardinality and emit-cursor bounds are discharged at Level 4.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): `Occ (A, V, Last)` counts V in `A (A'First .. Last)` and `Is_Perm` compares the counts of every value of either array. The proof counts per value through the histogram and emit loops (ghost Occ_P / Sum_Occ / Sum_Hist with binary-split induction lemmas, as in Counting-Sort; no Assume / Annotate). Loop invariants and the Posts of body-local subprograms are proved and not re-evaluated at run time (`Assertion_Policy` Ignore in the body: the count facts range over every value); the Post of `Sort`, including `Is_Perm`, is still checked by the tests. Before 2026-10-09 the Post said only `Is_Sorted`, which an all-zeros body also proves (tools/vv/contract_scan.csv).
+* Tests check `Is_Perm` against an independent sorted-copy comparison on every pair of arrays of length 0 .. 4 over -1 .. 1 (14,762 pairs, origins 1 and 7).
 
 ## Usage
 * **Build:** `make`
@@ -32,7 +33,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Radix-Sort](https:/
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 237 assertions pass. Running `make prove` reports `Success: all checks proved (309 checks).`
+When you run `make test`, you will see all 240 assertions pass. Running `make prove` reports `Success: all checks proved (392 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, Wikipedia-style LSD example (capped to $\mathrm{Max\_Key}$), reverse / already-sorted / almost-sorted, multi-digit values within the cap, power-of-two and odd lengths.
@@ -53,5 +54,5 @@ When you run `make test`, you will see all 237 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Histogram loop tracks `Hist (K) = Occ (A, I-1, K)` via digit extraction; ghost lemmas prove $\mathrm{Sum\_Hist} = n$; emit loop grows a sorted prefix keyed by the outer digit cursor.
-* **GNATprove Level 4:** `Success: all checks proved (309 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (392 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

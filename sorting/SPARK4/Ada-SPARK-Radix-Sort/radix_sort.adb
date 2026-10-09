@@ -30,25 +30,69 @@ is
        and then L >= A'First
        and then R <= A'Last;
 
-   function Occ
+   --  Occurrences of K in A (A'First .. Last): the spec's Occ with the
+   --  arguments in the order this body's lemmas use.
+   function Occ_P
      (A : Element_Array; Last : Natural; K : Element) return Natural
    is
-     (if Last < A'First then 0
-      elsif A (Last) = K then Occ (A, Last - 1, K) + 1
-      else Occ (A, Last - 1, K))
+     (Occ (A, K, Last))
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A) and then Last >= A'First - 1 and then Last <= A'Last,
+     Post   => Occ_P'Result <= Last - A'First + 1;
+
+   --  B agrees with A on A'First .. Last.
+   procedure Lemma_Occ_P_Frame (A, B : Element_Array; Last : Natural)
    with
      Ghost              => True,
      Global             => null,
      Pre                =>
-       In_Bounds (A) and then Last >= A'First - 1 and then Last <= A'Last,
-     Post               => Occ'Result <= Last - A'First + 1,
-     Subprogram_Variant => (Decreases => Last);
+       In_Bounds (A) and then In_Bounds (B)
+       and then A'First = B'First
+       and then Last >= A'First - 1
+       and then Last <= A'Last and then Last <= B'Last
+       and then (for all J in A'First .. Last => A (J) = B (J)),
+     Post               =>
+       (for all K in Element => Occ_P (A, Last, K) = Occ_P (B, Last, K)),
+     Subprogram_Variant => (Decreases => Last)
+   is
+   begin
+      if Last >= A'First then
+         Lemma_Occ_P_Frame (A, B, Last - 1);
+         pragma Assert
+           (for all K in Element =>
+              Occ_P (A, Last - 1, K) = Occ_P (B, Last - 1, K));
+         pragma Assert
+           (for all K in Element =>
+              Occ (A, K, Last - 1) = Occ (B, K, Last - 1));
+         pragma Assert (A (Last) = B (Last));
+         pragma Assert
+           (for all K in Element =>
+              Occ (A, K, Last)
+              = Occ (A, K, Last - 1) + (if A (Last) = K then 1 else 0));
+         pragma Assert
+           (for all K in Element =>
+              Occ (B, K, Last)
+              = Occ (B, K, Last - 1) + (if B (Last) = K then 1 else 0));
+         pragma Assert
+           (for all K in Element => Occ (A, K, Last) = Occ (B, K, Last));
+      else
+         pragma Assert
+           (for all K in Element => Occ (A, K, Last) = 0);
+         pragma Assert
+           (for all K in Element => Occ (B, K, Last) = 0);
+      end if;
+      pragma Assert
+        (for all K in Element => Occ_P (A, Last, K) = Occ_P (B, Last, K));
+   end Lemma_Occ_P_Frame;
 
    function Sum_Occ
      (A : Element_Array; Last : Natural; Lo, Hi : Integer) return Natural
    is
      (if Lo > Hi then 0
-      else Occ (A, Last, Lo) + Sum_Occ (A, Last, Lo + 1, Hi))
+      else Occ_P (A, Last, Lo) + Sum_Occ (A, Last, Lo + 1, Hi))
    with
      Ghost              => True,
      Global             => null,
@@ -87,7 +131,6 @@ is
      (A : Element_Array; Last : Natural; Lo, Mid, Hi : Integer)
      with
        Ghost             => True,
-       Always_Terminates => True,
        Global            => null,
        Pre               =>
          In_Bounds (A)
@@ -118,7 +161,6 @@ is
      (A : Element_Array; Last : Natural; Lo, Hi : Integer)
      with
        Ghost             => True,
-       Always_Terminates => True,
        Global            => null,
        Pre               =>
          In_Bounds (A)
@@ -141,10 +183,10 @@ is
       elsif Lo = Hi then
          if A (Last) = Lo then
             pragma Assert
-              (Occ (A, Last, Lo) = Occ (A, Last - 1, Lo) + 1);
+              (Occ_P (A, Last, Lo) = Occ_P (A, Last - 1, Lo) + 1);
          else
             pragma Assert
-              (Occ (A, Last, Lo) = Occ (A, Last - 1, Lo));
+              (Occ_P (A, Last, Lo) = Occ_P (A, Last - 1, Lo));
          end if;
       else
          Mid := Lo + (Hi - Lo) / 2;
@@ -160,7 +202,6 @@ is
      (A : Element_Array; Last : Natural)
      with
        Ghost             => True,
-       Always_Terminates => True,
        Global            => null,
        Pre               =>
          In_Bounds (A) and then Last >= A'First - 1 and then Last <= A'Last,
@@ -185,7 +226,6 @@ is
      (Hist : Count_Array; Lo, Mid, Hi : Integer)
      with
        Ghost             => True,
-       Always_Terminates => True,
        Global            => null,
        Pre               =>
          Lo >= 0
@@ -216,7 +256,6 @@ is
       Lo, Hi   : Integer)
      with
        Ghost             => True,
-       Always_Terminates => True,
        Global            => null,
        Pre               =>
          In_Bounds (A)
@@ -224,7 +263,7 @@ is
          and then N >= A'First
          and then Lo >= 0
          and then Hi <= Max_Key
-         and then (for all K in Element => Hist (K) = Occ (A, N, K))
+         and then (for all K in Element => Hist (K) = Occ_P (A, N, K))
          and then (for all K in Element => Hist (K) <= Max_N),
        Post              =>
          Sum_Hist (Hist, Lo, Hi) = Sum_Occ (A, N, Lo, Hi),
@@ -236,7 +275,7 @@ is
       if Lo > Hi then
          null;
       elsif Lo = Hi then
-         pragma Assert (Hist (Lo) = Occ (A, N, Lo));
+         pragma Assert (Hist (Lo) = Occ_P (A, N, Lo));
       else
          Mid := Lo + (Hi - Lo) / 2;
          pragma Assert (Mid >= Lo and then Mid < Hi);
@@ -251,13 +290,12 @@ is
      (A : Element_Array; N : Index; Hist : Count_Array)
      with
        Ghost             => True,
-       Always_Terminates => True,
        Global            => null,
        Pre               =>
          In_Bounds (A)
          and then N = A'Last
          and then N >= A'First
-         and then (for all K in Element => Hist (K) = Occ (A, N, K))
+         and then (for all K in Element => Hist (K) = Occ_P (A, N, K))
          and then (for all K in Element => Hist (K) <= Max_N),
        Post              => Sum_Hist (Hist, 0, Max_Key) = A'Length
    is
@@ -272,6 +310,7 @@ is
       Hist : Count_Array := [others => 0];
       Pos  : Cursor;
       N    : Index;
+      A0   : constant Element_Array := A with Ghost;
    begin
       if A'Length <= 1 then
          return;
@@ -282,7 +321,7 @@ is
       for I in A'Range loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant
-           (for all K in Element => Hist (K) = Occ (A, I - 1, K));
+           (for all K in Element => Hist (K) = Occ_P (A, I - 1, K));
          pragma Loop_Invariant
            (for all K in Element => Hist (K) <= I - A'First);
          pragma Loop_Invariant
@@ -291,9 +330,11 @@ is
          Hist (Digit (A (I))) := Hist (Digit (A (I))) + 1;
       end loop;
 
-      pragma Assert (for all K in Element => Hist (K) = Occ (A, N, K));
+      pragma Assert (for all K in Element => Hist (K) = Occ_P (A, N, K));
       pragma Assert (for all K in Element => Hist (K) <= A'Length);
 
+      pragma Assert
+        (for all K in Element => Hist (K) = Occ_P (A0, N, K));
       Lemma_Hist_Sum_Is_N (A, N, Hist);
       pragma Assert (Sum_Hist (Hist, 0, Max_Key) = A'Length);
 
@@ -314,6 +355,11 @@ is
          pragma Loop_Invariant
            (for all KK in Element => Hist (KK) <= A'Length);
          pragma Loop_Invariant (Sum_Hist (Hist, 0, Max_Key) = A'Length);
+         pragma Loop_Invariant
+           (for all KK in Element => Hist (KK) = Occ_P (A0, N, KK));
+         pragma Loop_Invariant
+           (for all KK in Element =>
+              Occ_P (A, Pos - 1, KK) = (if KK < K then Hist (KK) else 0));
 
          declare
             C    : Natural := 0;
@@ -339,10 +385,23 @@ is
                  (Pos = A'First or else A (Pos - 1) <= K);
                pragma Loop_Invariant
                  (for all J in Pos0 .. Pos - 1 => A (J) = K);
+               pragma Loop_Invariant
+                 (for all KK in Element =>
+                    Occ_P (A, Pos - 1, KK)
+                    = (if KK < K then Hist (KK) elsif KK = K then C else 0));
                pragma Loop_Variant (Decreases => Hist (K) - C);
 
-               A (Pos) := K;
+               declare
+                  Before : constant Element_Array := A with Ghost;
+               begin
+                  A (Pos) := K;
+                  Lemma_Occ_P_Frame (Before, A, Pos - 1);
+               end;
                pragma Assert (Pos = A'First or else A (Pos - 1) <= A (Pos));
+               pragma Assert
+                 (for all KK in Element =>
+                    Occ_P (A, Pos, KK)
+                    = Occ_P (A, Pos - 1, KK) + (if KK = K then 1 else 0));
                Pos := Pos + 1;
                C   := C + 1;
             end loop;
@@ -361,6 +420,9 @@ is
       pragma Assert (Pos = N + 1);
       pragma Assert (Sorted_Slice (A, A'First, N));
       pragma Assert (Is_Sorted (A));
+      pragma Assert
+        (for all KK in Element => Occ_P (A, N, KK) = Occ_P (A0, N, KK));
+      pragma Assert (Is_Perm (A, A0));
    end Sort;
 
 end Radix_Sort;

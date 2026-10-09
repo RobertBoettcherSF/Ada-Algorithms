@@ -10,9 +10,8 @@
 --  arbitrary nonnegative Integer keys, Max_Length = 100_000, optional
 --  base 2 .. 256 with multi-pass LSD; this port takes any A'First in
 --  1 .. Max_N, Element in 0 .. Max_Key, and uses
---  Pre => In_Bounds (A). Full multiset / permutation equality is verified
---  by tests rather than claimed as a Level-4 postcondition (sortedness
---  is proved).
+--  Pre => In_Bounds (A). Sortedness and multiset equality
+--  (Is_Perm) are both proved Level-4 postconditions.
 --
 --  Closest SPARK sort sibling that shares the same array shape and key
 --  cap: Ada-SPARK-Counting-Sort. README links only — do not `with`
@@ -100,6 +99,39 @@ is
    --  Do not `with` sibling Ada-* packages.
 
    ---------------------------------------------------------------------------
+   -- Permutation (multiset) model, used by the Post of Sort
+   ---------------------------------------------------------------------------
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
+   with
+     Global             => null,
+     Pre                => In_Bounds (A) and then Last <= A'Last,
+     Post               =>
+       Occ'Result <= Last
+       and then (if Last < A'First then Occ'Result = 0
+                 else Occ'Result <= Last - A'First + 1),
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (A'First .. Last) equal V.
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often. A value found in neither array counts 0 in both, so comparing
+   --  the counts of the values of A and of B covers every value.
+
+   ---------------------------------------------------------------------------
    -- Sorting
    ---------------------------------------------------------------------------
 
@@ -107,10 +139,11 @@ is
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   =>
+         In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Ascending LSD radix sort with fixed Base = 256 (one digit pass).
    --  Empty and singleton arrays are no-ops.
-   --  Post proves sortedness; multiset / permutation equality is
-   --  checked by the test suite (not claimed here at Level 4).
+   --  Post proves sortedness and that A holds the same values as before,
+   --  each equally often (Is_Perm).
 
 end Radix_Sort;
