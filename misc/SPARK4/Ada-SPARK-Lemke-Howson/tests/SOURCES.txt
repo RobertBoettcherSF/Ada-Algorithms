@@ -1,0 +1,66 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+The primary oracle everywhere is an own exact best-response check
+(Big_Integer arithmetic, written separately in tests.adb and in
+own_checks.adb, not the package's Is_Nash): both strategies are
+probability vectors (nonnegative numerators summing to the denominator)
+and every strategy played with positive probability earns the maximum
+payoff against the other player's strategy. Degenerate games can have
+continua of equilibria, so a result is accepted if it is AN equilibrium;
+specific values are only required where the equilibria were worked out
+by hand. Every starting label 1 .. M + N is run.
+
+tests.adb (equilibria worked by hand from the indifference conditions):
+* battle of the sexes A = [3 0; 0 2], B = [2 0; 0 3]: the pure
+  equilibria (1,0)/(1,0), (0,1)/(0,1) and the mixed (3/5,2/5)/(2/5,3/5)
+  (player 2 indifferent: 2p = 3(1 - p); player 1: 3q = 2(1 - q));
+* matching pennies: only (1/2,1/2)/(1/2,1/2), also with the payoffs
+  multiplied by Integer'Last;
+* prisoner's dilemma A = [3 0; 5 1], B = A transposed: only (0,1)/(0,1)
+  (defect strictly dominates);
+* hawk-dove A = [0 3; 1 2], B = [0 1; 3 2]: (1,0)/(0,1), (0,1)/(1,0),
+  (1/2,1/2)/(1/2,1/2);
+* rock-paper-scissors and rock-paper-scissors-lizard-spock (strategy i
+  beats i + 1 and i + 2 mod 5) times Integer'Last: only the uniform pair
+  (every row of the zero-sum matrix sums to 0, and no other support
+  balances);
+* 1 x 1; all payoffs negative ([-10 -20; -30 -40], row 1 dominates, then
+  column 2);
+* a degenerate 2 x 3 (column 3 strictly dominates and both rows pay 1
+  against it: y must be (0,0,1), any x);
+* two degenerate 3 x 3 games found by a seeded search of 79,894 small
+  games (own throwaway program, 2026-10-09) on which the old
+  floating-point code returned a non-equilibrium for starting label 1;
+  all-ties games (3 x 3 all ones, 5 x 5 all zeros);
+* payoffs at Integer'First / Integer'Last and a 5 x 5 game over the full
+  Integer range (Park-Miller sequence from seed 20261009): best-response
+  check only.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (20839012), printed; AA_SEED=<n> overrides it):
+* the independent reference: support enumeration over all pairs of
+  equal-size supports, solving the indifference equations (with the sum
+  of probabilities 1) by Cramer's rule with determinants by Laplace
+  expansion in Big_Integer, keeping positive solutions with no better
+  reply outside the support; itself checked on battle of the sexes (3
+  equilibria, the mixed one (3/5,2/5)/(2/5,3/5)), matching pennies and
+  rock-paper-scissors (1 each);
+* 300 seeded games up to 5 x 5 with payoffs in -10 ** 9 .. 10 ** 9
+  (generically nondegenerate): every starting label gives an
+  equilibrium that is in the support enumeration's set, and the number
+  of equilibria is odd (Lemke-Howson's theorem for nondegenerate games);
+* every 2 x 2 game with payoffs in 0 .. 2 (6,561 games, mostly
+  degenerate) and 1,500 seeded games up to 5 x 5 with payoffs in
+  -3 .. 3: every starting label gives Found and passes the best-response
+  check.
+Run: gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
+(38,793 checks, about 4 s; a planted "ratio test without the
+lexicographic tie-break (first row wins ties)" fails 6 of them and 2 of
+the tests, and a planted "previous pivot not updated" fails 3,001 of
+them and 38 of the tests).
