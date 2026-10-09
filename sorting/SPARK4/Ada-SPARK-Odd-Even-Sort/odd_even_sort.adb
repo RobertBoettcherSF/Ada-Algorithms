@@ -9,12 +9,122 @@
 package body Odd_Even_Sort
   with SPARK_Mode => On
 is
+   --  Same_Occ quantifies over every Integer value, so contracts and
+   --  invariants of this body (all proved by gnatprove) are not checked at
+   --  run time; the Post of Sort in the spec (sorted, Is_Perm) still is.
+   pragma Assertion_Policy
+     (Pre => Ignore, Post => Ignore, Loop_Invariant => Ignore, Assert => Ignore);
 
    --  Adjacent nondecreasing on A (L .. R). Vacuous when L >= R.
    --  Termination measure: Weight (A) = 1 * A (A'First) + 2 * A (A'First
    --  + 1) + ... (position P = K - A'First + 1 weighs A (K)); a
    --  swap of an out-of-order neighbour pair (A (I) > A (I + 1)) raises it
    --  by A (I) - A (I + 1) >= 1, and it is bounded, so the cycles end.
+   function Same_Occ (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (A'Length = 0
+                or else (for all V in Integer =>
+                           Occ (A, V, A'Last) = Occ (B, V, B'Last))))
+   with
+     Ghost,
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+
+   package Perm_Lemmas
+     with Ghost
+   is
+      pragma Assertion_Policy (Pre => Ignore, Post => Ignore);
+
+      --  Counts over A'First .. Last only see A'First .. Last.
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First
+          and then Last <= A'Last and then Last <= B'Last
+          and then (for all K in A'First .. Last => A (K) = B (K)),
+        Post               =>
+          (for all V in Integer => Occ (A, V, Last) = Occ (B, V, Last)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slot K changed.
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Live_Index; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then K in A'Range and then Last in K .. A'Last
+          and then (for all J in A'Range => (if J /= K then A (J) = B (J))),
+        Post               =>
+          (for all V in Integer =>
+             Occ (B, V, Last)
+             = Occ (A, V, Last)
+               - (if A (K) = V then 1 else 0)
+               + (if B (K) = V then 1 else 0)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slots X and Y exchanged.
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Live_Index)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then X in A'Range and then Y in A'Range
+          and then B (X) = A (Y) and then B (Y) = A (X)
+          and then (for all J in A'Range =>
+                      (if J /= X and then J /= Y then A (J) = B (J))),
+        Post   => Same_Occ (A, B);
+
+      procedure Lemma_Same_Perm (A, B : Element_Array)
+      with
+        Global => null,
+        Pre    => In_Bounds (A) and then In_Bounds (B) and then Same_Occ (A, B),
+        Post   => Is_Perm (A, B);
+   end Perm_Lemmas;
+
+   package body Perm_Lemmas is
+
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural) is
+      begin
+         if Last >= A'First then
+            Lemma_Occ_Frame (A, B, Last - 1);
+         end if;
+      end Lemma_Occ_Frame;
+
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Live_Index; Last : Natural) is
+      begin
+         if Last > K then
+            Lemma_Occ_Set (A, B, K, Last - 1);
+         else
+            Lemma_Occ_Frame (A, B, K - 1);
+         end if;
+      end Lemma_Occ_Set;
+
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Live_Index) is
+      begin
+         if X = Y then
+            Lemma_Occ_Frame (A, B, A'Last);
+            return;
+         end if;
+         declare
+            C : constant Element_Array := (A with delta X => A (Y));
+         begin
+            Lemma_Occ_Set (A, C, X, A'Last);
+            Lemma_Occ_Set (C, B, Y, A'Last);
+         end;
+      end Lemma_Swap;
+
+      procedure Lemma_Same_Perm (A, B : Element_Array) is null;
+
+   end Perm_Lemmas;
+   use Perm_Lemmas;
+
    Elem_Bound : constant := 2 ** 31;
    Term_Bound : constant := Max_N * Elem_Bound;   --  bound on one K * A (K)
 
@@ -129,6 +239,7 @@ is
            (for all K in A'Range =>
               (if K /= I and then K /= I + 1 then A (K) = A'Old (K)))
          and then Weight (A) >= Weight (A'Old) + 1
+         and then Same_Occ (A, A'Old)
    is
       Before : constant Element_Array := A with Ghost;
       T : constant Integer := A (I);
@@ -136,6 +247,7 @@ is
       A (I) := A (I + 1);
       A (I + 1) := T;
       Lemma_Swap_Weight (Before, A, I, A'Last);
+      Lemma_Swap (Before, A, I, I + 1);
    end Swap_Up;
 
    --  One phase over the neighbour pairs (K, K + 1) whose position
@@ -162,6 +274,7 @@ is
        Pre    => In_Bounds (A) and then A'Length >= 2,
        Post   =>
          In_Bounds (A)
+         and then Same_Occ (A, A'Old)
          and then
            (if Swapped then Weight (A) >= Weight (A'Old) + 1
             else A = A'Old
@@ -177,6 +290,7 @@ is
       while I < A'Last loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (A'Last = A_Entry'Last);
+         pragma Loop_Invariant (Same_Occ (A, A_Entry));
          pragma Loop_Invariant (I <= A'Last - 1);
          pragma Loop_Invariant (I >= A'First);
          pragma Loop_Invariant ((I - A'First + 1) rem 2 = Parity);
@@ -216,6 +330,7 @@ is
        Pre    => In_Bounds (A) and then A'Length >= 2,
        Post   =>
          In_Bounds (A)
+         and then Same_Occ (A, A'Old)
          and then
            (if Swapped then Weight (A) >= Weight (A'Old) + 1
             else Is_Sorted (A))
@@ -249,8 +364,10 @@ is
 
    procedure Sort (A : in out Element_Array) is
       Swapped : Boolean;
+      Orig    : constant Element_Array := A with Ghost;
    begin
       if A'Length <= 1 then
+         Lemma_Same_Perm (A, Orig);
          return;
       end if;
 
@@ -259,12 +376,14 @@ is
       --  at least 1, and Weight is bounded, which proves termination.
       loop
          pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (Same_Occ (A, Orig));
          pragma Loop_Invariant (A'Length >= 2);
          pragma Loop_Variant (Increases => Weight (A));
 
          Odd_Even_Cycle (A, Swapped);
          exit when not Swapped;
       end loop;
+      Lemma_Same_Perm (A, Orig);
    end Sort;
 
 end Odd_Even_Sort;
