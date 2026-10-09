@@ -22,4 +22,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (37 checks).
 
+`make test` runs `tests.adb` and the folder's own checks: 433,069 checks against a linear scan (see `tests/SOURCES.txt`).
+
 The first version scanned the whole array linearly, with no contract and no sortedness requirement. Commit bc41336a added the read counter to it and a test asserting the log bound; that test fails on the old scan (32 reads for the last element).

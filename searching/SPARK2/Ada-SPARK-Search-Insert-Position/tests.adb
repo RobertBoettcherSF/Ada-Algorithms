@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Search_Insert_Position; use Search_Insert_Position;
+with Own_Checks;
 
 procedure Tests is
    Data : constant Sorted_Array := [1, 3, 5, 6, others => 100];
@@ -42,4 +43,5 @@ begin
    Expect (Up, 97, 33, "after everything");
    Expect (Up, 50, 17, "between 48 and 51");
    Put_Line ("Search_Insert_Position: PASS");
+   Own_Checks;
 end Tests;
