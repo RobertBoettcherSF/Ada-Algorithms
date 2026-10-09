@@ -441,6 +441,45 @@ begin
       Check (Boo (Is_Kth_Partitioned (Bad, 3)), "after select partitioned");
    end;
 
+   ---------------------------------------------------------------------
+   Section ("17. Any origin");
+   ---------------------------------------------------------------------
+   --  The same input at origins 5, 200, 9 and ending at Positive'Last:
+   --  Select_Kth leaves the origin-1 k-th value at A'First + (K - 1) and
+   --  Is_Kth_Partitioned holds; Select_Kth_Copy and Median agree.
+   for Trial in 1 .. 40 loop
+      declare
+         Len  : constant Positive := 1 + (Trial * 7) mod Max_N;
+         Src  : constant Element_Array := Random_Array (Len, -9, 9);
+         K    : constant Positive := 1 + (Trial * 5) mod Len;
+         Want : Element_Array := Copy_Of (Src);
+      begin
+         Select_Kth (Want, K);
+         for Which in 1 .. 4 loop
+            declare
+               F  : constant Positive :=
+                 (case Which is
+                    when 1 => 5, when 2 => 200, when 3 => 9,
+                    when others => Positive'Last - Len + 1);
+               S  : Element_Array (F .. F + (Len - 1));
+            begin
+               for T in 0 .. Len - 1 loop
+                  S (F + T) := Src (Src'First + T);
+               end loop;
+               Check (Select_Kth_Copy (S, K) = Want (Want'First + (K - 1))
+                      and then Median (S) = Median (Src),
+                      "origin" & F'Image & " n =" & Len'Image & " k =" & K'Image
+                      & " Select_Kth_Copy / Median as origin 1");
+               Select_Kth (S, K);
+               Check (S (F + (K - 1)) = Want (Want'First + (K - 1))
+                      and then Is_Kth_Partitioned (S, K),
+                      "origin" & F'Image & " n =" & Len'Image & " k =" & K'Image
+                      & " Select_Kth as origin 1");
+            end;
+         end loop;
+      end;
+   end loop;
+
    New_Line;
    Put_Line
      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image & " FAIL");
