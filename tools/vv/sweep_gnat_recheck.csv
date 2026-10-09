@@ -67,3 +67,7 @@ searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,GNAT 14,GNATLS 14.2.0,0,0,P
 searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 900069 checks (2;234 sorted arrays x 201 targets vs linear scan; reads <= floor (log2 N) + 2; worst cas,9eb27715
 misc/SPARK2/Ada-SPARK-Find-First-And-Last-Position,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 433069 checks (2;134 sorted arrays x 101 targets vs linear scan; reads <= 2 * (floor (log2 N) + 2); wor,d013b332
 misc/SPARK2/Ada-SPARK-Find-First-And-Last-Position,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 433069 checks (2;134 sorted arrays x 101 targets vs linear scan; reads <= 2 * (floor (log2 N) + 2); wor,d013b332
+misc/SPARK2/Ada-SPARK-Peak-Index-In-Mountain-Array,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 84592 checks (21;530 mountains vs arg-max; comparisons <= floor (log2 N) + 2; worst case 5; predicate v,3dd89a20
+misc/SPARK2/Ada-SPARK-Peak-Index-In-Mountain-Array,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 84592 checks (21;530 mountains vs arg-max; comparisons <= floor (log2 N) + 2; worst case 5; predicate v,3dd89a20
+misc/SPARK2/Ada-SPARK-Find-Peak-Element,GNAT 14,GNATLS 14.2.0,0,0,PASS own checks: 220265 checks (50;066 arrays vs the set of all peaks; comparisons <= floor (log2 N) + 2; worst case 5; ,f78836c8
+misc/SPARK2/Ada-SPARK-Find-Peak-Element,GNAT 12,GNATLS 12.2.0,0,0,PASS own checks: 220265 checks (50;066 arrays vs the set of all peaks; comparisons <= floor (log2 N) + 2; worst case 5; ,f78836c8
