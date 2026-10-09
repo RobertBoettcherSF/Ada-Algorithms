@@ -1,40 +1,24 @@
-pragma Ada_2022;
+pragma SPARK_Mode (On);
 
-package body Permutations_II with SPARK_Mode => On is
-   function Count_Permutations
-     (Items : Item_Count; Has_Repeated_Pair : Boolean)
-      return Permutation_Count is
+--  Scaffold for the failing test: the old count table (12! / 2 with a
+--  repeated pair, else 12!) and a Next_Permutation that never moves.
+package body Permutations_II is
+   function Start (Items : List) return Arrangement is
+     ((N => Items'Last, Items => Items, Order => [for K in 1 .. Items'Last => K],
+       Place => [for K in 1 .. Items'Last => K]));
+
+   procedure Next_Permutation (A : in out Arrangement; Found : out Boolean) is
    begin
-      if Has_Repeated_Pair and then Items >= 2 then
-         case Items is
-            when 0 | 1 => return 1;
-            when 2 => return 1;
-            when 3 => return 3;
-            when 4 => return 12;
-            when 5 => return 60;
-            when 6 => return 360;
-            when 7 => return 2_520;
-            when 8 => return 20_160;
-            when 9 => return 181_440;
-            when 10 => return 1_814_400;
-            when 11 => return 19_958_400;
-            when 12 => return 239_500_800;
-         end case;
-      else
-         case Items is
-            when 0 | 1 => return 1;
-            when 2 => return 2;
-            when 3 => return 6;
-            when 4 => return 24;
-            when 5 => return 120;
-            when 6 => return 720;
-            when 7 => return 5_040;
-            when 8 => return 40_320;
-            when 9 => return 362_880;
-            when 10 => return 3_628_800;
-            when 11 => return 39_916_800;
-            when 12 => return 479_001_600;
-         end case;
+      Found := A.N < 0;
+   end Next_Permutation;
+
+   function Count_Distinct (Items : Small_List) return Factorial_Value is
+      Full : constant array (0 .. 12) of Factorial_Value :=
+        [1, 1, 2, 6, 24, 120, 720, 5_040, 40_320, 362_880, 3_628_800, 39_916_800, 479_001_600];
+   begin
+      if Items'Last >= 2 and then Items (1) = Items (2) then
+         return Full (Items'Last) / 2;
       end if;
-   end Count_Permutations;
+      return Full (Items'Last);
+   end Count_Distinct;
 end Permutations_II;
