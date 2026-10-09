@@ -20,8 +20,27 @@ procedure Tests is
    Diag  : constant Matrix := [for R in Row => [for C in Column => R + C]];
 
    --  Starting in the top-right corner, each comparison drops a row or
-   --  a column (or ends the search), so at most Rows + Cols - 1 = 15.
-   Bound : constant Natural := Rows + Cols - 1;
+   --  a column (or ends the search), so at most Rows + Cols - 1 = 15:
+   --  the number of cells on a monotone path from the top-right to the
+   --  bottom-left corner, counted here step by step.
+   function Path_Cells (Height, Width : Positive) return Natural is
+      R     : Positive := 1;
+      C     : Positive := Width;
+      Count : Natural := 1;
+   begin
+      while R < Height or else C > 1 loop
+         if R < Height then
+            R := R + 1;
+         else
+            C := C - 1;
+         end if;
+         Count := Count + 1;
+      end loop;
+      return Count;
+   end Path_Cells;
+
+   Bound : constant Natural := Path_Cells (Rows, Cols);
+   Most  : Natural := 0;   --  largest count seen
 
    function Scan (M : Matrix; T : Value) return Boolean is
      (for some R in Row => (for some C in Column => M (R, C) = T));
@@ -36,6 +55,7 @@ procedure Tests is
          raise Program_Error with Label & " target" & Target'Image & ":" & R.Probes'Image
            & " comparisons, more than Rows + Cols - 1 =" & Bound'Image;
       end if;
+      Most := Natural'Max (Most, R.Probes);
    end Expect;
 begin
    Expect (Grid, 63, "1 .. 64");
@@ -45,5 +65,10 @@ begin
       Expect (Slope, T, "4 R + 3 C");
       Expect (Diag, T, "R + C");
    end loop;
+   --  The bound is reached: 1 .. 64 with target 57 (bottom-left corner)
+   --  walks the whole staircase.
+   if Most /= Bound then
+      raise Program_Error with "largest count" & Most'Image & ", expected" & Bound'Image;
+   end if;
    Put_Line ("Search_A_2D_Matrix_II: PASS");
 end Tests;

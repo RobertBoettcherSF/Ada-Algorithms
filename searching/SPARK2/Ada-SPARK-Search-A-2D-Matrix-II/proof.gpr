@@ -1,0 +1,4 @@
+project Search_A_2D_Matrix_II_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("search_a_2d_matrix_ii.ads", "search_a_2d_matrix_ii.adb");
+end Search_A_2D_Matrix_II_Proof;
