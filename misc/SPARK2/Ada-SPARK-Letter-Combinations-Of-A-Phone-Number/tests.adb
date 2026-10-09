@@ -1,6 +1,7 @@
 with Ada.Text_IO;
 with Ada.Assertions;
 with Letter_Combinations_Of_A_Phone_Number; use Letter_Combinations_Of_A_Phone_Number;
+with Own_Checks;
 
 procedure Tests is
    --  Keypad: 2 abc, 3 def, 4 ghi, 5 jkl, 6 mno, 7 pqrs, 8 tuv, 9 wxyz.
@@ -83,5 +84,6 @@ begin
    if Rejected /= 3 then
       raise Program_Error with "Digit_String accepted a bad number";
    end if;
+   Own_Checks;
    Ada.Text_IO.Put_Line ("letter combinations tests passed");
 end Tests;

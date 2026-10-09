@@ -1,0 +1,31 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: the old table's answers as counts of 0, 4 and 12 digits 2
+(three letters each: 1, 81, 531_441); all nine spellings of "23" listed
+by hand in dictionary order; the four-letter keys 7 and 9; single
+spellings decoded by hand in mixed radix (the comment next to each:
+"79" K = 5 = 1 * 4 + 1 -> "qx", "27" K = 7 -> "bs", "234" K = 13 ->
+"beh"); 2345678 -> 3 ** 6 * 4 = 2_916; the limit: fifteen 7s or 9s spell
+4 ** 15 = 1_073_741_824 strings, first, second, fifth and last spelling
+written out. Digit_String rejects the digits 0 and 1 and a 16-digit
+number.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (1884235203), printed; AA_SEED=<n> overrides it):
+* an own keypad written as letter strings and an own recursive
+  enumeration of every spelling in dictionary order, compared with Count
+  and every Combination (N, K), for every number of 0 .. 3 digits;
+* 300 random numbers of 0 .. 15 digits: Count against the product of the
+  own key lengths; five random K each: every letter on its key, the own
+  left-to-right (Horner) rank of the result equals K, and
+  Combination (N, K) < Combination (N, K + 1); the last spelling is the
+  last letter of every key;
+* the ghost Pow4_Table regenerated (4 ** 0 .. 4 ** 15) and 4 ** 16 above
+  Natural'Last; the ghost Suffix_Count and Rank checked against the own
+  values by pragma Assert.
