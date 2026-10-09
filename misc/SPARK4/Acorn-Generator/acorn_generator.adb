@@ -105,12 +105,9 @@ is
          Buf (I) := X;
       end loop;
 
+      --  Even M: an even Buf (0) < M is at most M - 2, so + 1 stays below M.
       if M rem 2 = 0 and then Buf (0) rem 2 = 0 then
-         if Buf (0) < M - 1 then
-            Buf (0) := Buf (0) + 1;
-         else
-            Buf (0) := 1;
-         end if;
+         Buf (0) := Buf (0) + 1;
       end if;
    end Fill_From_Seed;
 
