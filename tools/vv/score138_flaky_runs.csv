@@ -1,0 +1,43 @@
+folder,held_index,variant,build,run,outcome,rc,exception,wall_s,loadavg_1min
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),1,crash,1,raised ADA.ASSERTIONS.ASSERTION_ERROR : a-assert.adb:42,0.003,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),2,pass,0,,0.023,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),3,pass,0,,0.025,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),4,crash,1,raised ADA.ASSERTIONS.ASSERTION_ERROR : a-assert.adb:42,0.002,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),5,pass,0,,0.023,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),6,crash,1,raised ADA.ASSERTIONS.ASSERTION_ERROR : a-assert.adb:42,0.002,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),7,pass,0,,0.023,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),8,pass,0,,0.024,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),9,crash,1,raised ADA.ASSERTIONS.ASSERTION_ERROR : a-assert.adb:42,0.002,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),10,pass,0,,0.024,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),11,pass,0,,0.022,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,plain (-gnat2022 -gnata),12,crash,1,raised ADA.ASSERTIONS.ASSERTION_ERROR : a-assert.adb:42,0.002,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),1,pass,0,,0.021,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),2,pass,0,,0.021,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),3,pass,0,,0.023,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),4,pass,0,,0.024,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),5,pass,0,,0.022,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),6,pass,0,,0.028,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),7,pass,0,,0.025,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),8,pass,0,,0.029,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),9,pass,0,,0.022,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),10,pass,0,,0.026,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),11,pass,0,,0.024,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,plain (-gnat2022 -gnata),12,pass,0,,0.020,0.93
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=in",1,crash,1,CONSTRAINT_ERROR container_with_most_water.adb:11 invalid data,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=lo",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=hi",1,crash,1,CONSTRAINT_ERROR container_with_most_water.adb:11 invalid data,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=00",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=ff",1,crash,1,CONSTRAINT_ERROR container_with_most_water.adb:11 invalid data,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=55",1,crash,1,ASSERTION_ERROR a-assert.adb:42 (test assert),,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=aa",1,crash,1,CONSTRAINT_ERROR container_with_most_water.adb:11 invalid data,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=7f",1,crash,1,ASSERTION_ERROR a-assert.adb:42 (test assert),,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,mutant,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=80",1,crash,1,CONSTRAINT_ERROR container_with_most_water.adb:11 invalid data,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=in",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=lo",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=hi",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=00",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=ff",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=55",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=aa",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=7f",1,pass,0,,,
+misc/SPARK2/Ada-SPARK-Container-With-Most-Water,2,unmutated,"pragma Initialize_Scalars + -gnatVa, GNAT_INIT_SCALARS=80",1,pass,0,,,

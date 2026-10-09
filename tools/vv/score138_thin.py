@@ -305,8 +305,11 @@ def main():
                                  thin_stats=json.dumps(stats) if name == 'thinned' else ''))
             k = sum(r == 'killed' for r, _ in res)
             print(f'{fid} {name}: tests-only {k}/{len(ms)}', flush=True)
+    keep = []
+    if os.path.exists(a.out):   # merge: replace these folders' rows, keep the rest
+        keep = [r for r in csv.DictReader(open(a.out)) if r['folder'] not in set(a.folders)]
     with open(a.out, 'w', newline='') as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator='\n'); w.writeheader(); w.writerows(rows)
+        w = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator='\n'); w.writeheader(); w.writerows(keep + rows)
 
 
 if __name__ == '__main__':

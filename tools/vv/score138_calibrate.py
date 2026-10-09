@@ -7,6 +7,7 @@ training_ready rule or count.
   python3 tools/vv/score138_calibrate.py DETAIL.csv [--sample F1,F2,...]
 
 Rows (column `section`):
+  Also fills column kill_mode of the held rows in tools/vv/score138_sealed.csv.
   folder_family  per folder and mutant kind: hidden non-equivalent n, recorded kills
                  (tests + proof), kills by the full tests on rerun, kills by the thinned
                  tests (tests only, no proof pass), and the kill mode of every recorded kill.
@@ -53,10 +54,10 @@ def main():
             c['n'] += 1
             if full['recorded'] == 'killed':
                 c['recorded_k'] += 1
-                if full['tests_result'] == 'killed':
-                    c[full['mode'] or 'test_check'] += 1
-                elif full['recorded_kill_kind'] == 'proof':
+                if full['recorded_kill_kind'] == 'proof':
                     c['proof'] += 1
+                elif full['tests_result'] == 'killed':
+                    c[full['mode'] or 'test_check'] += 1
                 else:
                     c['nondeterministic'] += 1
             if full['tests_result'] == 'killed':
@@ -104,6 +105,21 @@ def main():
         r['calib'] = calib.get(r['folder'], 'pending') if r['half'] == 'heldout' else ''
     with open(HALVES, 'w', newline='') as fh:
         w = csv.DictWriter(fh, cols); w.writeheader(); w.writerows(hr)
+    # kill mode of every held mutant into score138_sealed.csv (raw data for a later recount)
+    sp = os.path.join(HERE, 'score138_sealed.csv')
+    mode = {}
+    for (folder, idx), v in by.items():
+        full = v['full']
+        if full['recorded'] != 'killed':
+            continue
+        mode[(folder, idx)] = ('proof' if full['recorded_kill_kind'] == 'proof' else
+                               (full['mode'] or 'test_check') if full['tests_result'] == 'killed' else 'nondeterministic')
+    sr = list(csv.DictReader(open(sp)))
+    for r in sr:
+        if (r.get('half') or 'held') == 'held' and (r['folder'], r['index']) in mode:
+            r['kill_mode'] = mode[(r['folder'], r['index'])]
+    with open(sp, 'w', newline='') as fh:
+        w = csv.DictWriter(fh, list(sr[0].keys()), lineterminator='\n'); w.writeheader(); w.writerows(sr)
     print(f'wrote {OUT}: {len(out)} rows; calib', collections.Counter(calib.values()))
 
 
