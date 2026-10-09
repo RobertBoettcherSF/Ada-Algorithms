@@ -419,6 +419,64 @@ begin
       end;
    end loop;
 
+   ---------------------------------------------------------------------
+   Section ("17. Plateau beside the peak (equal probes outside the peak)");
+   ---------------------------------------------------------------------
+   --  A non-strict unimodal array may be flat except for one higher
+   --  element at an end; both probes then see the flat value, and the
+   --  maximum lies outside [M1, M2].
+   declare
+      Up_Last   : constant Element_Array (0 .. 7) := [0, 0, 0, 0, 0, 0, 0, 1];
+      Up_First  : constant Element_Array (0 .. 7) := [1, 0, 0, 0, 0, 0, 0, 0];
+      Step_Late : constant Element_Array (0 .. 9) := [2, 2, 2, 2, 2, 2, 2, 2, 3, 1];
+   begin
+      Check (Find_Maximum_Index (Up_Last) = 7, "flat then one higher at the end");
+      Check (Find_Maximum_Index (Up_First) = 0, "one higher at the start then flat");
+      Check (Find_Maximum_Index (Step_Late) = 8, "long plateau then the peak near the end");
+   end;
+   --  All equal but one: a single 1 among zeros, at every position of a
+   --  length-16 array (no search can avoid looking at every element here).
+   for P in 0 .. 15 loop
+      declare
+         A : constant Element_Array (0 .. 15) := [for I in 0 .. 15 => (if I = P then 1 else 0)];
+      begin
+         Check (Find_Maximum_Index (A) = P, "single peak among zeros at" & P'Image);
+      end;
+   end loop;
+   --  Every non-strict unimodal array of length 1 .. 8 over values 0 .. 2
+   --  (non-decreasing up to some P, non-increasing after), checked
+   --  against the definition of a maximum.
+   declare
+      Bad : Natural := 0;
+   begin
+      for Len in 1 .. 8 loop
+         for Code in 0 .. 3 ** Len - 1 loop
+            declare
+               A    : Element_Array (1 .. Len);
+               C    : Natural := Code;
+               Uni  : Boolean := True;
+               Down : Boolean := False;
+            begin
+               for I in A'Range loop
+                  A (I) := C mod 3;
+                  C := C / 3;
+               end loop;
+               for I in A'First + 1 .. A'Last loop
+                  if A (I) < A (I - 1) then
+                     Down := True;
+                  elsif A (I) > A (I - 1) and then Down then
+                     Uni := False;
+                  end if;
+               end loop;
+               if Uni and then not Is_A_Maximum (A, Find_Maximum_Index (A)) then
+                  Bad := Bad + 1;
+               end if;
+            end;
+         end loop;
+      end loop;
+      Check (Bad = 0, "all unimodal arrays over 0 .. 2 up to length 8:" & Bad'Image & " wrong");
+   end;
+
    New_Line;
    Put_Line ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image
              & " FAIL");
