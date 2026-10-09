@@ -1,0 +1,2 @@
+folder,problem,test_commit,fix_commit,reference_check,agent
+misc/SPARK2/Ada-SPARK-Non-Decreasing-Array,"wrong answer on 45,760 of 274,625 triples (First <= Second > Third with First > Third, e.g. 2 2 1); old test asserted the wrong answer; Post added stating the real result",37f51cfb,9748e54f,"brute-force all one-element changes; exhaustive 274,625 triples + 100,000 random (LCG seed 20261009) in tests.adb",agent-CF
