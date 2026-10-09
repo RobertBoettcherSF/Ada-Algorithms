@@ -282,3 +282,4 @@ misc/SPARK2/Ada-SPARK-Cosine-Distance,exhaustive pairs vs the defining floor ine
 misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero,"sum of Euclid quotients (a different formula), exhaustive"
 misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,"brute-force count from the definition, exhaustive over all 65,536 matrices"
 misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,Unbounded_String replacement reference + hand-worked cases
+misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,one-pass histogram (a different algorithm) + hand-worked cases

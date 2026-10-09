@@ -177,3 +177,5 @@ misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,GNAT 14,GNATLS 14.2
 misc/SPARK2/Ada-SPARK-Count-Square-Submatrices-With-All-Ones,GNAT 12,GNATLS 12.2.0,0,0,PASS Count_Square_Submatrices_With_All_Ones,762600fb
 misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,GNAT 14,GNATLS 14.2.0,0,0,PASS Defanging_IP,b5154c07
 misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address,GNAT 12,GNATLS 12.2.0,0,0,PASS Defanging_IP,b5154c07
+misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,GNAT 14,GNATLS 14.2.0,0,0,PASS Degree_Of_An_Array,a76c433c
+misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,GNAT 12,GNATLS 12.2.0,0,0,PASS Degree_Of_An_Array,a76c433c
