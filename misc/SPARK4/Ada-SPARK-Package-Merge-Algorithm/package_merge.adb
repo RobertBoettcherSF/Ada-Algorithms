@@ -215,10 +215,7 @@ is
       end if;
 
       --  Guaranteed non-empty: L_0 has N ≥ 2 leaves merged in.
-      if Next_L.Count = 0 then
-         Next_L.Count := 1;
-         Next_L.Elems (1) := L_0.Elems (1);
-      end if;
+      pragma Assert (Next_L.Count >= 1);
 
       L_Curr := Next_L;
    end Package_Merge_Round;
