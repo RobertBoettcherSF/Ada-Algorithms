@@ -2917,3 +2917,99 @@ misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264053,thinned,111,C,killed,,killed,test_
 misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264053,thinned,137,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264053,thinned,138,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
 misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264053,thinned,139,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,0,std,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,1,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,2,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,3,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,4,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,5,std,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,6,alt,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,7,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,9,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,16,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,17,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,18,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,19,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,22,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,23,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,24,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,26,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,28,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,29,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,30,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,32,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,53,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,55,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,57,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,58,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,59,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,60,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,62,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,64,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,66,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,68,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,90,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,91,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,92,ho,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,94,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,111,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,112,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,113,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,115,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,122,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,123,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,124,ho,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,130,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,132,B,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,133,alt,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,134,ho,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,135,B,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,full,136,C,killed,,killed,test_check,
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,0,std,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,1,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,2,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,3,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,4,C,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,5,std,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,6,alt,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,7,ho,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,9,C,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,16,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,17,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,18,ho,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,19,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,22,C,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,23,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,24,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,26,C,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,28,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,29,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,30,ho,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,32,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,53,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,55,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,57,C,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,58,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,59,alt,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,60,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,62,C,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,64,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,66,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,68,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,90,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,91,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,92,ho,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,94,C,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,111,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,112,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,113,ho,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,115,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,122,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,123,alt,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,124,ho,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,130,C,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,132,B,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,133,alt,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,134,ho,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,135,B,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-LFU-Cache-Lite,20264054,thinned,136,C,killed,,killed,test_check,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
