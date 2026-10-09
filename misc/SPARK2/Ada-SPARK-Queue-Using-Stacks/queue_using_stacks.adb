@@ -1,6 +1,12 @@
 pragma SPARK_Mode (On);
 
 package body Queue_Using_Stacks is
+   --  The Pre of Enqueue / Dequeue rules out one Size value; the case
+   --  selectors are qualified with these subtypes so every branch is
+   --  reachable (no dead 'when 4 => null' / 'when 0 => null' arms).
+   subtype Below_Capacity is Count range 0 .. Capacity - 1;
+   subtype Occupied is Count range 1 .. Capacity;
+
    function Empty return Queue is
    begin
       return (Size => 0, V1 => 0, V2 => 0, V3 => 0, V4 => 0);
@@ -9,12 +15,11 @@ package body Queue_Using_Stacks is
    function Enqueue (Q : Queue; V : Value) return Queue is
       R : Queue := Q;
    begin
-      case Q.Size is
+      case Below_Capacity'(Q.Size) is
          when 0 => R.V1 := V; R.Size := 1;
          when 1 => R.V2 := V; R.Size := 2;
          when 2 => R.V3 := V; R.Size := 3;
          when 3 => R.V4 := V; R.Size := 4;
-         when 4 => null;
       end case;
       return R;
    end Enqueue;
@@ -22,8 +27,7 @@ package body Queue_Using_Stacks is
    function Dequeue (Q : Queue) return Queue is
       R : Queue := Q;
    begin
-      case Q.Size is
-         when 0 => null;
+      case Occupied'(Q.Size) is
          when 1 => R.Size := 0;
          when 2 => R.V1 := Q.V2; R.Size := 1;
          when 3 => R.V1 := Q.V2; R.V2 := Q.V3; R.Size := 2;
