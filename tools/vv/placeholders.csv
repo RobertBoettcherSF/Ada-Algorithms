@@ -111,7 +111,7 @@ misc/SPARK2/Ada-SPARK-Word-Break-II,H122,has no word list; only counts splits of
 misc/SPARK2/Ada-SPARK-Word-Break-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Word-Break implementation",open
 misc/SPARK2/Ada-SPARK-Word-Ladder-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Word-Ladder implementation",open
 misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub,H115,"answers come from a case table, not a zigzag iterator",open
-numerical/SPARK2/Ada-SPARK-Count-Primes,H119,"answers come from an 11-arm case table, no sieve",open
+numerical/SPARK2/Ada-SPARK-Count-Primes,H119,"answers come from an 11-arm case table, no sieve",closed (agent-CF: real sieve; functional Post open as H167)
 numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Count-Primes implementation",open
 parsing/SPARK2/Ada-SPARK-Sparse-Vector-Dot-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Sparse-Vector-Dot implementation",open
 searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,tools/vv/hidden_stub.csv,unrolled linear scan of six fixed positions; no halving,open
