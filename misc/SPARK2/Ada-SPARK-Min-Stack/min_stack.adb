@@ -1,6 +1,12 @@
 pragma SPARK_Mode (On);
 
 package body Min_Stack is
+   --  The Pre of Push / Pop / Top_Value rules out one Size value; the case
+   --  selectors are qualified with these subtypes so every branch is
+   --  reachable (no dead 'when 4 => null' / 'when 0 => ...' arms).
+   subtype Below_Capacity is Count range 0 .. Capacity - 1;
+   subtype Occupied is Count range 1 .. Capacity;
+
    function Empty return Stack is
    begin
       return (Size => 0, V1 => 0, V2 => 0, V3 => 0, V4 => 0);
@@ -14,12 +20,11 @@ package body Min_Stack is
    function Push (S : Stack; V : Value) return Stack is
       R : Stack := S;
    begin
-      case S.Size is
+      case Below_Capacity'(S.Size) is
          when 0 => R.V1 := V; R.Size := 1;
          when 1 => R.V2 := V; R.Size := 2;
          when 2 => R.V3 := V; R.Size := 3;
          when 3 => R.V4 := V; R.Size := 4;
-         when 4 => null;
       end case;
       return R;
    end Push;
@@ -27,8 +32,7 @@ package body Min_Stack is
    function Pop (S : Stack) return Stack is
       R : Stack := S;
    begin
-      case S.Size is
-         when 0 => null;
+      case Occupied'(S.Size) is
          when 1 => R.Size := 0;
          when 2 => R.Size := 1;
          when 3 => R.Size := 2;
@@ -39,8 +43,7 @@ package body Min_Stack is
 
    function Top_Value (S : Stack) return Value is
    begin
-      case S.Size is
-         when 0 => return 0;
+      case Occupied'(S.Size) is
          when 1 => return S.V1;
          when 2 => return S.V2;
          when 3 => return S.V3;
