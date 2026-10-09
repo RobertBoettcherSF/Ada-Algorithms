@@ -276,3 +276,4 @@ misc/SPARK2/Ada-SPARK-Stack-Bounded,array model of the stack (independent of the
 misc/SPARK2/Ada-SPARK-Accounts-Merge-Lite,pairwise first-occurrence count (a different algorithm) + hand-worked cases
 misc/SPARK2/Ada-SPARK-Bankers-Algorithm,all-24-orders safety search (a different algorithm) + hand-worked states and requests
 misc/SPARK2/Ada-SPARK-Bump-Arena,counter model of the arena + membership table for the tree + hand-worked 16-slot / depth-16 cases
+misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,FIFO second-chance queue model (a different formulation) + hand-worked clock trace

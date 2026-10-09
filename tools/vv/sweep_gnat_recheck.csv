@@ -165,3 +165,5 @@ misc/SPARK2/Ada-SPARK-Bankers-Algorithm,GNAT 14,GNATLS 14.2.0,0,0,Bankers: PASS,
 misc/SPARK2/Ada-SPARK-Bankers-Algorithm,GNAT 12,GNATLS 12.2.0,0,0,Bankers: PASS,693d2e55
 misc/SPARK2/Ada-SPARK-Bump-Arena,GNAT 14,GNATLS 14.2.0,0,0,All tests PASS: 90,2f894140
 misc/SPARK2/Ada-SPARK-Bump-Arena,GNAT 12,GNATLS 12.2.0,0,0,All tests PASS: 90,2f894140
+misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,GNAT 14,GNATLS 14.2.0,0,0,Clock: PASS,7a25ab8e
+misc/SPARK2/Ada-SPARK-Clock-Page-Replacement,GNAT 12,GNATLS 12.2.0,0,0,Clock: PASS,7a25ab8e
