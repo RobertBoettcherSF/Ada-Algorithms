@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Factorial; use Factorial;
+with Own_Checks;
 
 procedure Tests is
    procedure Check (N : Input; Want : Result) is
@@ -21,5 +22,6 @@ begin
    Check (14, 87_178_291_200);
    Check (19, 121_645_100_408_832_000);
    Check (20, 2_432_902_008_176_640_000);
+   Own_Checks;
    Put_Line ("factorial checks passed");
 end Tests;

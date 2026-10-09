@@ -1,0 +1,18 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: 0!, 1!, 5!, 12! (the old table's values, kept); 13!, 14!, 19!,
+20! each worked from the previous one (13! in the comment); the 20 / 21
+limit against Long_Long_Integer'Last in the comment.
+
+own_checks.adb (exhaustive over 0 .. 20):
+* Multiplication-free reference: N! as N copies of (N - 1)! added up.
+* Compute (N) / Compute (N - 1) = N with no remainder.
+* Trailing zeros of N! = N / 5 + N / 25 (Legendre's formula for the
+  prime 5; 2 is always more frequent).
+* Long_Long_Integer'Last / 21 < 20!, so 21! would not fit.
+* The ghost Fact_Table regenerated entry by entry from the reference.
