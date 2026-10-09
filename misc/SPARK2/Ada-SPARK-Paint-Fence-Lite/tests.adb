@@ -1,5 +1,6 @@
 with Ada.Text_IO;
 with Paint_Fence_Lite; use Paint_Fence_Lite;
+with Own_Checks;
 
 procedure Tests is
    --  N posts, K colours, no three adjacent posts of one colour, mod M.
@@ -44,5 +45,6 @@ begin
    --  Large K and N are reduced mod M: K = Positive'Last, M = 2 ** 31 - 1
    --  makes K = 0 (mod M): no colours left.
    Check (1_000, Positive'Last, P31, 0);
+   Own_Checks;
    Ada.Text_IO.Put_Line ("paint fence tests passed");
 end Tests;
