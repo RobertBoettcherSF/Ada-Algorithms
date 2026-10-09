@@ -185,3 +185,5 @@ misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,GNAT 14,GNATLS 14.2.0,0,0,PASS House
 misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,GNAT 12,GNATLS 12.2.0,0,0,PASS House_Robber_III_Lite,8e588edf
 misc/SPARK2/Ada-SPARK-Deque-Bounded,GNAT 14,GNATLS 14.2.0,0,0,PASS Deque_Bounded,b1a9a46e
 misc/SPARK2/Ada-SPARK-Deque-Bounded,GNAT 12,GNATLS 12.2.0,0,0,PASS Deque_Bounded,b1a9a46e
+misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,GNAT 14,GNATLS 14.2.0,0,0,PASS Design_A_Stack_With_Increment_Operation,b869899b
+misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,GNAT 12,GNATLS 12.2.0,0,0,PASS Design_A_Stack_With_Increment_Operation,b869899b
