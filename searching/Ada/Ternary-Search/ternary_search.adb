@@ -37,10 +37,20 @@ is
          elsif A (M1) > A (M2) then
             --  Peak cannot lie at or right of M2.
             Hi := M2 - 1;
+         elsif A (M1 + 1) > A (M1) or else A (M2 - 1) > A (M2) then
+            --  Equal probes, but the array rises just after M1 (or falls
+            --  just before M2): the peak is strictly between them, and
+            --  A (M2) = A (M1) is below it, so a maximum is in M1 + 1 ..
+            --  M2 - 1. A strictly unimodal array always lands here.
+            Lo := M1 + 1;
+            Hi := M2 - 1;
          else
-            --  Equal: for (non-)strict unimodal, a maximum lies in [M1, M2].
-            Lo := M1;
-            Hi := M2;
+            --  Equal probes on a plateau (A (M1 + 1) = A (M1) and
+            --  A (M2 - 1) = A (M2)): the maximum may be left of M1,
+            --  between the probes or right of M2 (0 0 0 0 0 0 0 1), so no
+            --  comparison narrows the window. Scan all of Lo .. Hi below:
+            --  O(N) worst case, only when the probes hit a plateau.
+            exit;
          end if;
       end loop;
 

@@ -44,13 +44,24 @@ Compare $A(m_1)$ and $A(m_2)$:
 
 - if $A(m_1) < A(m_2)$, the maximum lies in $(m_1,H]$ — raise $L$;
 - if $A(m_1) > A(m_2)$, the maximum lies in $[L,m_2)$ — lower $H$;
-- if equal (non-strict / plateau), a maximum lies in $[m_1,m_2]$.
+- if equal and the array rises just after $m_1$ (or falls just before
+  $m_2$), the peak is strictly between the probes: $L = m_1 + 1$,
+  $H = m_2 - 1$; a strictly unimodal array always takes this branch;
+- if equal and both probes sit on a plateau ($A(m_1+1) = A(m_1)$ and
+  $A(m_2-1) = A(m_2)$), the maximum may be anywhere in $[L,H]$
+  (for example `0 0 0 0 0 0 0 1`), so the window is scanned linearly.
 
 When the remaining window is tiny ($H-L\le 2$), finish with a linear
 scan. Any index of a flat peak plateau is acceptable.
 
-Asymptotically the unimodal peak search examines $O(\log n)$ entries
-(base $3/2$ style shrinkage) plus $O(1)$ for the final window. The
+Cost: for a strictly unimodal array the peak search examines
+$O(\log n)$ entries (base $3/2$ style shrinkage) plus $O(1)$ for the
+final window. With plateaus the worst case is $O(n)$: in an array that
+is all equal but one higher element, no comparison-based search can
+avoid looking at every position, and the scan is only used when the
+probes land on a plateau. (Before 2026-10-09 the equal case narrowed to
+$[m_1,m_2]$ and returned a non-maximum for such inputs; see
+`tools/vv/findings_sweep.csv`.) The
 sorted key-search variant is also $O(\log n)$ but typically does more
 comparisons per step than binary search, so binary search is the better
 default for sorted lookup.

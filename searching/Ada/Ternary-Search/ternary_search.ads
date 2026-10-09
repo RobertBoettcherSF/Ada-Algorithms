@@ -47,7 +47,9 @@ is
 
    function Find_Maximum_Index (A : Element_Array) return Natural;
    --  Return an index of a maximum element of unimodal A (any index in a
-   --  flat peak plateau is acceptable).
+   --  flat peak plateau is acceptable). Cost: O(log N) probes when A is
+   --  strictly unimodal; O(N) worst case when the probes land on a
+   --  plateau (e.g. all equal but one element).
    --  Raises Invalid_Argument when A is empty or A'Length > Max_N.
 
    ---------------------------------------------------------------------------
