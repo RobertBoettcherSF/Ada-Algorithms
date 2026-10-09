@@ -39,7 +39,15 @@ tests.adb (equilibria worked by hand from the indifference conditions):
   all-ties games (3 x 3 all ones, 5 x 5 all zeros);
 * payoffs at Integer'First / Integer'Last and a 5 x 5 game over the full
   Integer range (Park-Miller sequence from seed 20261009): best-response
-  check only.
+  check only;
+* a 1 x 4 game whose smallest payoff of A is at (1, 3): player 2's only
+  best reply to the single row is column 2 (B = [-1 2 -1 -1]), so the
+  only equilibrium is (1)/(0,1,0,0) (added after the tune-half mutant
+  "minimum search skips row 1" survived);
+* every 2 x 2 game with payoffs in -1 .. 1 (6,561 games, mostly
+  degenerate), every starting label: Found and the best-response check.
+A check that a result equals given fractions also requires Found and
+Dx, Dy > 0 (before, an all-zero not-found result matched any fraction).
 
 own_checks.adb (seeded: Park-Miller minimal standard generator; the
 default seed is the FNV-1a (32-bit) hash of the folder name folded into

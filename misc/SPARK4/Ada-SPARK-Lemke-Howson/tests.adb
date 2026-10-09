@@ -68,10 +68,12 @@ procedure Tests is
 
    type Int_Vector is array (Positive range <>) of Natural;
 
-   --  E's strategies equal Num_X / Den_X and Num_Y / Den_Y exactly.
+   --  E is found and its strategies equal Num_X / Den_X and Num_Y / Den_Y
+   --  exactly (Dx, Dy > 0: zero vectors would match any fraction).
    function Equals (E : Exact_Equilibrium; Num_X : Int_Vector; Den_X : Positive;
                 Num_Y : Int_Vector; Den_Y : Positive) return Boolean is
-     ((for all I in 1 .. E.M => E.X (I) * B (Den_X) = B (Num_X (I)) * E.Dx)
+     (E.Found and then E.Dx > B (0) and then E.Dy > B (0)
+      and then (for all I in 1 .. E.M => E.X (I) * B (Den_X) = B (Num_X (I)) * E.Dx)
       and then (for all J in 1 .. E.N => E.Y (J) * B (Den_Y) = B (Num_Y (J)) * E.Dy));
 
    procedure All_Drops (Name : String; A, Bm : Payoff_Matrix) is
@@ -236,6 +238,51 @@ begin
          end loop;
       end loop;
       All_Drops ("5x5 full Integer range", A, Bm);
+   end;
+
+   --  1 x 4, the smallest payoff of A at (1, 3), not (1, 1): player 2's
+   --  only best reply to the single row is column 2 (B = 2 there, -1
+   --  elsewhere), so the only equilibrium is (1)/(0,1,0,0).
+   declare
+      A  : constant Payoff_Matrix := [[1, 1, -2, 2]];
+      Bm : constant Payoff_Matrix := [[-1, 2, -1, -1]];
+   begin
+      for D in 1 .. 5 loop
+         Check (Equals (Find_Equilibrium (A, Bm, D), [1], 1, [0, 1, 0, 0], 1), "1x4 minimum off (1,1) drop" & D'Image);
+      end loop;
+   end;
+
+   --  Every 2 x 2 game with payoffs in -1 .. 1 (many ties; the smallest
+   --  payoff is often away from (1, 1), which the shift to positive
+   --  payoffs must find): every starting label gives an equilibrium.
+   declare
+      Bad : Natural := 0;
+   begin
+      for Code in 0 .. 3 ** 8 - 1 loop
+         declare
+            A, Bm : Payoff_Matrix (1 .. 2, 1 .. 2);
+            C     : Natural := Code;
+         begin
+            for I in 1 .. 2 loop
+               for J in 1 .. 2 loop
+                  A (I, J) := C mod 3 - 1;
+                  C := C / 3;
+                  Bm (I, J) := C mod 3 - 1;
+                  C := C / 3;
+               end loop;
+            end loop;
+            for D in 1 .. 4 loop
+               declare
+                  E : constant Exact_Equilibrium := Find_Equilibrium (A, Bm, D);
+               begin
+                  if not (E.Found and then Own_Nash (A, Bm, E)) then
+                     Bad := Bad + 1;
+                  end if;
+               end;
+            end loop;
+         end;
+      end loop;
+      Check (Bad = 0, "all 2x2 games with payoffs -1 .. 1, every drop:" & Bad'Image & " not an equilibrium");
    end;
 
    if Failures = 0 then
