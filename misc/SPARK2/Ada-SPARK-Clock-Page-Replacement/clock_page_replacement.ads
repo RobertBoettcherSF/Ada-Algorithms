@@ -1,3 +1,4 @@
+pragma Ada_2022;
 pragma SPARK_Mode (On);
 package Clock_Page_Replacement is
    Capacity : constant := 4;
@@ -7,7 +8,7 @@ package Clock_Page_Replacement is
    type Frames is array (Frame_Id) of Frame;
    subtype Fault_Count_Type is Natural;
    type State is record
-      Slots : Frames := (others => (Value => 0, Referenced => False, Used => False));
+      Slots : Frames := [others => (Value => 0, Referenced => False, Used => False)];
       Hand : Frame_Id := Frame_Id'First;
       Faults : Fault_Count_Type := 0;
    end record;

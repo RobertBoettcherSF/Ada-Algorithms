@@ -1,0 +1,24 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the first checks (pages 1 2 3 4 1 -> 4 faults, then 5 -> 5) are
+the original ones. Added: 101 different pages are 101 faults (the counter
+used to stop at 100). Hand-worked clock trace (4 frames, hand starts at
+frame 1, a loaded or hit page gets its reference bit set): page 0 is not
+resident at the start and loads with one fault; after 0 1 2 3 every bit is
+set, so page 4 makes the hand clear all four bits, come round and evict 0
+(hand ends at frame 2, 5 faults); a hit on 1 is no fault and sets its bit;
+page 5 then skips 1 (clearing it) and evicts 2 (hand at frame 4, 6
+faults); page 6 evicts the clear page 3 (7 faults); twenty more hits on 6
+and 4 add no fault.
+
+own_checks.adb: an independent model, second chance as a FIFO queue
+(head inspected: set bit -> cleared and moved to the tail, clear bit ->
+evicted; new pages appended with the bit set). 4,000 seeded random runs of
+60 accesses over 5, 6, 9 or 101 pages (one in five accesses re-uses a
+resident page) compare the fault count and the resident pages with their
+bits after every access. Seed = FNV-1a of the folder name, AA_SEED
+overrides it.
