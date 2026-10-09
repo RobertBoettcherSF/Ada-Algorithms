@@ -1,0 +1,20 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: the identity choices from the first version, plus one
+non-identity shuffle worked out by hand in the comment (V&V sweep,
+agent B, 2026-10-09).
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). There is no second
+shuffle to compare with; the checks are properties:
+* all 720 valid choice vectors applied to [1 .. 6] give permutations of
+  1 .. 6, and no permutation comes up twice (so the vectors map onto the
+  720 permutations one to one, and uniform choices shuffle uniformly);
+* 5,000 random item arrays (random value range, so many repeats) under
+  random valid vectors keep the count of every value -100 .. 100;
+* every vector with one choice above its position (15 of them) is
+  rejected by the Swap_Array predicate (Assertion_Error under -gnata).
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..."); set AA_SEED=<n> to run them with
+  another seed.
