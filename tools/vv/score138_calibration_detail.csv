@@ -4041,3 +4041,11 @@ misc/SPARK2/Ada-SPARK-Third-Maximum-Number,20264066,thinned,66,B,killed,,killed,
 misc/SPARK2/Ada-SPARK-Third-Maximum-Number,20264066,thinned,67,ho,killed,,killed,contract,"{""tests.adb"": [2, 0, 0], ""own_checks.adb"": [2, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Third-Maximum-Number,20264066,thinned,70,B,killed,,killed,contract,"{""tests.adb"": [2, 0, 0], ""own_checks.adb"": [2, 0, 0]}"
 misc/SPARK2/Ada-SPARK-Third-Maximum-Number,20264066,thinned,71,ho,killed,,killed,contract,"{""tests.adb"": [2, 0, 0], ""own_checks.adb"": [2, 0, 0]}"
+misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,full,0,alt,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,full,4,C,killed,,killed,runtime_error,
+misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,full,8,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,full,14,B,killed,,killed,contract,
+misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,thinned,0,alt,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,thinned,4,C,killed,,killed,runtime_error,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,thinned,8,B,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
+misc/SPARK2/Ada-SPARK-To-Lower-Case,20264062,thinned,14,B,killed,,killed,contract,"{""tests.adb"": [1, 0, 0], ""own_checks.adb"": [1, 0, 0]}"
