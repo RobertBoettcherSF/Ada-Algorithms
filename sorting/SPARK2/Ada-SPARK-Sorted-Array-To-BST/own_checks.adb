@@ -103,6 +103,11 @@ begin
          for I in 2 .. L loop
             A (I) := A (I - 1) + 1 + Next mod 58;
          end loop;
+         --  Every fourth input runs from -1000 to 1000 (the Value range).
+         if L >= 2 and then Rep mod 4 = 0 then
+            A (1) := Value'First;
+            A (L) := Value'Last;
+         end if;
          Check_Shape (L, "sorted L =" & L'Image);
          for V in Value loop
             Report (Contains (T, V) = Member (A, L, V),

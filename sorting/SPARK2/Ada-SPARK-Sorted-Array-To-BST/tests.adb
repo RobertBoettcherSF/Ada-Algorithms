@@ -70,6 +70,15 @@ begin
       Check (not Is_BST (T), "310 before 300 is not a BST");
    end;
 
+   --  The extreme values -1000 and 1000 are ordinary keys.
+   Build (T, [1 => -1000, 2 => 0, 3 => 1000, others => 0], 3);
+   Check (Is_BST (T) and then Root_Value (T) = 0
+          and then Contains (T, -1000) and then Contains (T, 1000), "-1000 0 1000");
+   Build (T, [1 => 1000, others => 0], 1);
+   Check (Is_BST (T), "1000 alone");
+   Build (T, [1 => -1000, others => 0], 1);
+   Check (Is_BST (T), "-1000 alone");
+
    Own_Checks;
    Put_Line ("sorted array to BST: PASS");
 end Tests;

@@ -9,11 +9,12 @@ tests.adb: the original 1 .. 7 case (root 4). Hand-worked: 1 2 5 4 6 7 8
 ordered but 5 is in the left subtree of 4: not a BST); empty, one and two
 values; 4 4 (equal values are not a BST); 10, 20, .. 310 at lengths 15, 16
 and 31 (root = Input (1 + (Length - 1) / 2), heights 4, 5, 5); the last two
-of 31 values swapped (not a BST).
+of 31 values swapped (not a BST); -1000 0 1000, 1000 alone and -1000
+alone (the ends of Value are ordinary keys).
 
 own_checks.adb: every Length 0 .. 31, 40 seeded random inputs each (seed =
 FNV-1a of the folder name, AA_SEED overrides it), in three kinds: strictly
-increasing, the same with two positions swapped, and small values with
+increasing (every fourth one from -1000 to 1000), the same with two positions swapped, and small values with
 repeats. References: Is_BST = Input (1 .. Length) strictly increasing (the
 in-order sequence of the tree is the input), root = Input (1 + (Length - 1)
 / 2), height = smallest H with 2 ** H - 1 >= Length, and for increasing
