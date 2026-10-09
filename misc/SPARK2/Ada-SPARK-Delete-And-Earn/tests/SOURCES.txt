@@ -1,0 +1,23 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: Maximum (1) = 1, (6) = 12, (16) = 72 (the old table's values,
+kept); Maximum (17) = 81, (20) = 110, (100) = 2_550 as sums of all values
+of N's parity; the array cases are worked by hand in the comments.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (64875565), printed; AA_SEED=<n> overrides it):
+* Maximum (N) for every N in 1 .. 100 against the closed form: odd N
+  ((N + 1) / 2) ** 2, even N (N / 2) (N / 2 + 1).
+* 2,000 arrays of length 0 .. 12 with values in a window of 12 consecutive
+  values (anywhere in 1 .. 100) against a brute force over every subset
+  of the window with no two adjacent values.
+* 30 arrays of length 100 over 1 .. 100: reversed and rotated copies give
+  the same answer; the answer lies between the best single value's
+  points and the array's sum; values below Cut and above Cut + 1 never
+  interact, so the two parts' answers add up.

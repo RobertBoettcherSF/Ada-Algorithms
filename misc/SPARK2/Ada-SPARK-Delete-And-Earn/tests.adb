@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO;
 with Delete_And_Earn; use Delete_And_Earn;
+with Own_Checks;
 
 procedure Tests with SPARK_Mode => Off is
    --  Delete and Earn: pick a number X, earn X, and every X - 1 and X + 1
@@ -49,5 +50,6 @@ begin
    Check ([52, 50], 102, "52 50");
    Check ([7], 7, "7");
    Check (No_Numbers, 0, "empty");
+   Own_Checks;
    Ada.Text_IO.Put_Line ("PASS Delete_And_Earn");
 end Tests;
