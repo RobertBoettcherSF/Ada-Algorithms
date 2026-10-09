@@ -12,15 +12,13 @@ is
    ---------------------------------------------------------------------------
 
    function Probe
-     (Lo, Hi       : Index;
+     (Lo, Hi       : Live_Index;
       A_Lo, A_Hi   : Integer;
       Key          : Integer) return Index
      with
        Global => null,
        Pre    =>
-         Lo >= 1
-         and then Hi <= Max_N
-         and then Lo < Hi
+         Lo < Hi
          and then A_Hi > A_Lo
          and then Key >= A_Lo
          and then Key <= A_Hi,
@@ -43,14 +41,9 @@ is
       Offset := (Diff_Key * Span) / Diff_Val;
       pragma Assert (Offset >= 0);
       pragma Assert (Offset <= Span);
+      --  Offset in 0 .. Span, so Pos is in Lo .. Hi with no clamping.
       Pos := Lo + Integer (Offset);
-      if Pos < Integer (Lo) then
-         return Lo;
-      elsif Pos > Integer (Hi) then
-         return Hi;
-      else
-         return Index (Pos);
-      end if;
+      return Index (Pos);
    end Probe;
 
    ---------------------------------------------------------------------------
@@ -86,16 +79,14 @@ is
          --  Key outside the remaining value range ⇒ miss.
          exit when Key < A (Lo) or else Key > A (Hi);
 
-         --  Equal-value run: whole remaining window shares one value.
+         --  Equal-value run: whole remaining window shares one value, and
+         --  A (Lo) <= Key <= A (Hi) (the exit above) makes it Key.
          if A (Hi) = A (Lo) then
-            if A (Lo) = Key then
-               return Index (Lo);
-            else
-               return 0;
-            end if;
+            pragma Assert (A (Lo) = Key);
+            return Index (Lo);
          end if;
 
-         Pos := Probe (Index (Lo), Index (Hi), A (Lo), A (Hi), Key);
+         Pos := Probe (Live_Index (Lo), Live_Index (Hi), A (Lo), A (Hi), Key);
          pragma Assert (Pos in Lo .. Hi);
          pragma Assert (Pos in A'Range);
 
