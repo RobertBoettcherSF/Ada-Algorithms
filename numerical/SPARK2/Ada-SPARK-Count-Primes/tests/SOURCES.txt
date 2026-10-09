@@ -9,3 +9,4 @@ standard generator (seed 20261008).
 * Own brute-force reference: count X in 0 .. N - 1 that pass own trial
   division (no divisor in 2 .. X - 1, X >= 2).
 * Inputs: every N in 0 .. 30 (exhaustive).
+* Known value: 168 primes below 1000 (standard table of pi (x)).

@@ -45,13 +45,24 @@ procedure Own_Checks is
       end loop;
       return C;
    end Below_Ref;
+   --  Count for any N in 0 .. 1000 (-1 when N is rejected).
+   function Count_Of (V : Natural) return Integer is
+   begin
+      return Integer (Count_Primes_Below (V));
+   exception
+      when Constraint_Error =>
+         return -1;
+   end Count_Of;
 begin
-   for V in Limit loop
-      Report (Count_Primes_Below (V) = Below_Ref (V), "N =" & V'Image);
+   --  H119: a real count for every N up to 1000 (a sieve), not only the
+   --  0 .. 30 of the old case table.
+   for V in 0 .. 1000 loop
+      Report (Count_Of (V) = Below_Ref (V), "N =" & V'Image);
    end loop;
+   Report (Count_Of (1000) = 168, "pi (999) = 168 (known value)");
    if Failures > 0 then
       Ada.Text_IO.Put_Line ("FAIL own checks:" & Failures'Image & " of" & Cases'Image);
       raise Program_Error with "own checks failed";
    end if;
-   Ada.Text_IO.Put_Line ("PASS own checks:" & Cases'Image & " inputs (own trial-division reference, exhaustive)");
+   Ada.Text_IO.Put_Line ("PASS own checks:" & Cases'Image & " inputs (own trial-division reference, exhaustive 0 .. 1000)");
 end Own_Checks;
