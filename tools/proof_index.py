@@ -297,7 +297,7 @@ for r in rows:
     r['warnings_suppressed'] = 'yes' if supp_by[r['folder']] else ''
     r['proof_escapes'] = str(esc_all[r['folder']]) if esc_all[r['folder']] else ''
     if esc_bare[r['folder']] and r['silver'] == 'proven':   # rule 4: an unexplained escape voids the proof claim
-        r['silver'] = 'proven, unjustified escape'
+        r['silver'] = 'not proven (unjustified escape)'
     r['masked_by_finish'] = 'yes' if r['folder'] in mask_by else ''
     r['fallback'] = '; '.join(fallback_by.get(r['folder'], []))
     r['unchecked_subprograms'] = str(unchecked_by[r['folder']]) if unchecked_by[r['folder']] else ''

@@ -1,0 +1,3 @@
+folder,file,line,justified,reason,decided
+misc/SPARK4/Ada-SPARK-Lemke-Howson,misc/SPARK4/Ada-SPARK-Lemke-Howson/lemke_howson.adb,45,no,"prover limit, not shown impossible: the Intentional overflow annotation in Pivot only says the bounds exceed SMT capabilities; no argument that the overflow cannot happen (Silver not proven until fixed in code)",Robert 2026-10-09 09:57
+misc/SPARK4/Ada-SPARK-Lemke-Howson,misc/SPARK4/Ada-SPARK-Lemke-Howson/lemke_howson.adb,147,no,"prover limit, not shown impossible: the Intentional overflow annotation in Find_Equilibrium only says the bounds exceed SMT capabilities; no argument that the overflow cannot happen (Silver not proven until fixed in code)",Robert 2026-10-09 09:57

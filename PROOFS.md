@@ -1873,7 +1873,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK4/Ada-SPARK-Heaps-Algorithm | yes | yes | yes | yes | yes | 0 | 9 | proven | 235 (65) |  | misc/Ada/Heaps-Algorithm |  |
 | misc/SPARK4/Ada-SPARK-K-Way-Merge | yes | yes | yes | yes | yes | 0 | 0 | proven | 358 (23) |  | misc/Ada/K-Way-Merge |  |
 | misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator | yes | yes | yes | yes | yes | 0 | 0 | proven | 318 (107) |  | misc/Ada/Lagged-Fibonacci-Generator |  |
-| misc/SPARK4/Ada-SPARK-Lemke-Howson | yes | yes | yes | yes | yes | 0 | 0 | proven | 79 (1) |  | misc/Ada/Lemke-Howson |  |
+| misc/SPARK4/Ada-SPARK-Lemke-Howson | yes | yes | yes | yes | yes | 0 | 0 | not proven (unjustified escape) | 79 (1) |  | misc/Ada/Lemke-Howson |  |
 | misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | yes | yes | yes | yes | yes | 0 | 6 | proven | 195 (10) |  | misc/Ada/Package-Merge-Algorithm |  |
 | misc/SPARK4/Ada-SPARK-Selection-Algorithm | yes | yes | yes | yes | yes | 0 | 8 | proven | 419 (104) |  | misc/Ada/Selection-Algorithm |  |
 | misc/SPARK4/Ada-SPARK-Shortest-Seek-First | n/a | no | no | no | no | 0 | 0 | no SPARK |  |  |  |  |

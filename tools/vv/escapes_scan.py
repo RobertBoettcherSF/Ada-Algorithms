@@ -59,6 +59,17 @@ for f in sorted(files):
         for i, l in enumerate(open(path, errors='replace').read().split('\n')):
             if WARN_BUILD.search(l.split('#')[0].split('--')[0]):
                 sup.append(dict(folder=fid, file=f, line=i + 1, text=l.strip()[:120]))
+# Reviewed verdicts (tools/vv/proof_escapes_review.csv: folder,file,line,justified,reason,decided): a written
+# reason string is not enough when a review found that it states a prover limit, not that the check cannot
+# fail (Robert, 2026-10-09 09:57, Lemke-Howson). The review's verdict and reason replace the scanner's.
+_rev = os.path.join(ROOT, 'tools', 'vv', 'proof_escapes_review.csv')
+if os.path.exists(_rev):
+    _r = {(x['file'], int(x['line'])): x for x in csv.DictReader(open(_rev, newline=''))}
+    for e in esc:
+        x = _r.get((e['file'], e['line']))
+        if x:
+            e['justified'] = x['justified']
+            e['justification'] = (e['justification'] + ' [review ' + x['decided'] + ': ' + x['reason'] + ']')[:400]
 # pragma Unreferenced / Unused (room guard 2026-10-08 19:18): allowed without comment on a parameter that an
 # interface requires (overriding subprogram, or one passed as 'Access / generic actual); otherwise only with a
 # written reason (comment within 3 lines above or on the same line). Not allowed -> warnings_suppressed.
