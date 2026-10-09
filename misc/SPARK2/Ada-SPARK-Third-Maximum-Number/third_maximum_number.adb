@@ -16,10 +16,9 @@ package body Third_Maximum_Number with SPARK_Mode => On is
          end loop;
       end loop;
       for I in Index range 2 .. Index'Last loop
+         pragma Loop_Invariant (Distinct in 1 .. 2);   --  the loop returns as soon as it reaches 3
          if Work (I) /= Work (I - 1) then
-            if Distinct < 3 then
-               Distinct := Distinct + 1;
-            end if;
+            Distinct := Distinct + 1;
             if Distinct = 3 then
                return Work (I);
             end if;
