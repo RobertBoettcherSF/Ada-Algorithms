@@ -27,3 +27,4 @@ per-folder,a9c716f1,sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings,topup va
 per-folder,ee6cb532,misc/SPARK2/Ada-SPARK-Climbing-Stairs,topup var+higher-order (unseen),20261378,pass,707,108,24,6,0,78,30,24/30,80.0%,GNATMAKE 14.2.0
 per-folder,6efb392c,misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,topup var+higher-order (unseen),20261179,pass,2647,311,26,4,0,281,30,26/30,86.7%,GNATMAKE 14.2.0
 per-folder,8e588edf,misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,topup var+higher-order (unseen),20261180,pass,1653,1263,21,9,0,1233,30,21/30,70.0%,GNATMAKE 14.2.0
+per-folder,291457f1,misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,topup var+higher-order (unseen),20261182,pass,97,97,19,1,0,77,20,19/20,95.0%,GNATMAKE 14.2.0

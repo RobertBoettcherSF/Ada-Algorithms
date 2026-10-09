@@ -187,3 +187,5 @@ misc/SPARK2/Ada-SPARK-Deque-Bounded,GNAT 14,GNATLS 14.2.0,0,0,PASS Deque_Bounded
 misc/SPARK2/Ada-SPARK-Deque-Bounded,GNAT 12,GNATLS 12.2.0,0,0,PASS Deque_Bounded,b1a9a46e
 misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,GNAT 14,GNATLS 14.2.0,0,0,PASS Design_A_Stack_With_Increment_Operation,b869899b
 misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,GNAT 12,GNATLS 12.2.0,0,0,PASS Design_A_Stack_With_Increment_Operation,b869899b
+misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,GNAT 14,GNATLS 14.2.0,0,0,PASS Get_Maximum_In_Generated_Array,291457f1
+misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,GNAT 12,GNATLS 12.2.0,0,0,PASS Get_Maximum_In_Generated_Array,291457f1
