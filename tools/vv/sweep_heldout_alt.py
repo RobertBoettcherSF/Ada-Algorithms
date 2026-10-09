@@ -82,7 +82,7 @@ def run_folder(fid, a, ver):
         jobs = [(src, f'{wk}/m{i}_{n}', edits) for n, (name, edits) in enumerate(batch)]
         with ThreadPoolExecutor(a.j) as ex:
             out = list(ex.map(sm.one, jobs))
-        for (name, edits), (_b, _af, r) in zip(batch, out):
+        for (name, edits), (_b, _af, r, *_kind) in zip(batch, out):   # sm.one also returns kill_kind (uninit recheck)
             res.append(r); det.append(dict(folder=fid, seed=a.seed, op=name, line='hidden', result=r))
     shutil.rmtree(wk, ignore_errors=True)
     k, s, to, sb = (res.count(x) for x in ('killed', 'survived', 'timeout', 'stillborn'))
