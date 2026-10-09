@@ -131,3 +131,7 @@ sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings,GNAT 14,GNATLS 14.2.0,0,0,co
 sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings,GNAT 12,GNATLS 12.2.0,0,0,count sorted vowel strings tests passed,a9c716f1
 misc/SPARK2/Ada-SPARK-Climbing-Stairs,GNAT 14,GNATLS 14.2.0,0,0,climbing stairs tests passed,ee6cb532
 misc/SPARK2/Ada-SPARK-Climbing-Stairs,GNAT 12,GNATLS 12.2.0,0,0,climbing stairs tests passed,ee6cb532
+graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,GNAT 14,GNATLS 14.2.0,0,0,own checks: 16200 checks; 0 failures,a65ec915
+graphs/SPARK2/Ada-SPARK-Find-Center-Of-Star-Graph,GNAT 12,GNATLS 12.2.0,0,0,own checks: 16200 checks; 0 failures,a65ec915
+misc/SPARK2/Ada-SPARK-First-Unique-Character,GNAT 14,GNATLS 14.2.0,0,0,own checks: 92097 checks; 0 failures,a65ec915
+misc/SPARK2/Ada-SPARK-First-Unique-Character,GNAT 12,GNATLS 12.2.0,0,0,own checks: 92097 checks; 0 failures,a65ec915
