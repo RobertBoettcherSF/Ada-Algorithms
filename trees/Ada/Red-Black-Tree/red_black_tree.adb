@@ -427,7 +427,23 @@ package body Red_Black_Tree is
    -- 
 
    function Is_Valid_Red_Black_Tree (T : Tree) return Boolean is
-      function Verify_Subtree (N : Node_Access; Black_Height : out Integer) return Boolean is
+      Nodes : Natural := 0;
+
+      --  Checks the subtree at N whose parent is Up and whose keys must
+      --  lie strictly between the keys of its nearest left and right
+      --  ancestors (Lo / Hi, absent at the tree's edges). Comparing with
+      --  the bounds, not only with the children, makes the in-order key
+      --  sequence strictly increasing; a revisited node would break a
+      --  strict bound, so the walk ends on any link layout.
+      function Verify_Subtree
+        (N            : Node_Access;
+         Up           : Node_Access;
+         Has_Lo       : Boolean;
+         Lo           : Node_Key;
+         Has_Hi       : Boolean;
+         Hi           : Node_Key;
+         Black_Height : out Integer) return Boolean
+      is
          Left_BH, Right_BH : Integer := 0;
       begin
          Black_Height := 0; -- Ensures 'out' parameter is initialized on early return paths
@@ -435,19 +451,24 @@ package body Red_Black_Tree is
             Black_Height := 1;
             return True;
          end if;
+         if N.Parent /= Up then
+            return False;
+         end if;
+         if (Has_Lo and then N.Key <= Lo) or else (Has_Hi and then N.Key >= Hi) then
+            return False;
+         end if;
          if N.Color = Red then
             if Color_Of (N.Left) = Red or else Color_Of (N.Right) = Red then
                return False;
             end if;
          end if;
-         if N.Left /= null and then N.Left.Key >= N.Key then
+         Nodes := Nodes + 1;
+         if not Verify_Subtree (N.Left, N, Has_Lo, Lo, True, N.Key, Left_BH) then
             return False;
          end if;
-         if N.Right /= null and then N.Right.Key <= N.Key then
+         if not Verify_Subtree (N.Right, N, True, N.Key, Has_Hi, Hi, Right_BH) then
             return False;
          end if;
-         if not Verify_Subtree (N.Left, Left_BH) then return False; end if;
-         if not Verify_Subtree (N.Right, Right_BH) then return False; end if;
          if Left_BH /= Right_BH then
             return False;
          end if;
@@ -460,7 +481,8 @@ package body Red_Black_Tree is
       if T.Root /= null and then T.Root.Color = Red then
          return False;
       end if;
-      return Verify_Subtree (T.Root, BH);
+      return Verify_Subtree (T.Root, null, False, 0, False, 0, BH)
+        and then Nodes = T.Count;
    end Is_Valid_Red_Black_Tree;
 
 end Red_Black_Tree;

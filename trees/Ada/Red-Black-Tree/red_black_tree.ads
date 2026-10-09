@@ -71,6 +71,12 @@ package Red_Black_Tree is
 
    -- Validates all Red-Black Tree structural properties.
    -- Used extensively in testing to ensure correctness.
+   -- True iff: the in-order key sequence is strictly increasing (every
+   -- key lies between its ancestors' keys, not only its children's); the
+   -- root is black; no red node has a red child; every path from the
+   -- root to a missing child has the same number of black nodes; the
+   -- root has no parent and every child links back to its parent; and
+   -- Size (T) is the number of nodes.
    function Is_Valid_Red_Black_Tree (T : Tree) return Boolean
      with Global => null;
 
