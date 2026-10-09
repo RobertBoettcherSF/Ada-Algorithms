@@ -11,8 +11,8 @@
 --  (Decreases => J - I). Slowsort_Range is proved to sort its range on
 --  its own (pairwise order plus "no element above the range's entry
 --  maximum", which carries the surrender step); there is no fallback
---  pass. Full multiset / permutation equality is verified by tests
---  rather than claimed as a Level-4 postcondition.
+--  pass. The Post of Sort also proves permutation (Is_Perm, counted
+--  with Occ): Slowsort_Range keeps the multiset of the whole array.
 --
 --  Reference: https://en.wikipedia.org/wiki/Slowsort
 
@@ -65,6 +65,36 @@ is
    --  vacuous). Equivalent to pairwise sortedness on a total order.
 
    ---------------------------------------------------------------------------
+   -- Permutation (multiset) model, used by the Post of Sort
+   ---------------------------------------------------------------------------
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
+   with
+     Global             => null,
+     Pre                => In_Bounds (A) and then Last <= A'Last,
+     Post               => Occ'Result <= Last,
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (A'First .. Last) equal V.
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often. A value found in neither array counts 0 in both, so comparing
+   --  the counts of the values of A and of B covers every value.
+
+   ---------------------------------------------------------------------------
    -- Algorithm sketch (multiply and surrender / Wikipedia)
    ---------------------------------------------------------------------------
    --  Assume In_Bounds (A). Recurse on I .. J (initially A'First .. A'Last):
@@ -77,8 +107,8 @@ is
    --  Subprogram_Variant (J - I) strictly decreases on each recursive
    --  call. Empty and singleton arrays are no-ops.
    --  Level 4: Slowsort_Range proves RTE, termination, frame, pairwise
-   --  sortedness of A (I .. J) and the entry-maximum bound; Sort's
-   --  Is_Sorted follows directly.
+   --  sortedness of A (I .. J), the entry-maximum bound and the multiset
+   --  (Same_Occ); Sort's Is_Sorted and Is_Perm follow directly.
    --  Do not `with` sibling Ada-* packages.
 
    ---------------------------------------------------------------------------
@@ -89,11 +119,11 @@ is
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Ascending Slowsort (in-place multiply-and-surrender); the
    --  recursion alone establishes Is_Sorted (proved at Level 4).
    --  Empty and singleton arrays are no-ops.
-   --  Post proves sortedness; multiset / permutation equality is
-   --  checked by the test suite (not claimed here at Level 4).
+   --  Post proves sortedness and that A holds the values of A'Old, each
+   --  equally often (Is_Perm).
 
 end Slowsort;

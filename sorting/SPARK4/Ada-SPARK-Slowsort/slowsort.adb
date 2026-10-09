@@ -11,6 +11,125 @@ package body Slowsort
   with SPARK_Mode => On
 is
 
+   --  Postconditions and assertions inside this body are proof
+   --  obligations, proved by gnatprove and not evaluated at run time:
+   --  Same_Occ quantifies over every Integer value. (The Post of Sort in
+   --  the spec, Is_Sorted and Is_Perm, is still checked at run time under
+   --  -gnata.)
+   pragma Assertion_Policy (Post => Ignore, Assert => Ignore);
+
+   ---------------------------------------------------------------------------
+   -- Permutation proof (ghost). Same_Occ is the logical multiset equality
+   -- over every Integer value; it only appears in loop invariants and in
+   -- lemma contracts, which are proved and not evaluated at run time (an
+   -- evaluation would range over all Integer values).
+   ---------------------------------------------------------------------------
+
+   function Same_Occ (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (A'Length = 0
+                or else (for all V in Integer =>
+                           Occ (A, V, A'Last) = Occ (B, V, B'Last))))
+   with
+     Ghost,
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+
+   package Perm_Lemmas
+     with Ghost
+   is
+      pragma Assertion_Policy (Pre => Ignore, Post => Ignore);
+
+      --  Counts over A'First .. Last only see A'First .. Last.
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First
+          and then Last <= A'Last and then Last <= B'Last
+          and then (for all K in A'First .. Last => A (K) = B (K)),
+        Post               =>
+          (for all V in Integer => Occ (A, V, Last) = Occ (B, V, Last)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slot K changed.
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Live_Index; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then K in A'Range and then Last in K .. A'Last
+          and then (for all J in A'Range => (if J /= K then A (J) = B (J))),
+        Post               =>
+          (for all V in Integer =>
+             Occ (B, V, Last)
+             = Occ (A, V, Last)
+               - (if A (K) = V then 1 else 0)
+               + (if B (K) = V then 1 else 0)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slots X and Y exchanged.
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Live_Index)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then X in A'Range and then Y in A'Range
+          and then B (X) = A (Y) and then B (Y) = A (X)
+          and then (for all J in A'Range =>
+                      (if J /= X and then J /= Y then A (J) = B (J))),
+        Post   => Same_Occ (A, B);
+
+      procedure Lemma_Same_Perm (A, B : Element_Array)
+      with
+        Global => null,
+        Pre    => In_Bounds (A) and then In_Bounds (B) and then Same_Occ (A, B),
+        Post   => Is_Perm (A, B);
+   end Perm_Lemmas;
+
+   package body Perm_Lemmas is
+
+      procedure Lemma_Occ_Frame (A, B : Element_Array; Last : Natural) is
+      begin
+         if Last >= A'First then
+            Lemma_Occ_Frame (A, B, Last - 1);
+         end if;
+      end Lemma_Occ_Frame;
+
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Live_Index; Last : Natural) is
+      begin
+         if Last > K then
+            Lemma_Occ_Set (A, B, K, Last - 1);
+         else
+            Lemma_Occ_Frame (A, B, K - 1);
+         end if;
+      end Lemma_Occ_Set;
+
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Live_Index) is
+      begin
+         if X = Y then
+            Lemma_Occ_Frame (A, B, A'Last);
+            return;
+         end if;
+         declare
+            C : constant Element_Array := (A with delta X => A (Y));
+         begin
+            Lemma_Occ_Set (A, C, X, A'Last);
+            Lemma_Occ_Set (C, B, Y, A'Last);
+         end;
+      end Lemma_Swap;
+
+      procedure Lemma_Same_Perm (A, B : Element_Array) is null;
+
+   end Perm_Lemmas;
+   use Perm_Lemmas;
+
    --  Every pair in A (L .. R) is in order. Vacuous when L >= R.
    function Sorted_Pairs
      (A : Element_Array; L, R : Natural) return Boolean
@@ -133,11 +252,13 @@ is
            (for all K in A'First .. I - 1 => A (K) = A'Old (K))
          and then
            (for all K in J + 1 .. A'Last => A (K) = A'Old (K))
+         and then Same_Occ (A, A'Old)
    is
       M  : Index;
       Mx : constant Integer := Max_Of (A, I, J) with Ghost;
       A0 : constant Element_Array := A with Ghost;
       A3 : Element_Array (A'Range) with Ghost;
+      A1, A2 : Element_Array (A'Range) with Ghost;
    begin
       if I >= J then
          return;
@@ -154,6 +275,8 @@ is
       pragma Assert (All_Leq (A, I, M, Mx));
       Lemma_Max_Least (A, I, M, Mx);
       Slowsort_Range (A, I, M);
+      A1 := A;
+      pragma Assert (Same_Occ (A1, A0));
       pragma Assert (All_Leq (A, I, M, Mx));
       pragma Assert (for all K in M + 1 .. J => A (K) = A0 (K));
       pragma Assert (All_Leq (A, M + 1, J, Mx));
@@ -161,6 +284,9 @@ is
       --  Multiply: right half.
       Lemma_Max_Least (A, M + 1, J, Mx);
       Slowsort_Range (A, M + 1, J);
+      A2 := A;
+      pragma Assert (Same_Occ (A2, A1));
+      pragma Assert (Same_Occ (A2, A0));
       pragma Assert (All_Leq (A, M + 1, J, Mx));
       pragma Assert (All_Leq (A, I, M, Mx));
       pragma Assert (All_Leq (A, I, J, Mx));
@@ -170,7 +296,9 @@ is
       --  The larger half maximum goes to J.
       if A (M) > A (J) then
          Swap (A, M, J);
+         Lemma_Swap (A2, A, M, J);
       end if;
+      pragma Assert (Same_Occ (A, A0));
       pragma Assert (All_Leq (A, I, J, Mx));
       pragma Assert (All_Leq (A, I, J - 1, A (J)));
 
@@ -178,6 +306,8 @@ is
       A3 := A;
       Lemma_Max_Least (A, I, J - 1, A (J));
       Slowsort_Range (A, I, J - 1);
+      pragma Assert (Same_Occ (A, A3));
+      pragma Assert (Same_Occ (A, A0));
       pragma Assert (A (J) = A3 (J));
       pragma Assert (All_Leq (A, I, J - 1, A3 (J)));
       pragma Assert (A3 (J) <= Mx);
@@ -186,6 +316,7 @@ is
    end Slowsort_Range;
 
    procedure Sort (A : in out Element_Array) is
+      A_In : constant Element_Array := A with Ghost;
    begin
       if A'Length <= 1 then
          return;
@@ -193,6 +324,7 @@ is
 
       Slowsort_Range (A, A'First, A'Last);
       pragma Assert (Sorted_Pairs (A, A'First, A'Last));
+      Lemma_Same_Perm (A, A_In);
    end Sort;
 
 end Slowsort;

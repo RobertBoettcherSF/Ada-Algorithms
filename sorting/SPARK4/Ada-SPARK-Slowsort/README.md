@@ -25,7 +25,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Slowsort](https://g
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Bounded recursive `Slowsort_Range` with `Subprogram_Variant => (Decreases => J - I)` rather than an explicit stack; midpoint uses $I + (J-I)/2$ (overflow-safe equivalent of $\lfloor(I+J)/2\rfloor$).
 * **Sortedness proof:** `Slowsort_Range (A, I, J)` proves that `A (I .. J)` ends up sorted (every pair in order) and that no element exceeds `Max_Of (A'Old, I, J)`, the largest value the range held on entry (a ghost function with two small lemmas: it bounds the range, and any bound of the range bounds it). The bound is what the surrender step needs: after the swap, `A (J)` is the largest value of the range, and the recursive call on `I .. J - 1` cannot bring in anything larger. No permutation argument is needed, and there is no fallback pass after the recursion.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): every value occurs as often as on entry (ghost count model `Occ`; `Slowsort_Range` keeps `Same_Occ` of the whole array, the swap by `Lemma_Swap`). The permutation contracts quantify over every `Integer` value, so the body's postconditions and assertions are proved, not evaluated at run time; the spec Post of `Sort` (`Is_Sorted`, `Is_Perm`) is still checked at run time under `-gnata`.
 
 ## Algorithm
 Given an array $A$ with index range $[I .. J]$:
@@ -54,7 +54,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 214 assertions pass. Running `make prove` reports `Success: all checks proved (138 checks).`
+When you run `make test`, you will see all 214 assertions pass. Running `make prove` reports `Success: all checks proved (237 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, signed domain, tiny lengths only ($n \le 16$).
@@ -76,5 +76,5 @@ When you run `make test`, you will see all 214 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Recursive `Slowsort_Range` uses `Subprogram_Variant => (Decreases => J - I)` and proves `Sorted_Pairs (A, I, J)` plus the entry-maximum bound; the ghost lemmas `Lemma_Max_Upper` / `Lemma_Max_Least` are proved by recursion with their own variants.
-* **GNATprove Level 4:** `Success: all checks proved (138 checks).` (also at `--mode=silver --level=2`).
+* **GNATprove Level 4:** `Success: all checks proved (237 checks).` (also at `--mode=silver --level=2`).
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
