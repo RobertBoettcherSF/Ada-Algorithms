@@ -1871,7 +1871,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK4/Ada-SPARK-Accumulator | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 (2) |  |  |  |
 | misc/SPARK4/Ada-SPARK-Blum-Blum-Shub | yes | yes | yes | yes | yes | 0 | 0 | proven | 261 (84) |  | misc/Ada/Blum-Blum-Shub |  |
 | misc/SPARK4/Ada-SPARK-Heaps-Algorithm | yes | yes | yes | yes | yes | 0 | 9 | proven | 235 (65) |  | misc/Ada/Heaps-Algorithm |  |
-| misc/SPARK4/Ada-SPARK-K-Way-Merge | yes | yes | yes | yes | yes | 0 | 0 | proven | 426 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | misc/Ada/K-Way-Merge |  |
+| misc/SPARK4/Ada-SPARK-K-Way-Merge | yes | yes | yes | yes | yes | 0 | 0 | proven | 606 (restored) |  | misc/Ada/K-Way-Merge |  |
 | misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator | yes | yes | yes | yes | yes | 0 | 0 | proven | 318 (107) |  | misc/Ada/Lagged-Fibonacci-Generator |  |
 | misc/SPARK4/Ada-SPARK-Lemke-Howson | yes | yes | yes | yes | yes | 0 | 0 | proven | 247 (22) |  | misc/Ada/Lemke-Howson |  |
 | misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | yes | yes | yes | yes | yes | 0 | 6 | proven | 195 (10) |  | misc/Ada/Package-Merge-Algorithm |  |
