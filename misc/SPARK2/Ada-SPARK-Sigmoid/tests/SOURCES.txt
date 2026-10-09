@@ -31,3 +31,17 @@ tests.adb:
   1.67e-5 (at X_Milli = -20, computed with Python's math.exp), far above
   Long_Float error; plus the properties Percent (-x) = 100 - Percent (x)
   and nondecreasing in x.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (1517068583), printed; AA_SEED=<n> overrides it):
+* every X_Milli in -30000 .. 30000 against round half up of
+  50 (1 + tanh (x / 2)) in Long_Float (the library tanh, a different
+  formula and function from both the package's series and tests.adb's
+  exp);
+* every rounding threshold: 100 s crosses k + 1/2 at
+  x_k = ln ((2k + 1) / (199 - 2k)) (solve 100 / (1 + e ** (-x)) = k + 1/2);
+  for k = 0 .. 99, Percent is k at the grid point floor (1000 x_k) and
+  k + 1 at the next one;
+* 200,000 seeded random X_Milli over all of Integer against the tanh
+  reference, and Percent (-x) = 100 - Percent (x).
