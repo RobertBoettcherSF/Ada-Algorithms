@@ -9,6 +9,6 @@ test:
 	@bin/tests
 prove:
 	mkdir -p obj
-	$(GNATPROVE) -P$(PROJECT) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
+	$(GNATPROVE) -Pproof.gpr --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
 clean:
 	rm -rf obj bin gnatprove
