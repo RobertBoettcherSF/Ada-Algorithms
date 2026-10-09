@@ -11,7 +11,7 @@ time, using $O(\mathrm{Max\_Key})$ auxiliary counters.
 
 True spaghetti sort is $O(n)$ with parallel / analog hardware: cut uncooked rods to key lengths, stand them upright, and repeatedly lower a hand to extract the current longest rod in $O(1)$ parallel time. This package is an **honest sequential software simulation** of that classroom metaphor — not a claim of $O(n)$ wall-clock time on a single-threaded CPU.
 
-This is the SPARK Level 4 port of the companion package [Ada-Spaghetti-Sort](https://github.com/RobertBoettcherSF/Ada-Spaghetti-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses larger caps ($\mathrm{Max\_Length} = \mathrm{Max\_Key} = 10\,000$), exceptions (`Invalid_Argument`), arbitrary `A'First`, and also exports `Sort_Extraction` for general Integers; this port trades those for classroom bounds (`Max_N = 64`, `Max_Key = 64`), `In_Bounds` / `Keys_Ok` / `Is_Sorted` contracts, static `Counts (0 .. Max_Key)`, **height-bin `Sort` only**, and a proof that the height-bin phase sorts. README links only — do not `with` sibling packages here. Closest SPARK sort siblings: [Ada-SPARK-Counting-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Counting-Sort) (related fixed-domain emit), [Ada-SPARK-Pigeonhole-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Pigeonhole-Sort) / [Ada-SPARK-Bead-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bead-Sort).
+This is the SPARK Level 4 port of the companion package [Ada-Spaghetti-Sort](https://github.com/RobertBoettcherSF/Ada-Spaghetti-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses larger caps ($\mathrm{Max\_Length} = \mathrm{Max\_Key} = 10\,000$), exceptions (`Invalid_Argument`), and also exports `Sort_Extraction` for general Integers; this port trades those for classroom bounds (`Max_N = 64`, `Max_Key = 64`), `In_Bounds` / `Keys_Ok` / `Is_Sorted` contracts, static `Counts (0 .. Max_Key)`, **height-bin `Sort` only**, and a proof that the height-bin phase sorts. README links only — do not `with` sibling packages here. Closest SPARK sort siblings: [Ada-SPARK-Counting-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Counting-Sort) (related fixed-domain emit), [Ada-SPARK-Pigeonhole-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Pigeonhole-Sort) / [Ada-SPARK-Bead-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Bead-Sort).
 
 ## Features
 * **`Sort (A)`**: Ascending educational height-bin spaghetti sort (tally / emit on static bins).
@@ -26,7 +26,7 @@ Callers must establish `Keys_Ok (A)`: every live element satisfies $A(I) \in 0 .
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` and `Max_Key = 64` (sibling uses $10\,000$ / $10\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape / keys are `Pre => In_Bounds (A) and then Keys_Ok (A)`.
-* Indices fixed at `A'First = 1` (sibling allows arbitrary `A'First`).
+* Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Static `Counts (0 .. Max_Key)` (sibling allocates the same shape at larger $U$).
 * **Export only height-bin `Sort`** for Level-4 simplicity; the sibling's `Sort_Extraction` ($O(n^2)$ max-pull for general Integers, including negatives) remains a non-SPARK companion feature — mentioned here, not reimplemented.
 * Height-bin phase posts only `In_Bounds` / RTE; tally / emit use loop invariants and write-cursor caps so Level-4 RTE discharges without a full cardinality / multiset lemma.
@@ -65,7 +65,7 @@ Height-bin spaghetti sort is educationally the same reconstruction as classic co
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 250 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (219 checks)`.
+When you run `make test`, you will see all 272 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (147 checks)`.
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia-style height-bin $[3,2,4,2]$, zeros / duplicates / all-equal, lengths up to `Max_N`.
@@ -86,7 +86,7 @@ When you run `make test`, you will see all 250 assertions pass ($0$ FAIL). Runni
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Height-bin loops use `pragma Loop_Invariant`: the tally keeps the bin total equal to the rods seen, the emit loop keeps the written prefix sorted and bounded by the current bin.
-* **GNATprove Level 4:** `Success: all checks proved (219 checks)`.
+* **GNATprove Level 4:** `Success: all checks proved (147 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
@@ -95,7 +95,7 @@ When you run `make test`, you will see all 250 assertions pass ($0$ FAIL). Runni
 | `Element_Array` | `array (Positive range <>) of Integer` |
 | `Max_N` | Classroom capacity bound (`64`) |
 | `Max_Key` | Max rod length / bin index (`64`) |
-| `In_Bounds` | `A'First = 1` and `A'Last in 0 .. Max_N` |
+| `In_Bounds` | `A'Length <= Max_N`, `A'First in 1 .. Max_N`, `A'Last in 0 .. Max_N` |
 | `Keys_Ok` | Every live element $\in 0 .. \mathrm{Max\_Key}$ |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
 | `Sort` | Ascending height-bin (`Post => Is_Sorted`, proved for the phase itself) |

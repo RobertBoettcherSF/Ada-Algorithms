@@ -18,7 +18,7 @@ is
      Global => null,
      Pre    =>
        In_Bounds (A)
-       and then L >= 1
+       and then L >= A'First
        and then R <= A'Last;
 
    --  Number of rods in the bins below H: C (0) + ... + C (H - 1).
@@ -90,8 +90,9 @@ is
    end Lemma_Mono;
 
    --  Height-bin phase: tally rod lengths, emit short -> tall. Proved to
-   --  sort on its own: the bins hold exactly N rods (Sum_Below over all
-   --  bins = N), so the emit cursor ends at N + 1, and every rod written
+   --  sort on its own: the bins hold exactly A'Length rods (Sum_Below over
+   --  all bins = A'Length), so the emit cursor, which starts at A'First,
+   --  ends at A'Last + 1, and every rod written
    --  is no shorter than the rods before it.
    procedure Height_Bin_Phase (A : in out Element_Array)
      with
@@ -114,14 +115,15 @@ is
 
       --  Tally: Counts (H) = number of rods of length H. The key domain
       --  is the subtype Count_Index (Keys_Ok), so no clamping is needed.
-      for I in 1 .. N loop
+      for I in A'First .. N loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (N = A'Last);
          pragma Loop_Invariant (Keys_Ok (A));
          pragma Loop_Invariant
-           (for all K in Count_Index => Counts (K) <= I - 1);
+           (for all K in Count_Index => Counts (K) <= I - A'First);
          pragma Loop_Invariant (Bins_Ok (Counts));
-         pragma Loop_Invariant (Sum_Below (Counts, Max_Key + 1) = I - 1);
+         pragma Loop_Invariant
+           (Sum_Below (Counts, Max_Key + 1) = I - A'First);
 
          H := A (I);
          declare
@@ -132,20 +134,20 @@ is
          end;
       end loop;
 
-      pragma Assert (Sum_Below (Counts, Max_Key + 1) = N);
+      pragma Assert (Sum_Below (Counts, Max_Key + 1) = A'Length);
 
       --  Emit ascending: read bins from short to tall.
-      Pos := 1;
+      Pos := A'First;
 
       for HH in Count_Index loop
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (N = A'Last);
          pragma Loop_Invariant (Bins_Ok (Counts));
-         pragma Loop_Invariant (Sum_Below (Counts, Max_Key + 1) = N);
-         pragma Loop_Invariant (Pos = 1 + Sum_Below (Counts, HH));
+         pragma Loop_Invariant (Sum_Below (Counts, Max_Key + 1) = A'Length);
+         pragma Loop_Invariant (Pos = A'First + Sum_Below (Counts, HH));
          pragma Loop_Invariant (Pos <= N + 1);
-         pragma Loop_Invariant (for all K in 1 .. Pos - 1 => A (K) <= HH);
-         pragma Loop_Invariant (Sorted_Slice (A, 1, Pos - 1));
+         pragma Loop_Invariant (for all K in A'First .. Pos - 1 => A (K) <= HH);
+         pragma Loop_Invariant (Sorted_Slice (A, A'First, Pos - 1));
 
          Lemma_Mono (Counts, HH + 1, Max_Key + 1);
          pragma Assert (Sum_Below (Counts, HH + 1) = Sum_Below (Counts, HH) + Counts (HH));
@@ -153,12 +155,13 @@ is
 
          while C < Counts (HH) loop
             pragma Loop_Invariant (C < Counts (HH));
-            pragma Loop_Invariant (Pos = 1 + Sum_Below (Counts, HH) + C);
+            pragma Loop_Invariant
+              (Pos = A'First + Sum_Below (Counts, HH) + C);
             pragma Loop_Invariant (Pos <= N);
             pragma Loop_Invariant (In_Bounds (A));
             pragma Loop_Invariant (N = A'Last);
-            pragma Loop_Invariant (for all K in 1 .. Pos - 1 => A (K) <= HH);
-            pragma Loop_Invariant (Sorted_Slice (A, 1, Pos - 1));
+            pragma Loop_Invariant (for all K in A'First .. Pos - 1 => A (K) <= HH);
+            pragma Loop_Invariant (Sorted_Slice (A, A'First, Pos - 1));
             pragma Loop_Variant (Decreases => Counts (HH) - C);
 
             A (Pos) := HH;
@@ -166,11 +169,11 @@ is
             C := C + 1;
          end loop;
 
-         pragma Assert (Pos = 1 + Sum_Below (Counts, HH + 1));
+         pragma Assert (Pos = A'First + Sum_Below (Counts, HH + 1));
       end loop;
 
       pragma Assert (Pos = N + 1);
-      pragma Assert (Sorted_Slice (A, 1, N));
+      pragma Assert (Sorted_Slice (A, A'First, N));
    end Height_Bin_Phase;
 
    procedure Sort (A : in out Element_Array) is
