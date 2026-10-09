@@ -1,0 +1,8 @@
+project Closest_Pair_Brute_Proof is
+   for Source_Dirs use (".");
+   for Object_Dir use "obj";
+   for Source_Files use ("closest_pair_brute.ads", "closest_pair_brute.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022");
+   end Compiler;
+end Closest_Pair_Brute_Proof;

@@ -1,0 +1,20 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+tests.adb: the first two asserts are the original cases. Hand-worked: one
+point gives Long_Long_Integer'Last (no pair); (3, 0)-(5, 0) = 4 and
+(0, -7)-(0, -4) = 9; (-1000, -1000)-(1000, 1000) = 2000 ** 2 * 2 =
+8_000_000; (100, 100), (-100, 50), (300, -20), (101, 99): the closest pair
+uses the last point, 1 + 1 = 2, and without it 200 ** 2 + 50 ** 2 = 42_500;
+repeated (0, 0) points give 0.
+
+own_checks.adb: 60,000 seeded random point sets (seed = FNV-1a of the
+folder name, AA_SEED overrides it), 1 .. 16 points on squares of side 3,
+20, 300 or 2001 (small squares force ties and repeats). Reference: a
+different algorithm, the X-sorted strip sweep (insertion sort by X, then
+for each point only later points whose X gap squared is below the best so
+far). Properties: the same answer for the points in reverse order and
+shifted to touch -1000; Distance_Squared against the coordinate formula.
