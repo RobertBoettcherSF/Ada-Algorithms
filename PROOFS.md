@@ -2212,7 +2212,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Selection-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 392 (restored) |  | sorting/Ada/Selection-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Shell-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 131 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Shell-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Slowsort | yes | yes | yes | yes | yes | 0 | 1 | proven | 187 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Slowsort |  |
-| sorting/SPARK4/Ada-SPARK-Smoothsort | yes | yes | yes | yes | yes | 0 | 5 | proven | 205 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Smoothsort |  |
+| sorting/SPARK4/Ada-SPARK-Smoothsort | yes | yes | yes | yes | yes | 0 | 5 | proven | 332 (restored) |  | sorting/Ada/Smoothsort |  |
 | sorting/SPARK4/Ada-SPARK-Sort-Merge-Join | yes | yes | yes | yes | yes | 0 | 0 | proven | 310 (withdrawn: Post proves trivial body empty, see contract_scan.csv) |  | sorting/Ada/Sort-Merge-Join |  |
 | sorting/SPARK4/Ada-SPARK-Sorted-List | yes | yes | yes | yes | yes | 0 | 3 | proven | 405 (restored) |  | sorting/Ada/Sorted-List |  |
 | sorting/SPARK4/Ada-SPARK-Spaghetti-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 219 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Spaghetti-Sort |  |
