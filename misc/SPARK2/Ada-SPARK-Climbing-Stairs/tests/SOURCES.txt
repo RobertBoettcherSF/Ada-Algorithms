@@ -1,0 +1,32 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb: the old table (1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 for
+N = 0 .. 10, each the sum of the two before); Count (20) = 10_946 and
+Count (45) = 1_836_311_903 (continuing the same sums by hand; 45 is the
+limit because Count (46) = 2_971_215_073 > Natural'Last); the five climbs
+of 4 stairs in dictionary order written out by hand; Climb (0, 0) empty,
+Climb (1, 0) = 1; Climb (45, 0) = 45 single steps; the last climb of 45
+stairs (K = Count (45) - 1) takes as many double steps as possible first:
+22 double steps, then one single.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (489358357), printed; AA_SEED=<n> overrides it):
+* an own recursive generator of every climb of N <= 15 stairs in
+  dictionary order (single step tried first); Climb (N, K) must be the
+  K-th of them and Count (N) their number;
+* an own closed count: a climb with D double steps has N - D steps, so
+  there are C (N - D, D) of them; the sum over D (exact multiplicative
+  binomials in Long_Long_Integer) must equal Count (N) for N <= 45 and
+  exceed Natural'Last for N = 46;
+* 1,000 seeded random N in 16 .. 45 with K = 0, K = Count - 1 or random:
+  steps sum to N, the own rank (from the own closed count) is K, and
+  climb K comes before climb K + 1 in dictionary order.
+Run: gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
+(5,397 checks, about 8 s with assertions on; without -gnata a planted
+off-by-one in Climb fails 3,567 of them).
