@@ -1,0 +1,13 @@
+# Nearest Alire equivalent of the system GNAT 14.2.0 used for the "GNAT 14" builds.
+# The system compiler is Debian's gnat-14 (GNATLS 14.2.0), which is NOT an Alire crate.
+# gnat_native 14.2.1 is the Alire packaging of GNAT FSF 14.2.0 (GNAT-FSF-builds gnat-14.2.0-1):
+# same upstream release, a different build. See docs/TOOLCHAIN.md.
+name = "ada_algorithms_toolchain_gnat14"
+description = "Alire stand-in for the system GNAT 14.2.0 used by Ada-Algorithms"
+version = "1.0.0"
+licenses = "MIT"
+project-files = []
+
+[[depends-on]]
+gnat_native = "=14.2.1"
+gprbuild = "=26.0.1"

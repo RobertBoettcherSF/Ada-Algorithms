@@ -1,0 +1,13 @@
+# Pinned verification toolchain for Ada-Algorithms (GNAT 12 build + gnatprove).
+# Restore: see docs/TOOLCHAIN.md  (cd tools/toolchain && alr -n update && alr exec -- gnatprove --version)
+# The lockfile alire.lock next to this file records the exact solved versions.
+name = "ada_algorithms_toolchain"
+description = "Pinned GNAT 12 / gprbuild / gnatprove used by Ada-Algorithms"
+version = "1.0.0"
+licenses = "MIT"
+project-files = []
+
+[[depends-on]]
+gnat_native = "=12.2.1"   # Alire crate; reports GNATLS 12.2.0 (GNAT-FSF-builds gnat-12.2.0-1)
+gprbuild = "=26.0.1"
+gnatprove = "=16.1.0"     # bundles cvc5 1.3.2, z3 4.15.4, alt-ergo 2.6.1 (see docs/TOOLCHAIN.md)

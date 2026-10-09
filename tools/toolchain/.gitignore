@@ -1,0 +1,7 @@
+# Alire working state: only the lockfiles are committed
+alire/*
+!alire/alire.lock
+config/
+gnat14/alire/*
+!gnat14/alire/alire.lock
+gnat14/config/
