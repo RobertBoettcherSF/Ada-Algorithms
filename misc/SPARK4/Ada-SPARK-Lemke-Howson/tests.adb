@@ -12,12 +12,21 @@ procedure Tests is
    Failures : Natural := 0;
    Checks   : Natural := 0;
 
+   --  The run stops after this many failures: a broken pivot can make
+   --  later games grow huge tableaux, so a wrong program should fail fast
+   --  rather than run until a time limit.
+   Max_Failures : constant := 20;
+   Too_Many     : exception;
+
    procedure Check (Ok : Boolean; Label : String) is
    begin
       Checks := Checks + 1;
       if not Ok then
          Failures := Failures + 1;
          Put_Line ("FAIL " & Label);
+         if Failures >= Max_Failures then
+            raise Too_Many;
+         end if;
       end if;
    end Check;
 
@@ -386,4 +395,8 @@ begin
       Put_Line ("FAIL Lemke_Howson:" & Failures'Image & " of" & Checks'Image);
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
+exception
+   when Too_Many =>
+      Put_Line ("FAIL Lemke_Howson: stopped after" & Failures'Image & " failures (" & Checks'Image & " checks run)");
+      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
 end Tests;
