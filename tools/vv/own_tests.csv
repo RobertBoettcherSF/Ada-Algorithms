@@ -272,3 +272,4 @@ geometry/SPARK2/Closest-Pair-Brute,X-sorted strip sweep (a different algorithm) 
 hashing/SPARK2/Bloom-Filter,bit-set model + no-false-negative property
 numerical/SPARK4/Ada-SPARK-Modular-Arithmetic,check symbols by search + Stein gcd / 128-bit Bezout
 strings/SPARK2/Ada-SPARK-Bounded-String-Builder,model-based against a plain String model and Integer'Image
+misc/SPARK2/Ada-SPARK-Stack-Bounded,array model of the stack (independent of the record layout) + hand-worked LIFO cases
