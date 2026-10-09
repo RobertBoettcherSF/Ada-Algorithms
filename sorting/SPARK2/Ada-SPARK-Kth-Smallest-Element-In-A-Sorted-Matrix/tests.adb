@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Kth_Smallest_Matrix; use Kth_Smallest_Matrix;
+with Own_Checks;
 procedure Tests is
    --  The original 4 x 4 example (rows and columns rise).
    Small : constant Matrix :=
@@ -74,4 +75,5 @@ begin
       Check (Mixed, N, "3 I + 5 J, N =" & N'Image);
    end loop;
    Put_Line ("PASS Kth Smallest Matrix");
+   Own_Checks;
 end Tests;

@@ -20,6 +20,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (144 checks), on `proof.gpr` (the package only).
 
-`make test` runs `tests.adb`: the original 4 x 4 example, 10 (I + J) (equal values along anti-diagonals) and 3 I + 5 J (rows overlap) for every N and every K, against an insertion sort of the block.
+`make test` runs `tests.adb`: the original 4 x 4 example, 10 (I + J) (equal values along anti-diagonals) and 3 I + 5 J (rows overlap) for every N and every K, against an insertion sort of the block; and the folder's own checks: 23,873 checks with random sorted blocks (random entries outside the block) and exact counts on constant blocks (see `tests/SOURCES.txt`).
 
 The first version flattened the block and selection-sorted it up to position K (O(N ** 4) comparisons for K = N * N), with no contract and no sortedness requirement; its one test checked K = 8 of the 4 x 4 example. The failing test that came first added a comparison counter and the bound above. It fails on the old code (84 comparisons for the 4 x 4 example at K = 7, where the bound is 80).

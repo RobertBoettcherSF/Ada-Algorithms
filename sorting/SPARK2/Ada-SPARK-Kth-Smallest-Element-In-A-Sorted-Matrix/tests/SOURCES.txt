@@ -1,0 +1,28 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+the original 4 x 4 example (rows 1 5 9 10 / 2 6 10 11 / 3 7 11 12 /
+4 8 12 13; its one assertion, K = 8 gives 8, is covered), 10 (I + J)
+and 3 I + 5 J for every N and every K against an insertion sort of the
+block, and the bound (floor (log2 1001) + 1) * 2 * N on comparisons.
+The bound check was committed first and fails on the old selection sort
+(84 comparisons for the 4 x 4 example at K = 7; bound 80).
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). Reference: the block
+sorted by insertion (its K-th element); for the predicate, every block
+entry <= its right neighbour and <= the entry below, checked on (I, J)
+directly.
+* constant blocks 0 and 1000 for every N and K: answer and exact counts
+  worked by hand (10 counts and 10 N comparisons for 0; 9 and 9 N for
+  1000);
+* 400 random sorted blocks (N = 1 .. 8 in turn; each entry the larger of
+  its upper and left neighbours plus a random step; entries outside the
+  block random), every K: answer, comparisons
+  <= (floor (log2 1001) + 1) * 2 * N, counts per search exactly 9 .. 10;
+* Sorted_Square membership on each with one block entry lowered below a
+  neighbour (always rejected), and on 2,000 random squares (half sorted
+  with one entry changed).
+* Random inputs use a Park-Miller generator; the default seed 20261009
+  is printed, and AA_SEED=<n> overrides it.
