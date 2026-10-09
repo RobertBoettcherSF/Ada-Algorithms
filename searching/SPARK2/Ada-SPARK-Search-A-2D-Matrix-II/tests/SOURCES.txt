@@ -1,0 +1,29 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+three row- and column-sorted 8 x 8 matrices (1 .. 64 row by row;
+4 R + 3 C, whose rows overlap; R + C, equal along anti-diagonals), every
+target 0 .. 100 against a scan of every entry, and the bound
+Rows + Cols - 1 = 15 on comparisons (the length of a monotone path from
+the top-right to the bottom-left corner, counted step by step), which
+must also be reached. The bound check was committed first and fails on
+the old full scan (64 comparisons). The original test (two pragma
+Asserts on 1 .. 64) is kept as part of the first matrix.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). Reference: a scan
+over every row and column of the 2D matrix (it does not use Cell); for
+the predicate, every entry <= its right neighbour and <= the entry
+below, checked on (R, C) directly.
+* Position_Of and Cell against the entries of a numbered matrix;
+* 5 fixed (the three above, 10 C + R, all 50) and 300 random sorted
+  matrices (each entry = the larger of its upper and left neighbours
+  plus 0 .. k, k = 1 .. 6), each with every target 0 .. 100: answer, at
+  least one comparison, exactly one when Target is the top-right entry,
+  measured worst case exactly 15;
+* Staircase_Matrix membership on each with one entry lowered below its
+  left or upper neighbour (always rejected), and on 2,000 random
+  matrices (half of them sorted with one entry changed).
+* Random inputs use a Park-Miller generator; the default seed 20261009
+  is printed, and AA_SEED=<n> overrides it.

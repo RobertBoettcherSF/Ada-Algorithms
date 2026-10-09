@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Search_A_2D_Matrix_II; use Search_A_2D_Matrix_II;
+with Own_Checks;
 
 procedure Tests is
    --  1 .. 64 row by row: rows and columns rise.
@@ -71,4 +72,5 @@ begin
       raise Program_Error with "largest count" & Most'Image & ", expected" & Bound'Image;
    end if;
    Put_Line ("Search_A_2D_Matrix_II: PASS");
+   Own_Checks;
 end Tests;
