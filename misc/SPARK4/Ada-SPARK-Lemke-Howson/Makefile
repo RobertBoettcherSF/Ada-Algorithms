@@ -12,7 +12,7 @@ test:
 
 prove:
 	mkdir -p obj
-	$(GNATPROVE) -P$(PROOF_PROJECT) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
+	$(GNATPROVE) -P$(PROOF_PROJECT) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on --counterexamples=off
 
 clean:
 	rm -rf obj bin gnatprove

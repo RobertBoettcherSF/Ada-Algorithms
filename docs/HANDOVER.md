@@ -33,9 +33,9 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `tool_crash` | 7 | gnatwhy3 "value expected (got DOC_END)" bug box in seven SPARK2 DP-table folders |
 | `unproved_check` | 4 | Bresenham (17 run-time, 5 flow, 3 Post) and Delivery-Safety-Supervisor (8 overflow) |
 | `toolchain_bug` | 4 | MT `'Old` bug box (gone on GNAT 16.1.0), Big_Integers `**` sign and `mod` errors (both still present on GNAT 16.1.0), GNAT 14.2 ICE trans.cc:6710 |
-| `annotated_check` | 2 | Lemke-Howson: overflow checks hidden by `pragma Annotate (GNATprove, Intentional, ...)` at lemke_howson.adb:45 and :147 (tools/vv/proof_escapes.csv). Reviewed 2026-10-09 09:57 (Robert): the written reason is a prover limit, not an argument that the overflow is impossible, so both are marked justified=no (`tools/vv/proof_escapes_review.csv`) and PROOFS.csv says Silver not proven until the overflow is fixed in code (sweep B: exact Big_Integer pivoting) |
+| `annotated_check` | 2 (closed) | Lemke-Howson: overflow checks were hidden by `pragma Annotate (GNATprove, Intentional, ...)` at lemke_howson.adb:45 and :147; reviewed 2026-10-09 09:57 (Robert) as unjustified (a prover limit, `tools/vv/proof_escapes_review.csv`). Closed the same day by fixing it in code (sweep B): exact Big_Integer fraction-free pivoting, both Annotates removed, all 247 checks proved by make prove, --level=4 and the Silver command |
 | `proof_timeout` | 2 | Phong-Shading, Orbital-Mechanics: the 7200 s cap was hit before any check was reported |
-| `functional_gap` | 1 | Bitonic-Sorter: the 0-1 principle and the half-cleaner lemma are missing, and sortedness is masked by Bubble_Finish |
+| `functional_gap` | 2 | Bitonic-Sorter: the 0-1 principle and the half-cleaner lemma are missing, and sortedness is masked by Bubble_Finish; Lemke-Howson (H096): Found = Is_Nash is proved (a True Found is a certified equilibrium) but not that Found is always True (tested on every starting label, degenerate games included) |
 | `toolchain_limit` | 1 | cvc5 under gnatprove's `--prenex-quant=none` returns "incomplete" on quantified frames over 2D arrays |
 | `proof_escape` | 1 | Bump-Arena: the fallback after the Insert loop is not proved unreachable |
 

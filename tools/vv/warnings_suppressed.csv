@@ -1442,10 +1442,6 @@ misc/SPARK2/Ada-SPARK-Valid-IP-Address-Stub,misc/SPARK2/Ada-SPARK-Valid-IP-Addre
 misc/SPARK4/Acorn-Generator,misc/SPARK4/Acorn-Generator/tests.adb,67,pragma Unreferenced (Discard) on a local without a written reason
 misc/SPARK4/Ada-SPARK-Accumulator,misc/SPARK4/Ada-SPARK-Accumulator/tests.adb,135,pragma Unreferenced (Val) on a local without a written reason
 misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator,misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator/tests.adb,67,pragma Unreferenced (Discard) on a local without a written reason
-misc/SPARK4/Ada-SPARK-Lemke-Howson,misc/SPARK4/Ada-SPARK-Lemke-Howson/tests.adb,100,"pragma Warnings (Off, ""condition can only be False if invalid values present"");"
-misc/SPARK4/Ada-SPARK-Lemke-Howson,misc/SPARK4/Ada-SPARK-Lemke-Howson/tests.adb,101,"pragma Warnings (Off, ""condition is always True"");"
-misc/SPARK4/Ada-SPARK-Lemke-Howson,misc/SPARK4/Ada-SPARK-Lemke-Howson/tests.adb,135,"pragma Warnings (Off, ""condition can only be False if invalid values present"");"
-misc/SPARK4/Ada-SPARK-Lemke-Howson,misc/SPARK4/Ada-SPARK-Lemke-Howson/tests.adb,136,"pragma Warnings (Off, ""condition is always True"");"
 ml/Ada/Boosting-Meta-Algorithm,ml/Ada/Boosting-Meta-Algorithm/tests.adb,64,pragma Unreferenced (M) on a local without a written reason
 ml/Ada/Boosting-Meta-Algorithm,ml/Ada/Boosting-Meta-Algorithm/tests.adb,87,pragma Unreferenced (M) on a local without a written reason
 ml/Ada/Boosting-Meta-Algorithm,ml/Ada/Boosting-Meta-Algorithm/tests.adb,110,pragma Unreferenced (M) on a local without a written reason

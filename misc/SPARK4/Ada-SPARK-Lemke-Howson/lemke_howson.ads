@@ -30,6 +30,11 @@ package Lemke_Howson with SPARK_Mode => On is
    subtype Strategy_Count is Positive range 1 .. Max_Strategies;
    subtype Label_Type is Positive range 1 .. 2 * Max_Strategies;
 
+   --  Pivots allowed before giving up (Found = False).  The lexicographic
+   --  rule never revisits a pair of bases, and each tableau has at most
+   --  C (10, 5) = 252 bases, so 252 ** 2 bounds any path.
+   Max_Steps : constant := 63_504;
+
    type Payoff_Matrix is array (Strategy_Count range <>, Strategy_Count range <>) of Integer;
    type Big_Vector is array (Strategy_Count range <>) of Big_Integer;
 
@@ -44,34 +49,40 @@ package Lemke_Howson with SPARK_Mode => On is
    end record;
 
    --  V (V'First) + .. + V (K).
-   function Sum_To (V : Big_Vector; K : Natural) return Big_Integer is
-     (if K < V'First then To_Big_Integer (0) else Sum_To (V, K - 1) + V (K))
+   function Sum_To (V : Big_Vector; K : Natural) return Big_Integer
    with Pre => K <= V'Last, Subprogram_Variant => (Decreases => K);
+   function Sum_To (V : Big_Vector; K : Natural) return Big_Integer is
+     (if K < V'First then To_Big_Integer (0) else Sum_To (V, K - 1) + V (K));
 
    function Is_Mixed (V : Big_Vector; D : Big_Integer) return Boolean is
-     (D > 0 and then (for all I in V'Range => V (I) >= 0) and then Sum_To (V, V'Last) = D);
+     (D > 0 and then (for all I in V'Range => V (I) >= 0) and then Sum_To (V, V'Last) = D)
+   with Pre => V'Last in Strategy_Count;
 
    --  Player 1's payoff for row I against Y (times Dy):
    --  A (I, 1) * Y (1) + .. + A (I, K) * Y (K).
-   function Row_Payoff (A : Payoff_Matrix; Y : Big_Vector; I : Strategy_Count; K : Natural) return Big_Integer is
-     (if K < 1 then To_Big_Integer (0)
-      else Row_Payoff (A, Y, I, K - 1) + To_Big_Integer (A (I, K)) * Y (K))
+   function Row_Payoff (A : Payoff_Matrix; Y : Big_Vector; I : Strategy_Count; K : Natural) return Big_Integer
    with Pre => I in A'Range (1) and then K <= A'Last (2) and then A'First (2) = 1
                and then Y'First = 1 and then Y'Last = A'Last (2),
         Subprogram_Variant => (Decreases => K);
+   function Row_Payoff (A : Payoff_Matrix; Y : Big_Vector; I : Strategy_Count; K : Natural) return Big_Integer is
+     (if K < 1 then To_Big_Integer (0)
+      else Row_Payoff (A, Y, I, K - 1) + To_Big_Integer (A (I, K)) * Y (K));
 
    --  Player 2's payoff for column J against X (times Dx).
-   function Col_Payoff (B : Payoff_Matrix; X : Big_Vector; J : Strategy_Count; K : Natural) return Big_Integer is
-     (if K < 1 then To_Big_Integer (0)
-      else Col_Payoff (B, X, J, K - 1) + To_Big_Integer (B (K, J)) * X (K))
+   function Col_Payoff (B : Payoff_Matrix; X : Big_Vector; J : Strategy_Count; K : Natural) return Big_Integer
    with Pre => J in B'Range (2) and then K <= B'Last (1) and then B'First (1) = 1
                and then X'First = 1 and then X'Last = B'Last (1),
         Subprogram_Variant => (Decreases => K);
+   function Col_Payoff (B : Payoff_Matrix; X : Big_Vector; J : Strategy_Count; K : Natural) return Big_Integer is
+     (if K < 1 then To_Big_Integer (0)
+      else Col_Payoff (B, X, J, K - 1) + To_Big_Integer (B (K, J)) * X (K));
 
    --  Strategies are numbered from 1 because the labels 1 .. M + N are
-   --  built from the strategy numbers.
+   --  built from the strategy numbers (and a game has at least one
+   --  strategy per player).
    function Same_Shape (A, B : Payoff_Matrix) return Boolean is
      (A'First (1) = 1 and then A'First (2) = 1 and then B'First (1) = 1 and then B'First (2) = 1
+      and then A'Last (1) in Strategy_Count and then A'Last (2) in Strategy_Count
       and then B'Last (1) = A'Last (1) and then B'Last (2) = A'Last (2));
 
    --  (X / Dx, Y / Dy) is a Nash equilibrium of (A, B): both are mixed

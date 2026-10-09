@@ -1,40 +1,64 @@
 # Lemke-Howson Algorithm in Ada/SPARK
 
-## Project Overview
-This repository contains a robust, formally verified implementation of the Lemke-Howson algorithm for finding a Nash equilibrium of a finite two-player (bimatrix) game. Written in Ada 2023 and verified using SPARK (GNATProve Level 4), the algorithm models the combinatorial pivoting process on two complementary polytopes. 
+## Overview
+Finds a Nash equilibrium of a two-player (bimatrix) game with integer
+payoffs, up to 5 x 5, by the Lemke-Howson algorithm: complementary
+pivoting on the best-response polytopes P = {x >= 0 : B'^T x <= 1} and
+Q = {y >= 0 : A' y <= 1} (A', B' are the payoffs shifted so the smallest
+entry is 1, which does not change best responses). Labels 1 .. M are
+player 1's strategies, M + 1 .. M + N player 2's; `Initial_Drop` picks
+the label dropped first, and different labels can reach different
+equilibria.
 
-While the problem domain does not have concepts like "preemptive/dynamic" (those apply to scheduling), the principal variation in Lemke-Howson is traversing different edges of the polytopes by choosing which label to drop initially (`Initial_Drop`). The API exposes this choice, allowing the discovery of different Nash equilibria in games with multiple equilibria.
+The arithmetic is exact. The tableaux hold `Big_Integer` entries and are
+updated by integer (fraction-free) pivoting: each new entry is
+(pivot * entry - column entry * pivot-row entry) / previous pivot, an
+exact division, so nothing can overflow whatever the `Integer` payoffs
+(the pre-division products of a 32-bit game need far more than 64 bits).
+Degenerate games (ties, several best responses) are handled by the
+lexicographic ratio test (ties broken by the rows of the inverse basis,
+the slack columns), which never revisits a basis, so pivoting cannot
+cycle.
 
-## Features
-* **Label Variation**: Allows dropping different initial labels (`Initial_Drop`) to navigate varying paths in the polytope.
-* **Formal Verification**: NOT complete: see Proof Status (overflow checks are annotated away, not proved).
-* **Support for Any Game Size**: Handled up to `Max_Strategies` limit bounds through `Strategy_Count` without requiring dynamic allocation.
-* **Asymmetric Matrices**: Full support for non-square (M x N) payoff matrices.
-* **Matrix Normalization**: Automatically shifts negative or zero-value payoffs iteratively out of the solution space, preventing bounding errors.
+```ada
+function Find_Equilibrium (A, B : Payoff_Matrix; Initial_Drop : Label_Type := 1)
+  return Exact_Equilibrium;
+--  Result: X (I) / Dx and Y (J) / Dy, and Found.
+```
+
+## Contract
+* `Post`: `Found = Is_Nash (A, B, X, Dx, Y, Dy)`: Found is exactly the
+  statement that both are probability vectors and every strategy played
+  with positive probability is a best response (exact, in
+  `Big_Integer`). A True Found is a proved certificate.
+* That Found is always True (the path reaches an equilibrium within
+  `Max_Steps` = 252 ** 2 pivots) is the Lemke-Howson theorem with the
+  lexicographic rule; it is tested (every starting label, degenerate
+  games included), not proved: tools/vv/handover.csv.
+* `Pre`: strategies are numbered from 1 (labels are built from the
+  strategy numbers) and `Initial_Drop <= M + N`.
 
 ## Usage
-* **Build:** `make`
-* **Run tests:** `make test`
-* **Verify proofs:** `make prove`
+* `make test`: build and run tests.adb (exit status 1 on failure).
+* `make prove`: gnatprove level 2, cvc5, warnings and unproved checks as
+  errors.
+* `make clean`.
 
-**Expected output:**
-When you run `make test`, you will see all 39 assertions pass across the 13 distinct tests. Running `make prove` will successfully discharge all Level 4 proof obligations.
+## Verification
+* Proof (gnatprove 16.1.0): absence of run-time errors and the
+  postcondition, 247 checks, all proved by `make prove`; also at
+  `--level=4` and in silver mode with the repository's step limits
+  (tools/vv/prove_settings.txt). No `pragma Assume` or `Annotate`.
+* Tests (tests.adb): an own exact best-response check for every starting
+  label, and the hand-worked equilibria where they are known; degenerate
+  games where the old floating-point version returned a non-equilibrium;
+  payoffs at `Integer'First` / `Integer'Last`.
+* Own checks (`own_checks.adb`): against an independent support
+  enumeration (Cramer's rule, Laplace determinants) on 300 seeded
+  wide-range games, and the best-response check on every 2 x 2 game with
+  payoffs 0 .. 2 and 1,500 seeded small-payoff games. Sources and
+  numbers: tests/SOURCES.txt.
 
-## Testing
-* **Functional correctness**: Test suite explicitly verifies outputs against known outcomes for the Battle of the Sexes, Prisoner's Dilemma, Matching Pennies, and Rock Paper Scissors.
-* **Contract verification**: Explicit bounds test matrices (1x1 degenerates, large asymmetric 2x3 tables).
-* **Proof obligations**: Uses bounded loop evaluations to guarantee total correctness and termination proofs inside SPARK.
-
-## Building
-**Prerequisites:** GNAT Community (or GNAT Pro) with SPARK support, and compatibility with Ada 2023 (ISO/IEC 8652:2023).
-
-**Commands:**
-* `make` — Builds the project binaries.
-* `make test` — Compiles and executes the test suite.
-* `make prove` — Runs GNATProve on Level 4 mode to verify contracts.
-* `make clean` — Removes build artifacts from the object and binary directory.
-
-## Proof Status
-* All subprograms are rigorously annotated with SPARK contracts (`Pre`, `Post`, `Global`).
-* All loops enforce standard termination mechanisms with accurate array boundary definitions passed via `pragma Loop_Invariant`.
-* **Not Silver (2026-10-09):** two `pragma Annotate (GNATprove, Intentional, "overflow check", ...)` lines (lemke_howson.adb:45 and :147) hide the floating-point overflow checks of the pivoting. Their reason is a prover limit, not a proof that overflow cannot happen, so the absence of run-time errors is not proved (tools/vv/proof_escapes_review.csv, PROOFS.csv). A rewrite with exact integer pivoting is in progress.
+```
+gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
+```
