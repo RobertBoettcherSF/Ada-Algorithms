@@ -103,7 +103,7 @@ misc/Ada/Proof-Of-Work-Algorithms,"answer_plant_ok=no: 7 built wrong-answer plan
 misc/Ada/Scale-Invariant-Feature-Transform,"answer_plant_ok=no: 2 built wrong-answer plants (e.g. op = -> /= in sift_algorithm.adb) still leave make test exit 0 — harness cannot report failure",open,,
 misc/Ada/Seam-Carving,"answer_plant_ok=no: 9 built wrong-answer plants (e.g. op + -> - in seam_carving.adb) still leave make test exit 0 — harness cannot report failure",fixed,ac48b937,24d7f98a
 misc/Ada/Top-Nodes-Algorithm,"answer_plant_ok=no: 14 built wrong-answer plants (e.g. flip_bool in top_nodes_algorithm.adb) still leave make test exit 0 — harness cannot report failure",fixed,6a24aa74,de043f22
-misc/Ada/arc-cache,"answer_plant_ok=no: 15 built wrong-answer plants (e.g. flip_bool in arc_cache.adb) still leave make test exit 0 — harness cannot report failure",open,,
+misc/Ada/arc-cache,"answer_plant_ok=no: 15 built wrong-answer plants (e.g. flip_bool in arc_cache.adb) still leave make test exit 0 — harness cannot report failure",fixed,ff568c22,68255c74
 misc/SPARK2/Ada-SPARK-Daily-Temperatures,"answer_plant_ok=no: 8 built wrong-answer plants (e.g. op > -> >= in daily_temperatures.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
 misc/SPARK2/Ada-SPARK-Longest-Repeating-Character-Replacement,"answer_plant_ok=no: 8 built wrong-answer plants (e.g. op = -> /= in longest_repeating_character_replacement.adb) still leave make test exit 0 — harness cannot report failure",fixed,b0c950fe,942a84e2
 misc/SPARK2/Ada-SPARK-Next-Greater-Element-I,"answer_plant_ok=no: 5 built wrong-answer plants (e.g. op > -> >= in next_greater_element_i.adb) still leave make test exit 0 — harness cannot report failure",fixed,,
