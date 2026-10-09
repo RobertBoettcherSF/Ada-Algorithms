@@ -133,7 +133,7 @@ The test suite (`test_arc_cache.adb`) provides comprehensive testing with 100+ i
    - Empty cache operations
    - Single capacity cache
    - Same key operations
-   - Boundary conditions (large capacity, zero capacity)
+   - Boundary conditions (large capacity, capacity 1; capacity 0 is rejected by the Capacity_Type subtype)
 
 5. **Performance and Stress Tests** (TEST 14-15)
    - Many sequential operations

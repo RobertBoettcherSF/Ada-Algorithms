@@ -19,7 +19,11 @@ generic
    with function "=" (Left, Right : Key_Type) return Boolean is <>;
 package ARC_Cache is
 
-   type Cache (Capacity : Ada.Containers.Count_Type) is tagged private;
+   --  A cache holds at least one page: capacity 0 is rejected at the
+   --  declaration (Constraint_Error) instead of failing every Put.
+   subtype Capacity_Type is Ada.Containers.Count_Type range 1 .. Ada.Containers.Count_Type'Last;
+
+   type Cache (Capacity : Capacity_Type) is tagged private;
 
    Cache_Full_Of_Locked_Pages : exception;
 
@@ -55,7 +59,7 @@ private
 
    type List_Array is array (List_Kind) of Key_Lists.List;
 
-   type Cache (Capacity : Count_Type) is tagged record
+   type Cache (Capacity : Capacity_Type) is tagged record
       Map   : Cache_Maps.Map;
       Lists : List_Array;
       P     : Integer := 0;  -- Target size for T1
