@@ -23,7 +23,7 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `status` | open / worked around / pending, and whether the folder changed after the recorded run |
 | `source` | where the data came from |
 
-## Categories (95 rows)
+## Categories (101 rows)
 
 | Category | Rows | What it is |
 |---|---|---|
@@ -38,6 +38,7 @@ Snapshot: origin/main e64d9858, 2026-10-09 ~09:40 Europe/Berlin. Nothing was inv
 | `functional_gap` | 2 | Bitonic-Sorter: the 0-1 principle and the half-cleaner lemma are missing, and sortedness is masked by Bubble_Finish; Lemke-Howson (H096, target Platinum): the functional claim is partial: (Status = Found) = Is_Nash is proved (a Found result is a certified equilibrium; a body that never reports Found also proves it), but not that Status is always Found; termination rests on the Max_Steps loop bound, and the other exits are explicit statuses (Step_Cap_Reached, No_Pivot_Row, Check_Failed). Tested on every starting label, degenerate games and 14,000 seeded random calls up to 4 x 4 (most pivots 19, bound C (M + N, M) ** 2) |
 | `toolchain_limit` | 1 | cvc5 under gnatprove's `--prenex-quant=none` returns "incomplete" on quantified frames over 2D arrays |
 | `proof_escape` | 1 | Bump-Arena: the fallback after the Insert loop is not proved unreachable |
+| `deferred_budget` | 5 | stopped at the 2026-10-09 budget limit (agent A3), H097-H101: content Posts for sorting/SPARK4/Ada-SPARK-Topological-Sort (9 unproved at L2) and sorting/SPARK4/Ada-SPARK-Sort-Merge-Join (19 unproved at L2), the K-th-smallest / permutation Posts for misc/SPARK4/Ada-SPARK-Selection-Algorithm (tests pass, not proved), Pre-rejection rates beyond the first 20 ranked folders (plus five too-narrow Pres to widen), and the held-out sweep from rank 682. The drafts are patches in `/workspace/inbox/a3_drafts/` (box path outside the repo; apply with `git apply` from the repo root) |
 
 By check kind: 54 functional (53 Platinum, 1 Gold), 13 run-time (Silver), 28 other (11 Stone, 1 Bronze, 16 non-proof).
 
@@ -51,6 +52,8 @@ By check kind: 54 functional (53 Platinum, 1 Gold), 13 run-time (Silver), 28 oth
 - **Open findings** (68 in `tools/vv/findings.csv`: First-relative indexing, midpoint overflow, harnesses that cannot fail) are ordinary work, not compute-bound, and stay in the findings registry.
 - The `unproved_check`, `tool_crash` and `proof_timeout` results come from the 2026-10-08 steps run (`/workspace/aa/v2/prove_steps.jsonl`, logs `/tmp/aa2s/<folder>/prove.log`; box paths outside the repo). That run used `-j2` and a 7200 s cap. The current canonical settings are in `prove_settings.txt` (`-j1`, 3600 s cap, `-j4` retry). The step budget, 1,000,000, is the same.
 - The toolchain-bug rows were rechecked on 2026-10-09 against Alire `gnat_native 16.1.0` (GNATLS 16.1.0), which is not pinned and was only used for this check.
+
+- **Closed withdrawn_functional rows** (2026-10-09, agent A3): 17 rows (H027, H028, H036, H037, H043, H051, H054, H055, H058, H065-H069, H073, H076, H077) are `closed <commit>`: the Post was strengthened (permutation / content) and proved in that commit, and PROOFS.csv `functional_checks` is restored. sorting/SPARK4/Ada-SPARK-Bogosort (H027) was reworked as a bounded random shuffle with an explicit Sorted / Gave_Up outcome (22bdaf31).
 
 ## How to work a row
 
