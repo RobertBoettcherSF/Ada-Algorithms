@@ -1,0 +1,22 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+the two original arrays (4 5 6 7 0 1 2 2; -4 -4 -2 -1 0 1 2 3),
+10 .. 80 turned by every amount (comparisons <= floor (log2 N) + 2,
+committed first; fails on the old linear scan), all equal but one
+(1 1 1 0 1 1 1 1 with the 0 at every position; answer only, no log
+bound) and all equal.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09). Reference: a linear
+minimum; for the predicate, at most one cyclic strict fall.
+* all equal but one, the odd value at every position, below and above
+  the rest; all 8 rotations of 3,000 random non-decreasing arrays (half
+  from 2 or 3 values) and of 1,000 random strictly increasing arrays:
+  minimum (Find_Minimum and Minimum); with distinct values comparisons
+  <= floor (log2 N) + 2, worst case exactly 3; with duplicates the
+  worst case seen is printed (7 = N - 1, the proved bound);
+* Rotated_Array membership on 20,000 random arrays of 0 .. 3.
+* Random inputs use a Park-Miller generator; the default seed 20261008
+  is printed, and AA_SEED=<n> overrides it.

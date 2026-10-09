@@ -23,4 +23,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (53 checks).
 
+`make test` runs `tests.adb` and the folder's own checks: 124,050 checks against a linear minimum (see `tests/SOURCES.txt`).
+
 The first version (8 values, although this README said n <= 32) was a linear minimum scan with no contract and no rotation requirement. The first commit of the 2026-10-09 rewrite added a comparison counter and a test asserting the log bound for distinct values. That test fails on the old scan (8 comparisons).

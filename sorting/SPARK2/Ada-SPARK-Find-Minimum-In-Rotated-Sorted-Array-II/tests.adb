@@ -2,6 +2,7 @@ pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Find_Minimum_In_Rotated_Sorted_Array_II;
 use Find_Minimum_In_Rotated_Sorted_Array_II;
+with Own_Checks;
 
 procedure Tests is
    Values : constant Value_Array := [4, 5, 6, 7, 0, 1, 2, 2];
@@ -50,4 +51,5 @@ begin
    --  All equal.
    Expect ([others => 7], 7, False, "all 7");
    Put_Line ("Find_Minimum_In_Rotated_Sorted_Array_II: PASS");
+   Own_Checks;
 end Tests;
