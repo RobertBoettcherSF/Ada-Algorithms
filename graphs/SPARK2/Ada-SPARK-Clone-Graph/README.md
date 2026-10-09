@@ -13,7 +13,7 @@ The postcondition `Is_Clone` is proved:
 
 Ghost discovery records (`Parent`, `Via`) and a ghost count of the copied nodes, which bounds `Size`, carry the proof.
 
-- `make test` builds and runs `tests.adb`.
+- `make test` builds and runs `tests.adb` and the own checks in `own_checks.adb` (see `tests/SOURCES.txt`).
 - `make prove` runs Level 2 CVC5 proof with warnings and checks treated as errors (158 checks).
 
 The first version used a 16 x 16 Boolean adjacency matrix, and `Clone` was `return G`. A value copy already does that, so the folder had no cloning algorithm in it.

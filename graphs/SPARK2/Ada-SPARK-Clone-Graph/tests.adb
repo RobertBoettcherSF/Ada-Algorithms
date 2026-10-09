@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Clone_Graph; use Clone_Graph;
+with Own_Checks;
 procedure Tests is
    --  Undirected square 1 - 2 - 3 - 4 - 1 (each edge listed both ways),
    --  labels 10, 20, 30, 40, and node 5 -> 1 that nothing reaches.
@@ -40,4 +41,5 @@ begin
    R := Clone (G, 7);
    Check (R.Size = 1 and then R.Copy (1) = (-7, [1, 0, 1, 0]), "self-loop");
    Put_Line ("Clone_Graph: PASS");
+   Own_Checks;
 end Tests;

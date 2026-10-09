@@ -1,0 +1,27 @@
+Sources of the tests in this folder
+===================================
+
+tests.adb: written with the 2026-10-09 rewrite (V&V sweep, agent B):
+a square with labels and an empty slot cloned from node 3 (exact copy
+ids and slots), the same graph from an outside node, a self-loop node.
+
+own_checks.adb (called at the end of tests.adb; written for this
+repository by the V&V sweep, agent B, 2026-10-09):
+* Reference, independent of the package's queue: a recursive depth-first
+  search for the set of nodes reachable from Start. The result must copy
+  exactly that set, Map and Orig must be inverse bijections between it
+  and 1 .. Size, each copy must have the original's label and, slot by
+  slot, the copy of the original's neighbour or an empty slot, and copy
+  nodes after Size must be empty.
+* Numbering: checked against the breadth-first rule (copy 1 is Start;
+  for each later copy, the first copy listing its original, with the
+  first such slot, gives a key that strictly grows with the copy id).
+* Inputs: every graph on nodes 1 .. 3 with two slots per node (4,096)
+  from each of the 3 start nodes, with an unreachable node pointing in;
+  3,000 random 16-node graphs with random slot density, labels (including
+  Integer'First / 'Last) and start; shapes (path forwards and backwards,
+  star, 4-out circulant from every start, all self-loops, no edges).
+  15,311 clones.
+* Seeds: the random inputs use a fixed default seed, printed at the start
+  of the run ("own checks seed: ..."); set AA_SEED=<n> to run them with
+  another seed.
