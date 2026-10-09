@@ -8,6 +8,11 @@ package Search_A_2D_Matrix_II with SPARK_Mode => On is
    subtype Value is Integer range 0 .. 100;
    type Matrix is array (Row, Column) of Value;
 
-   function Contains (Grid : Matrix; Target : Value) return Boolean
+   type Search_Result is record
+      Found  : Boolean;   --  some cell equals Target
+      Probes : Natural;   --  comparisons with cells
+   end record;
+
+   function Contains (Grid : Matrix; Target : Value) return Search_Result
      with Global => null;
 end Search_A_2D_Matrix_II;
