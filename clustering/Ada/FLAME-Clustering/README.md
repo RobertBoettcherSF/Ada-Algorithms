@@ -36,6 +36,14 @@ include **Ada-Fuzzy-C-Means**, **Ada-K-Means-Clustering**, and
 Distance ties in KNN prefer the **lower point index**.  Density ties never
 create a CSO or outlier versus that neighbor (strict inequalities).
 
+## First-relative indexing
+
+Point-indexed arrays (`Dataset` rows, `Densities`, `KNN_Graph`, `Kind_Array`,
+membership rows, `Flame_Result`) accept any `First` in `Point_Index`. Parallel
+arrays share bounds via `Same_Bounds` / `Same_Row_Bounds` (body-defined).
+Cluster / membership columns and `CSO_List` stay 1-based labels. `Run_FLAME`
+returns a `Flame_Result (First, Last, M)` that keeps `Data'Range (1)`.
+
 ## Features / public API
 
 | Area | Subprograms / types | Role |
@@ -76,9 +84,9 @@ end;
 ## Build and test
 
 ```bash
-cd /workspace/ada-flame-clustering
+cd /workspace/Ada-Algorithms/clustering/Ada/FLAME-Clustering
 make clean && make          # gnatmake -gnatwa -gnat2022 -Pflame_clustering.gpr
-make test                   # runs bin/tests; Fail_Count must be 0
+make test                   # runs bin/tests; expect Passed: 156  Failed: 0
 ```
 
 Main program is `tests.adb` (no `main.adb`).  Objects go to `obj/`, executable

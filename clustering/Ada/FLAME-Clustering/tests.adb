@@ -162,12 +162,12 @@ begin
          Has_CSO_Near_0 : Boolean := False;
          Has_CSO_Near_10 : Boolean := False;
       begin
-         for I in 1 .. 7 loop
+         for I in Res.Kinds'Range loop
             if Res.Kinds (I) = CSO then
                CSO_Count := CSO_Count + 1;
-               if I <= 3 then
+               if I <= Res.First + 2 then
                   Has_CSO_Near_0 := True;
-               elsif I <= 6 then
+               elsif I <= Res.First + 5 then
                   Has_CSO_Near_10 := True;
                end if;
             elsif Res.Kinds (I) = Outlier then
@@ -293,7 +293,7 @@ begin
          Eps => 1.0E-8, Assign_Threshold => 0.5);
       Res : constant Flame_Result := Run_FLAME (Data, Params);
    begin
-      for I in 1 .. 6 loop
+      for I in Res.Memberships'Range (1) loop
          Check (Approx (Row_Sum (Res.Memberships, I), 1.0, 1.0E-5),
                 "approx row sum ≈ 1");
       end loop;
@@ -460,7 +460,7 @@ begin
       begin
          declare
             Params : Parameters := Default_Parameters;
-            R : Flame_Result (N => 3, M => 1);
+            R : Flame_Result (First => 1, Last => 3, M => 1);
             pragma Unreferenced (R);
          begin
             Params.K := 3;
@@ -587,6 +587,78 @@ begin
    begin
       Check (Dt (1) > Dl (1), "tighter neighborhood ⇒ higher density");
       Check (Dt (2) > Dl (2), "tighter mid ⇒ higher density");
+   end;
+
+   ---------------------------------------------------------------------
+   Section ("20. Shifted Dataset origins (First-relative)");
+   ---------------------------------------------------------------------
+   --  Same two-blob geometry at Dataset row origins 1, 5, 100, 200.
+   --  Neighbor ids and CSO_Of store absolute Point_Index values; result
+   --  discriminants keep Data'Range (1). Hard labels must separate blobs.
+   declare
+      type Origin_List is array (Positive range <>) of Point_Index;
+      Origins : constant Origin_List := [1, 5, 100, 200];
+   begin
+      for Off of Origins loop
+         declare
+            Data : Dataset (Off .. Off + 5, 1 .. 1);
+            Params : constant Parameters :=
+              (K => 2, Outlier_Threshold => 0.01, Max_Iters => 80,
+               Eps => 1.0E-8, Assign_Threshold => 0.5);
+            Vals : constant array (0 .. 5) of Real :=
+              [0.0, 0.2, 0.4, 8.0, 8.2, 8.4];
+         begin
+            for K in Vals'Range loop
+               Data (Off + K, 1) := Vals (K);
+            end loop;
+            declare
+               Res : constant Flame_Result := Run_FLAME (Data, Params);
+               L0 : constant Natural := Res.Hard_Labels (Off);
+               L3 : constant Natural := Res.Hard_Labels (Off + 3);
+            begin
+               Check (Res.First = Off and then Res.Last = Off + 5,
+                      "origin" & Off'Image & " result bounds");
+               Check (Res.Num_CSOs >= 1, "origin" & Off'Image & " found CSOs");
+               Check (L0 /= 0 and then L3 /= 0 and then L0 /= L3,
+                      "origin" & Off'Image & " blobs differ");
+               Check (Res.Hard_Labels (Off + 1) = L0
+                      and then Res.Hard_Labels (Off + 2) = L0,
+                      "origin" & Off'Image & " blob A neighbors");
+               Check (Res.Hard_Labels (Off + 4) = L3
+                      and then Res.Hard_Labels (Off + 5) = L3,
+                      "origin" & Off'Image & " blob B neighbors");
+               for I in Res.Memberships'Range (1) loop
+                  Check (Approx (Row_Sum (Res.Memberships, I), 1.0, 1.0E-5),
+                         "origin" & Off'Image & " row sum");
+               end loop;
+               --  KNN neighbor ids stay inside Data'Range (1).
+               declare
+                  Ok : Boolean := True;
+               begin
+                  for I in Res.Graph'Range loop
+                     for S in 1 .. Res.Graph (I).Count loop
+                        if Res.Graph (I).Ids (S) not in Data'Range (1) then
+                           Ok := False;
+                        end if;
+                     end loop;
+                  end loop;
+                  Check (Ok, "origin" & Off'Image & " KNN ids in row range");
+               end;
+            end;
+         end;
+      end loop;
+   end;
+   --  Point vectors with Dim'First /= 1.
+   declare
+      A : constant Point (3 .. 4) := [3.0, 0.0];
+      B : constant Point (3 .. 4) := [6.0, 0.0];
+      Data : constant Dataset (10 .. 12, 3 .. 4) :=
+        [10 => [0.0, 0.0], 11 => [1.0, 0.0], 12 => [0.0, 1.0]];
+      P11 : constant Point := Extract_Point (Data, 11);
+   begin
+      Check (Approx (Distance (A, B), 3.0), "Distance dim First=3");
+      Check (Approx (P11 (3), 1.0) and then Approx (P11 (4), 0.0),
+             "Extract_Point keeps dim bounds");
    end;
 
    New_Line;

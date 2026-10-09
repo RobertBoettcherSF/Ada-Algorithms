@@ -21,11 +21,41 @@ is
       return abs (A - B) <= Tol;
    end Near;
 
+   function Same_Bounds (A, B : Point) return Boolean is
+     (A'First = B'First and then A'Last = B'Last);
+
+   function Same_Bounds (A, B : Densities) return Boolean is
+     (A'First = B'First and then A'Last = B'Last);
+
+   function Same_Bounds (A, B : Kind_Array) return Boolean is
+     (A'First = B'First and then A'Last = B'Last);
+
+   function Same_Bounds (A : Kind_Array; B : KNN_Graph) return Boolean is
+     (A'First = B'First and then A'Last = B'Last);
+
+   function Same_Bounds (A : Densities; B : KNN_Graph) return Boolean is
+     (A'First = B'First and then A'Last = B'Last);
+
+   function Same_Row_Bounds
+     (W : Membership_Matrix; Kinds : Kind_Array) return Boolean is
+     (W'First (1) = Kinds'First and then W'Last (1) = Kinds'Last);
+
+   function Same_Bounds (A, B : Membership_Matrix) return Boolean is
+     (A'First (1) = B'First (1) and then A'Last (1) = B'Last (1)
+      and then A'First (2) = B'First (2) and then A'Last (2) = B'Last (2));
+
+   function Cluster_Cols_From_One (W : Membership_Matrix) return Boolean is
+     (W'First (2) = 1);
+
+   function CSO_List_From_One (CSO_Of : CSO_List) return Boolean is
+     (CSO_Of'First = 1 and then CSO_Of'Last >= Max_Clusters);
+
+
    function Distance (A, B : Point) return Non_Negative is
       S : Real := 0.0;
       D : Real;
    begin
-      if A'Length /= B'Length or else A'First /= B'First then
+      if not Same_Bounds (A, B) then
          raise Invalid_Argument with "Distance: shape mismatch";
       end if;
       for I in A'Range loop
@@ -42,7 +72,7 @@ is
       S : Real := 0.0;
       D : Real;
    begin
-      if A'Length /= B'Length or else A'First /= B'First then
+      if not Same_Bounds (A, B) then
          raise Invalid_Argument with "Squared_Distance: shape mismatch";
       end if;
       for I in A'Range loop
@@ -279,9 +309,9 @@ is
    procedure Init_Memberships
      (Kinds    : Kind_Array;
       Graph    : KNN_Graph;
-      W        : out Membership_Matrix;
+      W        : in out Membership_Matrix;
       Num_CSOs : out Cluster_Count;
-      CSO_Of   : out CSO_List)
+      CSO_Of   : in out CSO_List)
    is
       pragma Unreferenced (Graph);
       NC : Cluster_Count := 0;
@@ -500,7 +530,8 @@ is
       HL := Hard_Labels_From_Memberships (W);
 
       declare
-         R : Flame_Result (N => N, M => M);
+         R : Flame_Result
+           (First => Data'First (1), Last => Data'Last (1), M => M);
       begin
          R.Densities := Dens;
          R.Kinds := Kinds;

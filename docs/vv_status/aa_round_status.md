@@ -19,23 +19,23 @@ to rewrite (offset / First-relative forms exist); only Package-Merge and PGZ rem
 | misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | package-merge pairs 2*P-1 / 2*P |
 | compression/Ada/Peterson-Gorenstein-Zierler-Algorithm | coeff index = degree (Derivative Poly(I)*I); subtype Degree_Poly First=0; syndromes First-rel |
 
-### Rewritten First-relative (38) — green make test + CSV `rewritten_first_relative`
+### Rewritten First-relative (39) — green make test + CSV `rewritten_first_relative`
 **Earlier (15):** BCJR, N-Body, Spline (Thomas), Levinson, Memetic (TSP), Thomas,
 Floyds-Cycle, Brents, Barnes-Hut, Gale-Shapley, Min-Conflicts, Hungarian,
 Top-Trading-Cycle, Fast-Multipole, Ant-Colony.
 
 **Room-recheck sorts / search / string (23):** Heapsort (Silver offset heap),
-Introsort (Silver in-place offset heap), Smoothsort (Fits geometry),
+Introsort (Silver in-place offset heap + Sort_Traced heap counter / Musser killer / Max_Depth 0), Smoothsort (Fits geometry), FLAME-Clustering (First-relative Result + Same_Bounds),
 Interpolation-Search, Knuth-Morris-Pratt, Insertion-Sort, Bubble-Sort,
 Selection-Sort, Gnome-Sort, Cycle-Sort, Cocktail-Shaker-Sort, Comb-Sort,
 Shell-Sort, Pancake-Sorting, Slowsort, Stooge-Sort, Odd-Even-Sort, Merge-Sort,
 Quicksort, Spaghetti-Sort, Bead-Sort, Radix-Sort, Tree-Sort.
 
-### Still stamped `rewrite_first_relative` / `first_pinned` (50)
+### Still stamped `rewrite_first_relative` / `first_pinned` (49)
 Remaining SPARK4 classroom sorts (Bogosort, Bitonic, Bucket, Burstsort, Counting,
 Flashsort, Library, Patience, Pigeonhole, Postman, Quantum, Samplesort,
 Sort-Merge-Join, Strand, Timsort, Topological, …), searching SPARK4, hashing /
-compression / misc SPARK2–4, FLAME, Branch-and-Bound, Combinatorial-Optimization,
+compression / misc SPARK2–4, Branch-and-Bound, Combinatorial-Optimization,
 and other Ada walk-index folders. Pins still First=1; code rewrite not done yet.
 A2 owns the Float→int list (Clustering, ACO×2, Cross-Entropy, DE, K-Means++,
 Harmony, Local-Search, RRHC, SA, Memetic float, ES, EC, GEP, GA, MLT) plus
@@ -61,4 +61,4 @@ BrownBoost — leave those alone.
 - GNAT 12 three-pass (`/tmp/flk/g12_tr.csv`, 271 folders) merged into
   `tools/vv/flaky.csv` (2111 data rows). Counting-Sort finished on GNAT 12
   (10/10, init yes) after long runs; GNAT 14 had previously timed out at 300 s.
-- Tip: see `git log -1`
+- Tip: `3f80e34a Ada Introsort: Sort_Traced heap counter, Musser median-of-3 killer, Max_Depth 0 off origin 1; Has_Left + Long_Integer for Natural'Last` (pending FLAME commit)

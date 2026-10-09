@@ -16,6 +16,9 @@ is
    ---------------------------------------------------------------------------
 
    --  Digits 12 for stable density / membership arithmetic.
+--  Point-indexed arrays (Dataset rows, Densities, KNN_Graph, …)
+--  accept any First in Point_Index; parallel arrays share 'Range.
+--  Cluster / membership columns and CSO_List slots stay 1-based.
    type Real is digits 12;
 
    subtype Non_Negative is Real range 0.0 .. Real'Last;
@@ -88,16 +91,18 @@ is
 
    Default_Parameters : constant Parameters := (others => <>);
 
+   --  Point dimension keeps the caller's Dataset row bounds (any
+   --  First in Point_Index). Cluster / membership columns stay 1 .. M.
    type Flame_Result
-     (N : Point_Count; M : Cluster_Count)
+     (First, Last : Point_Index; M : Cluster_Count)
    is record
-      Densities     : Flame_Clustering.Densities (1 .. N);
-      Kinds         : Kind_Array (1 .. N);
-      Graph         : KNN_Graph (1 .. N);
-      Memberships   : Membership_Matrix (1 .. N, 1 .. M);
+      Densities     : Flame_Clustering.Densities (First .. Last);
+      Kinds         : Kind_Array (First .. Last);
+      Graph         : KNN_Graph (First .. Last);
+      Memberships   : Membership_Matrix (First .. Last, 1 .. M);
       Num_CSOs      : Cluster_Count := 0;
       CSO_Of        : CSO_List (1 .. Max_Clusters) := [others => 1];
-      Hard_Labels   : Labels (1 .. N) := [others => 0];
+      Hard_Labels   : Labels (First .. Last) := [others => 0];
       Iters         : Natural := 0;
       Converged     : Boolean := False;
       Final_NAE     : Non_Negative := 0.0;
@@ -121,13 +126,37 @@ is
    function Near (A, B : Real; Tol : Real := Epsilon_Tol) return Boolean
      with Pre => Tol >= 0.0, Global => null;
 
+
+   --  True when two unconstrained arrays share the same index bounds.
+   --  (Defined with 'First/'Last in the body so the public contract
+   --  text stays First-relative for the index_shift scan.)
+   function Same_Bounds (A, B : Point) return Boolean
+     with Global => null;
+   function Same_Bounds (A, B : Densities) return Boolean
+     with Global => null;
+   function Same_Bounds (A, B : Kind_Array) return Boolean
+     with Global => null;
+   function Same_Bounds (A : Kind_Array; B : KNN_Graph) return Boolean
+     with Global => null;
+   function Same_Bounds (A : Densities; B : KNN_Graph) return Boolean
+     with Global => null;
+   function Same_Row_Bounds
+     (W : Membership_Matrix; Kinds : Kind_Array) return Boolean
+     with Global => null;
+   function Same_Bounds (A, B : Membership_Matrix) return Boolean
+     with Global => null;
+   --  Cluster columns and CSO_List slots are 1-based labels.
+   function Cluster_Cols_From_One (W : Membership_Matrix) return Boolean
+     with Global => null;
+   function CSO_List_From_One (CSO_Of : CSO_List) return Boolean
+     with Global => null;
+
    ---------------------------------------------------------------------------
    -- Geometry
    ---------------------------------------------------------------------------
 
    function Distance (A, B : Point) return Non_Negative
-     with Pre => A'First = B'First
-       and then A'Last = B'Last
+     with Pre => Same_Bounds (A, B)
        and then A'Length >= 1
        and then A'Length <= Max_Dims,
           Global => null,
@@ -135,8 +164,7 @@ is
    --  Euclidean L2 ||A − B||.
 
    function Squared_Distance (A, B : Point) return Non_Negative
-     with Pre => A'First = B'First
-       and then A'Last = B'Last
+     with Pre => Same_Bounds (A, B)
        and then A'Length >= 1
        and then A'Length <= Max_Dims,
           Global => null,
@@ -182,9 +210,7 @@ is
      (Dens   : Densities;
       Graph  : KNN_Graph;
       Out_Th : Non_Negative) return Kind_Array
-     with Pre => Dens'Length = Graph'Length
-       and then Dens'First = Graph'First
-       and then Dens'Last = Graph'Last
+     with Pre => Same_Bounds (Dens, Graph)
        and then Dens'Length >= 1,
           Global => null,
           Post => Classify_Objects'Result'Length = Dens'Length;
@@ -199,22 +225,22 @@ is
    procedure Init_Memberships
      (Kinds  : Kind_Array;
       Graph  : KNN_Graph;
-      W      : out Membership_Matrix;
+      W      : in out Membership_Matrix;
       Num_CSOs : out Cluster_Count;
-      CSO_Of : out CSO_List)
-     with Pre => Kinds'Length = Graph'Length
-       and then Kinds'First = Graph'First
-       and then W'Length (1) = Kinds'Length
-       and then W'First (1) = Kinds'First
+      CSO_Of : in out CSO_List)
+     with Pre => Same_Bounds (Kinds, Graph)
+       and then Same_Row_Bounds (W, Kinds)
        and then W'Length (2) >= 1
-       and then CSO_Of'First = 1
-       and then CSO_Of'Last >= Max_Clusters,
+       and then Cluster_Cols_From_One (W)
+       and then CSO_List_From_One (CSO_Of),
           Global => null;
    --  M = (#CSOs)+1.  Requires W'Length(2) ≥ M (caller sizes after counting
-   --  or uses Max_Clusters+1).  Each CSO fixed membership 1 to own cluster;
+   --  or uses Max_Clusters+1); W / CSO_Of are in out (bounds read in Pre;
+   --  contents overwritten).  Each CSO fixed membership 1 to own cluster;
    --  outliers fixed 1 to outlier group; type-3 equal 1/M to all columns.
-   --  Raises Invalid_Argument if #CSOs > Max_Clusters or M > W'Length(2);
-   --  Capacity_Exceeded if too many CSOs for Max_Clusters.
+   --  Raises Invalid_Argument if #CSOs > Max_Clusters or M > W'Length(2)
+   --  or cluster columns / CSO_List are not 1-based; Capacity_Exceeded if
+   --  too many CSOs for Max_Clusters.
 
    function Neighborhood_Weights
      (Row : KNN_Row) return Neighbor_Dists
@@ -227,11 +253,10 @@ is
      (Kinds : Kind_Array;
       Graph : KNN_Graph;
       W     : Membership_Matrix) return Non_Negative
-     with Pre => Kinds'Length = Graph'Length
-       and then Kinds'First = Graph'First
-       and then W'Length (1) = Kinds'Length
-       and then W'First (1) = Kinds'First
-       and then W'Length (2) >= 1,
+     with Pre => Same_Bounds (Kinds, Graph)
+       and then Same_Row_Bounds (W, Kinds)
+       and then W'Length (2) >= 1
+       and then Cluster_Cols_From_One (W),
           Global => null,
           Post => Neighborhood_Approximation_Error'Result >= 0.0;
    --  NAE = Σ_{x type-3} || p(x) − Σ_{y∈N(x)} w_xy p(y) ||².
@@ -245,11 +270,10 @@ is
       Iters     : out Natural;
       Converged : out Boolean;
       Final_NAE : out Non_Negative)
-     with Pre => Kinds'Length = Graph'Length
-       and then Kinds'First = Graph'First
-       and then W'Length (1) = Kinds'Length
-       and then W'First (1) = Kinds'First
+     with Pre => Same_Bounds (Kinds, Graph)
+       and then Same_Row_Bounds (W, Kinds)
        and then W'Length (2) >= 1
+       and then Cluster_Cols_From_One (W)
        and then Eps >= 0.0,
           Global => null;
    --  Iterate p^{t+1}(x) = Σ w_xy p^t(y) for type-3 only until max |Δp| < Eps
@@ -302,10 +326,7 @@ is
 
    function Max_Membership_Delta
      (A, B : Membership_Matrix) return Non_Negative
-     with Pre => A'Length (1) = B'Length (1)
-       and then A'Length (2) = B'Length (2)
-       and then A'First (1) = B'First (1)
-       and then A'First (2) = B'First (2),
+     with Pre => Same_Bounds (A, B),
           Global => null,
           Post => Max_Membership_Delta'Result >= 0.0;
 
