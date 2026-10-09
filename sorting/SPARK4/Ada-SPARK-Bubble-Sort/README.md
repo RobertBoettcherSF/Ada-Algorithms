@@ -22,7 +22,8 @@ This is the SPARK Level 4 port of the companion package [Ada-Bubble-Sort](https:
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * Nested `Bubble_Pass` plus `pragma Loop_Invariant` / `Loop_Variant` so the adjacent-swap pass and outer suffix growth are discharged at Level 4.
 * Suffix shrinks by one per pass (last-swap bound of the sibling is omitted); early exit on a clean pass is kept and proved.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition (a simple ghost permutation lemma is not required here).
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`): `Occ (A, V, Last)` counts V in `A (A'First .. Last)` and `Is_Perm` compares the counts of every value of either array. The proof carries the ghost `Same_Occ` (equal counts for every Integer) through the loops with swap / point-update lemmas (no Assume / Annotate). Loop invariants are proved and not re-evaluated at run time (`pragma Assertion_Policy (Loop_Invariant => Ignore)` in the body: `Same_Occ` ranges over every Integer); the Post, including `Is_Perm`, is still checked by the tests. Before 2026-10-09 the Post said only `Is_Sorted`, which an all-zeros body also proves (tools/vv/contract_scan.csv).
+* Tests check `Is_Perm` against an independent sorted-copy comparison on every pair of arrays of length 0 .. 4 over -1 .. 1 (14,762 pairs, origins 1 and 7).
 
 ## Usage
 * **Build:** `make`
