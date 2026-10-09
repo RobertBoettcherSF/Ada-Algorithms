@@ -1,0 +1,33 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+Definition: Percent (X_Milli) = round half up of 100 / (1 + e ** (-x))
+for x = X_Milli / 1000. Ties cannot occur (for x /= 0, e ** x is
+irrational; for x = 0 the value is exactly 50).
+
+tests.adb:
+* worked values from Python's decimal module at 60 significant digits
+  (100 / (1 + exp (-x)) with Decimal.exp, rounded half up), computed by
+  hand for this file, not from the program: 0 -> 50; 19 -> 50 (50.47499);
+  20 -> 50 (50.49998); 21 -> 51 (50.52498); -19 -> 50; -20 -> 50
+  (49.50002); -21 -> 49; 500 -> 62 (62.24593); -500 -> 38; 1000 -> 73
+  (73.10586); -1000 -> 27; 2197 -> 90 (89.99798); -2197 -> 10; -2500 -> 8
+  (7.58582); 3892 -> 98 (98.00035); 4000 -> 98 (98.20138); -4000 -> 2;
+  4594 -> 99 (98.99889); 5293 -> 99 (99.49985); 5294 -> 100 (99.50035);
+  -5293 -> 1; -5294 -> 0; 6000 -> 100 (99.75274); -6000 -> 0;
+  Integer'Last -> 100; Integer'First -> 0. The rounding range ends at
+  ln 199 = 5.29330 (100 s >= 99.5 exactly when e ** x >= 199).
+* Evaluate (X) = Percent (1000 X): the old table's values for -4 .. 4
+  (2, 5, 12, 27, 50, 73, 88, 95, 98) agree with the definition; 5 -> 99,
+  6 -> 100, -5 -> 1, and the ends of Input.
+* every X_Milli in -8000 .. 8000 against Long_Float
+  Ada.Numerics.Long_Elementary_Functions.Exp (an independent method: the
+  library exponential, not the package's exact series); the smallest
+  distance of 100 s from a rounding boundary over |X_Milli| <= 6000 is
+  1.67e-5 (at X_Milli = -20, computed with Python's math.exp), far above
+  Long_Float error; plus the properties Percent (-x) = 100 - Percent (x)
+  and nondecreasing in x.
