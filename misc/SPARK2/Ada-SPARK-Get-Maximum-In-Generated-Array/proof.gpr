@@ -1,0 +1,8 @@
+project Get_Maximum_In_Generated_Array_Proof is
+   for Source_Dirs use (".");
+   for Source_Files use ("get_maximum_in_generated_array.ads", "get_maximum_in_generated_array.adb");
+   for Object_Dir use "obj";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-gnat2022", "-gnata");
+   end Compiler;
+end Get_Maximum_In_Generated_Array_Proof;

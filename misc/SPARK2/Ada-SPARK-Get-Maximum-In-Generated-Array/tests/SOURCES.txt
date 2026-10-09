@@ -1,0 +1,43 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+All checks are own properties or own reference code written for this
+repository (MIT); nothing is copied from the program's output or from
+third-party test suites. Written by the V&V sweep (agent B, 2026-10-09).
+
+tests.adb (every value worked out by hand from the rules nums (0) = 0,
+nums (1) = 1, nums (2 i) = nums (i), nums (2 i + 1) = nums (i) + nums (i + 1)):
+* nums (0 .. 16) = 0, 1, 1, 2, 1, 3, 2, 3, 1, 4, 3, 5, 2, 5, 3, 4, 1, so
+  Generate (0), Generate (1), Generate (7) and Generate (16);
+* their running maximum, Maximum (0 .. 16) = 0, 1, 1, 2, 2, 3, 3, 3, 3,
+  4, 4, 5, 5, 5, 5, 5, 5 (the old table gave 2 for N = 5, but
+  nums (5) = nums (2) + nums (3) = 1 + 2 = 3);
+* nums (683) = 89: 683 = 2 * 341 + 1, so nums (683) = nums (341) +
+  nums (342); nums (342) = nums (171); nums (341) = nums (170) +
+  nums (171) and nums (170) = nums (85). Going down the same way
+  (171 = 2 * 85 + 1, 85 = 2 * 42 + 1, 43 = 2 * 21 + 1, ...), the values
+  at 1, 3, 5, 11, 21, 43, 85, 171, 341, 683 are 1, 2, 3, 5, 8, 13, 21,
+  34, 55, 89, each the sum of the two before;
+* the largest value of nums up to 2 ** K is the Fibonacci number
+  F (K + 1) (E. Lucas, 1878; also D. H. Lehmer, "On Stern's diatomic
+  series", Amer. Math. Monthly 36, 1929), so Maximum (32) = F (6) = 8,
+  Maximum (256) = F (9) = 34, Maximum (512) = F (10) = 55, and up to
+  1024 nothing exceeds F (11) = 89: Maximum (683) = Maximum (1000) = 89.
+
+own_checks.adb (seeded: Park-Miller minimal standard generator; the
+default seed is the FNV-1a (32-bit) hash of the folder name folded into
+1 .. 2 ** 31 - 2 (518798038), printed; AA_SEED=<n> overrides it):
+* an own simulation of the problem statement (i ascending, set
+  nums (2 i) and nums (2 i + 1) while they are <= N) for N = 1_000;
+* an own second method, the binary-digit walk over the bits of I
+  (start (a, b) = (1, 0); a bit 1 adds a to b, a bit 0 adds b to a;
+  nums (I) = b; E. W. Dijkstra's "fusc"), must agree for every I <= 1_000;
+* the ghost Nums agrees with them for every I <= 1_000 and Lemma_Rules
+  runs for every I (assertions on);
+* Generate (N) and Maximum (N) against the simulation and its running
+  maximum for every N <= 200, 60 seeded random N in 201 .. 1_000 and
+  N = 1_000;
+* Maximum (2 ** K) = F (K + 1) for 2 ** K <= 1_000.
+Run: gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
+(1,535 checks, about 4 s with assertions on; without -gnata a planted
+nums (2 i + 1) = nums (i) + nums (i) fails 509 of them).

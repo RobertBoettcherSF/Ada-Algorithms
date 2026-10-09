@@ -11,7 +11,7 @@ test:
 
 prove:
 	mkdir -p obj
-	$(GNATPROVE) -P$(get_maximum_in_generated_array) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
+	$(GNATPROVE) -Pproof.gpr --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
 
 clean:
 	rm -rf obj bin gnatprove
