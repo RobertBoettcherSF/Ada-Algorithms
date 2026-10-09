@@ -3419,7 +3419,7 @@ sorting/SPARK4/Ada-SPARK-Quicksort,Sort,ok,ok,,,sort shift ok,
 sorting/SPARK4/Ada-SPARK-Samplesort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Samplesort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Samplesort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-sorting/SPARK4/Ada-SPARK-Samplesort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+sorting/SPARK4/Ada-SPARK-Samplesort,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 sorting/SPARK4/Ada-SPARK-Samplesort,Sort,shift_mismatch,fail,,, | raised ADA.ASSERTIONS.ASSERTION_ERROR : failed precondition from samplesort.ads:88 | ,
 sorting/SPARK4/Ada-SPARK-Selection-Sort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 sorting/SPARK4/Ada-SPARK-Selection-Sort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
