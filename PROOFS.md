@@ -2339,7 +2339,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK4/Ada-SPARK-Burstsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 449 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Burstsort |  |
 | sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 204 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Cocktail-Shaker-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Comb-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 194 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Comb-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Counting-Sort | yes | yes | yes | yes | yes | 0 | 6 | proven | 279 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Counting-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Counting-Sort | yes | yes | yes | yes | yes | 0 | 6 | proven | 411 (restored) |  | sorting/Ada/Counting-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Cycle-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 539 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Cycle-Sort |  |
 | sorting/SPARK4/Ada-SPARK-Flashsort | yes | yes | yes | yes | yes | 0 | 6 | proven | 350 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Flashsort |  |
 | sorting/SPARK4/Ada-SPARK-Gnome-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 204 (restored) |  | sorting/Ada/Gnome-Sort |  |
