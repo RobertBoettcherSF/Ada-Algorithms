@@ -8,9 +8,9 @@ Monorepo of small Ada and SPARK algorithm folders (educational sheets). MIT lice
 | Headline (written by `make proof-index`) | Folders |
 |---|---:|
 | Algorithm folders (duplicates counted once) | 1838 |
-| Silver-proven, non-trivial (not stubs, more than 3 checks) | 505 |
-| Training-ready (stricter rule: mutants >= 90% killed, independent reference, 0 warnings without suppression, no unexplained proof escape; PROOFS.md) | recount in progress: the 2e8ee194 count of 134 did not apply the held-out mutation rule or functional withdrawals; at most 36 meet the strict rule |
-| Training-ready under the previous rule | 273 |
+| Silver-proven, non-trivial (not stubs, more than 3 checks) | 504 |
+| Training-ready (strict rule, docs/VV.md: blind held-out mutation >= 90% with n >= 20, independent reference, 0 warnings on GNAT 14 and 12 without suppression, no withdrawn or partial functional claim, no unexplained proof escape; reasons in PROOFS.csv `tr_drop`) | 58 |
+| Training-ready under the previous rule | 272 |
 | Open findings (`tools/vv/findings.csv`) | 68 |
 | Implementation candidates (stubs, column `implement_next`; docs/IMPLEMENT.md) | 144 |
 <!-- proof-index:end -->

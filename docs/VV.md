@@ -116,6 +116,24 @@ A folder that met the old rule (builds and tests on GNAT 12 and 14, Silver non-t
 7. **Index independence** (`index_independent` = yes, from `tools/vv/index_shift.csv`): every public subprogram that takes unconstrained arrays returns the same answer when the payload is placed at `'First = 0` and at `'First = 100` (and, when two or more arrays are taken, when they are shifted by *different* amounts). Midpoints use `Lo + (Hi - Lo) / 2`, never `(Lo+Hi)/2`; a `'First` near the index subtype's last value must not overflow under `-gnato`. In SPARK folders the overflow-free form is proved. Kind column: `shift_mismatch` / `midpoint_overflow` / `first_pinned` / `fixed_origin_type` / `ok`. Default fix is `'First`-relative indexing. When the algorithm is intentionally 1-based, prefer a subtype / constrained array type; a `Pre => A'First = 1` with a written one-line reason in `note` (and `fix_kind=fixed_origin_type`) also counts as fixed — not a shortcut. No reason → leave as `first_pinned` fail. Refuse clamps, Bubble_Finish-style fallbacks, `Warnings (Off)`, harnesses that cannot fail, silent zero-fill of unread cells, and epsilon tuned to one seed.
 
 
+### Strict training-ready rule as enforced (2026-10-09)
+
+Robert's strict rule, as `tools/proof_index.py` (`training_ready`, reasons in `tr_drop`) and the independent cross-check `tools/vv/recount_strict.py` apply it. A folder is training-ready only when ALL of these hold:
+
+1. Builds and its tests pass (uniform build and the folder's own `make test`) on GNAT 14.2.0 and on GNAT 12.2.0, both compiler versions verified.
+2. Zero warnings on both compilers, none suppressed (`warnings_suppressed.csv`).
+3. Silver-proven and non-trivial (more than 3 checks), with no proof escape lacking a written reason (`proof_escapes.csv`).
+4. No open finding (`findings.csv`, `findings_sweep.csv`, `findings_flagship.csv`).
+5. A known answer from own tests or a standard source (`own_tests.csv`, `sweep_progress.csv` tests_added, `tests/SOURCES_sweep.txt`, `kat_registry.csv`, `old_derived.csv`); twin agreement alone does not count, and the do-nothing check must not flag the tests weak.
+6. Index independence: not failed in `index_shift.csv`, and measured `ok` wherever the scan covers the folder.
+7. Held-out mutation: every held-out record (one per source family: `vv/results/mutation_halves.csv`; the flagship chain `flagship_mutation_phase2..6.csv`, later phase replaces earlier, phase-6 split halves added up unless a fresh set exists; `sweep_heldout_alt.csv`; `sweep_heldout_B.csv`; `*_halves.csv`, the top-up file replacing the first round) has k/n >= 90% with n >= 20 non-equivalent mutants, timeouts counted as survivors. Inside one file the folder's last row wins (top-up rows that fold into it supersede the earlier too-small row). A record labelled NOT BLIND, too small (or `enough_20` = no) or "does not meet the strict rule" fails. No record at all fails. Per-folder unseen top-ups run after a held half with n >= 20 are for information only (room decision above) and are not a separate record.
+8. Not masked (`sweep_masking.csv`), no live fallback (`sweep_fallback.csv`, call still in the file and not marked removed/fixed), not a demo (`flagship_status.csv`), not a stub (`-Stub` name not generalised, `readme_stubs.txt`, `hidden_stub.csv`, flagship stub candidate).
+9. No silent fail (`silent_fail.csv`), and the harness can fail (`silent_fail_plant.csv` / `silent_fail_answer_plant.csv`).
+10. flaky = no (`flaky.csv`); on a flaky folder no mutation score counts.
+11. No withdrawn functional claim (`checker_scan.csv` / `contract_scan.csv` withdraw_functional = yes) and no open `partial` contract verdict.
+
+`tools/vv/test_proof_index.py` runs both tools on synthetic control rows (one per failure mode plus one folder that meets everything) and checks each verdict and reason; the regenerated index is published only when the two tools list the same folders.
+
 Warnings (item 3) count distinct warning lines over the uniform `-gnatwa -gnat2022` build and the folder's own `make test` build. Some warnings appear only under the folder's own flags, for example `-gnata`.
 
 ## 3d. Do-nothing check
