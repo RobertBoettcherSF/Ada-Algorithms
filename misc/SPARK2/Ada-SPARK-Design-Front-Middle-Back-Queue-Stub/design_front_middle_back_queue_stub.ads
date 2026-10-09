@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Design-Front-Middle-Back-Queue implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Design_Front_Middle_Back_Queue_Stub is

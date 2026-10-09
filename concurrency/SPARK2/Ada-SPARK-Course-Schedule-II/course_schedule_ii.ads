@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Course-Schedule-II implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 package Course_Schedule_II with SPARK_Mode => On is
    Capacity : constant := 16;

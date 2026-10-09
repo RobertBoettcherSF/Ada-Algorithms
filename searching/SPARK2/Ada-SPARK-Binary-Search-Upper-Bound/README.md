@@ -1,5 +1,7 @@
 # Ada-SPARK-Binary-Search-Upper-Bound
 
+PLACEHOLDER: unrolled linear scan of six fixed positions; no halving; see tools/vv/hidden_stub.csv
+
 Binary search upper bound, in SPARK. `Input` is a sorted array of 32 values in -100 .. 100. Sortedness is the subtype predicate of `Input_Array`, and duplicates are allowed. `Find (Input, Target)` returns the first position whose value is > `Target`, or 33 if there is none.
 
 It is a half-open binary search over the 33 candidate positions. It reads the middle element and keeps the half that still holds the answer. It returns the position and the number of elements read (`Probes`).

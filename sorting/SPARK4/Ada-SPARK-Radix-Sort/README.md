@@ -1,5 +1,7 @@
 # Radix Sort Algorithm in Ada/SPARK
 
+PLACEHOLDER: one counting-sort pass (Base 256 = key range, so digit = key), not a multi-pass radix sort; see H144
+
 ## Project Overview
 This repository contains a formally verified educational implementation of [LSD radix sort](https://en.wikipedia.org/wiki/Radix_sort) (least-significant-digit) with a counting-sort digit pass on a bounded-key `Element` array. Written in Ada 2022 and verified with SPARK (GNATprove Level 4), it uses fixed $\mathrm{Base} = 256$ so a single byte digit covers every key in $0..\mathrm{Max\_Key}$ ($\mathrm{Max\_Key} = 255$), a static count table of size $k = \mathrm{Base}$, reconstruction emit, and $O(n+k)$ time.
 

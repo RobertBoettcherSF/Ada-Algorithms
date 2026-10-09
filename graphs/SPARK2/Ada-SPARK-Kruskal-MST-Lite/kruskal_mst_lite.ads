@@ -1,3 +1,4 @@
+--  PLACEHOLDER: sums every edge cost; no edge selection or union-find, so no spanning tree; see tools/vv/hidden_stub.csv
 pragma SPARK_Mode (On);
 
 package Kruskal_MST_Lite with SPARK_Mode => On is

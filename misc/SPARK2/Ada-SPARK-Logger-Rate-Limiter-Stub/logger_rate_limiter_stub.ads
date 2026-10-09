@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Logger-Rate-Limiter implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Logger_Rate_Limiter_Stub is

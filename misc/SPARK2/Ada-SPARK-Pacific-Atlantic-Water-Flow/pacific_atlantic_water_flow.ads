@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Pacific-Atlantic-Water-Flow implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 package Pacific_Atlantic_Water_Flow with SPARK_Mode => On is
    Size : constant := 8;

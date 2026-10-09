@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Product-Of-Numbers implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Product_Of_Numbers_Stub is

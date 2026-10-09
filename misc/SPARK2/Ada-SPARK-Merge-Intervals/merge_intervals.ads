@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Merge-Intervals implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 pragma SPARK_Mode (On);
 package Merge_Intervals is

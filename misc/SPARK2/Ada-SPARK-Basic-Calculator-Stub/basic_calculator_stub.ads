@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Basic-Calculator implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Basic_Calculator_Stub is

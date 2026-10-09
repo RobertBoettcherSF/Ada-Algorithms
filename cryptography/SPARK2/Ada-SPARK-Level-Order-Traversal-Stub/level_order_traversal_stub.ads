@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Level-Order-Traversal implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Level_Order_Traversal_Stub is

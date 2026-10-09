@@ -1,3 +1,4 @@
+--  PLACEHOLDER: answers come from a case table, not a nested-list iterator; see H112
 pragma SPARK_Mode (On);
 package Nested_Iterator_Stub is
    Capacity : constant := 8;

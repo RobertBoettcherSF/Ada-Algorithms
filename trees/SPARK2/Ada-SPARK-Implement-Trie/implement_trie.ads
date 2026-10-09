@@ -1,3 +1,4 @@
+--  PLACEHOLDER: flat word list with linear lookup; no trie nodes; see tools/vv/hidden_stub.csv
 pragma Ada_2022;
 
 package Implement_Trie with SPARK_Mode => On is

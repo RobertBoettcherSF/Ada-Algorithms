@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Count-The-Number-Of-Consistent-Strings implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package Count_The_Number_Of_Consistent_Strings with SPARK_Mode => On is

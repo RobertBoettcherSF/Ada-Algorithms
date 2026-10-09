@@ -1,3 +1,4 @@
+--  PLACEHOLDER: Lookup is a linear longest-prefix-match scan over the route list, not a Lulea compressed trie; see H165
 --  Lulea_Algorithm.ads — structural rewrite (2026-10-08).
 --  The previous AI-generated spec did not compile (component/type name clashes,
 --  unconstrained record components, uninstantiated Vectors, discriminant misuse).

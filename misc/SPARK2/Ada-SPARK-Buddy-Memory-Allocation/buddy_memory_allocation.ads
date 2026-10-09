@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Buddy-Memory-Allocation implementation; see tools/readme_stubs.txt
 pragma SPARK_Mode (On);
 package Buddy_Memory_Allocation is
    Pool_Size : constant := 16;

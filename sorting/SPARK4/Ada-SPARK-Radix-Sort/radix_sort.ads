@@ -1,3 +1,4 @@
+--  PLACEHOLDER: one counting-sort pass (Base 256 = key range, so digit = key), not a multi-pass radix sort; see H144
 --  Radix_Sort — Ada/SPARK Level 4 educational package for LSD (least-
 --  significant-digit) radix sort with a counting-sort digit pass on a
 --  bounded-key Element array. Fixed byte Base = 256; keys in

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: fixed 8-element bubble sort under a bitonic-sort name; the Post only bounds the elements; see H102
 pragma Ada_2022;
 
 package Bitonic_Sort with SPARK_Mode => On is

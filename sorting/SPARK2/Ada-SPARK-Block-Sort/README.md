@@ -1,5 +1,7 @@
 # Ada-SPARK-Block-Sort
 
+PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a block-sort name; see tools/vv/hidden_stub.csv
+
 A bounded Ada 2022 SPARK `block`-sort reference with arrays of eight values.
 
 ```sh

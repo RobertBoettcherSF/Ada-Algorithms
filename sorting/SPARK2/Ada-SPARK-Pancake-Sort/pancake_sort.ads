@@ -1,3 +1,4 @@
+--  PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a pancake-sort name; see tools/vv/hidden_stub.csv
 pragma Ada_2022;
 
 package Pancake_Sort with SPARK_Mode => On is

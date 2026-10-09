@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Tic-Tac-Toe implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Tic_Tac_Toe_Stub is

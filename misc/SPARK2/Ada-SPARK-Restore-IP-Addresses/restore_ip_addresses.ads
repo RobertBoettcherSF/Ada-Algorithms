@@ -1,3 +1,4 @@
+--  PLACEHOLDER: only counts valid 1 .. 3 digit segments at the first positions; no addresses are restored; see H123
 pragma Ada_2022;
 
 package Restore_IP_Addresses with SPARK_Mode => On is

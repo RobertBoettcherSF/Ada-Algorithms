@@ -1,3 +1,4 @@
+--  PLACEHOLDER: labels a fixed 2 x 2 grid only; see H126
 --  Bounded Ada/SPARK connected-component labeling (4-connectivity).
 pragma Ada_2022;
 package Connected_Component_Labeling

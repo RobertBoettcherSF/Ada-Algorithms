@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Find-Common-Characters implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package Find_Common_Characters with SPARK_Mode => On is

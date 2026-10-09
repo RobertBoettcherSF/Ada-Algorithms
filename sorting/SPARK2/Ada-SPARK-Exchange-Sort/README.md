@@ -1,5 +1,7 @@
 # Ada-SPARK-Exchange-Sort
 
+PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Exchange-Sort implementation; see tools/readme_stubs.txt
+
 A small bounded Ada/SPARK exchange sort. `Input_Array` has eight values in `0 .. 31`.
 
 ## Algorithm

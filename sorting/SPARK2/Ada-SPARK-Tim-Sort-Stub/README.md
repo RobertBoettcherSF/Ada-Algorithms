@@ -1,5 +1,7 @@
 # Ada-SPARK-Tim-Sort-Stub
 
+PLACEHOLDER: insertion sort under a Timsort name (no runs, no merging); the Post states sortedness only; see H109
+
 The insertion-sort kernel of Timsort (the step Timsort runs inside each min-run), in Ada 2022 with `SPARK_Mode => On`.
 
 `Sort` takes any `Value_Array` (any `Positive` index range, length $n \le 10\,000$ = `Max_Len`) and returns an array with the same bounds that is sorted: $r_i \le r_j$ for all $i \le j$. Sortedness is a proved postcondition (Silver, `--level=2`); that the result is a permutation of the input is checked by the tests, not proved. Worst case $O(n^2)$ comparisons.

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Vector-2D implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 package Vector_2D_Stub is
    subtype Coordinate is Integer range -10 .. 10;

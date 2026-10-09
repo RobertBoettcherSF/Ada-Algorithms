@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Swim-In-Rising-Water implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Swim_In_Rising_Water_Stub is

@@ -1,5 +1,7 @@
 # Ada-SPARK-Shortest-Path-In-Binary-Matrix
 
+PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Shortest-Path-In-Binary-Matrix implementation; see tools/readme_stubs.txt
+
 Shortest path in an 8x8 binary matrix (bounded SPARK stub).
 
 The implementation deliberately fixes the input to an 8x8 binary grid so the

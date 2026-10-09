@@ -1,5 +1,7 @@
 # SIFT Implementation in Ada
 
+PLACEHOLDER: every SIFT stage is a placeholder (scale space only checks sizes, no extrema, zero descriptors); see H166
+
 ## Project Overview
 This repository contains a robust implementation of the Scale-Invariant Feature Transform (SIFT) algorithm, designed with Ada's strong typing principles for safety and reliability.
 

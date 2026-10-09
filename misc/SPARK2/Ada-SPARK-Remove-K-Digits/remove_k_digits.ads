@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Remove-K-Digits implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package Remove_K_Digits with SPARK_Mode => On is

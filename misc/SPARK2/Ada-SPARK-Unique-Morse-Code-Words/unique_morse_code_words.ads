@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Unique-Morse-Code-Words implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package Unique_Morse_Code_Words with SPARK_Mode => On is

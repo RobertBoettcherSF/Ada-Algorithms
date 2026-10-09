@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Validate-BST implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Validate_BST_Stub is

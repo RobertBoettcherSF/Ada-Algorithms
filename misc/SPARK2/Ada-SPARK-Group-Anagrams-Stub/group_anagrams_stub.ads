@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Group-Anagrams implementation; see PROOFS.csv stub
 pragma Ada_2022;
 
 package Group_Anagrams_Stub with SPARK_Mode => On is

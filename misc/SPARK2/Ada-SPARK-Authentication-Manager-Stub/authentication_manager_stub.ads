@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Authentication-Manager implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Authentication_Manager_Stub is

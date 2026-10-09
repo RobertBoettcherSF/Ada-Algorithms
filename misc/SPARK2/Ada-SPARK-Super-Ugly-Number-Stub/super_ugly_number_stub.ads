@@ -1,3 +1,4 @@
+--  PLACEHOLDER: answers come from a 24-entry constant table, nothing is computed; see H114
 pragma Ada_2022;
 
 package Super_Ugly_Number_Stub with SPARK_Mode => On is

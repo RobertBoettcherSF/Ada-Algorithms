@@ -1,3 +1,4 @@
+--  PLACEHOLDER: answers come from a case table, not a peeking iterator; see H113
 pragma SPARK_Mode (On);
 package Peeking_Iterator_Stub is
    Capacity : constant := 8;

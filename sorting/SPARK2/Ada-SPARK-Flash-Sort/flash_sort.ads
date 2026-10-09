@@ -1,3 +1,4 @@
+--  PLACEHOLDER: fixed 8-element bubble sort under a flash-sort name; the Post only bounds the elements; see H104
 pragma Ada_2022;
 
 package Flash_Sort with SPARK_Mode => On is

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: only sums all booked seats; no per-flight totals (no range-update / prefix-sum answer); see H120
 pragma Ada_2022;
 
 package Corporate_Flight_Bookings with SPARK_Mode => On is

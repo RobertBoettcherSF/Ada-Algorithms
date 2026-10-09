@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Max-Area-Of-Island implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 package Max_Area_Of_Island with SPARK_Mode => On is
    Size : constant := 8;

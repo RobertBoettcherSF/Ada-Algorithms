@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Accounts-Merge implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Accounts_Merge_Stub is

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Tweet-Counts implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Tweet_Counts_Stub is

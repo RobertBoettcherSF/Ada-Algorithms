@@ -1,5 +1,7 @@
 # Ada-SPARK-Kth-Smallest-BST-Stub
 
+PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Kth-Smallest-BST implementation; see PROOFS.csv stub
+
 Bounded SPARK implementation of k-th smallest BST.
 
 ## Verification

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Time-Map implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Time_Map_Stub is

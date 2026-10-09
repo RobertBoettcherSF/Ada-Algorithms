@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Shortest-Path-In-Binary-Matrix implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package Shortest_Path_In_Binary_Matrix with SPARK_Mode => On is

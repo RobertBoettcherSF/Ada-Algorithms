@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Stock-Spanner implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Stock_Spanner_Stub is

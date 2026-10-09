@@ -1,5 +1,7 @@
 # Ada-SPARK-Delete-Node-BST-Stub
 
+PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Delete-Node-BST implementation; see PROOFS.csv stub
+
 A bounded SPARK implementation of delete values from a bounded bst model.
 
 ## Verification

@@ -1,5 +1,7 @@
 # Ada-SPARK-Trim-BST-Stub
 
+PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Trim-BST implementation; see PROOFS.csv stub
+
 A bounded SPARK implementation of trim a bounded bst to a value range.
 
 ## Verification

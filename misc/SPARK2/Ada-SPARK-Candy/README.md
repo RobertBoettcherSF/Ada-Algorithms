@@ -1,5 +1,7 @@
 # Ada-SPARK-Candy
 
+PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Candy implementation; see tools/readme_stubs.txt
+
 Small bounded SPARK stub for the Candy problem.
 
 - Arrays are fixed at 32 elements or fewer.

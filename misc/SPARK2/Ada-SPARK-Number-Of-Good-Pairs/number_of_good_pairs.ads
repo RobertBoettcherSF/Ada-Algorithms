@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Number-Of-Good-Pairs implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package Number_Of_Good_Pairs with SPARK_Mode => On is

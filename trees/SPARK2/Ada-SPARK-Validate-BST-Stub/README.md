@@ -1,5 +1,7 @@
 # Ada-SPARK-Validate-BST-Stub
 
+PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Validate-BST implementation; see PROOFS.csv stub
+
 Bounded SPARK implementation of BST validation.
 
 ## Verification

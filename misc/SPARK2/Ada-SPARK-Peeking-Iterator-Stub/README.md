@@ -1,5 +1,7 @@
 # Ada-SPARK-Peeking-Iterator-Stub
 
+PLACEHOLDER: answers come from a case table, not a peeking iterator; see H113
+
 A bounded iterator supporting look-ahead without consuming the next value.
 
 ## Verification

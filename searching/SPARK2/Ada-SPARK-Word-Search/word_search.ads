@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Word-Search implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 package Word_Search with SPARK_Mode => On is
    Size : constant := 8;

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full My-Calendar implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package My_Calendar_Stub is

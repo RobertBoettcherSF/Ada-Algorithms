@@ -1,3 +1,4 @@
+--  PLACEHOLDER: only picks a maximum digit / prefix of two fixed arrays, not the full create-maximum-number algorithm; see H121
 pragma Ada_2022;
 
 package Create_Maximum_Number_Lite with SPARK_Mode => On is

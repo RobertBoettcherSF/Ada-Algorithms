@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full My-Linked-List implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package My_Linked_List_Stub is

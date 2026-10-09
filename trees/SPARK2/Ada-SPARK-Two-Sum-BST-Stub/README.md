@@ -1,5 +1,7 @@
 # Ada-SPARK-Two-Sum-BST-Stub
 
+PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Two-Sum-BST implementation; see PROOFS.csv stub
+
 A bounded SPARK implementation of find a pair summing to a target in a bounded bst model.
 
 ## Verification

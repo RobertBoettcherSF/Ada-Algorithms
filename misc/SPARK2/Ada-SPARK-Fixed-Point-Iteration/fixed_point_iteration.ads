@@ -1,3 +1,4 @@
+--  PLACEHOLDER: one hard-wired map run for 10 steps; no general function and no convergence test; see tools/vv/hidden_stub.csv
 pragma Ada_2022;
 package Fixed_Point_Iteration with SPARK_Mode => On is
    subtype Value is Integer range 0 .. 1_000;

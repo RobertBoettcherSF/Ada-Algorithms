@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Bulb-Switcher implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Bulb_Switcher_Stub is

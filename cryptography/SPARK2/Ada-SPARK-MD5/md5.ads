@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full MD5 implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 package MD5 with SPARK_Mode => On is
    Max_Message_Length : constant := 64;

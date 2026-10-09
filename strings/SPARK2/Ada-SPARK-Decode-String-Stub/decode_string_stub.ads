@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Decode-String implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Decode_String_Stub is

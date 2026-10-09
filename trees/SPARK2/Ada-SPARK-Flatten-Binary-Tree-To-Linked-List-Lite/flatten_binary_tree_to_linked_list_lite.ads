@@ -1,3 +1,4 @@
+--  PLACEHOLDER: a hard-coded index permutation for one complete-tree shape; no traversal; see tools/vv/hidden_stub.csv
 pragma Ada_2022;
 
 package Flatten_Binary_Tree_To_Linked_List_Lite with SPARK_Mode => On is

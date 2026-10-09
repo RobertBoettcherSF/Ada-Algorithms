@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Candy implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 pragma SPARK_Mode (On);
 package Candy is

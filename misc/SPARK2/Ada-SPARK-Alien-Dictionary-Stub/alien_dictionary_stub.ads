@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Alien-Dictionary implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Alien_Dictionary_Stub is

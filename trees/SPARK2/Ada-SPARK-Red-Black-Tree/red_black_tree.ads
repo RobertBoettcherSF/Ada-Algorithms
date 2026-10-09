@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Red-Black-Tree implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 package Red_Black_Tree
   with SPARK_Mode => On

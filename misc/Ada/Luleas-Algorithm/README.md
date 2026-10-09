@@ -1,5 +1,7 @@
 # Ada-Luleas-Algorithm
 
+PLACEHOLDER: Lookup is a linear longest-prefix-match scan over the route list, not a Lulea compressed trie; see H165
+
 Ada implementation of the **Luleå Algorithm** for efficient IPv4 routing table lookups.
 
 ---

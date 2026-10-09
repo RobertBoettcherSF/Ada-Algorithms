@@ -1,0 +1,157 @@
+folder,ref,what,status
+concurrency/SPARK2/Ada-SPARK-Course-Schedule-II,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Course-Schedule-II implementation",open
+concurrency/SPARK2/Ada-SPARK-Course-Schedule-II-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Course-Schedule-II implementation",open
+concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub,PROOFS.csv stub,,"closed 162d05c1 (stable shortest-job-first, proved)"
+cryptography/SPARK2/Ada-SPARK-Level-Order-Traversal-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Level-Order-Traversal implementation",open
+cryptography/SPARK2/Ada-SPARK-MD5,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full MD5 implementation",open
+cryptography/SPARK2/Ada-SPARK-SHA-1,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full SHA-1 implementation",open
+graphs/SPARK2/Ada-SPARK-Clone-Graph-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Clone-Graph implementation",open
+graphs/SPARK2/Ada-SPARK-Kruskal-MST-Lite,tools/vv/hidden_stub.csv,"sums every edge cost; no edge selection or union-find, so no spanning tree",open
+graphs/SPARK2/Ada-SPARK-Shortest-Path-In-Binary-Matrix,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Shortest-Path-In-Binary-Matrix implementation",open
+hashing/SPARK2/Ada-SPARK-Design-HashMap-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Design-HashMap implementation",open
+hashing/SPARK2/Ada-SPARK-Design-HashSet-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Design-HashSet implementation",open
+misc/Ada/Luleas-Algorithm,H165,"Lookup is a linear longest-prefix-match scan over the route list, not a Lulea compressed trie",open
+misc/Ada/Scale-Invariant-Feature-Transform,H166,"every SIFT stage is a placeholder (scale space only checks sizes, no extrema, zero descriptors)",open
+misc/SPARK2/Ada-SPARK-Accounts-Merge-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Accounts-Merge implementation",open
+misc/SPARK2/Ada-SPARK-Alert-Using-Same-Key-Card-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Alert-Using-Same-Key-Card implementation",open
+misc/SPARK2/Ada-SPARK-Alien-Dictionary-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Alien-Dictionary implementation",open
+misc/SPARK2/Ada-SPARK-Assign-Cookies,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Assign-Cookies implementation",open
+misc/SPARK2/Ada-SPARK-Authentication-Manager-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Authentication-Manager implementation",open
+misc/SPARK2/Ada-SPARK-Basic-Calculator-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Basic-Calculator implementation",open
+misc/SPARK2/Ada-SPARK-Browser-History-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Browser-History implementation",open
+misc/SPARK2/Ada-SPARK-Buddy-Memory-Allocation,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Buddy-Memory-Allocation implementation",open
+misc/SPARK2/Ada-SPARK-Bulb-Switcher-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Bulb-Switcher implementation",open
+misc/SPARK2/Ada-SPARK-Candy,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Candy implementation",open
+misc/SPARK2/Ada-SPARK-Cheapest-Flights-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Cheapest-Flights implementation",open
+misc/SPARK2/Ada-SPARK-Circular-Deque-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Circular-Deque implementation",open
+misc/SPARK2/Ada-SPARK-Combination-Iterator-Stub,H111,"answers come from a case table, not a combination iterator",open
+misc/SPARK2/Ada-SPARK-Connected-Component-Labeling,H126,labels a fixed 2 x 2 grid only,open
+misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings,H120,only sums all booked seats; no per-flight totals (no range-update / prefix-sum answer),open
+misc/SPARK2/Ada-SPARK-Count-Sub-Islands,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Count-Sub-Islands implementation",open
+misc/SPARK2/Ada-SPARK-Create-Maximum-Number-Lite,H121,"only picks a maximum digit / prefix of two fixed arrays, not the full create-maximum-number algorithm",open
+misc/SPARK2/Ada-SPARK-Decode-Ways-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Decode-Ways implementation",open
+misc/SPARK2/Ada-SPARK-Delete-And-Earn-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Delete-And-Earn implementation",open
+misc/SPARK2/Ada-SPARK-Design-Circular-Queue-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Design-Circular-Queue implementation",open
+misc/SPARK2/Ada-SPARK-Design-Front-Middle-Back-Queue-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Design-Front-Middle-Back-Queue implementation",open
+misc/SPARK2/Ada-SPARK-Encode-And-Decode-TinyURL-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Encode-And-Decode-TinyURL implementation",open
+misc/SPARK2/Ada-SPARK-Evaluate-Division-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Evaluate-Division implementation",open
+misc/SPARK2/Ada-SPARK-Find-Common-Characters,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Find-Common-Characters implementation",open
+misc/SPARK2/Ada-SPARK-Find-Median-Data-Stream-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Find-Median-Data-Stream implementation",open
+misc/SPARK2/Ada-SPARK-Fixed-Point-Iteration,tools/vv/hidden_stub.csv,one hard-wired map run for 10 steps; no general function and no convergence test,open
+misc/SPARK2/Ada-SPARK-Flatten-Nested-List-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Flatten-Nested-List implementation",open
+misc/SPARK2/Ada-SPARK-Gas-Station,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Gas-Station implementation",open
+misc/SPARK2/Ada-SPARK-Get-Maximum-In-Generated-Array,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Get-Maximum-In-Generated-Array implementation",open
+misc/SPARK2/Ada-SPARK-Group-Anagrams-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Group-Anagrams implementation",open
+misc/SPARK2/Ada-SPARK-Hand-Of-Straights-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Hand-Of-Straights implementation",open
+misc/SPARK2/Ada-SPARK-Heap-Push-Pop,tools/vv/hidden_stub.csv,unsorted array with a linear minimum search and a full re-sort; no heap,open
+misc/SPARK2/Ada-SPARK-Hit-Counter-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Hit-Counter implementation",open
+misc/SPARK2/Ada-SPARK-House-Robber-III-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full House-Robber-III implementation",open
+misc/SPARK2/Ada-SPARK-How-Many-Numbers-Are-Smaller,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full How-Many-Numbers-Are-Smaller implementation",open
+misc/SPARK2/Ada-SPARK-Insert-Interval,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Insert-Interval implementation",open
+misc/SPARK2/Ada-SPARK-Int-To-Roman-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Int-To-Roman implementation",open
+misc/SPARK2/Ada-SPARK-Integer-To-English-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Integer-To-English implementation",open
+misc/SPARK2/Ada-SPARK-Intersection-Of-Two-Arrays-II,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Intersection-Of-Two-Arrays-II implementation",open
+misc/SPARK2/Ada-SPARK-Is-Subsequence,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Is-Subsequence implementation",open
+misc/SPARK2/Ada-SPARK-Jump-Game-II,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Jump-Game-II implementation",open
+misc/SPARK2/Ada-SPARK-K-Closest-Points-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full K-Closest-Points implementation",open
+misc/SPARK2/Ada-SPARK-Kth-Largest-In-Stream-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Kth-Largest-In-Stream implementation",open
+misc/SPARK2/Ada-SPARK-LFU-Cache-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full LFU-Cache implementation",open
+misc/SPARK2/Ada-SPARK-LRU-Cache-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full LRU-Cache implementation",open
+misc/SPARK2/Ada-SPARK-Logger-Rate-Limiter-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Logger-Rate-Limiter implementation",open
+misc/SPARK2/Ada-SPARK-Max-Area-Of-Island,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Max-Area-Of-Island implementation",open
+misc/SPARK2/Ada-SPARK-Max-Path-Sum-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Max-Path-Sum implementation",open
+misc/SPARK2/Ada-SPARK-Max-Stack-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Max-Stack implementation",open
+misc/SPARK2/Ada-SPARK-Merge-Intervals,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Merge-Intervals implementation",open
+misc/SPARK2/Ada-SPARK-Min-Cost-Connect-Cities-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Min-Cost-Connect-Cities implementation",open
+misc/SPARK2/Ada-SPARK-Missing-Ranges-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Missing-Ranges implementation",open
+misc/SPARK2/Ada-SPARK-My-Calendar-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full My-Calendar implementation",open
+misc/SPARK2/Ada-SPARK-My-Linked-List-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full My-Linked-List implementation",open
+misc/SPARK2/Ada-SPARK-N-Repeated-Element-In-Size-2N-Array,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full N-Repeated-Element-In-Size-2N-Array implementation",open
+misc/SPARK2/Ada-SPARK-Nested-Iterator-Stub,H112,"answers come from a case table, not a nested-list iterator",open
+misc/SPARK2/Ada-SPARK-Network-Delay-Time-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Network-Delay-Time implementation",open
+misc/SPARK2/Ada-SPARK-Next-Permutation-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Next-Permutation implementation",open
+misc/SPARK2/Ada-SPARK-Non-Overlapping-Intervals,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Non-Overlapping-Intervals implementation",open
+misc/SPARK2/Ada-SPARK-Number-Of-Good-Pairs,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Number-Of-Good-Pairs implementation",open
+misc/SPARK2/Ada-SPARK-Number-Of-Islands,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Number-Of-Islands implementation",open
+misc/SPARK2/Ada-SPARK-Online-Stock-Span-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Online-Stock-Span implementation",open
+misc/SPARK2/Ada-SPARK-Ordered-Stream-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Ordered-Stream implementation",open
+misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Flow,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Pacific-Atlantic-Water-Flow implementation",open
+misc/SPARK2/Ada-SPARK-Pacific-Atlantic-Water-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Pacific-Atlantic-Water implementation",open
+misc/SPARK2/Ada-SPARK-Paint-House-Lite,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Paint-House-Lite implementation",open
+misc/SPARK2/Ada-SPARK-Paint-House-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Paint-House implementation",open
+misc/SPARK2/Ada-SPARK-Parking-System-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Parking-System implementation",open
+misc/SPARK2/Ada-SPARK-Peeking-Iterator-Stub,H113,"answers come from a case table, not a peeking iterator",open
+misc/SPARK2/Ada-SPARK-Product-Of-Numbers-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Product-Of-Numbers implementation",open
+misc/SPARK2/Ada-SPARK-Range-Module-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Range-Module implementation",open
+misc/SPARK2/Ada-SPARK-Remove-K-Digits,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Remove-K-Digits implementation",open
+misc/SPARK2/Ada-SPARK-Restore-IP-Addresses,H123,only counts valid 1 .. 3 digit segments at the first positions; no addresses are restored,open
+misc/SPARK2/Ada-SPARK-Seat-Manager-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Seat-Manager implementation",open
+misc/SPARK2/Ada-SPARK-Simplify-Path-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Simplify-Path implementation",open
+misc/SPARK2/Ada-SPARK-Snapshot-Array-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Snapshot-Array implementation",open
+misc/SPARK2/Ada-SPARK-Spearman-Rank-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Spearman-Rank implementation",open
+misc/SPARK2/Ada-SPARK-Stack-Using-Queues-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Stack-Using-Queues implementation",open
+misc/SPARK2/Ada-SPARK-Stock-Spanner-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Stock-Spanner implementation",open
+misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub,H114,"answers come from a 24-entry constant table, nothing is computed",open
+misc/SPARK2/Ada-SPARK-Surrounded-Regions,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Surrounded-Regions implementation",open
+misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Swim-In-Rising-Water implementation",open
+misc/SPARK2/Ada-SPARK-Target-Sum-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Target-Sum implementation",open
+misc/SPARK2/Ada-SPARK-Three-Sum-Closest-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Three-Sum-Closest implementation",open
+misc/SPARK2/Ada-SPARK-Tic-Tac-Toe-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Tic-Tac-Toe implementation",open
+misc/SPARK2/Ada-SPARK-Time-Map-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Time-Map implementation",open
+misc/SPARK2/Ada-SPARK-Top-K-Frequent-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Top-K-Frequent implementation",open
+misc/SPARK2/Ada-SPARK-Tweet-Counts-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Tweet-Counts implementation",open
+misc/SPARK2/Ada-SPARK-Uncommon-Words-From-Two-Sentences,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Uncommon-Words-From-Two-Sentences implementation",open
+misc/SPARK2/Ada-SPARK-Underground-System-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Underground-System implementation",open
+misc/SPARK2/Ada-SPARK-Unique-Morse-Code-Words,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Unique-Morse-Code-Words implementation",open
+misc/SPARK2/Ada-SPARK-Valid-IP-Address-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Valid-IP-Address implementation",open
+misc/SPARK2/Ada-SPARK-Valid-Number-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Valid-Number implementation",open
+misc/SPARK2/Ada-SPARK-Valid-Sudoku-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Valid-Sudoku implementation",open
+misc/SPARK2/Ada-SPARK-Vector-2D-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Vector-2D implementation",open
+misc/SPARK2/Ada-SPARK-Word-Break-II,H122,has no word list; only counts splits of a 4-symbol word into single symbols,open
+misc/SPARK2/Ada-SPARK-Word-Break-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Word-Break implementation",open
+misc/SPARK2/Ada-SPARK-Word-Ladder-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Word-Ladder implementation",open
+misc/SPARK2/Ada-SPARK-Zigzag-Iterator-Stub,H115,"answers come from a case table, not a zigzag iterator",open
+numerical/SPARK2/Ada-SPARK-Count-Primes,H119,"answers come from an 11-arm case table, no sieve",open
+numerical/SPARK2/Ada-SPARK-Count-Primes-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Count-Primes implementation",open
+parsing/SPARK2/Ada-SPARK-Sparse-Vector-Dot-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Sparse-Vector-Dot implementation",open
+searching/SPARK2/Ada-SPARK-Binary-Search-Upper-Bound,tools/vv/hidden_stub.csv,unrolled linear scan of six fixed positions; no halving,open
+searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees,H116,"returns a constant table of 17 Catalan numbers, nothing is computed",open
+searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite,tools/vv/hidden_stub.csv,Root_Choices (N) returns N; no trees are generated,open
+searching/SPARK2/Ada-SPARK-Validate-Binary-Search-Tree,H125,toy-size validator with a 256-step limit and a stack-full guard that can skip nodes,open
+searching/SPARK2/Ada-SPARK-Word-Search,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Word-Search implementation",open
+sorting/SPARK2/Ada-SPARK-Bitonic-Sort,H102,fixed 8-element bubble sort under a bitonic-sort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Block-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a block-sort name,open
+sorting/SPARK2/Ada-SPARK-Circle-Sort,H103,fixed 8-element bubble sort under a circle-sort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST,H124,always fills the same 7 fixed slots; no general array-to-BST construction,open
+sorting/SPARK2/Ada-SPARK-Exchange-Sort,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Exchange-Sort implementation",open
+sorting/SPARK2/Ada-SPARK-Flash-Sort,H104,fixed 8-element bubble sort under a flash-sort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Heap-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a heap-sort name,open
+sorting/SPARK2/Ada-SPARK-Intro-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a intro-sort name,open
+sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Merge-K-Sorted-Lists implementation",open
+sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,H105,fixed 8-element bubble sort under an odd-even-merge-sort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Pancake-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a pancake-sort name,open
+sorting/SPARK2/Ada-SPARK-Patience-Sort,H106,fixed 8-element bubble sort under a patience-sort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Quick-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a quick-sort name,open
+sorting/SPARK2/Ada-SPARK-Shaker-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a shaker-sort name,open
+sorting/SPARK2/Ada-SPARK-Smooth-Sort,H107,fixed 8-element bubble sort under a smoothsort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Tim-Sort,H108,fixed 8-element bubble sort under a Timsort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,H109,"insertion sort under a Timsort name (no runs, no merging); the Post states sortedness only",open
+sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite,H127,only judges a given order (leniently); no topological order is computed,open
+sorting/SPARK2/Ada-SPARK-Tournament-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a tournament-sort name,open
+sorting/SPARK2/Binary-Insertion-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a binary-insertion-sort name,open
+sorting/SPARK4/Ada-SPARK-Radix-Sort,H144,"one counting-sort pass (Base 256 = key range, so digit = key), not a multi-pass radix sort",open
+strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Count-The-Number-Of-Consistent-Strings implementation",open
+strings/SPARK2/Ada-SPARK-Decode-String-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Decode-String implementation",open
+strings/SPARK2/Ada-SPARK-Reorganize-String-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Reorganize-String implementation",open
+strings/SPARK2/Ada-SPARK-String-To-Integer-Atoi-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full String-To-Integer-Atoi implementation",open
+trees/SPARK2/Ada-SPARK-BST-Iterator-Stub,H117,"answers come from a case table, not a BST iterator",open
+trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View,tools/vv/hidden_stub.csv,"returns fixed positions 1, 3, 7, 15 of a complete tree; no traversal",open
+trees/SPARK2/Ada-SPARK-Delete-Node-BST-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Delete-Node-BST implementation",open
+trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite,tools/vv/hidden_stub.csv,a hard-coded index permutation for one complete-tree shape; no traversal,open
+trees/SPARK2/Ada-SPARK-Implement-Trie,tools/vv/hidden_stub.csv,flat word list with linear lookup; no trie nodes,open
+trees/SPARK2/Ada-SPARK-Kth-Smallest-BST-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Kth-Smallest-BST implementation",open
+trees/SPARK2/Ada-SPARK-Red-Black-Tree,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Red-Black-Tree implementation",open
+trees/SPARK2/Ada-SPARK-Trim-BST-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Trim-BST implementation",open
+trees/SPARK2/Ada-SPARK-Two-Sum-BST-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Two-Sum-BST implementation",open
+trees/SPARK2/Ada-SPARK-Unique-BSTs-Stub,PROOFS.csv stub,,"closed 51918854 (H118: DP sum, proved)"
+trees/SPARK2/Ada-SPARK-Validate-BST-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Validate-BST implementation",open

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Integer-To-English implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Integer_To_English is

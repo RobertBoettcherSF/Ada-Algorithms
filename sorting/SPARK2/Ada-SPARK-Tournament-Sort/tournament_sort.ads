@@ -1,3 +1,4 @@
+--  PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a tournament-sort name; see tools/vv/hidden_stub.csv
 pragma Ada_2022;
 
 package Tournament_Sort with SPARK_Mode => On is

@@ -1,5 +1,7 @@
 # Ada-SPARK-Nested-Iterator-Stub
 
+PLACEHOLDER: answers come from a case table, not a nested-list iterator; see H112
+
 A bounded iterator over the flattened view of nested integer data.
 
 ## Verification

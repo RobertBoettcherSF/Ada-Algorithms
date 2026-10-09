@@ -1,5 +1,7 @@
 # Ada-SPARK-Shaker-Sort
 
+PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a shaker-sort name; see tools/vv/hidden_stub.csv
+
 A bounded Ada 2022 SPARK `shaker`-sort reference with arrays of eight values.
 
 ```sh

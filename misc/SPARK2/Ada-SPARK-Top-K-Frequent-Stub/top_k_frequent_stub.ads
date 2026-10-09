@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Top-K-Frequent implementation; see PROOFS.csv stub
 pragma Ada_2022;
 
 package Top_K_Frequent_Stub with SPARK_Mode => On is

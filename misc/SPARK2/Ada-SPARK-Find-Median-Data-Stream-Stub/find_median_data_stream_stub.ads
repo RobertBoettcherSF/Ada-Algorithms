@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Find-Median-Data-Stream implementation; see PROOFS.csv stub
 pragma Ada_2022;
 
 package Find_Median_Data_Stream_Stub with SPARK_Mode => On is

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Hit-Counter implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Hit_Counter_Stub is

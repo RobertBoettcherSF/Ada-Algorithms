@@ -1,3 +1,4 @@
+--  PLACEHOLDER: returns fixed positions 1, 3, 7, 15 of a complete tree; no traversal; see tools/vv/hidden_stub.csv
 pragma Ada_2022;
 
 package Binary_Tree_Right_Side_View with SPARK_Mode => On is

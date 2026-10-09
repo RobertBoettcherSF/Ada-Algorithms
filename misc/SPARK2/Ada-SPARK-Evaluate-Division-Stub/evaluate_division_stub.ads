@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Evaluate-Division implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Evaluate_Division_Stub is

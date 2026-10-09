@@ -1,3 +1,4 @@
+--  PLACEHOLDER: always fills the same 7 fixed slots; no general array-to-BST construction; see H124
 pragma SPARK_Mode (On);
 
 package Convert_Sorted_Array_To_BST is

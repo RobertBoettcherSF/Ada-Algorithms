@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Min-Cost-Connect-Cities implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Min_Cost_Connect_Cities_Stub is

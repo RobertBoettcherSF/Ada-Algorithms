@@ -1,5 +1,7 @@
 # Ada-SPARK-Validate-Binary-Search-Tree
 
+PLACEHOLDER: toy-size validator with a 256-step limit and a stack-full guard that can skip nodes; see H125
+
 Validation of bounded array-backed binary search trees.
 
 Bounded to 15 addressable nodes with fixed-size array-backed storage and `SPARK_Mode (On)`.

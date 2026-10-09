@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Network-Delay-Time implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Network_Delay_Time_Stub is

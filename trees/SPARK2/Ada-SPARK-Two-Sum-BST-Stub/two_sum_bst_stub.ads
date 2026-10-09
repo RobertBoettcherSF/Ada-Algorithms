@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Two-Sum-BST implementation; see PROOFS.csv stub
 pragma Ada_2022;
 
 package Two_Sum_BST_Stub with SPARK_Mode => On is

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Missing-Ranges implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Missing_Ranges_Stub is

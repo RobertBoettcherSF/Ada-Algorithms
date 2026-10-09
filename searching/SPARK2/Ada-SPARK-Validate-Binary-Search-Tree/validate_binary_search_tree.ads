@@ -1,3 +1,4 @@
+--  PLACEHOLDER: toy-size validator with a 256-step limit and a stack-full guard that can skip nodes; see H125
 pragma SPARK_Mode (On);
 
 package Validate_Binary_Search_Tree is

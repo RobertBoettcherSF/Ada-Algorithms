@@ -1,3 +1,4 @@
+--  PLACEHOLDER: fixed 8-element bubble sort under a circle-sort name; the Post only bounds the elements; see H103
 pragma Ada_2022;
 
 package Circle_Sort with SPARK_Mode => On is

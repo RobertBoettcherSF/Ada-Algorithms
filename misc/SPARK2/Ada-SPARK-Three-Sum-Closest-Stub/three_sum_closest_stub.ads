@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Three-Sum-Closest implementation; see PROOFS.csv stub
 pragma Ada_2022;
 
 package Three_Sum_Closest_Stub with SPARK_Mode => On is

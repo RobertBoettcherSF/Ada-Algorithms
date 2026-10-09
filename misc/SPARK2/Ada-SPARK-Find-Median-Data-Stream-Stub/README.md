@@ -1,5 +1,7 @@
 # Ada-SPARK-Find-Median-Data-Stream-Stub
 
+PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Find-Median-Data-Stream implementation; see PROOFS.csv stub
+
 Bounded SPARK median finder for a finite data stream.
 
 The package is bounded and compiled with `SPARK_Mode => On`.

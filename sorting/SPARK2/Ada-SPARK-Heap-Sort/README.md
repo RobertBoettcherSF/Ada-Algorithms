@@ -1,5 +1,7 @@
 # Ada-SPARK-Heap-Sort
 
+PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a heap-sort name; see tools/vv/hidden_stub.csv
+
 A bounded Ada 2022 SPARK `heap`-sort reference with arrays of eight values.
 
 ```sh

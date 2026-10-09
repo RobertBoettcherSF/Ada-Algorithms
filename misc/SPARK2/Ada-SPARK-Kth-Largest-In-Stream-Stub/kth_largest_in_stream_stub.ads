@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Kth-Largest-In-Stream implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Kth_Largest_In_Stream_Stub is

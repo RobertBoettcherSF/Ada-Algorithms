@@ -1,5 +1,7 @@
 # Binary-Insertion-Sort
 
+PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a binary-insertion-sort name; see tools/vv/hidden_stub.csv
+
 Binary insertion sort, in SPARK. `Sort (Input)` sorts 8 values in 0 .. 31 and returns the sorted array and the number of comparisons of two values (`Probes`).
 
 Each element in turn is inserted into the sorted prefix before it. Its place is found by binary search: the first position in the prefix that holds a larger value (so equal values keep their order). The element then moves down to that place by swaps with its larger neighbours.

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: answers come from a case table, not a combination iterator; see H111
 pragma SPARK_Mode (On);
 package Combination_Iterator_Stub is
    Capacity : constant := 8;

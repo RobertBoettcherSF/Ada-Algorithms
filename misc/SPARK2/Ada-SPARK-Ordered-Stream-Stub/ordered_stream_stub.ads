@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Ordered-Stream implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Ordered_Stream_Stub is

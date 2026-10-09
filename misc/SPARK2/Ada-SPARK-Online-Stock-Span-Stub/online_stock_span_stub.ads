@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Online-Stock-Span implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Online_Stock_Span_Stub is

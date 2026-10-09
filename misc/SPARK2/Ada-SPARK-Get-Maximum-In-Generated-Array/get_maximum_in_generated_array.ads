@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Get-Maximum-In-Generated-Array implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 --  Get maximum in generated array: nums (0) = 0, nums (1) = 1,

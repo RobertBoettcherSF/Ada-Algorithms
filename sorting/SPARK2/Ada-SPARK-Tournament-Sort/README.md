@@ -1,5 +1,7 @@
 # Ada-SPARK-Tournament-Sort
 
+PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a tournament-sort name; see tools/vv/hidden_stub.csv
+
 A bounded Ada 2022 SPARK `tournament`-sort reference with arrays of eight values.
 
 ```sh

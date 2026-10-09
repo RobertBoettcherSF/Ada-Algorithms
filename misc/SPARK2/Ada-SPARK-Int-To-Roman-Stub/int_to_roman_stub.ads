@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Int-To-Roman implementation; see PROOFS.csv stub
 pragma Ada_2022;
 
 package Int_To_Roman_Stub with SPARK_Mode => On is

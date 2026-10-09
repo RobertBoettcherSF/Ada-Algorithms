@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Surrounded-Regions implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 package Surrounded_Regions with SPARK_Mode => On is
    Size : constant := 8;

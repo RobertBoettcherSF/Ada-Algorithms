@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Intersection-Of-Two-Arrays-II implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package Intersection_Of_Two_Arrays_II with SPARK_Mode => On is

@@ -1,5 +1,7 @@
 # Ada-SPARK-Reorganize-String-Stub
 
+PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Reorganize-String implementation; see PROOFS.csv stub
+
 Bounded SPARK character rearrangement that interleaves the two sorted halves.
 
 The package is bounded and compiled with `SPARK_Mode => On`.

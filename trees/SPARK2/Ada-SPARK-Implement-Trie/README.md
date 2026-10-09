@@ -1,5 +1,7 @@
 # Ada-SPARK-Implement-Trie
 
+PLACEHOLDER: flat word list with linear lookup; no trie nodes; see tools/vv/hidden_stub.csv
+
 A bounded dictionary with trie-style insert and exact lookup operations. Implemented as a small bounded Ada SPARK example with `SPARK_Mode => On`.
 
 ```sh

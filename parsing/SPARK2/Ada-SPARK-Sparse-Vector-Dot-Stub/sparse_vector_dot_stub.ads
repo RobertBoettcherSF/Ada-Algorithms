@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Sparse-Vector-Dot implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Sparse_Vector_Dot_Stub is

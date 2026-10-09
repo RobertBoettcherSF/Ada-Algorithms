@@ -1,3 +1,4 @@
+--  PLACEHOLDER: unrolled linear scan of six fixed positions; no halving; see tools/vv/hidden_stub.csv
 pragma Ada_2022;
 
 --  Binary search upper bound: in a sorted array, the first position whose

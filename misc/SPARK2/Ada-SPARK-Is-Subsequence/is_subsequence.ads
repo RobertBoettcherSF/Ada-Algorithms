@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Is-Subsequence implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 package Is_Subsequence with SPARK_Mode => On is
    function Check (A, B : String) return Boolean

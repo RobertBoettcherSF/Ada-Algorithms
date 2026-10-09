@@ -1,3 +1,4 @@
+--  PLACEHOLDER: fixed 8-element bubble sort under a Timsort name; the Post only bounds the elements; see H108
 pragma Ada_2022;
 
 package Tim_Sort with SPARK_Mode => On is

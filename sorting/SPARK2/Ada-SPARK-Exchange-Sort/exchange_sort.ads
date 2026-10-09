@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Exchange-Sort implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 --  Exchange sort on a bounded array: for each position I, compare A (I)

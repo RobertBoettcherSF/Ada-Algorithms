@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full String-To-Integer-Atoi implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package String_To_Integer_Atoi_Stub is

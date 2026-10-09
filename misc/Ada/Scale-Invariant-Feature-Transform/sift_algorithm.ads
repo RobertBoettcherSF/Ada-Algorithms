@@ -1,3 +1,4 @@
+--  PLACEHOLDER: every SIFT stage is a placeholder (scale space only checks sizes, no extrema, zero descriptors); see H166
 -- sift_algorithm.ads
 -- Specification for the SIFT pipeline
 package Sift_Algorithm is

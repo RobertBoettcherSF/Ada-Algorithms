@@ -1,3 +1,4 @@
+--  PLACEHOLDER: returns a constant table of 17 Catalan numbers, nothing is computed; see H116
 pragma Ada_2022;
 package Unique_Binary_Search_Trees with SPARK_Mode => On is
    subtype Node_Count is Natural range 0 .. 16;

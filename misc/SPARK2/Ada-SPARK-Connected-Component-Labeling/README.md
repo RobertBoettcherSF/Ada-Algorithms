@@ -1,5 +1,7 @@
 # Connected-Component Labeling in Ada/SPARK
 
+PLACEHOLDER: labels a fixed 2 x 2 grid only; see H126
+
 Bounded educational sheet for [connected-component labeling](https://en.wikipedia.org/wiki/Connected-component_labeling) (CCL) on binary grids. Ada 2022 + SPARK. Companion plain Ada: [Ada-Connected-Component-Labeling](https://github.com/RobertBoettcherSF/Ada-Connected-Component-Labeling).
 
 ICEYE-adjacent use: labeling flood-extent blobs in a binary water mask so each contiguous inundation region gets a stable component id.

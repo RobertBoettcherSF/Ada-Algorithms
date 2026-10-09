@@ -1,5 +1,7 @@
 # Ada-SPARK-K-Closest-Points-Stub
 
+PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full K-Closest-Points implementation; see PROOFS.csv stub
+
 Bounded SPARK selection of the three points closest to the origin.
 
 The package is bounded and compiled with `SPARK_Mode => On`.

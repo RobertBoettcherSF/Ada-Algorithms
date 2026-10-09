@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Max-Stack implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Max_Stack_Stub is

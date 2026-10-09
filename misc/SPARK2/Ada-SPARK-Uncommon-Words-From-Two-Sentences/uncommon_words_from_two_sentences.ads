@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Uncommon-Words-From-Two-Sentences implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package Uncommon_Words_From_Two_Sentences with SPARK_Mode => On is

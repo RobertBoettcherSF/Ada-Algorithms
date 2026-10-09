@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Spearman-Rank implementation; see PROOFS.csv stub
 pragma Ada_2022;
 package Spearman_Rank_Stub with SPARK_Mode => On is
    subtype Index is Positive range 1 .. 3;

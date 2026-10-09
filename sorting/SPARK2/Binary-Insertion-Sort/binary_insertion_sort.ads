@@ -1,3 +1,4 @@
+--  PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a binary-insertion-sort name; see tools/vv/hidden_stub.csv
 pragma Ada_2022;
 
 --  Binary insertion sort: insert each element into the sorted prefix

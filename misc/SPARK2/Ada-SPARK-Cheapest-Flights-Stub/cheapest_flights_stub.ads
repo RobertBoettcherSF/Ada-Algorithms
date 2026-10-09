@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Cheapest-Flights implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Cheapest_Flights_Stub is

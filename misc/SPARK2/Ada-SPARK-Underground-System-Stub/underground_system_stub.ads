@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Underground-System implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Underground_System_Stub is

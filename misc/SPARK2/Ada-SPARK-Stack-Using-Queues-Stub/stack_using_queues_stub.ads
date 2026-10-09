@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Stack-Using-Queues implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Stack_Using_Queues_Stub is

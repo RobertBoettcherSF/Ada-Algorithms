@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full How-Many-Numbers-Are-Smaller implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package How_Many_Numbers_Are_Smaller with SPARK_Mode => On is

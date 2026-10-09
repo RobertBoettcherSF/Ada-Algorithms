@@ -1,3 +1,4 @@
+--  PLACEHOLDER: answers come from a case table, not a zigzag iterator; see H115
 pragma SPARK_Mode (On);
 package Zigzag_Iterator_Stub is
    Capacity : constant := 8;

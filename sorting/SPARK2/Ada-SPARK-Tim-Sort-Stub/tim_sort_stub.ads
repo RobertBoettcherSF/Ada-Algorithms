@@ -1,3 +1,4 @@
+--  PLACEHOLDER: insertion sort under a Timsort name (no runs, no merging); the Post states sortedness only; see H109
 pragma Ada_2022;
 
 --  Insertion-sort kernel of Timsort (the step Timsort uses inside each

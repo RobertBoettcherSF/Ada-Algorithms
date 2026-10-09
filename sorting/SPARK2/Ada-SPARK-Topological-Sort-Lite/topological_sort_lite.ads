@@ -1,3 +1,4 @@
+--  PLACEHOLDER: only judges a given order (leniently); no topological order is computed; see H127
 pragma SPARK_Mode (On);
 
 package Topological_Sort_Lite with SPARK_Mode => On is

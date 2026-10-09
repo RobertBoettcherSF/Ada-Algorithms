@@ -1,3 +1,4 @@
+--  PLACEHOLDER: unsorted array with a linear minimum search and a full re-sort; no heap; see tools/vv/hidden_stub.csv
 pragma Ada_2022;
 
 package Heap_Push_Pop with SPARK_Mode => On is

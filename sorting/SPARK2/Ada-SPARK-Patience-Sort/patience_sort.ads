@@ -1,3 +1,4 @@
+--  PLACEHOLDER: fixed 8-element bubble sort under a patience-sort name; the Post only bounds the elements; see H106
 pragma Ada_2022;
 
 package Patience_Sort with SPARK_Mode => On is

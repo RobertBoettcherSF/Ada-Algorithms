@@ -1,3 +1,4 @@
+--  PLACEHOLDER: answers come from an 11-arm case table, no sieve; see H119
 pragma Ada_2022;
 package Count_Primes with SPARK_Mode => On is
    subtype Limit is Natural range 0 .. 30;

@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Flatten-Nested-List implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 package Flatten_Nested_List_Stub is
    Capacity : constant := 8;

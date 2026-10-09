@@ -109,6 +109,29 @@ def build(root):
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PATH_SCOPE = []   # whole repo (git ls-files): tracked files must not name absolute box paths (tools/vv/check_paths.py)
 
+# check_placeholders.py control cases: (description, setup, expected exit code)
+def placeholder_case(kind):
+    """A throw-away repo with one flagged folder X (open handover placeholder row H901).
+    good: open row + lines; missing: open row, README lacks the line; stale: row closed (handover closed)
+    but the line is still there; unlisted: flagged folder without a placeholders.csv row."""
+    root = tempfile.mkdtemp(prefix='tph_')
+    hstat = 'closed abc1234' if kind == 'stale' else 'open'
+    wcsv(os.path.join(root, 'tools/vv/handover.csv'), ['id', 'category', 'folder', 'problem', 'status'],
+         [['H901', 'placeholder', 'misc/SPARK2/X', 'table of answers', hstat]])
+    wcsv(os.path.join(root, 'tools/vv/hidden_stub.csv'), ['folder', 'signal', 'verdict', 'stub_marked', 'was_training_ready'], [])
+    wcsv(os.path.join(root, 'PROOFS.csv'), ['folder', 'stub'], [['misc/SPARK2/X', '']])
+    line = 'PLACEHOLDER: table of answers; see H901'
+    if kind != 'unlisted':
+        wcsv(os.path.join(root, 'tools/vv/placeholders.csv'), ['folder', 'ref', 'what', 'status'],
+             [['misc/SPARK2/X', 'H901', 'table of answers', 'closed abc1234' if kind == 'stale' else 'open']])
+    w(os.path.join(root, 'misc/SPARK2/X/README.md'), '# X\n' if kind == 'missing' else f'# X\n\n{line}\n')
+    w(os.path.join(root, 'misc/SPARK2/X/x.ads'), f'--  {line}\npackage X is\nend X;\n')
+    r = subprocess.run([sys.executable, os.path.join(REPO, 'tools/vv/check_placeholders.py'), '--root', root],
+                       capture_output=True, text=True)
+    shutil.rmtree(root, ignore_errors=True)
+    return r.returncode
+PH_CASES = [('good', 0), ('missing', 1), ('stale', 1), ('unlisted', 1)]
+
 def main():
     root = tempfile.mkdtemp(prefix='tpi_')
     try:
@@ -139,7 +162,16 @@ def main():
                             capture_output=True, text=True)
         print(r3.stdout.rstrip().splitlines()[-1] if r3.stdout.strip() else r3.stderr)
         bad += r3.returncode != 0
-        print(f"{len(CASES) + 2 - bad}/{len(CASES) + 2} control checks pass")
+        for kind, want in PH_CASES:
+            got_rc = placeholder_case(kind)
+            ok = got_rc == want
+            bad += not ok
+            print(('ok  ' if ok else 'FAIL') + f' check_placeholders control {kind:9} exit {got_rc} (expected {want})')
+        r4 = subprocess.run([sys.executable, os.path.join(REPO, 'tools/vv/check_placeholders.py')], capture_output=True, text=True)
+        print(r4.stdout.rstrip().splitlines()[-1] if r4.stdout.strip() else r4.stderr)
+        bad += r4.returncode != 0
+        total = len(CASES) + 3 + len(PH_CASES)
+        print(f"{total - bad}/{total} control checks pass")
         return 1 if bad else 0
     finally:
         shutil.rmtree(root, ignore_errors=True)

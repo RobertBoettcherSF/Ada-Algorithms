@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Pacific-Atlantic-Water implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Pacific_Atlantic_Water_Stub is

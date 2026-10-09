@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full House-Robber-III implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package House_Robber_III_Stub is

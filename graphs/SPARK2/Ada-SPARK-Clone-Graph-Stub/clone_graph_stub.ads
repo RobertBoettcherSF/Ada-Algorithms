@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Clone-Graph implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Clone_Graph_Stub is

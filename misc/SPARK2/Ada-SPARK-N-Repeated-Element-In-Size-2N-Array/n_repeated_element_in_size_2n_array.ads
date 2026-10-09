@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full N-Repeated-Element-In-Size-2N-Array implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 
 package N_Repeated_Element_In_Size_2N_Array with SPARK_Mode => On is

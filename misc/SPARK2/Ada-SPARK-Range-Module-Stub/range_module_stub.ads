@@ -1,3 +1,4 @@
+--  PLACEHOLDER: bounded stub (the folder name ends in -Stub), not a full Range-Module implementation; see PROOFS.csv stub
 pragma SPARK_Mode (On);
 
 package Range_Module_Stub is

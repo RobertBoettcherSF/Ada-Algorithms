@@ -1,3 +1,4 @@
+--  PLACEHOLDER: the README calls this a stub / bounded kernel, not a full Count-Sub-Islands implementation; see tools/readme_stubs.txt
 pragma Ada_2022;
 package Count_Sub_Islands with SPARK_Mode => On is
    Size : constant := 8;

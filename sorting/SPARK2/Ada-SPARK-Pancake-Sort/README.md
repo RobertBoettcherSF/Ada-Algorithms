@@ -1,5 +1,7 @@
 # Ada-SPARK-Pancake-Sort
 
+PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a pancake-sort name; see tools/vv/hidden_stub.csv
+
 A bounded in-place sorting exercise using eight-element compare-and-swap passes.
 
 The implementation is Ada 2022 with `SPARK_Mode => On`.  The input bounds are intentionally tiny so the example is suitable for full level-2 proof.

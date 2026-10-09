@@ -1,5 +1,7 @@
 # Ada-SPARK-Heap-Push-Pop
 
+PLACEHOLDER: unsorted array with a linear minimum search and a full re-sort; no heap; see tools/vv/hidden_stub.csv
+
 A bounded SPARK implementation of bounded min-heap push and pop.
 
 ## Verification
