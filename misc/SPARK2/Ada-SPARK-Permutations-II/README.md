@@ -4,7 +4,7 @@ Distinct permutations of a list that may repeat items, in dictionary order, in S
 
 **Range widened:** the first version was a count table for N <= 12 with a flag for "one repeated pair". `Count_Distinct` keeps N <= 12 because it goes through N!, and 12! = 479_001_600 is the last factorial that fits `Natural`. `Next_Permutation` takes any length up to `Positive'Last - 1`.
 
-The proved contracts (202 checks):
+The proved contracts (205 checks), with termination of every while loop by a loop variant:
 - the items never change;
 - `Found` is False exactly when the old values never increase;
 - with `Found`, the values go strictly up in dictionary order; without it, the result is sorted;

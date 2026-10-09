@@ -44,6 +44,7 @@ package body Permutations_II is
          pragma Loop_Invariant (for all K in From .. Lo - 1 => A.Order (K) = O0 (N - (K - From)));
          pragma Loop_Invariant (for all K in Hi + 1 .. N => A.Order (K) = O0 (N - (K - From)));
          pragma Loop_Invariant (for all K in Lo .. Hi => A.Order (K) = O0 (K));
+         pragma Loop_Variant (Decreases => Hi - Lo);
          A := Swapped (A, Lo, Hi);
          Lo := Lo + 1;
          Hi := Hi - 1;
@@ -65,6 +66,7 @@ package body Permutations_II is
       while A.Items (A.Order (I)) >= A.Items (A.Order (I + 1)) loop
          pragma Loop_Invariant (I <= N - 1);
          pragma Loop_Invariant (for all K in I .. N - 1 => A.Items (A.Order (K)) >= A.Items (A.Order (K + 1)));
+         pragma Loop_Variant (Decreases => I);
          if I = 1 then
             --  The last arrangement: reversing it gives the sorted one.
             Reverse_Tail (A, 1);
@@ -78,6 +80,7 @@ package body Permutations_II is
       J := N;
       while A.Items (A.Order (J)) <= A.Items (A.Order (I)) loop
          pragma Loop_Invariant (J in I + 2 .. N);
+         pragma Loop_Variant (Decreases => J);
          J := J - 1;
       end loop;
 
