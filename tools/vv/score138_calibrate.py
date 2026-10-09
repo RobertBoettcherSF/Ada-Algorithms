@@ -79,7 +79,8 @@ def main():
         for m in MODES:
             r[m] = c[m]
         return r
-    notes = dict(x.split('=', 1) for x in a.note)
+    notes = {r['folder']: r['note'] for r in csv.DictReader(open(OUT)) if r['section'] == 'folder_total' and r['note']} if os.path.exists(OUT) else {}
+    notes.update(dict(x.split('=', 1) for x in a.note))   # earlier notes are kept unless replaced
     calib = {}
     for f in folders:
         for fam in FAM_ORDER:
