@@ -3,12 +3,13 @@ package body Subsets_II with SPARK_Mode => On is
 
    function Big (V : Integer) return Big_Integer renames To_Big_Integer;
 
+   function Pow2_Facts return Boolean is
+     ((for all K in 1 .. Max_Items => Pow2 (K) = 2 * Pow2 (K - 1))
+      and then (for all K in Length => K + 1 <= Pow2 (K) and then Pow2 (K) <= Pow2 (Max_Items)))
+   with Ghost;
+
    procedure Lemma_Pow2
-   with
-     Ghost,
-     Global => null,
-     Post   => (for all K in 1 .. Max_Items => Pow2 (K) = 2 * Pow2 (K - 1))
-               and then (for all K in Length => K + 1 <= Pow2 (K) and then Pow2 (K) <= Pow2 (Max_Items));
+   with Ghost, Global => null, Post => Pow2_Facts;
    procedure Lemma_Pow2 is
    begin
       for K in Length loop
@@ -24,12 +25,11 @@ package body Subsets_II with SPARK_Mode => On is
    with
      Ghost,
      Global             => null,
-     Pre                => A + B <= Max_Items,
+     Pre                => A + B <= Max_Items and then Pow2_Facts,
      Post               => Big (Pow2 (A)) * Big (Pow2 (B)) = Big (Pow2 (A + B)),
      Subprogram_Variant => (Decreases => B);
    procedure Lemma_Pow2_Add (A, B : Length) is
    begin
-      Lemma_Pow2;
       if B > 0 then
          Lemma_Pow2_Add (A, B - 1);
          pragma Assert (Big (Pow2 (B)) = 2 * Big (Pow2 (B - 1)));
@@ -63,26 +63,18 @@ package body Subsets_II with SPARK_Mode => On is
       end if;
    end Lemma_Total_Mono;
 
-   --  1 <= Product (A, K) <= 2 ** Total (A, K).
-   procedure Lemma_Product_Bound (A : Count_List; K : Natural)
+   --  One more factor: P <= 2 ** T gives P * (C + 1) <= 2 ** (T + C).
+   procedure Lemma_Product_Step (P : Big_Integer; T, C : Length)
    with
      Ghost,
-     Global             => null,
-     Pre                => A'First = 1 and then K <= A'Last and then K <= Max_Items
-                           and then Total (A, K) <= Max_Items,
-     Post               => Product (A, K) >= 1 and then Product (A, K) <= Big (Pow2 (Total (A, K))),
-     Subprogram_Variant => (Decreases => K);
-   procedure Lemma_Product_Bound (A : Count_List; K : Natural) is
+     Global => null,
+     Pre    => P >= 1 and then P <= Big (Pow2 (T)) and then T + C <= Max_Items and then Pow2_Facts,
+     Post   => P * Big (C + 1) >= 1 and then P * Big (C + 1) <= Big (Pow2 (T + C));
+   procedure Lemma_Product_Step (P : Big_Integer; T, C : Length) is
    begin
-      if K > 0 then
-         Lemma_Product_Bound (A, K - 1);
-         Lemma_Pow2;
-         Lemma_Pow2_Add (Total (A, K - 1), A (K));
-         Lemma_Mul_Mono (Product (A, K - 1), Big (Pow2 (Total (A, K - 1))),
-                         Big (A (K) + 1), Big (Pow2 (A (K))));
-         pragma Assert (Product (A, K) = Product (A, K - 1) * Big (A (K) + 1));
-      end if;
-   end Lemma_Product_Bound;
+      Lemma_Pow2_Add (T, C);
+      Lemma_Mul_Mono (P, Big (Pow2 (T)), Big (C + 1), Big (Pow2 (C)));
+   end Lemma_Product_Step;
 
    function Count (C : Choice) return Positive is
       R : Positive := 1;
@@ -90,8 +82,10 @@ package body Subsets_II with SPARK_Mode => On is
       Lemma_Pow2;
       for I in 1 .. C.N loop
          pragma Loop_Invariant (Big (R) = Product (C.Copies, I - 1));
+         pragma Loop_Invariant (Total (C.Copies, I - 1) <= Max_Items);
+         pragma Loop_Invariant (Big (R) <= Big (Pow2 (Total (C.Copies, I - 1))));
          Lemma_Total_Mono (C.Copies, I, C.N);
-         Lemma_Product_Bound (C.Copies, I);
+         Lemma_Product_Step (Big (R), Total (C.Copies, I - 1), C.Copies (I));
          pragma Assert (Product (C.Copies, I) = Big (R) * Big (C.Copies (I) + 1));
          pragma Assert (Product (C.Copies, I) <= Big (Pow2 (Max_Items)));
          R := R * (C.Copies (I) + 1);
