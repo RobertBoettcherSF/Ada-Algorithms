@@ -67,9 +67,9 @@ is
        Global => null,
        Pre    => In_Bounds (A) and then Is_Sorted (A),
        Post   =>
-         Find_With_Step'Result <= A'Last
-         and then (if Find_With_Step'Result > 0 then
-                     A (Find_With_Step'Result) = Key)
+         (if Find_With_Step'Result > 0 then
+            Find_With_Step'Result in A'Range
+            and then A (Find_With_Step'Result) = Key)
    is
       N     : constant Index := A'Length;
       Prev  : Ext_Index;
@@ -82,7 +82,9 @@ is
          return 0;
       end if;
 
-      --  0-based block cursors; probe index is 1-based min(Curr, N).
+      --  Cursors walk logical positions: 0-based block cursors, 1-based
+      --  probe position min(Curr, N). Logical position P lives at
+      --  A (A'First + (P - 1)), so A may start at any origin.
       Prev := 0;
       Curr := Ext_Index (if Natural (Step) >= Max_N + 1 then Max_N + 1
                          else Natural (Step));
@@ -103,9 +105,9 @@ is
             Probe := N;
          end if;
          pragma Assert (Probe in 1 .. N);
-         pragma Assert (Probe in A'Range);
+         pragma Assert (A'First + (Probe - 1) in A'Range);
 
-         exit when not (A (Probe) < Key);
+         exit when not (A (A'First + (Probe - 1)) < Key);
 
          Prev := Curr;
          Curr := Advance (Curr, Step);
@@ -138,11 +140,11 @@ is
          pragma Loop_Invariant (N = A'Length);
          exit when Idx > Bound;
 
-         pragma Assert (Idx in A'Range);
+         pragma Assert (A'First + (Idx - 1) in A'Range);
 
-         if A (Idx) = Key then
-            return Index (Idx);
-         elsif A (Idx) > Key then
+         if A (A'First + (Idx - 1)) = Key then
+            return Index (A'First + (Idx - 1));
+         elsif A (A'First + (Idx - 1)) > Key then
             return 0;
          end if;
 

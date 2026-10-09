@@ -3089,15 +3089,15 @@ searching/Ada/Uniform-Binary-Search,Find,ok,ok,,,origins 0/100 high 10000 (index
 searching/SPARK4/Ada-SPARK-Fibonacci-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Fibonacci-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Fibonacci-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
-searching/SPARK4/Ada-SPARK-Fibonacci-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
-searching/SPARK4/Ada-SPARK-Fibonacci-Search,Find,shift_mismatch,fail,,,origins 2/100 high 10000 (index) | FAIL exception on shift compare | FAIL exception high-first | IDX_SHIFT_FAIL 2 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
+searching/SPARK4/Ada-SPARK-Fibonacci-Search,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+searching/SPARK4/Ada-SPARK-Fibonacci-Search,Find,ok,ok,,,origins 2/None high None (index) ok,
 searching/SPARK4/Ada-SPARK-Binary-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Binary-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Binary-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Binary-Search,Find_First,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Binary-Search,Find_Last,catalog,catalog,,1,function n_arrays=1 ret=Index,
-searching/SPARK4/Ada-SPARK-Binary-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
-searching/SPARK4/Ada-SPARK-Binary-Search,Find,shift_mismatch,fail,,,origins 2/100 high 10000 (index) | FAIL exception on shift compare | FAIL exception high-first | IDX_SHIFT_FAIL 2 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
+searching/SPARK4/Ada-SPARK-Binary-Search,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+searching/SPARK4/Ada-SPARK-Binary-Search,Find,ok,ok,,,origins 2/None high None (index) ok,
 searching/SPARK4/Ada-SPARK-Interpolation-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Interpolation-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Interpolation-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
@@ -3107,14 +3107,14 @@ searching/SPARK4/Ada-SPARK-Jump-Search,In_Bounds,catalog,catalog,,1,function n_a
 searching/SPARK4/Ada-SPARK-Jump-Search,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Jump-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Jump-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
-searching/SPARK4/Ada-SPARK-Jump-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
-searching/SPARK4/Ada-SPARK-Jump-Search,Find,shift_mismatch,fail,,,origins 2/100 high 10000 (index) | FAIL exception on shift compare | FAIL exception high-first | IDX_SHIFT_FAIL 2 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
+searching/SPARK4/Ada-SPARK-Jump-Search,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+searching/SPARK4/Ada-SPARK-Jump-Search,Find,ok,ok,,,origins 2/None high None (index) ok,
 searching/SPARK4/Ada-SPARK-Linear-Search,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Linear-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Linear-Search,Find_From,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Linear-Search,Contains,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-searching/SPARK4/Ada-SPARK-Linear-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
-searching/SPARK4/Ada-SPARK-Linear-Search,Find,shift_mismatch,fail,,,origins 2/100 high 10000 (index) | FAIL exception on shift compare | FAIL exception high-first | IDX_SHIFT_FAIL 2 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
+searching/SPARK4/Ada-SPARK-Linear-Search,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+searching/SPARK4/Ada-SPARK-Linear-Search,Find,ok,ok,,,origins 2/None high None (index) ok,
 searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,Arrays_OK,catalog,catalog,,3,function n_arrays=3 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,Search,catalog,catalog,,3,procedure n_arrays=3 ret=None,
 searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,Reconstruct_Path,catalog,catalog,,2,procedure n_arrays=2 ret=None,
@@ -3129,8 +3129,8 @@ searching/SPARK4/Ada-SPARK-Ternary-Search,Is_Sorted,catalog,catalog,,1,function 
 searching/SPARK4/Ada-SPARK-Ternary-Search,Is_Unimodal,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Ternary-Search,Find_Maximum_Index,catalog,catalog,,1,function n_arrays=1 ret=Index,
 searching/SPARK4/Ada-SPARK-Ternary-Search,Find,catalog,catalog,,1,function n_arrays=1 ret=Index,
-searching/SPARK4/Ada-SPARK-Ternary-Search,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
-searching/SPARK4/Ada-SPARK-Ternary-Search,Find_Maximum_Index,skipped,skipped,,,"driver build failed: :22: error: too many arguments in call to ""Find_Maximum_Index"" idx_shift_driver.adb:33:22: error: too many arguments in call to ""Find_Maximum_Index"" gnatmake: ""idx_shift_driver.adb"" compilation error ",
+searching/SPARK4/Ada-SPARK-Ternary-Search,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+searching/SPARK4/Ada-SPARK-Ternary-Search,Find_Maximum_Index,skipped,skipped,,,"driver build failed: :22: error: too many arguments in call to ""Find_Maximum_Index"" idx_shift_driver.adb:16:22: error: too many arguments in call to ""Find_Maximum_Index"" gnatmake: ""idx_shift_driver.adb"" compilation error ",
 searching/SPARK4/Ada-SPARK-Introselect,,static_midpoint,review,,,searching/SPARK4/Ada-SPARK-Introselect/introselect.adb:720: K := (N + 1) / 2;,prefer Lo + (Hi - Lo) / 2
 searching/SPARK4/Ada-SPARK-Introselect,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 searching/SPARK4/Ada-SPARK-Introselect,Is_Kth_Partitioned,catalog,catalog,,1,function n_arrays=1 ret=Boolean,

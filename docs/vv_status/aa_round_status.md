@@ -19,7 +19,7 @@ to rewrite (offset / First-relative forms exist); only Package-Merge and PGZ rem
 | misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | package-merge pairs 2*P-1 / 2*P |
 | compression/Ada/Peterson-Gorenstein-Zierler-Algorithm | coeff index = degree (Derivative Poly(I)*I); subtype Degree_Poly First=0; syndromes First-rel |
 
-### Rewritten First-relative (41) — green make test + CSV `rewritten_first_relative`
+### Rewritten First-relative (46) — green make test + CSV `rewritten_first_relative`
 **Earlier (15):** BCJR, N-Body, Spline (Thomas), Levinson, Memetic (TSP), Thomas,
 Floyds-Cycle, Brents, Barnes-Hut, Gale-Shapley, Min-Conflicts, Hungarian,
 Top-Trading-Cycle, Fast-Multipole, Ant-Colony.
@@ -37,10 +37,19 @@ Combinatorial-Optimization (pins dropped for Length; labels 1..N stored at any
 Cost_Matrix / Tour / Permutation origin via At_Label; section 9 incl. storage
 ending at Positive'Last; red on old code: CE at Total_Weight Sel (I)).
 
-### Still stamped `rewrite_first_relative` / `first_pinned` (47)
+**Classroom SPARK4 search (5):** Linear-, Binary-, Jump-, Ternary-, Fibonacci-Search.
+Element_Array indexed by Live_Index (1 .. Max_N), In_Bounds = A'Length <= Max_N,
+Posts `Result in A'Range`. Jump / Fibonacci bodies walked logical positions as
+storage indices, so they now read A (A'First + (P - 1)). Binary / Ternary invariants
+now say Lo >= A'First. Shifted-origin sections (1, 5, 17, 33, flush to Max_N,
+single cell at Max_N, 2 .. Max_N, empty at 10) were red on old code (Pre failure).
+L4 proved: 32 / 106 / 95 / 100 / 69.
+
+### Still stamped `rewrite_first_relative` / `first_pinned` (42)
 Remaining SPARK4 classroom sorts (Bogosort, Bitonic, Bucket, Burstsort, Counting,
 Flashsort, Library, Patience, Pigeonhole, Postman, Quantum, Samplesort,
-Sort-Merge-Join, Strand, Timsort, Topological, …), searching SPARK4, hashing /
+Sort-Merge-Join, Strand, Timsort, Topological, …), searching SPARK4 (Uniform-Cost,
+Best-First, Introselect, Quickselect), hashing /
 compression / misc SPARK2–4,
 and other Ada walk-index folders. Pins still First=1; code rewrite not done yet.
 A2 owns the Float→int list (Clustering, ACO×2, Cross-Entropy, DE, K-Means++,

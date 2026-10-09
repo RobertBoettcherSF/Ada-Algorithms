@@ -365,6 +365,70 @@ begin
       Check (Idx (Find_From (A, 4, N)) = Index (N), "pattern hit 4 at last");
    end;
 
+   ------------------------------------------------------------------
+   Section ("12. Shifted origins (incl. flush to Max_N) = 1-based");
+   ------------------------------------------------------------------
+   --  The same data stored at A'First = 1 and at shifted origins must
+   --  give the same answers, offset by A'First - 1; a miss is still 0.
+   declare
+      Base : constant Element_Array (1 .. 9) := [7, -3, 5, 7, 0, 5, 9, -3, 7];
+      Keys : constant array (1 .. 7) of Integer := [7, -3, 5, 0, 9, 4, -8];
+
+      procedure Same_At (Origin : Live_Index; Len : Natural) is
+         B : Element_Array (1 .. Len);
+         S : Element_Array (Origin .. Origin + (Len - 1));
+         D : constant Integer := Origin - 1;
+         R1, RS : Index;
+      begin
+         for K in 1 .. Len loop
+            B (K) := Base (K);
+            S (Origin + (K - 1)) := Base (K);
+         end loop;
+         for Key of Keys loop
+            R1 := Find (B, Key);
+            RS := Find (S, Key);
+            Check ((if R1 = 0 then RS = 0 else RS = R1 + D),
+                   "Find origin" & Origin'Image & " len" & Len'Image
+                   & " key" & Key'Image);
+            Check (Contains (S, Key) = Contains (B, Key),
+                   "Contains origin" & Origin'Image & " key" & Key'Image);
+            for St in 1 .. Len loop
+               R1 := Find_From (B, Key, St);
+               RS := Find_From (S, Key, St + D);
+               Check ((if R1 = 0 then RS = 0 else RS = R1 + D),
+                      "Find_From origin" & Origin'Image & " start"
+                      & Integer'Image (St + D) & " key" & Key'Image);
+            end loop;
+         end loop;
+      end Same_At;
+   begin
+      Same_At (1, 9);
+      Same_At (5, 9);
+      Same_At (33, 9);
+      Same_At (Max_N - 8, 9);   --  flush: A'Last = Max_N
+      Same_At (Max_N, 1);       --  single cell at Max_N
+      Same_At (17, 4);
+   end;
+
+   declare
+      E : constant Element_Array (10 .. 9) := [others => 0];
+      F : Element_Array (2 .. Max_N);  --  Max_N - 1 cells from 2
+   begin
+      Check (In_Bounds (E), "In_Bounds empty at origin 10");
+      Check (Idx (Find (E, 0)) = 0, "Find empty origin 10 -> 0");
+      Check (Idx (Find_From (E, 0, 5)) = 0, "Find_From empty origin 10 -> 0");
+      Check (not Contains (E, 0), "Contains empty origin 10");
+      for I in F'Range loop
+         F (I) := I;
+      end loop;
+      Check (In_Bounds (F), "In_Bounds 2 .. Max_N");
+      Check (Idx (Find (F, 2)) = 2, "Find at A'First = 2");
+      Check (Idx (Find (F, Max_N)) = Max_N, "Find at A'Last = Max_N");
+      Check (Idx (Find (F, 1)) = 0, "Find miss 1 in 2 .. Max_N");
+      Check (Idx (Find_From (F, 30, 30)) = 30, "Find_From start = hit");
+      Check (Idx (Find_From (F, 29, 30)) = 0, "Find_From past key -> 0");
+   end;
+
    New_Line;
    Put_Line ("Results: "
              & Natural'Image (Pass_Count) & " PASS,"

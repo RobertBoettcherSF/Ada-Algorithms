@@ -7,21 +7,21 @@ $$
 m = L + \left\lfloor\frac{R - L}{2}\right\rfloor
 $$
 
-Worst-case complexity is $O(\log n)$ comparisons. The absent sentinel is always $0$ (live indices are $1 .. N$).
+Worst-case complexity is $O(\log n)$ comparisons. The absent sentinel is always $0$ (`A` may start at any origin in `1 .. Max_N`, so $0$ is never a live index).
 
-This is the SPARK Level 4 port of the companion package [Ada-Binary-Search](https://github.com/RobertBoettcherSF/Ada-Binary-Search) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), arbitrary `A'First`, and sentinel $A'\mathit{First}-1$; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Related search siblings: [Ada-Uniform-Binary-Search](https://github.com/RobertBoettcherSF/Ada-Uniform-Binary-Search), [Ada-Fibonacci-Search](https://github.com/RobertBoettcherSF/Ada-Fibonacci-Search).
+This is the SPARK Level 4 port of the companion package [Ada-Binary-Search](https://github.com/RobertBoettcherSF/Ada-Binary-Search) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), and sentinel $A'\mathit{First}-1$; this port keeps arbitrary `A'First` but trades the rest for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Related search siblings: [Ada-Uniform-Binary-Search](https://github.com/RobertBoettcherSF/Ada-Uniform-Binary-Search), [Ada-Fibonacci-Search](https://github.com/RobertBoettcherSF/Ada-Fibonacci-Search).
 
 ## Features
 * **`Find` / `Find_First` / `Find_Last`**: Classic iterative chop plus Wikipedia leftmost / rightmost bound searches.
 * **`Is_Sorted` / `In_Bounds`**: Expression-function guards used in every entry-point `Pre`.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, overflow in the midpoint formula, and non-termination of bounded search loops.
 * **Contract Discipline**: Preconditions replace exceptions; oversized / unsorted arrays are `Pre` violations rather than `Invalid_Argument`.
-* **Sentinel $0$**: Absent keys return $0$; live indices stay in $1 .. N$.
+* **Sentinel $0$**: Absent keys return $0$; live indices are `A'First .. A'Last` within `1 .. Max_N`.
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length and sortedness are `Pre => In_Bounds (A) and then Is_Sorted (A)`.
-* Indices fixed at `A'First = 1`; miss sentinel is $0$ (sibling allows arbitrary `A'First` and returns $A'\mathit{First}-1$).
+* First-relative: any `A'First` (`Element_Array` is indexed by `Live_Index`); `In_Bounds` only bounds `A'Length <= Max_N`. Miss sentinel is $0$ (sibling returns $A'\mathit{First}-1$). Section 11 of `tests.adb` checks `Find`, `Find_First` and `Find_Last` at `A'First` = 1, 5, 17, 33, flush to `Max_N`, a single cell at `Max_N`, `2 .. Max_N`, and an empty array at origin 10.
 * Search loops are bounded `for` loops with `pragma Loop_Invariant` so termination is immediate for the prover.
 * Posts prove “hit ⇒ correct index” (and leftmost / rightmost when found); full “miss ⇒ key absent” completeness is exercised by tests rather than claimed as a Level-4 post without extra ghost lemmas.
 
@@ -31,7 +31,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Binary-Search](http
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 187 assertions pass. Running `make prove` reports `Success: all checks proved (105 checks).`
+When you run `make test`, you will see all 618 assertions pass. Running `make prove` reports `Success: all checks proved (106 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, small sorted arrays, Wikipedia duplicate plates, signed domain, power-of-two and odd lengths, two-element boundaries.
@@ -51,5 +51,5 @@ When you run `make test`, you will see all 187 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Loops are bounded `for` loops with `pragma Loop_Invariant` so termination is immediate for the prover.
-* **GNATprove Level 4:** `Success: all checks proved (105 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (106 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

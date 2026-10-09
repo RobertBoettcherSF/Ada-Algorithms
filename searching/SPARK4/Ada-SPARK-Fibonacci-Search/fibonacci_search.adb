@@ -71,7 +71,9 @@ is
       pragma Assert (Fibs (M) >= N);
       pragma Assert (Fibs (11) >= Max_N);
 
-      --  Eliminated-front offset in 1-based space (0 = nothing eliminated).
+      --  Eliminated-front offset in 1-based logical positions (0 = nothing
+      --  eliminated). Logical position P lives at A (A'First + (P - 1)),
+      --  so A may start at any origin.
       Offset := 0;
 
       --  Main search while Fibs(M) > 1, i.e. M > 2. At most 11 shrinks.
@@ -96,17 +98,17 @@ is
          Probe := Min_Index (Cand, Ext_Index (N));
          pragma Assert (Probe >= 1);
          pragma Assert (Probe <= N);
-         pragma Assert (Probe in A'Range);
+         pragma Assert (A'First + (Probe - 1) in A'Range);
 
-         if A (Probe) < Key then
-            --  Discard A(1 .. Probe); reduce Fibonacci index by one.
+         if A (A'First + (Probe - 1)) < Key then
+            --  Discard logical positions 1 .. Probe; reduce Fibonacci index by one.
             M      := M - 1;
             Offset := Probe;
-         elsif A (Probe) > Key then
-            --  Discard A(Probe .. N); reduce Fibonacci index by two.
+         elsif A (A'First + (Probe - 1)) > Key then
+            --  Discard logical positions Probe .. N; reduce Fibonacci index by two.
             M := M - 2;
          else
-            return Index (Probe);
+            return Index (A'First + (Probe - 1));
          end if;
       end loop;
 
@@ -119,9 +121,9 @@ is
          Cand := Offset + 1;
          pragma Assert (Cand >= 1);
          pragma Assert (Cand <= N);
-         pragma Assert (Cand in A'Range);
-         if A (Cand) = Key then
-            return Index (Cand);
+         pragma Assert (A'First + (Cand - 1) in A'Range);
+         if A (A'First + (Cand - 1)) = Key then
+            return Index (A'First + (Cand - 1));
          end if;
       end if;
 

@@ -503,6 +503,67 @@ begin
       Check (Int (Find (Good, 2)) in 2 .. 3, "Good Find plateau");
    end;
 
+   ------------------------------------------------------------------
+   Section ("13. Shifted origins (incl. flush to Max_N) = 1-based");
+   ------------------------------------------------------------------
+   --  The same sorted data stored at A'First = 1 and at shifted origins
+   --  must agree: hit/miss identical, a hit index lies in A'Range and
+   --  holds Key. A miss is still 0.
+   declare
+      Base : constant Element_Array (1 .. 12) :=
+        [-9, -4, -4, 0, 2, 2, 2, 5, 8, 13, 13, 21];
+      Keys : constant array (1 .. 13) of Integer :=
+        [-9, -4, 0, 2, 5, 8, 13, 21, -10, 1, 3, 22, 100];
+
+      procedure Same_At (Origin : Live_Index; Len : Natural) is
+         B : Element_Array (1 .. Len);
+         S : Element_Array (Origin .. Origin + (Len - 1));
+         R1, RS : Index;
+      begin
+         for K in 1 .. Len loop
+            B (K) := Base (K);
+            S (Origin + (K - 1)) := Base (K);
+         end loop;
+         Check (In_Bounds (S) and then Is_Sorted (S),
+                "In_Bounds/Is_Sorted origin" & Origin'Image);
+         for Key of Keys loop
+            R1 := Find (B, Key);
+            RS := Find (S, Key);
+            Check ((RS = 0) = (R1 = 0)
+                   and then (if RS > 0 then RS in S'Range
+                               and then S (RS) = Key),
+                   "Find origin" & Origin'Image & " len" & Len'Image
+                   & " key" & Key'Image);
+         end loop;
+      end Same_At;
+   begin
+      Same_At (1, 12);
+      Same_At (5, 12);
+      Same_At (33, 12);
+      Same_At (Max_N - 11, 12);   --  flush: A'Last = Max_N
+      Same_At (Max_N, 1);         --  single cell at Max_N
+      Same_At (17, 7);
+   end;
+
+   declare
+      --  Distinct keys 3*K at every index of 2 .. Max_N: each hit is the
+      --  unique index K, each 3*K+1 is a miss.
+      F : Element_Array (2 .. Max_N);
+      E : constant Element_Array (10 .. 9) := [others => 0];
+   begin
+      for K in F'Range loop
+         F (K) := 3 * K;
+      end loop;
+      for K in F'Range loop
+         Check (Idx (Find (F, 3 * K)) = K, "long 2..Max_N hit at" & K'Image);
+         Check (Idx (Find (F, 3 * K + 1)) = 0,
+                "long 2..Max_N miss after" & K'Image);
+      end loop;
+      Check (Idx (Find (F, 3)) = 0, "long miss below A'First");
+      Check (In_Bounds (E) and then Idx (Find (E, 0)) = 0,
+             "empty at origin 10 -> 0");
+   end;
+
    New_Line;
    Put_Line ("Results: "
              & Natural'Image (Pass_Count) & " PASS,"

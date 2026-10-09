@@ -9,9 +9,9 @@ m_1 = L + \left\lfloor\frac{H - L}{3}\right\rfloor,
 m_2 = H - \left\lfloor\frac{H - L}{3}\right\rfloor.
 $$
 
-A **secondary** API searches for a key in a sorted ascending array with the same two midpoints (binary search is usually preferable). The unimodal peak search takes $O(\log n)$ comparisons (base $3/2$ shrinkage) while the two probes differ; when they are equal (a plateau) no comparison can tell which side holds the peak (`0 0 0 1` vs `1 0 0 0`), so it finishes with a linear scan of the current window: $O(n)$ worst case on plateau inputs. The absent-key sentinel for `Find` is always $0$ (live indices are $1 .. N$).
+A **secondary** API searches for a key in a sorted ascending array with the same two midpoints (binary search is usually preferable). The unimodal peak search takes $O(\log n)$ comparisons (base $3/2$ shrinkage) while the two probes differ; when they are equal (a plateau) no comparison can tell which side holds the peak (`0 0 0 1` vs `1 0 0 0`), so it finishes with a linear scan of the current window: $O(n)$ worst case on plateau inputs. The absent-key sentinel for `Find` is always $0$ (`A` may start at any origin in `1 .. Max_N`, so $0$ is never a live index).
 
-This is the SPARK Level 4 port of the companion package [Ada-Ternary-Search](https://github.com/RobertBoettcherSF/Ada-Ternary-Search) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), arbitrary `A'First`, and sentinel $A'\mathit{First}-1$; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Unimodal` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK search sibling: [Ada-SPARK-Binary-Search](https://github.com/RobertBoettcherSF/Ada-SPARK-Binary-Search).
+This is the SPARK Level 4 port of the companion package [Ada-Ternary-Search](https://github.com/RobertBoettcherSF/Ada-Ternary-Search) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling exposes a larger `Max_N`, exceptions (`Invalid_Argument`), and sentinel $A'\mathit{First}-1$; this port keeps arbitrary `A'First` but trades the rest for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Unimodal` / `Is_Sorted` contracts, and machine-checkable absence of run-time errors. README links only — do not `with` sibling packages here. Closest SPARK search sibling: [Ada-SPARK-Binary-Search](https://github.com/RobertBoettcherSF/Ada-SPARK-Binary-Search).
 
 ## Features
 * **`Find_Maximum_Index`**: Discrete unimodal peak finding via trisection, finishing with a linear scan of a tiny window (`Hi − Lo ≤ 2`).
@@ -19,12 +19,12 @@ This is the SPARK Level 4 port of the companion package [Ada-Ternary-Search](htt
 * **`Is_Unimodal` / `Is_Sorted` / `In_Bounds`**: Expression-function guards used in every entry-point `Pre`.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, overflow in the thirds-point formulas, and non-termination of bounded search loops.
 * **Contract Discipline**: Preconditions replace exceptions; oversized / non-unimodal / unsorted arrays are `Pre` violations rather than `Invalid_Argument`.
-* **Sentinel $0$**: Absent keys from `Find` return $0$; live indices stay in $1 .. N$. `Find_Maximum_Index` always returns a live index under its `Pre` ($A'\mathit{Length} ≥ 1$).
+* **Sentinel $0$**: Absent keys from `Find` return $0$; live indices are `A'First .. A'Last` within `1 .. Max_N`. `Find_Maximum_Index` always returns a live index under its `Pre` ($A'\mathit{Length} ≥ 1$).
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $100\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length, unimodality, and sortedness are `Pre` contracts (`In_Bounds`, `Is_Unimodal`, `Is_Sorted`).
-* Indices fixed at `A'First = 1`; `Find` miss sentinel is $0$ (sibling allows arbitrary `A'First` and returns $A'\mathit{First}-1$).
+* First-relative: any `A'First` (`Element_Array` is indexed by `Live_Index`); `In_Bounds` only bounds `A'Length <= Max_N`. `Find` Miss sentinel is $0$ (sibling returns $A'\mathit{First}-1$). Section 17 of `tests.adb` checks `Find` and `Find_Maximum_Index` at `A'First` = 1, 5, 17, 33, flush to `Max_N`, a single cell at `Max_N`, `2 .. Max_N`, and an empty array at origin 10.
 * Search loops are bounded `for` loops with `pragma Loop_Invariant` so termination is immediate for the prover.
 * `Find_Maximum_Index` post proves “Result ∈ A'Range”; full “Result is a global max” completeness (and plateau uniqueness) is exercised by tests rather than claimed as a Level-4 post without extra ghost lemmas. `Find` posts prove “hit ⇒ correct index”; miss completeness is likewise test-backed.
 
@@ -34,7 +34,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Ternary-Search](htt
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 141 assertions pass. Running `make prove` reports `Success: all checks proved (99 checks).`
+When you run `make test`, you will see all 361 assertions pass. Running `make prove` reports `Success: all checks proved (100 checks).`
 
 ## Testing
 * **Functional correctness**: Singleton / short unimodal, peak at start / middle / end, plateaus, generated peaks at every offset, capacity-bound shapes, signed / mixed domains.
@@ -54,5 +54,5 @@ When you run `make test`, you will see all 141 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Loops are bounded `for` loops with `pragma Loop_Invariant` so termination is immediate for the prover.
-* **GNATprove Level 4:** `Success: all checks proved (99 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (100 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

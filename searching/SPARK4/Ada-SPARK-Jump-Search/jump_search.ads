@@ -6,12 +6,13 @@
 --
 --  (or an explicit Step), then finishes with a short linear scan of the
 --  candidate block. Worst-case O(√n) comparisons. Sentinel 0 when the key
---  is absent (indices are always 1 .. N).
+--  is absent (0 is never a live index; A may start
+--  at any origin in 1 .. Max_N).
 --
 --  SPARK port of Ada-Jump-Search: hard Max_N bound, no exceptions,
 --  contracts and Is_Sorted replace Invalid_Argument / unchecked sortedness.
---  Non-SPARK sibling allows arbitrary A'First and sentinel A'First−1;
---  this port requires A'First = 1 and returns 0 on a miss.
+--  Like the non-SPARK sibling it accepts any A'First (within
+--  Live_Index); it returns 0 on a miss instead of A'First−1.
 --
 --  Reference: https://en.wikipedia.org/wiki/Jump_search
 
@@ -31,22 +32,27 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. 0 is the absent sentinel.
+   --  Live indices are A'First .. A'Last within 1 .. Max_N. 0 is the
+   --  absent sentinel (never a live index).
    subtype Index is Natural range 0 .. Max_N;
    subtype Ext_Index is Natural range 0 .. Max_N + 1;
    --  Ext_Index covers exclusive jump cursors up to N + 1.
 
-   type Element_Array is array (Positive range <>) of Integer;
+   subtype Live_Index is Positive range 1 .. Max_N;
+   --  Element_Array may start at any origin inside 1 .. Max_N.
+
+   type Element_Array is array (Live_Index range <>) of Integer;
 
    ---------------------------------------------------------------------------
    -- Sortedness / shape guards (expression functions — usable in Pre)
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements,
+   --  any origin (Live_Index already keeps non-empty bounds in
+   --  1 .. Max_N).
 
    function Is_Sorted (A : Element_Array) return Boolean is
      (for all I in A'Range =>
@@ -78,10 +84,11 @@ is
        Global => null,
        Pre    => In_Bounds (A) and then Is_Sorted (A),
        Post   =>
-         Find'Result <= A'Last
-         and then (if Find'Result > 0 then A (Find'Result) = Key);
+         (if Find'Result > 0 then
+            Find'Result in A'Range
+            and then A (Find'Result) = Key);
    --  Jump / block search for Key. Block size m = ⌊√(A'Length)⌋ when
-   --  A is non-empty. Returns any index I in 1 .. A'Last with A(I) = Key,
+   --  A is non-empty. Returns any index I in A'Range with A(I) = Key,
    --  or 0 if Key is absent. Duplicates: any matching index is acceptable.
 
    function Find
@@ -92,8 +99,9 @@ is
      Global => null,
      Pre    => In_Bounds (A) and then Is_Sorted (A),
      Post   =>
-       Find'Result <= A'Last
-       and then (if Find'Result > 0 then A (Find'Result) = Key);
+       (if Find'Result > 0 then
+          Find'Result in A'Range
+          and then A (Find'Result) = Key);
    --  Same contract as Find, but uses Step as the jump / block size
    --  instead of ⌊√n⌋. Step is Positive (zero is not representable) —
    --  the non-SPARK sibling raised Invalid_Argument on Step = 0.

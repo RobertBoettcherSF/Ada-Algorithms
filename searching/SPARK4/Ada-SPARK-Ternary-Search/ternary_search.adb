@@ -87,7 +87,7 @@ is
 
       --  At most Max_N+1 iterations; ternary search needs ≤ log_{3/2}(N)+O(1).
       for Guard in 1 .. Max_N + 1 loop
-         pragma Loop_Invariant (Lo >= 1);
+         pragma Loop_Invariant (Lo >= A'First);
          pragma Loop_Invariant (Hi <= A'Last);
          pragma Loop_Invariant (Lo <= Hi + 1);
          pragma Loop_Invariant
