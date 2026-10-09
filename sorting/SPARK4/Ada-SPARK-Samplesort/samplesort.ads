@@ -9,7 +9,7 @@
 --  API — a single Sort procedure. Non-SPARK sibling uses Data_Element,
 --  Sequential / Parallel / Oversampling variants, Quick_Sort buckets,
 --  exceptions (Invalid_Bucket_Count / Invalid_Oversample_Factor), and
---  arbitrary A'First; this port requires A'First = 1, Integer
+--  arbitrary A'First; this port takes any A'First (A'Length <= Max_N), Integer
 --  Element_Array, in-place buckets, and proves that the samplesort
 --  steps themselves sort (no fallback pass). Full multiset /
 --  permutation equality is verified by tests rather than claimed as a
@@ -38,7 +38,8 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Positions 1 .. N (N = A'Length <= Max_N) at any origin: position
+   --  K is A (A'First + (K - 1)).
    subtype Index is Natural range 0 .. Max_N;
 
    type Element_Array is array (Positive range <>) of Integer;
@@ -48,13 +49,12 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: a length bound, any origin.
 
    function Is_Sorted (A : Element_Array) return Boolean is
-     (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
+     (for all I in A'Range => (if I < A'Last then A (I) <= A (I + 1)))
    with
      Global => null,
      Pre    => In_Bounds (A);
