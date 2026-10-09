@@ -22,4 +22,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (37 checks).
 
+`make test` runs `tests.adb` and the folder's own checks: 900,069 checks against a linear scan (see `tests/SOURCES.txt`).
+
 The first version was a fixed if-chain over 6 elements (`if Input (1) > Target then 1 elsif Input (2) ...`): a linear first match with no sortedness requirement and no contract. Commit 39dd5aef wrote that chain as a loop over 32 elements, counted its reads, and added a test asserting the log bound; that test fails on the old chain. The 6 original test values are kept as a prefix of the test array.
