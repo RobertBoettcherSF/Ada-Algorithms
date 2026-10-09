@@ -25,4 +25,6 @@ make prove
 
 `make prove` runs GNATprove at level 2 with cvc5, warnings as errors, and checks as errors (73 checks).
 
+`make test` runs `tests.adb` and the folder's own checks: 1,486,154 checks against a dynamic program over window placements (see `tests/SOURCES.txt`).
+
 The first version had no `Bouquets` parameter: it found the first day with a single run of `Size` bloomed flowers by trying every day from 1 to 1000. It had no contract, and its README claimed n <= 32 while `Length` was 8.

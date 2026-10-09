@@ -2,6 +2,7 @@ pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Minimum_Number_Of_Days_To_Make_M_Bouquets;
 use Minimum_Number_Of_Days_To_Make_M_Bouquets;
+with Own_Checks;
 
 procedure Tests is
    --  Flowers 1 .. 8 bloom on days 5 4 3 2 1 7 6 8.
@@ -24,4 +25,5 @@ begin
    R := Minimum_Day (Bloom_Days, 3, 3);   --  9 flowers needed, only 8
    pragma Assert (not R.Possible and then R.First_Day = Day'Last);
    Put_Line ("Minimum_Number_Of_Days_To_Make_M_Bouquets: PASS");
+   Own_Checks;
 end Tests;
