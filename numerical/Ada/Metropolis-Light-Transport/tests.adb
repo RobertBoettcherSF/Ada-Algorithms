@@ -94,6 +94,58 @@ begin
       Check ("4.3 Path ending in Diffuse vertex is invalid", not Is_Valid_Path (Invalid_End));
    end;
 
+   --  TEST 4b (checker scan of the Is_Valid_* judges): a light path runs
+   --  from the camera through surface vertices (Specular / Diffuse /
+   --  Glossy) to the light, so a camera or light vertex in the middle is
+   --  not a path. Every kind sequence of length 2 .. 4 is judged against
+   --  that definition.
+   Put_Line ("TEST 4b — Path validity, every kind sequence of length 2 .. 4");
+   declare
+      P     : Light_Path;
+      Wrong : Natural := 0;
+      Seen  : Natural := 0;
+      procedure Fill (I : Positive) is
+      begin
+         if I > P.Length then
+            declare
+               Expect : Boolean :=
+                 P.Vertices (1).Kind = Camera
+                 and then P.Vertices (P.Length).Kind = Light;
+            begin
+               for K in 2 .. P.Length - 1 loop
+                  if P.Vertices (K).Kind in Camera | Light then
+                     Expect := False;
+                  end if;
+               end loop;
+               Seen := Seen + 1;
+               if Is_Valid_Path (P) /= Expect then
+                  Wrong := Wrong + 1;
+               end if;
+            end;
+            return;
+         end if;
+         for K in Vertex_Kind loop
+            P.Vertices (I).Kind := K;
+            Fill (I + 1);
+         end loop;
+      end Fill;
+   begin
+      for L in 2 .. 4 loop
+         P.Length := L;
+         Fill (1);
+      end loop;
+      Check ("4.4 All" & Natural'Image (Seen) & " kind sequences judged as defined",
+             Wrong = 0);
+      P.Length := 3;
+      P.Vertices (1 .. 3) := [others => P.Vertices (1)];
+      P.Vertices (1).Kind := Camera;
+      P.Vertices (2).Kind := Camera;
+      P.Vertices (3).Kind := Light;
+      Check ("4.5 Camera vertex in the middle is invalid", not Is_Valid_Path (P));
+      P.Vertices (2).Kind := Light;
+      Check ("4.6 Light vertex in the middle is invalid", not Is_Valid_Path (P));
+   end;
+
    -- TEST 5 — Bidirectional Mutation Proposal
    Put_Line ("TEST 5 — Bidirectional Mutation Proposal");
    Init_Path.Length := 2;

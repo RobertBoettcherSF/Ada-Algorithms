@@ -1,0 +1,18 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Nothing is copied from the program's output or from third-party test suites.
+
+tests.adb TEST 1 .. 13 (except 4b): the original checks.
+
+own_checks.adb: see its header (film bins worked by hand from the bin
+formula; pixel uniformity by a chi-square bound, df = 9, p = 0.01).
+
+tests.adb TEST 4b (agent A3, 2026-10-09, checker scan of the Is_Valid_*
+judges): from the definition of a light path in Metropolis light transport
+(Veach and Guibas 1997, path x0 .. xk from the lens to a light source,
+interior vertices on scene surfaces): the first vertex is the Camera, the
+last is a Light, and every vertex in between is a surface vertex
+(Specular, Diffuse or Glossy). All 5 ** 2 + 5 ** 3 + 5 ** 4 = 775 kind
+sequences of length 2 .. 4 are judged against that rule; Camera, Camera,
+Light and Camera, Light, Light are the hand-picked invalid cases.
