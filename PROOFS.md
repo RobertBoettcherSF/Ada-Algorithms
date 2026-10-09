@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-09 16:25 CEST.
+Generated 2026-10-09 16:38 CEST.
 
 ## Proof setup
 
@@ -21,78 +21,78 @@ Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets
 
 **Training-ready: 64 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. The column `known_answer_source` says where the expected values come from (own / standard / old_derived / old_unverified); hard-coded answers in old tests count only when they were derived independently (`tools/vv/old_derived.csv`), never when they may have been copied from program output (old_unverified). A sort whose proof rests on a final Bubble_Finish pass that masks the named algorithm (`tools/vv/sweep_masking.csv`, column `masked_by_finish`) is not training-ready either; a surviving mutant counts as equivalent only when `tools/vv/sweep_equivalent.csv` lists it with exhaustive evidence or a written reason. Flaky tests (docs/VV.md 3j, `tools/vv/flaky.py` -> `tools/vv/flaky.csv`, column `flaky`): a folder is training-ready only with flaky=no - the same result in 10 repeated runs on the default seed, no failing AA_SEED in 1..30 for tests that use randomness, and no new failure in a build with `pragma Initialize_Scalars` and `-gnatVa`; on a flaky folder no mutation score counts until it is fixed. Under the old rule: 273 folders.
 
-**Strict rule as enforced (2026-10-09, docs/VV.md "Strict training-ready rule as enforced"):** `training_ready` = yes only when `tr_drop` is empty; every failing condition adds one reason, for every folder. On top of the conditions above: a blind held-out mutation score k/n >= 90% with n >= 20 non-equivalent mutants (timeouts count as survivors) from every held-out record (tools/vv sweep_heldout_alt.csv, sweep_heldout_B.csv, *_halves.csv, flagship_mutation_phase2-6.csv, vv/results/mutation_halves.csv; a record labelled NOT BLIND or too small fails), no withdrawn functional claim (checker_scan.csv / contract_scan.csv) and no partial one, not a demo, no live fallback. The columns `mutation_heldout_k` / `mutation_heldout_n` show the deciding record. Drop reasons (duplicates counted once): no held-out mutation score 1631; no known answer 1364; not Silver-proven 907; warnings GNAT 12 523; index independence not measured 477; warnings GNAT 14 462; warnings suppressed 454; Silver trivial 352; stub 147; twin only 101; open finding 67; held-out mutation < 90% 51; do-nothing weak 34; functional claim withdrawn (contract_scan) 32; build fails GNAT 14 26; build fails GNAT 12 26; harness cannot fail (answer-plant pending) 26; index not independent 24; tests fail GNAT 14 21; tests fail GNAT 12 21; held-out not blind 10; held-out too small (n < 20) 6; fallback 3; demo 1; held-out run does not meet the strict rule 1; partial functional claim (contract_scan) 1; flaky (mutation does not count) 1; masked by Bubble_Finish 1; functional claim withdrawn (checker_scan) 1.
+**Strict rule as enforced (2026-10-09, docs/VV.md "Strict training-ready rule as enforced"):** `training_ready` = yes only when `tr_drop` is empty; every failing condition adds one reason, for every folder. On top of the conditions above: a blind held-out mutation score k/n >= 90% with n >= 20 non-equivalent mutants (timeouts count as survivors) from every held-out record (tools/vv sweep_heldout_alt.csv, sweep_heldout_B.csv, *_halves.csv, flagship_mutation_phase2-6.csv, vv/results/mutation_halves.csv; a record labelled NOT BLIND or too small fails), no withdrawn functional claim (checker_scan.csv / contract_scan.csv) and no partial one, not a demo, no live fallback. The columns `mutation_heldout_k` / `mutation_heldout_n` show the deciding record. Drop reasons (duplicates counted once): no held-out mutation score 1631; no known answer 1364; not Silver-proven 907; warnings GNAT 12 523; index independence not measured 477; warnings GNAT 14 462; warnings suppressed 454; Silver trivial 352; stub 147; twin only 101; open finding 67; held-out mutation < 90% 51; do-nothing weak 34; functional claim withdrawn (contract_scan) 31; build fails GNAT 14 26; build fails GNAT 12 26; harness cannot fail (answer-plant pending) 26; index not independent 24; tests fail GNAT 14 21; tests fail GNAT 12 21; held-out not blind 10; held-out too small (n < 20) 6; fallback 3; demo 1; held-out run does not meet the strict rule 1; partial functional claim (contract_scan) 1; flaky (mutation does not count) 1; masked by Bubble_Finish 1; functional claim withdrawn (checker_scan) 1.
 
 ### Training-ready folders
 
-Held-out k/n = the deciding held-out record (non-equivalent killed / non-equivalent incl. timeouts); CP95 low = exact Clopper-Pearson two-sided 95% lower bound, Beta(0.025; k, n - k + 1), display only (the rule stays k/n >= 90%, n >= 20); unseen top-up = per-folder top-up runs not folded into the held-out record (tools/vv/sweep_topup_B.csv), shown for information and not counted.
+Held-out k/n = the deciding held-out record (non-equivalent killed / non-equivalent incl. timeouts); CP95 low = exact Clopper-Pearson two-sided 95% lower bound, Beta(0.025; k, n - k + 1), display only (the rule stays k/n >= 90%, n >= 20); unseen top-up = per-folder top-up runs not folded into the held-out record (tools/vv/sweep_topup_B.csv), shown for information and not counted. Std in hidden = std first-order mutants in the scored hidden half (score138 records; blank = not recorded by that source). Unspecified as survivors = the score138 held-out k/n when survivors that differ only in output the contract leaves undefined (class `unspecified output` in tools/vv/score138_equivalent.csv) count as survivors instead of being left out; display only. Calib = score138 thinned-test diagnostic (weak = the tests cut to their first check per case still kill >= 90% of the hidden set; ok = below; tools/vv/score138_calibration.csv, docs/VV.md); informational, not part of the rule, pending a decision whether to apply it to every folder.
 
-| Folder | Held-out k/n | % | CP95 low | Held-out set (family mix) [source] | Unseen top-up (not counted) |
-|---|---:|---:|---:|---|---|
-| clustering/SPARK2/K-Means-Step | 51/51 | 100.0 | 0.930 | std+alt held halves (tests + make prove) + unseen top-up: 7 std + 15 alt (all of both held halves; 2 stillborn not counted) + 30 of 104 unseen top-up [sweep_heldout_alt.csv] | - |
-| compression/SPARK2/Ada-SPARK-Interleaving-String | 49/49 | 100.0 | 0.927 | mixed std+alt+ho+B+C (round robin): 73 drawn [score138_halves.csv] | - |
-| compression/SPARK2/Ada-SPARK-String-Compression | 47/47 | 100.0 | 0.925 | mixed std+alt+ho+B+C (round robin): 101 drawn [score138_halves.csv] | - |
-| compression/SPARK2/Burrows-Wheeler-Transform | 21/21 | 100.0 | 0.839 | mixed std+alt+ho+B+C (round robin): 96 drawn [score138_halves.csv] | - |
-| geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham | 46/46 | 100.0 | 0.923 | mixed std+alt+ho+B+C (round robin): 115 drawn [score138_halves.csv] | - |
-| geometry/SPARK2/Ada-SPARK-Point-In-Polygon | 29/30 | 96.7 | 0.828 | alt: 33 drawn [main_heldout_alt_halves.csv] | - |
-| graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph | 30/30 | 100.0 | 0.884 | alt: 31 drawn [main_heldout_alt_halves.csv] | - |
-| graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS | 46/46 | 100.0 | 0.923 | mixed std+alt+ho+B+C (round robin): 72 drawn [score138_halves.csv] | - |
-| matrices/SPARK2/Ada-SPARK-Gaussian-Elimination | 43/43 | 100.0 | 0.918 | mixed std+alt+ho+B+C (round robin): 100 drawn [score138_halves.csv] | - |
-| matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Add-Binary | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 70 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Add-Without-Plus | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 51 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Beautiful-Arrangement | 27/27 | 100.0 | 0.872 | mixed std+alt+ho+B+C (round robin): 53 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock | 27/27 | 100.0 | 0.872 | mixed std+alt+ho+B+C (round robin): 38 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Broken-Calculator | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 59 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Bump-Arena | 49/50 | 98.0 | 0.894 | std+alt held halves (tests + make prove) + unseen top-up: 5 std + 16 alt (all of both held halves; 2 alt stillborn not counted) + 30 of 300 unseen top-up (107 stillborn not counted) [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages | 39/40 | 97.5 | 0.868 | alt: 40 drawn [main_heldout_alt_topup_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Circular-Queue | 29/30 | 96.7 | 0.828 | alt: 34 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Coin-Change-II | 23/23 | 100.0 | 0.852 | mixed std+alt+ho+B+C (round robin): 49 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Combination-Sum-II | 31/31 | 100.0 | 0.888 | std+alt held halves + unseen top-up (sweep_topup_B.py runs 1 and 2): 1 std + 6 alt (held halves; all of both); top-up drawn 75 [sweep_heldout_B.csv] | - |
-| misc/SPARK2/Ada-SPARK-Combination-Sum-III | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 62 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Combination-Sum-IV | 41/41 | 100.0 | 0.914 | mixed std+alt+ho+B+C (round robin): 60 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Container-With-Most-Water | 46/46 | 100.0 | 0.923 | mixed std+alt+ho+B+C (round robin): 61 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Cosine-Distance | 60/60 | 100.0 | 0.940 | std+alt held halves (tests + make prove) + unseen top-up: 9 std + 22 alt (all of both held halves; 6 alt stillborn not counted) + 29 of 95 unseen top-up (pool exhausted: 66 stillborn) [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite | 30/32 | 93.8 | 0.792 | alt: 32 drawn [main_heldout_alt_topup_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero | 39/39 | 100.0 | 0.910 | std+alt held halves (tests + make prove) + unseen top-up: 2 std + 7 alt (all of both held halves) + 30 of 76 unseen top-up [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Covariance | 26/26 | 100.0 | 0.868 | mixed std+alt+ho+B+C (round robin): 28 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Decode-Ways | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 70 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address | 58/58 | 100.0 | 0.938 | std+alt held halves (tests + make prove) + unseen top-up: 7 std + 21 alt (all of both held halves) + 30 of 95 unseen top-up (56 stillborn not counted) [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Degree-Of-An-Array | 36/40 | 90.0 | 0.763 | std+alt held halves (tests + make prove) + unseen top-up: 4 std + 6 alt (all of both held halves) + 30 of 82 unseen top-up (30 stillborn not counted) [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Deque-Bounded | 72/73 | 98.6 | 0.926 | std+alt held halves (tests + make prove) + unseen top-up: 17 std + 27 alt (all of both held halves; 3 alt stillborn not counted) + 30 of 95 unseen top-up [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation | 37/37 | 100.0 | 0.905 | std+alt held halves (tests + make prove) + unseen top-up: 3 std + 7 alt (all of both held halves) + 28 of 47 unseen top-up (pool exhausted; 19 stillborn not counted) [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite | 23/23 | 100.0 | 0.852 | mixed std+alt+ho+B+C (round robin): 31 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite | 42/42 | 100.0 | 0.916 | std+alt held halves + unseen top-up (sweep_topup_B.py): 1 std + 11 alt (held halves; all of both); top-up drawn 37 [sweep_heldout_B.csv] | - |
-| misc/SPARK2/Ada-SPARK-Dutch-National-Flag | 20/20 | 100.0 | 0.832 | mixed std+alt+ho+B+C (round robin): 64 drawn [score138_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Fast-Pow | 54/54 | 100.0 | 0.934 | std+alt held halves + unseen top-up (sweep_topup_B.py): 5 std + 21 alt (held halves; all of both); top-up drawn 35 [sweep_heldout_B.csv] | - |
-| misc/SPARK2/Ada-SPARK-Fibonacci-DP | 20/22 | 90.9 | 0.708 | alt: 22 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream | 28/30 | 93.3 | 0.779 | alt: 31 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-First-Unique-Character | 23/24 | 95.8 | 0.789 | std+alt held halves + unseen top-up: 2 std + 3 alt (all of both held halves) + 19 unseen top-up (pool of 38 exhausted) [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-House-Robber-II | 29/29 | 100.0 | 0.881 | alt (sealed, topped up with pairs/triples): 30 scored [sweep_heldout_B.csv] | - |
-| misc/SPARK2/Ada-SPARK-Longest-Ones | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary | 27/29 | 93.1 | 0.772 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Maximum-Points-You-Can-Obtain-From-Cards | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Median-Filtering | 60/60 | 100.0 | 0.940 | alt: 67 of 68 sites [sweep_heldout_B.csv] | - |
-| misc/SPARK2/Ada-SPARK-Paint-Fence-Lite | 53/53 | 100.0 | 0.933 | std+alt held halves: 28 std + 27 alt (held halves; all of both) [sweep_heldout_B.csv] | 28/30 (seed 20261169) |
-| misc/SPARK2/Ada-SPARK-Palindrome-Partitioning | 27/30 | 90.0 | 0.735 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Partition-List | 29/30 | 96.7 | 0.828 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Pow-X-N | 54/54 | 100.0 | 0.934 | std+alt held halves: 21 std + 40 alt (held halves; all of both) [sweep_heldout_B.csv] | 22/30 (seed 20261174) |
-| misc/SPARK2/Ada-SPARK-Reach-A-Number | 33/34 | 97.1 | 0.847 | std+alt held halves + unseen top-up: 2 std + 3 alt (all of both held halves) + 30 of 64 unseen top-up [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Rotate-List | 29/30 | 96.7 | 0.828 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Shortest-Word-Distance | 42/42 | 100.0 | 0.916 | std+alt held halves + unseen top-up: 3 std + 9 alt (all of both held halves) + 30 of 233 unseen top-up [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Sqrt-Integer | 28/28 | 100.0 | 0.877 | std+alt held halves: 5 std + 40 alt (held halves; all of both) [sweep_heldout_B.csv] | - |
-| misc/SPARK2/Ada-SPARK-Sqrt-X | 34/34 | 100.0 | 0.897 | std+alt held halves: 16 std + 26 alt (held halves; all of both) [sweep_heldout_B.csv] | - |
-| misc/SPARK2/Ada-SPARK-Stack-Bounded | 40/44 | 90.9 | 0.783 | std+alt held halves (tests + make prove) + unseen top-up: 7 std + 8 alt (all of both held halves) + 30 of 95 unseen top-up (1 stillborn not counted) [sweep_heldout_alt.csv] | - |
-| misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs | 27/30 | 90.0 | 0.735 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words | 20/21 | 95.2 | 0.762 | alt: 21 drawn [main_heldout_alt_topup_halves.csv] | - |
-| misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences | 29/30 | 96.7 | 0.828 | alt: 33 drawn [main_heldout_alt_halves.csv] | - |
-| numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm | 40/40 | 100.0 | 0.912 | mixed std+alt+ho+B+C (round robin): 79 drawn [score138_halves.csv] | - |
-| numerical/SPARK4/Binary-Gcd | 28/30 | 93.3 | 0.779 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| sorting/SPARK2/Ada-SPARK-Cocktail-Sort | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays | 29/30 | 96.7 | 0.828 | alt: 32 drawn [main_heldout_alt_halves.csv] | - |
-| sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List | 29/30 | 96.7 | 0.828 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| sorting/SPARK2/Ada-SPARK-Wiggle-Sort | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - |
-| strings/SPARK2/Ada-SPARK-Bounded-String-Builder | 81/81 | 100.0 | 0.955 | std+alt held halves (tests + make prove) + unseen top-up: 11 std + 40 alt (all of both held halves) + 30 of 1529 unseen top-up [sweep_heldout_alt.csv] | - |
+| Folder | Held-out k/n | % | CP95 low | Held-out set (family mix) [source] | Std in hidden | Unspecified as survivors | Calib | Unseen top-up (not counted) |
+|---|---:|---:|---:|---|---:|---|---|---|
+| clustering/SPARK2/K-Means-Step | 51/51 | 100.0 | 0.930 | std+alt held halves (tests + make prove) + unseen top-up: 7 std + 15 alt (all of both held halves; 2 stillborn not counted) + 30 of 104 unseen top-up [sweep_heldout_alt.csv] | - | - | - | - |
+| compression/SPARK2/Ada-SPARK-Interleaving-String | 49/49 | 100.0 | 0.927 | mixed std+alt+ho+B+C (round robin): 73 drawn [score138_halves.csv] | 0 | 49/49 (CP95 0.927) | weak | - |
+| compression/SPARK2/Ada-SPARK-String-Compression | 47/47 | 100.0 | 0.925 | mixed std+alt+ho+B+C (round robin): 101 drawn [score138_halves.csv] | 0 | 47/48 (CP95 0.889) | weak | - |
+| compression/SPARK2/Burrows-Wheeler-Transform | 21/21 | 100.0 | 0.839 | mixed std+alt+ho+B+C (round robin): 96 drawn [score138_halves.csv] | 0 | 21/21 (CP95 0.839) | weak | - |
+| geometry/SPARK2/Ada-SPARK-Convex-Hull-Graham | 46/46 | 100.0 | 0.923 | mixed std+alt+ho+B+C (round robin): 115 drawn [score138_halves.csv] | 0 | 46/48 (CP95 0.857) | weak | - |
+| geometry/SPARK2/Ada-SPARK-Point-In-Polygon | 29/30 | 96.7 | 0.828 | alt: 33 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| graphs/SPARK2/Ada-SPARK-Find-If-Path-Exists-In-Graph | 30/30 | 100.0 | 0.884 | alt: 31 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| graphs/SPARK2/Ada-SPARK-Number-Of-Islands-DFS | 46/46 | 100.0 | 0.923 | mixed std+alt+ho+B+C (round robin): 72 drawn [score138_halves.csv] | 10 | 46/46 (CP95 0.923) | weak | - |
+| matrices/SPARK2/Ada-SPARK-Gaussian-Elimination | 43/43 | 100.0 | 0.918 | mixed std+alt+ho+B+C (round robin): 100 drawn [score138_halves.csv] | 0 | 43/43 (CP95 0.918) | ok | - |
+| matrices/SPARK2/Ada-SPARK-Num-Matrix-Block-Sum | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Add-Binary | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 70 drawn [score138_halves.csv] | 0 | 48/48 (CP95 0.926) | weak | - |
+| misc/SPARK2/Ada-SPARK-Add-Without-Plus | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 51 drawn [score138_halves.csv] | 0 | 48/48 (CP95 0.926) | weak | - |
+| misc/SPARK2/Ada-SPARK-Beautiful-Arrangement | 27/27 | 100.0 | 0.872 | mixed std+alt+ho+B+C (round robin): 53 drawn [score138_halves.csv] | 0 | 27/27 (CP95 0.872) | weak | - |
+| misc/SPARK2/Ada-SPARK-Best-Time-To-Buy-And-Sell-Stock | 27/27 | 100.0 | 0.872 | mixed std+alt+ho+B+C (round robin): 38 drawn [score138_halves.csv] | 0 | 27/27 (CP95 0.872) | weak | - |
+| misc/SPARK2/Ada-SPARK-Broken-Calculator | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 59 drawn [score138_halves.csv] | 0 | 48/48 (CP95 0.926) | weak | - |
+| misc/SPARK2/Ada-SPARK-Bump-Arena | 49/50 | 98.0 | 0.894 | std+alt held halves (tests + make prove) + unseen top-up: 5 std + 16 alt (all of both held halves; 2 alt stillborn not counted) + 30 of 300 unseen top-up (107 stillborn not counted) [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Capacity-To-Ship-Packages | 39/40 | 97.5 | 0.868 | alt: 40 drawn [main_heldout_alt_topup_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Circular-Queue | 29/30 | 96.7 | 0.828 | alt: 34 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Coin-Change-II | 23/23 | 100.0 | 0.852 | mixed std+alt+ho+B+C (round robin): 49 drawn [score138_halves.csv] | 0 | 23/23 (CP95 0.852) | weak | - |
+| misc/SPARK2/Ada-SPARK-Combination-Sum-II | 31/31 | 100.0 | 0.888 | std+alt held halves + unseen top-up (sweep_topup_B.py runs 1 and 2): 1 std + 6 alt (held halves; all of both); top-up drawn 75 [sweep_heldout_B.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Combination-Sum-III | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 62 drawn [score138_halves.csv] | 0 | 48/48 (CP95 0.926) | ok | - |
+| misc/SPARK2/Ada-SPARK-Combination-Sum-IV | 41/41 | 100.0 | 0.914 | mixed std+alt+ho+B+C (round robin): 60 drawn [score138_halves.csv] | 0 | 41/41 (CP95 0.914) | weak | - |
+| misc/SPARK2/Ada-SPARK-Container-With-Most-Water | 46/46 | 100.0 | 0.923 | mixed std+alt+ho+B+C (round robin): 61 drawn [score138_halves.csv] | 0 | 46/46 (CP95 0.923) | weak | - |
+| misc/SPARK2/Ada-SPARK-Cosine-Distance | 60/60 | 100.0 | 0.940 | std+alt held halves (tests + make prove) + unseen top-up: 9 std + 22 alt (all of both held halves; 6 alt stillborn not counted) + 29 of 95 unseen top-up (pool exhausted: 66 stillborn) [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Count-Of-Smaller-Numbers-After-Self-Lite | 30/32 | 93.8 | 0.792 | alt: 32 drawn [main_heldout_alt_topup_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Count-Operations-To-Obtain-Zero | 39/39 | 100.0 | 0.910 | std+alt held halves (tests + make prove) + unseen top-up: 2 std + 7 alt (all of both held halves) + 30 of 76 unseen top-up [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Covariance | 26/26 | 100.0 | 0.868 | mixed std+alt+ho+B+C (round robin): 28 drawn [score138_halves.csv] | 0 | 26/26 (CP95 0.868) | weak | - |
+| misc/SPARK2/Ada-SPARK-Decode-Ways | 48/48 | 100.0 | 0.926 | mixed std+alt+ho+B+C (round robin): 70 drawn [score138_halves.csv] | 0 | 48/48 (CP95 0.926) | weak | - |
+| misc/SPARK2/Ada-SPARK-Defanging-An-IP-Address | 58/58 | 100.0 | 0.938 | std+alt held halves (tests + make prove) + unseen top-up: 7 std + 21 alt (all of both held halves) + 30 of 95 unseen top-up (56 stillborn not counted) [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Degree-Of-An-Array | 36/40 | 90.0 | 0.763 | std+alt held halves (tests + make prove) + unseen top-up: 4 std + 6 alt (all of both held halves) + 30 of 82 unseen top-up (30 stillborn not counted) [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Deque-Bounded | 72/73 | 98.6 | 0.926 | std+alt held halves (tests + make prove) + unseen top-up: 17 std + 27 alt (all of both held halves; 3 alt stillborn not counted) + 30 of 95 unseen top-up [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation | 37/37 | 100.0 | 0.905 | std+alt held halves (tests + make prove) + unseen top-up: 3 std + 7 alt (all of both held halves) + 28 of 47 unseen top-up (pool exhausted; 19 stillborn not counted) [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Design-Underground-System-Lite | 23/23 | 100.0 | 0.852 | mixed std+alt+ho+B+C (round robin): 31 drawn [score138_halves.csv] | 0 | 23/23 (CP95 0.852) | weak | - |
+| misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite | 42/42 | 100.0 | 0.916 | std+alt held halves + unseen top-up (sweep_topup_B.py): 1 std + 11 alt (held halves; all of both); top-up drawn 37 [sweep_heldout_B.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Dutch-National-Flag | 20/20 | 100.0 | 0.832 | mixed std+alt+ho+B+C (round robin): 64 drawn [score138_halves.csv] | 0 | 20/20 (CP95 0.832) | weak | - |
+| misc/SPARK2/Ada-SPARK-Fast-Pow | 54/54 | 100.0 | 0.934 | std+alt held halves + unseen top-up (sweep_topup_B.py): 5 std + 21 alt (held halves; all of both); top-up drawn 35 [sweep_heldout_B.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Fibonacci-DP | 20/22 | 90.9 | 0.708 | alt: 22 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Find-Median-From-Data-Stream | 28/30 | 93.3 | 0.779 | alt: 31 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-First-Unique-Character | 23/24 | 95.8 | 0.789 | std+alt held halves + unseen top-up: 2 std + 3 alt (all of both held halves) + 19 unseen top-up (pool of 38 exhausted) [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-House-Robber-II | 29/29 | 100.0 | 0.881 | alt (sealed, topped up with pairs/triples): 30 scored [sweep_heldout_B.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Longest-Ones | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary | 27/29 | 93.1 | 0.772 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Maximum-Points-You-Can-Obtain-From-Cards | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Median-Filtering | 60/60 | 100.0 | 0.940 | alt: 67 of 68 sites [sweep_heldout_B.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Paint-Fence-Lite | 53/53 | 100.0 | 0.933 | std+alt held halves: 28 std + 27 alt (held halves; all of both) [sweep_heldout_B.csv] | - | - | - | 28/30 (seed 20261169) |
+| misc/SPARK2/Ada-SPARK-Palindrome-Partitioning | 27/30 | 90.0 | 0.735 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Partition-List | 29/30 | 96.7 | 0.828 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Pow-X-N | 54/54 | 100.0 | 0.934 | std+alt held halves: 21 std + 40 alt (held halves; all of both) [sweep_heldout_B.csv] | - | - | - | 22/30 (seed 20261174) |
+| misc/SPARK2/Ada-SPARK-Reach-A-Number | 33/34 | 97.1 | 0.847 | std+alt held halves + unseen top-up: 2 std + 3 alt (all of both held halves) + 30 of 64 unseen top-up [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Rotate-List | 29/30 | 96.7 | 0.828 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Shortest-Word-Distance | 42/42 | 100.0 | 0.916 | std+alt held halves + unseen top-up: 3 std + 9 alt (all of both held halves) + 30 of 233 unseen top-up [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Sqrt-Integer | 28/28 | 100.0 | 0.877 | std+alt held halves: 5 std + 40 alt (held halves; all of both) [sweep_heldout_B.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Sqrt-X | 34/34 | 100.0 | 0.897 | std+alt held halves: 16 std + 26 alt (held halves; all of both) [sweep_heldout_B.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Stack-Bounded | 40/44 | 90.9 | 0.783 | std+alt held halves (tests + make prove) + unseen top-up: 7 std + 8 alt (all of both held halves) + 30 of 95 unseen top-up (1 stillborn not counted) [sweep_heldout_alt.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs | 27/30 | 90.0 | 0.735 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words | 20/21 | 95.2 | 0.762 | alt: 21 drawn [main_heldout_alt_topup_halves.csv] | - | - | - | - |
+| misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences | 29/30 | 96.7 | 0.828 | alt: 33 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| numerical/SPARK4/Ada-SPARK-Extended-Euclidean-Algorithm | 40/40 | 100.0 | 0.912 | mixed std+alt+ho+B+C (round robin): 79 drawn [score138_halves.csv] | 1 | 40/40 (CP95 0.912) | weak | - |
+| numerical/SPARK4/Binary-Gcd | 28/30 | 93.3 | 0.779 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| sorting/SPARK2/Ada-SPARK-Cocktail-Sort | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays | 29/30 | 96.7 | 0.828 | alt: 32 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List | 29/30 | 96.7 | 0.828 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| sorting/SPARK2/Ada-SPARK-Wiggle-Sort | 30/30 | 100.0 | 0.884 | alt: 30 drawn [main_heldout_alt_halves.csv] | - | - | - | - |
+| strings/SPARK2/Ada-SPARK-Bounded-String-Builder | 81/81 | 100.0 | 0.955 | std+alt held halves (tests + make prove) + unseen top-up: 11 std + 40 alt (all of both held halves) + 30 of 1529 unseen top-up [sweep_heldout_alt.csv] | - | - | - | - |
 
 **Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 1 of the weak ones are Silver-proven non-trivial. Own tests: 380 folders (column `own_tests`).
 
