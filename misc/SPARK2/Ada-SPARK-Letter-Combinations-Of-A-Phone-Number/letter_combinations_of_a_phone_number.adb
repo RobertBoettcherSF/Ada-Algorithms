@@ -1,10 +1,11 @@
-pragma Ada_2022;
+pragma SPARK_Mode (On);
 
-package body Letter_Combinations_Of_A_Phone_Number
-  with SPARK_Mode => On is
-   function Count_Combinations (Number_Of_Digits : Digit_Count) return Combination_Count is
+--  Scaffold for the failing test: the old ternary count table by length,
+--  and only the last letter decoded.
+package body Letter_Combinations_Of_A_Phone_Number is
+   function Count (Number : Digit_String) return Positive is
    begin
-      case Number_Of_Digits is
+      case Number'Length is
          when 0 => return 1;
          when 1 => return 3;
          when 2 => return 9;
@@ -18,6 +19,16 @@ package body Letter_Combinations_Of_A_Phone_Number
          when 10 => return 59_049;
          when 11 => return 177_147;
          when 12 => return 531_441;
+         when others => return 1;
       end case;
-   end Count_Combinations;
+   end Count;
+
+   function Combination (Number : Digit_String; K : Natural) return String is
+      R : String (1 .. Number'Last) := [others => 'a'];
+   begin
+      if Number'Length > 0 then
+         R (Number'Last) := Letter (Number (Number'Last), K mod Letters (Number (Number'Last)));
+      end if;
+      return R;
+   end Combination;
 end Letter_Combinations_Of_A_Phone_Number;
