@@ -1,0 +1,21 @@
+Sources of every expected value in this folder's tests
+======================================================
+
+Written by the V&V sweep (agent A3, 2026-10-09). Nothing is copied from the
+program's output or from third-party test suites.
+
+Definition used (README): the degree is the largest number of times any
+one value occurs in the 32-element array.
+
+tests.adb: the first two asserts are the original ones (1 2 2 3 1 4 2 then
+25 zeros -> 25; all 7 -> 32). Hand-worked: -15 .. 16 all different -> 1;
+the same with the last element changed to -15 -> 2; -32 / 32 alternating
+-> 16; then one 32 replaced by 0 -> 16 (-32 still 16 times); then one -32
+replaced by 0 -> 15; I mod 3 for I = 1 .. 32 -> 0 occurs 10 times, 1 and 2
+occur 11 times -> 11.
+
+own_checks.adb: a one-pass histogram over -32 .. 32 compared on 30,000
+seeded random arrays (value ranges of width 1, 2, 3, 8, 65, some with a
+long run of one value) and on arrays holding one value in the first K
+places and distinct values elsewhere (K = 1 .. 32, value -32, 0, 32).
+Seed = FNV-1a of the folder name, AA_SEED overrides it.
