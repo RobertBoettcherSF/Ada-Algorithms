@@ -1871,7 +1871,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK4/Ada-SPARK-Accumulator | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 (2) |  |  |  |
 | misc/SPARK4/Ada-SPARK-Blum-Blum-Shub | yes | yes | yes | yes | yes | 0 | 0 | proven | 261 (84) |  | misc/Ada/Blum-Blum-Shub |  |
 | misc/SPARK4/Ada-SPARK-Heaps-Algorithm | yes | yes | yes | yes | yes | 0 | 9 | proven | 235 (65) |  | misc/Ada/Heaps-Algorithm |  |
-| misc/SPARK4/Ada-SPARK-K-Way-Merge | yes | yes | yes | yes | yes | 0 | 0 | proven | 358 (23) |  | misc/Ada/K-Way-Merge |  |
+| misc/SPARK4/Ada-SPARK-K-Way-Merge | yes | yes | yes | yes | yes | 0 | 0 | proven | 426 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | misc/Ada/K-Way-Merge |  |
 | misc/SPARK4/Ada-SPARK-Lagged-Fibonacci-Generator | yes | yes | yes | yes | yes | 0 | 0 | proven | 318 (107) |  | misc/Ada/Lagged-Fibonacci-Generator |  |
 | misc/SPARK4/Ada-SPARK-Lemke-Howson | yes | yes | yes | yes | yes | 0 | 0 | not proven (unjustified escape) | 79 (1) |  | misc/Ada/Lemke-Howson |  |
 | misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm | yes | yes | yes | yes | yes | 0 | 6 | proven | 195 (10) |  | misc/Ada/Package-Merge-Algorithm |  |
@@ -2171,7 +2171,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Sort-An-Array | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Sort-Array-By-Parity-II | yes | yes | yes | yes | yes | 0 | 0 | proven | 38 (4) |  |  |  |
-| sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency | yes | yes | yes | yes | yes | 0 | 0 | proven | 42 (11) |  |  |  |
+| sorting/SPARK2/Ada-SPARK-Sort-Characters-By-Frequency | yes | yes | yes | yes | yes | 0 | 0 | proven | 42 (withdrawn: Post lacks permutation, see contract_scan.csv) |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Sort-Colors | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Sort-Integers-By-The-Number-Of-1-Bits | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Sort-List-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
@@ -2184,44 +2184,44 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Two-Sum-II-Input-Array-Is-Sorted | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Wiggle-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 11 |  |  |  |
 | sorting/SPARK2/Binary-Insertion-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
-| sorting/SPARK4/Ada-SPARK-Bitonic-Sorter | yes | yes | yes | yes | yes | 0 | 6 | proven | 294 (53) |  | sorting/Ada/Bitonic-Sorter |  |
-| sorting/SPARK4/Ada-SPARK-Bogosort | yes | yes | yes | yes | yes | 0 | 2 | proven | 231 (47) |  | sorting/Ada/Bogosort |  |
-| sorting/SPARK4/Ada-SPARK-Bubble-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 156 (34) |  | sorting/Ada/Bubble-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Bucket-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 177 (29) |  | sorting/Ada/Bucket-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Burstsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 449 (57) |  | sorting/Ada/Burstsort |  |
-| sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 204 (43) |  | sorting/Ada/Cocktail-Shaker-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Comb-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 194 (40) |  | sorting/Ada/Comb-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Counting-Sort | yes | yes | yes | yes | yes | 0 | 7 | proven | 280 (73) |  | sorting/Ada/Counting-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Cycle-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 274 (52) |  | sorting/Ada/Cycle-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Flashsort | yes | yes | yes | yes | yes | 0 | 6 | proven | 350 (45) |  | sorting/Ada/Flashsort |  |
-| sorting/SPARK4/Ada-SPARK-Gnome-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 101 (16) |  | sorting/Ada/Gnome-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Heapsort | yes | yes | yes | yes | yes | 0 | 8 | proven | 340 (55) |  | sorting/Ada/Heapsort |  |
-| sorting/SPARK4/Ada-SPARK-Insertion-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 91 (14) |  | sorting/Ada/Insertion-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Introsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 860 (217) |  | sorting/Ada/Introsort |  |
-| sorting/SPARK4/Ada-SPARK-Library-Sort | yes | yes | yes | yes | yes | 0 | 17 | proven | 360 (52) |  | sorting/Ada/Library-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Merge-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 433 (78) |  | sorting/Ada/Merge-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Odd-Even-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 209 (45) |  | sorting/Ada/Odd-Even-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Pancake-Sorting | yes | yes | yes | yes | yes | 0 | 0 | proven | 391 (60) |  | sorting/Ada/Pancake-Sorting |  |
-| sorting/SPARK4/Ada-SPARK-Patience-Sorting | yes | yes | yes | yes | yes | 0 | 9 | proven | 301 (39) |  | sorting/Ada/Patience-Sorting |  |
-| sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 254 (41) |  | sorting/Ada/Pigeonhole-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Postman-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 324 (61) |  | sorting/Ada/Postman-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Quantum-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 441 (91) |  | sorting/Ada/Quantum-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Quicksort | yes | yes | yes | yes | yes | 0 | 1 | proven | 327 (94) |  | sorting/Ada/Quicksort |  |
-| sorting/SPARK4/Ada-SPARK-Radix-Sort | yes | yes | yes | yes | yes | 0 | 6 | proven | 283 (74) |  | sorting/Ada/Radix-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Samplesort | yes | yes | yes | yes | yes | 0 | 0 | proven | 287 (44) |  | sorting/Ada/Samplesort |  |
-| sorting/SPARK4/Ada-SPARK-Selection-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 241 (47) |  | sorting/Ada/Selection-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Shell-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 131 (19) |  | sorting/Ada/Shell-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Slowsort | yes | yes | yes | yes | yes | 0 | 1 | proven | 187 (43) |  | sorting/Ada/Slowsort |  |
-| sorting/SPARK4/Ada-SPARK-Smoothsort | yes | yes | yes | yes | yes | 0 | 5 | proven | 205 (29) |  | sorting/Ada/Smoothsort |  |
-| sorting/SPARK4/Ada-SPARK-Sort-Merge-Join | yes | yes | yes | yes | yes | 0 | 0 | proven | 246 (22) |  | sorting/Ada/Sort-Merge-Join |  |
-| sorting/SPARK4/Ada-SPARK-Sorted-List | yes | yes | yes | yes | yes | 0 | 3 | proven | 328 (36) |  | sorting/Ada/Sorted-List |  |
-| sorting/SPARK4/Ada-SPARK-Spaghetti-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 219 (42) |  | sorting/Ada/Spaghetti-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Stooge-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 189 (43) |  | sorting/Ada/Stooge-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Strand-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 314 (39) |  | sorting/Ada/Strand-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Timsort | yes | yes | yes | yes | yes | 0 | 0 | proven | 636 (119) |  | sorting/Ada/Timsort |  |
-| sorting/SPARK4/Ada-SPARK-Topological-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 91 (14) |  | sorting/Ada/Topological-Sort |  |
-| sorting/SPARK4/Ada-SPARK-Tree-Sort | yes | yes | yes | yes | yes | 0 | 3 | proven | 294 (77) |  | sorting/Ada/Tree-Sort |  |
-| sorting/SPARK4/Bead-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 249 (41) |  | sorting/Ada/Bead-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Bitonic-Sorter | yes | yes | yes | yes | yes | 0 | 6 | proven | 294 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bitonic-Sorter |  |
+| sorting/SPARK4/Ada-SPARK-Bogosort | yes | yes | yes | yes | yes | 0 | 2 | proven | 294 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bogosort |  |
+| sorting/SPARK4/Ada-SPARK-Bubble-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 156 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bubble-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Bucket-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 177 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bucket-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Burstsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 449 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Burstsort |  |
+| sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 204 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Cocktail-Shaker-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Comb-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 194 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Comb-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Counting-Sort | yes | yes | yes | yes | yes | 0 | 7 | proven | 279 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Counting-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Cycle-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 274 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Cycle-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Flashsort | yes | yes | yes | yes | yes | 0 | 6 | proven | 350 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Flashsort |  |
+| sorting/SPARK4/Ada-SPARK-Gnome-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 101 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Gnome-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Heapsort | yes | yes | yes | yes | yes | 0 | 8 | proven | 340 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Heapsort |  |
+| sorting/SPARK4/Ada-SPARK-Insertion-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 91 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Insertion-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Introsort | yes | yes | yes | yes | yes | 0 | 12 | proven | 860 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Introsort |  |
+| sorting/SPARK4/Ada-SPARK-Library-Sort | yes | yes | yes | yes | yes | 0 | 17 | proven | 360 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Library-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Merge-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 433 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Merge-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Odd-Even-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 209 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Odd-Even-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Pancake-Sorting | yes | yes | yes | yes | yes | 0 | 0 | proven | 391 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Pancake-Sorting |  |
+| sorting/SPARK4/Ada-SPARK-Patience-Sorting | yes | yes | yes | yes | yes | 0 | 9 | proven | 301 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Patience-Sorting |  |
+| sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 254 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Pigeonhole-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Postman-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 324 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Postman-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Quantum-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 441 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Quantum-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Quicksort | yes | yes | yes | yes | yes | 0 | 1 | proven | 327 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Quicksort |  |
+| sorting/SPARK4/Ada-SPARK-Radix-Sort | yes | yes | yes | yes | yes | 0 | 6 | proven | 283 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Radix-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Samplesort | yes | yes | yes | yes | yes | 0 | 0 | proven | 259 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Samplesort |  |
+| sorting/SPARK4/Ada-SPARK-Selection-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 241 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Selection-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Shell-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 131 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Shell-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Slowsort | yes | yes | yes | yes | yes | 0 | 1 | proven | 187 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Slowsort |  |
+| sorting/SPARK4/Ada-SPARK-Smoothsort | yes | yes | yes | yes | yes | 0 | 5 | proven | 205 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Smoothsort |  |
+| sorting/SPARK4/Ada-SPARK-Sort-Merge-Join | yes | yes | yes | yes | yes | 0 | 0 | proven | 310 (withdrawn: Post proves trivial body empty, see contract_scan.csv) |  | sorting/Ada/Sort-Merge-Join |  |
+| sorting/SPARK4/Ada-SPARK-Sorted-List | yes | yes | yes | yes | yes | 0 | 3 | proven | 328 (withdrawn: Post proves trivial body drop_last; Post does not keep the other items, see contract_scan.csv) |  | sorting/Ada/Sorted-List |  |
+| sorting/SPARK4/Ada-SPARK-Spaghetti-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 219 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Spaghetti-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Stooge-Sort | yes | yes | yes | yes | yes | 0 | 1 | proven | 189 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Stooge-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Strand-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 314 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Strand-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Timsort | yes | yes | yes | yes | yes | 0 | 0 | proven | 636 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Timsort |  |
+| sorting/SPARK4/Ada-SPARK-Topological-Sort | yes | yes | yes | yes | yes | 0 | 10 | proven | 68 (withdrawn: Post proves trivial body not_found, see contract_scan.csv) |  | sorting/Ada/Topological-Sort |  |
+| sorting/SPARK4/Ada-SPARK-Tree-Sort | yes | yes | yes | yes | yes | 0 | 3 | proven | 294 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Tree-Sort |  |
+| sorting/SPARK4/Bead-Sort | yes | yes | yes | yes | yes | 0 | 2 | proven | 249 (withdrawn: Post lacks permutation, see contract_scan.csv) |  | sorting/Ada/Bead-Sort |  |
 | strings/Ada/Aho-Corasick | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |  |
 | strings/Ada/Boyer-Moore | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  | strings/SPARK2/Ada-SPARK-Boyer-Moore |  |
 | strings/Ada/Boyer-Moore-Horspool | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |  |

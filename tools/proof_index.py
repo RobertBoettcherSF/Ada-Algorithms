@@ -153,6 +153,20 @@ if os.path.exists(_cs):
         if r['folder'] in _wd and r['functional_checks'] not in ('', None):
             r['functional_checks'] = 'withdrawn: lenient %s, see checker_scan.csv' % ' / '.join(_wd[r['folder']])
 
+# Contract scan (tools/vv/contract_scan.csv): a functional claim whose Post is too weak (a sort Post
+# without a permutation clause, a Post that a trivial body still proves, an unjustified Pre that
+# rejects the inputs) is withdrawn until the contract is strengthened and the proof passes again.
+_ks = os.path.join(a.root, 'tools', 'vv', 'contract_scan.csv')
+if os.path.exists(_ks):
+    _kw = {}
+    for x in csv.DictReader(open(_ks)):
+        if x.get('withdraw_functional') == 'yes' and x.get('reason', '') not in _kw.setdefault(x['folder'], []):
+            _kw[x['folder']].append(x['reason'])
+    for r in rows:
+        if r['folder'] in _kw and r['functional_checks'] not in ('', None):
+            _why = 'withdrawn: %s, see contract_scan.csv' % '; '.join(_kw[r['folder']])
+            r['functional_checks'] = (r['functional_checks'] + '; ' + _why[len('withdrawn: '):]) if str(r['functional_checks']).startswith('withdrawn: ') else _why
+
 # V&V columns (docs/VV.md): differential test, mutation score, known-answer vectors
 def _csv(path):
     return list(csv.DictReader(open(path))) if os.path.exists(path) else []
