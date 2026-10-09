@@ -17,6 +17,10 @@ package body Combination_Sum with SPARK_Mode => On is
          when 10 => return 42;
          when 11 => return 56;
          when 12 => return 77;
+         when others => return 0;   --  scaffold: no entries beyond 12
       end case;
    end Count_Combinations;
+
+   function Count_Limited (Value, Max_Part : Target) return Combination_Count is
+     (0);   --  scaffold
 end Combination_Sum;
