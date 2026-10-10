@@ -5,12 +5,12 @@ Distinct subsets of a list that may repeat items, in SPARK.
 The list is given as its distinct values together with how many copies of each it holds. For example, 1 1 2 is the values 1, 2 with copies 2, 1. A distinct subset is then a choice of how many copies of each value to take, `Take (I)` in 0 .. `Copies (I)`, so no subset can appear twice. The `Choice` type keeps `Take (I) <= Copies (I)` in its predicate.
 
 - `Next_Choice (C, Found)` counts through the choices like an odometer, with the first value as the lowest digit. From the last choice (everything taken) it wraps around to the empty subset and sets `Found` to False.
-- `Subset (Values, C)` lists the chosen items: `Take (1)` copies of `Values (1)`, then `Take (2)` copies of `Values (2)`, and so on.
+- `Subset (Values, C)` lists the chosen items: `Take (1)` copies of the first value, then `Take (2)` copies of the second, and so on. `Values` may start at any index (only `Values'Length = C.N` is required); the result's positions are counted from its own first index. The helpers `Total`, `Group`, `Product` and `Colex_Less` also count positions from `A'First`.
 - `Count (C)` is the number of distinct subsets, the product of (`Copies (I)` + 1).
 
 **Range widened:** the first version was a case table of 2 ** N for N <= 12 distinct values, with no subsets at all. The limit is now 30 items in all. Each value adds a factor `Copies + 1 <= 2 ** Copies`, so the count is at most 2 ** 30 = 1_073_741_824, which fits `Natural`. 31 distinct items would give 2 ** 31, which does not fit.
 
-The proved contracts (225 checks):
+The proved contracts (258 checks):
 - `Next_Choice` keeps `Copies`. It sets `Found` to False exactly when everything was taken, and the choice is then empty. Otherwise the new choice is strictly later in colex order: the highest position where the two choices differ went up.
 - `Subset` returns `Total (Take)` items, and each position holds the value of its run (ghost `Group`).
 - `Count` equals a ghost `Big_Integer` product, and the bound 2 ** 30 is proved.

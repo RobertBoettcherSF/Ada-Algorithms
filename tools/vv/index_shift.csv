@@ -3595,7 +3595,7 @@ misc/SPARK2/Ada-SPARK-Subsets-II,Colex_Less,catalog,catalog,,1,function n_arrays
 misc/SPARK2/Ada-SPARK-Subsets-II,Group,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 misc/SPARK2/Ada-SPARK-Subsets-II,Subset,catalog,catalog,,1,function n_arrays=1 ret=Item_List,
 misc/SPARK2/Ada-SPARK-Subsets-II,Product,catalog,catalog,,1,function n_arrays=1 ret=Big_Integer,
-misc/SPARK2/Ada-SPARK-Subsets-II,,first_pinned,fail,,,"In_Bounds/Pre requires A'First = 1 — subtype/constrained type, or Pre + one-line reason (fix_kind=fixed_origin_type)",
+misc/SPARK2/Ada-SPARK-Subsets-II,,first_relative,ok,rewritten_first_relative,,"room decision rewrite: no First pin in the spec; Values at any origin, helpers count positions from A'First; shifted-origin tests in suite",indexes only walk/line-up (room decision)
 misc/SPARK2/Ada-SPARK-Subsets-II,Total,skipped,skipped,,,"driver build failed: rror: expected type ""Count_List"" defined at subsets_ii.ads:24 idx_shift_driver.adb:33:29: error: found type ""Item_List"" defined at subsets_ii.ads:20 gnatmake: ""idx_shift_driver.adb"" compilation error ",
 misc/SPARK2/Ada-SPARK-Validate-Stack-Sequences,,skipped,skipped,,,no unconstrained array type,
 numerical/SPARK4/Binary-Gcd,,skipped,skipped,,,no unconstrained array type,

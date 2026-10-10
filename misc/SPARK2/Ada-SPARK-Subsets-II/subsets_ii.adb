@@ -76,6 +76,18 @@ package body Subsets_II with SPARK_Mode => On is
       Lemma_Mul_Mono (P, Big (Pow2 (T)), Big (C + 1), Big (Pow2 (C)));
    end Lemma_Product_Step;
 
+   --  One step of Product with the C.Copies origin 1 made explicit.
+   procedure Lemma_Product_Unfold (A : Count_List; K : Positive)
+   with
+     Ghost,
+     Global => null,
+     Pre    => A'First = 1 and then K <= A'Length,
+     Post   => Product (A, K) = Product (A, K - 1) * Big (A (K) + 1);
+   procedure Lemma_Product_Unfold (A : Count_List; K : Positive) is
+   begin
+      pragma Assert (A'First + (K - 1) = K);
+   end Lemma_Product_Unfold;
+
    function Count (C : Choice) return Positive is
       R : Positive := 1;
    begin
@@ -86,6 +98,7 @@ package body Subsets_II with SPARK_Mode => On is
          pragma Loop_Invariant (Big (R) <= Big (Pow2 (Total (C.Copies, I - 1))));
          Lemma_Total_Mono (C.Copies, I, C.N);
          Lemma_Product_Step (Big (R), Total (C.Copies, I - 1), C.Copies (I));
+         Lemma_Product_Unfold (C.Copies, I);
          pragma Assert (Product (C.Copies, I) = Big (R) * Big (C.Copies (I) + 1));
          pragma Assert (Product (C.Copies, I) <= Big (Pow2 (Max_Items)));
          R := R * (C.Copies (I) + 1);
@@ -129,13 +142,15 @@ package body Subsets_II with SPARK_Mode => On is
    begin
       for I in 1 .. C.N loop
          pragma Loop_Invariant (P = Total (C.Take, I - 1) and then P <= Len);
-         pragma Loop_Invariant (for all M in 1 .. P => R (M) = Values (Group (C.Take, M, I - 1)));
+         pragma Loop_Invariant
+           (for all M in 1 .. P => R (M) = Values (Values'First - 1 + Group (C.Take, M, I - 1)));
          Lemma_Total_Mono (C.Take, I, C.N);
          pragma Assert (P + C.Take (I) = Total (C.Take, I));
          for J in 1 .. C.Take (I) loop
-            pragma Loop_Invariant (for all M in 1 .. P => R (M) = Values (Group (C.Take, M, I - 1)));
-            pragma Loop_Invariant (for all M in P + 1 .. P + J - 1 => R (M) = Values (I));
-            R (P + J) := Values (I);
+            pragma Loop_Invariant
+              (for all M in 1 .. P => R (M) = Values (Values'First - 1 + Group (C.Take, M, I - 1)));
+            pragma Loop_Invariant (for all M in P + 1 .. P + J - 1 => R (M) = Values (Values'First - 1 + I));
+            R (P + J) := Values (Values'First - 1 + I);
          end loop;
          pragma Assert (for all M in 1 .. P => Group (C.Take, M, I) = Group (C.Take, M, I - 1));
          pragma Assert (for all M in P + 1 .. P + C.Take (I) => Group (C.Take, M, I) = I);
