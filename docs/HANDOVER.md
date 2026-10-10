@@ -253,3 +253,34 @@ Open findings 54 -> 12, counted from `tools/vv/findings.csv` at c5d7464c, f6663e
 **H185 Integer-Break (agent-NB, 2026-10-11 00:33):** proof pass on the night held set (seed 530624628, on 02c289d5, base proves) finished: 2 proof kills, 13 survivors still prove with the mutation. Recorded in `tools/vv/score138_halves.csv` / `score138_sealed.csv`: 36/49 = 73.5% (34 test + 2 proof), dummy 0/49. This is a completed blind round with n >= 20, so under rule v1 (last row wins) Integer-Break now fails (`tr_drop` held-out mutation < 90%) instead of counting as pending: index 91 = 90 confirmed + 1 pending (recount_strict.py agrees). All 13 survivors are ghost proof hints (Lemma_Row_N loops shortened or reversed, Lemma_Mul_Mono / Lemma_Conv arguments) whose mutants still prove: candidates for written-reason equivalents or for removing redundant hint steps (code change under the code-fix bar). Room decision, then a new seed and sealed set. Survivors listed in the H185 row.
 
 **H186 Different-Ways-To-Add-Parentheses-Lite (agent-NB, 2026-10-10 23:33 - 2026-10-11 00:40):** the still-unseen held set (seed 992160674, sealed 8a49f412) ran once on 02c289d5 (folder unchanged since the seal) at parallelism 1 with the sealed 505 s timeout: 41/49 tests-only, 0 timeouts, no OOM, 170 stillborn; dummy 0/49. Proof pass (base proves): 2 proof kills, 6 survivors still prove. Recorded: 43/49 = 87.8% (41 test + 2 proof), CP95 0.752. Completed round under 90%, so rule v1 fails for this folder: index 90 = 90 confirmed + 0 pending (recount_strict.py agrees). Survivors in the H186 row: 4 lemma call arguments, one `Bound (L)` -> `Bound (P)` conjunct, one Lemma_Mul_Mono constant. H189 (GNAT 14 leak, code) is now unblocked.
+
+## State at 2026-10-11 night
+
+Night batch by agent-NB (2026-10-10 22:50 - 2026-10-11 ~00:50 Europe/Berlin; Robert 87% -> 95%; no new item after 02:15, wrap-up by 03:15). Every item of the next-session order was worked; nothing is running. The index was regenerated the H188 way (bare `make proof-index` = `tools/vv/run_proof_index.py`, inputs synthesised from the committed PROOFS.csv; 0 input changes); `tools/vv/recount_strict.py --list / --pending` agrees (90 / 0), `tools/vv/test_proof_index.py` 33/33, `make check-paths` clean.
+
+**Counts** (before: ac30ba86, end of 2026-10-10 evening):
+
+| Measure | Before | Now |
+|---|---:|---:|
+| Training-ready under rule v1 | 92 = 87 confirmed + 5 pending re-score | 90 = 90 confirmed + 0 pending |
+| Silver-proven, non-trivial | 522 | 522 |
+| Training-ready under the previous rule | 321 | 321 |
+| Open findings (`tools/vv/findings.csv`) | 12 | 12 |
+| Handover rows open / closed | 114 / 74 (188 rows) | 112 / 77 (189 rows) |
+
+Training-ready 92 -> 90: of the 5 pending folders, 3 were confirmed by a new blind held set (Subsets 44/48, Subsets-II 46/49, House-Robber-III-Lite 44/48, all tests-only; `tools/vv/rescored.csv`), and 2 completed a blind held round with n >= 20 under 90% and now fail rule v1 (last `score138_halves.csv` row wins): Integer-Break 36/49 = 73.5% (34 test + 2 proof), Different-Ways-To-Add-Parentheses-Lite 43/49 = 87.8% (41 test + 2 proof). Earlier failed re-scores (2026-10-10 evening) were left out of score138_halves.csv because their proof passes were cut; these two rounds are complete (proof pass done), so they are recorded and count.
+
+**Done tonight:**
+
+- H187 closed, premise disproved (12dff5f2): the DWAP test itself needs 10.4 s / 5.3 MB; the 3 GB is a GNAT 14.2.0 leak in the code under test under -gnata (reproducer `tools/vv/h187_gnat14_leak`), the 163 s is run-time ghost checking. Follow-up H189 (code). No test change.
+- H188 closed: failing control first (ea6202b3), fix b68c2b69 (`tools/vv/run_proof_index.py`).
+- score138 harness bug: `--timeout` was ignored (hard-coded 30 s in `sweep_mutate_strict.run_tests`); failing test 6074fdff, fix 02c289d5 (`tools/vv/test_score138_timeout.py` 3/3). The H182-H185 held runs were re-run with the sealed timeouts: identical per mutant (4c57d37a).
+- H182-H185: new seeds int(sha256(folder + '2026-10-10-night')) mod 1e9, sealed and pushed first (5a2d3501); step (b) found no test-killable open survivor (all ghost lemma code / contracts), so no test change; timeouts sealed from 10 clean runs at parallelism 4 (542e88f0); held run once. Subsets, Subsets-II, House-Robber-III-Lite confirmed (H182-H184 closed); Integer-Break fails (H185 open, survivors listed, 13 candidate ghost-hint equivalents).
+- H186: clean timing at parallelism 1 (one ~3 GB run fits), 10/10 pass, timeout 505 s sealed (9c7738b4); held set 992160674 run once (0 timeouts, no OOM) + proof pass: 43/49, fails rule v1 (H186 open, survivors listed). VV.md: lower parallelism allowed when the test does not fit memory, recorded with the sealed value.
+- H181 scan (records + scan only, d7b818af): `tools/vv/h181_scan.py` -> `h181_scan.csv`, 0 vacuity-risky uses; 1 lead (Letter-Combinations-Of-A-Phone-Number `Spells_From` origin pin not in fixed_origin_decisions.tsv). Row stays open.
+
+**What's next**, in this order:
+
+1. Room decision on ghost-hint survivors that still prove (Integer-Break 13, DWAP 6: lemma arguments / Lemma_Row loops): written-reason equivalents in `tools/vv/score138_equivalent.csv`, or remove the redundant hint steps (code change, code-fix bar). Either way, then a new seed and sealed set for both folders (their night sets are open).
+2. H189: DWAP GNAT 14 leak / run-time ghost cost (code change; now allowed, the H186 set is scored), failing-first = recorded RSS / wall.
+3. H181: Letter-Combinations-Of-A-Phone-Number `Spells_From` origin-pin decision.
