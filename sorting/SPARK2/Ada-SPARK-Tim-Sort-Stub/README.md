@@ -1,17 +1,12 @@
 # Ada-SPARK-Tim-Sort-Stub
 
-PLACEHOLDER: insertion sort under a Timsort name (no runs, no merging); the Post states sortedness only; see H109
+Timsort as CPython's `listsort` runs it (Objects/listsort.txt), without galloping, on any `Value_Array` of up to `Max_Len = 10_000` integers with any `Positive` index range (`Input'Last < Positive'Last`). Runs are the longest ascending (`A (K) <= A (K + 1)`) or strictly descending stretch (reversed in place), extended to `Min_Run (N)` by binary insertion (after equal keys) and pushed on a run stack; after each push `merge_collapse` merges adjacent runs (with the corrected check of the third run from the top) and at the end the stack is merged down to one run. A merge copies the left run to a buffer and merges forward (`merge_lo`). Galloping (exponential search inside a merge) only changes how a merge copies, not which runs are merged, and is not done here. `Sort_Traced` also returns the event log (`Push (base, length)`, `Merge (stack position)`).
 
-The insertion-sort kernel of Timsort (the step Timsort runs inside each min-run), in Ada 2022 with `SPARK_Mode => On`.
+Proof (SPARK, `make prove`, level 2, cvc5 + z3, timeout 10 s, 527 checks): no run-time error (the stack holds at most one run per element; lengths and indices bounded by `Max_Len` and `Input'Last < Positive'Last`) and the Post: the result keeps the bounds and is sorted (pairwise `Sorted`). Every run on the stack is sorted and the runs are contiguous from `Input'First` (`Stack_Ok`); count_run / reversal, binary insertion and the merge each prove sortedness of their range and leave the rest unchanged. Partial: the Post does not state that the result is a permutation of the input (`tools/vv/contract_scan.csv`); the tests check it against an insertion sort.
 
-`Sort` takes any `Value_Array` (any `Positive` index range, length $n \le 10\,000$ = `Max_Len`) and returns an array with the same bounds that is sorted: $r_i \le r_j$ for all $i \le j$. Sortedness is a proved postcondition (Silver, `--level=2`); that the result is a permutation of the input is checked by the tests, not proved. Worst case $O(n^2)$ comparisons.
-
-Earlier this folder sorted exactly 8 values in `-100 .. 100`, with no contract beyond absence of run-time errors.
+Tests: `tests.adb` (original) and `own_checks.adb` (seed 20261008): `Min_Run` against the listsort.txt values (63 -> 63, 64 -> 32, 65 -> 33, 2048 -> 32, 2112 -> 33) and an own model for N = 0 .. 70; the event log and result equal an own model of the listsort rules on random and duplicate-heavy inputs up to 5,000 values and on inputs built from natural runs; 4,100 random inputs of length 0 .. 40 plus edge cases against an insertion sort. Sources: `tests/SOURCES.txt`.
 
 ```sh
-# needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
 make test
 make prove
 ```
-
-`make prove` uses the default level-2 provers; cvc5 alone does not discharge the nested-quantifier invariants.

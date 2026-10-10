@@ -266,7 +266,7 @@ begin
    for N in 0 .. 70 loop
       Report (Min_Run (N) = Model_Min_Run (N), "min-run model N =" & N'Image);
    end loop;
-   for N in [0, 1, 2, 5, 63, 64, 65, 100, 200, 500, 1000, 2112, 5000] loop
+   for N of IArr'[0, 1, 2, 5, 63, 64, 65, 100, 200, 500, 1000, 2112, 5000] loop
       for K in 1 .. 5 loop
          Check_Trace (1, N, -1_000_000, 1_000_000, "trace random N =" & N'Image);
          Check_Trace (1, N, 0, 3, "trace duplicates N =" & N'Image);
