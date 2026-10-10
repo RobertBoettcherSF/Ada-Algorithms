@@ -56,19 +56,25 @@ clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
 # Regenerate PROOFS.md / PROOFS.csv and the headline block in README.md (between the
-# proof-index markers; idempotent) from per-folder results (see tools/audit/README.md).
+# proof-index markers; idempotent) via tools/vv/run_proof_index.py (H188).
+#   make proof-index                 inputs synthesised from the committed PROOFS.csv (default)
 #   make proof-index RESULTS=/path/with/build.jsonl+prove.jsonl PROVE_LOGS=$TMPDIR/aa_prove \
-#                    STEPS_LOGS=$TMPDIR/aa2s TOOL_INFO=toolinfo.txt
+#                    STEPS_LOGS=$TMPDIR/aa2s TOOL_INFO=toolinfo.txt [ALLOW_INPUT_CHANGE=1]
+#     a new build + prove run (see tools/audit/README.md); fails (exit 2, files restored) when its
+#     inputs differ from the committed PROOFS.csv unless ALLOW_INPUT_CHANGE=1; always fails (exit 3)
+#     when the index and tools/vv/recount_strict.py disagree on training-ready / rescore_pending.
 VV_TMP     := $(shell dirname "$$(mktemp -u)")
-RESULTS    ?= $(VV_TMP)/aa_res
-PROVE_LOGS ?= $(VV_TMP)/aa_prove
+RESULTS    ?=
+PROVE_LOGS ?= $(if $(RESULTS),$(VV_TMP)/aa_prove)
+ALLOW_INPUT_CHANGE ?=
 STEPS_LOGS ?=
 TOOL_INFO  ?=
 STEPS      ?= 1000000
 proof-index:
-	python3 tools/proof_index.py --results $(RESULTS) --logs $(PROVE_LOGS) \
+	python3 tools/vv/run_proof_index.py $(if $(RESULTS),--results $(RESULTS) --logs $(PROVE_LOGS)) \
+	  $(if $(ALLOW_INPUT_CHANGE),--allow-input-change) -- \
 	  $(if $(STEPS_LOGS),--steps-logs $(STEPS_LOGS)) $(if $(TOOL_INFO),--tool-info $(TOOL_INFO)) \
-	  --steps-cmd "gnatprove -P <folder gpr> --mode=silver --level=2 --timeout=0 --steps=$(STEPS) --counterexamples=off -j2 --output=oneline -k"
+	  $(if $(RESULTS),--steps-cmd "gnatprove -P <folder gpr> --mode=silver --level=2 --timeout=0 --steps=$(STEPS) --counterexamples=off -j2 --output=oneline -k")
 
 # Tracked files must not name absolute box paths (scratch dirs, other worktrees, home);
 # allowlist with written reasons in tools/vv/check_paths_allow.csv.
@@ -86,4 +92,4 @@ vv:
 
 # Validation only (differential tests + mutation sample), then refresh the index from existing results.
 vv-validate:
-	VV_SKIP="build prove" VV_OUT=$(RESULTS) VV_PROVE_LOGS=$(PROVE_LOGS) tools/vv/run_vv.sh
+	VV_SKIP="build prove" VV_OUT=$(or $(RESULTS),$(VV_TMP)/aa_res) VV_PROVE_LOGS=$(or $(PROVE_LOGS),$(VV_TMP)/aa_prove) tools/vv/run_vv.sh
