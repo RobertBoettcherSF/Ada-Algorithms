@@ -56,7 +56,7 @@ The scripts under `tools/` find the repository from their own location and never
 |---|---|---|
 | `AA_ALR_DIR` | `~/.local/alr` (Alire's crate cache on the box: `gnat_native_12.2.1_*`, `gnatprove_16.1.0_*`, `gprbuild_*`) | `tools/audit/build_folder.sh`, `prove_folder.sh`, `tools/vv/sweep_check.sh`, `sweep_gnat_recheck.sh`, `reproof.sh`, `always_terminates_check.sh`, `proof_warnings.py`, `score138_prove.py`, `flaky.py`, `silent_fail.py` |
 | `GNAT12_BIN`, `GPRBUILD_BIN`, `GNATPROVE_BIN` | the matching `bin` dir under `AA_ALR_DIR` | `tools/audit/*.sh` (override one tool) |
-| `TMPDIR` | `/tmp` (Python `tempfile.gettempdir()`, shell `mktemp`) | every `--work` / scratch default (`sweep_mutate.py`, `reproof.py`, `run_vv.sh` `VV_OUT`, `make proof-index` `RESULTS`/`PROVE_LOGS`, ...) |
+| `TMPDIR` | `/tmp` (Python `tempfile.gettempdir()`, shell `mktemp`) | every `--work` / scratch default (`sweep_mutate.py`, `reproof.py`, `run_vv.sh` `VV_OUT`, `make vv-validate` `RESULTS`/`PROVE_LOGS`; bare `make proof-index` no longer reads them, it synthesises its inputs from PROOFS.csv (H188), ...) |
 | `AA_S138_PRIVATE` | `<parent of the checkout>/s138_private` (outside git, so held-out results never land in a commit) | `tools/vv/score138.py --out`, `score138_record.py` |
 
 With `eval "$(cd tools/toolchain && alr -n printenv)"` the tools are already on PATH; `AA_ALR_DIR` only matters for the scripts that pin a crate by folder name.
