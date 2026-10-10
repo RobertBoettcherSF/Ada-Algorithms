@@ -11,7 +11,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Samplesort](https:/
 
 ## Features
 * **`Sort (A)`**: Ascending educational samplesort (sample and sort pivots / cut buckets in place / insertion-sort each bucket).
-* **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
+* **`Is_Sorted` / `In_Bounds` / `Occ` / `Is_Perm`**: Expression-function guards and value counts; `Is_Sorted (A) and then Is_Perm (A, A'Old)` is the proved postcondition.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors; the bucket partition and the bucket insertion sort carry the invariants (`Sorted_Slice`, `All_In` value bounds) that prove sortedness.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than raised exceptions.
 * **In place**: buckets are cut out of the array itself by partitioning — no work array, no heap / unbounded vectors, no Ada tasks.
@@ -27,7 +27,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Samplesort](https:/
 * Buckets are formed in place, one pivot at a time, by partitioning the not yet placed suffix (sibling allocates `Temp` of length $n$, distributes into it, and uses task workers).
 * Per-bucket **insertion** sort (sibling uses `Quick_Sort` on buckets).
 * One invariant carries the proof across buckets: the placed prefix is sorted, `Floor` is its last element, and every element still to place is $\ge$ `Floor`. A bucket holds values in `Floor` .. pivot and the rest stays above the pivot, so each sorted bucket extends the sorted prefix.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)`; before 2026-10-10 the Post said only `Is_Sorted`, which a constant-fill body also proves: tools/vv/contract_scan.csv). Every move on `A` is an exchange: `Swap` proves `Same_Occ` (the count of every value) with `Lemma_Swap`, `Partition` swaps, and `Insert_Step` moves the key down by exchanges with the larger neighbour (the same comparisons as the earlier shifting version); the pivots live in their own array. `Sort_Bucket`, `Partition` and `Sort` chain `Same_Occ`. It ranges over every `Integer` value, so the body's contracts, invariants and assertions are proved and not checked at run time (`Assertion_Policy` in the body, `tools/vv/proof_escapes.csv` runtime_only); the spec Post of `Sort` still runs in the tests.
 
 ## Algorithm
 Given an array $A$ of length $n$:
@@ -59,7 +59,7 @@ Empty and singleton arrays are no-ops. Samplesort is **not** required to be stab
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 233 assertions pass. `gnatprove --mode=silver --level=2` reports `Success: all checks proved (200 checks).`
+When you run `make test`, you will see all 398 assertions pass. `make prove` (level 4) and `gnatprove --mode=silver --level=2 --steps=1000000` report `Success: all checks proved (418 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, duplicates / all-equal, signed domain, `Integer'First` / `Integer'Last`, lengths up to `Max_N`.
@@ -80,7 +80,7 @@ When you run `make test`, you will see all 233 assertions pass. `gnatprove --mod
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Partition, insertion and bucket loops use `pragma Loop_Invariant` / `Loop_Variant`; the bucket loop keeps the sorted prefix / `Floor` invariant described above.
-* **GNATprove (silver, level 2):** `Success: all checks proved (200 checks).`
+* **GNATprove (level 4, and silver level 2):** `Success: all checks proved (418 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
