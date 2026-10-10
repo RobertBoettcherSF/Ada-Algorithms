@@ -15,3 +15,4 @@ concurrency/SPARK2/Ada-SPARK-Task-Scheduler-Stub
 misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub
 sorting/SPARK2/Ada-SPARK-Bitonic-Sort
 sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort
+sorting/SPARK2/Ada-SPARK-Circle-Sort
