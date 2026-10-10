@@ -196,13 +196,13 @@ Code-fix batch by agent-CF (14:10-16:05 Europe/Berlin; cutoff for new folders 16
 |---|---:|---:|
 | Open findings (`tools/vv/findings.csv`) | 54 | 12 |
 | Silver-proven, non-trivial | 522 | 522 |
-| Training-ready under rule v1 (no re-scoring) | 84 | 92 |
+| Training-ready under rule v1 (no re-scoring) | 84 | 92 = 84 confirmed + 8 pending re-score |
 | Training-ready under the previous rule | 280 | 321 |
 | Open PLACEHOLDER rows (`tools/vv/placeholders.csv`) | 136 | 136 |
 | Open withdrawn functional claims (`tools/vv/contract_scan.csv`, withdraw = yes) | 14 | 14 |
 | Handover rows open / closed | 101 / 70 (174 rows) | 103 / 74 (177 rows) |
 
-Why the jumps: the H140 dedup (f6663e01) closed 43 `first_pinned` findings of folders that were already rewritten (each with its rewrite commit) and added 9 rows that had no finding; the 8 SPARK2 H140 folders below are now index-independent, which was their only rule-v1 drop reason, so they count as training-ready (84 -> 92). Their held-out mutation scores are from before today's changes (no re-scoring), and two of them (Ugly-Number-II, House-Robber-III-Lite) are agent-CF KEEP decisions that the room may overrule.
+Open findings 54 -> 12, counted from `tools/vv/findings.csv` at c5d7464c, f6663e01 and HEAD (rows are append-only, so they line up by position): (a) closed as already fixed / duplicate in the First-relative merge f6663e01: 43 of the 54 (42 status fixed, each with the existing rewrite commit, 33 distinct commits; 1 false_positive, Package-Merge room KEEP); (b) fixed in code today: 0 of the 54; of the 9 open rows the merge added (first_pinned folders that had no finding), 6 fixed in code with test / fix commits (Delete-And-Earn f9317972, Subsets 865646c7, Subsets-II ce2fbf81, Permutations-II 5d3b9a5b, Different-Ways-To-Add-Parentheses-Lite af723af2, Integer-Break 014165c8), 2 other closures (false_positive with a written KEEP reason: Ugly-Number-II a677101e, House-Robber-III-Lite 8f7ae59a), 1 still open (Burstsort); (c) 8 'own checks not run' rows were added and fixed in the same session (3c0a6c90, 74094e83), so they never counted as open. Open now: 11 of the 54 (Scale-Invariant-Feature-Transform and 10 SPARK4 sorts) + 1 added (Burstsort) = 12. Training-ready: the 8 SPARK2 H140 folders are now index-independent, their only rule-v1 drop reason, so 84 -> 92; the index shows them as pending re-score (column `rescore_pending`, d3b3aba9): 84 confirmed + 8 pending, since their held-out mutation scores are from before today's code. Two of them (Ugly-Number-II, House-Robber-III-Lite) are agent-CF KEEP decisions that the room may overrule.
 
 **Done this evening** (test / fix commit):
 
