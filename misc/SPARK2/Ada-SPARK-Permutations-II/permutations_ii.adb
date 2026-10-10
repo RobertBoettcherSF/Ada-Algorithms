@@ -1,9 +1,15 @@
 pragma SPARK_Mode (On);
 
 package body Permutations_II is
+   --  The identity order 1 .. N (a function of N: an inline
+   --  [for K in 1 .. Items'Length => K] range-checks the bound 0 against
+   --  Positive at run time for an empty list).
+   function Identity (N : Length) return Index_Array is
+     ([for K in 1 .. N => K]);
+
    function Start (Items : List) return Arrangement is
-     ((N => Items'Last, Items => Items, Order => [for K in 1 .. Items'Last => K],
-       Place => [for K in 1 .. Items'Last => K]));
+     ((N => Items'Length, Items => Items, Order => Identity (Items'Length),
+       Place => Identity (Items'Length)));
 
    --  The index that lands at K when entries A and B are exchanged.
    function Sw (K, A, B : Positive) return Positive is
@@ -100,12 +106,12 @@ package body Permutations_II is
       D : Positive := 1;     --  the product of m! over the values so far
       C : Natural;
    begin
-      for K in 1 .. Items'Last loop
+      for K in 1 .. Items'Length loop
          pragma Loop_Invariant (F = Fact (K - 1) and then D = Copies (Items, K - 1));
          C := 0;
          for J in 1 .. K loop
-            pragma Loop_Invariant (C = Count_Equal (Items, Items (K), J - 1));
-            if Items (J) = Items (K) then
+            pragma Loop_Invariant (C = Count_Equal (Items, Items (Items'First + (K - 1)), J - 1));
+            if Items (Items'First + (J - 1)) = Items (Items'First + (K - 1)) then
                C := C + 1;
             end if;
          end loop;
@@ -114,7 +120,7 @@ package body Permutations_II is
          D := D * C;
          pragma Assert (F = Fact (K) and then D = Copies (Items, K));
       end loop;
-      pragma Assert (F = Fact (Items'Last) and then D = Copies (Items, Items'Last));
+      pragma Assert (F = Fact (Items'Length) and then D = Copies (Items, Items'Length));
       pragma Assert (D <= F);
       return F / D;
    end Count_Distinct;

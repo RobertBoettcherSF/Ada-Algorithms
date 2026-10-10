@@ -3570,7 +3570,7 @@ misc/SPARK2/Ada-SPARK-Palindrome-Partitioning,,skipped,skipped,,,no unconstraine
 misc/SPARK2/Ada-SPARK-Partition-List,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Permutations,Lex_Less,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK2/Ada-SPARK-Permutations-II,Lex_Less,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
-misc/SPARK2/Ada-SPARK-Permutations-II,,first_pinned,fail,,,"In_Bounds/Pre requires A'First = 1 — subtype/constrained type, or Pre + one-line reason (fix_kind=fixed_origin_type)",
+misc/SPARK2/Ada-SPARK-Permutations-II,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin in the spec; List / Small_List constrain the length only; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/SPARK2/Ada-SPARK-Pow-X-N,,static_midpoint,ok,,,misc/SPARK2/Ada-SPARK-Pow-X-N/pow_x_n.adb:116: pragma Assert ((N + 1) / 2 = N / 2 + 1);,"reviewed 2026-10-09: exponent halving (N + 1) / 2 in ghost assertions, not an index midpoint; no unconstrained array; overflow-freedom proved (Silver)"
 misc/SPARK2/Ada-SPARK-Pow-X-N,,static_midpoint,ok,,,"misc/SPARK2/Ada-SPARK-Pow-X-N/pow_x_n.adb:117: pragma Assert (Pow (Y, (N + 1) / 2) = Y * H);","reviewed 2026-10-09: exponent halving (N + 1) / 2 in ghost assertions, not an index midpoint; no unconstrained array; overflow-freedom proved (Silver)"
 misc/SPARK2/Ada-SPARK-Pow-X-N,,static_midpoint,ok,,,"misc/SPARK2/Ada-SPARK-Pow-X-N/pow_x_n.adb:118: pragma Assert (Pow (Y, N + 1) = Sq (Pow (Y, (N + 1) / 2)));","reviewed 2026-10-09: exponent halving (N + 1) / 2 in ghost assertions, not an index midpoint; no unconstrained array; overflow-freedom proved (Silver)"

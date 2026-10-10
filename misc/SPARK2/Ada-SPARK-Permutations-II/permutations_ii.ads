@@ -34,7 +34,7 @@ package Permutations_II is
                  Arrangement.Place (V) <= Arrangement.N and then Arrangement.Order (Arrangement.Place (V)) = V);
 
    subtype List is Value_Array
-   with Dynamic_Predicate => List'First = 1 and then List'Last in Length;
+   with Dynamic_Predicate => List'Length in Length;
 
    --  The values as currently arranged.
    function Values (A : Arrangement) return Value_Array is
@@ -68,7 +68,7 @@ package Permutations_II is
                and then (if Found then Lex_Less (Values (A'Old), Values (A)) else Is_Sorted (A));
 
    subtype Small_List is List
-   with Dynamic_Predicate => Small_List'Last <= 12;
+   with Dynamic_Predicate => Small_List'Length <= 12;
 
    subtype Count_Range is Natural range 0 .. 12;
    subtype Factorial_Value is Positive range 1 .. 479_001_600;
@@ -90,25 +90,26 @@ package Permutations_II is
      Post               => Fact'Result = Fact_Table (N),
      Subprogram_Variant => (Decreases => N);
 
-   --  How many of Items (1 .. J) equal V.
+   --  How many of the first J items equal V (positions counted from
+   --  Items'First, so any origin).
    function Count_Equal (Items : Small_List; V : Integer; J : Natural) return Natural
    with
      Ghost,
-     Pre                => J <= Items'Last,
+     Pre                => J <= Items'Length,
      Post               => Count_Equal'Result <= J,
      Subprogram_Variant => (Decreases => J);
 
-   --  The K-th item is the Seen-th copy of its value in Items (1 .. K).
+   --  The K-th item is the Seen-th copy of its value among the first K.
    function Seen (Items : Small_List; K : Positive) return Positive is
-     (Count_Equal (Items, Items (K), K))
-   with Ghost, Pre => K <= Items'Last;
+     (Count_Equal (Items, Items (Items'First + (K - 1)), K))
+   with Ghost, Pre => K <= Items'Length;
 
    --  Seen (1) * .. * Seen (K) = the product of m! over the values of
-   --  Items (1 .. K).
+   --  the first K items.
    function Copies (Items : Small_List; K : Natural) return Positive
    with
      Ghost,
-     Pre                => K <= Items'Last,
+     Pre                => K <= Items'Length,
      Post               => Copies'Result <= Fact (K),
      Subprogram_Variant => (Decreases => K);
 
@@ -116,11 +117,11 @@ package Permutations_II is
    function Count_Distinct (Items : Small_List) return Factorial_Value
    with
      Global => null,
-     Post   => Count_Distinct'Result = Fact (Items'Last) / Copies (Items, Items'Last);
+     Post   => Count_Distinct'Result = Fact (Items'Length) / Copies (Items, Items'Length);
 
 private
    function Count_Equal (Items : Small_List; V : Integer; J : Natural) return Natural is
-     (if J = 0 then 0 else Count_Equal (Items, V, J - 1) + (if Items (J) = V then 1 else 0));
+     (if J = 0 then 0 else Count_Equal (Items, V, J - 1) + (if Items (Items'First + (J - 1)) = V then 1 else 0));
 
    function Copies (Items : Small_List; K : Natural) return Positive is
      (if K = 0 then 1 else Copies (Items, K - 1) * Seen (Items, K));

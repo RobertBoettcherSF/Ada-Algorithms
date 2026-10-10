@@ -2,9 +2,9 @@
 
 Distinct permutations of a list that may repeat items, in dictionary order, in SPARK. An `Arrangement` never changes its `Items`. It shows them through an index permutation `Order` (position K shows `Items (Order (K))`) kept together with its inverse `Place`, and the predicate keeps the two inverse to each other. So every arrangement shows exactly the items of the list, each as often as in the list, by construction. `Next_Permutation` uses non-strict comparisons: the pivot is the last position whose value is smaller than the next one, and it is swapped with the rightmost strictly larger value. Equal items are therefore never exchanged, and no arrangement repeats. From the last arrangement (values never increasing) it reverses everything to the sorted one and sets `Found` to False. `Count_Distinct (Items)` = N! / (m1! m2! ..), where m1, m2, .. are how often each value occurs.
 
-**Range widened:** the first version was a count table for N <= 12 with a flag for "one repeated pair". `Count_Distinct` keeps N <= 12 because it goes through N!, and 12! = 479_001_600 is the last factorial that fits `Natural`. `Next_Permutation` takes any length up to `Positive'Last - 1`.
+**Range widened:** the first version was a count table for N <= 12 with a flag for "one repeated pair". `Count_Distinct` keeps N <= 12 because it goes through N!, and 12! = 479_001_600 is the last factorial that fits `Natural`. `Next_Permutation` takes any length up to `Positive'Last - 1`. `Start` and `Count_Distinct` take the list at any index origin (only its length is constrained); the ghost `Count_Equal`, `Seen` and `Copies` count positions from `Items'First`.
 
-The proved contracts (205 checks), with termination of every while loop by a loop variant:
+The proved contracts (220 checks), with termination of every while loop by a loop variant:
 - the items never change;
 - `Found` is False exactly when the old values never increase;
 - with `Found`, the values go strictly up in dictionary order; without it, the result is sorted;
