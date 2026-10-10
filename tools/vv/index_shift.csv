@@ -3559,7 +3559,7 @@ misc/SPARK2/Ada-SPARK-Integer-Break,Product_To,catalog,catalog,,1,function n_arr
 misc/SPARK2/Ada-SPARK-Integer-Break,Lemma_Optimal,catalog,catalog,,1,procedure n_arrays=1 ret=Value,
 misc/SPARK2/Ada-SPARK-Integer-Break,Sum_To,catalog,catalog,,1,function n_arrays=1 ret=Big_Integer,
 misc/SPARK2/Ada-SPARK-Integer-Break,Product_To,catalog,catalog,,1,function n_arrays=1 ret=Big_Integer,
-misc/SPARK2/Ada-SPARK-Integer-Break,,first_pinned,fail,,,"In_Bounds/Pre requires A'First = 1 — subtype/constrained type, or Pre + one-line reason (fix_kind=fixed_origin_type)",
+misc/SPARK2/Ada-SPARK-Integer-Break,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin in the spec; Sum_To / Product_To / Lemma_Optimal count parts from P'First; shifted-origin tests in suite,indexes only walk (room decision)
 misc/SPARK2/Ada-SPARK-Koko-Eating-Bananas,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Longest-Ones,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Longest-Word-In-Dictionary,,skipped,skipped,,,no unconstrained array type,

@@ -813,7 +813,8 @@ package body Integer_Break with SPARK_Mode => On is
       return Positive (S.B (N));
    end Maximum;
 
-   --  Sum_To and Product_To of P (1 .. J) only read P (1 .. J).
+   --  Sum_To and Product_To of P (1 .. J) only read P (1 .. J). Body-only,
+   --  for Best_Split's own arrays (origin 1 by declaration).
    procedure Lemma_Prefix_Frame (P1, P2 : Part_List; J : Natural)
    with
      Ghost,
@@ -829,6 +830,16 @@ package body Integer_Break with SPARK_Mode => On is
          Lemma_Prefix_Frame (P1, P2, J - 1);
       end if;
    end Lemma_Prefix_Frame;
+
+   --  One step of Sum_To / Product_To (the J-th part is P (P'First + J - 1)).
+   procedure Lemma_Step (P : Part_List; J : Positive)
+   with
+     Ghost,
+     Global => null,
+     Pre    => J <= P'Length,
+     Post   => Sum_To (P, J) = Sum_To (P, J - 1) + To_Big_Integer (P (P'First + (J - 1)))
+               and then Product_To (P, J) = Product_To (P, J - 1) * To_Big_Integer (P (P'First + (J - 1)));
+   procedure Lemma_Step (P : Part_List; J : Positive) is null;
 
    procedure Lemma_Mul_Mono (X, XX, Y : Big_Integer)
    with
@@ -889,6 +900,8 @@ package body Integer_Break with SPARK_Mode => On is
          begin
             R (Count + 1) := K;
             Lemma_Prefix_Frame (R, Old_R, Count);
+            Lemma_Step (R, Count + 1);
+            pragma Assert (R'First + Count = Count + 1);
             pragma Assert (M >= 2 and then M <= N and then B (M) = Best (M));
             pragma Assert (Whole_Or_Split (M) = Best (M));
             pragma Assert (Best (M) = Cand (M, K));
@@ -913,6 +926,8 @@ package body Integer_Break with SPARK_Mode => On is
       begin
          R (Count + 1) := M;
          Lemma_Prefix_Frame (R, Old_R, Count);
+         Lemma_Step (R, Count + 1);
+         pragma Assert (R'First + Count = Count + 1);
          pragma Assert (Whole_Or_Split (M) = Long_Long_Integer (M));
          pragma Assert (R (Count + 1) = M and then Product_To (R, Count) = Old_P);
          pragma Assert (Product_To (R, Count + 1) = Product_To (R, Count) * To_Big_Integer (R (Count + 1)));
@@ -936,43 +951,45 @@ package body Integer_Break with SPARK_Mode => On is
    with
      Ghost,
      Global             => null,
-     Pre                => P'First = 1 and then J <= P'Last and then Sum_To (P, J) <= To_Big_Integer (Max_N),
+     Pre                => J <= P'Length and then Sum_To (P, J) <= To_Big_Integer (Max_N),
      Post               => Product_To (P, J) <= Big (Whole_Or_Split (To_Integer (Sum_To (P, J)))),
      Subprogram_Variant => (Decreases => J);
 
    procedure Lemma_Opt_Prefix (P : Part_List; J : Positive) is
       S : constant Part := To_Integer (Sum_To (P, J)) with Ghost;
+      X : constant Part := P (P'First + (J - 1)) with Ghost;   --  the J-th part
    begin
       if J > 1 then
          Lemma_Opt_Prefix (P, J - 1);
          declare
             S1 : constant Part := To_Integer (Sum_To (P, J - 1)) with Ghost;
          begin
-            pragma Assert (S1 = S - P (J) and then S >= 2 and then P (J) < S);
-            Lemma_Mul_Mono (Product_To (P, J - 1), Big (Whole_Or_Split (S1)), To_Big_Integer (P (J)));
+            pragma Assert (S1 = S - X and then S >= 2 and then X < S);
+            Lemma_Mul_Mono (Product_To (P, J - 1), Big (Whole_Or_Split (S1)), To_Big_Integer (X));
             Lemma_Row (S);
-            pragma Assert (Cand (S, P (J)) <= Best (S));
-            pragma Assert (Long_Long_Integer (P (J)) * Whole_Or_Split (S1) <= Whole_Or_Split (S));
-            Lemma_Conv (P (J));
-            pragma Assert (Big (Whole_Or_Split (S1)) * To_Big_Integer (P (J)) <= Big (Whole_Or_Split (S)));
+            pragma Assert (Cand (S, X) <= Best (S));
+            pragma Assert (Long_Long_Integer (X) * Whole_Or_Split (S1) <= Whole_Or_Split (S));
+            Lemma_Conv (X);
+            pragma Assert (Big (Whole_Or_Split (S1)) * To_Big_Integer (X) <= Big (Whole_Or_Split (S)));
          end;
       end if;
    end Lemma_Opt_Prefix;
 
    procedure Lemma_Optimal (N : Number; P : Part_List) is
-      J  : constant Positive := P'Last;
+      J  : constant Positive := P'Length;
+      X  : constant Part := P (P'First + (J - 1));   --  the last part
    begin
       Lemma_Opt_Prefix (P, J - 1);
       declare
          S1 : constant Part := To_Integer (Sum_To (P, J - 1));
       begin
-         pragma Assert (S1 = N - P (J) and then P (J) < N);
-         Lemma_Mul_Mono (Product_To (P, J - 1), Big (Whole_Or_Split (S1)), To_Big_Integer (P (J)));
+         pragma Assert (S1 = N - X and then X < N);
+         Lemma_Mul_Mono (Product_To (P, J - 1), Big (Whole_Or_Split (S1)), To_Big_Integer (X));
          Lemma_Row (N);
-         pragma Assert (Cand (N, P (J)) <= Best (N));
-         pragma Assert (Long_Long_Integer (P (J)) * Whole_Or_Split (S1) <= Best (N));
-         Lemma_Conv (P (J));
-         pragma Assert (Big (Whole_Or_Split (S1)) * To_Big_Integer (P (J)) <= Big (Best (N)));
+         pragma Assert (Cand (N, X) <= Best (N));
+         pragma Assert (Long_Long_Integer (X) * Whole_Or_Split (S1) <= Best (N));
+         Lemma_Conv (X);
+         pragma Assert (Big (Whole_Or_Split (S1)) * To_Big_Integer (X) <= Big (Best (N)));
          Lemma_Conv (Maximum (N));
       end;
    end Lemma_Optimal;

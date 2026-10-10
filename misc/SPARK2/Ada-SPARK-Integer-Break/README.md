@@ -17,7 +17,7 @@ Best (58) = 4 * 3 ** 18 = 1_549_681_956 fits, Best (59) = 2 * 3 ** 19 =
 2_324_522_934 does not. Every intermediate product is at most the result.
 (The old version was a case table for N in 2 .. 10.)
 
-Proof (`make prove`, level 2, cvc5, 831 checks): `Maximum (N)` equals the
+Proof (`make prove`, level 2, cvc5, 852 checks): `Maximum (N)` equals the
 ghost table `Best (N)`. The table is pinned down by `Row (M)`, proved for
 every M by `Lemma_Row`: no first part K gives more than `Best (M)`
 (`Cand (M, K) <= Best (M)`), and the ghost first part `Arg (M)` gives
@@ -25,10 +25,12 @@ exactly `Best (M)`. Together with `Best (1) = 0` this fixes every entry
 from the smaller ones. `Best_Split (N)` has at least two parts, sums to N,
 and its product is `Maximum (N)`. The ghost lemma `Lemma_Optimal` proves
 that no split of N into at least two parts has a larger product, so
-`Maximum` is the maximum. No overflow anywhere.
+`Maximum` is the maximum. No overflow anywhere. The ghost `Sum_To` /
+`Product_To` count parts from `P'First`, so a split may start at any
+index (`Lemma_Optimal` needs only `P'Length >= 2`).
 
-Tests: `make test` (hand-derived values, see tests/SOURCES.txt) and
-`own_checks.adb` (own exhaustive enumeration of every partition for N <= 58,
+Tests: `make test` runs the hand-derived values (see tests/SOURCES.txt)
+and then `own_checks.adb` (own exhaustive enumeration of every partition for N <= 58,
 own closed form, the ghost tables regenerated, the `Best_Split` rule
 rebuilt from the enumerated values, seeded random splits through
-`Lemma_Optimal`; seed printed, AA_SEED overrides).
+`Lemma_Optimal`, also at shifted origins; seed printed, AA_SEED overrides).

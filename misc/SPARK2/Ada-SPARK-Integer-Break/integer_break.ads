@@ -52,35 +52,36 @@ package Integer_Break with SPARK_Mode => On is
    function Maximum (N : Number) return Positive
    with Global => null, Post => Long_Long_Integer (Maximum'Result) = Best (N);
 
-   --  Sum and product of P (1 .. J).
+   --  Sum and product of the first J parts (positions counted from
+   --  P'First, so any origin).
    function Sum_To (P : Part_List; J : Natural) return Big_Integer
    with
      Ghost,
-     Pre                => P'First = 1 and then J <= P'Last,
+     Pre                => J <= P'Length,
      Post               => Sum_To'Result >= To_Big_Integer (J),
      Subprogram_Variant => (Decreases => J);
 
    function Product_To (P : Part_List; J : Natural) return Big_Integer
    with
      Ghost,
-     Pre                => P'First = 1 and then J <= P'Last,
+     Pre                => J <= P'Length,
      Post               => Product_To'Result >= 1,
      Subprogram_Variant => (Decreases => J);
 
    function Best_Split (N : Number) return Part_List
    with
      Global => null,
-     Post   => Best_Split'Result'First = 1 and then Best_Split'Result'Last in 2 .. N
-               and then Sum_To (Best_Split'Result, Best_Split'Result'Last) = To_Big_Integer (N)
-               and then Product_To (Best_Split'Result, Best_Split'Result'Last) = To_Big_Integer (Maximum (N));
+     Post   => Best_Split'Result'Length in 2 .. N
+               and then Sum_To (Best_Split'Result, Best_Split'Result'Length) = To_Big_Integer (N)
+               and then Product_To (Best_Split'Result, Best_Split'Result'Length) = To_Big_Integer (Maximum (N));
 
    --  No split of N into at least two parts has a larger product.
    procedure Lemma_Optimal (N : Number; P : Part_List)
    with
      Ghost,
      Global => null,
-     Pre    => P'First = 1 and then P'Last >= 2 and then Sum_To (P, P'Last) = To_Big_Integer (N),
-     Post   => Product_To (P, P'Last) <= To_Big_Integer (Maximum (N));
+     Pre    => P'Length >= 2 and then Sum_To (P, P'Length) = To_Big_Integer (N),
+     Post   => Product_To (P, P'Length) <= To_Big_Integer (Maximum (N));
 
 private
    function Best (M : Part) return Value is
@@ -205,8 +206,8 @@ private
         when 58 => 2);
 
    function Sum_To (P : Part_List; J : Natural) return Big_Integer is
-     (if J = 0 then To_Big_Integer (0) else Sum_To (P, J - 1) + To_Big_Integer (P (J)));
+     (if J = 0 then To_Big_Integer (0) else Sum_To (P, J - 1) + To_Big_Integer (P (P'First + (J - 1))));
 
    function Product_To (P : Part_List; J : Natural) return Big_Integer is
-     (if J = 0 then To_Big_Integer (1) else Product_To (P, J - 1) * To_Big_Integer (P (J)));
+     (if J = 0 then To_Big_Integer (1) else Product_To (P, J - 1) * To_Big_Integer (P (P'First + (J - 1))));
 end Integer_Break;
