@@ -143,5 +143,6 @@ begin
                 & " checks (50,066 arrays vs the set of all peaks; comparisons <= floor (log2 N) + 2, worst case 5; predicate)");
    else
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;

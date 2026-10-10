@@ -69,5 +69,6 @@ begin
                 & " checks (every N 0 .. 10,000 vs an odd-number count; steps <= floor (log2 101) + 2, worst case 8)");
    else
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;

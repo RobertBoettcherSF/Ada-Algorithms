@@ -219,5 +219,6 @@ begin
                 & " checks (205 sorted 8 x 8 matrices x 100 targets vs a 2D scan; comparisons <= floor (log2 64) + 2, worst case 8; predicate; Position_Of)");
    else
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;

@@ -178,5 +178,6 @@ begin
                 & " checks (all 32 rotations of 304 increasing arrays: position, value, probes <= floor (log2 N) + 2 and = 5, Minimum; predicate on rotations, broken copies and random arrays)");
    else
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;

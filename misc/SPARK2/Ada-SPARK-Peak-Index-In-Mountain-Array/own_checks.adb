@@ -155,5 +155,6 @@ begin
                 & " checks (21,530 mountains vs arg-max; comparisons <= floor (log2 N) + 2, worst case 5; predicate vs existential on 20,000 edited mountains)");
    else
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;

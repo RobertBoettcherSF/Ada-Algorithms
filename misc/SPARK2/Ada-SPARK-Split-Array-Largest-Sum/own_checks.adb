@@ -154,5 +154,6 @@ begin
                 & " checks (162 arrays x 8 part counts vs all 128 cut sets; Greedy_Parts at 120,000 limits; tries <= floor (log2 800) + 2, worst case 10)");
    else
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;

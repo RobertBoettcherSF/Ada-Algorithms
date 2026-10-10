@@ -208,5 +208,6 @@ begin
                 & " checks (400 random sorted blocks x every K vs an insertion sort, values outside the block random; constant blocks with exact counts; comparisons <= (floor (log2 1001) + 1) * 2 * N; predicate)");
    else
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;

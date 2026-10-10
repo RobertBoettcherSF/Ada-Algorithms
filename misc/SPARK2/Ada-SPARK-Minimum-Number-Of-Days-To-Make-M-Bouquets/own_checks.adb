@@ -164,5 +164,6 @@ begin
                 & " checks (all 6561 arrays with days 1 .. 3 and 3000 random arrays: first day and Possible vs DP over placements; Count vs DP)");
    else
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;
