@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-09 23:16 CEST.
+Generated 2026-10-10 02:04 CEST.
 
 ## Proof setup
 
@@ -17,11 +17,11 @@ One row per algorithm folder (full data in [`PROOFS.csv`](PROOFS.csv)). Regenera
 Builds: `gnatmake -gnatwa -gnat2022` on `tests.adb` (GNAT 14 system, GNAT 12 Alire). `make test` = the folder's own Makefile (GNAT 14). Tests pass = `make test` passes, or the uniform build's test binary exits 0 with no FAIL lines.
 Silver: `gnatprove --mode=silver --level=2` on the folder's own .gpr (generated where none exists).
 
-Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets (name ends in -Stub or README says stub, column `stub`): 138.
+Folders: 1840; duplicates (counted once): 2; Ada<->SPARK pairs: 110; stub sheets (name ends in -Stub or README says stub, column `stub`): 135.
 
-**Training-ready under rule v1 (held-out n >= 20, >= 90%, proof pass): 84 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. The column `known_answer_source` says where the expected values come from (own / standard / old_derived / old_unverified); hard-coded answers in old tests count only when they were derived independently (`tools/vv/old_derived.csv`), never when they may have been copied from program output (old_unverified). A sort whose proof rests on a final Bubble_Finish pass that masks the named algorithm (`tools/vv/sweep_masking.csv`, column `masked_by_finish`) is not training-ready either; a surviving mutant counts as equivalent only when `tools/vv/sweep_equivalent.csv` lists it with exhaustive evidence or a written reason. Flaky tests (docs/VV.md 3j, `tools/vv/flaky.py` -> `tools/vv/flaky.csv`, column `flaky`): a folder is training-ready only with flaky=no - the same result in 10 repeated runs on the default seed, no failing AA_SEED in 1..30 for tests that use randomness, and no new failure in a build with `pragma Initialize_Scalars` and `-gnatVa`; on a flaky folder no mutation score counts until it is fixed. Under the old rule: 274 folders.
+**Training-ready under rule v1 (held-out n >= 20, >= 90%, proof pass): 84 folders** (duplicates counted once) - builds and tests pass on GNAT 12 and 14, the folder's own `make test` passes on GNAT 14 and on GNAT 12 (columns `make_test`, `make_test_gnat12`), no open finding in `tools/vv/findings.csv` (column `open_findings`), Silver-proven non-trivially, not a stub, and a known answer (column `known_answer`): a registered known-answer vector, own tests (self-written properties or brute-force reference, `tests/SOURCES.txt`), or an agreeing differential test against its twin - and in every case the do-nothing check must not flag the tests as weak. Stricter rule since 2026-10-08 (column `training_ready`; the old verdict is kept in `training_ready_old`, the reasons for a drop in `tr_drop`): (1) the folder's tests kill at least 90% of the planted mutants (column `mutation_score`; `tools/vv/mutate.py`, 20 seeded mutants per folder; surviving mutants count as non-equivalent until reviewed); (2) the known answer comes from a different method than the code under test - a registered vector or own tests (brute force or an independent property); agreement with the twin alone does not count (columns `ref_independent`, `twin_only`); (3) zero warnings with `-gnatwa` on GNAT 14 and on GNAT 12, fixed in code: a folder with `pragma Warnings (Off ...)` or `-gnatws`/`-gnatwA` is not training-ready (column `warnings_suppressed`, list in `tools/vv/warnings_suppressed.csv`); (4) every `pragma Assume` / `pragma Annotate (GNATprove, ...)` carries a written reason (column `proof_escapes`, list in `tools/vv/proof_escapes.csv`); an unexplained one voids the Silver claim. The column `known_answer_source` says where the expected values come from (own / standard / old_derived / old_unverified); hard-coded answers in old tests count only when they were derived independently (`tools/vv/old_derived.csv`), never when they may have been copied from program output (old_unverified). A sort whose proof rests on a final Bubble_Finish pass that masks the named algorithm (`tools/vv/sweep_masking.csv`, column `masked_by_finish`) is not training-ready either; a surviving mutant counts as equivalent only when `tools/vv/sweep_equivalent.csv` lists it with exhaustive evidence or a written reason. Flaky tests (docs/VV.md 3j, `tools/vv/flaky.py` -> `tools/vv/flaky.csv`, column `flaky`): a folder is training-ready only with flaky=no - the same result in 10 repeated runs on the default seed, no failing AA_SEED in 1..30 for tests that use randomness, and no new failure in a build with `pragma Initialize_Scalars` and `-gnatVa`; on a flaky folder no mutation score counts until it is fixed. Under the old rule: 276 folders.
 
-**Rule v1, the strict rule as enforced (2026-10-09, docs/VV.md "Rule v1: strict training-ready rule as enforced"):** `training_ready` = yes only when `tr_drop` is empty; every failing condition adds one reason, for every folder. On top of the conditions above: a blind held-out mutation score k/n >= 90% with n >= 20 non-equivalent mutants (timeouts count as survivors) from every held-out record (tools/vv sweep_heldout_alt.csv, sweep_heldout_B.csv, *_halves.csv, flagship_mutation_phase2-6.csv, vv/results/mutation_halves.csv; a record labelled NOT BLIND or too small fails), no withdrawn functional claim (checker_scan.csv / contract_scan.csv) and no partial one, not a demo, no live fallback. The columns `mutation_heldout_k` / `mutation_heldout_n` show the deciding record. Drop reasons (duplicates counted once): no held-out mutation score 1591; no known answer 1364; not Silver-proven 907; warnings GNAT 12 516; index independence not measured 477; warnings GNAT 14 455; warnings suppressed 454; clamp unreviewed or dead (clamp_scan) 380; Silver trivial 347; stub 140; twin only 101; open finding 54; held-out mutation < 90% 51; do-nothing weak 34; functional claim withdrawn (contract_scan) 28; build fails GNAT 14 26; build fails GNAT 12 26; harness cannot fail (answer-plant pending) 26; index not independent 24; tests fail GNAT 14 21; tests fail GNAT 12 21; held-out too small (n < 20) 17; open handover gap 11; held-out not blind 10; partial functional claim (contract_scan) 3; fallback 3; demo 1; held-out run does not meet the strict rule 1; flaky (mutation does not count) 1; masked by Bubble_Finish 1; functional claim withdrawn (checker_scan) 1.
+**Rule v1, the strict rule as enforced (2026-10-09, docs/VV.md "Rule v1: strict training-ready rule as enforced"):** `training_ready` = yes only when `tr_drop` is empty; every failing condition adds one reason, for every folder. On top of the conditions above: a blind held-out mutation score k/n >= 90% with n >= 20 non-equivalent mutants (timeouts count as survivors) from every held-out record (tools/vv sweep_heldout_alt.csv, sweep_heldout_B.csv, *_halves.csv, flagship_mutation_phase2-6.csv, vv/results/mutation_halves.csv; a record labelled NOT BLIND or too small fails), no withdrawn functional claim (checker_scan.csv / contract_scan.csv) and no partial one, not a demo, no live fallback. The columns `mutation_heldout_k` / `mutation_heldout_n` show the deciding record. Drop reasons (duplicates counted once): no held-out mutation score 1591; no known answer 1364; not Silver-proven 907; warnings GNAT 12 511; index independence not measured 477; warnings suppressed 454; warnings GNAT 14 450; clamp unreviewed or dead (clamp_scan) 380; Silver trivial 344; stub 137; twin only 101; open finding 54; held-out mutation < 90% 51; do-nothing weak 34; functional claim withdrawn (contract_scan) 28; build fails GNAT 14 26; build fails GNAT 12 26; harness cannot fail (answer-plant pending) 26; index not independent 24; tests fail GNAT 14 21; tests fail GNAT 12 21; held-out too small (n < 20) 17; open handover gap 11; held-out not blind 10; partial functional claim (contract_scan) 5; fallback 3; demo 1; held-out run does not meet the strict rule 1; flaky (mutation does not count) 1; masked by Bubble_Finish 1; functional claim withdrawn (checker_scan) 1.
 
 ### Training-ready folders
 
@@ -116,17 +116,17 @@ Held-out k/n = the deciding held-out record (non-equivalent killed / non-equival
 
 **Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 1 of the weak ones are Silver-proven non-trivial. Own tests: 380 folders (column `own_tests`).
 
-**Silver headline (duplicates counted once):** 514 real SPARK folders proven non-trivially, 280 proven but trivial (<= 3 checks), 137 stubs proven (separate), 2 with unproved checks, 11 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 104 proven real folders also prove functional contracts
+**Silver headline (duplicates counted once):** 517 real SPARK folders proven non-trivially, 280 proven but trivial (<= 3 checks), 134 stubs proven (separate), 2 with unproved checks, 11 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 104 proven real folders also prove functional contracts
 
 `stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged, and so is every folder listed in `tools/readme_stubs.txt` (its README calls it a stub); the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most 3 checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.
 
 | Level | Folders | make test OK | Build 14 | Build 12 | Tests 14 | Tests 12 | 0 warn 14 | 0 warn 12 | Proven (real) | Proven (stub) | Trivial | Unproved | Tool crash | Not built | Not run |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Ada | 908 | 889 | 884 | 884 | 891 | 891 | 693 | 669 | 12 | 0 | 2 | 2 | 2 | 11 | 0 |
-| SPARK2 | 859 | 859 | 859 | 859 | 859 | 859 | 602 | 597 | 714 | 136 | 345 | 0 | 9 | 0 | 0 |
+| SPARK2 | 859 | 859 | 859 | 859 | 859 | 859 | 607 | 602 | 717 | 133 | 342 | 0 | 9 | 0 | 0 |
 | SPARK3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 0 |
 | SPARK4 | 69 | 67 | 67 | 67 | 67 | 67 | 67 | 35 | 66 | 1 | 0 | 0 | 0 | 0 | 0 |
-| All | 1838 | 1817 | 1812 | 1812 | 1819 | 1819 | 1364 | 1303 | 794 | 137 | 347 | 2 | 11 | 11 | 0 |
+| All | 1838 | 1817 | 1812 | 1812 | 1819 | 1819 | 1369 | 1308 | 797 | 134 | 344 | 2 | 11 | 11 | 0 |
 
 ## Flagship folders: what each one really does
 
@@ -1525,7 +1525,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Convert-A-Number-To-Hexadecimal | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Convert-Binary-Number-In-A-Linked-List-To-Integer | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Copy-List-With-Random-Pointer-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings | yes | yes | yes | yes | yes | 0 | 0 | proven | 5 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Corporate-Flight-Bookings | yes | yes | yes | yes | yes | 0 | 0 | proven | 102 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Cosine-Distance | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Cosine-Similarity | yes | yes | yes | yes | yes | 2 | 2 | proven | 4 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Count-And-Say | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
@@ -1539,7 +1539,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Counting-Bits | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Covariance | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Crawler-Log-Folder | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Create-Maximum-Number-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 4 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Create-Maximum-Number-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 48 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Critical-Connections-In-A-Network-Lite | yes | yes | yes | yes | yes | 1 | 2 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Daily-Temperatures | yes | yes | yes | yes | yes | 2 | 2 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Decode-Ways | yes | yes | yes | yes | yes | 0 | 0 | proven | 30 (9) | yes |  |  |
@@ -1896,7 +1896,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Replace-Elements-With-Greatest-On-Right | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Replace-Words | yes | yes | yes | yes | yes | 3 | 3 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Reservoir-Sampling | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Restore-IP-Addresses | yes | yes | yes | yes | yes | 1 | 1 | proven | 9 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Restore-IP-Addresses | yes | yes | yes | yes | yes | 0 | 0 | proven | 108 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Reverse-Bits | yes | yes | yes | yes | yes | 0 | 0 | proven | 4 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Reverse-Integer | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Reverse-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 |  |  |  |
@@ -1964,7 +1964,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Sum-Root-To-Leaf-Numbers | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Summary-Ranges | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Super-Ugly-Number | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 1 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven | 43 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Surface-Area-Of-3D-Shapes | yes | yes | yes | yes | yes | 3 | 3 | proven | 6 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Surrounded-Regions (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 0 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 | yes |  |  |
@@ -2025,7 +2025,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Wiggle-Subsequence | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Wildcard-Matching-Lite | yes | yes | yes | yes | yes | 2 | 2 | tool crash |  |  |  |  |
 | misc/SPARK2/Ada-SPARK-Word-Break | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Word-Break-II | yes | yes | yes | yes | yes | 5 | 5 | proven | 7 |  |  |  |
+| misc/SPARK2/Ada-SPARK-Word-Break-II | yes | yes | yes | yes | yes | 0 | 0 | proven | 150 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Word-Break-Stub (stub) | yes | yes | yes | yes | yes | 3 | 3 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Word-Ladder-II-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 4 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Word-Ladder-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
@@ -2300,11 +2300,11 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/Ada/Topological-Sort | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  | sorting/SPARK4/Ada-SPARK-Topological-Sort |  |
 | sorting/Ada/Tournament-Selection | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  |  |  |
 | sorting/Ada/Tree-Sort | yes | yes | yes | yes | yes | 0 | 0 | no SPARK |  |  | sorting/SPARK4/Ada-SPARK-Tree-Sort |  |
-| sorting/SPARK2/Ada-SPARK-Bitonic-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  |  |  |
+| sorting/SPARK2/Ada-SPARK-Bitonic-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 122 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Block-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Circle-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Cocktail-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 | yes |  |  |
-| sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST (stub) | yes | yes | yes | yes | yes | 7 | 7 | proven (trivial) | 3 |  |  |  |
+| sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 57 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Count-Negative-Numbers-In-A-Sorted-Matrix | yes | yes | yes | yes | yes | 5 | 5 | proven (trivial) | 3 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Count-Sorted-Vowel-Strings | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Exchange-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 (1) |  |  |  |
@@ -2321,7 +2321,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Merge-Sorted-Arrays | yes | yes | yes | yes | yes | 0 | 0 | proven | 9 | yes |  |  |
 | sorting/SPARK2/Ada-SPARK-Merge-Two-Sorted-Lists | yes | yes | yes | yes | yes | 0 | 0 | proven | 22 (5) |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Odd-Even-Linked-List | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 |  |  |  |
-| sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  |  |  |
+| sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 116 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Pancake-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Patience-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Quick-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  | sorting/Ada/Quicksort |  |
@@ -2347,7 +2347,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Squares-Of-A-Sorted-Array | yes | yes | yes | yes | yes | 0 | 0 | proven | 102 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Tim-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  | sorting/Ada/Timsort |  |
 | sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub | yes | yes | yes | yes | yes | 0 | 0 | proven | 39 (withdrawn: Post states sortedness only; trivial body "every element = Input(First)" proves (no permutation), see contract_scan.csv) |  |  |  |
-| sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
+| sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 207 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Tournament-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Two-Sum-II-Input-Array-Is-Sorted | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Wiggle-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 11 | yes |  |  |

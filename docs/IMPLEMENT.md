@@ -2,7 +2,7 @@
 
 Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every folder with `stub` = yes in PROOFS.csv carries `implement_next` = yes: it is a candidate for a full implementation of the named algorithm, which comes before the SPARK Silver (level 2) work on it. Signals: the folder name ends in `-Stub` (and it is not listed in `tools/generalised_stubs.txt`), its README calls it a stub (`tools/readme_stubs.txt`), or the hidden-stub scan found that the code lacks the core step (`tools/vv/hidden_stub.csv`). The core-step notes are in `tools/implement_notes.txt`.
 
-**138 candidate folders** (137 with duplicates counted once, the README count).
+**135 candidate folders** (134 with duplicates counted once, the README count).
 
 ## concurrency (2)
 
@@ -34,7 +34,7 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | hashing/SPARK2/Ada-SPARK-Design-HashMap-Stub | -Stub name | hashing into buckets with collision chains or probing and resizing, for any key range |
 | hashing/SPARK2/Ada-SPARK-Design-HashSet-Stub | -Stub name | hashing into buckets with collision handling for arbitrary keys |
 
-## misc (90)
+## misc (89)
 
 | Folder | Signal | Full algorithm needs (core step) |
 |---|---|---|
@@ -110,7 +110,6 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | misc/SPARK2/Ada-SPARK-Spearman-Rank-Stub | -Stub name | rank both samples (average ranks for ties) and take the Pearson correlation of the ranks |
 | misc/SPARK2/Ada-SPARK-Stack-Using-Queues-Stub | -Stub name | queue rotation so the last pushed element is at the front |
 | misc/SPARK2/Ada-SPARK-Stock-Spanner-Stub | -Stub name | monotonic stack of (price, span) pairs |
-| misc/SPARK2/Ada-SPARK-Super-Ugly-Number-Stub | -Stub name | k-pointer merge over the primes list generating the n-th super ugly number |
 | misc/SPARK2/Ada-SPARK-Surrounded-Regions | README wording: "Surrounded Regions (bounded SPARK stub)  An 8x8 bounded interior-capture pass" | flood fill 'O' regions connected to the border, then flip the rest |
 | misc/SPARK2/Ada-SPARK-Swim-In-Rising-Water-Stub | -Stub name | Dijkstra/min-heap (or binary search plus BFS) minimising the maximum elevation along a path |
 | misc/SPARK2/Ada-SPARK-Target-Sum-Stub | -Stub name | subset-sum DP counting sign assignments that reach the target |
@@ -149,27 +148,25 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite | hidden-stub scan: hidden stub: Root_Choices (N) returns N; no trees generated | recursive construction of all structurally unique BSTs over 1 .. n |
 | searching/SPARK2/Ada-SPARK-Word-Search | README wording: "Word Search (bounded SPARK stub)  An 8x8 bounded board search for the first word character" | DFS with backtracking over the grid, marking visited cells |
 
-## sorting (20)
+## sorting (18)
 
 | Folder | Signal | Full algorithm needs (core step) |
 |---|---|---|
-| sorting/SPARK2/Ada-SPARK-Bitonic-Sort | README wording: "Ada-SPARK-Bitonic-Sort  A small bounded Ada/SPARK sorting stub" | recursive bitonic merge network for power-of-two sizes (with padding for other sizes) |
 | sorting/SPARK2/Ada-SPARK-Block-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | block merge sort (WikiSort-style): in-place merges with buffer blocks |
 | sorting/SPARK2/Ada-SPARK-Circle-Sort | README wording: "Ada-SPARK-Circle-Sort  A small bounded Ada/SPARK sorting stub" | recursive swaps of mirrored pairs until a pass makes no swap |
-| sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST | hidden-stub scan: hidden stub: Build always fills the same 7 fixed slots from A (4) / A (2) / A (6) / ... (Sorted_Array is exactly 7 elements); no midpoint recursion, so no general balanced BST from a sorted array | take the middle element as the root and build both halves the same way, for any length; prove the in-order walk is the input and the height is minimal |
+| sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST | README wording: "hidden stub: Build always fills the same 7 fixed slots from A (4) / A (2) / A (6) / ... (Sorted_Array is exactly 7 elements); no midpoint recursion, so no gener" | take the middle element as the root and build both halves the same way, for any length; prove the in-order walk is the input and the height is minimal |
 | sorting/SPARK2/Ada-SPARK-Exchange-Sort | README wording: "Ada-SPARK-Exchange-Sort  A small bounded Ada/SPARK sorting stub" | compare every pair (i, j > i) and swap when out of order, for any length |
 | sorting/SPARK2/Ada-SPARK-Flash-Sort | README wording: "Ada-SPARK-Flash-Sort  A small bounded Ada/SPARK sorting stub" | classify into m classes by linear interpolation, permute in cycles, then insertion sort |
 | sorting/SPARK2/Ada-SPARK-Heap-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | build a max-heap in place, then repeatedly swap the root to the end and sift down |
 | sorting/SPARK2/Ada-SPARK-Intro-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | quicksort with a 2*log2(n) depth limit falling back to heapsort, insertion sort for small parts |
 | sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub | -Stub name | min-heap (or divide and conquer) merge of k sorted lists of any length |
-| sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort | README wording: "Ada-SPARK-Odd-Even-Merge-Sort  A small bounded Ada/SPARK sorting stub" | Batcher's odd-even merge network, recursively merging halves |
 | sorting/SPARK2/Ada-SPARK-Pancake-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | repeatedly flip the maximum to the front, then to its final position |
 | sorting/SPARK2/Ada-SPARK-Patience-Sort | README wording: "Ada-SPARK-Patience-Sort  A small bounded Ada/SPARK sorting stub" | deal into piles by binary search on pile tops, then k-way merge the piles |
 | sorting/SPARK2/Ada-SPARK-Quick-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | partition around a pivot and recurse on both sides, for any length |
 | sorting/SPARK2/Ada-SPARK-Shaker-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | alternating forward and backward bubble passes with shrinking bounds |
 | sorting/SPARK2/Ada-SPARK-Smooth-Sort | README wording: "Ada-SPARK-Smooth-Sort  A small bounded Ada/SPARK sorting stub" | Leonardo-heap construction and dismantling |
 | sorting/SPARK2/Ada-SPARK-Tim-Sort | README wording: "Ada-SPARK-Tim-Sort  A small bounded Ada/SPARK sorting stub" | detect or extend runs to minrun with insertion sort, then merge runs with the stack invariants |
-| sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite | hidden-stub scan: hidden stub: only validates a given order; does not compute one (README says validator) | Kahn's algorithm or DFS order over any DAG, detecting cycles |
+| sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite | README wording: "hidden stub: only validates a given order; does not compute one (README says validator)" | Kahn's algorithm or DFS order over any DAG, detecting cycles |
 | sorting/SPARK2/Ada-SPARK-Tournament-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | winner tree: repeatedly output the winner and replay its path |
 | sorting/SPARK2/Binary-Insertion-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | binary search for each insertion point, then shift, for any length |
 | sorting/SPARK4/Ada-SPARK-Radix-Sort | hidden-stub scan: hidden stub: Max_Key=255 and Base=256 so Digit=Key; a single counting-sort pass under a radix-sort name (masking pattern); permutation proof is valid for that single pass but the folder is not radix sort | multi-pass LSD radix: wider keys (e.g. 16-bit) with smaller Base (16 or 256 over 2 bytes), several counting-sort passes into a buffer; each pass Post proves stability (equal digits keep previous relative order) and permutation |
