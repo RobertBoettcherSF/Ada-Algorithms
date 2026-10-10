@@ -646,7 +646,10 @@ package body Different_Ways_Parentheses with SPARK_Mode => On is
 
    function All_Results (Values : Operand_List; Ops : Operator_List) return Value_List is
       N   : constant Positive := Values'Length;
-      All_Of : constant Slot := Sub (Values, Ops, 1, N);
+      --  Sub works on origin 1: copy (slide) both lists there.
+      V1  : constant Operand_List (1 .. N) := Values;
+      O1  : constant Operator_List (1 .. N - 1) := Ops;
+      All_Of : constant Slot := Sub (V1, O1, 1, N);
    begin
       Lemma_Count (N);
       return Value_List (All_Of (1 .. Count (N)));

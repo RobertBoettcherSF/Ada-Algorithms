@@ -26,20 +26,22 @@ factors 99 reach 99 ** 9) but not of 10. That gives at most W (9) =
 1_430 results. (The old version was a case table of counts for N <= 8
 and had no results.)
 
-Proof (`make prove`, level 2, cvc5, 1_503 checks): the specification is
+Proof (`make prove`, level 2, cvc5, 1_497 checks): the specification is
 the ghost function `Ways`, a ghost table of values (an expression
 function, so nothing runs at elaboration) that `Lemma_Facts` proves
 satisfies the recurrence with W (1) = 1, which fixes every entry, plus
 the limit values. `Number_Of_Ways (N) = Ways (N)`. `All_Results` returns
 exactly Ways (N) values, each within the bound `Bound (N)` = 99 ** N
 (a case table of values, checked by the own checks), with no overflow;
+`Values` and `Ops` may start at any index (only their lengths are
+constrained; the body slides both to origin 1 for the internal `Sub`);
 the bound of a part is carried by the element subtype of its result
 array. That the values are those of the parenthesizations is not in
 the contract; the own checks compare them with two own references. The
 ghost lemmas called at run time cost O (L ** 2) Big_Integer operations
 each (only the chain for the length in use).
 
-Tests: `make test` (hand-derived values, see tests/SOURCES.txt) and
-`own_checks.adb` (own shift-reduce enumerator, own ordered reference,
+Tests: `make test` runs the hand-derived values (see tests/SOURCES.txt)
+and then `own_checks.adb` (own shift-reduce enumerator, own ordered reference,
 closed Catalan count, regenerated ghost tables, seeded random
-expressions; seed printed, AA_SEED overrides).
+expressions, shifted origins; seed printed, AA_SEED overrides).

@@ -3539,7 +3539,7 @@ misc/SPARK2/Ada-SPARK-Degree-Of-An-Array,,skipped,skipped,,,no unconstrained arr
 misc/SPARK2/Ada-SPARK-Deque-Bounded,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Design-A-Stack-With-Increment-Operation,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,All_Results,catalog,catalog,,2,function n_arrays=2 ret=Value_List,
-misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,,first_pinned,fail,,,"In_Bounds/Pre requires A'First = 1 — subtype/constrained type, or Pre + one-line reason (fix_kind=fixed_origin_type)",
+misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin in the spec; All_Results slides Values / Ops to origin 1 for the body-only Sub; shifted-origin tests in suite,indexes only walk/line-up (room decision)
 misc/SPARK2/Ada-SPARK-Domino-And-Tromino-Tiling-Lite,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Fast-Pow,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Fibonacci-DP,,skipped,skipped,,,no unconstrained array type,

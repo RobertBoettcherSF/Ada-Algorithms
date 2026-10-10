@@ -68,14 +68,15 @@ package Different_Ways_Parentheses with SPARK_Mode => On is
 
    --  Every value of every parenthesization, ordered by the position of the
    --  last operator applied (left to right), then by the left part's
-   --  results, then by the right part's results.
+   --  results, then by the right part's results. Values and Ops may start
+   --  at any index (each independently); the K-th operator stands between
+   --  the K-th and the (K + 1)-th operand.
    function All_Results (Values : Operand_List; Ops : Operator_List) return Value_List
    with
      Global => null,
-     Pre    => Values'First = 1 and then Values'Length in 1 .. Max_Expression
-               and then Ops'First = 1 and then Ops'Length = Values'Length - 1,
-     Post   => All_Results'Result'First = 1
-               and then To_Big_Integer (All_Results'Result'Length) = Ways (Values'Length)
+     Pre    => Values'Length in 1 .. Max_Expression
+               and then Ops'Length = Values'Length - 1,
+     Post   => To_Big_Integer (All_Results'Result'Length) = Ways (Values'Length)
                and then (for all V of All_Results'Result =>
                            V in -Bound (Values'Length) .. Bound (Values'Length));
 
