@@ -11,6 +11,7 @@ pragma Ada_2022;
 --    the own enumeration;
 --  * the ghost Fact_Table regenerated.
 with Ada.Text_IO;
+with Ada.Assertions;
 with Ada.Environment_Variables;
 with Interfaces; use Interfaces;
 with Permutations_II; use Permutations_II;
@@ -156,6 +157,45 @@ begin
          Report (Long_Long_Integer (Count_Distinct (L)) = Own_Count (L), "Count_Distinct" & L'Length'Image);
       end;
    end loop;
+
+   --  4. Any origin (H140): Start and Count_Distinct on the same list at
+   --  'First = 5, 200 and ending at Positive'Last must give the origin-1
+   --  results (Values (Start), Count_Distinct, the stepped sequence); 500
+   --  random lists of 0 .. 12 items, seed 20261009.
+   Seed := 20_261_009;
+   declare
+      function Same_At (L : Value_Array; O : Positive) return Boolean is
+         S : constant Value_Array (O .. O - 1 + L'Length) := L;
+      begin
+         declare
+            A1 : Arrangement := Start (L);
+            A2 : Arrangement := Start (S);
+            F1, F2 : Boolean;
+            Ok : Boolean := A2.N = L'Length and then Values (A2) = L
+                            and then Count_Distinct (S) = Count_Distinct (L);
+         begin
+            for Step in 1 .. 50 loop
+               Next_Permutation (A1, F1);
+               Next_Permutation (A2, F2);
+               Ok := Ok and then F1 = F2 and then Values (A1) = Values (A2);
+            end loop;
+            return Ok;
+         end;
+      exception
+         when Constraint_Error | Ada.Assertions.Assertion_Error =>
+            return False;
+      end Same_At;
+   begin
+      for T in 1 .. 500 loop
+         declare
+            L : constant Value_Array := Random_List (Next mod 13, 1 + Next mod 6);
+         begin
+            Report (Same_At (L, 5) and then Same_At (L, 200)
+                    and then Same_At (L, Positive'Last - Natural'Max (L'Length, 1) + 1),
+                    "shifted origin" & T'Image);
+         end;
+      end loop;
+   end;
 
    --  3. The ghost table.
    for N in Count_Range loop

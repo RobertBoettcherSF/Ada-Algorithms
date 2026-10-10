@@ -25,3 +25,7 @@ default seed is the FNV-1a (32-bit) hash of the folder name folded into
   own N! / (m1! m2! ..) in Long_Long_Integer on 2,000 random lists of
   0 .. 12 items;
 * the ghost Fact_Table regenerated.
+* Any origin (H140, First-relative): Start and Count_Distinct on the same
+  list at 'First = 5, 200 and ending at Positive'Last must give the
+  origin-1 results (shown values, count, 50 Next_Permutation steps), on
+  500 random lists of 0 .. 12 items (Park-Miller, seed 20261009).
