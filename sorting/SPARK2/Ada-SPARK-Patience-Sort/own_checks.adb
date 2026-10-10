@@ -56,11 +56,22 @@ procedure Own_Checks is
    --  (the leftmost pile on ties). Real piles (stacks of values), written
    --  from that description, not from the body. Records the pile of every
    --  key, the pile of every removal and the number of piles.
+   --  Deal search (cost): the pile tops are increasing from left to right,
+   --  so the leftmost pile whose top is >= the key is found by binary
+   --  search over the candidates 1 .. Np + 1 (Np + 1 = new pile): while
+   --  Lo < Hi, Mid := (Lo + Hi) / 2, one comparison Top (Mid) >= Key, then
+   --  Hi := Mid or Lo := Mid + 1. The model counts these comparisons
+   --  (Probes) and records the pile count before each deal (Before); the
+   --  binary search result must also equal a plain left-to-right scan.
+   type Count_Log is array (Index) of Natural;
    type Model is record
       Deal   : Pile_Log := [others => 1];
       Take   : Pile_Log := [others => 1];
+      Probes : Count_Log := [others => 0];
+      Before : Count_Log := [others => 0];
       Piles  : Natural := 0;
       Result : Input_Array;
+      Scan_Ok : Boolean := True;
    end record;
 
    function Run_Model (Input : Input_Array) return Model is
@@ -70,18 +81,33 @@ procedure Own_Checks is
       Height : array (Index) of Natural := [others => 0];
       Np     : Natural := 0;
       Found  : Natural;
+      Lo, Hi, Mid, Scan : Positive;
    begin
       for K in Index loop
-         Found := 0;
-         for P in 1 .. Np loop
-            if Pile (P) (Height (P)) >= Input (K) then
-               Found := P;
-               exit;
+         R.Before (K) := Np;
+         Lo := 1;
+         Hi := Np + 1;
+         while Lo < Hi loop
+            Mid := (Lo + Hi) / 2;
+            R.Probes (K) := R.Probes (K) + 1;
+            if Pile (Mid) (Height (Mid)) >= Input (K) then
+               Hi := Mid;
+            else
+               Lo := Mid + 1;
             end if;
          end loop;
-         if Found = 0 then
+         Scan := Np + 1;
+         for P in reverse 1 .. Np loop
+            if Pile (P) (Height (P)) >= Input (K) then
+               Scan := P;
+            end if;
+         end loop;
+         if Scan /= Lo then
+            R.Scan_Ok := False;
+         end if;
+         Found := Lo;
+         if Found = Np + 1 then
             Np := Np + 1;
-            Found := Np;
          end if;
          Height (Found) := Height (Found) + 1;
          Pile (Found) (Height (Found)) := Input (K);
@@ -104,15 +130,55 @@ procedure Own_Checks is
       return R;
    end Run_Model;
 
+   --  Smallest C with 2**C >= X (X >= 1): ceil (log2 (X)).
+   function Ceil_Log2 (X : Positive) return Natural is
+      C : Natural := 0;
+   begin
+      while 2 ** C < X loop
+         C := C + 1;
+      end loop;
+      return C;
+   end Ceil_Log2;
+
+   Cost_Failures : Natural := 0;
+   Max_Piles_Seen : Natural := 0;
    Trace_Failures : Natural := 0;
    procedure Check_Trace (A : Input_Array) is
       Out_A : Input_Array;
       Deal  : Pile_Log;
       Take  : Pile_Log;
+      Probe : Probe_Log;
       Np    : Natural;
       M     : constant Model := Run_Model (A);
+      Cost_Ok : Boolean := M.Scan_Ok;
    begin
-      Sort_Traced (A, Out_A, Deal, Take, Np);
+      Sort_Traced (A, Out_A, Deal, Take, Probe, Np);
+      Max_Piles_Seen := Natural'Max (Max_Piles_Seen, Np);
+      --  Cost: comparisons of the deal search for key K are at most
+      --  ceil (log2 (piles before K + 1)) and equal the binary-search model.
+      for K in Index loop
+         if Probe (K) > Ceil_Log2 (M.Before (K) + 1) or else Probe (K) /= M.Probes (K) then
+            Cost_Ok := False;
+         end if;
+      end loop;
+      if not Cost_Ok then
+         Cost_Failures := Cost_Failures + 1;
+         if Cost_Failures <= 5 then
+            Put ("  FAIL patience deal cost: input");
+            for X of A loop
+               Put (X'Image);
+            end loop;
+            Put (" comparisons");
+            for C of Probe loop
+               Put (C'Image);
+            end loop;
+            Put (" bound");
+            for K in Index loop
+               Put (Ceil_Log2 (M.Before (K) + 1)'Image);
+            end loop;
+            New_Line;
+         end if;
+      end if;
       if Deal /= M.Deal or else Take /= M.Take or else Np /= M.Piles
         or else Out_A /= M.Result or else Out_A /= Sort (A)
         or else not Is_Perm (Out_A, A) or else not Is_Sorted (Out_A)
@@ -223,6 +289,24 @@ begin
    begin
       Perms (1);
    end;
+   --  Many piles: every strictly ascending input builds 8 piles (key K
+   --  sees K - 1 piles; the linear scan needs K - 1 comparisons, the bound
+   --  is ceil (log2 (K))). All ascending runs over the Value range.
+   for Start in Value'First .. Value'Last - (Index'Last - 1) loop
+      for Step in 1 .. (Value'Last - Start) / (Index'Last - 1) loop
+         Check_One ([for I in Index => Start + Step * (I - 1)], "ascending" & Start'Image & Step'Image);
+      end loop;
+   end loop;
+   if Max_Piles_Seen /= Index'Last then
+      Put_Line ("FAIL patience deal cost: no input built" & Index'Last'Image & " piles");
+      raise Program_Error with "patience cost inputs too small";
+   end if;
+   if Cost_Failures > 0 then
+      Put_Line ("FAIL patience deal cost:" & Cost_Failures'Image & " of" & Cases'Image);
+      raise Program_Error with "patience deal cost failed";
+   end if;
+   Put_Line ("PASS patience deal cost <= ceil (log2 (piles + 1)) comparisons per key = binary-search model on" & Cases'Image & " inputs");
+
    if Trace_Failures > 0 then
       Put_Line ("FAIL patience trace:" & Trace_Failures'Image & " of" & Cases'Image);
       raise Program_Error with "patience trace failed";

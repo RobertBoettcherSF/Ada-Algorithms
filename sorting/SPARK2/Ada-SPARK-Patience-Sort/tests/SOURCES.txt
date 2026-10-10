@@ -24,3 +24,14 @@ third-party test suites.
   removal, pile count and result must equal the model on every input
   checked above, plus 3,000 random arrays (seed 20261009), all 3**8 arrays
   over 0 .. 2 and all 8! permutations of 1 .. 8.
+* Deal cost (binary search over pile tops): the pile tops are increasing
+  from left to right, so the leftmost pile whose top is >= the key can be
+  found by binary search over the Np + 1 candidates (Np piles plus a new
+  pile) with at most ceil (log2 (Np + 1)) comparisons. Sort_Traced's
+  comparisons per key (Probe_Log) must be <= ceil (log2 (piles before the
+  key + 1)) (own Ceil_Log2) and equal the own binary-search model
+  (Run_Model; lo / hi / mid as in Knuth, TAOCP Vol. 3, 6.2.1, leftmost
+  variant), whose result must also equal a plain left-to-right scan. Checked
+  on every input above plus every strictly ascending arithmetic run over
+  0 .. 31 (each builds 8 piles, where a linear scan needs K - 1 comparisons
+  for key K); the run fails if no input builds 8 piles.
