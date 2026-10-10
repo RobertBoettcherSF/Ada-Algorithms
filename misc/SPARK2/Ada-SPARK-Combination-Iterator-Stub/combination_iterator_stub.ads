@@ -26,6 +26,19 @@ package Combination_Iterator_Stub is
      (for all J in 1 .. Choose (It) => Pos (It, J) = Item_Count (It) - Choose (It) + J)
      with Global => null, Pre => Choose (It) <= Item_Count (It);
 
+   --  The rightmost position that can still move right, 0 for the last
+   --  combination (Knuth, TAOCP Vol. 4A, 7.2.1.3, lexicographic
+   --  combinations: the successor raises this position by one and sets the
+   --  positions after it to the smallest values that follow).
+   function Pivot (It : Iterator) return Natural
+     with Global => null, Pre => Choose (It) <= Item_Count (It),
+          Post => Pivot'Result <= Choose (It)
+                  and then (Pivot'Result = 0) = Is_Last (It)
+                  and then (for all M in Pivot'Result + 1 .. Choose (It) =>
+                              Pos (It, M) = Item_Count (It) - Choose (It) + M)
+                  and then (if Pivot'Result > 0 then
+                              Pos (It, Pivot'Result) < Item_Count (It) - Choose (It) + Pivot'Result);
+
    --  The K-element combinations of Items (1 .. Item_Count), in
    --  lexicographic order of positions, starting with 1, 2, ..., K.
    function Create (Items : Value_Array; Item_Count : Count; Choose : Choose_Count) return Iterator
@@ -38,13 +51,20 @@ package Combination_Iterator_Stub is
    function Has_Next (It : Iterator) return Boolean
      with Global => null, Post => Has_Next'Result = not Done (It);
    --  R holds the items at Pos (It'Old, 1 .. Choose); the iterator moves to
-   --  the next combination, or is Done after the last one.
+   --  the next combination in lexicographic order of positions (positions
+   --  before the pivot unchanged, the pivot one higher, the positions after
+   --  it consecutive), or is Done after the last one.
    procedure Next (It : in out Iterator; R : out Combination)
      with Global => null, Pre => Has_Next (It),
           Post => R.Size = Choose (It'Old)
                   and then (for all J in 1 .. Choose (It'Old) =>
                               R.Values (J) = Item (It'Old, Pos (It'Old, J)))
                   and then Done (It) = Is_Last (It'Old)
+                  and then (if not Is_Last (It'Old) then
+                              (for all M in 1 .. Pivot (It'Old) - 1 => Pos (It, M) = Pos (It'Old, M))
+                              and then Pos (It, Pivot (It'Old)) = Pos (It'Old, Pivot (It'Old)) + 1
+                              and then (for all M in Pivot (It'Old) + 1 .. Choose (It'Old) =>
+                                          Pos (It, M) = Pos (It, Pivot (It'Old)) + (M - Pivot (It'Old))))
                   and then Item_Count (It) = Item_Count (It'Old)
                   and then Choose (It) = Choose (It'Old)
                   and then (for all I in Index => Item (It, I) = Item (It'Old, I));

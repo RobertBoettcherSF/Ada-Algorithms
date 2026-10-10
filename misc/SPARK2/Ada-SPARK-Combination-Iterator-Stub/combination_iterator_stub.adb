@@ -14,23 +14,31 @@ package body Combination_Iterator_Stub is
 
    function Has_Next (It : Iterator) return Boolean is (not It.Done);
 
-   procedure Next (It : in out Iterator; R : out Combination) is
+   function Pivot (It : Iterator) return Natural is
       K : constant Choose_Count := It.Choose;
       N : constant Count := It.Item_Count;
       J : Natural := K;
+   begin
+      while J >= 1 and then It.Pos (J) = N - K + J loop
+         pragma Loop_Invariant (J <= K);
+         pragma Loop_Invariant
+           (for all M in J + 1 .. K => It.Pos (M) = N - K + M);
+         pragma Loop_Variant (Decreases => J);
+         J := J - 1;
+      end loop;
+      return J;
+   end Pivot;
+
+   procedure Next (It : in out Iterator; R : out Combination) is
+      K : constant Choose_Count := It.Choose;
+      --  the rightmost position that can still move right
+      J : constant Natural := Pivot (It);
    begin
       R := (Values => [others => 0], Size => K);
       for L in 1 .. K loop
          R.Values (L) := It.Items (It.Pos (L));
          pragma Loop_Invariant
            (for all M in 1 .. L => R.Values (M) = It.Items (It.Pos (M)));
-      end loop;
-      --  the rightmost position that can still move right
-      while J >= 1 and then It.Pos (J) = N - K + J loop
-         pragma Loop_Invariant (J <= K);
-         pragma Loop_Invariant
-           (for all M in J + 1 .. K => It.Pos (M) = N - K + M);
-         J := J - 1;
       end loop;
       if J = 0 then
          It.Done := True;
