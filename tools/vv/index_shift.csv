@@ -3553,7 +3553,7 @@ misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,Lemma_Optimal,catalog,catalog,,1,pro
 misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,Local,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,Independent,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,Loot,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,,first_pinned,fail,,,"In_Bounds/Pre requires A'First = 1 — subtype/constrained type, or Pre + one-line reason (fix_kind=fixed_origin_type)",
+misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,,fixed_origin_type,ok,fixed_origin_type,,"Pre pins S'First = 1, S'Last = T.N (accepted fixed origin: S is indexed by node number)",index arithmetic: tree links are node numbers that index S (agent-CF KEEP)
 misc/SPARK2/Ada-SPARK-Integer-Break,Sum_To,catalog,catalog,,1,function n_arrays=1 ret=Big_Integer,
 misc/SPARK2/Ada-SPARK-Integer-Break,Product_To,catalog,catalog,,1,function n_arrays=1 ret=Big_Integer,
 misc/SPARK2/Ada-SPARK-Integer-Break,Lemma_Optimal,catalog,catalog,,1,procedure n_arrays=1 ret=Value,
