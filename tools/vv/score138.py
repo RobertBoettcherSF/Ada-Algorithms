@@ -194,7 +194,9 @@ def main():
     ap.add_argument('-j', type=int, default=2)
     ap.add_argument('--out', default=os.environ.get('AA_S138_PRIVATE', os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), 's138_private')))   # outside the checkout: held results stay out of git
     ap.add_argument('--dummy', action='store_true')
+    ap.add_argument('--timeout', type=int, default=30, help='per-run test timeout in s; must be the value sealed for the folder before any mutant runs (VV.md rule v1 timeouts)')
     a = ap.parse_args()
+    sm.TIMEOUT = a.timeout
     if a.cmd == 'list':
         for fid in a.folders:
             P, nseen = pools(fid, a.seed)

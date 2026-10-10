@@ -39,7 +39,7 @@ def run_tests(work):
                        cwd=work, capture_output=True, text=True)
     if b.returncode != 0:
         return 'stillborn'
-    r = mutate.run_limited(['./tbin'], work, 30)   # timeout kills the whole process group
+    r = mutate.run_limited(['./tbin'], work, TIMEOUT)   # timeout kills the whole process group
     if r is None:
         return 'timeout'
     if r.returncode != 0 or any(FAIL_LINE.search(l) and not ZERO_FAIL.search(l) for l in (r.stdout + r.stderr).split('\n')):
@@ -50,6 +50,7 @@ ROOT = mutate.ROOT
 TESTNAME = re.compile(r'^(tests?|own_checks|main|demo)', re.I)
 IGN = shutil.ignore_patterns('obj', 'bin', 'gnatprove', 'tbin', '*.o', '*.ali', 'b~*', 'b__*')   # build artefacts (some gprs build in the source dir)
 DUMMY = False
+TIMEOUT = 30   # per-run test timeout (s); score138 --timeout sets it from the sealed per-folder value (rule v1 timeouts, H186)
 
 def lib_files(src):
     for d, dirs, fs in os.walk(src):
