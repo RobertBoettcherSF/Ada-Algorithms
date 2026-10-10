@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-10-10 16:12 CEST.
+Generated 2026-10-10 18:55 CEST.
 
 ## Proof setup
 
@@ -1664,7 +1664,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Horner-Scheme | yes | yes | yes | yes | yes | 1 | 1 | proven | 4 |  |  |  |
 | misc/SPARK2/Ada-SPARK-House-Robber | yes | yes | yes | yes | yes | 0 | 0 | proven | 12 |  |  |  |
 | misc/SPARK2/Ada-SPARK-House-Robber-II | yes | yes | yes | yes | yes | 0 | 0 | proven | 17 | yes |  |  |
-| misc/SPARK2/Ada-SPARK-House-Robber-III-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 178 | yes |  |  |
+| misc/SPARK2/Ada-SPARK-House-Robber-III-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 200 | yes |  |  |
 | misc/SPARK2/Ada-SPARK-House-Robber-III-Stub (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven | 5 |  |  |  |
 | misc/SPARK2/Ada-SPARK-How-Many-Numbers-Are-Smaller (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 7 |  |  |  |
 | misc/SPARK2/Ada-SPARK-IPO-Lite | yes | yes | yes | yes | yes | 4 | 4 | proven (trivial) | 1 |  |  |  |
@@ -2009,7 +2009,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | misc/SPARK2/Ada-SPARK-Two-Sum | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-UTF-8-Validation | yes | yes | yes | yes | yes | 0 | 0 | proven | 71 (1) |  |  |  |
 | misc/SPARK2/Ada-SPARK-Ugly-Number | yes | yes | yes | yes | yes | 0 | 0 | proven | 10 |  |  |  |
-| misc/SPARK2/Ada-SPARK-Ugly-Number-II | yes | yes | yes | yes | yes | 0 | 0 | proven | 477 (21) | yes |  |  |
+| misc/SPARK2/Ada-SPARK-Ugly-Number-II | yes | yes | yes | yes | yes | 0 | 0 | proven | 479 (21) | yes |  |  |
 | misc/SPARK2/Ada-SPARK-Uncommon-Words-From-Two-Sentences (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Underground-System-Stub (stub) | yes | yes | yes | yes | yes | 2 | 2 | proven (trivial) | 3 |  |  |  |
 | misc/SPARK2/Ada-SPARK-Union-Find | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 3 |  |  |  |
