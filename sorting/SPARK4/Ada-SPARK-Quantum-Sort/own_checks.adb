@@ -60,6 +60,11 @@ procedure Own_Checks is
             Ok := False;
          end if;
       end loop;
+      --  The Post's own permutation predicate must hold too (contract_scan:
+      --  every Sort_* Post now states Is_Perm (A, A'Old)).
+      if not Is_Perm (A, Input) then
+         Ok := False;
+      end if;
       Cases := Cases + 1;
       if not Ok then
          Failures := Failures + 1;
@@ -82,7 +87,42 @@ procedure Own_Checks is
    end Check;
 
    Big : constant Long_Long_Integer := Long_Long_Integer (Integer'Last);
+
+   --  Is_Perm against the Count comparison on every pair of arrays of
+   --  length 0 .. 3 over -1 .. 1.
+   procedure Check_Is_Perm is
+   begin
+      for L in 0 .. 3 loop
+         for CA in 0 .. 3 ** L - 1 loop
+            for CB in 0 .. 3 ** L - 1 loop
+               declare
+                  A, B : Element_Array (1 .. L);
+                  X : Natural := CA;
+                  Y : Natural := CB;
+                  Same : Boolean := True;
+               begin
+                  for I in 1 .. L loop
+                     A (I) := X mod 3 - 1;
+                     B (I) := Y mod 3 - 1;
+                     X := X / 3;
+                     Y := Y / 3;
+                  end loop;
+                  for V in -1 .. 1 loop
+                     Same := Same and then Count (A, V) = Count (B, V);
+                  end loop;
+                  Cases := Cases + 1;
+                  if Is_Perm (A, B) /= Same then
+                     Failures := Failures + 1;
+                     Put_Line ("FAIL Is_Perm vs counts, length" & L'Image);
+                  end if;
+               end;
+            end loop;
+         end loop;
+      end loop;
+   end Check_Is_Perm;
+
 begin
+   Check_Is_Perm;
    Put_Line ("own checks seed:" & Seed'Image & " (default"
              & Default_Seed'Image & "; set AA_SEED to override)");
    --  1. Every array of length 0 .. 7 over {0, 1, 2} (3,280 arrays: ties, runs).
