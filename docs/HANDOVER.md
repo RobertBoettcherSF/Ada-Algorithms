@@ -185,3 +185,42 @@ Last bounded code-fix batch by agent-CF (12:10-14:05 Europe/Berlin; cutoff for n
 4. H173 Connected-Component-Labeling connectivity Post.
 5. The remaining open `withdrawn_functional` rows and the 53 `first_pinned` findings (H140).
 6. Re-scoring: nothing was re-scored, so the fixed folders keep their old held-out mutation scores until the next scoring run.
+
+## State at 2026-10-10 evening
+
+Code-fix batch by agent-CF (14:10-16:05 Europe/Berlin; cutoff for new folders 16:45, wrap-up by 17:30), ended at the wrap-up. Same rules as the afternoon: every fix is test-first (failing test commit, then fix commit, both in `tools/vv/codefix.csv`); GNAT 12.2.0 and 14.2.0 with 0 warnings (`tools/vv/sweep_gnat_recheck.sh` on the commit); `make prove` at the folder's level passes; no Assume / Annotate / Warnings Off. The index was regenerated with `tools/proof_index.py` from the committed PROOFS.csv inputs (`tools/vv/synth_index_inputs.py`); `tools/vv/recount_strict.py` lists the same 92 training-ready folders, the self-test passes 27/27, and `make check-paths` is clean (now also `tools/vv/check_unrun_tests.py`).
+
+**Counts** (before the batch: regen c5d7464c, 2026-10-10 14:02):
+
+| Measure | Before | Now |
+|---|---:|---:|
+| Open findings (`tools/vv/findings.csv`) | 54 | 12 |
+| Silver-proven, non-trivial | 522 | 522 |
+| Training-ready under rule v1 (no re-scoring) | 84 | 92 |
+| Training-ready under the previous rule | 280 | 321 |
+| Open PLACEHOLDER rows (`tools/vv/placeholders.csv`) | 136 | 136 |
+| Open withdrawn functional claims (`tools/vv/contract_scan.csv`, withdraw = yes) | 14 | 14 |
+| Handover rows open / closed | 101 / 70 (174 rows) | 103 / 74 (177 rows) |
+
+Why the jumps: the H140 dedup (f6663e01) closed 43 `first_pinned` findings of folders that were already rewritten (each with its rewrite commit) and added 9 rows that had no finding; the 8 SPARK2 H140 folders below are now index-independent, which was their only rule-v1 drop reason, so they count as training-ready (84 -> 92). Their held-out mutation scores are from before today's changes (no re-scoring), and two of them (Ugly-Number-II, House-Robber-III-Lite) are agent-CF KEEP decisions that the room may overrule.
+
+**Done this evening** (test / fix commit):
+
+- Patience-Sort deal cost: binary search over the pile tops, the 'tops strictly increase left to right' invariant (Tops_Up) proved as a loop invariant, comparisons per key <= ceil (log2 (piles + 1)) tested: 80d135dd / e40e4180 (316 checks). README states the cost: deal O(n log n); the output phase still scans the pile tops (O(n x piles)).
+- Combination-Iterator-Stub: Next's Post states the lexicographic successor (Pivot): bd0e6b7e / 08099c42 (142 checks).
+- H140 'lower bound must be 1', merged with the First-relative lists first (f6663e01, one row, per-folder table `tools/vv/handover_evidence/H140/first_relative_merge_20261010.csv`); the 8 SPARK2 folders: rewritten Delete-And-Earn 0feb89b2 / f9317972, Subsets e796b5d9 / 865646c7, Subsets-II bdee9def / ce2fbf81, Permutations-II 5284dc73 / 5d3b9a5b, Different-Ways-To-Add-Parentheses-Lite 3c0a6c90 / af723af2, Integer-Break b89bfa25 / 014165c8; kept with a written reason (`tools/vv/fixed_origin_decisions.tsv`) Ugly-Number-II a677101e, House-Robber-III-Lite 8f7ae59a.
+- Own checks that make test never ran: 8 folders whose tests.adb never called Own_Checks (Different-Ways 3c0a6c90; Climbing-Stairs, Get-Maximum-In-Generated-Array, House-Robber-III-Lite, Integer-Break, Sigmoid (also not in the gpr Source_Files), Ugly-Number-II, Lemke-Howson 74094e83). A planted failing check (scratch copies, never committed) makes make test fail in all 8 (codefix.csv). Get-Maximum / Lemke-Howson / Integer-Break own checks printed FAIL and returned normally: now raise (3ebb9b8d, b89bfa25); the same in 18 more folders (H177, 1a705277, planted failure fails make test in all 18).
+- `tools/vv/check_unrun_tests.py` (in `make check-paths`, 7c2f3158): fails on a test source that make test never builds or runs; built-in control (unwired own_checks found, wired not, missing from Source_Files found; on the tree before 3c0a6c90 it finds the 8). Remaining hits (5 `test_*.adb` in misc/Ada/tests, no test target) are listed in `tools/vv/unrun_tests_ok.csv`, H176, not fixed.
+
+**Not closed:**
+
+- H175 Word-Break-II valid-split Post: WIP patch `tools/vv/handover_patches/word_break_ii_valid_split_wip.patch`; array "=" transitivity and the In_Dict quantifier defeat cvc5 (next step in the row: a ghost word table).
+- H140: the 11 SPARK4 sorts (one In_Bounds template; suggested slide-wrapper pass, one pass per folder together with its permutation row, in the row).
+
+**What's next**, in this order:
+
+1. H107 Smooth-Sort proof; H061 Strand-Sort permutation Post; H108 Tim-Sort (as in the afternoon list).
+2. H140 SPARK4 sorts with their permutation rows (H025/H026, H029, H030, H035, H040, H044, H046, H061).
+3. The 14 open withdrawn functional claims (Count-Primes H167, Super-Ugly-Number-Stub, Create-Maximum-Number-Lite, Connected-Component-Labeling H173, Smooth-Sort H107, BST-Iterator-Stub, Word-Break-II H175, ...).
+4. H176: build and run misc/Ada/tests/test_*.adb or delete them with a reason.
+5. Re-scoring: the 8 newly training-ready H140 folders and every folder changed today keep their old held-out mutation scores until the next scoring run.
