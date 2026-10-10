@@ -14,3 +14,11 @@ third-party test suites.
   (constant, ascending, descending, alternating extremes), 2,000 random
   arrays over the full Value range and 1,000 with many duplicates from the
   Park-Miller minimal standard generator (seed 20261008).
+* Own model of flashsort (H104): Run_Model in own_checks.adb, written from
+  K.-D. Neubert, "The Flashsort1 Algorithm", Dr. Dobb's Journal, February
+  1998 (published description: class 1 + (M - 1) (X - Min) / (Max - Min)
+  with M = 3 for 8 keys, class counts and prefix sums L, maximum swapped
+  to slot 1, cycle-leader permutation with flash / hold, final straight
+  insertion). Sort_Traced's drop slots and result must equal the model on
+  every input checked above, plus 3,000 random arrays (seed 20261009) and
+  all 3**8 arrays over 0 .. 2.
