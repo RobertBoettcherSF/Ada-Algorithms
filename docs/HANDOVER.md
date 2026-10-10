@@ -146,3 +146,42 @@ Records-only follow-up by agent-CF after Replika / Gemini reviewed the overnight
 - **H174 opened** (`functional_gap`): `sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub` (the merging body from 117c5106) must Assert, and ideally prove as a Loop_Invariant, that after every `merge_collapse` the run-length rule holds over the WHOLE stack (each run longer than the next, and longer than the next two together), guarding the 2015 OpenJDK Timsort bug (de Gouw, Rot, de Boer, Bubel, Hähnle, "OpenJDK's java.utils.Collection.sort() is broken: The good, the bad and the worst case"; title/authors only). H109 stays closed; H172 (permutation Post) stays open.
 
 **Counts after this records-only update:** handover open / closed 105 / 66 (174 rows); open PLACEHOLDER rows 138 (was 137).
+
+## State at 2026-10-10 afternoon
+
+Last bounded code-fix batch by agent-CF (12:10-14:05 Europe/Berlin; cutoff for new folders 15:00, wrap-up by 15:45), ended at the wrap-up. Same rules as the morning: every fix is test-first (failing test commit, then fix commit, both in `tools/vv/codefix.csv`); GNAT 12.2.0 and 14.2.0 with 0 warnings; `make prove` at the folder's level and the Silver command pass; no Assume / Annotate / Warnings Off. The index was regenerated with `tools/proof_index.py` from the committed PROOFS.csv inputs (`tools/vv/synth_index_inputs.py`); `tools/vv/recount_strict.py` lists the same 84 training-ready folders, the self-test passes 27/27, and `make check-paths` is clean.
+
+**Counts** (before the batch: regen 3d378264, 2026-10-10 07:22):
+
+| Measure | Before | Now |
+|---|---:|---:|
+| Open findings (`tools/vv/findings.csv`) | 54 | 54 |
+| Implementation candidates (stubs, duplicates counted once) | 131 | 129 |
+| Silver-proven, non-trivial | 520 | 522 |
+| Training-ready under rule v1 (no re-scoring) | 84 | 84 |
+| Training-ready under the previous rule | 278 | 280 |
+| Open PLACEHOLDER rows (`tools/vv/placeholders.csv`) | 138 | 136 |
+| Open withdrawn functional claims (`tools/vv/contract_scan.csv` rows) | 17 | 14 |
+| Handover rows open / closed | 105 / 66 (174 rows) | 101 / 70 (174 rows) |
+
+**Closed this afternoon** (test / fix commit):
+
+- H172 Tim-Sort-Stub permutation Post: a2a25a60 / 290309a1 (700 checks).
+- H174 Tim-Sort-Stub whole-stack run-length rule after every merge_collapse (the 2015 de Gouw et al. bug class), proved as a loop invariant: 2c7fdd8a / dd474a6d (720 checks).
+- H104 Flash-Sort: real Flashsort1 (Neubert 1998: classes, prefix sums, cycle leader, final insertion) instead of a bubble sort; sorted + permutation Post; trace = own model on 12,822 inputs: d8ebeb9d / dad83a9a (411 checks).
+- H106 Patience-Sort: real patience sort (leftmost pile with top >= key, smallest top out; piles side by side in the array, moves as rotations) instead of a bubble sort; sorted + permutation Post; trace = own real-pile model on 53,142 inputs incl. all 8! permutations: c29d4e16 / c4b0e1c3 (231 checks).
+
+**Not closed:**
+
+- H107 Smooth-Sort: a real smoothsort (Leonardo forest, Sift, Trinkle, every exchange traced) passes the new trace test and every contract at run time with -gnata, but 27 checks stay unproved: every quantified use of the per-stretch invariant `Good` times out, even when it is identical to the precondition (nested quantifiers plus the Occ axioms). The failing test 39c5ada1 was reverted in 55e84c36; the WIP body is `tools/vv/handover_patches/smooth_sort_wip.patch`, the Silver log is in `tools/vv/handover_evidence/H107/`, and the row names the next step (per-position heap with a ghost node-order array).
+- H061 Strand-Sort: not attempted; no cheap route (see the row).
+- Record repair: the H172 and H174 rows had unquoted commas from the 12:34 / 12:47 commits that shifted their columns; both rows were rebuilt (content unchanged).
+
+**What's next**, in this order:
+
+1. H107 Smooth-Sort proof (patch and next step in the row).
+2. H061 Strand-Sort permutation Post (patch and evidence in the row).
+3. H108 Tim-Sort (reopened): inputs well past 64, traced merges, the full-stack run-length invariant as in Tim-Sort-Stub H174.
+4. H173 Connected-Component-Labeling connectivity Post.
+5. The remaining open `withdrawn_functional` rows and the 53 `first_pinned` findings (H140).
+6. Re-scoring: nothing was re-scored, so the fixed folders keep their old held-out mutation scores until the next scoring run.
