@@ -48,3 +48,7 @@ and no rest of 4 occurs: M - Arg (M) is never 4 for any M that gets
 split (N itself, or a rest M >= 5), since Arg (M) is 2 or 3 and
 Arg (6) = 3, Arg (7) = 2 (checked for every N <= 58 by a throwaway
 script that follows the rule from every N).
+* Any origin (H140, First-relative): the ghost Sum_To / Product_To of a
+  split at 'First = 5, 200 and ending at Positive'Last must equal those
+  at origin 1, and Lemma_Optimal must run on it with its contracts
+  checked, on 500 random splits (Park-Miller, seed 20261009).

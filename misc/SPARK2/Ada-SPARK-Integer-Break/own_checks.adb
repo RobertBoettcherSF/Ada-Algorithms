@@ -10,6 +10,8 @@ pragma Ada_2022;
 --  * the ghost lemma Lemma_Optimal run (assertions on) on seeded random
 --    splits.
 with Ada.Text_IO;
+with Ada.Assertions;
+with Ada.Numerics.Big_Numbers.Big_Integers; use Ada.Numerics.Big_Numbers.Big_Integers;
 with Ada.Environment_Variables;
 with Interfaces; use Interfaces;
 with Integer_Break; use Integer_Break;
@@ -203,10 +205,54 @@ begin
       end;
    end loop;
 
+   --  Any origin (H140): the ghost Sum_To / Product_To of a split at
+   --  'First = 5, 200 and ending at Positive'Last equal those at origin 1,
+   --  and Lemma_Optimal runs on it with its contracts checked; 500 random
+   --  splits, seed 20261009.
+   Seed := 20_261_009;
+   declare
+      function Shifted_Ok (N : Number; P : Part_List; O : Positive) return Boolean is
+         Q : constant Part_List (O .. O - 1 + P'Length) := P;
+      begin
+         pragma Assert (Sum_To (Q, Q'Length) = Sum_To (P, P'Length)
+                        and then Product_To (Q, Q'Length) = Product_To (P, P'Length)
+                        and then Sum_To (Q, Q'Length) = To_Big_Integer (N));
+         Lemma_Optimal (N, Q);
+         return True;
+      exception
+         when Constraint_Error | Ada.Assertions.Assertion_Error =>
+            return False;
+      end Shifted_Ok;
+   begin
+      for Trial in 1 .. 500 loop
+         declare
+            N    : constant Number := 2 + Next mod (Max_N - 1);
+            P    : Part_List (1 .. N);
+            Len  : Natural := 0;
+            Left : Natural := N;
+         begin
+            while Left > 0 loop
+               declare
+                  Cap : constant Positive := (if Len = 0 then N - 1 else Left);
+                  Q   : constant Positive := 1 + Next mod Positive'Min (Cap, 5);
+               begin
+                  Len := Len + 1;
+                  P (Len) := Q;
+                  Left := Left - Q;
+               end;
+            end loop;
+            Report (Shifted_Ok (N, P (1 .. Len), 5) and then Shifted_Ok (N, P (1 .. Len), 200)
+                    and then Shifted_Ok (N, P (1 .. Len), Positive'Last - Len + 1),
+                    "shifted origin" & Trial'Image);
+         end;
+      end loop;
+   end;
+
    Ada.Text_IO.Put_Line ("partitions enumerated:" & Leaves'Image & "; ghost table asserts:" & Ghost_Checked'Image);
    if Failures = 0 then
       Ada.Text_IO.Put_Line ("PASS own checks:" & Checked'Image & " checks");
    else
       Ada.Text_IO.Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;
