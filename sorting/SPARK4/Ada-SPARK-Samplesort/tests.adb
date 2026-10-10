@@ -441,6 +441,99 @@ begin
       end;
    end loop;
 
+   Section ("Is_Perm (Post) against sorted copies: every pair of arrays of length 0 .. 4 over -1 .. 1");
+   declare
+      Bad   : Natural := 0;
+      Cases : Natural := 0;
+   begin
+      for Len in 0 .. 4 loop
+         for CA in 0 .. 3 ** Len - 1 loop
+            for CB in 0 .. 3 ** Len - 1 loop
+               declare
+                  A, B : Element_Array (1 .. Len);
+                  X    : Natural := CA;
+                  Y    : Natural := CB;
+               begin
+                  for I in A'Range loop
+                     A (I) := X mod 3 - 1;
+                     B (I) := Y mod 3 - 1;
+                     X := X / 3;
+                     Y := Y / 3;
+                  end loop;
+                  Cases := Cases + 1;
+                  if Is_Perm (A, B) /= Is_Permutation (A, B) then
+                     Bad := Bad + 1;
+                  end if;
+               end;
+            end loop;
+         end loop;
+      end loop;
+      Check (Bad = 0 and then Cases = 7_381,
+             "Is_Perm = sorted-copy comparison on" & Cases'Image & " pairs");
+      Check (not Is_Perm (Element_Array'([3, 1, 2]), Element_Array'([0, 0, 0])),
+             "Is_Perm rejects an all-zeros result");
+      Check (not Is_Perm (Element_Array'([1, 1, 2]), Element_Array'([1, 2, 2])),
+             "Is_Perm compares counts, not just values");
+      Check (Occ (Element_Array'([2, 5, 2, 2]), 2, 1, 4) = 3
+             and then Occ (Element_Array'([2, 5, 2, 2]), 2, 2, 3) = 1
+             and then Occ (Element_Array'([2, 5, 2, 2]), 7, 1, 4) = 0
+             and then Occ (Element_Array'([2, 5, 2, 2]), 2, 3, 2) = 0,
+             "Occ counts A (First .. Last)");
+   end;
+
+   Section ("Sort result satisfies the Post's Is_Perm (A, Input) and equals the reference");
+   declare
+      Bad   : Natural := 0;
+      Cases : Natural := 0;
+      procedure Run (Src : Element_Array) is
+         A : Element_Array := Copy_Of (Src);
+         R : Element_Array := Copy_Of (Src);
+      begin
+         Sort (A);
+         Reference_Sort (R);
+         Cases := Cases + 1;
+         if not (Is_Perm (A, Src) and then Same (A, R)) then
+            Bad := Bad + 1;
+         end if;
+      end Run;
+   begin
+      --  Exhaustive: every array of length 0 .. 6 over -1 .. 1, at origin 1
+      --  and at origin 7 (any A'First is allowed).
+      for Len in 0 .. 6 loop
+         for C in 0 .. 3 ** Len - 1 loop
+            declare
+               A : Element_Array (1 .. Len);
+               S : Element_Array (7 .. 6 + Len);
+               X : Natural := C;
+            begin
+               for I in A'Range loop
+                  A (I) := X mod 3 - 1;
+                  S (I + 6) := A (I);
+                  X := X / 3;
+               end loop;
+               Run (A);
+               Run (S);
+            end;
+         end loop;
+      end loop;
+      --  Random: fixed seed 20261009, lengths 0 .. Max_N, keys -5 .. 5
+      --  (duplicates) and -10**9 .. 10**9.
+      Seed := 20_261_009;
+      for K in 1 .. 2_000 loop
+         declare
+            Len : constant Natural := Next_Mod (Max_N + 1);
+         begin
+            if K mod 2 = 0 then
+               Run (Random_Array (Len, -5, 5));
+            else
+               Run (Random_Array (Len, -1_000_000_000, 1_000_000_000));
+            end if;
+         end;
+      end loop;
+      Check (Bad = 0 and then Cases = 2 * 1_093 + 2_000,
+             "Sort result Is_Perm of input and = reference on" & Cases'Image & " arrays");
+   end;
+
    New_Line;
    Put_Line
      ("Results: " & Pass_Count'Image & " PASS," & Fail_Count'Image
