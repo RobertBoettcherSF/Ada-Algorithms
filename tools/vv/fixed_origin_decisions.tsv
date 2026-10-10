@@ -90,3 +90,4 @@ strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence	rewrite	indexes only walk or
 strings/SPARK3/Levenshtein-Distance	rewrite	indexes only walk or line arrays up
 trees/SPARK2/Ada-SPARK-Longest-Common-Substring	rewrite	indexes only walk or line arrays up
 misc/SPARK2/Ada-SPARK-Delete-And-Earn	rewrite	indexes only walk (Points summed over Nums'Range; H140 2026-10-10)
+misc/SPARK2/Ada-SPARK-Subsets	rewrite	indexes only walk (rank / subset over positions; H140 2026-10-10)

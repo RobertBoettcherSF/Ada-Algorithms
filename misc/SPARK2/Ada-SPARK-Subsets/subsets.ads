@@ -17,9 +17,9 @@ package Subsets with SPARK_Mode => On is
    Max_Items : constant := 30;
    subtype Item_Count is Natural range 0 .. Max_Items;
 
+   --  Any origin: position P (1 .. Length) is S (S'First + P - 1).
    subtype Small_Selection is Selection
-   with Dynamic_Predicate =>
-     Small_Selection'First = 1 and then Small_Selection'Last in 0 .. Max_Items;
+   with Dynamic_Predicate => Small_Selection'Length <= Max_Items;
 
    --  2 ** K; the proof checks that each entry doubles the one before
    --  (Lemma_Pow2), and the tests regenerate it.
@@ -35,12 +35,13 @@ package Subsets with SPARK_Mode => On is
      (for all K in 1 .. Max_Items => Pow2 (K) = 2 * Pow2 (K - 1))
    with Ghost;
 
-   --  The number S (1 .. L) stands for, with S (1) the lowest bit:
-   --  Rank (S, L) = Rank (S, L - 1) + (if S (L) then 2 ** (L - 1)).
+   --  The number the first L positions of S stand for, with S (S'First) the
+   --  lowest bit: Rank (S, L) = Rank (S, L - 1) + (if S (S'First + L - 1)
+   --  then 2 ** (L - 1)).
    function Rank (S : Small_Selection; L : Natural) return Natural
    with
      Ghost,
-     Pre                => L <= S'Last and then Pow2_Doubles,
+     Pre                => L <= S'Length and then Pow2_Doubles,
      Post               => Rank'Result < Pow2 (L),
      Subprogram_Variant => (Decreases => L);
 
@@ -58,27 +59,27 @@ package Subsets with SPARK_Mode => On is
    procedure Next_Subset (S : in out Small_Selection; Found : out Boolean)
    with
      Global => null,
-     Post   => Found = (Rank (S'Old, S'Last) < Pow2 (S'Last) - 1)
-               and then (if Found then Rank (S, S'Last) = Rank (S'Old, S'Last) + 1
+     Post   => Found = (Rank (S'Old, S'Length) < Pow2 (S'Length) - 1)
+               and then (if Found then Rank (S, S'Length) = Rank (S'Old, S'Length) + 1
                          else (for all K in S'Range => not S (K)));
 
    function Subset (Items : Item_List; S : Selection) return Item_List
    with
      Global => null,
-     Pre    => S'First = Items'First and then S'Last = Items'Last,
-     Post   => Subset'Result'First = 1
-               and then (if S'Length = 0 then Subset'Result'Length = 0
-                         else Subset'Result'Length = Count_True (S, S'Last)
-                              and then (for all K in S'Range =>
-                                          (if S (K) then Count_True (S, K) in Subset'Result'Range
-                                                         and then Subset'Result (Count_True (S, K)) = Items (K))));
+     Pre    => S'Length = Items'Length,
+     Post   => (if S'Length = 0 then Subset'Result'Length = 0
+                else Subset'Result'Length = Count_True (S, S'Last)
+                     and then (for all K in S'Range =>
+                                 (if S (K) then Count_True (S, K) in 1 .. Subset'Result'Length
+                                                and then Subset'Result (Subset'Result'First - 1 + Count_True (S, K))
+                                                         = Items (Items'First + (K - S'First)))));
    --  Pow2 doubles (the precondition of Rank).
    procedure Lemma_Pow2
    with Ghost, Global => null, Post => Pow2_Doubles;
 
 private
    function Rank (S : Small_Selection; L : Natural) return Natural is
-     (if L = 0 then 0 else Rank (S, L - 1) + (if S (L) then Pow2 (L - 1) else 0));
+     (if L = 0 then 0 else Rank (S, L - 1) + (if S (S'First + (L - 1)) then Pow2 (L - 1) else 0));
 
    function Count_True (S : Selection; I : Natural) return Natural is
      (if I < S'First then 0 else Count_True (S, I - 1) + (if S (I) then 1 else 0));

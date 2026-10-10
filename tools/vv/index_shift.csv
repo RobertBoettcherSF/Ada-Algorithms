@@ -3582,10 +3582,6 @@ misc/SPARK2/Ada-SPARK-Split-Array-Largest-Sum,,skipped,skipped,,,no unconstraine
 misc/SPARK2/Ada-SPARK-Sqrt-Integer,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Sqrt-X,,static_midpoint,ok,,,misc/SPARK2/Ada-SPARK-Sqrt-X/sqrt_x.adb:21: Y : constant Wide := (X + Q) / 2;,"reviewed 2026-10-09: Newton step (X + Q) / 2 in the wide type, not an index midpoint; no unconstrained array; overflow-freedom proved (Silver)"
 misc/SPARK2/Ada-SPARK-Stack-Bounded,,skipped,skipped,,,no unconstrained array type,
-misc/SPARK2/Ada-SPARK-Subsets,Count_True,catalog,catalog,,1,function n_arrays=1 ret=Natural,
-misc/SPARK2/Ada-SPARK-Subsets,Subset,catalog,catalog,,2,function n_arrays=2 ret=Item_List,
-misc/SPARK2/Ada-SPARK-Subsets,,first_pinned,fail,,,"In_Bounds/Pre requires A'First = 1 — subtype/constrained type, or Pre + one-line reason (fix_kind=fixed_origin_type)",
-misc/SPARK2/Ada-SPARK-Subsets,Count_True,skipped,skipped,,,"driver build failed: 3:34: error: expected type ""Selection"" defined at subsets.ads:15 idx_shift_driver.adb:33:34: error: found type ""Item_List"" defined at subsets.ads:14 gnatmake: ""idx_shift_driver.adb"" compilation error ",
 misc/SPARK2/Ada-SPARK-Swap-Nodes-In-Pairs,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Top-K-Frequent-Words,,skipped,skipped,,,no unconstrained array type,
 misc/SPARK2/Ada-SPARK-Ugly-Number-II,Has,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
@@ -3613,3 +3609,7 @@ misc/SPARK2/Ada-SPARK-Delete-And-Earn,Points_Of,catalog,catalog,,1,function n_ar
 misc/SPARK2/Ada-SPARK-Delete-And-Earn,Max_Earn,catalog,catalog,,1,function n_arrays=1 ret=Score,
 misc/SPARK2/Ada-SPARK-Delete-And-Earn,Points_Of,catalog,catalog,,1,function n_arrays=1 ret=Point_Array,
 misc/SPARK2/Ada-SPARK-Delete-And-Earn,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/SPARK2/Ada-SPARK-Subsets,Count_True,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+misc/SPARK2/Ada-SPARK-Subsets,Subset,catalog,catalog,,2,function n_arrays=2 ret=Item_List,
+misc/SPARK2/Ada-SPARK-Subsets,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/SPARK2/Ada-SPARK-Subsets,Count_True,skipped,skipped,,,"driver build failed: 3:34: error: expected type ""Selection"" defined at subsets.ads:15 idx_shift_driver.adb:33:34: error: found type ""Item_List"" defined at subsets.ads:14 gnatmake: ""idx_shift_driver.adb"" compilation error ",
