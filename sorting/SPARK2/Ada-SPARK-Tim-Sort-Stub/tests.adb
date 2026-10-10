@@ -159,6 +159,162 @@ procedure Tests is
              "Sort result Is_Perm of input and = reference on" & Cases'Image & " arrays");
    end Perm_Checks;
 
+   --  H174: the Timsort run-length rule over the WHOLE stack after every
+   --  merge_collapse, replayed from the Sort_Traced event log.
+   procedure Stack_Rule_Checks is
+      type Nat_Arr is array (Positive range <>) of Natural;
+
+      --  Whole-stack rule after every merge_collapse: checked on the
+      --  stack replayed from the event log just before every Push (the
+      --  stack then is the one the previous merge_collapse left). Pushes
+      --  lists the pushed lengths.
+      procedure Replay (Input : Value_Array; Ok : out Boolean; Pushes : out Nat_Arr; NP : out Natural) is
+         Output : Value_Array (Input'Range);
+         Log    : Event_Log (1 .. 2 * Input'Length + 1);
+         Count  : Natural;
+         St     : Length_Array (1 .. Input'Length + 1) := [others => 0];
+         Top    : Natural := 0;
+      begin
+         Sort_Traced (Input, Output, Log, Count);
+         Ok := True;
+         NP := 0;
+         for E in 1 .. Count loop
+            case Log (E).Kind is
+               when Push =>
+                  if not Runs_Rule (St, Top) then
+                     Ok := False;
+                  end if;
+                  Top := Top + 1;
+                  St (Top) := Log (E).B;
+                  NP := NP + 1;
+                  if NP <= Pushes'Last then
+                     Pushes (NP) := Log (E).B;
+                  end if;
+               when Merge =>
+                  St (Log (E).A) := St (Log (E).A) + St (Log (E).A + 1);
+                  for X in Log (E).A + 1 .. Top - 1 loop
+                     St (X) := St (X + 1);
+                  end loop;
+                  Top := Top - 1;
+            end case;
+         end loop;
+      end Replay;
+
+      --  Own model of merge_collapse with the ORIGINAL top-three-only
+      --  check (no Len (n - 2) test), on given run lengths: True when the
+      --  whole-stack rule is broken after some collapse.
+      function Top_Three_Breaks (Runs : Nat_Arr) return Boolean is
+         St  : Length_Array (1 .. Runs'Length + 1) := [others => 0];
+         Top : Natural := 0;
+         N   : Natural;
+         Bad : Boolean := False;
+         procedure Merge_At (I : Positive) is
+         begin
+            St (I) := St (I) + St (I + 1);
+            for X in I + 1 .. Top - 1 loop
+               St (X) := St (X + 1);
+            end loop;
+            Top := Top - 1;
+         end Merge_At;
+      begin
+         for R of Runs loop
+            Top := Top + 1;
+            St (Top) := R;
+            while Top > 1 loop
+               N := Top - 1;
+               if N > 1 and then St (N - 1) <= St (N) + St (N + 1) then
+                  if St (N - 1) < St (N + 1) then
+                     N := N - 1;
+                  end if;
+                  Merge_At (N);
+               elsif St (N) <= St (N + 1) then
+                  Merge_At (N);
+               else
+                  exit;
+               end if;
+            end loop;
+            if not Runs_Rule (St, Top) then
+               Bad := True;
+            end if;
+         end loop;
+         return Bad;
+      end Top_Three_Breaks;
+
+      --  Ascending blocks of the given lengths, each block starting below
+      --  the end of the previous one: count_run finds exactly these runs.
+      function Blocks (Runs : Nat_Arr) return Value_Array is
+         Total : Natural := 0;
+      begin
+         for R of Runs loop
+            Total := Total + R;
+         end loop;
+         declare
+            A : Value_Array (1 .. Total);
+            P : Positive := 1;
+         begin
+            for B in Runs'Range loop
+               for I in 1 .. Runs (B) loop
+                  A (P) := 100_000 - 1_000 * B + I;
+                  P := P + 1;
+               end loop;
+            end loop;
+            return A;
+         end;
+      end Blocks;
+
+      --  de Gouw et al.'s example 120, 80, 25, 20, 30 scaled by 2 so every
+      --  run is at least Min_Run (585) = 37 and count_run pushes it as is,
+      --  plus a last run of 35, so the stack the collapse after the push
+      --  of 60 leaves is checked before a Push (the collapse after the
+      --  last Push is followed by the forced merges in the log).
+      Gouw : constant Nat_Arr := [240, 160, 50, 40, 60, 35];
+      Ok   : Boolean;
+      Ps   : Nat_Arr (1 .. 10) := [others => 0];
+      NP   : Natural;
+      Bad  : Natural := 0;
+   begin
+      Check (Runs_Rule (Length_Array'([10, 6, 3, 2]), 4)
+             and then not Runs_Rule (Length_Array'([10, 6, 4, 2]), 4)
+             and then not Runs_Rule (Length_Array'([10, 6, 3, 3]), 4)
+             and then Runs_Rule (Length_Array'([1, 5]), 1)
+             and then Runs_Rule (Length_Array'(1 .. 0 => 0), 0)
+             and then not Runs_Rule (Length_Array'([120, 80, 45, 30]), 4),
+             "Runs_Rule: each run longer than the next and than the next two together, over the whole stack");
+      Check (Min_Run (585) = 37 and then Top_Three_Breaks (Gouw (1 .. 5)),
+             "a top-three-only merge_collapse breaks the whole-stack rule on runs 240, 160, 50, 40, 60");
+      Replay (Blocks (Gouw), Ok, Ps, NP);
+      Check (NP = 6 and then Ps (1 .. 6) = Gouw and then Ok,
+             "Sort_Traced pushes 240, 160, 50, 40, 60, 35 and keeps the whole-stack rule after every merge_collapse");
+      for K in 1 .. 300 loop
+         declare
+            Len : constant Natural := P_Next (5_001);
+            A   : Value_Array (1 .. Len);
+         begin
+            for I in A'Range loop
+               A (I) := (if K mod 3 = 0 then P_Next (4) else P_Next (1_000_000));
+            end loop;
+            --  Natural runs: sort random stretches so pushes vary.
+            if K mod 3 = 1 then
+               declare
+                  P : Natural := 1;
+                  W : Natural;
+               begin
+                  while P <= Len loop
+                     W := Natural'Min (1 + P_Next (400), Len - P + 1);
+                     A (P .. P + W - 1) := Ref_Sort (A (P .. P + W - 1));
+                     P := P + W;
+                  end loop;
+               end;
+            end if;
+            Replay (A, Ok, Ps, NP);
+            if not Ok then
+               Bad := Bad + 1;
+            end if;
+         end;
+      end loop;
+      Check (Bad = 0, "whole-stack run-length rule after every merge_collapse on 300 random inputs up to 5,000 (seed 20261009)");
+   end Stack_Rule_Checks;
+
    Old_Stub : constant Value_Array :=
      [1 => 4, 2 => 1, 3 => 7, 4 => 3, 5 => 2, 6 => 8, 7 => 5, 8 => 6];
    Empty    : constant Value_Array (1 .. 0) := [others => 0];
@@ -189,6 +345,7 @@ begin
    end loop;
    Case_Of (Big, "120 pseudo-random values");
    Perm_Checks;
+   Stack_Rule_Checks;
    if Failures = 0 then
       Put_Line ("PASS Tim_Sort_Stub");
    else
