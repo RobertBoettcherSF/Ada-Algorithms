@@ -50,6 +50,20 @@ package Tim_Sort_Stub with SPARK_Mode => On is
      with Global => null,
           Post   => (if N < 64 then Min_Run'Result = N else Min_Run'Result in 32 .. 64);
 
+   --  Run lengths on a run stack, bottom first.
+   type Length_Array is array (Positive range <>) of Natural;
+
+   --  Timsort's run-length rule over the WHOLE stack L (L'First .. Top):
+   --  every run is longer than the next one, and longer than the next two
+   --  together (listsort.txt; de Gouw et al. 2015 showed that checking
+   --  only the top three runs lets the rule break further down).
+   function Runs_Rule (L : Length_Array; Top : Integer) return Boolean is
+     (for all X in L'First .. Top =>
+        (if X < Top then L (X) > L (X + 1))
+        and then (if X < Top - 1 then L (X) - L (X + 1) > L (X + 2)))
+   with Global => null,
+        Pre    => Top <= L'Last;
+
    type Event_Kind is (Push, Merge);
    --  Push: a run (A = base, B = length); Merge: stack runs A and A + 1.
    type Event is record

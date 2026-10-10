@@ -338,7 +338,7 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
       N      : constant Natural := Input'Length;
       Min    : constant Natural := Min_Run (N);
       Base   : array (1 .. Max_Len + 1) of Positive := [others => 1];
-      Len    : array (1 .. Max_Len + 1) of Natural := [others => 0];
+      Len    : Length_Array (1 .. Max_Len + 1) := [others => 0];
       Top    : Natural := 0;
       Pushes : Natural := 0;
       R, Force, Idx : Natural;
@@ -410,6 +410,7 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
             pragma Loop_Invariant (if Count >= 1 then Log (1).Kind = Push and then Log (1).A = Input'First);
             pragma Loop_Invariant (Stack_Ok (Lo));
             pragma Loop_Invariant (Same_Occ (Input, Output));
+            pragma Loop_Invariant (Runs_Rule (Len, Top));
             pragma Loop_Variant (Increases => Lo);
             --  count_run
             R := 1;
@@ -458,6 +459,9 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
                pragma Loop_Invariant (Count >= 1 and then Log (1).Kind = Push and then Log (1).A = Input'First);
                pragma Loop_Invariant (Stack_Ok (Lo));
                pragma Loop_Invariant (Same_Occ (Input, Output));
+               --  Below the top three runs the whole-stack rule holds: a
+               --  merge only touches the top three (H174).
+               pragma Loop_Invariant (Runs_Rule (Len, Top - 2));
                pragma Loop_Variant (Decreases => Top);
                Idx := Top - 1;
                if (Idx > 1 and then Len (Idx - 1) <= Len (Idx) + Len (Idx + 1))
@@ -477,6 +481,9 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
                   exit;
                end if;
             end loop;
+            --  After every merge_collapse the rule holds over the whole
+            --  stack, not only the top three runs (H174).
+            pragma Assert (Runs_Rule (Len, Top));
          end loop;
          --  merge_force_collapse
          while Top > 1 loop
