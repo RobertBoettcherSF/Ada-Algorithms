@@ -14,3 +14,8 @@ third-party test suites.
   (constant, ascending, descending, alternating extremes), 2,000 random
   arrays over the full Value range and 1,000 with many duplicates from the
   Park-Miller minimal standard generator (seed 20261008).
+* Circle sort model (comparison trace, pass count): own recursive
+  implementation of the algorithm as described in Wikipedia "Circle sort"
+  (mirrored pairs, recurse on halves, repeat until a pass makes no
+  exchange). The pass count is at most inversions + 1 (each exchange of an
+  out-of-order pair removes at least one inversion).
