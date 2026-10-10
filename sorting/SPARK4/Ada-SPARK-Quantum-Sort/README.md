@@ -13,7 +13,7 @@ Comparison-based quantum sorting is known to need $\Omega(n \log n)$ steps in th
 | Space-bounded sort | Cocktail shaker sort | cocktail passes with a sorted-prefix / sorted-suffix window invariant |
 
 $$
-\text{classroom } n \le \mathit{Max\_N}=64,\quad \text{extra space } O(1),\quad \text{proved postcondition: } \mathit{Is\_Sorted}
+\text{classroom } n \le \mathit{Max\_N}=64,\quad \text{extra space } O(1),\quad \text{proved postcondition: } \mathit{Is\_Sorted} \wedge \mathit{Is\_Perm}
 $$
 
 This is the SPARK Level 4 port of the companion package [Ada-Quantum-Sort](https://github.com/RobertBoettcherSF/Ada-Quantum-Sort) in the RobertBoettcherSF Ada algorithm series. The non-SPARK sibling uses a modest `Element_Value` subtype, exceptions (`Invalid_Input_Size`), and the same four classical mappings; this port trades those for a hard classroom bound (`Max_N = 64`), `In_Bounds` / `Is_Sorted` contracts, `Integer` elements, and proved sortedness. README links only — do not `with` sibling packages here. Closest SPARK sort siblings that supply the proof patterns reused here: [Ada-SPARK-Insertion-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Insertion-Sort), [Ada-SPARK-Shell-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Shell-Sort), [Ada-SPARK-Selection-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Selection-Sort), and [Ada-SPARK-Cocktail-Shaker-Sort](https://github.com/RobertBoettcherSF/Ada-SPARK-Cocktail-Shaker-Sort).
@@ -23,7 +23,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Quantum-Sort](https
 * **`Sort_Parallel_Network (A)`**: Parallel-network model via Shellsort with a fixed Ciura gap table $(57,23,10,4,1)$ sized for `Max_N`, finished by a gap-$1$ insertion pass.
 * **`Sort_Frequency (A)`**: Frequency / distribution model via in-place selection sort (min of suffix → prefix).
 * **`Sort_Space_Bounded (A)`**: Space-bounded model via cocktail shaker passes over a shrinking $\mathit{Lo}..\mathit{Hi}$ window; the passes themselves are proved to sort (no extra bubble pass).
-* **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition on every `Sort_*`.
+* **`Is_Sorted` / `In_Bounds` / `Occ` / `Is_Perm`**: Expression-function guards and value counts; `Is_Sorted (A) and then Is_Perm (A, A'Old)` is the proved postcondition on every `Sort_*`.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors; educational phases prove `In_Bounds` / RTE where needed; finishes prove sortedness.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Input_Size`.
 
@@ -34,7 +34,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Quantum-Sort](https
 * Element type widened to `Integer` (sibling uses `Element_Value` range $-10\,000 .. 10\,000$).
 * Shell model uses a **fixed** Ciura gap prefix that fits `Max_N` (no dynamic $\lfloor 2.25\cdot h\rfloor$ extension).
 * Cocktail forward/backward passes carry the window invariant (`Sorted_Slice` / `Prefix_Leq_Suffix`: sorted prefix <= rest, sorted suffix >= rest), so `Sort_Space_Bounded` proves `Is_Sorted` from the passes alone; the outer loop runs while $\mathit{Lo} < \mathit{Hi}$ with variant $\mathit{Hi}-\mathit{Lo}$ (no round cap, no bubble finish).
-* **SPARK proves sortedness** (`Post => In_Bounds (A) and Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => In_Bounds (A) and Is_Sorted (A) and Is_Perm (A, A'Old)`; before 2026-10-10 the Posts said only `Is_Sorted`, which a constant-fill body also proves: tools/vv/contract_scan.csv). Every move is an exchange (`Swap` proves `Same_Occ`, the count of every value, with `Lemma_Swap`; insertion and gapped insertion move the key down by exchanges with the larger neighbour, the same comparisons as the earlier shifting version), and each loop carries `Same_Occ` with the input. `Same_Occ` ranges over every `Integer` value, so the body's contracts, invariants and assertions are proved and not checked at run time (`Assertion_Policy` in the body, `tools/vv/proof_escapes.csv` runtime_only); the four spec Posts still run in the tests.
 * Zero `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## Algorithm sketches
@@ -51,7 +51,7 @@ Empty and singleton arrays are no-ops for every entry point.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 932 assertions pass (`0 FAIL`). Running `make prove` reports `Success: all checks proved (477 checks)` (silver, level 2) with **zero** Intentional Annotate.
+When you run `make test`, you will see all 932 assertions pass (`0 FAIL`). Running `make prove` reports `Success: all checks proved (681 checks)` (level 4) with **zero** Intentional Annotate.
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, cocktail turtle $(2,3,4,5,1)$, Shell Wikipedia-style $12$-element demo, signed domain, lengths up to `Max_N`.
@@ -72,7 +72,7 @@ When you run `make test`, you will see all 932 assertions pass (`0 FAIL`). Runni
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Insertion / selection loops use `pragma Loop_Invariant` / `Loop_Variant`; Shell gap passes prove `In_Bounds` / RTE; cocktail passes prove the sorted prefix / suffix window invariant; the shaker loop has variant $\mathit{Hi}-\mathit{Lo}$.
-* **GNATprove Level 4:** `Success: all checks proved (477 checks)` (silver, level 2).
+* **GNATprove Level 4:** `Success: all checks proved (681 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

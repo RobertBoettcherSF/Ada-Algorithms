@@ -81,19 +81,44 @@ is
    -- Sorting (four classical educational models)
    ---------------------------------------------------------------------------
 
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
+   with
+     Global             => null,
+     Pre                => In_Bounds (A) and then Last <= A'Last,
+     Post               => Occ'Result <= Last,
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (A'First .. Last) equal V.
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often. A value found in neither array counts 0 in both.
+
    procedure Sort_Comparison (A : in out Element_Array)
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Quantum comparison-sort model via classic stable insertion sort.
-   --  Post proves sortedness; permutation checked by tests.
+   --  Post proves sortedness and permutation (Is_Perm).
 
    procedure Sort_Parallel_Network (A : in out Element_Array)
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Quantum parallel-network model via Shellsort (fixed Ciura gaps +
    --  gap-1 insertion finish). Unstable in general.
 
@@ -101,7 +126,7 @@ is
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Quantum frequency / distribution model via selection sort.
    --  Not stable under the swap formulation.
 
@@ -109,7 +134,7 @@ is
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Space-bounded quantum-sort model via cocktail shaker + gap-1
    --  bubble finish. Stable when the swap predicate is strict `>`.
 
