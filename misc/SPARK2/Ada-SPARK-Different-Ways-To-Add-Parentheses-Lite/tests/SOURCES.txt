@@ -44,3 +44,7 @@ Note: GNAT 14.2.0 hits an internal error (GNAT BUG DETECTED, trans.cc
 6710) on indexing a constant Ada.Containers.Vectors of Big_Integer as
 Ord (M) inside own_checks.adb; Element (Ord, M) is used instead. Not
 reported upstream.
+* Any origin (H140, First-relative): All_Results with Values and Ops at
+  'First = 5, 200, at different origins (3 / 40) and ending at
+  Positive'Last must equal the origin-1 result, on 500 random
+  expressions of 1 .. 9 operands (Park-Miller, seed 20261009).

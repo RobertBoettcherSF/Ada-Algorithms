@@ -16,6 +16,7 @@ pragma Ada_2022;
 --  * seeded random expressions of 1 .. 9 operands (extremes -99 and 99
 --    over-weighted) and the all -99 / all 99 products.
 with Ada.Text_IO;
+with Ada.Assertions;
 with Ada.Environment_Variables;
 with Ada.Containers.Vectors;
 with Interfaces; use Interfaces;
@@ -209,6 +210,41 @@ begin
          Check (Values, Ops, "random" & T'Image);
       end;
    end loop;
+
+   --  Any origin (H140): All_Results with Values and Ops at 'First = 5,
+   --  200, at different origins (3 / 40) and ending at Positive'Last must
+   --  equal the origin-1 result; 500 random expressions, seed 20261009.
+   Seed := 20_261_009;
+   declare
+      function Same_At (Values : Operand_List; Ops : Operator_List; OV, OO : Positive) return Boolean is
+         V2 : constant Operand_List (OV .. OV - 1 + Values'Length) := Values;
+         O2 : constant Operator_List (OO .. OO - 1 + Ops'Length) := Ops;
+      begin
+         return All_Results (V2, O2) = All_Results (Values, Ops);
+      exception
+         when Constraint_Error | Ada.Assertions.Assertion_Error =>
+            return False;
+      end Same_At;
+   begin
+      for T in 1 .. 500 loop
+         declare
+            N      : constant Positive := 1 + Next mod Max_Expression;
+            Values : Operand_List (1 .. N);
+            Ops    : Operator_List (1 .. N - 1);
+         begin
+            for V of Values loop
+               V := Next mod 199 - 99;
+            end loop;
+            for O of Ops loop
+               O := Operator'Val (Next mod 3);
+            end loop;
+            Report (Same_At (Values, Ops, 5, 5) and then Same_At (Values, Ops, 200, 200)
+                    and then Same_At (Values, Ops, 3, 40)
+                    and then Same_At (Values, Ops, Positive'Last - N + 1, Positive'Last - Natural'Max (N - 1, 1) + 1),
+                    "shifted origin" & T'Image);
+         end;
+      end loop;
+   end;
 
    Ada.Text_IO.Put_Line ("own checks:" & Checked'Image & " checks," & Failures'Image & " failures");
    if Failures > 0 then

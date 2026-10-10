@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Different_Ways_Parentheses; use Different_Ways_Parentheses;
+with Own_Checks;
 
 procedure Tests is
    function Img (A : Value_List) return String is
@@ -49,5 +50,6 @@ begin
    --  (-99) ** 9.
    Expect ([1 .. 9 => -99], [1 .. 8 => Times], [1 .. 1_430 => -913_517_247_483_640_899]);
 
+   Own_Checks;
    Put_Line ("PASS Different_Ways_Parentheses");
 end Tests;
