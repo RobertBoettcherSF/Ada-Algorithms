@@ -49,6 +49,9 @@ def build(root):
     os.makedirs(os.path.join(root, 'tools', 'vv')); os.makedirs(os.path.join(root, 'docs'))
     shutil.copy(os.path.join(TOOLS, 'proof_index.py'), os.path.join(root, 'tools', 'proof_index.py'))
     shutil.copy(os.path.join(HERE, 'recount_strict.py'), os.path.join(root, 'tools', 'vv', 'recount_strict.py'))
+    for t in ('synth_index_inputs.py', 'run_proof_index.py'):   # H188: `make proof-index` path
+        if os.path.exists(os.path.join(HERE, t)):
+            shutil.copy(os.path.join(HERE, t), os.path.join(root, 'tools', 'vv', t))
     res, logs = os.path.join(root, '_res'), os.path.join(root, '_logs')
     os.makedirs(res); os.makedirs(logs)
     B, P = open(os.path.join(res, 'build.jsonl'), 'w'), open(os.path.join(res, 'prove.jsonl'), 'w')
@@ -149,6 +152,33 @@ def placeholder_case(kind):
     return r.returncode
 PH_CASES = [('good', 0), ('missing', 1), ('stale', 1), ('unlisted', 1), ('code', 1), ('code_ok', 0)]
 
+# H188 control cases for tools/vv/run_proof_index.py (what `make proof-index` runs):
+#   default  no --results: inputs synthesised from the committed PROOFS.csv; exit 0, headline unchanged
+#   stale    --results whose build input disagrees with PROOFS.csv (Good gets 2 GNAT 12 warnings, like the
+#            stale default results dir that gave 92 + 3): exit 2, PROOFS.csv / PROOFS.md / README.md left untouched
+#   allowed  the same stale inputs with --allow-input-change: exit 0 and Good drops (a deliberate new run)
+def index_cases(root, res, logs, fids):
+    out = []
+    runner = os.path.join(root, 'tools', 'vv', 'run_proof_index.py')
+    def snap():
+        return {f: open(os.path.join(root, f)).read() for f in ('PROOFS.csv', 'PROOFS.md') if os.path.exists(os.path.join(root, f))}
+    def tr():
+        return {x['folder']: (x['training_ready'], bool(x['rescore_pending'])) for x in csv.DictReader(open(os.path.join(root, 'PROOFS.csv')))}
+    before = tr()
+    r = subprocess.run([sys.executable, runner], cwd=root, capture_output=True, text=True)
+    out.append(('default', r.returncode == 0 and tr() == before, f'exit {r.returncode}' + ('' if r.returncode == 0 else ': ' + (r.stdout + r.stderr).strip()[-300:])))
+    stale = os.path.join(root, '_stale'); shutil.copytree(res, stale)
+    lines = [json.loads(l) for l in open(os.path.join(stale, 'build.jsonl'))]
+    for b in lines:
+        if b['id'] == fids['Good']: b['w12'] = '2'
+    open(os.path.join(stale, 'build.jsonl'), 'w').write(''.join(json.dumps(b) + '\n' for b in lines))
+    s0 = snap()
+    r = subprocess.run([sys.executable, runner, '--results', stale, '--logs', logs], cwd=root, capture_output=True, text=True)
+    out.append(('stale', r.returncode == 2 and snap() == s0 and 'disagree' in (r.stdout + r.stderr), f'exit {r.returncode}'))
+    r = subprocess.run([sys.executable, runner, '--results', stale, '--logs', logs, '--allow-input-change'], cwd=root, capture_output=True, text=True)
+    out.append(('allowed', r.returncode == 0 and tr().get(fids['Good'], ('?',))[0] == '', f'exit {r.returncode}'))
+    return out
+
 def main():
     root = tempfile.mkdtemp(prefix='tpi_')
     try:
@@ -183,6 +213,10 @@ def main():
         bad += not okp
         print(('ok  ' if okp else 'FAIL') + f' rescore_pending: index and recount_strict.py --pending list the same {len(recp)} folder(s)'
               + ('' if okp else f': index {sorted(idxp)}, recount {sorted(recp)}'))
+        IDX = index_cases(root, res, logs, fids)
+        for name, ok, info in IDX:
+            bad += not ok
+            print(('ok  ' if ok else 'FAIL') + f' run_proof_index control {name:8} {info}')
         r3 = subprocess.run([sys.executable, os.path.join(REPO, 'tools/vv/check_paths.py')] + PATH_SCOPE,
                             capture_output=True, text=True)
         print(r3.stdout.rstrip().splitlines()[-1] if r3.stdout.strip() else r3.stderr)
@@ -195,7 +229,7 @@ def main():
         r4 = subprocess.run([sys.executable, os.path.join(REPO, 'tools/vv/check_placeholders.py')], capture_output=True, text=True)
         print(r4.stdout.rstrip().splitlines()[-1] if r4.stdout.strip() else r4.stderr)
         bad += r4.returncode != 0
-        total = len(CASES) + 4 + len(PH_CASES)
+        total = len(CASES) + 4 + len(PH_CASES) + len(IDX)
         print(f"{total - bad}/{total} control checks pass")
         return 1 if bad else 0
     finally:
