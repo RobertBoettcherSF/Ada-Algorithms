@@ -18,6 +18,150 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
       return X + (if Low then 1 else 0);
    end Min_Run;
 
+   --  A and B have the same bounds and every value occurs equally often.
+   function Same_Occ (A, B : Value_Array) return Boolean is
+     (A'First = B'First and then A'Last = B'Last
+      and then (for all V in Value => Occ (A, V, A'First, A'Last) = Occ (B, V, B'First, B'Last)))
+   with Ghost;
+
+   package Perm_Lemmas with Ghost is
+      --  Counts over First .. Last only see First .. Last.
+      procedure Lemma_Occ_Eq (A, B : Value_Array; First, Last : Integer)
+        with Pre  => (if First <= Last then
+                        First >= A'First and then Last <= A'Last
+                        and then First >= B'First and then Last <= B'Last
+                        and then (for all T in First .. Last => A (T) = B (T))),
+             Post => (for all V in Value => Occ (A, V, First, Last) = Occ (B, V, First, Last)),
+             Subprogram_Variant => (Decreases => Last);
+
+      --  Counts over First .. Last split after Mid.
+      procedure Lemma_Occ_Split (A : Value_Array; First, Mid, Last : Integer)
+        with Pre  => First >= A'First and then Last <= A'Last and then Last < Integer'Last
+                     and then Mid <= Last and then First <= Mid + 1,
+             Post => (for all V in Value =>
+                        Occ (A, V, First, Last) = Occ (A, V, First, Mid) + Occ (A, V, Mid + 1, Last)),
+             Subprogram_Variant => (Decreases => Last);
+
+      --  T (1 .. L) is S (F .. F + L - 1).
+      procedure Lemma_Occ_Shift (T, S : Value_Array; F : Positive; L : Natural)
+        with Pre  => T'First = 1 and then L <= T'Last
+                     and then (L = 0 or else (F in S'Range and then L - 1 <= S'Last - F))
+                     and then (for all X in 1 .. L => T (X) = S (F + (X - 1))),
+             Post => (for all V in Value => Occ (T, V, 1, L) = Occ (S, V, F, F + (L - 1))),
+             Subprogram_Variant => (Decreases => L);
+
+      --  B is A with slot K changed.
+      procedure Lemma_Occ_Set (A, B : Value_Array; K : Positive; First, Last : Integer)
+        with Pre  => A'First = B'First and then A'Last = B'Last
+                     and then K in First .. Last and then First >= A'First and then Last <= A'Last
+                     and then (for all J in A'Range => (if J /= K then A (J) = B (J))),
+             Post => (for all V in Value =>
+                        Occ (B, V, First, Last)
+                        = Occ (A, V, First, Last) - (if A (K) = V then 1 else 0) + (if B (K) = V then 1 else 0)),
+             Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slots X and Y exchanged.
+      procedure Lemma_Swap (A, B : Value_Array; X, Y : Positive)
+        with Pre  => A'First = B'First and then A'Last = B'Last
+                     and then X in A'Range and then Y in A'Range
+                     and then B (X) = A (Y) and then B (Y) = A (X)
+                     and then (for all J in A'Range => (if J /= X and then J /= Y then A (J) = B (J))),
+             Post => Same_Occ (A, B);
+
+      --  B equals A outside Lo .. Hi and has the same counts inside.
+      procedure Lemma_Frame (A, B : Value_Array; Lo, Hi : Positive)
+        with Pre  => A'First = B'First and then A'Last = B'Last and then A'Last < Positive'Last
+                     and then Lo <= Hi and then Lo in A'Range and then Hi in A'Range
+                     and then (for all K in A'Range => (if K < Lo or else K > Hi then A (K) = B (K)))
+                     and then (for all V in Value => Occ (A, V, Lo, Hi) = Occ (B, V, Lo, Hi)),
+             Post => Same_Occ (A, B);
+
+      procedure Lemma_Same_Trans (A, B, C : Value_Array)
+        with Pre  => Same_Occ (A, B) and then Same_Occ (B, C),
+             Post => Same_Occ (A, C);
+
+      --  The executable Is_Perm follows from Same_Occ.
+      procedure Lemma_Same_Perm (A, B : Value_Array)
+        with Pre  => Same_Occ (A, B),
+             Post => Is_Perm (A, B);
+   end Perm_Lemmas;
+
+   package body Perm_Lemmas is
+      procedure Lemma_Occ_Eq (A, B : Value_Array; First, Last : Integer) is
+      begin
+         if First <= Last then
+            Lemma_Occ_Eq (A, B, First, Last - 1);
+         end if;
+      end Lemma_Occ_Eq;
+
+      procedure Lemma_Occ_Split (A : Value_Array; First, Mid, Last : Integer) is
+      begin
+         if Mid < Last then
+            Lemma_Occ_Split (A, First, Mid, Last - 1);
+         end if;
+      end Lemma_Occ_Split;
+
+      procedure Lemma_Occ_Shift (T, S : Value_Array; F : Positive; L : Natural) is
+      begin
+         if L > 0 then
+            Lemma_Occ_Shift (T, S, F, L - 1);
+         end if;
+      end Lemma_Occ_Shift;
+
+      procedure Lemma_Occ_Set (A, B : Value_Array; K : Positive; First, Last : Integer) is
+      begin
+         if Last > K then
+            Lemma_Occ_Set (A, B, K, First, Last - 1);
+         else
+            Lemma_Occ_Eq (A, B, First, K - 1);
+         end if;
+      end Lemma_Occ_Set;
+
+      procedure Lemma_Swap (A, B : Value_Array; X, Y : Positive) is
+      begin
+         if X = Y then
+            Lemma_Occ_Eq (A, B, A'First, A'Last);
+            return;
+         end if;
+         declare
+            C : constant Value_Array := (A with delta X => A (Y));
+         begin
+            Lemma_Occ_Set (A, C, X, A'First, A'Last);
+            Lemma_Occ_Set (C, B, Y, A'First, A'Last);
+         end;
+      end Lemma_Swap;
+
+      procedure Lemma_Frame (A, B : Value_Array; Lo, Hi : Positive) is
+      begin
+         Lemma_Occ_Eq (A, B, A'First, Lo - 1);
+         Lemma_Occ_Eq (A, B, Hi + 1, A'Last);
+         Lemma_Occ_Split (A, A'First, Hi, A'Last);
+         Lemma_Occ_Split (A, A'First, Lo - 1, Hi);
+         Lemma_Occ_Split (B, B'First, Hi, B'Last);
+         Lemma_Occ_Split (B, B'First, Lo - 1, Hi);
+      end Lemma_Frame;
+
+      procedure Lemma_Same_Trans (A, B, C : Value_Array) is null;
+
+      procedure Lemma_Same_Perm (A, B : Value_Array) is null;
+   end Perm_Lemmas;
+   use Perm_Lemmas;
+
+   --  Exchange W (X) and W (Y); the counts stay the same.
+   procedure Swap (W : in out Value_Array; X, Y : Positive)
+     with Pre  => X in W'Range and then Y in W'Range,
+          Post => W (X) = W'Old (Y) and then W (Y) = W'Old (X)
+                  and then (for all K in W'Range => (if K /= X and then K /= Y then W (K) = W'Old (K)))
+                  and then Same_Occ (W'Old, W)
+   is
+      W0 : constant Value_Array := W with Ghost;
+      T  : constant Value := W (X);
+   begin
+      W (X) := W (Y);
+      W (Y) := T;
+      Lemma_Swap (W0, W, X, Y);
+   end Swap;
+
    --  Neighbours in order give the pairwise form.
    procedure Lemma_Pairs (W : Value_Array; Lo, Hi : Positive)
      with Ghost,
@@ -39,15 +183,18 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
                   and then (for all K in Lo .. Hi - 1 => W (K + 1) < W (K)),
           Post => Sorted (W, Lo, Hi)
                   and then (for all K in W'Range => (if K < Lo or else K > Hi then W (K) = W'Old (K)))
+                  and then Same_Occ (W'Old, W)
    is
       S : constant Value_Array := W with Ghost;
       C : constant Natural := (Hi - Lo + 1) / 2;
-      T : Value;
+      Prev : Value_Array (W'Range) with Ghost;
    begin
+      Lemma_Occ_Eq (S, W, W'First, W'Last);
       for I in 0 .. C - 1 loop
-         T := W (Lo + I);
-         W (Lo + I) := W (Hi - I);
-         W (Hi - I) := T;
+         Prev := W;
+         Swap (W, Lo + I, Hi - I);
+         Lemma_Same_Trans (S, Prev, W);
+         pragma Loop_Invariant (Same_Occ (S, W));
          pragma Loop_Invariant
            (for all K in Lo .. Lo + I => W (K) = S (Hi - (K - Lo)));
          pragma Loop_Invariant
@@ -70,14 +217,18 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
                   and then Sorted (W, Lo, Start - 1),
           Post => Sorted (W, Lo, Hi)
                   and then (for all K in W'Range => (if K < Lo or else K > Hi then W (K) = W'Old (K)))
+                  and then Same_Occ (W'Old, W)
    is
       S0 : constant Value_Array := W with Ghost;
       L, R, Mid : Positive;
       P  : Value;
       S2 : Value_Array (W'Range) with Ghost;
+      Prev : Value_Array (W'Range) with Ghost;
    begin
+      Lemma_Occ_Eq (S0, W, W'First, W'Last);
       for I in Start .. Hi loop
          pragma Loop_Invariant (Sorted (W, Lo, I - 1));
+         pragma Loop_Invariant (Same_Occ (S0, W));
          pragma Loop_Invariant (for all K in W'Range => (if K < Lo or else K > Hi then W (K) = S0 (K)));
          P := W (I);
          L := Lo;
@@ -97,12 +248,19 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
          S2 := W;
          pragma Assert (for all K in Lo .. L - 1 => S2 (K) <= P);
          pragma Assert (for all K in L .. I - 1 => P < S2 (K));
+         pragma Assert (S2 (I) = P);
+         --  Shift W (L .. I - 1) up by one and put P at L, as adjacent
+         --  exchanges (P moves down from I to L).
          for J in reverse L .. I - 1 loop
-            W (J + 1) := W (J);
+            Prev := W;
+            Swap (W, J, J + 1);
+            Lemma_Same_Trans (S0, Prev, W);
+            pragma Loop_Invariant (W (J) = P);
             pragma Loop_Invariant (for all K in J + 1 .. I => W (K) = S2 (K - 1));
             pragma Loop_Invariant (for all K in W'Range => (if K < J or else K > I then W (K) = S2 (K)));
+            pragma Loop_Invariant (Same_Occ (S0, W));
          end loop;
-         W (L) := P;
+         pragma Assert (W (L) = P);
          pragma Assert (for all K in L + 1 .. I => W (K) = S2 (K - 1));
          pragma Assert (for all K in Lo .. L - 1 => W (K) = S2 (K));
          pragma Assert (for all X in Lo .. L - 1 => (for all Y in X .. L - 1 => W (X) <= W (Y)));
@@ -121,9 +279,11 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
                   and then Sorted (W, B1, M) and then Sorted (W, M + 1, E2),
           Post => Sorted (W, B1, E2)
                   and then (for all K in W'Range => (if K < B1 or else K > E2 then W (K) = W'Old (K)))
+                  and then Same_Occ (W'Old, W)
    is
       Tmp : constant Value_Array (1 .. M - B1 + 1) := W (B1 .. M);
       S0  : constant Value_Array := W with Ghost;
+      Prev : Value_Array (W'Range) with Ghost;
       I   : Positive := 1;          --  next of Tmp
       J   : Positive := M + 1;      --  next of the right run
       K   : Positive := B1;         --  next slot
@@ -137,12 +297,17 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
          pragma Loop_Invariant (Sorted (W, B1, K - 1));
          pragma Loop_Invariant (for all X in B1 .. K - 1 => (for all Y in I .. Tmp'Last => W (X) <= Tmp (Y)));
          pragma Loop_Invariant (for all X in B1 .. K - 1 => (for all Y in J .. E2 => W (X) <= S0 (Y)));
+         pragma Loop_Invariant
+           (for all V in Value => Occ (W, V, B1, K - 1) = Occ (Tmp, V, 1, I - 1) + Occ (S0, V, M + 1, J - 1));
          pragma Loop_Variant (Increases => K);
+         Prev := W;
          if J <= E2 and then W (J) < Tmp (I) then
             W (K) := W (J);
+            Lemma_Occ_Eq (Prev, W, B1, K - 1);
             J := J + 1;
          else
             W (K) := Tmp (I);
+            Lemma_Occ_Eq (Prev, W, B1, K - 1);
             I := I + 1;
          end if;
          K := K + 1;
@@ -151,6 +316,14 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
       pragma Assert (for all X in K .. E2 => W (X) = S0 (X));
       pragma Assert (Sorted (S0, K, E2));
       pragma Assert (Sorted (W, K, E2));
+      --  Counts: B1 .. K - 1 holds Tmp and S0 (M + 1 .. K - 1), K .. E2 is S0.
+      Lemma_Occ_Shift (Tmp, S0, B1, Tmp'Last);
+      Lemma_Occ_Eq (W, S0, K, E2);
+      Lemma_Occ_Split (W, B1, K - 1, E2);
+      Lemma_Occ_Split (S0, B1, M, E2);
+      Lemma_Occ_Split (S0, M + 1, K - 1, E2);
+      pragma Assert (for all V in Value => Occ (W, V, B1, E2) = Occ (S0, V, B1, E2));
+      Lemma_Frame (S0, W, B1, E2);
    end Merge_Runs;
 
    --  A stack run: Len >= 1 values from Base, inside W, sorted.
@@ -169,6 +342,7 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
       Top    : Natural := 0;
       Pushes : Natural := 0;
       R, Force, Idx : Natural;
+      Prev   : Value_Array (Input'Range) with Ghost;
 
       --  The stack: runs 1 .. Top, contiguous from Input'First to Lo - 1.
       function Stack_Ok (Lo : Positive) return Boolean is
@@ -194,6 +368,7 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
                      and then Len (I) = Len'Old (I) + Len'Old (I + 1)
                      and then (for all X in I + 1 .. Top => Len (X) = Len'Old (X + 1))
                      and then (for all X in Output'Range => (if X >= Lo then Output (X) = Output'Old (X)))
+                     and then Same_Occ (Output'Old, Output)
       is
          W0 : constant Value_Array := Output with Ghost;
          B0 : constant Positive := Base (I) with Ghost;
@@ -219,6 +394,7 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
       end Merge_At;
    begin
       Output := Input;
+      Lemma_Occ_Eq (Input, Output, Input'First, Input'Last);
       Log := [others => (Push, 0, 0)];
       Count := 0;
       if N = 0 then
@@ -233,6 +409,7 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
             pragma Loop_Invariant (Count >= 1 or else Lo = Input'First);
             pragma Loop_Invariant (if Count >= 1 then Log (1).Kind = Push and then Log (1).A = Input'First);
             pragma Loop_Invariant (Stack_Ok (Lo));
+            pragma Loop_Invariant (Same_Occ (Input, Output));
             pragma Loop_Variant (Increases => Lo);
             --  count_run
             R := 1;
@@ -245,7 +422,9 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
                      pragma Loop_Variant (Increases => R);
                      R := R + 1;
                   end loop;
+                  Prev := Output;
                   Reverse_Run (Output, Lo, Lo + R - 1);
+                  Lemma_Same_Trans (Input, Prev, Output);
                else
                   while Lo + R <= Input'Last and then not (Output (Lo + R) < Output (Lo + R - 1)) loop
                      pragma Loop_Invariant (R >= 2 and then Lo + R - 1 <= Input'Last);
@@ -259,7 +438,9 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
             pragma Assert (Sorted (Output, Lo, Lo + R - 1));
             Force := Natural'Min (Min, Input'Last - Lo + 1);
             if R < Force then
+               Prev := Output;
                Binary_Insertion (Output, Lo, Lo + R, Lo + Force - 1);
+               Lemma_Same_Trans (Input, Prev, Output);
                R := Force;
             end if;
             pragma Assert (Stack_Ok (Lo));
@@ -276,6 +457,7 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
                pragma Loop_Invariant (Top <= Pushes and then Count + Top = 2 * Pushes and then Pushes <= Lo - Input'First);
                pragma Loop_Invariant (Count >= 1 and then Log (1).Kind = Push and then Log (1).A = Input'First);
                pragma Loop_Invariant (Stack_Ok (Lo));
+               pragma Loop_Invariant (Same_Occ (Input, Output));
                pragma Loop_Variant (Decreases => Top);
                Idx := Top - 1;
                if (Idx > 1 and then Len (Idx - 1) <= Len (Idx) + Len (Idx + 1))
@@ -284,9 +466,13 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
                   if Len (Idx - 1) < Len (Idx + 1) then
                      Idx := Idx - 1;
                   end if;
+                  Prev := Output;
                   Merge_At (Idx, Lo);
+                  Lemma_Same_Trans (Input, Prev, Output);
                elsif Len (Idx) <= Len (Idx + 1) then
+                  Prev := Output;
                   Merge_At (Idx, Lo);
+                  Lemma_Same_Trans (Input, Prev, Output);
                else
                   exit;
                end if;
@@ -297,15 +483,19 @@ package body Tim_Sort_Stub with SPARK_Mode => On is
             pragma Loop_Invariant (Top <= Pushes and then Count + Top = 2 * Pushes and then Pushes <= N);
             pragma Loop_Invariant (Count >= 1 and then Log (1).Kind = Push and then Log (1).A = Input'First);
             pragma Loop_Invariant (Lo = Input'Last + 1 and then Stack_Ok (Lo));
+            pragma Loop_Invariant (Same_Occ (Input, Output));
             pragma Loop_Variant (Decreases => Top);
             Idx := Top - 1;
             if Idx > 1 and then Len (Idx - 1) < Len (Idx + 1) then
                Idx := Idx - 1;
             end if;
+            Prev := Output;
             Merge_At (Idx, Lo);
+            Lemma_Same_Trans (Input, Prev, Output);
          end loop;
          pragma Assert (Top = 1 and then Base (1) = Input'First and then Base (1) + (Len (1) - 1) = Input'Last);
       end;
+      Lemma_Same_Perm (Output, Input);
    end Sort_Traced;
 
    function Sort (Input : Value_Array) return Value_Array is
