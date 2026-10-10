@@ -5,7 +5,9 @@ pragma Ada_2022;
 --  to the Baik-Deift-Johansson theorem", Bull. AMS 36 (1999), section 1).
 --  Deal: each key in input order goes onto the leftmost pile whose top is
 --  >= the key, or onto a new pile on the right, so every pile is
---  nonincreasing from bottom to top. Output: repeatedly remove the smallest
+--  nonincreasing from bottom to top and the pile tops are strictly
+--  increasing from left to right; that pile is found by binary search over
+--  the pile tops (at most ceil (log2 (piles + 1)) comparisons per key). Output: repeatedly remove the smallest
 --  pile top (the leftmost pile on ties). The piles live in the array
 --  itself, side by side (pile Q occupies Ends (Q - 1) + 1 .. Ends (Q), top
 --  at Ends (Q)): putting a key on top of pile Q, or moving the top of pile
@@ -19,6 +21,12 @@ package Patience_Sort with SPARK_Mode => On is
 
    --  Pile_Log (K): the pile of the K-th key dealt, or of the K-th removal.
    type Pile_Log is array (Index) of Index;
+
+   --  Comparisons of the deal search for one key. The search is a binary
+   --  search over the Np + 1 candidates (Np <= 7 piles before a key, plus a
+   --  new pile), so at most ceil (log2 (8)) = 3.
+   subtype Probe_Count is Natural range 0 .. 3;
+   type Probe_Log is array (Index) of Probe_Count;
 
    --  How many of A (1 .. Last) equal V.
    function Occ (A : Input_Array; V : Value; Last : Natural) return Natural
@@ -42,9 +50,11 @@ package Patience_Sort with SPARK_Mode => On is
    with Global => null;
 
    --  Sort, also returning the pile of every key dealt (Deal), the pile of
-   --  every removal (Take) and the number of piles (Piles).
+   --  every removal (Take), the comparisons of the deal search for every
+   --  key (Probes) and the number of piles (Piles).
    procedure Sort_Traced
-     (Input : Input_Array; Output : out Input_Array; Deal, Take : out Pile_Log; Piles : out Index)
+     (Input : Input_Array; Output : out Input_Array; Deal, Take : out Pile_Log;
+      Probes : out Probe_Log; Piles : out Index)
      with Global => null,
           Post   => Is_Sorted (Output) and then Is_Perm (Output, Input);
 

@@ -114,6 +114,12 @@ package body Patience_Sort with SPARK_Mode => On is
      (for all Q in 0 .. Np => (for all R in Q .. Np => E (Q) <= E (R)))
    with Ghost;
 
+   --  The pile tops A (E (1)), .., A (E (Np)) are strictly increasing from
+   --  left to right (every pair).
+   function Tops_Up (A : Input_Array; E : Ends; Np : Slot) return Boolean is
+     (for all Q in 1 .. Np => (for all R in Q + 1 .. Np => A (E (Q)) < A (E (R))))
+   with Ghost, Pre => (for all Q in 1 .. Np => E (Q) >= 1);
+
    function Piles_Ok (A : Input_Array; E : Ends; Np : Slot) return Boolean is
      (for all Q in 1 .. Np => Pile_Ok (A, E (Q - 1) + 1, E (Q)))
    with Ghost;
@@ -156,40 +162,97 @@ package body Patience_Sort with SPARK_Mode => On is
       end loop;
    end Lemma_In_Pile;
 
+   --  Binary search over the candidates 1 .. Np + 1 for the leftmost pile
+   --  whose top is >= Key (Lo = Np + 1: no such pile). Valid because the
+   --  tops are strictly increasing (Tops_Up). C counts the comparisons; the
+   --  ghost W = 2 ** C and the invariant (Hi - Lo) * W < Np + 1 give
+   --  C <= ceil (log2 (Np + 1)) (so C <= 3 for Np <= 7).
+   procedure Search
+     (A : Input_Array; E : Ends; Np : Slot; Key : Value; Lo : out Lo_Slot; C : out Probe_Count)
+   with Global => null,
+        Pre    => Np < Index'Last and then (for all Q in 1 .. Np => E (Q) >= 1)
+                  and then Tops_Up (A, E, Np),
+        Post   => Lo <= Np + 1
+                  and then (for all Q in 1 .. Lo - 1 => A (E (Q)) < Key)
+                  and then (for all Q in Lo .. Np => A (E (Q)) >= Key)
+                  and then (C = 0 or else (case C is when 1 => 1, when 2 => 2, when others => 4) < Np + 1);
+
+   procedure Search
+     (A : Input_Array; E : Ends; Np : Slot; Key : Value; Lo : out Lo_Slot; C : out Probe_Count)
+   is
+      Hi, Mid : Lo_Slot;
+      W       : Positive with Ghost;
+   begin
+      Lo := 1;
+      Hi := Np + 1;
+      C := 0;
+      W := 1;
+      while Lo < Hi loop
+         pragma Loop_Invariant (Lo <= Hi and then Hi <= Np + 1);
+         pragma Loop_Invariant (for all Q in 1 .. Lo - 1 => A (E (Q)) < Key);
+         pragma Loop_Invariant (for all Q in Hi .. Np => A (E (Q)) >= Key);
+         pragma Loop_Invariant (W = (case C is when 0 => 1, when 1 => 2, when 2 => 4, when 3 => 8));
+         pragma Loop_Invariant ((Hi - Lo) * W < Np + 1);
+         pragma Loop_Invariant (C = 0 or else W / 2 < Np + 1);
+         pragma Loop_Variant (Decreases => Hi - Lo);
+         Mid := (Lo + Hi) / 2;
+         pragma Assert (Mid in Lo .. Hi - 1 and then Mid <= Np);
+         pragma Assert (W < Np + 1 and then W < 8);
+         C := C + 1;
+         if A (E (Mid)) >= Key then
+            pragma Assert ((Mid - Lo) * 2 <= Hi - Lo);
+            Hi := Mid;
+         else
+            pragma Assert ((Hi - Mid - 1) * 2 <= Hi - Lo);
+            Lo := Mid + 1;
+         end if;
+         W := W * 2;
+      end loop;
+   end Search;
+
    ---------------------------------------------------------------------------
 
-   procedure Sort_Traced
-     (Input : Input_Array; Output : out Input_Array; Deal, Take : out Pile_Log; Piles : out Index)
+   --  Deal: key K goes on the leftmost pile whose top is >= it (or a new
+   --  pile on the right). Afterwards A holds the piles side by side.
+   procedure Deal_All
+     (Input : Input_Array; A : out Input_Array; E : out Ends; Np : out Slot;
+      Deal : out Pile_Log; Probes : out Probe_Log)
+   with Global => null,
+        Post   => Is_Perm (Input, A)
+                  and then Np >= 1 and then E (0) = 0 and then E (Np) = Index'Last
+                  and then Chain (E, Np) and then Piles_Ok (A, E, Np);
+
+   procedure Deal_All
+     (Input : Input_Array; A : out Input_Array; E : out Ends; Np : out Slot;
+      Deal : out Pile_Log; Probes : out Probe_Log)
    is
-      A     : Input_Array := Input;
-      E     : Ends := [others => 0];
-      Np    : Slot := 0;
       Found : Slot;
+      Lo    : Lo_Slot;
       Old   : Input_Array with Ghost;
       E0    : Ends with Ghost;
    begin
-      Deal := [others => 1];
+      A := Input;
+      E := [others => 0];
+      Np := 0;
       Lemma_Occ_Frame (Input, A, Index'Last);
-      --  Deal: key K goes on the leftmost pile whose top is >= it.
       for K in Index loop
          pragma Loop_Invariant (Is_Perm (Input, A));
          pragma Loop_Invariant (Np <= K - 1 and then E (0) = 0 and then E (Np) = K - 1);
          pragma Loop_Invariant (for all Q in 1 .. Np => E (Q - 1) < E (Q));
          pragma Loop_Invariant (Chain (E, Np));
          pragma Loop_Invariant (Piles_Ok (A, E, Np));
-         Found := 0;
-         for Q in 1 .. Np loop
-            if A (E (Q)) >= A (K) then
-               Found := Q;
-               exit;
-            end if;
-         end loop;
+         pragma Loop_Invariant (Tops_Up (A, E, Np));
+         --  Leftmost pile whose top is >= A (K), by binary search over the
+         --  pile tops (Lo = Np + 1: none, a new pile).
+         Search (A, E, Np, A (K), Lo, Probes (K));
+         Found := (if Lo = Np + 1 then 0 else Lo);
          if Found = 0 then
             Np := Np + 1;
             E (Np) := K;
             Deal (K) := Np;
             pragma Assert (Pile_Ok (A, K, K));
             pragma Assert (Piles_Ok (A, E, Np));
+            pragma Assert (Tops_Up (A, E, Np));
          else
             Old := A;
             E0 := E;
@@ -198,6 +261,10 @@ package body Patience_Sort with SPARK_Mode => On is
             Deal (K) := Found;
             pragma Assert (for all Q in 1 .. Np => E (Q - 1) < E (Q));
             pragma Assert (Chain (E, Np));
+            pragma Assert (for all Q in 1 .. Found - 1 => A (E (Q)) = Old (E0 (Q)));
+            pragma Assert (A (E (Found)) = Old (K));
+            pragma Assert (for all Q in Found + 1 .. Np => A (E (Q)) = Old (E0 (Q)));
+            pragma Assert (Tops_Up (A, E, Np));
             for Q in 1 .. Np loop
                pragma Loop_Invariant (for all R in 1 .. Q - 1 => Pile_Ok (A, E (R - 1) + 1, E (R)));
                if Q < Found then
@@ -210,6 +277,20 @@ package body Patience_Sort with SPARK_Mode => On is
             end loop;
          end if;
       end loop;
+   end Deal_All;
+
+   procedure Sort_Traced
+     (Input : Input_Array; Output : out Input_Array; Deal, Take : out Pile_Log;
+      Probes : out Probe_Log; Piles : out Index)
+   is
+      A     : Input_Array;
+      E     : Ends;
+      Np    : Slot;
+      Found : Slot;
+      Old   : Input_Array with Ghost;
+      E0    : Ends with Ghost;
+   begin
+      Deal_All (Input, A, E, Np, Deal, Probes);
       Piles := Np;
       --  Output: A (1 .. E (0)) is the sorted output; repeatedly move the
       --  smallest pile top to its end.
@@ -267,10 +348,12 @@ package body Patience_Sort with SPARK_Mode => On is
    function Sort (Input : Input_Array) return Input_Array is
       Output     : Input_Array;
       Deal, Take : Pile_Log;
+      Probes     : Probe_Log;
       Piles      : Index;
    begin
-      Sort_Traced (Input, Output, Deal, Take, Piles);
-      pragma Assert (Piles in Index and then Deal (1) in Index and then Take (1) in Index);
+      Sort_Traced (Input, Output, Deal, Take, Probes, Piles);
+      pragma Assert (Piles in Index and then Deal (1) in Index and then Take (1) in Index
+                     and then Probes (1) in Probe_Count);
       return Output;
    end Sort;
 end Patience_Sort;
