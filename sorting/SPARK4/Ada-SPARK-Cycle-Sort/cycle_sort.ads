@@ -8,9 +8,9 @@
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling raises on oversized n; this port takes any A'First in
 --  1 .. Max_N (cycle starts and destinations are First-relative) and
---  uses Pre => In_Bounds (A). Full multiset /
---  permutation equality is verified by tests rather than claimed as a
---  Level-4 postcondition (sortedness is proved). Write counting is an
+--  uses Pre => In_Bounds (A). Both Posts prove sortedness and that the
+--  result is a permutation of the input (counts of every value,
+--  Is_Perm). Write counting is an
 --  optional out-parameter with light contracts.
 --
 --  Reference: https://en.wikipedia.org/wiki/Cycle_sort
@@ -82,15 +82,54 @@ is
    -- Sorting
    ---------------------------------------------------------------------------
 
+   ---------------------------------------------------------------------------
+   -- Permutation (multiset) model, used by the Post of Sort
+   ---------------------------------------------------------------------------
+
+   function Occ
+     (A : Element_Array; V : Integer; First : Positive; Last : Natural)
+      return Natural
+   with
+     Global             => null,
+     Pre                =>
+       (if First <= Last then First >= A'First and then Last <= A'Last),
+     Post               =>
+       Occ'Result <= (if First <= Last then Last - First + 1 else 0),
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (First .. Last) equal V (0 for an empty range).
+
+   function Occ
+     (A : Element_Array; V : Integer; First : Positive; Last : Natural)
+      return Natural
+   is
+     (if Last < First then 0
+      else Occ (A, V, First, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'First, A'Last)
+                  = Occ (B, A (I), B'First, B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'First, A'Last)
+                  = Occ (B, B (I), B'First, B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often. A value found in neither array counts 0 in both, so comparing
+   --  the counts of the values of A and of B covers every value.
+
    procedure Sort (A : in out Element_Array)
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Ascending classic in-place cycle sort (write-optimal).
    --  Empty and singleton arrays are no-ops.
-   --  Post proves sortedness; multiset / permutation equality is
-   --  checked by the test suite (not claimed here at Level 4).
+   --  Post proves sortedness and that A holds the values of A'Old, each
+   --  equally often (Is_Perm).
 
    procedure Sort_Counting_Writes
      (A      : in out Element_Array;
@@ -98,10 +137,10 @@ is
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Same as Sort, also returning the number of writes performed to A.
    --  Each misplaced element is written once to its final slot; already-
-   --  correct elements contribute zero writes. Light contracts: sortedness
-   --  is proved; the exact write tally is checked by tests.
+   --  correct elements contribute zero writes. Sortedness and Is_Perm are
+   --  proved; the exact write tally is checked by tests.
 
 end Cycle_Sort;

@@ -11,6 +11,180 @@ package body Cycle_Sort
   with SPARK_Mode => On
 is
 
+   --  Same_Occ quantifies over every Integer value, so the contracts,
+   --  invariants and assertions of this body (all proved by gnatprove) are
+   --  not checked at run time; the Posts of Sort and Sort_Counting_Writes in the
+   --  spec (sorted, Is_Perm) still are.
+   pragma Assertion_Policy
+     (Pre => Ignore, Post => Ignore, Loop_Invariant => Ignore, Assert => Ignore);
+
+   --  A and B have the same bounds and every value occurs equally often.
+   function Same_Occ (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (A'Length = 0
+                or else (for all V in Integer =>
+                           Occ (A, V, A'First, A'Last)
+                           = Occ (B, V, B'First, B'Last))))
+   with
+     Ghost,
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+
+   package Perm_Lemmas
+     with Ghost
+   is
+      --  Counts over First .. Last only see First .. Last.
+      procedure Lemma_Occ_Eq (A, B : Element_Array; First : Positive; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          (if First <= Last then
+             First >= A'First and then Last <= A'Last
+             and then First >= B'First and then Last <= B'Last
+             and then (for all T in First .. Last => A (T) = B (T))),
+        Post               =>
+          (for all V in Integer =>
+             Occ (A, V, First, Last) = Occ (B, V, First, Last)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  The executable Is_Perm and the logical Same_Occ agree.
+      procedure Lemma_Same_Perm (A, B : Element_Array)
+      with
+        Global => null,
+        Pre    => In_Bounds (A) and then In_Bounds (B) and then Same_Occ (A, B),
+        Post   => Is_Perm (A, B);
+
+      procedure Lemma_Same_Trans (A, B, C : Element_Array)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A) and then In_Bounds (B) and then In_Bounds (C)
+          and then Same_Occ (A, B) and then Same_Occ (B, C),
+        Post   => Same_Occ (A, C);
+
+      --  B is A with slot K changed.
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Positive; First : Positive; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then K in First .. Last
+          and then First >= A'First and then Last <= A'Last
+          and then (for all J in A'Range => (if J /= K then A (J) = B (J))),
+        Post               =>
+          (for all V in Integer =>
+             Occ (B, V, First, Last)
+             = Occ (A, V, First, Last)
+               - (if A (K) = V then 1 else 0)
+               + (if B (K) = V then 1 else 0)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  B is A with slots X and Y exchanged.
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Positive)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then X in A'Range and then Y in A'Range
+          and then B (X) = A (Y) and then B (Y) = A (X)
+          and then (for all J in A'Range =>
+                      (if J /= X and then J /= Y then A (J) = B (J))),
+        Post   => Same_Occ (A, B);
+
+      procedure Lemma_Same_Refl (A : Element_Array)
+      with
+        Global => null,
+        Pre    => In_Bounds (A),
+        Post   => Same_Occ (A, A);
+
+      --  Same_Occ (A0, A) carries over to an elementwise-equal B.
+      procedure Lemma_Eq_Trans (A0, A, B : Element_Array)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A0) and then In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then Same_Occ (A0, A)
+          and then (for all J in A'Range => A (J) = B (J)),
+        Post   => Same_Occ (A0, B);
+
+      --  Same_Occ (A0, A) carries over to B, A with slots X, Y exchanged.
+      procedure Lemma_Swap_Trans (A0, A, B : Element_Array; X, Y : Positive)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A0) and then In_Bounds (A) and then In_Bounds (B)
+          and then A'First = B'First and then A'Last = B'Last
+          and then X in A'Range and then Y in A'Range
+          and then Same_Occ (A0, A)
+          and then B (X) = A (Y) and then B (Y) = A (X)
+          and then (for all J in A'Range =>
+                      (if J /= X and then J /= Y then A (J) = B (J))),
+        Post   => Same_Occ (A0, B);
+   end Perm_Lemmas;
+
+   package body Perm_Lemmas is
+
+      procedure Lemma_Same_Refl (A : Element_Array) is
+      begin
+         Lemma_Occ_Eq (A, A, A'First, A'Last);
+      end Lemma_Same_Refl;
+
+      procedure Lemma_Eq_Trans (A0, A, B : Element_Array) is
+      begin
+         Lemma_Occ_Eq (A, B, A'First, A'Last);
+         pragma Assert (Same_Occ (A, B));
+         Lemma_Same_Trans (A0, A, B);
+      end Lemma_Eq_Trans;
+
+      procedure Lemma_Swap_Trans (A0, A, B : Element_Array; X, Y : Positive) is
+      begin
+         Lemma_Swap (A, B, X, Y);
+         Lemma_Same_Trans (A0, A, B);
+      end Lemma_Swap_Trans;
+
+      procedure Lemma_Occ_Eq (A, B : Element_Array; First : Positive; Last : Natural) is
+      begin
+         if First <= Last then
+            Lemma_Occ_Eq (A, B, First, Last - 1);
+         end if;
+      end Lemma_Occ_Eq;
+
+      procedure Lemma_Occ_Set
+        (A, B : Element_Array; K : Positive; First : Positive; Last : Natural) is
+      begin
+         if Last > K then
+            Lemma_Occ_Set (A, B, K, First, Last - 1);
+         else
+            Lemma_Occ_Eq (A, B, First, K - 1);
+         end if;
+      end Lemma_Occ_Set;
+
+      procedure Lemma_Swap (A, B : Element_Array; X, Y : Positive) is
+      begin
+         if X = Y then
+            Lemma_Occ_Eq (A, B, A'First, A'Last);
+            return;
+         end if;
+         declare
+            C : constant Element_Array := (A with delta X => A (Y));
+         begin
+            Lemma_Occ_Set (A, C, X, A'First, A'Last);
+            Lemma_Occ_Set (C, B, Y, A'First, A'Last);
+         end;
+      end Lemma_Swap;
+
+      procedure Lemma_Same_Perm (A, B : Element_Array) is null;
+
+      procedure Lemma_Same_Trans (A, B, C : Element_Array) is null;
+
+   end Perm_Lemmas;
+   use Perm_Lemmas;
+
    function Sorted_Slice
      (A : Element_Array; L, R : Natural) return Boolean
    is
@@ -455,7 +629,10 @@ is
        and then Writes <= Max_N
        and then
          (for all K in A'First .. CS - 1 => A (K) = A'Old (K))
+       and then Same_Occ (A'Old, A)
    is
+      A0       : constant Element_Array := A with Ghost;
+      Cur, Cur0 : Element_Array (A'Range) with Ghost;
       Item     : Integer := A (CS);
       Pos      : Index;
       Count    : Natural := 0;
@@ -477,6 +654,11 @@ is
 
       Advance_Past_Equals (A, Item, Pos);
       Lemma_Target (A, CS, Item, Pos);
+      --  Counts: Cur is A with Item put back at CS (slot CS keeps a stale
+      --  copy until the last write); Cur holds the input's values.
+      Cur := A;
+      Lemma_Same_Refl (A0);
+      Lemma_Eq_Trans (A0, A0, Cur);
       for P in CS + 1 .. A'Last loop
          pragma Loop_Invariant
            (for all Q in CS + 1 .. P - 1 =>
@@ -509,6 +691,10 @@ is
          pragma Loop_Invariant
            (CS = A'First
             or else (for all K in A'First .. CS - 1 => A (K) <= Item));
+         pragma Loop_Invariant (Cur (CS) = Item);
+         pragma Loop_Invariant
+           (for all K in A'Range => (if K /= CS then Cur (K) = A (K)));
+         pragma Loop_Invariant (Same_Occ (A0, Cur));
          pragma Loop_Variant (Increases => NSX (Lo, Hi, CS, A'Last));
 
          Lemmas.Lemma_NSX_Gap (Lo, Hi, CS, Pos, A'Last);
@@ -517,6 +703,11 @@ is
          Lo0 := Lo;
          Hi0 := Hi;
          Place_Item (A, Pos, Item, Count);
+         --  On Cur the write is an exchange of slots CS and Pos.
+         Cur0 := Cur;
+         Cur (CS) := Item;
+         Cur (Pos) := A (Pos);
+         Lemma_Swap_Trans (A0, Cur0, Cur, CS, Pos);
 
          --  The blocks are unchanged, so Pos is now settled and nothing
          --  else changed.
@@ -541,6 +732,7 @@ is
       --  Item belongs at CS: every later key is >= Item.
       pragma Assert (for all K in CS + 1 .. A'Last => A (K) >= Item);
       Write_At (A, CS, Item, Count);
+      Lemma_Eq_Trans (A0, Cur, A);
       Writes := Count;
       pragma Assert (CS = A'First or else A (CS - 1) <= A (CS));
       pragma Assert (Sorted_Slice (A, A'First, CS));
@@ -550,8 +742,11 @@ is
    procedure Sort (A : in out Element_Array) is
       W     : Natural;
       Total : Natural := 0;
+      A0    : constant Element_Array := A with Ghost;
+      Prev  : Element_Array (A'Range) with Ghost;
    begin
       if A'Length <= 1 then
+         Lemma_Same_Perm (A, A0);
          return;
       end if;
 
@@ -560,7 +755,9 @@ is
         (Prefix_Leq_Suffix (A, A'First, A'First - 1, A'First, A'Last));
 
       for CS in A'First .. A'Last - 1 loop
+         Prev := A;
          Cycle_Step (A, CS, W);
+         Lemma_Same_Trans (A0, Prev, A);
          Total := Total + W;
 
          pragma Loop_Invariant (In_Bounds (A));
@@ -569,23 +766,28 @@ is
            (Prefix_Leq_Suffix (A, A'First, CS, CS + 1, A'Last));
          pragma Loop_Invariant (Is_Sorted (A (A'First .. CS)));
          pragma Loop_Invariant (Total <= (CS - A'First + 1) * Max_N);
+         pragma Loop_Invariant (Same_Occ (A0, A));
       end loop;
 
       pragma Assert (Sorted_Slice (A, A'First, A'Last - 1));
       pragma Assert
         (Prefix_Leq_Suffix (A, A'First, A'Last - 1, A'Last, A'Last));
       pragma Assert (Is_Sorted (A));
+      Lemma_Same_Perm (A, A0);
    end Sort;
 
    procedure Sort_Counting_Writes
      (A      : in out Element_Array;
       Writes : out Natural)
    is
-      W : Natural;
+      W    : Natural;
+      A0   : constant Element_Array := A with Ghost;
+      Prev : Element_Array (A'Range) with Ghost;
    begin
       Writes := 0;
 
       if A'Length <= 1 then
+         Lemma_Same_Perm (A, A0);
          return;
       end if;
 
@@ -594,7 +796,9 @@ is
         (Prefix_Leq_Suffix (A, A'First, A'First - 1, A'First, A'Last));
 
       for CS in A'First .. A'Last - 1 loop
+         Prev := A;
          Cycle_Step (A, CS, W);
+         Lemma_Same_Trans (A0, Prev, A);
          pragma Assert (W <= Max_N);
          pragma Assert (Writes <= (CS - A'First) * Max_N);
          Writes := Writes + W;
@@ -605,12 +809,14 @@ is
            (Prefix_Leq_Suffix (A, A'First, CS, CS + 1, A'Last));
          pragma Loop_Invariant (Is_Sorted (A (A'First .. CS)));
          pragma Loop_Invariant (Writes <= (CS - A'First + 1) * Max_N);
+         pragma Loop_Invariant (Same_Occ (A0, A));
       end loop;
 
       pragma Assert (Sorted_Slice (A, A'First, A'Last - 1));
       pragma Assert
         (Prefix_Leq_Suffix (A, A'First, A'Last - 1, A'Last, A'Last));
       pragma Assert (Is_Sorted (A));
+      Lemma_Same_Perm (A, A0);
    end Sort_Counting_Writes;
 
 end Cycle_Sort;

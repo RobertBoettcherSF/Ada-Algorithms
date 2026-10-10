@@ -12,18 +12,18 @@ This is the SPARK Level 4 port of the companion package [Ada-Cycle-Sort](https:/
 ## Features
 * **`Sort (A)`**: Classic in-place ascending cycle sort (write-optimal).
 * **`Sort_Counting_Writes (A, Writes)`**: Same algorithm; returns the number of array writes in `Writes`.
-* **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
+* **`Is_Sorted` / `In_Bounds` / `Occ` / `Is_Perm`**: Expression-function guards and value counts; `Is_Sorted (A) and then Is_Perm (A, A'Old)` is the proved postcondition of `Sort` and `Sort_Counting_Writes`.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, and loop invariants that a sorted / partitioned prefix grows by one cycle-start per outer step.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
-* **Unstable**: Duplicate skipping can reorder equal keys (permutation is checked by tests).
+* **Unstable**: Duplicate skipping can reorder equal keys (the result is still a proved permutation of the input).
 
 ## Deliberate simplifications vs non-SPARK sibling
 * `Max_N = 64` (sibling uses $10\,000$) so array / arithmetic VCs stay within automated SMT reach.
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements): cycle starts run `A'First .. A'Last - 1`, destinations are `CS + #{smaller keys after CS}`; tests sort shifted copies at origins 2, 7, 33 and slices flush to `Max_N`, with write counts checked at every origin.
 * `Sort_Counting_Writes` is a procedure with `Writes : out Natural` (SPARK functions cannot have `in out` arrays) and light contracts on the tally.
-* Nested `Cycle_Step` plus `Dest_Index` / `Advance_Past_Equals` so Level 4 can prove `Is_Sorted` without claiming full cycle-placement postconditions.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality and exact write counts are **checked by tests**, not claimed as Level-4 postconditions. Zero `pragma Annotate (GNATprove, Intentional, …)`.
+* Nested `Cycle_Step` plus `Dest_Index` / `Advance_Past_Equals` so Level 4 can prove `Is_Sorted` and `Is_Perm` without claiming full cycle-placement postconditions.
+* **SPARK proves sortedness and permutation** (`Post => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)`; before 2026-10-10 the Posts said only `Is_Sorted`, which a constant-fill body also proves: tools/vv/contract_scan.csv). Inside `Cycle_Step` a ghost copy `Cur` is `A` with the carried item put back at the cycle start; each write is an exchange of two slots of `Cur` (`Lemma_Swap_Trans`), and the closing write makes `A` equal to `Cur`, so `Same_Occ` (the count of every value) holds from input to output and `Lemma_Same_Perm` yields `Is_Perm`. Exact write counts are **checked by tests**, not claimed as Level-4 postconditions. Zero `pragma Annotate (GNATprove, Intentional, …)`.
 
 ## Algorithm
 For each cycle start $\mathit{CS}$ from $1$ through $n-1$:
@@ -42,7 +42,7 @@ Empty and singleton arrays are no-ops.
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 420 assertions pass. Running `make prove` reports `Success: all checks proved (545 checks).`
+When you run `make test`, you will see all 425 assertions pass. Running `make prove` reports `Success: all checks proved (708 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia `bdeac` ordinals, signed domain, power-of-two and odd lengths up to `Max_N`.
@@ -65,8 +65,8 @@ When you run `make test`, you will see all 420 assertions pass. Running `make pr
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Outer loop grows a sorted prefix with the partition property vs. the remaining suffix; `Dest_Index` supplies the closing-write inequality that discharges `Is_Sorted`.
 * Every cycle is proved to close: ghost counts give each key its block of final slots, each write settles one more slot without moving any block, and the loop variant is the number of settled slots. There is no step cap, no selection-sort safety net after the cycle, and no clamp on the write count.
-* Ghost code runs under `-gnata` like the rest: each position's block is cached in ghost arrays so the settled count costs O(n) per check. One exception: the postcondition of `Lemma_Update` (one write leaves every block unchanged) would cost O(n^3) per write if checked at each recursion level, so it carries `Assertion_Policy (Post => Ignore)`; GNATprove still proves it, and `Cycle_Step` checks the same predicate (`Update_Ok`) at the top level, plus its consequence for every position, with executed `Assert`s after each write.
-* **GNATprove Level 4:** `Success: all checks proved (545 checks).`
+* Ghost code runs under `-gnata` like the rest: each position's block is cached in ghost arrays so the settled count costs O(n) per check. One exception: the postcondition of `Lemma_Update` (one write leaves every block unchanged) would cost O(n^3) per write if checked at each recursion level, so it carries `Assertion_Policy (Post => Ignore)`; GNATprove still proves it, and `Cycle_Step` checks the same predicate (`Update_Ok`) at the top level, plus its consequence for every position, with `Assert`s after each write. Since 2026-10-10 the body's `Assertion_Policy` (`Pre`, `Post`, `Loop_Invariant`, `Assert` => `Ignore`) skips all body contracts at run time, because `Same_Occ` ranges over every `Integer` value; they are all proved, and the spec Posts still run in the tests (`tools/vv/proof_escapes.csv` runtime_only).
+* **GNATprove Level 4:** `Success: all checks proved (708 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary
@@ -76,7 +76,7 @@ When you run `make test`, you will see all 420 assertions pass. Running `make pr
 | `Max_N` | Classroom capacity bound (`64`) |
 | `In_Bounds` | `A'Length <= Max_N`, `A'First in 1 .. Max_N`, `A'Last in 0 .. Max_N` |
 | `Is_Sorted` | Adjacent-nondecreasing predicate |
-| `Sort` | Ascending in-place cycle sort (`Post => Is_Sorted`) |
+| `Sort` | Ascending in-place cycle sort (`Post => Is_Sorted and Is_Perm`) |
 | `Sort_Counting_Writes` | Same sort; `Writes` counts array stores |
 
 ## License
