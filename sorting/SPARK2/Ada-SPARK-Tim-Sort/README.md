@@ -1,5 +1,7 @@
 # Ada-SPARK-Tim-Sort
 
+PLACEHOLDER: binary insertion sort only (inputs < 64, no merges); see H108
+
 Timsort of an `Input_Array` of eight values in `0 .. 31`, as CPython's `listsort` does it for n < 64 (Objects/listsort.txt): the min-run is then n itself, so the sort is a single run. `count_run` finds the longest ascending (`A (K) <= A (K + 1)`) or strictly descending start, a descending start is reversed in place, and `binarysort` inserts the remaining values one by one at the place found by binary search after any equal keys (bisect right, stable). No merge happens at this size; run merging (min-run, the run stack, galloping) only starts at 64 elements and is not implemented here. `Sort_Traced` also returns the comparisons as they ran, the first run's length and whether it was reversed.
 
 Proof (SPARK, `make prove`, level 2, cvc5 + z3, timeout 10 s, 248 checks): no run-time error and the full Post: the result is sorted and a permutation of the input (`Is_Perm`, value counts, swap lemmas; values are moved by adjacent exchanges), `Reversed` is whether the input starts strictly descending, and the input's first `Run` values are ascending, or strictly descending when reversed.

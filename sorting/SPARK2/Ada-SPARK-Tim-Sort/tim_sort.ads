@@ -1,5 +1,6 @@
 pragma Ada_2022;
 
+--  PLACEHOLDER: binary insertion sort only (inputs < 64, no merges); see H108
 --  Timsort of 8 values, as CPython's listsort does it for n < 64 (see
 --  Objects/listsort.txt): the min-run is then n itself, so the sort is one
 --  run: count_run finds the longest ascending (A (K) <= A (K + 1)) or

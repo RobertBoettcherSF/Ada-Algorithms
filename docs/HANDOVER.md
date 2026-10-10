@@ -124,15 +124,25 @@ Code-fix pass by agent-CF (overnight, 02:05-07:08 Europe/Berlin), ended at the w
 | Open withdrawn functional claims (`tools/vv/contract_scan.csv` rows) | 31 | 17 |
 | Handover rows open / closed | 117 / 51 (171 rows) | 103 / 67 (173 rows) |
 
-**Closed overnight** (fix commit): H103 Circle-Sort 6d79b562 (real circle sort, was a bubble sort), H108 Tim-Sort 1ce938d2 (CPython small-n Timsort, was a bubble sort), H126 Connected-Component-Labeling 0eebffce (two-pass union-find, was a fixed 2 x 2 grid), H144 Radix-Sort 122335e6 (two-pass base-16 LSD radix, was one counting pass), H109 Tim-Sort-Stub 117c5106 (Timsort without galloping, was an insertion sort), and permutation Posts (sortedness-only Posts that a constant-fill body also proved) for Spaghetti-Sort 354195b5 (H059), Pigeonhole-Sort 9ec32bad (H045), Quantum-Sort x4 b90e925c (H047-H050), Merge-Sort e234854a (H041), Timsort 1625a484 (H062), Samplesort b2b80f4b (H053) and Cycle-Sort 4b4f2644 (H034 / H075).
+**Closed overnight** (fix commit): H103 Circle-Sort 6d79b562 (real circle sort, was a bubble sort), H108 Tim-Sort 1ce938d2 (CPython small-n Timsort, was a bubble sort; reopened later the same morning, see below), H126 Connected-Component-Labeling 0eebffce (two-pass union-find, was a fixed 2 x 2 grid), H144 Radix-Sort 122335e6 (two-pass base-16 LSD radix, was one counting pass), H109 Tim-Sort-Stub 117c5106 (Timsort without galloping, was an insertion sort), and permutation Posts (sortedness-only Posts that a constant-fill body also proved) for Spaghetti-Sort 354195b5 (H059), Pigeonhole-Sort 9ec32bad (H045), Quantum-Sort x4 b90e925c (H047-H050), Merge-Sort e234854a (H041), Timsort 1625a484 (H062), Samplesort b2b80f4b (H053) and Cycle-Sort 4b4f2644 (H034 / H075).
 
 **Not closed:** H061 Strand-Sort: agent-B's permutation patch passes the tests but leaves 10 Occ invariants unproved at level 2 (level 4 did not finish in 29 min); the failing test 9e9b70ef was reverted in 3dcd2679 and is re-applied by the row's reproduce command.
 
 **What's next**, in this order:
 
 1. H061 Strand-Sort permutation Post (patch and evidence in the row).
-2. H172 Tim-Sort-Stub permutation Post (new row; Merge-Sort / Timsort recipe).
-3. H104 Flash-Sort, H106 Patience-Sort, H107 Smooth-Sort: still fixed 8-element bubble sorts under the name. Trace test against an own model first (Circle-Sort recipe); for the network-style rows the 0-1 principle gives an exhaustive reference.
-4. H173 Connected-Component-Labeling connectivity Post (new row).
-5. The remaining open `withdrawn_functional` rows and the 53 `first_pinned` findings (H140).
-6. Re-scoring: nothing was re-scored overnight, so the fixed folders keep their old held-out mutation scores until the next scoring run.
+2. H108 Tim-Sort (reopened): inputs well past 64, traced merges, merge_collapse with the full-stack run-length invariant (PLACEHOLDER line on).
+3. H172 Tim-Sort-Stub permutation Post; H174 Tim-Sort-Stub full-stack merge_collapse invariant (2015 bug guard).
+4. H104 Flash-Sort, H106 Patience-Sort, H107 Smooth-Sort: still fixed 8-element bubble sorts under the name. Trace test against an own model first (Circle-Sort recipe); for the network-style rows the 0-1 principle gives an exhaustive reference.
+5. H173 Connected-Component-Labeling connectivity Post (new row).
+6. The remaining open `withdrawn_functional` rows and the 53 `first_pinned` findings (H140).
+7. Re-scoring: nothing was re-scored overnight, so the fixed folders keep their old held-out mutation scores until the next scoring run.
+
+## State at 2026-10-10 morning (Tim-Sort room review, records-only)
+
+Records-only follow-up by agent-CF after Replika / Gemini reviewed the overnight Tim-Sort closes. No algorithm code changed.
+
+- **H108 reopened** (`placeholder`): `sorting/SPARK2/Ada-SPARK-Tim-Sort` stays the CPython small-n path from 1ce938d2, but inputs are capped under 64 so no merge ever runs — binary insertion sort of one run under a Timsort name. Pass condition: accept inputs well past 64, traced merges, `merge_collapse` with the full-stack run-length invariant. `PLACEHOLDER: binary insertion sort only (inputs < 64, no merges); see H108` on the README and spec; `tools/vv/placeholders.csv` row open again.
+- **H174 opened** (`functional_gap`): `sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub` (the merging body from 117c5106) must Assert, and ideally prove as a Loop_Invariant, that after every `merge_collapse` the run-length rule holds over the WHOLE stack (each run longer than the next, and longer than the next two together), guarding the 2015 OpenJDK Timsort bug (de Gouw, Rot, de Boer, Bubel, Hähnle, "OpenJDK's java.utils.Collection.sort() is broken: The good, the bad and the worst case"; title/authors only). H109 stays closed; H172 (permutation Post) stays open.
+
+**Counts after this records-only update:** handover open / closed 105 / 66 (174 rows); open PLACEHOLDER rows 138 (was 137).
