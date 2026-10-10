@@ -12,3 +12,8 @@ standard generator (seed 20261008).
 * Inputs: lengths 0 .. 40 (50 random arrays each, first index 1, and 50
   duplicate-heavy arrays with first index 100), the full Integer range, bounds
   near Positive'Last, and one array of 200 values.
+* Timsort model (runs pushed, merges, min-run): own implementation of the
+  rules in CPython Objects/listsort.txt (count_run, binary insertion to
+  min-run, merge_collapse with the corrected three-run check,
+  merge_force_collapse); min-run values 63 -> 63, 64 -> 32, 65 -> 33,
+  2048 -> 32, 2112 -> 33 from the min-run section of listsort.txt.
