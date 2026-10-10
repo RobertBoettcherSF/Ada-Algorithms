@@ -1,0 +1,206 @@
+diff --git a/misc/SPARK2/Ada-SPARK-Word-Break-II/Makefile b/misc/SPARK2/Ada-SPARK-Word-Break-II/Makefile
+index 304b21ed..5b82d59a 100644
+--- a/misc/SPARK2/Ada-SPARK-Word-Break-II/Makefile
++++ b/misc/SPARK2/Ada-SPARK-Word-Break-II/Makefile
+@@ -11,7 +11,7 @@ test:
+ 	./bin/own_checks
+ 
+ prove:
+-	$(GNATPROVE) -P word_break_ii_project.gpr --mode=all --level=2 --prover=cvc5 --timeout=8 --steps=0 --checks-as-errors=on --warnings=error --report=all
++	$(GNATPROVE) -P word_break_ii_project.gpr --mode=all --level=2 --prover=cvc5,z3 --timeout=8 --steps=0 --checks-as-errors=on --warnings=error --report=all
+ 
+ clean:
+ 	rm -rf obj bin gnatprove
+diff --git a/misc/SPARK2/Ada-SPARK-Word-Break-II/own_checks.adb b/misc/SPARK2/Ada-SPARK-Word-Break-II/own_checks.adb
+index 989ddfac..f4343c57 100644
+--- a/misc/SPARK2/Ada-SPARK-Word-Break-II/own_checks.adb
++++ b/misc/SPARK2/Ada-SPARK-Word-Break-II/own_checks.adb
+@@ -101,6 +101,18 @@ procedure Own_Checks is
+             end;
+          end loop;
+       end if;
++      --  Valid_Split (spec) must agree with the brute force above on every
++      --  break set of length up to N + 2 (bits past N: not a split).
++      for C in 0 .. 2 ** Natural'Min (N + 2, Max_Len) - 1 loop
++         declare
++            B : Break_Set;
++         begin
++            for P in Position loop
++               B (P) := (C / 2 ** (P - 1)) mod 2 = 1;
++            end loop;
++            Check (Valid_Split (S, N, D, DC, B) = Want (C), "Valid_Split code" & C'Image & Tag);
++         end;
++      end loop;
+       Check (Count_Sentences (S, N, D, DC) = NW, "count" & Tag);
+       Sentences (S, N, D, DC, List, Count);
+       Check (Count = NW, "listed" & Tag);
+@@ -109,6 +121,7 @@ procedure Own_Checks is
+             C : constant Natural := Code (List (K), N);
+          begin
+             Check (C <= 4095 and then Want (C) and then not Seen (C), "sentence" & K'Image & Tag);
++            Check (Valid_Split (S, N, D, DC, List (K)), "listed sentence valid" & K'Image & Tag);
+             if C <= 4095 then
+                Seen (C) := True;
+             end if;
+diff --git a/misc/SPARK2/Ada-SPARK-Word-Break-II/word_break_ii.adb b/misc/SPARK2/Ada-SPARK-Word-Break-II/word_break_ii.adb
+index eaa08e1c..70c3076b 100644
+--- a/misc/SPARK2/Ada-SPARK-Word-Break-II/word_break_ii.adb
++++ b/misc/SPARK2/Ada-SPARK-Word-Break-II/word_break_ii.adb
+@@ -89,6 +89,54 @@ package body Word_Break_II is
+       return Ways;
+    end Table;
+ 
++   --  X and Y hold the same breaks / differ somewhere (element by element:
++   --  array "=" is not transitive for the provers).
++   function Same (X, Y : Break_Set) return Boolean is
++     (for all R in Position => X (R) = Y (R))
++   with Ghost;
++
++   procedure Lemma_Same_Trans (X, Y, Z : Sentence_List; Hi : Natural)
++   with Ghost, Global => null,
++        Pre  => Hi <= Max_Sentences
++                and then (for all K in 1 .. Hi => Same (X (K), Y (K)) and then Same (Y (K), Z (K))),
++        Post => (for all K in 1 .. Hi => Same (X (K), Z (K)));
++
++   procedure Lemma_Same_Trans (X, Y, Z : Sentence_List; Hi : Natural) is null;
++
++   --  Valid_From depends only on the breaks themselves.
++   procedure Lemma_Valid_Same
++     (S : Text; N : Text_Length; D : Dictionary; DC : Word_Count; X, Y : Break_Set; P : Positive)
++   with Ghost, Global => null,
++        Pre  => P <= N + 1 and then Same (X, Y) and then Valid_From (S, N, D, DC, X, P),
++        Post => Valid_From (S, N, D, DC, Y, P);
++
++   procedure Lemma_Valid_Same
++     (S : Text; N : Text_Length; D : Dictionary; DC : Word_Count; X, Y : Break_Set; P : Positive)
++   is
++   begin
++      pragma Assert (X = Y);
++   end Lemma_Valid_Same;
++
++   procedure Lemma_Valid_Same_All
++     (S : Text; N : Text_Length; D : Dictionary; DC : Word_Count;
++      X, Y : Sentence_List; Lo : Positive; Hi : Natural; P : Positive)
++   with Ghost, Global => null,
++        Pre  => P <= N + 1 and then Hi <= Max_Sentences
++                and then (for all K in Lo .. Hi =>
++                            Same (X (K), Y (K)) and then Valid_From (S, N, D, DC, X (K), P)),
++        Post => (for all K in Lo .. Hi => Valid_From (S, N, D, DC, Y (K), P));
++
++   procedure Lemma_Valid_Same_All
++     (S : Text; N : Text_Length; D : Dictionary; DC : Word_Count;
++      X, Y : Sentence_List; Lo : Positive; Hi : Natural; P : Positive)
++   is
++   begin
++      for K in Lo .. Hi loop
++         pragma Loop_Invariant (for all M in Lo .. K - 1 => Valid_From (S, N, D, DC, Y (M), P));
++         Lemma_Valid_Same (S, N, D, DC, X (K), Y (K), P);
++      end loop;
++   end Lemma_Valid_Same_All;
++
+    procedure Sentences
+      (S : Text; N : Text_Length; D : Dictionary; DC : Word_Count;
+       List : out Sentence_List; Count : out Sentence_Count)
+@@ -101,10 +149,17 @@ package body Word_Break_II is
+         with Pre  => Is_Table (S, N, D, DC, Ways, 1) and then P <= N + 1
+                      and then (for all R in P .. Max_Len => not Cur (R))
+                      and then Long_Long_Integer (Count) + Long_Long_Integer (Ways (P)) <= Max_Sentences,
+-             Post => Long_Long_Integer (Count) = Long_Long_Integer (Count'Old) + Long_Long_Integer (Ways (P)),
++             Post => Long_Long_Integer (Count) = Long_Long_Integer (Count'Old) + Long_Long_Integer (Ways (P))
++                     and then (for all K in 1 .. Count'Old => Same (List (K), List'Old (K)))
++                     and then (for all K in Count'Old + 1 .. Count =>
++                                 (for all R in 1 .. P - 1 => List (K) (R) = Cur (R))
++                                 and then Valid_From (S, N, D, DC, List (K), P)),
+              Subprogram_Variant => (Increases => P)
+       is
+          Entry_Count : constant Sentence_Count := Count with Ghost;
++         Entry_List  : constant Sentence_List := List with Ghost;
++         Before      : Sentence_Count with Ghost;
++         Mid_List    : Sentence_List with Ghost;
+       begin
+          if P = N + 1 then
+             Count := Count + 1;
+@@ -114,13 +169,40 @@ package body Word_Break_II is
+          for L in 1 .. Max_Here (N, P) loop
+             pragma Loop_Invariant
+               (Long_Long_Integer (Count) = Long_Long_Integer (Entry_Count) + Partial (S, N, D, DC, Ways, P, L - 1));
++            pragma Loop_Invariant (Count >= Entry_Count);
++            pragma Loop_Invariant (for all K in 1 .. Entry_Count => Same (List (K), Entry_List (K)));
++            --  Every sentence listed so far: the prefix is Cur and it splits
++            --  S (P .. N).
++            pragma Loop_Invariant
++              (for all K in Entry_Count + 1 .. Count =>
++                 (for all R in 1 .. P - 1 => List (K) (R) = Cur (R))
++                 and then Valid_From (S, N, D, DC, List (K), P));
+             Lemma_Mono (S, N, D, DC, Ways, P, L, Max_Here (N, P));
+             if In_Dict (S, P, L, D, DC) then
+                declare
+                   Next : Break_Set := Cur;
+                begin
+                   Next (P + L - 1) := True;
++                  Before := Count;
++                  Mid_List := List;
+                   Walk (P + L, Next);
++                  Lemma_Same_Trans (List, Mid_List, Entry_List, Entry_Count);
++                  Lemma_Valid_Same_All (S, N, D, DC, Mid_List, List, Entry_Count + 1, Before, P);
++                  pragma Assert
++                    (for all K in Entry_Count + 1 .. Before =>
++                       (for all R in 1 .. P - 1 => List (K) (R) = Cur (R))
++                       and then Valid_From (S, N, D, DC, List (K), P));
++                  --  The new sentences: prefix Next, so no break in
++                  --  P .. P + L - 2 and a break at P + L - 1; hence each one
++                  --  splits S (P .. N) with first word S (P .. P + L - 1).
++                  --  The earlier ones are unchanged (Same).
++                  pragma Assert
++                    (for all K in Before + 1 .. Count =>
++                       List (K) (P + L - 1)
++                       and then (for all R in P .. P + L - 2 => not List (K) (R))
++                       and then (for all R in 1 .. P - 1 => List (K) (R) = Cur (R)));
++                  pragma Assert
++                    (for all K in Before + 1 .. Count => Valid_From (S, N, D, DC, List (K), P));
+                end;
+             end if;
+          end loop;
+diff --git a/misc/SPARK2/Ada-SPARK-Word-Break-II/word_break_ii.ads b/misc/SPARK2/Ada-SPARK-Word-Break-II/word_break_ii.ads
+index a08d66a3..3decd9be 100644
+--- a/misc/SPARK2/Ada-SPARK-Word-Break-II/word_break_ii.ads
++++ b/misc/SPARK2/Ada-SPARK-Word-Break-II/word_break_ii.ads
+@@ -46,11 +46,37 @@ package Word_Break_II is
+      return Sentence_Count
+      with Global => null;
+ 
++   --  B splits S (P .. N) into dictionary words (B (E): a word ends at
++   --  E): no break after N, a break at N (unless P > N), and every stretch
++   --  from a start Q + 1 (Q = P - 1, or a break at Q) to the next break E
++   --  is a dictionary word S (Q + 1 .. E). Universal quantifiers only.
++   function Valid_From
++     (S : Text; N : Text_Length; D : Dictionary; DC : Word_Count; B : Break_Set; P : Positive)
++     return Boolean is
++     ((for all R in N + 1 .. Max_Len => not B (R))
++      and then (if P <= N then B (N))
++      and then (for all Q in P - 1 .. N - 1 =>
++                  (for all E in Q + 1 .. N =>
++                     (if (Q = P - 1 or else B (Q)) and then B (E)
++                         and then (for all R in Q + 1 .. E - 1 => not B (R))
++                      then E - Q <= Max_Word_Len and then In_Dict (S, Q + 1, E - Q, D, DC)))))
++     with Global => null, Pre => P <= N + 1;
++
++   --  B (a word ends at each True position) splits S (1 .. N) into words.
++   function Valid_Split
++     (S : Text; N : Text_Length; D : Dictionary; DC : Word_Count; B : Break_Set) return Boolean is
++     (Valid_From (S, N, D, DC, B, 1))
++     with Global => null;
++
++   --  Every listed break set is a split into dictionary words, and there
++   --  are Count_Sentences of them (that they are pairwise different is
++   --  checked by own_checks only, see tools/vv/contract_scan.csv).
+    procedure Sentences
+      (S : Text; N : Text_Length; D : Dictionary; DC : Word_Count;
+       List : out Sentence_List; Count : out Sentence_Count)
+      with Global => null,
+-          Post   => Count = Count_Sentences (S, N, D, DC);
++          Post   => Count = Count_Sentences (S, N, D, DC)
++                    and then (for all K in 1 .. Count => Valid_Split (S, N, D, DC, List (K)));
+ private
+    --  Ways (P) = number of ways to split S (P .. N) into words; Ways (N + 1) = 1.
+    subtype Ext_Position is Positive range 1 .. Max_Len + 1;
