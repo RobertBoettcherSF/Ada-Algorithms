@@ -5,6 +5,7 @@ with Ada.Numerics.Long_Elementary_Functions; use Ada.Numerics.Long_Elementary_Fu
 with Sigmoid; use Sigmoid;
 
 --  Expected values: see tests/SOURCES.txt.
+with Own_Checks;
 procedure Tests is
    Failures : Natural := 0;
    Checks   : Natural := 0;
@@ -91,4 +92,5 @@ begin
       Put_Line ("FAIL Sigmoid:" & Failures'Image & " of" & Checks'Image);
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
+   Own_Checks;
 end Tests;

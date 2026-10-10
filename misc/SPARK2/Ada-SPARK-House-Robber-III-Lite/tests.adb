@@ -6,6 +6,7 @@ with House_Robber_III_Lite; use House_Robber_III_Lite;
 --  Every expected value is worked out by hand in the comments (see
 --  tests/SOURCES.txt). Nodes are numbered in preorder; Left/Right 0 means
 --  no child.
+with Own_Checks;
 procedure Tests is
    procedure Expect (T : Tree; Want : Natural; Want_Choice : Choice; Label : String) is
       Got   : constant Natural := Max_Loot (T);
@@ -89,4 +90,5 @@ begin
          null;
    end;
    Put_Line ("PASS House_Robber_III_Lite");
+   Own_Checks;
 end Tests;

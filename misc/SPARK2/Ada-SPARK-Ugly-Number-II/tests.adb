@@ -4,6 +4,7 @@ with Ada.Numerics.Big_Numbers.Big_Integers; use Ada.Numerics.Big_Numbers.Big_Int
 with Ugly_Number_II; use Ugly_Number_II;
 
 --  Expected values: see tests/SOURCES.txt.
+with Own_Checks;
 procedure Tests is
    Failures : Natural := 0;
 
@@ -88,4 +89,5 @@ begin
       Put_Line ("FAIL Ugly_Number_II:" & Failures'Image);
       raise Program_Error;
    end if;
+   Own_Checks;
 end Tests;

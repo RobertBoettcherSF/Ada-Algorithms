@@ -2,6 +2,7 @@ pragma Ada_2022;
 with Ada.Text_IO;
 with Climbing_Stairs; use Climbing_Stairs;
 
+with Own_Checks;
 procedure Tests is
    function Img (A : Step_List) return String is
      (if A'Length = 0 then "" else A (A'First)'Image & Img (A (A'First + 1 .. A'Last)));
@@ -40,4 +41,5 @@ begin
    Expect (45, 1_836_311_902, Last_45);   --  22 double steps, then one single
 
    Ada.Text_IO.Put_Line ("climbing stairs tests passed");
+   Own_Checks;
 end Tests;

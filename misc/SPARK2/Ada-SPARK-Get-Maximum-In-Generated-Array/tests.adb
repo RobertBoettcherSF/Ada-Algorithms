@@ -3,6 +3,7 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Get_Maximum_In_Generated_Array; use Get_Maximum_In_Generated_Array;
 
 --  Expected values worked out by hand (see tests/SOURCES.txt).
+with Own_Checks;
 procedure Tests is
    Failures : Natural := 0;
 
@@ -46,4 +47,5 @@ begin
       Put_Line ("FAIL Get_Maximum_In_Generated_Array:" & Failures'Image);
       raise Program_Error;
    end if;
+   Own_Checks;
 end Tests;

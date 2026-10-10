@@ -8,6 +8,7 @@ with Lemke_Howson; use Lemke_Howson;
 --  this file's own exact best-response check (Big_Integer, not the
 --  package's Is_Nash), for every starting label; games with known
 --  equilibria also check the result is one of them (worked by hand).
+with Own_Checks;
 procedure Tests is
    Failures : Natural := 0;
    Checks   : Natural := 0;
@@ -388,6 +389,8 @@ begin
       Random_Set ("degenerate 4x4 (payoffs 0 .. 1)", 694_744_105, 4, 300, 2);
       Random_Set ("degenerate 4x4 (repeated strategy)", 694_744_105, 4, 300, 3);
    end;
+
+   Own_Checks;
 
    if Failures = 0 then
       Put_Line ("PASS Lemke_Howson (" & Checks'Image & " checks)");

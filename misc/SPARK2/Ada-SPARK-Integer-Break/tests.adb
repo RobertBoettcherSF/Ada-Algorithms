@@ -3,6 +3,7 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Integer_Break; use Integer_Break;
 
 --  Expected values worked out by hand (see tests/SOURCES.txt).
+with Own_Checks;
 procedure Tests is
    Old : constant array (2 .. 10) of Positive := [1, 2, 4, 6, 9, 12, 18, 27, 36];
 
@@ -55,4 +56,5 @@ begin
       Check_Split (N);
    end loop;
    Put_Line ("PASS Integer_Break");
+   Own_Checks;
 end Tests;
