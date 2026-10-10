@@ -14,3 +14,17 @@ third-party test suites.
   (constant, ascending, descending, alternating extremes), 2,000 random
   arrays over the full Value range and 1,000 with many duplicates from the
   Park-Miller minimal standard generator (seed 20261008).
+* Own model of smoothsort (H107): Run_Model in own_checks.adb, written from
+  E. W. Dijkstra, "Smoothsort, an alternative for sorting in situ" (EWD796a,
+  1981), in the variant that restores the root order after every insertion:
+  a forest of Leonardo heaps (sizes 1, 1, 3, 5, 9) with ascending roots;
+  insertion merges the last two stretches of orders k + 1, k with the new
+  key, else adds a stretch of order 1 (order 0 after an order-1 stretch);
+  trinkle (exchange with the previous root while it is larger than the root
+  and both its child roots), then sift (exchange with the larger child root,
+  the left one on ties, while it is larger); teardown keeps the last root and
+  trinkles the two children of an order >= 2 stretch. The stretches are a
+  list of orders with roots recomputed from the sizes. Sort_Traced's
+  exchanges (X, Y) in order and the result must equal the model on every
+  input checked above, plus 3,000 random arrays (seed 20261009), all 3**8
+  arrays over 0 .. 2 and all 8! permutations of 1 .. 8.
