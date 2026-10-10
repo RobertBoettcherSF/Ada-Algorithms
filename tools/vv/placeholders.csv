@@ -131,7 +131,7 @@ sorting/SPARK2/Ada-SPARK-Flash-Sort,H104,fixed 8-element bubble sort under a fla
 sorting/SPARK2/Ada-SPARK-Heap-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a heap-sort name,open
 sorting/SPARK2/Ada-SPARK-Intro-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a intro-sort name,open
 sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Merge-K-Sorted-Lists implementation",open
-sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,H105,fixed 8-element bubble sort under an odd-even-merge-sort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort,H105,fixed 8-element bubble sort under an odd-even-merge-sort name; the Post only bounds the elements,closed (agent-CF: real odd-even merge network)
 sorting/SPARK2/Ada-SPARK-Pancake-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a pancake-sort name,open
 sorting/SPARK2/Ada-SPARK-Patience-Sort,H106,fixed 8-element bubble sort under a patience-sort name; the Post only bounds the elements,open
 sorting/SPARK2/Ada-SPARK-Quick-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a quick-sort name,open

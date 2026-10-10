@@ -34,7 +34,6 @@ searching/SPARK2/Ada-SPARK-Word-Search	Word Search (bounded SPARK stub)  An 8x8 
 sorting/SPARK2/Ada-SPARK-Circle-Sort	Ada-SPARK-Circle-Sort  A small bounded Ada/SPARK sorting stub
 sorting/SPARK2/Ada-SPARK-Exchange-Sort	Ada-SPARK-Exchange-Sort  A small bounded Ada/SPARK sorting stub
 sorting/SPARK2/Ada-SPARK-Flash-Sort	Ada-SPARK-Flash-Sort  A small bounded Ada/SPARK sorting stub
-sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort	Ada-SPARK-Odd-Even-Merge-Sort  A small bounded Ada/SPARK sorting stub
 sorting/SPARK2/Ada-SPARK-Patience-Sort	Ada-SPARK-Patience-Sort  A small bounded Ada/SPARK sorting stub
 sorting/SPARK2/Ada-SPARK-Smooth-Sort	Ada-SPARK-Smooth-Sort  A small bounded Ada/SPARK sorting stub
 sorting/SPARK2/Ada-SPARK-Tim-Sort	Ada-SPARK-Tim-Sort  A small bounded Ada/SPARK sorting stub
