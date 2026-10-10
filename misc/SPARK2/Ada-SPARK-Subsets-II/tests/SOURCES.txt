@@ -23,3 +23,6 @@ default seed is the FNV-1a (32-bit) hash of the folder name folded into
 * 5,000 random choices on multisets of up to 30 items in all: own
   mixed-radix rank + 1 (or wrap from the last), Count against an own
   product in Long_Long_Integer, Subset against an own expansion.
+* Any origin (H140, First-relative): Subset with Values at 'First = 5,
+  200 and ending at Positive'Last must equal the own expansion of the
+  same choice, on 500 random choices (Park-Miller, seed 20261009).

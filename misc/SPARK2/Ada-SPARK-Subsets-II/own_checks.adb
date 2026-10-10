@@ -15,6 +15,7 @@ pragma Ada_2022;
 --  * Subset against an own expansion (append Take (I) copies of
 --    Values (I), I = 1 .. N).
 with Ada.Text_IO;
+with Ada.Assertions;
 with Ada.Environment_Variables;
 with Interfaces; use Interfaces;
 with Subsets_II; use Subsets_II;
@@ -196,6 +197,43 @@ begin
          end;
       end;
    end loop;
+
+   --  Any origin (H140): Subset with Values at 'First = 5, 200 and ending
+   --  at Positive'Last must equal the own expansion (and the origin-1
+   --  result); 500 random choices, seed 20261009.
+   Seed := 20_261_009;
+   declare
+      function Shifted (Values : Item_List; C : Choice; O : Positive; Want : Item_List) return Boolean is
+         V2 : constant Item_List (O .. O - 1 + Values'Length) := Values;
+      begin
+         return Subset (V2, C) = Want and then Subset (V2, C)'Length = Want'Length;
+      exception
+         when Constraint_Error | Ada.Assertions.Assertion_Error =>
+            return False;
+      end Shifted;
+   begin
+      for Trial in 1 .. 500 loop
+         declare
+            N      : constant Length := Next mod 31;
+            Copies : constant Count_List := Random_Copies (N, 30);
+            Take   : Count_List (1 .. N);
+            Values : Item_List (1 .. N);
+         begin
+            for I in 1 .. N loop
+               Take (I) := Next mod (Copies (I) + 1);
+               Values (I) := Next mod 1_001 - 500;
+            end loop;
+            declare
+               C    : constant Choice := (N => N, Copies => Copies, Take => Take);
+               Want : constant Item_List := Own_Expand (Values, Take);
+            begin
+               Report (Shifted (Values, C, 5, Want) and then Shifted (Values, C, 200, Want)
+                       and then Shifted (Values, C, Positive'Last - Natural'Max (N, 1) + 1, Want),
+                       "Subset at shifted origins" & Trial'Image);
+            end;
+         end;
+      end loop;
+   end;
 
    Ada.Text_IO.Put_Line ("own checks:" & Checked'Image & " checks," & Failures'Image & " failures");
    if Failures > 0 then
