@@ -3,3 +3,4 @@
 "misc/SPARK2/Ada-SPARK-Permutations-II","5d3b9a5b","8a49f412","200548659","48/48","2026-10-10","score138_halves.csv heldout, split seed 200548659 (tests-only, no proof pass)"
 "misc/SPARK2/Ada-SPARK-Ugly-Number-II","74094e83","8a49f412","933039058","45/49","2026-10-10","score138_halves.csv heldout, split seed 933039058 (tests-only, no proof pass)"
 "misc/SPARK2/Ada-SPARK-Ugly-Number-II","6c8e7776","8a49f412","933039058","45/49","2026-10-10","score138_halves.csv heldout, split seed 933039058 (tests-only, no proof pass)"
+"misc/SPARK2/Ada-SPARK-Subsets","865646c7","542e88f0","415129145","44/48","2026-10-10","score138_halves.csv heldout, split seed 415129145 (night re-score, tests-only, no proof pass, timeout 6 s)"
