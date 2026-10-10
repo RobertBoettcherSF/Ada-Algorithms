@@ -1,0 +1,11 @@
+Sources of the expected values in own_checks.adb
+================================================
+
+* Own stable reference: insertion sort by one base-16 digit (By_Digit in
+  own_checks.adb), written for this repository.
+* LSD radix sort definition (stable digit passes from the least
+  significant digit): Wikipedia "Radix sort", and Knuth TAOCP vol. 3,
+  5.2.5. Two passes for 8-bit keys in base 16.
+* Hand cases: 16#21#, 16#31# (equal low digit) keep input order in pass 1;
+  16#22#, 16#21# (equal high digit) come out in pass-1 order;
+  16#12#, 16#21# are out of order after pass 1 alone.

@@ -19,6 +19,7 @@ prove: *.ads *.adb *.gpr
 test: all
 	@echo "Running tests..."
 	@$(BIN_DIR)/tests
+	@$(BIN_DIR)/own_checks
 
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
