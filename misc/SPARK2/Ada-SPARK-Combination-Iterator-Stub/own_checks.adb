@@ -8,6 +8,9 @@ with Combination_Iterator_Stub; use Combination_Iterator_Stub;
 --  combinations of the N items in lexicographic order of positions; the
 --  expected list is built by an independent recursive enumeration.
 --  Item values are random (seed 20261009, Park-Miller generator).
+--  Before every Next the public positions Pos (It, 1 .. K) must equal the
+--  expected combination and Pivot (It) the rightmost position that can
+--  still move right (0 for the last one), from the same enumeration.
 procedure Own_Checks is
    Max_N : constant := 20;
    Fails : Natural := 0;
@@ -62,6 +65,19 @@ procedure Own_Checks is
                      Ok := False;
                      return;
                   end if;
+                  --  Before Next: the iterator's positions are Cur, and Pivot
+                  --  is the rightmost J with Cur (J) < N - K + J (0: last).
+                  declare
+                     Want_Pivot : Natural := 0;
+                  begin
+                     for L in 1 .. K loop
+                        Check (Pos (It, L) = Cur (L), "positions" & Tag);
+                        if Cur (L) < N - K + L then
+                           Want_Pivot := L;
+                        end if;
+                     end loop;
+                     Check (Pivot (It) = Want_Pivot, "pivot" & Tag);
+                  end;
                   Next (It, C);
                   Check (C.Size = K, "size" & Tag);
                   for L in 1 .. K loop
