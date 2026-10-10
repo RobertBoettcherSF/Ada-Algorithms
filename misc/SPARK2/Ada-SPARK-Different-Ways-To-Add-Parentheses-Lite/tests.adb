@@ -50,6 +50,15 @@ begin
    --  (-99) ** 9.
    Expect ([1 .. 9 => -99], [1 .. 8 => Times], [1 .. 1_430 => -913_517_247_483_640_899]);
 
+   --  H191: the bound 99 ** Max_Expression is carried by the element subtype
+   --  Result_Value (the results of All_Results and of the internal Sub slots),
+   --  not by a run-time quantifier over every slot entry.
+   if Result_Value'First /= -Bound (Max_Expression) or else Result_Value'Last /= Bound (Max_Expression)
+     or else Bound (Max_Expression) + 1 in Result_Value or else -Bound (Max_Expression) - 1 in Result_Value
+   then
+      raise Program_Error with "Result_Value is not -Bound (Max_Expression) .. Bound (Max_Expression)";
+   end if;
+
    Own_Checks;
    Put_Line ("PASS Different_Ways_Parentheses");
 end Tests;
