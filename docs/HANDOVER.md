@@ -106,3 +106,33 @@ The main line stopped starting long runs here. Its open items are rows H131-H140
   - H138: all 16 aspects stay (`tools/vv/always_terminates_gnat12.csv`). Without the aspect the fresh proof shows no termination check for any of these procedures, so dropping it would hide the check. The code-level answer is to turn the ghost lemmas into ghost functions.
   - H139: the experiment was not run for 5 A3-claimed sorts.
 - **First-relative indexing** (H140): 53 open `first_pinned` findings, including the 11 large SPARK4 sorts. Not started.
+
+## State at 2026-10-10 morning
+
+Code-fix pass by agent-CF (overnight, 02:05-07:08 Europe/Berlin), ended at the wrap-up. Every fix is test-first: a failing test commit, then the fix commit; both are listed in `tools/vv/codefix.csv`. The index was regenerated with `tools/proof_index.py` from the committed PROOFS.csv inputs (`tools/vv/synth_index_inputs.py`); `tools/vv/recount_strict.py` lists the same training-ready folders, the self-test passes 27/27, and `make check-paths` is clean.
+
+**Counts** (before the overnight run: regen 7c3d0f88, 2026-10-10 02:04):
+
+| Measure | Before | Now |
+|---|---:|---:|
+| Open findings (`tools/vv/findings.csv`) | 54 | 54 |
+| Implementation candidates (stubs, duplicates counted once) | 134 | 131 |
+| Silver-proven, non-trivial | 517 | 520 |
+| Training-ready under rule v1 (no re-scoring tonight) | 84 | 84 |
+| Training-ready under the previous rule | 276 | 278 |
+| Open PLACEHOLDER rows (`tools/vv/placeholders.csv`) | 142 | 137 |
+| Open withdrawn functional claims (`tools/vv/contract_scan.csv` rows) | 31 | 17 |
+| Handover rows open / closed | 117 / 51 (171 rows) | 103 / 67 (173 rows) |
+
+**Closed overnight** (fix commit): H103 Circle-Sort 6d79b562 (real circle sort, was a bubble sort), H108 Tim-Sort 1ce938d2 (CPython small-n Timsort, was a bubble sort), H126 Connected-Component-Labeling 0eebffce (two-pass union-find, was a fixed 2 x 2 grid), H144 Radix-Sort 122335e6 (two-pass base-16 LSD radix, was one counting pass), H109 Tim-Sort-Stub 117c5106 (Timsort without galloping, was an insertion sort), and permutation Posts (sortedness-only Posts that a constant-fill body also proved) for Spaghetti-Sort 354195b5 (H059), Pigeonhole-Sort 9ec32bad (H045), Quantum-Sort x4 b90e925c (H047-H050), Merge-Sort e234854a (H041), Timsort 1625a484 (H062), Samplesort b2b80f4b (H053) and Cycle-Sort 4b4f2644 (H034 / H075).
+
+**Not closed:** H061 Strand-Sort: agent-B's permutation patch passes the tests but leaves 10 Occ invariants unproved at level 2 (level 4 did not finish in 29 min); the failing test 9e9b70ef was reverted in 3dcd2679 and is re-applied by the row's reproduce command.
+
+**What's next**, in this order:
+
+1. H061 Strand-Sort permutation Post (patch and evidence in the row).
+2. H172 Tim-Sort-Stub permutation Post (new row; Merge-Sort / Timsort recipe).
+3. H104 Flash-Sort, H106 Patience-Sort, H107 Smooth-Sort: still fixed 8-element bubble sorts under the name. Trace test against an own model first (Circle-Sort recipe); for the network-style rows the 0-1 principle gives an exhaustive reference.
+4. H173 Connected-Component-Labeling connectivity Post (new row).
+5. The remaining open `withdrawn_functional` rows and the 53 `first_pinned` findings (H140).
+6. Re-scoring: nothing was re-scored overnight, so the fixed folders keep their old held-out mutation scores until the next scoring run.
