@@ -9,6 +9,7 @@ pragma Ada_2022;
 --    least the best single value's points and at most the array's sum, and
 --    two halves with a gap of two or more values add up.
 with Ada.Text_IO;
+with Ada.Assertions;
 with Ada.Environment_Variables;
 with Interfaces; use Interfaces;
 with Delete_And_Earn; use Delete_And_Earn;
@@ -176,6 +177,49 @@ begin
          end;
       end;
    end loop;
+
+   --  4. Any origin (H140): the same numbers at Nums'First = 2, 7, 50 and
+   --  ending at Index'Last must give the origin-1 answer and the brute
+   --  force; 300 random arrays (seed 20261009), plus empty arrays at the
+   --  top of Index.
+   Seed := 20_261_009;
+   declare
+      function Earn_At (Nums : Num_Array; First : Index) return Integer is
+         Moved : constant Num_Array (First .. First + Nums'Length - 1) := Nums;
+      begin
+         return Max_Earn (Moved);
+      exception
+         when Constraint_Error | Ada.Assertions.Assertion_Error =>
+            return -1;
+      end Earn_At;
+   begin
+      for T in 1 .. 300 loop
+         declare
+            Len  : constant Natural := Pick (0, 12);
+            Base : constant Positive := Pick (1, 89);
+            Nums : Num_Array (1 .. Len);
+            Want : Natural;
+            type Origins is array (1 .. 4) of Index;
+            Os   : constant Origins := [2, 7, 50, Index'Last + 1 - Natural'Max (Len, 1)];
+         begin
+            for I in Nums'Range loop
+               Nums (I) := Pick (Base, Base + 11);
+            end loop;
+            Want := Brute (Nums, Base, 12);
+            Report (Max_Earn (Nums) = Want, "origin 1 on" & Img (Nums));
+            for O of Os loop
+               Report (Earn_At (Nums, O) = Want, "origin" & O'Image & " on" & Img (Nums));
+            end loop;
+         end;
+      end loop;
+      declare
+         Empty : constant Num_Array (Index'Last .. Index'Last - 1) := [];
+         Full  : constant Num_Array (1 .. 100) := [for I in 1 .. 100 => I];
+      begin
+         Report (Max_Earn (Empty) = 0, "empty at 'First = 100");
+         Report (Earn_At (Full, 1) = Maximum (100), "1 .. 100 at origin 1");
+      end;
+   end;
 
    Ada.Text_IO.Put_Line ("own checks:" & Checked'Image & " checks," & Failures'Image & " failures");
    if Failures > 0 then

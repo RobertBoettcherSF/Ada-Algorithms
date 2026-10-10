@@ -21,3 +21,7 @@ default seed is the FNV-1a (32-bit) hash of the folder name folded into
   the same answer; the answer lies between the best single value's
   points and the array's sum; values below Cut and above Cut + 1 never
   interact, so the two parts' answers add up.
+* Any origin (H140, First-relative): 300 random arrays of length 0 .. 12
+  (Park-Miller, seed 20261009) copied to Nums'First = 2, 7, 50 and to the
+  slice ending at Index'Last (100) must give the brute-force answer above,
+  as at origin 1; Max_Earn of an empty array at 'First = 100 is 0.
