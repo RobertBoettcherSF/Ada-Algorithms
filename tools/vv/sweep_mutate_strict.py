@@ -4,7 +4,7 @@
 Same sites, sampling and output files as tools/vv/sweep_mutate.py (which
 this imports and does not change), but a mutant counts as killed ONLY on a
 non-zero exit status or a FAIL line in the test output.  A run that hits
-the 30 s limit is recorded as `timeout` and is left out of the score (the
+the per-run limit (sweep_mutate.TIMEOUT, default 30 s; score138.py --timeout sets the sealed per-folder value) is recorded as `timeout` and is left out of the score (the
 90% bar is killed / (killed + survived)); an exception message printed by
 a test that still exits 0 does not count.
 
@@ -36,7 +36,7 @@ def run_tests(work):
     if b.returncode != 0:
         return 'stillborn'
     try:
-        r = subprocess.run(['./tbin'], cwd=work, capture_output=True, text=True, timeout=30)
+        r = subprocess.run(['./tbin'], cwd=work, capture_output=True, text=True, timeout=sm.TIMEOUT)   # score138 --timeout (default 30)
     except subprocess.TimeoutExpired:
         return 'timeout'
     if r.returncode != 0 or FAIL.search(r.stdout + r.stderr):
