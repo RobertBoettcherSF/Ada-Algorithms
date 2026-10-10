@@ -29,8 +29,12 @@ package Different_Ways_Parentheses with SPARK_Mode => On is
    function Ways (N : Positive) return Big_Integer
    with Ghost, Pre => N <= Max_Operands;
 
-   --  Sum over K in 1 .. S of W (K) * W (N - K).
-   function Partial (N : Positive; S : Natural) return Big_Integer
+   --  Sum over K in 1 .. S of W (K) * W (N - K). One expression function
+   --  (no separate declaration): GNAT 14.2.0 leaks on every -gnata
+   --  evaluation of a recursive Big_Integer expression function that has a
+   --  separate declaration (tools/vv/h187_gnat14_leak, handover H189).
+   function Partial (N : Positive; S : Natural) return Big_Integer is
+     (if S = 0 then To_Big_Integer (0) else Partial (N, S - 1) + Ways (S) * Ways (N - S))
    with
      Ghost,
      Pre                => N in 2 .. Max_Operands + 1 and then S <= N - 1,
@@ -106,9 +110,6 @@ private
    with Ghost;
 
    function Ways (N : Positive) return Big_Integer is (To_Big_Integer (Ways_Value (N)));
-
-   function Partial (N : Positive; S : Natural) return Big_Integer is
-     (if S = 0 then To_Big_Integer (0) else Partial (N, S - 1) + Ways (S) * Ways (N - S));
 
    function Bound (L : Expression_Length) return Long_Long_Integer is
      (case L is
