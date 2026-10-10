@@ -256,7 +256,7 @@ Open findings 54 -> 12, counted from `tools/vv/findings.csv` at c5d7464c, f6663e
 
 ## State at 2026-10-11 night
 
-Night batch by agent-NB (2026-10-10 22:50 - 2026-10-11 ~00:50 Europe/Berlin; Robert 87% -> 95%; no new item after 02:15, wrap-up by 03:15). Every item of the next-session order was worked; nothing is running. The index was regenerated the H188 way (bare `make proof-index` = `tools/vv/run_proof_index.py`, inputs synthesised from the committed PROOFS.csv; 0 input changes); `tools/vv/recount_strict.py --list / --pending` agrees (90 / 0), `tools/vv/test_proof_index.py` 33/33, `make check-paths` clean.
+Night batch by agent-NB (2026-10-10 22:50 - 2026-10-11 ~01:15 Europe/Berlin; Robert 87% -> 95%; no new item after 02:15, wrap-up by 03:15). Every item of the next-session order was worked; nothing is running. The index was regenerated the H188 way (bare `make proof-index` = `tools/vv/run_proof_index.py`, inputs synthesised from the committed PROOFS.csv; 0 input changes); `tools/vv/recount_strict.py --list / --pending` agrees (90 / 0), `tools/vv/test_proof_index.py` 33/33, `make check-paths` clean.
 
 **Counts** (before: ac30ba86, end of 2026-10-10 evening):
 
@@ -266,7 +266,7 @@ Night batch by agent-NB (2026-10-10 22:50 - 2026-10-11 ~00:50 Europe/Berlin; Rob
 | Silver-proven, non-trivial | 522 | 522 |
 | Training-ready under the previous rule | 321 | 321 |
 | Open findings (`tools/vv/findings.csv`) | 12 | 12 |
-| Handover rows open / closed | 114 / 74 (188 rows) | 112 / 77 (189 rows) |
+| Handover rows open / closed | 114 / 74 (188 rows) | 113 / 78 (191 rows) |
 
 Training-ready 92 -> 90: of the 5 pending folders, 3 were confirmed by a new blind held set (Subsets 44/48, Subsets-II 46/49, House-Robber-III-Lite 44/48, all tests-only; `tools/vv/rescored.csv`), and 2 completed a blind held round with n >= 20 under 90% and now fail rule v1 (last `score138_halves.csv` row wins): Integer-Break 36/49 = 73.5% (34 test + 2 proof), Different-Ways-To-Add-Parentheses-Lite 43/49 = 87.8% (41 test + 2 proof). Earlier failed re-scores (2026-10-10 evening) were left out of score138_halves.csv because their proof passes were cut; these two rounds are complete (proof pass done), so they are recorded and count.
 
@@ -277,10 +277,11 @@ Training-ready 92 -> 90: of the 5 pending folders, 3 were confirmed by a new bli
 - score138 harness bug: `--timeout` was ignored (hard-coded 30 s in `sweep_mutate_strict.run_tests`); failing test 6074fdff, fix 02c289d5 (`tools/vv/test_score138_timeout.py` 3/3). The H182-H185 held runs were re-run with the sealed timeouts: identical per mutant (4c57d37a).
 - H182-H185: new seeds int(sha256(folder + '2026-10-10-night')) mod 1e9, sealed and pushed first (5a2d3501); step (b) found no test-killable open survivor (all ghost lemma code / contracts), so no test change; timeouts sealed from 10 clean runs at parallelism 4 (542e88f0); held run once. Subsets, Subsets-II, House-Robber-III-Lite confirmed (H182-H184 closed); Integer-Break fails (H185 open, survivors listed, 13 candidate ghost-hint equivalents).
 - H186: clean timing at parallelism 1 (one ~3 GB run fits), 10/10 pass, timeout 505 s sealed (9c7738b4); held set 992160674 run once (0 timeouts, no OOM) + proof pass: 43/49, fails rule v1 (H186 open, survivors listed). VV.md: lower parallelism allowed when the test does not fit memory, recorded with the sealed value.
+- H189 closed for memory (failing test b2434bd1: make test runs bin/tests under `ulimit -v 262144`, unfixed GNAT 14.2.0 segfaults at the limit after 17 s; fix 0d643f0f: ghost `Partial` is one expression function carrying Ghost / Pre / Subprogram_Variant). GNAT 14.2.0 bin/tests max RSS 3,013,324 -> 5,748 kB, same 8,073 checks; make test 0 with 0 warnings on GNAT 14.2.0 and 12.2.0; make prove 1497 proved; canonical Silver 0 unproved. Wall time unchanged (~164 s): the per-Sub-call lemma checking is H191 (open). Compiler issues recorded as H190 (toolchain_bug, worked around, open upstream; also a GNAT 12.2.0 bug box when a client calls the workaround form), reproducer `tools/vv/h187_gnat14_leak` (README). The H186 score row stays (fail); the folder needs a new seed and sealed set.
 - H181 scan (records + scan only, d7b818af): `tools/vv/h181_scan.py` -> `h181_scan.csv`, 0 vacuity-risky uses; 1 lead (Letter-Combinations-Of-A-Phone-Number `Spells_From` origin pin not in fixed_origin_decisions.tsv). Row stays open.
 
 **What's next**, in this order:
 
 1. Room decision on ghost-hint survivors that still prove (Integer-Break 13, DWAP 6: lemma arguments / Lemma_Row loops): written-reason equivalents in `tools/vv/score138_equivalent.csv`, or remove the redundant hint steps (code change, code-fix bar). Either way, then a new seed and sealed set for both folders (their night sets are open).
-2. H189: DWAP GNAT 14 leak / run-time ghost cost (code change; now allowed, the H186 set is scored), failing-first = recorded RSS / wall.
+2. Different-Ways-To-Add-Parentheses-Lite: new seed and sealed held set on the H189 code (b2434bd1 / 0d643f0f); its 43/49 row predates the change. H191 (run time ~163 s under -gnata, proof refactor) before or after that re-score, but a code change after sealing needs yet another set.
 3. H181: Letter-Combinations-Of-A-Phone-Number `Spells_From` origin-pin decision.

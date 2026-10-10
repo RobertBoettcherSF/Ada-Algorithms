@@ -219,3 +219,5 @@ misc/SPARK4/Ada-SPARK-Lemke-Howson,GNAT 14,GNATLS 14.2.0,0,0,"PASS Lemke_Howson 
 misc/SPARK4/Ada-SPARK-Lemke-Howson,GNAT 12,GNATLS 12.2.0,0,0,"PASS Lemke_Howson ( 139 checks)",a9672a82
 sorting/SPARK2/Ada-SPARK-Exchange-Sort,GNAT 14,GNATLS 14.2.0,0,0,"PASS own checks: 3261 inputs (sorted; permutation; own reference)",0e148588
 sorting/SPARK2/Ada-SPARK-Exchange-Sort,GNAT 12,GNATLS 12.2.0,0,0,"PASS own checks: 3261 inputs (sorted; permutation; own reference)",0e148588
+misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,GNAT 14,GNATLS 14.2.0,0,0,"PASS Different_Ways_Parentheses",0d643f0f
+misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,GNAT 12,GNATLS 12.2.0,0,0,"PASS Different_Ways_Parentheses",0d643f0f
