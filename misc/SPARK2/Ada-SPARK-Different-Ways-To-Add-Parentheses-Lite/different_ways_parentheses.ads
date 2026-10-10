@@ -65,7 +65,11 @@ package Different_Ways_Parentheses with SPARK_Mode => On is
    type Operator is (Plus, Minus, Times);
    type Operand_List is array (Positive range <>) of Operand;
    type Operator_List is array (Positive range <>) of Operator;
-   type Value_List is array (Positive range <>) of Long_Long_Integer;
+   --  Every result value lies in -99 ** Max_Expression .. 99 ** Max_Expression
+   --  (= -Bound (Max_Expression) .. Bound (Max_Expression), checked by the
+   --  tests); the element subtype carries that bound.
+   subtype Result_Value is Long_Long_Integer range -913_517_247_483_640_899 .. 913_517_247_483_640_899;
+   type Value_List is array (Positive range <>) of Result_Value;
 
    --  99 ** L.
    function Bound (L : Expression_Length) return Long_Long_Integer;
