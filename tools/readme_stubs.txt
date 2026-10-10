@@ -35,7 +35,6 @@ sorting/SPARK2/Ada-SPARK-Exchange-Sort	Ada-SPARK-Exchange-Sort  A small bounded 
 sorting/SPARK2/Ada-SPARK-Flash-Sort	Ada-SPARK-Flash-Sort  A small bounded Ada/SPARK sorting stub
 sorting/SPARK2/Ada-SPARK-Patience-Sort	Ada-SPARK-Patience-Sort  A small bounded Ada/SPARK sorting stub
 sorting/SPARK2/Ada-SPARK-Smooth-Sort	Ada-SPARK-Smooth-Sort  A small bounded Ada/SPARK sorting stub
-sorting/SPARK2/Ada-SPARK-Tim-Sort	Ada-SPARK-Tim-Sort  A small bounded Ada/SPARK sorting stub
 strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings	Ada-SPARK-Count-The-Number-Of-Consistent-Strings  A bounded SPARK stub for counting symbols within an allowed range
 trees/SPARK2/Ada-SPARK-Red-Black-Tree	Ada/SPARK Red-Black Tree  A deliberately tiny bounded teaching stub: the color enum and a checked rotation index are the first verified building blocks for a re
 # Hidden stubs confirmed by hand (tools/vv/hidden_stub.csv): the code lacks the core step of the named algorithm.

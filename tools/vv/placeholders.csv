@@ -137,7 +137,7 @@ sorting/SPARK2/Ada-SPARK-Patience-Sort,H106,fixed 8-element bubble sort under a 
 sorting/SPARK2/Ada-SPARK-Quick-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a quick-sort name,open
 sorting/SPARK2/Ada-SPARK-Shaker-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a shaker-sort name,open
 sorting/SPARK2/Ada-SPARK-Smooth-Sort,H107,fixed 8-element bubble sort under a smoothsort name; the Post only bounds the elements,open
-sorting/SPARK2/Ada-SPARK-Tim-Sort,H108,fixed 8-element bubble sort under a Timsort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Tim-Sort,H108,fixed 8-element bubble sort under a Timsort name; the Post only bounds the elements,closed (agent-CF: small-n Timsort)
 sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,H109,"insertion sort under a Timsort name (no runs, no merging); the Post states sortedness only",open
 sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite,H127,only judges a given order (leniently); no topological order is computed,closed (agent-CF: real Topological Sort)
 sorting/SPARK2/Ada-SPARK-Tournament-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a tournament-sort name,open
