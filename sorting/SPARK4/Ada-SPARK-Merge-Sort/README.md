@@ -11,7 +11,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Merge-Sort](https:/
 
 ## Features
 * **`Sort (A)`**: Classic stable ascending bottom-up merge sort via a fixed temp buffer.
-* **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
+* **`Is_Sorted` / `In_Bounds` / `Occ` / `Is_Perm`**: Expression-function guards and value counts; `Is_Sorted (A) and then Is_Perm (A, A'Old)` is the proved postcondition.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, stable merge invariants, and `Sorted_Runs` / ghost lemmas that doubling Width preserves run sortedness until $\mathrm{Width} \ge n$.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
 * **Stability**: Prefer left when $L \le R$ so equal keys keep relative order (checked by tagged tests).
@@ -21,7 +21,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Merge-Sort](https:/
 * No exceptions: length / shape are `Pre => In_Bounds (A)`.
 * Any `A'First` in `1 .. Max_N` (index subtype `Live_Index`, at most `Max_N` elements); indices are First-relative. Tests sort shifted copies at origins 2, 7, `Max_N / 2 + 1` and slices flush to `Max_N`.
 * **Iterative bottom-up** instead of top-down recursion (sibling): fixed `Temp (1 .. Max_N)`, `Merge_Pass` / recursive `Merge_From` over Width-aligned pairs (runs aligned at `A'First`; `Temp` covers every possible `A'Range`), and ghost `Sorted_Runs` lemmas so Level 4 discharges sortedness without deep recursive split contracts.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)`; before 2026-10-10 the Post said only `Is_Sorted`, which a constant-fill body also proves: tools/vv/contract_scan.csv). `Merge` carries, for every value, count of `Temp (Lo .. K - 1)` = count of `A (Lo .. I - 1)` + count of `A (Mid + 1 .. J - 1)` through its three loops, and the copy-back keeps the counts of the whole array (`Lemma_Occ_Eq` / `Lemma_Occ_Split`); `Merge_From`, `Merge_Pass` and `Sort` chain that `Same_Occ`. It ranges over every `Integer` value, so the body's contracts, invariants and assertions are proved and not checked at run time (`Assertion_Policy` in the body, `tools/vv/proof_escapes.csv` runtime_only); the spec Post of `Sort` still runs in the tests.
 
 ## Usage
 * **Build:** `make`
@@ -29,7 +29,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Merge-Sort](https:/
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 230 assertions pass. Running `make prove` reports `Success: all checks proved (463 checks).`
+When you run `make test`, you will see all 235 assertions pass. Running `make prove` reports `Success: all checks proved (633 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia-style example, signed domain, power-of-two and odd lengths.
@@ -50,5 +50,5 @@ When you run `make test`, you will see all 230 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Stable `Merge` uses `pragma Loop_Invariant` / `Loop_Variant`; bottom-up `Merge_From` / `Merge_Pass` plus ghost `Sorted_Runs` / `Lemma_Short_Tail` discharge Width doubling at Level 4.
-* **GNATprove Level 4:** `Success: all checks proved (463 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (633 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.

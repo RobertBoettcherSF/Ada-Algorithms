@@ -10,6 +10,96 @@ is
    --  Cursor one past the live range (drain / end-of-run sentinels).
    subtype Cursor is Natural range 0 .. Max_N + 1;
 
+   --  Same_Occ quantifies over every Integer value, so the contracts,
+   --  invariants and assertions of this body (all proved by gnatprove) are
+   --  not checked at run time; the Post of Sort in the spec (sorted,
+   --  Is_Perm) still is.
+   pragma Assertion_Policy
+     (Pre => Ignore, Post => Ignore, Loop_Invariant => Ignore, Assert => Ignore);
+
+   --  A and B have the same bounds and every value occurs equally often.
+   function Same_Occ (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all V in Integer =>
+                  Occ (A, V, A'First, A'Last) = Occ (B, V, B'First, B'Last)))
+   with
+     Ghost,
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+
+   package Perm_Lemmas
+     with Ghost
+   is
+      --  Counts over First .. Last only see First .. Last.
+      procedure Lemma_Occ_Eq (A, B : Element_Array; First : Positive; Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          (if First <= Last then
+             First >= A'First and then Last <= A'Last
+             and then First >= B'First and then Last <= B'Last
+             and then (for all T in First .. Last => A (T) = B (T))),
+        Post               =>
+          (for all V in Integer =>
+             Occ (A, V, First, Last) = Occ (B, V, First, Last)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  Counts over First .. Last split at Mid.
+      procedure Lemma_Occ_Split
+        (A : Element_Array; First : Positive; Mid, Last : Natural)
+      with
+        Global             => null,
+        Pre                =>
+          In_Bounds (A)
+          and then First >= A'First and then Last <= A'Last
+          and then Mid <= Last and then First <= Mid + 1,
+        Post               =>
+          (for all V in Integer =>
+             Occ (A, V, First, Last)
+             = Occ (A, V, First, Mid) + Occ (A, V, Mid + 1, Last)),
+        Subprogram_Variant => (Decreases => Last);
+
+      --  The executable Is_Perm and the logical Same_Occ agree.
+      procedure Lemma_Same_Perm (A, B : Element_Array)
+      with
+        Global => null,
+        Pre    => In_Bounds (A) and then In_Bounds (B) and then Same_Occ (A, B),
+        Post   => Is_Perm (A, B);
+
+      procedure Lemma_Same_Trans (A, B, C : Element_Array)
+      with
+        Global => null,
+        Pre    =>
+          In_Bounds (A) and then In_Bounds (B) and then In_Bounds (C)
+          and then Same_Occ (A, B) and then Same_Occ (B, C),
+        Post   => Same_Occ (A, C);
+   end Perm_Lemmas;
+
+   package body Perm_Lemmas is
+
+      procedure Lemma_Occ_Eq (A, B : Element_Array; First : Positive; Last : Natural) is
+      begin
+         if First <= Last then
+            Lemma_Occ_Eq (A, B, First, Last - 1);
+         end if;
+      end Lemma_Occ_Eq;
+
+      procedure Lemma_Occ_Split
+        (A : Element_Array; First : Positive; Mid, Last : Natural) is
+      begin
+         if Mid < Last then
+            Lemma_Occ_Split (A, First, Mid, Last - 1);
+         end if;
+      end Lemma_Occ_Split;
+
+      procedure Lemma_Same_Perm (A, B : Element_Array) is null;
+
+      procedure Lemma_Same_Trans (A, B, C : Element_Array) is null;
+
+   end Perm_Lemmas;
+   use Perm_Lemmas;
+
    --  Adjacent nondecreasing on A (L .. R). Vacuous when L >= R.
    function Sorted_Slice
      (A : Element_Array; L, R : Natural) return Boolean
@@ -142,10 +232,13 @@ is
            (for all K in A'First .. Lo - 1 => A (K) = A'Old (K))
          and then
            (for all K in Hi + 1 .. A'Last => A (K) = A'Old (K))
+         and then Same_Occ (A'Old, A)
    is
-      I : Cursor := Lo;
-      J : Cursor := Mid + 1;
-      K : Cursor := Lo;
+      I    : Cursor := Lo;
+      J    : Cursor := Mid + 1;
+      K    : Cursor := Lo;
+      A0   : constant Element_Array := A with Ghost;
+      Prev : Element_Array (Temp'Range) with Ghost;
    begin
       while I <= Mid and then J <= Hi loop
          pragma Loop_Invariant (I in Lo .. Mid);
@@ -169,8 +262,13 @@ is
            (if K > Lo then Temp (K - 1) <= A (J));
          pragma Loop_Invariant (Sorted_Slice (A, I, Mid));
          pragma Loop_Invariant (Sorted_Slice (A, J, Hi));
+         pragma Loop_Invariant
+           (for all V in Integer =>
+              Occ (Temp, V, Lo, K - 1)
+              = Occ (A, V, Lo, I - 1) + Occ (A, V, Mid + 1, J - 1));
          pragma Loop_Variant (Decreases => (Mid - I + 1) + (Hi - J + 1));
 
+         Prev := Temp;
          if A (I) <= A (J) then
             Temp (K) := A (I);
             pragma Assert (if K > Lo then Temp (K - 1) <= Temp (K));
@@ -180,6 +278,7 @@ is
             pragma Assert (if K > Lo then Temp (K - 1) <= Temp (K));
             J := J + 1;
          end if;
+         Lemma_Occ_Eq (Prev, Temp, Lo, K - 1);
          K := K + 1;
       end loop;
 
@@ -201,10 +300,16 @@ is
          pragma Loop_Invariant (Sorted_Slice (Temp, Lo, K - 1));
          pragma Loop_Invariant (Temp (K - 1) <= A (I));
          pragma Loop_Invariant (Sorted_Slice (A, I, Mid));
+         pragma Loop_Invariant
+           (for all V in Integer =>
+              Occ (Temp, V, Lo, K - 1)
+              = Occ (A, V, Lo, I - 1) + Occ (A, V, Mid + 1, J - 1));
          pragma Loop_Variant (Decreases => Mid - I + 1);
 
+         Prev := Temp;
          Temp (K) := A (I);
          pragma Assert (Temp (K - 1) <= Temp (K));
+         Lemma_Occ_Eq (Prev, Temp, Lo, K - 1);
          I := I + 1;
          K := K + 1;
       end loop;
@@ -227,16 +332,30 @@ is
          pragma Loop_Invariant (Sorted_Slice (Temp, Lo, K - 1));
          pragma Loop_Invariant (Temp (K - 1) <= A (J));
          pragma Loop_Invariant (Sorted_Slice (A, J, Hi));
+         pragma Loop_Invariant
+           (for all V in Integer =>
+              Occ (Temp, V, Lo, K - 1)
+              = Occ (A, V, Lo, I - 1) + Occ (A, V, Mid + 1, J - 1));
          pragma Loop_Variant (Decreases => Hi - J + 1);
 
+         Prev := Temp;
          Temp (K) := A (J);
          pragma Assert (Temp (K - 1) <= Temp (K));
+         Lemma_Occ_Eq (Prev, Temp, Lo, K - 1);
          J := J + 1;
          K := K + 1;
       end loop;
 
       pragma Assert (K = Hi + 1);
       pragma Assert (Sorted_Slice (Temp, Lo, Hi));
+      Lemma_Occ_Split (A, Lo, Mid, Hi);
+      pragma Assert
+        (for all V in Integer =>
+           Occ (Temp, V, Lo, Hi) = Occ (A, V, Lo, Hi));
+      Lemma_Occ_Eq (A, A0, Lo, Hi);
+      pragma Assert
+        (for all V in Integer =>
+           Occ (Temp, V, Lo, Hi) = Occ (A0, V, Lo, Hi));
 
       for X in Lo .. Hi loop
          pragma Loop_Invariant
@@ -254,6 +373,16 @@ is
 
       pragma Assert (for all T in Lo .. Hi => A (T) = Temp (T));
       pragma Assert (Sorted_Slice (A, Lo, Hi));
+
+      --  Counts: outer parts unchanged, Lo .. Hi now holds Temp.
+      Lemma_Occ_Eq (A, Temp, Lo, Hi);
+      Lemma_Occ_Eq (A, A0, A'First, Lo - 1);
+      Lemma_Occ_Eq (A, A0, Hi + 1, A'Last);
+      Lemma_Occ_Split (A, A'First, Hi, A'Last);
+      Lemma_Occ_Split (A, A'First, Lo - 1, Hi);
+      Lemma_Occ_Split (A0, A'First, Hi, A'Last);
+      Lemma_Occ_Split (A0, A'First, Lo - 1, Hi);
+      pragma Assert (Same_Occ (A0, A));
    end Merge;
 
 
@@ -336,9 +465,12 @@ is
        Post               =>
          In_Bounds (A)
          and then Sorted_Runs (A, 2 * Width)
+         and then Same_Occ (A'Old, A)
    is
       N     : constant Index := A'Last;
       Twice : constant Positive := 2 * Width;
+      A0    : constant Element_Array := A with Ghost;
+      A1    : Element_Array (A'Range) with Ghost;
    begin
       if Lo > N - Width then
          if Lo <= N then
@@ -369,6 +501,7 @@ is
          pragma Assert (Sorted_Slice (A, Mid + 1, Hi));
 
          Merge (A, Temp, Lo, Mid, Hi);
+         A1 := A;
 
          pragma Assert (Sorted_Slice (A, Lo, Hi));
          --  Merge preserves prefix left of Lo and suffix right of Hi.
@@ -379,6 +512,7 @@ is
          if Hi < N then
             pragma Assert (Sorted_Runs_Suffix (A, Width, Hi + 1));
             Merge_From (A, Temp, Width, Hi + 1);
+            Lemma_Same_Trans (A0, A1, A);
          else
             pragma Assert (Sorted_Runs_Prefix (A, Twice, N));
             pragma Assert (Sorted_Runs (A, Twice));
@@ -405,6 +539,7 @@ is
            (if Width <= Max_N / 2
             then Sorted_Runs (A, 2 * Width)
             else Is_Sorted (A))
+         and then Same_Occ (A'Old, A)
    is
       N   : constant Index := A'Last;
       Mid : Index;
@@ -434,8 +569,11 @@ is
       Temp  : Element_Array (1 .. Max_N) := [others => 0];
       Width : Positive;
       N     : Index;   --  length (runs are counted from A'First)
+      A0    : constant Element_Array := A with Ghost;
+      Prev  : Element_Array (A'Range) with Ghost;
    begin
       if A'Length <= 1 then
+         Lemma_Same_Perm (A, A0);
          return;
       end if;
 
@@ -448,12 +586,16 @@ is
          pragma Loop_Invariant (Width <= N - 1);
          pragma Loop_Invariant (In_Bounds (A));
          pragma Loop_Invariant (Sorted_Runs (A, Width));
+         pragma Loop_Invariant (Same_Occ (A0, A));
          pragma Loop_Variant (Increases => Width);
 
+         Prev := A;
          Merge_Pass (A, Temp, Width);
+         Lemma_Same_Trans (A0, Prev, A);
 
          if Width > Max_N / 2 then
             pragma Assert (Is_Sorted (A));
+            Lemma_Same_Perm (A, A0);
             return;
          end if;
 
@@ -462,6 +604,7 @@ is
       end loop;
 
       pragma Assert (Is_Sorted (A));
+      Lemma_Same_Perm (A, A0);
    end Sort;
 
 end Merge_Sort;
