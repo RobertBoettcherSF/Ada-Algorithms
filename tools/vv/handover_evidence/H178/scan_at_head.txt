@@ -1,0 +1,4 @@
+FAIL driver prints FAIL, no exit-status signal: misc/Ada/tests/test_disk_scheduling.adb
+FAIL driver prints FAIL, no exit-status signal: misc/Ada/tests/test_list_scheduling.adb
+FAIL driver prints FAIL, no exit-status signal: misc/Ada/tests/test_runner.adb
+FAIL fail-exit scan: 3 driver(s), 0 Makefile line(s)
