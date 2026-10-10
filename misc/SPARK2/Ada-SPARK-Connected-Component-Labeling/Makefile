@@ -10,6 +10,6 @@ test: all
 	@bin/tests
 prove:
 	mkdir -p obj
-	$(SPARK) -P$(PROJECT) --mode=all --level=2 --prover=cvc5 --timeout=10 --steps=0 --checks-as-errors=on --warnings=error --report=all
+	$(SPARK) -P$(PROJECT) --mode=all --level=2 --prover=cvc5,z3 --timeout=10 --steps=0 --checks-as-errors=on --warnings=error --report=all
 clean:
 	rm -rf obj bin gnatprove
