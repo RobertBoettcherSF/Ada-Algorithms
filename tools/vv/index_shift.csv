@@ -3588,7 +3588,7 @@ misc/SPARK2/Ada-SPARK-Ugly-Number-II,Has,catalog,catalog,,1,function n_arrays=1 
 misc/SPARK2/Ada-SPARK-Ugly-Number-II,Closed,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK2/Ada-SPARK-Ugly-Number-II,Ugly_Prefix,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
 misc/SPARK2/Ada-SPARK-Ugly-Number-II,Lemma_Complete,catalog,catalog,,1,procedure n_arrays=1 ret=None,
-misc/SPARK2/Ada-SPARK-Ugly-Number-II,,first_pinned,fail,,,"In_Bounds/Pre requires A'First = 1 — subtype/constrained type, or Pre + one-line reason (fix_kind=fixed_origin_type)",
+misc/SPARK2/Ada-SPARK-Ugly-Number-II,,fixed_origin_type,ok,fixed_origin_type,,ghost Ugly_Prefix pins L'First = 1 (accepted fixed origin: result index = rank),index is the rank of the ugly number (agent-CF KEEP)
 misc/SPARK2/Ada-SPARK-Subsets-II,Total,catalog,catalog,,1,function n_arrays=1 ret=Natural,
 misc/SPARK2/Ada-SPARK-Subsets-II,Product,catalog,catalog,,1,function n_arrays=1 ret=Big_Integer,
 misc/SPARK2/Ada-SPARK-Subsets-II,Colex_Less,catalog,catalog,,1,function n_arrays=1 ret=Boolean,

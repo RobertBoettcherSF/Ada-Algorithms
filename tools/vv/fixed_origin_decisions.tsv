@@ -92,3 +92,4 @@ trees/SPARK2/Ada-SPARK-Longest-Common-Substring	rewrite	indexes only walk or lin
 misc/SPARK2/Ada-SPARK-Delete-And-Earn	rewrite	indexes only walk (Points summed over Nums'Range; H140 2026-10-10)
 misc/SPARK2/Ada-SPARK-Subsets	rewrite	indexes only walk (rank / subset over positions; H140 2026-10-10)
 misc/SPARK2/Ada-SPARK-Subsets-II	rewrite	indexes only walk (Subset reads Values from Values'First; Total / Group / Product / Colex_Less count positions from A'First; H140 2026-10-10)
+misc/SPARK2/Ada-SPARK-Ugly-Number-II	keep	index is the rank: First_Ugly (N) (K) is the K-th ugly number; no executable subprogram takes an array (the pin is the ghost Ugly_Prefix / Lemma_Complete); agent-CF 2026-10-10, room may overrule
