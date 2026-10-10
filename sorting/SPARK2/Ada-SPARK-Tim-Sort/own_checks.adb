@@ -79,8 +79,117 @@ procedure Own_Checks is
       end if;
    end Check_One;
 
+   --  Own model of Timsort on 8 values (CPython Objects/listsort.txt: for
+   --  n < 64 the min-run is n, so the whole sort is count_run, reversing a
+   --  strictly descending start, then binarysort of the rest; no merge
+   --  happens at this size). Records the comparisons: (R, R + 1) while
+   --  counting the run, (Mid, I) for each probe of the binary search for
+   --  the place of A (I) (bisect right: after equal keys, so stable).
+   type Model is record
+      Trace    : Network (1 .. Max_Trace) := [others => (1, 1)];
+      Length   : Natural := 0;
+      Run      : Natural := 0;
+      Reversed : Boolean := False;
+      Result   : Input_Array;
+   end record;
+
+   function Run_Model (A : Input_Array) return Model is
+      M : Model;
+      R : Index := 2;
+      Lo, Hi, Mid : Positive;
+      P : Value;
+      T : Value;
+   begin
+      M.Result := A;
+      M.Length := 1;
+      M.Trace (1) := (1, 2);
+      if A (2) < A (1) then
+         M.Reversed := True;
+         while R < 8 loop
+            M.Length := M.Length + 1;
+            M.Trace (M.Length) := (R, R + 1);
+            exit when not (A (R + 1) < A (R));
+            R := R + 1;
+         end loop;
+         for I in 1 .. R / 2 loop
+            T := M.Result (I);
+            M.Result (I) := M.Result (R + 1 - I);
+            M.Result (R + 1 - I) := T;
+         end loop;
+      else
+         while R < 8 loop
+            M.Length := M.Length + 1;
+            M.Trace (M.Length) := (R, R + 1);
+            exit when A (R + 1) < A (R);
+            R := R + 1;
+         end loop;
+      end if;
+      M.Run := R;
+      for I in R + 1 .. 8 loop
+         P := M.Result (I);
+         Lo := 1;
+         Hi := I;
+         while Lo < Hi loop
+            Mid := (Lo + Hi) / 2;
+            M.Length := M.Length + 1;
+            M.Trace (M.Length) := (Mid, I);
+            if P < M.Result (Mid) then
+               Hi := Mid;
+            else
+               Lo := Mid + 1;
+            end if;
+         end loop;
+         for J in reverse Lo .. I - 1 loop
+            M.Result (J + 1) := M.Result (J);
+         end loop;
+         M.Result (Lo) := P;
+      end loop;
+      return M;
+   end Run_Model;
+
+   procedure Check_Trace (A : Input_Array; Label : String) is
+      R        : Input_Array;
+      Trace    : Network (1 .. Max_Trace);
+      Length   : Natural;
+      Run      : Natural;
+      Reversed : Boolean;
+      M        : constant Model := Run_Model (A);
+   begin
+      Cases := Cases + 1;
+      Sort_Traced (A, R, Trace, Length, Run, Reversed);
+      if Length /= M.Length or else Run /= M.Run or else Reversed /= M.Reversed
+        or else Trace (1 .. Length) /= M.Trace (1 .. M.Length)
+        or else R /= M.Result or else R /= Sort (A)
+      then
+         Failures := Failures + 1;
+         if Failures <= 5 then
+            Put_Line ("  FAIL own check (" & Label & "): comparisons / run differ from Timsort");
+         end if;
+      end if;
+   end Check_Trace;
+
    A : Input_Array;
 begin
+   --  0. The comparisons Sort runs, the first run and whether it was
+   --     reversed equal the Timsort model (H108): a correct sort under
+   --     another name (the old bubble sort) fails here. Not oblivious, so
+   --     checked per input: every 0/1 input and 3,000 random inputs.
+   Check_Trace ([1 => 23, 2 => 4, 3 => 17, 4 => 9, 5 => 1, 6 => 31, 7 => 12, 8 => 6], "trace");
+   Check_Trace ([for I in Index => Value'Last - I], "trace descending (one reversed run)");
+   Check_Trace ([for I in Index => I], "trace ascending (one run)");
+   Check_Trace ([5, 5, 4, 3, 2, 1, 0, 0], "trace non-strict descending start");
+   for Mask in 0 .. 2 ** Index'Last - 1 loop
+      for I in Index loop
+         A (I) := (if (Mask / 2 ** (I - 1)) mod 2 = 1 then 1 else 0);
+      end loop;
+      Check_Trace (A, "trace 0/1 mask" & Mask'Image);
+   end loop;
+   for K in 1 .. 3_000 loop
+      for I in Index loop
+         A (I) := Next (Value'First, Value'Last);
+      end loop;
+      Check_Trace (A, "trace random" & K'Image);
+   end loop;
    --  1. Every 0/1 input (2**8): for comparator networks this alone proves
    --     the network sorts all inputs (0-1 principle, Knuth TAOCP 5.3.4).
    for Mask in 0 .. 2 ** Index'Last - 1 loop

@@ -14,3 +14,7 @@ third-party test suites.
   (constant, ascending, descending, alternating extremes), 2,000 random
   arrays over the full Value range and 1,000 with many duplicates from the
   Park-Miller minimal standard generator (seed 20261008).
+* Timsort model (comparison trace, first run, reversal): own implementation
+  of CPython's listsort for n < 64 as described in Objects/listsort.txt
+  (min-run = n: count_run, reverse a strictly descending start, binarysort
+  with bisect right; no merges at this size).
