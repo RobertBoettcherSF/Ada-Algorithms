@@ -32,7 +32,6 @@ misc/SPARK2/Ada-SPARK-Uncommon-Words-From-Two-Sentences	Ada-SPARK-Uncommon-Words
 misc/SPARK2/Ada-SPARK-Unique-Morse-Code-Words	Ada-SPARK-Unique-Morse-Code-Words  A bounded SPARK stub for checking that encoded word values are unique
 searching/SPARK2/Ada-SPARK-Word-Search	Word Search (bounded SPARK stub)  An 8x8 bounded board search for the first word character
 sorting/SPARK2/Ada-SPARK-Exchange-Sort	Ada-SPARK-Exchange-Sort  A small bounded Ada/SPARK sorting stub
-sorting/SPARK2/Ada-SPARK-Flash-Sort	Ada-SPARK-Flash-Sort  A small bounded Ada/SPARK sorting stub
 sorting/SPARK2/Ada-SPARK-Patience-Sort	Ada-SPARK-Patience-Sort  A small bounded Ada/SPARK sorting stub
 sorting/SPARK2/Ada-SPARK-Smooth-Sort	Ada-SPARK-Smooth-Sort  A small bounded Ada/SPARK sorting stub
 strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings	Ada-SPARK-Count-The-Number-Of-Consistent-Strings  A bounded SPARK stub for counting symbols within an allowed range

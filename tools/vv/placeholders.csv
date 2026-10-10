@@ -127,7 +127,7 @@ sorting/SPARK2/Ada-SPARK-Block-Sort,tools/vv/hidden_stub.csv,adjacent compare-ex
 sorting/SPARK2/Ada-SPARK-Circle-Sort,H103,fixed 8-element bubble sort under a circle-sort name; the Post only bounds the elements,closed (agent-CF: real circle sort)
 sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST,H124,always fills the same 7 fixed slots; no general array-to-BST construction,closed (agent-CF: real Convert Sorted Array to BST)
 sorting/SPARK2/Ada-SPARK-Exchange-Sort,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Exchange-Sort implementation",open
-sorting/SPARK2/Ada-SPARK-Flash-Sort,H104,fixed 8-element bubble sort under a flash-sort name; the Post only bounds the elements,open
+sorting/SPARK2/Ada-SPARK-Flash-Sort,H104,fixed 8-element bubble sort under a flash-sort name; the Post only bounds the elements,closed (agent-CF: real flashsort)
 sorting/SPARK2/Ada-SPARK-Heap-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a heap-sort name,open
 sorting/SPARK2/Ada-SPARK-Intro-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a intro-sort name,open
 sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Merge-K-Sorted-Lists implementation",open
