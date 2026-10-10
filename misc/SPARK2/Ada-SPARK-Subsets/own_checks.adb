@@ -15,6 +15,7 @@ pragma Ada_2022;
 --  * Count against own repeated doubling, and the ghost Pow2 table
 --    regenerated.
 with Ada.Text_IO;
+with Ada.Assertions;
 with Ada.Environment_Variables;
 with Interfaces; use Interfaces;
 with Subsets; use Subsets;
@@ -206,6 +207,68 @@ begin
       Report (Long_Long_Integer (Count (N)) = Own_Power (N), "Count" & N'Image);
       pragma Assert (Long_Long_Integer (Pow2 (N)) = Own_Power (N));
    end loop;
+
+   --  Any origin (H140): stepping a selection of N in 0 .. 8 items placed
+   --  at 'First = 5, 200 and ending at Positive'Last must visit the same
+   --  sequence (position by position) as at 'First = 1, with the same
+   --  Found; Subset with Items and S at different origins (300 random
+   --  lists, seed 20261009) must equal the origin-1 result.
+   Seed := 20_261_009;
+   declare
+      function Pick (Lo, Hi : Integer) return Integer is (Lo + Next mod (Hi - Lo + 1));
+      type Origin_List is array (1 .. 3) of Positive;
+      function Shifted_Steps (N : Natural; O : Positive) return Boolean is
+         A  : Selection (1 .. N) := [others => False];
+         B  : Selection (O .. O - 1 + N) := [others => False];
+         FA, FB : Boolean;
+      begin
+         for Step in 1 .. 2 ** N loop
+            Next_Subset (A, FA);
+            Next_Subset (B, FB);
+            if FA /= FB or else A /= B then
+               return False;
+            end if;
+         end loop;
+         return True;
+      exception
+         when Constraint_Error | Ada.Assertions.Assertion_Error =>
+            return False;
+      end Shifted_Steps;
+      function Shifted_Subset (Items : Item_List; S : Selection; IO, SO : Positive) return Boolean is
+         I2 : constant Item_List (IO .. IO - 1 + Items'Length) := Items;
+         S2 : constant Selection (SO .. SO - 1 + S'Length) := S;
+      begin
+         return Subset (I2, S2) = Subset (Items, S);
+      exception
+         when Constraint_Error | Ada.Assertions.Assertion_Error =>
+            return False;
+      end Shifted_Subset;
+   begin
+      for N in 0 .. 8 loop
+         declare
+            Os : constant Origin_List := [5, 200, Positive'Last - Natural'Max (N, 1) + 1];
+         begin
+            for O of Os loop
+               Report (Shifted_Steps (N, O), "Next_Subset N =" & N'Image & " at 'First =" & O'Image);
+            end loop;
+         end;
+      end loop;
+      for T in 1 .. 300 loop
+         declare
+            Len   : constant Natural := Pick (0, 12);
+            Items : Item_List (1 .. Len);
+            S     : Selection (1 .. Len);
+         begin
+            for K in 1 .. Len loop
+               Items (K) := Pick (-50, 50);
+               S (K) := Pick (0, 1) = 1;
+            end loop;
+            Report (Shifted_Subset (Items, S, 7, 1) and then Shifted_Subset (Items, S, 1, 9)
+                    and then Shifted_Subset (Items, S, 200, Positive'Last - Natural'Max (Len, 1) + 1),
+                    "Subset at shifted origins" & T'Image);
+         end;
+      end loop;
+   end;
 
    Ada.Text_IO.Put_Line ("own checks:" & Checked'Image & " checks," & Failures'Image & " failures");
    if Failures > 0 then

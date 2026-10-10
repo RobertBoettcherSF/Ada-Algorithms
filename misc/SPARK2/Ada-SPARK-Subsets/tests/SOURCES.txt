@@ -27,3 +27,9 @@ default seed is the FNV-1a (32-bit) hash of the folder name folded into
   together with Subset (not S) is a rearrangement of the list;
 * Count against own repeated doubling for N in 0 .. 30; the ghost Pow2
   table regenerated.
+* Any origin (H140, First-relative): stepping a selection of N in 0 .. 8
+  items at 'First = 5, 200 and ending at Positive'Last must give the same
+  selections (position by position) and Found as at 'First = 1; Subset
+  with Items and S at different origins (7 / 1, 1 / 9, 200 / ending at
+  Positive'Last) on 300 random lists of length 0 .. 12 (Park-Miller, seed
+  20261009) must equal the origin-1 result.
