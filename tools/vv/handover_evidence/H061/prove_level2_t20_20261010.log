@@ -1,0 +1,14 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+strand_sort.adb:48:14: medium: postcondition might fail, cannot prove Occ ((A with delta K => X), V, Last) = Occ (A, V, Last) [provers reached time limit before completing the proof]
+strand_sort.adb:142:15: medium: loop invariant might not be preserved by an arbitrary iteration, cannot prove Occ (Input, V, Input_Len) + Occ (Output, V, Output_Len) = Occ (A_In, V, N) [provers reached time limit before completing the proof]
+strand_sort.adb:167:18: medium: loop invariant might not be preserved by an arbitrary iteration, cannot prove Occ (Strand, V, Strand_Len) + Occ (Remaining, V, Remaining_Len) = Occ (Input, V, X - 1) [provers reached time limit before completing the proof]
+strand_sort.adb:184:15: medium: assertion might fail, cannot prove Occ (Strand, V, Strand_Len) + Occ (Remaining, V, Remaining_Len) + Occ (Output, V, Output_Len) = Occ (A_In, V, N) [provers reached time limit before completing the proof]
+strand_sort.adb:243:18: medium: loop invariant might not be preserved by an arbitrary iteration, cannot prove Occ (Remaining, V, K - 1) = Occ (Output, V, I - 1) + Occ (Strand, V, J - 1) [provers reached time limit before completing the proof]
+strand_sort.adb:280:18: medium: loop invariant might not be preserved by an arbitrary iteration, cannot prove Occ (Remaining, V, K - 1) = Occ (Output, V, I - 1) + Occ (Strand, V, J - 1) [provers reached time limit before completing the proof]
+strand_sort.adb:280:18: medium: loop invariant might fail in first iteration, cannot prove Occ (Remaining, V, K - 1) = Occ (Output, V, I - 1) + Occ (Strand, V, J - 1) [provers reached time limit before completing the proof]
+strand_sort.adb:310:18: medium: loop invariant might not be preserved by an arbitrary iteration, cannot prove Occ (Remaining, V, K - 1) = Occ (Output, V, I - 1) + Occ (Strand, V, J - 1) [provers reached time limit before completing the proof]
+strand_sort.adb:310:18: medium: loop invariant might fail in first iteration, cannot prove Occ (Remaining, V, K - 1) = Occ (Output, V, I - 1) + Occ (Strand, V, J - 1) [provers reached time limit before completing the proof]
+strand_sort.adb:352:07: medium: precondition might fail, cannot prove Occ (A, V, A'Last) = Occ (B, V, B'Last) [provers reached time limit before completing the proof]
+rc=0
