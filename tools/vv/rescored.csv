@@ -1,0 +1,5 @@
+"folder","after_fix_commit","commit_scored","seed","killed_total","date","record"
+"misc/SPARK2/Ada-SPARK-Delete-And-Earn","f9317972","8a49f412","719346332","45/49","2026-10-10","score138_halves.csv heldout, split seed 719346332 (tests-only, no proof pass)"
+"misc/SPARK2/Ada-SPARK-Permutations-II","5d3b9a5b","8a49f412","200548659","48/48","2026-10-10","score138_halves.csv heldout, split seed 200548659 (tests-only, no proof pass)"
+"misc/SPARK2/Ada-SPARK-Ugly-Number-II","74094e83","8a49f412","933039058","45/49","2026-10-10","score138_halves.csv heldout, split seed 933039058 (tests-only, no proof pass)"
+"misc/SPARK2/Ada-SPARK-Ugly-Number-II","6c8e7776","8a49f412","933039058","45/49","2026-10-10","score138_halves.csv heldout, split seed 933039058 (tests-only, no proof pass)"
