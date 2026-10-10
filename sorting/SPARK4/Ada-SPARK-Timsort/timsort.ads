@@ -9,9 +9,9 @@
 --  arbitrary A'First, and raises on oversized n; this port requires
 --  A'First = 1, uses fixed Minrun = 8 windows, a static Temp (1 .. Max_N),
 --  and iterative bottom-up merging so Level 4 can discharge the VCs
---  without Timsort stack-invariant contracts. Full multiset /
---  permutation equality is verified by tests rather than claimed as a
---  Level-4 postcondition (sortedness is proved).
+--  without Timsort stack-invariant contracts. The Post of Sort proves
+--  sortedness and that the result is a permutation of the input (counts
+--  of every value, Is_Perm).
 --
 --  Reference: https://en.wikipedia.org/wiki/Timsort
 
@@ -83,14 +83,53 @@ is
    -- Sorting
    ---------------------------------------------------------------------------
 
+   ---------------------------------------------------------------------------
+   -- Permutation (multiset) model, used by the Post of Sort
+   ---------------------------------------------------------------------------
+
+   function Occ
+     (A : Element_Array; V : Integer; First : Positive; Last : Natural)
+      return Natural
+   with
+     Global             => null,
+     Pre                =>
+       (if First <= Last then First >= A'First and then Last <= A'Last),
+     Post               =>
+       Occ'Result <= (if First <= Last then Last - First + 1 else 0),
+     Subprogram_Variant => (Decreases => Last);
+   --  How many of A (First .. Last) equal V (0 for an empty range).
+
+   function Occ
+     (A : Element_Array; V : Integer; First : Positive; Last : Natural)
+      return Natural
+   is
+     (if Last < First then 0
+      else Occ (A, V, First, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range =>
+                  Occ (A, A (I), A'First, A'Last)
+                  = Occ (B, A (I), B'First, B'Last))
+      and then (for all I in B'Range =>
+                  Occ (A, B (I), A'First, A'Last)
+                  = Occ (B, B (I), B'First, B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often. A value found in neither array counts 0 in both, so comparing
+   --  the counts of the values of A and of B covers every value.
+
    procedure Sort (A : in out Element_Array)
      with
        Global => null,
        Pre    => In_Bounds (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Ascending educational Timsort hybrid (stable).
    --  Empty and singleton arrays are no-ops.
-   --  Post proves sortedness; multiset / permutation equality is
-   --  checked by the test suite (not claimed here at Level 4).
+   --  Post proves sortedness and that A holds the values of A'Old, each
+   --  equally often (Is_Perm).
 
 end Timsort;

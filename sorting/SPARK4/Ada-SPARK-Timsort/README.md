@@ -11,7 +11,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Timsort](https://gi
 
 ## Features
 * **`Sort (A)`**: Educational Timsort hybrid — natural runs + insertion extend + bottom-up stable merge via a fixed temp buffer.
-* **`Is_Sorted` / `In_Bounds`**: Expression-function guards; `Is_Sorted` is the proved postcondition.
+* **`Is_Sorted` / `In_Bounds` / `Occ` / `Is_Perm`**: Expression-function guards and value counts; `Is_Sorted (A) and then Is_Perm (A, A'Old)` is the proved postcondition.
 * **`Minrun`**: Classroom minimum run length ($8$) so initial runs stay Width-aligned for Level 4 merge proofs.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index errors, stable merge invariants, and `Sorted_Runs` / ghost lemmas that doubling Width preserves run sortedness until $\mathrm{Width} \ge n$.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays are `Pre` violations rather than `Invalid_Argument`.
@@ -25,7 +25,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Timsort](https://gi
 * **Bottom-up merge** instead of the Timsort run-stack $X/Y/Z$ invariants (sibling): fixed `Temp (1 .. Max_N)`, `Merge_Pass` / recursive `Merge_From`, and ghost `Sorted_Runs` lemmas so Level 4 discharges sortedness without stack-invariant contracts.
 * No galloping mode (also skipped in the non-SPARK educational sibling).
 * After reversing a strictly descending natural run, the reversed slice is re-established sorted via insertion (avoids a delicate reverse-sortedness lemma at Level 4).
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)`; before 2026-10-10 the Post said only `Is_Sorted`, which a constant-fill body also proves: tools/vv/contract_scan.csv). Run preparation moves elements only by exchanges (`Swap` proves `Same_Occ`, the count of every value, with `Lemma_Swap`; `Insert_At` moves the key down by exchanges with the larger neighbour, the same comparisons as the earlier shifting version; `Reverse_Range` swaps), and `Merge` carries count of `Temp (Lo .. K - 1)` = count of `A (Lo .. I - 1)` + count of `A (Mid + 1 .. J - 1)` through its loops (`Lemma_Occ_Eq` / `Lemma_Occ_Split` for the copy-back); every caller chains `Same_Occ`. It ranges over every `Integer` value, so the body's contracts, invariants and assertions are proved and not checked at run time (`Assertion_Policy` in the body, `tools/vv/proof_escapes.csv` runtime_only); the spec Post of `Sort` still runs in the tests.
 
 ## Usage
 * **Build:** `make`
@@ -33,7 +33,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Timsort](https://gi
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 239 assertions pass. Running `make prove` reports `Success: all checks proved (636 checks).`
+When you run `make test`, you will see all 244 assertions pass. Running `make prove` reports `Success: all checks proved (899 checks).`
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia-style example, signed domain, $\mathrm{Minrun}$ boundaries, natural-run patterns (desc-then-asc, few runs, nearly sorted).
@@ -54,5 +54,5 @@ When you run `make test`, you will see all 239 assertions pass. Running `make pr
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * `Prepare_Block` / `Insertion_Extend` establish $\mathrm{Minrun}$-aligned `Sorted_Slice`s; stable `Merge` uses `pragma Loop_Invariant` / `Loop_Variant`; bottom-up `Merge_From` / `Merge_Pass` plus ghost `Sorted_Runs` / `Lemma_Short_Tail` discharge Width doubling at Level 4.
-* **GNATprove Level 4:** `Success: all checks proved (636 checks).`
+* **GNATprove Level 4:** `Success: all checks proved (899 checks).`
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
