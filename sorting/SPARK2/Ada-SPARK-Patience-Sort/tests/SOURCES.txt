@@ -14,3 +14,13 @@ third-party test suites.
   (constant, ascending, descending, alternating extremes), 2,000 random
   arrays over the full Value range and 1,000 with many duplicates from the
   Park-Miller minimal standard generator (seed 20261008).
+* Own model of patience sort (H106): Run_Model in own_checks.adb, written
+  from the published description (D. Aldous and P. Diaconis, "Longest
+  increasing subsequences: from patience sorting to the Baik-Deift-Johansson
+  theorem", Bull. AMS 36 (1999), section 1): each key in input order goes
+  onto the leftmost pile whose top is >= the key, or onto a new pile on the
+  right; the output repeatedly takes the smallest pile top (leftmost on
+  ties). Real piles (stacks). Sort_Traced's pile of every key, pile of every
+  removal, pile count and result must equal the model on every input
+  checked above, plus 3,000 random arrays (seed 20261009), all 3**8 arrays
+  over 0 .. 2 and all 8! permutations of 1 .. 8.

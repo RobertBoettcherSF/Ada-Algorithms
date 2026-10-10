@@ -49,6 +49,85 @@ procedure Own_Checks is
       return B;
    end Reference;
 
+   --  Own model of patience sort (deal / pick the smallest pile top;
+   --  Aldous and Diaconis, Bull. AMS 36 (1999), section 1): each key in input order goes onto the leftmost
+   --  pile whose top is >= the key, or onto a new pile on the right; then
+   --  the output is built by repeatedly removing the smallest pile top
+   --  (the leftmost pile on ties). Real piles (stacks of values), written
+   --  from that description, not from the body. Records the pile of every
+   --  key, the pile of every removal and the number of piles.
+   type Model is record
+      Deal   : Pile_Log := [others => 1];
+      Take   : Pile_Log := [others => 1];
+      Piles  : Natural := 0;
+      Result : Input_Array;
+   end record;
+
+   function Run_Model (Input : Input_Array) return Model is
+      R      : Model;
+      type Stack is array (Index) of Value;
+      Pile   : array (Index) of Stack := [others => [others => 0]];
+      Height : array (Index) of Natural := [others => 0];
+      Np     : Natural := 0;
+      Found  : Natural;
+   begin
+      for K in Index loop
+         Found := 0;
+         for P in 1 .. Np loop
+            if Pile (P) (Height (P)) >= Input (K) then
+               Found := P;
+               exit;
+            end if;
+         end loop;
+         if Found = 0 then
+            Np := Np + 1;
+            Found := Np;
+         end if;
+         Height (Found) := Height (Found) + 1;
+         Pile (Found) (Height (Found)) := Input (K);
+         R.Deal (K) := Found;
+      end loop;
+      R.Piles := Np;
+      for M in Index loop
+         Found := 0;
+         for P in 1 .. Np loop
+            if Height (P) > 0
+              and then (Found = 0 or else Pile (P) (Height (P)) < Pile (Found) (Height (Found)))
+            then
+               Found := P;
+            end if;
+         end loop;
+         R.Result (M) := Pile (Found) (Height (Found));
+         Height (Found) := Height (Found) - 1;
+         R.Take (M) := Found;
+      end loop;
+      return R;
+   end Run_Model;
+
+   Trace_Failures : Natural := 0;
+   procedure Check_Trace (A : Input_Array) is
+      Out_A : Input_Array;
+      Deal  : Pile_Log;
+      Take  : Pile_Log;
+      Np    : Natural;
+      M     : constant Model := Run_Model (A);
+   begin
+      Sort_Traced (A, Out_A, Deal, Take, Np);
+      if Deal /= M.Deal or else Take /= M.Take or else Np /= M.Piles
+        or else Out_A /= M.Result or else Out_A /= Sort (A)
+        or else not Is_Perm (Out_A, A) or else not Is_Sorted (Out_A)
+      then
+         Trace_Failures := Trace_Failures + 1;
+         if Trace_Failures <= 5 then
+            Put ("  FAIL patience trace: input");
+            for X of A loop
+               Put (X'Image);
+            end loop;
+            New_Line;
+         end if;
+      end if;
+   end Check_Trace;
+
    procedure Check_One (A : Input_Array; Label : String) is
       R      : constant Input_Array := Sort (A);
       type Counts is array (Value) of Natural;
@@ -57,6 +136,7 @@ procedure Own_Checks is
       Ok     : Boolean := True;
    begin
       Cases := Cases + 1;
+      Check_Trace (A);
       for I in Index loop
          C_In (A (I)) := C_In (A (I)) + 1;
          C_Out (R (I)) := C_Out (R (I)) + 1;
@@ -108,6 +188,46 @@ begin
       end loop;
       Check_One (A, "duplicates" & K'Image);
    end loop;
+
+   --  4. Random inputs, seed 20261009 (patience trace and result).
+   Seed := 20_261_009;
+   for K in 1 .. 3_000 loop
+      for I in Index loop
+         A (I) := Next (Value'First, Value'Last);
+      end loop;
+      Check_One (A, "random 20261009" & K'Image);
+   end loop;
+   --  Every input over 0 .. 2 (3**8 = 6,561): ties on pile tops.
+   for C in 0 .. 3 ** 8 - 1 loop
+      for I in Index loop
+         A (I) := (C / 3 ** (I - 1)) mod 3;
+      end loop;
+      Check_One (A, "ternary" & C'Image);
+   end loop;
+   --  Every permutation of 1 .. 8 (8! = 40,320): every pile shape.
+   declare
+      P : Input_Array := [for I in Index => I];
+      procedure Perms (K : Index) is
+         T : Value;
+      begin
+         if K = Index'Last then
+            Check_One (P, "permutation");
+            return;
+         end if;
+         for J in K .. Index'Last loop
+            T := P (K); P (K) := P (J); P (J) := T;
+            Perms (K + 1);
+            T := P (K); P (K) := P (J); P (J) := T;
+         end loop;
+      end Perms;
+   begin
+      Perms (1);
+   end;
+   if Trace_Failures > 0 then
+      Put_Line ("FAIL patience trace:" & Trace_Failures'Image & " of" & Cases'Image);
+      raise Program_Error with "patience trace failed";
+   end if;
+   Put_Line ("PASS patience trace = own pile model on" & Cases'Image & " inputs");
 
    if Failures > 0 then
       Put_Line ("FAIL own checks:" & Failures'Image & " of" & Cases'Image);
