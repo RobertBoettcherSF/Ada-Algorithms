@@ -30,7 +30,11 @@ CASES = {
     'Index-Unread':   ('', ['index independence not measured']),
     'Handover-Gap':   ('', ['open handover gap']),
     'Clamp-Dead':     ('', ['clamp unreviewed or dead (clamp_scan)']),
+    'Rescore-Pending': ('yes', []),   # meets rule v1 on its recorded score, but a codefix.csv fix came later
+    'Rescored':       ('yes', []),    # same fix, then a tools/vv/rescored.csv row: confirmed again
 }
+# expected rescore_pending (non-empty) per folder; every other case must have it empty
+PENDING = {'Rescore-Pending'}
 
 def w(path, text):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -92,6 +96,8 @@ def build(root):
           [fids['Good'], 'x.adb', '1', 'Annotate', 'pragma Annotate (GNATprove, ...)', 'written reason', 'yes']])
     wcsv(os.path.join(vv, 'index_shift.csv'), ['folder', 'subprogram', 'kind', 'status', 'fix_kind', 'n_array_params', 'detail', 'note'],
          [[fids['Good'], '', 'skipped', 'skipped', '', '', 'no unconstrained array type', ''],
+          [fids['Rescore-Pending'], '', 'skipped', 'skipped', '', '', 'no unconstrained array type', ''],
+          [fids['Rescored'], '', 'skipped', 'skipped', '', '', 'no unconstrained array type', ''],
           [fids['Topup-Summed'], 'F', 'catalog', 'catalog', '', '1', 'function n_arrays=1', ''],
           [fids['Topup-Summed'], 'F', 'ok', 'ok', '', '1', 'origins 0 and 100 agree', ''],
           [fids['Index-Pinned'], 'F', 'catalog', 'catalog', '', '1', 'function n_arrays=1', ''],
@@ -104,6 +110,11 @@ def build(root):
     wcsv(os.path.join(vv, 'clamp_scan.csv'), ['folder', 'file_line', 'kind', 'helper', 'text', 'callers', 'reachable', 'evidence'],
          [[fids['Clamp-Dead'], 'x.adb:7', 'attr_return', 'Add', "return T'Last;", 'x.adb:20', 'unknown', ''],
           [fids['Good'], 'x.adb:9', 'attr_return', 'Wrap', "P := I'First;", 'x.adb:30', 'yes', 'wrap-around, reached']])
+    wcsv(os.path.join(vv, 'codefix.csv'), ['folder', 'problem', 'test_commit', 'fix_commit', 'reference_check', 'agent'],
+         [[fids['Rescore-Pending'], 'code fix', 't1', 'f1', 'own', 'x'],
+          [fids['Rescored'], 'code fix', 't2', 'f2', 'own', 'x'],
+          [fids['Open-Finding'], 'code fix, still not ready', 't3', 'f3', 'own', 'x']])
+    wcsv(os.path.join(vv, 'rescored.csv'), ['folder', 'after_fix_commit', 'record'], [[fids['Rescored'], 'f2', 'control']])
     return res, logs, fids
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -150,7 +161,7 @@ def main():
         for alg, (tr, why) in CASES.items():
             x = got[fids[alg]]
             reasons = [s for s in x['tr_drop'].split('; ') if s]
-            ok = x['training_ready'] == tr and reasons == why
+            ok = x['training_ready'] == tr and reasons == why and bool(x['rescore_pending']) == (alg in PENDING)
             bad += not ok
             print(('ok  ' if ok else 'FAIL') + f" {alg:14} training_ready={x['training_ready'] or '-':3} tr_drop={x['tr_drop'] or '-'}"
                   + ('' if ok else f"   (expected {tr or '-'} / {'; '.join(why) or '-'})"))
@@ -164,6 +175,14 @@ def main():
         bad += not same
         print(('ok  ' if same else 'FAIL') + f' recount_strict.py lists the same {len(rec)} passing folder(s)'
               + ('' if same else f': only index {sorted(idx - rec)}, only recount {sorted(rec - idx)}'))
+        r5 = subprocess.run([sys.executable, 'tools/vv/recount_strict.py', '--results', res, '--logs', logs, '--pending'],
+                            cwd=root, capture_output=True, text=True)
+        recp = {l.strip() for l in r5.stdout.splitlines() if l.strip() and not l.startswith('#')}
+        idxp = {f for f, x in got.items() if x['rescore_pending']}
+        okp = r5.returncode == 0 and recp == idxp == {fids[a] for a in PENDING}
+        bad += not okp
+        print(('ok  ' if okp else 'FAIL') + f' rescore_pending: index and recount_strict.py --pending list the same {len(recp)} folder(s)'
+              + ('' if okp else f': index {sorted(idxp)}, recount {sorted(recp)}'))
         r3 = subprocess.run([sys.executable, os.path.join(REPO, 'tools/vv/check_paths.py')] + PATH_SCOPE,
                             capture_output=True, text=True)
         print(r3.stdout.rstrip().splitlines()[-1] if r3.stdout.strip() else r3.stderr)
@@ -176,7 +195,7 @@ def main():
         r4 = subprocess.run([sys.executable, os.path.join(REPO, 'tools/vv/check_placeholders.py')], capture_output=True, text=True)
         print(r4.stdout.rstrip().splitlines()[-1] if r4.stdout.strip() else r4.stderr)
         bad += r4.returncode != 0
-        total = len(CASES) + 3 + len(PH_CASES)
+        total = len(CASES) + 4 + len(PH_CASES)
         print(f"{total - bad}/{total} control checks pass")
         return 1 if bad else 0
     finally:

@@ -16,6 +16,7 @@ ap.add_argument('--results', required=True)
 ap.add_argument('--logs', required=True)
 ap.add_argument('--steps-logs', default='')
 ap.add_argument('--list', action='store_true', help='print one passing folder per line')
+ap.add_argument('--pending', action='store_true', help='print the passing folders that wait for a re-score (codefix.csv fix after the score, no rescored.csv row)')
 ap.add_argument('--why', default='', help='print the failed conditions of one folder')
 A = ap.parse_args()
 ROOT = A.root
@@ -214,8 +215,15 @@ def failures(fid):
 if A.why:
     print(A.why, failures(A.why) or 'meets the strict rule'); sys.exit(0)
 passing = [fid for fid in folders if not failures(fid)]
-if A.list:
+# pending re-score, read independently of proof_index.py: a passing folder with a tools/vv/codefix.csv
+# fix commit that no tools/vv/rescored.csv row (folder, after_fix_commit) covers
+_done = {(x.get('folder', ''), x.get('after_fix_commit', '').strip()) for x in rows(os.path.join(ROOT, 'tools/vv/rescored.csv'))}
+pending = sorted({x['folder'] for x in rows(os.path.join(ROOT, 'tools/vv/codefix.csv'))
+                  if x.get('fix_commit', '').strip() and (x['folder'], x['fix_commit'].strip()) not in _done} & set(passing))
+if A.pending:
+    print('\n'.join(pending))
+elif A.list:
     print('\n'.join(passing))
 else:
-    print(f'# {len(passing)} folders meet the strict rule')
+    print(f'# {len(passing)} folders meet the strict rule ({len(passing) - len(pending)} confirmed + {len(pending)} pending re-score)')
     print('\n'.join(passing))
