@@ -75,6 +75,7 @@ proof-index:
 check-paths:
 	python3 tools/vv/check_paths.py
 	python3 tools/vv/check_placeholders.py
+	python3 tools/vv/check_unrun_tests.py
 
 # Verification + validation over all folders (docs/VV.md): build+tests on GNAT 14/12,
 # Silver proofs with a step budget, differential + mutation testing, index refresh.

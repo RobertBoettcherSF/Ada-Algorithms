@@ -1,0 +1,6 @@
+folder,file,reason
+misc/Ada/tests,test_disk_scheduling.adb,"open H176: the folder Makefile has no test target (all = shell_tests; ada_tests builds test_runner only, which with-s none of these)"
+misc/Ada/tests,test_list_scheduling.adb,open H176: same Makefile; not built by any target
+misc/Ada/tests,test_locomotion_interlock.adb,open H176: same Makefile; not built by any target
+misc/Ada/tests,test_mission_fsm.adb,open H176: same Makefile; not built by any target
+misc/Ada/tests,test_safety_supervisor.adb,open H176: same Makefile; not built by any target
