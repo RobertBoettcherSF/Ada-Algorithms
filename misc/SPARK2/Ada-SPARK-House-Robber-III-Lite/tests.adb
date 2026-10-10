@@ -97,7 +97,7 @@ begin
       Assertions_On : Boolean := False;
    begin
       begin
-         pragma Assert (Big_Path.N < 0);
+         pragma Assert (Max_Loot (One) = 0);   --  it is 7
       exception
          when Ada.Assertions.Assertion_Error =>
             Assertions_On := True;

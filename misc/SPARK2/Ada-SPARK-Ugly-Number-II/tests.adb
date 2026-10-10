@@ -93,7 +93,7 @@ begin
       Assertions_On : Boolean := False;
    begin
       begin
-         pragma Assert (Failures < 0);
+         pragma Assert (Nth_Ugly (1) = 2);   --  it is 1
       exception
          when Assertion_Error =>
             Assertions_On := True;
@@ -109,7 +109,7 @@ begin
       pragma Assert (not (Shifted in One_Based_List));
       Check (Normal in One_Based_List, "First_Ugly result in One_Based_List");
       Check (Shifted not in One_Based_List, "5 .. 10 list not in One_Based_List");
-      Check (Shifted'Length = 6 and then Shifted (10).Value = 8, "slid copy keeps the entries");
+      Check (Shifted'Length = 6 and then Shifted (10).Value = 6, "slid copy keeps the entries");
       --  Ugly_Prefix takes a One_Based_List: passing the 5 .. 10 list must
       --  fail the predicate check on the parameter (Assertion_Error), not
       --  just return False.

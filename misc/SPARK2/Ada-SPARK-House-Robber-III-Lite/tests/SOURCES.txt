@@ -40,3 +40,9 @@ default seed is the FNV-1a (32-bit) hash of the folder name folded into
 Run: gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
 (4,976 checks, about 3 s with assertions on; without -gnata a planted
 Skip = Take (left) + Take (right) fails 884 of them).
+
+tests.adb, H180 (agent-CF, 2026-10-10): no expected values, own type
+properties: assertions are on (a false pragma Assert raises); a 1-based
+copy is in the One_Based_* subtype and the same entries slid to start at
+5 are not; passing the slid copy to a subprogram that takes the subtype
+raises Assertion_Error (predicate check on the parameter).

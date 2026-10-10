@@ -51,17 +51,17 @@ package body House_Robber_III_Lite with SPARK_Mode => On is
    end Lemma_Closed;
 
    --  Loot of the subtree of I only reads the choice inside it.
-   procedure Lemma_Loot_Frame (T : Good_Tree; S1, S2 : Choice; I : Index)
+   procedure Lemma_Loot_Frame (T : Good_Tree; S1, S2 : One_Based_Choice; I : Index)
    with
      Ghost,
      Global             => null,
-     Pre                => S1'First = 1 and then S1'Last = T.N and then S2'First = 1 and then S2'Last = T.N
+     Pre                => S1'Last = T.N and then S2'Last = T.N
                            and then I <= T.N
                            and then (for all J in I .. Last_Of (T, I) => S1 (J) = S2 (J)),
      Post               => Loot (T, S1, I) = Loot (T, S2, I),
      Subprogram_Variant => (Decreases => T.N - I);
 
-   procedure Lemma_Loot_Frame (T : Good_Tree; S1, S2 : Choice; I : Index) is
+   procedure Lemma_Loot_Frame (T : Good_Tree; S1, S2 : One_Based_Choice; I : Index) is
    begin
       if T.Left (I) /= 0 then
          Lemma_Loot_Frame (T, S1, S2, T.Left (I));
@@ -72,10 +72,10 @@ package body House_Robber_III_Lite with SPARK_Mode => On is
    end Lemma_Loot_Frame;
 
    --  Mark the subtree of I; Blocked means the parent of I is robbed.
-   procedure Mark (T : Good_Tree; I : Index; Blocked : Boolean; Chosen : in out Choice)
+   procedure Mark (T : Good_Tree; I : Index; Blocked : Boolean; Chosen : in out One_Based_Choice)
    with
      Global             => null,
-     Pre                => Chosen'First = 1 and then Chosen'Last = T.N and then I <= T.N,
+     Pre                => Chosen'Last = T.N and then I <= T.N,
      Post               => (declare
                               E : constant Index := Last_Of (T, I);
                             begin
@@ -86,7 +86,7 @@ package body House_Robber_III_Lite with SPARK_Mode => On is
                                     = (if Blocked then Plan (T, I).Skip else Best (Plan (T, I))),
      Subprogram_Variant => (Decreases => T.N - I);
 
-   procedure Mark (T : Good_Tree; I : Index; Blocked : Boolean; Chosen : in out Choice) is
+   procedure Mark (T : Good_Tree; I : Index; Blocked : Boolean; Chosen : in out One_Based_Choice) is
       P : constant Pair := Plan (T, I);
       L : constant Link := T.Left (I);
       R : constant Link := T.Right (I);
@@ -97,7 +97,7 @@ package body House_Robber_III_Lite with SPARK_Mode => On is
          Lemma_Closed (T, L);
       end if;
       declare
-         Mid : constant Choice := Chosen with Ghost;
+         Mid : constant One_Based_Choice := Chosen with Ghost;
       begin
          if R /= 0 then
             Mark (T, R, Chosen (I), Chosen);
@@ -109,8 +109,8 @@ package body House_Robber_III_Lite with SPARK_Mode => On is
       end;
    end Mark;
 
-   function Best_Choice (T : Good_Tree) return Choice is
-      R : Choice (1 .. T.N) := [others => False];
+   function Best_Choice (T : Good_Tree) return One_Based_Choice is
+      R : One_Based_Choice (1 .. T.N) := [others => False];
    begin
       if T.N > 0 then
          Mark (T, 1, False, R);
@@ -120,15 +120,15 @@ package body House_Robber_III_Lite with SPARK_Mode => On is
 
    --  An independent choice is worth at most Take (I) in the subtree of I
    --  when I is robbed, and at most Skip (I) when it is not.
-   procedure Lemma_Opt_Node (T : Good_Tree; S : Choice; I : Index)
+   procedure Lemma_Opt_Node (T : Good_Tree; S : One_Based_Choice; I : Index)
    with
      Ghost,
      Global             => null,
-     Pre                => S'First = 1 and then S'Last = T.N and then I <= T.N and then Independent (T, S),
+     Pre                => S'Last = T.N and then I <= T.N and then Independent (T, S),
      Post               => Loot (T, S, I) <= (if S (I) then Plan (T, I).Take else Plan (T, I).Skip),
      Subprogram_Variant => (Decreases => T.N - I);
 
-   procedure Lemma_Opt_Node (T : Good_Tree; S : Choice; I : Index) is
+   procedure Lemma_Opt_Node (T : Good_Tree; S : One_Based_Choice; I : Index) is
    begin
       pragma Assert (Local (T, S, I));
       if T.Left (I) /= 0 then
@@ -139,7 +139,7 @@ package body House_Robber_III_Lite with SPARK_Mode => On is
       end if;
    end Lemma_Opt_Node;
 
-   procedure Lemma_Optimal (T : Good_Tree; S : Choice) is
+   procedure Lemma_Optimal (T : Good_Tree; S : One_Based_Choice) is
    begin
       Lemma_Opt_Node (T, S, 1);
    end Lemma_Optimal;

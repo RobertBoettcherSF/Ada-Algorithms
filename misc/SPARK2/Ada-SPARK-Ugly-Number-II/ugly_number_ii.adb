@@ -29,7 +29,7 @@ package body Ugly_Number_II with SPARK_Mode => On is
       end case;
    end Times;
 
-   function First_Ugly (N : N_Index) return Ugly_List is
+   function First_Ugly (N : N_Index) return One_Based_List is
       One        : constant Ugly_Value := (Value => 1, Two | Three | Five => 0, At_2 | At_3 | At_5 => 0);
       L          : Ugly_List (1 .. N) := [others => One];
       I2, I3, I5 : Positive := 1;
@@ -152,7 +152,7 @@ package body Ugly_Number_II with SPARK_Mode => On is
       return K;
    end Find;
 
-   procedure Lemma_Complete (L : Ugly_List; A, B, C : Natural) is
+   procedure Lemma_Complete (L : One_Based_List; A, B, C : Natural) is
       V : constant Big_Integer := Val3 (A, B, C);
       P : Positive;
       W : Big_Integer;

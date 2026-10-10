@@ -41,3 +41,9 @@ Run: gnatmake -gnata -gnatwa -gnat2022 own_checks.adb && ./own_checks
 planted "I3 advances only when 2 * L (I2) is not also the minimum" (so 6
 is listed twice) fails 4,101 of them, and a planted "the 3-branch does not
 raise the exponent of 3" fails 1,759).
+
+tests.adb, H180 (agent-CF, 2026-10-10): no expected values, own type
+properties: assertions are on (a false pragma Assert raises); a 1-based
+copy is in the One_Based_* subtype and the same entries slid to start at
+5 are not; passing the slid copy to a subprogram that takes the subtype
+raises Assertion_Error (predicate check on the parameter).

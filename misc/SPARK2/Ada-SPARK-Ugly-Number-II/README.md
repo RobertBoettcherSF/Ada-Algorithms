@@ -17,7 +17,15 @@ the others, O (N ** 2) `Big_Integer` operations per call. One
 `First_Ugly (2_000)` takes about 2.3 s on the sweep machine, 1_000 about
 0.5 s and 3_000 about 4.1 s. (The old version was a lookup table.)
 
-Proof (`make prove`, level 2, cvc5, 475 checks): every entry's value
+The index is the rank (entry K is the K-th ugly number), so lists start
+at 1: `First_Ugly` returns, and the ghost `Ugly_Prefix` /
+`Lemma_Complete` take, `One_Based_List`, a subtype of `Ugly_List` with
+the predicate `'First = 1` and any length (H180). A list slid to
+5 .. 10 is not a `One_Based_List`; passing one fails the predicate check
+(proof: gnatprove reports it; run time: `Assertion_Error` with
+assertions on, tested in tests.adb).
+
+Proof (`make prove`, level 2, cvc5, 479 checks): every entry's value
 is 2 ** a * 3 ** b * 5 ** c for its exponents (a record predicate; the
 power function `Val3` sits in package `Ugly_Powers` with three lemmas,
 so its nonlinear definition stays out of the other proofs); the list

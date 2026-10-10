@@ -44,6 +44,12 @@ package Ugly_Number_II with SPARK_Mode => On is
 
    type Ugly_List is array (Positive range <>) of Ugly_Value;
 
+   --  The index is the rank (L (K) is the K-th ugly number), so a list
+   --  that means something starts at 1: the subtype says so for any
+   --  length (H180; a Positive index alone lets a 5 .. 10 list through).
+   subtype One_Based_List is Ugly_List
+   with Predicate => One_Based_List'First = 1;
+
    function Has (L : Ugly_List; V : Big_Integer) return Boolean is
      (for some K in L'Range => L (K).Value = V)
    with Ghost;
@@ -60,16 +66,17 @@ package Ugly_Number_II with SPARK_Mode => On is
                   then L (J).At_5 in L'Range and then L (L (J).At_5).Value = 5 * L (J).Value))
    with Ghost, Pre => L'Length >= 1;
 
-   --  L starts at 1, increases and is Closed (its entries are ugly by
-   --  their predicate); Lemma_Complete then shows it lists every ugly
-   --  number up to its last entry, so L (K) is the K-th ugly number.
-   function Ugly_Prefix (L : Ugly_List) return Boolean is
-     (L'First = 1 and then L'Length >= 1 and then L (1).Value = 1
+   --  L (One_Based_List: it starts at 1) increases and is Closed (its
+   --  entries are ugly by their predicate); Lemma_Complete then shows it
+   --  lists every ugly number up to its last entry, so L (K) is the K-th
+   --  ugly number.
+   function Ugly_Prefix (L : One_Based_List) return Boolean is
+     (L'Length >= 1 and then L (1).Value = 1
       and then (for all K in 2 .. L'Last => L (K - 1).Value < L (K).Value)
       and then Closed (L))
    with Ghost;
 
-   function First_Ugly (N : N_Index) return Ugly_List
+   function First_Ugly (N : N_Index) return One_Based_List
    with
      Global => null,
      Post   => First_Ugly'Result'Last = N and then Ugly_Prefix (First_Ugly'Result);
@@ -79,7 +86,7 @@ package Ugly_Number_II with SPARK_Mode => On is
 
    --  Every 2 ** A * 3 ** B * 5 ** C up to the last entry of an
    --  Ugly_Prefix is listed.
-   procedure Lemma_Complete (L : Ugly_List; A, B, C : Natural)
+   procedure Lemma_Complete (L : One_Based_List; A, B, C : Natural)
    with
      Ghost,
      Global             => null,

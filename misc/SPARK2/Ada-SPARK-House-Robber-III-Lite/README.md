@@ -16,6 +16,13 @@ which houses give it?
   two at the root.
 * `Best_Choice (T)`: the houses to rob, chosen from the root down (a
   house is robbed when its parent is not and Take >= Skip).
+* A choice is indexed by house number, so it starts at 1:
+  `Best_Choice` returns, and `Independent` / the ghost `Loot` /
+  `Lemma_Optimal` take, `One_Based_Choice`, a subtype of `Choice` with
+  the predicate `'First = 1` and any length (H180; the length is tied to
+  the tree by `S'Last = T.N`). A 5 .. 7 choice fails the predicate check
+  (gnatprove reports it; `Assertion_Error` at run time with assertions
+  on, tested in tests.adb).
 
 Range: N in 0 .. 100 houses, values in 0 .. 10_000. Totals stay at most
 1_000_000, far from overflow (Natural would allow about 214_000 houses
@@ -26,7 +33,7 @@ subtrees, about N ** 3 steps on a path; one call on a path takes about
 (The old version was a case table ceil (K / 2) for a path of K <= 16
 houses worth 1.)
 
-Proof (`make prove`, level 2, cvc5, 178 checks): `Best_Choice` is
+Proof (`make prove`, level 2, cvc5, 200 checks): `Best_Choice` is
 `Independent` (no robbed house has a robbed child) and its `Loot` (the
 ghost sum of the robbed values in the subtree of the root, which is the
 whole tree) equals `Max_Loot`; the ghost lemma `Lemma_Optimal` proves
