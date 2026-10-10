@@ -1,428 +1,173 @@
-pragma Assertion_Policy (Ignore);
+pragma Ada_2022;
+--  Run-time cost: the ghost lemmas, loop invariants and assertions
+--  quantify over all 256 keys with recursive counts; all are proved
+--  (make prove) and skipped at run time. The spec Posts of Pass and Sort
+--  still execute.
+pragma Assertion_Policy (Ghost => Ignore, Loop_Invariant => Ignore, Assert => Ignore);
 
---  Radix_Sort body — SPARK Level 4 LSD radix sort, fixed Base = 256.
---  One counting-sort digit pass: digit = (key / 1) mod Base = key when
---  Max_Key = Base - 1. Histogram + reconstruction emit; ghost Occ /
---  Sum_Occ / Sum_Hist lemmas (binary-split induction) as in
---  Ada-SPARK-Counting-Sort. File-level Assertion_Policy (Ignore) keeps
---  gnatmake -gnata tests fast; GNATprove still discharges Asserts / contracts.
+--  Radix_Sort body: two stable distribution passes. Each pass sweeps the
+--  input once per digit value D = 0 .. 15 and appends the keys with digit
+--  D in input order (stable by construction). Ghost counts of the keys
+--  with a digit below D / equal to D show that the writes stay inside B
+--  and fill it.
 
 package body Radix_Sort
   with SPARK_Mode => On
 is
-   --  LSD digit at Exp = 1 equals the key for Key in 0 .. Max_Key.
-   function Digit (Key : Element) return Digit_Index
-   is (Key)
-   with
-     Global => null,
-     Post   => Digit'Result = Key;
+   --  Keys of A (A'First .. Last) with digit P below D.
+   function Cnt_Less (A : Element_Array; P : Pass_Index; D : Natural; Last : Natural) return Natural
+   is (if Last < A'First then 0
+       else Cnt_Less (A, P, D, Last - 1) + (if Digit_Of (A (Last), P) < D then 1 else 0))
+   with Ghost, Global => null,
+        Pre  => In_Bounds (A) and then Last <= A'Last,
+        Post => Cnt_Less'Result <= (if Last < A'First then 0 else Last - A'First + 1),
+        Subprogram_Variant => (Decreases => Last);
 
-   function Sorted_Slice
-     (A : Element_Array; L, R : Natural) return Boolean
-   is
-     (L >= R
-      or else (for all J in L .. R - 1 => A (J) <= A (J + 1)))
-   with
-     Ghost  => True,
-     Global => null,
-     Pre    =>
-       In_Bounds (A)
-       and then L >= A'First
-       and then R <= A'Last;
+   --  Keys of A (A'First .. Last) with digit P equal to D.
+   function Cnt_Eq (A : Element_Array; P : Pass_Index; D : Natural; Last : Natural) return Natural
+   is (if Last < A'First then 0
+       else Cnt_Eq (A, P, D, Last - 1) + (if Digit_Of (A (Last), P) = D then 1 else 0))
+   with Ghost, Global => null,
+        Pre  => In_Bounds (A) and then Last <= A'Last,
+        Post => Cnt_Eq'Result <= (if Last < A'First then 0 else Last - A'First + 1),
+        Subprogram_Variant => (Decreases => Last);
 
-   --  Occurrences of K in A (A'First .. Last): the spec's Occ with the
-   --  arguments in the order this body's lemmas use.
-   function Occ_P
-     (A : Element_Array; Last : Natural; K : Element) return Natural
-   is
-     (Occ (A, K, Last))
-   with
-     Ghost  => True,
-     Global => null,
-     Pre    =>
-       In_Bounds (A) and then Last >= A'First - 1 and then Last <= A'Last,
-     Post   => Occ_P'Result <= Last - A'First + 1;
-
-   --  B agrees with A on A'First .. Last.
-   procedure Lemma_Occ_P_Frame (A, B : Element_Array; Last : Natural)
-   with
-     Ghost              => True,
-     Global             => null,
-     Pre                =>
-       In_Bounds (A) and then In_Bounds (B)
-       and then A'First = B'First
-       and then Last >= A'First - 1
-       and then Last <= A'Last and then Last <= B'Last
-       and then (for all J in A'First .. Last => A (J) = B (J)),
-     Post               =>
-       (for all K in Element => Occ_P (A, Last, K) = Occ_P (B, Last, K)),
-     Subprogram_Variant => (Decreases => Last)
+   procedure Lemma_Step (A : Element_Array; P : Pass_Index; D : Digit; Last : Natural)
+   with Ghost, Global => null,
+        Pre  => In_Bounds (A) and then Last <= A'Last,
+        Post => Cnt_Less (A, P, D, Last) + Cnt_Eq (A, P, D, Last) = Cnt_Less (A, P, D + 1, Last),
+        Subprogram_Variant => (Decreases => Last)
    is
    begin
       if Last >= A'First then
-         Lemma_Occ_P_Frame (A, B, Last - 1);
-         pragma Assert
-           (for all K in Element =>
-              Occ_P (A, Last - 1, K) = Occ_P (B, Last - 1, K));
-         pragma Assert
-           (for all K in Element =>
-              Occ (A, K, Last - 1) = Occ (B, K, Last - 1));
-         pragma Assert (A (Last) = B (Last));
-         pragma Assert
-           (for all K in Element =>
-              Occ (A, K, Last)
-              = Occ (A, K, Last - 1) + (if A (Last) = K then 1 else 0));
-         pragma Assert
-           (for all K in Element =>
-              Occ (B, K, Last)
-              = Occ (B, K, Last - 1) + (if B (Last) = K then 1 else 0));
-         pragma Assert
-           (for all K in Element => Occ (A, K, Last) = Occ (B, K, Last));
-      else
-         pragma Assert
-           (for all K in Element => Occ (A, K, Last) = 0);
-         pragma Assert
-           (for all K in Element => Occ (B, K, Last) = 0);
+         Lemma_Step (A, P, D, Last - 1);
       end if;
-      pragma Assert
-        (for all K in Element => Occ_P (A, Last, K) = Occ_P (B, Last, K));
-   end Lemma_Occ_P_Frame;
+   end Lemma_Step;
 
-   function Sum_Occ
-     (A : Element_Array; Last : Natural; Lo, Hi : Integer) return Natural
-   is
-     (if Lo > Hi then 0
-      else Occ_P (A, Last, Lo) + Sum_Occ (A, Last, Lo + 1, Hi))
-   with
-     Ghost              => True,
-     Global             => null,
-     Pre                =>
-       In_Bounds (A)
-       and then Last >= A'First - 1
-       and then Last <= A'Last
-       and then Lo >= 0
-       and then Hi <= Max_Key,
-     Post               =>
-       Sum_Occ'Result
-         <= (Last - A'First + 1) * (if Hi >= Lo then Hi - Lo + 1 else 0),
-     Subprogram_Variant =>
-       (Decreases => (if Lo > Hi then 0 else Hi - Lo + 1));
-
-   function Sum_Hist
-     (Hist : Count_Array; Lo, Hi : Integer) return Natural
-   is
-     (if Lo > Hi then 0
-      else Hist (Lo) + Sum_Hist (Hist, Lo + 1, Hi))
-   with
-     Ghost              => True,
-     Global             => null,
-     Pre                =>
-       Lo >= 0
-       and then Hi <= Max_Key
-       and then (for all K in Element => Hist (K) <= Max_N),
-     Post               =>
-       Sum_Hist'Result
-         <= Max_N * (if Hi >= Lo then Hi - Lo + 1 else 0),
-     Subprogram_Variant =>
-       (Decreases => (if Lo > Hi then 0 else Hi - Lo + 1));
-
-
-   procedure Lemma_Sum_Occ_Split
-     (A : Element_Array; Last : Natural; Lo, Mid, Hi : Integer)
-     with
-       Ghost             => True,
-       Global            => null,
-       Pre               =>
-         In_Bounds (A)
-         and then Last >= A'First - 1
-         and then Last <= A'Last
-         and then Lo >= 0
-         and then Hi <= Max_Key
-         and then Mid >= Lo - 1
-         and then Mid <= Hi,
-       Post              =>
-         Sum_Occ (A, Last, Lo, Hi)
-         = Sum_Occ (A, Last, Lo, Mid)
-           + Sum_Occ (A, Last, Mid + 1, Hi),
-       Subprogram_Variant =>
-         (Decreases => (if Lo > Mid then 0 else Mid - Lo + 1))
+   procedure Lemma_Zero (A : Element_Array; P : Pass_Index; Last : Natural)
+   with Ghost, Global => null,
+        Pre  => In_Bounds (A) and then Last <= A'Last,
+        Post => Cnt_Less (A, P, 0, Last) = 0,
+        Subprogram_Variant => (Decreases => Last)
    is
    begin
-      if Lo > Mid then
-         pragma Assert (Sum_Occ (A, Last, Lo, Mid) = 0);
-      elsif Lo = Mid then
-         null;
-      else
-         Lemma_Sum_Occ_Split (A, Last, Lo + 1, Mid, Hi);
+      if Last >= A'First then
+         Lemma_Zero (A, P, Last - 1);
       end if;
-   end Lemma_Sum_Occ_Split;
+   end Lemma_Zero;
 
-   procedure Lemma_Sum_Occ_Step
-     (A : Element_Array; Last : Natural; Lo, Hi : Integer)
-     with
-       Ghost             => True,
-       Global            => null,
-       Pre               =>
-         In_Bounds (A)
-         and then Last in A'Range
-         and then Lo >= 0
-         and then Hi <= Max_Key,
-       Post              =>
-         Sum_Occ (A, Last, Lo, Hi)
-         = Sum_Occ (A, Last - 1, Lo, Hi)
-           + (if Lo <= A (Last) and then A (Last) <= Hi
-              then 1
-              else 0),
-       Subprogram_Variant =>
-         (Decreases => (if Lo > Hi then 0 else Hi - Lo + 1))
-   is
-      Mid : Integer;
-   begin
-      if Lo > Hi then
-         null;
-      elsif Lo = Hi then
-         if A (Last) = Lo then
-            pragma Assert
-              (Occ_P (A, Last, Lo) = Occ_P (A, Last - 1, Lo) + 1);
-         else
-            pragma Assert
-              (Occ_P (A, Last, Lo) = Occ_P (A, Last - 1, Lo));
-         end if;
-      else
-         Mid := Lo + (Hi - Lo) / 2;
-         pragma Assert (Mid >= Lo and then Mid < Hi);
-         Lemma_Sum_Occ_Step (A, Last, Lo, Mid);
-         Lemma_Sum_Occ_Step (A, Last, Mid + 1, Hi);
-         Lemma_Sum_Occ_Split (A, Last, Lo, Mid, Hi);
-         Lemma_Sum_Occ_Split (A, Last - 1, Lo, Mid, Hi);
-      end if;
-   end Lemma_Sum_Occ_Step;
-
-   procedure Lemma_Sum_Occ_Is_Length
-     (A : Element_Array; Last : Natural)
-     with
-       Ghost             => True,
-       Global            => null,
-       Pre               =>
-         In_Bounds (A) and then Last >= A'First - 1 and then Last <= A'Last,
-       Post              => Sum_Occ (A, Last, 0, Max_Key) = Last - A'First + 1,
-       Subprogram_Variant => (Decreases => Last)
+   procedure Lemma_All (A : Element_Array; P : Pass_Index; Last : Natural)
+   with Ghost, Global => null,
+        Pre  => In_Bounds (A) and then Last <= A'Last and then Last + 1 >= A'First,
+        Post => Cnt_Less (A, P, Digit_Base, Last) = Last + 1 - A'First,
+        Subprogram_Variant => (Decreases => Last)
    is
    begin
-      if Last < A'First then
+      if Last >= A'First then
+         Lemma_All (A, P, Last - 1);
+      end if;
+   end Lemma_All;
+
+   procedure Lemma_Mono (A : Element_Array; P : Pass_Index; D : Natural; I, Last : Natural)
+   with Ghost, Global => null,
+        Pre  => In_Bounds (A) and then Last <= A'Last and then I <= Last,
+        Post => Cnt_Eq (A, P, D, I) <= Cnt_Eq (A, P, D, Last),
+        Subprogram_Variant => (Decreases => Last)
+   is
+   begin
+      if Last > I then
+         Lemma_Mono (A, P, D, I, Last - 1);
+      end if;
+   end Lemma_Mono;
+
+   --  Counts over A'First .. Last only see A'First .. Last.
+   procedure Lemma_Occ_Frame (X, Y : Element_Array; Last : Natural)
+   with Ghost, Global => null,
+        Pre  => In_Bounds (X) and then In_Bounds (Y) and then X'First = Y'First
+                and then Last <= X'Last and then Last <= Y'Last
+                and then (for all K in X'First .. Last => X (K) = Y (K)),
+        Post => (for all V in Element => Occ (X, V, Last) = Occ (Y, V, Last)),
+        Subprogram_Variant => (Decreases => Last)
+   is
+   begin
+      if Last >= X'First then
+         Lemma_Occ_Frame (X, Y, Last - 1);
+      end if;
+   end Lemma_Occ_Frame;
+
+   procedure Pass
+     (A : Element_Array; P : Pass_Index; B : out Element_Array; Src : out Source_Map)
+   is
+      K    : Positive := A'First;          --  next free slot of B
+      Prev : Element_Array (B'Range) with Ghost;
+   begin
+      B   := [others => 0];
+      Src := [others => A'First];
+      if A'Length = 0 then
          return;
       end if;
-      Lemma_Sum_Occ_Is_Length (A, Last - 1);
-      Lemma_Sum_Occ_Step (A, Last, 0, Max_Key);
-      pragma Assert
-        (Sum_Occ (A, Last - 1, 0, Max_Key) = Last - A'First);
-      pragma Assert
-        (Sum_Occ (A, Last, 0, Max_Key)
-         = Sum_Occ (A, Last - 1, 0, Max_Key) + 1);
-   end Lemma_Sum_Occ_Is_Length;
-
-
-   procedure Lemma_Sum_Hist_Split
-     (Hist : Count_Array; Lo, Mid, Hi : Integer)
-     with
-       Ghost             => True,
-       Global            => null,
-       Pre               =>
-         Lo >= 0
-         and then Hi <= Max_Key
-         and then Mid >= Lo - 1
-         and then Mid <= Hi
-         and then (for all K in Element => Hist (K) <= Max_N),
-       Post              =>
-         Sum_Hist (Hist, Lo, Hi)
-         = Sum_Hist (Hist, Lo, Mid) + Sum_Hist (Hist, Mid + 1, Hi),
-       Subprogram_Variant =>
-         (Decreases => (if Lo > Mid then 0 else Mid - Lo + 1))
-   is
-   begin
-      if Lo > Mid then
-         pragma Assert (Sum_Hist (Hist, Lo, Mid) = 0);
-      elsif Lo = Mid then
-         null;
-      else
-         Lemma_Sum_Hist_Split (Hist, Lo + 1, Mid, Hi);
-      end if;
-   end Lemma_Sum_Hist_Split;
-
-   procedure Lemma_Sum_Hist_Eq_Occ
-     (A        : Element_Array;
-      N        : Index;
-      Hist     : Count_Array;
-      Lo, Hi   : Integer)
-     with
-       Ghost             => True,
-       Global            => null,
-       Pre               =>
-         In_Bounds (A)
-         and then N = A'Last
-         and then N >= A'First
-         and then Lo >= 0
-         and then Hi <= Max_Key
-         and then (for all K in Element => Hist (K) = Occ_P (A, N, K))
-         and then (for all K in Element => Hist (K) <= Max_N),
-       Post              =>
-         Sum_Hist (Hist, Lo, Hi) = Sum_Occ (A, N, Lo, Hi),
-       Subprogram_Variant =>
-         (Decreases => (if Lo > Hi then 0 else Hi - Lo + 1))
-   is
-      Mid : Integer;
-   begin
-      if Lo > Hi then
-         null;
-      elsif Lo = Hi then
-         pragma Assert (Hist (Lo) = Occ_P (A, N, Lo));
-      else
-         Mid := Lo + (Hi - Lo) / 2;
-         pragma Assert (Mid >= Lo and then Mid < Hi);
-         Lemma_Sum_Hist_Eq_Occ (A, N, Hist, Lo, Mid);
-         Lemma_Sum_Hist_Eq_Occ (A, N, Hist, Mid + 1, Hi);
-         Lemma_Sum_Occ_Split (A, N, Lo, Mid, Hi);
-         Lemma_Sum_Hist_Split (Hist, Lo, Mid, Hi);
-      end if;
-   end Lemma_Sum_Hist_Eq_Occ;
-
-   procedure Lemma_Hist_Sum_Is_N
-     (A : Element_Array; N : Index; Hist : Count_Array)
-     with
-       Ghost             => True,
-       Global            => null,
-       Pre               =>
-         In_Bounds (A)
-         and then N = A'Last
-         and then N >= A'First
-         and then (for all K in Element => Hist (K) = Occ_P (A, N, K))
-         and then (for all K in Element => Hist (K) <= Max_N),
-       Post              => Sum_Hist (Hist, 0, Max_Key) = A'Length
-   is
-   begin
-      Lemma_Sum_Occ_Is_Length (A, N);
-      Lemma_Sum_Hist_Eq_Occ (A, N, Hist, 0, Max_Key);
-   end Lemma_Hist_Sum_Is_N;
+      Lemma_Zero (A, P, A'Last);
+      for D in Digit loop
+         pragma Loop_Invariant (K = A'First + Cnt_Less (A, P, D, A'Last) and then K <= A'Last + 1);
+         pragma Loop_Invariant (for all J in A'First .. K - 1 => Src (J) in A'Range and then B (J) = A (Src (J)));
+         pragma Loop_Invariant (for all J in A'First .. K - 1 => Digit_Of (B (J), P) < D);
+         pragma Loop_Invariant
+           (for all J1 in A'First .. K - 1 =>
+              (for all J2 in J1 + 1 .. K - 1 =>
+                 Digit_Of (B (J1), P) <= Digit_Of (B (J2), P)
+                 and then (if Digit_Of (B (J1), P) = Digit_Of (B (J2), P) then Src (J1) < Src (J2))));
+         pragma Loop_Invariant
+           (for all V in Element =>
+              Occ (B, V, K - 1) = (if Digit_Of (V, P) < D then Occ (A, V, A'Last) else 0));
+         for I in A'Range loop
+            pragma Loop_Invariant (K = A'First + Cnt_Less (A, P, D, A'Last) + Cnt_Eq (A, P, D, I - 1));
+            pragma Loop_Invariant (K <= A'Last + 1);
+            pragma Loop_Invariant (for all J in A'First .. K - 1 => Src (J) in A'Range and then B (J) = A (Src (J)));
+            pragma Loop_Invariant (for all J in A'First .. K - 1 => Digit_Of (B (J), P) <= D);
+            pragma Loop_Invariant
+              (for all J in A'First .. K - 1 => (if Digit_Of (B (J), P) = D then Src (J) < I));
+            pragma Loop_Invariant
+              (for all J1 in A'First .. K - 1 =>
+                 (for all J2 in J1 + 1 .. K - 1 =>
+                    Digit_Of (B (J1), P) <= Digit_Of (B (J2), P)
+                    and then (if Digit_Of (B (J1), P) = Digit_Of (B (J2), P) then Src (J1) < Src (J2))));
+            pragma Loop_Invariant
+              (for all V in Element =>
+                 Occ (B, V, K - 1) = (if Digit_Of (V, P) < D then Occ (A, V, A'Last)
+                                      elsif Digit_Of (V, P) = D then Occ (A, V, I - 1)
+                                      else 0));
+            if Digit_Of (A (I), P) = D then
+               Lemma_Mono (A, P, D, I, A'Last);
+               Lemma_Step (A, P, D, A'Last);
+               Lemma_All (A, P, A'Last);
+               pragma Assert (Cnt_Less (A, P, D + 1, A'Last) <= Cnt_Less (A, P, Digit_Base, A'Last));
+               Prev := B;
+               B (K) := A (I);
+               Src (K) := I;
+               Lemma_Occ_Frame (Prev, B, K - 1);
+               K := K + 1;
+            end if;
+         end loop;
+         Lemma_Step (A, P, D, A'Last);
+      end loop;
+      Lemma_All (A, P, A'Last);
+      pragma Assert (K = A'Last + 1);
+   end Pass;
 
    procedure Sort (A : in out Element_Array) is
-      subtype Cursor is Natural range 0 .. Max_N + 1;
-
-      Hist : Count_Array := [others => 0];
-      Pos  : Cursor;
-      N    : Index;
-      A0   : constant Element_Array := A with Ghost;
+      B1, B2 : Element_Array (A'Range);
+      S1, S2 : Source_Map (A'Range);
    begin
-      if A'Length <= 1 then
-         return;
-      end if;
-
-      N := A'Last;   --  index of the last slot
-
-      for I in A'Range loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant
-           (for all K in Element => Hist (K) = Occ_P (A, I - 1, K));
-         pragma Loop_Invariant
-           (for all K in Element => Hist (K) <= I - A'First);
-         pragma Loop_Invariant
-           (for all K in Element => Hist (K) <= Max_N);
-
-         Hist (Digit (A (I))) := Hist (Digit (A (I))) + 1;
-      end loop;
-
-      pragma Assert (for all K in Element => Hist (K) = Occ_P (A, N, K));
-      pragma Assert (for all K in Element => Hist (K) <= A'Length);
-
+      Pass (A, 1, B1, S1);
+      Pass (B1, 2, B2, S2);
       pragma Assert
-        (for all K in Element => Hist (K) = Occ_P (A0, N, K));
-      Lemma_Hist_Sum_Is_N (A, N, Hist);
-      pragma Assert (Sum_Hist (Hist, 0, Max_Key) = A'Length);
-
-      Pos := A'First;
-      pragma Assert (Sorted_Slice (A, A'First, A'First - 1));
-
-      for K in Digit_Index loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (Pos in A'First .. N + 1);
-         pragma Loop_Invariant
-           (Pos = A'First + Sum_Hist (Hist, 0, K - 1));
-         pragma Loop_Invariant
-           (Pos + Sum_Hist (Hist, K, Max_Key) = N + 1);
-         pragma Loop_Invariant (Sorted_Slice (A, A'First, Pos - 1));
-         pragma Loop_Invariant
-           (for all J in A'First .. Pos - 1 => A (J) <= K);
-         pragma Loop_Invariant (Pos = A'First or else A (Pos - 1) <= K);
-         pragma Loop_Invariant
-           (for all KK in Element => Hist (KK) <= A'Length);
-         pragma Loop_Invariant (Sum_Hist (Hist, 0, Max_Key) = A'Length);
-         pragma Loop_Invariant
-           (for all KK in Element => Hist (KK) = Occ_P (A0, N, KK));
-         pragma Loop_Invariant
-           (for all KK in Element =>
-              Occ_P (A, Pos - 1, KK) = (if KK < K then Hist (KK) else 0));
-
-         declare
-            C    : Natural := 0;
-            Pos0 : constant Cursor := Pos;
-         begin
-            pragma Assert
-              (Pos0 + Hist (K) + Sum_Hist (Hist, K + 1, Max_Key)
-               = N + 1);
-
-            while C < Hist (K) loop
-               pragma Loop_Invariant (C in 0 .. Hist (K));
-               pragma Loop_Invariant (Pos = Pos0 + C);
-               pragma Loop_Invariant
-                 (Pos0 + Hist (K) + Sum_Hist (Hist, K + 1, Max_Key)
-                  = N + 1);
-               pragma Loop_Invariant (Pos in A'First .. N);
-               pragma Loop_Invariant
-                 (Pos + (Hist (K) - C) <= N + 1);
-               pragma Loop_Invariant (Sorted_Slice (A, A'First, Pos - 1));
-               pragma Loop_Invariant
-                 (for all J in A'First .. Pos - 1 => A (J) <= K);
-               pragma Loop_Invariant
-                 (Pos = A'First or else A (Pos - 1) <= K);
-               pragma Loop_Invariant
-                 (for all J in Pos0 .. Pos - 1 => A (J) = K);
-               pragma Loop_Invariant
-                 (for all KK in Element =>
-                    Occ_P (A, Pos - 1, KK)
-                    = (if KK < K then Hist (KK) elsif KK = K then C else 0));
-               pragma Loop_Variant (Decreases => Hist (K) - C);
-
-               declare
-                  Before : constant Element_Array := A with Ghost;
-               begin
-                  A (Pos) := K;
-                  Lemma_Occ_P_Frame (Before, A, Pos - 1);
-               end;
-               pragma Assert (Pos = A'First or else A (Pos - 1) <= A (Pos));
-               pragma Assert
-                 (for all KK in Element =>
-                    Occ_P (A, Pos, KK)
-                    = Occ_P (A, Pos - 1, KK) + (if KK = K then 1 else 0));
-               Pos := Pos + 1;
-               C   := C + 1;
-            end loop;
-
-            pragma Assert (Pos = Pos0 + Hist (K));
-         end;
-
-         Lemma_Sum_Hist_Split (Hist, 0, K - 1, K);
-         pragma Assert
-           (Sum_Hist (Hist, 0, K)
-            = Sum_Hist (Hist, 0, K - 1) + Hist (K));
-         pragma Assert (Pos = A'First + Sum_Hist (Hist, 0, K));
-         pragma Assert (Sorted_Slice (A, A'First, Pos - 1));
-      end loop;
-
-      pragma Assert (Pos = N + 1);
-      pragma Assert (Sorted_Slice (A, A'First, N));
-      pragma Assert (Is_Sorted (A));
-      pragma Assert
-        (for all KK in Element => Occ_P (A, N, KK) = Occ_P (A0, N, KK));
-      pragma Assert (Is_Perm (A, A0));
+        (for all J in A'First .. A'Last - 1 =>
+           Digit_Of (B2 (J), 2) < Digit_Of (B2 (J + 1), 2)
+           or else (Digit_Of (B2 (J), 2) = Digit_Of (B2 (J + 1), 2)
+                    and then Digit_Of (B2 (J), 1) <= Digit_Of (B2 (J + 1), 1)));
+      pragma Assert (for all J in A'First .. A'Last - 1 => B2 (J) <= B2 (J + 1));
+      pragma Assert (for all J in A'Range => B1 (J) = A (S1 (J)) and then B2 (J) = B1 (S2 (J)));
+      A := B2;
    end Sort;
 
 end Radix_Sort;

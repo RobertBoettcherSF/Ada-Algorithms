@@ -142,7 +142,7 @@ sorting/SPARK2/Ada-SPARK-Tim-Sort-Stub,H109,"insertion sort under a Timsort name
 sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite,H127,only judges a given order (leniently); no topological order is computed,closed (agent-CF: real Topological Sort)
 sorting/SPARK2/Ada-SPARK-Tournament-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a tournament-sort name,open
 sorting/SPARK2/Binary-Insertion-Sort,tools/vv/hidden_stub.csv,adjacent compare-exchange passes (bubble sort) under a binary-insertion-sort name,open
-sorting/SPARK4/Ada-SPARK-Radix-Sort,H144,"one counting-sort pass (Base 256 = key range, so digit = key), not a multi-pass radix sort",open
+sorting/SPARK4/Ada-SPARK-Radix-Sort,H144,"one counting-sort pass (Base 256 = key range, so digit = key), not a multi-pass radix sort",closed (agent-CF: real multi-pass LSD radix)
 strings/SPARK2/Ada-SPARK-Count-The-Number-Of-Consistent-Strings,tools/readme_stubs.txt,"the README calls this a stub / bounded kernel, not a full Count-The-Number-Of-Consistent-Strings implementation",open
 strings/SPARK2/Ada-SPARK-Decode-String-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Decode-String implementation",open
 strings/SPARK2/Ada-SPARK-Reorganize-String-Stub,PROOFS.csv stub,"bounded stub (the folder name ends in -Stub), not a full Reorganize-String implementation",open

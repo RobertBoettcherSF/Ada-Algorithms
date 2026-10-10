@@ -56,4 +56,3 @@ trees/SPARK2/Ada-SPARK-Binary-Tree-Right-Side-View	hidden stub: returns fixed po
 trees/SPARK2/Ada-SPARK-Flatten-Binary-Tree-To-Linked-List-Lite	hidden stub: a hard-coded index permutation for one complete-tree shape; no traversal
 misc/SPARK2/Ada-SPARK-Fixed-Point-Iteration	hidden stub: one hard-wired map x -> (x + Target) / 2 run for 10 steps; no general function and no convergence test
 sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST	hidden stub: Build always fills the same 7 fixed slots from A (4) / A (2) / A (6) / ... (Sorted_Array is exactly 7 elements); no midpoint recursion, so no general balanced BST from a sorted array
-sorting/SPARK4/Ada-SPARK-Radix-Sort	hidden stub: Max_Key=255 and Base=256 so Digit=Key; a single counting-sort pass under a radix-sort name (masking pattern)

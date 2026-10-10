@@ -77,7 +77,17 @@ procedure Own_Checks is
 
    Keys : constant array (0 .. 5) of Element := [16#21#, 16#31#, 16#22#, 16#12#, 16#00#, 16#FF#];
 begin
-   Check (Pass_Count = 2, "two passes for 8-bit keys in base 16");
+   declare
+      --  base-16 digits needed for the largest key
+      Needed : Natural := 0;
+      X      : Natural := Max_Key;
+   begin
+      while X > 0 loop
+         X := X / Digit_Base;
+         Needed := Needed + 1;
+      end loop;
+      Check (Pass_Count = Needed and then Needed = 2, "two passes for 8-bit keys in base 16");
+   end;
    declare
       A  : constant Element_Array := [16#21#, 16#31#];
       B  : Element_Array (A'Range);
@@ -121,7 +131,8 @@ begin
    for T in 1 .. 3_000 loop
       declare
          L : constant Natural := Rand (Max_N + 1);
-         O : constant Positive := 1 + Rand (Max_N - L + 1);
+         --  origin O .. O + L - 1 inside 1 .. Max_N (an empty array too)
+         O : constant Positive := (if L = Max_N then 1 else 1 + Rand (Max_N - L));
          A : Element_Array (O .. O + L - 1);
       begin
          for I in A'Range loop
