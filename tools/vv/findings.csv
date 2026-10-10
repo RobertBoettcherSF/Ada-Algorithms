@@ -184,7 +184,7 @@ misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,index_shift first_p
 misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,index_shift first_pinned: In_Bounds/Pre requires A'First = 1 (added 2026-10-10 H140 dedup: first_pinned fail in tools/vv/index_shift.csv without a findings row),open,,
 misc/SPARK2/Ada-SPARK-Integer-Break,index_shift first_pinned: In_Bounds/Pre requires A'First = 1 (added 2026-10-10 H140 dedup: first_pinned fail in tools/vv/index_shift.csv without a findings row),open,,
 misc/SPARK2/Ada-SPARK-Permutations-II,index_shift first_pinned: In_Bounds/Pre requires A'First = 1 (added 2026-10-10 H140 dedup: first_pinned fail in tools/vv/index_shift.csv without a findings row),open,,
-misc/SPARK2/Ada-SPARK-Subsets,index_shift first_pinned: In_Bounds/Pre requires A'First = 1 (added 2026-10-10 H140 dedup: first_pinned fail in tools/vv/index_shift.csv without a findings row),open,,
+misc/SPARK2/Ada-SPARK-Subsets,index_shift first_pinned: In_Bounds/Pre requires A'First = 1 (added 2026-10-10 H140 dedup: first_pinned fail in tools/vv/index_shift.csv without a findings row),fixed,e796b5d9,865646c7
 misc/SPARK2/Ada-SPARK-Subsets-II,index_shift first_pinned: In_Bounds/Pre requires A'First = 1 (added 2026-10-10 H140 dedup: first_pinned fail in tools/vv/index_shift.csv without a findings row),open,,
 misc/SPARK2/Ada-SPARK-Ugly-Number-II,index_shift first_pinned: In_Bounds/Pre requires A'First = 1 (added 2026-10-10 H140 dedup: first_pinned fail in tools/vv/index_shift.csv without a findings row),open,,
 sorting/SPARK4/Ada-SPARK-Burstsort,index_shift first_pinned: In_Bounds/Pre requires A'First = 1 (added 2026-10-10 H140 dedup: first_pinned fail in tools/vv/index_shift.csv without a findings row),open,,
