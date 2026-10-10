@@ -5,10 +5,13 @@ PROOF_PROJECT := proof.gpr
 .PHONY: all test prove clean
 all: test
 
+# make test runs the binary under a 256 MB address-space limit (ulimit -v):
+# the binary needs < 10 MB; GNAT 14.2.0 leaked ~3 GB here under -gnata
+# (handover H189, reproducer tools/vv/h187_gnat14_leak).
 test:
 	mkdir -p obj bin
 	$(GPRBUILD) -P$(PROJECT)
-	@bin/tests
+	@ulimit -v 262144 && bin/tests
 
 prove:
 	mkdir -p obj
