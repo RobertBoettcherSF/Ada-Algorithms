@@ -15,7 +15,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Spaghetti-Sort](htt
 
 ## Features
 * **`Sort (A)`**: Ascending educational height-bin spaghetti sort (tally / emit on static bins).
-* **`Is_Sorted` / `In_Bounds` / `Keys_Ok`**: Guards for shape, key domain $0 .. \mathrm{Max\_Key}$, and sortedness; `Is_Sorted` is the proved postcondition.
+* **`Is_Sorted` / `In_Bounds` / `Keys_Ok` / `Occ` / `Is_Perm`**: Guards for shape, key domain $0 .. \mathrm{Max\_Key}$, sortedness and value counts; `Is_Sorted (A) and then Is_Perm (A, A'Old)` is the proved postcondition.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors; the height-bin phase proves sortedness itself: a ghost `Sum_Below` with three induction lemmas shows the bins hold exactly `N` rods, so the emit cursor ends at `N + 1`, and each emitted rod is no shorter than the one before.
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays or out-of-range keys are `Pre` violations rather than `Invalid_Argument`.
 * **Static bins only**: `Counts (0 .. Max_Key)`; heights bounded by $n \le \mathrm{Max\_N}$.
@@ -30,8 +30,8 @@ Callers must establish `Keys_Ok (A)`: every live element satisfies $A(I) \in 0 .
 * Static `Counts (0 .. Max_Key)` (sibling allocates the same shape at larger $U$).
 * **Export only height-bin `Sort`** for Level-4 simplicity; the sibling's `Sort_Extraction` ($O(n^2)$ max-pull for general Integers, including negatives) remains a non-SPARK companion feature — mentioned here, not reimplemented.
 * Height-bin phase posts only `In_Bounds` / RTE; tally / emit use loop invariants and write-cursor caps so Level-4 RTE discharges without a full cardinality / multiset lemma.
-* There is no finishing pass: `Is_Sorted` is proved for the height-bin phase itself. Permutation (same multiset) is checked by the tests, not claimed as a postcondition.
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* There is no finishing pass: `Is_Sorted` and `Is_Perm` are proved for the height-bin phase itself.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`; before 2026-10-10 the Post said only `Is_Sorted`, which a constant-fill body also proves: tools/vv/contract_scan.csv). The tally loop shows `Counts (K) = Occ (A, K, N)` for every key; the emit loop shows `A (A'First .. Pos - 1)` holds `Counts (K2)` copies of each `K2` below the current bin (`Lemma_Occ_Frame`: a write at `Pos` leaves the counts of the prefix alone). The ghost lemmas, loop invariants and assertions are proved and skipped at run time (`Assertion_Policy (Ghost, Loop_Invariant, Assert => Ignore)` in the body, `tools/vv/proof_escapes.csv` runtime_only); the Posts still execute in the tests.
 * **Zero Intentional Annotate**: no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## Algorithm
@@ -65,7 +65,7 @@ Height-bin spaghetti sort is educationally the same reconstruction as classic co
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 272 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (147 checks)`.
+When you run `make test`, you will see all 272 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (218 checks)`. `own_checks` adds 4,820 checks: `Is_Perm` against an own multiset comparison on every pair of arrays of length 0 .. 3 over -1 .. 1, and `Sort` returning `Is_Perm` of its input and the insertion-sorted copy on 2,000 random arrays (seed 20261010).
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, Wikipedia-style height-bin $[3,2,4,2]$, zeros / duplicates / all-equal, lengths up to `Max_N`.
@@ -86,7 +86,7 @@ When you run `make test`, you will see all 272 assertions pass ($0$ FAIL). Runni
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Height-bin loops use `pragma Loop_Invariant`: the tally keeps the bin total equal to the rods seen, the emit loop keeps the written prefix sorted and bounded by the current bin.
-* **GNATprove Level 4:** `Success: all checks proved (147 checks)`.
+* **GNATprove Level 4:** `Success: all checks proved (218 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

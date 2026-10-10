@@ -3,6 +3,12 @@
 --  proved to sort on its own (ghost Sum_Below with Lemma_Zero / Lemma_Inc
 --  / Lemma_Mono: the bins hold exactly N rods); there is no fallback pass.
 
+--  Run-time cost: the ghost count lemmas, loop invariants and assertions
+--  count every key with recursive Occ; all are proved (make prove) and
+--  skipped at run time. The Posts of Sort and Height_Bin_Phase (sorted,
+--  Is_Perm) still execute.
+pragma Assertion_Policy (Ghost => Ignore, Loop_Invariant => Ignore, Assert => Ignore);
+
 package body Spaghetti_Sort
   with SPARK_Mode => On
 is
@@ -94,6 +100,21 @@ is
    --  all bins = A'Length), so the emit cursor, which starts at A'First,
    --  ends at A'Last + 1, and every rod written
    --  is no shorter than the rods before it.
+   --  Counts over A'First .. Last only see A'First .. Last.
+   procedure Lemma_Occ_Frame (X, Y : Element_Array; Last : Natural)
+   with Ghost, Global => null,
+        Pre  => In_Bounds (X) and then In_Bounds (Y) and then X'First = Y'First
+                and then Last <= X'Last and then Last <= Y'Last
+                and then (for all K in X'First .. Last => X (K) = Y (K)),
+        Post => (for all V in Count_Index => Occ (X, V, Last) = Occ (Y, V, Last)),
+        Subprogram_Variant => (Decreases => Last)
+   is
+   begin
+      if Last >= X'First then
+         Lemma_Occ_Frame (X, Y, Last - 1);
+      end if;
+   end Lemma_Occ_Frame;
+
    procedure Height_Bin_Phase (A : in out Element_Array)
      with
        Global => null,
@@ -101,9 +122,12 @@ is
          In_Bounds (A)
          and then A'Length >= 2
          and then Keys_Ok (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A)
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)
    is
       subtype Cursor is Natural range 1 .. Max_N + 1;
+
+      A0     : constant Element_Array := A with Ghost;
+      Prev   : Element_Array (A'Range) with Ghost;
 
       N      : constant Index := A'Last;
       Counts : Count_Array := [others => 0];
@@ -124,6 +148,8 @@ is
          pragma Loop_Invariant (Bins_Ok (Counts));
          pragma Loop_Invariant
            (Sum_Below (Counts, Max_Key + 1) = I - A'First);
+         pragma Loop_Invariant (A = A0);
+         pragma Loop_Invariant (for all K in Count_Index => Counts (K) = Occ (A0, K, I - 1));
 
          H := A (I);
          declare
@@ -147,7 +173,12 @@ is
          pragma Loop_Invariant (Pos = A'First + Sum_Below (Counts, HH));
          pragma Loop_Invariant (Pos <= N + 1);
          pragma Loop_Invariant (for all K in A'First .. Pos - 1 => A (K) <= HH);
+         pragma Loop_Invariant (for all K in A'First .. Pos - 1 => A (K) >= 0);
          pragma Loop_Invariant (Sorted_Slice (A, A'First, Pos - 1));
+         pragma Loop_Invariant
+           (for all K2 in Count_Index =>
+              Occ (A, K2, Pos - 1) = (if K2 < HH then Counts (K2) else 0));
+         pragma Loop_Invariant (for all K in Count_Index => Counts (K) = Occ (A0, K, N));
 
          Lemma_Mono (Counts, HH + 1, Max_Key + 1);
          pragma Assert (Sum_Below (Counts, HH + 1) = Sum_Below (Counts, HH) + Counts (HH));
@@ -161,10 +192,16 @@ is
             pragma Loop_Invariant (In_Bounds (A));
             pragma Loop_Invariant (N = A'Last);
             pragma Loop_Invariant (for all K in A'First .. Pos - 1 => A (K) <= HH);
+            pragma Loop_Invariant (for all K in A'First .. Pos - 1 => A (K) >= 0);
             pragma Loop_Invariant (Sorted_Slice (A, A'First, Pos - 1));
+            pragma Loop_Invariant
+              (for all K2 in Count_Index =>
+                 Occ (A, K2, Pos - 1) = (if K2 < HH then Counts (K2) elsif K2 = HH then C else 0));
             pragma Loop_Variant (Decreases => Counts (HH) - C);
 
+            Prev := A;
             A (Pos) := HH;
+            Lemma_Occ_Frame (Prev, A, Pos - 1);
             Pos := Pos + 1;
             C := C + 1;
          end loop;
@@ -174,6 +211,9 @@ is
 
       pragma Assert (Pos = N + 1);
       pragma Assert (Sorted_Slice (A, A'First, N));
+      pragma Assert (for all K2 in Count_Index => Occ (A, K2, N) = Occ (A0, K2, N));
+      pragma Assert (for all I in A'Range => A (I) in Count_Index and then A0 (I) in Count_Index);
+      pragma Assert (Is_Perm (A, A0));
    end Height_Bin_Phase;
 
    procedure Sort (A : in out Element_Array) is

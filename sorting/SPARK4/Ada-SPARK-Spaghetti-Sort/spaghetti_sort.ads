@@ -105,11 +105,35 @@ is
    -- Sorting
    ---------------------------------------------------------------------------
 
+   --  How many of A (A'First .. Last) equal V.
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural
+   with
+     Global             => null,
+     Pre                => In_Bounds (A) and then Last <= A'Last,
+     Post               => (if Last < A'First then Occ'Result = 0
+                            else Occ'Result <= Last - A'First + 1),
+     Subprogram_Variant => (Decreases => Last);
+
+   function Occ (A : Element_Array; V : Integer; Last : Natural) return Natural is
+     (if Last < A'First then 0
+      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
+
+   --  A and B have the same bounds and hold the same values, each equally
+   --  often (a value in neither counts 0 in both).
+   function Is_Perm (A, B : Element_Array) return Boolean is
+     (A'First = B'First
+      and then A'Last = B'Last
+      and then (for all I in A'Range => Occ (A, A (I), A'Last) = Occ (B, A (I), B'Last))
+      and then (for all I in B'Range => Occ (A, B (I), A'Last) = Occ (B, B (I), B'Last)))
+   with
+     Global => null,
+     Pre    => In_Bounds (A) and then In_Bounds (B);
+
    procedure Sort (A : in out Element_Array)
      with
        Global => null,
        Pre    => In_Bounds (A) and then Keys_Ok (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A);
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old);
    --  Ascending educational height-bin spaghetti sort (no finishing pass).
    --  Empty and singleton arrays are no-ops.
    --  Post proves sortedness; multiset / permutation equality is
