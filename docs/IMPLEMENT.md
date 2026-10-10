@@ -2,7 +2,7 @@
 
 Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every folder with `stub` = yes in PROOFS.csv carries `implement_next` = yes: it is a candidate for a full implementation of the named algorithm, which comes before the SPARK Silver (level 2) work on it. Signals: the folder name ends in `-Stub` (and it is not listed in `tools/generalised_stubs.txt`), its README calls it a stub (`tools/readme_stubs.txt`), or the hidden-stub scan found that the code lacks the core step (`tools/vv/hidden_stub.csv`). The core-step notes are in `tools/implement_notes.txt`.
 
-**132 candidate folders** (131 with duplicates counted once, the README count).
+**130 candidate folders** (129 with duplicates counted once, the README count).
 
 ## concurrency (2)
 
@@ -148,19 +148,17 @@ Written by `make proof-index` (tools/proof_index.py); do not edit by hand. Every
 | searching/SPARK2/Ada-SPARK-Unique-Binary-Search-Trees-II-Lite | hidden-stub scan: hidden stub: Root_Choices (N) returns N; no trees generated | recursive construction of all structurally unique BSTs over 1 .. n |
 | searching/SPARK2/Ada-SPARK-Word-Search | README wording: "Word Search (bounded SPARK stub)  An 8x8 bounded board search for the first word character" | DFS with backtracking over the grid, marking visited cells |
 
-## sorting (15)
+## sorting (13)
 
 | Folder | Signal | Full algorithm needs (core step) |
 |---|---|---|
 | sorting/SPARK2/Ada-SPARK-Block-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | block merge sort (WikiSort-style): in-place merges with buffer blocks |
 | sorting/SPARK2/Ada-SPARK-Convert-Sorted-Array-To-BST | README wording: "hidden stub: Build always fills the same 7 fixed slots from A (4) / A (2) / A (6) / ... (Sorted_Array is exactly 7 elements); no midpoint recursion, so no gener" | take the middle element as the root and build both halves the same way, for any length; prove the in-order walk is the input and the height is minimal |
 | sorting/SPARK2/Ada-SPARK-Exchange-Sort | README wording: "Ada-SPARK-Exchange-Sort  A small bounded Ada/SPARK sorting stub" | compare every pair (i, j > i) and swap when out of order, for any length |
-| sorting/SPARK2/Ada-SPARK-Flash-Sort | README wording: "Ada-SPARK-Flash-Sort  A small bounded Ada/SPARK sorting stub" | classify into m classes by linear interpolation, permute in cycles, then insertion sort |
 | sorting/SPARK2/Ada-SPARK-Heap-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | build a max-heap in place, then repeatedly swap the root to the end and sift down |
 | sorting/SPARK2/Ada-SPARK-Intro-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | quicksort with a 2*log2(n) depth limit falling back to heapsort, insertion sort for small parts |
 | sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub | -Stub name | min-heap (or divide and conquer) merge of k sorted lists of any length |
 | sorting/SPARK2/Ada-SPARK-Pancake-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | repeatedly flip the maximum to the front, then to its final position |
-| sorting/SPARK2/Ada-SPARK-Patience-Sort | README wording: "Ada-SPARK-Patience-Sort  A small bounded Ada/SPARK sorting stub" | deal into piles by binary search on pile tops, then k-way merge the piles |
 | sorting/SPARK2/Ada-SPARK-Quick-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | partition around a pivot and recurse on both sides, for any length |
 | sorting/SPARK2/Ada-SPARK-Shaker-Sort | hidden-stub scan: hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented | alternating forward and backward bubble passes with shrinking bounds |
 | sorting/SPARK2/Ada-SPARK-Smooth-Sort | README wording: "Ada-SPARK-Smooth-Sort  A small bounded Ada/SPARK sorting stub" | Leonardo-heap construction and dismantling |
