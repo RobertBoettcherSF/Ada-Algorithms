@@ -89,6 +89,48 @@ begin
       when Ada.Assertions.Assertion_Error =>
          null;
    end;
+   --  H180: the 1-based pin is the subtype One_Based_Choice (predicate
+   --  'First = 1, any length), not an S'First = 1 precondition. First a
+   --  check that assertions are on (-gnata in house_robber_iii_lite.gpr),
+   --  else the call checks below could never fail.
+   declare
+      Assertions_On : Boolean := False;
+   begin
+      begin
+         pragma Assert (Big_Path.N < 0);
+      exception
+         when Ada.Assertions.Assertion_Error =>
+            Assertions_On := True;
+      end;
+      if not Assertions_On then
+         raise Program_Error with "assertions are off (-gnata missing)";
+      end if;
+   end;
+   declare
+      Normal  : constant Choice (1 .. 3) := [True, False, True];
+      Shifted : constant Choice (5 .. 7) := Normal;
+      Raised  : Boolean := False;
+   begin
+      pragma Assert (Normal in One_Based_Choice);
+      pragma Assert (not (Shifted in One_Based_Choice));
+      if Normal not in One_Based_Choice or else Shifted in One_Based_Choice then
+         raise Program_Error with "One_Based_Choice membership";
+      end if;
+      if Best_Choice (Right_Path) not in One_Based_Choice then
+         raise Program_Error with "Best_Choice result not in One_Based_Choice";
+      end if;
+      --  Independent takes a One_Based_Choice: the 5 .. 7 choice must fail
+      --  the predicate check on the parameter.
+      begin
+         Put_Line ("shifted choice gave " & Independent (Right_Path, Shifted)'Image);
+      exception
+         when Ada.Assertions.Assertion_Error =>
+            Raised := True;
+      end;
+      if not Raised then
+         raise Program_Error with "Independent (5 .. 7) did not raise Assertion_Error";
+      end if;
+   end;
    Put_Line ("PASS House_Robber_III_Lite");
    Own_Checks;
 end Tests;

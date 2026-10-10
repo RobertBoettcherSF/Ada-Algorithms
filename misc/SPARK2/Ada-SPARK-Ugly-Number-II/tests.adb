@@ -1,6 +1,7 @@
 pragma Ada_2022;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Numerics.Big_Numbers.Big_Integers; use Ada.Numerics.Big_Numbers.Big_Integers;
+with Ada.Assertions; use Ada.Assertions;
 with Ugly_Number_II; use Ugly_Number_II;
 
 --  Expected values: see tests/SOURCES.txt.
@@ -83,6 +84,51 @@ begin
       Check (L (Max_N).Value = 8_062_156_800, "2000th");
    end;
    Check (Nth_Ugly (Max_N) = 8_062_156_800, "Nth_Ugly 2000");
+   --  H180: the 1-based pin is the subtype One_Based_List (predicate
+   --  'First = 1, any length), not a First = 1 precondition. The same six
+   --  entries slid to 5 .. 10 are a valid Ugly_List but not a
+   --  One_Based_List. First a check that assertions are on (-gnata in
+   --  ugly_number_ii.gpr), else the call checks below could never fail.
+   declare
+      Assertions_On : Boolean := False;
+   begin
+      begin
+         pragma Assert (Failures < 0);
+      exception
+         when Assertion_Error =>
+            Assertions_On := True;
+      end;
+      Check (Assertions_On, "assertions on (-gnata)");
+   end;
+   declare
+      Normal  : constant Ugly_List := First_Ugly (6);
+      Shifted : constant Ugly_List (5 .. 10) := Normal;
+      Raised  : Boolean := False;
+   begin
+      pragma Assert (Normal in One_Based_List);
+      pragma Assert (not (Shifted in One_Based_List));
+      Check (Normal in One_Based_List, "First_Ugly result in One_Based_List");
+      Check (Shifted not in One_Based_List, "5 .. 10 list not in One_Based_List");
+      Check (Shifted'Length = 6 and then Shifted (10).Value = 8, "slid copy keeps the entries");
+      --  Ugly_Prefix takes a One_Based_List: passing the 5 .. 10 list must
+      --  fail the predicate check on the parameter (Assertion_Error), not
+      --  just return False.
+      begin
+         pragma Assert (not Ugly_Prefix (Shifted));
+      exception
+         when Assertion_Error =>
+            Raised := True;
+      end;
+      Check (Raised, "Ugly_Prefix (5 .. 10) raises Assertion_Error");
+      Raised := False;
+      begin
+         Lemma_Complete (Shifted, 0, 0, 0);
+      exception
+         when Assertion_Error =>
+            Raised := True;
+      end;
+      Check (Raised, "Lemma_Complete (5 .. 10) raises Assertion_Error");
+   end;
    if Failures = 0 then
       Put_Line ("PASS Ugly_Number_II");
    else
