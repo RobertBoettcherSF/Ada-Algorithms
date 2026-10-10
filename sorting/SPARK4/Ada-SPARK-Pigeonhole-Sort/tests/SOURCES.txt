@@ -8,3 +8,6 @@ Sources of expected values (Ada-SPARK-Pigeonhole-Sort)
   suite against a scratch copy of the library in which a final
   Bubble_Finish call of Sort (if any) is replaced by null, so only the
   pigeonhole phase sorts (docs/VV.md 3i, pattern 7).
+* own_checks.adb (2026-10-10): Is_Perm checked against an own multiset
+  comparison (insertion-sort both copies, compare slot by slot), written
+  for this repository; random arrays seed 20261010.
