@@ -6,7 +6,7 @@ Once one copy of X is taken, the other copies can be taken for free, so the answ
 
 **Range widened:** the first version was a case table of `Maximum (N)` for N in 1 .. 16 and had no array input. It now takes real arrays (duplicates, gaps, any order), and N goes to 100.
 
-The proved contract is `Max_Earn (Nums) = Best (Points_Of (Nums), 100).Upto`, where the ghost `Points_Of` sums each value's copies and the ghost `Best` is the skip/take recurrence; the bounds Points (X) <= 10_000 and Best <= K * 10_000 are proved, so nothing overflows (61 checks). `Maximum (N)` is proved against the points of 1 .. N.
+The proved contract is `Max_Earn (Nums) = Best (Points_Of (Nums), 100).Upto`, where the ghost `Points_Of` sums each value's copies and the ghost `Best` is the skip/take recurrence; the bounds Points (X) <= 10_000 and Best <= K * 10_000 are proved, so nothing overflows (60 checks). `Max_Earn` takes `Nums` at any origin (`Nums'First` is not pinned to 1; the ghost `Weight` counts `Nums (Nums'First .. Last)`), tested at origins 2, 7, 50 and ending at `Index'Last`. `Maximum (N)` is proved against the points of 1 .. N.
 
 ## Checks
 

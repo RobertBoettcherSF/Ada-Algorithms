@@ -29,7 +29,7 @@ package body Delete_And_Earn with SPARK_Mode => On is
            (for all X in Number => Points (X) = Weight (Nums, X, I - 1));
          Points (Nums (I)) := Points (Nums (I)) + Nums (I);
       end loop;
-      pragma Assert (Points = Points_Of (Nums));
+      pragma Assert (for all X in Number => Points (X) = Points_Of (Nums) (X));
 
       --  Values 1 .. 100 in order: skip X, or take it and leave out X - 1.
       for X in Number loop
@@ -46,7 +46,7 @@ package body Delete_And_Earn with SPARK_Mode => On is
      Ghost,
      Global             => null,
      Pre                =>
-       Nums'First = 1 and then Last <= Nums'Last
+       Nums'First = 1 and then Nums'Length > 0 and then Last <= Nums'Last
        and then (for all I in Nums'Range => Nums (I) = I),
      Post               =>
        (for all X in Number => Weight (Nums, X, Last) = (if X <= Last then X else 0)),

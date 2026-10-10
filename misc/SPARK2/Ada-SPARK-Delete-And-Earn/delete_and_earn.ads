@@ -25,17 +25,19 @@ package Delete_And_Earn with SPARK_Mode => On is
    subtype Score is Natural range 0 .. 100 * Max_Point;
    type Point_Array is array (Number) of Point;
 
-   --  Sum of the copies of X in Nums (1 .. Last), that is X times the
-   --  number of copies; each copy adds at most 100.
-   function Weight (Nums : Num_Array; X : Number; Last : Integer) return Natural
+   --  Sum of the copies of X in Nums (Nums'First .. Last), that is X times
+   --  the number of copies; each copy adds at most 100. Any Nums'First
+   --  (Nums nonempty, so Nums'First is in Index; an empty array has no
+   --  points, see Points_Of).
+   function Weight (Nums : Num_Array; X : Number; Last : Natural) return Natural
    with
      Ghost,
-     Pre                => Nums'First = 1 and then Last <= Nums'Last,
-     Post               => Weight'Result <= 100 * Integer'Max (Last, 0),
+     Pre                => Nums'Length > 0 and then Last <= Nums'Last,
+     Post               => Weight'Result <= 100 * Integer'Max (Last - Nums'First + 1, 0),
      Subprogram_Variant => (Decreases => Last);
 
    function Points_Of (Nums : Num_Array) return Point_Array
-   with Ghost, Pre => Nums'First = 1;
+   with Ghost;
 
    --  Best totals over values 1 .. K (Upto) and 1 .. K - 1 (Before): value
    --  K is either skipped (Best (K - 1)) or taken with value K - 1 left out
@@ -63,7 +65,6 @@ package Delete_And_Earn with SPARK_Mode => On is
    function Max_Earn (Nums : Num_Array) return Score
    with
      Global => null,
-     Pre    => Nums'First = 1,
      Post   => Max_Earn'Result = Best (Points_Of (Nums), 100).Upto;
 
    --  Points when each value 1 .. N occurs once.
@@ -78,12 +79,12 @@ package Delete_And_Earn with SPARK_Mode => On is
      Post   => Maximum'Result = Best (Once_Points (N), 100).Upto;
 
 private
-   function Weight (Nums : Num_Array; X : Number; Last : Integer) return Natural is
-     (if Last < 1 then 0
+   function Weight (Nums : Num_Array; X : Number; Last : Natural) return Natural is
+     (if Last < Nums'First then 0
       else Weight (Nums, X, Last - 1) + (if Nums (Last) = X then X else 0));
 
    function Points_Of (Nums : Num_Array) return Point_Array is
-     ([for X in Number => Weight (Nums, X, Nums'Last)]);
+     ([for X in Number => (if Nums'Length = 0 then 0 else Weight (Nums, X, Nums'Last))]);
 
    function Best (P : Point_Array; K : Value_Count) return Best_Pair is
      (if K = 0 then (Upto => 0, Before => 0) else Step (Best (P, K - 1), P (K), K));
