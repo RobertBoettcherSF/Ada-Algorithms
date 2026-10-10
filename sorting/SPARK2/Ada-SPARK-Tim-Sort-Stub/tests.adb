@@ -44,6 +44,121 @@ procedure Tests is
              Name);
    end Case_Of;
 
+   --  Sorted-copy reference: insertion sort of a copy.
+   function Ref_Sort (A : Value_Array) return Value_Array is
+      R : Value_Array := A;
+      T : Value;
+      J : Integer;
+   begin
+      for I in R'First + 1 .. R'Last loop
+         T := R (I);
+         J := I - 1;
+         while J >= R'First and then R (J) > T loop
+            R (J + 1) := R (J);
+            J := J - 1;
+         end loop;
+         R (J + 1) := T;
+      end loop;
+      return R;
+   end Ref_Sort;
+
+   --  Permutation by sorted copies (independent of Occ / Is_Perm).
+   function Is_Permutation (A, B : Value_Array) return Boolean is
+     (A'First = B'First and then A'Last = B'Last and then Ref_Sort (A) = Ref_Sort (B));
+
+   --  LCG for the permutation checks (seed 20261009).
+   P_Seed : Long_Long_Integer := 20_261_009;
+   function P_Next (M : Positive) return Natural is
+   begin
+      P_Seed := (P_Seed * 1_103_515_245 + 12_345) mod 2_147_483_648;
+      return Natural ((P_Seed / 65_536) mod Long_Long_Integer (M));
+   end P_Next;
+
+   procedure Perm_Checks is
+      Bad   : Natural := 0;
+      Cases : Natural := 0;
+      procedure Run (Src : Value_Array) is
+         R : constant Value_Array := Sort (Src);
+      begin
+         Cases := Cases + 1;
+         if not (Is_Perm (R, Src) and then R = Ref_Sort (Src)) then
+            Bad := Bad + 1;
+         end if;
+      end Run;
+   begin
+      --  Is_Perm (Post) against sorted copies: every pair of arrays of
+      --  length 0 .. 4 over -1 .. 1.
+      for Len in 0 .. 4 loop
+         for CA in 0 .. 3 ** Len - 1 loop
+            for CB in 0 .. 3 ** Len - 1 loop
+               declare
+                  A, B : Value_Array (1 .. Len);
+                  X    : Natural := CA;
+                  Y    : Natural := CB;
+               begin
+                  for I in A'Range loop
+                     A (I) := X mod 3 - 1;
+                     B (I) := Y mod 3 - 1;
+                     X := X / 3;
+                     Y := Y / 3;
+                  end loop;
+                  Cases := Cases + 1;
+                  if Is_Perm (A, B) /= Is_Permutation (A, B) then
+                     Bad := Bad + 1;
+                  end if;
+               end;
+            end loop;
+         end loop;
+      end loop;
+      Check (Bad = 0 and then Cases = 7_381,
+             "Is_Perm = sorted-copy comparison on" & Cases'Image & " pairs");
+      Check (not Is_Perm (Value_Array'([3, 1, 2]), Value_Array'([0, 0, 0])),
+             "Is_Perm rejects an all-zeros result");
+      Check (not Is_Perm (Value_Array'([1, 1, 2]), Value_Array'([1, 2, 2])),
+             "Is_Perm compares counts, not just values");
+      Check (not Is_Perm (Value_Array'([1, 2, 3]), Value_Array'([1, 1, 1])),
+             "Is_Perm rejects the all-first trivial body");
+      Check (Occ (Value_Array'([2, 5, 2, 2]), 2, 1, 4) = 3
+             and then Occ (Value_Array'([2, 5, 2, 2]), 2, 2, 3) = 1
+             and then Occ (Value_Array'([2, 5, 2, 2]), 7, 1, 4) = 0
+             and then Occ (Value_Array'([2, 5, 2, 2]), 2, 3, 2) = 0,
+             "Occ counts A (First .. Last)");
+      --  Sort result: Is_Perm (Result, Input) and = reference on every
+      --  array of length 0 .. 6 over -1 .. 1 at origins 1 and 7, and
+      --  2,000 random arrays (lengths 0 .. 300, seed 20261009).
+      Bad := 0;
+      Cases := 0;
+      for O in 0 .. 1 loop
+         for Len in 0 .. 6 loop
+            for C in 0 .. 3 ** Len - 1 loop
+               declare
+                  A : Value_Array (1 + 6 * O .. 6 * O + Len);
+                  X : Natural := C;
+               begin
+                  for I in A'Range loop
+                     A (I) := X mod 3 - 1;
+                     X := X / 3;
+                  end loop;
+                  Run (A);
+               end;
+            end loop;
+         end loop;
+      end loop;
+      for K in 1 .. 2_000 loop
+         declare
+            Len : constant Natural := P_Next (301);
+            A   : Value_Array (1 .. Len);
+         begin
+            for I in A'Range loop
+               A (I) := (if K mod 2 = 0 then P_Next (11) - 5 else P_Next (2_000_001) - 1_000_000);
+            end loop;
+            Run (A);
+         end;
+      end loop;
+      Check (Bad = 0 and then Cases = 2 * 1_093 + 2_000,
+             "Sort result Is_Perm of input and = reference on" & Cases'Image & " arrays");
+   end Perm_Checks;
+
    Old_Stub : constant Value_Array :=
      [1 => 4, 2 => 1, 3 => 7, 4 => 3, 5 => 2, 6 => 8, 7 => 5, 8 => 6];
    Empty    : constant Value_Array (1 .. 0) := [others => 0];
@@ -73,6 +188,7 @@ begin
       Big (K) := Seed - 32_768;
    end loop;
    Case_Of (Big, "120 pseudo-random values");
+   Perm_Checks;
    if Failures = 0 then
       Put_Line ("PASS Tim_Sort_Stub");
    else
