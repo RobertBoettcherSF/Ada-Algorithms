@@ -368,4 +368,7 @@ begin
    end loop;
 
    Ada.Text_IO.Put_Line ("own checks:" & Checked'Image & " checks," & Failures'Image & " failures");
+   if Failures > 0 then
+      raise Program_Error with "own checks failed";
+   end if;
 end Own_Checks;

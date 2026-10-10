@@ -142,5 +142,6 @@ begin
       Ada.Text_IO.Put_Line ("PASS own checks:" & Checked'Image & " checks");
    else
       Ada.Text_IO.Put_Line ("FAIL own checks:" & Failures'Image & " of" & Checked'Image);
+      raise Program_Error with "own checks failed";
    end if;
 end Own_Checks;
