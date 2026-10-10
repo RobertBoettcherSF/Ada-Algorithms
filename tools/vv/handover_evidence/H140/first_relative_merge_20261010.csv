@@ -1,0 +1,99 @@
+folder,had_open_first_pinned_finding,fixed_origin_decision,index_shift_kind,index_shift_fix_kind,state_2026_10_10,rewrite_commit
+clustering/Ada/FLAME-Clustering,no,rewrite,first_relative,rewritten_first_relative,rewritten,a24e4397
+compression/Ada/Peterson-Gorenstein-Zierler-Algorithm,no,keep,fixed_origin_type,fixed_origin_type,kept (accepted fixed origin: index arithmetic: coefficient index is the degree (Derivative Poly(I)*I); subtype Degree_Poly First=0 (room recheck KEEP)),
+compression/SPARK2/Ada-SPARK-LZ77,no,rewrite,first_relative,rewritten_first_relative,rewritten,749a5686
+compression/SPARK2/Ada-SPARK-Run-Length-Encoding,yes,rewrite,first_relative,rewritten_first_relative,rewritten,749a5686
+compression/SPARK3/Huffman-Coding,yes,rewrite,first_relative,rewritten_first_relative,rewritten,5751374d
+graphs/Ada/Floyds-Cycle-Finding-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+graphs/Ada/Hungarian-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+graphs/SPARK4/A-Star,no,rewrite,first_relative,rewritten_first_relative,rewritten,735e4893
+graphs/SPARK4/Ada-SPARK-Dijkstras-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,c958dcb1
+graphs/SPARK4/Ada-SPARK-Floyds-Cycle-Finding-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+hashing/SPARK2/Ada-SPARK-FNV-Hash,no,rewrite,first_relative,rewritten_first_relative,rewritten,6655bde4
+hashing/SPARK2/Ada-SPARK-Pearson-Hashing,no,rewrite,first_relative,rewritten_first_relative,rewritten,6655bde4
+hashing/SPARK2/Ada-SPARK-Zobrist-Hashing,yes,rewrite,first_relative,rewritten_first_relative,rewritten,749a5686
+misc/Ada/Ant-Colony-Optimization,no,rewrite,first_relative,rewritten_first_relative,rewritten,4dce0c22
+misc/Ada/BCJR-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+misc/Ada/Barnes-Hut,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+misc/Ada/Branch-and-Bound,no,rewrite,first_relative,rewritten_first_relative,rewritten,4e11b22f
+misc/Ada/Combinatorial-Optimization,no,rewrite,first_relative,rewritten_first_relative,rewritten,839f204d
+misc/Ada/Fast-Multipole-Method,no,rewrite,first_relative,rewritten_first_relative,rewritten,4dce0c22
+misc/Ada/Gale-Shapley-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+misc/Ada/Levinson-Recursion,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+misc/Ada/Memetic-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+misc/Ada/Min-Conflicts,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+misc/Ada/N-Body-Problems,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+misc/Ada/Thomas-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+misc/Ada/Top-Trading-Cycle,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+misc/SPARK2/Ada-SPARK-Adler32,yes,rewrite,first_relative,rewritten_first_relative,rewritten,6655bde4
+misc/SPARK2/Ada-SPARK-CRC32,no,rewrite,first_relative,rewritten_first_relative,rewritten,6655bde4
+misc/SPARK2/Ada-SPARK-Checksum-Ones-Complement,yes,rewrite,first_relative,rewritten_first_relative,rewritten,6655bde4
+misc/SPARK2/Ada-SPARK-Delete-And-Earn,no,-,first_pinned,,"OPEN: pin still in the spec (no room decision: rewrite, or subtype / Pre + one-line reason)",
+misc/SPARK2/Ada-SPARK-Delta-Encoding,yes,rewrite,first_relative,rewritten_first_relative,rewritten,6655bde4
+misc/SPARK2/Ada-SPARK-Different-Ways-To-Add-Parentheses-Lite,no,-,first_pinned,,"OPEN: pin still in the spec (no room decision: rewrite, or subtype / Pre + one-line reason)",
+misc/SPARK2/Ada-SPARK-House-Robber-III-Lite,no,-,first_pinned,,"OPEN: pin still in the spec (no room decision: rewrite, or subtype / Pre + one-line reason)",
+misc/SPARK2/Ada-SPARK-Integer-Break,no,-,first_pinned,,"OPEN: pin still in the spec (no room decision: rewrite, or subtype / Pre + one-line reason)",
+misc/SPARK2/Ada-SPARK-Permutations-II,no,-,first_pinned,,"OPEN: pin still in the spec (no room decision: rewrite, or subtype / Pre + one-line reason)",
+misc/SPARK2/Ada-SPARK-Subsets,no,-,first_pinned,,"OPEN: pin still in the spec (no room decision: rewrite, or subtype / Pre + one-line reason)",
+misc/SPARK2/Ada-SPARK-Subsets-II,no,-,first_pinned,,"OPEN: pin still in the spec (no room decision: rewrite, or subtype / Pre + one-line reason)",
+misc/SPARK2/Ada-SPARK-Ugly-Number-II,no,-,first_pinned,,"OPEN: pin still in the spec (no room decision: rewrite, or subtype / Pre + one-line reason)",
+misc/SPARK4/Ada-SPARK-Heaps-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,84e67e38
+misc/SPARK4/Ada-SPARK-K-Way-Merge,no,rewrite,first_relative,rewritten_first_relative,rewritten,1d82feec
+misc/SPARK4/Ada-SPARK-Package-Merge-Algorithm,yes,keep,fixed_origin_type,fixed_origin_type,kept (accepted fixed origin: index arithmetic: package-merge pairs at 2*P-1 / 2*P (room recheck KEEP)),
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,yes,rewrite,first_relative,rewritten_first_relative,rewritten,93db117e
+numerical/Ada/Brents-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+numerical/Ada/Spline-Interpolation,no,rewrite,first_relative,rewritten_first_relative,rewritten,
+numerical/SPARK4/Ada-SPARK-Brents-Algorithm,no,rewrite,first_relative,rewritten_first_relative,rewritten,2a17bf5a
+searching/SPARK2/Ada-SPARK-Trigram-Search,no,rewrite,first_relative,rewritten_first_relative,rewritten,749a5686
+searching/SPARK4/Ada-SPARK-Binary-Search,yes,rewrite,first_relative,rewritten_first_relative,rewritten,46c361b2
+searching/SPARK4/Ada-SPARK-Fibonacci-Search,yes,rewrite,first_relative,rewritten_first_relative,rewritten,46c361b2
+searching/SPARK4/Ada-SPARK-Interpolation-Search,yes,rewrite,first_relative,rewritten_first_relative,rewritten,43b46929
+searching/SPARK4/Ada-SPARK-Introselect,yes,rewrite,first_relative,rewritten_first_relative,rewritten,201dbf07
+searching/SPARK4/Ada-SPARK-Jump-Search,yes,rewrite,first_relative,rewritten_first_relative,rewritten,46c361b2
+searching/SPARK4/Ada-SPARK-Linear-Search,yes,rewrite,first_relative,rewritten_first_relative,rewritten,46c361b2
+searching/SPARK4/Ada-SPARK-Quickselect,yes,rewrite,first_relative,rewritten_first_relative,rewritten,82998234
+searching/SPARK4/Ada-SPARK-Ternary-Search,yes,rewrite,first_relative,rewritten_first_relative,rewritten,46c361b2
+searching/SPARK4/Ada-SPARK-Uniform-Cost-Search,no,rewrite,first_relative,rewritten_first_relative,rewritten,387afcf8
+searching/SPARK4/Best-First-Search,no,rewrite,first_relative,rewritten_first_relative,rewritten,8367a169
+sorting/SPARK4/Ada-SPARK-Bitonic-Sorter,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Bogosort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,9a415b45
+sorting/SPARK4/Ada-SPARK-Bubble-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,adeb1312
+sorting/SPARK4/Ada-SPARK-Bucket-Sort,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Burstsort,no,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Cocktail-Shaker-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,72626e19
+sorting/SPARK4/Ada-SPARK-Comb-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,80f9834b
+sorting/SPARK4/Ada-SPARK-Counting-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,60c00235
+sorting/SPARK4/Ada-SPARK-Cycle-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,a1e21fc9
+sorting/SPARK4/Ada-SPARK-Flashsort,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Gnome-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,58591f76
+sorting/SPARK4/Ada-SPARK-Heapsort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,4c6638ea
+sorting/SPARK4/Ada-SPARK-Insertion-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,929a80aa
+sorting/SPARK4/Ada-SPARK-Introsort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,6adf13fc
+sorting/SPARK4/Ada-SPARK-Library-Sort,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Merge-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,04f730c0
+sorting/SPARK4/Ada-SPARK-Odd-Even-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,dea13581
+sorting/SPARK4/Ada-SPARK-Pancake-Sorting,yes,rewrite,first_relative,rewritten_first_relative,rewritten,15c4e67b
+sorting/SPARK4/Ada-SPARK-Patience-Sorting,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Pigeonhole-Sort,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Postman-Sort,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Quantum-Sort,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Quicksort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,a7e3de57
+sorting/SPARK4/Ada-SPARK-Radix-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,53467afb
+sorting/SPARK4/Ada-SPARK-Samplesort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,1c0080da
+sorting/SPARK4/Ada-SPARK-Selection-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,83cb3fe6
+sorting/SPARK4/Ada-SPARK-Shell-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,37d178dd
+sorting/SPARK4/Ada-SPARK-Slowsort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,a649fa07
+sorting/SPARK4/Ada-SPARK-Smoothsort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,995de598
+sorting/SPARK4/Ada-SPARK-Sort-Merge-Join,no,rewrite,first_relative,rewritten_first_relative,rewritten,c1d5a1e4
+sorting/SPARK4/Ada-SPARK-Spaghetti-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,2365ea61
+sorting/SPARK4/Ada-SPARK-Stooge-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,822ece13
+sorting/SPARK4/Ada-SPARK-Strand-Sort,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Timsort,yes,rewrite,first_pinned,rewrite_first_relative,OPEN: pin still in the spec (room decision rewrite),
+sorting/SPARK4/Ada-SPARK-Topological-Sort,no,rewrite,first_relative,rewritten_first_relative,rewritten,6f72485b
+sorting/SPARK4/Ada-SPARK-Tree-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,ba0a6db2
+sorting/SPARK4/Bead-Sort,yes,rewrite,first_relative,rewritten_first_relative,rewritten,20b4252e
+strings/SPARK2/Ada-SPARK-Damerau-Levenshtein-Distance,yes,rewrite,first_relative,rewritten_first_relative,rewritten,749a5686
+strings/SPARK2/Ada-SPARK-Knuth-Morris-Pratt,yes,rewrite,first_relative,rewritten_first_relative,rewritten,4dce0c22
+strings/SPARK2/Ada-SPARK-Longest-Common-Subsequence,no,rewrite,first_relative,rewritten_first_relative,rewritten,4012f0fc
+strings/SPARK3/Levenshtein-Distance,no,rewrite,first_relative,rewritten_first_relative,rewritten,f6c7180b
+trees/SPARK2/Ada-SPARK-Longest-Common-Substring,yes,rewrite,first_relative,rewritten_first_relative,rewritten,749a5686

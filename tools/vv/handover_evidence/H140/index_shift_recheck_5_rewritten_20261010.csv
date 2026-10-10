@@ -1,0 +1,43 @@
+folder,subprogram,kind,status,fix_kind,n_array_params,detail,note
+sorting/SPARK4/Ada-SPARK-Bogosort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Bogosort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Bogosort,Occ,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+sorting/SPARK4/Ada-SPARK-Bogosort,Occ,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+sorting/SPARK4/Ada-SPARK-Bogosort,Is_Perm,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Bogosort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+sorting/SPARK4/Ada-SPARK-Bogosort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+sorting/SPARK4/Ada-SPARK-Bogosort,Occ,skipped,skipped,,,"driver build failed: c"" declared at bogosort.ads:68 idx_shift_driver.adb:33:22: error: missing argument for parameter ""Last"" in call to ""Occ"" declared at bogosort.ads:68 gnatmake: ""idx_shift_driver.adb"" compilation error ",
+sorting/SPARK4/Ada-SPARK-Bogosort,Sort,skipped,skipped,,,sort driver build failed,
+searching/SPARK4/Ada-SPARK-Quickselect,,static_midpoint,review,,,searching/SPARK4/Ada-SPARK-Quickselect/quickselect.adb:514: K := (N + 1) / 2;,prefer Lo + (Hi - Lo) / 2
+searching/SPARK4/Ada-SPARK-Quickselect,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+searching/SPARK4/Ada-SPARK-Quickselect,Is_Kth_Partitioned,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+searching/SPARK4/Ada-SPARK-Quickselect,Select_Kth,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+searching/SPARK4/Ada-SPARK-Quickselect,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
+searching/SPARK4/Ada-SPARK-Quickselect,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
+searching/SPARK4/Ada-SPARK-Quickselect,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+searching/SPARK4/Ada-SPARK-Quickselect,Select_Kth_Copy,shift_mismatch,fail,,,origins 2/100 high 10000 (value) | FAIL exception high-first | IDX_SHIFT_FAIL 1 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,,static_midpoint,review,,,misc/SPARK4/Ada-SPARK-Selection-Algorithm/selection_algorithm.adb:515: K := (N + 1) / 2;,prefer Lo + (Hi - Lo) / 2
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,Is_Kth_Partitioned,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,Select_Kth,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+misc/SPARK4/Ada-SPARK-Selection-Algorithm,Select_Kth_Copy,shift_mismatch,fail,,,origins 2/100 high 10000 (value) | FAIL exception high-first | IDX_SHIFT_FAIL 1 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
+sorting/SPARK4/Ada-SPARK-Samplesort,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Samplesort,Is_Sorted,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Samplesort,Occ,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+sorting/SPARK4/Ada-SPARK-Samplesort,Occ,catalog,catalog,,1,function n_arrays=1 ret=Natural,
+sorting/SPARK4/Ada-SPARK-Samplesort,Is_Perm,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+sorting/SPARK4/Ada-SPARK-Samplesort,Sort,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+sorting/SPARK4/Ada-SPARK-Samplesort,,first_pinned,fail,rewrite_first_relative,,REWRITE: First-relative (indexes only walk/line-up),indexes only walk/line-up (room decision)
+sorting/SPARK4/Ada-SPARK-Samplesort,Occ,skipped,skipped,,,"driver build failed: clared at samplesort.ads:89 idx_shift_driver.adb:33:22: error: missing argument for parameter ""First"" in call to ""Occ"" declared at samplesort.ads:89 gnatmake: ""idx_shift_driver.adb"" compilation error ",
+sorting/SPARK4/Ada-SPARK-Samplesort,Sort,ok,ok,,,sort shift ok,
+searching/SPARK4/Ada-SPARK-Introselect,,static_midpoint,review,,,searching/SPARK4/Ada-SPARK-Introselect/introselect.adb:729: K := (N + 1) / 2;,prefer Lo + (Hi - Lo) / 2
+searching/SPARK4/Ada-SPARK-Introselect,In_Bounds,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+searching/SPARK4/Ada-SPARK-Introselect,Is_Kth_Partitioned,catalog,catalog,,1,function n_arrays=1 ret=Boolean,
+searching/SPARK4/Ada-SPARK-Introselect,Select_Kth,catalog,catalog,,1,procedure n_arrays=1 ret=None,
+searching/SPARK4/Ada-SPARK-Introselect,Select_Kth_Copy,catalog,catalog,,1,function n_arrays=1 ret=Integer,
+searching/SPARK4/Ada-SPARK-Introselect,Median,catalog,catalog,,1,function n_arrays=1 ret=Integer,
+searching/SPARK4/Ada-SPARK-Introselect,,first_relative,ok,rewritten_first_relative,,room decision rewrite: no First pin left; shifted-origin tests in suite,indexes only walk/line-up (room decision)
+searching/SPARK4/Ada-SPARK-Introselect,Select_Kth_Copy,shift_mismatch,fail,,,origins 2/100 high 10000 (value) | FAIL exception high-first | IDX_SHIFT_FAIL 1 |  | raised PROGRAM_ERROR : idx_shift_driver.adb:43 explicit raise | ,
