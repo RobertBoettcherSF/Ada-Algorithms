@@ -13,7 +13,7 @@ This is the SPARK Level 4 port of the companion package [Ada-Pigeonhole-Sort](ht
 
 ## Features
 * **`Sort (A)`**: Ascending educational pigeonhole sort (count / prefix / stable scatter / copy-back).
-* **`Is_Sorted` / `In_Bounds` / `Keys_In_Range`**: Guards for shape, key span, and sortedness; `Is_Sorted` is the proved postcondition.
+* **`Is_Sorted` / `In_Bounds` / `Keys_In_Range` / `Occ` / `Is_Perm`**: Guards for shape, key span, sortedness and value counts; `Is_Sorted (A) and then Is_Perm (A, A'Old)` is the proved postcondition.
 * **Formal Verification**: Designed for GNATprove Level 4 — absence of index / overflow errors, and sortedness of the pigeonhole phase itself (ghost `Sum_Below` / `Occ` counts with induction lemmas; see Verification notes).
 * **Contract Discipline**: Preconditions replace exceptions; oversized arrays or key spans are `Pre` violations rather than `Invalid_Argument`.
 * **Static tables only**: `Counts (0 .. Max_Range−1)` and `Work (1 .. Max_N)`; hole index and span use `Long_Long_Integer`.
@@ -28,7 +28,7 @@ Callers must establish `Keys_In_Range (A)`: empty/singleton arrays are always ac
 * Static `Counts` and `Work` (sibling allocates locals sized to the live span / `A'Range`).
 * The pigeonhole phase posts `Is_Sorted` itself. Ghost `Occ (A, Min, I, K)` counts how many of $A_1 .. A_I$ fall into hole $K$, and ghost `Sum_Below (Counts, K)` adds up the holes below $K$ (`Lemma_Zero` / `Lemma_Inc` / `Lemma_Mono`). The count loop shows the holes hold exactly $n$ keys; the prefix loop shows hole $K$ owns the slots right after holes $0 .. K-1$; the scatter loop shows each owned slot receives $\mathrm{Min} + K$; a ghost walk over the holes then gives sortedness. Only the $\mathrm{max}-\mathrm{min}+1$ holes that keys can reach are walked.
 * No clamps or index guards: hole indices come from a subtype conversion (`Hole_Index`) that the span bound proves in range, and the count table's element subtype is `Hole_Count` ($0 .. \mathrm{Max\_N}$).
-* **SPARK proves sortedness** (`Post => Is_Sorted (A)`). Full multiset / permutation equality is **checked by tests**, not claimed as a Level-4 postcondition.
+* **SPARK proves sortedness and permutation** (`Post => Is_Sorted (A) and then Is_Perm (A, A'Old)`; before 2026-10-10 the Post said only `Is_Sorted`, which a constant-fill body also proves: tools/vv/contract_scan.csv). The ghost walk over the holes also counts: `A (1 .. Start (K))` holds `Counts (K2)` copies of `Min + K2` for each hole `K2 < K`; `Lemma_Link` turns hole counts into value counts (`Occ (A, Min + K, N)`), and every key lies in `Min .. Max`, so each value occurs equally often before and after. The ghost walk, loop invariants and assertions are proved and skipped at run time (`Assertion_Policy (Ghost, Loop_Invariant, Assert => Ignore)` in the body, `tools/vv/proof_escapes.csv` runtime_only); the Posts still execute in the tests.
 
 ## Algorithm
 Given an array $A$ of length $n$:
@@ -69,7 +69,7 @@ Wikipedia highlights the structural difference: pigeonhole sort **moves items tw
 * **Verify proofs:** `make prove`
 
 **Expected output:**
-When you run `make test`, you will see all 181 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (236 checks)` (gnatprove 16.1).
+When you run `make test`, you will see all 181 assertions pass ($0$ FAIL). Running `make prove` reports `Success: all checks proved (363 checks)`. `own_checks` adds 4,820 checks: `Is_Perm` against an own multiset comparison on every pair of arrays of length 0 .. 3 over -1 .. 1, and `Sort` returning `Is_Perm` of its input and the insertion-sorted copy on 2,000 random arrays (seed 20261010).
 
 ## Testing
 * **Functional correctness**: Empty / singleton, reverse / already-sorted / almost-sorted, duplicates / all-equal, signed domain, near `Integer'First` / `Integer'Last` (compact spans), lengths up to `Max_N`.
@@ -90,7 +90,7 @@ When you run `make test`, you will see all 181 assertions pass ($0$ FAIL). Runni
 ## Proof Status
 * Package spec and body use `SPARK_Mode => On` with `Pre` / `Post` / `Global => null`.
 * Pigeonhole loops use `pragma Loop_Invariant` over ghost `Occ` / `Sum_Below` counts; a ghost walk over the holes proves `Is_Sorted` (no finishing pass).
-* **GNATprove Level 4:** `Success: all checks proved (254 checks)`.
+* **GNATprove Level 4:** `Success: all checks proved (363 checks)`.
 * **Zero Intentional Gaps:** no `pragma Annotate (GNATprove, Intentional, …)` suppressions.
 
 ## API Summary

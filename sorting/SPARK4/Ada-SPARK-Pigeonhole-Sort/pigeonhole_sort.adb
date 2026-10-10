@@ -3,6 +3,12 @@
 --  their own (ghost Sum_Below / Occ with induction lemmas); there is no
 --  finishing pass and no clamp.
 
+--  Run-time cost: the ghost walk, loop invariants and assertions count
+--  every hole with recursive Occ; all are proved (make prove) and skipped
+--  at run time. The Posts of Sort and Pigeonhole_Phase (sorted, Is_Perm)
+--  still execute.
+pragma Assertion_Policy (Ghost => Ignore, Loop_Invariant => Ignore, Assert => Ignore);
+
 package body Pigeonhole_Sort
   with SPARK_Mode => On
 is
@@ -117,6 +123,24 @@ is
       end if;
    end Lemma_Occ_Mono;
 
+   --  Hole counts are value counts: hole K holds exactly the keys
+   --  Mn + K.
+   procedure Lemma_Link (A : Element_Array; Mn : Integer; Last : Natural; K : Hole_Index)
+     with
+       Ghost              => True,
+       Global             => null,
+       Pre                => In_Bounds (A) and then Last <= A'Last
+                             and then Long_Long_Integer (Mn) + Long_Long_Integer (K)
+                                      <= Long_Long_Integer (Integer'Last),
+       Post               => Occ (A, Mn + K, Last) = Occ (A, Mn, Last, K),
+       Subprogram_Variant => (Decreases => Last)
+   is
+   begin
+      if Last > 0 then
+         Lemma_Link (A, Mn, Last - 1, K);
+      end if;
+   end Lemma_Link;
+
    --  Educational pigeonhole: min/max, count, prefix offsets, stable
    --  scatter into Work, copy back. Proved to sort on its own: hole K
    --  owns the Work slots Sum_Below (Counts, K) + 1 .. Sum_Below
@@ -130,8 +154,9 @@ is
          In_Bounds (A)
          and then A'Length >= 2
          and then Keys_In_Range (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A)
+       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)
    is
+      A0      : constant Element_Array := A with Ghost;
       N       : constant Positive := A'Last;
       Min_Val : Integer;
       Max_Val : Integer;
@@ -275,19 +300,61 @@ is
 
       --  Ghost walk over the holes: A (1 .. Pos) is sorted and holds only
       --  keys below Min_Val + K, where Pos = Start (K).
+      --  Counting along: A (1 .. Pos) holds Counts (K2) copies of
+      --  Min_Val + K2 for every hole K2 < K and nothing else.
       for K in 0 .. Top - 1 loop
          pragma Loop_Invariant (Pos = Start (K));
          pragma Loop_Invariant (Sorted_Slice (A, 1, Pos));
          pragma Loop_Invariant
            (for all P in 1 .. Pos =>
               Rel (A (P), Min_Val) < Long_Long_Integer (K));
+         pragma Loop_Invariant (for all P in 1 .. Pos => Rel (A (P), Min_Val) >= 0);
+         pragma Loop_Invariant
+           (for all K2 in 0 .. Top - 1 =>
+              Occ (A, Min_Val + K2, Pos) = (if K2 < K then Counts (K2) else 0));
          pragma Assert
            (for all P in Pos + 1 .. Pos + Counts (K) =>
               Rel (A (P), Min_Val) = Long_Long_Integer (K));
+         pragma Assert (for all P in Pos + 1 .. Pos + Counts (K) => A (P) = Min_Val + K);
+         for P in 1 .. Counts (K) loop
+            pragma Loop_Invariant
+              (for all K2 in 0 .. Top - 1 =>
+                 Occ (A, Min_Val + K2, Pos + P) =
+                   (if K2 < K then Counts (K2) elsif K2 = K then P else 0));
+         end loop;
+         pragma Assert
+           (for all K2 in 0 .. Top - 1 =>
+              Occ (A, Min_Val + K2, Pos + Counts (K)) = (if K2 <= K then Counts (K2) else 0));
          Pos := Pos + Counts (K);
       end loop;
       pragma Assert (Pos = N);
       pragma Assert (Sorted_Slice (A, 1, N));
+
+      --  Same value counts as A0, hole by hole; other values are absent
+      --  from both.
+      for K2 in 0 .. Top - 1 loop
+         Lemma_Link (A0, Min_Val, N, K2);
+         pragma Loop_Invariant
+           (for all J in 0 .. K2 => Occ (A, Min_Val + J, N) = Occ (A0, Min_Val + J, N));
+      end loop;
+      pragma Assert (for all I in 1 .. N => A (I) in Min_Val .. Max_Val);
+      pragma Assert (for all I in 1 .. N => A0 (I) in Min_Val .. Max_Val);
+      pragma Assert
+        (for all I in 1 .. N =>
+           A (I) - Min_Val in 0 .. Top - 1 and then A (I) = Min_Val + (A (I) - Min_Val));
+      pragma Assert
+        (for all I in 1 .. N =>
+           A0 (I) - Min_Val in 0 .. Top - 1 and then A0 (I) = Min_Val + (A0 (I) - Min_Val));
+      pragma Assert (for all J in 0 .. Top - 1 => Occ (A, Min_Val + J, N) = Occ (A0, Min_Val + J, N));
+      for I in 1 .. N loop
+         pragma Assert (A (I) - Min_Val in 0 .. Top - 1);
+         pragma Assert (Occ (A, Min_Val + (A (I) - Min_Val), N) = Occ (A0, Min_Val + (A (I) - Min_Val), N));
+         pragma Assert (A0 (I) - Min_Val in 0 .. Top - 1);
+         pragma Assert (Occ (A, Min_Val + (A0 (I) - Min_Val), N) = Occ (A0, Min_Val + (A0 (I) - Min_Val), N));
+         pragma Loop_Invariant (for all I2 in 1 .. I => Occ (A, A (I2), N) = Occ (A0, A (I2), N));
+         pragma Loop_Invariant (for all I2 in 1 .. I => Occ (A, A0 (I2), N) = Occ (A0, A0 (I2), N));
+      end loop;
+      pragma Assert (Is_Perm (A, A0));
    end Pigeonhole_Phase;
 
    procedure Sort (A : in out Element_Array) is
