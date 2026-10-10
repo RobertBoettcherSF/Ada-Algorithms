@@ -1,0 +1,57 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+smooth_sort.adb:165:32: medium: array index check might fail [reason for check: value must be a valid index into the array] [possible fix: add precondition (Rt (Lo) in Index) to subprogram at line 161] [provers reached step limit before completing the proof]
+smooth_sort.adb:167:62: medium: array index check might fail [reason for check: value must be a valid index into the array] [possible fix: add precondition (Rt (Lo) in Index) to subprogram at line 161] [provers reached step limit before completing the proof]
+smooth_sort.adb:248:43: medium: postcondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:248:43: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:270:60: medium: loop invariant might fail in first iteration, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:270:60: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:270:60: medium: loop invariant might not be preserved by an arbitrary iteration, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:270:60: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:271:60: medium: loop invariant might not be preserved by an arbitrary iteration, cannot prove A (P) <= A (Rt (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:271:60: medium: in inlined expression function body at smooth_sort.adb:112
+smooth_sort.adb:279:25: medium: assertion might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:279:25: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:291:13: medium: precondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [possible fix: loop invariant at line 266 should mention Prev] [provers reached step limit before completing the proof]
+smooth_sort.adb:291:13: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:294:28: medium: assertion might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [possible fix: loop invariant at line 266 should mention Prev] [provers reached step limit before completing the proof]
+smooth_sort.adb:294:28: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:295:55: medium: assertion might fail, cannot prove Prev (Rt (J + 1)) <= Prev (Rt (I)) [possible fix: loop invariant at line 266 should mention Prev] [provers reached step limit before completing the proof]
+smooth_sort.adb:296:13: medium: precondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [possible fix: loop invariant at line 266 should mention Prev and R] [provers reached step limit before completing the proof]
+smooth_sort.adb:296:13: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:305:10: medium: precondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [possible fix: loop invariant at line 266 should mention Prev] [provers reached step limit before completing the proof]
+smooth_sort.adb:305:10: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:306:25: medium: assertion might fail, cannot prove A (P) <= A (Rt (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:306:25: medium: in inlined expression function body at smooth_sort.adb:112
+smooth_sort.adb:311:25: medium: assertion might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [possible fix: loop invariant at line 266 should mention Prev] [provers reached step limit before completing the proof]
+smooth_sort.adb:311:25: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:314:52: medium: assertion might fail, cannot prove Prev (Rt (J + 1)) <= Prev (Rt (I)) [possible fix: loop invariant at line 266 should mention Prev] [provers reached step limit before completing the proof]
+smooth_sort.adb:315:10: medium: precondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [possible fix: loop invariant at line 266 should mention Prev] [provers reached step limit before completing the proof]
+smooth_sort.adb:315:10: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:341:56: medium: loop invariant might not be preserved by an arbitrary iteration, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:341:56: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:351:13: medium: precondition might fail, cannot prove A (P) <= A (Rt (I)) [possible fix: loop invariant at line 339 should mention Od0 and Rt0] [provers reached step limit before completing the proof]
+smooth_sort.adb:351:13: medium: in inlined expression function body at smooth_sort.adb:112
+smooth_sort.adb:358:13: medium: precondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [possible fix: loop invariant at line 339 should mention Od0 and Rt0] [provers reached step limit before completing the proof]
+smooth_sort.adb:358:13: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:366:10: medium: precondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:366:10: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:372:56: medium: loop invariant might fail in first iteration, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:372:56: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:372:56: medium: loop invariant might not be preserved by an arbitrary iteration, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:372:56: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:376:25: medium: assertion might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:376:25: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:389:13: medium: precondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [possible fix: loop invariant at line 370 should mention Od0 and Rt0] [provers reached step limit before completing the proof]
+smooth_sort.adb:389:13: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:392:13: medium: precondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:392:13: medium: in inlined expression function body at smooth_sort.adb:111
+smooth_sort.adb:393:13: medium: precondition might fail, cannot prove Stretch_Ok (A, Rt (I), Od (I)) [provers reached step limit before completing the proof]
+smooth_sort.adb:393:13: medium: in inlined expression function body at smooth_sort.adb:111
+Summary logged in <work dir>/gnatprove/gnatprove.out
+
+real	12m29.765s
+user	0m53.354s
+sys	0m1.822s
+EXIT 0

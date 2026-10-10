@@ -1,0 +1,502 @@
+diff -ruN a/sorting/SPARK2/Ada-SPARK-Smooth-Sort/Makefile b/sorting/SPARK2/Ada-SPARK-Smooth-Sort/Makefile
+--- a/sorting/SPARK2/Ada-SPARK-Smooth-Sort/Makefile	2026-10-10 14:00:18.185471277 +0200
++++ b/sorting/SPARK2/Ada-SPARK-Smooth-Sort/Makefile	2026-10-10 14:00:18.185471277 +0200
+@@ -12,7 +12,7 @@
+ 
+ prove:
+ 	mkdir -p obj
+-	$(GNATPROVE) -P$(PROOF_PROJECT) --mode=all --level=2 --prover=cvc5 --warnings=error --checks-as-errors=on
++	$(GNATPROVE) -P$(PROOF_PROJECT) --mode=all --level=2 --prover=cvc5,z3 --timeout=10 --warnings=error --checks-as-errors=on
+ 
+ clean:
+ 	rm -rf obj bin gnatprove
+diff -ruN a/sorting/SPARK2/Ada-SPARK-Smooth-Sort/smooth_sort.adb b/sorting/SPARK2/Ada-SPARK-Smooth-Sort/smooth_sort.adb
+--- a/sorting/SPARK2/Ada-SPARK-Smooth-Sort/smooth_sort.adb	2026-10-10 14:00:18.193473504 +0200
++++ b/sorting/SPARK2/Ada-SPARK-Smooth-Sort/smooth_sort.adb	2026-10-10 14:00:18.193473504 +0200
+@@ -1,21 +1,403 @@
+ pragma Ada_2022;
+ 
+ package body Smooth_Sort with SPARK_Mode => On is
+-   function Sort (Input : Input_Array) return Input_Array is
+-      Work : Input_Array := Input;
+-      Temporary : Value;
++
++   ---------------------------------------------------------------------------
++   --  Permutation lemmas (ghost, proved)
++   ---------------------------------------------------------------------------
++
++   procedure Lemma_Occ_Frame (A, B : Input_Array; Last : Natural)
++   with Ghost, Global => null,
++        Pre                => Last <= Index'Last and then (for all K in 1 .. Last => A (K) = B (K)),
++        Post               => (for all V in Value => Occ (A, V, Last) = Occ (B, V, Last)),
++        Subprogram_Variant => (Decreases => Last);
++
++   procedure Lemma_Occ_Frame (A, B : Input_Array; Last : Natural) is
++   begin
++      if Last > 0 then
++         Lemma_Occ_Frame (A, B, Last - 1);
++      end if;
++   end Lemma_Occ_Frame;
++
++   procedure Lemma_Occ_Set (A, B : Input_Array; K : Index; Last : Natural)
++   with Ghost, Global => null,
++        Pre                => Last in K .. Index'Last
++                              and then (for all J in Index => (if J /= K then A (J) = B (J))),
++        Post               => (for all V in Value =>
++                                 Occ (B, V, Last) = Occ (A, V, Last) - (if A (K) = V then 1 else 0)
++                                                    + (if B (K) = V then 1 else 0)),
++        Subprogram_Variant => (Decreases => Last);
++
++   procedure Lemma_Occ_Set (A, B : Input_Array; K : Index; Last : Natural) is
++   begin
++      if Last > K then
++         Lemma_Occ_Set (A, B, K, Last - 1);
++      else
++         Lemma_Occ_Frame (A, B, K - 1);
++      end if;
++   end Lemma_Occ_Set;
++
++   procedure Lemma_Swap (A, B : Input_Array; X, Y : Index)
++   with Ghost, Global => null,
++        Pre  => B (X) = A (Y) and then B (Y) = A (X)
++                and then (for all J in Index => (if J /= X and then J /= Y then A (J) = B (J))),
++        Post => Is_Perm (A, B);
++
++   procedure Lemma_Swap (A, B : Input_Array; X, Y : Index) is
++      C : constant Input_Array := [A with delta X => A (Y)];
++   begin
++      if X = Y then
++         Lemma_Occ_Frame (A, B, Index'Last);
++      else
++         Lemma_Occ_Set (A, C, X, Index'Last);
++         Lemma_Occ_Set (C, B, Y, Index'Last);
++      end if;
++   end Lemma_Swap;
++
++   procedure Swap (A : in out Input_Array; X, Y : Index)
++   with Global => null,
++        Post   => A (X) = A'Old (Y) and then A (Y) = A'Old (X)
++                  and then (for all J in Index => (if J /= X and then J /= Y then A (J) = A'Old (J)))
++                  and then Is_Perm (A'Old, A);
++
++   procedure Swap (A : in out Input_Array; X, Y : Index) is
++      Before : constant Input_Array := A with Ghost;
++      T      : constant Value := A (X);
++   begin
++      A (X) := A (Y);
++      A (Y) := T;
++      Lemma_Swap (Before, A, X, Y);
++   end Swap;
++
++   ---------------------------------------------------------------------------
++   --  Leonardo forest
++   ---------------------------------------------------------------------------
++
++   subtype Order is Natural range 0 .. 3;
++   subtype Slot is Natural range 0 .. Index'Last;
++
++   function Leo (K : Order) return Positive is
++     (if K <= 1 then 1 elsif K = 2 then 3 else 5);
++
++   type Roots is array (0 .. Index'Last) of Slot;
++   type Orders is array (1 .. Index'Last) of Order;
++
++   --  The stretch of order K rooted at R is a heap (each root >= its two
++   --  child roots, down to the leaves; written out for orders 0 .. 3).
++   function Stretch_Ok (A : Input_Array; R : Index; K : Order) return Boolean is
++     ((if K >= 2 then A (R) >= A (R - 1) and then A (R) >= A (R - 2))
++      and then (if K = 3 then A (R - 2) >= A (R - 3) and then A (R - 2) >= A (R - 4)))
++   with Ghost, Pre => R >= Leo (K);
++
++   --  Both child stretches of the stretch of order K at R are heaps.
++   function Sub_Ok (A : Input_Array; R : Index; K : Order) return Boolean is
++     (if K = 3 then A (R - 2) >= A (R - 3) and then A (R - 2) >= A (R - 4))
++   with Ghost, Pre => R >= Leo (K);
++
++   --  Stretch I occupies Rt (I - 1) + 1 .. Rt (I); Rt nondecreasing.
++   function Geo (Rt : Roots; Od : Orders; M : Slot) return Boolean is
++     (Rt (0) = 0
++      and then (for all I in 1 .. M => Rt (I) = Rt (I - 1) + Leo (Od (I)))
++      and then (for all I in 0 .. M => (for all J in I .. M => Rt (I) <= Rt (J))))
++   with Ghost;
++
++   --  Stretch I is a heap and its root is the maximum of A (1 .. Rt (I)).
++   function Good (A : Input_Array; Rt : Roots; Od : Orders; I : Index) return Boolean is
++     (Rt (I) >= 1 and then Rt (I) >= Leo (Od (I)) and then Stretch_Ok (A, Rt (I), Od (I))
++      and then (for all P in 1 .. Rt (I) => A (P) <= A (Rt (I))))
++   with Ghost;
++
++   --  Frame lemmas for Good (ghost, proved).
++
++   procedure Lemma_Good_Frame (A, B : Input_Array; Rt : Roots; Od : Orders; I : Index)
++   with Ghost, Global => null,
++        Pre  => Good (A, Rt, Od, I) and then (for all P in 1 .. Rt (I) => B (P) = A (P)),
++        Post => Good (B, Rt, Od, I);
++
++   procedure Lemma_Good_Frame (A, B : Input_Array; Rt : Roots; Od : Orders; I : Index) is null;
++
++   --  B differs from A only in 1 .. U, below stretch I, by keys no larger
++   --  than the root of I.
++   procedure Lemma_Good_Bounded (A, B : Input_Array; Rt : Roots; Od : Orders; I : Index; U : Slot)
++   with Ghost, Global => null,
++        Pre  => Good (A, Rt, Od, I) and then Rt (I) = Rt (I - 1) + Leo (Od (I)) and then U <= Rt (I - 1)
++                and then (for all P in Index => (if P > U then B (P) = A (P)))
++                and then (for all P in 1 .. U => B (P) <= A (Rt (I))),
++        Post => Good (B, Rt, Od, I);
++
++   procedure Lemma_Good_Bounded (A, B : Input_Array; Rt : Roots; Od : Orders; I : Index; U : Slot) is
++   begin
++      pragma Assert (Rt (I) - Leo (Od (I)) >= U);
++      pragma Assert (Stretch_Ok (B, Rt (I), Od (I)));
++   end Lemma_Good_Bounded;
++
++   --  Good only reads Rt (I), Od (I).
++   procedure Lemma_Good_Arr (A : Input_Array; Rt, Rt2 : Roots; Od, Od2 : Orders; I : Index)
++   with Ghost, Global => null,
++        Pre  => Good (A, Rt, Od, I) and then Rt2 (I) = Rt (I) and then Od2 (I) = Od (I),
++        Post => Good (A, Rt2, Od2, I);
++
++   procedure Lemma_Good_Arr (A : Input_Array; Rt, Rt2 : Roots; Od, Od2 : Orders; I : Index) is null;
++
++   procedure Lemma_Frame_All (A, B : Input_Array; Rt : Roots; Od : Orders; Lo, Hi : Index; U : Slot)
++   with Ghost, Global => null,
++        Pre  => (for all I in Lo .. Hi => Good (A, Rt, Od, I) and then Rt (I) <= U)
++                and then (for all P in 1 .. U => B (P) = A (P)),
++        Post => (for all I in Lo .. Hi => Good (B, Rt, Od, I));
++
++   procedure Lemma_Frame_All (A, B : Input_Array; Rt : Roots; Od : Orders; Lo, Hi : Index; U : Slot) is
++   begin
++      for I in Lo .. Hi loop
++         Lemma_Good_Frame (A, B, Rt, Od, I);
++         pragma Loop_Invariant (for all I2 in Lo .. I => Good (B, Rt, Od, I2));
++      end loop;
++   end Lemma_Frame_All;
++
++   procedure Lemma_Bounded_All (A, B : Input_Array; Rt : Roots; Od : Orders; Lo, Hi : Index; U : Slot)
++   with Ghost, Global => null,
++        Pre  => (for all I in Lo .. Hi =>
++                   Good (A, Rt, Od, I) and then Rt (I) = Rt (I - 1) + Leo (Od (I)) and then U <= Rt (I - 1)
++                   and then A (Rt (Lo)) <= A (Rt (I)))
++                and then (for all P in Index => (if P > U then B (P) = A (P)))
++                and then (for all P in 1 .. U => B (P) <= A (Rt (Lo))),
++        Post => (for all I in Lo .. Hi => Good (B, Rt, Od, I));
++
++   procedure Lemma_Bounded_All (A, B : Input_Array; Rt : Roots; Od : Orders; Lo, Hi : Index; U : Slot) is
+    begin
+-      -- A fixed, bounded compare-exchange network keeps this reference
+-      -- implementation small and fully analyzable at proof level 2.
+-      for Pass in Index loop
+-         for I in Index loop
+-            if I < Index'Last and then Work (I) > Work (I + 1) then
+-               Temporary := Work (I);
+-               Work (I) := Work (I + 1);
+-               Work (I + 1) := Temporary;
+-            end if;
+-         end loop;
++      for I in Lo .. Hi loop
++         Lemma_Good_Bounded (A, B, Rt, Od, I, U);
++         pragma Loop_Invariant (for all I2 in Lo .. I => Good (B, Rt, Od, I2));
+       end loop;
+-      return Work;
++   end Lemma_Bounded_All;
++
++   procedure Lemma_Arr_All (A : Input_Array; Rt, Rt2 : Roots; Od, Od2 : Orders; Hi : Natural)
++   with Ghost, Global => null,
++        Pre  => Hi <= Index'Last
++                and then (for all I in 1 .. Hi => Good (A, Rt, Od, I) and then Rt2 (I) = Rt (I) and then Od2 (I) = Od (I)),
++        Post => (for all I in 1 .. Hi => Good (A, Rt2, Od2, I));
++
++   procedure Lemma_Arr_All (A : Input_Array; Rt, Rt2 : Roots; Od, Od2 : Orders; Hi : Natural) is
++   begin
++      for I in 1 .. Hi loop
++         Lemma_Good_Arr (A, Rt, Rt2, Od, Od2, I);
++         pragma Loop_Invariant (for all I2 in 1 .. I => Good (A, Rt2, Od2, I2));
++      end loop;
++   end Lemma_Arr_All;
++
++   procedure Log_Swap (Log : in out Swap_Log; Count : in out Natural; X, Y : Index)
++   with Global => null,
++        Pre    => Count < Max_Swaps,
++        Post   => Count = Count'Old + 1;
++
++   procedure Log_Swap (Log : in out Swap_Log; Count : in out Natural; X, Y : Index) is
++   begin
++      Count := Count + 1;
++      Log (Count) := (X, Y);
++   end Log_Swap;
++
++   --  Sift the stretch of order K at R (its children are heaps).
++   procedure Sift (A : in out Input_Array; R : Index; K : Order; Log : in out Swap_Log; Count : in out Natural)
++   with Global             => null,
++        Pre                => R >= Leo (K) and then Sub_Ok (A, R, K)
++                              and then Count <= Max_Swaps - (if K = 3 then 2 elsif K = 2 then 1 else 0),
++        Post               => Stretch_Ok (A, R, K) and then Is_Perm (A'Old, A)
++                              and then (for all P in Index => (if P <= R - Leo (K) or else P > R then A (P) = A'Old (P)))
++                              and then (for all P in R - Leo (K) + 1 .. R => A (R) >= A'Old (P))
++                              and then (A (R) = A'Old (R) or else (K >= 2 and then (A (R) = A'Old (R - 1) or else A (R) = A'Old (R - 2))))
++                              and then Count <= Count'Old + (if K = 3 then 2 elsif K = 2 then 1 else 0),
++        Subprogram_Variant => (Decreases => K);
++
++   procedure Sift (A : in out Input_Array; R : Index; K : Order; Log : in out Swap_Log; Count : in out Natural) is
++      Old : constant Input_Array := A with Ghost;
++   begin
++      Lemma_Occ_Frame (Old, A, Index'Last);
++      if K < 2 then
++         return;
++      end if;
++      --  Left child root R - 1 - Leo (K - 2) = R - 2 (Leo (0) = Leo (1) = 1).
++      if A (R - 2) >= A (R - 1) then
++         if A (R - 2) > A (R) then
++            Log_Swap (Log, Count, R, R - 2);
++            Swap (A, R, R - 2);
++            Sift (A, R - 2, K - 1, Log, Count);
++         end if;
++      elsif A (R - 1) > A (R) then
++         Log_Swap (Log, Count, R, R - 1);
++         Swap (A, R, R - 1);
++         Sift (A, R - 1, K - 2, Log, Count);
++      end if;
++   end Sift;
++
++   --  Trinkle stretch M of the forest Rt / Od (1 .. M): stretches 1 .. M - 1
++   --  are Good, stretch M has heap children. Keys of A (1 .. Rt (M)) are
++   --  only exchanged among themselves.
++   procedure Trinkle
++     (A : in out Input_Array; Rt : Roots; Od : Orders; M : Index; Bound : Value;
++      Log : in out Swap_Log; Count : in out Natural)
++   with Global => null,
++        Pre    => Geo (Rt, Od, M)
++                  and then (for all I in 1 .. M - 1 => Good (A, Rt, Od, I))
++                  and then Sub_Ok (A, Rt (M), Od (M))
++                  and then (for all P in 1 .. Rt (M) => A (P) <= Bound)
++                  and then Count <= Max_Swaps - M - 1,
++        Post   => (for all I in 1 .. M => Good (A, Rt, Od, I))
++                  and then Is_Perm (A'Old, A)
++                  and then (for all P in Index => (if P > Rt (M) then A (P) = A'Old (P)))
++                  and then (for all P in 1 .. Rt (M) => A (P) <= Bound)
++                  and then Count <= Count'Old + M + 1;
++
++   procedure Trinkle
++     (A : in out Input_Array; Rt : Roots; Od : Orders; M : Index; Bound : Value;
++      Log : in out Swap_Log; Count : in out Natural)
++   is
++      Old    : constant Input_Array := A with Ghost;
++      Count0 : constant Natural := Count with Ghost;
++      J      : Index := M;
++      P, R   : Index;
++      Prev   : Input_Array with Ghost;
++   begin
++      Lemma_Occ_Frame (Old, A, Index'Last);
++      while J > 1 loop
++         pragma Loop_Invariant (J <= M and then Is_Perm (Old, A));
++         pragma Loop_Invariant (for all Q in Index => (if Q > Rt (M) then A (Q) = Old (Q)));
++         pragma Loop_Invariant (for all Q in 1 .. Rt (M) => A (Q) <= Bound);
++         pragma Loop_Invariant (Count <= Count0 + (M - J));
++         pragma Loop_Invariant (for all I in 1 .. J - 1 => Good (A, Rt, Od, I));
++         pragma Loop_Invariant (for all I in J + 1 .. M => Good (A, Rt, Od, I));
++         pragma Loop_Invariant (Sub_Ok (A, Rt (J), Od (J)));
++         pragma Loop_Variant (Decreases => J);
++         P := Rt (J - 1);
++         R := Rt (J);
++         exit when A (P) <= A (R);
++         exit when Od (J) >= 2 and then (A (P) <= A (R - 1) or else A (P) <= A (R - 2));
++         pragma Assert (P >= 1 and then P < R and then P = R - Leo (Od (J)));
++         pragma Assert (Good (A, Rt, Od, J - 1));
++         pragma Assert (Stretch_Ok (A, P, Od (J - 1)) and then Sub_Ok (A, P, Od (J - 1)));
++         pragma Assert (for all Q in 1 .. P => A (Q) <= A (P));
++         Prev := A;
++         Log_Swap (Log, Count, P, R);
++         Swap (A, P, R);
++         pragma Assert (Stretch_Ok (A, R, Od (J)));
++         pragma Assert (for all Q in P + 1 .. R => A (Q) <= A (R));
++         pragma Assert (for all Q in 1 .. P => A (Q) <= A (R));
++         pragma Assert (Good (A, Rt, Od, J));
++         pragma Assert (Sub_Ok (A, Rt (J - 1), Od (J - 1)));
++         if J >= 3 then
++            Lemma_Frame_All (Prev, A, Rt, Od, 1, J - 2, P - 1);
++         end if;
++         if J < M then
++            pragma Assert (Good (Prev, Rt, Od, J + 1));
++            pragma Assert (for all I in J + 1 .. M => Prev (Rt (J + 1)) <= Prev (Rt (I)));
++            Lemma_Bounded_All (Prev, A, Rt, Od, J + 1, M, R);
++         end if;
++         J := J - 1;
++      end loop;
++      Prev := A;
++      pragma Assert (Rt (J) = Rt (J - 1) + Leo (Od (J)));
++      Sift (A, Rt (J), Od (J), Log, Count);
++      pragma Assert (Stretch_Ok (A, Rt (J), Od (J)));
++      if J >= 2 then
++         Lemma_Frame_All (Prev, A, Rt, Od, 1, J - 1, Rt (J - 1));
++         pragma Assert (Good (A, Rt, Od, J - 1));
++         pragma Assert (A (Rt (J - 1)) <= A (Rt (J)));
++      end if;
++      pragma Assert (for all Q in 1 .. Rt (J) => A (Q) <= A (Rt (J)));
++      if J < M then
++         pragma Assert (Good (Prev, Rt, Od, J + 1));
++         pragma Assert (A (Rt (J)) <= Prev (Rt (J + 1)));
++         pragma Assert (for all Q in 1 .. Rt (J) => A (Q) <= Prev (Rt (J + 1)));
++         pragma Assert (for all I in J + 1 .. M => Prev (Rt (J + 1)) <= Prev (Rt (I)));
++         Lemma_Bounded_All (Prev, A, Rt, Od, J + 1, M, Rt (J));
++      end if;
++      pragma Assert (for all Q in Rt (J - 1) + 1 .. Rt (J) => A (Q) <= A (Rt (J)));
++      pragma Assert (Good (A, Rt, Od, J));
++   end Trinkle;
++
++   ---------------------------------------------------------------------------
++
++   procedure Sort_Traced
++     (Input : Input_Array; Output : out Input_Array; Log : out Swap_Log; Count : out Natural)
++   is
++      A  : Input_Array := Input;
++      Rt : Roots := [others => 0];
++      Od : Orders := [others => 0];
++      M  : Slot := 0;
++      K  : Order;
++      Rt0 : Roots with Ghost;
++      Od0 : Orders with Ghost;
++   begin
++      Log := [others => (1, 1)];
++      Count := 0;
++      Lemma_Occ_Frame (Input, A, Index'Last);
++      --  Build: insert key N into the forest.
++      for N in Index loop
++         pragma Loop_Invariant (Is_Perm (Input, A));
++         pragma Loop_Invariant (Geo (Rt, Od, M) and then Rt (M) = N - 1 and then M <= N - 1);
++         pragma Loop_Invariant (for all I in 1 .. M => Good (A, Rt, Od, I));
++         pragma Loop_Invariant (Count <= (N - 1) * 9);
++         Rt0 := Rt;
++         Od0 := Od;
++         if M >= 2 and then Od (M - 1) = Od (M) + 1 then
++            K := Od (M - 1);
++            pragma Assert (Rt (M - 2) + Leo (K) + Leo (Od (M)) + 1 = N);
++            M := M - 1;
++            Od (M) := K + 1;
++            Rt (M) := N;
++            Lemma_Arr_All (A, Rt0, Rt, Od0, Od, M - 1);
++            pragma Assert (Good (A, Rt0, Od0, M));
++            pragma Assert (Sub_Ok (A, Rt (M), Od (M)));
++         elsif M >= 1 and then Od (M) = 1 then
++            M := M + 1;
++            Od (M) := 0;
++            Rt (M) := N;
++            Lemma_Arr_All (A, Rt0, Rt, Od0, Od, M - 1);
++         else
++            M := M + 1;
++            Od (M) := 1;
++            Rt (M) := N;
++            Lemma_Arr_All (A, Rt0, Rt, Od0, Od, M - 1);
++         end if;
++         pragma Assert (Geo (Rt, Od, M));
++         Trinkle (A, Rt, Od, M, Value'Last, Log, Count);
++      end loop;
++      --  Teardown: A (N) = root of the last stretch = maximum of A (1 .. N).
++      for N in reverse 2 .. Index'Last loop
++         pragma Loop_Invariant (Is_Perm (Input, A));
++         pragma Loop_Invariant (M >= 1 and then Geo (Rt, Od, M) and then Rt (M) = N);
++         pragma Loop_Invariant (for all I in 1 .. M => Good (A, Rt, Od, I));
++         pragma Loop_Invariant (for all I in N + 1 .. Index'Last - 1 => A (I) <= A (I + 1));
++         pragma Loop_Invariant (for all P in 1 .. N => (for all Q in N + 1 .. Index'Last => A (P) <= A (Q)));
++         pragma Loop_Invariant (Count <= 72 + (Index'Last - N) * 18);
++         pragma Assert (Good (A, Rt, Od, M));
++         pragma Assert (for all P in 1 .. N => A (P) <= A (N));
++         if Od (M) <= 1 then
++            M := M - 1;
++         else
++            Rt0 := Rt;
++            Od0 := Od;
++            K := Od (M);
++            Rt (M) := N - 2;
++            Od (M) := K - 1;
++            Rt (M + 1) := N - 1;
++            Od (M + 1) := K - 2;
++            M := M + 1;
++            Lemma_Arr_All (A, Rt0, Rt, Od0, Od, M - 2);
++            pragma Assert (Geo (Rt, Od, M - 1));
++            pragma Assert (Geo (Rt, Od, M));
++            Trinkle (A, Rt, Od, M - 1, A (N), Log, Count);
++            Trinkle (A, Rt, Od, M, A (N), Log, Count);
++         end if;
++      end loop;
++      Output := A;
++   end Sort_Traced;
++
++   function Sort (Input : Input_Array) return Input_Array is
++      Output : Input_Array;
++      Log    : Swap_Log;
++      Count  : Natural;
++   begin
++      Sort_Traced (Input, Output, Log, Count);
++      pragma Assert (Count <= Max_Swaps and then Log (1).X in Index);
++      return Output;
+    end Sort;
+ end Smooth_Sort;
+diff -ruN a/sorting/SPARK2/Ada-SPARK-Smooth-Sort/smooth_sort.ads b/sorting/SPARK2/Ada-SPARK-Smooth-Sort/smooth_sort.ads
+--- a/sorting/SPARK2/Ada-SPARK-Smooth-Sort/smooth_sort.ads	2026-10-10 14:00:18.189472391 +0200
++++ b/sorting/SPARK2/Ada-SPARK-Smooth-Sort/smooth_sort.ads	2026-10-10 14:00:18.189472391 +0200
+@@ -1,12 +1,63 @@
+---  PLACEHOLDER: fixed 8-element bubble sort under a smoothsort name; the Post only bounds the elements; see H107
+ pragma Ada_2022;
+ 
++--  Smoothsort of 8 values (E. W. Dijkstra, "Smoothsort, an alternative for
++--  sorting in situ", EWD796a, 1981), in the variant that restores the root
++--  order after every insertion. The prefix A (1 .. N) is a forest of
++--  Leonardo heaps ("stretches" of sizes L (0 .. 3) = 1, 1, 3, 5; 8 keys
++--  never need order 4), roots ascending from left to right. A stretch of
++--  order K >= 2 rooted at R has the right child stretch of order K - 2
++--  rooted at R - 1 and the left child of order K - 1 rooted at
++--  R - 1 - L (K - 2). Insertion of key N: if the last two stretches have
++--  orders k + 1 and k they become, with N, one stretch of order k + 2;
++--  else N is a stretch of order 1 (order 0 after an order-1 stretch); then
++--  trinkle. Trinkle at stretch J: while the previous root is larger than
++--  the root of J and than both child roots of J, exchange the two roots
++--  and go to J - 1; then sift J (exchange the root with its larger child
++--  root, the left one on ties, while that child is larger). Teardown: the
++--  last root is the maximum of the prefix and stays in place; a stretch of
++--  order >= 2 leaves its two children as stretches, trinkled left, then
++--  right.
+ package Smooth_Sort with SPARK_Mode => On is
+    subtype Index is Positive range 1 .. 8;
+    subtype Value is Integer range 0 .. 31;
+    type Input_Array is array (Index) of Value;
+ 
++   --  Every exchange (X, Y) in order: at most 9 per insertion (a trinkle
++   --  passes at most 7 roots, a sift at most 2 levels) and 18 per removal.
++   Max_Swaps : constant := 200;
++   type Swap_Pair is record
++      X, Y : Index;
++   end record;
++   type Swap_Log is array (1 .. Max_Swaps) of Swap_Pair;
++
++   --  How many of A (1 .. Last) equal V.
++   function Occ (A : Input_Array; V : Value; Last : Natural) return Natural
++   with Global             => null,
++        Pre                => Last <= Index'Last,
++        Post               => Occ'Result <= Last,
++        Subprogram_Variant => (Decreases => Last);
++
++   function Occ (A : Input_Array; V : Value; Last : Natural) return Natural is
++     (if Last = 0 then 0
++      else Occ (A, V, Last - 1) + (if A (Last) = V then 1 else 0));
++
++   --  A and B hold the same values, each equally often (Value has 32
++   --  elements, so this is cheap to check at run time).
++   function Is_Perm (A, B : Input_Array) return Boolean is
++     (for all V in Value => Occ (A, V, Index'Last) = Occ (B, V, Index'Last))
++   with Global => null;
++
++   function Is_Sorted (A : Input_Array) return Boolean is
++     (for all I in Index'First .. Index'Last - 1 => A (I) <= A (I + 1))
++   with Global => null;
++
++   --  Sort, also returning every exchange (Log (1 .. Count)).
++   procedure Sort_Traced
++     (Input : Input_Array; Output : out Input_Array; Log : out Swap_Log; Count : out Natural)
++     with Global => null,
++          Post   => Is_Sorted (Output) and then Is_Perm (Output, Input) and then Count <= Max_Swaps;
++
+    function Sort (Input : Input_Array) return Input_Array
+      with Global => null,
+-          Post => (for all I in Index => Sort'Result (I) in Value);
++          Post   => Is_Sorted (Sort'Result) and then Is_Perm (Sort'Result, Input);
+ end Smooth_Sort;
