@@ -1,8 +1,6 @@
 # Ada-SPARK-Heap-Sort
 
-PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a heap-sort name; see tools/vv/hidden_stub.csv
-
-A bounded Ada 2022 SPARK `heap`-sort reference with arrays of eight values.
+A bounded Ada 2022 SPARK heapsort. `Heapify` builds a max-heap in place (Floyd: sift down from the last parent to the root). `Sort` copies the input, calls `Heapify`, then repeatedly swaps the root with the last live slot and sifts down. A parent is at least both children; the children of `i` are `2*i` and `2*i+1`. Arrays stay eight values in `0 .. 31` (`Index` is `1 .. 8`).
 
 ```sh
 # needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
