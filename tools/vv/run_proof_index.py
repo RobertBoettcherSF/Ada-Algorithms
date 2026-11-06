@@ -21,7 +21,7 @@ writes CATALOG.md from the current CSV and does not regenerate the index.
 usage: run_proof_index.py [--catalog-only] [--results DIR --logs DIR] [--allow-input-change]
        [-- proof_index.py args]
 """
-import argparse, csv, os, subprocess, sys
+import argparse, csv, json, os, re, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ap = argparse.ArgumentParser()
 ap.add_argument('--root', default='.')
@@ -154,6 +154,68 @@ def catalog_text(rows):
             L.append('')
     return '\n'.join(L).rstrip() + '\n'
 
+# make proof-index synthesises gnatprove.out from the checks already stored in PROOFS.csv.
+# After a real `make prove`, these three folders have a newer summary on disk. Copy that
+# summary over the synthesised one so checks and functional_checks are the prove run's.
+_REAL_PROVE = (
+    'sorting/SPARK2/Ada-SPARK-Intro-Sort',
+    'sorting/SPARK2/Ada-SPARK-Heap-Sort',
+    'sorting/SPARK2/Ada-SPARK-Quick-Sort',
+)
+
+def real_prove_out(fid):
+    base = os.path.join(root, fid)
+    for parts in (('gnatprove', 'gnatprove.out'), ('obj', 'gnatprove', 'gnatprove.out')):
+        p = os.path.join(base, *parts)
+        if os.path.isfile(p):
+            return p
+    return ''
+
+def overlay_real_proofs(res):
+    """Point the synthesised logs for the three sorts at their latest make prove summary."""
+    n = 0
+    logs = os.path.join(res, 'logs')
+    prove_path = os.path.join(res, 'prove.jsonl')
+    rows = []
+    if os.path.exists(prove_path):
+        rows = [json.loads(l) for l in open(prove_path) if l.strip()]
+    by_id = {j['id']: j for j in rows}
+    changed = False
+    for fid in _REAL_PROVE:
+        src = real_prove_out(fid)
+        if not src:
+            continue
+        text = open(src, errors='replace').read()
+        if not re.search(r'^Total\s+\d+', text, re.M):
+            continue
+        d = os.path.join(logs, fid.replace('/', '_'))
+        os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, 'gnatprove.out'), 'w').write(text)
+        # Unproved column of the Total row. '.' means none, so the run stays proved.
+        total_line = re.search(r'^Total\s+\d+.*$', text, re.M)
+        unproved = 0
+        if total_line:
+            last = total_line.group(0).split()[-1]
+            if last.isdigit():
+                unproved = int(last)
+        if unproved:
+            open(os.path.join(d, 'prove.log'), 'w').write(
+                ''.join(f'x.adb:{i+1}:1: medium: unproved in make prove summary\n' for i in range(unproved)))
+            if fid in by_id:
+                by_id[fid]['rc'] = 1
+                changed = True
+        else:
+            open(os.path.join(d, 'prove.log'), 'w').write('')
+            if fid in by_id and by_id[fid].get('rc') != 0:
+                by_id[fid]['rc'] = 0
+                changed = True
+        n += 1
+    if changed:
+        with open(prove_path, 'w') as fh:
+            for j in rows:
+                fh.write(json.dumps(by_id[j['id']]) + '\n')
+    return n
+
 def write_catalog():
     path = os.path.join(root, 'PROOFS.csv')
     if not os.path.exists(path):
@@ -185,6 +247,9 @@ if not a.results:
         sys.exit(f'run_proof_index: synth_index_inputs.py failed:\n{r.stdout}{r.stderr}')
     res = r.stdout.strip().splitlines()[-1]
     logs, how = os.path.join(res, 'logs'), 'inputs synthesised from the committed PROOFS.csv'
+    n_real = overlay_real_proofs(res)
+    if n_real:
+        how += f'; {n_real} sort folder(s) took checks from make prove gnatprove.out'
 else:
     if not a.logs:
         sys.exit('run_proof_index: --results needs --logs')

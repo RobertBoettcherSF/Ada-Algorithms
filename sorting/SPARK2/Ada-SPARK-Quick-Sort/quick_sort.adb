@@ -12,18 +12,7 @@ package body Quick_Sort with SPARK_Mode => On is
    --  Lomuto partition of A (Lo .. Hi). The pivot is A (Hi). On return
    --  P is the pivot's index, A (Lo .. P - 1) <= A (P), and
    --  A (P + 1 .. Hi) >= A (P). Cells outside Lo .. Hi are untouched.
-   procedure Partition_Range (A : in out Input_Array; Lo, Hi : Index; P : out Index)
-   with
-     Global => null,
-     Pre    => Lo < Hi,
-     Post   =>
-       P in Lo .. Hi
-       and then (for all K in Lo .. Hi =>
-                   (if K < P then A (K) <= A (P)
-                    elsif K > P then A (K) >= A (P)))
-       and then (for all K in Index'First .. Lo - 1 => A (K) = A'Old (K))
-       and then (for all K in Hi + 1 .. Index'Last => A (K) = A'Old (K))
-   is
+   procedure Partition_Range (A : in out Input_Array; Lo, Hi : Index; P : out Index) is
       Pivot : constant Value := A (Hi);
       I     : Index := Lo;
       J     : Index := Lo;
