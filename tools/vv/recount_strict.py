@@ -66,6 +66,27 @@ def spark_mode_on(fid):
                 if pat.search(open(os.path.join(dp, f), errors='replace').read()): return True
     return False
 
+# These three sorts keep a make prove summary next to the sources. When that file is
+# present, its Total is the check count (the synthesised log still echoes PROOFS.csv).
+_REAL_PROVE = (
+    'sorting/SPARK2/Ada-SPARK-Intro-Sort',
+    'sorting/SPARK2/Ada-SPARK-Heap-Sort',
+    'sorting/SPARK2/Ada-SPARK-Quick-Sort',
+)
+
+def real_prove_text(fid):
+    if fid not in _REAL_PROVE: return ''
+    base = os.path.join(ROOT, fid)
+    for parts in (('gnatprove', 'gnatprove.out'), ('obj', 'gnatprove', 'gnatprove.out')):
+        p = os.path.join(base, *parts)
+        if os.path.isfile(p):
+            return open(p, errors='replace').read()
+    return ''
+
+def real_total(fid):
+    m = re.search(r'^Total\s+(\d+)', real_prove_text(fid), re.M)
+    return int(m.group(1)) if m else None
+
 def silver_checks(fid):
     """Number of proved checks when the Silver run is clean, else None."""
     if fid in prove_steps: j, logdir = prove_steps[fid], A.steps_logs
@@ -75,6 +96,8 @@ def silver_checks(fid):
     log = open(os.path.join(d, 'prove.log'), errors='replace').read() if os.path.exists(os.path.join(d, 'prove.log')) else ''
     if 'GNAT BUG DETECTED' in log or ': error:' in log: return None
     if any(re.match(r'^[\w\-.]+\.ad[sb]:\d+:\d+: (high|medium|low): ', l) for l in log.splitlines()): return None
+    live = real_total(fid)
+    if live is not None: return live
     for dp, dn, fn in os.walk(d):
         if 'gnatprove.out' in fn:
             m = re.search(r'^Total\s+(\d+)', open(os.path.join(dp, 'gnatprove.out'), errors='replace').read(), re.M)

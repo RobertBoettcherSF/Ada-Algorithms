@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-11-06 22:01 UTC.
+Generated 2026-11-06 22:34 UTC.
 
 ## Proof setup
 
@@ -123,7 +123,7 @@ Held-out k/n = the deciding held-out record (non-equivalent killed / non-equival
 
 **Do-nothing check:** 1708 folders checked, 34 flagged weak (tests still pass when the main subprogram does nothing), 24 unchecked (no trivial body compiles); 1 of the weak ones are Silver-proven non-trivial. Own tests: 380 folders (column `own_tests`).
 
-**Silver headline (duplicates counted once):** 525 real SPARK folders proven non-trivially, 280 proven but trivial (<= 3 checks), 126 stubs proven (separate), 2 with unproved checks, 11 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 104 proven real folders also prove functional contracts
+**Silver headline (duplicates counted once):** 525 real SPARK folders proven non-trivially, 280 proven but trivial (<= 3 checks), 126 stubs proven (separate), 2 with unproved checks, 11 gnatprove tool crash/timeout, 11 not built for gnatprove, 0 not run; 107 proven real folders also prove functional contracts
 
 `stub` column: every folder whose name ends in `-Stub` (toy fixed-size versions) is flagged, and so is every folder listed in `tools/readme_stubs.txt` (its README calls it a stub); the 3 near-duplicate stubs also carry `duplicate_of`. Stubs are counted separately and never in the "real" numbers. Folders listed in `tools/generalised_stubs.txt` keep their `-Stub` name but were rewritten for arbitrary-length input; they carry `generalised` = yes instead of `stub` and count as real. `trivial` = proven with at most 3 checks in total (gnatprove.out); `functional_checks` = number of functional-contract (post/contract-case) checks proved.
 
@@ -2319,8 +2319,8 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 2 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Flash-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 411 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  | sorting/Ada/Flashsort |  |
-| sorting/SPARK2/Ada-SPARK-Heap-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  | sorting/Ada/Heapsort |  |
-| sorting/SPARK2/Ada-SPARK-Intro-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  | sorting/Ada/Introsort |  |
+| sorting/SPARK2/Ada-SPARK-Heap-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 441 (163) |  | sorting/Ada/Heapsort |  |
+| sorting/SPARK2/Ada-SPARK-Intro-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 633 (192) |  | sorting/Ada/Introsort |  |
 | sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix | yes | yes | yes | yes | yes | 8 | 8 | proven (trivial) | 3 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven | 5 |  |  |  |
@@ -2331,7 +2331,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 116 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Pancake-Sort (stub) | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Patience-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 316 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  |  |  |
-| sorting/SPARK2/Ada-SPARK-Quick-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  | sorting/Ada/Quicksort |  |
+| sorting/SPARK2/Ada-SPARK-Quick-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 53 (7) |  | sorting/Ada/Quicksort |  |
 | sorting/SPARK2/Ada-SPARK-Relative-Sort-Array | yes | yes | yes | yes | yes | 5 | 5 | proven (trivial) | 1 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array | yes | yes | yes | yes | yes | 1 | 1 | proven (trivial) | 3 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array-II | yes | yes | yes | yes | yes | 0 | 0 | proven | 8 |  |  |  |

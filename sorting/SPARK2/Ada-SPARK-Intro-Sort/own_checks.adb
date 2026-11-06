@@ -146,7 +146,8 @@ procedure Own_Checks is
       Ok    : Boolean := True;
    begin
       Cases := Cases + 1;
-      Partition (A, B, P);
+      B := A;
+      Partition_Range (B, Index'First, Index'Last, P);
       for I in Index loop
          C_In (A (I)) := C_In (A (I)) + 1;
          C_Out (B (I)) := C_Out (B (I)) + 1;
@@ -182,7 +183,8 @@ procedure Own_Checks is
       P : Index;
    begin
       Cases := Cases + 1;
-      Partition (A, B, P);
+      B := A;
+      Partition_Range (B, Index'First, Index'Last, P);
       if Already_Partitioned (A) or else Sorted_OK (Expected)
         or else B /= Expected or else P /= Expected_Pivot
       then
