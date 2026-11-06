@@ -4,6 +4,25 @@ Monorepo of small Ada and SPARK algorithm folders (educational sheets). MIT lice
 (`LICENSE`). Larger projects such as Logistics, Rule-30 and Blauer Sand /
 `lern_engine` live in their own repositories.
 
+## Start
+
+If `gnat` is not already on `PATH`, restore the toolchain
+([`docs/TOOLCHAIN.md`](docs/TOOLCHAIN.md)):
+
+```bash
+eval "$(cd tools/toolchain && alr -n printenv)"
+```
+
+Then run the documented example. `sorting/SPARK2/Ada-SPARK-Sort-List-Lite` is a
+small real sheet, not a stub, and it has no held-out mutation score.
+
+```bash
+cd sorting/SPARK2/Ada-SPARK-Sort-List-Lite
+make test
+```
+
+SPARK1 is empty and SPARK3 is small. Sizes are in [`TOPICS.md`](TOPICS.md).
+
 <!-- proof-index:begin -->
 | Headline (written by `make proof-index`) | Folders |
 |---|---:|
@@ -34,11 +53,14 @@ or `tests/`). [`TOPICS.md`](TOPICS.md) has file counts per topic and level.
 
 ## Build, test, prove a folder
 
+Build and test the first folder from [Start](#start). Inside a folder, `make`
+is the default target: it builds, and in many folders it also runs the tests.
+`make test` builds and runs that folder's tests.
+
+Prove with GNATprove on the folder's `.gpr`, or `proof.gpr` where present:
+
 ```bash
-cd sorting/SPARK2/Ada-SPARK-Sort-List-Lite
-make                 # default target: build (in many folders it also runs the tests)
-make test            # build and run the folder's tests
-gnatprove -P <gpr> --mode=silver --level=2   # the folder's .gpr, or proof.gpr where present
+gnatprove -P <gpr> --mode=silver --level=2
 ```
 
 Many SPARK folders also have `make prove`. GNAT 12 and GNAT 14 are both supported;
