@@ -10,7 +10,7 @@
 --  Is_Sorted contracts replace Invalid_Argument. Non-SPARK sibling
 --  allows arbitrary Integer keys, Max_Length = 100_000, dynamic k =
 --  min(n, Max_Buckets), and arbitrary A'First; this port requires
---  A'First = 1, Element in 0 .. Max_Key, fixed Max_Buckets, and uses
+--  any A'First in 1 .. Max_N, Element in 0 .. Max_Key, fixed Max_Buckets, and uses
 --  Pre => In_Bounds (A). Full multiset / permutation equality is
 --  verified by tests rather than claimed as a Level-4 postcondition.
 --  Sortedness is proved for the bucket phase itself (bin key ranges,
@@ -69,10 +69,12 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
    --  Element subtype already enforces keys in 0 .. Max_Key.
 
    function Is_Sorted (A : Element_Array) return Boolean is

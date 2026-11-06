@@ -20,6 +20,46 @@ package body Burstsort
   with SPARK_Mode => On
 is
 
+   --  Proved phase: origin 1 and Last in 0 .. Max_N (the previous shape
+   --  guard). Public Sort slides any origin onto that shape and back:
+   --  position K is stored at A (A'First + K - 1).
+   function From_One (A : String_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   function Pos (A : String_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : String_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
    -------------------------------------------------------------------------
    -- Public helpers
    -------------------------------------------------------------------------
@@ -67,7 +107,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A)
+       From_One (A)
        and then L >= 1
        and then R <= A'Last;
 
@@ -92,7 +132,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A) and then Lo >= 1 and then Hi <= A'Last
+       From_One (A) and then Lo >= 1 and then Hi <= A'Last
        and then D <= Max_String_Len;
 
    --  Every prefix that all of Old (Lo .. Hi) share with Old (Lo) is
@@ -107,7 +147,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A) and then In_Bounds (Old) and then A'Last = Old'Last
+       From_One (A) and then From_One (Old) and then A'Last = Old'Last
        and then Lo in 1 .. Hi and then Hi <= A'Last;
 
    -------------------------------------------------------------------------
@@ -169,7 +209,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then Lo >= 1 and then Hi <= A'Last
+         From_One (A) and then Lo >= 1 and then Hi <= A'Last
          and then D <= Max_String_Len
          and then Common (A, Lo, Hi, R, D)
          and then (for all K in Lo .. Hi => A (K).Length = D),
@@ -189,7 +229,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then Lo <= M and then M <= Hi
+         From_One (A) and then Lo <= M and then M <= Hi
          and then Hi <= A'Last
          and then Sorted_Slice (A, Lo, M - 1)
          and then Sorted_Slice (A, M, Hi)
@@ -204,11 +244,11 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then X in 1 .. A'Last
          and then Y in 1 .. A'Last,
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
@@ -255,12 +295,12 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (Work)
+         From_One (Work)
          and then Hi <= Work'Last
          and then Lo <= Hi + 1
          and then (if Hi >= Lo then Hi - Lo + 1 <= Burst_Threshold else True),
        Post   =>
-         In_Bounds (Work)
+         From_One (Work)
          and then
            (for all K in 1 .. Work'Last =>
               (if K < Lo or else K > Hi then Work (K) = Work'Old (K)))
@@ -276,7 +316,7 @@ is
       end if;
 
       for I in Lo + 1 .. Hi loop
-         pragma Loop_Invariant (In_Bounds (Work));
+         pragma Loop_Invariant (From_One (Work));
          pragma Loop_Invariant (I in Lo + 1 .. Hi + 1);
          pragma Loop_Invariant
            (for all K in 1 .. Work'Last =>
@@ -289,7 +329,7 @@ is
          J   := Integer (I) - 1;
 
          while J >= Integer (Lo) and then Key < Work (J) loop
-            pragma Loop_Invariant (In_Bounds (Work));
+            pragma Loop_Invariant (From_One (Work));
             pragma Loop_Invariant (J in Integer (Lo) .. Integer (I) - 1);
             pragma Loop_Invariant
               (for all K in 1 .. Work'Last =>
@@ -332,14 +372,14 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (Work)
+         From_One (Work)
          and then Hi <= Work'Last
          and then Lo <= Hi + 1
          and then Depth < Max_String_Len
          and then
            (for all K in Lo .. Hi => Work (K).Length > Depth),
        Post   =>
-         In_Bounds (Work)
+         From_One (Work)
          and then
            (for all K in 1 .. Work'Last =>
               (if K < Lo or else K > Hi then Work (K) = Work'Old (K)))
@@ -359,7 +399,7 @@ is
       end if;
 
       for I in Lo + 1 .. Hi loop
-         pragma Loop_Invariant (In_Bounds (Work));
+         pragma Loop_Invariant (From_One (Work));
          pragma Loop_Invariant (I in Lo + 1 .. Hi + 1);
          pragma Loop_Invariant
            (for all K in 1 .. Work'Last =>
@@ -378,7 +418,7 @@ is
          while J >= Integer (Lo)
            and then Char_Less (Key, Work (J), Depth)
          loop
-            pragma Loop_Invariant (In_Bounds (Work));
+            pragma Loop_Invariant (From_One (Work));
             pragma Loop_Invariant (J in Integer (Lo) .. Integer (I) - 1);
             pragma Loop_Invariant
               (for all K in 1 .. Work'Last =>
@@ -423,13 +463,13 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (Work)
+         From_One (Work)
          and then Hi <= Work'Last
          and then Lo <= Hi + 1
          and then Depth <= Max_String_Len
          and then (if Lo <= Hi then Common (Work, Lo, Hi, Work (Lo), Depth)),
        Post   =>
-         In_Bounds (Work)
+         From_One (Work)
          and then
            (for all K in 1 .. Work'Last =>
               (if K < Lo or else K > Hi then Work (K) = Work'Old (K)))
@@ -478,7 +518,7 @@ is
       begin
          --  In-place partition: Ended (Length = Depth) to the front.
          for I in Lo .. Hi loop
-            pragma Loop_Invariant (In_Bounds (Work));
+            pragma Loop_Invariant (From_One (Work));
             pragma Loop_Invariant (Write in Lo .. I);
             pragma Loop_Invariant
               (for all J in Lo .. Write - 1 => Work (J).Length <= Depth);
@@ -534,7 +574,7 @@ is
          --  Equal-character runs: burst or insertion-finish.
          Run_Lo := Act_Lo;
          while Run_Lo <= Act_Hi loop
-            pragma Loop_Invariant (In_Bounds (Work));
+            pragma Loop_Invariant (From_One (Work));
             pragma Loop_Invariant (Run_Lo in Act_Lo .. Act_Hi);
             pragma Loop_Invariant (Depth < Max_String_Len);
             pragma Loop_Invariant
@@ -568,7 +608,7 @@ is
               and then Work (K + 1).Length > Depth
               and then Char_At (Work (K + 1), Depth) = Ch
             loop
-               pragma Loop_Invariant (In_Bounds (Work));
+               pragma Loop_Invariant (From_One (Work));
                pragma Loop_Invariant (K in Run_Lo .. Act_Hi);
                pragma Loop_Invariant (Run_Lo in Act_Lo .. Act_Hi);
                pragma Loop_Invariant (Depth < Max_String_Len);
@@ -630,15 +670,15 @@ is
    procedure Burst_Phase (A : in out String_Array)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
+       Pre    => From_One (A) and then A'Length >= 2,
+       Post   => From_One (A) and then Is_Sorted (A)
    is
       N    : constant Index := A'Last;
       Work : String_Array (1 .. Max_N) :=
         [others => (Length => 0, Data => [others => ' '])];
    begin
       for I in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant
            (for all T in 1 .. I - 1 => Work (T) = A (T));
 
@@ -648,7 +688,7 @@ is
       Process_Slice (Work, 1, N, 0);
 
       for I in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant
            (for all T in 1 .. I - 1 => A (T) = Work (T));
 
@@ -658,12 +698,32 @@ is
    end Burst_Phase;
 
    procedure Sort (A : in out String_Array) is
+      N : constant Natural := A'Length;
    begin
-      if A'Length <= 1 then
+      if N <= 1 then
          return;
       end if;
 
-      Burst_Phase (A);
+      declare
+         Local : String_Array (1 .. N) :=
+           [others => (Length => 0, Data => [others => ' '])];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         Burst_Phase (Local);
+
+         for K in 1 .. N loop
+            A (Pos (A, K)) := Local (K);
+            pragma Loop_Invariant
+              (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+         end loop;
+
+         Lemma_Slide_Sorted (A, Local);
+      end;
    end Sort;
 
 end Burstsort;

@@ -9,7 +9,7 @@
 --  SPARK port of Ada-Patience-Sorting: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling uses Max_N = 8192, allows arbitrary A'First, and raises on
---  oversized n; this port requires A'First = 1, uses a fixed node pool
+--  oversized n; this port takes any A'First in 1 .. Max_N, uses a fixed node pool
 --  and Top_Array of size Max_N, and proves sortedness from the deal and
 --  merge themselves (pile order + popped-node invariant). Full
 --  multiset / permutation equality is
@@ -44,10 +44,12 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
      (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))

@@ -8,7 +8,7 @@
 --  SPARK port of Ada-Quantum-Sort: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Input_Size /
 --  Element_Value range. Non-SPARK sibling allows a modest Element_Value
---  subtype and raises on invalid size; this port requires A'First = 1,
+--  subtype and raises on invalid size; this port takes any A'First in 1 .. Max_N,
 --  uses Pre => In_Bounds (A), Integer elements, and proves sortedness
 --  via each educational algorithm plus a gap-1 finish where Level 4
 --  needs it (Insertion_Pass, the gap-1 pass of the Shell model, as in
@@ -50,10 +50,12 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
      (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))

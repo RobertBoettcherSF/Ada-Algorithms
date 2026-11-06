@@ -1,6 +1,6 @@
 --  Standalone test suite for Burstsort (SPARK port).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  A'First is always 1; Max_N = 32. Sortedness is proved by SPARK;
+--  Any A'First in 1 .. Max_N (shifted-origin cases); Max_N = 32. Sortedness is proved by SPARK;
 --  multiset / permutation equality is checked here.
 
 pragma Ada_2022;
@@ -111,6 +111,18 @@ is
    end Expect_Sorted;
 
    --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function Shifted_Ok (Src : String_Array; Origin : Positive) return Boolean is
+      A : String_Array (Origin .. Origin + Src'Length - 1);
+      R : String_Array := Copy_Of (Src);
+   begin
+      for K in 0 .. Src'Length - 1 loop
+         A (Origin + K) := Src (Src'First + K);
+      end loop;
+      Sort (A);
+      Reference_Sort (R);
+      return Is_Sorted (A) and then Same (A, R);
+   end Shifted_Ok;
+
    function AA_Seed (Default : Natural) return Natural is
       V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
       S : Natural := Default;
@@ -332,6 +344,30 @@ begin
       end loop;
       Expect_Sorted (Src, "burst family n=12");
    end;
+
+   ---------------------------------------------------------------------
+   Section ("11. Shifted origins (A'First > 1)");
+   ---------------------------------------------------------------------
+   declare
+      Tail : String_Array (Max_N - 2 .. Max_N) :=
+        [Make ("c"), Make ("a"), Make ("b")];
+   begin
+      Check (In_Bounds (Tail), "Tail(Max_N-2 .. Max_N) In_Bounds");
+      Check (Nat (Tail'First) /= 1, "Tail does not start at 1");
+      Sort (Tail);
+      Check (Same (Tail, String_Array'[Make ("a"), Make ("b"), Make ("c")]),
+             "Tail(Max_N-2 .. Max_N) sorted in place");
+   end;
+   Check (Shifted_Ok (String_Array'[Make ("b"), Make ("a")], 2),
+          "origin 2 length 2");
+   declare
+      Empty : String_Array (5 .. 4);
+   begin
+      Check (In_Bounds (Empty), "empty origin 5 In_Bounds");
+      Sort (Empty);
+      Check (Boo (Is_Sorted (Empty)), "empty origin 5 stays sorted");
+   end;
+   Check (Shifted_Ok (String_Array'[Make ("q")], 9), "singleton origin 9");
 
    New_Line;
    Put_Line

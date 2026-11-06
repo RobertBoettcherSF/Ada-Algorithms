@@ -10,7 +10,7 @@
 --  no exceptions, In_Bounds / Is_Sorted contracts replace Invalid_Argument.
 --  Non-SPARK sibling uses a heap node pool, Max_N = 256, Max_String_Len =
 --  64, Burst_Threshold = 8, Alphabet_Size = 256, and arbitrary A'First;
---  this port requires A'First = 1, uses an educational MSD-bucket
+--  this port takes any A'First in 1 .. Max_N, uses an educational MSD-bucket
 --  approximation of the burst trie (same emit order: Ended, then
 --  character buckets 0 .. Alphabet_Size-1), and proves that the burst
 --  phase itself sorts (no bubble-sort safety net). Full multiset /
@@ -101,10 +101,12 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : String_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
    --  Length subtype already enforces 0 .. Max_String_Len per element.
 
    function Is_Sorted (A : String_Array) return Boolean is

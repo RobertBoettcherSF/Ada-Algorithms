@@ -9,6 +9,46 @@ package body Bitonic_Sorter
   with SPARK_Mode => On
 is
 
+   --  Proved phase: origin 1 and Last in 0 .. Max_N (the previous shape
+   --  guard). Public Sort slides any origin onto that shape and back:
+   --  position K is stored at A (A'First + K - 1).
+   function From_One (A : Element_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   function Pos (A : Element_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
    --  Adjacent nondecreasing on A (L .. R). Vacuous when L >= R.
    function Sorted_Slice
      (A : Element_Array; L, R : Natural) return Boolean
@@ -19,7 +59,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A)
+       From_One (A)
        and then L >= 1
        and then R <= A'Last;
 
@@ -37,7 +77,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A)
+       From_One (A)
        and then Lo_P >= 1
        and then Hi_P <= A'Last
        and then Lo_S >= 1
@@ -79,11 +119,11 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then X in 1 .. A'Last
          and then Y in 1 .. A'Last,
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
@@ -109,10 +149,10 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then I in 1 .. A'Last
          and then J in 1 .. A'Last,
-       Post   => In_Bounds (A)
+       Post   => From_One (A)
    is
    begin
       if Ascending then
@@ -138,7 +178,7 @@ is
        Always_Terminates  => True,
        Subprogram_Variant => (Decreases => Count),
        Pre                =>
-         In_Bounds (A)
+         From_One (A)
          and then Count <= Max_N
          and then
            (Count <= 1
@@ -146,7 +186,7 @@ is
               (Low in 1 .. A'Last
                and then Low - 1 <= A'Last - Count
                and then Is_Power_Of_Two (Count))),
-       Post               => In_Bounds (A)
+       Post               => From_One (A)
    is
       K : Natural;
    begin
@@ -163,7 +203,7 @@ is
       pragma Assert (Low + K in 1 .. A'Last);
 
       for I in Low .. Low + K - 1 loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (I in Low .. Low + K);
          pragma Loop_Invariant (K = Count / 2);
          pragma Loop_Invariant (Low + Count - 1 <= A'Last);
@@ -190,7 +230,7 @@ is
        Always_Terminates  => True,
        Subprogram_Variant => (Decreases => Count),
        Pre                =>
-         In_Bounds (A)
+         From_One (A)
          and then Count <= Max_N
          and then
            (Count <= 1
@@ -198,7 +238,7 @@ is
               (Low in 1 .. A'Last
                and then Low - 1 <= A'Last - Count
                and then Is_Power_Of_Two (Count))),
-       Post               => In_Bounds (A)
+       Post               => From_One (A)
    is
       K : Natural;
    begin
@@ -229,13 +269,13 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then A'Last >= 2
          and then Bound in 2 .. A'Last
          and then Sorted_Slice (A, Bound + 1, A'Last)
          and then Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last),
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then Sorted_Slice (A, Bound, A'Last)
          and then Prefix_Leq_Suffix (A, 1, Bound - 1, Bound, A'Last)
          and then
@@ -245,7 +285,7 @@ is
       Swapped := False;
 
       for I in 1 .. Bound - 1 loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant
            (for all K in 1 .. I => A (K) <= A (I));
          pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
@@ -278,8 +318,8 @@ is
    procedure Bubble_Finish (A : in out Element_Array)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
+       Pre    => From_One (A) and then A'Length >= 2,
+       Post   => From_One (A) and then Is_Sorted (A)
    is
       Bound   : Index;
       Swapped : Boolean;
@@ -291,7 +331,7 @@ is
 
       loop
          pragma Loop_Invariant (Bound in 2 .. A'Last);
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (Sorted_Slice (A, Bound + 1, A'Last));
          pragma Loop_Invariant
            (Prefix_Leq_Suffix (A, 1, Bound, Bound + 1, A'Last));
@@ -329,8 +369,8 @@ is
    procedure Bitonic_Phase (A : in out Element_Array)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A)
+       Pre    => From_One (A) and then A'Length >= 2,
+       Post   => From_One (A)
    is
       N    : constant Index := A'Last;
       P    : Natural;
@@ -340,11 +380,11 @@ is
       pragma Assert (P >= N);
       pragma Assert (P <= Max_N);
       pragma Assert (Is_Power_Of_Two (P));
-      pragma Assert (In_Bounds (Work));
+      pragma Assert (From_One (Work));
 
       for I in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (In_Bounds (Work));
+         pragma Loop_Invariant (From_One (A));
+         pragma Loop_Invariant (From_One (Work));
          pragma Loop_Invariant
            (for all T in 1 .. I - 1 => Work (T) = A (T));
 
@@ -356,8 +396,8 @@ is
       --  Integer'Last data is fine (multiset of first N after a full
       --  ascending sort of data+pad equals the original multiset).
       for I in N + 1 .. P loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (In_Bounds (Work));
+         pragma Loop_Invariant (From_One (A));
+         pragma Loop_Invariant (From_One (Work));
          pragma Loop_Invariant (I in N + 1 .. P + 1);
          pragma Loop_Invariant
            (for all T in 1 .. N => Work (T) = A (T));
@@ -370,24 +410,40 @@ is
       Bitonic_Sort (Work, 1, P, True);
 
       for I in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
-         pragma Loop_Invariant (In_Bounds (Work));
+         pragma Loop_Invariant (From_One (A));
+         pragma Loop_Invariant (From_One (Work));
 
          A (I) := Work (I);
       end loop;
    end Bitonic_Phase;
 
    procedure Sort (A : in out Element_Array) is
+      N : constant Natural := A'Length;
    begin
-      if A'Length <= 1 then
+      if N <= 1 then
          return;
       end if;
 
-      Bitonic_Phase (A);
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
 
-      --  Gap-1 bubble finish → Is_Sorted (same role as Comb / Odd_Even).
-      --  On a correctly network-sorted prefix this is an O(n) clean pass.
-      Bubble_Finish (A);
+         Bitonic_Phase (Local);
+         Bubble_Finish (Local);
+
+         for K in 1 .. N loop
+            A (Pos (A, K)) := Local (K);
+            pragma Loop_Invariant
+              (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+         end loop;
+
+         Lemma_Slide_Sorted (A, Local);
+      end;
    end Sort;
 
 end Bitonic_Sorter;

@@ -15,6 +15,46 @@ package body Library_Sort
   with SPARK_Mode => On
 is
 
+   --  Proved phase: origin 1 and Last in 0 .. Max_N (the previous shape
+   --  guard). Public Sort slides any origin onto that shape and back:
+   --  position K is stored at A (A'First + K - 1).
+   function From_One (A : Element_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   function Pos (A : Element_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
    subtype Cap_Index is Natural range 0 .. Max_Cap;
    subtype Cap_Pos is Positive range 1 .. Max_Cap;
    subtype Cap_Ext is Positive range 1 .. Max_Cap + 1;
@@ -399,7 +439,12 @@ is
       Lemma_Spread_Count (W, Count, 1, Cap);
    end Spread;
 
-   procedure Sort (A : in out Element_Array) is
+   procedure Sort_At_One (A : in out Element_Array)
+     with
+       Global => null,
+       Pre    => From_One (A),
+       Post   => From_One (A) and then Is_Sorted (A)
+   is
       N         : constant Index := A'Last;
       W         : Working_Array;
       Dense     : Element_Array (1 .. Max_Cap);
@@ -456,6 +501,34 @@ is
       pragma Assert (K = N);
       A := Dense (1 .. N);
       pragma Assert (Sorted_Pairs (A, N));
+   end Sort_At_One;
+
+   procedure Sort (A : in out Element_Array) is
+      N : constant Natural := A'Length;
+   begin
+      if N <= 1 then
+         return;
+      end if;
+
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         Sort_At_One (Local);
+
+         for K in 1 .. N loop
+            A (Pos (A, K)) := Local (K);
+            pragma Loop_Invariant
+              (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+         end loop;
+
+         Lemma_Slide_Sorted (A, Local);
+      end;
    end Sort;
 
 end Library_Sort;
