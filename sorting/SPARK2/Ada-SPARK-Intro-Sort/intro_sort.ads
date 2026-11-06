@@ -5,13 +5,17 @@ package Intro_Sort with SPARK_Mode => On is
    subtype Value is Integer range 0 .. 31;
    type Input_Array is array (Index) of Value;
 
-   --  Musser depth budget for an array of length 8: 2 * floor(log2(8)).
-   --  Each recursive call drops the pivot, and a slice of length at most 2
-   --  is ordered in place, so this budget is never exhausted. Sort_Limited
-   --  with a smaller budget is what runs the heapsort fallback.
-   subtype Depth is Natural range 0 .. 6;
-   Depth_Budget : constant Depth := 6;
+   --  Slices of this length or shorter are insertion-sorted. The cutoff
+   --  stays 2 so a longer slice is partitioned, or heapsorted when the
+   --  remaining depth is 0.
+   Insertion_Cutoff : constant Positive := 2;
 
+   --  2 * floor(log2(8)). Sort computes this once from the full length
+   --  and passes it down; a recursive call receives that value minus one
+   --  and does not recompute 2 * log2 of its own slice.
+   Depth_Limit : constant Natural := 6;
+
+   --  How many of A (1 .. Last) equal V. Last = 0 counts nothing.
    function Occ (A : Input_Array; V : Value; Last : Natural) return Natural
    with
      Global             => null,
@@ -33,7 +37,8 @@ package Intro_Sort with SPARK_Mode => On is
    with Global => null;
 
    --  Max-heap on the whole array of length 8. Parent I is >= child 2*I
-   --  and, when that child exists, child 2*I+1.
+   --  and, when that child exists, child 2*I+1:
+   --  1 >= 2 and 3; 2 >= 4 and 5; 3 >= 6 and 7; 4 >= 8.
    function Is_Max_Heap (A : Input_Array) return Boolean is
      (A (1) >= A (2) and then A (1) >= A (3)
       and then A (2) >= A (4) and then A (2) >= A (5)
@@ -41,8 +46,8 @@ package Intro_Sort with SPARK_Mode => On is
       and then A (4) >= A (8))
    with Global => null;
 
-   --  Lomuto partition of A (Lo .. Hi). The pivot is A (Hi). The introsort
-   --  recursion calls this procedure.
+   --  Lomuto partition of A (Lo .. Hi). The pivot is A (Hi). Sort_Range
+   --  calls this procedure. Partition below only forwards the whole array.
    procedure Partition_Range (A : in out Input_Array; Lo, Hi : Index; P : out Index)
    with
      Global => null,
@@ -55,25 +60,43 @@ package Intro_Sort with SPARK_Mode => On is
        and then (for all K in Index'First .. Lo - 1 => A (K) = A'Old (K))
        and then (for all K in Hi + 1 .. Index'Last => A (K) = A'Old (K));
 
-   --  Whole-array Lomuto step. Thin call to Partition_Range.
+   --  One Lomuto partition of the whole array. Thin call to Partition_Range.
    procedure Partition
      (Input : Input_Array; Output : out Input_Array; Pivot_Index : out Index)
    with Global => null;
 
-   --  Floyd build of a max-heap on the whole array. The heapsort fallback
-   --  calls this, then sifts the root out to the end.
+   --  Floyd build: sift down from the last parent (Index'Last / 2) to the
+   --  root so the array is a max-heap. The length stays Index (1 .. 8).
    procedure Heapify (A : in out Input_Array)
    with
      Global => null,
      Post   => Is_Max_Heap (A) and then Is_Perm (A, A'Old);
 
-   --  Introsort with an explicit depth budget. Max_Depth = 0 heapsorts.
-   --  Max_Depth = Depth_Budget does not: the budget is not exhausted.
+   --  Heapsort the slice Lo .. Hi in place. Cells outside that slice stay
+   --  put. The depth-0 fallback of Sort_Range uses this.
+   procedure Heap_Sort_Range (A : in out Input_Array; Lo, Hi : Index)
+   with
+     Global => null,
+     Pre    => Lo <= Hi,
+     Post   =>
+       (for all K in Index'First .. Lo - 1 => A (K) = A'Old (K))
+       and then (for all K in Hi + 1 .. Index'Last => A (K) = A'Old (K));
+
+   --  Introsort with an explicit depth budget. Sort passes Depth_Limit.
+   --  Depth 0 heapsorts the whole array, so the fallback can be forced.
+   --  Used_Heap is True when some slice took that heapsort fallback.
+   --  Heap_Was_Unsorted is True when such a slice's heap was not already
+   --  sorted (a compare-exchange Heapify does not leave it that way).
    procedure Sort_Limited
-     (Input : Input_Array; Max_Depth : Depth; Output : out Input_Array;
-      Heap_Fallbacks : out Natural)
+     (Input             : Input_Array;
+      Depth             : Natural;
+      Output            : out Input_Array;
+      Used_Heap         : out Boolean;
+      Heap_Was_Unsorted : out Boolean)
    with Global => null;
 
+   --  Introsort of the whole array. The depth budget is computed once
+   --  here (Depth_Limit, 6) and then only decremented.
    function Sort (Input : Input_Array) return Input_Array
    with Global => null;
 end Intro_Sort;

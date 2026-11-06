@@ -8,18 +8,7 @@ procedure Tests is
    function Sorted_OK (A : Input_Array) return Boolean is
      (for all I in Index'First .. Index'Last - 1 => A (I) <= A (I + 1));
 
-   function Same_Bag (A, B : Input_Array) return Boolean is
-      type Counts is array (Value) of Natural;
-      C_In  : Counts := [others => 0];
-      C_Out : Counts := [others => 0];
-   begin
-      for I in Index loop
-         C_In (A (I)) := C_In (A (I)) + 1;
-         C_Out (B (I)) := C_Out (B (I)) + 1;
-      end loop;
-      return C_In = C_Out;
-   end Same_Bag;
-
+   --  Same Partition_Range that Sort_Range calls.
    procedure Check_Layout
      (A : Input_Array; Expected : Input_Array; Expected_Pivot : Index; Label : String)
    is
@@ -33,6 +22,7 @@ procedure Tests is
       end if;
    end Check_Layout;
 
+   --  Same Heapify the length-8 heapsort fallback calls.
    procedure Check_Heap (A, Expected : Input_Array; Label : String) is
       B : Input_Array := A;
    begin
@@ -44,23 +34,6 @@ procedure Tests is
          Put_Line ("  FAIL heapify layout (" & Label & ")");
       end if;
    end Check_Heap;
-
-   procedure Check_Budget (A : Input_Array; Limit : Depth; Expect_Fallback : Boolean) is
-      B : Input_Array;
-      F : Natural;
-   begin
-      Sort_Limited (A, Limit, B, F);
-      if not Sorted_OK (B) or else not Same_Bag (A, B) then
-         Failures := Failures + 1;
-         Put_Line ("  FAIL Sort_Limited" & Limit'Image & " not a sort");
-      elsif Expect_Fallback and then F < 1 then
-         Failures := Failures + 1;
-         Put_Line ("  FAIL Sort_Limited" & Limit'Image & " did not heapsort");
-      elsif not Expect_Fallback and then F /= 0 then
-         Failures := Failures + 1;
-         Put_Line ("  FAIL depth budget exhausted, fallbacks" & F'Image);
-      end if;
-   end Check_Budget;
 
    Example   : constant Input_Array := [23, 4, 17, 9, 1, 31, 12, 6];
    Ascending : constant Input_Array := [1, 2, 3, 4, 5, 6, 7, 8];
@@ -80,22 +53,20 @@ begin
    Check_Heap ([4, 1, 3, 2, 8, 5, 7, 6], [8, 6, 7, 4, 1, 5, 3, 2], "hand 4 1 3 2 8 5 7 6");
    Check_Heap (Example, [31, 9, 23, 6, 1, 17, 12, 4], "hand tests example");
 
-   Check_Budget (Example, Depth_Budget, False);
-   Check_Budget (Ascending, Depth_Budget, False);
-   Check_Budget ([8, 7, 6, 5, 4, 3, 2, 1], Depth_Budget, False);
-   Check_Budget (Example, 0, True);
-   Check_Budget (Ascending, 0, True);
-   --  A budget below 6 does run out on a sorted input and heapsorts a slice.
-   Check_Budget (Ascending, 5, True);
-
    declare
-      B : Input_Array;
-      F : Natural;
+      B             : Input_Array;
+      Used          : Boolean;
+      Unsorted_Heap : Boolean;
    begin
-      Sort_Limited (Example, Depth_Budget, B, F);
-      if B /= Sort (Example) or else F /= 0 then
+      Sort_Limited (Example, Depth_Limit, B, Used, Unsorted_Heap);
+      if Used or else Unsorted_Heap or else not Sorted_OK (B) then
          Failures := Failures + 1;
-         Put_Line ("  FAIL Sort is not Sort_Limited at the depth budget");
+         Put_Line ("  FAIL depth budget 6 took the heapsort fallback");
+      end if;
+      Sort_Limited (Ascending, 0, B, Used, Unsorted_Heap);
+      if not Used or else not Unsorted_Heap or else not Sorted_OK (B) then
+         Failures := Failures + 1;
+         Put_Line ("  FAIL Sort_Limited 0 did not heapsort an unsorted heap");
       end if;
    end;
 

@@ -1,6 +1,6 @@
 # Proof index
 
-Generated 2026-11-06 22:29 UTC.
+Generated 2026-11-06 22:34 UTC.
 
 ## Proof setup
 
@@ -552,7 +552,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II |  |  | - / 50/50 |  |  | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Flash-Sort | agree (vs sorting/Ada/Flashsort, 1000 cases) | 8/9 |  |  | sorted + permutation + own insertion-sort reference; all 0/1 inputs; 3000 random | ok | own tests, diff agree |
 | sorting/SPARK2/Ada-SPARK-Heap-Sort | agree (vs sorting/Ada/Heapsort, 1000 cases) | 8/9 |  |  | sorted + permutation + own insertion-sort reference; heap property and 4 hand-worked Floyd layouts; all 0/1 inputs; 3000 random | ok | own tests, diff agree |
-| sorting/SPARK2/Ada-SPARK-Intro-Sort | agree (vs sorting/Ada/Introsort, 1000 cases) | 8/9 |  |  | sorted + permutation + own insertion-sort reference; Lomuto partition and 3 hand-worked layouts; heap property and 4 hand-worked Floyd layouts; depth budget 6 never falls back and Sort_Limited 0/5 does; all 0/1 inputs; 3000 random | ok | own tests, diff agree |
+| sorting/SPARK2/Ada-SPARK-Intro-Sort | agree (vs sorting/Ada/Introsort, 1000 cases) | 8/9 |  |  | sorted + permutation + own insertion-sort reference; partition split and 3 hand-worked Lomuto layouts; heap property and 4 hand-worked Floyd layouts; depth-0 heapsort fallback; all 0/1 inputs; 3000 random | ok | own tests, diff agree |
 | sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix |  |  | - / 48/48 |  |  | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite |  | 1/2 | - / 58/71 |  | own sorted-merge median (exact when integer mean; else between middles); 6000 random | ok | own tests |
 | sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub |  | 0/1 |  |  | own insertion-sort reference; 3000 random three-run inputs | ok | own tests |
@@ -2320,7 +2320,7 @@ Plan and harness: `docs/VV.md`, `make vv`. Differential pairs run: 74 (74 agree 
 | sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II | yes | yes | yes | yes | yes | 0 | 0 | proven (trivial) | 2 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Flash-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 411 (withdrawn: Post only bounds elements to Value; trivial body "return Input" proves, see contract_scan.csv) |  | sorting/Ada/Flashsort |  |
 | sorting/SPARK2/Ada-SPARK-Heap-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 441 (163) |  | sorting/Ada/Heapsort |  |
-| sorting/SPARK2/Ada-SPARK-Intro-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 531 (171) |  | sorting/Ada/Introsort |  |
+| sorting/SPARK2/Ada-SPARK-Intro-Sort | yes | yes | yes | yes | yes | 0 | 0 | proven | 633 (192) |  | sorting/Ada/Introsort |  |
 | sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix | yes | yes | yes | yes | yes | 8 | 8 | proven (trivial) | 3 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite | yes | yes | yes | yes | yes | 0 | 0 | proven | 6 |  |  |  |
 | sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub (stub) | yes | yes | yes | yes | yes | 1 | 1 | proven | 5 |  |  |  |

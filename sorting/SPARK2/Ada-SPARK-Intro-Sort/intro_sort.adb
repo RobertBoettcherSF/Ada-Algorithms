@@ -1,5 +1,15 @@
 pragma Ada_2022;
 
+--  Bounded introsort for eight values.
+--  Sort computes 2 * floor(log2(8)) = 6 once. Sort_Range then either
+--  insertion-sorts a slice of at most Insertion_Cutoff (2) elements,
+--  heapsorts a longer slice whose remaining depth is 0, or
+--  Lomuto-partitions the slice around its last element and recurses
+--  on both sides with Depth - 1. The budget is not recomputed per slice.
+--  Heapify is the Floyd build on the whole array (the length-8 fallback
+--  and the direct heap check). Partition is one Lomuto step on the
+--  whole array.
+
 package body Intro_Sort with SPARK_Mode => On is
 
    --  Parent of a 1-based heap index. Children of P are 2*P and 2*P+1.
@@ -669,13 +679,12 @@ package body Intro_Sort with SPARK_Mode => On is
       pragma Assert (Is_Heap (A, Index'Last));
       Lemma_Heap_Same (A);
    end Heapify;
-
-   function Heap_Sort_All (Input : Input_Array) return Input_Array
+   function Heap_Sorted (Input : Input_Array) return Input_Array
    with
      Global => null,
      Post   =>
-       Is_Sorted (Heap_Sort_All'Result)
-       and then Is_Perm (Heap_Sort_All'Result, Input)
+       Is_Sorted (Heap_Sorted'Result)
+       and then Is_Perm (Heap_Sorted'Result, Input)
    is
       Work      : Input_Array := Input;
       Heap_Last : Index;
@@ -750,9 +759,226 @@ package body Intro_Sort with SPARK_Mode => On is
       Lemma_First_Leq_Second (Work);
       pragma Assert (Is_Sorted (Work));
       return Work;
-   end Heap_Sort_All;
+   end Heap_Sorted;
+   procedure Exchange (A : in out Input_Array; X, Y : Index)
+   with
+     Global => null,
+     Post   =>
+       A (X) = A'Old (Y)
+       and then A (Y) = A'Old (X)
+       and then
+         (for all K in Index =>
+            (if K /= X and then K /= Y then A (K) = A'Old (K)))
+   is
+      T : constant Value := A (X);
+   begin
+      A (X) := A (Y);
+      A (Y) := T;
+   end Exchange;
 
-   procedure Partition_Range (A : in out Input_Array; Lo, Hi : Index; P : out Index) is
+   --  Length of the inclusive slice Lo .. Hi. Lo <= Hi, so the result
+   --  is in 1 .. 8.
+   function Slice_Length (Lo, Hi : Index) return Natural is
+     (Natural (Hi) - Natural (Lo) + 1)
+   with
+     Global => null,
+     Pre    => Lo <= Hi,
+     Post   => Slice_Length'Result in 1 .. Index'Last;
+
+   --  Left child of I in a heap rooted at Lo. Relative index D = I - Lo
+   --  has left child at Lo + 2*D + 1 (the ordinary 2*I when Lo = 1).
+   function Slice_Has_Left (Lo, Heap_Last, I : Index) return Boolean is
+     (Heap_Last > Lo
+      and then Integer (I) - Integer (Lo)
+           <= (Integer (Heap_Last) - Integer (Lo) - 1) / 2)
+   with
+     Global => null,
+     Pre    => Lo <= Heap_Last and then I in Lo .. Heap_Last;
+
+   function Slice_Left (Lo, Heap_Last, I : Index) return Index
+   with
+     Global => null,
+     Pre    =>
+       Lo <= Heap_Last
+       and then I in Lo .. Heap_Last
+       and then Slice_Has_Left (Lo, Heap_Last, I),
+     Post   => Slice_Left'Result in I + 1 .. Heap_Last
+   is
+      D : constant Integer := Integer (I) - Integer (Lo);
+      N : constant Integer := Integer (Heap_Last) - Integer (Lo);
+      L : Integer;
+   begin
+      pragma Assert (D in 0 .. 7);
+      pragma Assert (N in 1 .. 7);
+      pragma Assert (Heap_Last > Lo);
+      pragma Assert (D <= (N - 1) / 2);
+      pragma Assert (2 * D <= N - 1);
+      L := Integer (Lo) + 2 * D + 1;
+      pragma Assert (L <= Integer (Heap_Last));
+      pragma Assert (L >= Integer (I) + 1);
+      pragma Assert (L in Integer (Index'First) .. Integer (Index'Last));
+      return Index (L);
+   end Slice_Left;
+
+   --  Ascending order on Lo .. Hi. The caller has Lo < Hi.
+   function Slice_Sorted (A : Input_Array; Lo, Hi : Index) return Boolean is
+     (for all I in Lo .. Hi - 1 => A (I) <= A (I + 1))
+   with
+     Global => null,
+     Pre    => Lo < Hi;
+
+   --  Restore the max-heap on Lo .. Heap_Last, sifting from Root.
+   --  The larger child is chosen; equal children keep the left one.
+   --  A swap happens only when the child is strictly greater.
+   procedure Sift_Down_Slice
+     (A : in out Input_Array; Lo, Root, Heap_Last : Index)
+   with
+     Global => null,
+     Pre    => Lo <= Root and then Root <= Heap_Last,
+     Post   =>
+       (for all K in Index =>
+          (if K < Lo or else K > Heap_Last then A (K) = A'Old (K)))
+   is
+      R : Index := Root;
+   begin
+      loop
+         pragma Loop_Invariant (R in Root .. Heap_Last);
+         pragma Loop_Invariant
+           (for all K in Index =>
+              (if K < Lo or else K > Heap_Last then A (K) = A'Loop_Entry (K)));
+         pragma Loop_Variant (Decreases => Integer (Heap_Last) - Integer (R));
+
+         if not Slice_Has_Left (Lo, Heap_Last, R) then
+            return;
+         end if;
+
+         declare
+            Left  : constant Index := Slice_Left (Lo, Heap_Last, R);
+            Child : Index := Left;
+         begin
+            pragma Assert (Left in R + 1 .. Heap_Last);
+            if Left < Heap_Last and then A (Left) < A (Left + 1) then
+               pragma Assert (Left < Index'Last);
+               Child := Left + 1;
+            end if;
+            pragma Assert (Child in R + 1 .. Heap_Last);
+
+            if A (R) >= A (Child) then
+               return;
+            end if;
+
+            Exchange (A, R, Child);
+            pragma Assert
+              (for all K in Index =>
+                 (if K < Lo or else K > Heap_Last then
+                    A (K) = A'Loop_Entry (K)));
+            R := Child;
+         end;
+      end loop;
+   end Sift_Down_Slice;
+
+   --  Floyd build of a max-heap on the slice Lo .. Hi (length at least 2).
+   procedure Heapify_Slice (A : in out Input_Array; Lo, Hi : Index)
+   with
+     Global => null,
+     Pre    => Lo < Hi,
+     Post   =>
+       (for all K in Index'First .. Lo - 1 => A (K) = A'Old (K))
+       and then (for all K in Hi + 1 .. Index'Last => A (K) = A'Old (K))
+   is
+      Start : Index;
+   begin
+      declare
+         Off : constant Integer := (Integer (Hi) - Integer (Lo) - 1) / 2;
+         S   : constant Integer := Integer (Lo) + Off;
+      begin
+         pragma Assert (Integer (Hi) > Integer (Lo));
+         pragma Assert (Off in 0 .. 3);
+         pragma Assert (S >= Integer (Lo));
+         pragma Assert (S <= Integer (Hi) - 1);
+         pragma Assert (S in Integer (Index'First) .. Integer (Index'Last));
+         Start := Index (S);
+      end;
+
+      loop
+         pragma Loop_Invariant (Start in Lo .. Hi);
+         pragma Loop_Invariant
+           (for all K in Index =>
+              (if K < Lo or else K > Hi then A (K) = A'Loop_Entry (K)));
+         pragma Loop_Variant (Decreases => Start);
+
+         Sift_Down_Slice (A, Lo, Start, Hi);
+
+         exit when Start = Lo;
+         pragma Assert (Start > Index'First);
+         Start := Start - 1;
+      end loop;
+   end Heapify_Slice;
+
+   --  Heapsort of a slice that is not the whole array. Same child rule
+   --  as Heapify: larger child, left child on a tie, swap only when the
+   --  child is strictly greater.
+   procedure Heap_Sort_Slice (A : in out Input_Array; Lo, Hi : Index)
+   with
+     Global => null,
+     Pre    => Lo <= Hi,
+     Post   =>
+       (for all K in Index'First .. Lo - 1 => A (K) = A'Old (K))
+       and then (for all K in Hi + 1 .. Index'Last => A (K) = A'Old (K))
+   is
+      Heap_Last : Index;
+      Original  : constant Input_Array := A with Ghost;
+   begin
+      if Lo = Hi then
+         return;
+      end if;
+
+      Heapify_Slice (A, Lo, Hi);
+      pragma Assert
+        (for all K in Index =>
+           (if K < Lo or else K > Hi then A (K) = Original (K)));
+
+      Heap_Last := Hi;
+      while Heap_Last > Lo loop
+         pragma Loop_Invariant
+           (Natural (Heap_Last) in Natural (Lo) + 1 .. Natural (Hi));
+         pragma Loop_Invariant
+           (for all K in Index =>
+              (if K < Lo or else K > Hi then A (K) = Original (K)));
+         pragma Loop_Variant (Decreases => Heap_Last);
+
+         Exchange (A, Lo, Heap_Last);
+         pragma Assert (Heap_Last > Index'First);
+         Heap_Last := Heap_Last - 1;
+         Sift_Down_Slice (A, Lo, Lo, Heap_Last);
+      end loop;
+   end Heap_Sort_Slice;
+
+   procedure Heap_Sort_Full (A : in out Input_Array)
+   with
+     Global => null,
+     Post   => Is_Sorted (A) and then Is_Perm (A, A'Old)
+   is
+   begin
+      A := Heap_Sorted (A);
+   end Heap_Sort_Full;
+
+   procedure Heap_Sort_Range (A : in out Input_Array; Lo, Hi : Index) is
+   begin
+      if Lo = Hi then
+         return;
+      elsif Lo = Index'First and then Hi = Index'Last then
+         Heap_Sort_Full (A);
+      else
+         Heap_Sort_Slice (A, Lo, Hi);
+      end if;
+   end Heap_Sort_Range;
+
+   --  Lomuto partition of A (Lo .. Hi). The pivot is A (Hi). On return
+   --  P is the pivot's index, A (Lo .. P - 1) <= A (P), and
+   --  A (P + 1 .. Hi) >= A (P). Cells outside Lo .. Hi are untouched.
+   procedure Partition_Range
+     (A : in out Input_Array; Lo, Hi : Index; P : out Index) is
       Pivot : constant Value := A (Hi);
       I     : Index := Lo;
       J     : Index := Lo;
@@ -773,124 +999,15 @@ package body Intro_Sort with SPARK_Mode => On is
          pragma Loop_Variant (Increases => J);
 
          if A (J) <= Pivot then
-            Swap (A, I, J);
+            Exchange (A, I, J);
             I := I + 1;
          end if;
          J := J + 1;
       end loop;
 
-      Swap (A, I, Hi);
+      Exchange (A, I, Hi);
       P := I;
    end Partition_Range;
-
-   --  Heapsort A (Lo .. Hi) by the same Heapify Sort uses on a full array.
-   --  A shorter slice is copied into a length-8 buffer padded with
-   --  Value'First, heapsorted, and the last Len values are written back.
-   --  Those are the slice: the pads are the smallest value, and there are
-   --  exactly 8 - Len of them.
-   procedure Sort_Slice (A : in out Input_Array; Lo, Hi : Index) is
-      Len : Natural;
-      B   : Input_Array;
-      N   : Natural;
-   begin
-      if Lo = Index'First and then Hi = Index'Last then
-         A := Heap_Sort_All (A);
-         return;
-      end if;
-
-      pragma Assert (Lo > Index'First or else Hi < Index'Last);
-      Len := Natural (Hi) - Natural (Lo) + 1;
-      pragma Assert (Len in 1 .. 7);
-
-      B := (others => Value'First);
-      N := 0;
-      for I in Lo .. Hi loop
-         pragma Loop_Invariant (N = Natural (I) - Natural (Lo));
-         pragma Loop_Invariant (N < Len);
-         pragma Loop_Invariant (Len in 1 .. 7);
-         N := N + 1;
-         pragma Assert (N in 1 .. 7);
-         B (Index (N)) := A (I);
-      end loop;
-
-      B := Heap_Sort_All (B);
-
-      N := Index'Last - Len;
-      pragma Assert (N in 1 .. 7);
-      for I in Lo .. Hi loop
-         pragma Loop_Invariant (Len in 1 .. 7);
-         pragma Loop_Invariant (N = Index'Last - Len + Natural (I) - Natural (Lo));
-         pragma Loop_Invariant (N < Index'Last);
-         N := N + 1;
-         pragma Assert (N in Index);
-         A (I) := B (Index (N));
-      end loop;
-   end Sort_Slice;
-
-   procedure Intro
-     (A : in out Input_Array; Lo, Hi : Index; Remaining : Depth; Falls : in out Natural)
-   with
-     Global             => null,
-     Pre                => Falls <= 8,
-     Post               => Falls <= 8 and then Falls >= Falls'Old,
-     Subprogram_Variant => (Decreases => Hi - Lo)
-   is
-      P : Index;
-   begin
-      if Lo >= Hi then
-         return;
-      end if;
-
-      --  Length 2 (or the empty case above): one compare-exchange. This
-      --  runs before the depth test, so a budget of 6 never reaches 0.
-      pragma Assert (Lo < Index'Last);
-      if Hi = Lo + 1 then
-         if A (Lo) > A (Hi) then
-            Swap (A, Lo, Hi);
-         end if;
-         return;
-      end if;
-
-      if Remaining = 0 then
-         Sort_Slice (A, Lo, Hi);
-         if Falls < 8 then
-            Falls := Falls + 1;
-         end if;
-         return;
-      end if;
-
-      Partition_Range (A, Lo, Hi, P);
-
-      if P > Lo then
-         Intro (A, Lo, P - 1, Remaining - 1, Falls);
-      end if;
-      if P < Hi then
-         Intro (A, P + 1, Hi, Remaining - 1, Falls);
-      end if;
-   end Intro;
-
-   procedure Sort_Limited
-     (Input : Input_Array; Max_Depth : Depth; Output : out Input_Array;
-      Heap_Fallbacks : out Natural)
-   is
-      Work  : Input_Array := Input;
-      Falls : Natural := 0;
-   begin
-      Intro (Work, Index'First, Index'Last, Max_Depth, Falls);
-      Output := Work;
-      Heap_Fallbacks := Falls;
-   end Sort_Limited;
-
-   function Sort (Input : Input_Array) return Input_Array is
-      Work  : Input_Array := Input;
-      Falls : Natural := 0;
-   begin
-      Intro (Work, Index'First, Index'Last, Depth_Budget, Falls);
-      --  Depth_Budget is not exhausted on length 8 (Intro's post keeps the
-      --  count in range; the tests check that the count stays 0).
-      pragma Assert (Falls <= 8);
-      return Work;
-   end Sort;
 
    procedure Partition
      (Input : Input_Array; Output : out Input_Array; Pivot_Index : out Index)
@@ -900,5 +1017,143 @@ package body Intro_Sort with SPARK_Mode => On is
       Partition_Range (Work, Index'First, Index'Last, Pivot_Index);
       Output := Work;
    end Partition;
+
+   --  Insertion sort of one or two elements. A longer slice never comes
+   --  here: Insertion_Cutoff is 2.
+   procedure Insertion_Range (A : in out Input_Array; Lo, Hi : Index)
+   with
+     Global => null,
+     Pre    => Lo <= Hi and then Natural (Hi) - Natural (Lo) <= 1,
+     Post   =>
+       (for all K in Index'First .. Lo - 1 => A (K) = A'Old (K))
+       and then (for all K in Hi + 1 .. Index'Last => A (K) = A'Old (K))
+   is
+   begin
+      if Lo < Hi and then A (Lo) > A (Hi) then
+         Exchange (A, Lo, Hi);
+      end if;
+   end Insertion_Range;
+
+   --  One introsort step on Lo .. Hi.
+   --  A slice of at most Insertion_Cutoff (2) elements is insertion-sorted.
+   --  A longer slice whose remaining depth is 0 is heapsorted.
+   --  Otherwise the slice is Lomuto-partitioned around its last element
+   --  and both sides are sorted with Depth - 1. Depth is not recomputed
+   --  from the slice length.
+   procedure Sort_Range
+     (A              : in out Input_Array;
+      Lo, Hi         : Index;
+      Depth          : Natural;
+      Flag_Heap      : out Boolean;
+      Flag_Unsorted  : out Boolean)
+   with
+     Global             => null,
+     Pre                => Lo <= Hi,
+     Post               =>
+       (for all K in Index'First .. Lo - 1 => A (K) = A'Old (K))
+       and then (for all K in Hi + 1 .. Index'Last => A (K) = A'Old (K)),
+     Subprogram_Variant => (Decreases => Depth, Decreases => Hi - Lo)
+   is
+   begin
+      Flag_Heap := False;
+      Flag_Unsorted := False;
+
+      if Slice_Length (Lo, Hi) <= Insertion_Cutoff then
+         Insertion_Range (A, Lo, Hi);
+      elsif Depth = 0 then
+         declare
+            Observed : Input_Array := A;
+         begin
+            --  Length is at least 3 here, so the slice is not a single cell.
+            pragma Assert (Lo < Hi);
+            if Lo = Index'First and then Hi = Index'Last then
+               Heapify (Observed);
+               Flag_Unsorted := not Is_Sorted (Observed);
+            else
+               Heapify_Slice (Observed, Lo, Hi);
+               Flag_Unsorted := not Slice_Sorted (Observed, Lo, Hi);
+            end if;
+         end;
+         Heap_Sort_Range (A, Lo, Hi);
+         Flag_Heap := True;
+      else
+         declare
+            P             : Index;
+            Left_Heap     : Boolean := False;
+            Right_Heap    : Boolean := False;
+            Left_Unsorted : Boolean := False;
+            Right_Unsorted : Boolean := False;
+         begin
+            pragma Assert (Depth > 0);
+            pragma Assert (Lo < Hi);
+            Partition_Range (A, Lo, Hi, P);
+
+            if P > Lo then
+               Sort_Range (A, Lo, P - 1, Depth - 1, Left_Heap, Left_Unsorted);
+            end if;
+            if P < Hi then
+               Sort_Range
+                 (A, P + 1, Hi, Depth - 1, Right_Heap, Right_Unsorted);
+            end if;
+            Flag_Heap := Left_Heap or Right_Heap;
+            Flag_Unsorted := Left_Unsorted or Right_Unsorted;
+         end;
+      end if;
+   end Sort_Range;
+
+   --  2 * floor(log2(Index'Last)). Three halvings of 8 give 3, then
+   --  the budget is 6. Sort calls this once; slices only decrement it.
+   function Full_Depth_Limit return Natural
+   with
+     Global => null,
+     Post   => Full_Depth_Limit'Result = Depth_Limit
+   is
+      N : Natural := Index'Last;
+      L : Natural := 0;
+   begin
+      pragma Assert (N = 8);
+      N := N / 2;
+      L := L + 1;
+      pragma Assert (N = 4 and then L = 1);
+      N := N / 2;
+      L := L + 1;
+      pragma Assert (N = 2 and then L = 2);
+      N := N / 2;
+      L := L + 1;
+      pragma Assert (N = 1 and then L = 3);
+      return 2 * L;
+   end Full_Depth_Limit;
+
+   procedure Sort_Limited
+     (Input             : Input_Array;
+      Depth             : Natural;
+      Output            : out Input_Array;
+      Used_Heap         : out Boolean;
+      Heap_Was_Unsorted : out Boolean)
+   is
+      Work          : Input_Array := Input;
+      Flag_Heap     : Boolean;
+      Flag_Unsorted : Boolean;
+   begin
+      Sort_Range
+        (Work, Index'First, Index'Last, Depth, Flag_Heap, Flag_Unsorted);
+      Output := Work;
+      Used_Heap := Flag_Heap;
+      Heap_Was_Unsorted := Flag_Unsorted;
+   end Sort_Limited;
+
+   function Sort (Input : Input_Array) return Input_Array is
+      Result            : Input_Array;
+      Depth             : constant Natural := Full_Depth_Limit;
+      Used_Heap         : Boolean;
+      Heap_Was_Unsorted : Boolean;
+   begin
+      --  One budget for the whole array. Sort_Range only subtracts one
+      --  on each recursive call.
+      pragma Assert (Depth = Depth_Limit);
+      Sort_Limited (Input, Depth, Result, Used_Heap, Heap_Was_Unsorted);
+      pragma Unreferenced (Used_Heap, Heap_Was_Unsorted);
+      return Result;
+   end Sort;
 
 end Intro_Sort;

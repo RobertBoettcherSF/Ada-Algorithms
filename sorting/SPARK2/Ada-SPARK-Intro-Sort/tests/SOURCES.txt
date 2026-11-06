@@ -1,5 +1,4 @@
-Sources of every expected value in this folder's own tests (own_checks.adb
-and the core-step checks in tests.adb)
+Sources of every expected value in this folder's own tests (own_checks.adb)
 ==========================================================================
 
 All checks are own properties or own reference code written for this
@@ -15,30 +14,38 @@ third-party test suites.
   (constant, ascending, descending, alternating extremes), 2,000 random
   arrays over the full Value range and 1,000 with many duplicates from the
   Park-Miller minimal standard generator (seed 20261008).
-* Property of one partition (Lomuto, pivot = last element), calling the
-  same Partition_Range that Sort uses: the value at the returned pivot
-  index is the original last element, every value before that index is
-  <= the pivot, every value after it is >= the pivot, and the result is a
-  permutation of the input.
+* The same inputs are sorted again with Sort_Limited at Depth_Limit (6).
+  The result matches Sort, and the heapsort fallback is not reported.
+  On eight elements the budget is large enough that every path reaches a
+  slice of length at most 2 while the remaining depth is still positive.
+* Property of one partition (Lomuto, pivot = last element): the value at
+  the returned pivot index is the original last element, every value
+  before that index is <= the pivot, every value after it is >= the pivot,
+  and the result is a permutation of the input. Checked on the same inputs
+  as Sort.
 * Hand-worked one-step layouts (pivot index in parentheses), not taken
-  from a program run:
+  from a program run. None of these inputs is already partitioned:
   - (4, 1, 3, 2, 8, 5, 7, 6) -> (4, 1, 3, 2, 5, 6, 7, 8) at index 6
   - (8, 7, 6, 5, 4, 3, 2, 1) -> (1, 7, 6, 5, 4, 3, 2, 8) at index 1
   - (23, 4, 17, 9, 1, 31, 12, 6) -> (4, 1, 6, 9, 23, 31, 12, 17) at index 3
   Each of these still has an inversion. The old adjacent compare-exchange
   passes sort the input, so they do not match these layouts.
-* Property of one Floyd build (Heapify on the whole array, the same
-  procedure the heapsort fallback uses): the result is a permutation of
-  the input, and it is a max-heap (parent I >= child 2*I and, when it
-  exists, child 2*I+1). At least one input is not already a max-heap.
-  An ascending-sorted array is not treated as a successful heap.
-* Hand-worked Floyd layouts, not taken from a program run:
+* Property of one Floyd build (Heapify on the whole array): the result is
+  a permutation of the input, and it is a max-heap (parent I >= child 2*I
+  and, when it exists, child 2*I+1). Checked on the same inputs as Sort.
+  At least one input is not already a max-heap. An ascending-sorted array
+  is not treated as a successful heap.
+* Hand-worked Floyd layouts, not taken from a program run. The sift picks
+  the larger child and keeps the left child when the two are equal; it
+  swaps only when the child is strictly greater:
   - (1, 2, 3, 4, 5, 6, 7, 8) -> (8, 5, 7, 4, 1, 6, 3, 2)
   - (8, 7, 6, 5, 4, 3, 2, 1) -> (8, 7, 6, 5, 4, 3, 2, 1)
   - (4, 1, 3, 2, 8, 5, 7, 6) -> (8, 6, 7, 4, 1, 5, 3, 2)
   - (23, 4, 17, 9, 1, 31, 12, 6) -> (31, 9, 23, 6, 1, 17, 12, 4)
-* Depth budget: Sort_Limited at Depth_Budget (6) reports no heapsort
-  fallback and matches the reference. Sort_Limited at 0, and at 5 on an
-  ascending array, reports at least one fallback and still matches the
-  reference. Length 8 never exhausts a budget of 6, because each call
-  removes the pivot and length <= 2 does not recurse.
+  Each of these still has an inversion. The old adjacent compare-exchange
+  passes sort the input, so they do not match these layouts.
+* Heap_Sort_Range on a whole array and on a proper slice: the slice is
+  sorted, it is a permutation of that slice, and cells outside it stay put.
+* Sort_Limited at depth 0 (whole-array heapsort) and at depths 1 and 2
+  (a proper slice is heapsorted). The result is sorted and a permutation.
+  Ascending input at depth 0 reports that the heap was not already sorted.
