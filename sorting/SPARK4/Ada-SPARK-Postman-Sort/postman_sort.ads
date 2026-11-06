@@ -8,7 +8,7 @@
 --  In_Bounds / Keys_Ok / Is_Sorted contracts replace Invalid_Argument.
 --  Non-SPARK sibling uses Max_Length = 100_000, Max_Base = 256, optional
 --  Sort_Base, arbitrary A'First, and raises on negatives / oversize;
---  this port requires A'First = 1, Pre => In_Bounds (A) and then
+--  this port takes any A'First in 1 .. Max_N, Pre => In_Bounds (A) and then
 --  Keys_Ok (A), and proves that the MSD distribution itself sorts: the
 --  bucket starts are exact prefix sums of the digit counts, the scatter
 --  fills each digit's region exactly, every bucket shares its digits
@@ -59,10 +59,12 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Keys_Ok (A : Element_Array) return Boolean is
      (for all I in A'Range => A (I) >= 0)

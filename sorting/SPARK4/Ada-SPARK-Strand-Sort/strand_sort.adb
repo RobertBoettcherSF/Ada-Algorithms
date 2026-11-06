@@ -8,6 +8,46 @@ package body Strand_Sort
   with SPARK_Mode => On
 is
 
+   --  Proved phase: origin 1, Last in 0 .. Max_N (the previous shape guard).
+   --  Public Sort slides any origin onto this shape and back.
+   function From_One (A : Element_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   --  Position K (1 .. A'Length) is stored at this index.
+   function Pos (A : Element_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
    --  Cursor one past the live range (merge drain sentinels).
    subtype Cursor is Natural range 0 .. Max_N + 1;
 
@@ -21,7 +61,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A)
+       From_One (A)
        and then L >= 1
        and then R <= A'Last;
 
@@ -29,8 +69,8 @@ is
    procedure Strand_Phase (A : in out Element_Array)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
+       Pre    => From_One (A) and then A'Length >= 2,
+       Post   => From_One (A) and then Is_Sorted (A)
    is
       N : constant Index := A'Last;
 
@@ -48,7 +88,7 @@ is
       Merged_Len    : Index;
    begin
       for X in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant
            (for all T in 1 .. X - 1 => Input (T) = A (T));
 
@@ -58,7 +98,7 @@ is
       --  Cap outer strand iterations at Max_N (each iteration removes ≥1
       --  element from Input, so Input_Len = 0 within ≤ N ≤ Max_N steps).
       for Iter in 1 .. Max_N loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (Input_Len <= N);
          pragma Loop_Invariant (Output_Len <= N);
          pragma Loop_Invariant (Input_Len + Output_Len = N);
@@ -75,7 +115,7 @@ is
          Remaining_Len := 0;
 
          for X in 2 .. Input_Len loop
-            pragma Loop_Invariant (In_Bounds (A));
+            pragma Loop_Invariant (From_One (A));
             pragma Loop_Invariant (Strand_Len >= 1);
             pragma Loop_Invariant (Strand_Len <= X - 1);
             pragma Loop_Invariant (Remaining_Len <= X - 2);
@@ -103,7 +143,7 @@ is
          pragma Assert (Output_Len + Strand_Len <= N);
 
          for X in 1 .. Remaining_Len loop
-            pragma Loop_Invariant (In_Bounds (A));
+            pragma Loop_Invariant (From_One (A));
             pragma Loop_Invariant (Remaining_Len <= Input_Len);
             pragma Loop_Invariant (Input_Len <= N);
             pragma Loop_Invariant (Input_Len + Output_Len = N);
@@ -124,7 +164,7 @@ is
          K := 1;
 
          while I <= Output_Len and then J <= Strand_Len loop
-            pragma Loop_Invariant (In_Bounds (A));
+            pragma Loop_Invariant (From_One (A));
             pragma Loop_Invariant (I in 1 .. Output_Len + 1);
             pragma Loop_Invariant (J in 1 .. Strand_Len + 1);
             pragma Loop_Invariant (K = (I - 1) + (J - 1) + 1);
@@ -155,7 +195,7 @@ is
          end loop;
 
          while I <= Output_Len loop
-            pragma Loop_Invariant (In_Bounds (A));
+            pragma Loop_Invariant (From_One (A));
             pragma Loop_Invariant (I in 1 .. Output_Len + 1);
             pragma Loop_Invariant (J = Strand_Len + 1);
             pragma Loop_Invariant (K = (I - 1) + (J - 1) + 1);
@@ -180,7 +220,7 @@ is
          end loop;
 
          while J <= Strand_Len loop
-            pragma Loop_Invariant (In_Bounds (A));
+            pragma Loop_Invariant (From_One (A));
             pragma Loop_Invariant (J in 1 .. Strand_Len + 1);
             pragma Loop_Invariant (I = Output_Len + 1);
             pragma Loop_Invariant (K = (I - 1) + (J - 1) + 1);
@@ -210,7 +250,7 @@ is
          pragma Assert (Input_Len + Output_Len = N);
 
          for X in 1 .. Output_Len loop
-            pragma Loop_Invariant (In_Bounds (A));
+            pragma Loop_Invariant (From_One (A));
             pragma Loop_Invariant (Output_Len <= N);
             pragma Loop_Invariant (Input_Len + Output_Len = N);
             pragma Loop_Invariant (Sorted_Slice (Remaining, 1, Output_Len));
@@ -227,7 +267,7 @@ is
       pragma Assert (Output_Len = N);
 
       for X in 1 .. N loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant
            (for all T in 1 .. X - 1 => A (T) = Output (T));
 
@@ -237,12 +277,31 @@ is
    end Strand_Phase;
 
    procedure Sort (A : in out Element_Array) is
+      N : constant Natural := A'Length;
    begin
-      if A'Length <= 1 then
+      if N <= 1 then
          return;
       end if;
 
-      Strand_Phase (A);
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         Strand_Phase (Local);
+
+         for K in 1 .. N loop
+            A (Pos (A, K)) := Local (K);
+            pragma Loop_Invariant
+              (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+         end loop;
+
+         Lemma_Slide_Sorted (A, Local);
+      end;
    end Sort;
 
 end Strand_Sort;

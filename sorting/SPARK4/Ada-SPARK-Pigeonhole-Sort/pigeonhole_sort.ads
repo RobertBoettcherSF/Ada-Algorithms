@@ -7,7 +7,7 @@
 --  In_Bounds / Keys_In_Range / Is_Sorted contracts replace
 --  Invalid_Argument. Non-SPARK sibling uses Max_Length = Max_Range =
 --  100_000, allows arbitrary A'First, and raises on oversized n / span;
---  this port requires A'First = 1, Pre => In_Bounds (A) and then
+--  this port takes any A'First in 1 .. Max_N, Pre => In_Bounds (A) and then
 --  Keys_In_Range (A), and proves that the pigeonhole phase itself
 --  sorts (no finishing pass, no clamp on hole indices).
 --  Full multiset / permutation equality is verified by tests rather than
@@ -55,14 +55,16 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Keys_In_Range (A : Element_Array) return Boolean is
-     (for all I in 1 .. A'Last =>
-        (for all J in 1 .. A'Last =>
+     (for all I in A'Range =>
+        (for all J in A'Range =>
            Long_Long_Integer (A (I)) - Long_Long_Integer (A (J))
              < Long_Long_Integer (Max_Range)))
    with

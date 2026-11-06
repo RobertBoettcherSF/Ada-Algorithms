@@ -17,6 +17,46 @@ package body Patience_Sorting
   with SPARK_Mode => On
 is
 
+   --  Proved phase: origin 1 and Last in 0 .. Max_N (the previous shape
+   --  guard). Public Sort slides any origin onto that shape and back:
+   --  position K is stored at A (A'First + K - 1).
+   function From_One (A : Element_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   function Pos (A : Element_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
    --  0 = null / empty stack link. Live nodes occupy 1 .. Used (<= Max_N).
    subtype Node_Index is Natural range 0 .. Max_N;
    None : constant Node_Index := 0;
@@ -102,8 +142,8 @@ is
    procedure Patience_Phase (A : in out Element_Array)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 1,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
+       Pre    => From_One (A) and then A'Length >= 1,
+       Post   => From_One (A) and then Is_Sorted (A)
    is
       N : constant Index := A'Last;
 
@@ -347,12 +387,31 @@ is
    end Patience_Phase;
 
    procedure Sort (A : in out Element_Array) is
+      N : constant Natural := A'Length;
    begin
-      if A'Length <= 1 then
+      if N <= 1 then
          return;
       end if;
 
-      Patience_Phase (A);
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         Patience_Phase (Local);
+
+         for K in 1 .. N loop
+            A (Pos (A, K)) := Local (K);
+            pragma Loop_Invariant
+              (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+         end loop;
+
+         Lemma_Slide_Sorted (A, Local);
+      end;
    end Sort;
 
 end Patience_Sorting;

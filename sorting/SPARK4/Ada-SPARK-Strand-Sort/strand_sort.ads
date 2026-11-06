@@ -7,7 +7,7 @@
 --  SPARK port of Ada-Strand-Sort: hard Max_N bound, no exceptions,
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling uses Max_N = 4096, allows arbitrary A'First, and raises on
---  oversized n; this port requires A'First = 1, uses fixed Input / Strand /
+--  oversized n; this port takes any A'First in 1 .. Max_N, uses fixed Input / Strand /
 --  Output / Remaining buffers of size Max_N, and proves that the strand
 --  phase sorts on its own (sorted strands, sorted merges, all N elements
 --  merged within N outer iterations). Full multiset / permutation equality
@@ -31,7 +31,8 @@ is
    -- Domain
    ---------------------------------------------------------------------------
 
-   --  Live indices are 1 .. N with N ≤ Max_N. Empty arrays use Last = 0.
+   --  Live indices lie in 1 .. Max_N (any A'First); Index includes 0 so
+   --  an empty array may have Last = First - 1 = 0.
    subtype Index is Natural range 0 .. Max_N;
 
    type Element_Array is array (Positive range <>) of Integer;
@@ -41,10 +42,12 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
      (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))
@@ -57,8 +60,10 @@ is
    ---------------------------------------------------------------------------
    -- Algorithm sketch (strand extraction + merge)
    ---------------------------------------------------------------------------
-   --  Assume In_Bounds (A). Allocate fixed buffers Input, Strand, Output,
-   --  Remaining : Element_Array (1 .. Max_N). Copy A into Input.
+   --  Assume In_Bounds (A). Slide the live elements onto a 1-based local
+   --  (position K at A (A'First + K - 1)), then allocate fixed buffers
+   --  Input, Strand, Output, Remaining : Element_Array (1 .. Max_N). Copy
+   --  the local into Input.
    --  While Input_Len > 0 (capped at Max_N outer iterations):
    --    Extract a nondecreasing strand: take Input(1), then greedily append
    --    every subsequent element >= last taken; leftovers go to Remaining.

@@ -7,7 +7,7 @@
 --  In_Bounds / Is_Sorted contracts replace Invalid_Argument. Non-SPARK
 --  sibling uses a full Timsort run stack, classic minrun in [32, 64],
 --  arbitrary A'First, and raises on oversized n; this port requires
---  A'First = 1, uses fixed Minrun = 8 windows, a static Temp (1 .. Max_N),
+--  any A'First in 1 .. Max_N, uses fixed Minrun = 8 windows, a static Temp (1 .. Max_N),
 --  and iterative bottom-up merging so Level 4 can discharge the VCs
 --  without Timsort stack-invariant contracts. The Post of Sort proves
 --  sortedness and that the result is a permutation of the input (counts
@@ -46,10 +46,12 @@ is
    ---------------------------------------------------------------------------
 
    function In_Bounds (A : Element_Array) return Boolean is
-     (A'First = 1 and then A'Last in 0 .. Max_N)
+     (A'Length <= Max_N
+      and then A'First in 1 .. Max_N
+      and then A'Last in 0 .. Max_N)
    with Global => null;
-   --  Shape guard used by every entry point. Empty arrays have
-   --  A'Last = 0 when A'First = 1 (rejects Last < 0).
+   --  Shape guard used by every entry point: at most Max_N elements, any
+   --  origin with First in 1 .. Max_N (empty arrays use Last = First - 1).
 
    function Is_Sorted (A : Element_Array) return Boolean is
      (for all I in A'First .. A'Last - 1 => A (I) <= A (I + 1))

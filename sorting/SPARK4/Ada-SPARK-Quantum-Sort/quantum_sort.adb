@@ -7,6 +7,121 @@
 package body Quantum_Sort
   with SPARK_Mode => On
 is
+
+   --  Proved phase: origin 1 and Last in 0 .. Max_N (the previous shape
+   --  guard). Public Sort slides any origin onto that shape and back:
+   --  position K is stored at A (A'First + K - 1).
+   function From_One (A : Element_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   function Pos (A : Element_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
+   procedure Lemma_Occ_Slide
+     (A, Local : Element_Array; V : Integer; K : Natural)
+   with
+     Ghost              => True,
+     Global             => null,
+     Pre                =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then A'Length >= 1
+       and then K <= A'Length
+       and then (for all J in 1 .. A'Length => A (Pos (A, J)) = Local (J)),
+     Post               =>
+       (if K = 0 then True
+        else Occ (A, V, Pos (A, K)) = Occ (Local, V, K)),
+     Subprogram_Variant => (Decreases => K)
+   is
+   begin
+      if K > 0 then
+         Lemma_Occ_Slide (A, Local, V, K - 1);
+         if K = 1 then
+            pragma Assert (Pos (A, 1) = A'First);
+         else
+            pragma Assert (Pos (A, K) - 1 = Pos (A, K - 1));
+         end if;
+      end if;
+   end Lemma_Occ_Slide;
+
+   procedure Lemma_Slide_Perm (A, Old, Local, Saved : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Old)
+       and then A'First = Old'First
+       and then A'Last = Old'Last
+       and then A'Length >= 1
+       and then In_Bounds (Local)
+       and then In_Bounds (Saved)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Saved'First = 1
+       and then Saved'Last = A'Length
+       and then Is_Perm (Local, Saved)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K))
+       and then (for all K in 1 .. A'Length => Old (Pos (Old, K)) = Saved (K)),
+     Post   => Is_Perm (A, Old)
+   is
+      N : constant Natural := A'Length;
+   begin
+      pragma Assert (Pos (A, N) = A'Last);
+      pragma Assert (Pos (Old, N) = Old'Last);
+      for I in A'Range loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 =>
+              Occ (A, A (J), A'Last) = Occ (Old, A (J), Old'Last));
+         Lemma_Occ_Slide (A, Local, A (I), N);
+         Lemma_Occ_Slide (Old, Saved, A (I), N);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+      end loop;
+      for I in Old'Range loop
+         pragma Loop_Invariant
+           (for all J in A'Range =>
+              Occ (A, A (J), A'Last) = Occ (Old, A (J), Old'Last));
+         pragma Loop_Invariant
+           (for all J in Old'First .. I - 1 =>
+              Occ (A, Old (J), A'Last) = Occ (Old, Old (J), Old'Last));
+         Lemma_Occ_Slide (A, Local, Old (I), N);
+         Lemma_Occ_Slide (Old, Saved, Old (I), N);
+         pragma Assert (Old (I) = Saved (I - Old'First + 1));
+      end loop;
+   end Lemma_Slide_Perm;
    --  Same_Occ quantifies over every Integer value, so contracts and
    --  invariants of this body (all proved by gnatprove) are not checked at
    --  run time; the Posts of the Sort_* procedures in the spec (sorted,
@@ -23,7 +138,7 @@ is
    with
      Ghost,
      Global => null,
-     Pre    => In_Bounds (A) and then In_Bounds (B);
+     Pre    => From_One (A) and then From_One (B);
 
    package Perm_Lemmas
      with Ghost
@@ -35,7 +150,7 @@ is
       with
         Global             => null,
         Pre                =>
-          In_Bounds (A) and then In_Bounds (B)
+          From_One (A) and then From_One (B)
           and then A'First = B'First
           and then Last <= A'Last and then Last <= B'Last
           and then (for all K in A'First .. Last => A (K) = B (K)),
@@ -49,7 +164,7 @@ is
       with
         Global             => null,
         Pre                =>
-          In_Bounds (A) and then In_Bounds (B)
+          From_One (A) and then From_One (B)
           and then A'First = B'First and then A'Last = B'Last
           and then K in A'Range and then Last in K .. A'Last
           and then (for all J in A'Range => (if J /= K then A (J) = B (J))),
@@ -66,7 +181,7 @@ is
       with
         Global => null,
         Pre    =>
-          In_Bounds (A) and then In_Bounds (B)
+          From_One (A) and then From_One (B)
           and then A'First = B'First and then A'Last = B'Last
           and then X in A'Range and then Y in A'Range
           and then B (X) = A (Y) and then B (Y) = A (X)
@@ -78,13 +193,13 @@ is
       procedure Lemma_Same_Perm (A, B : Element_Array)
       with
         Global => null,
-        Pre    => In_Bounds (A) and then In_Bounds (B) and then Same_Occ (A, B),
+        Pre    => From_One (A) and then From_One (B) and then Same_Occ (A, B),
         Post   => Is_Perm (A, B);
 
       procedure Lemma_Same_Trans (A, B, C : Element_Array)
       with
         Global => null,
-        Pre    => In_Bounds (A) and then In_Bounds (B) and then In_Bounds (C)
+        Pre    => From_One (A) and then From_One (B) and then From_One (C)
                   and then Same_Occ (A, B) and then Same_Occ (B, C),
         Post   => Same_Occ (A, C);
    end Perm_Lemmas;
@@ -148,7 +263,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A)
+       From_One (A)
        and then L >= 1
        and then R <= A'Last;
 
@@ -166,7 +281,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A)
+       From_One (A)
        and then Lo_P >= 1
        and then Hi_P <= A'Last
        and then Lo_S >= 1
@@ -176,11 +291,11 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then X in 1 .. A'Last
          and then Y in 1 .. A'Last,
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then A (X) = A'Old (Y)
          and then A (Y) = A'Old (X)
          and then
@@ -209,11 +324,11 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then I in 2 .. A'Last
          and then Sorted_Slice (A, 1, I - 1),
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then Sorted_Slice (A, 1, I)
          and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K))
          and then Same_Occ (A'Old, A)
@@ -261,8 +376,8 @@ is
    procedure Insertion_Pass (A : in out Element_Array)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A) and then Same_Occ (A'Old, A)
+       Pre    => From_One (A) and then A'Length >= 2,
+       Post   => From_One (A) and then Is_Sorted (A) and then Same_Occ (A'Old, A)
    is
       A0   : constant Element_Array := A with Ghost;
       Prev : Element_Array (A'Range) with Ghost;
@@ -275,7 +390,7 @@ is
          Insert_Step (A, I);
          Lemma_Same_Trans (A0, Prev, A);
 
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (Same_Occ (A0, A));
          pragma Loop_Invariant (Sorted_Slice (A, 1, I));
          pragma Loop_Invariant (Is_Sorted (A (1 .. I)));
@@ -290,10 +405,10 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then A'Length >= 2
          and then Gap in 2 .. A'Last - 1,
-       Post   => In_Bounds (A) and then Same_Occ (A'Old, A)
+       Post   => From_One (A) and then Same_Occ (A'Old, A)
    is
       Key  : Integer;
       J    : Index;
@@ -302,7 +417,7 @@ is
    begin
       Lemma_Occ_Frame (A0, A, A'Last);
       for I in Gap + 1 .. A'Last loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (I in Gap + 1 .. A'Last + 1);
          pragma Loop_Invariant (Same_Occ (A0, A));
 
@@ -312,7 +427,7 @@ is
          --  Gapped insertion by exchanges: Key moves down Gap at a time
          --  past every larger element.
          while J >= Gap + 1 and then A (J - Gap) > Key loop
-            pragma Loop_Invariant (In_Bounds (A));
+            pragma Loop_Invariant (From_One (A));
             pragma Loop_Invariant (J in Gap + 1 .. I);
             pragma Loop_Invariant (J <= A'Last);
             pragma Loop_Invariant (A (J) = Key);
@@ -335,13 +450,13 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then A'Last >= 2
          and then I in 1 .. A'Last - 1
          and then Sorted_Slice (A, 1, I - 1)
          and then Prefix_Leq_Suffix (A, 1, I - 1, I, A'Last),
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then Sorted_Slice (A, 1, I)
          and then Prefix_Leq_Suffix (A, 1, I, I + 1, A'Last)
          and then Same_Occ (A'Old, A)
@@ -398,7 +513,7 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then Lo in 1 .. A'Last
          and then Hi in Lo + 1 .. A'Last
          and then Sorted_Slice (A, 1, Lo - 1)
@@ -406,7 +521,7 @@ is
          and then Sorted_Slice (A, Hi + 1, A'Last)
          and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then Sorted_Slice (A, 1, Lo - 1)
          and then Prefix_Leq_Suffix (A, 1, Lo - 1, Lo, A'Last)
          and then Sorted_Slice (A, Hi, A'Last)
@@ -420,7 +535,7 @@ is
       Lemma_Occ_Frame (A0, A, A'Last);
       Swapped := False;
       for I in Lo .. Hi - 1 loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (Same_Occ (A0, A));
          pragma Loop_Invariant (for all K in Lo .. I => A (K) <= A (I));
          pragma Loop_Invariant
@@ -461,7 +576,7 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then Lo in 1 .. A'Last
          and then Hi in Lo + 1 .. A'Last
          and then Sorted_Slice (A, 1, Lo - 1)
@@ -469,7 +584,7 @@ is
          and then Sorted_Slice (A, Hi + 1, A'Last)
          and then Prefix_Leq_Suffix (A, 1, Hi, Hi + 1, A'Last),
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then Sorted_Slice (A, 1, Lo)
          and then Prefix_Leq_Suffix (A, 1, Lo, Lo + 1, A'Last)
          and then Sorted_Slice (A, Hi + 1, A'Last)
@@ -484,7 +599,7 @@ is
       Lemma_Occ_Frame (A0, A, A'Last);
       Swapped := False;
       while I > Lo loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (Same_Occ (A0, A));
          pragma Loop_Invariant (I in Lo + 1 .. Hi);
          pragma Loop_Invariant (for all K in I .. Hi => A (I) <= A (K));
@@ -521,7 +636,12 @@ is
    -- Public entry points
    ---------------------------------------------------------------------------
 
-   procedure Sort_Comparison (A : in out Element_Array) is
+   procedure Sort_Comparison_At_One (A : in out Element_Array)
+     with
+       Global => null,
+       Pre    => From_One (A),
+       Post   => From_One (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)
+   is
       A0   : constant Element_Array := A with Ghost;
       Prev : Element_Array (A'Range) with Ghost;
    begin
@@ -538,7 +658,7 @@ is
          Insert_Step (A, I);
          Lemma_Same_Trans (A0, Prev, A);
 
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (Same_Occ (A0, A));
          pragma Loop_Invariant (Sorted_Slice (A, 1, I));
          pragma Loop_Invariant (Is_Sorted (A (1 .. I)));
@@ -547,9 +667,14 @@ is
               A (K) = A'Loop_Entry (K));
       end loop;
       Lemma_Same_Perm (A, A0);
-   end Sort_Comparison;
+   end Sort_Comparison_At_One;
 
-   procedure Sort_Parallel_Network (A : in out Element_Array) is
+   procedure Sort_Parallel_Network_At_One (A : in out Element_Array)
+     with
+       Global => null,
+       Pre    => From_One (A),
+       Post   => From_One (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)
+   is
       A0   : constant Element_Array := A with Ghost;
       Prev : Element_Array (A'Range) with Ghost;
    begin
@@ -560,7 +685,7 @@ is
       end if;
 
       for K in Gaps'Range loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (A'Length >= 2);
          pragma Loop_Invariant (Same_Occ (A0, A));
 
@@ -579,9 +704,14 @@ is
       Insertion_Pass (A);
       Lemma_Same_Trans (A0, Prev, A);
       Lemma_Same_Perm (A, A0);
-   end Sort_Parallel_Network;
+   end Sort_Parallel_Network_At_One;
 
-   procedure Sort_Frequency (A : in out Element_Array) is
+   procedure Sort_Frequency_At_One (A : in out Element_Array)
+     with
+       Global => null,
+       Pre    => From_One (A),
+       Post   => From_One (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)
+   is
       A0   : constant Element_Array := A with Ghost;
       Prev : Element_Array (A'Range) with Ghost;
    begin
@@ -599,7 +729,7 @@ is
          Select_Min_Step (A, I);
          Lemma_Same_Trans (A0, Prev, A);
 
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (Same_Occ (A0, A));
          pragma Loop_Invariant (Sorted_Slice (A, 1, I));
          pragma Loop_Invariant (Prefix_Leq_Suffix (A, 1, I, I + 1, A'Last));
@@ -610,9 +740,14 @@ is
       pragma Assert (Prefix_Leq_Suffix (A, 1, A'Last - 1, A'Last, A'Last));
       pragma Assert (Is_Sorted (A));
       Lemma_Same_Perm (A, A0);
-   end Sort_Frequency;
+   end Sort_Frequency_At_One;
 
-   procedure Sort_Space_Bounded (A : in out Element_Array) is
+   procedure Sort_Space_Bounded_At_One (A : in out Element_Array)
+     with
+       Global => null,
+       Pre    => From_One (A),
+       Post   => From_One (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)
+   is
       Lo      : Index;
       Hi      : Index;
       Swapped : Boolean;
@@ -629,7 +764,7 @@ is
       Hi := A'Last;
 
       while Lo < Hi loop
-         pragma Loop_Invariant (In_Bounds (A));
+         pragma Loop_Invariant (From_One (A));
          pragma Loop_Invariant (Lo in 1 .. A'Last);
          pragma Loop_Invariant (Hi in Lo + 1 .. A'Last);
          pragma Loop_Invariant (Sorted_Slice (A, 1, Lo - 1));
@@ -667,6 +802,158 @@ is
       --  Window of at most one element left between prefix and suffix.
       pragma Assert (Sorted_Slice (A, 1, A'Last));
       Lemma_Same_Perm (A, A0);
+   end Sort_Space_Bounded_At_One;
+
+   procedure Sort_Comparison (A : in out Element_Array) is
+      Original : constant Element_Array := A with Ghost;
+      N : constant Natural := A'Length;
+   begin
+      if N <= 1 then
+         return;
+      end if;
+
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         declare
+            Saved : constant Element_Array := Local with Ghost;
+         begin
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+         Sort_Comparison_At_One (Local);
+            for K in 1 .. N loop
+               A (Pos (A, K)) := Local (K);
+               pragma Loop_Invariant
+                 (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+            end loop;
+
+            pragma Assert (Is_Perm (Local, Saved));
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+            Lemma_Slide_Sorted (A, Local);
+            Lemma_Slide_Perm (A, Original, Local, Saved);
+         end;
+      end;
+   end Sort_Comparison;
+
+   procedure Sort_Parallel_Network (A : in out Element_Array) is
+      Original : constant Element_Array := A with Ghost;
+      N : constant Natural := A'Length;
+   begin
+      if N <= 1 then
+         return;
+      end if;
+
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         declare
+            Saved : constant Element_Array := Local with Ghost;
+         begin
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+         Sort_Parallel_Network_At_One (Local);
+            for K in 1 .. N loop
+               A (Pos (A, K)) := Local (K);
+               pragma Loop_Invariant
+                 (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+            end loop;
+
+            pragma Assert (Is_Perm (Local, Saved));
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+            Lemma_Slide_Sorted (A, Local);
+            Lemma_Slide_Perm (A, Original, Local, Saved);
+         end;
+      end;
+   end Sort_Parallel_Network;
+
+   procedure Sort_Frequency (A : in out Element_Array) is
+      Original : constant Element_Array := A with Ghost;
+      N : constant Natural := A'Length;
+   begin
+      if N <= 1 then
+         return;
+      end if;
+
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         declare
+            Saved : constant Element_Array := Local with Ghost;
+         begin
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+         Sort_Frequency_At_One (Local);
+            for K in 1 .. N loop
+               A (Pos (A, K)) := Local (K);
+               pragma Loop_Invariant
+                 (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+            end loop;
+
+            pragma Assert (Is_Perm (Local, Saved));
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+            Lemma_Slide_Sorted (A, Local);
+            Lemma_Slide_Perm (A, Original, Local, Saved);
+         end;
+      end;
+   end Sort_Frequency;
+
+   procedure Sort_Space_Bounded (A : in out Element_Array) is
+      Original : constant Element_Array := A with Ghost;
+      N : constant Natural := A'Length;
+   begin
+      if N <= 1 then
+         return;
+      end if;
+
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         declare
+            Saved : constant Element_Array := Local with Ghost;
+         begin
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+         Sort_Space_Bounded_At_One (Local);
+            for K in 1 .. N loop
+               A (Pos (A, K)) := Local (K);
+               pragma Loop_Invariant
+                 (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+            end loop;
+
+            pragma Assert (Is_Perm (Local, Saved));
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+            Lemma_Slide_Sorted (A, Local);
+            Lemma_Slide_Perm (A, Original, Local, Saved);
+         end;
+      end;
    end Sort_Space_Bounded;
 
 end Quantum_Sort;

@@ -13,6 +13,153 @@ package body Pigeonhole_Sort
   with SPARK_Mode => On
 is
 
+   --  Proved phase: origin 1 and Last in 0 .. Max_N (the previous shape
+   --  guard). Public Sort slides any origin onto that shape and back:
+   --  position K is stored at A (A'First + K - 1).
+   function From_One (A : Element_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   function Pos (A : Element_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
+   procedure Lemma_Occ_Slide
+     (A, Local : Element_Array; V : Integer; K : Natural)
+   with
+     Ghost              => True,
+     Global             => null,
+     Pre                =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then A'Length >= 1
+       and then K <= A'Length
+       and then (for all J in 1 .. A'Length => A (Pos (A, J)) = Local (J)),
+     Post               =>
+       (if K = 0 then True
+        else Occ (A, V, Pos (A, K)) = Occ (Local, V, K)),
+     Subprogram_Variant => (Decreases => K)
+   is
+   begin
+      if K > 0 then
+         Lemma_Occ_Slide (A, Local, V, K - 1);
+         if K = 1 then
+            pragma Assert (Pos (A, 1) = A'First);
+         else
+            pragma Assert (Pos (A, K) - 1 = Pos (A, K - 1));
+         end if;
+      end if;
+   end Lemma_Occ_Slide;
+
+   procedure Lemma_Slide_Perm (A, Old, Local, Saved : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Old)
+       and then A'First = Old'First
+       and then A'Last = Old'Last
+       and then A'Length >= 1
+       and then In_Bounds (Local)
+       and then In_Bounds (Saved)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Saved'First = 1
+       and then Saved'Last = A'Length
+       and then Is_Perm (Local, Saved)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K))
+       and then (for all K in 1 .. A'Length => Old (Pos (Old, K)) = Saved (K)),
+     Post   => Is_Perm (A, Old)
+   is
+      N : constant Natural := A'Length;
+   begin
+      pragma Assert (Pos (A, N) = A'Last);
+      pragma Assert (Pos (Old, N) = Old'Last);
+      for I in A'Range loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 =>
+              Occ (A, A (J), A'Last) = Occ (Old, A (J), Old'Last));
+         Lemma_Occ_Slide (A, Local, A (I), N);
+         Lemma_Occ_Slide (Old, Saved, A (I), N);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+      end loop;
+      for I in Old'Range loop
+         pragma Loop_Invariant
+           (for all J in A'Range =>
+              Occ (A, A (J), A'Last) = Occ (Old, A (J), Old'Last));
+         pragma Loop_Invariant
+           (for all J in Old'First .. I - 1 =>
+              Occ (A, Old (J), A'Last) = Occ (Old, Old (J), Old'Last));
+         Lemma_Occ_Slide (A, Local, Old (I), N);
+         Lemma_Occ_Slide (Old, Saved, Old (I), N);
+         pragma Assert (Old (I) = Saved (I - Old'First + 1));
+      end loop;
+   end Lemma_Slide_Perm;
+
+   procedure Lemma_Keys_Slide (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then Keys_In_Range (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then A'Length >= 1
+       and then (for all K in 1 .. A'Length => Local (K) = A (Pos (A, K))),
+     Post   => Keys_In_Range (Local)
+   is
+   begin
+      for I in 1 .. Local'Last loop
+         pragma Loop_Invariant
+           (for all X in 1 .. I - 1 =>
+              (for all Y in 1 .. Local'Last =>
+                 Long_Long_Integer (Local (X)) - Long_Long_Integer (Local (Y))
+                   < Long_Long_Integer (Max_Range)));
+         for J in 1 .. Local'Last loop
+            pragma Loop_Invariant
+              (for all Y in 1 .. J - 1 =>
+                 Long_Long_Integer (Local (I)) - Long_Long_Integer (Local (Y))
+                   < Long_Long_Integer (Max_Range));
+            pragma Assert (Local (I) = A (Pos (A, I)));
+            pragma Assert (Local (J) = A (Pos (A, J)));
+         end loop;
+      end loop;
+   end Lemma_Keys_Slide;
+
    --  Adjacent nondecreasing on A (L .. R). Vacuous when L >= R.
    function Sorted_Slice
      (A : Element_Array; L, R : Natural) return Boolean
@@ -23,7 +170,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A)
+       From_One (A)
        and then L >= 1
        and then R <= A'Last;
 
@@ -104,7 +251,7 @@ is
    with
      Ghost              => True,
      Global             => null,
-     Pre                => In_Bounds (A) and then I <= A'Last,
+     Pre                => From_One (A) and then I <= A'Last,
      Post               => Occ'Result <= I,
      Subprogram_Variant => (Decreases => I);
 
@@ -113,7 +260,7 @@ is
      with
        Ghost              => True,
        Global             => null,
-       Pre                => In_Bounds (A) and then I <= J and then J <= A'Last,
+       Pre                => From_One (A) and then I <= J and then J <= A'Last,
        Post               => Occ (A, Mn, I, K) <= Occ (A, Mn, J, K),
        Subprogram_Variant => (Decreases => J)
    is
@@ -129,7 +276,7 @@ is
      with
        Ghost              => True,
        Global             => null,
-       Pre                => In_Bounds (A) and then Last <= A'Last
+       Pre                => From_One (A) and then Last <= A'Last
                              and then Long_Long_Integer (Mn) + Long_Long_Integer (K)
                                       <= Long_Long_Integer (Integer'Last),
        Post               => Occ (A, Mn + K, Last) = Occ (A, Mn, Last, K),
@@ -151,10 +298,10 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then A'Length >= 2
          and then Keys_In_Range (A),
-       Post   => In_Bounds (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)
+       Post   => From_One (A) and then Is_Sorted (A) and then Is_Perm (A, A'Old)
    is
       A0      : constant Element_Array := A with Ghost;
       N       : constant Positive := A'Last;
@@ -358,12 +505,42 @@ is
    end Pigeonhole_Phase;
 
    procedure Sort (A : in out Element_Array) is
+      Original : constant Element_Array := A with Ghost;
+      N : constant Natural := A'Length;
    begin
-      if A'Length <= 1 then
+      if N <= 1 then
          return;
       end if;
 
-      Pigeonhole_Phase (A);
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         declare
+            Saved : constant Element_Array := Local with Ghost;
+         begin
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+         Lemma_Keys_Slide (A, Local);
+         Pigeonhole_Phase (Local);
+            for K in 1 .. N loop
+               A (Pos (A, K)) := Local (K);
+               pragma Loop_Invariant
+                 (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+            end loop;
+
+            pragma Assert (Is_Perm (Local, Saved));
+            pragma Assert
+              (for all K in 1 .. N => Saved (K) = Original (Pos (Original, K)));
+            Lemma_Slide_Sorted (A, Local);
+            Lemma_Slide_Perm (A, Original, Local, Saved);
+         end;
+      end;
    end Sort;
 
 end Pigeonhole_Sort;

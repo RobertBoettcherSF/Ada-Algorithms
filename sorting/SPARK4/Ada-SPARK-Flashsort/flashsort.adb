@@ -20,6 +20,46 @@ package body Flashsort
   with SPARK_Mode => On
 is
 
+   --  Proved phase: origin 1 and Last in 0 .. Max_N (the previous shape
+   --  guard). Public Sort slides any origin onto that shape and back:
+   --  position K is stored at A (A'First + K - 1).
+   function From_One (A : Element_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   function Pos (A : Element_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
    subtype LLI is Long_Long_Integer;
 
    Max_Class : constant Positive := Max_N / Class_Divisor;   --  6
@@ -161,7 +201,7 @@ is
    with
      Ghost  => True,
      Global => null,
-     Pre    => In_Bounds (A) and then L >= 1 and then R <= A'Last;
+     Pre    => From_One (A) and then L >= 1 and then R <= A'Last;
 
    function In_Range (A : Element_Array; CP : Class_Params) return Boolean is
      (for all P in A'Range => A (P) in CP.Mn .. CP.Mx)
@@ -180,7 +220,7 @@ is
    with
      Ghost              => True,
      Global             => null,
-     Pre                => Valid (CP) and then In_Bounds (A) and then H <= A'Last,
+     Pre                => Valid (CP) and then From_One (A) and then H <= A'Last,
      Post               => Cnt_C'Result <= H,
      Subprogram_Variant => (Decreases => H);
 
@@ -223,7 +263,7 @@ is
    with
      Ghost              => True,
      Global             => null,
-     Pre                => Valid (CP) and then In_Bounds (A) and then H <= A'Last,
+     Pre                => Valid (CP) and then From_One (A) and then H <= A'Last,
      Post               => Cnt_U'Result <= H,
      Subprogram_Variant => (Decreases => H);
 
@@ -286,7 +326,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A)
+         Valid (CP) and then From_One (A)
          and then Borders_Ok (U, U, CP.M, A'Last),
        Post   => Cnt_U (A, U, U, CP, 0, A'Last, K) = Cnt_C (A, A'Last, CP, K)
    is
@@ -313,7 +353,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A_Old) and then In_Bounds (A_New)
+         Valid (CP) and then From_One (A_Old) and then From_One (A_New)
          and then A_Old'Last = A_New'Last
          and then B <= CP.M
          and then Borders_Ok (L_Old, U, CP.M, A_Old'Last)
@@ -362,7 +402,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A) and then I <= A'Last,
+         Valid (CP) and then From_One (A) and then I <= A'Last,
        Post   =>
          Cnt_U (A, L, U, CP, I, A'Last, K)
          = Cnt_U (A, L, U, CP, 0, A'Last, K)
@@ -389,7 +429,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A) and then I <= A'Last
+         Valid (CP) and then From_One (A) and then I <= A'Last
          and then Unfilled (L, U, CP.M, I)
          and then A (I) in CP.Mn .. CP.Mx,
        Post   => Cnt_U (A, L, U, CP, 0, A'Last, Class_Of (A (I), CP)) >= 1
@@ -423,7 +463,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A)
+         Valid (CP) and then From_One (A)
          and then Borders_Ok (U, U, CP.M, A'Last)
          and then (for all K in 1 .. CP.M =>
                      Cnt_C (A, A'Last, CP, K) = U (K) - U (K - 1)),
@@ -447,7 +487,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A) and then I <= A'Last
+         Valid (CP) and then From_One (A) and then I <= A'Last
          and then In_Range (A, CP)
          and then Unfilled (L, U, CP.M, I)
          and then (for all K in 1 .. CP.M =>
@@ -476,7 +516,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A) and then I <= A'Last
+         Valid (CP) and then From_One (A) and then I <= A'Last
          and then not Unfilled (L, U, CP.M, I),
        Post   =>
          (for all K in 1 .. CP.M =>
@@ -500,7 +540,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A_Old) and then In_Bounds (A_New)
+         Valid (CP) and then From_One (A_Old) and then From_One (A_New)
          and then A_Old'Last = A_New'Last
          and then In_Range (A_Old, CP)
          and then B <= CP.M
@@ -539,7 +579,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A) and then I <= A'Last
+         Valid (CP) and then From_One (A) and then I <= A'Last
          and then In_Range (A, CP)
          and then Borders_Ok (L, U, CP.M, A'Last)
          and then Filled_Ok (A, L, U, CP)
@@ -564,7 +604,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A)
+         Valid (CP) and then From_One (A)
          and then In_Range (A, CP)
          and then Borders_Ok (U, U, CP.M, A'Last)
          and then (for all K in 1 .. CP.M =>
@@ -615,7 +655,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A_Old) and then In_Bounds (A)
+         From_One (A_Old) and then From_One (A)
          and then A_Old'Last = A'Last and then K <= M
          and then Borders_Ok (U, U, M, A'Last)
          and then (for all P in 1 .. U (K - 1) => A (P) = A_Old (P))
@@ -644,13 +684,13 @@ is
      with
        Global => null,
        Pre    =>
-         Valid (CP) and then In_Bounds (A)
+         Valid (CP) and then From_One (A)
          and then Lo <= Hi and then Hi <= A'Last
          and then (for all P in Lo .. Hi =>
                      A (P) in CP.Mn .. CP.Mx
                      and then Class_Of (A (P), CP) = K),
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then (for all P in A'Range =>
                      (if P < Lo or else P > Hi then A (P) = A'Old (P)))
          and then (for all P in Lo .. Hi =>
@@ -705,8 +745,8 @@ is
    procedure Flashsort_Phase (A : in out Element_Array)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
+       Pre    => From_One (A) and then A'Length >= 2,
+       Post   => From_One (A) and then Is_Sorted (A)
    is
       N       : constant Index := A'Last;
       Min_Val : Integer;
@@ -886,12 +926,31 @@ is
    end Flashsort_Phase;
 
    procedure Sort (A : in out Element_Array) is
+      N : constant Natural := A'Length;
    begin
-      if A'Length <= 1 then
+      if N <= 1 then
          return;
       end if;
 
-      Flashsort_Phase (A);
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         Flashsort_Phase (Local);
+
+         for K in 1 .. N loop
+            A (Pos (A, K)) := Local (K);
+            pragma Loop_Invariant
+              (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+         end loop;
+
+         Lemma_Slide_Sorted (A, Local);
+      end;
    end Sort;
 
 end Flashsort;

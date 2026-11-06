@@ -18,6 +18,46 @@ package body Postman_Sort
   with SPARK_Mode => On
 is
 
+   --  Proved phase: origin 1 and Last in 0 .. Max_N (the previous shape
+   --  guard). Public Sort slides any origin onto that shape and back:
+   --  position K is stored at A (A'First + K - 1).
+   function From_One (A : Element_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   function Pos (A : Element_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
    subtype Pow_Index is Natural range 0 .. 9;
    subtype Pos_Pow is Pow_Index range 1 .. 9;
 
@@ -59,7 +99,7 @@ is
    with
      Ghost  => True,
      Global => null,
-     Pre    => In_Bounds (A) and then L >= 1 and then R <= A'Last;
+     Pre    => From_One (A) and then L >= 1 and then R <= A'Last;
 
    --  Every key in A (L .. H) has the same prefix as V at P.
    function Same_Prefix
@@ -71,7 +111,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A) and then Keys_Ok (A)
+       From_One (A) and then Keys_Ok (A)
        and then L >= 1 and then H <= A'Last;
 
    --  Number of K in L .. H whose key has digit D at P (negative keys,
@@ -88,7 +128,7 @@ is
      Ghost              => True,
      Global             => null,
      Pre                =>
-       In_Bounds (A) and then L >= 1 and then H <= A'Last,
+       From_One (A) and then L >= 1 and then H <= A'Last,
      Post               =>
        Cnt'Result <= (if H < L then 0 else H - L + 1),
      Subprogram_Variant => (Decreases => H);
@@ -199,7 +239,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then L >= 1 and then H <= A'Last and then I <= H,
+         From_One (A) and then L >= 1 and then H <= A'Last and then I <= H,
        Post   => Cnt (A, L, I, P, D) <= Cnt (A, L, H, P, D)
    is
       C0 : constant Natural := Cnt (A, L, I, P, D);
@@ -262,7 +302,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then Keys_Ok (A)
+         From_One (A) and then Keys_Ok (A)
          and then L >= 1 and then H <= A'Last and then L <= H
          and then (for all K in L .. H =>
                      Digit_Of (A (K), P) = D
@@ -287,7 +327,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then Keys_Ok (A)
+         From_One (A) and then Keys_Ok (A)
          and then L >= 1 and then H <= A'Last
          and then Same_Prefix (A, L, H, P - 1, W),
        Post   =>
@@ -313,7 +353,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then Keys_Ok (A)
+         From_One (A) and then Keys_Ok (A)
          and then L >= 1 and then H <= A'Last
          and then (for all K in L .. H =>
                      Digit_Of (A (K), 0) = D
@@ -349,7 +389,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then Keys_Ok (A) and then A'Length >= 1
+         From_One (A) and then Keys_Ok (A) and then A'Length >= 1
          and then (for all K in A'Range => A (K) <= Max_Key)
          and then Max_Key / Pow10 (P) < Base,
        Post   => Same_Prefix (A, 1, A'Last, P, A (1))
@@ -374,7 +414,7 @@ is
        Ghost  => True,
        Global => null,
        Pre    =>
-         In_Bounds (A) and then Keys_Ok (A)
+         From_One (A) and then Keys_Ok (A)
          and then Lo <= Hi and then Hi <= A'Last
          and then Sum_To (Count, Base) = Hi - Lo + 1
          and then
@@ -426,7 +466,7 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then Keys_Ok (A)
          and then A'Length >= 1,
        Post   => (for all K in A'Range => A (K) <= Max_Value'Result)
@@ -494,13 +534,13 @@ is
      with
        Global             => null,
        Pre                =>
-         In_Bounds (A)
+         From_One (A)
          and then Keys_Ok (A)
          and then Lo in 1 .. A'Last
          and then Hi in Lo .. A'Last
          and then Same_Prefix (A, Lo, Hi, P, A (Lo)),
        Post               =>
-         In_Bounds (A)
+         From_One (A)
          and then Keys_Ok (A)
          and then (for all K in 1 .. A'Last =>
                      (if K < Lo or else K > Hi then A (K) = A'Old (K)))
@@ -667,10 +707,10 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then Keys_Ok (A)
          and then A'Length >= 2,
-       Post   => In_Bounds (A) and then Is_Sorted (A)
+       Post   => From_One (A) and then Is_Sorted (A)
    is
       Max_Key : Natural;
       P       : Pow_Index;
@@ -689,12 +729,33 @@ is
    end Postman_Phase;
 
    procedure Sort (A : in out Element_Array) is
+      N : constant Natural := A'Length;
    begin
-      if A'Length <= 1 then
+      if N <= 1 then
          return;
       end if;
 
-      Postman_Phase (A);
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         pragma Assert (for all K in 1 .. N => Local (K) >= 0);
+         pragma Assert (Keys_Ok (Local));
+         Postman_Phase (Local);
+
+         for K in 1 .. N loop
+            A (Pos (A, K)) := Local (K);
+            pragma Loop_Invariant
+              (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+         end loop;
+
+         Lemma_Slide_Sorted (A, Local);
+      end;
    end Sort;
 
 end Postman_Sort;

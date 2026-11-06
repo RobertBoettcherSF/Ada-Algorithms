@@ -1,6 +1,6 @@
 --  Standalone test suite for Quantum_Sort (SPARK port).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  A'First is always 1; Max_N = 64. Sortedness is proved by SPARK;
+--  Any A'First in 1 .. Max_N (shifted-origin cases); Max_N = 64. Sortedness is proved by SPARK;
 --  multiset / permutation equality is checked here for all four Sort_*.
 
 pragma Ada_2022;
@@ -165,6 +165,28 @@ is
       Seed := X;
       return X rem Modulus;
    end Next_Mod;
+
+   function Shifted_Ok (Src : Element_Array; Origin : Positive) return Boolean is
+      R : Element_Array := Copy_Of (Src);
+
+      function Run (Which : Positive) return Boolean is
+         A : Element_Array (Origin .. Origin + Src'Length - 1);
+      begin
+         for K in 0 .. Src'Length - 1 loop
+            A (Origin + K) := Src (Src'First + K);
+         end loop;
+         case Which is
+            when 1 => Sort_Comparison (A);
+            when 2 => Sort_Parallel_Network (A);
+            when 3 => Sort_Frequency (A);
+            when others => Sort_Space_Bounded (A);
+         end case;
+         return Is_Sorted (A) and then Same (A, R);
+      end Run;
+   begin
+      Reference_Sort (R);
+      return Run (1) and then Run (2) and then Run (3) and then Run (4);
+   end Shifted_Ok;
 
    function Random_Array
      (Len : Natural; Lo, Hi : Integer) return Element_Array
@@ -502,6 +524,44 @@ begin
    end;
    Expect_Sorted ([0], "zero singleton via Expect");
    Expect_Sorted ([-42], "neg singleton via Expect");
+
+   ---------------------------------------------------------------------
+   Section ("11. Shifted origins (A'First > 1)");
+   ---------------------------------------------------------------------
+   declare
+      Tail : Element_Array (Max_N - 4 .. Max_N) := [9, -3, 4, 0, 9];
+   begin
+      Check (In_Bounds (Tail), "Tail(Max_N-4 .. Max_N) In_Bounds");
+      Check (Nat (Tail'First) /= 1, "Tail does not start at 1");
+
+      Sort_Comparison (Tail);
+      Check (Same (Tail, Element_Array'([-3, 0, 4, 9, 9])),
+             "Tail Comparison sorted in place");
+      Tail := [9, -3, 4, 0, 9];
+      Sort_Parallel_Network (Tail);
+      Check (Same (Tail, Element_Array'([-3, 0, 4, 9, 9])),
+             "Tail Parallel_Network sorted in place");
+      Tail := [9, -3, 4, 0, 9];
+      Sort_Frequency (Tail);
+      Check (Same (Tail, Element_Array'([-3, 0, 4, 9, 9])),
+             "Tail Frequency sorted in place");
+      Tail := [9, -3, 4, 0, 9];
+      Sort_Space_Bounded (Tail);
+      Check (Same (Tail, Element_Array'([-3, 0, 4, 9, 9])),
+             "Tail Space_Bounded sorted in place");
+   end;
+   Check (Shifted_Ok (Element_Array'[3, 1, 2, 1], 2), "origin 2 length 4");
+   declare
+      Empty : Element_Array (5 .. 4);
+   begin
+      Check (In_Bounds (Empty), "empty origin 5 In_Bounds");
+      Sort_Comparison (Empty);
+      Sort_Parallel_Network (Empty);
+      Sort_Frequency (Empty);
+      Sort_Space_Bounded (Empty);
+      Check (Boo (Is_Sorted (Empty)), "empty origin 5 stays sorted");
+   end;
+   Check (Shifted_Ok (Element_Array'[7], 9), "singleton origin 9");
 
    New_Line;
    Put_Line

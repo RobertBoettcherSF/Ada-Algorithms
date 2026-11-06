@@ -11,6 +11,46 @@ package body Bucket_Sort
   with SPARK_Mode => On
 is
 
+   --  Proved phase: origin 1 and Last in 0 .. Max_N (the previous shape
+   --  guard). Public Sort slides any origin onto that shape and back:
+   --  position K is stored at A (A'First + K - 1).
+   function From_One (A : Element_Array) return Boolean is
+     (A'First = 1 and then A'Last in 0 .. Max_N)
+   with Global => null;
+
+   function Pos (A : Element_Array; K : Positive) return Positive is
+     (A'First + (K - 1))
+   with
+     Pre  =>
+       In_Bounds (A) and then A'Length >= 1 and then K <= A'Length,
+     Post => Pos'Result in A'Range;
+
+   procedure Lemma_Slide_Sorted (A, Local : Element_Array)
+   with
+     Ghost  => True,
+     Global => null,
+     Pre    =>
+       In_Bounds (A)
+       and then In_Bounds (Local)
+       and then Local'First = 1
+       and then Local'Last = A'Length
+       and then Is_Sorted (Local)
+       and then (for all K in 1 .. A'Length => A (Pos (A, K)) = Local (K)),
+     Post   => Is_Sorted (A)
+   is
+   begin
+      if A'Length <= 1 then
+         return;
+      end if;
+      for I in A'First .. A'Last - 1 loop
+         pragma Loop_Invariant
+           (for all J in A'First .. I - 1 => A (J) <= A (J + 1));
+         pragma Assert (I - A'First + 1 in 1 .. A'Length - 1);
+         pragma Assert (A (I) = Local (I - A'First + 1));
+         pragma Assert (A (I + 1) = Local ((I + 1) - A'First + 1));
+      end loop;
+   end Lemma_Slide_Sorted;
+
    Flat_Last : constant Positive := Max_Buckets * Max_N;
    --  Static store: bucket B occupies Slot (B, 1 .. Max_N).
 
@@ -54,7 +94,7 @@ is
      Ghost  => True,
      Global => null,
      Pre    =>
-       In_Bounds (A)
+       From_One (A)
        and then L >= 1
        and then R <= A'Last;
 
@@ -119,12 +159,12 @@ is
      with
        Global => null,
        Pre    =>
-         In_Bounds (A)
+         From_One (A)
          and then I in 2 .. A'Last
          and then Sorted_Slice (A, 1, I - 1)
          and then All_In (A, Lo, Hi),
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then Sorted_Slice (A, 1, I)
          and then All_In (A, Lo, Hi)
          and then (for all K in I + 1 .. A'Last => A (K) = A'Old (K))
@@ -164,9 +204,9 @@ is
    procedure Sort_Bucket (A : in out Element_Array; Lo, Hi : Element)
      with
        Global => null,
-       Pre    => In_Bounds (A) and then All_In (A, Lo, Hi),
+       Pre    => From_One (A) and then All_In (A, Lo, Hi),
        Post   =>
-         In_Bounds (A)
+         From_One (A)
          and then Is_Sorted (A)
          and then All_In (A, Lo, Hi)
    is
@@ -183,7 +223,12 @@ is
    -- Bucket sort
    ---------------------------------------------------------------------------
 
-   procedure Sort (A : in out Element_Array) is
+   procedure Sort_At_One (A : in out Element_Array)
+     with
+       Global => null,
+       Pre    => From_One (A),
+       Post   => From_One (A) and then Is_Sorted (A)
+   is
       N      : constant Index := A'Last;
       Store  : Flat_Store := [others => 0];
       Counts : Count_Array := [others => 0];
@@ -247,6 +292,34 @@ is
 
       pragma Assert (Pos = N + 1);
       pragma Assert (Sorted_Slice (A, 1, N));
+   end Sort_At_One;
+
+   procedure Sort (A : in out Element_Array) is
+      N : constant Natural := A'Length;
+   begin
+      if N <= 1 then
+         return;
+      end if;
+
+      declare
+         Local : Element_Array (1 .. N) := [others => 0];
+      begin
+         for K in 1 .. N loop
+            Local (K) := A (Pos (A, K));
+            pragma Loop_Invariant
+              (for all J in 1 .. K => Local (J) = A (Pos (A, J)));
+         end loop;
+
+         Sort_At_One (Local);
+
+         for K in 1 .. N loop
+            A (Pos (A, K)) := Local (K);
+            pragma Loop_Invariant
+              (for all J in 1 .. K => A (Pos (A, J)) = Local (J));
+         end loop;
+
+         Lemma_Slide_Sorted (A, Local);
+      end;
    end Sort;
 
 end Bucket_Sort;

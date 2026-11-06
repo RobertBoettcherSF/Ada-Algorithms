@@ -1,6 +1,6 @@
 --  Standalone test suite for Pigeonhole_Sort (SPARK port).
 --  Preconditions replace exceptions; only valid call paths are exercised.
---  A'First is always 1; Max_N = 64; key span ≤ Max_Range = 256.
+--  Any A'First in 1 .. Max_N (shifted-origin cases); Max_N = 64; key span ≤ Max_Range = 256.
 --  Sortedness is proved by SPARK; multiset / permutation equality is
 --  checked here.
 
@@ -104,6 +104,18 @@ is
    end Expect_Sorted;
 
    --  Random test inputs: fixed default seed, printed at start; AA_SEED=<n> overrides it.
+   function Shifted_Ok (Src : Element_Array; Origin : Positive) return Boolean is
+      A : Element_Array (Origin .. Origin + Src'Length - 1);
+      R : Element_Array := Copy_Of (Src);
+   begin
+      for K in 0 .. Src'Length - 1 loop
+         A (Origin + K) := Src (Src'First + K);
+      end loop;
+      Sort (A);
+      Reference_Sort (R);
+      return Is_Sorted (A) and then Same (A, R);
+   end Shifted_Ok;
+
    function AA_Seed (Default : Natural) return Natural is
       V : constant String := Ada.Environment_Variables.Value ("AA_SEED", "");
       S : Natural := Default;
@@ -282,6 +294,29 @@ begin
    Expect_Sorted ([0, 100, 50, 25, 75], "exam-score-ish");
    Expect_Sorted
      ([90, 85, 90, 70, 85, 100, 70, 60, 100, 55], "score dups");
+
+   ---------------------------------------------------------------------
+   Section ("11. Shifted origins (A'First > 1)");
+   ---------------------------------------------------------------------
+   declare
+      Tail : Element_Array (Max_N - 4 .. Max_N) := [9, -3, 4, 0, 9];
+   begin
+      Check (In_Bounds (Tail), "Tail(Max_N-4 .. Max_N) In_Bounds");
+      Check (Int (Integer (Tail'First)) /= 1, "Tail does not start at 1");
+
+      Sort (Tail);
+      Check (Same (Tail, Element_Array'([-3, 0, 4, 9, 9])),
+             "Tail(Max_N-4 .. Max_N) sorted in place");
+   end;
+   Check (Shifted_Ok (Element_Array'[3, 1, 2, 1], 2), "origin 2 length 4");
+   declare
+      Empty : Element_Array (5 .. 4);
+   begin
+      Check (In_Bounds (Empty), "empty origin 5 In_Bounds");
+      Sort (Empty);
+      Check (Boo (Is_Sorted (Empty)), "empty origin 5 stays sorted");
+   end;
+   Check (Shifted_Ok (Element_Array'[7], 9), "singleton origin 9");
 
    New_Line;
    Put_Line ("Results: "
