@@ -44,7 +44,6 @@ sorting/SPARK2/Ada-SPARK-Block-Sort	hidden stub: body is the generic one-directi
 sorting/SPARK2/Ada-SPARK-Heap-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
 sorting/SPARK2/Ada-SPARK-Intro-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
 sorting/SPARK2/Ada-SPARK-Pancake-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
-sorting/SPARK2/Ada-SPARK-Quick-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
 sorting/SPARK2/Ada-SPARK-Shaker-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented
 sorting/SPARK2/Ada-SPARK-Topological-Sort-Lite	hidden stub: only validates a given order; does not compute one (README says validator)
 sorting/SPARK2/Ada-SPARK-Tournament-Sort	hidden stub: body is the generic one-directional adjacent compare-exchange passes (bubble sort); the named sort is not implemented

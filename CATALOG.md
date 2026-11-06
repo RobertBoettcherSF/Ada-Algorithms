@@ -20,10 +20,10 @@ Written by `make proof-index` (tools/vv/run_proof_index.py); do not edit by hand
 | [numerical](#numerical) | 108 | 78 | 23 | 0 | 7 | 2 | 1 | 1 | 0 |
 | [parsing](#parsing) | 18 | 15 | 3 | 0 | 0 | 0 | 1 | 1 | 0 |
 | [searching](#searching) | 64 | 34 | 20 | 0 | 10 | 0 | 3 | 3 | 0 |
-| [sorting](#sorting) | 129 | 39 | 52 | 0 | 38 | 3 | 13 | 13 | 0 |
+| [sorting](#sorting) | 129 | 39 | 52 | 0 | 38 | 3 | 12 | 12 | 0 |
 | [strings](#strings) | 61 | 21 | 39 | 1 | 0 | 2 | 3 | 3 | 0 |
 | [trees](#trees) | 65 | 8 | 57 | 0 | 0 | 0 | 9 | 9 | 0 |
-| All | 1838 | 908 | 859 | 2 | 69 | 91 | 129 | 129 | 0 |
+| All | 1838 | 908 | 859 | 2 | 69 | 91 | 128 | 128 | 0 |
 
 Silver (duplicates counted once): proven 931, no SPARK 882, not built 11, tool crash 8, timeout 3, 25 unproved 1, 8 unproved 1, skipped (no SPARK_Mode) 1.
 
@@ -2068,7 +2068,7 @@ Silver (duplicates counted once): proven 931, no SPARK 882, not built 11, tool c
 | [sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort](sorting/SPARK2/Ada-SPARK-Odd-Even-Merge-Sort) | proven |  |  |  |  |
 | [sorting/SPARK2/Ada-SPARK-Pancake-Sort](sorting/SPARK2/Ada-SPARK-Pancake-Sort) | proven |  | yes | yes |  |
 | [sorting/SPARK2/Ada-SPARK-Patience-Sort](sorting/SPARK2/Ada-SPARK-Patience-Sort) | proven |  |  |  |  |
-| [sorting/SPARK2/Ada-SPARK-Quick-Sort](sorting/SPARK2/Ada-SPARK-Quick-Sort) | proven |  | yes | yes |  |
+| [sorting/SPARK2/Ada-SPARK-Quick-Sort](sorting/SPARK2/Ada-SPARK-Quick-Sort) | proven |  |  |  |  |
 | [sorting/SPARK2/Ada-SPARK-Relative-Sort-Array](sorting/SPARK2/Ada-SPARK-Relative-Sort-Array) | proven |  |  |  |  |
 | [sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array](sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array) | proven |  |  |  |  |
 | [sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array-II](sorting/SPARK2/Ada-SPARK-Remove-Duplicates-From-Sorted-Array-II) | proven |  |  |  |  |
