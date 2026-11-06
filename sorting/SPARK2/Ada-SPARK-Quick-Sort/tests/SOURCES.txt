@@ -14,3 +14,15 @@ third-party test suites.
   (constant, ascending, descending, alternating extremes), 2,000 random
   arrays over the full Value range and 1,000 with many duplicates from the
   Park-Miller minimal standard generator (seed 20261008).
+* Property of one partition (Lomuto, pivot = last element): the value at
+  the returned pivot index is the original last element, every value
+  before that index is <= the pivot, every value after it is >= the pivot,
+  and the result is a permutation of the input. Checked on the same inputs
+  as Sort.
+* Hand-worked one-step layouts (pivot index in parentheses), not taken
+  from a program run:
+  - (4, 1, 3, 2, 8, 5, 7, 6) -> (4, 1, 3, 2, 5, 6, 7, 8) at index 6
+  - (8, 7, 6, 5, 4, 3, 2, 1) -> (1, 7, 6, 5, 4, 3, 2, 8) at index 1
+  - (23, 4, 17, 9, 1, 31, 12, 6) -> (4, 1, 6, 9, 23, 31, 12, 17) at index 3
+  Each of these still has an inversion. The old adjacent compare-exchange
+  passes sort the input, so they do not match these layouts.

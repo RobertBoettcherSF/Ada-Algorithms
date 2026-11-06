@@ -1,8 +1,6 @@
 # Ada-SPARK-Quick-Sort
 
-PLACEHOLDER: adjacent compare-exchange passes (bubble sort) under a quick-sort name; see tools/vv/hidden_stub.csv
-
-A bounded Ada 2022 SPARK `quick`-sort reference with arrays of eight values.
+A bounded Ada 2022 SPARK quicksort. `Sort` partitions around the last element of the live slice and recurses on both sides. One partition (Lomuto) leaves values at or below the pivot on its left and values at or above the pivot on its right. Arrays stay eight values in `0 .. 31` (`Index` is `1 .. 8`).
 
 ```sh
 # needs gprbuild + gnatprove on PATH (e.g. Alire: alr get gnatprove; alr get gprbuild)
