@@ -29,11 +29,11 @@ Topic counts, the training-ready folders, and every sheet are in
 | Headline (written by `make proof-index`) | Folders |
 |---|---:|
 | Algorithm folders (duplicates counted once) | 1838 |
-| Silver-proven, non-trivial (not stubs, more than 3 checks) | 524 |
+| Silver-proven, non-trivial (not stubs, more than 3 checks) | 525 |
 | Training-ready under rule v1 (held-out n >= 20, >= 90%, proof pass; docs/VV.md "Rule v1"), count as of 2026-11-06: 91 folders = 91 confirmed + 0 pending re-score (code changed after the held-out score; column `rescore_pending`). Blind held-out mutation >= 90% with n >= 20, independent reference, index-independent, 0 warnings on GNAT 14 and 12 without suppression, no withdrawn or partial functional claim, no unexplained proof escape; reasons in PROOFS.csv `tr_drop`. Unseen top-up scores are shown next to each held-out score in PROOFS.md and are not counted | 91 confirmed + 0 pending re-score |
-| Training-ready under the previous rule | 334 |
+| Training-ready under the previous rule | 335 |
 | Open findings (`tools/vv/findings.csv`) | 0 |
-| Implementation candidates (stubs, column `implement_next`; docs/IMPLEMENT.md) | 127 |
+| Implementation candidates (stubs, column `implement_next`; docs/IMPLEMENT.md) | 126 |
 <!-- proof-index:end -->
 
 These numbers are written by `make proof-index` from the build and proof records
