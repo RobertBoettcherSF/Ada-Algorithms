@@ -56,10 +56,12 @@ def build(root):
     os.makedirs(res); os.makedirs(logs)
     B, P = open(os.path.join(res, 'build.jsonl'), 'w'), open(os.path.join(res, 'prove.jsonl'), 'w')
     fids = {}
-    for alg in CASES:
+    for i, alg in enumerate(CASES):
         fid = 'misc/SPARK2/Ada-SPARK-' + alg
         fids[alg] = fid
-        w(os.path.join(root, fid, 'x.ads'), 'pragma SPARK_Mode (On);\npackage X is end X;\n')
+        # distinct package text so the catalog lists every folder (identical text would collapse them)
+        w(os.path.join(root, fid, 'x.ads'),
+          f'pragma SPARK_Mode (On);\npackage X is\n   N : constant Integer := {i};\nend X;\n')
         b = dict(id=fid, u14='0', u12='0', mk14='0', mk12='0', r14='0', r12='0', w14='0', w12='2' if alg == 'Warn-12' else '0',
                  ver14='GNATLS 14.2.0', ver12='GNATLS 12.2.0', shared=[])
         B.write(json.dumps(b) + '\n')
@@ -152,21 +154,83 @@ def placeholder_case(kind):
     return r.returncode
 PH_CASES = [('good', 0), ('missing', 1), ('stale', 1), ('unlisted', 1), ('code', 1), ('code_ok', 0)]
 
+def catalog_check(root, runner):
+    """CATALOG.md from the committed PROOFS.csv: sections, live column text, computed counts, idempotent."""
+    p = os.path.join(root, 'CATALOG.md')
+    if not os.path.exists(p):
+        return ('catalog', False, 'CATALOG.md missing')
+    text = open(p).read()
+    rows = list(csv.DictReader(open(os.path.join(root, 'PROOFS.csv'))))
+    uniq = [r for r in rows if not r['duplicate_of']]
+    ready = [r for r in uniq if r['training_ready'] == 'yes']
+    topics = sorted({r['topic'] for r in uniq})
+    levels = [lv for lv in ('Ada', 'SPARK1', 'SPARK2', 'SPARK3', 'SPARK4') if any(r['level'] == lv for r in uniq)]
+    head = '| folder path | Silver | Training-ready | Stub | Needs implementation | Open findings |'
+    sentence = (f"**{len(ready)} folder{'' if len(ready) == 1 else 's'}** "
+                'with `training_ready` = yes (duplicates counted once).')
+
+    def findings(rs):
+        n = 0
+        for r in rs:
+            v = (r.get('open_findings') or '').strip()
+            if v:
+                n += int(v) if v.isdigit() else 1
+        return n
+
+    def counts(rs):
+        return ([str(len(rs))]
+                + [str(sum(1 for r in rs if r['level'] == lv)) for lv in levels]
+                + [str(sum(1 for r in rs if r['training_ready'] == 'yes')),
+                   str(sum(1 for r in rs if r['stub'] == 'yes')),
+                   str(sum(1 for r in rs if r['implement_next'] == 'yes')),
+                   str(findings(rs))])
+
+    if '## Training-ready' not in text or not topics:
+        return ('catalog', False, 'missing Training-ready section or topics')
+    ok = ('do not edit by hand' in text and '## Topic index' in text
+          and head in text and sentence in text and 'Rule v1' not in text
+          and all(f'\n## {t}\n' in text for t in topics))
+    for r in uniq:
+        line = (f"| [{r['folder']}]({r['folder']}) | {r['silver']} | {r['training_ready']} | "
+                f"{r['stub']} | {r['implement_next']} | {r['open_findings']} |")
+        ok = ok and line in text
+    for r in rows:
+        if r['duplicate_of']:
+            ok = ok and f"[{r['folder']}]({r['folder']})" not in text
+    start = text.index('## Training-ready')
+    rest = text[start:]
+    section = rest[:rest.index('\n## ', len('## Training-ready'))]
+    for r in uniq:
+        link = f"[{r['folder']}]({r['folder']})"
+        ok = ok and ((link in section) == (r['training_ready'] == 'yes'))
+    ok = ok and ('| All | ' + ' | '.join(counts(uniq)) + ' |') in text
+    for t in topics:
+        rs = [r for r in uniq if r['topic'] == t]
+        ok = ok and ('| ' + ' | '.join([f'[{t}](#{t})'] + counts(rs)) + ' |') in text
+    before = text
+    r = subprocess.run([sys.executable, runner, '--catalog-only'], cwd=root, capture_output=True, text=True)
+    after = open(p).read()
+    ok = ok and r.returncode == 0 and after == before and 'unchanged' in r.stdout
+    return ('catalog', ok, f'ready {len(ready)} topics {len(topics)} uniq {len(uniq)} exit {r.returncode}')
+
 # H188 control cases for tools/vv/run_proof_index.py (what `make proof-index` runs):
 #   default  no --results: inputs synthesised from the committed PROOFS.csv; exit 0, headline unchanged
 #   stale    --results whose build input disagrees with PROOFS.csv (Good gets 2 GNAT 12 warnings, like the
-#            stale default results dir that gave 92 + 3): exit 2, PROOFS.csv / PROOFS.md / README.md left untouched
+#            stale default results dir that gave 92 + 3): exit 2; PROOFS.csv / PROOFS.md / README.md /
+#            docs/IMPLEMENT.md / CATALOG.md left untouched
 #   allowed  the same stale inputs with --allow-input-change: exit 0 and Good drops (a deliberate new run)
 def index_cases(root, res, logs, fids):
     out = []
     runner = os.path.join(root, 'tools', 'vv', 'run_proof_index.py')
     def snap():
-        return {f: open(os.path.join(root, f)).read() for f in ('PROOFS.csv', 'PROOFS.md') if os.path.exists(os.path.join(root, f))}
+        files = ('PROOFS.csv', 'PROOFS.md', 'README.md', 'CATALOG.md', os.path.join('docs', 'IMPLEMENT.md'))
+        return {f: open(os.path.join(root, f)).read() for f in files if os.path.exists(os.path.join(root, f))}
     def tr():
         return {x['folder']: (x['training_ready'], bool(x['rescore_pending'])) for x in csv.DictReader(open(os.path.join(root, 'PROOFS.csv')))}
     before = tr()
     r = subprocess.run([sys.executable, runner], cwd=root, capture_output=True, text=True)
     out.append(('default', r.returncode == 0 and tr() == before, f'exit {r.returncode}' + ('' if r.returncode == 0 else ': ' + (r.stdout + r.stderr).strip()[-300:])))
+    out.append(catalog_check(root, runner))
     stale = os.path.join(root, '_stale'); shutil.copytree(res, stale)
     lines = [json.loads(l) for l in open(os.path.join(stale, 'build.jsonl'))]
     for b in lines:
