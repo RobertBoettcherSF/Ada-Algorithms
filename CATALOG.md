@@ -20,10 +20,10 @@ Written by `make proof-index` (tools/vv/run_proof_index.py); do not edit by hand
 | [numerical](#numerical) | 108 | 78 | 23 | 0 | 7 | 2 | 1 | 1 | 0 |
 | [parsing](#parsing) | 18 | 15 | 3 | 0 | 0 | 0 | 1 | 1 | 0 |
 | [searching](#searching) | 64 | 34 | 20 | 0 | 10 | 0 | 3 | 3 | 0 |
-| [sorting](#sorting) | 129 | 39 | 52 | 0 | 38 | 3 | 11 | 11 | 0 |
+| [sorting](#sorting) | 129 | 39 | 52 | 0 | 38 | 3 | 10 | 10 | 0 |
 | [strings](#strings) | 61 | 21 | 39 | 1 | 0 | 2 | 3 | 3 | 0 |
 | [trees](#trees) | 65 | 8 | 57 | 0 | 0 | 0 | 9 | 9 | 0 |
-| All | 1838 | 908 | 859 | 2 | 69 | 91 | 127 | 127 | 0 |
+| All | 1838 | 908 | 859 | 2 | 69 | 91 | 126 | 126 | 0 |
 
 Silver (duplicates counted once): proven 931, no SPARK 882, not built 11, tool crash 8, timeout 3, 25 unproved 1, 8 unproved 1, skipped (no SPARK_Mode) 1.
 
@@ -2057,7 +2057,7 @@ Silver (duplicates counted once): proven 931, no SPARK 882, not built 11, tool c
 | [sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II](sorting/SPARK2/Ada-SPARK-Find-Minimum-In-Rotated-Sorted-Array-II) | proven |  |  |  |  |
 | [sorting/SPARK2/Ada-SPARK-Flash-Sort](sorting/SPARK2/Ada-SPARK-Flash-Sort) | proven |  |  |  |  |
 | [sorting/SPARK2/Ada-SPARK-Heap-Sort](sorting/SPARK2/Ada-SPARK-Heap-Sort) | proven |  |  |  |  |
-| [sorting/SPARK2/Ada-SPARK-Intro-Sort](sorting/SPARK2/Ada-SPARK-Intro-Sort) | proven |  | yes | yes |  |
+| [sorting/SPARK2/Ada-SPARK-Intro-Sort](sorting/SPARK2/Ada-SPARK-Intro-Sort) | proven |  |  |  |  |
 | [sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix](sorting/SPARK2/Ada-SPARK-Kth-Smallest-Element-In-A-Sorted-Matrix) | proven |  |  |  |  |
 | [sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite](sorting/SPARK2/Ada-SPARK-Median-Of-Two-Sorted-Arrays-Lite) | proven |  |  |  |  |
 | [sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub](sorting/SPARK2/Ada-SPARK-Merge-K-Sorted-Lists-Stub) | proven |  | yes | yes |  |
