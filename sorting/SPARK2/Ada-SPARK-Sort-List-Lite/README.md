@@ -6,4 +6,4 @@ A bounded, array-backed Ada SPARK implementation of the  Sort List Lite exercise
 make test
 ```
 
-`make test` runs GNATprove at proof level 2 with cvc5 and then the executable checks.
+`make test` builds and runs `tests/main.adb`; `make prove` is separate (GNATprove).
