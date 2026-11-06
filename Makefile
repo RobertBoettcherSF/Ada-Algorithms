@@ -55,8 +55,8 @@ endif
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
-# Regenerate PROOFS.md / PROOFS.csv and the headline block in README.md (between the
-# proof-index markers; idempotent) via tools/vv/run_proof_index.py (H188).
+# Regenerate PROOFS.md / PROOFS.csv, CATALOG.md (from PROOFS.csv), and the headline block in
+# README.md (between the proof-index markers; idempotent) via tools/vv/run_proof_index.py (H188).
 #   make proof-index                 inputs synthesised from the committed PROOFS.csv (default)
 #   make proof-index RESULTS=/path/with/build.jsonl+prove.jsonl PROVE_LOGS=$TMPDIR/aa_prove \
 #                    STEPS_LOGS=$TMPDIR/aa2s TOOL_INFO=toolinfo.txt [ALLOW_INPUT_CHANGE=1]

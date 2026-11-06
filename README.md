@@ -22,6 +22,8 @@ make test
 ```
 
 SPARK1 is empty and SPARK3 is small. Sizes are in [`TOPICS.md`](TOPICS.md).
+Topic counts, the training-ready folders, and every sheet are in
+[`CATALOG.md`](CATALOG.md).
 
 <!-- proof-index:begin -->
 | Headline (written by `make proof-index`) | Folders |
